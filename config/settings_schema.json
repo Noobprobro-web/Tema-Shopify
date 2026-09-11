@@ -203,6 +203,28 @@
         "id": "show_cart_count",
         "label": "t:settings_schema.cart.settings.show_cart_count.label",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_note",
+        "label": "Show cart note",
+        "default": false
       }
     ]
   },

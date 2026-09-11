@@ -36,6 +36,75 @@
     },
     "footer": {
       "copyright": "© {{ year }} {{ shop }}"
+    },
+    "cart": {
+      "title": "Your cart",
+      "item_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      },
+      "empty": "Your cart is currently empty.",
+      "continue_shopping": "Continue shopping",
+      "quantity": "Quantity",
+      "remove": "Remove",
+      "remove_item": "Remove {{ title }}",
+      "discount": "Discount",
+      "subtotal": "Subtotal",
+      "taxes_included": "Taxes included.",
+      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout.",
+      "update": "Update cart",
+      "checkout": "Checkout",
+      "note": "Order note",
+      "note_placeholder": "Add a note to your order",
+      "view_cart": "View cart",
+      "error": "We could not update your cart. Please try again.",
+      "added": "Item added to your cart."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "choose_options": "Choose options",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "sale": "Sale",
+      "quantity": "Quantity",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "price_from": "From",
+      "unit_price": "Unit price",
+      "taxes_included": "Taxes included.",
+      "media_gallery": "Product media gallery",
+      "option_unavailable": "Option unavailable",
+      "variant_available": "Variant available.",
+      "variant_sold_out": "Variant sold out."
+    }
+  },
+  "collections": {
+    "general": {
+      "collection": "Collection",
+      "products_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      },
+      "no_products": "No products match your selection."
+    },
+    "filters": {
+      "title": "Filter and sort",
+      "active_count": {
+        "one": "{{ count }} active filter",
+        "other": "{{ count }} active filters"
+      },
+      "from": "From",
+      "to": "To",
+      "sort_by": "Sort by",
+      "apply": "Apply",
+      "clear_all": "Clear all"
+    },
+    "pagination": {
+      "label": "Collection pagination",
+      "previous": "Previous",
+      "next": "Next"
     }
   },
   "templates": {

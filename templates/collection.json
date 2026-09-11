@@ -1,8 +1,14 @@
 {
   "sections": {
     "main": {
-      "type": "main-placeholder",
-      "settings": {}
+      "type": "main-collection",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "products_per_page": 24,
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_quick_add": true
+      }
     }
   },
   "order": ["main"]

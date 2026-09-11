@@ -33,3 +33,13 @@ Registro de decisiones importantes del tema.
 - No se requiere Astra en este punto; solo se usara si Gemini marca `ESCALATE_MODEL_RECOMMENDED` con una justificacion concreta.
 - El contrato operativo queda en `agent-comms/GEMINI-LEAD-HANDOFF.md`, `agent-comms/protocol.md` y `agent-comms/token-efficiency-rules.md`.
 - El usuario autoriza el alcance de Phase 2B. Se formalizan los requisitos P0/P1/P2 y se crea la tarea `GPT-2B-001` en `agent-comms/inbox-gpt/` para GPT-5.6 Sol Max, quedando en espera de ejecucion.
+
+## 2026-09-11: Aceptación de Phase 2B (Commerce Foundation)
+
+- Gemini audita y aprueba sin cambios la entrega `GPT-2B-001` (`agent-comms/reviews/GEMINI-review-GPT-2B-001.md`).
+- Se verifican 34 archivos con Shopify Theme Check con 0 ofensas, sintaxis JS válida y esquemas JSON correctos.
+- Quedan implementadas las secciones base de comercio: `main-product` (con bloque `@app` y selector de variantes accesible), `main-collection` (filtros facetados progresivos y ordenamiento), `main-cart-items` y `cart-drawer` (Section Rendering API, drawer condicional en `layout/theme.liquid`).
+- Se introducen snippets atómicos: `price`, `responsive-image`, `product-card` e iconos SVG nativos adicionales.
+- Se mantiene `sticky-cart-bar` diferido para Phase 3.
+- Se autoriza el commit y sincronización con `origin/master`.
+- Próxima etapa: Phase 3 (Diseño visual en Figma, presets y componentes editoriales).

@@ -2,39 +2,40 @@
 
 ## Estado actual
 
-- Fase: Phase 2B autorizada por el usuario; tarea `GPT-2B-001` lista en `agent-comms/inbox-gpt/`. Implementación en espera de tokens de Codex/GPT.
+- Fase: Phase 2B completada y aceptada; transición a Phase 3 (Diseño visual en Figma, presets y secciones editoriales).
 - Cerebro y coordinador: Gemini Flash 3.8 High.
-- Implementador tecnico previsto: GPT-5.6 Sol Max bajo directiva de Gemini.
+- Implementador tecnico principal: GPT-5.6 Sol Max / Codex.
 - Concepto interno: `Atelier Flow`.
 - Nombre final: pendiente.
 - Nombre publico temporal: `Theme Project`.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`.
 - Rama: `master`.
-- Ultimo commit de producto aprobado: `d69825a`.
+- Ultimo commit de producto aprobado: `e936df9`.
 
 ## Entregas recientes
 
+- `GPT-2B-001` entregada en `agent-comms/outbox-gpt/GPT-2B-001-phase-2b-core.md`.
+- Revision de Gemini: `agent-comms/reviews/GEMINI-review-GPT-2B-001.md` (Aprobada sin cambios).
 - `GEMINI-003` entregada en `agent-comms/outbox-gemini/GEMINI-003-phase-2b-readiness-review.md`.
 - Revision de Codex: `agent-comms/reviews/CODEX-review-GEMINI-003.md`.
 - Handoff maestro: `agent-comms/GEMINI-LEAD-HANDOFF.md`.
-- Tarea `GPT-2B-001` creada en `agent-comms/inbox-gpt/GPT-2B-001-phase-2b-core.md`.
+- Tarea `GPT-2B-001` completada y validada con 0 ofensas en Theme Check.
 
 ## Tareas de Gemini
 
-- Liderazgo asumido formalmente según `agent-comms/GEMINI-LEAD-HANDOFF.md`.
-- Criterios P0/P1/P2 de `GEMINI-003` aprobados y formalizados en `GPT-2B-001`.
-- Alcance autorizado por el usuario; repositorio sincronizado con remoto.
-- Esperando que Codex/GPT disponga de tokens para ejecutar `GPT-2B-001`.
+- Liderazgo y orquestación activa.
+- Revisión y aprobación de `GPT-2B-001` documentada en `agent-comms/reviews/GEMINI-review-GPT-2B-001.md`.
+- Cierre formal de Phase 2B y push a `origin/master`.
+- Coordinación de kickoff de Phase 3: tokens visuales en Figma, integración de presets (`Couture`, `Studio`, `Archive`) y roadmap editorial.
 
 ## Tareas de GPT/Codex
 
-- Ejecutar la tarea `agent-comms/inbox-gpt/GPT-2B-001-phase-2b-core.md` cuando se disponga de tokens.
-- Implementar solo el alcance escrito y entregar evidencia en `agent-comms/outbox-gpt/`.
+- Phase 2B completada con éxito.
+- Próxima tarea: Implementación técnica de Phase 3 según directivas de Gemini y diseño en Figma.
 
 ## Tareas de Claude
 
-- Ninguna activa.
-- Posible auditoria editorial/UX despues de Phase 2B, solo si Gemini la solicita.
+- Pendiente pase editorial / micro-copy de `locales/en.default.json` y schemas cuando Gemini lo solicite.
 
 ## Reglas vigentes
 

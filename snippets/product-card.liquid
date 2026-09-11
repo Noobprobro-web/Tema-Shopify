@@ -1,0 +1,82 @@
+{%- comment -%}
+  Renders a reusable product card.
+
+  Accepts:
+  - card_product: product object
+  - show_secondary_image: reveal the second product image on hover/focus
+  - show_vendor: show the product vendor
+  - show_quick_add: show native quick add for single-variant products
+{%- endcomment -%}
+
+{%- liquid
+  assign card_image = card_product.featured_media.preview_image
+  assign secondary_image = card_product.images[1]
+  assign card_sizes = '(min-width: 990px) 25vw, 50vw'
+  assign quick_add_id = 'quick-add-' | append: section.id | append: '-' | append: card_product.id
+-%}
+
+<article class="product-card" data-product-id="{{ card_product.id }}">
+  <a class="product-card__media" href="{{ card_product.url }}" aria-label="{{ card_product.title | escape }}">
+    {%- if card_image != blank -%}
+      {% render 'responsive-image',
+        image: card_image,
+        sizes: card_sizes,
+        image_class: 'product-card__image product-card__image--primary',
+        alt: card_product.title
+      %}
+
+      {%- if show_secondary_image and secondary_image != blank -%}
+        {% render 'responsive-image',
+          image: secondary_image,
+          sizes: card_sizes,
+          image_class: 'product-card__image product-card__image--secondary',
+          alt: secondary_image.alt
+        %}
+      {%- endif -%}
+    {%- else -%}
+      <span class="product-card__media-placeholder" aria-hidden="true"></span>
+    {%- endif -%}
+  </a>
+
+  <div class="product-card__content">
+    {%- if show_vendor and card_product.vendor != blank -%}
+      <p class="product-card__vendor">{{ card_product.vendor | escape }}</p>
+    {%- endif -%}
+
+    <h3 class="product-card__title">
+      <a href="{{ card_product.url }}">{{ card_product.title | escape }}</a>
+    </h3>
+
+    {% render 'price', product: card_product, show_badges: true, show_unit_price: true %}
+
+    {%- if show_quick_add -%}
+      <div class="product-card__action">
+        {%- if card_product.has_only_default_variant and card_product.available and card_product.requires_selling_plan == false -%}
+          {%- form 'product', card_product,
+            id: quick_add_id,
+            class: 'product-card__form',
+            data-cart-add-form: ''
+          -%}
+            <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button class="button button--full" type="submit" name="add" data-add-to-cart>
+              <span data-add-to-cart-text>{{ 'products.product.add_to_cart' | t }}</span>
+              <span class="button__spinner" data-loading-icon hidden>
+                {% render 'icon', name: 'spinner', size: 18 %}
+              </span>
+            </button>
+            <p class="form-message" role="alert" data-product-form-error hidden></p>
+          {%- endform -%}
+        {%- elsif card_product.available -%}
+          <a class="button button--secondary button--full" href="{{ card_product.url }}">
+            {{- 'products.product.choose_options' | t -}}
+          </a>
+        {%- else -%}
+          <button class="button button--full" type="button" disabled>
+            {{- 'products.product.sold_out' | t -}}
+          </button>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</article>

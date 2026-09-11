@@ -1,0 +1,91 @@
+{%- comment -%}
+  Renders product or variant pricing.
+
+  Accepts:
+  - product: optional product object
+  - variant: optional variant object
+  - use_variant: use the supplied/selected variant when true
+  - show_badges: show sale and sold-out labels
+  - show_unit_price: show unit pricing when available
+  - show_taxes: show the taxes-included message when applicable
+  - price_class: optional additional class
+{%- endcomment -%}
+
+{%- liquid
+  assign price_target = product
+  assign target_is_product = true
+
+  if variant != blank
+    assign price_target = variant
+    assign target_is_product = false
+  elsif use_variant and product != blank
+    assign price_target = product.selected_or_first_available_variant
+    assign target_is_product = false
+  endif
+
+  assign current_price = price_target.price | default: 0
+  assign compare_price = price_target.compare_at_price
+  assign target_available = price_target.available | default: false
+  assign unit_price_target = price_target
+  assign price_varies = false
+
+  if target_is_product and product.price_varies
+    assign price_varies = true
+  endif
+
+  if target_is_product
+    assign unit_price_target = product.selected_or_first_available_variant
+  endif
+
+  assign on_sale = false
+  if compare_price != blank and compare_price > current_price
+    assign on_sale = true
+  endif
+-%}
+
+<div class="price{% if price_class != blank %} {{ price_class }}{% endif %}" data-price-wrapper>
+  <div class="price__values">
+    {%- if price_varies -%}
+      <span>{{ 'products.product.price_from' | t }}</span>
+      <span data-current-price>{{ current_price | money }}</span>
+    {%- elsif on_sale -%}
+      <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+      <span data-current-price>{{ current_price | money }}</span>
+      <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+      <s class="price__compare" data-compare-price>{{ compare_price | money }}</s>
+    {%- else -%}
+      <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+      <span data-current-price>{{ current_price | money }}</span>
+      <s class="price__compare" data-compare-price hidden></s>
+    {%- endif -%}
+  </div>
+
+  {%- if show_unit_price -%}
+    <small class="price__unit" data-unit-price{% unless unit_price_target.unit_price_measurement %} hidden{% endunless %}>
+      <span class="visually-hidden">{{ 'products.product.unit_price' | t }}</span>
+      <span data-unit-price-value>{{ unit_price_target.unit_price | money }}</span>
+      <span aria-hidden="true">/</span>
+      <span data-unit-price-reference>
+        {%- if unit_price_target.unit_price_measurement.reference_value != 1 -%}
+          {{- unit_price_target.unit_price_measurement.reference_value -}}
+        {%- endif -%}
+        {{- unit_price_target.unit_price_measurement.reference_unit -}}
+      </span>
+    </small>
+  {%- endif -%}
+
+  {%- if show_badges -%}
+    <div class="price__badges" aria-live="polite">
+      <span class="badge" data-sale-badge{% unless on_sale %} hidden{% endunless %}>
+        {{- 'products.product.sale' | t -}}
+      </span>
+      <span class="badge" data-sold-out-badge{% if target_available %} hidden{% endif %}>
+        {{- 'products.product.sold_out' | t -}}
+      </span>
+    </div>
+  {%- endif -%}
+
+  {%- if show_taxes and cart.taxes_included -%}
+    <small class="price__taxes">{{ 'products.product.taxes_included' | t }}</small>
+  {%- endif -%}
+</div>

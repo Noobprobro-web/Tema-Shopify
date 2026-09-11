@@ -100,5 +100,9 @@
     </main>
 
     {% sections 'footer-group' %}
+
+    {%- if settings.cart_type == 'drawer' -%}
+      {% section 'cart-drawer' %}
+    {%- endif -%}
   </body>
 </html>

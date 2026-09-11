@@ -1,8 +1,11 @@
 {
   "sections": {
     "main": {
-      "type": "main-placeholder",
-      "settings": {}
+      "type": "main-cart-items",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "show_vendor": false
+      }
     }
   },
   "order": ["main"]
