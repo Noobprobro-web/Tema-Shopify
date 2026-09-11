@@ -2,7 +2,7 @@
 
 ## Estado Actual
 
-- Fase: Phase 1 cerrando / Phase 2 por iniciar.
+- Fase: Phase 2 prep reviewed / Phase 2A por iniciar.
 - Concepto interno: `Atelier Flow`.
 - Nombre final: pendiente.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`
@@ -12,13 +12,12 @@
 
 ## Tareas Abiertas Para Gemini
 
-- `GEMINI-002`: preparar arquitectura UX/sections para empezar implementacion.
+- Ninguna activa. `GEMINI-002` entregada y revisada por Codex.
 
 ## Pendiente Para Codex
 
-- Revisar entrega de `GEMINI-002`.
+- Implementar Phase 2A con modelo superior recomendado.
 - Definir nombre final o shortlist.
-- Crear theme skeleton.
 - Resolver entorno Shopify CLI con Node 22 LTS o workaround estable.
 - Avisar al usuario cuando convenga usar un modelo superior para decisiones de alto impacto.
 - Avisar al usuario cuando convenga usar Claude para claridad, tono, UX editorial o documentacion.
