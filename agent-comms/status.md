@@ -2,7 +2,7 @@
 
 ## Estado Actual
 
-- Fase: Phase 2A implementada y validada / Phase 2B pendiente.
+- Fase: Phase 2A aprobada por Codex / Phase 2B pendiente.
 - Concepto interno: `Atelier Flow`.
 - Nombre final: pendiente.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`
@@ -23,4 +23,4 @@
 
 ## Ultima Decision
 
-Phase 2A queda cerrada con 27 archivos revisados y 0 ofensas en Shopify Theme Check; `Atelier Flow` se mantiene solo como direccion interna.
+Phase 2A queda aprobada por Codex; `Atelier Flow` se mantiene solo como direccion interna y `Theme Project` queda como nombre publico temporal hasta elegir nombre final.
