@@ -7,4 +7,4 @@ Registro de decisiones importantes del tema.
 - Se usara Git desde el inicio para mantener historial y facilitar colaboracion entre agentes.
 - Codex sera lider tecnico y Gemini Flash 3.8 High apoyara investigacion, QA y matrices de decision.
 - Shopify CLI sera la herramienta oficial para desarrollo y Theme Check.
-
+- La direccion inicial recomendada es `Atelier Flow`: minimalismo editorial para marcas premium de producto fisico, con eficiencia transaccional tomada de `Quiet Commerce`.
