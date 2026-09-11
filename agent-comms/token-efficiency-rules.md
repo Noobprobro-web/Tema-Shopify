@@ -61,9 +61,31 @@ Usar modelo superior de OpenAI, preferiblemente en high/xhigh/max, cuando:
 1. Usuario: prioridad de negocio, gusto, aprobaciones grandes.
 2. Codex: arquitecto principal, decision tecnica final e implementacion principal.
 3. Gemini: investigacion, matrices, QA, propuestas y soporte de bajo costo.
-4. Claude u otros modelos: revision editorial, UX, segunda opinion o auditorias puntuales.
+4. Claude u otros modelos: revision editorial, UX, segunda opinion, documentacion merchant-facing o auditorias puntuales.
 
 Si hay conflicto, Codex sintetiza y propone una decision al usuario.
+
+## Cuando Usar Claude
+
+Claude puede ser recomendable cuando necesitamos una mirada especialmente fuerte en lectura larga, tono, claridad, documentacion o critica UX/editorial. No debe usarse para duplicar trabajo que Codex o Gemini ya hicieron.
+
+Usar Claude para:
+
+- Revisar documentacion para merchants: claridad, estructura, tono y facilidad de uso.
+- Revisar copy de theme settings, labels, placeholders, mensajes de error y empty states.
+- Evaluar UX desde el punto de vista de usuario/merchant/agencia.
+- Hacer una segunda opinion sobre decisiones de producto o posicionamiento.
+- Detectar incoherencias en documentos largos.
+- Revisar si el tema comunica premium/minimal/editorial sin perder conversion.
+
+No priorizar Claude para:
+
+- Implementacion principal Liquid/CSS/JS.
+- Decisiones finales de arquitectura.
+- Resolucion de bugs tecnicos urgentes.
+- Repetir investigaciones que Gemini ya hizo.
+
+Modelos de Claude mas altos pueden tener sentido para auditorias largas, revision editorial profunda o lectura de muchas especificaciones. Para tareas pequenas de copy o resumen, usar un modelo economico.
 
 ## Reglas Para Delegar
 
@@ -175,4 +197,3 @@ Un agente debe escribir `ESCALATE_MODEL_RECOMMENDED` si detecta:
 - Conflicto entre objetivos: belleza, conversion, performance o personalizacion.
 
 Debe explicar en maximo 5 lineas por que recomienda escalar.
-

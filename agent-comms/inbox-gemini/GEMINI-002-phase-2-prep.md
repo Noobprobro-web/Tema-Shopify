@@ -77,6 +77,7 @@ Debe incluir:
    - Riesgos de scope.
    - Preguntas que Codex o el usuario deben decidir antes de codificar.
    - Puntos que recomiendas revisar con un modelo superior de OpenAI antes de implementar.
+   - Puntos donde recomiendas usar Claude para UX, copy, documentacion o segunda opinion.
 
 ## Criterios de Aceptacion
 
@@ -88,6 +89,7 @@ Debe incluir:
 - Debe evitar copiar temas existentes.
 - Debe mantener `Atelier Flow` como nombre interno, no como nombre final.
 - Debe marcar decisiones que convendria escalar a modelo superior antes de codificar.
+- Debe marcar tareas donde Claude podria aportar valor sin duplicar trabajo.
 
 ## Reglas
 

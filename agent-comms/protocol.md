@@ -15,6 +15,12 @@ Gemini:
 - Completa tareas delegadas sin cambiar la arquitectura final por su cuenta.
 - Entrega hallazgos claros, verificables y accionables.
 
+Claude:
+
+- Agente opcional para revision editorial, UX, documentacion y segunda opinion.
+- Se usa cuando aporte una mirada distinta, no para duplicar tareas de Gemini o Codex.
+- Debe producir feedback priorizado y accionable.
+
 Usuario:
 
 - Lleva mensajes entre agentes cuando sea necesario.
@@ -79,3 +85,7 @@ Usar o recomendar un modelo superior cuando:
 - Se hace revision final antes de empaquetar o publicar.
 
 Gemini debe indicar en sus reportes cualquier punto donde recomiende revision por Codex con modelo superior antes de implementar.
+
+## Uso Recomendado de Claude
+
+Claude puede usarse cuando convenga revisar documentacion larga, copy de theme settings, tono merchant-facing, claridad UX, posicionamiento premium o coherencia editorial. Codex mantiene la decision tecnica final.

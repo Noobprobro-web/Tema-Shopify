@@ -8,6 +8,7 @@
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`
 - Rama actual: `master`.
 - Regla operativa: seguir `agent-comms/token-efficiency-rules.md` para ahorrar tokens entre agentes.
+- Claude: opcional para revision editorial, UX, documentacion merchant-facing, copy de settings y segunda opinion de producto.
 
 ## Tareas Abiertas Para Gemini
 
@@ -20,6 +21,7 @@
 - Crear theme skeleton.
 - Resolver entorno Shopify CLI con Node 22 LTS o workaround estable.
 - Avisar al usuario cuando convenga usar un modelo superior para decisiones de alto impacto.
+- Avisar al usuario cuando convenga usar Claude para claridad, tono, UX editorial o documentacion.
 
 ## Ultima Decision
 

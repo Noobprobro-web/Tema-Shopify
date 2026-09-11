@@ -12,6 +12,7 @@ Registro de decisiones importantes del tema.
 - `Atelier Flow` queda como nombre interno. Se evitara `Atelier` como nombre final por posible confusion con el tema gratuito de Shopify.
 - GPT 5.5 low se usara para coordinacion y trabajo liviano. Para arquitectura, performance, accesibilidad compleja y revision final se recomendara escalar a un modelo superior de OpenAI.
 - Se crea `agent-comms/token-efficiency-rules.md` como regla compartida para ahorrar tokens, definir jerarquia de modelos y evitar trabajo duplicado entre agentes.
+- Claude se considerara opcional para revision editorial, UX, documentacion merchant-facing, copy de settings y segunda opinion de producto; Codex mantiene la decision tecnica final.
 - Gemini completo la investigacion oficial de Theme Store, benchmark competitivo y riesgos tecnicos en `docs/gemini-task-01-report.md`.
 - Se validaron los 3 presets iniciales: `Couture`, `Studio` y `Archive`.
 - Se confirmo la ejecucion funcional de Shopify CLI 4.8.0 y Theme Check con 0 ofensas iniciales.

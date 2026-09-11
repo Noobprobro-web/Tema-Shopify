@@ -26,6 +26,14 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - Revision de copy y settings.
 - Exploracion de edge cases.
 
+## Tareas ideales para Claude
+
+- Revision editorial de documentacion.
+- Revision de copy, labels, empty states y mensajes de error.
+- Segunda opinion UX/producto.
+- Auditorias de claridad en documentos largos.
+- Evaluar si el tema mantiene tono premium sin perder conversion.
+
 ## Tareas reservadas para Codex
 
 - Arquitectura final del tema.
@@ -51,3 +59,4 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - Escalar antes de definir arquitectura Liquid/JSON/sections/snippets/assets, sistema de diseno final, performance strategy, accesibilidad compleja o revision previa a submission.
 - Abrir otro chat dentro del mismo proyecto para auditorias grandes, revisiones especializadas o trabajo separable que convenga mantener fuera del centro de mando.
 - Gemini debe marcar en sus entregas si considera que una decision requiere revision de modelo superior antes de implementarse.
+- Claude puede usarse como revisor editorial/UX o segunda opinion cuando aporte criterio distinto sin duplicar trabajo.
