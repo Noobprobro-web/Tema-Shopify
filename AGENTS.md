@@ -14,6 +14,7 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - No introducir SCSS/Sass.
 - Documentar decisiones importantes en `docs/decisions.md`.
 - Usar `agent-comms/` para comunicacion formal entre agentes.
+- Leer y seguir `agent-comms/token-efficiency-rules.md` para ahorrar tokens sin degradar calidad.
 
 ## Tareas ideales para Gemini
 
@@ -40,6 +41,7 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - Gemini entrega resultados en `agent-comms/outbox-gemini/`.
 - Codex revisa entregas en `agent-comms/reviews/`.
 - El estado vivo esta en `agent-comms/status.md`.
+- Las reglas de ahorro de tokens estan en `agent-comms/token-efficiency-rules.md`.
 - Cada tarea y entrega debe mantener el mismo ID, por ejemplo `GEMINI-002`.
 
 ## Modelo y escalamiento

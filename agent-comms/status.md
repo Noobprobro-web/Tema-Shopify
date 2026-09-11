@@ -7,6 +7,7 @@
 - Nombre final: pendiente.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`
 - Rama actual: `master`.
+- Regla operativa: seguir `agent-comms/token-efficiency-rules.md` para ahorrar tokens entre agentes.
 
 ## Tareas Abiertas Para Gemini
 

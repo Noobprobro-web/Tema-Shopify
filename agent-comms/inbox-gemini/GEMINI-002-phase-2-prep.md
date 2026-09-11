@@ -29,6 +29,7 @@ Principios ya aceptados:
 - `README.md`
 - `AGENTS.md`
 - `docs/strategy-brief.md`
+- `agent-comms/token-efficiency-rules.md`
 - `docs/mvp-scope.md`
 - `docs/top-theme-benchmark.md`
 - `docs/shopify-theme-store-checklist.md`

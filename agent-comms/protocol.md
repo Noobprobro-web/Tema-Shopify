@@ -63,6 +63,7 @@ Cada entrega de Gemini debe incluir:
 - No copiar codigo, layout, assets o copy de temas existentes.
 - Citar fuentes para requisitos oficiales o datos que puedan cambiar.
 - Marcar supuestos.
+- Seguir `agent-comms/token-efficiency-rules.md`.
 
 ## Escalamiento de Modelo
 

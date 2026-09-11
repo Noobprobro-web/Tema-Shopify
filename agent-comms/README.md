@@ -20,8 +20,8 @@ Luego puede decirle a Codex:
 - `archive/`: tareas cerradas o historicas.
 - `status.md`: tablero corto del estado actual.
 - `protocol.md`: reglas de comunicacion.
+- `token-efficiency-rules.md`: reglas para ahorrar tokens y decidir jerarquia de modelos.
 
 ## Regla de oro
 
 Cada tarea debe tener un ID estable, por ejemplo `GEMINI-002`. La entrega de Gemini debe usar el mismo ID para que Codex pueda revisarla rapido.
-
