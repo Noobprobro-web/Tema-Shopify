@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="2392" viewBox="0 0 390 2392" role="img" aria-labelledby="title desc">
+  <title id="title">Atelier Flow Couture cart drawer and expanded navigation mobile</title>
+  <desc id="desc">Three editable 390 pixel frames showing a viewport-safe cart drawer, compact empty state and full-screen mobile navigation.</desc>
+  <defs>
+    <style>
+      .serif { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: 0; }
+      .sans { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; letter-spacing: 0; }
+      .paper { fill: #FAF8F5; }
+      .surface { fill: #F3EFEA; }
+      .subtle { fill: #EDE7DE; }
+      .ink { fill: #1C1917; }
+      .muted { fill: #605A53; }
+      .accent { fill: #786C5E; }
+      .white { fill: #FFFFFF; }
+      .line { fill: none; stroke: #E5DFD5; stroke-width: 1; }
+      .hairline { fill: none; stroke: #EDE7DE; stroke-width: 1; }
+      .ink-line { fill: none; stroke: #1C1917; stroke-width: 1; }
+      .muted-line { fill: none; stroke: #605A53; stroke-width: 1; }
+      .eyebrow { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 1.2px; }
+      .label { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0; }
+      .body { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0; }
+      .small { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0; }
+      .micro { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 1.08px; }
+      .hit { fill: #FFFFFF; fill-opacity: 0; }
+    </style>
+    <clipPath id="m-cart-product-one"><rect x="16" y="160" width="92" height="116"/></clipPath>
+    <clipPath id="m-cart-product-two"><rect x="16" y="308" width="92" height="116"/></clipPath>
+  </defs>
+
+  <rect id="Canvas-Background" width="390" height="2392" class="subtle"/>
+
+  <g id="Section-Cart-Drawer-Open" aria-label="Open cart drawer screen, mobile 390 by 844">
+    <rect width="390" height="844" class="paper"/>
+    <g id="Cart-Mobile-Header">
+      <text x="16" y="41" class="serif ink" font-size="24">Your Selection (2)</text>
+      <g id="Cart-Mobile-Close" aria-label="Close cart, 44 by 44">
+        <rect x="338" y="10" width="44" height="44" class="hit"/>
+        <path d="M350 22 L370 42 M370 22 L350 42" class="ink-line"/>
+      </g>
+      <line x1="0" y1="63.5" x2="390" y2="63.5" stroke="#E5DFD5"/>
+    </g>
+
+    <g id="Free-Shipping-Progress">
+      <text x="16" y="94" class="small ink">Add $35 more for complimentary shipping</text>
+      <text x="374" y="94" class="small muted" text-anchor="end">88%</text>
+      <rect x="16" y="112" width="358" height="4" class="subtle"/>
+      <rect x="16" y="112" width="315" height="4" class="accent"/>
+      <line x1="0" y1="139.5" x2="390" y2="139.5" stroke="#E5DFD5"/>
+    </g>
+
+    <g id="Cart-Line-Item-01">
+      <g clip-path="url(#m-cart-product-one)">
+        <rect x="16" y="160" width="92" height="116" class="surface"/>
+        <path d="M38 208 C44 181 54 174 62 174 C73 174 83 184 88 210 L97 276 H27 Z" class="ink"/>
+        <path d="M52 181 L62 198 L74 181 L80 276 H44 Z" class="accent"/>
+      </g>
+      <rect x="16.5" y="160.5" width="91" height="115" class="hairline"/>
+      <text x="124" y="180" class="serif ink" font-size="17">Draped Wool Coat</text>
+      <text x="124" y="204" class="small muted">Ink / Small</text>
+      <text x="374" y="180" class="small ink" text-anchor="end">$280.00</text>
+      <g id="Quantity-01" aria-label="Quantity one, 132 by 44">
+        <rect x="124" y="224" width="132" height="44" class="paper" stroke="#E5DFD5"/>
+        <rect x="124" y="224" width="44" height="44" class="hit"/><text x="146" y="252" class="body ink" text-anchor="middle">−</text>
+        <text x="190" y="252" class="label ink" text-anchor="middle">1</text>
+        <rect x="212" y="224" width="44" height="44" class="hit"/><text x="234" y="252" class="body ink" text-anchor="middle">+</text>
+      </g>
+      <g aria-label="Remove Draped Wool Coat, 92 by 44"><rect x="282" y="224" width="92" height="44" class="hit"/><text x="374" y="252" class="small ink" text-anchor="end" text-decoration="underline">Remove</text></g>
+      <line x1="16" y1="291.5" x2="374" y2="291.5" stroke="#E5DFD5"/>
+    </g>
+
+    <g id="Cart-Line-Item-02">
+      <g clip-path="url(#m-cart-product-two)">
+        <rect x="16" y="308" width="92" height="116" class="subtle"/>
+        <ellipse cx="62" cy="404" rx="34" ry="7" class="accent" opacity="0.4"/>
+        <path d="M38 394 L46 342 H78 L86 394 Z" class="accent"/>
+        <path d="M51 342 C53 324 71 324 73 342" fill="none" stroke="#786C5E" stroke-width="6"/>
+      </g>
+      <rect x="16.5" y="308.5" width="91" height="115" class="hairline"/>
+      <text x="124" y="328" class="serif ink" font-size="17">Folded Carryall</text>
+      <text x="124" y="352" class="small muted">Stone / One size</text>
+      <text x="374" y="328" class="small ink" text-anchor="end">$140.00</text>
+      <g id="Quantity-02" aria-label="Quantity one, 132 by 44">
+        <rect x="124" y="372" width="132" height="44" class="paper" stroke="#E5DFD5"/>
+        <rect x="124" y="372" width="44" height="44" class="hit"/><text x="146" y="400" class="body ink" text-anchor="middle">−</text>
+        <text x="190" y="400" class="label ink" text-anchor="middle">1</text>
+        <rect x="212" y="372" width="44" height="44" class="hit"/><text x="234" y="400" class="body ink" text-anchor="middle">+</text>
+      </g>
+      <g aria-label="Remove Folded Carryall, 92 by 44"><rect x="282" y="372" width="92" height="44" class="hit"/><text x="374" y="400" class="small ink" text-anchor="end" text-decoration="underline">Remove</text></g>
+      <line x1="16" y1="439.5" x2="374" y2="439.5" stroke="#E5DFD5"/>
+    </g>
+
+    <g id="Cart-Gift-Note-Expanded">
+      <g aria-label="Gift note expanded, 358 by 44"><rect x="16" y="452" width="358" height="44" class="hit"/><text x="16" y="480" class="label ink">Gift note or delivery instructions</text><path d="M350 474 H366" class="ink-line"/></g>
+      <rect x="16" y="500" width="358" height="76" class="surface" stroke="#E5DFD5"/>
+      <text x="28" y="526" class="small muted"><tspan x="28" dy="0">Please wrap both pieces together.</tspan><tspan x="28" dy="18">No printed receipt.</tspan></text>
+      <text x="360" y="561" class="micro muted" text-anchor="end">56 / 250</text>
+    </g>
+
+    <g id="Cart-Mobile-Summary">
+      <line x1="0" y1="591.5" x2="390" y2="591.5" stroke="#E5DFD5"/>
+      <text x="16" y="624" class="body ink">Subtotal</text>
+      <text x="374" y="624" class="serif ink" font-size="19" text-anchor="end">$420.00</text>
+      <text x="16" y="650" class="small muted">Taxes included. Shipping calculated at checkout.</text>
+      <g id="Checkout-Button" aria-label="Checkout, 358 by 52"><rect x="16" y="668" width="358" height="52" rx="2" class="accent"/><text x="195" y="700" class="label white" text-anchor="middle">Checkout • $420.00</text></g>
+      <g aria-label="View full cart, 358 by 44"><rect x="16" y="732" width="358" height="44" class="hit"/><text x="195" y="760" class="label ink" text-anchor="middle" text-decoration="underline">View full cart</text></g>
+      <g id="Secure-Checkout-Note"><path d="M132 812 V806 C132 796 146 796 146 806 V812" class="muted-line"/><rect x="129" y="810" width="20" height="16" class="muted-line"/><text x="161" y="823" class="micro muted">SECURE CHECKOUT</text></g>
+    </g>
+  </g>
+
+  <g id="Section-Cart-Drawer-Empty" transform="translate(0 876)" aria-label="Compact empty cart drawer variant, mobile 390 by 640">
+    <rect width="390" height="640" class="paper"/>
+    <text x="16" y="41" class="serif ink" font-size="24">Your Selection (0)</text>
+    <g aria-label="Close cart, 44 by 44"><rect x="338" y="10" width="44" height="44" class="hit"/><path d="M350 22 L370 42 M370 22 L350 42" class="ink-line"/></g>
+    <line x1="0" y1="63.5" x2="390" y2="63.5" stroke="#E5DFD5"/>
+    <g id="Empty-State-Content">
+      <g transform="translate(165 136)">
+        <path d="M0 24 H60 L55 86 H5 Z" class="ink-line" stroke-width="2"/>
+        <path d="M14 24 C16 2 44 2 46 24" fill="none" stroke="#1C1917" stroke-width="2"/>
+        <line x1="16" y1="50" x2="44" y2="50" stroke="#E5DFD5"/>
+      </g>
+      <text x="195" y="276" class="serif ink" font-size="32" text-anchor="middle">Your bag is quiet.</text>
+      <text x="195" y="314" class="body muted" text-anchor="middle">Begin with a piece designed to stay.</text>
+      <g id="Explore-Collection" aria-label="Explore collection, 280 by 52"><rect x="55" y="354" width="280" height="52" rx="2" class="accent"/><text x="195" y="386" class="label white" text-anchor="middle">Explore Collection</text></g>
+      <g aria-label="Continue browsing, 280 by 44"><rect x="55" y="418" width="280" height="44" class="hit"/><text x="195" y="446" class="label ink" text-anchor="middle" text-decoration="underline">Continue browsing</text></g>
+    </g>
+    <line x1="16" y1="531.5" x2="374" y2="531.5" stroke="#E5DFD5"/>
+    <text x="16" y="570" class="small muted">Complimentary shipping from $455.</text>
+    <text x="16" y="602" class="small ink">Returns within 30 days</text>
+  </g>
+
+  <g id="Section-Navigation-Expanded" transform="translate(0 1548)" aria-label="Full-screen expanded navigation, mobile 390 by 844">
+    <rect width="390" height="844" class="paper"/>
+    <g id="Mobile-Navigation-Header">
+      <text x="16" y="41" class="serif ink" font-size="22">ATELIER FLOW</text>
+      <g aria-label="Search, 44 by 44"><rect x="286" y="10" width="44" height="44" class="hit"/><circle cx="306" cy="29" r="7.5" class="ink-line"/><line x1="312" y1="35" x2="318" y2="41" stroke="#1C1917"/></g>
+      <g aria-label="Close navigation, 44 by 44"><rect x="338" y="10" width="44" height="44" class="hit"/><path d="M350 22 L370 42 M370 22 L350 42" class="ink-line"/></g>
+      <line x1="0" y1="63.5" x2="390" y2="63.5" stroke="#E5DFD5"/>
+    </g>
+
+    <text x="16" y="98" class="eyebrow muted">MENU / AUTUMN 26</text>
+    <g id="Mobile-Navigation-Primary">
+      <g aria-label="New arrivals, 358 by 56"><rect x="16" y="112" width="358" height="56" class="hit"/><text x="16" y="151" class="serif ink" font-size="28">New arrivals</text><path d="M350 136 L360 146 L370 136" class="ink-line"/></g>
+      <line x1="16" y1="167.5" x2="374" y2="167.5" stroke="#E5DFD5"/>
+      <g aria-label="Shop menu expanded, 358 by 56"><rect x="16" y="168" width="358" height="56" class="hit"/><text x="16" y="207" class="serif ink" font-size="28">Shop</text><path d="M350 196 H370" class="ink-line"/></g>
+
+      <g id="Mobile-Shop-Submenu">
+        <rect x="16" y="224" width="358" height="152" class="surface"/>
+        <g aria-label="Apparel submenu, 326 by 44"><rect x="32" y="228" width="326" height="44" class="hit"/><text x="32" y="256" class="body ink">Apparel</text><text x="350" y="256" class="body ink" text-anchor="end">24</text></g>
+        <g aria-label="Objects submenu, 326 by 44"><rect x="32" y="276" width="326" height="44" class="hit"/><text x="32" y="304" class="body ink">Objects</text><text x="350" y="304" class="body ink" text-anchor="end">18</text></g>
+        <g aria-label="Seasonal capsule submenu, 326 by 44"><rect x="32" y="324" width="326" height="44" class="hit"/><text x="32" y="352" class="body ink">Seasonal capsule</text><text x="350" y="352" class="body ink" text-anchor="end">08</text></g>
+      </g>
+
+      <g aria-label="Atelier stories menu, 358 by 56"><rect x="16" y="376" width="358" height="56" class="hit"/><text x="16" y="415" class="serif ink" font-size="28">Atelier stories</text><path d="M350 400 L360 410 L370 400" class="ink-line"/></g>
+      <line x1="16" y1="431.5" x2="374" y2="431.5" stroke="#E5DFD5"/>
+      <g aria-label="About menu, 358 by 56"><rect x="16" y="432" width="358" height="56" class="hit"/><text x="16" y="471" class="serif ink" font-size="28">About</text><path d="M350 456 L360 466 L370 456" class="ink-line"/></g>
+      <line x1="16" y1="487.5" x2="374" y2="487.5" stroke="#E5DFD5"/>
+      <g aria-label="Journal, 358 by 56"><rect x="16" y="488" width="358" height="56" class="hit"/><text x="16" y="527" class="serif ink" font-size="28">Journal</text><path d="M350 512 L360 522 L370 512" class="ink-line"/></g>
+      <line x1="16" y1="543.5" x2="374" y2="543.5" stroke="#E5DFD5"/>
+    </g>
+
+    <g id="Mobile-Navigation-Account">
+      <g aria-label="Shopify account, 358 by 52"><rect x="16" y="560" width="358" height="52" class="paper" stroke="#E5DFD5"/><circle cx="38" cy="578" r="6" class="ink-line"/><path d="M28 598 C30 590 46 590 48 598" class="ink-line"/><text x="64" y="592" class="label ink">Account and orders</text><path d="M350 580 L360 590 L350 600" class="ink-line"/></g>
+    </g>
+
+    <g id="Mobile-Navigation-Markets">
+      <g aria-label="Country selector, 171 by 44"><rect x="16" y="632" width="171" height="44" class="paper" stroke="#E5DFD5"/><text x="30" y="660" class="small ink">United States</text><path d="M164 648 L170 654 L176 648" class="ink-line"/></g>
+      <g aria-label="Currency selector, 171 by 44"><rect x="203" y="632" width="171" height="44" class="paper" stroke="#E5DFD5"/><text x="217" y="660" class="small ink">USD $</text><path d="M351 648 L357 654 L363 648" class="ink-line"/></g>
+    </g>
+
+    <g id="Mobile-Navigation-Editorial-Link">
+      <rect x="16" y="696" width="358" height="84" class="ink"/>
+      <text x="32" y="724" class="micro paper">SEASONAL CAPSULE / 08 PIECES</text>
+      <text x="32" y="756" class="serif paper" font-size="20">The Soft Architecture Edit</text>
+      <path d="M336 730 L356 750 L336 770" fill="none" stroke="#FAF8F5"/>
+    </g>
+
+    <g id="Mobile-Navigation-Footer">
+      <text x="16" y="818" class="small muted">Instagram</text>
+      <text x="95" y="818" class="small muted">Pinterest</text>
+      <text x="374" y="818" class="micro muted" text-anchor="end">ESC / CLOSE</text>
+    </g>
+  </g>
+</svg>

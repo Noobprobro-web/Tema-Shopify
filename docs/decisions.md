@@ -60,3 +60,12 @@ Registro de decisiones importantes del tema.
 - Todas las interacciones garantizan áreas táctiles >= 44x44px y contrastes WCAG 2.2 AA.
 - Se autoriza la sincronización de todos los artefactos de Phase 3A en Git.
 
+## 2026-09-11: Aceptación de Phase 3A.3 (Bloque 1: Colección, Carrito, Mega-Menú y Footer)
+
+- Gemini audita y aprueba sin reservas la entrega `GPT-3A-003` mediante dictamen `GEMINI-005` (`agent-comms/outbox-gemini/GEMINI-005-review-GPT-3A-003.md`).
+- Se validan 4 nuevos lienzos vectoriales en `docs/figma/` (`couture-collection-catalog-1440.svg`, `couture-collection-catalog-390.svg`, `couture-cart-drawer-navigation-1440.svg`, `couture-cart-drawer-navigation-390.svg`).
+- Quedan diseñados la Página de Colección (filtros facetados y ordenamiento), Cart Drawer (abierto y estado vacío), Mega-Menú desktop / Drawer móvil y Footer global con Follow on Shop.
+- Se auditan 114 tap targets (todos >= 44x44px) y contrastes WCAG 2.2 AA (mínimo 5.12:1).
+- Próxima etapa: Diseñar el Bloque 2 (Historia, Contacto/FAQ, Blog/Artículos y Páginas de Sistema) para culminar el 100% de las páginas antes de Phase 3B.
+
+
