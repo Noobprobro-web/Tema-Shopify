@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1120" viewBox="0 0 1440 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Atelier Flow Studio and Archive component variants</title>
+  <desc id="desc">A visual specification board for the Studio and Archive header and product card variants.</desc>
+  <defs>
+    <style>
+      .studio-heading { font-family: "Syne", "General Sans", Arial, sans-serif; font-weight: 600; }
+      .studio-body { font-family: Inter, Arial, sans-serif; font-weight: 400; }
+      .archive-heading { font-family: "Space Grotesk", "Courier New", monospace; font-weight: 500; }
+      .archive-body { font-family: "Space Grotesk", Arial, sans-serif; font-weight: 400; }
+      .hit { fill: #FFFFFF; fill-opacity: 0; }
+    </style>
+    <clipPath id="studio-image"><rect x="32" y="142" width="356" height="294" rx="4"/></clipPath>
+    <clipPath id="archive-image"><rect x="32" y="730" width="356" height="294"/></clipPath>
+  </defs>
+
+  <rect id="Canvas-Background" width="1440" height="1120" fill="#DCD8D1"/>
+
+  <g id="Frame-Studio-Components" aria-label="Studio preset component specification">
+    <rect width="1440" height="540" fill="#FFFFFF"/>
+    <g id="Header-Studio">
+      <rect width="1440" height="80" fill="#FFFFFF"/>
+      <line x1="0" y1="79.5" x2="1440" y2="79.5" stroke="#E4E4E7"/>
+      <text x="32" y="49" class="studio-heading" font-size="22" fill="#09090B">STUDIO / 02</text>
+      <g id="Studio-Nav" class="studio-body" font-size="12" fill="#09090B">
+        <g><rect x="258" y="18" width="64" height="44" class="hit"/><text x="270" y="46">NEW</text></g>
+        <g><rect x="334" y="18" width="80" height="44" class="hit"/><text x="346" y="46">WOMEN</text></g>
+        <g><rect x="426" y="18" width="64" height="44" class="hit"/><text x="438" y="46">MEN</text></g>
+        <g><rect x="502" y="18" width="90" height="44" class="hit"/><text x="514" y="46">OBJECTS</text></g>
+      </g>
+      <g id="Shopify-Account-Studio" aria-label="Shopify account, 112 by 44">
+        <rect x="1210" y="18" width="112" height="44" class="hit"/>
+        <circle cx="1230" cy="33" r="5.5" fill="none" stroke="#09090B" stroke-width="1.5"/>
+        <path d="M1221.5 48 C1223 41.5 1237 41.5 1238.5 48" fill="none" stroke="#09090B" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="1248" y="46" class="studio-body" font-size="12" fill="#09090B">ACCOUNT</text>
+      </g>
+      <text x="1340" y="46" class="studio-body" font-size="12" fill="#09090B">BAG (0)</text>
+    </g>
+
+    <g id="Product-Card-Studio">
+      <text x="32" y="116" class="studio-heading" font-size="14" fill="#09090B">PRODUCT CARD / DEFAULT</text>
+      <g clip-path="url(#studio-image)">
+        <rect x="32" y="142" width="356" height="294" rx="4" fill="#F4F4F5"/>
+        <rect x="32" y="142" width="356" height="78" fill="#E4E4E7"/>
+        <ellipse cx="210" cy="360" rx="126" ry="24" fill="#D7D7DA"/>
+        <path d="M105 331 C142 312 178 285 201 254 C228 279 264 307 317 329 L304 357 C245 372 167 371 111 355 Z" fill="#17171A"/>
+        <path d="M126 331 C170 337 244 337 297 327" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+        <path d="M181 287 C203 298 225 298 248 288" fill="none" stroke="#8F8F95" stroke-width="3"/>
+      </g>
+      <rect x="32.5" y="142.5" width="355" height="293" rx="4" fill="none" stroke="#E4E4E7"/>
+      <g id="Studio-Card-Wishlist" aria-label="Add to wishlist, 44 by 44">
+        <rect x="332" y="154" width="44" height="44" rx="4" fill="#FFFFFF" fill-opacity="0.86"/>
+        <path d="M354 184 C348 179 342 175 342 169 C342 163 350 161 354 167 C358 161 366 163 366 169 C366 175 360 179 354 184 Z" fill="none" stroke="#09090B" stroke-width="1.4"/>
+      </g>
+      <text x="32" y="466" class="studio-heading" font-size="17" fill="#09090B">Sculpted Slingback</text>
+      <text x="32" y="491" class="studio-body" font-size="13" fill="#52525B">Black calf leather</text>
+      <text x="32" y="519" class="studio-body" font-size="14" fill="#09090B">$620.00</text>
+      <g id="Studio-Quick-Add" aria-label="Quick add, 132 by 44">
+        <rect x="256" y="476" width="132" height="44" rx="4" fill="#18181B"/>
+        <text x="322" y="503" text-anchor="middle" class="studio-body" font-size="11" font-weight="600" fill="#FFFFFF">QUICK ADD</text>
+      </g>
+    </g>
+
+    <g id="Studio-Specification" class="studio-body">
+      <text x="504" y="130" class="studio-heading" font-size="32" fill="#09090B">Studio</text>
+      <text x="504" y="162" font-size="14" fill="#52525B">Crisp gallery whitespace with a contemporary grotesk voice.</text>
+      <line x1="504" y1="190" x2="1408" y2="190" stroke="#E4E4E7"/>
+      <text x="504" y="224" font-size="11" font-weight="600" fill="#09090B">HEADER</text>
+      <text x="650" y="224" font-size="13" fill="#52525B">80 px / 32 px gutters / 1 px hairline</text>
+      <text x="504" y="258" font-size="11" font-weight="600" fill="#09090B">CARD</text>
+      <text x="650" y="258" font-size="13" fill="#52525B">4 px radius / 1:0.83 media / quick-add on intent</text>
+      <text x="504" y="292" font-size="11" font-weight="600" fill="#09090B">TYPE</text>
+      <text x="650" y="292" font-size="13" fill="#52525B">Syne 600 headings / Inter 400 body</text>
+      <g id="Studio-Color-Tokens">
+        <rect x="504" y="330" width="86" height="86" rx="4" fill="#FFFFFF" stroke="#E4E4E7"/>
+        <rect x="606" y="330" width="86" height="86" rx="4" fill="#F4F4F5" stroke="#E4E4E7"/>
+        <rect x="708" y="330" width="86" height="86" rx="4" fill="#09090B"/>
+        <rect x="810" y="330" width="86" height="86" rx="4" fill="#18181B"/>
+        <text x="504" y="438" font-size="11" fill="#52525B">BACKGROUND</text>
+        <text x="606" y="438" font-size="11" fill="#52525B">SURFACE</text>
+        <text x="708" y="438" font-size="11" fill="#52525B">INK</text>
+        <text x="810" y="438" font-size="11" fill="#52525B">ACCENT</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="Frame-Archive-Components" aria-label="Archive preset component specification">
+    <rect x="0" y="580" width="1440" height="540" fill="#F4F3EE"/>
+    <g id="Header-Archive">
+      <rect x="0" y="580" width="1440" height="80" fill="#F4F3EE"/>
+      <line x1="0" y1="659.25" x2="1440" y2="659.25" stroke="#CBC6B4" stroke-width="1.5"/>
+      <text x="32" y="629" class="archive-heading" font-size="21" fill="#121212">ARCHIVE_03</text>
+      <text x="166" y="629" class="archive-body" font-size="11" letter-spacing="1.65" fill="#495057">INDEX / SS-26</text>
+      <g id="Archive-Nav" class="archive-body" font-size="12" fill="#121212">
+        <g><rect x="352" y="598" width="76" height="44" class="hit"/><text x="364" y="626">[NEW]</text></g>
+        <g><rect x="440" y="598" width="88" height="44" class="hit"/><text x="452" y="626">[WOMEN]</text></g>
+        <g><rect x="540" y="598" width="76" height="44" class="hit"/><text x="552" y="626">[MEN]</text></g>
+        <g><rect x="628" y="598" width="100" height="44" class="hit"/><text x="640" y="626">[OBJECTS]</text></g>
+      </g>
+      <g id="Shopify-Account-Archive" aria-label="Shopify account, 126 by 44">
+        <rect x="1188" y="598" width="126" height="44" class="hit"/>
+        <circle cx="1209" cy="613" r="5.5" fill="none" stroke="#121212" stroke-width="1.5"/>
+        <path d="M1200.5 628 C1202 621.5 1216 621.5 1217.5 628" fill="none" stroke="#121212" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="1227" y="626" class="archive-body" font-size="12" fill="#121212">ACCOUNT_</text>
+      </g>
+      <text x="1338" y="626" class="archive-body" font-size="12" fill="#121212">CART[0]</text>
+    </g>
+
+    <g id="Product-Card-Archive">
+      <text x="32" y="704" class="archive-heading" font-size="13" fill="#121212">CARD_PRODUCT / DEFAULT</text>
+      <g clip-path="url(#archive-image)">
+        <rect x="32" y="730" width="356" height="294" fill="#EAE8DF"/>
+        <path d="M32 804 H388 M32 878 H388 M32 952 H388" stroke="#DFDBCF" stroke-width="1.5"/>
+        <path d="M121 730 V1024 M210 730 V1024 M299 730 V1024" stroke="#DFDBCF" stroke-width="1.5"/>
+        <ellipse cx="210" cy="950" rx="112" ry="20" fill="#D2CEC1"/>
+        <path d="M111 920 C145 904 180 877 202 844 C229 872 263 900 313 918 L300 946 C245 961 172 960 118 944 Z" fill="#212529"/>
+        <path d="M131 920 C173 927 243 927 294 917" fill="none" stroke="#F4F3EE" stroke-width="1.5"/>
+        <text x="46" y="754" class="archive-body" font-size="10" fill="#495057">OBJ_07 / VIEW_A</text>
+      </g>
+      <rect x="32.75" y="730.75" width="354.5" height="292.5" fill="none" stroke="#CBC6B4" stroke-width="1.5"/>
+      <g id="Archive-Card-Index" aria-label="Open item, 44 by 44">
+        <rect x="332" y="742" width="44" height="44" fill="#F4F3EE" stroke="#CBC6B4" stroke-width="1.5"/>
+        <text x="354" y="770" text-anchor="middle" class="archive-heading" font-size="12" fill="#121212">07</text>
+      </g>
+      <text x="32" y="1052" class="archive-heading" font-size="16" fill="#121212">ANATOMIC SLIP-ON / 07</text>
+      <text x="32" y="1078" class="archive-body" font-size="12" fill="#495057">BLACK BUFFALO LEATHER</text>
+      <text x="32" y="1104" class="archive-body" font-size="13" fill="#121212">USD 620.00</text>
+      <g id="Archive-Quick-Add" aria-label="Quick add, 144 by 44">
+        <rect x="244" y="1064" width="144" height="44" fill="#212529"/>
+        <text x="316" y="1091" text-anchor="middle" class="archive-body" font-size="11" font-weight="500" fill="#F4F3EE">ADD_TO_CART</text>
+      </g>
+    </g>
+
+    <g id="Archive-Specification" class="archive-body">
+      <text x="504" y="710" class="archive-heading" font-size="30" fill="#121212">ARCHIVE / SYSTEM_03</text>
+      <text x="504" y="744" font-size="14" fill="#495057">Technical curatorship with explicit structure and indexed objects.</text>
+      <line x1="504" y1="772" x2="1408" y2="772" stroke="#CBC6B4" stroke-width="1.5"/>
+      <text x="504" y="806" font-size="11" font-weight="500" fill="#121212">HEADER_</text>
+      <text x="650" y="806" font-size="13" fill="#495057">80 PX / 32 PX GUTTER / 1.5 PX RULE</text>
+      <text x="504" y="840" font-size="11" font-weight="500" fill="#121212">CARD_</text>
+      <text x="650" y="840" font-size="13" fill="#495057">0 PX RADIUS / INDEX LABEL / VISIBLE GRID</text>
+      <text x="504" y="874" font-size="11" font-weight="500" fill="#121212">TYPE_</text>
+      <text x="650" y="874" font-size="13" fill="#495057">SPACE GROTESK 500 / MONO FALLBACK</text>
+      <g id="Archive-Color-Tokens">
+        <rect x="504" y="912" width="86" height="86" fill="#F4F3EE" stroke="#CBC6B4" stroke-width="1.5"/>
+        <rect x="606" y="912" width="86" height="86" fill="#EAE8DF" stroke="#CBC6B4" stroke-width="1.5"/>
+        <rect x="708" y="912" width="86" height="86" fill="#121212"/>
+        <rect x="810" y="912" width="86" height="86" fill="#212529"/>
+        <text x="504" y="1020" font-size="11" fill="#495057">BACKGROUND</text>
+        <text x="606" y="1020" font-size="11" fill="#495057">SURFACE</text>
+        <text x="708" y="1020" font-size="11" fill="#495057">INK</text>
+        <text x="810" y="1020" font-size="11" fill="#495057">ACCENT</text>
+      </g>
+    </g>
+  </g>
+</svg>

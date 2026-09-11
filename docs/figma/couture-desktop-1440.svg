@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="2144" viewBox="0 0 1440 2144" role="img" aria-labelledby="title desc">
+  <title id="title">Atelier Flow Couture desktop blueprint</title>
+  <desc id="desc">Two 1440 pixel desktop frames showing a product page with a fixed cart bar and an interactive editorial lookbook.</desc>
+  <defs>
+    <style>
+      .serif { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 400; }
+      .sans { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-weight: 400; }
+      .medium { font-weight: 500; }
+      .ink { fill: #1C1917; }
+      .muted { fill: #605A53; }
+      .paper { fill: #FAF8F5; }
+      .surface { fill: #F3EFEA; }
+      .subtle { fill: #EDE7DE; }
+      .accent { fill: #786C5E; }
+      .white { fill: #FFFFFF; }
+      .line { stroke: #E5DFD5; stroke-width: 1; fill: none; }
+      .hairline { stroke: #EDE7DE; stroke-width: 1; fill: none; }
+      .eyebrow { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1.32px; }
+      .label { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 12px; font-weight: 500; }
+      .body { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 14px; font-weight: 400; }
+      .small { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 12px; font-weight: 400; }
+      .hit { fill: #FFFFFF; fill-opacity: 0; }
+    </style>
+    <clipPath id="desktop-gallery-01"><rect x="32" y="104" width="414" height="364"/></clipPath>
+    <clipPath id="desktop-gallery-02"><rect x="462" y="104" width="414" height="364"/></clipPath>
+    <clipPath id="desktop-gallery-03"><rect x="32" y="484" width="414" height="404"/></clipPath>
+    <clipPath id="desktop-gallery-04"><rect x="462" y="484" width="414" height="404"/></clipPath>
+    <clipPath id="desktop-lookbook"><rect x="0" y="1192" width="1440" height="952"/></clipPath>
+  </defs>
+
+  <rect id="Canvas-Background" width="1440" height="2144" fill="#EDE7DE"/>
+
+  <g id="Frame-Couture-Desktop-PDP" aria-label="Couture desktop product page, 1440 by 1024">
+    <rect width="1440" height="1024" class="paper"/>
+
+    <g id="Header-Editorial-PDP">
+      <rect width="1440" height="72" class="paper"/>
+      <line x1="0" y1="71.5" x2="1440" y2="71.5" stroke="#EDE7DE"/>
+      <g id="Brand-PDP">
+        <text x="32" y="43" class="serif ink" font-size="23">ATELIER</text>
+        <text x="136" y="43" class="eyebrow muted">FLOW / 01</text>
+      </g>
+      <g id="Nav-Primary-PDP" class="label ink">
+        <g id="Nav-New"><rect x="236" y="14" width="64" height="44" class="hit"/><text x="246" y="42">NEW</text></g>
+        <g id="Nav-Women"><rect x="312" y="14" width="80" height="44" class="hit"/><text x="322" y="42">WOMEN</text></g>
+        <g id="Nav-Men"><rect x="404" y="14" width="64" height="44" class="hit"/><text x="414" y="42">MEN</text></g>
+        <g id="Nav-Objects"><rect x="480" y="14" width="82" height="44" class="hit"/><text x="490" y="42">OBJECTS</text></g>
+        <g id="Nav-Journal"><rect x="574" y="14" width="82" height="44" class="hit"/><text x="584" y="42">JOURNAL</text></g>
+      </g>
+      <g id="Header-Actions-PDP" class="label ink">
+        <g id="Search-Button-PDP" aria-label="Search button, 44 by 44">
+          <rect x="1156" y="14" width="44" height="44" class="hit"/>
+          <circle cx="1175" cy="33" r="6.5" fill="none" stroke="#1C1917" stroke-width="1.5"/>
+          <path d="M1180 38 L1185 43" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+        <g id="Shopify-Account-Simulated-PDP" aria-label="Shopify account, 112 by 44">
+          <rect x="1210" y="14" width="112" height="44" class="hit"/>
+          <circle cx="1230" cy="29" r="5.5" fill="none" stroke="#1C1917" stroke-width="1.4"/>
+          <path d="M1221.5 43 C1223 36.5 1237 36.5 1238.5 43" fill="none" stroke="#1C1917" stroke-width="1.4" stroke-linecap="round"/>
+          <text x="1248" y="42">ACCOUNT</text>
+        </g>
+        <g id="Cart-Button-PDP" aria-label="Cart button, 76 by 44">
+          <rect x="1332" y="14" width="76" height="44" class="hit"/>
+          <text x="1340" y="42">BAG (0)</text>
+        </g>
+      </g>
+    </g>
+
+    <g id="PDP-Gallery-Hairline">
+      <g id="Gallery-Image-01" clip-path="url(#desktop-gallery-01)">
+        <rect x="32" y="104" width="414" height="364" class="surface"/>
+        <rect x="32" y="104" width="126" height="364" fill="#E9E2D8"/>
+        <rect x="158" y="104" width="288" height="364" fill="#D9CEC1"/>
+        <ellipse cx="293" cy="164" rx="29" ry="34" fill="#B19E8E"/>
+        <path d="M275 193 C247 203 225 230 218 270 L203 468 H379 L365 270 C359 229 335 202 311 193 Z" fill="#625950"/>
+        <path d="M275 201 L293 236 L311 201 L336 225 L318 468 H268 L249 225 Z" fill="#786C5E"/>
+        <path d="M246 250 C226 298 217 350 214 410" fill="none" stroke="#A99C8F" stroke-width="2"/>
+        <path d="M339 250 C360 300 369 352 372 410" fill="none" stroke="#A99C8F" stroke-width="2"/>
+        <path d="M293 236 L293 448" fill="none" stroke="#B3A69B" stroke-width="1"/>
+        <text x="52" y="444" class="eyebrow muted">LOOK 01 / FRONT</text>
+      </g>
+      <rect x="32.5" y="104.5" width="413" height="363" class="hairline"/>
+
+      <g id="Gallery-Image-02" clip-path="url(#desktop-gallery-02)">
+        <rect x="462" y="104" width="414" height="364" fill="#DDD4CA"/>
+        <rect x="462" y="104" width="414" height="92" fill="#E8E1D8"/>
+        <path d="M590 178 C620 153 719 151 752 181 L790 260 L760 468 H566 L548 260 Z" fill="#746A61"/>
+        <path d="M623 171 C630 212 688 229 720 170" fill="none" stroke="#BDAFA1" stroke-width="3"/>
+        <path d="M611 235 L735 235" fill="none" stroke="#A99B8D"/>
+        <path d="M629 235 L616 449 M717 235 L732 449" fill="none" stroke="#A99B8D"/>
+        <circle cx="673" cy="262" r="4" fill="#DCCDBF"/>
+        <text x="482" y="444" class="eyebrow muted">LOOK 01 / BACK</text>
+      </g>
+      <rect x="462.5" y="104.5" width="413" height="363" class="hairline"/>
+
+      <g id="Gallery-Image-03" clip-path="url(#desktop-gallery-03)">
+        <rect x="32" y="484" width="414" height="404" fill="#C8BBAE"/>
+        <path d="M-10 794 C83 614 223 548 466 526 L466 888 L-10 888 Z" fill="#786C5E"/>
+        <path d="M50 820 C142 660 260 596 446 568" fill="none" stroke="#A69889" stroke-width="16" opacity="0.8"/>
+        <path d="M29 864 C164 692 280 646 446 624" fill="none" stroke="#5F564E" stroke-width="2"/>
+        <path d="M116 888 C205 752 304 699 446 685" fill="none" stroke="#AFA093" stroke-width="1"/>
+        <text x="52" y="864" class="eyebrow white">MATERIAL / WOOL TWILL</text>
+      </g>
+      <rect x="32.5" y="484.5" width="413" height="403" class="hairline"/>
+
+      <g id="Gallery-Image-04" clip-path="url(#desktop-gallery-04)">
+        <rect x="462" y="484" width="414" height="404" fill="#E7E0D7"/>
+        <ellipse cx="670" cy="606" rx="116" ry="34" fill="#D2C4B6"/>
+        <path d="M565 603 L600 724 C612 764 729 764 742 724 L775 603 C741 626 602 626 565 603 Z" fill="#8E7E70"/>
+        <path d="M600 724 C620 739 721 739 742 724" fill="none" stroke="#5E554D" stroke-width="2"/>
+        <path d="M605 610 C618 555 725 555 740 610" fill="none" stroke="#5E554D" stroke-width="8"/>
+        <rect x="657" y="626" width="28" height="20" fill="#B6A393" stroke="#5E554D"/>
+        <text x="482" y="864" class="eyebrow muted">DETAIL / HAND FINISH</text>
+      </g>
+      <rect x="462.5" y="484.5" width="413" height="403" class="hairline"/>
+      <text x="32" y="916" class="small muted">01</text>
+      <line x1="58" y1="912" x2="828" y2="912" stroke="#E5DFD5"/>
+      <text x="842" y="916" class="small muted">04</text>
+    </g>
+
+    <g id="PDP-Product-Information">
+      <text x="944" y="128" class="eyebrow muted">ATELIER SERIES / 01</text>
+      <text x="944" y="190" class="serif ink" font-size="50">The Draped</text>
+      <text x="944" y="244" class="serif ink" font-size="50">Wool Coat</text>
+      <text x="944" y="286" class="sans ink" font-size="16">$1,280.00</text>
+      <text x="944" y="329" class="body muted">A softly structured coat cut from traceable wool twill.</text>
+      <text x="944" y="351" class="body muted">Finished by hand with a removable sculpted belt.</text>
+      <line x1="944" y1="378" x2="1408" y2="378" stroke="#E5DFD5"/>
+
+      <g id="Variant-Selector-Color">
+        <text x="944" y="409" class="label ink">COLOR</text>
+        <text x="1004" y="409" class="small muted">Umber</text>
+        <g id="Color-Umber-Selected" aria-label="Umber color option, 44 by 44">
+          <rect x="944" y="422" width="44" height="44" rx="2" fill="#FAF8F5" stroke="#1C1917"/>
+          <rect x="953" y="431" width="26" height="26" rx="1" fill="#786C5E"/>
+        </g>
+        <g id="Color-Oat" aria-label="Oat color option, 44 by 44">
+          <rect x="996" y="422" width="44" height="44" rx="2" fill="#FAF8F5" stroke="#E5DFD5"/>
+          <rect x="1005" y="431" width="26" height="26" rx="1" fill="#D5C7B8"/>
+        </g>
+        <g id="Color-Ink" aria-label="Ink color option, 44 by 44">
+          <rect x="1048" y="422" width="44" height="44" rx="2" fill="#FAF8F5" stroke="#E5DFD5"/>
+          <rect x="1057" y="431" width="26" height="26" rx="1" fill="#292724"/>
+        </g>
+      </g>
+
+      <g id="Variant-Selector-Size">
+        <text x="944" y="500" class="label ink">SIZE</text>
+        <g id="Size-Guide-Link" aria-label="Size guide, 96 by 44">
+          <rect x="1312" y="478" width="96" height="44" class="hit"/>
+          <text x="1326" y="501" class="small ink" text-decoration="underline">SIZE GUIDE</text>
+        </g>
+        <g id="Size-XS"><rect x="944" y="520" width="64" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="968" y="548" class="label ink">XS</text></g>
+        <g id="Size-S-Selected"><rect x="1016" y="520" width="64" height="44" rx="2" fill="#1C1917"/><text x="1044" y="548" class="label white">S</text></g>
+        <g id="Size-M"><rect x="1088" y="520" width="64" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="1114" y="548" class="label ink">M</text></g>
+        <g id="Size-L"><rect x="1160" y="520" width="64" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="1187" y="548" class="label ink">L</text></g>
+        <g id="Size-XL"><rect x="1232" y="520" width="64" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="1255" y="548" class="label ink">XL</text></g>
+      </g>
+
+      <g id="Primary-Add-To-Cart" aria-label="Add to bag, 464 by 52">
+        <rect x="944" y="592" width="464" height="52" rx="2" fill="#786C5E"/>
+        <text x="1101" y="624" class="label white">ADD TO BAG</text>
+        <text x="1347" y="624" class="label white">$1,280</text>
+      </g>
+
+      <g id="App-Block-Product-Reviews" aria-label="Simulated Shopify app block">
+        <rect x="944.5" y="668.5" width="463" height="81" class="line"/>
+        <text x="964" y="696" class="eyebrow muted">@APP / PRODUCT REVIEWS</text>
+        <text x="964" y="729" class="sans ink" font-size="17">★★★★★</text>
+        <text x="1060" y="728" class="small ink">4.9 / 32 verified reviews</text>
+        <path d="M1380 704 L1390 714 L1380 724" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <g id="Product-Accordions">
+        <g id="Accordion-Details"><line x1="944" y1="778" x2="1408" y2="778" stroke="#E5DFD5"/><text x="944" y="813" class="label ink">DETAILS &amp; FIT</text><path d="M1382 801 H1394 M1388 795 V807" stroke="#1C1917"/></g>
+        <g id="Accordion-Materials"><line x1="944" y1="834" x2="1408" y2="834" stroke="#E5DFD5"/><text x="944" y="869" class="label ink">MATERIALS &amp; CARE</text><path d="M1382 857 H1394 M1388 851 V863" stroke="#1C1917"/></g>
+        <g id="Accordion-Delivery"><line x1="944" y1="890" x2="1408" y2="890" stroke="#E5DFD5"/><text x="944" y="925" class="label ink">DELIVERY &amp; RETURNS</text><path d="M1382 913 H1394 M1388 907 V919" stroke="#1C1917"/></g>
+      </g>
+    </g>
+
+    <g id="Sticky-Cart-Bar-Desktop" aria-label="Fixed sticky cart bar at viewport bottom">
+      <rect x="0" y="928" width="1440" height="8" fill="#1C1917" opacity="0.06"/>
+      <rect x="0" y="936" width="1440" height="88" class="paper"/>
+      <line x1="0" y1="936.5" x2="1440" y2="936.5" stroke="#E5DFD5"/>
+      <g id="Sticky-Product-Thumbnail">
+        <rect x="32" y="952" width="56" height="56" class="surface"/>
+        <ellipse cx="60" cy="968" rx="7" ry="8" fill="#B19E8E"/>
+        <path d="M53 975 C44 980 43 994 42 1008 H78 C77 993 75 980 67 975 Z" fill="#786C5E"/>
+      </g>
+      <text x="104" y="977" class="serif ink" font-size="18">The Draped Wool Coat</text>
+      <text x="104" y="1001" class="small muted">Umber / S</text>
+      <text x="1044" y="987" class="sans ink" font-size="15">$1,280.00</text>
+      <g id="Sticky-Add-To-Cart-Desktop" aria-label="Add to bag, 244 by 48">
+        <rect x="1164" y="956" width="244" height="48" rx="2" fill="#786C5E"/>
+        <text x="1238" y="986" class="label white">ADD TO BAG</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="Frame-Couture-Desktop-Lookbook" aria-label="Couture desktop interactive lookbook, 1440 by 1024">
+    <rect x="0" y="1120" width="1440" height="1024" class="paper"/>
+    <g id="Header-Editorial-Lookbook">
+      <rect x="0" y="1120" width="1440" height="72" class="paper"/>
+      <line x1="0" y1="1191.5" x2="1440" y2="1191.5" stroke="#EDE7DE"/>
+      <text x="32" y="1163" class="serif ink" font-size="23">ATELIER</text>
+      <text x="136" y="1163" class="eyebrow muted">FLOW / 01</text>
+      <g id="Nav-Primary-Lookbook" class="label ink">
+        <text x="246" y="1162">NEW</text><text x="322" y="1162">WOMEN</text><text x="414" y="1162">MEN</text><text x="490" y="1162">OBJECTS</text><text x="584" y="1162">JOURNAL</text>
+      </g>
+      <g id="Shopify-Account-Simulated-Lookbook">
+        <rect x="1210" y="1134" width="112" height="44" class="hit"/>
+        <circle cx="1230" cy="1149" r="5.5" fill="none" stroke="#1C1917" stroke-width="1.4"/>
+        <path d="M1221.5 1163 C1223 1156.5 1237 1156.5 1238.5 1163" fill="none" stroke="#1C1917" stroke-width="1.4" stroke-linecap="round"/>
+        <text x="1248" y="1162" class="label ink">ACCOUNT</text>
+      </g>
+      <text x="1340" y="1162" class="label ink">BAG (0)</text>
+    </g>
+
+    <g id="Lookbook-Editorial-Media" clip-path="url(#desktop-lookbook)">
+      <rect x="0" y="1192" width="1440" height="952" fill="#C7BEB4"/>
+      <rect x="0" y="1192" width="372" height="952" fill="#E7E0D7"/>
+      <rect x="372" y="1192" width="1068" height="216" fill="#D9D0C6"/>
+      <rect x="1110" y="1408" width="330" height="736" fill="#A89C8F"/>
+      <rect x="0" y="1902" width="1440" height="242" fill="#B2A699"/>
+      <path d="M372 1408 L1110 1408 L1018 1902 L436 1902 Z" fill="#D1C7BC"/>
+      <path d="M467 1192 L520 1902" stroke="#B6AA9E" stroke-width="2"/>
+      <path d="M1006 1192 L934 1902" stroke="#B6AA9E" stroke-width="2"/>
+      <ellipse cx="662" cy="1490" rx="40" ry="48" fill="#AD9989"/>
+      <path d="M628 1532 C582 1557 555 1630 548 1722 L519 1940 H812 L785 1718 C776 1624 739 1556 699 1532 Z" fill="#403B37"/>
+      <path d="M631 1540 L661 1595 L697 1540 L737 1592 L710 1939 H601 L584 1594 Z" fill="#786C5E"/>
+      <path d="M662 1594 L663 1905" fill="none" stroke="#B7A89A" stroke-width="2"/>
+      <path d="M586 1626 C551 1697 539 1791 536 1870" fill="none" stroke="#8E8174" stroke-width="4"/>
+      <path d="M735 1626 C780 1698 798 1790 801 1870" fill="none" stroke="#8E8174" stroke-width="4"/>
+      <path d="M925 1751 C958 1724 1054 1725 1084 1754 L1118 1855 H895 Z" fill="#665C53"/>
+      <path d="M961 1752 C968 1695 1041 1695 1048 1752" fill="none" stroke="#665C53" stroke-width="10"/>
+      <rect x="989" y="1774" width="28" height="22" fill="#B7A18F"/>
+    </g>
+
+    <g id="Lookbook-Editorial-Copy">
+      <text x="64" y="1278" class="eyebrow ink">COUTURE STUDY / AUTUMN 01</text>
+      <text x="64" y="1348" class="serif ink" font-size="60">Studies in</text>
+      <text x="64" y="1410" class="serif ink" font-size="60">Movement</text>
+      <text x="64" y="1452" class="body ink">Soft structure, precise lines, objects made to move.</text>
+    </g>
+
+    <g id="Hotspot-01-Active" aria-label="Active lookbook hotspot, 48 by 48">
+      <circle cx="744" cy="1668" r="24" fill="#FAF8F5" fill-opacity="0.32" stroke="#FAF8F5" stroke-opacity="0.7"/>
+      <circle cx="744" cy="1668" r="15" fill="#FAF8F5" fill-opacity="0.55"/>
+      <circle cx="744" cy="1668" r="6" fill="#786C5E" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+    <g id="Hotspot-02-Idle" aria-label="Idle lookbook hotspot, 48 by 48">
+      <circle cx="1006" cy="1810" r="24" fill="#FAF8F5" fill-opacity="0.25" stroke="#FAF8F5" stroke-opacity="0.65"/>
+      <circle cx="1006" cy="1810" r="6" fill="#1C1917" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+
+    <g id="Lookbook-Product-Popover-Active">
+      <rect x="816" y="1480" width="320" height="202" fill="#1C1917" opacity="0.08"/>
+      <rect x="808" y="1472" width="320" height="202" rx="2" class="paper"/>
+      <rect x="824" y="1488" width="112" height="170" class="surface"/>
+      <ellipse cx="880" cy="1535" rx="15" ry="18" fill="#B19E8E"/>
+      <path d="M866 1550 C847 1561 844 1600 842 1658 H919 C916 1598 910 1561 894 1550 Z" fill="#786C5E"/>
+      <text x="956" y="1512" class="eyebrow muted">LOOK 01</text>
+      <text x="956" y="1552" class="serif ink" font-size="21">Draped</text>
+      <text x="956" y="1578" class="serif ink" font-size="21">Wool Coat</text>
+      <text x="956" y="1612" class="small muted">Umber</text>
+      <text x="956" y="1642" class="sans ink" font-size="14">$1,280.00</text>
+      <g id="Lookbook-Card-Link" aria-label="Open product, 44 by 44">
+        <rect x="1068" y="1614" width="44" height="44" class="hit"/>
+        <path d="M1080 1636 H1099 M1093 1630 L1099 1636 L1093 1642" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <path d="M808 1575 L773 1650" fill="none" stroke="#FAF8F5" stroke-width="1"/>
+    </g>
+
+    <g id="Lookbook-Bottom-Caption">
+      <rect x="0" y="2056" width="1440" height="88" fill="#FAF8F5" fill-opacity="0.96"/>
+      <line x1="0" y1="2056.5" x2="1440" y2="2056.5" stroke="#E5DFD5"/>
+      <text x="32" y="2091" class="eyebrow muted">EDITORIAL 01</text>
+      <text x="32" y="2117" class="small ink">A study of drape, balance and hand-finished form.</text>
+      <g id="Shop-The-Edit-Link" aria-label="Shop the edit, 176 by 44">
+        <rect x="1232" y="2078" width="176" height="44" class="hit"/>
+        <text x="1244" y="2107" class="label ink">SHOP THE EDIT</text>
+        <path d="M1380 2100 H1394 M1388 2094 L1394 2100 L1388 2106" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -43,3 +43,12 @@ Registro de decisiones importantes del tema.
 - Se mantiene `sticky-cart-bar` diferido para Phase 3.
 - Se autoriza el commit y sincronización con `origin/master`.
 - Próxima etapa: Phase 3 (Diseño visual en Figma, presets y componentes editoriales).
+
+## 2026-09-11: Aceptación de Phase 3A (Sistema de Diseño Visual & Blueprints en Figma)
+
+- Gemini audita y aprueba la entrega `GPT-3A-001` (`agent-comms/reviews/GEMINI-review-GPT-3A-001.md`).
+- Se validan los 3 archivos de blueprints SVG en `docs/figma/` (`couture-desktop-1440.svg`, `couture-mobile-390.svg`, `preset-header-product-card-variants.svg`).
+- Los componentes visuales cumplen WCAG 2.2 AA (contrastes > 5:1, tap targets >= 44px) e incorporan Header hairline, PDP editorial, Sticky Cart Bar y Lookbook interactivo con hotspots.
+- Se aprueban las especificaciones de los presets Couture, Studio y Archive.
+- Próxima etapa: Importación en Figma por el usuario y redacción de la directiva `GPT-3B-001` para codificar los componentes en Liquid, CSS y JS.
+

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="1764" viewBox="0 0 390 1764" role="img" aria-labelledby="title desc">
+  <title id="title">Atelier Flow Couture mobile blueprint</title>
+  <desc id="desc">Two 390 pixel mobile frames showing a product page with a fixed cart bar and an interactive editorial lookbook.</desc>
+  <defs>
+    <style>
+      .serif { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 400; }
+      .sans { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-weight: 400; }
+      .ink { fill: #1C1917; }
+      .muted { fill: #605A53; }
+      .paper { fill: #FAF8F5; }
+      .surface { fill: #F3EFEA; }
+      .white { fill: #FFFFFF; }
+      .eyebrow { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 1.2px; }
+      .label { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 11px; font-weight: 500; }
+      .body { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 13px; font-weight: 400; }
+      .small { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 11px; font-weight: 400; }
+      .hit { fill: #FFFFFF; fill-opacity: 0; }
+    </style>
+    <clipPath id="mobile-pdp-image"><rect x="16" y="80" width="358" height="378" rx="0"/></clipPath>
+    <clipPath id="mobile-lookbook-image"><rect x="0" y="984" width="390" height="780"/></clipPath>
+  </defs>
+
+  <rect id="Canvas-Background" width="390" height="1764" fill="#EDE7DE"/>
+
+  <g id="Frame-Couture-Mobile-PDP" aria-label="Couture mobile product page, 390 by 844">
+    <rect width="390" height="844" class="paper"/>
+    <g id="Header-Editorial-Mobile-PDP">
+      <rect width="390" height="64" class="paper"/>
+      <line x1="0" y1="63.5" x2="390" y2="63.5" stroke="#EDE7DE"/>
+      <g id="Menu-Button-Mobile-PDP" aria-label="Open navigation, 44 by 44">
+        <rect x="10" y="10" width="44" height="44" class="hit"/>
+        <path d="M20 27 H42 M20 36 H42" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <text x="195" y="39" text-anchor="middle" class="serif ink" font-size="20">ATELIER</text>
+      <g id="Shopify-Account-Simulated-Mobile-PDP" aria-label="Shopify account, 44 by 44">
+        <rect x="282" y="10" width="44" height="44" class="hit"/>
+        <circle cx="304" cy="26" r="5.5" fill="none" stroke="#1C1917" stroke-width="1.4"/>
+        <path d="M295.5 41 C297 34.5 311 34.5 312.5 41" fill="none" stroke="#1C1917" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      <g id="Cart-Button-Mobile-PDP" aria-label="Cart, 44 by 44">
+        <rect x="336" y="10" width="44" height="44" class="hit"/>
+        <path d="M350 27 H366 L365 42 H351 Z" fill="none" stroke="#1C1917" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M354 27 C354 21 362 21 362 27" fill="none" stroke="#1C1917" stroke-width="1.4"/>
+      </g>
+    </g>
+
+    <g id="PDP-Gallery-Mobile" clip-path="url(#mobile-pdp-image)">
+      <rect x="16" y="80" width="358" height="378" class="surface"/>
+      <rect x="16" y="80" width="108" height="378" fill="#E9E2D8"/>
+      <rect x="124" y="80" width="250" height="378" fill="#D9CEC1"/>
+      <ellipse cx="240" cy="142" rx="26" ry="31" fill="#B19E8E"/>
+      <path d="M224 169 C194 181 174 214 170 260 L157 458 H325 L311 260 C307 213 282 180 257 169 Z" fill="#625950"/>
+      <path d="M222 178 L240 213 L258 178 L282 205 L269 458 H211 L195 205 Z" fill="#786C5E"/>
+      <path d="M240 213 L240 440" fill="none" stroke="#B3A69B"/>
+      <path d="M196 236 C177 287 169 354 166 421 M283 236 C305 287 313 354 316 421" fill="none" stroke="#A99C8F" stroke-width="2"/>
+    </g>
+    <rect x="16.5" y="80.5" width="357" height="377" fill="none" stroke="#EDE7DE"/>
+    <g id="Gallery-Counter-Mobile">
+      <rect x="314" y="94" width="44" height="28" rx="2" fill="#FAF8F5" fill-opacity="0.9"/>
+      <text x="336" y="113" text-anchor="middle" class="small ink">1 / 4</text>
+    </g>
+    <g id="Gallery-Pagination-Mobile">
+      <line x1="16" y1="472" x2="374" y2="472" stroke="#E5DFD5"/>
+      <line x1="16" y1="472" x2="105" y2="472" stroke="#1C1917" stroke-width="2"/>
+    </g>
+
+    <g id="PDP-Product-Information-Mobile">
+      <text x="16" y="505" class="eyebrow muted">ATELIER SERIES / 01</text>
+      <text x="16" y="543" class="serif ink" font-size="31">The Draped Wool Coat</text>
+      <text x="16" y="576" class="sans ink" font-size="14">$1,280.00</text>
+      <g id="Variant-Selector-Mobile">
+        <text x="16" y="614" class="label ink">SIZE</text>
+        <g id="Mobile-Size-Guide" aria-label="Size guide, 88 by 44">
+          <rect x="286" y="590" width="88" height="44" class="hit"/>
+          <text x="301" y="614" class="small ink" text-decoration="underline">SIZE GUIDE</text>
+        </g>
+        <g id="Mobile-Size-XS"><rect x="16" y="630" width="48" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="32" y="658" class="label ink">XS</text></g>
+        <g id="Mobile-Size-S-Selected"><rect x="72" y="630" width="48" height="44" rx="2" fill="#1C1917"/><text x="94" y="658" class="label white">S</text></g>
+        <g id="Mobile-Size-M"><rect x="128" y="630" width="48" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="147" y="658" class="label ink">M</text></g>
+        <g id="Mobile-Size-L"><rect x="184" y="630" width="48" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="204" y="658" class="label ink">L</text></g>
+        <g id="Mobile-Size-XL"><rect x="240" y="630" width="48" height="44" rx="2" class="paper" stroke="#E5DFD5"/><text x="256" y="658" class="label ink">XL</text></g>
+      </g>
+
+      <g id="App-Block-Product-Reviews-Mobile" aria-label="Simulated Shopify app block">
+        <rect x="16.5" y="692.5" width="357" height="51" fill="none" stroke="#E5DFD5"/>
+        <text x="32" y="714" class="eyebrow muted">@APP / REVIEWS</text>
+        <text x="32" y="734" class="small ink">★★★★★  4.9 / 32 verified</text>
+        <path d="M348 711 L356 719 L348 727" fill="none" stroke="#1C1917" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+
+    <g id="Sticky-Cart-Bar-Mobile" aria-label="Fixed sticky cart bar at mobile viewport bottom">
+      <rect x="0" y="752" width="390" height="8" fill="#1C1917" opacity="0.07"/>
+      <rect x="0" y="760" width="390" height="84" class="paper"/>
+      <line x1="0" y1="760.5" x2="390" y2="760.5" stroke="#E5DFD5"/>
+      <rect x="16" y="774" width="56" height="56" class="surface"/>
+      <ellipse cx="44" cy="789" rx="7" ry="8" fill="#B19E8E"/>
+      <path d="M37 796 C28 801 27 816 26 830 H62 C61 815 59 801 51 796 Z" fill="#786C5E"/>
+      <text x="84" y="798" class="serif ink" font-size="14">Draped Wool Coat</text>
+      <text x="84" y="820" class="small muted">$1,280 / S</text>
+      <g id="Sticky-Add-To-Cart-Mobile" aria-label="Add to bag, 104 by 52">
+        <rect x="270" y="776" width="104" height="52" rx="2" fill="#786C5E"/>
+        <text x="322" y="807" text-anchor="middle" class="label white">ADD</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="Frame-Couture-Mobile-Lookbook" aria-label="Couture mobile interactive lookbook, 390 by 844">
+    <rect x="0" y="920" width="390" height="844" class="paper"/>
+    <g id="Header-Editorial-Mobile-Lookbook">
+      <rect x="0" y="920" width="390" height="64" class="paper"/>
+      <line x1="0" y1="983.5" x2="390" y2="983.5" stroke="#EDE7DE"/>
+      <g id="Menu-Button-Mobile-Lookbook"><rect x="10" y="930" width="44" height="44" class="hit"/><path d="M20 947 H42 M20 956 H42" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round"/></g>
+      <text x="195" y="959" text-anchor="middle" class="serif ink" font-size="20">ATELIER</text>
+      <g id="Shopify-Account-Simulated-Mobile-Lookbook"><rect x="282" y="930" width="44" height="44" class="hit"/><circle cx="304" cy="946" r="5.5" fill="none" stroke="#1C1917" stroke-width="1.4"/><path d="M295.5 961 C297 954.5 311 954.5 312.5 961" fill="none" stroke="#1C1917" stroke-width="1.4" stroke-linecap="round"/></g>
+      <g id="Cart-Button-Mobile-Lookbook"><rect x="336" y="930" width="44" height="44" class="hit"/><path d="M350 947 H366 L365 962 H351 Z" fill="none" stroke="#1C1917" stroke-width="1.4" stroke-linejoin="round"/><path d="M354 947 C354 941 362 941 362 947" fill="none" stroke="#1C1917" stroke-width="1.4"/></g>
+    </g>
+
+    <g id="Lookbook-Editorial-Media-Mobile" clip-path="url(#mobile-lookbook-image)">
+      <rect x="0" y="984" width="390" height="780" fill="#C7BEB4"/>
+      <rect x="0" y="984" width="104" height="780" fill="#E7E0D7"/>
+      <rect x="104" y="984" width="286" height="164" fill="#D9D0C6"/>
+      <rect x="310" y="1148" width="80" height="616" fill="#A89C8F"/>
+      <rect x="0" y="1594" width="390" height="170" fill="#B2A699"/>
+      <path d="M104 1148 H310 L286 1594 H126 Z" fill="#D1C7BC"/>
+      <path d="M128 984 L151 1594 M286 984 L266 1594" fill="none" stroke="#B6AA9E"/>
+      <ellipse cx="192" cy="1214" rx="25" ry="30" fill="#AD9989"/>
+      <path d="M172 1242 C144 1257 131 1312 128 1382 L116 1612 H278 L266 1380 C261 1310 235 1256 214 1242 Z" fill="#403B37"/>
+      <path d="M172 1248 L192 1288 L214 1248 L238 1284 L222 1612 H157 L145 1284 Z" fill="#786C5E"/>
+      <path d="M192 1288 V1580" stroke="#B7A89A" stroke-width="1.5"/>
+      <path d="M145 1307 C129 1360 123 1433 122 1515 M239 1307 C259 1360 267 1433 268 1515" fill="none" stroke="#8E8174" stroke-width="3"/>
+      <path d="M269 1463 C281 1451 318 1451 330 1464 L344 1513 H256 Z" fill="#665C53"/>
+      <path d="M282 1463 C286 1436 316 1436 320 1463" fill="none" stroke="#665C53" stroke-width="6"/>
+    </g>
+
+    <g id="Lookbook-Copy-Mobile">
+      <text x="24" y="1022" class="eyebrow ink">COUTURE STUDY / 01</text>
+      <text x="24" y="1066" class="serif ink" font-size="35">Studies in</text>
+      <text x="24" y="1104" class="serif ink" font-size="35">Movement</text>
+    </g>
+
+    <g id="Hotspot-Mobile-01-Active" aria-label="Active lookbook hotspot, 48 by 48">
+      <circle cx="230" cy="1344" r="24" fill="#FAF8F5" fill-opacity="0.32" stroke="#FAF8F5" stroke-opacity="0.75"/>
+      <circle cx="230" cy="1344" r="14" fill="#FAF8F5" fill-opacity="0.55"/>
+      <circle cx="230" cy="1344" r="6" fill="#786C5E" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+    <g id="Hotspot-Mobile-02-Idle" aria-label="Idle lookbook hotspot, 48 by 48">
+      <circle cx="300" cy="1484" r="24" fill="#FAF8F5" fill-opacity="0.25" stroke="#FAF8F5" stroke-opacity="0.65"/>
+      <circle cx="300" cy="1484" r="6" fill="#1C1917" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+
+    <g id="Lookbook-Product-Popover-Mobile">
+      <rect x="128" y="1390" width="246" height="174" fill="#1C1917" opacity="0.08"/>
+      <rect x="122" y="1384" width="252" height="174" rx="2" class="paper"/>
+      <rect x="136" y="1398" width="86" height="146" class="surface"/>
+      <ellipse cx="179" cy="1438" rx="11" ry="14" fill="#B19E8E"/>
+      <path d="M169 1450 C156 1459 154 1491 153 1544 H205 C203 1490 200 1459 189 1450 Z" fill="#786C5E"/>
+      <text x="238" y="1418" class="eyebrow muted">LOOK 01</text>
+      <text x="238" y="1450" class="serif ink" font-size="17">Draped</text>
+      <text x="238" y="1471" class="serif ink" font-size="17">Wool Coat</text>
+      <text x="238" y="1498" class="small muted">Umber</text>
+      <text x="238" y="1525" class="small ink">$1,280.00</text>
+      <g id="Lookbook-Card-Link-Mobile" aria-label="Open product, 44 by 44">
+        <rect x="316" y="1500" width="44" height="44" class="hit"/>
+        <path d="M326 1522 H346 M340 1516 L346 1522 L340 1528" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <path d="M122 1414 L242 1364" fill="none" stroke="#FAF8F5"/>
+    </g>
+
+    <g id="Lookbook-Bottom-Caption-Mobile">
+      <rect x="0" y="1660" width="390" height="104" fill="#FAF8F5" fill-opacity="0.96"/>
+      <line x1="0" y1="1660.5" x2="390" y2="1660.5" stroke="#E5DFD5"/>
+      <text x="16" y="1687" class="eyebrow muted">EDITORIAL 01</text>
+      <text x="16" y="1712" class="small ink">Drape, balance and hand-finished form.</text>
+      <g id="Shop-The-Edit-Link-Mobile" aria-label="Shop the edit, 154 by 44">
+        <rect x="220" y="1694" width="154" height="44" class="hit"/>
+        <text x="232" y="1721" class="label ink">SHOP THE EDIT</text>
+        <path d="M348 1715 H362 M356 1709 L362 1715 L356 1721" fill="none" stroke="#1C1917" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+  </g>
+</svg>
