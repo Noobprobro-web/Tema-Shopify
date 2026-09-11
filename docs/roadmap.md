@@ -4,99 +4,78 @@
 
 Status: done
 
-- Git local inicializado.
-- Repositorio remoto privado creado en GitHub.
-- Dependencias npm base instaladas.
-- Documentacion inicial creada.
-- Prompt base para Gemini preparado.
+- Git local inicializado y remoto configurado.
+- Documentacion de coordinacion creada.
+- Flujo multiagente y reglas de eficiencia definidos.
+
+Owner operativo: Gemini coordina; el usuario conserva la autoridad final.
 
 ## Phase 1: Concept and Validation
 
-Status: in progress
+Status: done
 
-Deliverables:
+Deliverables completados:
 
 - Strategy brief.
-- Competitive research.
-- Shopify acceptance risk matrix.
-- MVP template/section matrix.
-- Initial design system direction.
+- Benchmark competitivo etico.
+- Matriz de riesgos de Shopify Theme Store.
+- Alcance MVP y direccion de presets.
+- Concepto interno `Atelier Flow`.
 
-Owner:
-
-- Codex: strategy and final direction.
-- Gemini: research, comparison and risk validation.
-
-Exit criteria:
-
-- Elegir concepto principal.
-- Definir merchant target.
-- Definir presets MVP.
-- Definir templates y sections MVP.
-- Confirmar riesgos principales de Shopify Theme Store.
+Owner: Gemini mantiene el contexto y valida riesgos; el usuario aprueba direccion de producto.
 
 ## Phase 2: Theme Architecture
 
-Status: pending
+Status: in progress
 
-Deliverables:
+### Phase 2A: Theme Skeleton
 
-- Theme folder structure.
-- Liquid architecture notes.
-- JSON template list.
-- Section/block conventions.
-- Asset and script strategy.
+Status: done and approved
 
-Owner:
+- Estructura base Liquid/JSON/CSS/JS.
+- Layout, settings, locales, section groups, header y footer.
+- 12 templates JSON validos y `gift_card.liquid`.
+- ThemeCore y fundamentos de accesibilidad/reduced motion.
 
-- Codex.
+### Phase 2B: Commerce Foundation
 
-Exit criteria:
+Status: ready with changes, not started
 
-- Base theme skeleton created.
-- Theme Check can run under a compatible Node environment.
-- Initial homepage, product and collection templates planned.
+Antes de implementar, Gemini debe convertir `GEMINI-003` en una tarea cerrada para GPT-5.6 Sol Max y obtener autorizacion del usuario sobre el alcance.
+
+Owner: Gemini coordina y revisa; GPT-5.6 Sol Max implementa.
+
+Scope candidato:
+
+- `main-product.liquid`, `main-collection.liquid`, `main-cart-items.liquid`.
+- Cart drawer global y Section Rendering API.
+- Product card, precio/unit price, imagen responsive e iconos.
+- Variant picker con mejora progresiva.
+- Filtros facetados nativos.
+- Bloques `@app`, traducciones y estados accesibles.
+
+Fuera de alcance: `sticky-cart-bar`, presets funcionalmente distintos y refinamientos editoriales no necesarios para la base commerce.
 
 ## Phase 3: MVP Build
 
 Status: pending
 
-Deliverables:
+- Homepage editorial.
+- Secciones de coleccion y producto refinadas.
+- Presets funcionales.
+- Lookbook y diferenciadores previstos despues de estabilizar la base commerce.
 
-- Layout/theme shell.
-- Header, footer, cart entry points.
-- Homepage sections.
-- Collection grid.
-- Product page.
-- Search and basic pages.
-- Presets.
-
-Owner:
-
-- Codex implementation.
-- Gemini QA support.
-
-Exit criteria:
-
-- Theme runs locally.
-- Core shopping paths are usable.
-- No major responsive/accessibility regressions.
+Owner: Gemini define prioridades; GPT implementa; Claude puede revisar UX/copy.
 
 ## Phase 4: QA and Submission Prep
 
 Status: pending
 
-Deliverables:
+- Theme Check limpio.
+- Lighthouse y performance movil.
+- Auditoria de accesibilidad.
+- Documentacion merchant-facing.
+- Smoke test en tienda Shopify conectada.
+- Paquete de submission.
 
-- Theme Check clean.
-- Lighthouse/performance pass.
-- Accessibility audit.
-- Documentation for merchants.
-- Submission package.
-
-Owner:
-
-- Codex final review.
-- Gemini secondary audit.
-- Claude optional editorial/UX review.
-
+Owner: Gemini coordina la auditoria; GPT resuelve hallazgos tecnicos; Claude revisa la capa editorial cuando aporte valor.

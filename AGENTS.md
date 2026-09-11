@@ -1,6 +1,16 @@
 # Agent Collaboration Guide
 
-Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arquitecto principal. Gemini Flash 3.8 High apoya con investigacion, QA, comparativas y generacion de alternativas. Claude puede apoyar en UX, copy, documentacion y revision critica cuando convenga.
+Este proyecto usa multiples agentes de IA. Desde el handoff de `GEMINI-003`, Gemini Flash 3.8 High es el cerebro del proyecto: coordina, decide la arquitectura tecnica, mantiene el scope, prioriza riesgos y valida las entregas. GPT/Codex y Claude son fuerzas de ejecucion especializadas bajo sus directrices. El usuario conserva la autoridad final sobre prioridades, nombre, direccion comercial y cambios de alcance.
+
+## Autoridad vigente
+
+1. **Usuario:** prioridades de negocio, aprobaciones grandes y cambios de alcance.
+2. **Gemini Flash 3.8 High:** cerebro/orquestador; define arquitectura, criterios de aceptacion, orden de trabajo, delegacion y decision tecnica operativa.
+3. **GPT-5.6 Sol Max:** implementacion principal de Liquid, JSON, CSS, JS, schemas y correcciones tecnicas complejas siguiendo el encargo de Gemini.
+4. **GPT-5.5 low:** coordinacion ligera, prompts, documentacion, commits, QA simple y tareas pequenas asignadas por Gemini.
+5. **Claude:** revision editorial/UX y, solo si Gemini lo asigna, apoyo de implementacion o auditoria especializada.
+
+Si un agente ejecutor aparece como Codex, actua como implementador/revisor operativo y no sustituye la autoridad vigente de Gemini. Las decisiones que afecten producto o alcance mas alla de lo aprobado vuelven al usuario.
 
 ## Reglas de colaboracion
 
@@ -9,54 +19,58 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - Mantener cambios pequenos, explicables y faciles de revisar.
 - Usar requisitos oficiales de Shopify como fuente de verdad.
 - Priorizar performance, accesibilidad y originalidad.
-- Evitar dependencias externas salvo que aporten valor claro.
+- Evitar dependencias externas salvo que aporten valor claro y Gemini apruebe su uso.
 - No minificar archivos fuente propios.
 - No introducir SCSS/Sass.
-- Documentar decisiones importantes en `docs/decisions.md`.
+- Documentar decisiones importantes en `docs/decisions.md` o `agent-comms/reviews/`.
 - Usar `agent-comms/` para comunicacion formal entre agentes.
 - Leer y seguir `agent-comms/token-efficiency-rules.md` para ahorrar tokens sin degradar calidad.
+- No iniciar Phase 2B por inferencia: requiere directiva de Gemini y autorizacion de alcance del usuario.
 
 ## Tareas ideales para Gemini
 
-- Investigacion competitiva.
-- Matrices de requisitos de Shopify.
-- Comparacion de temas existentes.
-- Ideas de presets y nichos.
-- Auditoria responsive/accessibility/performance.
-- Revision de copy y settings.
-- Exploracion de edge cases.
+- Mantener el contexto maestro y el estado vivo.
+- Revisar informes de investigacion, QA y producto.
+- Definir arquitectura final de Liquid, JSON, sections, snippets, assets y componentes.
+- Convertir recomendaciones en prompts cerrados para GPT/Claude.
+- Priorizar requisitos Shopify, riesgos de Theme Store, performance y accesibilidad.
+- Resolver conflictos entre propuestas y documentar decisiones.
+- Revisar diffs y evidencia de validacion antes de aceptar una entrega.
+- Decidir cuando escalar a otro modelo o pedir una revision editorial.
+
+## Tareas de GPT/Codex
+
+- Implementar exactamente el alcance escrito por Gemini.
+- Revisar `git status` y los archivos referenciados antes de editar.
+- Ejecutar Theme Check, parseos, checks de sintaxis y QA proporcional.
+- Mantener cambios pequenos, originales y sin dependencias nuevas.
+- Reportar archivos tocados, comandos, resultados, riesgos y bloqueos en `agent-comms/outbox-gpt/`.
+- No cambiar arquitectura, scope o decisiones aprobadas sin devolver una propuesta a Gemini.
+- Crear commit/push solo cuando la directiva de Gemini lo incluya y la validacion pase.
 
 ## Tareas ideales para Claude
 
-- Revision editorial de documentacion.
+- Revision editorial de documentacion merchant-facing.
 - Revision de copy, labels, empty states y mensajes de error.
 - Segunda opinion UX/producto.
-- Auditorias de claridad en documentos largos.
-- Evaluar si el tema mantiene tono premium sin perder conversion.
-
-## Tareas reservadas para Codex
-
-- Arquitectura final del tema.
-- Implementacion principal.
-- Revision de Liquid, JSON templates, snippets y assets.
-- Integracion con Shopify CLI y Theme Check.
-- Decisiones finales de performance y accesibilidad.
-- Preparacion del paquete final.
+- Auditoria de claridad, tono premium y conversion.
+- Auditorias tecnicas puntuales solo cuando Gemini las asigne con criterios concretos.
 
 ## Protocolo de comunicacion
 
-- Codex delega tareas a Gemini en `agent-comms/inbox-gemini/`.
-- Gemini entrega resultados en `agent-comms/outbox-gemini/`.
-- Codex revisa entregas en `agent-comms/reviews/`.
-- El estado vivo esta en `agent-comms/status.md`.
-- Las reglas de ahorro de tokens estan en `agent-comms/token-efficiency-rules.md`.
-- Cada tarea y entrega debe mantener el mismo ID, por ejemplo `GEMINI-002`.
+- El punto de entrada vigente para Gemini es `agent-comms/GEMINI-LEAD-HANDOFF.md`.
+- Gemini puede recibir tareas en `agent-comms/inbox-gemini/` y dejar decisiones o sintesis en `agent-comms/outbox-gemini/`.
+- Gemini delega implementacion a GPT en `agent-comms/inbox-gpt/`; GPT entrega resultados en `agent-comms/outbox-gpt/`.
+- Gemini puede delegar revisiones a Claude en `agent-comms/inbox-claude/`; Claude entrega en `agent-comms/outbox-claude/`.
+- Las revisiones y aceptaciones quedan en `agent-comms/reviews/`.
+- El estado vivo esta en `agent-comms/status.md` y las decisiones estables en `docs/decisions.md`.
+- Cada tarea y entrega mantiene un ID estable (`GEMINI-003`, `GPT-2B-001`, `CLAUDE-2B-001`, etc.).
+- Si un agente no puede escribir en una carpeta de comunicacion, entrega el texto al usuario sin inventar que el archivo fue creado.
 
 ## Modelo y escalamiento
 
-- GPT 5.5 low puede usarse para coordinacion, documentacion, prompts, commits, tareas pequenas y revisiones simples.
-- Usar un modelo superior de OpenAI cuando una decision pueda afectar muchas partes del tema o generar deuda tecnica dificil de corregir.
-- Escalar antes de definir arquitectura Liquid/JSON/sections/snippets/assets, sistema de diseno final, performance strategy, accesibilidad compleja o revision previa a submission.
-- Abrir otro chat dentro del mismo proyecto para auditorias grandes, revisiones especializadas o trabajo separable que convenga mantener fuera del centro de mando.
-- Gemini debe marcar en sus entregas si considera que una decision requiere revision de modelo superior antes de implementarse.
-- Claude puede usarse como revisor editorial/UX o segunda opinion cuando aporte criterio distinto sin duplicar trabajo.
+- Gemini Flash 3.8 High toma las decisiones de arquitectura y coordina las fases.
+- GPT-5.6 Sol Max se reserva para implementacion transversal, Liquid/CSS/JS no trivial, schemas y bugs complejos.
+- GPT-5.5 low se usa para trabajo corto, documentacion, prompts, commits y QA simple.
+- Claude se usa para claridad editorial, UX y segunda opinion cuando aporte una mirada distinta.
+- Gemini debe marcar `ESCALATE_MODEL_RECOMMENDED` cuando exista riesgo transversal, ambiguedad de Shopify, posible rechazo en Theme Store o conflicto no resoluble con la evidencia disponible.

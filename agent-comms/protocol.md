@@ -1,91 +1,107 @@
 # Agent Communication Protocol
 
-## Roles
+## Autoridad vigente
 
-Codex:
+1. **Usuario:** autoridad final sobre prioridades de negocio, nombre, direccion visual y cambios de alcance.
+2. **Gemini Flash 3.8 High:** cerebro y coordinador principal. Define arquitectura operativa, scope, criterios de aceptacion, delegacion y orden de trabajo.
+3. **GPT-5.6 Sol Max:** implementacion tecnica principal bajo una directiva escrita de Gemini.
+4. **GPT-5.5 low:** tareas mecanicas, documentacion, prompts, QA simple y mantenimiento ligero asignado por Gemini.
+5. **Claude:** revision editorial, UX, copy y documentacion cuando Gemini lo solicite con una pregunta concreta.
 
-- Lider tecnico y arquitecto principal.
-- Define tareas, criterios de aceptacion y decisiones finales.
-- Revisa entregas de Gemini antes de que entren al plan oficial.
-- Implementa o aprueba la implementacion.
+Codex en este chat funciona como ejecutor o revisor cuando el usuario le trae una tarea. No sustituye a Gemini como cerebro salvo que el usuario cambie expresamente la autoridad.
 
-Gemini:
+## Responsabilidad de Gemini
 
-- Agente de investigacion, QA, comparacion y propuestas.
-- Completa tareas delegadas sin cambiar la arquitectura final por su cuenta.
-- Entrega hallazgos claros, verificables y accionables.
+Gemini debe mantener el contexto maestro y el estado real del proyecto. Es responsable de:
 
-Claude:
+- Convertir prioridades del usuario en tareas acotadas.
+- Definir arquitectura, alcance y criterios de aceptacion.
+- Elegir el modelo adecuado para cada tarea.
+- Delegar implementacion a GPT y revisiones especializadas a Claude.
+- Revisar entregas, diffs, validaciones y riesgos.
+- Aceptar, rechazar, pedir cambios o escalar.
+- Actualizar el estado y registrar decisiones estables.
 
-- Agente opcional para revision editorial, UX, documentacion y segunda opinion.
-- Se usa cuando aporte una mirada distinta, no para duplicar tareas de Gemini o Codex.
-- Debe producir feedback priorizado y accionable.
+Gemini no debe implementar Phase 2B por inferencia. Debe recibir autorizacion del usuario sobre el alcance y crear una tarea explicita para GPT.
 
-Usuario:
+## Flujo operativo
 
-- Lleva mensajes entre agentes cuando sea necesario.
-- Decide prioridades de producto junto con Codex.
-- Aprueba direccion visual, nombre y decisiones comerciales grandes.
+1. Gemini lee `AGENTS.md`, `agent-comms/GEMINI-LEAD-HANDOFF.md`, `agent-comms/status.md` y solo los archivos relevantes.
+2. Gemini clasifica la necesidad: decision, investigacion, implementacion GPT, revision Claude, QA o pregunta al usuario.
+3. Gemini crea una tarea con ID estable en `agent-comms/inbox-gpt/` o `agent-comms/inbox-claude/`.
+4. El ejecutor lee la tarea y los archivos permitidos, y no amplia el alcance por su cuenta.
+5. El ejecutor deja evidencia en `agent-comms/outbox-gpt/` o `agent-comms/outbox-claude/` con el mismo ID.
+6. Gemini revisa diff, validaciones y riesgos. Puede pedir cambios antes de aceptar.
+7. Gemini actualiza `agent-comms/status.md` y `docs/decisions.md` solo cuando el estado o la decision cambien.
+8. Commit y push se realizan solo cuando la tarea o Gemini lo indique y las validaciones pasen.
 
-## Flujo
+## Estructura de comunicacion
 
-1. Codex crea una tarea en `agent-comms/inbox-gemini/`.
-2. El usuario le dice a Gemini que revise su inbox.
-3. Gemini crea una entrega en `agent-comms/outbox-gemini/` usando el mismo ID.
-4. El usuario le dice a Codex que Gemini termino.
-5. Codex revisa la entrega y crea una nota en `agent-comms/reviews/`.
-6. Si se acepta, Codex actualiza docs oficiales como `docs/decisions.md`, `docs/roadmap.md` o documentos de arquitectura.
+- `agent-comms/GEMINI-LEAD-HANDOFF.md`: contexto maestro y contrato de liderazgo.
+- `agent-comms/inbox-gemini/`: tareas historicas o solicitudes de revision para Gemini.
+- `agent-comms/outbox-gemini/`: informes y decisiones de Gemini.
+- `agent-comms/inbox-gpt/`: tareas de implementacion para GPT/Codex.
+- `agent-comms/outbox-gpt/`: resultados y evidencia de GPT/Codex.
+- `agent-comms/inbox-claude/`: tareas editoriales o UX para Claude.
+- `agent-comms/outbox-claude/`: resultados de Claude.
+- `agent-comms/reviews/`: revisiones, aceptaciones y cambios solicitados.
+- `agent-comms/status.md`: estado corto y actual.
+- `docs/decisions.md`: decisiones estables del proyecto.
 
-## Formato de Tarea
+## Formato de tarea
 
-Cada tarea debe incluir:
+Toda tarea debe incluir:
 
-- ID.
-- Objetivo.
-- Contexto.
-- Archivos a leer.
-- Entregable esperado.
-- Criterios de aceptacion.
-- Reglas y limites.
+```text
+ID:
+Owner:
+Modelo:
+Estado:
+Decision requerida:
+Objetivo:
+Contexto minimo:
+Archivos permitidos:
+Archivos excluidos:
+Criterios de aceptacion:
+Validaciones obligatorias:
+Entregable y ruta:
+Reglas de escalamiento:
+```
 
-## Formato de Entrega
+## Formato de entrega
 
-Cada entrega de Gemini debe incluir:
+Toda entrega debe comenzar con:
 
-- ID de tarea.
-- Resumen ejecutivo.
-- Hallazgos.
-- Recomendaciones.
-- Riesgos.
-- Archivos creados o modificados.
-- Preguntas para Codex/usuario.
+```text
+ID:
+Estado:
+Decision requerida:
+Resumen en 5 lineas:
+```
 
-## Reglas
+Despues incluir solo hallazgos, archivos tocados, comandos y resultados, riesgos, preguntas y siguiente accion.
 
-- No editar archivos fuera del alcance de la tarea.
-- No borrar archivos.
-- No cambiar decisiones aprobadas sin proponerlo primero.
-- No introducir dependencias nuevas sin justificar impacto en performance y mantenimiento.
-- No copiar codigo, layout, assets o copy de temas existentes.
-- Citar fuentes para requisitos oficiales o datos que puedan cambiar.
-- Marcar supuestos.
-- Seguir `agent-comms/token-efficiency-rules.md`.
+## Reglas de cambio
 
-## Escalamiento de Modelo
+- Revisar `git status --short --branch` antes de editar.
+- Preservar cambios de otros agentes despues de entenderlos.
+- No modificar archivos fuera del alcance de la tarea.
+- No copiar codigo, layout, assets o copy de otros temas.
+- No introducir dependencias nuevas sin justificacion de peso, performance y mantenimiento.
+- Mantener Liquid, CSS y JS vanilla cuando sea suficiente.
+- No usar Sass/SCSS ni minificar fuentes propias.
+- No afirmar validaciones que no se ejecutaron.
+- No reescribir historia Git ni hacer force-push sin orden explicita del usuario.
 
-El usuario tiene acceso a modelos superiores, pero Codex puede operar en GPT 5.5 low para coordinacion y trabajo liviano.
+## Escalamiento
 
-Usar o recomendar un modelo superior cuando:
+Gemini debe escribir `ESCALATE_MODEL_RECOMMENDED` cuando haya una decision transversal, ambiguedad oficial de Shopify, riesgo real de Theme Store, conflicto entre objetivos o deuda tecnica dificil de revertir. Debe explicar el motivo en un maximo de cinco lineas.
 
-- Se define arquitectura base del tema Shopify.
-- Se toman decisiones transversales sobre Liquid, JSON templates, sections, snippets, assets o scripts.
-- Se disena el sistema final de tokens, presets, schemas y patrones reutilizables.
-- Se resuelven errores complejos de Shopify CLI, Theme Check, Liquid, accesibilidad o performance.
-- Se prepara una auditoria completa de Theme Store acceptance.
-- Se hace revision final antes de empaquetar o publicar.
+Gemini debe escribir `CLAUDE_RECOMMENDED` solo cuando una revision concreta de copy, UX, tono, documentacion o segunda opinion aporte valor que no cubra el propio Gemini.
 
-Gemini debe indicar en sus reportes cualquier punto donde recomiende revision por Codex con modelo superior antes de implementar.
+## Fuente de verdad
 
-## Uso Recomendado de Claude
-
-Claude puede usarse cuando convenga revisar documentacion larga, copy de theme settings, tono merchant-facing, claridad UX, posicionamiento premium o coherencia editorial. Codex mantiene la decision tecnica final.
+- Requisitos de Shopify: documentacion oficial actual, con fuente y fecha cuando aplique.
+- Estado del repo: `agent-comms/status.md` y Git.
+- Arquitectura aprobada: `docs/decisions.md` y documentos de arquitectura aceptados.
+- Autoridad de coordinacion: este protocolo y `GEMINI-LEAD-HANDOFF.md`.

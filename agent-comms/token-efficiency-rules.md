@@ -1,114 +1,61 @@
 # Token Efficiency Rules
 
-Reglas obligatorias para ahorrar tokens sin sacrificar calidad tecnica, producto ni aceptacion futura en Shopify Theme Store.
+Objetivo: reducir contexto repetido y trabajo duplicado sin omitir requisitos de Shopify, accesibilidad, performance ni validacion.
 
-## Objetivo
+## Lectura minima
 
-Reducir repeticion, contexto innecesario y trabajo duplicado entre agentes. Cada agente debe leer solo lo necesario, producir entregables accionables y escalar de modelo solo cuando aporte valor real.
+En cada tarea, el agente debe leer solo:
 
-## Lectura Minima Por Agente
+1. `AGENTS.md`.
+2. `agent-comms/GEMINI-LEAD-HANDOFF.md` si coordina o necesita contexto maestro.
+3. `agent-comms/status.md`.
+4. `agent-comms/protocol.md`.
+5. Su tarea activa.
+6. Los archivos que la tarea enumere.
 
-Antes de trabajar, cualquier agente debe leer:
+No leer el repo completo por defecto. No pegar contenido de archivos ya conocidos; citar rutas y lineas o nombres de seccion cuando baste.
 
-1. `AGENTS.md`
-2. `agent-comms/protocol.md`
-3. `agent-comms/status.md`
-4. Su tarea especifica en `agent-comms/inbox-*` o el archivo que el usuario indique.
+## Jerarquia de modelos
 
-Luego solo debe leer los archivos referenciados por esa tarea.
+### Gemini Flash 3.8 High: cerebro
 
-No leer todo el repo "por si acaso". Si falta contexto, pedir o buscar el archivo especifico.
+Usarlo para coordinacion, arquitectura operativa, priorizacion, criterios de aceptacion, sintesis de informes, conflictos y delegacion. Gemini conserva el contexto maestro y decide el siguiente trabajo.
 
-## Jerarquia de Modelos
+### GPT-5.6 Sol Max: fuerza tecnica
 
-### Nivel 1: Coordinacion Economica
+Usarlo para Liquid/CSS/JS/JSON no trivial, schemas, componentes, integraciones de Shopify, Phase 2B, bugs complejos y validaciones tecnicas de alto impacto bajo una tarea de Gemini.
 
-Usar GPT 5.5 low, Gemini Flash o equivalente para:
+### GPT-5.5 low: trabajo mecanico
 
-- Crear/resumir tareas.
-- Actualizar estado.
-- Redactar prompts.
-- Revisar documentos cortos.
-- Hacer commits/push.
-- Crear checklists.
-- QA exploratorio simple.
-- Investigar referencias y resumir hallazgos.
+Usarlo para prompts, estados, documentos cortos, inventarios, parseos, QA simple y tareas repetitivas con bajo riesgo.
 
-### Nivel 2: Trabajo Tecnico Moderado
+### Claude: especialista editorial/UX
 
-Usar modelo medio/alto cuando:
+Usarlo para copy de settings, labels, empty states, documentacion merchant-facing, tono premium, claridad UX y segunda opinion de producto. No duplicar implementacion ni investigacion.
 
-- Se modifica codigo Liquid/CSS/JS en varias piezas.
-- Se disenan schemas de secciones.
-- Se revisan bugs no triviales.
-- Se integran varias recomendaciones de agentes.
-- Se decide scope de MVP.
+### GPT-6 Astra u otro modelo superior
 
-### Nivel 3: Decision Critica
+No es el modelo por defecto. Gemini debe marcar `ESCALATE_MODEL_RECOMMENDED` solo si hay riesgo transversal, conflicto no resoluble, ambiguedad oficial, posible rechazo de Theme Store o deuda tecnica grande.
 
-Usar modelo superior de OpenAI, preferiblemente en high/xhigh/max, cuando:
+## Regla de delegacion
 
-- Se define arquitectura base del tema.
-- Se crea o cambia estructura de templates/sections/snippets/assets.
-- Se define el sistema final de tokens, presets o patrones reutilizables.
-- Se hace auditoria seria de performance/accesibilidad.
-- Se prepara el paquete o revision final de Theme Store.
-- Hay conflicto entre recomendaciones de agentes.
-- Una decision incorrecta podria generar deuda tecnica grande.
+Un solo agente debe ser responsable de cada entregable. Gemini coordina; GPT implementa; Claude critica o mejora la capa editorial; el usuario decide cambios de producto. No pedir la misma tarea a varios modelos salvo que se trate de una comparacion deliberada.
 
-## Jerarquia de Roles
+## Prompts eficientes
 
-1. Usuario: prioridad de negocio, gusto, aprobaciones grandes.
-2. Codex: arquitecto principal, decision tecnica final e implementacion principal.
-3. Gemini: investigacion, matrices, QA, propuestas y soporte de bajo costo.
-4. Claude u otros modelos: revision editorial, UX, segunda opinion, documentacion merchant-facing o auditorias puntuales.
+Cada tarea debe incluir objetivo, archivos permitidos, archivos excluidos, criterios de aceptacion, validaciones y ruta de entrega. Evitar historia larga, adjetivos, instrucciones repetidas y listas no accionables.
 
-Si hay conflicto, Codex sintetiza y propone una decision al usuario.
+Preferir:
 
-## Cuando Usar Claude
+```text
+Lee A, B y C. Implementa X en D. No toques E. Valida F y entrega el resumen en G.
+```
 
-Claude puede ser recomendable cuando necesitamos una mirada especialmente fuerte en lectura larga, tono, claridad, documentacion o critica UX/editorial. No debe usarse para duplicar trabajo que Codex o Gemini ya hicieron.
+Evitar pegar el contenido de A, B y C dentro del prompt.
 
-Usar Claude para:
+## Entregas compactas
 
-- Revisar documentacion para merchants: claridad, estructura, tono y facilidad de uso.
-- Revisar copy de theme settings, labels, placeholders, mensajes de error y empty states.
-- Evaluar UX desde el punto de vista de usuario/merchant/agencia.
-- Hacer una segunda opinion sobre decisiones de producto o posicionamiento.
-- Detectar incoherencias en documentos largos.
-- Revisar si el tema comunica premium/minimal/editorial sin perder conversion.
-
-No priorizar Claude para:
-
-- Implementacion principal Liquid/CSS/JS.
-- Decisiones finales de arquitectura.
-- Resolucion de bugs tecnicos urgentes.
-- Repetir investigaciones que Gemini ya hizo.
-
-Modelos de Claude mas altos pueden tener sentido para auditorias largas, revision editorial profunda o lectura de muchas especificaciones. Para tareas pequenas de copy o resumen, usar un modelo economico.
-
-## Reglas Para Delegar
-
-Codex debe delegar a Gemini cuando la tarea sea:
-
-- Investigacion extensa.
-- Comparacion de alternativas.
-- Checklist o matriz.
-- Revision de copy/settings.
-- QA de accesibilidad/performance basado en criterios.
-- Deteccion de edge cases.
-
-Codex no debe delegar completamente:
-
-- Arquitectura final.
-- Cambios sensibles de codigo.
-- Decisiones de performance.
-- Decisiones de accesibilidad compleja.
-- Preparacion final para Theme Store.
-
-## Formato Eficiente de Entregas
-
-Toda entrega debe empezar con:
+Toda entrega comienza con:
 
 ```text
 ID:
@@ -117,83 +64,43 @@ Decision requerida:
 Resumen en 5 lineas:
 ```
 
-Luego incluir solo secciones utiles para actuar:
+Limites recomendados:
 
-- Hallazgos.
-- Recomendaciones.
-- Riesgos.
-- Archivos tocados.
-- Siguiente accion propuesta.
+- Resumen ejecutivo: 5 lineas.
+- Recomendaciones: maximo 10 y priorizadas P0/P1/P2.
+- Riesgos: solo los que cambien una decision.
+- Validaciones: comando y resultado, sin logs completos salvo fallo.
+- Código: solo diffs o rutas; no pegar archivos enteros.
 
-Evitar:
+## Memoria compartida
 
-- Repetir todo el contexto del proyecto.
-- Pegar documentos completos ya existentes.
-- Listas largas sin prioridad.
-- Copy motivacional.
-- Explicar obviedades.
+- `status.md` solo contiene estado actual y proximos pasos.
+- `docs/decisions.md` contiene decisiones estables, no conversaciones.
+- `agent-comms/reviews/` contiene aceptaciones o cambios solicitados.
+- `outbox-*` contiene una entrega por ID.
+- Cuando una tarea termina, el agente debe apuntar a los archivos relevantes y no recontar el contexto.
 
-## Reglas de Archivos
+## Escalamiento economico
 
-- Guardar entregas de Gemini en `agent-comms/outbox-gemini/`.
-- Guardar revisiones de Codex en `agent-comms/reviews/`.
-- Actualizar `agent-comms/status.md` solo cuando cambie el estado real.
-- Actualizar `docs/decisions.md` solo con decisiones aprobadas o estables.
-- No duplicar el mismo contenido en muchos archivos.
+Escalar por complejidad, no por costumbre. Antes de pedir Astra o Claude, Gemini debe responder en maximo tres lineas: que decision esta en juego, por que el modelo actual no basta y que artefacto concreto se espera.
 
-## Reglas de Contexto
-
-- Referenciar archivos por ruta en vez de copiar su contenido completo.
-- Resumir documentos largos antes de pedir una decision.
-- Para una tarea nueva, incluir solo:
-  - objetivo,
-  - archivos a leer,
-  - entregable esperado,
-  - criterios de aceptacion.
-- Si una entrega depende de datos externos actuales, citar fuente y fecha.
-
-## Reglas de Git
-
-- Antes de trabajar: `git status --short --branch`.
-- Commit despues de cambios coherentes, no por cada microedicion.
-- Mensajes de commit cortos y claros.
-- Push al terminar una fase o entrega relevante.
-- No reescribir historia sin orden explicita del usuario.
-
-## Reglas de Implementacion
-
-- Cambios pequenos y verificables.
-- Preferir patrones del repo.
-- No introducir dependencias sin justificar:
-  - peso,
-  - impacto performance,
-  - mantenimiento,
-  - alternativa sin dependencia.
-- Priorizar vanilla JS, CSS y Liquid nativo.
-- Evitar abstracciones prematuras.
-- Crear tests/QA proporcional al riesgo.
-
-## Reglas de Shopify Theme Store
+## Calidad no negociable
 
 Ahorrar tokens nunca justifica saltarse:
 
-- Requisitos oficiales.
-- Accesibilidad.
-- Performance.
-- Mobile-first.
-- Originalidad.
-- Theme Check.
-- Documentacion merchant-facing.
+- requisitos oficiales de Shopify,
+- accesibilidad,
+- performance,
+- mobile-first,
+- originalidad,
+- Theme Check,
+- parseo JSON/Liquid,
+- documentacion merchant-facing cuando sea necesaria.
 
-## Cuando Pedir Escalamiento
+## Git
 
-Un agente debe escribir `ESCALATE_MODEL_RECOMMENDED` si detecta:
-
-- Decision arquitectonica transversal.
-- Ambiguedad en requisitos Shopify.
-- Riesgo de rejection en Theme Store.
-- Riesgo de performance o accesibilidad.
-- Cambio que afecte muchos templates/sections.
-- Conflicto entre objetivos: belleza, conversion, performance o personalizacion.
-
-Debe explicar en maximo 5 lineas por que recomienda escalar.
+- Revisar estado antes de editar.
+- Agrupar cambios coherentes en un commit.
+- Usar mensajes cortos y descriptivos.
+- Hacer push al terminar una entrega relevante cuando la conectividad lo permita.
+- No reescribir historia sin orden explicita.

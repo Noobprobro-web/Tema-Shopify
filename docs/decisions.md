@@ -5,14 +5,14 @@ Registro de decisiones importantes del tema.
 ## 2026-09-11
 
 - Se usara Git desde el inicio para mantener historial y facilitar colaboracion entre agentes.
-- Codex sera lider tecnico y Gemini Flash 3.8 High apoyara investigacion, QA y matrices de decision.
+- Gemini Flash 3.8 High sera el cerebro y coordinador del proyecto; GPT/Codex y Claude ejecutaran tareas especializadas bajo sus directivas.
 - Shopify CLI sera la herramienta oficial para desarrollo y Theme Check.
 - La direccion inicial recomendada es `Atelier Flow`: minimalismo editorial para marcas premium de producto fisico, con eficiencia transaccional tomada de `Quiet Commerce`.
 - Se usaran temas top como benchmark etico: adoptar fortalezas, resolver fricciones y evitar copiar layout/codigo/assets/copy.
 - `Atelier Flow` queda como nombre interno. Se evitara `Atelier` como nombre final por posible confusion con el tema gratuito de Shopify.
 - GPT 5.5 low se usara para coordinacion y trabajo liviano. Para arquitectura, performance, accesibilidad compleja y revision final se recomendara escalar a un modelo superior de OpenAI.
 - Se crea `agent-comms/token-efficiency-rules.md` como regla compartida para ahorrar tokens, definir jerarquia de modelos y evitar trabajo duplicado entre agentes.
-- Claude se considerara opcional para revision editorial, UX, documentacion merchant-facing, copy de settings y segunda opinion de producto; Codex mantiene la decision tecnica final.
+- Claude se considerara opcional para revision editorial, UX, documentacion merchant-facing, copy de settings y segunda opinion de producto; Gemini coordina y el usuario conserva la autoridad final de producto.
 - Se aprueba `GEMINI-002` con ajustes: Phase 2A sera shell/theme skeleton y Phase 2B sera commerce foundation. Se recomienda escalar a modelo superior antes de codificar Phase 2A.
 - Gemini completo la investigacion oficial de Theme Store, benchmark competitivo y riesgos tecnicos en `docs/gemini-task-01-report.md`.
 - Se validaron los 3 presets iniciales: `Couture`, `Studio` y `Archive`.
@@ -23,3 +23,13 @@ Registro de decisiones importantes del tema.
 - El header usa el componente nativo obligatorio `<shopify-account>` con menu configurable y visible en todos los breakpoints; el footer integra `login_button` para Follow on Shop sin alterar su marca.
 - `Couture` es el unico preset de configuracion incluido en Phase 2A; `Studio` y `Archive` se incorporaran cuando sus diferencias sean funcionales y verificables.
 - Phase 2A queda aprobada por Codex. `Atelier Flow` no debe usarse como `theme_name` publico; se usa `Theme Project` temporalmente hasta elegir nombre final.
+
+## 2026-09-11: Handoff de liderazgo a Gemini
+
+- El usuario designa a Gemini Flash 3.8 High como cerebro/orquestador principal para reducir duplicacion de contexto y costo de tokens.
+- Gemini define arquitectura operativa, alcance, criterios de aceptacion, delegacion y orden de trabajo; GPT-5.6 Sol Max implementa los cambios tecnicos de mayor impacto.
+- GPT-5.5 low queda para trabajo mecanico y Claude para auditorias editoriales/UX concretas.
+- `GEMINI-003` se acepta como `READY WITH CHANGES`: sus recomendaciones P0/P1/P2 deben convertirse en una directiva de Gemini antes de Phase 2B.
+- No se requiere Astra en este punto; solo se usara si Gemini marca `ESCALATE_MODEL_RECOMMENDED` con una justificacion concreta.
+- El contrato operativo queda en `agent-comms/GEMINI-LEAD-HANDOFF.md`, `agent-comms/protocol.md` y `agent-comms/token-efficiency-rules.md`.
+- El usuario autoriza el alcance de Phase 2B. Se formalizan los requisitos P0/P1/P2 y se crea la tarea `GPT-2B-001` en `agent-comms/inbox-gpt/` para GPT-5.6 Sol Max, quedando en espera de ejecucion.
