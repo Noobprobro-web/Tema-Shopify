@@ -13,6 +13,7 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - No minificar archivos fuente propios.
 - No introducir SCSS/Sass.
 - Documentar decisiones importantes en `docs/decisions.md`.
+- Usar `agent-comms/` para comunicacion formal entre agentes.
 
 ## Tareas ideales para Gemini
 
@@ -33,3 +34,10 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - Decisiones finales de performance y accesibilidad.
 - Preparacion del paquete final.
 
+## Protocolo de comunicacion
+
+- Codex delega tareas a Gemini en `agent-comms/inbox-gemini/`.
+- Gemini entrega resultados en `agent-comms/outbox-gemini/`.
+- Codex revisa entregas en `agent-comms/reviews/`.
+- El estado vivo esta en `agent-comms/status.md`.
+- Cada tarea y entrega debe mantener el mismo ID, por ejemplo `GEMINI-002`.
