@@ -1,0 +1,17 @@
+{
+  "name": "shopify-theme-project",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Base colaborativa para un tema Shopify original, minimalista y apto para revision futura.",
+  "scripts": {
+    "shopify:version": "shopify version",
+    "theme:check": "shopify theme check",
+    "theme:dev": "shopify theme dev",
+    "theme:package": "shopify theme package",
+    "test:visual": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@shopify/cli": "^4.8.0"
+  }
+}
