@@ -5,7 +5,7 @@
   <defs>
     <style>
       .serif { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 400; }
-      .sans { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-weight: 400; }
+      .sans { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; }
       .medium { font-weight: 500; }
       .ink { fill: #1C1917; }
       .muted { fill: #605A53; }
@@ -16,10 +16,10 @@
       .white { fill: #FFFFFF; }
       .line { stroke: #E5DFD5; stroke-width: 1; fill: none; }
       .hairline { stroke: #EDE7DE; stroke-width: 1; fill: none; }
-      .eyebrow { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1.32px; }
-      .label { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 12px; font-weight: 500; }
-      .body { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 14px; font-weight: 400; }
-      .small { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 12px; font-weight: 400; }
+      .eyebrow { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1.32px; }
+      .label { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; font-weight: 500; }
+      .body { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 400; }
+      .small { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; font-weight: 400; }
       .hit { fill: #FFFFFF; fill-opacity: 0; }
     </style>
     <clipPath id="desktop-gallery-01"><rect x="32" y="104" width="414" height="364"/></clipPath>
@@ -256,7 +256,7 @@
 
     <g id="Lookbook-Product-Popover-Active">
       <rect x="816" y="1480" width="320" height="202" fill="#1C1917" opacity="0.08"/>
-      <rect x="808" y="1472" width="320" height="202" rx="2" class="paper"/>
+      <rect x="808" y="1472" width="320" height="202" class="paper"/>
       <rect x="824" y="1488" width="112" height="170" class="surface"/>
       <ellipse cx="880" cy="1535" rx="15" ry="18" fill="#B19E8E"/>
       <path d="M866 1550 C847 1561 844 1600 842 1658 H919 C916 1598 910 1561 894 1550 Z" fill="#786C5E"/>

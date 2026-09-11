@@ -4,17 +4,17 @@
   <desc id="desc">A visual specification board for the Studio and Archive header and product card variants.</desc>
   <defs>
     <style>
-      .studio-heading { font-family: "Syne", "General Sans", Arial, sans-serif; font-weight: 600; }
-      .studio-body { font-family: Inter, Arial, sans-serif; font-weight: 400; }
+      .studio-heading { font-family: "Syne", "General Sans", -apple-system, sans-serif; font-weight: 600; }
+      .studio-body { font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; }
       .archive-heading { font-family: "Space Grotesk", "Courier New", monospace; font-weight: 500; }
-      .archive-body { font-family: "Space Grotesk", Arial, sans-serif; font-weight: 400; }
+      .archive-body { font-family: "Space Grotesk", -apple-system, sans-serif; font-weight: 400; }
       .hit { fill: #FFFFFF; fill-opacity: 0; }
     </style>
     <clipPath id="studio-image"><rect x="32" y="142" width="356" height="294" rx="4"/></clipPath>
     <clipPath id="archive-image"><rect x="32" y="730" width="356" height="294"/></clipPath>
   </defs>
 
-  <rect id="Canvas-Background" width="1440" height="1120" fill="#DCD8D1"/>
+  <rect id="Canvas-Background" width="1440" height="1120" fill="#DCD7C8"/>
 
   <g id="Frame-Studio-Components" aria-label="Studio preset component specification">
     <rect width="1440" height="540" fill="#FFFFFF"/>

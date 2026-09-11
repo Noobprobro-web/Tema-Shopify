@@ -5,16 +5,16 @@
   <defs>
     <style>
       .serif { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 400; }
-      .sans { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-weight: 400; }
+      .sans { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; }
       .ink { fill: #1C1917; }
       .muted { fill: #605A53; }
       .paper { fill: #FAF8F5; }
       .surface { fill: #F3EFEA; }
       .white { fill: #FFFFFF; }
-      .eyebrow { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 1.2px; }
-      .label { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 11px; font-weight: 500; }
-      .body { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 13px; font-weight: 400; }
-      .small { font-family: "Plus Jakarta Sans", Arial, sans-serif; font-size: 11px; font-weight: 400; }
+      .eyebrow { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 1.2px; }
+      .label { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 500; }
+      .body { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 13px; font-weight: 400; }
+      .small { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 400; }
       .hit { fill: #FFFFFF; fill-opacity: 0; }
     </style>
     <clipPath id="mobile-pdp-image"><rect x="16" y="80" width="358" height="378" rx="0"/></clipPath>
@@ -57,7 +57,7 @@
     </g>
     <rect x="16.5" y="80.5" width="357" height="377" fill="none" stroke="#EDE7DE"/>
     <g id="Gallery-Counter-Mobile">
-      <rect x="314" y="94" width="44" height="28" rx="2" fill="#FAF8F5" fill-opacity="0.9"/>
+      <rect x="314" y="94" width="44" height="28" fill="#FAF8F5" fill-opacity="0.9"/>
       <text x="336" y="113" text-anchor="middle" class="small ink">1 / 4</text>
     </g>
     <g id="Gallery-Pagination-Mobile">
@@ -152,7 +152,7 @@
 
     <g id="Lookbook-Product-Popover-Mobile">
       <rect x="128" y="1390" width="246" height="174" fill="#1C1917" opacity="0.08"/>
-      <rect x="122" y="1384" width="252" height="174" rx="2" class="paper"/>
+      <rect x="122" y="1384" width="252" height="174" class="paper"/>
       <rect x="136" y="1398" width="86" height="146" class="surface"/>
       <ellipse cx="179" cy="1438" rx="11" ry="14" fill="#B19E8E"/>
       <path d="M169 1450 C156 1459 154 1491 153 1544 H205 C203 1490 200 1459 189 1450 Z" fill="#786C5E"/>

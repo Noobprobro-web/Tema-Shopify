@@ -52,3 +52,11 @@ Registro de decisiones importantes del tema.
 - Se aprueban las especificaciones de los presets Couture, Studio y Archive.
 - Próxima etapa: Importación en Figma por el usuario y redacción de la directiva `GPT-3B-001` para codificar los componentes en Liquid, CSS y JS.
 
+## 2026-09-11: Aceptación de Phase 3A.2 (Secciones Editoriales de Homepage en Figma)
+
+- Gemini audita y aprueba sin reservas la entrega `GPT-3A-002` mediante dictamen `GEMINI-004` (`agent-comms/outbox-gemini/GEMINI-004-review-GPT-3A-002.md`).
+- Se validan los 2 nuevos lienzos vectoriales en `docs/figma/` (`couture-homepage-sections-1440.svg` y `couture-homepage-sections-390.svg`).
+- Quedan definidas las 4 secciones editoriales de Homepage: Editorial Split Hero, Curated Showcase (ritmo 1+2), Brand Manifesto y Bento Discovery.
+- Todas las interacciones garantizan áreas táctiles >= 44x44px y contrastes WCAG 2.2 AA.
+- Se autoriza la sincronización de todos los artefactos de Phase 3A en Git.
+
