@@ -29,7 +29,7 @@ Crear un tema original, mobile-first y facil de personalizar para merchants, con
 - Git inicializado.
 - Dependencias npm locales instaladas.
 - Shopify CLI instalada como dependencia local del proyecto.
-- Nota: en esta sesion, ejecutar `shopify version` con Node 24.18.0 falla con `uv_os_get_passwd returned ENOMEM`. Para trabajar con Shopify CLI, usar Node 22 LTS segun los requisitos documentados por Shopify.
+- Nota: en esta sesion, ejecutar `shopify version` con Node 24.18.0 falla con `uv_os_get_passwd returned ENOMEM`, incluso mediante `cmd.exe /c "npx shopify version"`. Para trabajar con Shopify CLI, usar Node 22 LTS segun los requisitos documentados por Shopify.
 
 ## Fases
 
