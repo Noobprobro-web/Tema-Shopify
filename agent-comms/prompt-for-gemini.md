@@ -20,6 +20,6 @@ Reglas importantes:
 - No propongas dependencias pesadas.
 - Prioriza Shopify Theme Store acceptance, mobile-first, performance, accesibilidad y arquitectura facil de extender.
 - Mantiene `Atelier Flow` como nombre interno, no como nombre final.
+- Marca claramente cualquier decision que recomiendes escalar a un modelo superior de OpenAI antes de implementarse, especialmente arquitectura Liquid/JSON/sections, performance, accesibilidad compleja, schemas reutilizables o revision previa a submission.
 
 Cuando termines, avisame con un resumen corto de lo que dejaste en el archivo para que yo pueda volver con Codex y pedirle revision.
-

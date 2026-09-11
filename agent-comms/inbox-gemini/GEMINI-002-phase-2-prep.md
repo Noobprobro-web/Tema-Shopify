@@ -75,6 +75,7 @@ Debe incluir:
    - Riesgos de Theme Store.
    - Riesgos de scope.
    - Preguntas que Codex o el usuario deben decidir antes de codificar.
+   - Puntos que recomiendas revisar con un modelo superior de OpenAI antes de implementar.
 
 ## Criterios de Aceptacion
 
@@ -85,6 +86,7 @@ Debe incluir:
 - Debe marcar supuestos.
 - Debe evitar copiar temas existentes.
 - Debe mantener `Atelier Flow` como nombre interno, no como nombre final.
+- Debe marcar decisiones que convendria escalar a modelo superior antes de codificar.
 
 ## Reglas
 
@@ -92,4 +94,3 @@ Debe incluir:
 - Si necesitas proponer cambios a documentos oficiales del proyecto, incluyelos como recomendaciones dentro del reporte.
 - Usa fuentes oficiales para cualquier requisito Shopify que cites.
 - Se conciso, pero suficientemente especifico para que Codex pueda implementar.
-

@@ -64,3 +64,17 @@ Cada entrega de Gemini debe incluir:
 - Citar fuentes para requisitos oficiales o datos que puedan cambiar.
 - Marcar supuestos.
 
+## Escalamiento de Modelo
+
+El usuario tiene acceso a modelos superiores, pero Codex puede operar en GPT 5.5 low para coordinacion y trabajo liviano.
+
+Usar o recomendar un modelo superior cuando:
+
+- Se define arquitectura base del tema Shopify.
+- Se toman decisiones transversales sobre Liquid, JSON templates, sections, snippets, assets o scripts.
+- Se disena el sistema final de tokens, presets, schemas y patrones reutilizables.
+- Se resuelven errores complejos de Shopify CLI, Theme Check, Liquid, accesibilidad o performance.
+- Se prepara una auditoria completa de Theme Store acceptance.
+- Se hace revision final antes de empaquetar o publicar.
+
+Gemini debe indicar en sus reportes cualquier punto donde recomiende revision por Codex con modelo superior antes de implementar.

@@ -18,8 +18,8 @@
 - Definir nombre final o shortlist.
 - Crear theme skeleton.
 - Resolver entorno Shopify CLI con Node 22 LTS o workaround estable.
+- Avisar al usuario cuando convenga usar un modelo superior para decisiones de alto impacto.
 
 ## Ultima Decision
 
 Atelier Flow se mantiene como direccion interna, pero no como nombre final por posible confusion con el tema gratuito `Atelier` de Shopify.
-

@@ -41,3 +41,11 @@ Este proyecto usa multiples agentes de IA. Codex actua como lider tecnico y arqu
 - Codex revisa entregas en `agent-comms/reviews/`.
 - El estado vivo esta en `agent-comms/status.md`.
 - Cada tarea y entrega debe mantener el mismo ID, por ejemplo `GEMINI-002`.
+
+## Modelo y escalamiento
+
+- GPT 5.5 low puede usarse para coordinacion, documentacion, prompts, commits, tareas pequenas y revisiones simples.
+- Usar un modelo superior de OpenAI cuando una decision pueda afectar muchas partes del tema o generar deuda tecnica dificil de corregir.
+- Escalar antes de definir arquitectura Liquid/JSON/sections/snippets/assets, sistema de diseno final, performance strategy, accesibilidad compleja o revision previa a submission.
+- Abrir otro chat dentro del mismo proyecto para auditorias grandes, revisiones especializadas o trabajo separable que convenga mantener fuera del centro de mando.
+- Gemini debe marcar en sus entregas si considera que una decision requiere revision de modelo superior antes de implementarse.
