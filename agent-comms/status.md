@@ -26,12 +26,13 @@
 - Liderazgo y orquestación activa.
 - Revisión y aprobación de `GPT-2B-001` documentada en `agent-comms/reviews/GEMINI-review-GPT-2B-001.md`.
 - Cierre formal de Phase 2B y push a `origin/master`.
-- Coordinación de kickoff de Phase 3: tokens visuales en Figma, integración de presets (`Couture`, `Studio`, `Archive`) y roadmap editorial.
+- Conexión con Figma MCP validada exitosamente para el archivo `Atelier Flow` (`132QRVaYF2wRverRKEaymB`).
+- Especificación de tokens creada en `docs/design-tokens.json` y directiva `GPT-3A-001` lista en `agent-comms/inbox-gpt/`.
 
 ## Tareas de GPT/Codex
 
 - Phase 2B completada con éxito.
-- Próxima tarea: Implementación técnica de Phase 3 según directivas de Gemini y diseño en Figma.
+- Próxima tarea: Ejecutar `GPT-3A-001` (generación de blueprints vectoriales/SVG para Figma Canvas y mapeo de tokens para Phase 3).
 
 ## Tareas de Claude
 

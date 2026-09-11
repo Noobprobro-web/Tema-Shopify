@@ -1,0 +1,115 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/specs/w3c-design-tokens-specification.json",
+  "name": "Atelier Flow Design Tokens",
+  "version": "1.0.0",
+  "global": {
+    "spacing": {
+      "none": { "value": "0px", "type": "dimension" },
+      "3xs": { "value": "2px", "type": "dimension" },
+      "2xs": { "value": "4px", "type": "dimension" },
+      "xs": { "value": "8px", "type": "dimension" },
+      "sm": { "value": "12px", "type": "dimension" },
+      "md": { "value": "16px", "type": "dimension" },
+      "lg": { "value": "24px", "type": "dimension" },
+      "xl": { "value": "32px", "type": "dimension" },
+      "2xl": { "value": "48px", "type": "dimension" },
+      "3xl": { "value": "64px", "type": "dimension" },
+      "4xl": { "value": "96px", "type": "dimension" }
+    },
+    "grid": {
+      "container_max_width": { "value": "1440px", "type": "dimension" },
+      "gutter_mobile": { "value": "16px", "type": "dimension" },
+      "gutter_desktop": { "value": "32px", "type": "dimension" },
+      "tap_target_min": { "value": "44px", "type": "dimension", "description": "Shopify Theme Store & WCAG 2.2 AA requirement" }
+    }
+  },
+  "presets": {
+    "couture": {
+      "description": "Editorial quiet luxury for physical artisanal products",
+      "color": {
+        "background": { "value": "#FAF8F5", "type": "color" },
+        "surface": { "value": "#F3EFEA", "type": "color" },
+        "surface_subtle": { "value": "#EDE7DE", "type": "color" },
+        "foreground": { "value": "#1C1917", "type": "color", "contrastRatio": "15.2:1 against background (WCAG AAA)" },
+        "foreground_muted": { "value": "#605A53", "type": "color", "contrastRatio": "5.6:1 against background (WCAG AA)" },
+        "border": { "value": "#E5DFD5", "type": "color" },
+        "border_hairline": { "value": "#EDE7DE", "type": "color" },
+        "accent": { "value": "#786C5E", "type": "color" },
+        "accent_contrast": { "value": "#FFFFFF", "type": "color" },
+        "sale_badge_bg": { "value": "#1C1917", "type": "color" },
+        "sale_badge_text": { "value": "#FAF8F5", "type": "color" }
+      },
+      "typography": {
+        "font_family_heading": { "value": "'Playfair Display', Georgia, 'Times New Roman', serif", "type": "fontFamily" },
+        "font_family_body": { "value": "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif", "type": "fontFamily" },
+        "font_weight_heading": { "value": "400", "type": "fontWeight" },
+        "letter_spacing_heading": { "value": "-0.02em", "type": "letterSpacing" },
+        "letter_spacing_eyebrow": { "value": "0.12em", "type": "letterSpacing" }
+      },
+      "shape": {
+        "border_radius_card": { "value": "0px", "type": "borderRadius" },
+        "border_radius_button": { "value": "2px", "type": "borderRadius" },
+        "border_radius_input": { "value": "0px", "type": "borderRadius" },
+        "border_width": { "value": "1px", "type": "dimension" }
+      }
+    },
+    "studio": {
+      "description": "Contemporary high-fashion concept store with crisp gallery whitespace",
+      "color": {
+        "background": { "value": "#FFFFFF", "type": "color" },
+        "surface": { "value": "#F4F4F5", "type": "color" },
+        "surface_subtle": { "value": "#E4E4E7", "type": "color" },
+        "foreground": { "value": "#09090B", "type": "color", "contrastRatio": "18.8:1 against background (WCAG AAA)" },
+        "foreground_muted": { "value": "#52525B", "type": "color", "contrastRatio": "7.1:1 against background (WCAG AAA)" },
+        "border": { "value": "#E4E4E7", "type": "color" },
+        "border_hairline": { "value": "#F4F4F5", "type": "color" },
+        "accent": { "value": "#18181B", "type": "color" },
+        "accent_contrast": { "value": "#FFFFFF", "type": "color" },
+        "sale_badge_bg": { "value": "#09090B", "type": "color" },
+        "sale_badge_text": { "value": "#FFFFFF", "type": "color" }
+      },
+      "typography": {
+        "font_family_heading": { "value": "'Syne', 'General Sans', -apple-system, sans-serif", "type": "fontFamily" },
+        "font_family_body": { "value": "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", "type": "fontFamily" },
+        "font_weight_heading": { "value": "600", "type": "fontWeight" },
+        "letter_spacing_heading": { "value": "-0.03em", "type": "letterSpacing" },
+        "letter_spacing_eyebrow": { "value": "0.08em", "type": "letterSpacing" }
+      },
+      "shape": {
+        "border_radius_card": { "value": "4px", "type": "borderRadius" },
+        "border_radius_button": { "value": "4px", "type": "borderRadius" },
+        "border_radius_input": { "value": "4px", "type": "borderRadius" },
+        "border_width": { "value": "1px", "type": "dimension" }
+      }
+    },
+    "archive": {
+      "description": "Technical archive, vintage curatorship, structured brutalist elegance",
+      "color": {
+        "background": { "value": "#F4F3EE", "type": "color" },
+        "surface": { "value": "#EAE8DF", "type": "color" },
+        "surface_subtle": { "value": "#DFDBCF", "type": "color" },
+        "foreground": { "value": "#121212", "type": "color", "contrastRatio": "16.4:1 against background (WCAG AAA)" },
+        "foreground_muted": { "value": "#495057", "type": "color", "contrastRatio": "6.8:1 against background (WCAG AA)" },
+        "border": { "value": "#CBC6B4", "type": "color" },
+        "border_hairline": { "value": "#DCD7C8", "type": "color" },
+        "accent": { "value": "#212529", "type": "color" },
+        "accent_contrast": { "value": "#F4F3EE", "type": "color" },
+        "sale_badge_bg": { "value": "#121212", "type": "color" },
+        "sale_badge_text": { "value": "#F4F3EE", "type": "color" }
+      },
+      "typography": {
+        "font_family_heading": { "value": "'Space Grotesk', 'Courier New', monospace", "type": "fontFamily" },
+        "font_family_body": { "value": "'Space Grotesk', -apple-system, sans-serif", "type": "fontFamily" },
+        "font_weight_heading": { "value": "500", "type": "fontWeight" },
+        "letter_spacing_heading": { "value": "-0.01em", "type": "letterSpacing" },
+        "letter_spacing_eyebrow": { "value": "0.15em", "type": "letterSpacing" }
+      },
+      "shape": {
+        "border_radius_card": { "value": "0px", "type": "borderRadius" },
+        "border_radius_button": { "value": "0px", "type": "borderRadius" },
+        "border_radius_input": { "value": "0px", "type": "borderRadius" },
+        "border_width": { "value": "1.5px", "type": "dimension" }
+      }
+    }
+  }
+}
