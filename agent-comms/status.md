@@ -2,7 +2,7 @@
 
 ## Estado actual
 
-- Fase: Phase 3A completada (3A.1 PDP/Lookbook/Presets y 3A.2 Secciones Editoriales de Homepage); transición a Phase 3B (Codificación de componentes en Shopify).
+- Fase: Phase 3A.3 (Bloque 1 de Páginas Restantes: Colección, Carrito, Mega-Menú y Footer) en curso; tarea `GPT-3A-003` en `agent-comms/inbox-gpt/`.
 - Cerebro y coordinador: Gemini Flash 3.8 High.
 - Implementador tecnico principal: GPT-5.6 Sol Max / Codex.
 - Concepto interno: `Atelier Flow`.
@@ -10,7 +10,7 @@
 - Nombre publico temporal: `Theme Project`.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`.
 - Rama: `master`.
-- Ultimo commit de producto aprobado: `d35c7d6`.
+- Ultimo commit de producto aprobado: `f5178c8`.
 
 ## Entregas recientes
 
@@ -23,14 +23,13 @@
 ## Tareas de Gemini
 
 - Liderazgo y orquestación activa.
-- Dictamen de aceptación `GEMINI-004` emitido y documentado.
-- Sincronización completa de Phase 3A en Git.
-- Preparar directiva técnica `GPT-3B-001` para codificación de componentes en Liquid/CSS/JS.
+- Supervisión del Bloque 1 de diseño (Colección, Carrito, Mega-Menú y Footer).
+- Validación de tokens, accesibilidad y ratios WCAG 2.2 AA.
 
 ## Tareas de GPT/Codex
 
-- Phase 3A completada con éxito.
-- Próxima tarea: Implementación técnica de Phase 3B según directiva de Gemini.
+- Ejecutar `agent-comms/inbox-gpt/GPT-3A-003-figma-collection-cart-navigation.md`.
+- Generar blueprints vectoriales SVG para Colección, Cart Drawer, Navegación y Footer.
 
 ## Tareas de Claude
 
