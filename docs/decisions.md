@@ -68,4 +68,12 @@ Registro de decisiones importantes del tema.
 - Se auditan 114 tap targets (todos >= 44x44px) y contrastes WCAG 2.2 AA (mínimo 5.12:1).
 - Próxima etapa: Diseñar el Bloque 2 (Historia, Contacto/FAQ, Blog/Artículos y Páginas de Sistema) para culminar el 100% de las páginas antes de Phase 3B.
 
+## 2026-09-11: Aceptación de Phase 3A.4 (Bloque 2 Final: 100% de Plantillas en Figma)
+
+- Gemini audita y aprueba sin reservas la entrega `GPT-3A-004` mediante dictamen `GEMINI-006` (`agent-comms/outbox-gemini/GEMINI-006-review-GPT-3A-004.md`).
+- Se validan 4 nuevos lienzos vectoriales en `docs/figma/` (`couture-about-contact-1440.svg`, `couture-about-contact-390.svg`, `couture-blog-system-1440.svg`, `couture-blog-system-390.svg`).
+- Quedan diseñadas: Historia/Marca, Contacto & FAQ, Portada de Blog, Lectura de Artículo, Búsqueda predictiva, Error 404 curatorial y Password/Próximamente.
+- Con esta entrega se completa el 100% de las 12 plantillas oficiales requeridas por Shopify Theme Store en Figma.
+- Próxima etapa: Handoff a Phase 3B (Codificación de componentes en Liquid, CSS y JS).
+
 
