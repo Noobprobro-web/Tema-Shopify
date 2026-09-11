@@ -17,3 +17,8 @@ Registro de decisiones importantes del tema.
 - Gemini completo la investigacion oficial de Theme Store, benchmark competitivo y riesgos tecnicos en `docs/gemini-task-01-report.md`.
 - Se validaron los 3 presets iniciales: `Couture`, `Studio` y `Archive`.
 - Se confirmo la ejecucion funcional de Shopify CLI 4.8.0 y Theme Check con 0 ofensas iniciales.
+- Phase 2A adopta `color_scheme_group` nativo de Shopify como fuente de color; `theme.liquid` traduce cada esquema a tokens CSS semanticos consumidos por `base.css` y las secciones.
+- Los componentes vanilla JS usan el prefijo `theme-` y una base compartida `ThemeCore`, con registro idempotente, mejora progresiva, foco atrapado/restaurado e `inert` para drawers.
+- Los 12 JSON templates comparten temporalmente `main-placeholder` para conservar templates validos sin adelantar las secciones commerce reservadas para Phase 2B.
+- El header usa el componente nativo obligatorio `<shopify-account>` con menu configurable y visible en todos los breakpoints; el footer integra `login_button` para Follow on Shop sin alterar su marca.
+- `Couture` es el unico preset de configuracion incluido en Phase 2A; `Studio` y `Archive` se incorporaran cuando sus diferencias sean funcionales y verificables.

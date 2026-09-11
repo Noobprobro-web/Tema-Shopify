@@ -1,0 +1,41 @@
+{%- comment -%}
+  Renders a small interface icon.
+
+  Accepts:
+  - name: menu, close, chevron-down, search, account, or bag
+  - size: optional square size in pixels
+{%- endcomment -%}
+
+{%- liquid
+  assign icon_size = size | default: 20
+-%}
+
+{%- case name -%}
+  {%- when 'menu' -%}
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="{{ icon_size }}" height="{{ icon_size }}" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M3 7h18M3 12h18M3 17h18"></path>
+    </svg>
+  {%- when 'close' -%}
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="{{ icon_size }}" height="{{ icon_size }}" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="m5 5 14 14M19 5 5 19"></path>
+    </svg>
+  {%- when 'chevron-down' -%}
+    <svg aria-hidden="true" viewBox="0 0 16 16" width="{{ icon_size }}" height="{{ icon_size }}" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="m3 6 5 5 5-5"></path>
+    </svg>
+  {%- when 'search' -%}
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="{{ icon_size }}" height="{{ icon_size }}" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="11" cy="11" r="6.5"></circle>
+      <path d="m16 16 4 4"></path>
+    </svg>
+  {%- when 'account' -%}
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="{{ icon_size }}" height="{{ icon_size }}" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="8" r="3.5"></circle>
+      <path d="M5 20c.7-4 3.1-6 7-6s6.3 2 7 6"></path>
+    </svg>
+  {%- when 'bag' -%}
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="{{ icon_size }}" height="{{ icon_size }}" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M5 8h14l-1 12H6L5 8Z"></path>
+      <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+    </svg>
+{%- endcase -%}

@@ -1,0 +1,204 @@
+{%- liquid
+  assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
+  assign logo_alt = settings.logo.alt | default: shop.name
+-%}
+
+<header class="site-header color-{{ color_scheme_id }}" data-section-id="{{ section.id }}">
+  <div class="container site-header__inner">
+    <theme-drawer class="site-header__mobile-menu">
+      <button
+        class="icon-button site-header__menu-button"
+        type="button"
+        aria-expanded="false"
+        aria-controls="MobileMenu-{{ section.id }}"
+        data-drawer-trigger
+      >
+        {% render 'icon', name: 'menu' %}
+        <span>{{ 'general.navigation.menu' | t }}</span>
+      </button>
+
+      <div class="drawer-overlay" data-drawer-overlay hidden>
+        <div
+          id="MobileMenu-{{ section.id }}"
+          class="drawer-panel color-{{ color_scheme_id }}"
+          role="dialog"
+          aria-modal="true"
+          aria-label="{{ 'general.navigation.menu' | t }}"
+          aria-hidden="true"
+          tabindex="-1"
+          data-drawer-panel
+          inert
+        >
+          <div class="drawer-panel__header">
+            <span class="h3">{{ 'general.navigation.menu' | t }}</span>
+            <button class="icon-button" type="button" aria-label="{{ 'general.accessibility.close' | t }}" data-drawer-close>
+              {% render 'icon', name: 'close' %}
+            </button>
+          </div>
+
+          <nav aria-label="{{ 'general.navigation.primary' | t }}">
+            <ul class="mobile-nav unstyled-list" role="list">
+              {%- for link in section.settings.menu.links -%}
+                <li>
+                  {%- if link.links != blank -%}
+                    <theme-disclosure class="mobile-nav__disclosure">
+                      <button
+                        class="mobile-nav__toggle"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="MobileMenu-{{ section.id }}-{{ forloop.index }}"
+                        data-disclosure-trigger
+                      >
+                        <span>{{ link.title | escape }}</span>
+                        {% render 'icon', name: 'chevron-down', size: 16 %}
+                      </button>
+                      <div id="MobileMenu-{{ section.id }}-{{ forloop.index }}" data-disclosure-panel hidden>
+                        <ul class="mobile-nav__submenu unstyled-list" role="list">
+                          <li>
+                            <a href="{{ link.url }}">{{ 'general.navigation.view_all' | t: title: link.title }}</a>
+                          </li>
+                          {%- for child_link in link.links -%}
+                            <li>
+                              <a href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
+                              {%- if child_link.links != blank -%}
+                                <ul class="mobile-nav__grandchildren unstyled-list" role="list">
+                                  {%- for grandchild_link in child_link.links -%}
+                                    <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title | escape }}</a></li>
+                                  {%- endfor -%}
+                                </ul>
+                              {%- endif -%}
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    </theme-disclosure>
+                  {%- else -%}
+                    <a class="mobile-nav__link" href="{{ link.url }}">{{ link.title | escape }}</a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </theme-drawer>
+
+    <nav class="site-header__desktop-nav" aria-label="{{ 'general.navigation.primary' | t }}">
+      <ul class="desktop-nav unstyled-list" role="list">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            {%- if link.links != blank -%}
+              <theme-disclosure class="desktop-nav__disclosure">
+                <button
+                  class="desktop-nav__toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="DesktopMenu-{{ section.id }}-{{ forloop.index }}"
+                  data-disclosure-trigger
+                >
+                  <span>{{ link.title | escape }}</span>
+                  {% render 'icon', name: 'chevron-down', size: 14 %}
+                </button>
+                <div
+                  id="DesktopMenu-{{ section.id }}-{{ forloop.index }}"
+                  class="desktop-nav__panel color-{{ color_scheme_id }}"
+                  data-disclosure-panel
+                  hidden
+                >
+                  <ul class="desktop-nav__submenu unstyled-list" role="list">
+                    <li>
+                      <a href="{{ link.url }}">{{ 'general.navigation.view_all' | t: title: link.title }}</a>
+                    </li>
+                    {%- for child_link in link.links -%}
+                      <li>
+                        <a href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
+                        {%- if child_link.links != blank -%}
+                          <ul class="desktop-nav__grandchildren unstyled-list" role="list">
+                            {%- for grandchild_link in child_link.links -%}
+                              <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title | escape }}</a></li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </theme-disclosure>
+            {%- else -%}
+              <a class="desktop-nav__link" href="{{ link.url }}">{{ link.title | escape }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <a class="site-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if settings.logo != blank -%}
+        {{-
+          settings.logo
+          | image_url: width: 480
+          | image_tag:
+            class: 'site-header__logo-image',
+            widths: '80, 120, 160, 200, 240, 320, 400, 480',
+            width: settings.logo_width,
+            alt: logo_alt
+        -}}
+      {%- else -%}
+        <span class="site-header__brand-text">{{ shop.name | escape }}</span>
+      {%- endif -%}
+    </a>
+
+    <div class="site-header__actions">
+      <a class="icon-button" href="{{ routes.search_url }}" aria-label="{{ 'general.search.label' | t }}">
+        {% render 'icon', name: 'search' %}
+      </a>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <shopify-account class="site-header__account" menu="{{ section.settings.customer_account_menu }}"></shopify-account>
+      {%- endif -%}
+
+      <a
+        class="icon-button site-header__cart"
+        href="{{ routes.cart_url }}"
+        aria-label="{% if settings.show_cart_count %}{{ 'sections.header.cart_count' | t: count: cart.item_count }}{% else %}{{ 'sections.header.cart' | t }}{% endif %}"
+      >
+        {% render 'icon', name: 'bag' %}
+        {%- if settings.show_cart_count -%}
+          <span class="site-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "tag": "section",
+  "class": "section-header",
+  "limit": 1,
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:sections.header.settings.menu.label",
+      "default": "main-menu"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.header.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "link_list",
+      "id": "customer_account_menu",
+      "label": "t:sections.header.settings.customer_account_menu.label",
+      "default": "customer-account-main-menu"
+    }
+  ]
+}
+{% endschema %}

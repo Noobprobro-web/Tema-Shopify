@@ -1,0 +1,98 @@
+{%- liquid
+  assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-2'
+  assign current_year = 'now' | date: '%Y'
+  assign shop_name = shop.name | escape
+  assign has_social_links = false
+  if settings.social_instagram_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_tiktok_link != blank or settings.social_youtube_link != blank
+    assign has_social_links = true
+  endif
+-%}
+
+<footer class="site-footer color-{{ color_scheme_id }}" data-section-id="{{ section.id }}">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand flow">
+      <a class="site-footer__title h2" href="{{ routes.root_url }}">{{ shop_name }}</a>
+      {%- if section.settings.show_description and shop.description != blank -%}
+        <p>{{ shop.description | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.menu != blank -%}
+      <nav class="site-footer__nav" aria-label="{{ 'general.navigation.footer' | t }}">
+        <ul class="site-footer__menu unstyled-list" role="list">
+          {%- for link in section.settings.menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    {%- if section.settings.show_social and has_social_links -%}
+      <nav class="site-footer__social" aria-label="{{ 'general.social.follow_us' | t }}">
+        <p class="eyebrow">{{ 'general.social.follow_us' | t }}</p>
+        <ul class="social-links unstyled-list" role="list">
+          {%- if settings.social_instagram_link != blank -%}
+            <li><a href="{{ settings.social_instagram_link }}">{{ 'general.social.instagram' | t }}</a></li>
+          {%- endif -%}
+          {%- if settings.social_facebook_link != blank -%}
+            <li><a href="{{ settings.social_facebook_link }}">{{ 'general.social.facebook' | t }}</a></li>
+          {%- endif -%}
+          {%- if settings.social_pinterest_link != blank -%}
+            <li><a href="{{ settings.social_pinterest_link }}">{{ 'general.social.pinterest' | t }}</a></li>
+          {%- endif -%}
+          {%- if settings.social_tiktok_link != blank -%}
+            <li><a href="{{ settings.social_tiktok_link }}">{{ 'general.social.tiktok' | t }}</a></li>
+          {%- endif -%}
+          {%- if settings.social_youtube_link != blank -%}
+            <li><a href="{{ settings.social_youtube_link }}">{{ 'general.social.youtube' | t }}</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+  </div>
+
+  <div class="container site-footer__bottom">
+    <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name }}</small>
+    <div class="site-footer__follow">
+      {{ shop | login_button: action: 'follow' }}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "tag": "section",
+  "class": "section-footer",
+  "limit": 1,
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:sections.footer.settings.menu.label",
+      "default": "footer"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.footer.settings.color_scheme.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "t:sections.footer.settings.show_description.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "t:sections.footer.settings.show_social.label",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

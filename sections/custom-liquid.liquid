@@ -1,0 +1,36 @@
+{%- liquid
+  assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
+-%}
+
+<section class="section color-{{ color_scheme_id }}">
+  <div class="container rte">
+    {{ section.settings.custom_liquid }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.custom_liquid.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "t:sections.custom_liquid.settings.custom_liquid.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.custom_liquid.settings.color_scheme.label",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.custom_liquid.presets.name"
+    }
+  ]
+}
+{% endschema %}

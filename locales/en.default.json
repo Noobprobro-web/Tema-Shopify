@@ -1,0 +1,100 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "opens_in_new_window": "Opens in a new window"
+    },
+    "navigation": {
+      "menu": "Menu",
+      "primary": "Primary navigation",
+      "footer": "Footer navigation",
+      "view_all": "View all {{ title }}"
+    },
+    "search": {
+      "label": "Search"
+    },
+    "pagination": {
+      "page": "Page {{ number }}"
+    },
+    "social": {
+      "follow_us": "Follow us",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "pinterest": "Pinterest",
+      "tiktok": "TikTok",
+      "youtube": "YouTube"
+    }
+  },
+  "sections": {
+    "header": {
+      "cart": "Cart",
+      "cart_count": {
+        "one": "Cart, {{ count }} item",
+        "other": "Cart, {{ count }} items"
+      }
+    },
+    "footer": {
+      "copyright": "© {{ year }} {{ shop }}"
+    }
+  },
+  "templates": {
+    "home": {
+      "title": "{{ shop }}",
+      "message": "A flexible editorial storefront is taking shape."
+    },
+    "product": {
+      "title": "Product"
+    },
+    "collection": {
+      "title": "Collection"
+    },
+    "list_collections": {
+      "title": "Collections"
+    },
+    "cart": {
+      "title": "Cart",
+      "empty": "Your cart is currently empty."
+    },
+    "search": {
+      "title": "Search",
+      "results_for": "Search results for “{{ terms }}”",
+      "prompt": "Use search to explore the catalog."
+    },
+    "not_found": {
+      "title": "Page not found",
+      "message": "The page you requested could not be found.",
+      "link": "Return home"
+    },
+    "page": {
+      "title": "Page"
+    },
+    "blog": {
+      "title": "Journal"
+    },
+    "article": {
+      "title": "Article"
+    },
+    "password": {
+      "title": "Opening soon",
+      "message": "This shop is preparing its next chapter.",
+      "password_label": "Store password",
+      "submit": "Enter store"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Your {{ value }} gift card for {{ shop }}",
+      "gift_card": "Gift card",
+      "remaining_html": "{{ balance }} remaining",
+      "expired": "Expired",
+      "disabled": "This gift card is no longer active.",
+      "expires_on": "Expires {{ expires_on }}",
+      "use_at_checkout": "Use this code at checkout",
+      "shop_link": "Continue shopping",
+      "print": "Print gift card",
+      "add_to_apple_wallet": "Add to Apple Wallet",
+      "qr_code_alt": "QR code for this gift card"
+    }
+  }
+}

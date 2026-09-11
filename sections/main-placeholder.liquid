@@ -1,0 +1,105 @@
+<section class="page-foundation section" aria-labelledby="FoundationTitle-{{ section.id }}">
+  <div class="container container--narrow flow">
+    {%- case request.page_type -%}
+      {%- when 'index' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.home.title' | t: shop: shop.name | escape }}</h1>
+        <p class="lede">{{ 'templates.home.message' | t }}</p>
+
+      {%- when 'product' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">
+          {%- if product != blank -%}{{ product.title | escape }}{%- else -%}{{ 'templates.product.title' | t }}{%- endif -%}
+        </h1>
+        {%- if product.description != blank -%}
+          <div class="rte">{{ product.description }}</div>
+        {%- endif -%}
+
+      {%- when 'collection' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">
+          {%- if collection != blank -%}{{ collection.title | escape }}{%- else -%}{{ 'templates.collection.title' | t }}{%- endif -%}
+        </h1>
+        {%- if collection.description != blank -%}
+          <div class="rte">{{ collection.description }}</div>
+        {%- endif -%}
+
+      {%- when 'list-collections' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.list_collections.title' | t }}</h1>
+
+      {%- when 'cart' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.cart.title' | t }}</h1>
+        {%- if cart.item_count == 0 -%}
+          <p>{{ 'templates.cart.empty' | t }}</p>
+        {%- endif -%}
+
+      {%- when 'search' -%}
+        {%- if search.performed -%}
+          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.results_for' | t: terms: search.terms | escape }}</h1>
+        {%- else -%}
+          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.title' | t }}</h1>
+          <p>{{ 'templates.search.prompt' | t }}</p>
+        {%- endif -%}
+
+      {%- when '404' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.not_found.title' | t }}</h1>
+        <p>{{ 'templates.not_found.message' | t }}</p>
+        <a class="button" href="{{ routes.root_url }}">{{ 'templates.not_found.link' | t }}</a>
+
+      {%- when 'page' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">
+          {%- if page != blank -%}{{ page.title | escape }}{%- else -%}{{ 'templates.page.title' | t }}{%- endif -%}
+        </h1>
+        {%- if page.content != blank -%}
+          <div class="rte">{{ page.content }}</div>
+        {%- endif -%}
+
+      {%- when 'blog' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">
+          {%- if blog != blank -%}{{ blog.title | escape }}{%- else -%}{{ 'templates.blog.title' | t }}{%- endif -%}
+        </h1>
+
+      {%- when 'article' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">
+          {%- if article != blank -%}{{ article.title | escape }}{%- else -%}{{ 'templates.article.title' | t }}{%- endif -%}
+        </h1>
+        {%- if article.content != blank -%}
+          <div class="rte">{{ article.content }}</div>
+        {%- endif -%}
+
+      {%- when 'password' -%}
+        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.password.title' | t }}</h1>
+        {%- if shop.password_message != blank -%}
+          <div class="rte">{{ shop.password_message }}</div>
+        {%- else -%}
+          <p>{{ 'templates.password.message' | t }}</p>
+        {%- endif -%}
+
+        {%- form 'storefront_password', class: 'password-form flow' -%}
+          {%- if form.errors -%}
+            <div role="alert">{{ form.errors | default_errors }}</div>
+          {%- endif -%}
+          <div>
+            <label for="StorefrontPassword-{{ section.id }}">{{ 'templates.password.password_label' | t }}</label>
+            <input
+              id="StorefrontPassword-{{ section.id }}"
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+          <button class="button" type="submit">{{ 'templates.password.submit' | t }}</button>
+        {%- endform -%}
+
+      {%- else -%}
+        <h1 id="FoundationTitle-{{ section.id }}">{{ page_title | escape }}</h1>
+    {%- endcase -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_placeholder.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

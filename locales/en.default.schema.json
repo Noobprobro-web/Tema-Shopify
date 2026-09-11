@@ -1,0 +1,170 @@
+{
+  "settings_schema": {
+    "brand": {
+      "name": "Brand",
+      "settings": {
+        "logo": {
+          "label": "Logo"
+        },
+        "logo_width": {
+          "label": "Logo width"
+        },
+        "favicon": {
+          "label": "Favicon",
+          "info": "Use a square image for the clearest browser tab icon."
+        }
+      }
+    },
+    "colors": {
+      "name": "Colors",
+      "settings": {
+        "background": {
+          "label": "Background"
+        },
+        "background_gradient": {
+          "label": "Background gradient",
+          "info": "A gradient replaces the background color when one is set."
+        },
+        "text": {
+          "label": "Text"
+        },
+        "button": {
+          "label": "Primary button"
+        },
+        "button_label": {
+          "label": "Primary button label"
+        },
+        "secondary_button_label": {
+          "label": "Secondary button and link"
+        },
+        "border": {
+          "label": "Border"
+        },
+        "shadow": {
+          "label": "Shadow"
+        },
+        "default_color_scheme": {
+          "label": "Default color scheme"
+        }
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "settings": {
+        "heading_font": {
+          "label": "Heading font"
+        },
+        "heading_scale": {
+          "label": "Heading scale"
+        },
+        "body_font": {
+          "label": "Body font"
+        },
+        "body_scale": {
+          "label": "Body scale"
+        }
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "settings": {
+        "page_width": {
+          "label": "Page width"
+        },
+        "page_gutter": {
+          "label": "Page gutter"
+        },
+        "section_spacing": {
+          "label": "Section spacing"
+        },
+        "button_radius": {
+          "label": "Button corner radius"
+        }
+      }
+    },
+    "cart": {
+      "name": "Cart",
+      "settings": {
+        "show_cart_count": {
+          "label": "Show cart item count"
+        }
+      }
+    },
+    "social": {
+      "name": "Social media",
+      "settings": {
+        "instagram": {
+          "label": "Instagram URL"
+        },
+        "facebook": {
+          "label": "Facebook URL"
+        },
+        "pinterest": {
+          "label": "Pinterest URL"
+        },
+        "tiktok": {
+          "label": "TikTok URL"
+        },
+        "youtube": {
+          "label": "YouTube URL"
+        }
+      }
+    }
+  },
+  "sections": {
+    "header": {
+      "name": "Header",
+      "settings": {
+        "menu": {
+          "label": "Menu"
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "customer_account_menu": {
+          "label": "Customer account menu"
+        }
+      }
+    },
+    "footer": {
+      "name": "Footer",
+      "settings": {
+        "menu": {
+          "label": "Menu"
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "show_description": {
+          "label": "Show shop description"
+        },
+        "show_social": {
+          "label": "Show social media links"
+        }
+      }
+    },
+    "main_placeholder": {
+      "name": "Page foundation"
+    },
+    "custom_liquid": {
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": {
+          "label": "Liquid code"
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        }
+      },
+      "presets": {
+        "name": "Custom Liquid"
+      }
+    },
+    "header_group": {
+      "name": "Header group"
+    },
+    "footer_group": {
+      "name": "Footer group"
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 ## Estado Actual
 
-- Fase: Phase 2 prep reviewed / Phase 2A por iniciar.
+- Fase: Phase 2A implementada y validada / Phase 2B pendiente.
 - Concepto interno: `Atelier Flow`.
 - Nombre final: pendiente.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`
@@ -16,12 +16,11 @@
 
 ## Pendiente Para Codex
 
-- Implementar Phase 2A con modelo superior recomendado.
+- Implementar Phase 2B solo cuando sea autorizada.
 - Definir nombre final o shortlist.
-- Resolver entorno Shopify CLI con Node 22 LTS o workaround estable.
 - Avisar al usuario cuando convenga usar un modelo superior para decisiones de alto impacto.
 - Avisar al usuario cuando convenga usar Claude para claridad, tono, UX editorial o documentacion.
 
 ## Ultima Decision
 
-Atelier Flow se mantiene como direccion interna, pero no como nombre final por posible confusion con el tema gratuito `Atelier` de Shopify.
+Phase 2A queda cerrada con 27 archivos revisados y 0 ofensas en Shopify Theme Check; `Atelier Flow` se mantiene solo como direccion interna.
