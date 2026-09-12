@@ -1,0 +1,294 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign lookbook_image = section.settings.image_desktop | default: section.settings.image_mobile
+  assign default_image_alt = 'sections.lookbook.image_alt' | t
+  assign heading_image_alt = section.settings.heading | strip_html
+  assign lookbook_alt = section.settings.image_alt | default: heading_image_alt | default: default_image_alt
+-%}
+
+<editorial-lookbook class="editorial-lookbook">
+  <section
+    class="section lookbook color-{{ section_scheme }}"
+    {% if section.settings.heading != blank %}
+      aria-labelledby="LookbookTitle-{{ section.id }}"
+    {% else %}
+      aria-label="{{ 'sections.lookbook.region_label' | t }}"
+    {% endif %}
+  >
+    <div class="lookbook__inner">
+      <header class="lookbook__header">
+        <div class="flow">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 id="LookbookTitle-{{ section.id }}" class="lookbook__heading">
+              {{- section.settings.heading -}}
+            </h2>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.description != blank -%}
+          <div class="lookbook__description rte">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </header>
+
+      <div class="lookbook__stage">
+        <div class="lookbook__media">
+          {%- if lookbook_image != blank -%}
+            <picture>
+              {%- if section.settings.image_mobile != blank -%}
+                <source
+                  media="(max-width: 47.99rem)"
+                  srcset="
+                    {{ section.settings.image_mobile | image_url: width: 390 }} 390w,
+                    {{ section.settings.image_mobile | image_url: width: 550 }} 550w,
+                    {{ section.settings.image_mobile | image_url: width: 750 }} 750w
+                  "
+                  sizes="100vw"
+                >
+              {%- endif -%}
+              {% render 'responsive-image',
+                image: lookbook_image,
+                sizes: '(min-width: 94rem) 1440px, (min-width: 62rem) calc(100vw - 64px), 100vw',
+                widths: '550, 750, 960, 1200, 1600, 2000, 2400',
+                image_class: 'lookbook__image',
+                alt: lookbook_alt
+              %}
+            </picture>
+          {%- else -%}
+            <div class="lookbook__placeholder" aria-hidden="true">
+              {{- 'lifestyle-2' | placeholder_svg_tag: 'homepage-placeholder' -}}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="lookbook__hotspots">
+          {%- for block in section.blocks -%}
+            {%- assign hotspot_product = block.settings.product -%}
+            {%- if hotspot_product == blank -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- liquid
+              assign popover_id = 'LookbookPopover-' | append: section.id | append: '-' | append: block.id
+              assign popover_title_id = 'LookbookPopoverTitle-' | append: section.id | append: '-' | append: block.id
+            -%}
+            <div
+              class="lookbook-hotspot"
+              style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%;"
+              data-lookbook-hotspot
+              {{ block.shopify_attributes }}
+            >
+              <button
+                class="lookbook-hotspot__trigger"
+                type="button"
+                role="button"
+                aria-label="{{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape }}"
+                aria-controls="{{ popover_id }}"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                data-lookbook-trigger
+              >
+                <span aria-hidden="true">{{ forloop.index }}</span>
+              </button>
+
+              <div
+                id="{{ popover_id }}"
+                class="lookbook-popover"
+                role="dialog"
+                aria-labelledby="{{ popover_title_id }}"
+                tabindex="-1"
+                data-lookbook-popover
+                data-position="{{ block.settings.popover_position }}"
+                hidden
+                inert
+              >
+                <button
+                  class="icon-button lookbook-popover__close"
+                  type="button"
+                  aria-label="{{ 'general.accessibility.close' | t }}"
+                  data-lookbook-close
+                >
+                  {% render 'icon', name: 'close', size: 18 %}
+                </button>
+
+                <div class="lookbook-popover__media">
+                  {%- if hotspot_product.featured_media.preview_image != blank -%}
+                    {% render 'responsive-image',
+                      image: hotspot_product.featured_media.preview_image,
+                      sizes: '88px',
+                      widths: '88, 176, 264',
+                      image_class: 'lookbook-popover__image',
+                      alt: hotspot_product.title
+                    %}
+                  {%- else -%}
+                    <span class="lookbook-popover__image-placeholder" aria-hidden="true"></span>
+                  {%- endif -%}
+                </div>
+
+                <div class="lookbook-popover__content">
+                  <p class="eyebrow">{{ 'sections.lookbook.featured_piece' | t }}</p>
+                  <h3 id="{{ popover_title_id }}" class="lookbook-popover__title">
+                    {{- hotspot_product.title | escape -}}
+                  </h3>
+                  {% render 'price', product: hotspot_product, show_badges: false, show_unit_price: false %}
+                  <a class="lookbook-popover__link" href="{{ hotspot_product.url }}">
+                    <span>{{ 'sections.lookbook.view_product' | t }}</span>
+                    {% render 'icon', name: 'arrow', size: 18 %}
+                  </a>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- if section.settings.caption != blank -%}
+        <p class="lookbook__caption">{{ section.settings.caption | escape }}</p>
+      {%- endif -%}
+
+      <noscript>
+        <nav class="lookbook__fallback" aria-label="{{ 'sections.lookbook.products_label' | t }}">
+          <ul class="lookbook__fallback-list unstyled-list">
+            {%- for block in section.blocks -%}
+              {%- assign fallback_product = block.settings.product -%}
+              {%- if fallback_product == blank -%}
+                {%- continue -%}
+              {%- endif -%}
+              <li>
+                <a href="{{ fallback_product.url }}">{{ fallback_product.title | escape }}</a>
+                {% render 'price', product: fallback_product, show_badges: false, show_unit_price: false %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      </noscript>
+    </div>
+  </section>
+</editorial-lookbook>
+
+{% schema %}
+{
+  "name": "Interactive lookbook",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text",
+      "info": "Describe the complete editorial scene, not the products already named by hotspots."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Editorial study / Look 01"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Objects in quiet conversation"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Explore each piece through the points placed across the composition.</p>"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption",
+      "default": "A study in proportion, texture and daily movement."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Product hotspot",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Horizontal position",
+          "default": 35
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Vertical position",
+          "default": 45
+        },
+        {
+          "type": "select",
+          "id": "popover_position",
+          "label": "Preferred popover position",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "right", "label": "Right" },
+            { "value": "bottom", "label": "Bottom" },
+            { "value": "left", "label": "Left" }
+          ],
+          "default": "right"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Interactive lookbook",
+      "blocks": [
+        {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 34,
+            "vertical_position": 40,
+            "popover_position": "right"
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 68,
+            "vertical_position": 62,
+            "popover_position": "left"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

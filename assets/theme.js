@@ -1035,6 +1035,7 @@
     connectedCallback() {
       this.startListening();
       this.requestController = null;
+      this.gridStorageKey = 'theme:grid-columns';
 
       this.listen(this, 'submit', (event) => {
         const form = event.target.closest('[data-facet-form]');
@@ -1048,7 +1049,14 @@
         event.target.form?.requestSubmit();
       });
 
+      this.listen(this, 'click', (event) => {
+        const button = event.target.closest('[data-grid-view]');
+        if (!button) return;
+        this.setGridView(button.dataset.gridView, true);
+      });
+
       this.listen(window, 'popstate', () => this.renderUrl(window.location.href, false));
+      this.applyStoredGridView();
     }
 
     disconnectedCallback() {
@@ -1092,6 +1100,7 @@
         if (!nextElement) throw new Error('invalid-section');
 
         this.innerHTML = nextElement.innerHTML;
+        this.applyStoredGridView();
         if (pushState) window.history.pushState({}, '', navigationUrl);
 
         if (focusedId) {
@@ -1108,6 +1117,414 @@
     setBusy(busy) {
       const grid = this.querySelector('[data-product-grid]');
       if (grid) grid.setAttribute('aria-busy', String(busy));
+    }
+
+    applyStoredGridView() {
+      let storedValue = null;
+
+      try {
+        storedValue = window.localStorage.getItem(this.gridStorageKey);
+      } catch (_error) {
+        storedValue = null;
+      }
+
+      const gridView = ['2', '4'].includes(storedValue)
+        ? storedValue
+        : this.dataset.defaultGridColumns;
+      this.setGridView(gridView, false);
+    }
+
+    setGridView(value, persist) {
+      const gridView = String(value);
+      if (!['2', '4'].includes(gridView)) return;
+
+      const productList = this.querySelector('[data-product-list]');
+      if (!productList) return;
+
+      productList.dataset.gridColumns = gridView;
+      this.querySelectorAll('[data-grid-view]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.gridView === gridView));
+      });
+
+      if (!persist) return;
+      try {
+        window.localStorage.setItem(this.gridStorageKey, gridView);
+      } catch (_error) {
+        // Storage can be unavailable in privacy-restricted browsing contexts.
+      }
+    }
+  }
+
+  class EditorialLookbook extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.activeTrigger = null;
+      this.activePopover = null;
+      this.releaseFocusTrap = null;
+      this.triggers = Array.from(this.querySelectorAll('[data-lookbook-trigger]'));
+
+      if (this.triggers.length === 0) return;
+
+      this.listen(this, 'click', (event) => this.handleClick(event));
+      this.listen(document, 'pointerdown', (event) => this.handleOutsidePointer(event));
+      this.listen(document, 'keydown', (event) => {
+        if (event.key !== 'Escape' || !this.activePopover || event.defaultPrevented) return;
+        event.preventDefault();
+        event.stopPropagation();
+        this.close(true);
+      });
+      this.listen(window, 'resize', () => this.positionPopover());
+      this.listen(window, 'scroll', () => this.positionPopover(), {
+        capture: true,
+        passive: true,
+      });
+      this.listen(this, 'shopify:block:select', (event) => {
+        const hotspot = event.target.closest?.('[data-lookbook-hotspot]');
+        const trigger = hotspot?.querySelector('[data-lookbook-trigger]');
+        if (trigger) this.open(trigger);
+      });
+    }
+
+    disconnectedCallback() {
+      this.close(false);
+      super.disconnectedCallback();
+    }
+
+    handleClick(event) {
+      const closeButton = event.target.closest('[data-lookbook-close]');
+      if (closeButton) {
+        event.preventDefault();
+        this.close(true);
+        return;
+      }
+
+      const trigger = event.target.closest('[data-lookbook-trigger]');
+      if (!trigger) return;
+
+      if (trigger === this.activeTrigger) {
+        this.close(true);
+      } else {
+        this.open(trigger);
+      }
+    }
+
+    handleOutsidePointer(event) {
+      if (!this.activePopover) return;
+      if (this.activePopover.contains(event.target) || this.activeTrigger?.contains(event.target)) return;
+      const trigger = this.activeTrigger;
+      this.close(false);
+      requestAnimationFrame(() => {
+        const focusWasLost = document.activeElement === document.body
+          || document.activeElement === document.documentElement;
+        if (focusWasLost && trigger?.isConnected) trigger.focus();
+      });
+    }
+
+    open(trigger) {
+      const popoverId = trigger.getAttribute('aria-controls');
+      const popover = popoverId ? document.getElementById(popoverId) : null;
+      if (!popover || !this.contains(popover)) return;
+
+      this.close(false);
+      this.activeTrigger = trigger;
+      this.activePopover = popover;
+      trigger.setAttribute('aria-expanded', 'true');
+      popover.hidden = false;
+      popover.inert = false;
+      popover.setAttribute('data-open', '');
+      this.positionPopover();
+      this.releaseFocusTrap = trapFocus(
+        popover,
+        popover.querySelector('[data-lookbook-close]'),
+      );
+    }
+
+    close(restoreFocus) {
+      if (!this.activePopover || !this.activeTrigger) return;
+
+      const trigger = this.activeTrigger;
+      this.releaseFocusTrap?.();
+      this.releaseFocusTrap = null;
+      trigger.setAttribute('aria-expanded', 'false');
+      this.activePopover.hidden = true;
+      this.activePopover.inert = true;
+      this.activePopover.removeAttribute('data-open');
+      this.activePopover.style.removeProperty('left');
+      this.activePopover.style.removeProperty('top');
+      this.activePopover = null;
+      this.activeTrigger = null;
+
+      if (restoreFocus && trigger.isConnected) trigger.focus();
+    }
+
+    positionPopover() {
+      if (!this.activePopover || !this.activeTrigger) return;
+
+      const triggerRect = this.activeTrigger.getBoundingClientRect();
+      const popoverWidth = this.activePopover.offsetWidth;
+      const popoverHeight = this.activePopover.offsetHeight;
+      const margin = 16;
+      const gap = 12;
+      const preferredPosition = this.activePopover.dataset.position || 'right';
+      let left = triggerRect.left + (triggerRect.width - popoverWidth) / 2;
+      let top = triggerRect.bottom + gap;
+
+      if (preferredPosition === 'top') top = triggerRect.top - popoverHeight - gap;
+      if (preferredPosition === 'left') {
+        left = triggerRect.left - popoverWidth - gap;
+        top = triggerRect.top + (triggerRect.height - popoverHeight) / 2;
+      }
+      if (preferredPosition === 'right') {
+        left = triggerRect.right + gap;
+        top = triggerRect.top + (triggerRect.height - popoverHeight) / 2;
+      }
+
+      const maxLeft = Math.max(margin, window.innerWidth - popoverWidth - margin);
+      const maxTop = Math.max(margin, window.innerHeight - popoverHeight - margin);
+      left = Math.min(Math.max(left, margin), maxLeft);
+      top = Math.min(Math.max(top, margin), maxTop);
+
+      this.activePopover.style.left = `${Math.round(left)}px`;
+      this.activePopover.style.top = `${Math.round(top)}px`;
+    }
+  }
+
+  class CompleteTheLook extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.items = Array.from(this.querySelectorAll('[data-bundle-item]'));
+      this.submitButton = this.querySelector('[data-complete-look-submit]');
+      this.submitLabel = this.querySelector('[data-complete-look-label]');
+      this.countOutput = this.querySelector('[data-bundle-count]');
+      this.totalOutput = this.querySelector('[data-bundle-total]');
+      this.statusOutput = this.querySelector('[data-bundle-status]');
+      this.errorOutput = this.querySelector('[data-bundle-error]');
+      this.requestController = null;
+      this.busy = false;
+
+      if (!this.submitButton) return;
+
+      this.listen(this, 'change', (event) => {
+        const item = event.target.closest('[data-bundle-item]');
+        if (!item || !event.target.matches('[data-bundle-select], [data-bundle-variant]')) return;
+        if (event.target.matches('[data-bundle-variant]')) this.updateItemPrice(item);
+        this.clearMessages();
+        this.updateSummary();
+      });
+      this.listen(this.submitButton, 'click', () => {
+        this.addSelectedItems().catch((error) => {
+          if (error.name === 'AbortError') return;
+          this.showError(error.message);
+        });
+      });
+
+      this.items.forEach((item) => this.updateItemPrice(item));
+      this.updateSummary();
+    }
+
+    disconnectedCallback() {
+      this.requestController?.abort();
+      super.disconnectedCallback();
+    }
+
+    getVariantData(item) {
+      const control = item.querySelector('[data-bundle-variant]');
+      if (!control || control.disabled || !control.value) return null;
+
+      const source = control instanceof HTMLSelectElement
+        ? control.selectedOptions[0]
+        : control;
+      if (!source) return null;
+
+      return {
+        id: Number(control.value),
+        price: Number(source.dataset.price) || 0,
+        quantity: Math.max(1, Number(source.dataset.quantity) || 1),
+        formattedPrice: source.dataset.priceFormatted || '',
+        formattedComparePrice: source.dataset.compareFormatted || '',
+      };
+    }
+
+    getSelectedItems() {
+      return this.items.flatMap((item) => {
+        const checkbox = item.querySelector('[data-bundle-select]');
+        const variant = this.getVariantData(item);
+        if (!checkbox?.checked || checkbox.disabled || !variant?.id) return [];
+        return [{ ...variant, item }];
+      });
+    }
+
+    updateItemPrice(item) {
+      const variant = this.getVariantData(item);
+      if (!variant) return;
+
+      const currentPrice = item.querySelector('[data-current-price]');
+      const comparePrice = item.querySelector('[data-compare-price]');
+      if (currentPrice) currentPrice.textContent = variant.formattedPrice;
+      if (comparePrice) {
+        comparePrice.textContent = variant.formattedComparePrice;
+        comparePrice.hidden = !variant.formattedComparePrice;
+      }
+    }
+
+    updateSummary() {
+      this.items.forEach((item) => {
+        const checkbox = item.querySelector('[data-bundle-select]');
+        item.toggleAttribute('data-selected', Boolean(checkbox?.checked && !checkbox.disabled));
+      });
+
+      const selectedItems = this.getSelectedItems();
+      const count = selectedItems.length;
+      const total = selectedItems.reduce(
+        (sum, item) => sum + (item.price * item.quantity),
+        0,
+      );
+      const formattedTotal = this.formatMoney(total);
+      const countTemplate = count === 1
+        ? this.dataset.selectedOneTemplate
+        : this.dataset.selectedManyTemplate;
+
+      if (this.countOutput) {
+        this.countOutput.textContent = this.interpolate(countTemplate, {
+          count,
+          total: this.items.length,
+        });
+      }
+      if (this.totalOutput) this.totalOutput.textContent = formattedTotal;
+      if (this.submitLabel) {
+        if (count === 0) {
+          this.submitLabel.textContent = this.dataset.emptyLabel;
+        } else {
+          const buttonTemplate = count === 1
+            ? this.dataset.addOneTemplate
+            : this.dataset.addManyTemplate;
+          this.submitLabel.textContent = this.interpolate(buttonTemplate, {
+            count,
+            total: formattedTotal,
+          });
+        }
+      }
+      this.submitButton.disabled = this.busy || count === 0;
+    }
+
+    formatMoney(cents) {
+      try {
+        return new Intl.NumberFormat(document.documentElement.lang || undefined, {
+          style: 'currency',
+          currency: this.dataset.currencyCode,
+        }).format(cents / 100);
+      } catch (_error) {
+        return `${this.dataset.currencySymbol || ''}${(cents / 100).toFixed(2)}`;
+      }
+    }
+
+    interpolate(template = '', values = {}) {
+      return Object.entries(values).reduce(
+        (output, [key, value]) => output.replaceAll(`__${key}__`, String(value)),
+        template,
+      );
+    }
+
+    async addSelectedItems() {
+      const selectedItems = this.getSelectedItems();
+      if (selectedItems.length === 0 || this.busy) return;
+
+      this.clearMessages();
+      this.setBusy(true);
+      this.requestController?.abort();
+      this.requestController = new AbortController();
+      const drawer = document.querySelector('cart-drawer');
+      const requestBody = {
+        items: selectedItems.map(({ id, quantity }) => ({ id, quantity })),
+      };
+
+      if (drawer?.dataset.sectionId) {
+        requestBody.sections = [drawer.dataset.sectionId];
+        requestBody.sections_url = `${window.location.pathname}${window.location.search}`;
+      }
+
+      try {
+        const response = await fetch(this.dataset.cartAddUrl, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          body: JSON.stringify(requestBody),
+          signal: this.requestController.signal,
+        });
+        const result = await response.json();
+        if (!response.ok) {
+          throw new Error(result.description || result.message || this.dataset.errorMessage);
+        }
+
+        const canRenderDrawer = drawer
+          && typeof drawer.renderCartResponse === 'function'
+          && typeof drawer.open === 'function'
+          && result.sections;
+
+        if (!canRenderDrawer) {
+          window.location.assign(this.dataset.cartUrl);
+          return;
+        }
+
+        try {
+          await drawer.renderCartResponse(result);
+        } catch (_error) {
+          window.location.assign(this.dataset.cartUrl);
+          return;
+        }
+
+        drawer.showStatus?.(this.dataset.addedMessage);
+        drawer.open(this.submitButton);
+        this.showStatus(this.dataset.addedMessage);
+      } finally {
+        this.setBusy(false);
+      }
+    }
+
+    setBusy(busy) {
+      this.busy = busy;
+      this.setAttribute('aria-busy', String(busy));
+      this.querySelectorAll('[data-bundle-select], select[data-bundle-variant]').forEach((control) => {
+        if (busy) {
+          control.dataset.wasDisabled = String(control.disabled);
+          control.disabled = true;
+        } else if (control.dataset.wasDisabled !== undefined) {
+          control.disabled = control.dataset.wasDisabled === 'true';
+          delete control.dataset.wasDisabled;
+        }
+      });
+
+      const spinner = this.submitButton.querySelector('[data-loading-icon]');
+      if (spinner) spinner.hidden = !busy;
+      this.submitButton.setAttribute('aria-busy', String(busy));
+      if (busy) {
+        this.submitButton.disabled = true;
+      } else {
+        this.updateSummary();
+      }
+    }
+
+    clearMessages() {
+      [this.statusOutput, this.errorOutput].forEach((output) => {
+        if (!output) return;
+        output.hidden = true;
+        output.textContent = '';
+      });
+    }
+
+    showStatus(message) {
+      if (!this.statusOutput) return;
+      this.statusOutput.textContent = message;
+      this.statusOutput.hidden = false;
+    }
+
+    showError(message) {
+      if (!this.errorOutput) return;
+      this.errorOutput.textContent = message || this.dataset.errorMessage;
+      this.errorOutput.hidden = false;
     }
   }
 
@@ -1334,6 +1751,14 @@
 
   if (!customElements.get('facet-filters-form')) {
     customElements.define('facet-filters-form', FacetFiltersForm);
+  }
+
+  if (!customElements.get('editorial-lookbook')) {
+    customElements.define('editorial-lookbook', EditorialLookbook);
+  }
+
+  if (!customElements.get('complete-the-look')) {
+    customElements.define('complete-the-look', CompleteTheLook);
   }
 
   if (!customElements.get('curated-showcase')) {

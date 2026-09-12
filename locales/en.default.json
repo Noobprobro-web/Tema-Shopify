@@ -79,6 +79,35 @@
       "pause": "Pause announcements",
       "play": "Play announcements"
     },
+    "lookbook": {
+      "region_label": "Interactive editorial lookbook",
+      "image_alt": "Editorial composition with shoppable products",
+      "open_product": "Open details for {{ product }}",
+      "featured_piece": "Featured piece",
+      "view_product": "View product",
+      "products_label": "Products featured in this look"
+    },
+    "complete_the_look": {
+      "region_label": "Complete the look",
+      "image_alt": "Editorial view of the complete look",
+      "selected_count": {
+        "one": "{{ count }} of {{ total }} item selected",
+        "other": "{{ count }} of {{ total }} items selected"
+      },
+      "add_selected": {
+        "one": "Add {{ count }} piece to bag | {{ total }}",
+        "other": "Add {{ count }} pieces to bag | {{ total }}"
+      },
+      "select_items": "Select at least one piece",
+      "select_product": "Select {{ product }}",
+      "choose_variant": "Choose an option for {{ product }}",
+      "selling_plan_required": "Available from the product page with a purchase plan.",
+      "total_label": "Capsule total",
+      "empty": "Choose two to four products in the theme editor to build this look.",
+      "no_javascript": "Open each product to choose options and purchase it separately.",
+      "added": "The selected look was added to your cart.",
+      "error": "We could not add this look. Review the selected options and try again."
+    },
     "homepage": {
       "hero": {
         "region_label": "Featured editorial campaign"
@@ -156,6 +185,16 @@
       "label": "Collection pagination",
       "previous": "Previous",
       "next": "Next"
+    },
+    "grid": {
+      "label": "Choose product grid density",
+      "title": "Grid",
+      "one_column": "Show one product per row",
+      "two_columns": "Show two products per row",
+      "four_columns": "Show four products per row"
+    },
+    "merchandising": {
+      "promotion": "Editorial collection feature"
     }
   },
   "templates": {

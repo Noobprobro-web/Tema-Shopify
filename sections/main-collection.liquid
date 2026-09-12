@@ -3,6 +3,7 @@
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign sort_by = collection.sort_by | default: collection.default_sort_by
   assign active_filter_count = 0
+  assign default_grid_columns = section.settings.default_grid_columns | default: '4'
 
   for filter in collection.filters
     assign active_filter_count = active_filter_count | plus: filter.active_values.size
@@ -14,7 +15,10 @@
   endfor
 -%}
 
-<facet-filters-form data-section-id="{{ section.id }}">
+<facet-filters-form
+  data-section-id="{{ section.id }}"
+  data-default-grid-columns="{{ default_grid_columns }}"
+>
   <section class="section collection-main color-{{ section_scheme }}" data-facet-section>
     <div class="container flow">
       <header class="collection-main__header flow">
@@ -140,24 +144,139 @@
 
         <div class="collection-products" data-product-grid aria-busy="false">
           {%- paginate collection.products by section.settings.products_per_page -%}
-            <p class="collection-products__count" aria-live="polite" data-results-status>
-              {{- 'collections.general.products_count' | t: count: collection.products_count -}}
-            </p>
+            <div class="collection-products__toolbar">
+              <p class="collection-products__count" aria-live="polite" data-results-status>
+                {{- 'collections.general.products_count' | t: count: collection.products_count -}}
+              </p>
+              <div
+                class="collection-grid-switcher"
+                role="group"
+                aria-label="{{ 'collections.grid.label' | t }}"
+              >
+                <span class="collection-grid-switcher__title" aria-hidden="true">
+                  {{- 'collections.grid.title' | t -}}
+                </span>
+                <button
+                  class="collection-grid-switcher__button"
+                  type="button"
+                  data-grid-view="2"
+                  aria-pressed="{% if default_grid_columns == '2' %}true{% else %}false{% endif %}"
+                >
+                  <span class="collection-grid-switcher__icon collection-grid-switcher__icon--two" aria-hidden="true">
+                    <i></i><i></i>
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--mobile">
+                    {{- 'collections.grid.one_column' | t -}}
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--desktop">
+                    {{- 'collections.grid.two_columns' | t -}}
+                  </span>
+                </button>
+                <button
+                  class="collection-grid-switcher__button"
+                  type="button"
+                  data-grid-view="4"
+                  aria-pressed="{% if default_grid_columns == '4' %}true{% else %}false{% endif %}"
+                >
+                  <span class="collection-grid-switcher__icon collection-grid-switcher__icon--four" aria-hidden="true">
+                    <i></i><i></i><i></i><i></i>
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--mobile">
+                    {{- 'collections.grid.two_columns' | t -}}
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--desktop">
+                    {{- 'collections.grid.four_columns' | t -}}
+                  </span>
+                </button>
+              </div>
+            </div>
 
-            {%- if collection.products.size > 0 -%}
-              <ul class="product-grid unstyled-list">
-                {%- for product in collection.products -%}
-                  <li class="product-grid__item">
-                    {% render 'product-card',
-                      card_product: product,
-                      show_secondary_image: section.settings.show_secondary_image,
-                      show_vendor: section.settings.show_vendor,
-                      show_quick_add: section.settings.show_quick_add
-                    %}
-                  </li>
+            {%- if collection.products.size > 0 or section.blocks.size > 0 -%}
+              <ul
+                class="product-grid unstyled-list"
+                data-product-list
+                data-grid-columns="{{ default_grid_columns }}"
+              >
+                {%- liquid
+                  assign product_cursor = 0
+                  assign promotion_append_position = collection.products.size | plus: 1
+                  assign total_grid_slots = collection.products.size | plus: section.blocks.size
+                -%}
+                {%- for grid_position in (1..total_grid_slots) -%}
+                  {%- assign promotion_rendered = false -%}
+                  {%- for block in section.blocks -%}
+                    {%- assign promotion_position = block.settings.position_in_grid | default: 4 | at_most: promotion_append_position -%}
+                    {%- if promotion_position == grid_position -%}
+                      {%- liquid
+                        assign promotion_rendered = true
+                        assign promotion_scheme = block.settings.color_scheme.id | default: block.settings.color_scheme | default: section_scheme
+                        assign promotion_title_id = 'PromotionTileTitle-' | append: section.id | append: '-' | append: block.id
+                        assign promotion_heading_alt = block.settings.heading | strip_html
+                        assign promotion_alt = block.settings.image_alt | default: promotion_heading_alt
+                      -%}
+                      <li class="product-grid__item product-grid__item--promotion" {{ block.shopify_attributes }}>
+                        <article
+                          class="promotion-tile color-{{ promotion_scheme }}"
+                          {% if block.settings.heading != blank %}
+                            aria-labelledby="{{ promotion_title_id }}"
+                          {% else %}
+                            aria-label="{{ 'collections.merchandising.promotion' | t }}"
+                          {% endif %}
+                        >
+                          {%- if block.settings.image != blank -%}
+                            <div class="promotion-tile__media">
+                              {% render 'responsive-image',
+                                image: block.settings.image,
+                                sizes: '(min-width: 62rem) 40vw, (min-width: 48rem) 33vw, 100vw',
+                                widths: '390, 550, 750, 960',
+                                image_class: 'promotion-tile__image',
+                                alt: promotion_alt
+                              %}
+                            </div>
+                          {%- endif -%}
+                          <div class="promotion-tile__content flow">
+                            {%- if block.settings.eyebrow != blank -%}
+                              <p class="eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                            {%- endif -%}
+                            {%- if block.settings.heading != blank -%}
+                              <h3 id="{{ promotion_title_id }}" class="promotion-tile__heading">
+                                {{- block.settings.heading -}}
+                              </h3>
+                            {%- endif -%}
+                            {%- if block.settings.text != blank -%}
+                              <div class="promotion-tile__text rte">{{ block.settings.text }}</div>
+                            {%- endif -%}
+                            {%- if block.settings.link_label != blank and block.settings.link_url != blank -%}
+                              <a class="button button--secondary promotion-tile__link" href="{{ block.settings.link_url }}">
+                                <span>{{ block.settings.link_label | escape }}</span>
+                                {% render 'icon', name: 'arrow', size: 18 %}
+                              </a>
+                            {%- endif -%}
+                          </div>
+                        </article>
+                      </li>
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- unless promotion_rendered -%}
+                    {%- assign grid_product = collection.products[product_cursor] -%}
+                    {%- if grid_product != blank -%}
+                      <li class="product-grid__item">
+                        {% render 'product-card',
+                          card_product: grid_product,
+                          show_secondary_image: section.settings.show_secondary_image,
+                          show_vendor: section.settings.show_vendor,
+                          show_quick_add: section.settings.show_quick_add
+                        %}
+                      </li>
+                      {%- assign product_cursor = product_cursor | plus: 1 -%}
+                    {%- endif -%}
+                  {%- endunless -%}
                 {%- endfor -%}
               </ul>
-            {%- else -%}
+            {%- endif -%}
+
+            {%- if collection.products.size == 0 -%}
               <div class="collection-products__empty flow">
                 <p>{{ 'collections.general.no_products' | t }}</p>
                 <a href="{{ collection.url }}">{{ 'collections.filters.clear_all' | t }}</a>
@@ -216,6 +335,16 @@
       "default": 24
     },
     {
+      "type": "select",
+      "id": "default_grid_columns",
+      "label": "Default grid density",
+      "options": [
+        { "value": "2", "label": "Fewer columns" },
+        { "value": "4", "label": "More columns" }
+      ],
+      "default": "4"
+    },
+    {
       "type": "checkbox",
       "id": "show_secondary_image",
       "label": "Show second image",
@@ -232,6 +361,70 @@
       "id": "show_quick_add",
       "label": "Show quick add",
       "default": true
+    }
+  ],
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "promotion_tile",
+      "name": "Promotion tile",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "range",
+          "id": "position_in_grid",
+          "min": 1,
+          "max": 48,
+          "step": 1,
+          "label": "Position in product grid",
+          "default": 4
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alternative text"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Atelier note / 01"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Cloth remembers the shape of daily life"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Follow a material study from fibre to finished form.</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Read the story"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-2"
+        }
+      ]
     }
   ]
 }

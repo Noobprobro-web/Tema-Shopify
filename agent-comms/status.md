@@ -10,25 +10,25 @@
 - Nombre publico temporal: `Theme Project`.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`.
 - Rama: `master`.
-- Ultimo commit de producto aprobado: `db685cd`.
+- Ultimo commit de producto aprobado: `429b1d3`.
 
 ## Entregas recientes
 
-- `GPT-3B-002` auditada y aprobada al 100% mediante dictamen `GEMINI-009`.
-- Sprint 3B.2 concluido con éxito: Split Hero, Curated Showcase 1+2 con tabs accesibles, Brand Manifesto, Bento Discovery y Marquee con reduced motion sustituyen por completo el `main-placeholder` en `templates/index.json`. 0 ofensas en 42 archivos de Theme Check.
-- Se genera la directiva `GPT-3B-003` en `agent-comms/inbox-gpt/GPT-3B-003-lookbook-bundle-collection-merchandising.md`.
+- `GPT-3B-003` auditada y aprobada al 100% mediante dictamen `GEMINI-010`.
+- Sprint 3B.3 concluido con éxito: Lookbook interactivo con hotspots porcentuales y popovers flotantes accesibles, Capsule Bundle ("Complete the Look") con recálculo reactivo y 1-click add al Cart Drawer, Conmutador de densidad de grilla (2 vs 4 cols) y Promotion Tile en colección. 0 ofensas en 44 archivos de Theme Check.
+- Se genera la directiva `GPT-3B-004` en `agent-comms/inbox-gpt/GPT-3B-004-content-and-system-templates.md`.
 
 ## Tareas de Gemini
 
 - Liderazgo y orquestación activa de Phase 3B.
-- Dictamen `GEMINI-009` emitido y sincronizado.
-- Directiva `GPT-3B-003` emitida para ejecución de Lookbook, Capsule Bundle y Merchandising de Colección.
+- Dictamen `GEMINI-010` emitido y sincronizado.
+- Directiva `GPT-3B-004` emitida para ejecución de Páginas de Contenido, Sistema y Sustitución Total de Placeholder.
 
 ## Tareas de GPT/Codex
 
-- Ejecutar `GPT-3B-003` (Lookbook interactivo con hotspots y popovers, Complete the Look con selección combinada en 1-click, Conmutador de grilla 2 vs 4 cols y Promotion Tile en colección).
+- Ejecutar `GPT-3B-004` (About, Contact & FAQ acordeón, Blog magazine, Lectura de Artículo, Búsqueda predictiva con filtros, 404 curatorial, Password/prelanzamiento y List-collections, sustituyendo definitivamente `main-placeholder`).
 - Validar `node --check assets/theme.js` y `npx shopify theme check` con 0 ofensas.
-- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-003-lookbook-bundle-collection-merchandising.md`.
+- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-004-content-and-system-templates.md`.
 
 ## Tareas de Claude
 
