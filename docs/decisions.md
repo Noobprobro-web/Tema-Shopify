@@ -90,7 +90,14 @@ Registro de decisiones importantes del tema.
 - Se valida el plugin constructor local `docs/figma/atelier-flow-system-builder/` y la lámina de 10 component sets con 52 variantes (`atelier-flow-critical-component-sets.svg`).
 - Se validan los blueprints de Merchandising P1 (`couture-top-tier-merchandising-1440.svg` y `390.svg`).
 - Phase 3A queda concluida al 100% con grado de madurez comercial top-tier.
-- Próxima etapa: Kickoff de Phase 3B (Codificación de componentes en Liquid, CSS y JS).
 
+## 2026-09-12: Kickoff de Phase 3B (Implementación Técnica en Liquid, CSS y JS)
 
-
+- El usuario autoriza formalmente el inicio de Phase 3B.
+- Para evitar sobrecarga de contexto y garantizar código limpio y comprobable, Phase 3B se estructura en 4 sprints técnicos:
+  - **Sprint 3B.1 (`GPT-3B-001`):** Tokens Semánticos CSS, Sticky Cart Bar, Size Guide & Model Fit Modal, Cart Drawer Merchandising (barra de envío/regalo escalonada y 1-click cross-sell) y Announcement Bar.
+  - **Sprint 3B.2 (`GPT-3B-002`):** Secciones Editoriales de Homepage (Split Hero, Curated Showcase 1+2, Brand Manifesto, Bento Discovery y Editorial Marquee) y armado de `templates/index.json`.
+  - **Sprint 3B.3 (`GPT-3B-003`):** Lookbook con Hotspots interactivos, Capsule Bundle "Complete the Look", y Conmutador de Grid (2 vs 4 cols) + Promotion Tile en `main-collection.liquid`.
+  - **Sprint 3B.4 (`GPT-3B-004`):** Páginas de Contenido y Sistema (About, Contact & FAQ, Blog, Lectura de Artículo, Búsqueda Predictiva, 404 y Password), reemplazando `main-placeholder.liquid`.
+- Se emite la directiva `GPT-3B-001` en `agent-comms/inbox-gpt/GPT-3B-001-core-conversion-components.md` asignada a GPT-5.6 Sol Max / Codex.
+- Se mantiene el estándar inquebrantable de 0 ofensas en Theme Check, cero librerías pesadas externas y 100% WCAG 2.2 AA.

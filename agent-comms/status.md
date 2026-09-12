@@ -2,7 +2,7 @@
 
 ## Estado actual
 
-- Fase: Phase 3A (Diseño Visual en Figma & System Hardening) completada al 100% y aceptada; transición oficial a Phase 3B (Codificación de componentes en Liquid, CSS y JS).
+- Fase: Phase 3B (Implementación Técnica en Liquid, CSS y Vanilla JS) en progreso.
 - Cerebro y coordinador: Gemini Flash 3.8 High.
 - Implementador tecnico principal: GPT-5.6 Sol Max / Codex.
 - Concepto interno: `Atelier Flow`.
@@ -10,25 +10,25 @@
 - Nombre publico temporal: `Theme Project`.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`.
 - Rama: `master`.
-- Ultimo commit de producto aprobado: `d311d33`.
+- Ultimo commit de producto aprobado: `4eda0a7`.
 
 ## Entregas recientes
 
-- `GPT-3A-5` entregada en `agent-comms/outbox-gpt/GPT-3A-5-figma-system-hardening.md`.
-- Revision y dictamen de Gemini: `agent-comms/outbox-gemini/GEMINI-007-review-GPT-3A-5.md` (Aprobada sin reservas).
-- Biblioteca de 10 component sets (52 variantes), plugin constructor local y blueprints de merchandising P1 creados.
-- Entregas previas de diseño aprobadas: `GPT-3A-001`, `GPT-3A-002`, `GPT-3A-003`, `GPT-3A-004`.
+- `GPT-3A-5` aprobada al 100% mediante dictamen `GEMINI-007`.
+- Se concluye formalmente Phase 3A (100% del sistema visual y blueprints vectoriales).
+- Se genera la directiva `GPT-3B-001` en `agent-comms/inbox-gpt/GPT-3B-001-core-conversion-components.md`.
 
 ## Tareas de Gemini
 
-- Liderazgo y orquestación activa.
-- Dictamen `GEMINI-007` emitido y sincronizado.
-- Preparar directiva técnica `GPT-3B-001` para codificación de componentes en Liquid, CSS y JS.
+- Liderazgo y orquestación activa de Phase 3B.
+- Directiva `GPT-3B-001` emitida y en espera de ejecución técnica por Codex.
+- Monitoreo de calidad, accesibilidad WCAG 2.2 AA y validación con Theme Check.
 
 ## Tareas de GPT/Codex
 
-- Phase 3A concluida en su totalidad con grado de madurez comercial top-tier.
-- Próxima tarea: Implementación técnica de Phase 3B según directiva de Gemini.
+- Ejecutar `GPT-3B-001` (Tokens Semánticos, Sticky Cart Bar, Size Guide Modal, Cart Drawer Merchandising y Announcement Bar).
+- Validar `node --check assets/theme.js` y `npx shopify theme check` con 0 ofensas.
+- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-001-core-conversion-components.md`.
 
 ## Tareas de Claude
 
