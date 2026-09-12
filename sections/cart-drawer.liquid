@@ -1,6 +1,30 @@
 {%- liquid
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign free_shipping_threshold = section.settings.free_shipping_threshold | default: 150 | times: 100
+  assign atelier_gift_threshold = section.settings.atelier_gift_threshold | default: 250 | times: 100
+  if atelier_gift_threshold < free_shipping_threshold
+    assign atelier_gift_threshold = free_shipping_threshold
+  endif
+  assign rewards_progress = 100
+  assign shipping_marker = 100
+  if atelier_gift_threshold > 0
+    assign rewards_progress = cart.total_price | times: 100 | divided_by: atelier_gift_threshold | at_most: 100
+    assign shipping_marker = free_shipping_threshold | times: 100 | divided_by: atelier_gift_threshold | at_most: 100
+  endif
+  assign shipping_threshold_money = free_shipping_threshold | money
+  assign gift_threshold_money = atelier_gift_threshold | money
+  if cart.total_price < free_shipping_threshold
+    assign rewards_remaining = free_shipping_threshold | minus: cart.total_price | money
+    assign rewards_message = 'sections.cart.shipping_remaining' | t: amount: rewards_remaining
+  elsif cart.total_price < atelier_gift_threshold
+    assign rewards_remaining = atelier_gift_threshold | minus: cart.total_price | money
+    assign rewards_message = 'sections.cart.shipping_unlocked_gift_remaining' | t: amount: rewards_remaining
+  else
+    assign rewards_message = 'sections.cart.rewards_unlocked' | t
+  endif
+  assign default_cross_sell_heading = 'sections.cart.complimentary_additions' | t
+  assign cross_sell_heading = section.settings.cross_sell_heading | default: default_cross_sell_heading
 -%}
 
 <cart-drawer
@@ -42,6 +66,45 @@
       </header>
 
       <div class="cart-drawer__content" data-cart-drawer-content>
+        {%- if section.settings.enable_tiered_progress -%}
+          <div
+            class="cart-rewards"
+            style="--cart-progress: {{ rewards_progress }}%; --shipping-marker: {{ shipping_marker }}%;"
+            data-cart-rewards
+          >
+            <p class="cart-rewards__message" role="status" aria-live="polite">
+              {{- rewards_message -}}
+            </p>
+            <div
+              class="cart-rewards__track"
+              role="progressbar"
+              aria-label="{{ 'sections.cart.rewards_progress' | t }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="{{ rewards_progress }}"
+              aria-valuetext="{{ rewards_message | escape }}"
+            >
+              <span class="cart-rewards__fill" aria-hidden="true"></span>
+              <span
+                class="cart-rewards__marker"
+                style="--marker-position: var(--shipping-marker);"
+                {% if cart.total_price >= free_shipping_threshold %}data-unlocked{% endif %}
+                aria-hidden="true"
+              ></span>
+              <span
+                class="cart-rewards__marker"
+                style="--marker-position: 100%;"
+                {% if cart.total_price >= atelier_gift_threshold %}data-unlocked{% endif %}
+                aria-hidden="true"
+              ></span>
+            </div>
+            <div class="cart-rewards__milestones" aria-hidden="true">
+              <span>{{ 'sections.cart.shipping_milestone' | t: amount: shipping_threshold_money }}</span>
+              <span>{{ 'sections.cart.gift_milestone' | t: amount: gift_threshold_money }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+
         {%- if cart.empty? -%}
           <div class="cart-drawer__empty flow">
             <p>{{ 'sections.cart.empty' | t }}</p>
@@ -158,6 +221,160 @@
               {%- endfor -%}
             </div>
 
+            {%- capture cross_sell_markup -%}
+              {%- assign cross_sell_count = 0 -%}
+              {%- if section.blocks.size > 0 -%}
+                {%- for block in section.blocks -%}
+                  {%- assign recommendation = block.settings.product -%}
+                  {%- if recommendation == blank or recommendation.requires_selling_plan -%}
+                    {%- continue -%}
+                  {%- endif -%}
+                  {%- assign recommendation_variant = recommendation.selected_or_first_available_variant -%}
+                  {%- assign recommendation_in_cart = false -%}
+                  {%- for cart_item in cart.items -%}
+                    {%- if cart_item.product_id == recommendation.id -%}
+                      {%- assign recommendation_in_cart = true -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if recommendation_in_cart -%}
+                    {%- assign cross_sell_action = 'sections.cart.already_added' | t -%}
+                    {%- assign cross_sell_aria = 'sections.cart.already_added_product' | t: product: recommendation.title -%}
+                  {%- elsif recommendation_variant.available -%}
+                    {%- assign cross_sell_action = 'sections.cart.add_complementary' | t -%}
+                    {%- assign cross_sell_aria = 'sections.cart.add_complementary_product' | t: product: recommendation.title -%}
+                  {%- else -%}
+                    {%- assign cross_sell_action = 'products.product.sold_out' | t -%}
+                    {%- assign cross_sell_aria = 'products.product.variant_sold_out' | t -%}
+                  {%- endif -%}
+                  <article
+                    class="cart-cross-sell__item"
+                    tabindex="-1"
+                    data-cross-sell-focus="{{ recommendation_variant.id }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    <a class="cart-cross-sell__media" href="{{ recommendation.url }}" tabindex="-1" aria-hidden="true">
+                      {%- if recommendation.featured_image != blank -%}
+                        {% render 'responsive-image',
+                          image: recommendation.featured_image,
+                          sizes: '64px',
+                          widths: '64, 128',
+                          image_class: 'cart-cross-sell__image',
+                          alt: recommendation.featured_image.alt
+                        %}
+                      {%- endif -%}
+                    </a>
+                    <div class="cart-cross-sell__details">
+                      <p class="cart-cross-sell__title">
+                        <a href="{{ recommendation.url }}">{{ recommendation.title | escape }}</a>
+                      </p>
+                      <p class="cart-cross-sell__price">{{ recommendation_variant.price | money }}</p>
+                    </div>
+                    <button
+                      class="cart-cross-sell__button"
+                      type="button"
+                      aria-label="{{ cross_sell_aria | escape }}"
+                      data-cross-sell-add
+                      data-variant-id="{{ recommendation_variant.id }}"
+                      {% if recommendation_in_cart or recommendation_variant.available == false %}disabled{% endif %}
+                    >
+                      <span data-cross-sell-label>
+                        {%- unless recommendation_in_cart or recommendation_variant.available == false -%}
+                          <span aria-hidden="true">+</span>
+                        {%- endunless -%}
+                        {{- cross_sell_action -}}
+                      </span>
+                      <span class="button__spinner" data-loading-icon hidden>
+                        {% render 'icon', name: 'spinner', size: 16 %}
+                      </span>
+                    </button>
+                  </article>
+                  {%- assign cross_sell_count = cross_sell_count | plus: 1 -%}
+                {%- endfor -%}
+              {%- elsif section.settings.cross_sell_collection != blank -%}
+                {%- for recommendation in section.settings.cross_sell_collection.products limit: 6 -%}
+                  {%- if cross_sell_count >= 2 -%}
+                    {%- break -%}
+                  {%- endif -%}
+                  {%- if recommendation.requires_selling_plan -%}
+                    {%- continue -%}
+                  {%- endif -%}
+                  {%- assign recommendation_variant = recommendation.selected_or_first_available_variant -%}
+                  {%- assign recommendation_in_cart = false -%}
+                  {%- for cart_item in cart.items -%}
+                    {%- if cart_item.product_id == recommendation.id -%}
+                      {%- assign recommendation_in_cart = true -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if recommendation_in_cart -%}
+                    {%- assign cross_sell_action = 'sections.cart.already_added' | t -%}
+                    {%- assign cross_sell_aria = 'sections.cart.already_added_product' | t: product: recommendation.title -%}
+                  {%- elsif recommendation_variant.available -%}
+                    {%- assign cross_sell_action = 'sections.cart.add_complementary' | t -%}
+                    {%- assign cross_sell_aria = 'sections.cart.add_complementary_product' | t: product: recommendation.title -%}
+                  {%- else -%}
+                    {%- assign cross_sell_action = 'products.product.sold_out' | t -%}
+                    {%- assign cross_sell_aria = 'products.product.variant_sold_out' | t -%}
+                  {%- endif -%}
+                  <article
+                    class="cart-cross-sell__item"
+                    tabindex="-1"
+                    data-cross-sell-focus="{{ recommendation_variant.id }}"
+                  >
+                    <a class="cart-cross-sell__media" href="{{ recommendation.url }}" tabindex="-1" aria-hidden="true">
+                      {%- if recommendation.featured_image != blank -%}
+                        {% render 'responsive-image',
+                          image: recommendation.featured_image,
+                          sizes: '64px',
+                          widths: '64, 128',
+                          image_class: 'cart-cross-sell__image',
+                          alt: recommendation.featured_image.alt
+                        %}
+                      {%- endif -%}
+                    </a>
+                    <div class="cart-cross-sell__details">
+                      <p class="cart-cross-sell__title">
+                        <a href="{{ recommendation.url }}">{{ recommendation.title | escape }}</a>
+                      </p>
+                      <p class="cart-cross-sell__price">{{ recommendation_variant.price | money }}</p>
+                    </div>
+                    <button
+                      class="cart-cross-sell__button"
+                      type="button"
+                      aria-label="{{ cross_sell_aria | escape }}"
+                      data-cross-sell-add
+                      data-variant-id="{{ recommendation_variant.id }}"
+                      {% if recommendation_in_cart or recommendation_variant.available == false %}disabled{% endif %}
+                    >
+                      <span data-cross-sell-label>
+                        {%- unless recommendation_in_cart or recommendation_variant.available == false -%}
+                          <span aria-hidden="true">+</span>
+                        {%- endunless -%}
+                        {{- cross_sell_action -}}
+                      </span>
+                      <span class="button__spinner" data-loading-icon hidden>
+                        {% render 'icon', name: 'spinner', size: 16 %}
+                      </span>
+                    </button>
+                  </article>
+                  {%- assign cross_sell_count = cross_sell_count | plus: 1 -%}
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endcapture -%}
+
+            {%- if cross_sell_count > 0 -%}
+              <section class="cart-cross-sell" aria-labelledby="CartCrossSellHeading-{{ section.id }}">
+                <p class="eyebrow">{{ 'sections.cart.curated_for_order' | t }}</p>
+                <h3 id="CartCrossSellHeading-{{ section.id }}" class="cart-cross-sell__heading">
+                  {{- cross_sell_heading | escape -}}
+                </h3>
+                <div class="cart-cross-sell__list">
+                  {{- cross_sell_markup -}}
+                </div>
+              </section>
+            {%- endif -%}
+
             <footer class="cart-drawer__footer flow">
               {%- if settings.show_cart_note -%}
                 <div class="cart-note">
@@ -221,6 +438,49 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_tiered_progress",
+      "label": "Show tiered rewards progress",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Free shipping threshold",
+      "default": 150
+    },
+    {
+      "type": "number",
+      "id": "atelier_gift_threshold",
+      "label": "Atelier gift threshold",
+      "default": 250
+    },
+    {
+      "type": "text",
+      "id": "cross_sell_heading",
+      "label": "Cross-sell heading",
+      "default": "Complimentary Additions"
+    },
+    {
+      "type": "collection",
+      "id": "cross_sell_collection",
+      "label": "Fallback cross-sell collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cross_sell_product",
+      "name": "Cross-sell product",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
     }
   ]
 }

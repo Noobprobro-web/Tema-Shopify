@@ -279,6 +279,12 @@
       this.updateMedia(variant);
       this.updateStatus(variant);
       this.updateUrl(variant);
+      this.dispatchEvent(
+        new CustomEvent('theme:variant-change', {
+          bubbles: true,
+          detail: { variant },
+        }),
+      );
     }
 
     updateForms(variant) {
@@ -384,6 +390,231 @@
     }
   }
 
+  class StickyCartBar extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.productForm = document.getElementById(this.dataset.productFormId);
+      this.primaryButton = this.productForm?.querySelector('[data-add-to-cart]');
+      this.submitButton = this.querySelector('[data-sticky-submit]');
+      this.variantOutput = this.querySelector('[data-sticky-variant]');
+      this.priceOutput = this.querySelector('[data-sticky-price]');
+      this.label = this.querySelector('[data-sticky-label]');
+      this.spinner = this.querySelector('[data-loading-icon]');
+      this.variantSelects = this.closest('[data-section-id]')?.querySelector('variant-selects');
+
+      if (!this.productForm || !this.primaryButton || !this.submitButton) return;
+
+      this.setVisible(false);
+      this.listen(this.submitButton, 'click', () => {
+        if (!this.submitButton.disabled) this.productForm.requestSubmit(this.primaryButton);
+      });
+
+      if (this.variantSelects) {
+        this.listen(this.variantSelects, 'theme:variant-change', (event) => {
+          this.updateVariant(event.detail?.variant);
+        });
+      }
+
+      this.buttonObserver = new MutationObserver(() => this.syncButtonState());
+      this.buttonObserver.observe(this.primaryButton, {
+        attributes: true,
+        attributeFilter: ['aria-busy', 'disabled'],
+        childList: true,
+        subtree: true,
+      });
+
+      if ('IntersectionObserver' in window) {
+        this.intersectionObserver = new IntersectionObserver(([entry]) => {
+          this.setVisible(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
+        });
+        this.intersectionObserver.observe(this.primaryButton);
+      } else {
+        const updateVisibility = () => {
+          const bounds = this.primaryButton.getBoundingClientRect();
+          this.setVisible(bounds.bottom <= 0);
+        };
+        this.listen(window, 'scroll', updateVisibility, { passive: true });
+        updateVisibility();
+      }
+
+      this.syncButtonState();
+    }
+
+    disconnectedCallback() {
+      this.intersectionObserver?.disconnect();
+      this.buttonObserver?.disconnect();
+      this.setVisible(false);
+      super.disconnectedCallback();
+    }
+
+    setVisible(visible) {
+      this.toggleAttribute('data-visible', visible);
+      this.setAttribute('aria-hidden', String(!visible));
+      this.inert = !visible;
+      document.body.toggleAttribute('data-sticky-cart-visible', visible);
+    }
+
+    updateVariant(variant) {
+      if (this.variantOutput && !this.hasAttribute('data-single-variant')) {
+        this.variantOutput.textContent = variant?.title || this.dataset.unavailableText;
+      }
+      if (this.priceOutput) this.priceOutput.textContent = variant?.price || '';
+      this.syncButtonState();
+    }
+
+    syncButtonState() {
+      if (!this.primaryButton || !this.submitButton) return;
+
+      const busy = this.primaryButton.getAttribute('aria-busy') === 'true';
+      const primaryLabel = this.primaryButton.querySelector('[data-add-to-cart-text]');
+      this.submitButton.disabled = this.primaryButton.disabled;
+      this.submitButton.setAttribute('aria-busy', String(busy));
+      if (this.label && primaryLabel) this.label.textContent = primaryLabel.textContent.trim();
+      if (this.spinner) this.spinner.hidden = !busy;
+    }
+  }
+
+  class SizeGuideModal extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.trigger = this.querySelector('[data-size-guide-open]');
+      this.overlay = this.querySelector('[data-size-guide-overlay]');
+      this.panel = this.querySelector('[data-size-guide-panel]');
+      this.closeButton = this.querySelector('[data-size-guide-close]');
+      this.unitButtons = Array.from(this.querySelectorAll('[data-size-guide-unit]'));
+      this.unitPanels = Array.from(this.querySelectorAll('[data-size-guide-panel-unit]'));
+      this.managedInertElements = [];
+      this.releaseFocusTrap = null;
+      this.returnFocusTarget = null;
+
+      if (!this.trigger || !this.overlay || !this.panel || !this.closeButton) return;
+
+      this.setClosedState();
+      this.setUnit(this.dataset.defaultUnit || 'cm');
+      this.listen(this.trigger, 'click', () => this.open());
+      this.listen(this.closeButton, 'click', () => this.close(true));
+      this.listen(this.overlay, 'pointerdown', (event) => {
+        if (event.target === this.overlay) this.close(true);
+      });
+      this.listen(document, 'keydown', (event) => {
+        if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
+        event.preventDefault();
+        this.close(true);
+      });
+      this.unitButtons.forEach((button) => {
+        this.listen(button, 'click', () => this.setUnit(button.dataset.sizeGuideUnit));
+        this.listen(button, 'keydown', (event) => this.handleUnitKeydown(event));
+      });
+    }
+
+    disconnectedCallback() {
+      this.close(false);
+      super.disconnectedCallback();
+    }
+
+    get isOpen() {
+      return this.hasAttribute('data-open');
+    }
+
+    setClosedState() {
+      this.overlay.hidden = true;
+      this.panel.inert = true;
+      this.panel.setAttribute('aria-hidden', 'true');
+      this.trigger.setAttribute('aria-expanded', 'false');
+      this.removeAttribute('data-open');
+    }
+
+    open() {
+      if (this.isOpen) return;
+
+      this.returnFocusTarget = document.activeElement;
+      this.overlay.hidden = false;
+      this.panel.inert = false;
+      this.panel.setAttribute('aria-hidden', 'false');
+      this.trigger.setAttribute('aria-expanded', 'true');
+      this.setAttribute('data-open', '');
+      document.body.setAttribute('data-modal-open', '');
+      this.applyBackgroundInert();
+      this.releaseFocusTrap = trapFocus(this.panel, this.closeButton);
+    }
+
+    close(restoreFocus = false) {
+      if (!this.overlay || !this.panel || !this.trigger) return;
+
+      this.releaseFocusTrap?.();
+      this.releaseFocusTrap = null;
+      this.setClosedState();
+      document.body.removeAttribute('data-modal-open');
+      this.restoreBackgroundInert();
+
+      if (restoreFocus && this.returnFocusTarget?.isConnected) {
+        this.returnFocusTarget.focus();
+      }
+    }
+
+    setUnit(unit, focus = false) {
+      const selectedButton = this.unitButtons.find(
+        (button) => button.dataset.sizeGuideUnit === unit,
+      );
+      if (!selectedButton) return;
+
+      this.unitButtons.forEach((button) => {
+        const selected = button === selectedButton;
+        button.setAttribute('aria-selected', String(selected));
+        button.tabIndex = selected ? 0 : -1;
+      });
+      this.unitPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.sizeGuidePanelUnit !== unit;
+      });
+      if (focus) selectedButton.focus();
+    }
+
+    handleUnitKeydown(event) {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+
+      event.preventDefault();
+      const currentIndex = this.unitButtons.indexOf(event.currentTarget);
+      let nextIndex = currentIndex;
+
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = this.unitButtons.length - 1;
+      if (event.key === 'ArrowLeft') {
+        nextIndex = (currentIndex - 1 + this.unitButtons.length) % this.unitButtons.length;
+      }
+      if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % this.unitButtons.length;
+
+      this.setUnit(this.unitButtons[nextIndex].dataset.sizeGuideUnit, true);
+    }
+
+    applyBackgroundInert() {
+      this.restoreBackgroundInert();
+      let currentElement = this;
+
+      while (currentElement.parentElement) {
+        const parentElement = currentElement.parentElement;
+
+        Array.from(parentElement.children).forEach((sibling) => {
+          if (sibling === currentElement || sibling.contains(this)) return;
+          this.managedInertElements.push({
+            element: sibling,
+            wasInert: sibling.hasAttribute('inert'),
+          });
+          sibling.setAttribute('inert', '');
+        });
+
+        if (parentElement === document.body) break;
+        currentElement = parentElement;
+      }
+    }
+
+    restoreBackgroundInert() {
+      this.managedInertElements.forEach(({ element, wasInert }) => {
+        if (!wasInert) element.removeAttribute('inert');
+      });
+      this.managedInertElements = [];
+    }
+  }
+
   class CartDrawer extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -393,6 +624,7 @@
       this.releaseFocusTrap = null;
       this.returnFocusTarget = null;
       this.requestController = null;
+      this.crossSellController = null;
 
       if (!this.overlay || !this.panel) return;
 
@@ -413,6 +645,7 @@
 
     disconnectedCallback() {
       this.requestController?.abort();
+      this.crossSellController?.abort();
       this.close(false);
       super.disconnectedCallback();
     }
@@ -459,6 +692,16 @@
       const closeButton = event.target.closest('[data-cart-drawer-close]');
       if (closeButton) {
         this.close(true);
+        return;
+      }
+
+      const crossSellButton = event.target.closest('[data-cross-sell-add]');
+      if (crossSellButton) {
+        this.addCrossSell(crossSellButton).catch((error) => {
+          if (error.name === 'AbortError') return;
+          this.showError(error.message);
+          if (crossSellButton.isConnected) crossSellButton.focus();
+        });
         return;
       }
 
@@ -565,6 +808,48 @@
         this.open(submitter);
       } finally {
         this.setFormBusy(form, submitter, false);
+      }
+    }
+
+    async addCrossSell(button) {
+      const variantId = Number(button.dataset.variantId);
+      if (!variantId || button.disabled) return;
+
+      this.clearMessages();
+      this.setCrossSellBusy(button, true);
+      this.setDrawerBusy(true);
+      this.crossSellController?.abort();
+      this.crossSellController = new AbortController();
+
+      try {
+        const response = await fetch(this.dataset.cartAddUrl, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          body: JSON.stringify({
+            items: [{ id: variantId, quantity: 1 }],
+            sections: [this.dataset.sectionId],
+            sections_url: `${window.location.pathname}${window.location.search}`,
+          }),
+          signal: this.crossSellController.signal,
+        });
+        const result = await response.json();
+
+        if (!response.ok) throw new Error(result.description || result.message || this.dataset.errorMessage);
+
+        await this.renderCartResponse(result);
+        this.showStatus(this.dataset.addedMessage);
+
+        const focusTarget = Array.from(this.querySelectorAll('[data-cross-sell-focus]')).find(
+          (element) => Number(element.dataset.crossSellFocus) === variantId,
+        );
+        focusTarget?.focus({ preventScroll: true });
+      } finally {
+        this.setDrawerBusy(false);
+        this.setCrossSellBusy(button, false);
       }
     }
 
@@ -693,9 +978,30 @@
 
     setDrawerBusy(busy) {
       this.panel.setAttribute('aria-busy', String(busy));
-      this.querySelectorAll('[data-cart-quantity], [data-cart-remove]').forEach((control) => {
-        control.disabled = busy;
+      this.querySelectorAll('[data-cart-quantity], [data-cart-remove], [data-cross-sell-add]').forEach((control) => {
+        if (busy) {
+          if (control.dataset.wasDisabled === undefined) {
+            control.dataset.wasDisabled = String(control.disabled);
+          }
+          control.disabled = true;
+          return;
+        }
+
+        if (control.dataset.wasDisabled === undefined) return;
+        control.disabled = control.dataset.wasDisabled === 'true';
+        delete control.dataset.wasDisabled;
       });
+    }
+
+    setCrossSellBusy(button, busy) {
+      if (!button) return;
+
+      if (busy) button.dataset.wasDisabled = String(button.disabled);
+      button.disabled = busy || button.dataset.wasDisabled === 'true';
+      button.setAttribute('aria-busy', String(busy));
+      const spinner = button.querySelector('[data-loading-icon]');
+      if (spinner) spinner.hidden = !busy;
+      if (!busy) delete button.dataset.wasDisabled;
     }
 
     clearMessages(form = null) {
@@ -805,6 +1111,107 @@
     }
   }
 
+  class AnnouncementBar extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.items = Array.from(this.querySelectorAll('[data-announcement-item]'));
+      this.previousButton = this.querySelector('[data-announcement-previous]');
+      this.nextButton = this.querySelector('[data-announcement-next]');
+      this.pauseButton = this.querySelector('[data-announcement-pause]');
+      this.status = this.querySelector('[data-announcement-status]');
+      this.activeIndex = Math.max(0, this.items.findIndex((item) => !item.hidden));
+      this.autoRotate = this.dataset.autoRotate === 'true';
+      this.interval = Math.max(3000, Number(this.dataset.interval) || 5000);
+      this.userPaused = false;
+      this.interactionPaused = false;
+      this.timer = null;
+
+      if (this.items.length <= 1) return;
+
+      this.listen(this.previousButton, 'click', () => this.changeBy(-1));
+      this.listen(this.nextButton, 'click', () => this.changeBy(1));
+      this.listen(this.pauseButton, 'click', () => {
+        this.userPaused = !this.userPaused;
+        this.updatePauseButton();
+        this.schedule();
+      });
+      this.listen(this, 'pointerenter', () => {
+        this.interactionPaused = true;
+        this.clearTimer();
+      });
+      this.listen(this, 'pointerleave', () => {
+        this.interactionPaused = false;
+        this.schedule();
+      });
+      this.listen(this, 'focusin', () => {
+        this.interactionPaused = true;
+        this.clearTimer();
+      });
+      this.listen(this, 'focusout', () => {
+        requestAnimationFrame(() => {
+          if (this.contains(document.activeElement)) return;
+          this.interactionPaused = false;
+          this.schedule();
+        });
+      });
+      this.listen(reducedMotionQuery, 'change', () => this.schedule());
+
+      this.setActive(this.activeIndex, false);
+      this.updatePauseButton();
+      this.schedule();
+    }
+
+    disconnectedCallback() {
+      this.clearTimer();
+      super.disconnectedCallback();
+    }
+
+    changeBy(offset) {
+      const nextIndex = (this.activeIndex + offset + this.items.length) % this.items.length;
+      this.setActive(nextIndex, true);
+      this.schedule();
+    }
+
+    setActive(index, announce) {
+      this.activeIndex = index;
+      this.items.forEach((item, itemIndex) => {
+        const active = itemIndex === index;
+        item.hidden = !active;
+        item.setAttribute('aria-hidden', String(!active));
+      });
+
+      if (announce && this.status) {
+        this.status.textContent = this.items[index]?.textContent.trim() || '';
+      }
+    }
+
+    updatePauseButton() {
+      if (!this.pauseButton) return;
+
+      this.pauseButton.toggleAttribute('data-paused', this.userPaused);
+      this.pauseButton.setAttribute(
+        'aria-label',
+        this.userPaused ? this.pauseButton.dataset.playLabel : this.pauseButton.dataset.pauseLabel,
+      );
+    }
+
+    schedule() {
+      this.clearTimer();
+      if (!this.autoRotate || this.userPaused || this.interactionPaused || reducedMotionQuery.matches) return;
+
+      this.timer = window.setTimeout(() => {
+        this.setActive((this.activeIndex + 1) % this.items.length, false);
+        this.schedule();
+      }, this.interval);
+    }
+
+    clearTimer() {
+      if (this.timer === null) return;
+      window.clearTimeout(this.timer);
+      this.timer = null;
+    }
+  }
+
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const reflectReducedMotion = ({ matches }) => {
     if (matches) {
@@ -836,11 +1243,23 @@
     customElements.define('variant-selects', VariantSelects);
   }
 
+  if (!customElements.get('sticky-cart-bar')) {
+    customElements.define('sticky-cart-bar', StickyCartBar);
+  }
+
+  if (!customElements.get('size-guide-modal')) {
+    customElements.define('size-guide-modal', SizeGuideModal);
+  }
+
   if (!customElements.get('cart-drawer')) {
     customElements.define('cart-drawer', CartDrawer);
   }
 
   if (!customElements.get('facet-filters-form')) {
     customElements.define('facet-filters-form', FacetFiltersForm);
+  }
+
+  if (!customElements.get('announcement-bar')) {
+    customElements.define('announcement-bar', AnnouncementBar);
   }
 })();

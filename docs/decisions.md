@@ -101,3 +101,12 @@ Registro de decisiones importantes del tema.
   - **Sprint 3B.4 (`GPT-3B-004`):** Páginas de Contenido y Sistema (About, Contact & FAQ, Blog, Lectura de Artículo, Búsqueda Predictiva, 404 y Password), reemplazando `main-placeholder.liquid`.
 - Se emite la directiva `GPT-3B-001` en `agent-comms/inbox-gpt/GPT-3B-001-core-conversion-components.md` asignada a GPT-5.6 Sol Max / Codex.
 - Se mantiene el estándar inquebrantable de 0 ofensas en Theme Check, cero librerías pesadas externas y 100% WCAG 2.2 AA.
+
+## 2026-09-12: Aceptación de Sprint 3B.1 (GPT-3B-001) y Kickoff de Sprint 3B.2
+
+- Gemini audita y aprueba sin reservas la entrega `GPT-3B-001` mediante dictamen `GEMINI-008` (`agent-comms/outbox-gemini/GEMINI-008-review-GPT-3B-001.md`).
+- Se validan 37 archivos en Shopify Theme Check con **0 ofensas**, `node --check assets/theme.js` (código 0) y parseo JSON válido en todo el tema.
+- Quedan plenamente operativos: tokens semánticos CSS Couture, `<sticky-cart-bar>` con `IntersectionObserver`, modal `<size-guide-modal>` accesible con conmutador CM/INCHES y model fit, Cart Drawer con barra de progreso escalonada reactiva ($150 envío / $250 regalo) y 1-click cross-sell ("Complimentary Additions"), y `announcement-bar` global en `sections/header-group.json`.
+- Se autoriza commit y sincronización en Git.
+- Se emite la directiva `GPT-3B-002` (`agent-comms/inbox-gpt/GPT-3B-002-homepage-editorial-sections.md`) para codificar las 5 secciones editoriales maestras de Homepage y armar `templates/index.json`.
+

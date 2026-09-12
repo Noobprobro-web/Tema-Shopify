@@ -58,7 +58,26 @@
       "note_placeholder": "Add a note to your order",
       "view_cart": "View cart",
       "error": "We could not update your cart. Please try again.",
-      "added": "Item added to your cart."
+      "added": "Item added to your cart.",
+      "shipping_remaining": "Add {{ amount }} for Complimentary Shipping",
+      "shipping_unlocked_gift_remaining": "Complimentary Shipping unlocked. Add {{ amount }} for an Atelier Gift",
+      "rewards_unlocked": "Complimentary Shipping and Atelier Gift unlocked",
+      "rewards_progress": "Cart rewards progress",
+      "shipping_milestone": "Shipping at {{ amount }}",
+      "gift_milestone": "Gift at {{ amount }}",
+      "complimentary_additions": "Complimentary Additions",
+      "curated_for_order": "Curated for this order",
+      "add_complementary": "Add",
+      "add_complementary_product": "Add {{ product }} to your cart",
+      "already_added": "Added",
+      "already_added_product": "{{ product }} is already in your cart"
+    },
+    "announcement_bar": {
+      "region_label": "Store announcements",
+      "previous": "Previous announcement",
+      "next": "Next announcement",
+      "pause": "Pause announcements",
+      "play": "Play announcements"
     }
   },
   "products": {
@@ -77,7 +96,13 @@
       "media_gallery": "Product media gallery",
       "option_unavailable": "Option unavailable",
       "variant_available": "Variant available.",
-      "variant_sold_out": "Variant sold out."
+      "variant_sold_out": "Variant sold out.",
+      "size_guide": "Size Guide and Measurements",
+      "model_fit": "Model fit",
+      "measurement_units": "Measurement units",
+      "centimeters": "CM",
+      "inches": "INCHES",
+      "sticky_add_to_cart": "Add {{ product }} to cart"
     }
   },
   "collections": {

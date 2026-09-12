@@ -14,21 +14,21 @@
 
 ## Entregas recientes
 
-- `GPT-3A-5` aprobada al 100% mediante dictamen `GEMINI-007`.
-- Se concluye formalmente Phase 3A (100% del sistema visual y blueprints vectoriales).
-- Se genera la directiva `GPT-3B-001` en `agent-comms/inbox-gpt/GPT-3B-001-core-conversion-components.md`.
+- `GPT-3B-001` auditada y aprobada al 100% mediante dictamen `GEMINI-008`.
+- Sprint 3B.1 concluido con éxito: Tokens Couture, Sticky Cart Bar, Size Guide Modal accesible, Cart Drawer merchandising reactivo y Announcement Bar global integrados con 0 ofensas en Theme Check.
+- Se genera la directiva `GPT-3B-002` en `agent-comms/inbox-gpt/GPT-3B-002-homepage-editorial-sections.md`.
 
 ## Tareas de Gemini
 
 - Liderazgo y orquestación activa de Phase 3B.
-- Directiva `GPT-3B-001` emitida y en espera de ejecución técnica por Codex.
-- Monitoreo de calidad, accesibilidad WCAG 2.2 AA y validación con Theme Check.
+- Dictamen `GEMINI-008` emitido y sincronizado.
+- Directiva `GPT-3B-002` emitida para ejecución de secciones editoriales de Homepage.
 
 ## Tareas de GPT/Codex
 
-- Ejecutar `GPT-3B-001` (Tokens Semánticos, Sticky Cart Bar, Size Guide Modal, Cart Drawer Merchandising y Announcement Bar).
+- Ejecutar `GPT-3B-002` (Hero Editorial, Curated Showcase 1+2 con tabs, Brand Manifesto, Bento Discovery, Marquee y armado de `templates/index.json`).
 - Validar `node --check assets/theme.js` y `npx shopify theme check` con 0 ofensas.
-- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-001-core-conversion-components.md`.
+- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-002-homepage-editorial-sections.md`.
 
 ## Tareas de Claude
 

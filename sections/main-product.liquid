@@ -111,6 +111,131 @@
                 </div>
               {%- endunless -%}
 
+            {%- when 'size_guide' -%}
+              {%- liquid
+                assign default_guide_title = 'products.product.size_guide' | t
+                assign guide_title = block.settings.guide_title | default: default_guide_title
+                assign size_guide_id = 'SizeGuide-' | append: section.id | append: '-' | append: block.id
+              -%}
+              <size-guide-modal
+                class="size-guide"
+                data-default-unit="cm"
+                {{ block.shopify_attributes }}
+              >
+                <button
+                  class="size-guide__trigger"
+                  type="button"
+                  aria-expanded="false"
+                  aria-haspopup="dialog"
+                  aria-controls="{{ size_guide_id }}"
+                  data-size-guide-open
+                >
+                  {% render 'icon', name: 'arrow', size: 18 %}
+                  <span>{{ guide_title | escape }}</span>
+                </button>
+
+                {%- if block.settings.show_model_fit_below and block.settings.model_fit_info != blank -%}
+                  <p class="size-guide__model-fit-inline">
+                    {{- block.settings.model_fit_info | escape -}}
+                  </p>
+                {%- endif -%}
+
+                <div class="size-guide-modal__overlay" data-size-guide-overlay hidden>
+                  <section
+                    id="{{ size_guide_id }}"
+                    class="size-guide-modal__panel color-{{ section_scheme }}"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-hidden="true"
+                    aria-labelledby="{{ size_guide_id }}-Title"
+                    tabindex="-1"
+                    data-size-guide-panel
+                    inert
+                  >
+                    <header class="size-guide-modal__header">
+                      <h2 id="{{ size_guide_id }}-Title" class="size-guide-modal__title">
+                        {{- guide_title | escape -}}
+                      </h2>
+                      <button
+                        class="icon-button"
+                        type="button"
+                        aria-label="{{ 'general.accessibility.close' | t }}"
+                        data-size-guide-close
+                      >
+                        {% render 'icon', name: 'close', size: 22 %}
+                      </button>
+                    </header>
+
+                    <div class="size-guide-modal__body">
+                      {%- if block.settings.model_fit_info != blank -%}
+                        <div class="size-guide-modal__fit">
+                          <p class="eyebrow">{{ 'products.product.model_fit' | t }}</p>
+                          <p>{{ block.settings.model_fit_info | escape }}</p>
+                        </div>
+                      {%- endif -%}
+
+                      <div
+                        class="size-guide-modal__unit-switcher"
+                        role="tablist"
+                        aria-label="{{ 'products.product.measurement_units' | t }}"
+                      >
+                        <button
+                          id="{{ size_guide_id }}-TabCm"
+                          class="size-guide-modal__unit"
+                          type="button"
+                          role="tab"
+                          aria-selected="true"
+                          aria-controls="{{ size_guide_id }}-PanelCm"
+                          data-size-guide-unit="cm"
+                        >
+                          {{- 'products.product.centimeters' | t -}}
+                        </button>
+                        <button
+                          id="{{ size_guide_id }}-TabIn"
+                          class="size-guide-modal__unit"
+                          type="button"
+                          role="tab"
+                          aria-selected="false"
+                          aria-controls="{{ size_guide_id }}-PanelIn"
+                          tabindex="-1"
+                          data-size-guide-unit="in"
+                        >
+                          {{- 'products.product.inches' | t -}}
+                        </button>
+                      </div>
+
+                      {%- if block.settings.page_content != blank -%}
+                        <div class="size-guide-modal__page-content rte">
+                          {{- block.settings.page_content.content -}}
+                        </div>
+                      {%- endif -%}
+
+                      <div
+                        id="{{ size_guide_id }}-PanelCm"
+                        class="size-guide-modal__measurements rte"
+                        role="tabpanel"
+                        aria-labelledby="{{ size_guide_id }}-TabCm"
+                        tabindex="0"
+                        data-size-guide-panel-unit="cm"
+                      >
+                        {{- block.settings.size_table_cm -}}
+                      </div>
+                      <div
+                        id="{{ size_guide_id }}-PanelIn"
+                        class="size-guide-modal__measurements rte"
+                        role="tabpanel"
+                        aria-labelledby="{{ size_guide_id }}-TabIn"
+                        tabindex="0"
+                        data-size-guide-panel-unit="in"
+                        hidden
+                      >
+                        {{- block.settings.size_table_in -}}
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </size-guide-modal>
+
             {%- when 'quantity' -%}
               <div class="product-form__quantity" {{ block.shopify_attributes }}>
                 <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
@@ -203,6 +328,69 @@
       </script>
     </variant-selects>
   </div>
+
+  {%- if section.settings.enable_sticky_cart -%}
+    {%- liquid
+      assign sticky_media = selected_variant.featured_media.preview_image | default: product.featured_media.preview_image
+    -%}
+    <sticky-cart-bar
+      class="sticky-cart-bar color-{{ section_scheme }}"
+      data-product-form-id="{{ product_form_id }}"
+      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+      {% if product.has_only_default_variant %}data-single-variant{% endif %}
+      aria-hidden="true"
+      inert
+    >
+      <div class="sticky-cart-bar__inner">
+        <div class="sticky-cart-bar__media" aria-hidden="true">
+          {%- if sticky_media != blank -%}
+            {% render 'responsive-image',
+              image: sticky_media,
+              sizes: '56px',
+              widths: '56, 112',
+              image_class: 'sticky-cart-bar__image',
+              alt: product.title
+            %}
+          {%- endif -%}
+        </div>
+        <div class="sticky-cart-bar__details">
+          <p class="sticky-cart-bar__title">{{ product.title | escape }}</p>
+          <p class="sticky-cart-bar__meta">
+            <span
+              data-sticky-variant
+              {% if product.has_only_default_variant %}hidden{% endif %}
+            >
+              {{- selected_variant.title | escape -}}
+            </span>
+            <span
+              class="sticky-cart-bar__separator"
+              aria-hidden="true"
+              {% if product.has_only_default_variant %}hidden{% endif %}
+            > / </span>
+            <span data-sticky-price>{{ selected_variant.price | money }}</span>
+          </p>
+        </div>
+        <button
+          class="button sticky-cart-bar__submit"
+          type="button"
+          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape }}"
+          data-sticky-submit
+          {% unless selected_variant.available %}disabled{% endunless %}
+        >
+          <span data-sticky-label>
+            {%- if selected_variant.available -%}
+              {{- 'products.product.add_to_cart' | t -}}
+            {%- else -%}
+              {{- 'products.product.sold_out' | t -}}
+            {%- endif -%}
+          </span>
+          <span class="button__spinner" data-loading-icon hidden>
+            {% render 'icon', name: 'spinner', size: 18 %}
+          </span>
+        </button>
+      </div>
+    </sticky-cart-bar>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -224,6 +412,12 @@
         { "value": "grid", "label": "Grid" }
       ],
       "default": "grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_cart",
+      "label": "Enable sticky cart bar",
+      "default": true
     }
   ],
   "blocks": [
@@ -246,6 +440,48 @@
       "type": "variant_picker",
       "name": "Variant picker",
       "limit": 1
+    },
+    {
+      "type": "size_guide",
+      "name": "Size guide",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "guide_title",
+          "label": "Title",
+          "default": "Size Guide & Measurements"
+        },
+        {
+          "type": "text",
+          "id": "model_fit_info",
+          "label": "Model fit information",
+          "default": "Model is 178cm / 5'10\" wearing size S"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_model_fit_below",
+          "label": "Show model fit below trigger",
+          "default": true
+        },
+        {
+          "type": "page",
+          "id": "page_content",
+          "label": "Additional size guide page"
+        },
+        {
+          "type": "richtext",
+          "id": "size_table_cm",
+          "label": "Measurements in centimeters",
+          "default": "<p>XS: 84 cm / S: 88 cm / M: 92 cm / L: 96 cm</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "size_table_in",
+          "label": "Measurements in inches",
+          "default": "<p>XS: 33 in / S: 34.5 in / M: 36 in / L: 38 in</p>"
+        }
+      ]
     },
     {
       "type": "quantity",
