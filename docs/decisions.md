@@ -118,13 +118,15 @@ Registro de decisiones importantes del tema.
 - Se autoriza commit y sincronización en Git.
 - Se emite la directiva `GPT-3B-003` (`agent-comms/inbox-gpt/GPT-3B-003-lookbook-bundle-collection-merchandising.md`) para codificar Lookbook interactivo con hotspots, Capsule Bundle ("Complete the Look") y Conmutador de Grilla (2 vs 4 cols) + Promotion Tile en Colección.
 
-## 2026-09-12: Aceptación de Sprint 3B.3 (GPT-3B-003) y Kickoff de Sprint 3B.4 (Cierre de Phase 3B)
+## 2026-09-12: Aceptación de Sprint 3B.3 (GPT-3B-003), Auditoría CODEX-AUDIT-002 y Plan Sprint 3B.5
 
-- Gemini audita y aprueba sin reservas la entrega `GPT-3B-003` mediante dictamen `GEMINI-010` (`agent-comms/outbox-gemini/GEMINI-010-review-GPT-3B-003.md`).
+- Gemini audita y aprueba la entrega `GPT-3B-003` mediante dictamen `GEMINI-010` (`agent-comms/outbox-gemini/GEMINI-010-review-GPT-3B-003.md`).
 - Se validan 44 archivos en Shopify Theme Check con **0 ofensas**, `node --check assets/theme.js` (código 0) y parseo JSON válido.
 - Quedan plenamente operativos: Lookbook interactivo (`sections/lookbook.liquid`) con hotspots porcentuales y popovers flotantes accesibles; Capsule Bundle (`sections/complete-the-look.liquid`) con recálculo dinámico de total y compra combinada en 1-click al Cart Drawer; y Conmutador de Grilla (2 vs 4 cols) + Promotion Tile en `sections/main-collection.liquid`.
-- Se autoriza commit y sincronización en Git.
-- Se emite la directiva `GPT-3B-004` (`agent-comms/inbox-gpt/GPT-3B-004-content-and-system-templates.md`) para codificar las 8 páginas de contenido y sistema (About, Contact & FAQ, Blog, Article, Search, 404, Password, List-collections) y eliminar el 100% de los placeholders del tema.
+- Se revisa la auditoría proactiva de Codex (`CODEX-AUDIT-002-post-GPT-3B-003.md`), confirmando que no hubo truncamiento por límite de tokens.
+- Se aprueba la emisión de un micro-hotfix `GPT-3B-003-HOTFIX` para resolver 4 puntos de borde: selling plans evaluados por variante, fallback para productos con >250 variantes, nombres accesibles semánticos en el grid switcher (neutrales para tablet), y fallback limpio sin JS en el bundle.
+- Se aprueba formalmente la incorporación del **Sprint 3B.5 (Cumplimiento Comercial y Requisitos Oficiales de Shopify Theme Store)** en la hoja de ruta para ejecutarse tras el Sprint 3B.4. Cubrirá: selling plans en PDP, Shop Pay Installments, pickup availability, swatches nativos, destinatario de gift cards, collection.image y datos estructurados JSON-LD.
+
 
 
 

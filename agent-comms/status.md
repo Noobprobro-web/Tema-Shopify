@@ -15,20 +15,21 @@
 ## Entregas recientes
 
 - `GPT-3B-003` auditada y aprobada al 100% mediante dictamen `GEMINI-010`.
-- Sprint 3B.3 concluido con éxito: Lookbook interactivo con hotspots porcentuales y popovers flotantes accesibles, Capsule Bundle ("Complete the Look") con recálculo reactivo y 1-click add al Cart Drawer, Conmutador de densidad de grilla (2 vs 4 cols) y Promotion Tile en colección. 0 ofensas en 44 archivos de Theme Check.
-- Se genera la directiva `GPT-3B-004` en `agent-comms/inbox-gpt/GPT-3B-004-content-and-system-templates.md`.
+- Auditoría `CODEX-AUDIT-002` recibida: confirma cero truncamiento por tokens y aporta 4 precisiones de borde (selling plans por variante, >250 variantes, tablet grid labels, y fallback sin JS).
+- Se genera la directiva `GPT-3B-003-HOTFIX` en `agent-comms/inbox-gpt/GPT-3B-003-HOTFIX.md` para sellar definitivamente estos bordes.
+- Se programa oficialmente el **Sprint 3B.5** para cumplimiento comercial Theme Store (selling plans PDP, Shop Pay, pickup availability, swatches nativos, gift cards, etc.) tras Sprint 3B.4.
 
 ## Tareas de Gemini
 
 - Liderazgo y orquestación activa de Phase 3B.
-- Dictamen `GEMINI-010` emitido y sincronizado.
-- Directiva `GPT-3B-004` emitida para ejecución de Páginas de Contenido, Sistema y Sustitución Total de Placeholder.
+- Directiva `GPT-3B-003-HOTFIX` emitida.
+- Directiva `GPT-3B-004` lista para ejecución inmediata tras el hotfix.
 
 ## Tareas de GPT/Codex
 
-- Ejecutar `GPT-3B-004` (About, Contact & FAQ acordeón, Blog magazine, Lectura de Artículo, Búsqueda predictiva con filtros, 404 curatorial, Password/prelanzamiento y List-collections, sustituyendo definitivamente `main-placeholder`).
+- Ejecutar `GPT-3B-003-HOTFIX` (Selling plans por variante en bundle, protección >250 variantes, nombres semánticos de grid switcher y fallback sin JS).
 - Validar `node --check assets/theme.js` y `npx shopify theme check` con 0 ofensas.
-- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-004-content-and-system-templates.md`.
+- Proceder de inmediato al Sprint 3B.4 (`GPT-3B-004`).
 
 ## Tareas de Claude
 
