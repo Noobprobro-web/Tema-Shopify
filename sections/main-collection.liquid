@@ -160,32 +160,22 @@
                   class="collection-grid-switcher__button"
                   type="button"
                   data-grid-view="2"
+                  aria-label="{{ 'collections.grid.view_compact' | t }}"
                   aria-pressed="{% if default_grid_columns == '2' %}true{% else %}false{% endif %}"
                 >
                   <span class="collection-grid-switcher__icon collection-grid-switcher__icon--two" aria-hidden="true">
                     <i></i><i></i>
-                  </span>
-                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--mobile">
-                    {{- 'collections.grid.one_column' | t -}}
-                  </span>
-                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--desktop">
-                    {{- 'collections.grid.two_columns' | t -}}
                   </span>
                 </button>
                 <button
                   class="collection-grid-switcher__button"
                   type="button"
                   data-grid-view="4"
+                  aria-label="{{ 'collections.grid.view_dense' | t }}"
                   aria-pressed="{% if default_grid_columns == '4' %}true{% else %}false{% endif %}"
                 >
                   <span class="collection-grid-switcher__icon collection-grid-switcher__icon--four" aria-hidden="true">
                     <i></i><i></i><i></i><i></i>
-                  </span>
-                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--mobile">
-                    {{- 'collections.grid.two_columns' | t -}}
-                  </span>
-                  <span class="visually-hidden collection-grid-switcher__label collection-grid-switcher__label--desktop">
-                    {{- 'collections.grid.four_columns' | t -}}
                   </span>
                 </button>
               </div>

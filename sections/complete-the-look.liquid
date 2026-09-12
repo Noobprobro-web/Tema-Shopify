@@ -17,11 +17,30 @@
 
     assign rendered_item_count = rendered_item_count | plus: 1
     assign bundle_variant = bundle_product.selected_or_first_available_variant
+    assign bundle_variant_count = bundle_product.variants_count
+    assign bundle_is_high_variant = false
+    if bundle_variant_count == blank
+      assign bundle_variant_count = bundle_product.variants.size
+      if bundle_variant_count >= 250
+        assign bundle_is_high_variant = true
+      endif
+    elsif bundle_variant_count > 250
+      assign bundle_is_high_variant = true
+    endif
+
     assign bundle_can_add = false
-    if bundle_variant.available
-      unless bundle_product.requires_selling_plan
+    if bundle_is_high_variant == false and bundle_product.requires_selling_plan == false
+      if bundle_variant.available and bundle_variant.requires_selling_plan == false
         assign bundle_can_add = true
-      endunless
+      else
+        for candidate_variant in bundle_product.variants
+          if candidate_variant.available and candidate_variant.requires_selling_plan == false
+            assign bundle_variant = candidate_variant
+            assign bundle_can_add = true
+            break
+          endif
+        endfor
+      endif
     endif
 
     if bundle_can_add
@@ -121,17 +140,41 @@
                 {%- endif -%}
                 {%- liquid
                   assign bundle_variant = bundle_product.selected_or_first_available_variant
+                  assign bundle_variant_count = bundle_product.variants_count
+                  assign bundle_is_high_variant = false
+                  if bundle_variant_count == blank
+                    assign bundle_variant_count = bundle_product.variants.size
+                    if bundle_variant_count >= 250
+                      assign bundle_is_high_variant = true
+                    endif
+                  elsif bundle_variant_count > 250
+                    assign bundle_is_high_variant = true
+                  endif
+
                   assign bundle_can_add = false
-                  if bundle_variant.available
-                    unless bundle_product.requires_selling_plan
+                  if bundle_is_high_variant == false and bundle_product.requires_selling_plan == false
+                    if bundle_variant.available and bundle_variant.requires_selling_plan == false
                       assign bundle_can_add = true
-                    endunless
+                    else
+                      for candidate_variant in bundle_product.variants
+                        if candidate_variant.available and candidate_variant.requires_selling_plan == false
+                          assign bundle_variant = candidate_variant
+                          assign bundle_can_add = true
+                          break
+                        endif
+                      endfor
+                    endif
                   endif
                   assign variant_quantity = bundle_variant.quantity_rule.min | default: 1
                   assign checkbox_id = 'BundleSelect-' | append: section.id | append: '-' | append: block.id
                   assign variant_select_id = 'BundleVariant-' | append: section.id | append: '-' | append: block.id
                 -%}
-                <li class="complete-the-look__item" data-bundle-item {{ block.shopify_attributes }}>
+                <li
+                  class="complete-the-look__item"
+                  data-bundle-item
+                  {% if bundle_is_high_variant %}data-product-page-fallback{% endif %}
+                  {{ block.shopify_attributes }}
+                >
                   <label class="complete-the-look__check" for="{{ checkbox_id }}">
                     <input
                       id="{{ checkbox_id }}"
@@ -163,7 +206,11 @@
                       <a href="{{ bundle_product.url }}">{{ bundle_product.title | escape }}</a>
                     </h3>
 
-                    {%- if bundle_product.has_only_default_variant -%}
+                    {%- if bundle_is_high_variant -%}
+                      <a class="complete-the-look__product-options-link" href="{{ bundle_product.url }}">
+                        {{- 'sections.complete_the_look.view_on_product_page' | t -}}
+                      </a>
+                    {%- elsif bundle_product.has_only_default_variant -%}
                       <input
                         type="hidden"
                         value="{{ bundle_variant.id }}"
@@ -185,7 +232,13 @@
                         {% unless bundle_can_add %}disabled{% endunless %}
                       >
                         {%- for variant in bundle_product.variants -%}
-                          {%- assign option_quantity = variant.quantity_rule.min | default: 1 -%}
+                          {%- liquid
+                            assign option_quantity = variant.quantity_rule.min | default: 1
+                            assign option_requires_plan = false
+                            if bundle_product.requires_selling_plan or variant.requires_selling_plan
+                              assign option_requires_plan = true
+                            endif
+                          -%}
                           <option
                             value="{{ variant.id }}"
                             data-price="{{ variant.price }}"
@@ -193,24 +246,28 @@
                             data-price-formatted="{{ variant.price | money | escape }}"
                             data-compare-formatted="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
                             {% if variant.id == bundle_variant.id %}selected{% endif %}
-                            {% unless variant.available %}disabled{% endunless %}
+                            {% if option_requires_plan or variant.available == false %}disabled{% endif %}
                           >
                             {{- variant.title | escape -}}
-                            {%- unless variant.available %} - {{ 'products.product.sold_out' | t }}{% endunless -%}
+                            {%- if option_requires_plan -%}
+                              &nbsp;- {{ 'sections.complete_the_look.requires_plan_option' | t }}
+                            {%- elsif variant.available == false -%}
+                              &nbsp;- {{ 'products.product.sold_out' | t }}
+                            {%- endif -%}
                           </option>
                         {%- endfor -%}
                       </select>
                     {%- endif -%}
 
-                    {%- unless bundle_can_add -%}
+                    {%- if bundle_can_add == false and bundle_is_high_variant == false -%}
                       <p class="complete-the-look__unavailable">
-                        {%- if bundle_product.requires_selling_plan -%}
+                        {%- if bundle_product.requires_selling_plan or bundle_variant.requires_selling_plan -%}
                           {{- 'sections.complete_the_look.selling_plan_required' | t -}}
                         {%- else -%}
                           {{- 'products.product.sold_out' | t -}}
                         {%- endif -%}
                       </p>
-                    {%- endunless -%}
+                    {%- endif -%}
                   </div>
 
                   {% render 'price',

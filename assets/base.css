@@ -3418,6 +3418,17 @@ complete-the-look {
   margin-block-start: var(--space-1);
 }
 
+.complete-the-look__product-options-link {
+  display: inline-flex;
+  min-height: var(--tap-target-min);
+  margin-block-start: var(--space-1);
+  align-items: center;
+  color: currentColor;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-underline-offset: 0.25em;
+}
+
 .complete-the-look__unavailable {
   margin-block: var(--space-1) 0;
   color: var(--color-foreground-muted);
@@ -3437,6 +3448,23 @@ complete-the-look {
 .complete-the-look__item:not([data-selected]) .complete-the-look__item-details,
 .complete-the-look__item:not([data-selected]) .complete-the-look__item-price {
   opacity: 0.55;
+}
+
+.complete-the-look__item[data-product-page-fallback] {
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  grid-template-areas:
+    'media details'
+    'media price';
+}
+
+.complete-the-look__item[data-product-page-fallback] .complete-the-look__check {
+  display: none;
+}
+
+.complete-the-look__item[data-product-page-fallback]:not([data-selected]) .complete-the-look__item-media,
+.complete-the-look__item[data-product-page-fallback]:not([data-selected]) .complete-the-look__item-details,
+.complete-the-look__item[data-product-page-fallback]:not([data-selected]) .complete-the-look__item-price {
+  opacity: 1;
 }
 
 .complete-the-look__empty {
@@ -3489,8 +3517,18 @@ complete-the-look {
 }
 
 .no-js .lookbook__hotspots,
+.no-js .complete-the-look__check,
+.no-js .complete-the-look__variant,
+.no-js .complete-the-look__summary-heading,
 .no-js .complete-the-look__submit {
   display: none;
+}
+
+.no-js .complete-the-look__item {
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  grid-template-areas:
+    'media details'
+    'media price';
 }
 
 .collection-products__toolbar {
@@ -3552,10 +3590,6 @@ complete-the-look {
   width: 100%;
   height: 100%;
   background: currentColor;
-}
-
-.collection-grid-switcher__label--desktop {
-  display: none;
 }
 
 .product-grid[data-grid-columns='2'] {
@@ -3693,14 +3727,6 @@ complete-the-look {
     justify-content: flex-end;
   }
 
-  .collection-grid-switcher__label--mobile {
-    display: none;
-  }
-
-  .collection-grid-switcher__label--desktop {
-    display: block;
-  }
-
   .product-grid[data-grid-columns='2'] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3711,6 +3737,16 @@ complete-the-look {
 
   .product-grid[data-grid-columns='4'] .product-grid__item--promotion {
     grid-column: auto;
+  }
+
+  .no-js .complete-the-look__item {
+    grid-template-columns: 8.25rem minmax(0, 1fr) auto;
+    grid-template-areas: 'media details price';
+  }
+
+  .complete-the-look__item[data-product-page-fallback] {
+    grid-template-columns: 8.25rem minmax(0, 1fr) auto;
+    grid-template-areas: 'media details price';
   }
 }
 
