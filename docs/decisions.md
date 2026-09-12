@@ -76,4 +76,12 @@ Registro de decisiones importantes del tema.
 - Con esta entrega se completa el 100% de las 12 plantillas oficiales requeridas por Shopify Theme Store en Figma.
 - Próxima etapa: Handoff a Phase 3B (Codificación de componentes en Liquid, CSS y JS).
 
+## 2026-09-11: Decisión Unificada Phase 3A.5 (Figma System Hardening & Módulos Comerciales Top-Tier)
+
+- Gemini y Codex coinciden plenamente: no alterar la identidad editorial ni copiar la estética de Prestige, sino dotar a Atelier Flow de madurez de sistema y profundidad comercial.
+- Se autoriza la fase `Phase 3A.5` bajo la directiva `GPT-3A-5` (`agent-comms/inbox-gpt/GPT-3A-5-figma-system-hardening-and-merchandising.md`).
+- **P0 Figma System Hardening:** Unificar fuentes en Playfair Display (eliminando Georgia), estructurar las 3 páginas libres de Figma (`01 Foundations & Components`, `02 Couture Screens & Flows`, `03 Presets + QA`) y crear component sets con Auto Layout y variantes para los 10 componentes críticos.
+- **P1 Módulos Comerciales:** Modal de Size Guide & Model Fit en PDP, In-Drawer 1-Click Cross-Sell en Cart Drawer, sección "Complete the Look", Grid Switcher (2 vs 4 cols) + Promotion Tile en colección, Announcement bar y Editorial Marquee.
+
+
 
