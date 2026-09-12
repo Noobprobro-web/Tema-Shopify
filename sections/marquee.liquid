@@ -1,0 +1,109 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign marquee_count = 0
+  for block in section.blocks
+    if block.settings.text != blank
+      assign marquee_count = marquee_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if marquee_count > 0 -%}
+  <marquee-banner
+    class="marquee-banner color-{{ section_scheme }}"
+    role="region"
+    aria-label="{{ 'sections.homepage.marquee.region_label' | t }}"
+    data-pause-label="{{ 'sections.homepage.marquee.pause' | t | escape }}"
+    data-play-label="{{ 'sections.homepage.marquee.play' | t | escape }}"
+  >
+    <div class="marquee-banner__inner">
+      <div class="marquee-banner__viewport">
+        <div class="marquee-banner__track" style="--marquee-duration: {{ section.settings.speed }}s;">
+          <div class="marquee-banner__group">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.text != blank -%}
+                <span class="marquee-banner__item" {{ block.shopify_attributes }}>
+                  {{- block.settings.text | escape -}}
+                </span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="marquee-banner__group" aria-hidden="true">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.text != blank -%}
+                <span class="marquee-banner__item">{{ block.settings.text | escape }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="marquee-banner__toggle"
+        type="button"
+        aria-pressed="false"
+        aria-label="{{ 'sections.homepage.marquee.pause' | t }}"
+        data-marquee-toggle
+      >
+        <span class="marquee-banner__pause-icon" aria-hidden="true"></span>
+        <span class="marquee-banner__play-icon" aria-hidden="true"></span>
+        <span class="visually-hidden" data-marquee-toggle-label>
+          {{- 'sections.homepage.marquee.pause' | t -}}
+        </span>
+      </button>
+    </div>
+  </marquee-banner>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Editorial marquee",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "s",
+      "label": "Loop duration",
+      "default": 32
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Text item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "FORM / MATERIAL / MOVEMENT"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Editorial marquee",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

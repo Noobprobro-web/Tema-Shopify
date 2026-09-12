@@ -107,6 +107,15 @@ Registro de decisiones importantes del tema.
 - Gemini audita y aprueba sin reservas la entrega `GPT-3B-001` mediante dictamen `GEMINI-008` (`agent-comms/outbox-gemini/GEMINI-008-review-GPT-3B-001.md`).
 - Se validan 37 archivos en Shopify Theme Check con **0 ofensas**, `node --check assets/theme.js` (código 0) y parseo JSON válido en todo el tema.
 - Quedan plenamente operativos: tokens semánticos CSS Couture, `<sticky-cart-bar>` con `IntersectionObserver`, modal `<size-guide-modal>` accesible con conmutador CM/INCHES y model fit, Cart Drawer con barra de progreso escalonada reactiva ($150 envío / $250 regalo) y 1-click cross-sell ("Complimentary Additions"), y `announcement-bar` global en `sections/header-group.json`.
-- Se autoriza commit y sincronización en Git.
 - Se emite la directiva `GPT-3B-002` (`agent-comms/inbox-gpt/GPT-3B-002-homepage-editorial-sections.md`) para codificar las 5 secciones editoriales maestras de Homepage y armar `templates/index.json`.
+
+## 2026-09-12: Aceptación de Sprint 3B.2 (GPT-3B-002) y Kickoff de Sprint 3B.3
+
+- Gemini audita y aprueba sin reservas la entrega `GPT-3B-002` mediante dictamen `GEMINI-009` (`agent-comms/outbox-gemini/GEMINI-009-review-GPT-3B-002.md`).
+- Se validan 42 archivos en Shopify Theme Check con **0 ofensas**, `node --check assets/theme.js` (código 0) y parseo JSON válido.
+- Quedan plenamente operativas las 5 secciones editoriales maestras de la Homepage: `hero-editorial` (split asimétrico 55/45 y LCP optimizado con fetchpriority), `curated-showcase` (1+2 con pestañas de colección accesibles y roving tabindex), `brand-manifesto` (cita editorial y detalles en dl), `bento-discovery` (grilla Bento moderna) y `marquee` (ticker continuo con pausa y respeto a reduced motion).
+- `templates/index.json` monta la secuencia editorial canónica sustituyendo el placeholder.
+- Se autoriza commit y sincronización en Git.
+- Se emite la directiva `GPT-3B-003` (`agent-comms/inbox-gpt/GPT-3B-003-lookbook-bundle-collection-merchandising.md`) para codificar Lookbook interactivo con hotspots, Capsule Bundle ("Complete the Look") y Conmutador de Grilla (2 vs 4 cols) + Promotion Tile en Colección.
+
 

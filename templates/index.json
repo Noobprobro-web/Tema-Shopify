@@ -1,9 +1,151 @@
 {
   "sections": {
-    "main": {
-      "type": "main-placeholder",
-      "settings": {}
+    "hero_editorial": {
+      "type": "hero-editorial",
+      "settings": {
+        "eyebrow": "THE EDIT / COUTURE 01",
+        "heading": "Autumn / Winter 26",
+        "subheading": "<p>A study in quiet movement. Sculptural layers and tactile materials, made in small series.</p>",
+        "button_primary_label": "Discover the collection",
+        "button_primary_url": "/collections/all",
+        "button_secondary_label": "Explore lookbook",
+        "button_secondary_url": "/",
+        "layout_split": "image_first",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "marquee_form": {
+          "type": "item",
+          "settings": {
+            "text": "FORM / MATERIAL / MOVEMENT"
+          }
+        },
+        "marquee_series": {
+          "type": "item",
+          "settings": {
+            "text": "MADE IN SMALL SERIES"
+          }
+        },
+        "marquee_trace": {
+          "type": "item",
+          "settings": {
+            "text": "DESIGNED TO GATHER CHARACTER"
+          }
+        }
+      },
+      "block_order": ["marquee_form", "marquee_series", "marquee_trace"],
+      "settings": {
+        "speed": 32,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "curated_showcase": {
+      "type": "curated-showcase",
+      "blocks": {
+        "collection_new": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "all",
+            "tab_label": "New arrivals"
+          }
+        },
+        "collection_permanent": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_label": "Permanent collection"
+          }
+        },
+        "collection_objects": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_label": "Objects"
+          }
+        }
+      },
+      "block_order": ["collection_new", "collection_permanent", "collection_objects"],
+      "settings": {
+        "eyebrow": "CURATED EDIT / 02",
+        "heading": "Selected forms for the season",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "brand_manifesto": {
+      "type": "brand-manifesto",
+      "blocks": {
+        "detail_material": {
+          "type": "detail",
+          "settings": {
+            "label": "Materials",
+            "value": "100% traceable natural fibres"
+          }
+        },
+        "detail_origin": {
+          "type": "detail",
+          "settings": {
+            "label": "Origin",
+            "value": "Made close to the source"
+          }
+        },
+        "detail_finish": {
+          "type": "detail",
+          "settings": {
+            "label": "Finish",
+            "value": "Formed and finished by hand"
+          }
+        }
+      },
+      "block_order": ["detail_material", "detail_origin", "detail_finish"],
+      "settings": {
+        "eyebrow": "THE HAND AND THE MATERIAL / 03",
+        "quote": "Objects gain meaning through the hands that make them.",
+        "body": "<p>Every seam, edge and finish records a decision made by an artisan, not an anonymous process.</p>",
+        "button_label": "Read our process",
+        "button_url": "/",
+        "media_label": "MACRO STUDY / MATERIAL 07",
+        "use_surface_background": true,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "bento_discovery": {
+      "type": "bento-discovery",
+      "blocks": {
+        "bento_featured": {
+          "type": "card_featured",
+          "settings": {
+            "collection": "all",
+            "eyebrow": "[01] APPAREL / FEATURED",
+            "heading": "Sculptural layers",
+            "link": "/collections/all"
+          }
+        },
+        "bento_editorial": {
+          "type": "card_editorial",
+          "settings": {
+            "eyebrow": "[02] MATERIAL STUDY",
+            "heading": "Carried close",
+            "body": "<p>An editorial study in proportion, tactility and daily use.</p>",
+            "link_label": "Explore the story",
+            "link": "/"
+          }
+        },
+        "bento_product": {
+          "type": "card_product",
+          "settings": {}
+        }
+      },
+      "block_order": ["bento_featured", "bento_editorial", "bento_product"],
+      "settings": {
+        "eyebrow": "DISCOVER BY FORM / 04",
+        "heading": "A wardrobe, a room, a way of living",
+        "subheading": "<p>Three studies. One material language.</p>",
+        "color_scheme": "scheme-1"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["hero_editorial", "marquee", "curated_showcase", "brand_manifesto", "bento_discovery"]
 }

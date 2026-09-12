@@ -1,0 +1,182 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign default_material_alt = 'sections.homepage.manifesto.material_image_alt' | t
+  assign material_alt = section.settings.image_alt | default: default_material_alt
+-%}
+
+<section
+  class="section brand-manifesto{% if section.settings.use_surface_background %} brand-manifesto--surface{% endif %} color-{{ section_scheme }}"
+  aria-label="{{ 'sections.homepage.manifesto.region_label' | t }}"
+>
+  <div class="brand-manifesto__inner">
+    <div class="brand-manifesto__statement">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.quote != blank -%}
+        <blockquote class="brand-manifesto__quote">
+          <span class="brand-manifesto__quote-mark" aria-hidden="true">&ldquo;</span>
+          <h2>{{ section.settings.quote | escape }}</h2>
+          {%- if section.settings.author != blank -%}
+            <footer>
+              <cite>{{ section.settings.author | escape }}</cite>
+            </footer>
+          {%- endif -%}
+        </blockquote>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="brand-manifesto__body rte">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          class="button button--secondary brand-manifesto__button"
+          href="{{ section.settings.button_url | default: routes.root_url }}"
+        >
+          <span>{{ section.settings.button_label | escape }}</span>
+          {% render 'icon', name: 'arrow', size: 18 %}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="brand-manifesto__material">
+      <div class="brand-manifesto__media">
+        {%- if section.settings.image != blank -%}
+          {% render 'responsive-image',
+            image: section.settings.image,
+            sizes: '(min-width: 62rem) 34vw, 100vw',
+            widths: '480, 750, 960, 1200',
+            image_class: 'brand-manifesto__image',
+            alt: material_alt
+          %}
+        {%- else -%}
+          <div class="brand-manifesto__placeholder" aria-hidden="true">
+            {{- 'lifestyle-2' | placeholder_svg_tag: 'homepage-placeholder' -}}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.media_label != blank -%}
+          <p class="brand-manifesto__media-label">{{ section.settings.media_label | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <dl class="brand-manifesto__details">
+          {%- for block in section.blocks -%}
+            <div class="brand-manifesto__detail" {{ block.shopify_attributes }}>
+              <dt>{{ block.settings.label | escape }}</dt>
+              <dd>{{ block.settings.value | escape }}</dd>
+              <span aria-hidden="true">{{ forloop.index | prepend: '0' }}</span>
+            </div>
+          {%- endfor -%}
+        </dl>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand manifesto",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "THE HAND AND THE MATERIAL / 03"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Statement",
+      "default": "Objects gain meaning through the hands that make them."
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Author or attribution"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Every seam, edge and finish records a decision made by an artisan, not an anonymous process.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Read our process"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Material image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alternative text"
+    },
+    {
+      "type": "text",
+      "id": "media_label",
+      "label": "Media label",
+      "default": "MACRO STUDY / MATERIAL 07"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_surface_background",
+      "label": "Use tonal surface background",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Material detail",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Material"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "Traceable natural fibres"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand manifesto",
+      "blocks": [
+        { "type": "detail" },
+        { "type": "detail" },
+        { "type": "detail" }
+      ]
+    }
+  ]
+}
+{% endschema %}

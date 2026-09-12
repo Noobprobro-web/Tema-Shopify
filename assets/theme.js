@@ -1111,6 +1111,83 @@
     }
   }
 
+  class CuratedShowcase extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.tabs = Array.from(this.querySelectorAll('[data-curated-tab]'));
+      this.panels = Array.from(this.querySelectorAll('[data-curated-panel]'));
+
+      if (this.tabs.length === 0 || this.tabs.length !== this.panels.length) return;
+
+      this.tabs.forEach((tab, index) => {
+        this.listen(tab, 'click', () => this.activate(index));
+        this.listen(tab, 'keydown', (event) => this.handleKeydown(event, index));
+      });
+      this.listen(this, 'shopify:block:select', (event) => {
+        const panel = event.target.closest?.('[data-curated-panel]');
+        const panelIndex = this.panels.indexOf(panel);
+        if (panelIndex >= 0) this.activate(panelIndex, false);
+      });
+
+      const selectedIndex = this.tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+      this.activate(Math.max(0, selectedIndex), false);
+    }
+
+    activate(index, focus = false) {
+      if (index < 0 || index >= this.tabs.length) return;
+
+      this.tabs.forEach((tab, tabIndex) => {
+        const selected = tabIndex === index;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      this.panels.forEach((panel, panelIndex) => {
+        const selected = panelIndex === index;
+        panel.hidden = !selected;
+        panel.inert = !selected;
+      });
+
+      if (focus) this.tabs[index].focus();
+    }
+
+    handleKeydown(event, currentIndex) {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+
+      event.preventDefault();
+      let nextIndex = currentIndex;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = this.tabs.length - 1;
+      if (event.key === 'ArrowLeft') {
+        nextIndex = (currentIndex - 1 + this.tabs.length) % this.tabs.length;
+      }
+      if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % this.tabs.length;
+      this.activate(nextIndex, true);
+    }
+  }
+
+  class MarqueeBanner extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.toggleButton = this.querySelector('[data-marquee-toggle]');
+      this.toggleLabel = this.querySelector('[data-marquee-toggle-label]');
+
+      if (!this.toggleButton) return;
+
+      this.setPaused(false);
+      this.listen(this.toggleButton, 'click', () => {
+        this.setPaused(!this.hasAttribute('data-paused'));
+      });
+    }
+
+    setPaused(paused) {
+      this.toggleAttribute('data-paused', paused);
+      this.toggleButton.setAttribute('aria-pressed', String(paused));
+      const label = paused ? this.dataset.playLabel : this.dataset.pauseLabel;
+      this.toggleButton.setAttribute('aria-label', label);
+      if (this.toggleLabel) this.toggleLabel.textContent = label;
+    }
+  }
+
   class AnnouncementBar extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -1257,6 +1334,14 @@
 
   if (!customElements.get('facet-filters-form')) {
     customElements.define('facet-filters-form', FacetFiltersForm);
+  }
+
+  if (!customElements.get('curated-showcase')) {
+    customElements.define('curated-showcase', CuratedShowcase);
+  }
+
+  if (!customElements.get('marquee-banner')) {
+    customElements.define('marquee-banner', MarqueeBanner);
   }
 
   if (!customElements.get('announcement-bar')) {

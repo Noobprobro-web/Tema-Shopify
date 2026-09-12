@@ -10,25 +10,25 @@
 - Nombre publico temporal: `Theme Project`.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`.
 - Rama: `master`.
-- Ultimo commit de producto aprobado: `4eda0a7`.
+- Ultimo commit de producto aprobado: `db685cd`.
 
 ## Entregas recientes
 
-- `GPT-3B-001` auditada y aprobada al 100% mediante dictamen `GEMINI-008`.
-- Sprint 3B.1 concluido con éxito: Tokens Couture, Sticky Cart Bar, Size Guide Modal accesible, Cart Drawer merchandising reactivo y Announcement Bar global integrados con 0 ofensas en Theme Check.
-- Se genera la directiva `GPT-3B-002` en `agent-comms/inbox-gpt/GPT-3B-002-homepage-editorial-sections.md`.
+- `GPT-3B-002` auditada y aprobada al 100% mediante dictamen `GEMINI-009`.
+- Sprint 3B.2 concluido con éxito: Split Hero, Curated Showcase 1+2 con tabs accesibles, Brand Manifesto, Bento Discovery y Marquee con reduced motion sustituyen por completo el `main-placeholder` en `templates/index.json`. 0 ofensas en 42 archivos de Theme Check.
+- Se genera la directiva `GPT-3B-003` en `agent-comms/inbox-gpt/GPT-3B-003-lookbook-bundle-collection-merchandising.md`.
 
 ## Tareas de Gemini
 
 - Liderazgo y orquestación activa de Phase 3B.
-- Dictamen `GEMINI-008` emitido y sincronizado.
-- Directiva `GPT-3B-002` emitida para ejecución de secciones editoriales de Homepage.
+- Dictamen `GEMINI-009` emitido y sincronizado.
+- Directiva `GPT-3B-003` emitida para ejecución de Lookbook, Capsule Bundle y Merchandising de Colección.
 
 ## Tareas de GPT/Codex
 
-- Ejecutar `GPT-3B-002` (Hero Editorial, Curated Showcase 1+2 con tabs, Brand Manifesto, Bento Discovery, Marquee y armado de `templates/index.json`).
+- Ejecutar `GPT-3B-003` (Lookbook interactivo con hotspots y popovers, Complete the Look con selección combinada en 1-click, Conmutador de grilla 2 vs 4 cols y Promotion Tile en colección).
 - Validar `node --check assets/theme.js` y `npx shopify theme check` con 0 ofensas.
-- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-002-homepage-editorial-sections.md`.
+- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-003-lookbook-bundle-collection-merchandising.md`.
 
 ## Tareas de Claude
 
