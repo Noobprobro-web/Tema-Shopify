@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="4760" viewBox="0 0 1440 4760" role="img" aria-labelledby="title desc">
+  <title id="title">Atelier Flow critical component sets</title>
+  <desc id="desc">Visual source sheet for ten Couture component sets, their variants, states, auto layout contracts, and accessibility targets.</desc>
+  <defs>
+    <style>
+      .serif { font-family: "Playfair Display", "Times New Roman", serif; font-weight: 400; letter-spacing: 0; }
+      .sans { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 400; letter-spacing: 0; }
+      .paper { fill: #FAF8F5; }
+      .surface { fill: #F3EFEA; }
+      .subtle { fill: #EDE7DE; }
+      .ink { fill: #1C1917; }
+      .muted { fill: #605A53; }
+      .accent { fill: #786C5E; }
+      .white { fill: #FFFFFF; }
+      .line { fill: none; stroke: #E5DFD5; stroke-width: 1; }
+      .hairline { fill: none; stroke: #EDE7DE; stroke-width: 1; }
+      .ink-line { fill: none; stroke: #1C1917; stroke-width: 1; }
+      .focus-line { fill: none; stroke: #1C1917; stroke-width: 2; }
+      .eyebrow { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 1.44px; }
+      .label { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0; }
+      .body { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 400; letter-spacing: 0; }
+      .small { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0; }
+      .micro { font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 1.44px; }
+      .hit { fill: #FFFFFF; fill-opacity: 0; }
+    </style>
+    <filter id="drawer-blur"><feGaussianBlur stdDeviation="5"/></filter>
+  </defs>
+
+  <rect width="1440" height="4760" class="paper"/>
+  <g id="Library-Cover">
+    <rect width="1440" height="232" class="ink"/>
+    <text x="32" y="58" class="eyebrow paper">01 FOUNDATIONS &amp; COMPONENTS</text>
+    <text x="32" y="130" class="serif paper" font-size="54">Atelier Flow / Critical Component Sets</text>
+    <text x="32" y="180" class="body paper">Couture source sheet · Auto Layout contracts · native variants · minimum target 44 × 44</text>
+    <text x="1408" y="58" class="micro paper" text-anchor="end">SYSTEM / 1.0</text>
+  </g>
+
+  <g id="Component-Set-Button" transform="translate(0 232)" aria-label="Button component set">
+    <rect width="1440" height="500" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">01 / Button</text>
+    <text x="32" y="86" class="small muted">Auto Layout H · gap 8 · padding 16/24 · min-height 52 · radius 2 · Type × State</text>
+    <text x="32" y="130" class="eyebrow muted">TYPE</text><text x="210" y="130" class="eyebrow muted">DEFAULT</text><text x="442" y="130" class="eyebrow muted">HOVER</text><text x="674" y="130" class="eyebrow muted">FOCUS</text><text x="906" y="130" class="eyebrow muted">LOADING</text><text x="1138" y="130" class="eyebrow muted">DISABLED</text>
+    <text x="32" y="186" class="label ink">Primary</text>
+    <g aria-label="Primary default, 200 by 52"><rect x="176" y="150" width="200" height="52" rx="2" class="accent"/><text x="276" y="182" class="label white" text-anchor="middle">Add to bag</text></g>
+    <g aria-label="Primary hover, 200 by 52"><rect x="408" y="150" width="200" height="52" rx="2" class="ink"/><text x="508" y="182" class="label white" text-anchor="middle">Add to bag</text></g>
+    <g aria-label="Primary focus, 200 by 52"><rect x="640" y="150" width="200" height="52" rx="2" class="accent"/><rect x="636" y="146" width="208" height="60" rx="2" class="focus-line"/><text x="740" y="182" class="label white" text-anchor="middle">Add to bag</text></g>
+    <g aria-label="Primary loading, 200 by 52"><rect x="872" y="150" width="200" height="52" rx="2" class="accent"/><circle cx="960" cy="176" r="8" fill="none" stroke="#FFFFFF" stroke-dasharray="16 8"/><text x="1010" y="182" class="label white">Adding</text></g>
+    <g aria-label="Primary disabled, 200 by 52"><rect x="1104" y="150" width="200" height="52" rx="2" class="subtle"/><text x="1204" y="182" class="label muted" text-anchor="middle">Unavailable</text></g>
+    <text x="32" y="274" class="label ink">Secondary</text>
+    <g><rect x="176" y="238" width="200" height="52" rx="2" class="paper" stroke="#1C1917"/><text x="276" y="270" class="label ink" text-anchor="middle">View details</text></g>
+    <g><rect x="408" y="238" width="200" height="52" rx="2" class="surface" stroke="#1C1917"/><text x="508" y="270" class="label ink" text-anchor="middle">View details</text></g>
+    <g><rect x="640" y="238" width="200" height="52" rx="2" class="paper" stroke="#1C1917"/><rect x="636" y="234" width="208" height="60" rx="2" class="focus-line"/><text x="740" y="270" class="label ink" text-anchor="middle">View details</text></g>
+    <g><rect x="872" y="238" width="200" height="52" rx="2" class="paper" stroke="#605A53"/><circle cx="960" cy="264" r="8" fill="none" stroke="#605A53" stroke-dasharray="16 8"/><text x="1010" y="270" class="label muted">Loading</text></g>
+    <g><rect x="1104" y="238" width="200" height="52" rx="2" class="paper" stroke="#E5DFD5"/><text x="1204" y="270" class="label muted" text-anchor="middle">View details</text></g>
+    <text x="32" y="362" class="label ink">Text</text>
+    <g><rect x="176" y="326" width="200" height="52" class="hit"/><text x="276" y="358" class="label ink" text-anchor="middle" text-decoration="underline">Read the story</text></g>
+    <g><rect x="408" y="326" width="200" height="52" class="surface"/><text x="508" y="358" class="label ink" text-anchor="middle" text-decoration="underline">Read the story</text></g>
+    <g><rect x="640" y="326" width="200" height="52" class="hit"/><rect x="636" y="322" width="208" height="60" rx="2" class="focus-line"/><text x="740" y="358" class="label ink" text-anchor="middle" text-decoration="underline">Read the story</text></g>
+    <g><rect x="872" y="326" width="200" height="52" class="hit"/><text x="972" y="358" class="label muted" text-anchor="middle">Loading</text></g>
+    <g><rect x="1104" y="326" width="200" height="52" class="hit"/><text x="1204" y="358" class="label muted" text-anchor="middle">Read the story</text></g>
+    <text x="32" y="444" class="micro muted">VARIANTS 15 / LABEL TEXT PROPERTY / OPTIONAL ICON SLOT / LIVE LOADING STATUS</text>
+    <line x1="32" y1="483.5" x2="1408" y2="483.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Product-Card" transform="translate(0 732)" aria-label="Product Card component set">
+    <rect width="1440" height="620" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">02 / Product Card</text>
+    <text x="32" y="86" class="small muted">Auto Layout V · gap 12 · width 300 · Media=Primary/Secondary × Swatch=Oat/Ink</text>
+    <g id="Card-Primary-Oat" transform="translate(32 122)">
+      <rect width="300" height="304" class="surface"/><path d="M90 290 L116 72 H188 L214 290 Z" class="accent"/><path d="M134 72 C136 36 170 36 172 72" fill="none" stroke="#786C5E" stroke-width="12"/>
+      <rect x=".5" y=".5" width="299" height="303" class="hairline"/><text y="338" class="eyebrow muted">PRIMARY / OAT</text><text y="372" class="serif ink" font-size="22">Draped Wool Coat</text><text y="400" class="body ink">$280.00</text><circle cx="8" cy="430" r="8" class="accent"/><circle cx="36" cy="430" r="8" class="ink"/>
+    </g>
+    <g id="Card-Primary-Ink" transform="translate(376 122)">
+      <rect width="300" height="304" class="surface"/><path d="M90 290 L116 72 H188 L214 290 Z" class="ink"/><path d="M134 72 C136 36 170 36 172 72" fill="none" stroke="#1C1917" stroke-width="12"/>
+      <rect x=".5" y=".5" width="299" height="303" class="hairline"/><text y="338" class="eyebrow muted">PRIMARY / INK</text><text y="372" class="serif ink" font-size="22">Draped Wool Coat</text><text y="400" class="body ink">$280.00</text><circle cx="8" cy="430" r="8" class="ink"/><circle cx="36" cy="430" r="8" class="accent"/>
+    </g>
+    <g id="Card-Hover-Oat" transform="translate(720 122)">
+      <rect width="300" height="304" class="subtle"/><path d="M58 286 L92 96 H208 L244 286 Z" class="accent"/><path d="M116 96 C120 48 182 48 186 96" fill="none" stroke="#786C5E" stroke-width="12"/>
+      <rect x=".5" y=".5" width="299" height="303" class="ink-line"/><rect x="16" y="236" width="268" height="52" class="paper"/><text x="150" y="268" class="label ink" text-anchor="middle">Choose options</text><text y="338" class="eyebrow muted">HOVER / OAT / IMAGE 02</text><text y="372" class="serif ink" font-size="22">Draped Wool Coat</text><text y="400" class="body ink">$280.00</text><circle cx="8" cy="430" r="8" class="accent"/><circle cx="36" cy="430" r="8" class="ink"/>
+    </g>
+    <g id="Card-Hover-Ink" transform="translate(1064 122)">
+      <rect width="300" height="304" class="subtle"/><path d="M58 286 L92 96 H208 L244 286 Z" class="ink"/><path d="M116 96 C120 48 182 48 186 96" fill="none" stroke="#1C1917" stroke-width="12"/>
+      <rect x=".5" y=".5" width="299" height="303" class="ink-line"/><rect x="16" y="236" width="268" height="52" class="paper"/><text x="150" y="268" class="label ink" text-anchor="middle">Choose options</text><text y="338" class="eyebrow muted">HOVER / INK / IMAGE 02</text><text y="372" class="serif ink" font-size="22">Draped Wool Coat</text><text y="400" class="body ink">$280.00</text><circle cx="8" cy="430" r="8" class="ink"/><circle cx="36" cy="430" r="8" class="accent"/>
+    </g>
+    <text x="32" y="578" class="micro muted">MEDIA CROSSFADE ONLY ON HOVER-CAPABLE POINTERS / SWATCH ANNOUNCES COLOR / COPY MAY WRAP</text>
+    <line x1="32" y1="603.5" x2="1408" y2="603.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Variant-Chip" transform="translate(0 1352)" aria-label="Variant Chip component set">
+    <rect width="1440" height="330" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">03 / Variant Chip</text>
+    <text x="32" y="86" class="small muted">Auto Layout H · center · min 52 × 52 · Kind=Size/Color × State=Default/Selected/Disabled</text>
+    <text x="32" y="146" class="eyebrow muted">SIZE</text>
+    <g aria-label="Size default"><rect x="150" y="112" width="64" height="52" class="paper" stroke="#E5DFD5"/><text x="182" y="144" class="label ink" text-anchor="middle">M</text></g>
+    <g aria-label="Size selected"><rect x="230" y="112" width="64" height="52" class="ink"/><text x="262" y="144" class="label paper" text-anchor="middle">M</text></g>
+    <g aria-label="Size disabled"><rect x="310" y="112" width="64" height="52" class="surface" stroke="#E5DFD5"/><text x="342" y="144" class="label muted" text-anchor="middle">M</text><line x1="316" y1="158" x2="368" y2="118" stroke="#605A53"/></g>
+    <text x="486" y="146" class="eyebrow muted">COLOR</text>
+    <g aria-label="Color default"><rect x="602" y="112" width="108" height="52" class="paper" stroke="#E5DFD5"/><circle cx="626" cy="138" r="8" class="accent"/><text x="646" y="144" class="label ink">Oat</text></g>
+    <g aria-label="Color selected"><rect x="726" y="112" width="108" height="52" class="paper" stroke="#1C1917" stroke-width="2"/><circle cx="750" cy="138" r="8" class="ink"/><text x="770" y="144" class="label ink">Ink</text></g>
+    <g aria-label="Color disabled"><rect x="850" y="112" width="108" height="52" class="surface" stroke="#E5DFD5"/><circle cx="874" cy="138" r="8" class="muted"/><text x="894" y="144" class="label muted">Ash</text><line x1="856" y1="158" x2="952" y2="118" stroke="#605A53"/></g>
+    <rect x="32" y="210" width="1376" height="72" class="surface"/><text x="56" y="240" class="micro muted">STATE CONTRACT</text><text x="242" y="240" class="small ink">Selected uses shape plus contrast, unavailable uses strike plus label, never color alone.</text><text x="56" y="266" class="small muted">Focus adds a 2px external ring without changing dimensions.</text>
+    <line x1="32" y1="313.5" x2="1408" y2="313.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Accordion" transform="translate(0 1682)" aria-label="Accordion component set">
+    <rect width="1440" height="390" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">04 / Accordion</text>
+    <text x="32" y="86" class="small muted">Auto Layout V · width 420 · header min-height 56 · State=Collapsed/Expanded/Focus</text>
+    <g id="Accordion-Collapsed" transform="translate(32 122)"><rect width="420" height="64" class="paper" stroke="#E5DFD5"/><text x="16" y="38" class="label ink">Materials &amp; care</text><path d="M382 26 L392 36 L402 26" class="ink-line"/></g>
+    <g id="Accordion-Expanded" transform="translate(492 122)"><rect width="420" height="172" class="paper" stroke="#E5DFD5"/><text x="16" y="38" class="label ink">Materials &amp; care</text><path d="M382 34 H402" class="ink-line"/><line x1="16" y1="62" x2="404" y2="62" stroke="#E5DFD5"/><text x="16" y="94" class="small muted"><tspan x="16" dy="0">100% traceable wool.</tspan><tspan x="16" dy="24">Dry clean or brush between wears.</tspan><tspan x="16" dy="24">Store on a broad hanger.</tspan></text></g>
+    <g id="Accordion-Focus" transform="translate(952 122)"><rect width="420" height="64" class="paper" stroke="#E5DFD5"/><rect x="-4" y="-4" width="428" height="72" class="focus-line"/><text x="16" y="38" class="label ink">Materials &amp; care</text><path d="M382 26 L392 36 L402 26" class="ink-line"/></g>
+    <text x="32" y="348" class="micro muted">ARIA-EXPANDED / BUTTON OWNS PANEL / CONTENT REMAINS IN DOCUMENT FLOW</text>
+    <line x1="32" y1="373.5" x2="1408" y2="373.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Sticky-Cart-Bar" transform="translate(0 2072)" aria-label="Sticky Cart Bar component set">
+    <rect width="1440" height="430" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">05 / Sticky Cart Bar</text>
+    <text x="32" y="86" class="small muted">Auto Layout H · width 320 · min-height 76 · State=Hidden/Visible/Loading/Success</text>
+    <text x="32" y="136" class="eyebrow muted">HIDDEN</text><rect x="32" y="152" width="320" height="4" class="hairline"/>
+    <g id="Sticky-Visible" transform="translate(384 122)"><rect width="320" height="96" class="paper" stroke="#E5DFD5"/><rect x="12" y="12" width="56" height="72" class="surface"/><path d="M28 78 L34 28 H50 L56 78 Z" class="ink"/><text x="84" y="34" class="label ink">Draped Coat</text><text x="84" y="58" class="small muted">S / Ink · $280</text><rect x="216" y="22" width="92" height="52" class="accent"/><text x="262" y="54" class="label white" text-anchor="middle">Add</text></g>
+    <g id="Sticky-Loading" transform="translate(736 122)"><rect width="320" height="96" class="paper" stroke="#E5DFD5"/><rect x="12" y="12" width="56" height="72" class="surface"/><text x="84" y="34" class="label ink">Draped Coat</text><text x="84" y="58" class="small muted">S / Ink · $280</text><rect x="216" y="22" width="92" height="52" class="accent"/><circle cx="262" cy="48" r="9" fill="none" stroke="#FFFFFF" stroke-dasharray="17 10"/></g>
+    <g id="Sticky-Success" transform="translate(1088 122)"><rect width="320" height="96" class="paper" stroke="#E5DFD5"/><rect x="12" y="12" width="56" height="72" class="surface"/><text x="84" y="34" class="label ink">Draped Coat</text><text x="84" y="58" class="small muted">S / Ink · $280</text><rect x="216" y="22" width="92" height="52" class="ink"/><path d="M228 48 L236 56 L248 40" fill="none" stroke="#FFFFFF" stroke-width="2"/><text x="276" y="54" class="small paper" text-anchor="middle">Added</text></g>
+    <rect x="32" y="270" width="1376" height="96" class="surface"/><text x="56" y="304" class="micro muted">VISIBILITY CONTRACT</text><text x="260" y="304" class="small ink">Appears after primary buy buttons leave viewport; never covers cookie or accessibility UI.</text><text x="56" y="334" class="small muted">Safe-area inset included on mobile. Success announces once, then returns to Visible.</text>
+    <line x1="32" y1="413.5" x2="1408" y2="413.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Cart-Item" transform="translate(0 2502)" aria-label="Cart Item component set">
+    <rect width="1440" height="440" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">06 / Cart Item</text>
+    <text x="32" y="86" class="small muted">Auto Layout H · gap 16 · image 92 × 116 · stepper 132 × 44 · State=Default/Updating/Error</text>
+    <g id="Cart-Item-Default" transform="translate(32 122)"><rect width="420" height="156" class="paper" stroke="#E5DFD5"/><rect x="16" y="20" width="92" height="116" class="surface"/><path d="M40 128 L50 42 H76 L86 128 Z" class="ink"/><text x="124" y="46" class="serif ink" font-size="18">Column Trousers</text><text x="124" y="70" class="small muted">Ink / Small</text><text x="404" y="46" class="small ink" text-anchor="end">$170</text><rect x="124" y="88" width="132" height="44" class="paper" stroke="#E5DFD5"/><text x="146" y="116" class="body ink" text-anchor="middle">−</text><text x="190" y="116" class="label ink" text-anchor="middle">1</text><text x="234" y="116" class="body ink" text-anchor="middle">+</text><text x="404" y="116" class="small ink" text-anchor="end" text-decoration="underline">Remove</text></g>
+    <g id="Cart-Item-Updating" transform="translate(492 122)"><rect width="420" height="156" class="paper" stroke="#E5DFD5"/><rect x="16" y="20" width="92" height="116" class="surface"/><text x="124" y="46" class="serif ink" font-size="18">Column Trousers</text><text x="124" y="70" class="small muted">Updating quantity…</text><rect x="124" y="88" width="132" height="44" class="surface" stroke="#E5DFD5"/><circle cx="190" cy="110" r="9" fill="none" stroke="#605A53" stroke-dasharray="17 10"/></g>
+    <g id="Cart-Item-Error" transform="translate(952 122)"><rect width="420" height="196" class="paper" stroke="#1C1917"/><rect x="16" y="20" width="92" height="116" class="surface"/><text x="124" y="46" class="serif ink" font-size="18">Column Trousers</text><text x="124" y="70" class="small muted">Ink / Small</text><rect x="124" y="88" width="132" height="44" class="paper" stroke="#1C1917"/><text x="146" y="116" class="body ink" text-anchor="middle">−</text><text x="190" y="116" class="label ink" text-anchor="middle">2</text><text x="234" y="116" class="body ink" text-anchor="middle">+</text><text x="16" y="170" class="small ink">Only one piece remains. Quantity restored to 1.</text></g>
+    <text x="32" y="398" class="micro muted">STEPPER BUTTONS 44 / REMOVE 44 / UPDATE REGION POLITE / ERROR ADJACENT TO ITEM</text>
+    <line x1="32" y1="423.5" x2="1408" y2="423.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Drawer-Shell" transform="translate(0 2942)" aria-label="Drawer Shell component set">
+    <rect width="1440" height="500" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">07 / Drawer Shell</text>
+    <text x="32" y="86" class="small muted">Fixed viewport · backdrop blur 12 · panel width 520/390 · State=Open/Empty/Error</text>
+    <g id="Drawer-Open-Mini" transform="translate(32 122)"><rect width="420" height="294" class="surface"/><g filter="url(#drawer-blur)"><rect x="16" y="18" width="180" height="220" class="subtle"/><text x="26" y="268" class="small muted">Underlying page inert</text></g><rect width="190" height="294" fill="#1C1917" opacity=".45"/><rect x="190" width="230" height="294" class="paper"/><text x="206" y="34" class="serif ink" font-size="17">Your Selection</text><rect x="206" y="64" width="198" height="88" class="surface"/><rect x="206" y="226" width="198" height="52" class="accent"/><text x="305" y="258" class="label white" text-anchor="middle">Checkout</text></g>
+    <g id="Drawer-Empty-Mini" transform="translate(492 122)"><rect width="420" height="294" class="surface"/><rect width="190" height="294" fill="#1C1917" opacity=".45"/><rect x="190" width="230" height="294" class="paper"/><text x="206" y="34" class="serif ink" font-size="17">Your Selection (0)</text><path d="M270 84 H344 L338 154 H276 Z" class="ink-line"/><text x="305" y="192" class="small ink" text-anchor="middle">Your bag is quiet.</text><rect x="206" y="220" width="198" height="52" class="accent"/><text x="305" y="252" class="label white" text-anchor="middle">Explore</text></g>
+    <g id="Drawer-Error-Mini" transform="translate(952 122)"><rect width="420" height="294" class="surface"/><rect width="190" height="294" fill="#1C1917" opacity=".45"/><rect x="190" width="230" height="294" class="paper"/><text x="206" y="34" class="serif ink" font-size="17">Your Selection</text><rect x="206" y="64" width="198" height="112" class="surface" stroke="#1C1917"/><text x="220" y="96" class="small ink">We could not update</text><text x="220" y="118" class="small ink">this item. Try again.</text><rect x="206" y="220" width="198" height="52" class="ink"/><text x="305" y="252" class="label white" text-anchor="middle">Retry checkout</text></g>
+    <text x="32" y="460" class="micro muted">DIALOG / FOCUS TRAP / ESC CLOSE / RETURN FOCUS / INTERNAL SCROLL / STICKY FOOTER</text>
+    <line x1="32" y1="483.5" x2="1408" y2="483.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Hotspot" transform="translate(0 3442)" aria-label="Hotspot component set">
+    <rect width="1440" height="340" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">08 / Hotspot</text>
+    <text x="32" y="86" class="small muted">Fixed target 44 × 44 · State=Idle/Hover/Focus/Active · visual dot 16 · pulse reduced-motion aware</text>
+    <text x="48" y="150" class="eyebrow muted">IDLE</text><g transform="translate(160 116)"><circle cx="22" cy="22" r="21" fill="#FAF8F5" opacity=".72"/><circle cx="22" cy="22" r="8" class="ink"/></g>
+    <text x="332" y="150" class="eyebrow muted">HOVER</text><g transform="translate(460 116)"><circle cx="22" cy="22" r="21" class="paper"/><circle cx="22" cy="22" r="13" class="accent"/><circle cx="22" cy="22" r="5" class="paper"/></g>
+    <text x="648" y="150" class="eyebrow muted">FOCUS</text><g transform="translate(760 116)"><circle cx="22" cy="22" r="21" class="paper" stroke="#1C1917" stroke-width="2"/><circle cx="22" cy="22" r="8" class="ink"/></g>
+    <text x="936" y="150" class="eyebrow muted">ACTIVE</text><g transform="translate(1060 116)"><circle cx="22" cy="22" r="21" class="ink"/><path d="M14 22 H30 M22 14 V30" stroke="#FAF8F5"/></g>
+    <rect x="1144" y="108" width="264" height="124" class="surface"/><text x="1160" y="138" class="eyebrow muted">ACTIVE CARD</text><text x="1160" y="170" class="serif ink" font-size="18">Folded Carryall</text><text x="1160" y="198" class="small ink">$140.00 · View piece</text>
+    <text x="32" y="298" class="micro muted">EDGE FLIP IS LAYOUT LOGIC, NOT A VISUAL VARIANT / LABEL REMAINS AVAILABLE TO ASSISTIVE TECH</text>
+    <line x1="32" y1="323.5" x2="1408" y2="323.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Predictive-Result" transform="translate(0 3782)" aria-label="Predictive Result Card component set">
+    <rect width="1440" height="470" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">09 / Predictive Result Card</text>
+    <text x="32" y="86" class="small muted">Auto Layout H · width 420 · min-height 96 · Type=Product/Article/Suggestion × State=Default/Active</text>
+    <g id="Predictive-Product-Default" transform="translate(32 122)"><rect width="420" height="104" class="paper" stroke="#E5DFD5"/><rect x="12" y="12" width="64" height="80" class="surface"/><path d="M30 86 L36 30 H52 L58 86 Z" class="ink"/><text x="92" y="36" class="eyebrow muted">PRODUCT</text><text x="92" y="64" class="serif ink" font-size="18">Draped Wool Coat</text><text x="92" y="86" class="small ink">Ink / S · $280.00</text></g>
+    <g id="Predictive-Product-Active" transform="translate(492 122)"><rect width="420" height="104" class="surface" stroke="#1C1917"/><rect x="12" y="12" width="64" height="80" class="subtle"/><path d="M30 86 L36 30 H52 L58 86 Z" class="ink"/><text x="92" y="36" class="eyebrow muted">PRODUCT / ACTIVE</text><text x="92" y="64" class="serif ink" font-size="18">Draped Wool Coat</text><text x="92" y="86" class="small ink">Ink / S · $280.00</text><path d="M386 42 L398 52 L386 62" class="ink-line"/></g>
+    <g id="Predictive-Article" transform="translate(952 122)"><rect width="420" height="104" class="paper" stroke="#E5DFD5"/><rect x="12" y="12" width="64" height="80" class="subtle"/><line x1="24" y1="32" x2="64" y2="32" stroke="#786C5E"/><line x1="24" y1="46" x2="60" y2="46" stroke="#786C5E"/><line x1="24" y1="60" x2="66" y2="60" stroke="#786C5E"/><text x="92" y="36" class="eyebrow muted">JOURNAL</text><text x="92" y="64" class="serif ink" font-size="18">On wool and memory</text><text x="92" y="86" class="small muted">6 min read</text></g>
+    <g id="Predictive-Suggestion" transform="translate(32 250)"><rect width="420" height="80" class="paper" stroke="#E5DFD5"/><circle cx="40" cy="40" r="10" class="ink-line"/><line x1="47" y1="47" x2="56" y2="56" stroke="#1C1917"/><text x="76" y="46" class="body ink">Search for “wool coats”</text></g>
+    <g id="Predictive-Article-Active" transform="translate(492 250)"><rect width="420" height="104" class="surface" stroke="#1C1917"/><rect x="12" y="12" width="64" height="80" class="subtle"/><text x="92" y="36" class="eyebrow muted">JOURNAL / ACTIVE</text><text x="92" y="64" class="serif ink" font-size="18">On wool and memory</text><text x="92" y="86" class="small muted">6 min read</text></g>
+    <g id="Predictive-Suggestion-Active" transform="translate(952 250)"><rect width="420" height="80" class="surface" stroke="#1C1917"/><circle cx="40" cy="40" r="10" class="ink-line"/><line x1="47" y1="47" x2="56" y2="56" stroke="#1C1917"/><text x="76" y="46" class="body ink">Search for “wool coats”</text><path d="M386 30 L398 40 L386 50" class="ink-line"/></g>
+    <text x="32" y="428" class="micro muted">OPTION ROLE / ARROW KEY ACTIVE STATE / MATCHED VARIANT AND PRICE / GROUP LABELS ANNOUNCED</text>
+    <line x1="32" y1="453.5" x2="1408" y2="453.5" stroke="#E5DFD5"/>
+  </g>
+
+  <g id="Component-Set-Form-Input" transform="translate(0 4252)" aria-label="Form Input component set">
+    <rect width="1440" height="508" class="paper"/>
+    <text x="32" y="54" class="serif ink" font-size="32">10 / Form Input</text>
+    <text x="32" y="86" class="small muted">Auto Layout V · gap 8 · width 320 · field min-height 52 · State=Default/Focus/Error/Disabled</text>
+    <g id="Input-Default" transform="translate(32 130)"><text class="label ink">Email address</text><rect y="24" width="320" height="52" class="paper" stroke="#E5DFD5"/><text x="16" y="57" class="body muted">name@example.com</text><text y="104" class="small muted">Used only for order updates.</text></g>
+    <g id="Input-Focus" transform="translate(376 130)"><text class="label ink">Email address</text><rect y="24" width="320" height="52" class="paper" stroke="#1C1917" stroke-width="2"/><text x="16" y="57" class="body ink">johan@example.com</text><line x1="154" y1="38" x2="154" y2="64" stroke="#1C1917"/><text y="104" class="small muted">Used only for order updates.</text></g>
+    <g id="Input-Error" transform="translate(720 130)"><text class="label ink">Email address</text><rect y="24" width="320" height="52" class="paper" stroke="#1C1917" stroke-width="2"/><text x="16" y="57" class="body ink">johan@</text><circle cx="294" cy="50" r="10" class="ink"/><text x="294" y="55" class="label paper" text-anchor="middle">!</text><text y="104" class="small ink">Enter a complete email address.</text></g>
+    <g id="Input-Disabled" transform="translate(1064 130)"><text class="label muted">Email address</text><rect y="24" width="320" height="52" class="surface" stroke="#E5DFD5"/><text x="16" y="57" class="body muted">name@example.com</text><text y="104" class="small muted">Unavailable while submitting.</text></g>
+    <rect x="32" y="294" width="1376" height="136" class="surface"/><text x="56" y="330" class="micro muted">CONTENT PROPERTIES</text><text x="270" y="330" class="small ink">Label, value, placeholder, hint and error message remain editable.</text><text x="56" y="364" class="micro muted">ACCESSIBILITY</text><text x="270" y="364" class="small ink">Visible label, described-by hint/error, no placeholder-only fields, focus ring outside bounds.</text><text x="56" y="398" class="small muted">Success is conveyed in copy and icon; Error preserves entered value.</text>
+    <text x="32" y="468" class="micro muted">TOTAL: 10 COMPONENT SETS / 52 CORE VARIANTS / COUTURE TOKENS / AUTO LAYOUT CONTRACTS</text>
+  </g>
+</svg>

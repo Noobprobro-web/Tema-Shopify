@@ -83,5 +83,14 @@ Registro de decisiones importantes del tema.
 - **P0 Figma System Hardening:** Unificar fuentes en Playfair Display (eliminando Georgia), estructurar las 3 páginas libres de Figma (`01 Foundations & Components`, `02 Couture Screens & Flows`, `03 Presets + QA`) y crear component sets con Auto Layout y variantes para los 10 componentes críticos.
 - **P1 Módulos Comerciales:** Modal de Size Guide & Model Fit en PDP, In-Drawer 1-Click Cross-Sell en Cart Drawer, sección "Complete the Look", Grid Switcher (2 vs 4 cols) + Promotion Tile en colección, Announcement bar y Editorial Marquee.
 
+## 2026-09-12: Aceptación de Phase 3A.5 (System Hardening & Cierre Definitivo de Diseño)
+
+- Gemini audita y aprueba sin reservas la entrega `GPT-3A-5` mediante dictamen `GEMINI-007` (`agent-comms/outbox-gemini/GEMINI-007-review-GPT-3A-5.md`).
+- Se valida la eliminación total de `Georgia` en los 16 SVG del repositorio, unificando tipografías en `Playfair Display Regular` y `Plus Jakarta Sans`.
+- Se valida el plugin constructor local `docs/figma/atelier-flow-system-builder/` y la lámina de 10 component sets con 52 variantes (`atelier-flow-critical-component-sets.svg`).
+- Se validan los blueprints de Merchandising P1 (`couture-top-tier-merchandising-1440.svg` y `390.svg`).
+- Phase 3A queda concluida al 100% con grado de madurez comercial top-tier.
+- Próxima etapa: Kickoff de Phase 3B (Codificación de componentes en Liquid, CSS y JS).
+
 
 
