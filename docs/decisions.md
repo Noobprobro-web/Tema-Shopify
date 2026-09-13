@@ -138,3 +138,17 @@ Registro de decisiones importantes del tema.
   - **URLs comerciales de soporte y documentación:** `https://ruizdigital.com/themes/couture/docs` y `https://ruizdigital.com/themes/couture/support`.
 - Se actualiza `config/settings_schema.json` y se cierran formalmente las decisiones D1, D2 y D3 en `docs/phase-4-plan.md`, elevando el Ledger Vivo a **24 / 44 requisitos cumplidos con evidencia**.
 
+## 2026-09-13: Presets Diferenciados (/listings/), 15 Esquemas de Color, Feature Titular y Sección Requerida (Johandry / Sprint 4B)
+
+- Johandry (dueño del proyecto) aprueba por completo las recomendaciones conjuntas de Gemini y Claude para la arquitectura comercial y estética de Phase 4B:
+  1. **Estructura de Presets Oficial (`/listings/`):** Confirmación del requisito mandatorio de Shopify Theme Store. Se incluirán tres juegos de plantillas diferenciadas en `/listings/couture/`, `/listings/studio/` y `/listings/archive/` (`index.json`, `collection.json` y `product.json`).
+  2. **Feature Titular ($380 tier):** Adopción de la estrategia combinada. Se titula comercialmente con el beneficio medible de **Complete the Look** (*"vende el look completo en un solo add to cart"*, aumento real de AOV) y se impacta visualmente en la portada y primer screenshot con el **Shoppable Editorial Lookbook** a pantalla completa.
+  3. **15 Esquemas de Color en `settings_data.json`:** 5 esquemas por preset (página, inverso, superficie, acento y suave) con 100% de contrastes calculados y conformes con WCAG 2.2 AA (>= 4.5:1 texto, >= 3:1 bordes e iconos).
+  4. **Taglines Oficiales de Theme Store (<= 70 chars):**
+     - Couture: *"Editorial fashion that sells the whole look, not one piece."* (59c)
+     - Studio: *"Dense, square, quiet. For objects that speak for themselves."* (60c)
+     - Archive: *"Heritage catalogue pages, with provenance on every line."* (56c)
+  5. **Sección Obligatoria Shopify Faltante:** Desarrollo de `sections/featured-product.liquid` con bloque `@app` y selector de variantes, cumpliendo el requisito oficial explícito de soporte `@app` en secciones de producto destacado.
+  6. **Coordenadas Móviles en Lookbook:** Soporte de posiciones independientes para hotspots en móvil (`horizontal_position_mobile`, `vertical_position_mobile`) en `sections/lookbook.liquid`.
+
+
