@@ -151,4 +151,22 @@ Registro de decisiones importantes del tema.
   5. **Sección Obligatoria Shopify Faltante:** Desarrollo de `sections/featured-product.liquid` con bloque `@app` y selector de variantes, cumpliendo el requisito oficial explícito de soporte `@app` en secciones de producto destacado.
   6. **Coordenadas Móviles en Lookbook:** Soporte de posiciones independientes para hotspots en móvil (`horizontal_position_mobile`, `vertical_position_mobile`) en `sections/lookbook.liquid`.
 
+## 2026-09-13: Resolución del Bloqueador P0 de Naming: Adopción de "Sartorial" y Presets "Sartorial", "Edition", "Archive" (Johandry)
+
+- Johandry (dueño del proyecto) adopta formalmente la **Opción A** para resolver la colisión de nombres detectada por la auditoría comercial de GPT-5.6 (`GPT-OPINION-001`) contra el reglamento oficial de la Theme Store (Shopify Rule 1: No colisiones con temas o presets existentes):
+  - **Antecedente:** "Couture" colisionaba con el preset oficial de *Prestige* (Maestrooo) y "Studio" colisionaba con el tema oficial gratuito de Shopify.
+  - **Nuevo nombre oficial del tema:** `"Sartorial"`.
+  - **Autor comercial:** `"Ruiz Digital"`.
+  - **Nuevos presets del tema (3 identidades):**
+    1. `"Sartorial"` (Preset principal / default: alta costura y sastrería editorial, tipografía serif, hairlines y paleta neutra). Cumple la regla de oro: *One preset must share the parent theme's name*.
+    2. `"Edition"` (Minimalismo contemporáneo: sans-serif, ratio 1:1, densidad y alto contraste; sustituye al nombre "Studio").
+    3. `"Archive"` (Heritage / sastrería patrimonial: tonos tierra/arcilla, reglas de 2px y catálogo enmarcado).
+  - **URLs comerciales de soporte y documentación:** `https://ruizdigital.com/themes/sartorial/docs` y `https://ruizdigital.com/themes/sartorial/support`.
+  - **Estructura en `/listings/`:** Migración completa de carpetas a `/listings/sartorial/`, `/listings/edition/` y `/listings/archive/`.
+  - **Taglines actualizados (<= 70 chars):**
+    - Sartorial: *"Editorial tailoring that sells the whole look, not one piece."* (62c)
+    - Edition: *"Dense, square, quiet. For objects that speak for themselves."* (60c)
+    - Archive: *"Heritage catalogue pages, with provenance on every line."* (56c)
+
+
 

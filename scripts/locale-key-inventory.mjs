@@ -20,8 +20,10 @@
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
-const REPO = path.resolve(import.meta.dirname, '..');
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const REPO = path.resolve(SCRIPT_DIR, '..');
 const SCAN_DIRS = ['layout', 'sections', 'snippets', 'templates', 'blocks', 'config', 'listings'];
 
 const STATIC_T = /(['"])([A-Za-z0-9_.]+)\1\s*\|\s*t(?![A-Za-z0-9_])/g;

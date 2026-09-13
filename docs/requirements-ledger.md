@@ -1,9 +1,9 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO VIVO: 26 CUMPLIDOS DEFINITIVOS | 14 CÓDIGO COMPLETO (PENDIENTE TIENDA REAL) | 5 PENDIENTES EXTERNOS
-Desglose de compuertas: 26 Cumplido definitivo | 14 Código verificado (Gate 5 pendiente) | 0 Ausente | 5 No verificado / Externo
-Última sincronización: 2026-09-13 (Verificación en código de entrega CLAUDE-IMPL-4B-002 y dictamen GPT-OPINION-001)
+CONTEO VIVO: 27 CUMPLIDOS DEFINITIVOS | 14 CÓDIGO COMPLETO (PENDIENTE TIENDA REAL) | 4 PENDIENTES EXTERNOS
+Desglose de compuertas: 27 Cumplido definitivo | 14 Código verificado (Gate 5 pendiente) | 0 Ausente | 4 No verificado / Externo
+Última sincronización: 2026-09-13 (Adopción de Opción A 'Sartorial' por Johandry; resolución de colisión Theme Store)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
 Regla GEMINI-PROTOCOL-001: El código escrito NO cierra una fila que exige medición o prueba en tienda real. Cada fila abierta tiene dueño y artefacto de cierre explícito.
 ```
@@ -97,8 +97,8 @@ Regla GEMINI-PROTOCOL-001: El código escrito NO cierra una fila que exige medic
 
 | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Alineación de Nombre: Tema vs Preset** | Official Requirements: Naming | `cumplido` | `config/settings_schema.json:4` (`theme_name: "Couture"`) coincide con `config/settings_data.json:42` (`presets.Couture`). Decisión Johandry D1. | Johandry / Gemini | Phase 4 |
-| **Validación de Nombre contra Reglamento y Marcas** | Official Requirements: Naming | `no verificado (bloqueador P0)` | COLISIÓN DETECTADA: 'Couture' es preset oficial de Prestige (Maestrooo) y 'Studio' es tema oficial de Shopify. Requiere renombramiento comercial por Johandry (candidatos limpios verificados: Sartorial, Maison, Silhouette) y búsqueda en registros de marca clase 25/42. | Johandry | Phase 4 |
-| **Presets Diferenciados (1 a 4)** | Official Requirements: Presets | `cumplido (código)` | `config/settings_data.json` contiene Couture, Studio y Archive con cinco esquemas cada uno; `/listings/<preset>/templates/` incluye nueve overrides diferenciados. `Couture-1.0.0.zip` empaquetado con `/listings/`. Pendiente smoke test de instalación en las tres demos. | Claude / GPT | Sprint 4B |
+| **Alineación de Nombre: Tema vs Preset** | Official Requirements: Naming | `cumplido` | `config/settings_schema.json:4` (`theme_name: "Sartorial"`) coincide con `config/settings_data.json` (`presets.Sartorial`). Decisión Johandry Opción A. | Johandry / Gemini | Phase 4 |
+| **Validación de Nombre contra Reglamento y Marcas** | Official Requirements: Naming | `cumplido (reglamento Theme Store)` | Opción A adoptada por Johandry: Tema 'Sartorial' con presets 'Sartorial', 'Edition' y 'Archive'. Verificado: Cero colisiones con temas o presets existentes en Shopify Theme Store (todos devuelven 404). Pendiente verificación de marca clase 25/42 previo a submission. | Johandry / Gemini | Phase 4 |
+| **Presets Diferenciados (1 a 4)** | Official Requirements: Presets | `cumplido (código)` | `config/settings_data.json` contiene Sartorial, Edition y Archive con cinco esquemas cada uno; `/listings/<preset>/templates/` incluye nueve overrides diferenciados (`/listings/sartorial/`, `/listings/edition/`, `/listings/archive/`). `Sartorial-1.0.0.zip` empaquetado con `/listings/`. Pendiente smoke test de instalación en las tres demos. | Claude / GPT / Gemini | Sprint 4B |
 | **`theme_info` Comercial y Soporte Real** | Official Requirements: Support & Info | `parcial` | URLs declaradas en `config/settings_schema.json:3-9`. Páginas destino de soporte y docs pendientes de publicar en ruizdigital.com, Hito 4.6. | Johandry | Phase 4 |
 | **3 Tiendas Demo Auténticas (Sin Lorem Ipsum)** | Official Requirements: Demos | `no verificado` | Pendiente de producción de catálogo, copy y assets con derechos para las 3 demos. | Johandry / Claude | Phase 4 |

@@ -19,9 +19,12 @@ import { cp, mkdir, rm, readFile, writeFile, access } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
-const REPO = path.resolve(import.meta.dirname, '..');
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const REPO = path.resolve(SCRIPT_DIR, '..');
 const SANDBOX = path.join(REPO, '.tmp', 'theme-check-sanity');
+const SHOPIFY_CLI = path.join(REPO, 'node_modules', '@shopify', 'cli', 'bin', 'run.js');
 const KEEP = process.argv.includes('--keep');
 
 // Solo carpetas de tema. Nunca .git, node_modules, listings, docs ni agent-comms.
@@ -86,13 +89,17 @@ for (const dir of THEME_DIRS) {
 if (copied === 0) fail('no se copio ninguna carpeta de tema, revisa la ruta del repositorio');
 console.log(`[theme-check-sanity] sandbox en .tmp/theme-check-sanity con ${copied} carpetas de tema`);
 
+try {
+  await access(SHOPIFY_CLI);
+} catch {
+  fail('no se encontro el Shopify CLI local. Ejecuta npm install antes de probar la compuerta.');
+}
+
 function runThemeCheck() {
-  const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
-  const targetPath = process.platform === 'win32' ? `"${SANDBOX}"` : SANDBOX;
-  const run = spawnSync(npx, ['shopify', 'theme', 'check', '--path', targetPath], {
+  const run = spawnSync(process.execPath, [SHOPIFY_CLI, 'theme', 'check', '--path', SANDBOX], {
     encoding: 'utf8',
     env: { ...process.env, CI: '1', SHOPIFY_CLI_NO_ANALYTICS: '1' },
-    shell: process.platform === 'win32',
+    shell: false,
   });
   if (run.error) fail(`no se pudo ejecutar Theme Check: ${run.error.message}`);
   return `${run.stdout || ''}${run.stderr || ''}`;
