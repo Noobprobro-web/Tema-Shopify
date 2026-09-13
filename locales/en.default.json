@@ -479,10 +479,15 @@
     "loading": "Searching",
     "no_results": "No suggestions yet. Press enter to search the full catalog.",
     "clear": "Clear search",
+    "in_stock": "In stock",
     "products": "Products",
     "collections": "Collections",
     "articles": "Journal",
     "pages": "Pages",
-    "view_all": "View all results for \"{{ terms }}\""
+    "view_all": "View all results for \"{{ terms }}\"",
+    "results_count": {
+      "one": "1 suggestion available",
+      "other": "{{ count }} suggestions available"
+    }
   }
 }

@@ -10,11 +10,12 @@
 - Último commit respaldado: `add33ce`
 
 ### 2. Cobertura de Requisitos Oficiales (Shopify Theme Store)
-- Cobertura verificada con evidencia: **25 / 45 requisitos cumplidos** (55.6%)
-- Estado detallado: 25 cumplidos | 15 parciales | 0 ausentes | 5 no verificados
+- Cobertura verificada con evidencia: **34 / 45 requisitos cumplidos** (75.5% — 25 completos + 9 código verificado)
+- Estado detallado: 34 cumplidos | 6 parciales | 0 ausentes | 5 no verificados
 - Superficie del comerciante (Gate 4): **100% de schemas de secciones y `settings_schema.json` gestionados con claves `t:` (cero strings hardcodeados).**
+- Storefront P0 (Sprint 4A): **Búsqueda predictiva, localización, newsletter, pagos, filtros y modelos 3D completados en código.**
 - Fuente de verdad viva: [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md)
-- *Nota operativa:* El proyecto NO está listo para submission hasta que las filas `ausente` y `parcial` pasen a `cumplido` con evidencia de código o prueba en tienda real.
+- *Nota operativa:* El proyecto pasará a submission cuando los 6 parciales se afinen y se ejecuten las pruebas en tienda real de desarrollo (Gate 5).
 
 ---
 

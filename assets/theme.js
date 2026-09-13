@@ -2317,6 +2317,422 @@
     }
   }
 
+  class LocalizationForm extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.form = this.querySelector('form');
+      if (!this.form) return;
+
+      this.querySelectorAll('[data-localization-select]').forEach((select) => {
+        this.listen(select, 'change', () => this.submitForm());
+      });
+    }
+
+    submitForm() {
+      if (!this.form || this.form.getAttribute('aria-busy') === 'true') return;
+      this.form.setAttribute('aria-busy', 'true');
+
+      if (typeof this.form.requestSubmit === 'function') {
+        this.form.requestSubmit();
+      } else {
+        this.form.submit();
+      }
+    }
+  }
+
+  class PredictiveSearch extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.trigger = this.querySelector('[data-predictive-search-open]');
+      this.overlay = this.querySelector('[data-predictive-search-overlay]');
+      this.panel = this.querySelector('[data-predictive-search-panel]');
+      this.form = this.querySelector('[data-predictive-search-form]');
+      this.input = this.querySelector('[data-predictive-search-input]');
+      this.results = this.querySelector('[data-predictive-search-results]');
+      this.status = this.querySelector('[data-predictive-search-status]');
+      this.clearButton = this.querySelector('[data-predictive-search-clear]');
+      this.closeButton = this.querySelector('[data-predictive-search-close]');
+      this.managedInertElements = [];
+      this.options = [];
+      this.activeIndex = -1;
+      this.searchTimer = null;
+      this.requestController = null;
+      this.releaseFocusTrap = null;
+
+      if (!this.trigger || !this.overlay || !this.panel || !this.input || !this.results) return;
+
+      this.setOpen(false);
+      if (this.clearButton) this.clearButton.hidden = this.input.value.trim().length === 0;
+      this.listen(this.trigger, 'click', () => this.setOpen(true));
+      if (this.closeButton) {
+        this.listen(this.closeButton, 'click', () => this.setOpen(false, true));
+      }
+      if (this.clearButton) {
+        this.listen(this.clearButton, 'click', () => this.clearSearch());
+      }
+      this.listen(this.overlay, 'pointerdown', (event) => {
+        if (event.target === this.overlay) this.setOpen(false, true);
+      });
+      this.listen(document, 'keydown', (event) => {
+        if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
+        event.preventDefault();
+        this.setOpen(false, true);
+      });
+      this.listen(this.input, 'input', () => this.handleInput());
+      this.listen(this.input, 'keydown', (event) => this.handleInputKeydown(event));
+      this.listen(this.results, 'pointermove', (event) => {
+        const option = event.target.closest('[role="option"]');
+        if (!option || !this.results.contains(option)) return;
+        this.setActiveOption(this.options.indexOf(option));
+      });
+    }
+
+    disconnectedCallback() {
+      window.clearTimeout(this.searchTimer);
+      this.requestController?.abort();
+      this.setOpen(false);
+      super.disconnectedCallback();
+    }
+
+    get isOpen() {
+      return this.trigger?.getAttribute('aria-expanded') === 'true';
+    }
+
+    setOpen(open, restoreFocus = false) {
+      if (!this.trigger || !this.overlay || !this.panel || !this.input) return;
+
+      this.trigger.setAttribute('aria-expanded', String(open));
+      this.panel.setAttribute('aria-hidden', String(!open));
+      this.panel.inert = !open;
+      this.overlay.hidden = !open;
+      this.toggleAttribute('data-open', open);
+      document.body.toggleAttribute('data-modal-open', open);
+
+      if (open) {
+        this.applyBackgroundInert();
+        this.releaseFocusTrap = trapFocus(this.panel, this.input);
+        this.updateComboboxState();
+      } else {
+        window.clearTimeout(this.searchTimer);
+        this.requestController?.abort();
+        this.requestController = null;
+        this.releaseFocusTrap?.();
+        this.releaseFocusTrap = null;
+        this.restoreBackgroundInert();
+        this.resetActiveOption();
+        this.input.setAttribute('aria-expanded', 'false');
+        if (restoreFocus && this.trigger.isConnected) this.trigger.focus();
+      }
+    }
+
+    handleInput() {
+      const query = this.input.value.trim();
+      if (this.clearButton) this.clearButton.hidden = query.length === 0;
+      window.clearTimeout(this.searchTimer);
+      this.requestController?.abort();
+      this.resetActiveOption();
+
+      if (query.length < 2) {
+        this.clearResults();
+        return;
+      }
+
+      this.results.replaceChildren();
+      this.results.hidden = true;
+      this.results.setAttribute('aria-busy', 'true');
+      this.input.setAttribute('aria-expanded', 'false');
+      if (this.status) this.status.textContent = this.dataset.loadingText || '';
+      this.searchTimer = window.setTimeout(() => this.fetchResults(query), 200);
+    }
+
+    async fetchResults(query) {
+      this.requestController?.abort();
+      const requestController = new AbortController();
+      this.requestController = requestController;
+
+      try {
+        const endpoint = new URL(this.dataset.predictiveSearchUrl, window.location.origin);
+        endpoint.pathname = `${endpoint.pathname.replace(/\/$/, '')}.json`;
+        endpoint.searchParams.set('q', query);
+        endpoint.searchParams.set('resources[type]', 'product,collection,page,article');
+        endpoint.searchParams.set('resources[limit]', '8');
+        endpoint.searchParams.set('resources[limit_scope]', 'all');
+        endpoint.searchParams.set('resources[options][unavailable_products]', 'last');
+
+        const response = await fetch(endpoint.toString(), {
+          headers: { Accept: 'application/json' },
+          signal: requestController.signal,
+        });
+        if (!response.ok) throw new Error(`Predictive search failed: ${response.status}`);
+
+        const payload = await response.json();
+        if (this.input.value.trim() !== query) return;
+        this.renderResults(payload.resources?.results || {}, query);
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+        if (this.input.value.trim() === query) this.renderResults({}, query);
+      } finally {
+        if (this.requestController === requestController && this.input.value.trim() === query) {
+          this.results.setAttribute('aria-busy', 'false');
+          this.requestController = null;
+        }
+      }
+    }
+
+    renderResults(resultGroups, query) {
+      const fragment = document.createDocumentFragment();
+      let optionIndex = 0;
+      let resultCount = 0;
+      const groups = [
+        ['products', this.dataset.productsHeading],
+        ['collections', this.dataset.collectionsHeading],
+        ['articles', this.dataset.articlesHeading],
+        ['pages', this.dataset.pagesHeading],
+      ];
+
+      groups.forEach(([type, heading]) => {
+        const items = Array.isArray(resultGroups[type]) ? resultGroups[type] : [];
+        if (items.length === 0) return;
+
+        const group = document.createElement('section');
+        const headingElement = document.createElement('h2');
+        const list = document.createElement('div');
+        const headingId = `${this.results.id}-${type}-heading`;
+        group.className = `predictive-search__group predictive-search__group--${type}`;
+        group.setAttribute('role', 'group');
+        group.setAttribute('aria-labelledby', headingId);
+        headingElement.id = headingId;
+        headingElement.className = 'predictive-search__group-title eyebrow';
+        headingElement.textContent = heading || '';
+        list.className = 'predictive-search__list';
+
+        items.forEach((item) => {
+          const option = type === 'products'
+            ? this.createProductResult(item)
+            : this.createTextResult(item, heading);
+          option.id = `${this.results.id}-option-${optionIndex}`;
+          option.setAttribute('role', 'option');
+          option.setAttribute('aria-selected', 'false');
+          option.tabIndex = -1;
+          list.append(option);
+          optionIndex += 1;
+          resultCount += 1;
+        });
+
+        group.append(headingElement, list);
+        fragment.append(group);
+      });
+
+      if (resultCount === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'predictive-search__empty';
+        empty.textContent = this.dataset.noResultsText || '';
+        fragment.append(empty);
+      }
+
+      const viewAll = document.createElement('a');
+      viewAll.className = 'predictive-search__view-all button button--secondary';
+      viewAll.href = this.createSearchUrl(query);
+      viewAll.textContent = (this.dataset.viewAllTemplate || '').replace('[terms]', query);
+      fragment.append(viewAll);
+
+      this.results.replaceChildren(fragment);
+      this.results.hidden = false;
+      this.options = Array.from(this.results.querySelectorAll('[role="option"]'));
+      this.activeIndex = -1;
+      this.updateComboboxState();
+      if (this.status) this.status.textContent = this.getResultsCountText(resultCount);
+    }
+
+    createProductResult(product) {
+      const link = this.createResultLink(product.url, 'predictive-search__result predictive-search__result--product');
+      const media = document.createElement('span');
+      const imageUrl = product.featured_image?.url || product.image;
+      media.className = 'predictive-search__media';
+
+      if (imageUrl) {
+        const image = document.createElement('img');
+        image.src = imageUrl;
+        image.alt = product.featured_image?.alt || '';
+        image.loading = 'lazy';
+        image.width = 72;
+        image.height = 90;
+        media.append(image);
+      }
+
+      const details = document.createElement('span');
+      const title = document.createElement('span');
+      const priceRow = document.createElement('span');
+      const currentPrice = Number.parseFloat(product.price);
+      const compareAtPrice = Number.parseFloat(product.compare_at_price_min || product.compare_at_price_max || 0);
+      details.className = 'predictive-search__details';
+      title.className = 'predictive-search__result-title';
+      title.textContent = product.title || '';
+      priceRow.className = 'predictive-search__price';
+
+      if (Number.isFinite(currentPrice)) {
+        const price = document.createElement('span');
+        price.textContent = this.formatMoney(currentPrice);
+        priceRow.append(price);
+      }
+      if (Number.isFinite(compareAtPrice) && compareAtPrice > currentPrice) {
+        const regularPrice = document.createElement('s');
+        regularPrice.setAttribute('aria-label', this.dataset.regularPriceText || '');
+        regularPrice.textContent = this.formatMoney(compareAtPrice);
+        priceRow.append(regularPrice);
+      }
+
+      const availability = document.createElement('span');
+      availability.className = 'predictive-search__availability';
+      availability.toggleAttribute('data-sold-out', product.available === false);
+      availability.textContent = product.available === false
+        ? this.dataset.soldOutText || ''
+        : this.dataset.inStockText || '';
+      details.append(title, priceRow, availability);
+      link.append(media, details);
+      return link;
+    }
+
+    createTextResult(item, heading) {
+      const link = this.createResultLink(item.url, 'predictive-search__result predictive-search__result--text');
+      const typeLabel = document.createElement('span');
+      const title = document.createElement('span');
+      typeLabel.className = 'predictive-search__result-type eyebrow';
+      typeLabel.textContent = heading || '';
+      title.className = 'predictive-search__result-title';
+      title.textContent = item.title || '';
+      link.append(typeLabel, title);
+      return link;
+    }
+
+    createResultLink(url, className) {
+      const link = document.createElement('a');
+      link.className = className;
+      try {
+        const resultUrl = new URL(url, window.location.origin);
+        link.href = resultUrl.origin === window.location.origin ? resultUrl.href : this.dataset.searchUrl;
+      } catch (_error) {
+        link.href = this.dataset.searchUrl;
+      }
+      return link;
+    }
+
+    createSearchUrl(query) {
+      const url = new URL(this.dataset.searchUrl, window.location.origin);
+      url.searchParams.set('q', query);
+      url.searchParams.set('type', 'product,collection,page,article');
+      url.searchParams.set('options[prefix]', 'last');
+      return url.toString();
+    }
+
+    formatMoney(value) {
+      try {
+        return new Intl.NumberFormat(this.dataset.locale || document.documentElement.lang, {
+          style: 'currency',
+          currency: this.dataset.currency || 'USD',
+        }).format(value);
+      } catch (_error) {
+        return String(value);
+      }
+    }
+
+    getResultsCountText(count) {
+      if (count === 1) return this.dataset.resultsCountOne || '';
+      return (this.dataset.resultsCountOther || '').replace('[count]', String(count));
+    }
+
+    handleInputKeydown(event) {
+      if (event.isComposing || this.options.length === 0) return;
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        this.setActiveOption(this.activeIndex + 1);
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        this.setActiveOption(this.activeIndex - 1);
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        this.setActiveOption(0);
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        this.setActiveOption(this.options.length - 1);
+      } else if (event.key === 'Enter' && this.activeIndex >= 0) {
+        event.preventDefault();
+        this.options[this.activeIndex].click();
+      }
+    }
+
+    setActiveOption(index) {
+      if (this.options.length === 0 || index < 0) index = this.options.length - 1;
+      if (index >= this.options.length) index = 0;
+
+      this.options.forEach((option, optionIndex) => {
+        option.setAttribute('aria-selected', String(optionIndex === index));
+      });
+      this.activeIndex = index;
+      const activeOption = this.options[index];
+      if (!activeOption) return;
+      this.input.setAttribute('aria-activedescendant', activeOption.id);
+      activeOption.scrollIntoView({ block: 'nearest' });
+    }
+
+    resetActiveOption() {
+      this.options.forEach((option) => option.setAttribute('aria-selected', 'false'));
+      this.options = [];
+      this.activeIndex = -1;
+      this.input?.removeAttribute('aria-activedescendant');
+    }
+
+    updateComboboxState() {
+      if (!this.input) return;
+      this.input.setAttribute('aria-expanded', String(this.isOpen && !this.results.hidden));
+    }
+
+    clearSearch() {
+      this.input.value = '';
+      if (this.clearButton) this.clearButton.hidden = true;
+      this.requestController?.abort();
+      window.clearTimeout(this.searchTimer);
+      this.clearResults();
+      this.input.focus();
+    }
+
+    clearResults() {
+      this.resetActiveOption();
+      this.results.replaceChildren();
+      this.results.hidden = true;
+      this.results.setAttribute('aria-busy', 'false');
+      this.input.setAttribute('aria-expanded', 'false');
+      if (this.status) this.status.textContent = '';
+    }
+
+    applyBackgroundInert() {
+      this.restoreBackgroundInert();
+      let currentElement = this;
+
+      while (currentElement.parentElement) {
+        const parentElement = currentElement.parentElement;
+        Array.from(parentElement.children).forEach((sibling) => {
+          if (sibling === currentElement || sibling.contains(this)) return;
+          this.managedInertElements.push({
+            element: sibling,
+            wasInert: sibling.hasAttribute('inert'),
+          });
+          sibling.setAttribute('inert', '');
+        });
+        if (parentElement === document.body) break;
+        currentElement = parentElement;
+      }
+    }
+
+    restoreBackgroundInert() {
+      this.managedInertElements.forEach(({ element, wasInert }) => {
+        if (!wasInert) element.removeAttribute('inert');
+      });
+      this.managedInertElements = [];
+    }
+  }
+
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const reflectReducedMotion = ({ matches }) => {
     if (matches) {
@@ -2402,5 +2818,13 @@
 
   if (!customElements.get('password-modal')) {
     customElements.define('password-modal', PasswordModal);
+  }
+
+  if (!customElements.get('localization-form')) {
+    customElements.define('localization-form', LocalizationForm);
+  }
+
+  if (!customElements.get('predictive-search')) {
+    customElements.define('predictive-search', PredictiveSearch);
   }
 })();

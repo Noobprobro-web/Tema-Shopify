@@ -25,8 +25,11 @@
   data-articles-heading="{{ 'predictive_search.articles' | t | escape }}"
   data-pages-heading="{{ 'predictive_search.pages' | t | escape }}"
   data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+  data-in-stock-text="{{ 'predictive_search.in_stock' | t | escape }}"
   data-regular-price-text="{{ 'products.product.regular_price' | t | escape }}"
   data-view-all-template="{{ 'predictive_search.view_all' | t: terms: '[terms]' | escape }}"
+  data-results-count-one="{{ 'predictive_search.results_count.one' | t | escape }}"
+  data-results-count-other="{{ 'predictive_search.results_count.other' | t: count: '[count]' | escape }}"
 >
   <button
     class="icon-button predictive-search__trigger"

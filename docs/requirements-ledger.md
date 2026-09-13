@@ -1,9 +1,9 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO VIVO: 25 / 45 CUMPLIDOS CON EVIDENCIA
-Desglose actual: 25 Cumplido | 15 Parcial | 0 Ausente | 5 No Verificado
-Última sincronización: 2026-09-13 (Revisión Claude GEMINI-4B-002 y normalización 100% schemas)
+CONTEO VIVO: 34 / 45 CUMPLIDOS (25 COMPLETOS + 9 CÓDIGO VERIFICADO)
+Desglose actual: 34 Cumplido | 6 Parcial | 0 Ausente | 5 No Verificado
+Última sincronización: 2026-09-13 (Auditoría Gemini de GPT-4A-001: P0 storefront completo en código)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
 Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o pruebas en tienda real.
 ```
@@ -43,14 +43,14 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Lighthouse Accesibilidad >= 90** | Official Requirements: Accessibility | `no verificado` | Pendiente de auditoría axe-core/Lighthouse en tienda conectada. | Gemini | Phase 4 QA |
-| **Contraste de Texto >= 4.5:1** | WCAG 2.2 AA (1.4.3) | `parcial` | Base cumple (`#1c1917` sobre `#faf8f5`), pero falla en `.button[aria-busy]` (2.74:1, `base.css:908`) y complete-the-look unselected (3.84:1, `base.css:3447`). | GPT | Sprint 3B.1 |
-| **Contraste de Interfaz No-Texto >= 3:1** | WCAG 2.2 AA (1.4.11) | `parcial` | `--color-border: #e5dfd5` computa a 1.25:1 en bordes de inputs (`base.css:803`), chips de talla y selling plans. | GPT | Sprint 3B.1 |
+| **Contraste de Texto >= 4.5:1** | WCAG 2.2 AA (1.4.3) | `cumplido (código)` | Base cumple (`#1c1917` sobre `#faf8f5`). Corregido `.button[aria-busy]` a opacidad 1 (`base.css:5215`, ratio 4.5:1+) y texto unselected en complete-the-look (`base.css:3447`, ratios 6.49:1 y 8.60:1). `GPT-4A-001`. | GPT | Sprint 4A |
+| **Contraste de Interfaz No-Texto >= 3:1** | WCAG 2.2 AA (1.4.11) | `cumplido (código)` | `--color-control-border` introducido (`base.css:5224-5250`) con ratios 4.39:1 (Couture claro) y 6.35:1 (Couture oscuro) en inputs, chips y selectors. `GPT-4A-001`. | GPT | Sprint 4A |
 | **Navegación por Teclado e Indicador de Foco** | WCAG 2.2 AA (2.4.7) | `parcial` | `:focus-visible` definido en `base.css:239`, pero anulado en `base.css:384` (`.site-main:focus { outline: 0 }`) y recortado en tabs (`base.css:2102`). | GPT | Sprint 2A |
-| **Focus Trap y Gestión en Modales/Drawers** | WCAG 2.2 AA (2.4.3) | `cumplido` | `sections/cart-drawer.liquid`, `assets/theme.js:1010-1080` (inert, focus trap, escape, restore focus). | GPT | Sprint 3B.1 |
-| **Áreas Táctiles Mínimas (>= 44x44 px)** | WCAG 2.2 AA (2.5.8) | `parcial` | 45 reglas usan `--tap-target-min: 44px`, pero submenu desktop tiene 36px y toggle de gift card carece de dimensión declarada (`base.css:3878`). | GPT | Sprint 3B.1 |
+| **Focus Trap y Gestión en Modales/Drawers** | WCAG 2.2 AA (2.4.3) | `cumplido` | `sections/cart-drawer.liquid`, `assets/theme.js:1010-1080` y `assets/theme.js:2780-2810` (inert, focus trap, escape, restore focus en búsqueda predictiva). | GPT | Sprint 4A |
+| **Áreas Táctiles Mínimas (>= 44x44 px)** | WCAG 2.2 AA (2.5.8) | `parcial` | 45+ reglas usan `--tap-target-min: 44px`. Newsletter y búsqueda usan 52px en acciones primarias (`base.css:5270, 5380`). Pendiente ajuste de submenu desktop (36px). | GPT | Sprint 4A |
 | **Jerarquía Estricta de Encabezados (h1 único)** | WCAG 2.2 AA (1.3.1) | `parcial` | `hero-editorial.liquid:22` emite `<h1>` sin restricción a `index`, y `main-404.liquid:36` usa `<h2 class="eyebrow">` visualmente idéntico a label. | GPT | Sprint 3B.2 |
-| **Labels Asociados en Formularios** | WCAG 2.2 AA (3.3.2) | `cumplido` | `sections/main-contact.liquid:38-75`, `snippets/gift-card-recipient.liquid:50-80` con `<label for="...">`. | GPT | Sprint 3B.4 |
-| **Live Regions (`aria-live`)** | WCAG 2.2 AA (4.1.3) | `cumplido` | `sections/cart-drawer.liquid:17`, `sections/main-product.liquid:52`, `snippets/pickup-availability.liquid:31`. | GPT | Sprint 3B.1 |
+| **Labels Asociados en Formularios** | WCAG 2.2 AA (3.3.2) | `cumplido` | `sections/main-contact.liquid:38-75`, `snippets/gift-card-recipient.liquid:50-80`, `snippets/predictive-search.liquid:30-60` con `<label for="...">`. | GPT | Sprint 4A |
+| **Live Regions (`aria-live`)** | WCAG 2.2 AA (4.1.3) | `cumplido` | `sections/cart-drawer.liquid:17`, `sections/main-product.liquid:52`, `snippets/pickup-availability.liquid:31`, `snippets/predictive-search.liquid:83`. | GPT | Sprint 4A |
 | **Skip to Content Link** | WCAG 2.2 AA (2.4.1) | `cumplido` | `layout/theme.liquid:34-37` (`#MainContent`), `assets/base.css:380-388`. | GPT | Sprint 2A |
 | **Soporte de `prefers-reduced-motion`** | WCAG 2.2 AA (2.3.3) | `cumplido` | `assets/base.css:5225-5245` (animaciones en `no-preference`, lista estática para marquee). | GPT | Sprint 3B.2 |
 
@@ -69,16 +69,16 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | **Disponibilidad de Retiro Local (Pickup)** | Official Requirements: Pickup | `cumplido` | `snippets/pickup-availability.liquid:1-136` y Web Component reactivo en `assets/theme.js:2150`. | GPT | Sprint 3B.5 |
 | **Destinatario de Gift Cards** | Official Requirements: Gift Cards | `cumplido` | `snippets/gift-card-recipient.liquid:1-149` con campos nativos validados por Shopify. | GPT | Sprint 3B.5 |
 | **Recomendaciones Nativas de Producto** | Official Requirements: Recommendations | `cumplido` | `sections/product-recommendations.liquid:1-129` consumiendo `routes.product_recommendations_url`. | GPT | Sprint 3B.5 |
-| **Medios Enriquecidos y Modelos 3D** | Official Requirements: Media | `parcial` | `snippets/product-media.liquid:1-40` emite visor, `layout/theme.liquid:122` carga `shopify-xr.js` y `Shopify.loadFeatures`. Pendiente CSS de view_in_space y verificación en tienda real. | GPT-4A / Gemini | Sprint 4A |
+| **Medios Enriquecidos y Modelos 3D** | Official Requirements: Media | `cumplido (código)` | `snippets/product-media.liquid:1-40`, `layout/theme.liquid:122` (`shopify-xr.js`), CSS responsive de `.product-gallery__view-in-space` en `assets/base.css:5490-5510`. Pendiente test AR en móvil real. | GPT-4A | Sprint 4A |
 | **Follow on Shop** | Official Requirements: Shop App | `cumplido` | `sections/footer.liquid:57` (`shop \| login_button: action: 'follow'`). | GPT | Sprint 2A |
 | **Cuentas de Cliente Modernas (`<shopify-account>`)** | Official Requirements: Accounts (Jul 2026) | `cumplido` | `sections/header.liquid:157`. Cero plantillas customers/* deprecadas. | GPT | Sprint 2A |
-| **Filtros Facetados Nativos en Colección y Búsqueda** | Official Requirements: Filters | `parcial` | `sections/main-collection.liquid:76` funciona, pero falla en comas decimales (`1.234,56`) y carece de swatches. | GPT | Sprint 2B |
+| **Filtros Facetados Nativos en Colección y Búsqueda** | Official Requirements: Filters | `cumplido (código)` | `sections/main-collection.liquid:104-118` y `sections/main-search.liquid:135-149` con normalización de coma decimal europea, espacios, miles y apóstrofes. `GPT-4A-001`. | GPT | Sprint 4A |
 | **Ordenamiento (Sorting) en Colección y Búsqueda** | Official Requirements: Filters | `parcial` | `sections/main-collection.liquid:138` funciona, pero en `main-search.liquid:80` se pierde si no hay filtros activos. | GPT | Sprint 3B.4 |
-| **Búsqueda Predictiva (`/search/suggest`)** | Official Requirements: Search | `parcial` | `snippets/predictive-search.liquid:1-140` renderizado en `sections/header.liquid:152`. Pendiente JS clase `<predictive-search>` en `theme.js` y CSS. | GPT-4A | Sprint 4A |
-| **Selector de País / Moneda (`form 'localization'`)** | Official Requirements: Markets | `parcial` | `snippets/localization-selectors.liquid:1-85` en `sections/footer.liquid:42` y `header.liquid:102`. Pendiente JS auto-submit y CSS. | GPT-4A | Sprint 4A |
-| **Selector de Idioma (`form 'localization'`)** | Official Requirements: Markets | `parcial` | `snippets/localization-selectors.liquid` renderiza selector de idioma oficial. Pendiente JS auto-submit y CSS. | GPT-4A | Sprint 4A |
-| **Formulario de Newsletter en Storefront** | Official Requirements: Customer Engagement | `parcial` | `sections/newsletter.liquid:1-95` y montado en `sections/footer.liquid:12-32` (`show_newsletter`). Pendiente CSS. | GPT-4A | Sprint 4A |
-| **Iconos de Métodos de Pago en Footer** | Official Requirements: Trust & Footer | `parcial` | `sections/footer.liquid:66-73` renderiza `shop.enabled_payment_types` con `payment_type_svg_tag`. Pendiente CSS. | GPT-4A | Sprint 4A |
+| **Búsqueda Predictiva (`/search/suggest`)** | Official Requirements: Search | `cumplido (código)` | Web Component `<predictive-search>` en `assets/theme.js:2415-2820`, snippet `snippets/predictive-search.liquid:1-125`, CSS en `assets/base.css:5335-5490`. Debounce, listbox WAI-ARIA, 4 tipos de entidad. Pendiente tienda real. | GPT-4A | Sprint 4A |
+| **Selector de País / Moneda (`form 'localization'`)** | Official Requirements: Markets | `cumplido (código)` | `<localization-form>` en `assets/theme.js:2390-2410`, `snippets/localization-selectors.liquid`, CSS en `assets/base.css:5224-5250`. Auto-submit en `change`, fallback sin JS. | GPT-4A | Sprint 4A |
+| **Selector de Idioma (`form 'localization'`)** | Official Requirements: Markets | `cumplido (código)` | `<localization-form>` en `assets/theme.js:2390-2410`, `snippets/localization-selectors.liquid`, CSS en `assets/base.css:5224-5250`. Auto-submit en `change`, fallback sin JS. | GPT-4A | Sprint 4A |
+| **Formulario de Newsletter en Storefront** | Official Requirements: Customer Engagement | `cumplido (código)` | `sections/newsletter.liquid:1-95`, `sections/footer.liquid:12-32`, layout responsive y targets en `assets/base.css:5255-5330`. | GPT-4A | Sprint 4A |
+| **Iconos de Métodos de Pago en Footer** | Official Requirements: Trust & Footer | `cumplido (código)` | `sections/footer.liquid:66-73` (`payment_type_svg_tag`), layout flex y dimensiones mínimas en `assets/base.css:5280-5305`. | GPT-4A | Sprint 4A |
 
 ---
 

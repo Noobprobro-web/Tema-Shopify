@@ -135,9 +135,9 @@
                       </ul>
                     {%- when 'price_range' -%}
                       {%- liquid
-                        assign range_max_value = filter.range_max | money_without_currency | strip | replace: ' ', ''
-                        assign minimum_filter_value = filter.min_value.value | money_without_currency | strip | replace: ' ', ''
-                        assign maximum_filter_value = filter.max_value.value | money_without_currency | strip | replace: ' ', ''
+                        assign range_max_value = filter.range_max | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+                        assign minimum_filter_value = filter.min_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+                        assign maximum_filter_value = filter.max_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
                         if money_uses_comma_decimal
                           assign range_max_value = range_max_value | replace: '.', '' | replace: ',', '.'
                           assign minimum_filter_value = minimum_filter_value | replace: '.', '' | replace: ',', '.'
