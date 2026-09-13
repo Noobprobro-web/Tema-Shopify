@@ -30,7 +30,10 @@ async function productCandidates(page) {
 
   await page.goto('/collections/all', { waitUntil: 'domcontentloaded' });
   const hrefs = await page.locator('a[href*="/products/"]').evaluateAll((anchors) => (
-    [...new Set(anchors.map((anchor) => anchor.href))]
+    [...new Set(anchors.map((anchor) => {
+      const url = new URL(anchor.href);
+      return `${url.pathname}${url.search}`;
+    }))]
   ));
 
   return hrefs.slice(0, 24);
@@ -93,6 +96,9 @@ async function expectLineTotalHidden(lineTotal) {
   await expect(lineTotal).toHaveAttribute('data-empty', '');
   await expect(lineTotal).toBeHidden();
   await expect(lineTotal).not.toContainText('NaN');
+  await expect(lineTotal.locator('[data-line-total-label]')).toHaveText('');
+  await expect(lineTotal.locator('[data-line-total-current]')).toHaveText('');
+  await expect(lineTotal.locator('[data-line-total-compare-value]')).toHaveText('');
 }
 
 test.describe('PDP line total', () => {
@@ -125,13 +131,11 @@ test.describe('PDP line total', () => {
     for (const value of ['', '0', '-1', 'abc']) {
       await setQuantity(quantity, value);
       await expectLineTotalHidden(lineTotal);
-      await expect(lineTotal).toHaveText('');
       await expect(unitCurrent).toHaveText(initialUnitPrice);
     }
 
     await setQuantity(quantity, '1');
     await expectLineTotalHidden(lineTotal);
-    await expect(lineTotal).toHaveText('');
     await expect(unitCurrent).toHaveText(initialUnitPrice);
   });
 

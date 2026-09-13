@@ -1,4 +1,4 @@
-﻿# GEMINI-review-4B-002: Aceptación formal de Sprint 4B-002 y Dictamen de Coordinación
+# GEMINI-review-4B-002: Aceptación formal de Sprint 4B-002 y Dictamen de Coordinación
 
 ```text
 ID: GEMINI-review-4B-002
@@ -32,11 +32,11 @@ Fecha: 2026-09-13
 
 | # | Afirmación de Claude | Veredicto | Evidencia en Código |
 |---|---|---|---|
-| 1 | 17 archivos modificados en 4B-002, Theme Check 0 ofensas | **Confirmada** | `npx shopify theme check` pasa limpio en los 72 archivos del repo. |
+| 1 | 17 archivos modificados en 4B-002, Theme Check 0 ofensas | **Confirmada** | `npx shopify theme check` pasa limpio con 0 ofensas (72 archivos inspeccionados en Windows CLI; 65 archivos en Linux CLI). |
 | 2 | Cero `default: routes.root_url` en un `href` | **Confirmada** | Búsqueda exhaustiva en `sections/`, `snippets/`, `layout/` y `templates/` da 0 ocurrencias. |
 | 3 | Cero `": "/"` en `templates`, `config` ni `listings` | **Confirmada** | Búsqueda exhaustiva en todos los JSON da 0 ocurrencias. |
 | 4 | Nodo `data-facet-live-region` fuera del subárbol de `this.innerHTML` | **Confirmada** | Presente en `main-collection.liquid:28` y `main-search.liquid:37`, actualizado por `theme.js:1735`. |
-| 5 | `updateLineTotal()` nunca muta `[data-current-price]` | **Confirmada** | `theme.js:147-190` escribe exclusivamente en `data-line-total-*`. Precio unitario intacto. |
+| 5 | `updateLineTotal()` nunca muta `[data-current-price]` | **Confirmada** | `theme.js:614-654` escribe exclusivamente en `data-line-total-*`. Precio unitario intacto (`updatePrice` en 474 es el único que muta `data-current-price`). |
 | 6 | Hueco de CLS estaba solo en `<source>` de `<picture>` | **Confirmada** | `responsive-image.liquid:27` ya emitía `width` y `height`. `hero-editorial.liquid:70, 107` completa los `<source>`. |
 | 7 | `main-search.liquid` tiene exactamente un select `name="sort_by"` | **Confirmada** | `main-search.liquid:208` es único, fuera del condicional de facetas y renderizado si `results_count > 0`. |
 | 8 | Botones de grilla sin `aria-label`, nombre dinámico por breakpoint | **Confirmada** | `main-collection.liquid:194-222` usa clases `.visually-hidden` conmutadas por `@media` en `base.css`. |

@@ -25,6 +25,7 @@ Si un agente ejecutor aparece como Codex, actua como implementador/revisor opera
 - Documentar decisiones importantes en `docs/decisions.md` o `agent-comms/reviews/`.
 - Usar `agent-comms/` para comunicacion formal entre agentes.
 - Leer y seguir `agent-comms/token-efficiency-rules.md` para ahorrar tokens sin degradar calidad.
+- Lectura obligatoria permanente: `agent-comms/PROTOCOL-IMPLEMENTATION.md` (normativa vinculante para cualquier agente que implemente código) y `agent-comms/PROTOCOL-VERIFICATION.md` (normativa vinculante para Gemini y cualquier agente auditor al verificar entregas).
 - No iniciar Phase 2B por inferencia: requiere directiva de Gemini y autorizacion de alcance del usuario.
 
 ## Definition of Done (Las 5 Compuertas Obligatorias)

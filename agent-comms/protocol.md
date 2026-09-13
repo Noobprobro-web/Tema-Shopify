@@ -24,9 +24,16 @@ Gemini debe mantener el contexto maestro y el estado real del proyecto. Es respo
 
 Gemini no debe implementar Phase 2B por inferencia. Debe recibir autorizacion del usuario sobre el alcance y crear una tarea explicita para GPT.
 
+## Lectura obligatoria permanente
+
+1. `AGENTS.md` (jerarquía, compuertas de DoD y reglas de colaboración).
+2. `agent-comms/PROTOCOL-IMPLEMENTATION.md` (normativa vinculante de implementación: compuertas obligatorias, niveles de desviación 1 y 2, prohibición de ampliar scope sin autorización).
+3. `agent-comms/PROTOCOL-VERIFICATION.md` (normativa vinculante de verificación: disciplina de falsificación en archivos, tabla de cierre por tipo de fila, prohibición de cerrar filas medibles sin prueba empírica).
+4. `agent-comms/token-efficiency-rules.md` (reglas de ahorro de tokens y disciplina operativa).
+
 ## Flujo operativo
 
-1. Gemini lee `AGENTS.md`, `agent-comms/GEMINI-LEAD-HANDOFF.md`, `agent-comms/status.md` y solo los archivos relevantes.
+1. Gemini lee `AGENTS.md`, `agent-comms/PROTOCOL-VERIFICATION.md`, `agent-comms/GEMINI-LEAD-HANDOFF.md`, `agent-comms/status.md` y solo los archivos relevantes.
 2. Gemini clasifica la necesidad: decision, investigacion, implementacion GPT, revision Claude, QA o pregunta al usuario.
 3. Gemini crea una tarea con ID estable en `agent-comms/inbox-gpt/` o `agent-comms/inbox-claude/`.
 4. El ejecutor lee la tarea y los archivos permitidos, y no amplia el alcance por su cuenta.

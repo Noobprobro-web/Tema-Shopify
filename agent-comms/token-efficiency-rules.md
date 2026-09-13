@@ -7,11 +7,13 @@ Objetivo: reducir contexto repetido y trabajo duplicado sin omitir requisitos de
 En cada tarea, el agente debe leer solo:
 
 1. `AGENTS.md`.
-2. `agent-comms/GEMINI-LEAD-HANDOFF.md` si coordina o necesita contexto maestro.
-3. `agent-comms/status.md`.
-4. `agent-comms/protocol.md`.
-5. Su tarea activa.
-6. Los archivos que la tarea enumere.
+2. `agent-comms/PROTOCOL-IMPLEMENTATION.md` (si la tarea involucra implementación de código o schema).
+3. `agent-comms/PROTOCOL-VERIFICATION.md` (si la tarea involucra revisión, auditoría o cierre en el ledger).
+4. `agent-comms/GEMINI-LEAD-HANDOFF.md` si coordina o necesita contexto maestro.
+5. `agent-comms/status.md`.
+6. `agent-comms/protocol.md`.
+7. Su tarea activa.
+8. Los archivos que la tarea enumere.
 
 No leer el repo completo por defecto. No pegar contenido de archivos ya conocidos; citar rutas y lineas o nombres de seccion cuando baste.
 
