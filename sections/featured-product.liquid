@@ -1,0 +1,557 @@
+{%- liquid
+  assign featured_product = section.settings.product
+  assign product = featured_product
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign product_form_id = 'featured-product-form-' | append: section.id
+  assign selected_variant = product.selected_or_first_available_variant
+  assign selected_selling_plan_allocation = featured_product.selected_selling_plan_allocation
+  if selected_selling_plan_allocation == blank and selected_variant.requires_selling_plan
+    assign selected_selling_plan_allocation = selected_variant.selling_plan_allocations.first
+  endif
+  assign selected_selling_plan_id = selected_selling_plan_allocation.selling_plan.id
+  assign subscription_selected = false
+  if selected_selling_plan_id != blank
+    assign subscription_selected = true
+  endif
+  assign featured_models = featured_product.media | where: 'media_type', 'model'
+  assign title_blocks = section.blocks | where: 'type', 'title'
+-%}
+
+<section
+  class="section featured-product color-{{ section_scheme }}{% if section.settings.secondary_background %} featured-product--secondary{% endif %}"
+  style="--featured-product-padding-top: {{ section.settings.padding_top }}px; --featured-product-padding-bottom: {{ section.settings.padding_bottom }}px;"
+  data-section-id="{{ section.id }}"
+  {% if title_blocks.size > 0 %}
+    aria-labelledby="FeaturedProductTitle-{{ section.id }}"
+  {% else %}
+    aria-label="{{ 'sections.featured_product.region_label' | t }}"
+  {% endif %}
+>
+  <div class="container featured-product__layout">
+    <div class="featured-product__gallery" role="region" aria-label="{{ 'products.product.media_gallery' | t }}">
+      {%- if featured_product == blank -%}
+        <div class="featured-product__placeholder" aria-hidden="true">
+          {{- 'product-1' | placeholder_svg_tag: 'homepage-placeholder' -}}
+        </div>
+      {%- elsif featured_product.media.size > 0 -%}
+        {%- for media in featured_product.media -%}
+          <figure
+            class="featured-product__media"
+            data-product-media-id="{{ media.id }}"
+            {% if media.id == selected_variant.featured_media.id or selected_variant.featured_media == blank and forloop.first %}data-selected{% endif %}
+          >
+            {% render 'product-media', media: media, product: featured_product, prioritize: forloop.first %}
+          </figure>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="featured-product__placeholder" aria-hidden="true">
+          {{- 'product-1' | placeholder_svg_tag: 'homepage-placeholder' -}}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <variant-selects
+      class="featured-product__details"
+      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape }}"
+      data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+      data-available-status="{{ 'products.product.variant_available' | t | escape }}"
+      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
+      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
+      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
+      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
+    >
+      <div class="featured-product__info flow">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'title' -%}
+              <header class="featured-product__header" {{ block.shopify_attributes }}>
+                <h2 id="FeaturedProductTitle-{{ section.id }}" class="featured-product__title">
+                  {%- if featured_product != blank -%}
+                    {{- featured_product.title | escape -}}
+                  {%- else -%}
+                    {{- 'sections.featured_product.onboarding_title' | t -}}
+                  {%- endif -%}
+                </h2>
+              </header>
+
+            {%- when 'price' -%}
+              <div {{ block.shopify_attributes }}>
+                {%- if featured_product != blank -%}
+                  {% render 'price',
+                    product: featured_product,
+                    variant: selected_variant,
+                    use_variant: true,
+                    show_badges: true,
+                    show_unit_price: true,
+                    show_taxes: true,
+                    price_class: 'featured-product__price'
+                  %}
+                {%- else -%}
+                  <p class="featured-product__price">{{ 'sections.featured_product.onboarding_price' | t }}</p>
+                {%- endif -%}
+              </div>
+
+            {%- when 'variant_picker' -%}
+              {%- if featured_product != blank and featured_product.has_only_default_variant == false -%}
+                <div class="variant-picker flow" {{ block.shopify_attributes }}>
+                  {%- for option in featured_product.options_with_values -%}
+                    <fieldset class="variant-picker__group" role="radiogroup">
+                      <legend class="variant-picker__legend">
+                        {{- option.name | escape -}}:
+                        <span data-selected-option="{{ option.position }}">{{ option.selected_value | escape }}</span>
+                      </legend>
+                      <div class="variant-picker__values">
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign option_id = 'featured-option-' | append: section.id | append: '-' | append: option.position | append: '-' | append: forloop.index
+                            assign swatch_value = blank
+                            assign swatch_focal_point = blank
+                            if value.swatch.image
+                              assign swatch_image_url = value.swatch.image | image_url: width: 96
+                              assign swatch_value = 'url(' | append: swatch_image_url | append: ')'
+                              assign swatch_focal_point = value.swatch.image.presentation.focal_point
+                            elsif value.swatch.color
+                              assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                            endif
+                          -%}
+                          <input
+                            class="variant-picker__input visually-hidden"
+                            type="radio"
+                            id="{{ option_id }}"
+                            name="featured-options-{{ section.id }}[{{ option.name | escape }}]"
+                            value="{{ value | escape }}"
+                            data-option-position="{{ option.position }}"
+                            {% if value.selected %}checked{% endif %}
+                            aria-disabled="{% if value.available %}false{% else %}true{% endif %}"
+                            {% unless value.available %}disabled{% endunless %}
+                          >
+                          <label class="variant-picker__label{% if swatch_value != blank %} variant-picker__label--swatch{% endif %}" for="{{ option_id }}">
+                            {%- if swatch_value != blank -%}
+                              <span
+                                class="variant-picker__swatch"
+                                style="--variant-swatch: {{ swatch_value }};{% if swatch_focal_point != blank %} --variant-swatch-position: {{ swatch_focal_point }};{% endif %}"
+                                aria-hidden="true"
+                              ></span>
+                            {%- endif -%}
+                            <span>{{ value | escape }}</span>
+                            <span data-unavailable-label{% if value.available %} hidden{% endif %}>
+                              <span aria-hidden="true">&times;</span>
+                              <span class="visually-hidden">{{ 'products.product.option_unavailable' | t }}</span>
+                            </span>
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+
+            {%- when 'quantity_selector' -%}
+              {%- if featured_product != blank -%}
+                <div class="product-form__quantity" {{ block.shopify_attributes }}>
+                  <label for="FeaturedQuantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+                  <input
+                    id="FeaturedQuantity-{{ section.id }}"
+                    type="number"
+                    name="quantity"
+                    form="{{ product_form_id }}"
+                    value="{{ selected_variant.quantity_rule.min | default: 1 }}"
+                    min="{{ selected_variant.quantity_rule.min | default: 1 }}"
+                    step="{{ selected_variant.quantity_rule.increment | default: 1 }}"
+                    {% if selected_variant.quantity_rule.max != blank %}max="{{ selected_variant.quantity_rule.max }}"{% endif %}
+                    inputmode="numeric"
+                    data-quantity-input
+                  >
+                </div>
+              {%- endif -%}
+
+            {%- when 'buy_buttons' -%}
+              {%- if featured_product != blank -%}
+                <div class="product-form" {{ block.shopify_attributes }}>
+                  {%- form 'product', featured_product,
+                    id: product_form_id,
+                    class: 'product-form__form',
+                    data-cart-add-form: ''
+                  -%}
+                    <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id>
+
+                    <div class="product-form__payment-terms">
+                      {{- form | payment_terms -}}
+                    </div>
+
+                    {%- if featured_product.selling_plan_groups.size > 0 -%}
+                      <div class="selling-plans" data-selling-plans>
+                        <fieldset class="selling-plans__fieldset js-only">
+                          <legend>{{ 'products.product.purchase_options.legend' | t }}</legend>
+                          <div class="selling-plans__choices">
+                            <label class="selling-plans__choice">
+                              <input
+                                type="radio"
+                                name="featured-purchase-option-{{ section.id }}"
+                                value="one_time"
+                                data-purchase-option="one_time"
+                                {% unless subscription_selected %}checked{% endunless %}
+                                {% if selected_variant.requires_selling_plan %}disabled{% endif %}
+                              >
+                              <span class="selling-plans__choice-copy">
+                                <strong>{{ 'products.product.purchase_options.one_time' | t }}</strong>
+                                <span data-one-time-price>{{ selected_variant.price | money }}</span>
+                              </span>
+                            </label>
+                            <label class="selling-plans__choice">
+                              <input
+                                type="radio"
+                                name="featured-purchase-option-{{ section.id }}"
+                                value="subscription"
+                                data-purchase-option="subscription"
+                                {% if subscription_selected %}checked{% endif %}
+                                {% if selected_variant.selling_plan_allocations.size == 0 %}disabled{% endif %}
+                              >
+                              <span class="selling-plans__choice-copy">
+                                <strong>{{ 'products.product.purchase_options.subscribe' | t }}</strong>
+                                <span data-subscription-price>
+                                  {%- if selected_selling_plan_allocation != blank -%}
+                                    {{- selected_selling_plan_allocation.price | money -}}
+                                  {%- else -%}
+                                    {{- 'products.product.purchase_options.unavailable' | t -}}
+                                  {%- endif -%}
+                                </span>
+                              </span>
+                            </label>
+                          </div>
+
+                          <div class="selling-plans__details" data-selling-plan-details{% unless subscription_selected %} hidden{% endunless %}>
+                            <label for="FeaturedSellingPlan-{{ section.id }}">
+                              {{- 'products.product.purchase_options.delivery_schedule' | t -}}
+                            </label>
+                            <select id="FeaturedSellingPlan-{{ section.id }}" data-selling-plan-select>
+                              {%- for selling_plan_group in featured_product.selling_plan_groups -%}
+                                <optgroup label="{{ selling_plan_group.name | escape }}" data-selling-plan-group>
+                                  {%- for selling_plan in selling_plan_group.selling_plans -%}
+                                    {%- liquid
+                                      assign plan_allocation = blank
+                                      for allocation in selected_variant.selling_plan_allocations
+                                        if allocation.selling_plan.id == selling_plan.id
+                                          assign plan_allocation = allocation
+                                          break
+                                        endif
+                                      endfor
+                                    -%}
+                                    <option
+                                      value="{{ selling_plan.id }}"
+                                      data-selling-plan-option
+                                      {% if selling_plan.id == selected_selling_plan_id %}selected{% endif %}
+                                      {% if plan_allocation == blank %}disabled hidden{% endif %}
+                                    >
+                                      {{- selling_plan.name | escape -}}
+                                    </option>
+                                  {%- endfor -%}
+                                </optgroup>
+                              {%- endfor -%}
+                            </select>
+                            <p class="selling-plans__status" aria-live="polite" data-selling-plan-status>
+                              {%- if selected_selling_plan_allocation != blank -%}
+                                {{- selected_selling_plan_allocation.selling_plan.name | escape -}}
+                                <span aria-hidden="true"> / </span>
+                                {{- selected_selling_plan_allocation.price | money -}}
+                              {%- endif -%}
+                            </p>
+                            <p class="selling-plans__per-delivery" data-selling-plan-per-delivery hidden></p>
+                          </div>
+                        </fieldset>
+
+                        <input
+                          type="hidden"
+                          name="selling_plan"
+                          value="{{ selected_selling_plan_id }}"
+                          data-selling-plan-input
+                          disabled
+                        >
+
+                        <div class="selling-plans__no-js no-js-only">
+                          <label for="FeaturedSellingPlanNoJs-{{ section.id }}">
+                            {{- 'products.product.purchase_options.legend' | t -}}
+                          </label>
+                          <select id="FeaturedSellingPlanNoJs-{{ section.id }}" name="selling_plan">
+                            {%- unless selected_variant.requires_selling_plan -%}
+                              <option value=""{% unless subscription_selected %} selected{% endunless %}>
+                                {{- 'products.product.purchase_options.one_time' | t -}}
+                              </option>
+                            {%- endunless -%}
+                            {%- for selling_plan_group in featured_product.selling_plan_groups -%}
+                              <optgroup label="{{ selling_plan_group.name | escape }}">
+                                {%- for allocation in selected_variant.selling_plan_allocations -%}
+                                  {%- if allocation.selling_plan_group_id == selling_plan_group.id -%}
+                                    <option
+                                      value="{{ allocation.selling_plan.id }}"
+                                      {% if allocation.selling_plan.id == selected_selling_plan_id %}selected{% endif %}
+                                    >
+                                      {{- allocation.selling_plan.name | escape -}}
+                                      {{- ' / ' -}}
+                                      {{- allocation.price | money -}}
+                                    </option>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              </optgroup>
+                            {%- endfor -%}
+                          </select>
+                        </div>
+                      </div>
+                    {%- endif -%}
+
+                    {%- if featured_product.gift_card? -%}
+                      {% render 'gift-card-recipient', form: form, section: section %}
+                    {%- endif -%}
+
+                    <button
+                      class="button button--full product-form__submit"
+                      type="submit"
+                      name="add"
+                      data-add-to-cart
+                      {% unless selected_variant.available %}disabled{% endunless %}
+                    >
+                      <span data-add-to-cart-text>
+                        {%- if selected_variant.available -%}
+                          {{- 'products.product.add_to_cart' | t -}}
+                        {%- else -%}
+                          {{- 'products.product.sold_out' | t -}}
+                        {%- endif -%}
+                      </span>
+                      <span class="button__spinner" data-loading-icon hidden>
+                        {% render 'icon', name: 'spinner', size: 18 %}
+                      </span>
+                    </button>
+
+                    {%- if block.settings.show_dynamic_checkout -%}
+                      <div class="product-form__dynamic-checkout">
+                        {{- form | payment_button -}}
+                      </div>
+                    {%- endif -%}
+
+                    <p class="form-message" role="alert" data-product-form-error hidden></p>
+                  {%- endform -%}
+
+                  {% render 'pickup-availability', product: featured_product, variant: selected_variant, section: section %}
+                </div>
+              {%- endif -%}
+
+            {%- when 'description' -%}
+              {%- if featured_product != blank and featured_product.description != blank -%}
+                <div class="featured-product__description rte" {{ block.shopify_attributes }}>
+                  {{- featured_product.description -}}
+                </div>
+              {%- endif -%}
+
+            {%- when 'custom_liquid' -%}
+              <div class="featured-product__custom-liquid" {{ block.shopify_attributes }}>
+                {{- block.settings.custom_liquid -}}
+              </div>
+
+            {%- when '@app' -%}
+              {% render block %}
+          {%- endcase -%}
+        {%- endfor -%}
+
+        <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-variant-status></p>
+      </div>
+
+      {%- if featured_product != blank -%}
+        <script type="application/json" data-variant-json>
+          [
+            {%- for variant in featured_product.variants -%}
+              {
+                "id": {{ variant.id | json }},
+                "title": {{ variant.title | json }},
+                "available": {{ variant.available | json }},
+                "options": {{ variant.options | json }},
+                "price": {{ variant.price | money | json }},
+                "compare_at_price": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+                "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
+                "unit_reference_value": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_value | json }}{% else %}null{% endif %},
+                "unit_reference_unit": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_unit | json }}{% else %}null{% endif %},
+                "featured_media_id": {% if variant.featured_media %}{{ variant.featured_media.id | json }}{% else %}null{% endif %},
+                "quantity_min": {{ variant.quantity_rule.min | default: 1 | json }},
+                "quantity_increment": {{ variant.quantity_rule.increment | default: 1 | json }},
+                "quantity_max": {% if variant.quantity_rule.max != blank %}{{ variant.quantity_rule.max | json }}{% else %}null{% endif %},
+                "requires_selling_plan": {{ variant.requires_selling_plan | json }},
+                "selling_plan_allocations": [
+                  {%- for allocation in variant.selling_plan_allocations -%}
+                    {
+                      "id": {{ allocation.selling_plan.id | json }},
+                      "name": {{ allocation.selling_plan.name | json }},
+                      "group_id": {{ allocation.selling_plan_group_id | json }},
+                      "price": {{ allocation.price | money | json }},
+                      "compare_at_price": {% if allocation.compare_at_price > allocation.price %}{{ allocation.compare_at_price | money | json }}{% else %}null{% endif %},
+                      "per_delivery_price": {{ allocation.per_delivery_price | money | json }},
+                      "unit_price": {% if allocation.unit_price != blank %}{{ allocation.unit_price | money | json }}{% else %}null{% endif %}
+                    }{% unless forloop.last %},{% endunless %}
+                  {%- endfor -%}
+                ]
+              }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        </script>
+      {%- endif -%}
+    </variant-selects>
+  </div>
+
+  {%- if featured_models.size > 0 -%}
+    <script type="application/json" id="FeaturedProductModelJSON-{{ section.id }}">
+      {{- featured_models | json -}}
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+      media="print"
+      onload="this.media='all'"
+    >
+    <script src="{{ 'shopify-xr.js' | shopify_asset_url }}" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const setupFeaturedProductModels = () => {
+          if (!window.ShopifyXR) {
+            document.addEventListener('shopify_xr_initialized', setupFeaturedProductModels, { once: true });
+            return;
+          }
+
+          document.querySelectorAll('[id^="FeaturedProductModelJSON-"]').forEach((modelJSON) => {
+            if (modelJSON.dataset.registered === 'true') return;
+            window.ShopifyXR.addModels(JSON.parse(modelJSON.textContent));
+            modelJSON.dataset.registered = 'true';
+          });
+          window.ShopifyXR.setupXRElements();
+        };
+
+        const setupFeaturedModelViewerUI = (errors) => {
+          if (errors || !window.Shopify?.ModelViewerUI) return;
+          document.querySelectorAll('.featured-product model-viewer').forEach((modelViewer) => {
+            if (modelViewer.dataset.themeModelViewerReady === 'true') return;
+            new window.Shopify.ModelViewerUI(modelViewer);
+            modelViewer.dataset.themeModelViewerReady = 'true';
+          });
+        };
+
+        setupFeaturedProductModels();
+        window.Shopify?.loadFeatures?.([
+          { name: 'model-viewer-ui', version: '1.0', onLoad: setupFeaturedModelViewerUI },
+        ]);
+      }, { once: true });
+    </script>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.featured_product.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.featured_product.settings.product.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "secondary_background",
+      "label": "t:sections.featured_product.settings.secondary_background.label",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.featured_product.settings.padding_top.label",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.featured_product.settings.padding_bottom.label",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "t:sections.featured_product.blocks.title.name",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "t:sections.featured_product.blocks.price.name",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:sections.featured_product.blocks.variant_picker.name",
+      "limit": 1
+    },
+    {
+      "type": "quantity_selector",
+      "name": "t:sections.featured_product.blocks.quantity_selector.name",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "t:sections.featured_product.blocks.buy_buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "t:sections.featured_product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
+          "info": "t:sections.featured_product.blocks.buy_buttons.settings.show_dynamic_checkout.info",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "t:sections.featured_product.blocks.description.name",
+      "limit": 1
+    },
+    {
+      "type": "custom_liquid",
+      "name": "t:sections.featured_product.blocks.custom_liquid.name",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "t:sections.featured_product.blocks.custom_liquid.settings.custom_liquid.label"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured_product.presets.name",
+      "blocks": [
+        { "type": "title" },
+        { "type": "price" },
+        { "type": "variant_picker" },
+        { "type": "buy_buttons" }
+      ]
+    }
+  ]
+}
+{% endschema %}

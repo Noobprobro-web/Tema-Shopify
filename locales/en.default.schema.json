@@ -573,7 +573,16 @@
           }
         },
         "text_alignment": {
-          "label": "Text alignment"
+          "label": "Text alignment",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "Right"
+          }
         },
         "content_width": {
           "label": "Text block width"
@@ -734,6 +743,14 @@
             "vertical_position": {
               "label": "Position from the top"
             },
+            "horizontal_position_mobile": {
+              "label": "Mobile position from the left",
+              "info": "Set to 0 to use the desktop position."
+            },
+            "vertical_position_mobile": {
+              "label": "Mobile position from the top",
+              "info": "Set to 0 to use the desktop position."
+            },
             "popover_position": {
               "label": "Product card position",
               "info": "Where the product card opens in relation to the marker.",
@@ -772,6 +789,60 @@
       },
       "presets": {
         "name": "Complete the look"
+      }
+    },
+    "featured_product": {
+      "name": "Featured product",
+      "settings": {
+        "product": {
+          "label": "Product"
+        },
+        "secondary_background": {
+          "label": "Use a tinted background"
+        },
+        "padding_top": {
+          "label": "Top spacing"
+        },
+        "padding_bottom": {
+          "label": "Bottom spacing"
+        }
+      },
+      "blocks": {
+        "title": {
+          "name": "Title"
+        },
+        "price": {
+          "name": "Price"
+        },
+        "variant_picker": {
+          "name": "Options"
+        },
+        "quantity_selector": {
+          "name": "Quantity"
+        },
+        "buy_buttons": {
+          "name": "Add to cart",
+          "settings": {
+            "show_dynamic_checkout": {
+              "label": "Show express checkout buttons",
+              "info": "Shows Shop Pay, PayPal and other methods you have enabled."
+            }
+          }
+        },
+        "description": {
+          "name": "Description"
+        },
+        "custom_liquid": {
+          "name": "Custom Liquid",
+          "settings": {
+            "custom_liquid": {
+              "label": "Liquid code"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Featured product"
       }
     },
     "product_recommendations": {

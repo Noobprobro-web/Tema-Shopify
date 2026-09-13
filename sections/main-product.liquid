@@ -13,25 +13,58 @@
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_models = product.media | where: 'media_type', 'model'
+  assign selected_media_id = selected_variant.featured_media.id | default: product.featured_media.id
 -%}
 
 <section class="section product-main color-{{ section_scheme }}" data-section-id="{{ section.id }}">
   <div class="container product-main__layout product-main__layout--{{ section.settings.media_layout }}">
-    <div class="product-gallery" aria-label="{{ 'products.product.media_gallery' | t }}">
-      {%- if product.media.size > 0 -%}
-        {%- for media in product.media -%}
-          <figure
-            class="product-gallery__item"
-            data-product-media-id="{{ media.id }}"
-            {% if media.id == selected_variant.featured_media.id %}data-selected{% endif %}
-          >
-            {% render 'product-media', media: media, product: product, prioritize: forloop.first %}
-          </figure>
-        {%- endfor -%}
-      {%- else -%}
-        <div class="product-gallery__placeholder" aria-hidden="true"></div>
+    <product-gallery
+      class="product-gallery"
+      data-layout="{{ section.settings.media_layout }}"
+      role="region"
+      aria-label="{{ 'products.product.media_gallery' | t }}"
+    >
+      <div class="product-gallery__items">
+        {%- if product.media.size > 0 -%}
+          {%- for media in product.media -%}
+            <figure
+              class="product-gallery__item"
+              data-product-media-id="{{ media.id }}"
+              {% if media.id == selected_media_id %}data-selected{% endif %}
+              {% if section.settings.media_layout == 'thumbnails' and media.id != selected_media_id %}hidden{% endif %}
+            >
+              {% render 'product-media', media: media, product: product, prioritize: forloop.first %}
+            </figure>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="product-gallery__placeholder" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.media_layout == 'thumbnails' and product.media.size > 1 -%}
+        <div class="product-gallery__thumbnails" role="group" aria-label="{{ 'products.product.media_thumbnails' | t }}">
+          {%- for media in product.media -%}
+            <button
+              class="product-gallery__thumbnail"
+              type="button"
+              aria-label="{{ 'products.product.view_media' | t: number: forloop.index | escape }}"
+              aria-pressed="{% if media.id == selected_media_id %}true{% else %}false{% endif %}"
+              data-product-thumbnail
+              data-media-id="{{ media.id }}"
+            >
+              {% render 'responsive-image',
+                image: media.preview_image,
+                sizes: '72px',
+                widths: '72, 144',
+                image_class: 'product-gallery__thumbnail-image',
+                alt: ''
+              %}
+            </button>
+          {%- endfor -%}
+        </div>
+        <p class="visually-hidden" aria-live="polite" data-product-gallery-status></p>
       {%- endif -%}
-    </div>
+    </product-gallery>
 
     {%- if product_models.size > 0 -%}
       <script type="application/json" id="ProductModelJSON-{{ section.id }}">
@@ -578,7 +611,8 @@
       "label": "t:sections.main_product.settings.media_layout.label",
       "options": [
         { "value": "stack", "label": "t:sections.main_product.settings.media_layout.options__1.label" },
-        { "value": "grid", "label": "t:sections.main_product.settings.media_layout.options__2.label" }
+        { "value": "grid", "label": "t:sections.main_product.settings.media_layout.options__2.label" },
+        { "value": "thumbnails", "label": "t:sections.main_product.settings.media_layout.options__3.label" }
       ],
       "default": "grid"
     },

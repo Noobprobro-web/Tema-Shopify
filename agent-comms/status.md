@@ -3,19 +3,18 @@
 ## Métricas Clave del Proyecto (Dos Compuertas Separadas)
 
 ### 1. Salud Técnica (Análisis Estático)
-- Archivos en el tema: 62
+- Archivos en el tema: 72
 - Ofensas en Shopify Theme Check: **0 ofensas**
 - Sintaxis JS (`node --check assets/theme.js`): **PASS (Código 0)**
 - Repositorio: `https://github.com/Noobprobro-web/Tema-Shopify` (rama `master`)
-- Último commit respaldado: `add33ce`
 
 ### 2. Cobertura de Requisitos Oficiales (Shopify Theme Store)
-- Cobertura verificada con evidencia: **34 / 45 requisitos cumplidos** (75.5% — 25 completos + 9 código verificado)
-- Estado detallado: 34 cumplidos | 6 parciales | 0 ausentes | 5 no verificados
+- Cobertura verificada con evidencia: **36 / 45 requisitos cumplidos** (80.0% — 26 completos + 10 código verificado)
+- Estado detallado: 36 cumplidos | 4 parciales | 0 ausentes | 5 no verificados
 - Superficie del comerciante (Gate 4): **100% de schemas de secciones y `settings_schema.json` gestionados con claves `t:` (cero strings hardcodeados).**
-- Storefront P0 (Sprint 4A): **Búsqueda predictiva, localización, newsletter, pagos, filtros y modelos 3D completados en código.**
+- Presets y Listings (Sprint 4B): **15 esquemas de color WCAG 2.2 AA inyectados, sección obligatoria `featured-product.liquid` creada, lookbook con coordenadas móviles y 9 templates diferenciados en `/listings/`.**
 - Fuente de verdad viva: [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md)
-- *Nota operativa:* El proyecto pasará a submission cuando los 6 parciales se afinen y se ejecuten las pruebas en tienda real de desarrollo (Gate 5).
+- *Nota operativa:* El proyecto pasará a submission cuando los 4 parciales restantes se afinen y se ejecuten las pruebas en tienda real de desarrollo (Gate 5).
 
 ---
 

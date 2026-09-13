@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "catalogue_note": {
+          "type": "promotion_tile",
+          "settings": {
+            "position_in_grid": 3,
+            "eyebrow": "CATALOGUE NOTE / III",
+            "heading": "The record begins with the maker",
+            "text": "<p>Read the provenance behind this group of objects.</p>",
+            "link_label": "Open the record",
+            "link_url": "/",
+            "color_scheme": "scheme-4"
+          }
+        }
+      },
+      "block_order": ["catalogue_note"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "products_per_page": 24,
+        "show_collection_image": true,
+        "default_grid_columns": "2",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_quick_add": true
+      }
+    }
+  },
+  "order": ["main"]
+}

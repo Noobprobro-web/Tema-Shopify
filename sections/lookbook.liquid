@@ -72,10 +72,18 @@
             {%- liquid
               assign popover_id = 'LookbookPopover-' | append: section.id | append: '-' | append: block.id
               assign popover_title_id = 'LookbookPopoverTitle-' | append: section.id | append: '-' | append: block.id
+              assign hp_mobile = block.settings.horizontal_position_mobile
+              if hp_mobile == 0
+                assign hp_mobile = block.settings.horizontal_position
+              endif
+              assign vp_mobile = block.settings.vertical_position_mobile
+              if vp_mobile == 0
+                assign vp_mobile = block.settings.vertical_position
+              endif
             -%}
             <div
               class="lookbook-hotspot"
-              style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%;"
+              style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%; --hotspot-x-mobile: {{ hp_mobile }}%; --hotspot-y-mobile: {{ vp_mobile }}%;"
               data-lookbook-hotspot
               {{ block.shopify_attributes }}
             >
@@ -251,6 +259,28 @@
           "unit": "%",
           "label": "t:sections.lookbook.blocks.hotspot.settings.vertical_position.label",
           "default": 45
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:sections.lookbook.blocks.hotspot.settings.horizontal_position_mobile.label",
+          "info": "t:sections.lookbook.blocks.hotspot.settings.horizontal_position_mobile.info",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "vertical_position_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "t:sections.lookbook.blocks.hotspot.settings.vertical_position_mobile.label",
+          "info": "t:sections.lookbook.blocks.hotspot.settings.vertical_position_mobile.info",
+          "default": 0
         },
         {
           "type": "select",

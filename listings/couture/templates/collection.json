@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "editorial": {
+          "type": "promotion_tile",
+          "settings": {
+            "position_in_grid": 4,
+            "eyebrow": "ATELIER NOTE / 01",
+            "heading": "Cloth remembers the shape of daily life",
+            "text": "<p>Follow a material study from fibre to finished form.</p>",
+            "link_label": "Read the story",
+            "link_url": "/",
+            "color_scheme": "scheme-4"
+          }
+        }
+      },
+      "block_order": ["editorial"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "products_per_page": 24,
+        "show_collection_image": true,
+        "default_grid_columns": "2",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_quick_add": true
+      }
+    }
+  },
+  "order": ["main"]
+}

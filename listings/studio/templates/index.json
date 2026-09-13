@@ -1,0 +1,106 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-editorial",
+      "settings": {
+        "layout_mode": "split",
+        "split_ratio": "50_50",
+        "layout_split": "image_first",
+        "height_desktop": 75,
+        "height_mobile": 65,
+        "media_type": "image",
+        "overlay_style": "none",
+        "overlay_opacity": 0,
+        "content_position_x": "start",
+        "content_position_y": "end",
+        "text_alignment": "left",
+        "content_width": 34,
+        "heading_tag": "h1",
+        "eyebrow": "OBJECT STUDY / 01",
+        "heading": "Useful forms, precisely considered",
+        "subheading": "<p>A quiet system for objects that speak for themselves.</p>",
+        "button_primary_label": "Browse all objects",
+        "button_primary_url": "/collections/all",
+        "button_secondary_label": "Read the method",
+        "button_secondary_url": "/",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "collections": {
+      "type": "curated-showcase",
+      "blocks": {
+        "daily": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Daily objects" } },
+        "workspace": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Workspace" } },
+        "limited": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Limited studies" } }
+      },
+      "block_order": ["daily", "workspace", "limited"],
+      "settings": {
+        "eyebrow": "CATALOGUE / 02",
+        "heading": "Selected objects",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "discovery": {
+      "type": "bento-discovery",
+      "blocks": {
+        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all" } },
+        "product1": { "type": "card_product", "settings": {} },
+        "product2": { "type": "card_product", "settings": {} },
+        "story": { "type": "card_editorial", "settings": { "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "link_label": "Read the study", "link": "/" } }
+      },
+      "block_order": ["collection", "product1", "product2", "story"],
+      "settings": {
+        "eyebrow": "GRID STUDY / 03",
+        "heading": "Collection, product, process",
+        "subheading": "<p>A denser view of the working collection.</p>",
+        "color_scheme": "scheme-3"
+      }
+    },
+    "set": {
+      "type": "complete-the-look",
+      "blocks": {
+        "object1": { "type": "bundle_product", "settings": {} },
+        "object2": { "type": "bundle_product", "settings": {} },
+        "object3": { "type": "bundle_product", "settings": {} }
+      },
+      "block_order": ["object1", "object2", "object3"],
+      "settings": {
+        "eyebrow": "DESK SET / 04",
+        "heading": "Build the working set",
+        "description": "<p>Select the objects you need and add them together.</p>",
+        "caption": "A modular arrangement for daily work.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "manifesto": {
+      "type": "brand-manifesto",
+      "blocks": {
+        "measure": { "type": "detail", "settings": { "label": "Measure", "value": "Proportion follows use" } },
+        "material": { "type": "detail", "settings": { "label": "Material", "value": "Chosen for tactility and endurance" } }
+      },
+      "block_order": ["measure", "material"],
+      "settings": {
+        "eyebrow": "METHOD / 05",
+        "quote": "Remove until only the useful form remains.",
+        "body": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
+        "button_label": "Read the method",
+        "button_url": "/",
+        "media_label": "",
+        "use_surface_background": false,
+        "color_scheme": "scheme-4"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "eyebrow": "STUDIO NOTES",
+        "heading": "New studies, occasionally",
+        "text": "<p>Product releases, material tests and measured updates.</p>"
+      }
+    }
+  },
+  "order": ["hero", "collections", "discovery", "set", "manifesto", "newsletter"]
+}

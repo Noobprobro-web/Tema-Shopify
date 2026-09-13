@@ -203,6 +203,59 @@
     }
   }
 
+  class ProductGallery extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      if (this.dataset.layout !== 'thumbnails') return;
+
+      this.items = Array.from(this.querySelectorAll('[data-product-media-id]'));
+      this.thumbnails = Array.from(this.querySelectorAll('[data-product-thumbnail]'));
+      this.status = this.querySelector('[data-product-gallery-status]');
+      if (this.items.length === 0 || this.thumbnails.length === 0) return;
+
+      this.thumbnails.forEach((thumbnail) => {
+        this.listen(thumbnail, 'click', () => this.selectMedia(thumbnail.dataset.mediaId, true));
+      });
+
+      const productSection = this.closest('[data-section-id]');
+      if (productSection) {
+        this.listen(productSection, 'theme:variant-change', (event) => {
+          const mediaId = event.detail?.variant?.featured_media_id;
+          if (mediaId) this.selectMedia(mediaId, false);
+        });
+      }
+
+      const initialMedia = this.items.find((item) => item.hasAttribute('data-selected'))
+        || this.items[0];
+      this.selectMedia(initialMedia.dataset.productMediaId, false);
+    }
+
+    selectMedia(mediaId, announce) {
+      const selectedItem = this.items.find(
+        (item) => String(item.dataset.productMediaId) === String(mediaId),
+      );
+      if (!selectedItem) return;
+
+      this.items.forEach((item) => {
+        const selected = item === selectedItem;
+        item.hidden = !selected;
+        item.toggleAttribute('data-selected', selected);
+        if (!selected) item.querySelector('video')?.pause();
+      });
+
+      let selectedThumbnail = null;
+      this.thumbnails.forEach((thumbnail) => {
+        const selected = String(thumbnail.dataset.mediaId) === String(mediaId);
+        thumbnail.setAttribute('aria-pressed', String(selected));
+        if (selected) selectedThumbnail = thumbnail;
+      });
+
+      if (announce && this.status && selectedThumbnail) {
+        this.status.textContent = selectedThumbnail.getAttribute('aria-label') || '';
+      }
+    }
+  }
+
   class VariantSelects extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -243,7 +296,7 @@
 
       try {
         return JSON.parse(dataElement.textContent);
-      } catch (error) {
+      } catch {
         return [];
       }
     }
@@ -1625,6 +1678,61 @@
     }
   }
 
+  class EditorialHero extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.video = this.querySelector('[data-editorial-hero-video]');
+      if (!this.video) return;
+
+      this.mobileQuery = window.matchMedia('(max-width: 47.99rem)');
+      this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.listen(this.mobileQuery, 'change', () => this.syncPlayback());
+      this.listen(this.reducedMotionQuery, 'change', () => this.syncPlayback());
+      this.listen(document, 'visibilitychange', () => this.syncPlayback());
+      this.syncPlayback();
+    }
+
+    disconnectedCallback() {
+      this.video?.pause();
+      this.removeAttribute('data-video-active');
+      super.disconnectedCallback();
+    }
+
+    hydrateVideo() {
+      if (!this.video || this.video.dataset.sourcesLoaded === 'true') return;
+
+      this.video.querySelectorAll('source[data-src]').forEach((source) => {
+        source.src = source.dataset.src;
+      });
+      this.video.dataset.sourcesLoaded = 'true';
+      this.video.load();
+    }
+
+    async syncPlayback() {
+      if (!this.video) return;
+
+      const mobilePlaybackAllowed = !this.mobileQuery.matches
+        || this.dataset.enableVideoMobile === 'true';
+      const shouldPlay = mobilePlaybackAllowed
+        && !this.reducedMotionQuery.matches
+        && document.visibilityState !== 'hidden';
+
+      if (!shouldPlay) {
+        this.video.pause();
+        this.removeAttribute('data-video-active');
+        return;
+      }
+
+      this.hydrateVideo();
+      try {
+        await this.video.play();
+        this.setAttribute('data-video-active', '');
+      } catch (error) {
+        this.removeAttribute('data-video-active');
+      }
+    }
+  }
+
   class EditorialLookbook extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -2764,6 +2872,10 @@
     customElements.define('variant-selects', VariantSelects);
   }
 
+  if (!customElements.get('product-gallery')) {
+    customElements.define('product-gallery', ProductGallery);
+  }
+
   if (!customElements.get('sticky-cart-bar')) {
     customElements.define('sticky-cart-bar', StickyCartBar);
   }
@@ -2794,6 +2906,10 @@
 
   if (!customElements.get('editorial-lookbook')) {
     customElements.define('editorial-lookbook', EditorialLookbook);
+  }
+
+  if (!customElements.get('editorial-hero')) {
+    customElements.define('editorial-hero', EditorialHero);
   }
 
   if (!customElements.get('complete-the-look')) {
