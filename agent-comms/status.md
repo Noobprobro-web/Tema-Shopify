@@ -7,11 +7,12 @@
 - Ofensas en Shopify Theme Check: **0 ofensas**
 - Sintaxis JS (`node --check assets/theme.js`): **PASS (Código 0)**
 - Repositorio: `https://github.com/Noobprobro-web/Tema-Shopify` (rama `master`)
-- Último commit respaldado: `b794b16`
+- Último commit respaldado: `add33ce`
 
 ### 2. Cobertura de Requisitos Oficiales (Shopify Theme Store)
-- Cobertura verificada con evidencia: **26 / 44 requisitos cumplidos** (59.1%)
-- Estado detallado: 26 cumplidos | 14 parciales | 0 ausentes | 4 no verificados
+- Cobertura verificada con evidencia: **25 / 45 requisitos cumplidos** (55.6%)
+- Estado detallado: 25 cumplidos | 15 parciales | 0 ausentes | 5 no verificados
+- Superficie del comerciante (Gate 4): **100% de schemas de secciones y `settings_schema.json` gestionados con claves `t:` (cero strings hardcodeados).**
 - Fuente de verdad viva: [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md)
 - *Nota operativa:* El proyecto NO está listo para submission hasta que las filas `ausente` y `parcial` pasen a `cumplido` con evidencia de código o prueba en tienda real.
 

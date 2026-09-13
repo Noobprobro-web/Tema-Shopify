@@ -216,24 +216,24 @@
 
 {% schema %}
 {
-  "name": "Main article",
+  "name": "t:sections.main_article.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "checkbox",
       "id": "show_author",
-      "label": "Show author",
+      "label": "t:sections.main_article.settings.show_author.label",
       "default": true
     },
     {
       "type": "text",
       "id": "hero_caption",
-      "label": "Hero image caption"
+      "label": "t:sections.main_article.settings.hero_caption.label"
     },
     {
       "type": "range",
@@ -241,7 +241,7 @@
       "min": 5,
       "max": 25,
       "step": 5,
-      "label": "Comments per page",
+      "label": "t:sections.main_article.settings.comments_per_page.label",
       "default": 10
     }
   ],
@@ -249,31 +249,31 @@
   "blocks": [
     {
       "type": "pull_quote",
-      "name": "Pull quote",
+      "name": "t:sections.main_article.blocks.pull_quote.name",
       "limit": 2,
       "settings": [
         {
           "type": "inline_richtext",
           "id": "quote",
-          "label": "Quote",
+          "label": "t:sections.all.quote.label",
           "default": "The material is never silent."
         },
         {
           "type": "text",
           "id": "attribution",
-          "label": "Attribution"
+          "label": "t:sections.all.attribution.label"
         }
       ]
     },
     {
       "type": "featured_product",
-      "name": "Featured object",
+      "name": "t:sections.main_article.blocks.featured_product.name",
       "limit": 3,
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "t:sections.all.product.label"
         }
       ]
     }

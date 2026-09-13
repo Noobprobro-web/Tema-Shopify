@@ -336,7 +336,7 @@
 
 {% schema %}
 {
-  "name": "Complete the look",
+  "name": "t:sections.complete_the_look.name",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -345,67 +345,67 @@
     {
       "type": "image_picker",
       "id": "image_desktop",
-      "label": "Desktop image"
+      "label": "t:sections.all.image_desktop.label"
     },
     {
       "type": "image_picker",
       "id": "image_mobile",
-      "label": "Mobile image"
+      "label": "t:sections.all.image_mobile.label"
     },
     {
       "type": "text",
       "id": "image_alt",
-      "label": "Image alternative text"
+      "label": "t:sections.all.image_alt.label"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "Shoppable capsule / Look 03"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
-      "label": "Heading",
+      "label": "t:sections.all.heading.label",
       "default": "Complete the look"
     },
     {
       "type": "richtext",
       "id": "description",
-      "label": "Description",
+      "label": "t:sections.all.description.label",
       "default": "<p>Build the full composition or remove individual pieces before adding it to your bag.</p>"
     },
     {
       "type": "text",
       "id": "caption",
-      "label": "Image caption",
+      "label": "t:sections.all.caption.label",
       "default": "Soft architecture study photographed in natural atelier light."
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "bundle_product",
-      "name": "Bundle product",
+      "name": "t:sections.complete_the_look.blocks.bundle_product.name",
       "limit": 4,
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product",
-          "info": "Choose two to four products for a complete capsule."
+          "label": "t:sections.complete_the_look.blocks.bundle_product.settings.product.label",
+          "info": "t:sections.complete_the_look.blocks.bundle_product.settings.product.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Complete the look",
+      "name": "t:sections.complete_the_look.presets.name",
       "blocks": [
         { "type": "bundle_product" },
         { "type": "bundle_product" },

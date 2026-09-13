@@ -1,9 +1,9 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO VIVO: 26 / 44 CUMPLIDOS CON EVIDENCIA
-Desglose actual: 26 Cumplido | 14 Parcial | 0 Ausente | 4 No Verificado
-Última sincronización: 2026-09-13 (Directiva GEMINI-4B-001)
+CONTEO VIVO: 25 / 45 CUMPLIDOS CON EVIDENCIA
+Desglose actual: 25 Cumplido | 15 Parcial | 0 Ausente | 5 No Verificado
+Última sincronización: 2026-09-13 (Revisión Claude GEMINI-4B-002 y normalización 100% schemas)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
 Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o pruebas en tienda real.
 ```
@@ -19,7 +19,7 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | **Plantilla Líquida Gift Card** | Official Requirements: Templates | `cumplido` | `templates/gift_card.liquid:1-105` con Apple Wallet y código QR nativo. | GPT | Sprint 2A |
 | **Section Groups en Header y Footer** | Official Requirements: Sections | `cumplido` | `sections/header-group.json` y `sections/footer-group.json`. | GPT | Sprint 2A |
 | **Bloques de Aplicación (`@app`)** | Official Requirements: App Integration | `parcial` | `sections/main-product.liquid:83` soporta `@app`. Falta soporte en secciones destacadas y bloque Custom Liquid en PDP. | GPT | Sprint 2B |
-| **Schemas Válidos y Settings** | Official Requirements: Settings | `cumplido` | 25 bloques `{% schema %}` parseados y válidos. `GEMINI-013`. | GPT | Sprint 3B.5 |
+| **Schemas Válidos y Settings (100% t: Localizados)** | Official Requirements: Settings | `cumplido` | 26 bloques `{% schema %}` y `settings_schema.json` 100% traducidos con claves `t:` (cero strings literales, Gate 4 de DoD satisfecha). `GEMINI-013`. | Gemini / GPT | Phase 4 |
 | **Exclusión de `config/markets.json`** | Official Requirements: Packaging | `cumplido` | Archivo ausente en el repositorio (verificado con find_by_name). | Gemini | Phase 2A |
 
 ---
@@ -98,6 +98,7 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Alineación de Nombre: Tema vs Preset** | Official Requirements: Naming | `cumplido` | `config/settings_schema.json:4` (`theme_name: "Couture"`) coincide con `config/settings_data.json:42` (`presets.Couture`). Decisión Johandry D1. | Johandry / Gemini | Phase 4 |
+| **Validación de Nombre contra Reglamento y Marcas** | Official Requirements: Naming | `no verificado` | Pendiente verificar colisiones de marca en clases 25/42 y directorio oficial de la Theme Store. | Johandry | Phase 4 |
 | **Presets Diferenciados (1 a 4)** | Official Requirements: Presets | `parcial` | Preset base "Couture" activo. Pendiente incorporar "Studio" y "Archive" en Hito 4.2. | Claude / GPT | Phase 4 |
-| **`theme_info` Comercial y Soporte Real** | Official Requirements: Support & Info | `cumplido` | `config/settings_schema.json:3-9` (`theme_author: "Ruiz Digital"`, versión 1.0.0 y URLs comerciales). Decisión Johandry D2. | Johandry / Gemini | Phase 4 |
+| **`theme_info` Comercial y Soporte Real** | Official Requirements: Support & Info | `parcial` | URLs declaradas en `config/settings_schema.json:3-9`. Páginas destino de soporte y docs pendientes de publicar en ruizdigital.com, Hito 4.6. | Johandry | Phase 4 |
 | **3 Tiendas Demo Auténticas (Sin Lorem Ipsum)** | Official Requirements: Demos | `no verificado` | Pendiente de producción de catálogo, copy y assets con derechos para las 3 demos. | Johandry / Claude | Phase 4 |

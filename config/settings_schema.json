@@ -207,15 +207,15 @@
       {
         "type": "select",
         "id": "cart_type",
-        "label": "Cart type",
+        "label": "t:settings_schema.cart.settings.cart_type.label",
         "options": [
           {
             "value": "drawer",
-            "label": "Drawer"
+            "label": "t:settings_schema.cart.settings.cart_type.options__1.label"
           },
           {
             "value": "page",
-            "label": "Page"
+            "label": "t:settings_schema.cart.settings.cart_type.options__2.label"
           }
         ],
         "default": "drawer"
@@ -223,7 +223,8 @@
       {
         "type": "checkbox",
         "id": "show_cart_note",
-        "label": "Show cart note",
+        "label": "t:settings_schema.cart.settings.show_cart_note.label",
+        "info": "t:settings_schema.cart.settings.show_cart_note.info",
         "default": false
       }
     ]

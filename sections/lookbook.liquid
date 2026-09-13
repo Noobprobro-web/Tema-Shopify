@@ -169,7 +169,7 @@
 
 {% schema %}
 {
-  "name": "Interactive lookbook",
+  "name": "t:sections.lookbook.name",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -177,60 +177,60 @@
     {
       "type": "image_picker",
       "id": "image_desktop",
-      "label": "Desktop image"
+      "label": "t:sections.all.image_desktop.label"
     },
     {
       "type": "image_picker",
       "id": "image_mobile",
-      "label": "Mobile image"
+      "label": "t:sections.all.image_mobile.label"
     },
     {
       "type": "text",
       "id": "image_alt",
-      "label": "Image alternative text",
-      "info": "Describe the complete editorial scene, not the products already named by hotspots."
+      "label": "t:sections.lookbook.settings.image_alt.label",
+      "info": "t:sections.lookbook.settings.image_alt.info"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "Editorial study / Look 01"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
-      "label": "Heading",
+      "label": "t:sections.all.heading.label",
       "default": "Objects in quiet conversation"
     },
     {
       "type": "richtext",
       "id": "description",
-      "label": "Description",
+      "label": "t:sections.all.description.label",
       "default": "<p>Explore each piece through the points placed across the composition.</p>"
     },
     {
       "type": "text",
       "id": "caption",
-      "label": "Caption",
+      "label": "t:sections.all.caption.label",
       "default": "A study in proportion, texture and daily movement."
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "hotspot",
-      "name": "Product hotspot",
+      "name": "t:sections.lookbook.blocks.hotspot.name",
       "limit": 6,
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "t:sections.all.product.label"
         },
         {
           "type": "range",
@@ -239,7 +239,7 @@
           "max": 100,
           "step": 1,
           "unit": "%",
-          "label": "Horizontal position",
+          "label": "t:sections.lookbook.blocks.hotspot.settings.horizontal_position.label",
           "default": 35
         },
         {
@@ -249,18 +249,19 @@
           "max": 100,
           "step": 1,
           "unit": "%",
-          "label": "Vertical position",
+          "label": "t:sections.lookbook.blocks.hotspot.settings.vertical_position.label",
           "default": 45
         },
         {
           "type": "select",
           "id": "popover_position",
-          "label": "Preferred popover position",
+          "label": "t:sections.lookbook.blocks.hotspot.settings.popover_position.label",
+          "info": "t:sections.lookbook.blocks.hotspot.settings.popover_position.info",
           "options": [
-            { "value": "top", "label": "Top" },
-            { "value": "right", "label": "Right" },
-            { "value": "bottom", "label": "Bottom" },
-            { "value": "left", "label": "Left" }
+            { "value": "top", "label": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__1.label" },
+            { "value": "right", "label": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__2.label" },
+            { "value": "bottom", "label": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__3.label" },
+            { "value": "left", "label": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__4.label" }
           ],
           "default": "right"
         }
@@ -269,7 +270,7 @@
   ],
   "presets": [
     {
-      "name": "Interactive lookbook",
+      "name": "t:sections.lookbook.presets.name",
       "blocks": [
         {
           "type": "hotspot",

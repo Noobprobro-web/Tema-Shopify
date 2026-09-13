@@ -218,48 +218,48 @@
 
 {% schema %}
 {
-  "name": "Main contact and FAQ",
+  "name": "t:sections.main_contact.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "Contact / Private client services"
     },
     {
       "type": "richtext",
       "id": "intro",
-      "label": "Introduction",
+      "label": "t:sections.all.intro.label",
       "default": "<p>Write to the studio about an order, a material or a private appointment.</p>"
     },
     {
       "type": "textarea",
       "id": "studio_hours",
-      "label": "Studio hours",
+      "label": "t:sections.main_contact.settings.studio_hours.label",
       "default": "Monday to Friday / 10:00–18:00 CET"
     },
     {
       "type": "textarea",
       "id": "showroom_address",
-      "label": "Showroom address",
+      "label": "t:sections.main_contact.settings.showroom_address.label",
       "default": "By appointment / Milan"
     },
     {
       "type": "checkbox",
       "id": "single_open_faq",
-      "label": "Keep only one FAQ open",
+      "label": "t:sections.main_contact.settings.single_open_faq.label",
       "default": false
     },
     {
       "type": "color_scheme",
       "id": "service_color_scheme",
-      "label": "Direct contacts color scheme",
+      "label": "t:sections.main_contact.settings.service_color_scheme.label",
       "default": "scheme-2"
     }
   ],
@@ -267,54 +267,54 @@
   "blocks": [
     {
       "type": "faq_item",
-      "name": "FAQ item",
+      "name": "t:sections.main_contact.blocks.faq_item.name",
       "settings": [
         {
           "type": "text",
           "id": "question",
-          "label": "Question",
+          "label": "t:sections.main_contact.blocks.faq_item.settings.question.label",
           "default": "Shipping and provenance"
         },
         {
           "type": "richtext",
           "id": "answer",
-          "label": "Answer",
+          "label": "t:sections.main_contact.blocks.faq_item.settings.answer.label",
           "default": "<p>Available pieces leave the atelier within three business days.</p>"
         },
         {
           "type": "checkbox",
           "id": "open_by_default",
-          "label": "Open by default",
+          "label": "t:sections.main_contact.blocks.faq_item.settings.open_by_default.label",
           "default": false
         }
       ]
     },
     {
       "type": "service_detail",
-      "name": "Direct contact",
+      "name": "t:sections.main_contact.blocks.service_detail.name",
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "t:sections.main_contact.blocks.service_detail.settings.title.label",
           "default": "Order concierge"
         },
         {
           "type": "text",
           "id": "detail",
-          "label": "Detail"
+          "label": "t:sections.main_contact.blocks.service_detail.settings.detail.label"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.all.link.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Main contact and FAQ"
+      "name": "t:sections.main_contact.presets.name"
     }
   ]
 }

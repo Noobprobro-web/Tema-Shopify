@@ -58,7 +58,7 @@
 
 {% schema %}
 {
-  "name": "Editorial marquee",
+  "name": "t:sections.marquee.name",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -70,25 +70,26 @@
       "max": 60,
       "step": 2,
       "unit": "s",
-      "label": "Loop duration",
+      "label": "t:sections.marquee.settings.speed.label",
+      "info": "t:sections.marquee.settings.speed.info",
       "default": 32
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-2"
     }
   ],
   "blocks": [
     {
       "type": "item",
-      "name": "Text item",
+      "name": "t:sections.marquee.blocks.item.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.all.text.label",
           "default": "FORM / MATERIAL / MOVEMENT"
         }
       ]
@@ -97,7 +98,7 @@
   "max_blocks": 8,
   "presets": [
     {
-      "name": "Editorial marquee",
+      "name": "t:sections.marquee.presets.name",
       "blocks": [
         { "type": "item" },
         { "type": "item" },

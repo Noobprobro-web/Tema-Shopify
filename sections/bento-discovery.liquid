@@ -149,7 +149,7 @@
 
 {% schema %}
 {
-  "name": "Bento discovery",
+  "name": "t:sections.bento_discovery.name",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -157,120 +157,120 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "DISCOVER BY FORM / 04"
     },
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
+      "label": "t:sections.all.heading.label",
       "default": "A wardrobe, a room, a way of living"
     },
     {
       "type": "richtext",
       "id": "subheading",
-      "label": "Subheading",
+      "label": "t:sections.all.subheading.label",
       "default": "<p>Three studies. One material language.</p>"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "card_featured",
-      "name": "Featured collection card",
+      "name": "t:sections.bento_discovery.blocks.card_featured.name",
       "settings": [
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "t:sections.all.collection.label"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "t:sections.all.image.label"
         },
         {
           "type": "text",
           "id": "image_alt",
-          "label": "Image alternative text"
+          "label": "t:sections.all.image_alt.label"
         },
         {
           "type": "text",
           "id": "eyebrow",
-          "label": "Eyebrow",
+          "label": "t:sections.all.eyebrow.label",
           "default": "[01] FEATURED COLLECTION"
         },
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
+          "label": "t:sections.all.heading.label",
           "default": "Sculptural layers"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Custom link"
+          "label": "t:sections.bento_discovery.blocks.card_featured.settings.link.label"
         }
       ]
     },
     {
       "type": "card_editorial",
-      "name": "Editorial card",
+      "name": "t:sections.bento_discovery.blocks.card_editorial.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Atmosphere image"
+          "label": "t:sections.bento_discovery.blocks.card_editorial.settings.image.label"
         },
         {
           "type": "text",
           "id": "image_alt",
-          "label": "Image alternative text"
+          "label": "t:sections.all.image_alt.label"
         },
         {
           "type": "text",
           "id": "eyebrow",
-          "label": "Eyebrow",
+          "label": "t:sections.all.eyebrow.label",
           "default": "[02] MATERIAL STUDY"
         },
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
+          "label": "t:sections.all.heading.label",
           "default": "Carried close"
         },
         {
           "type": "richtext",
           "id": "body",
-          "label": "Body",
+          "label": "t:sections.all.body.label",
           "default": "<p>An editorial study in proportion, tactility and daily use.</p>"
         },
         {
           "type": "text",
           "id": "link_label",
-          "label": "Link label",
+          "label": "t:sections.all.link_label.label",
           "default": "Explore the story"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.all.link.label"
         }
       ]
     },
     {
       "type": "card_product",
-      "name": "Product card",
+      "name": "t:sections.bento_discovery.blocks.card_product.name",
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "t:sections.all.product.label"
         }
       ]
     }
@@ -278,7 +278,7 @@
   "max_blocks": 4,
   "presets": [
     {
-      "name": "Bento discovery",
+      "name": "t:sections.bento_discovery.presets.name",
       "blocks": [
         { "type": "card_featured" },
         { "type": "card_editorial" },

@@ -342,12 +342,12 @@
 
 {% schema %}
 {
-  "name": "Main collection",
+  "name": "t:sections.main_collection.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
@@ -356,41 +356,41 @@
       "min": 8,
       "max": 48,
       "step": 4,
-      "label": "Products per page",
+      "label": "t:sections.main_collection.settings.products_per_page.label",
       "default": 24
     },
     {
       "type": "checkbox",
       "id": "show_collection_image",
-      "label": "Show collection image",
+      "label": "t:sections.main_collection.settings.show_collection_image.label",
       "default": true
     },
     {
       "type": "select",
       "id": "default_grid_columns",
-      "label": "Default grid density",
+      "label": "t:sections.main_collection.settings.default_grid_columns.label",
       "options": [
-        { "value": "2", "label": "Fewer columns" },
-        { "value": "4", "label": "More columns" }
+        { "value": "2", "label": "t:sections.main_collection.settings.default_grid_columns.options__1.label" },
+        { "value": "4", "label": "t:sections.main_collection.settings.default_grid_columns.options__2.label" }
       ],
       "default": "4"
     },
     {
       "type": "checkbox",
       "id": "show_secondary_image",
-      "label": "Show second image",
+      "label": "t:sections.all.show_secondary_image.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_vendor",
-      "label": "Show vendor",
+      "label": "t:sections.all.show_vendor.label",
       "default": false
     },
     {
       "type": "checkbox",
       "id": "show_quick_add",
-      "label": "Show quick add",
+      "label": "t:sections.all.show_quick_add.label",
       "default": true
     }
   ],
@@ -398,7 +398,7 @@
   "blocks": [
     {
       "type": "promotion_tile",
-      "name": "Promotion tile",
+      "name": "t:sections.main_collection.blocks.promotion_tile.name",
       "limit": 2,
       "settings": [
         {
@@ -407,52 +407,53 @@
           "min": 1,
           "max": 48,
           "step": 1,
-          "label": "Position in product grid",
+          "label": "t:sections.main_collection.blocks.promotion_tile.settings.position_in_grid.label",
+          "info": "t:sections.main_collection.blocks.promotion_tile.settings.position_in_grid.info",
           "default": 4
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "t:sections.all.image.label"
         },
         {
           "type": "text",
           "id": "image_alt",
-          "label": "Image alternative text"
+          "label": "t:sections.all.image_alt.label"
         },
         {
           "type": "text",
           "id": "eyebrow",
-          "label": "Eyebrow",
+          "label": "t:sections.all.eyebrow.label",
           "default": "Atelier note / 01"
         },
         {
           "type": "inline_richtext",
           "id": "heading",
-          "label": "Heading",
+          "label": "t:sections.all.heading.label",
           "default": "Cloth remembers the shape of daily life"
         },
         {
           "type": "richtext",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.all.text.label",
           "default": "<p>Follow a material study from fibre to finished form.</p>"
         },
         {
           "type": "text",
           "id": "link_label",
-          "label": "Link label",
+          "label": "t:sections.main_collection.blocks.promotion_tile.settings.link_label.label",
           "default": "Read the story"
         },
         {
           "type": "url",
           "id": "link_url",
-          "label": "Link"
+          "label": "t:sections.main_collection.blocks.promotion_tile.settings.link_url.label"
         },
         {
           "type": "color_scheme",
           "id": "color_scheme",
-          "label": "Color scheme",
+          "label": "t:sections.all.color_scheme.label",
           "default": "scheme-2"
         }
       ]

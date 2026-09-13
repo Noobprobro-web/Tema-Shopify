@@ -79,24 +79,24 @@
 
 {% schema %}
 {
-  "name": "Main collection list",
+  "name": "t:sections.main_list_collections.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "Collections / Current edition"
     },
     {
       "type": "richtext",
       "id": "intro",
-      "label": "Introduction"
+      "label": "t:sections.all.intro.label"
     },
     {
       "type": "range",
@@ -104,17 +104,17 @@
       "min": 6,
       "max": 30,
       "step": 3,
-      "label": "Collections per page",
+      "label": "t:sections.main_list_collections.settings.collections_per_page.label",
       "default": 12
     },
     {
       "type": "select",
       "id": "columns_desktop",
-      "label": "Desktop columns",
+      "label": "t:sections.main_list_collections.settings.columns_desktop.label",
       "options": [
-        { "value": "2", "label": "Two" },
-        { "value": "3", "label": "Three" },
-        { "value": "4", "label": "Four" }
+        { "value": "2", "label": "t:sections.main_list_collections.settings.columns_desktop.options__1.label" },
+        { "value": "3", "label": "t:sections.main_list_collections.settings.columns_desktop.options__2.label" },
+        { "value": "4", "label": "t:sections.main_list_collections.settings.columns_desktop.options__3.label" }
       ],
       "default": "3"
     }

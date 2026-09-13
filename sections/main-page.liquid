@@ -82,99 +82,99 @@
 
 {% schema %}
 {
-  "name": "Main page",
+  "name": "t:sections.main_page.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "Atelier / Story"
     },
     {
       "type": "richtext",
       "id": "intro",
-      "label": "Introduction"
+      "label": "t:sections.all.intro.label"
     }
   ],
   "max_blocks": 8,
   "blocks": [
     {
       "type": "image",
-      "name": "Full-width image",
+      "name": "t:sections.main_page.blocks.image.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "t:sections.all.image.label"
         },
         {
           "type": "text",
           "id": "image_alt",
-          "label": "Image alternative text"
+          "label": "t:sections.all.image_alt.label"
         },
         {
           "type": "text",
           "id": "caption",
-          "label": "Caption"
+          "label": "t:sections.all.caption.label"
         }
       ]
     },
     {
       "type": "quote",
-      "name": "Editorial quote",
+      "name": "t:sections.main_page.blocks.quote.name",
       "settings": [
         {
           "type": "inline_richtext",
           "id": "quote",
-          "label": "Quote",
+          "label": "t:sections.all.quote.label",
           "default": "Made slowly, kept closely."
         },
         {
           "type": "text",
           "id": "attribution",
-          "label": "Attribution"
+          "label": "t:sections.all.attribution.label"
         }
       ]
     },
     {
       "type": "signature",
-      "name": "Atelier signature",
+      "name": "t:sections.main_page.blocks.signature.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "eyebrow",
-          "label": "Eyebrow",
+          "label": "t:sections.all.eyebrow.label",
           "default": "A note from the studio"
         },
         {
           "type": "richtext",
           "id": "note",
-          "label": "Note",
+          "label": "t:sections.main_page.blocks.signature.settings.note.label",
           "default": "<p>We hope the work becomes more yours with time.</p>"
         },
         {
           "type": "text",
           "id": "name",
-          "label": "Name"
+          "label": "t:sections.main_page.blocks.signature.settings.name.label"
         },
         {
           "type": "text",
           "id": "role",
-          "label": "Role"
+          "label": "t:sections.main_page.blocks.signature.settings.role.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Main page"
+      "name": "t:sections.main_page.presets.name"
     }
   ]
 }

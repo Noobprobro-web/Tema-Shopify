@@ -564,121 +564,124 @@
 
 {% schema %}
 {
-  "name": "Main product",
+  "name": "t:sections.main_product.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "select",
       "id": "media_layout",
-      "label": "Media layout",
+      "label": "t:sections.main_product.settings.media_layout.label",
       "options": [
-        { "value": "stack", "label": "Stack" },
-        { "value": "grid", "label": "Grid" }
+        { "value": "stack", "label": "t:sections.main_product.settings.media_layout.options__1.label" },
+        { "value": "grid", "label": "t:sections.main_product.settings.media_layout.options__2.label" }
       ],
       "default": "grid"
     },
     {
       "type": "checkbox",
       "id": "enable_sticky_cart",
-      "label": "Enable sticky cart bar",
+      "label": "t:sections.main_product.settings.enable_sticky_cart.label",
+      "info": "t:sections.main_product.settings.enable_sticky_cart.info",
       "default": true
     },
     {
       "type": "textarea",
       "id": "pickup_hours_note",
-      "label": "Pickup hours note",
-      "info": "Optional shared hours information shown with pickup locations."
+      "label": "t:sections.main_product.settings.pickup_hours_note.label",
+      "info": "t:sections.main_product.settings.pickup_hours_note.info"
     }
   ],
   "blocks": [
     {
       "type": "vendor",
-      "name": "Vendor",
+      "name": "t:sections.main_product.blocks.vendor.name",
       "limit": 1
     },
     {
       "type": "title",
-      "name": "Title",
+      "name": "t:sections.main_product.blocks.title.name",
       "limit": 1
     },
     {
       "type": "price",
-      "name": "Price",
+      "name": "t:sections.main_product.blocks.price.name",
       "limit": 1
     },
     {
       "type": "variant_picker",
-      "name": "Variant picker",
+      "name": "t:sections.main_product.blocks.variant_picker.name",
       "limit": 1
     },
     {
       "type": "size_guide",
-      "name": "Size guide",
+      "name": "t:sections.main_product.blocks.size_guide.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "guide_title",
-          "label": "Title",
+          "label": "t:sections.main_product.blocks.size_guide.settings.guide_title.label",
           "default": "Size Guide & Measurements"
         },
         {
           "type": "text",
           "id": "model_fit_info",
-          "label": "Model fit information",
+          "label": "t:sections.main_product.blocks.size_guide.settings.model_fit_info.label",
           "default": "Model is 178cm / 5'10\" wearing size S"
         },
         {
           "type": "checkbox",
           "id": "show_model_fit_below",
-          "label": "Show model fit below trigger",
+          "label": "t:sections.main_product.blocks.size_guide.settings.show_model_fit_below.label",
           "default": true
         },
         {
           "type": "page",
           "id": "page_content",
-          "label": "Additional size guide page"
+          "label": "t:sections.main_product.blocks.size_guide.settings.page_content.label",
+          "info": "t:sections.main_product.blocks.size_guide.settings.page_content.info"
         },
         {
           "type": "richtext",
           "id": "size_table_cm",
-          "label": "Measurements in centimeters",
+          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_cm.label",
           "default": "<p>XS: 84 cm / S: 88 cm / M: 92 cm / L: 96 cm</p>"
         },
         {
           "type": "richtext",
           "id": "size_table_in",
-          "label": "Measurements in inches",
+          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_in.label",
           "default": "<p>XS: 33 in / S: 34.5 in / M: 36 in / L: 38 in</p>"
         }
       ]
     },
     {
       "type": "quantity",
-      "name": "Quantity",
+      "name": "t:sections.main_product.blocks.quantity.name",
       "limit": 1
     },
     {
       "type": "buy_buttons",
-      "name": "Buy buttons",
+      "name": "t:sections.main_product.blocks.buy_buttons.name",
       "limit": 1,
       "settings": [
         {
           "type": "checkbox",
           "id": "show_dynamic_checkout",
-          "label": "Show dynamic checkout buttons",
+          "label": "t:sections.main_product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
+          "info": "t:sections.main_product.blocks.buy_buttons.settings.show_dynamic_checkout.info",
           "default": true
         }
       ]
     },
     {
       "type": "description",
-      "name": "Description",
+      "name": "t:sections.main_product.blocks.description.name",
       "limit": 1
     },
     {

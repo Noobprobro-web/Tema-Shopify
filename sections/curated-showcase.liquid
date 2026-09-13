@@ -156,7 +156,7 @@
 
 {% schema %}
 {
-  "name": "Curated showcase",
+  "name": "t:sections.curated_showcase.name",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
@@ -164,66 +164,68 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "CURATED EDIT / 02"
     },
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
+      "label": "t:sections.all.heading.label",
       "default": "Selected forms for the season"
     },
     {
       "type": "richtext",
       "id": "subheading",
-      "label": "Subheading"
+      "label": "t:sections.all.subheading.label"
     },
     {
       "type": "checkbox",
       "id": "show_secondary_image",
-      "label": "Show second image on hover",
+      "label": "t:sections.all.show_secondary_image.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_vendor",
-      "label": "Show vendor",
+      "label": "t:sections.all.show_vendor.label",
       "default": false
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "collection_tab",
-      "name": "Collection tab",
+      "name": "t:sections.curated_showcase.blocks.collection_tab.name",
       "limit": 3,
       "settings": [
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "t:sections.all.collection.label"
         },
         {
           "type": "text",
           "id": "tab_label",
-          "label": "Tab label"
+          "label": "t:sections.curated_showcase.blocks.collection_tab.settings.tab_label.label",
+          "info": "t:sections.curated_showcase.blocks.collection_tab.settings.tab_label.info"
         },
         {
           "type": "image_picker",
           "id": "editorial_image",
-          "label": "Editorial spotlight image"
+          "label": "t:sections.curated_showcase.blocks.collection_tab.settings.editorial_image.label",
+          "info": "t:sections.curated_showcase.blocks.collection_tab.settings.editorial_image.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Curated showcase",
+      "name": "t:sections.curated_showcase.presets.name",
       "blocks": [
         { "type": "collection_tab" },
         { "type": "collection_tab" },

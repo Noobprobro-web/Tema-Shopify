@@ -183,24 +183,24 @@
 
 {% schema %}
 {
-  "name": "Main blog",
+  "name": "t:sections.main_blog.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
+      "label": "t:sections.all.eyebrow.label",
       "default": "Atelier notes / Journal"
     },
     {
       "type": "article",
       "id": "featured_article",
-      "label": "Featured article"
+      "label": "t:sections.main_blog.settings.featured_article.label"
     },
     {
       "type": "range",
@@ -208,31 +208,31 @@
       "min": 4,
       "max": 20,
       "step": 2,
-      "label": "Articles per page",
+      "label": "t:sections.main_blog.settings.articles_per_page.label",
       "default": 8
     },
     {
       "type": "checkbox",
       "id": "show_tag_filters",
-      "label": "Show tag filters",
+      "label": "t:sections.main_blog.settings.show_tag_filters.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_excerpts",
-      "label": "Show excerpts",
+      "label": "t:sections.main_blog.settings.show_excerpts.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_author",
-      "label": "Show featured article author",
+      "label": "t:sections.main_blog.settings.show_author.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_date",
-      "label": "Show publication dates",
+      "label": "t:sections.main_blog.settings.show_date.label",
       "default": true
     }
   ]
