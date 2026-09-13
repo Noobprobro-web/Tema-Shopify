@@ -32,22 +32,22 @@
 ## Tareas Activas por Agente
 
 ### Tareas de Gemini (Cerebro y Arquitecto Líder)
-- Mantener y sincronizar el ledger vivo [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md) en cada entrega.
-- Aplicar la Definition of Done de 5 compuertas a todas las entregas.
-- Validar las implementaciones de Claude mediante Theme Check y tests de sintaxis.
-- Sincronizar el repositorio con la tienda de desarrollo (`tema-qkqpke0j.myshopify.com`).
+- Sincronizar el ledger vivo [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md) y revisar revisiones bajo GEMINI-PROTOCOL-001.
+- Validar y compilar paquetes para tienda de desarrollo (`tema-qkqpke0j.myshopify.com`).
+- Coordinar la resolución del bloqueador P0 de Naming con Johandry.
 
-### Tareas de Claude (Implementador Principal — Directiva CLAUDE-TASK-4B-002)
-- Implementar `CLAUDE-CHANGE-001` (Total de línea en PDP sin mutar precio unitario).
-- Implementar `CLAUDE-CHANGE-002` (Densidad de grilla móvil/tablet y corrección de gap).
-- Cerrar los 7 requisitos parciales de código del Ledger Vivo (Row 35, 37, 48, 50, 51, 67, 76) para llevar el 100% de requisitos en código a estado `cumplido`.
-- Reportar en `agent-comms/outbox-claude/CLAUDE-IMPL-4B-002-ledger-and-ux.md`.
+### Tareas de Claude (Implementador Principal de Código)
+- Sprint 4B-002 completado y aceptado con éxito (ver [`agent-comms/reviews/GEMINI-review-4B-002.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/agent-comms/reviews/GEMINI-review-4B-002.md)).
+- En espera de directiva post-naming o asignación de producción de catálogo/assets para las 3 tiendas demo.
 
-### Tareas de GPT-5.6 (Auditor Senior — Directiva GPT-OPINION-001)
-- Emitir dictamen estratégico sobre posicionamiento comercial de Couture ($380-$400) vs Prestige/Impulse.
-- Auditar diferenciación de los 3 presets (*Couture*, *Studio*, *Archive*).
-- Identificar trampas sutiles de rechazo en la Theme Store de Shopify.
-- Reportar en `agent-comms/outbox-gpt/GPT-OPINION-001-senior-commercial-audit.md`.
+### Tareas de GPT-5.6 (Auditor Senior de Producto y Theme Store)
+- Dictamen estratégico `GPT-OPINION-001` entregado (detectó colisión de nombre de Couture y Studio).
+- En espera de validación de los 3 nuevos nombres y presets propuestos para Johandry.
+
+### Bloqueadores y Próximos Pasos Inmediatos (Autoridad: Johandry)
+1. **Decisión P0 de Naming:** Seleccionar entre *Sartorial*, *Maison*, *Silhouette* o proponer nombre comercial alternativo.
+2. **Gate 5 (Tienda Real):** Importación del catálogo de prueba e inspección Lighthouse/A11y en `tema-qkqpke0j.myshopify.com`.
+3. **Milestone 4.6:** Publicación de páginas de soporte y documentación en `ruizdigital.com`.
 
 ---
 
