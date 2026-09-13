@@ -6,6 +6,10 @@
   assign default_grid_columns = section.settings.default_grid_columns | default: '4'
   assign collection_banner_image = collection.featured_image
   assign collection_image_alt = collection_banner_image.alt | default: collection.title
+  assign money_uses_comma_decimal = false
+  if shop.money_format contains 'amount_with_comma_separator' or shop.money_with_currency_format contains 'amount_with_comma_separator'
+    assign money_uses_comma_decimal = true
+  endif
 
   for filter in collection.filters
     assign active_filter_count = active_filter_count | plus: filter.active_values.size
@@ -87,7 +91,7 @@
                               id="{{ filter_id }}"
                               type="checkbox"
                               name="{{ value.param_name }}"
-                              value="{{ value.value }}"
+                              value="{{ value.value | escape }}"
                               {% if value.active %}checked{% endif %}
                               {% if value.count == 0 and value.active == false %}disabled{% endif %}
                             >
@@ -99,6 +103,20 @@
                     </ul>
 
                   {%- when 'price_range' -%}
+                    {%- liquid
+                      assign range_max_value = filter.range_max | money_without_currency | strip | replace: ' ', ''
+                      assign minimum_filter_value = filter.min_value.value | money_without_currency | strip | replace: ' ', ''
+                      assign maximum_filter_value = filter.max_value.value | money_without_currency | strip | replace: ' ', ''
+                      if money_uses_comma_decimal
+                        assign range_max_value = range_max_value | replace: '.', '' | replace: ',', '.'
+                        assign minimum_filter_value = minimum_filter_value | replace: '.', '' | replace: ',', '.'
+                        assign maximum_filter_value = maximum_filter_value | replace: '.', '' | replace: ',', '.'
+                      else
+                        assign range_max_value = range_max_value | replace: ',', ''
+                        assign minimum_filter_value = minimum_filter_value | replace: ',', ''
+                        assign maximum_filter_value = maximum_filter_value | replace: ',', ''
+                      endif
+                    -%}
                     <div class="facet__price-range">
                       <div>
                         <label for="Filter-{{ section.id }}-{{ filter.min_value.param_name }}">
@@ -111,8 +129,9 @@
                             type="number"
                             name="{{ filter.min_value.param_name }}"
                             min="0"
-                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                            {% if filter.min_value.value != nil %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                            max="{{ range_max_value | escape }}"
+                            step="any"
+                            {% if filter.min_value.value != nil %}value="{{ minimum_filter_value | escape }}"{% endif %}
                           >
                         </div>
                       </div>
@@ -127,8 +146,9 @@
                             type="number"
                             name="{{ filter.max_value.param_name }}"
                             min="0"
-                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                            {% if filter.max_value.value != nil %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                            max="{{ range_max_value | escape }}"
+                            step="any"
+                            {% if filter.max_value.value != nil %}value="{{ maximum_filter_value | escape }}"{% endif %}
                           >
                         </div>
                       </div>
@@ -252,7 +272,7 @@
                               <div class="promotion-tile__text rte">{{ block.settings.text }}</div>
                             {%- endif -%}
                             {%- if block.settings.link_label != blank and block.settings.link_url != blank -%}
-                              <a class="button button--secondary promotion-tile__link" href="{{ block.settings.link_url }}">
+                              <a class="button button--secondary promotion-tile__link" href="{{ block.settings.link_url | escape }}">
                                 <span>{{ block.settings.link_label | escape }}</span>
                                 {% render 'icon', name: 'arrow', size: 18 %}
                               </a>

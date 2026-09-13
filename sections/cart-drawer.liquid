@@ -1,6 +1,11 @@
 {%- liquid
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign active_currency_code = cart.currency.iso_code | default: localization.country.currency.iso_code
+  assign rewards_currency_supported = false
+  if active_currency_code == shop.currency
+    assign rewards_currency_supported = true
+  endif
   assign free_shipping_threshold = section.settings.free_shipping_threshold | default: 150 | times: 100
   assign atelier_gift_threshold = section.settings.atelier_gift_threshold | default: 250 | times: 100
   if atelier_gift_threshold < free_shipping_threshold
@@ -8,13 +13,15 @@
   endif
   assign rewards_progress = 100
   assign shipping_marker = 100
-  if atelier_gift_threshold > 0
+  if rewards_currency_supported and atelier_gift_threshold > 0
     assign rewards_progress = cart.total_price | times: 100 | divided_by: atelier_gift_threshold | at_most: 100
     assign shipping_marker = free_shipping_threshold | times: 100 | divided_by: atelier_gift_threshold | at_most: 100
   endif
   assign shipping_threshold_money = free_shipping_threshold | money
   assign gift_threshold_money = atelier_gift_threshold | money
-  if cart.total_price < free_shipping_threshold
+  if rewards_currency_supported == false
+    assign rewards_message = blank
+  elsif cart.total_price < free_shipping_threshold
     assign rewards_remaining = free_shipping_threshold | minus: cart.total_price | money
     assign rewards_message = 'sections.cart.shipping_remaining' | t: amount: rewards_remaining
   elsif cart.total_price < atelier_gift_threshold
@@ -66,7 +73,7 @@
       </header>
 
       <div class="cart-drawer__content" data-cart-drawer-content>
-        {%- if section.settings.enable_tiered_progress -%}
+        {%- if section.settings.enable_tiered_progress and rewards_currency_supported -%}
           <div
             class="cart-rewards"
             style="--cart-progress: {{ rewards_progress }}%; --shipping-marker: {{ shipping_marker }}%;"
@@ -211,7 +218,7 @@
                   <button
                     class="icon-button cart-drawer-item__remove"
                     type="button"
-                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title }}"
+                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape }}"
                     data-cart-remove
                     data-line="{{ forloop.index }}"
                   >
@@ -431,54 +438,58 @@
 
 {% schema %}
 {
-  "name": "Cart drawer",
+  "name": "t:sections.cart_drawer.name",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "checkbox",
       "id": "enable_tiered_progress",
-      "label": "Show tiered rewards progress",
+      "label": "t:sections.cart_drawer.settings.enable_tiered_progress.label",
       "default": true
     },
     {
       "type": "number",
       "id": "free_shipping_threshold",
-      "label": "Free shipping threshold",
+      "label": "t:sections.cart_drawer.settings.free_shipping_threshold.label",
+      "info": "t:sections.cart_drawer.settings.free_shipping_threshold.info",
       "default": 150
     },
     {
       "type": "number",
       "id": "atelier_gift_threshold",
-      "label": "Atelier gift threshold",
+      "label": "t:sections.cart_drawer.settings.atelier_gift_threshold.label",
+      "info": "t:sections.cart_drawer.settings.atelier_gift_threshold.info",
       "default": 250
     },
     {
       "type": "text",
       "id": "cross_sell_heading",
-      "label": "Cross-sell heading",
+      "label": "t:sections.cart_drawer.settings.cross_sell_heading.label",
       "default": "Complimentary Additions"
     },
     {
       "type": "collection",
       "id": "cross_sell_collection",
-      "label": "Fallback cross-sell collection"
+      "label": "t:sections.cart_drawer.settings.cross_sell_collection.label",
+      "info": "t:sections.cart_drawer.settings.cross_sell_collection.info"
     }
   ],
   "blocks": [
     {
       "type": "cross_sell_product",
-      "name": "Cross-sell product",
+      "name": "t:sections.cart_drawer.blocks.cross_sell_product.name",
       "limit": 2,
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "t:sections.all.product.label",
+          "info": "t:sections.cart_drawer.blocks.cross_sell_product.settings.product.info"
         }
       ]
     }

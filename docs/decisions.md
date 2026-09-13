@@ -126,7 +126,15 @@ Registro de decisiones importantes del tema.
 - Se revisa la auditoría proactiva de Codex (`CODEX-AUDIT-002-post-GPT-3B-003.md`), confirmando que no hubo truncamiento por límite de tokens.
 - Se aprueba la emisión de un micro-hotfix `GPT-3B-003-HOTFIX` para resolver 4 puntos de borde: selling plans evaluados por variante, fallback para productos con >250 variantes, nombres accesibles semánticos en el grid switcher (neutrales para tablet), y fallback limpio sin JS en el bundle.
 - Se aprueba formalmente la incorporación del **Sprint 3B.5 (Cumplimiento Comercial y Requisitos Oficiales de Shopify Theme Store)** en la hoja de ruta para ejecutarse tras el Sprint 3B.4. Cubrirá: selling plans en PDP, Shop Pay Installments, pickup availability, swatches nativos, destinatario de gift cards, collection.image y datos estructurados JSON-LD.
+## 2026-09-13: Decisión de Nombre Comercial "Couture", Autor "Ruiz Digital" y Presets (Johandry D1/D2)
 
-
-
+- Johandry (dueño del proyecto) adopta formalmente la **Opción A** para la identidad oficial del tema en Shopify Theme Store:
+  - **Nombre oficial del tema:** `"Couture"` (sucede al nombre provisional `Theme Project` y al concepto de trabajo `Atelier Flow`).
+  - **Autor comercial:** `"Ruiz Digital"`.
+  - **Presets del tema (3 identidades):**
+    1. `"Couture"` (Preset principal / default: alta costura, tipografía serif editorial, hairlines y paleta neutra). Cumple la regla de oro de Shopify: *One preset must share the parent theme's name*.
+    2. `"Studio"` (Minimalismo contemporáneo: sans-serif, ratio 1:1, densidad y alto contraste).
+    3. `"Archive"` (Heritage / sastrería patrimonial: tonos tierra/arcilla, reglas de 2px y catálogo enmarcado).
+  - **URLs comerciales de soporte y documentación:** `https://ruizdigital.com/themes/couture/docs` y `https://ruizdigital.com/themes/couture/support`.
+- Se actualiza `config/settings_schema.json` y se cierran formalmente las decisiones D1, D2 y D3 en `docs/phase-4-plan.md`, elevando el Ledger Vivo a **24 / 44 requisitos cumplidos con evidencia**.
 

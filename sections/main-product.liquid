@@ -12,6 +12,7 @@
   assign product_form_id = 'product-form-' | append: section.id
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign product_models = product.media | where: 'media_type', 'model'
 -%}
 
 <section class="section product-main color-{{ section_scheme }}" data-section-id="{{ section.id }}">
@@ -19,32 +20,24 @@
     <div class="product-gallery" aria-label="{{ 'products.product.media_gallery' | t }}">
       {%- if product.media.size > 0 -%}
         {%- for media in product.media -%}
-          {%- assign media_alt = media.alt | default: product.title -%}
           <figure
             class="product-gallery__item"
             data-product-media-id="{{ media.id }}"
             {% if media.id == selected_variant.featured_media.id %}data-selected{% endif %}
           >
-            {%- case media.media_type -%}
-              {%- when 'image' -%}
-                {% render 'responsive-image',
-                  image: media.preview_image,
-                  sizes: '(min-width: 990px) 60vw, 100vw',
-                  prioritize: forloop.first,
-                  image_class: 'product-gallery__image',
-                  alt: media_alt
-                %}
-              {%- when 'video' or 'external_video' -%}
-                {{ media | media_tag: image_size: '1200x', controls: true, class: 'product-gallery__media' }}
-              {%- when 'model' -%}
-                {{ media | media_tag: image_size: '1200x', toggleable: true, class: 'product-gallery__media' }}
-            {%- endcase -%}
+            {% render 'product-media', media: media, product: product, prioritize: forloop.first %}
           </figure>
         {%- endfor -%}
       {%- else -%}
         <div class="product-gallery__placeholder" aria-hidden="true"></div>
       {%- endif -%}
     </div>
+
+    {%- if product_models.size > 0 -%}
+      <script type="application/json" id="ProductModelJSON-{{ section.id }}">
+        {{- product_models | json -}}
+      </script>
+    {%- endif -%}
 
     <variant-selects
       class="product-main__details"

@@ -36,7 +36,7 @@
             </button>
           </div>
 
-          <nav aria-label="{{ 'general.navigation.primary' | t }}">
+           <nav aria-label="{{ 'general.navigation.primary' | t }}">
             <ul class="mobile-nav unstyled-list" role="list">
               {%- for link in section.settings.menu.links -%}
                 <li>
@@ -77,9 +77,13 @@
                   {%- endif -%}
                 </li>
               {%- endfor -%}
-            </ul>
-          </nav>
-        </div>
+             </ul>
+           </nav>
+
+          <div class="mobile-nav__localization">
+            {% render 'localization-selectors', context: 'header-mobile' %}
+          </div>
+         </div>
       </div>
     </theme-drawer>
 
@@ -148,10 +152,8 @@
       {%- endif -%}
     </a>
 
-    <div class="site-header__actions">
-      <a class="icon-button" href="{{ routes.search_url }}" aria-label="{{ 'general.search.label' | t }}">
-        {% render 'icon', name: 'search' %}
-      </a>
+     <div class="site-header__actions">
+      {% render 'predictive-search', section: section %}
 
       {%- if shop.customer_accounts_enabled -%}
         <shopify-account class="site-header__account" menu="{{ section.settings.customer_account_menu }}"></shopify-account>

@@ -28,6 +28,11 @@
       "pinterest": "Pinterest",
       "tiktok": "TikTok",
       "youtube": "YouTube"
+    },
+    "localization": {
+      "country": "Country/region",
+      "language": "Language",
+      "update": "Update preferences"
     }
   },
   "sections": {
@@ -39,7 +44,8 @@
       }
     },
     "footer": {
-      "copyright": "© {{ year }} {{ shop }}"
+      "copyright": "© {{ year }} {{ shop }}",
+      "payment_methods": "Accepted payment methods"
     },
     "cart": {
       "title": "Your cart",
@@ -307,6 +313,7 @@
       "unit_price": "Unit price",
       "taxes_included": "Taxes included.",
       "media_gallery": "Product media gallery",
+      "view_in_space": "View in your space",
       "option_unavailable": "Option unavailable",
       "variant_available": "Variant available.",
       "variant_sold_out": "Variant sold out.",
@@ -453,5 +460,29 @@
       "add_to_apple_wallet": "Add to Apple Wallet",
       "qr_code_alt": "QR code for this gift card"
     }
+  },
+  "newsletter": {
+    "eyebrow": "Private correspondence",
+    "heading": "Notes from the atelier",
+    "copy": "New objects, material studies and private previews, sent with restraint.",
+    "email_label": "Email address",
+    "email_placeholder": "name@example.com",
+    "submit": "Subscribe",
+    "success": "Thank you. Your first note will arrive soon.",
+    "error_heading": "Please check your email address:"
+  },
+  "predictive_search": {
+    "search_label": "Search",
+    "placeholder": "Search products, materials and stories",
+    "dialog_label": "Search the atelier",
+    "results_label": "Search suggestions",
+    "loading": "Searching",
+    "no_results": "No suggestions yet. Press enter to search the full catalog.",
+    "clear": "Clear search",
+    "products": "Products",
+    "collections": "Collections",
+    "articles": "Journal",
+    "pages": "Pages",
+    "view_all": "View all results for \"{{ terms }}\""
   }
 }

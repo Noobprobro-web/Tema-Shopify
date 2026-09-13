@@ -1,0 +1,140 @@
+{%- comment -%}
+  Renders the predictive search trigger and accessible dialog.
+
+  Accepts:
+  - section: the parent header section
+{%- endcomment -%}
+
+{%- liquid
+  assign search_context = section.id | default: 'header'
+  assign search_panel_id = 'PredictiveSearchPanel-' | append: search_context
+  assign search_input_id = 'PredictiveSearchInput-' | append: search_context
+  assign search_results_id = 'predictive-search-results-' | append: search_context
+-%}
+
+<predictive-search
+  class="predictive-search js-only"
+  data-predictive-search-url="{{ routes.predictive_search_url | escape }}"
+  data-search-url="{{ routes.search_url | escape }}"
+  data-locale="{{ request.locale.iso_code | escape }}"
+  data-currency="{{ cart.currency.iso_code | default: localization.country.currency.iso_code | escape }}"
+  data-loading-text="{{ 'predictive_search.loading' | t | escape }}"
+  data-no-results-text="{{ 'predictive_search.no_results' | t | escape }}"
+  data-products-heading="{{ 'predictive_search.products' | t | escape }}"
+  data-collections-heading="{{ 'predictive_search.collections' | t | escape }}"
+  data-articles-heading="{{ 'predictive_search.articles' | t | escape }}"
+  data-pages-heading="{{ 'predictive_search.pages' | t | escape }}"
+  data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+  data-regular-price-text="{{ 'products.product.regular_price' | t | escape }}"
+  data-view-all-template="{{ 'predictive_search.view_all' | t: terms: '[terms]' | escape }}"
+>
+  <button
+    class="icon-button predictive-search__trigger"
+    type="button"
+    aria-label="{{ 'general.search.label' | t }}"
+    aria-expanded="false"
+    aria-controls="{{ search_panel_id }}"
+    data-predictive-search-open
+  >
+    {% render 'icon', name: 'search' %}
+  </button>
+
+  <div class="predictive-search__overlay" data-predictive-search-overlay hidden>
+    <div
+      id="{{ search_panel_id }}"
+      class="predictive-search__panel color-{{ section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1' }}"
+      role="dialog"
+      aria-modal="true"
+      aria-label="{{ 'predictive_search.dialog_label' | t }}"
+      aria-hidden="true"
+      tabindex="-1"
+      data-predictive-search-panel
+      inert
+    >
+      <div class="predictive-search__header">
+        <p class="eyebrow">{{ 'predictive_search.dialog_label' | t }}</p>
+        <button
+          class="icon-button"
+          type="button"
+          aria-label="{{ 'general.accessibility.close' | t }}"
+          data-predictive-search-close
+        >
+          {% render 'icon', name: 'close' %}
+        </button>
+      </div>
+
+      <form class="predictive-search__form" action="{{ routes.search_url }}" method="get" role="search" data-predictive-search-form>
+        <label class="visually-hidden" for="{{ search_input_id }}">
+          {{- 'predictive_search.search_label' | t -}}
+        </label>
+        <div class="predictive-search__input-row">
+          <span class="predictive-search__input-icon" aria-hidden="true">
+            {% render 'icon', name: 'search' %}
+          </span>
+          <input
+            id="{{ search_input_id }}"
+            class="predictive-search__input"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'predictive_search.placeholder' | t | escape }}"
+            role="combobox"
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-autocomplete="list"
+            aria-controls="{{ search_results_id }}"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            enterkeyhint="search"
+            data-predictive-search-input
+          >
+          <button
+            class="predictive-search__clear"
+            type="button"
+            aria-label="{{ 'predictive_search.clear' | t }}"
+            data-predictive-search-clear
+            hidden
+          >
+            {% render 'icon', name: 'close', size: 16 %}
+          </button>
+          <button class="button predictive-search__submit" type="submit">
+            {{- 'search.form.submit' | t -}}
+          </button>
+        </div>
+        <input type="hidden" name="options[prefix]" value="last">
+        <input type="hidden" name="type" value="product,collection,page,article">
+      </form>
+
+      <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true" data-predictive-search-status></p>
+      <div
+        id="{{ search_results_id }}"
+        class="predictive-search__results"
+        role="listbox"
+        aria-label="{{ 'predictive_search.results_label' | t }}"
+        data-predictive-search-results
+        hidden
+      ></div>
+    </div>
+  </div>
+</predictive-search>
+
+<details class="predictive-search-no-js no-js-only">
+  <summary class="icon-button" aria-label="{{ 'general.search.label' | t }}">
+    {% render 'icon', name: 'search' %}
+  </summary>
+  <form class="predictive-search-no-js__form" action="{{ routes.search_url }}" method="get" role="search">
+    <label for="SearchNoJs-{{ search_context }}">{{ 'predictive_search.search_label' | t }}</label>
+    <input
+      id="SearchNoJs-{{ search_context }}"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="{{ 'predictive_search.placeholder' | t | escape }}"
+      required
+    >
+    <input type="hidden" name="options[prefix]" value="last">
+    <button class="button" type="submit">{{ 'search.form.submit' | t }}</button>
+  </form>
+</details>

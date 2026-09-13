@@ -1,0 +1,35 @@
+{%- comment -%}
+  Renders a product media item, including Shopify's native model viewer and AR trigger.
+
+  Accepts:
+  - media: product media object
+  - product: product object
+  - prioritize: whether the image should load eagerly
+{%- endcomment -%}
+
+{%- assign media_alt = media.alt | default: product.title -%}
+
+{%- case media.media_type -%}
+  {%- when 'image' -%}
+    {% render 'responsive-image',
+      image: media.preview_image,
+      sizes: '(min-width: 990px) 60vw, 100vw',
+      prioritize: prioritize,
+      image_class: 'product-gallery__image',
+      alt: media_alt
+    %}
+  {%- when 'video' or 'external_video' -%}
+    {{ media | media_tag: image_size: '1200x', controls: true, class: 'product-gallery__media' }}
+  {%- when 'model' -%}
+    {{ media | media_tag: image_size: '1200x', toggleable: true, class: 'product-gallery__media' }}
+    <button
+      class="product-gallery__view-in-space"
+      type="button"
+      data-shopify-xr
+      data-shopify-model3d-id="{{ media.id }}"
+      data-shopify-title="{{ product.title | escape }}"
+      data-shopify-xr-hidden
+    >
+      {{- 'products.product.view_in_space' | t -}}
+    </button>
+{%- endcase -%}

@@ -1,5 +1,6 @@
+{%- assign product_models = product.media | where: 'media_type', 'model' -%}
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ request.locale.direction }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +22,19 @@
       <meta name="description" content="{{ page_description | escape }}">
     {%- endif -%}
 
-    {%- if page_image -%}
-      <meta property="og:image" content="http:{{ page_image | image_url: width: 1200 }}">
-      <meta property="og:image:secure_url" content="https:{{ page_image | image_url: width: 1200 }}">
+    {% render 'social-meta-tags' %}
+
+    {%- if request.page_type == 'product' and product_models.size > 0 -%}
+      <link
+        id="ModelViewerStyle"
+        rel="stylesheet"
+        href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+        media="print"
+        onload="this.media='all'"
+      >
+      <noscript>
+        <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
+      </noscript>
     {%- endif -%}
 
     {%- liquid
@@ -105,6 +116,39 @@
 
     {%- if settings.cart_type == 'drawer' -%}
       {% section 'cart-drawer' %}
+    {%- endif -%}
+
+    {%- if request.page_type == 'product' and product_models.size > 0 -%}
+      <script src="{{ 'shopify-xr.js' | shopify_asset_url }}" defer></script>
+      <script>
+        (() => {
+          const setupShopifyXR = () => {
+            if (!window.ShopifyXR) {
+              document.addEventListener('shopify_xr_initialized', setupShopifyXR, { once: true });
+              return;
+            }
+
+            document.querySelectorAll('[id^="ProductModelJSON-"]').forEach((modelJSON) => {
+              window.ShopifyXR.addModels(JSON.parse(modelJSON.textContent));
+            });
+            window.ShopifyXR.setupXRElements();
+          };
+
+          const setupModelViewerUI = (errors) => {
+            if (errors || !window.Shopify?.ModelViewerUI) return;
+            document.querySelectorAll('model-viewer').forEach((modelViewer) => {
+              if (modelViewer.dataset.themeModelViewerReady === 'true') return;
+              new window.Shopify.ModelViewerUI(modelViewer);
+              modelViewer.dataset.themeModelViewerReady = 'true';
+            });
+          };
+
+          setupShopifyXR();
+          window.Shopify?.loadFeatures?.([
+            { name: 'model-viewer-ui', version: '1.0', onLoad: setupModelViewerUI },
+          ]);
+        })();
+      </script>
     {%- endif -%}
   </body>
 </html>

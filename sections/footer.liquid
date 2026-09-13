@@ -17,6 +17,63 @@
       {%- endif -%}
     </div>
 
+    {%- if section.settings.show_newsletter -%}
+      <div class="site-footer__newsletter">
+        <p class="eyebrow">{{ 'newsletter.eyebrow' | t }}</p>
+        <h2 class="site-footer__newsletter-title h3">
+          {%- if section.settings.newsletter_heading != blank -%}
+            {{- section.settings.newsletter_heading | escape -}}
+          {%- else -%}
+            {{- 'newsletter.heading' | t -}}
+          {%- endif -%}
+        </h2>
+        <p>
+          {%- if section.settings.newsletter_text != blank -%}
+            {{- section.settings.newsletter_text | escape -}}
+          {%- else -%}
+            {{- 'newsletter.copy' | t -}}
+          {%- endif -%}
+        </p>
+
+        {%- form 'customer', id: 'FooterNewsletter', class: 'newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-form__field">
+            <label class="visually-hidden" for="FooterNewsletterEmail">
+              {{- 'newsletter.email_label' | t -}}
+            </label>
+            <input
+              id="FooterNewsletterEmail"
+              type="email"
+              name="contact[email]"
+              value="{{ form.email | escape }}"
+              autocomplete="email"
+              autocapitalize="off"
+              autocorrect="off"
+              placeholder="{{ 'newsletter.email_placeholder' | t | escape }}"
+              aria-required="true"
+              {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletterError"{% endif %}
+              required
+            >
+            <button class="button newsletter-form__submit" type="submit">
+              {{- 'newsletter.submit' | t -}}
+            </button>
+          </div>
+
+          {%- if form.posted_successfully? -%}
+            <p class="form-message form-message--success" role="status">
+              {{- 'newsletter.success' | t -}}
+            </p>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <div id="FooterNewsletterError" class="form-message form-message--error" role="alert">
+              <p>{{ 'newsletter.error_heading' | t }}</p>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+
     {%- if section.settings.menu != blank -%}
       <nav class="site-footer__nav" aria-label="{{ 'general.navigation.footer' | t }}">
         <ul class="site-footer__menu unstyled-list" role="list">
@@ -32,22 +89,37 @@
         <p class="eyebrow">{{ 'general.social.follow_us' | t }}</p>
         <ul class="social-links unstyled-list" role="list">
           {%- if settings.social_instagram_link != blank -%}
-            <li><a href="{{ settings.social_instagram_link }}">{{ 'general.social.instagram' | t }}</a></li>
+            <li><a href="{{ settings.social_instagram_link | escape }}">{{ 'general.social.instagram' | t }}</a></li>
           {%- endif -%}
           {%- if settings.social_facebook_link != blank -%}
-            <li><a href="{{ settings.social_facebook_link }}">{{ 'general.social.facebook' | t }}</a></li>
+            <li><a href="{{ settings.social_facebook_link | escape }}">{{ 'general.social.facebook' | t }}</a></li>
           {%- endif -%}
           {%- if settings.social_pinterest_link != blank -%}
-            <li><a href="{{ settings.social_pinterest_link }}">{{ 'general.social.pinterest' | t }}</a></li>
+            <li><a href="{{ settings.social_pinterest_link | escape }}">{{ 'general.social.pinterest' | t }}</a></li>
           {%- endif -%}
           {%- if settings.social_tiktok_link != blank -%}
-            <li><a href="{{ settings.social_tiktok_link }}">{{ 'general.social.tiktok' | t }}</a></li>
+            <li><a href="{{ settings.social_tiktok_link | escape }}">{{ 'general.social.tiktok' | t }}</a></li>
           {%- endif -%}
           {%- if settings.social_youtube_link != blank -%}
-            <li><a href="{{ settings.social_youtube_link }}">{{ 'general.social.youtube' | t }}</a></li>
+            <li><a href="{{ settings.social_youtube_link | escape }}">{{ 'general.social.youtube' | t }}</a></li>
           {%- endif -%}
         </ul>
       </nav>
+    {%- endif -%}
+  </div>
+
+  <div class="container site-footer__utilities">
+    {% render 'localization-selectors', context: 'footer' %}
+
+    {%- if shop.enabled_payment_types.size > 0 -%}
+      <div class="site-footer__payments" aria-label="{{ 'sections.footer.payment_methods' | t }}">
+        <span class="visually-hidden">{{ 'sections.footer.payment_methods' | t }}</span>
+        <ul class="site-footer__payment-list unstyled-list" role="list">
+          {%- for type in shop.enabled_payment_types -%}
+            <li class="site-footer__payment-item">{{ type | payment_type_svg_tag }}</li>
+          {%- endfor -%}
+        </ul>
+      </div>
     {%- endif -%}
   </div>
 
@@ -92,6 +164,22 @@
       "id": "show_social",
       "label": "t:sections.footer.settings.show_social.label",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter signup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter text"
     }
   ]
 }

@@ -1,42 +1,52 @@
 # Agent Status
 
-## Estado actual
+## Métricas Clave del Proyecto (Dos Compuertas Separadas)
 
-- Fase: Phase 3B COMPLETADA al 100%. Transición a Phase 4 (QA, Presets y Preparación Theme Store).
-- Cerebro y coordinador: Gemini Flash 3.8 High.
-- Implementador tecnico principal: GPT-5.6 Sol Max / Codex.
-- Auditor UX y consultor editorial: Claude (Opus 5 / Sonnet 5).
-- Concepto interno: `Atelier Flow`.
-- Nombre final: pendiente.
-- Nombre publico temporal: `Theme Project`.
-- Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`.
-- Rama: `master`.
-- Ultimo commit de producto aprobado: `09a0257` (preparando commit para GPT-3B-005).
+### 1. Salud Técnica (Análisis Estático)
+- Archivos en el tema: 62
+- Ofensas en Shopify Theme Check: **0 ofensas**
+- Sintaxis JS (`node --check assets/theme.js`): **PASS (Código 0)**
+- Repositorio: `https://github.com/Noobprobro-web/Tema-Shopify` (rama `master`)
+- Último commit respaldado: `b794b16`
 
-## Entregas recientes
+### 2. Cobertura de Requisitos Oficiales (Shopify Theme Store)
+- Cobertura verificada con evidencia: **26 / 44 requisitos cumplidos** (59.1%)
+- Estado detallado: 26 cumplidos | 14 parciales | 0 ausentes | 4 no verificados
+- Fuente de verdad viva: [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md)
+- *Nota operativa:* El proyecto NO está listo para submission hasta que las filas `ausente` y `parcial` pasen a `cumplido` con evidencia de código o prueba en tienda real.
 
-- `GPT-3B-005` auditada y aprobada al 100% mediante dictamen `GEMINI-013`.
-- Requisitos comerciales de Shopify Theme Store completados: Selling plans en PDP, Shop Pay Installments, Pickup availability reactivo, Swatches nativos, Gift Card recipient, Collection image, Product recommendations asíncronas y JSON-LD Schema.org.
-- 56 archivos en Shopify Theme Check con 0 ofensas. Sintaxis JS validada.
-- Se autoriza formalmente la auditoría transversal de Claude (`CLAUDE-AUDIT-001`).
+---
 
-## Tareas de Gemini
+## Estado Actual de las Fases
 
-- Liderazgo y orquestación activa de Phase 4.
-- Dictamen `GEMINI-013` emitido y sincronizado.
-- Coordinar la auditoría UX/editorial con Claude (`CLAUDE-AUDIT-001`).
+- **Fase activa:** Phase 4 (QA, Presets, Endurecimiento y Preparación para Theme Store).
+- **Hito de coordinación:** Reset formal ejecutado mediante directiva `GEMINI-4B-001`.
+- **Autoridad y Dirección:** Johandry (dueño del proyecto, autoridad final).
+- **Cerebro y Arquitectura:** Gemini Flash 3.8 High.
+- **Auditoría UX y Cumplimiento:** Claude (Opus 5).
+- **Implementador Técnico:** GPT-5.6 Sol Max.
 
-## Tareas de Claude
+---
 
-- Ejecutar `CLAUDE-AUDIT-001` (Auditoría UX, detección de trampas de rechazo Theme Store, revisión de schemas y micro-copy editorial) en modo READ-ONLY.
-- Entregar reporte en `agent-comms/outbox-claude/CLAUDE-AUDIT-001-review.md`.
+## Tareas Activas por Agente
 
-## Tareas de GPT/Codex
+### Tareas de Gemini (Cerebro)
+- Mantener y sincronizar el ledger vivo [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md) en cada entrega.
+- Aplicar la nueva Definition of Done de 5 compuertas a todas las revisiones.
+- Convertir las recomendaciones de Claude y Johandry en directivas técnicas cerradas para GPT.
+- Auditar y validar los pases de estado degenerado y consistencia entre archivos.
 
-- En pausa mientras Claude audita el proyecto completo y Gemini define el plan de la Fase 4 (Presets de estilo en `settings_data.json` y ajustes finos).
+### Tareas de GPT/Codex (Implementador)
+- Ejecutar sprint cerrado para cerrar los 5 P0 ausentes y los parciales críticos (Búsqueda predictiva, localización país/idioma, newsletter en storefront, Open Graph/Twitter, y corrección de filtros de precio).
+- Cumplir estrictamente con la Definition of Done antes de reportar entrega.
 
-## Reglas vigentes
+### Tareas de Claude (Auditor Senior UX y Editorial)
+- Auditoría UX y de conversión en tienda real de desarrollo una vez montada.
+- Asesorar a Johandry en la definición estética y de copy de las 3 demo stores para los presets (*Couture*, *Studio*, *Archive*).
+- Revisar micro-copy refinado y consistencia editorial en `locales/en.default.json`.
 
-- Leer `AGENTS.md`, `agent-comms/GEMINI-LEAD-HANDOFF.md`, `agent-comms/protocol.md` y `agent-comms/token-efficiency-rules.md`.
-- No iniciar tareas no autorizadas por Gemini.
-- Modo READ-ONLY para Claude.
+---
+
+## Reglas Vigentes
+- No emitir directivas de implementación sin especificar qué filas del ledger se cierran y con qué evidencia.
+- Cero complacencia con falsos verdes: Theme Check 0 no sustituye al ledger.

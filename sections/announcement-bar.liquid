@@ -83,7 +83,7 @@
 
 {% schema %}
 {
-  "name": "Announcement bar",
+  "name": "t:sections.announcement_bar.name",
   "enabled_on": {
     "groups": ["header"]
   },
@@ -91,13 +91,13 @@
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.color_scheme.label",
       "default": "scheme-2"
     },
     {
       "type": "checkbox",
       "id": "auto_rotate",
-      "label": "Auto-rotate announcements",
+      "label": "t:sections.announcement_bar.settings.auto_rotate.label",
       "default": true
     },
     {
@@ -107,25 +107,25 @@
       "max": 10,
       "step": 1,
       "unit": "s",
-      "label": "Change announcement every",
+      "label": "t:sections.announcement_bar.settings.change_slides_speed.label",
       "default": 5
     }
   ],
   "blocks": [
     {
       "type": "announcement",
-      "name": "Announcement",
+      "name": "t:sections.announcement_bar.blocks.announcement.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.all.text.label",
           "default": "Complimentary shipping on orders over $150"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.all.link.label"
         }
       ]
     }
@@ -133,7 +133,7 @@
   "max_blocks": 5,
   "presets": [
     {
-      "name": "Announcement bar",
+      "name": "t:sections.announcement_bar.presets.name",
       "blocks": [
         {
           "type": "announcement"

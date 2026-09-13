@@ -1,0 +1,104 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign newsletter_form_id = 'NewsletterForm-' | append: section.id
+  assign newsletter_input_id = 'NewsletterEmail-' | append: section.id
+-%}
+
+<section class="section newsletter-section color-{{ section_scheme }}" aria-labelledby="NewsletterHeading-{{ section.id }}">
+  <div class="container newsletter-section__inner">
+    <div class="newsletter-section__copy flow">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 id="NewsletterHeading-{{ section.id }}" class="newsletter-section__heading">
+        {%- if section.settings.heading != blank -%}
+          {{- section.settings.heading | escape -}}
+        {%- else -%}
+          {{- 'newsletter.heading' | t -}}
+        {%- endif -%}
+      </h2>
+      {%- if section.settings.text != blank -%}
+        <div class="newsletter-section__text rte">{{ section.settings.text }}</div>
+      {%- else -%}
+        <p class="newsletter-section__text">{{ 'newsletter.copy' | t }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- form 'customer', id: newsletter_form_id, class: 'newsletter-form newsletter-section__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="newsletter-form__field">
+        <label class="visually-hidden" for="{{ newsletter_input_id }}">
+          {{- 'newsletter.email_label' | t -}}
+        </label>
+        <input
+          id="{{ newsletter_input_id }}"
+          type="email"
+          name="contact[email]"
+          value="{{ form.email | escape }}"
+          autocomplete="email"
+          autocapitalize="off"
+          autocorrect="off"
+          placeholder="{{ 'newsletter.email_placeholder' | t | escape }}"
+          aria-required="true"
+          {% if form.errors %}aria-invalid="true" aria-describedby="NewsletterError-{{ section.id }}"{% endif %}
+          required
+        >
+        <button class="button newsletter-form__submit" type="submit">
+          {{- 'newsletter.submit' | t -}}
+        </button>
+      </div>
+
+      {%- if form.posted_successfully? -%}
+        <p class="form-message form-message--success" role="status">
+          {{- 'newsletter.success' | t -}}
+        </p>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <div id="NewsletterError-{{ section.id }}" class="form-message form-message--error" role="alert">
+          <p>{{ 'newsletter.error_heading' | t }}</p>
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "section-newsletter",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Private correspondence"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Notes from the atelier"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>New objects, material studies and private previews, sent with restraint.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}
