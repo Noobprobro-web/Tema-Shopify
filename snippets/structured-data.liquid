@@ -1,0 +1,61 @@
+{%- comment -%}
+  Outputs global Organization data and native Shopify structured data for
+  products. Product data stays aligned with Shopify's current variant schema.
+{%- endcomment -%}
+
+{%- liquid
+  assign organization_id = shop.url | append: '#organization'
+  assign organization_logo_url = blank
+  if settings.logo != blank
+    assign organization_logo_url = settings.logo | image_url: width: 600 | prepend: 'https:'
+  endif
+-%}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": {{ organization_id | json }},
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | json }}{% if organization_logo_url != blank %},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ organization_logo_url | json }},
+      "width": {{ settings.logo.width | json }},
+      "height": {{ settings.logo.height | json }}
+    }{% endif %}
+  }
+</script>
+
+{%- if request.page_type == 'product' -%}
+  <script type="application/ld+json">
+    {{- product | structured_data -}}
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ 'general.navigation.home' | t | json }},
+          "item": {{ shop.url | json }}
+        }{% if collection != blank %},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ collection.title | json }},
+          "item": {{ collection.url | prepend: shop.url | json }}
+        }{% endif %},
+        {
+          "@type": "ListItem",
+          "position": {% if collection != blank %}3{% else %}2{% endif %},
+          "name": {{ product.title | json }},
+          "item": {{ canonical_url | json }}
+        }
+      ]
+    }
+  </script>
+{%- endif -%}

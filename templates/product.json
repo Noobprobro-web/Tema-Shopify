@@ -45,9 +45,23 @@
       ],
       "settings": {
         "color_scheme": "scheme-1",
-        "media_layout": "grid"
+        "media_layout": "grid",
+        "enable_sticky_cart": true
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "intent": "related",
+        "eyebrow": "Continue the study",
+        "products_to_show": 4,
+        "columns_desktop": "4",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_quick_add": true
       }
     }
   },
-  "order": ["main"]
+  "order": ["main", "recommendations"]
 }

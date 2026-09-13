@@ -4,6 +4,8 @@
   assign sort_by = collection.sort_by | default: collection.default_sort_by
   assign active_filter_count = 0
   assign default_grid_columns = section.settings.default_grid_columns | default: '4'
+  assign collection_banner_image = collection.featured_image
+  assign collection_image_alt = collection_banner_image.alt | default: collection.title
 
   for filter in collection.filters
     assign active_filter_count = active_filter_count | plus: filter.active_values.size
@@ -28,6 +30,19 @@
           <div class="collection-main__description rte">{{ collection.description }}</div>
         {%- endif -%}
       </header>
+
+      {%- if section.settings.show_collection_image and collection.image != blank -%}
+        <figure class="collection-main__banner">
+          {% render 'responsive-image',
+            image: collection_banner_image,
+            sizes: '(min-width: 62rem) min(100vw - 4rem, 1400px), 100vw',
+            widths: '390, 550, 750, 960, 1200, 1600, 2000, 2400',
+            image_class: 'collection-main__banner-image',
+            alt: collection_image_alt,
+            prioritize: true
+          %}
+        </figure>
+      {%- endif -%}
 
       <div class="collection-main__body">
         <form class="facets" action="{{ collection.url }}" method="get" data-facet-form>
@@ -323,6 +338,12 @@
       "step": 4,
       "label": "Products per page",
       "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "label": "Show collection image",
+      "default": true
     },
     {
       "type": "select",

@@ -1,0 +1,148 @@
+{%- comment -%}
+  Renders Shopify's native gift card recipient properties inside a product form.
+
+  Accepts:
+  - form: product form object
+  - section: parent section object
+{%- endcomment -%}
+
+{%- liquid
+  assign recipient_enabled = false
+  if form.email != blank or form.name != blank or form.message != blank or form.send_on != blank or form.errors
+    assign recipient_enabled = true
+  endif
+
+  assign recipient_id = 'GiftCardRecipient-' | append: section.id
+  assign send_on_min = 'now' | date: '%Y-%m-%d'
+  assign send_on_max_timestamp = 'now' | date: '%s' | plus: 7776000
+  assign send_on_max = send_on_max_timestamp | date: '%Y-%m-%d'
+-%}
+
+<gift-card-recipient
+  class="gift-card-recipient"
+  data-enabled-status="{{ 'products.product.recipient.expanded' | t | escape }}"
+  data-disabled-status="{{ 'products.product.recipient.collapsed' | t | escape }}"
+  data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape }}"
+  {% if recipient_enabled %}data-enabled{% endif %}
+>
+  <label class="form-checkbox gift-card-recipient__toggle" for="{{ recipient_id }}-Toggle">
+    <input
+      id="{{ recipient_id }}-Toggle"
+      type="checkbox"
+      name="properties[__shopify_send_gift_card_to_recipient]"
+      value="true"
+      aria-controls="{{ recipient_id }}-Fields"
+      aria-expanded="{% if recipient_enabled %}true{% else %}false{% endif %}"
+      data-recipient-toggle
+      {% if recipient_enabled %}checked{% endif %}
+    >
+    <span>{{ 'products.product.recipient.checkbox' | t }}</span>
+  </label>
+
+  <div id="{{ recipient_id }}-Fields" class="gift-card-recipient__fields flow" data-recipient-fields>
+    {%- if form.errors -%}
+      <div class="form-message form-message--error" role="alert" data-recipient-errors>
+        <p>{{ 'products.product.recipient.error_heading' | t }}</p>
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+
+    <div class="form-field">
+      <label for="{{ recipient_id }}-Email">
+        <span class="js-only">{{ 'products.product.recipient.email' | t }}</span>
+        <span class="no-js-only">{{ 'products.product.recipient.email_optional' | t }}</span>
+      </label>
+      <input
+        id="{{ recipient_id }}-Email"
+        type="email"
+        name="properties[Recipient email]"
+        value="{{ form.email | escape }}"
+        autocomplete="email"
+        autocapitalize="off"
+        spellcheck="false"
+        maxlength="255"
+        aria-invalid="{% if form.errors contains 'email' %}true{% else %}false{% endif %}"
+        {% if form.errors contains 'email' %}aria-describedby="{{ recipient_id }}-EmailError"{% endif %}
+        data-recipient-field
+        data-recipient-email
+      >
+      {%- if form.errors contains 'email' -%}
+        <p id="{{ recipient_id }}-EmailError" class="form-field__error">
+          {{- form.errors.messages.email | escape -}}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="form-field">
+      <label for="{{ recipient_id }}-Name">{{ 'products.product.recipient.name' | t }}</label>
+      <input
+        id="{{ recipient_id }}-Name"
+        type="text"
+        name="properties[Recipient name]"
+        value="{{ form.name | escape }}"
+        autocomplete="name"
+        maxlength="255"
+        aria-invalid="{% if form.errors contains 'name' %}true{% else %}false{% endif %}"
+        {% if form.errors contains 'name' %}aria-describedby="{{ recipient_id }}-NameError"{% endif %}
+        data-recipient-field
+      >
+      {%- if form.errors contains 'name' -%}
+        <p id="{{ recipient_id }}-NameError" class="form-field__error">
+          {{- form.errors.messages.name | escape -}}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="form-field">
+      <label for="{{ recipient_id }}-Message">{{ 'products.product.recipient.message' | t }}</label>
+      <textarea
+        id="{{ recipient_id }}-Message"
+        name="properties[Message]"
+        maxlength="200"
+        aria-describedby="{{ recipient_id }}-MessageHelp{% if form.errors contains 'message' %} {{ recipient_id }}-MessageError{% endif %}"
+        aria-invalid="{% if form.errors contains 'message' %}true{% else %}false{% endif %}"
+        data-recipient-field
+        data-recipient-message
+      >{{- form.message | escape -}}</textarea>
+      <p id="{{ recipient_id }}-MessageHelp" class="form-field__help" data-recipient-character-count>
+        {{- 'products.product.recipient.characters_remaining' | t: count: 200 -}}
+      </p>
+      {%- if form.errors contains 'message' -%}
+        <p id="{{ recipient_id }}-MessageError" class="form-field__error">
+          {{- form.errors.messages.message | escape -}}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="form-field">
+      <label for="{{ recipient_id }}-SendOn">{{ 'products.product.recipient.send_on' | t }}</label>
+      <input
+        id="{{ recipient_id }}-SendOn"
+        type="date"
+        name="properties[Send on]"
+        value="{{ form.send_on | escape }}"
+        min="{{ send_on_min }}"
+        max="{{ send_on_max }}"
+        pattern="\d{4}-\d{2}-\d{2}"
+        aria-invalid="{% if form.errors contains 'send_on' %}true{% else %}false{% endif %}"
+        {% if form.errors contains 'send_on' %}aria-describedby="{{ recipient_id }}-SendOnError"{% endif %}
+        data-recipient-field
+      >
+      {%- if form.errors contains 'send_on' -%}
+        <p id="{{ recipient_id }}-SendOnError" class="form-field__error">
+          {{- form.errors.messages.send_on | escape -}}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <input
+    type="hidden"
+    name="properties[__shopify_offset]"
+    value=""
+    data-recipient-offset
+    {% unless recipient_enabled %}disabled{% endunless %}
+  >
+
+  <p class="visually-hidden" role="status" aria-live="polite" data-recipient-status></p>
+</gift-card-recipient>

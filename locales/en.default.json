@@ -6,6 +6,7 @@
       "opens_in_new_window": "Opens in a new window"
     },
     "navigation": {
+      "home": "Home",
       "menu": "Menu",
       "primary": "Primary navigation",
       "footer": "Footer navigation",
@@ -314,7 +315,45 @@
       "measurement_units": "Measurement units",
       "centimeters": "CM",
       "inches": "INCHES",
-      "sticky_add_to_cart": "Add {{ product }} to cart"
+      "sticky_add_to_cart": "Add {{ product }} to cart",
+      "purchase_options": {
+        "legend": "Purchase options",
+        "one_time": "One-time purchase",
+        "subscribe": "Subscribe and save",
+        "delivery_schedule": "Delivery schedule",
+        "per_delivery": "{{ price }} per delivery",
+        "unavailable": "This purchase option is unavailable"
+      },
+      "pickup": {
+        "eyebrow": "Local pickup",
+        "available_at_html": "Pickup available at <strong>{{ location_name }}</strong>",
+        "unavailable_at_html": "Pickup currently unavailable at <strong>{{ location_name }}</strong>",
+        "available": "Pickup available",
+        "unavailable": "Pickup currently unavailable",
+        "view_store_info": "View store information",
+        "check_other_stores": "Check availability at other stores",
+        "hours": "Pickup hours",
+        "update_error": "Pickup availability could not be updated."
+      },
+      "recipient": {
+        "checkbox": "I want to send this as a gift",
+        "expanded": "Gift card recipient fields expanded",
+        "collapsed": "Gift card recipient fields collapsed",
+        "error_heading": "Please review the recipient details:",
+        "email": "Recipient email",
+        "email_optional": "Recipient email (optional without JavaScript)",
+        "name": "Recipient name (optional)",
+        "message": "Message (optional)",
+        "characters_remaining": {
+          "one": "{{ count }} character remaining",
+          "other": "{{ count }} characters remaining"
+        },
+        "send_on": "Send on (optional)"
+      }
+    },
+    "recommendations": {
+      "related_heading": "You may also consider",
+      "complementary_heading": "Complete the composition"
     }
   },
   "collections": {

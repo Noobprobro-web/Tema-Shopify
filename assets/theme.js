@@ -211,14 +211,30 @@
       if (this.variantData.length === 0) return;
 
       this.listen(this, 'change', (event) => {
-        if (!event.target.matches('[data-option-position]')) return;
-        this.updateSelectedOptionLabels();
-        this.updateOptionAvailability();
-        this.updateVariant();
+        if (event.target.matches('[data-option-position]')) {
+          this.updateSelectedOptionLabels();
+          this.updateOptionAvailability();
+          this.updateVariant();
+          return;
+        }
+
+        if (event.target.matches('[data-purchase-option]')) {
+          this.updatePurchaseSelection();
+          return;
+        }
+
+        if (event.target.matches('[data-selling-plan-select]')) {
+          this.updatePurchaseSelection();
+        }
       });
 
+      this.currentVariant = this.getInitialVariant();
+      this.cachePurchaseOptionElements();
       this.updateSelectedOptionLabels();
       this.updateOptionAvailability();
+      this.updatePurchaseOptions(this.currentVariant);
+      this.updateForms(this.currentVariant);
+      this.updatePrice(this.currentVariant);
     }
 
     getVariantData() {
@@ -230,6 +246,26 @@
       } catch (error) {
         return [];
       }
+    }
+
+    getInitialVariant() {
+      const variantId = this.querySelector('[data-variant-id]')?.value;
+      return this.variantData.find((variant) => String(variant.id) === String(variantId))
+        || this.variantData[0];
+    }
+
+    cachePurchaseOptionElements() {
+      this.sellingPlans = this.querySelector('[data-selling-plans]');
+      this.sellingPlanInput = this.querySelector('[data-selling-plan-input]');
+      this.sellingPlanSelect = this.querySelector('[data-selling-plan-select]');
+      this.sellingPlanDetails = this.querySelector('[data-selling-plan-details]');
+      this.sellingPlanStatus = this.querySelector('[data-selling-plan-status]');
+      this.perDeliveryPrice = this.querySelector('[data-selling-plan-per-delivery]');
+      this.oneTimeInput = this.querySelector('[data-purchase-option="one_time"]');
+      this.subscriptionInput = this.querySelector('[data-purchase-option="subscription"]');
+      this.oneTimePrice = this.querySelector('[data-one-time-price]');
+      this.subscriptionPrice = this.querySelector('[data-subscription-price]');
+      this.currentAllocation = null;
     }
 
     getSelectedOptions() {
@@ -273,6 +309,8 @@
           candidate.options.every((option, index) => option === selectedOptions[index]),
       );
 
+      this.currentVariant = variant;
+      this.updatePurchaseOptions(variant);
       this.updateForms(variant);
       this.updatePrice(variant);
       this.updateQuantityRules(variant);
@@ -285,15 +323,145 @@
           detail: { variant },
         }),
       );
+      this.dispatchPurchaseOptionChange();
+    }
+
+    updatePurchaseSelection() {
+      this.updatePurchaseOptions(this.currentVariant);
+      this.updateForms(this.currentVariant);
+      this.updatePrice(this.currentVariant);
+      this.updateStatus(this.currentVariant);
+      this.updateUrl(this.currentVariant);
+      this.dispatchPurchaseOptionChange();
+    }
+
+    updatePurchaseOptions(variant) {
+      if (!this.sellingPlans) {
+        this.currentAllocation = null;
+        return;
+      }
+
+      const allocations = variant?.selling_plan_allocations || [];
+      const allocationIds = new Set(allocations.map((allocation) => String(allocation.id)));
+
+      this.sellingPlanSelect?.querySelectorAll('[data-selling-plan-option]').forEach((option) => {
+        const available = allocationIds.has(String(option.value));
+        option.disabled = !available;
+        option.hidden = !available;
+      });
+      this.sellingPlanSelect?.querySelectorAll('[data-selling-plan-group]').forEach((group) => {
+        group.hidden = !Array.from(group.querySelectorAll('[data-selling-plan-option]')).some(
+          (option) => !option.disabled,
+        );
+      });
+
+      const requestedPlanId = this.sellingPlanSelect?.value || this.sellingPlanInput?.value;
+      const selectedAllocation = allocations.find(
+        (allocation) => String(allocation.id) === String(requestedPlanId),
+      ) || allocations[0] || null;
+      const oneTimeAvailable = Boolean(variant?.available && !variant.requires_selling_plan);
+      const subscriptionAvailable = Boolean(variant?.available && selectedAllocation);
+
+      if (this.oneTimeInput) this.oneTimeInput.disabled = !oneTimeAvailable;
+      if (this.subscriptionInput) this.subscriptionInput.disabled = !subscriptionAvailable;
+
+      let purchaseMode = this.getPurchaseMode();
+      if (variant?.requires_selling_plan && subscriptionAvailable) {
+        purchaseMode = 'subscription';
+      } else if (purchaseMode === 'subscription' && !subscriptionAvailable) {
+        purchaseMode = oneTimeAvailable ? 'one_time' : null;
+      } else if (purchaseMode === 'one_time' && !oneTimeAvailable) {
+        purchaseMode = subscriptionAvailable ? 'subscription' : null;
+      } else if (!purchaseMode) {
+        purchaseMode = oneTimeAvailable ? 'one_time' : (subscriptionAvailable ? 'subscription' : null);
+      }
+
+      if (this.oneTimeInput) this.oneTimeInput.checked = purchaseMode === 'one_time';
+      if (this.subscriptionInput) this.subscriptionInput.checked = purchaseMode === 'subscription';
+      if (this.sellingPlanSelect && selectedAllocation) {
+        this.sellingPlanSelect.value = String(selectedAllocation.id);
+      }
+
+      const subscriptionSelected = purchaseMode === 'subscription' && selectedAllocation;
+      this.currentAllocation = subscriptionSelected ? selectedAllocation : null;
+
+      if (this.sellingPlanDetails) this.sellingPlanDetails.hidden = !subscriptionSelected;
+      if (this.sellingPlanSelect) this.sellingPlanSelect.disabled = !subscriptionSelected;
+      if (this.sellingPlanInput) {
+        const previousPlanId = this.sellingPlanInput.value;
+        const wasDisabled = this.sellingPlanInput.disabled;
+        this.sellingPlanInput.value = subscriptionSelected ? selectedAllocation.id : '';
+        this.sellingPlanInput.disabled = !subscriptionSelected;
+        if (
+          previousPlanId !== String(this.sellingPlanInput.value)
+          || wasDisabled !== this.sellingPlanInput.disabled
+        ) {
+          this.sellingPlanInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+      if (this.oneTimePrice) this.oneTimePrice.textContent = variant?.price || '';
+      if (this.subscriptionPrice) {
+        this.subscriptionPrice.textContent = selectedAllocation?.price
+          || this.dataset.sellingPlanUnavailableText;
+      }
+      if (this.sellingPlanStatus) {
+        if (subscriptionSelected) {
+          this.sellingPlanStatus.textContent = `${selectedAllocation.name}: ${selectedAllocation.price}`;
+        } else if (oneTimeAvailable) {
+          this.sellingPlanStatus.textContent = `${this.dataset.oneTimeText}: ${variant.price}`;
+        } else {
+          this.sellingPlanStatus.textContent = this.dataset.sellingPlanUnavailableText;
+        }
+      }
+      if (this.perDeliveryPrice) {
+        const showPerDelivery = Boolean(
+          subscriptionSelected
+          && selectedAllocation.per_delivery_price
+          && selectedAllocation.per_delivery_price !== selectedAllocation.price,
+        );
+        this.perDeliveryPrice.hidden = !showPerDelivery;
+        this.perDeliveryPrice.textContent = showPerDelivery
+          ? this.dataset.perDeliveryTemplate.replace('[price]', selectedAllocation.per_delivery_price)
+          : '';
+      }
+    }
+
+    getPurchaseMode() {
+      return this.querySelector('[data-purchase-option]:checked')?.dataset.purchaseOption || null;
+    }
+
+    isPurchaseOptionValid(variant) {
+      if (!variant?.available) return false;
+      if (!this.sellingPlans) return true;
+      if (this.getPurchaseMode() === 'subscription') return Boolean(this.currentAllocation);
+      return !variant.requires_selling_plan;
+    }
+
+    dispatchPurchaseOptionChange() {
+      const variant = this.currentVariant;
+      this.dispatchEvent(
+        new CustomEvent('theme:purchase-option-change', {
+          bubbles: true,
+          detail: {
+            variant,
+            allocation: this.currentAllocation,
+            price: this.currentAllocation?.price || variant?.price || '',
+          },
+        }),
+      );
     }
 
     updateForms(variant) {
       this.querySelectorAll('[data-variant-id]').forEach((input) => {
-        input.value = variant?.id || '';
+        const nextValue = variant?.id || '';
+        const valueChanged = String(input.value) !== String(nextValue);
+        input.value = nextValue;
+        if (valueChanged) input.dispatchEvent(new Event('change', { bubbles: true }));
       });
 
+      const purchaseOptionValid = this.isPurchaseOptionValid(variant);
       this.querySelectorAll('[data-add-to-cart]').forEach((button) => {
-        button.disabled = !variant?.available;
+        button.disabled = !purchaseOptionValid;
         const label = button.querySelector('[data-add-to-cart-text]');
         if (!label) return;
 
@@ -301,41 +469,44 @@
           label.textContent = this.dataset.unavailableText;
         } else if (!variant.available) {
           label.textContent = this.dataset.soldOutText;
+        } else if (!purchaseOptionValid) {
+          label.textContent = this.dataset.sellingPlanUnavailableText;
         } else {
           label.textContent = this.dataset.addToCartText;
         }
       });
 
       this.querySelectorAll('.product-form__dynamic-checkout').forEach((container) => {
-        container.hidden = !variant?.available;
+        container.hidden = !purchaseOptionValid;
       });
     }
 
     updatePrice(variant) {
+      const priceSource = this.currentAllocation || variant;
       const currentPrice = this.querySelector('[data-current-price]');
       const comparePrice = this.querySelector('[data-compare-price]');
       const saleBadge = this.querySelector('[data-sale-badge]');
       const soldOutBadge = this.querySelector('[data-sold-out-badge]');
       const unitPrice = this.querySelector('[data-unit-price]');
 
-      if (currentPrice && variant) currentPrice.textContent = variant.price;
+      if (currentPrice && priceSource) currentPrice.textContent = priceSource.price;
 
       if (comparePrice) {
-        comparePrice.hidden = !variant?.compare_at_price;
-        comparePrice.textContent = variant?.compare_at_price || '';
+        comparePrice.hidden = !priceSource?.compare_at_price;
+        comparePrice.textContent = priceSource?.compare_at_price || '';
       }
 
-      if (saleBadge) saleBadge.hidden = !variant?.compare_at_price;
+      if (saleBadge) saleBadge.hidden = !priceSource?.compare_at_price;
       if (soldOutBadge) soldOutBadge.hidden = Boolean(variant?.available);
 
       if (unitPrice) {
-        const hasUnitPrice = Boolean(variant?.unit_price);
+        const hasUnitPrice = Boolean(priceSource?.unit_price);
         unitPrice.hidden = !hasUnitPrice;
 
         if (hasUnitPrice) {
           const value = unitPrice.querySelector('[data-unit-price-value]');
           const reference = unitPrice.querySelector('[data-unit-price-reference]');
-          if (value) value.textContent = variant.unit_price;
+          if (value) value.textContent = priceSource.unit_price;
           if (reference) {
             const referenceValue = variant.unit_reference_value === 1 ? '' : variant.unit_reference_value;
             reference.textContent = `${referenceValue || ''}${variant.unit_reference_unit || ''}`;
@@ -373,6 +544,8 @@
 
       if (!variant) {
         status.textContent = this.dataset.unavailableText;
+      } else if (!this.isPurchaseOptionValid(variant)) {
+        status.textContent = this.dataset.sellingPlanUnavailableText;
       } else {
         const availability = variant.available
           ? this.dataset.availableStatus
@@ -384,8 +557,13 @@
     updateUrl(variant) {
       if (!variant || !this.dataset.productUrl) return;
 
-      const url = new URL(this.dataset.productUrl, window.location.origin);
+      const url = new URL(this.dataset.productUrl, document.baseURI);
       url.searchParams.set('variant', variant.id);
+      if (this.currentAllocation) {
+        url.searchParams.set('selling_plan', this.currentAllocation.id);
+      } else {
+        url.searchParams.delete('selling_plan');
+      }
       window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
     }
   }
@@ -412,6 +590,10 @@
       if (this.variantSelects) {
         this.listen(this.variantSelects, 'theme:variant-change', (event) => {
           this.updateVariant(event.detail?.variant);
+        });
+        this.listen(this.variantSelects, 'theme:purchase-option-change', (event) => {
+          if (this.priceOutput) this.priceOutput.textContent = event.detail?.price || '';
+          this.syncButtonState();
         });
       }
 
@@ -612,6 +794,294 @@
         if (!wasInert) element.removeAttribute('inert');
       });
       this.managedInertElements = [];
+    }
+  }
+
+  class GiftCardRecipient extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.toggle = this.querySelector('[data-recipient-toggle]');
+      this.fields = this.querySelector('[data-recipient-fields]');
+      this.email = this.querySelector('[data-recipient-email]');
+      this.message = this.querySelector('[data-recipient-message]');
+      this.characterCount = this.querySelector('[data-recipient-character-count]');
+      this.timezoneOffset = this.querySelector('[data-recipient-offset]');
+      this.status = this.querySelector('[data-recipient-status]');
+
+      if (!this.toggle || !this.fields) return;
+
+      this.listen(this.toggle, 'change', () => this.syncState(true));
+      if (this.message) this.listen(this.message, 'input', () => this.updateCharacterCount());
+      this.syncState(false);
+      this.updateCharacterCount();
+    }
+
+    syncState(announce) {
+      const enabled = this.toggle.checked;
+      this.toggle.setAttribute('aria-expanded', String(enabled));
+      this.fields.hidden = !enabled;
+      this.toggleAttribute('data-enabled', enabled);
+
+      this.querySelectorAll('[data-recipient-field]').forEach((field) => {
+        field.disabled = !enabled;
+      });
+      if (this.email) {
+        this.email.required = enabled;
+        this.email.setAttribute('aria-required', String(enabled));
+      }
+      if (this.timezoneOffset) {
+        this.timezoneOffset.disabled = !enabled;
+        this.timezoneOffset.value = enabled ? String(new Date().getTimezoneOffset()) : '';
+      }
+      if (announce && this.status) {
+        this.status.textContent = enabled
+          ? this.dataset.enabledStatus
+          : this.dataset.disabledStatus;
+      }
+    }
+
+    updateCharacterCount() {
+      if (!this.message || !this.characterCount) return;
+      const remaining = Math.max(0, Number(this.message.maxLength) - this.message.value.length);
+      this.characterCount.textContent = this.dataset.charactersTemplate.replace('[count]', remaining);
+    }
+  }
+
+  class PickupAvailability extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.requestController = null;
+      this.managedInertElements = [];
+      this.releaseFocusTrap = null;
+      this.returnFocusTarget = null;
+      this.refreshElements();
+      this.setClosedState();
+
+      this.listen(this, 'click', (event) => this.handleClick(event));
+      this.listen(document, 'keydown', (event) => {
+        if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
+        event.preventDefault();
+        this.close(true);
+      });
+
+      const variantSelects = this.closest('variant-selects');
+      if (variantSelects) {
+        this.listen(variantSelects, 'theme:variant-change', (event) => {
+          this.updateForVariant(event.detail?.variant);
+        });
+      }
+    }
+
+    disconnectedCallback() {
+      this.requestController?.abort();
+      this.close(false);
+      super.disconnectedCallback();
+    }
+
+    get isOpen() {
+      return this.hasAttribute('data-open');
+    }
+
+    refreshElements() {
+      this.trigger = this.querySelector('[data-pickup-open]');
+      this.overlay = this.querySelector('[data-pickup-overlay]');
+      this.panel = this.querySelector('[data-pickup-panel]');
+      this.closeButton = this.querySelector('[data-pickup-close]');
+    }
+
+    handleClick(event) {
+      const openButton = event.target.closest('[data-pickup-open]');
+      if (openButton) {
+        this.open(openButton);
+        return;
+      }
+
+      const closeButton = event.target.closest('[data-pickup-close]');
+      if (closeButton) {
+        this.close(true);
+        return;
+      }
+
+      if (event.target === this.overlay) this.close(true);
+    }
+
+    setClosedState() {
+      if (!this.overlay || !this.panel) return;
+      this.overlay.hidden = true;
+      this.panel.inert = true;
+      this.panel.setAttribute('aria-modal', 'false');
+      this.panel.setAttribute('aria-hidden', 'true');
+      this.trigger?.setAttribute('aria-expanded', 'false');
+      this.removeAttribute('data-open');
+    }
+
+    open(trigger) {
+      if (!this.overlay || !this.panel || this.isOpen) return;
+
+      this.returnFocusTarget = trigger || document.activeElement;
+      this.overlay.hidden = false;
+      this.panel.inert = false;
+      this.panel.setAttribute('aria-modal', 'true');
+      this.panel.setAttribute('aria-hidden', 'false');
+      this.trigger?.setAttribute('aria-expanded', 'true');
+      this.setAttribute('data-open', '');
+      document.body.setAttribute('data-modal-open', '');
+      this.applyBackgroundInert();
+      this.releaseFocusTrap = trapFocus(this.panel, this.closeButton || this.panel);
+    }
+
+    close(restoreFocus = false) {
+      if (!this.overlay || !this.panel) return;
+
+      this.releaseFocusTrap?.();
+      this.releaseFocusTrap = null;
+      this.setClosedState();
+      document.body.removeAttribute('data-modal-open');
+      this.restoreBackgroundInert();
+
+      if (restoreFocus && this.returnFocusTarget?.isConnected) {
+        this.returnFocusTarget.focus();
+      }
+    }
+
+    async updateForVariant(variant) {
+      this.close(false);
+      this.requestController?.abort();
+
+      if (!variant?.id || !this.dataset.productUrl || !this.dataset.sectionId) {
+        this.hidden = true;
+        return;
+      }
+
+      const requestController = new AbortController();
+      this.requestController = requestController;
+      this.setAttribute('aria-busy', 'true');
+
+      try {
+        const url = new URL(this.dataset.productUrl, document.baseURI);
+        url.searchParams.set('variant', variant.id);
+        url.searchParams.set('section_id', this.dataset.sectionId);
+        const response = await fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          signal: requestController.signal,
+        });
+        if (!response.ok) throw new Error(this.dataset.updateError);
+
+        const sectionHtml = await response.text();
+        const documentFragment = new DOMParser().parseFromString(sectionHtml, 'text/html');
+        const nextPickup = documentFragment.querySelector('pickup-availability');
+        if (!nextPickup) throw new Error(this.dataset.updateError);
+
+        this.innerHTML = nextPickup.innerHTML;
+        this.dataset.variantId = String(variant.id);
+        this.hidden = nextPickup.hidden || !this.querySelector('[data-pickup-content]');
+        this.refreshElements();
+        this.setClosedState();
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+        this.hidden = true;
+      } finally {
+        if (this.requestController === requestController) {
+          this.requestController = null;
+          this.setAttribute('aria-busy', 'false');
+        }
+      }
+    }
+
+    applyBackgroundInert() {
+      this.restoreBackgroundInert();
+      let currentElement = this.overlay;
+
+      while (currentElement?.parentElement) {
+        const parentElement = currentElement.parentElement;
+
+        Array.from(parentElement.children).forEach((sibling) => {
+          if (sibling === currentElement || sibling.contains(this)) return;
+          this.managedInertElements.push({
+            element: sibling,
+            wasInert: sibling.hasAttribute('inert'),
+          });
+          sibling.setAttribute('inert', '');
+        });
+
+        if (parentElement === document.body) break;
+        currentElement = parentElement;
+      }
+    }
+
+    restoreBackgroundInert() {
+      this.managedInertElements.forEach(({ element, wasInert }) => {
+        if (!wasInert) element.removeAttribute('inert');
+      });
+      this.managedInertElements = [];
+    }
+  }
+
+  class ProductRecommendations extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.requestController = null;
+      this.hasLoaded = Boolean(this.querySelector('[data-recommendations-content]'));
+
+      if (this.hasLoaded || !this.dataset.url) {
+        this.setAttribute('aria-busy', 'false');
+        return;
+      }
+
+      if ('IntersectionObserver' in window) {
+        this.intersectionObserver = new IntersectionObserver(
+          ([entry]) => {
+            if (!entry.isIntersecting) return;
+            this.intersectionObserver.disconnect();
+            this.load();
+          },
+          { rootMargin: '0px 0px 300px 0px' },
+        );
+        this.intersectionObserver.observe(this);
+      } else {
+        this.load();
+      }
+    }
+
+    disconnectedCallback() {
+      this.intersectionObserver?.disconnect();
+      this.requestController?.abort();
+      super.disconnectedCallback();
+    }
+
+    async load() {
+      if (this.hasLoaded) return;
+      this.requestController?.abort();
+      this.requestController = new AbortController();
+      this.setAttribute('aria-busy', 'true');
+
+      try {
+        const response = await fetch(this.dataset.url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          signal: this.requestController.signal,
+        });
+        if (!response.ok) throw new Error(String(response.status));
+
+        const sectionHtml = await response.text();
+        const documentFragment = new DOMParser().parseFromString(sectionHtml, 'text/html');
+        const nextRecommendations = documentFragment.querySelector('product-recommendations');
+        const nextContent = nextRecommendations?.querySelector('[data-recommendations-content]');
+
+        if (!nextContent) {
+          this.hidden = true;
+          this.hasLoaded = true;
+          return;
+        }
+
+        this.innerHTML = nextRecommendations.innerHTML;
+        this.hidden = false;
+        this.hasLoaded = true;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+        this.hidden = true;
+      } finally {
+        this.setAttribute('aria-busy', 'false');
+      }
     }
   }
 
@@ -1884,6 +2354,18 @@
 
   if (!customElements.get('size-guide-modal')) {
     customElements.define('size-guide-modal', SizeGuideModal);
+  }
+
+  if (!customElements.get('gift-card-recipient')) {
+    customElements.define('gift-card-recipient', GiftCardRecipient);
+  }
+
+  if (!customElements.get('pickup-availability')) {
+    customElements.define('pickup-availability', PickupAvailability);
+  }
+
+  if (!customElements.get('product-recommendations')) {
+    customElements.define('product-recommendations', ProductRecommendations);
   }
 
   if (!customElements.get('cart-drawer')) {

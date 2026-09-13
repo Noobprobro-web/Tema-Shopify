@@ -58,24 +58,27 @@ Fuera de alcance: `sticky-cart-bar`, presets funcionalmente distintos y refinami
 
 ## Phase 3: MVP Build
 
-Status: pending
+Status: done
 
-- Homepage editorial.
-- Secciones de coleccion y producto refinadas.
-- Presets funcionales.
-- Lookbook y diferenciadores previstos despues de estabilizar la base commerce.
+- Phase 3A: Figma System Hardening (10 component sets, 52 variantes, tokens W3C).
+- Phase 3B.1: Core Conversion Components (Sticky cart bar, Size guide modal, Rewards tier, Announcement bar).
+- Phase 3B.2: Homepage Editorial (Hero editorial, Curated showcase, Brand manifesto, Bento discovery, Marquee banner).
+- Phase 3B.3 & HOTFIX: Merchandising (Lookbook interactivo, Complete the look / Capsule bundle, Grid density switcher, high-variants defense).
+- Phase 3B.4: Content & System Templates (8 plantillas completas sin placeholders: page, contact, blog, article, search, 404, password, list-collections).
+- Phase 3B.5: Commercial Compliance (Selling plans en PDP, Shop Pay Installments, Pickup availability reactivo, Swatches nativos, Gift Card recipient, Collection image, Product recommendations asíncronas y JSON-LD Schema.org).
 
-Owner: Gemini define prioridades; GPT implementa; Claude puede revisar UX/copy.
+Owner: Gemini lideró y auditó; GPT-5.6 Sol Max implementó con 56 archivos y 0 ofensas.
 
-## Phase 4: QA and Submission Prep
+## Phase 4: QA, Presets and Submission Prep
 
-Status: pending
+Status: in progress
 
-- Theme Check limpio.
-- Lighthouse y performance movil.
-- Auditoria de accesibilidad.
-- Documentacion merchant-facing.
-- Smoke test en tienda Shopify conectada.
-- Paquete de submission.
+- Auditoría profunda de UX, Schemas y Theme Store traps con Claude (Opus 5 / Sonnet 5).
+- Presets de estilo de marca en `config/settings_data.json` (Couture, Studio, Archive).
+- Theme Check limpio (actualmente 56 archivos, 0 ofensas).
+- Smoke test en tienda Shopify conectada y Theme Editor en vivo.
+- Auditoría Lighthouse móvil (CWV) y accesibilidad WCAG 2.2 AA.
+- Documentación merchant-facing y assets para Shopify Theme Store.
+- Paquete de submission (`shopify theme package`).
 
-Owner: Gemini coordina la auditoria; GPT resuelve hallazgos tecnicos; Claude revisa la capa editorial cuando aporte valor.
+Owner: Gemini coordina; Claude audita UX/editorial/riesgos; GPT asume ajustes técnicos si surgen.
