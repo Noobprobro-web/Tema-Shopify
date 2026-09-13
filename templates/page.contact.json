@@ -1,7 +1,71 @@
 {
   "sections": {
     "main": {
-      "type": "main-placeholder",
+      "type": "main-contact",
+      "blocks": {
+        "faq_shipping": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Shipping and provenance",
+            "answer": "<p>Available pieces leave the atelier within three business days. Made-to-order work includes a dispatch estimate.</p>",
+            "open_by_default": true
+          }
+        },
+        "faq_care": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Care and longevity",
+            "answer": "<p>Care instructions accompany each edition. Contact the atelier for repair and material-specific guidance.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_returns": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Returns and exchanges",
+            "answer": "<p>Contact the concierge with your order number to begin a return or exchange.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_bespoke": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Private appointments",
+            "answer": "<p>Showroom and remote appointments are available by request.</p>",
+            "open_by_default": false
+          }
+        },
+        "service_appointments": {
+          "type": "service_detail",
+          "settings": {
+            "title": "Showroom appointments",
+            "detail": "Tuesday through Friday"
+          }
+        },
+        "service_orders": {
+          "type": "service_detail",
+          "settings": {
+            "title": "Order concierge",
+            "detail": "Personal assistance"
+          }
+        },
+        "service_trade": {
+          "type": "service_detail",
+          "settings": {
+            "title": "Press and trade",
+            "detail": "Studio inquiries"
+          }
+        }
+      },
+      "block_order": [
+        "faq_shipping",
+        "faq_care",
+        "faq_returns",
+        "faq_bespoke",
+        "service_appointments",
+        "service_orders",
+        "service_trade"
+      ],
       "settings": {}
     }
   },

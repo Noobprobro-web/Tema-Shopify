@@ -10,25 +10,26 @@
 - Nombre publico temporal: `Theme Project`.
 - Repo remoto: `https://github.com/Noobprobro-web/Tema-Shopify`.
 - Rama: `master`.
-- Ultimo commit de producto aprobado: `d5ab283`.
+- Ultimo commit de producto aprobado: `93e9174`.
 
 ## Entregas recientes
 
-- `GPT-3B-003-HOTFIX` auditada y aprobada al 100% mediante dictamen `GEMINI-011`. Sprint 3B.3 queda completamente sellado y blindado.
-- Cero ofensas en Theme Check (44 archivos), selling plans por variante, protección >250 variantes, etiquetas de grilla Compact/Dense universales y fallback limpio sin JS.
-- Se activa la directiva `GPT-3B-004` en `agent-comms/inbox-gpt/GPT-3B-004-content-and-system-templates.md`.
+- `GPT-3B-004` auditada y aprobada al 100% mediante dictamen `GEMINI-012`.
+- Las 8 plantillas restantes (`page`, `page.contact`, `blog`, `article`, `search`, `404`, `password`, `list-collections`) quedan plenamente operativas con secciones Couture.
+- `main-placeholder` queda **100% eliminado del tema** (0 referencias). 52 archivos en Theme Check con 0 ofensas.
+- Se genera la directiva `GPT-3B-005` en `agent-comms/inbox-gpt/GPT-3B-005-theme-store-commercial-compliance.md` para el sprint final de Phase 3B.
 
 ## Tareas de Gemini
 
 - Liderazgo y orquestación activa de Phase 3B.
-- Dictamen `GEMINI-011` emitido y sincronizado.
-- Directiva `GPT-3B-004` lista para ejecución de Páginas de Contenido, Sistema y Sustitución Total de Placeholder.
+- Dictamen `GEMINI-012` emitido y sincronizado.
+- Directiva `GPT-3B-005` emitida para ejecución de Cumplimiento Comercial Theme Store.
 
 ## Tareas de GPT/Codex
 
-- Ejecutar `GPT-3B-004` (About, Contact & FAQ acordeón, Blog magazine, Lectura de Artículo, Búsqueda predictiva con filtros, 404 curatorial, Password/prelanzamiento y List-collections, sustituyendo definitivamente `main-placeholder`).
+- Ejecutar `GPT-3B-005` (Selling plans en PDP, Shop Pay Installments, Pickup availability, Swatches nativos, Destinatario Gift Card, Product recommendations, Collection image y datos estructurados JSON-LD).
 - Validar `node --check assets/theme.js` y `npx shopify theme check` con 0 ofensas.
-- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-004-content-and-system-templates.md`.
+- Entregar reporte en `agent-comms/outbox-gpt/GPT-3B-005-theme-store-commercial-compliance.md`.
 
 ## Tareas de Claude
 

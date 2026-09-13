@@ -1706,6 +1706,147 @@
     }
   }
 
+  class FaqAccordion extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.items = Array.from(this.querySelectorAll('details'));
+
+      this.items.forEach((item) => {
+        this.syncItem(item);
+        this.listen(item, 'toggle', () => this.handleToggle(item));
+      });
+      this.listen(this, 'shopify:block:select', (event) => {
+        const item = event.target.closest?.('details');
+        if (!item || !this.contains(item)) return;
+        item.open = true;
+        item.querySelector('summary')?.focus();
+      });
+    }
+
+    handleToggle(activeItem) {
+      if (activeItem.open && this.hasAttribute('data-single-open')) {
+        this.items.forEach((item) => {
+          if (item !== activeItem) item.open = false;
+        });
+      }
+      this.items.forEach((item) => this.syncItem(item));
+    }
+
+    syncItem(item) {
+      item.querySelector('summary')?.setAttribute('aria-expanded', String(item.open));
+    }
+  }
+
+  class PasswordModal extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.trigger = this.querySelector('[data-password-open]');
+      this.overlay = this.querySelector('[data-password-overlay]');
+      this.panel = this.querySelector('[data-password-panel]');
+      this.closeButton = this.querySelector('[data-password-close]');
+      this.passwordInput = this.querySelector('input[name="password"]');
+      this.managedInertElements = [];
+      this.releaseFocusTrap = null;
+      this.returnFocusTarget = null;
+
+      if (!this.trigger || !this.overlay || !this.panel || !this.closeButton) return;
+
+      this.setClosedState();
+      this.listen(this.trigger, 'click', () => this.open());
+      this.listen(this.closeButton, 'click', () => this.close(true));
+      this.listen(this.overlay, 'pointerdown', (event) => {
+        if (event.target === this.overlay) this.close(true);
+      });
+      this.listen(document, 'keydown', (event) => {
+        if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
+        event.preventDefault();
+        this.close(true);
+      });
+
+      if (this.querySelector('[data-password-error]')) {
+        requestAnimationFrame(() => this.open(this.passwordInput));
+      }
+    }
+
+    disconnectedCallback() {
+      this.close(false);
+      super.disconnectedCallback();
+    }
+
+    get isOpen() {
+      return this.hasAttribute('data-open');
+    }
+
+    setClosedState() {
+      this.overlay.hidden = true;
+      this.panel.inert = true;
+      this.panel.setAttribute('aria-modal', 'false');
+      this.panel.setAttribute('aria-hidden', 'true');
+      this.trigger.setAttribute('aria-expanded', 'false');
+      this.removeAttribute('data-open');
+    }
+
+    open(initialFocus = null) {
+      if (this.isOpen) return;
+
+      this.returnFocusTarget = document.activeElement;
+      this.overlay.hidden = false;
+      this.panel.inert = false;
+      this.panel.setAttribute('aria-modal', 'true');
+      this.panel.setAttribute('aria-hidden', 'false');
+      this.trigger.setAttribute('aria-expanded', 'true');
+      this.setAttribute('data-open', '');
+      document.body.setAttribute('data-modal-open', '');
+      this.applyBackgroundInert();
+      this.releaseFocusTrap = trapFocus(
+        this.panel,
+        initialFocus || this.passwordInput || this.closeButton,
+      );
+    }
+
+    close(restoreFocus = false) {
+      if (!this.overlay || !this.panel || !this.trigger) return;
+
+      this.releaseFocusTrap?.();
+      this.releaseFocusTrap = null;
+      this.setClosedState();
+      document.body.removeAttribute('data-modal-open');
+      this.restoreBackgroundInert();
+
+      if (restoreFocus && this.returnFocusTarget?.isConnected) {
+        this.returnFocusTarget.focus();
+      }
+    }
+
+    applyBackgroundInert() {
+      this.restoreBackgroundInert();
+      let currentElement = this.overlay;
+
+      while (currentElement.parentElement) {
+        const parentElement = currentElement.parentElement;
+
+        Array.from(parentElement.children).forEach((sibling) => {
+          if (sibling === currentElement || sibling.contains(this)) return;
+          this.managedInertElements.push({
+            element: sibling,
+            wasInert: sibling.hasAttribute('inert'),
+          });
+          sibling.setAttribute('inert', '');
+        });
+
+        if (parentElement === document.body) break;
+        currentElement = parentElement;
+      }
+    }
+
+    restoreBackgroundInert() {
+      this.managedInertElements.forEach(({ element, wasInert }) => {
+        if (!wasInert) element.removeAttribute('inert');
+      });
+      this.managedInertElements = [];
+    }
+  }
+
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const reflectReducedMotion = ({ matches }) => {
     if (matches) {
@@ -1771,5 +1912,13 @@
 
   if (!customElements.get('announcement-bar')) {
     customElements.define('announcement-bar', AnnouncementBar);
+  }
+
+  if (!customElements.get('faq-accordion')) {
+    customElements.define('faq-accordion', FaqAccordion);
+  }
+
+  if (!customElements.get('password-modal')) {
+    customElements.define('password-modal', PasswordModal);
   }
 })();

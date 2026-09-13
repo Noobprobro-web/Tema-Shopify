@@ -1,0 +1,330 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'SearchTitle-' | append: section.id
+  assign search_input_id = 'SearchInput-' | append: section.id
+  assign sort_by = search.sort_by | default: search.default_sort_by
+  assign active_search_types = search.types | join: ','
+  if active_search_types == blank
+    assign active_search_types = 'product,article,page'
+  endif
+  assign active_filter_count = 0
+  for filter in search.filters
+    assign active_filter_count = active_filter_count | plus: filter.active_values.size
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign active_filter_count = active_filter_count | plus: 1
+      endif
+    endif
+  endfor
+  assign encoded_terms = search.terms | url_encode
+  assign encoded_search_types = active_search_types | url_encode
+  assign all_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last'
+  assign product_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=product&options%5Bprefix%5D=last'
+  assign article_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=article&options%5Bprefix%5D=last'
+  assign page_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=page&options%5Bprefix%5D=last'
+  assign clear_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=' | append: encoded_search_types | append: '&options%5Bprefix%5D=last'
+-%}
+
+<facet-filters-form data-section-id="{{ section.id }}">
+  <section class="section main-search color-{{ section_scheme }}" aria-labelledby="{{ title_id }}" data-facet-section>
+    <div class="container flow">
+      <header class="main-search__header flow">
+        <p class="eyebrow">{{ 'search.header.eyebrow' | t }}</p>
+        <h1 id="{{ title_id }}" class="main-search__title">
+          {%- if search.performed -%}
+            {{- 'search.header.results_for' | t: terms: search.terms | escape -}}
+          {%- else -%}
+            {{- 'search.header.title' | t -}}
+          {%- endif -%}
+        </h1>
+      </header>
+
+      <nav class="main-search__tabs" aria-label="{{ 'search.tabs.label' | t }}">
+        <a href="{{ all_search_url | escape }}" {% if search.types.size != 1 %}aria-current="page"{% endif %}>
+          {{- 'search.tabs.all' | t -}}
+        </a>
+        <a href="{{ product_search_url | escape }}" {% if active_search_types == 'product' %}aria-current="page"{% endif %}>
+          {{- 'search.tabs.products' | t -}}
+        </a>
+        <a href="{{ article_search_url | escape }}" {% if active_search_types == 'article' %}aria-current="page"{% endif %}>
+          {{- 'search.tabs.articles' | t -}}
+        </a>
+        <a href="{{ page_search_url | escape }}" {% if active_search_types == 'page' %}aria-current="page"{% endif %}>
+          {{- 'search.tabs.pages' | t -}}
+        </a>
+      </nav>
+
+      <form class="main-search__form" action="{{ routes.search_url }}" method="get" role="search" data-facet-form>
+        <div class="main-search__query-row">
+          <div class="form-field">
+            <label for="{{ search_input_id }}">{{ 'search.form.label' | t }}</label>
+            <input
+              id="{{ search_input_id }}"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ 'search.form.placeholder' | t }}"
+              autocomplete="off"
+              required
+            >
+          </div>
+          <input type="hidden" name="type" value="{{ active_search_types | escape }}">
+          <input type="hidden" name="options[prefix]" value="last">
+          <button class="button main-search__submit" type="submit">
+            {% render 'icon', name: 'search', size: 18 %}
+            <span>{{ 'search.form.submit' | t }}</span>
+          </button>
+        </div>
+
+        {%- if search.performed and search.filters.size > 0 -%}
+          <div class="main-search__filters">
+            <div class="facets__heading cluster">
+              <h2 class="facets__title">{{ 'collections.filters.title' | t }}</h2>
+              {%- if active_filter_count > 0 -%}
+                <span class="facets__count" aria-label="{{ 'collections.filters.active_count' | t: count: active_filter_count }}">
+                  {{- active_filter_count -}}
+                </span>
+              {%- endif -%}
+            </div>
+
+            {%- for filter in search.filters -%}
+              {%- liquid
+                assign filter_is_open = false
+                if filter.active_values.size > 0
+                  assign filter_is_open = true
+                elsif filter.type == 'price_range' and filter.min_value.value != nil
+                  assign filter_is_open = true
+                elsif filter.type == 'price_range' and filter.max_value.value != nil
+                  assign filter_is_open = true
+                endif
+              -%}
+              <details class="facet" {% if filter_is_open %}open{% endif %}>
+                <summary class="facet__summary">
+                  <span>{{ filter.label | escape }}</span>
+                  {% render 'icon', name: 'chevron-down', size: 16 %}
+                </summary>
+                <div class="facet__content">
+                  {%- case filter.type -%}
+                    {%- when 'boolean' or 'list' -%}
+                      <ul class="facet__values unstyled-list">
+                        {%- for value in filter.values -%}
+                          {%- liquid
+                            assign filter_handle = filter.param_name | handle
+                            assign filter_id = 'SearchFilter-' | append: section.id | append: '-' | append: filter_handle | append: '-' | append: forloop.index
+                          -%}
+                          <li>
+                            <label class="facet__value" for="{{ filter_id }}">
+                              <input
+                                id="{{ filter_id }}"
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                              >
+                              <span>{{ value.label | escape }}</span>
+                              <span aria-hidden="true">{{ value.count }}</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- when 'price_range' -%}
+                      <div class="facet__price-range">
+                        <div>
+                          <label for="SearchFilter-{{ section.id }}-{{ filter.min_value.param_name }}">{{ 'collections.filters.from' | t }}</label>
+                          <div class="facet__price-input">
+                            <span aria-hidden="true">{{ cart.currency.symbol }}</span>
+                            <input
+                              id="SearchFilter-{{ section.id }}-{{ filter.min_value.param_name }}"
+                              type="number"
+                              name="{{ filter.min_value.param_name }}"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              {% if filter.min_value.value != nil %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                            >
+                          </div>
+                        </div>
+                        <div>
+                          <label for="SearchFilter-{{ section.id }}-{{ filter.max_value.param_name }}">{{ 'collections.filters.to' | t }}</label>
+                          <div class="facet__price-input">
+                            <span aria-hidden="true">{{ cart.currency.symbol }}</span>
+                            <input
+                              id="SearchFilter-{{ section.id }}-{{ filter.max_value.param_name }}"
+                              type="number"
+                              name="{{ filter.max_value.param_name }}"
+                              min="0"
+                              max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                              {% if filter.max_value.value != nil %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
+                            >
+                          </div>
+                        </div>
+                      </div>
+                  {%- endcase -%}
+                </div>
+              </details>
+            {%- endfor -%}
+
+            <div class="facets__sort">
+              <label for="SearchSortBy-{{ section.id }}">{{ 'collections.filters.sort_by' | t }}</label>
+              <select id="SearchSortBy-{{ section.id }}" name="sort_by" data-facet-sort>
+                {%- for option in search.sort_options -%}
+                  <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+
+            <div class="facets__actions cluster">
+              <button class="button" type="submit">{{ 'collections.filters.apply' | t }}</button>
+              {%- if active_filter_count > 0 -%}
+                <a href="{{ clear_search_url | escape }}">{{ 'collections.filters.clear_all' | t }}</a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </form>
+
+      <div class="main-search__results" data-product-grid aria-busy="false">
+        {%- if search.performed -%}
+          <p class="main-search__count" role="status" aria-live="polite" data-results-status>
+            {{- 'search.results.count' | t: count: search.results_count -}}
+          </p>
+
+          {%- paginate search.results by section.settings.results_per_page -%}
+            {%- if search.results.size > 0 -%}
+              <ul class="search-results-grid unstyled-list">
+                {%- for item in search.results -%}
+                  <li class="search-results-grid__item search-results-grid__item--{{ item.object_type }}">
+                    {%- case item.object_type -%}
+                      {%- when 'product' -%}
+                        {% render 'product-card',
+                          card_product: item,
+                          show_secondary_image: section.settings.show_secondary_image,
+                          show_vendor: section.settings.show_vendor,
+                          show_quick_add: section.settings.show_quick_add
+                        %}
+                      {%- when 'article' -%}
+                        {%- liquid
+                          assign result_alt = item.image.alt | default: item.title
+                          assign result_word_count = item.content | strip_html | split: ' ' | size
+                          assign result_reading_time = result_word_count | divided_by: 200
+                          assign result_remainder = result_word_count | modulo: 200
+                          if result_remainder > 0
+                            assign result_reading_time = result_reading_time | plus: 1
+                          endif
+                          assign result_reading_time = result_reading_time | at_least: 1
+                        -%}
+                        <article class="search-content-card">
+                          {%- if item.image != blank -%}
+                            <a class="search-content-card__media" href="{{ item.url }}" aria-label="{{ item.title | escape }}">
+                              {% render 'responsive-image',
+                                image: item.image,
+                                sizes: '(min-width: 62rem) 33vw, (min-width: 48rem) 50vw, 100vw',
+                                widths: '390, 550, 750, 960',
+                                image_class: 'search-content-card__image',
+                                alt: result_alt
+                              %}
+                            </a>
+                          {%- endif -%}
+                          <div class="search-content-card__content flow">
+                            <p class="eyebrow">
+                              {{- 'search.results.article' | t -}}
+                              <span aria-hidden="true"> / </span>
+                              {{- 'blogs.article.reading_time' | t: count: result_reading_time -}}
+                            </p>
+                            <h2><a href="{{ item.url }}">{{ item.title | escape }}</a></h2>
+                            <p>{{ item.excerpt_or_content | strip_html | truncatewords: 28 }}</p>
+                          </div>
+                        </article>
+                      {%- when 'page' -%}
+                        <article class="search-content-card search-content-card--page">
+                          <div class="search-content-card__content flow">
+                            <p class="eyebrow">{{ 'search.results.page' | t }}</p>
+                            <h2><a href="{{ item.url }}">{{ item.title | escape }}</a></h2>
+                            <p>{{ item.content | strip_html | truncatewords: 34 }}</p>
+                            <a class="search-content-card__link" href="{{ item.url }}">{{ 'search.results.view_page' | t }}</a>
+                          </div>
+                        </article>
+                    {%- endcase -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- else -%}
+              <div class="main-search__empty flow">
+                <h2>{{ 'search.results.none_title' | t: terms: search.terms | escape }}</h2>
+                <p>{{ 'search.results.none_text' | t }}</p>
+                <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'search.results.browse' | t }}</a>
+              </div>
+            {%- endif -%}
+
+            {%- if paginate.pages > 1 -%}
+              <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+                {%- if paginate.previous -%}
+                  <a class="pagination__link" href="{{ paginate.previous.url }}">{{ 'general.pagination.previous' | t }}</a>
+                {%- endif -%}
+                {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                    <a class="pagination__link" href="{{ part.url }}">{{ part.title }}</a>
+                  {%- elsif part.title == paginate.current_page -%}
+                    <span class="pagination__link" aria-current="page">{{ part.title }}</span>
+                  {%- else -%}
+                    <span class="pagination__ellipsis">{{ part.title }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if paginate.next -%}
+                  <a class="pagination__link" href="{{ paginate.next.url }}">{{ 'general.pagination.next' | t }}</a>
+                {%- endif -%}
+              </nav>
+            {%- endif -%}
+          {%- endpaginate -%}
+        {%- else -%}
+          <div class="main-search__prompt flow">
+            <h2>{{ 'search.prompt.title' | t }}</h2>
+            <p>{{ 'search.prompt.text' | t }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+</facet-filters-form>
+
+{% schema %}
+{
+  "name": "Main search",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "results_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "label": "Results per page",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show second product image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show product quick add",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

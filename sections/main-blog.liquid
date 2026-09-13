@@ -1,0 +1,240 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'BlogTitle-' | append: section.id
+  assign featured_article = section.settings.featured_article
+  if featured_article == blank
+    assign featured_article = blog.articles.first
+  endif
+-%}
+
+<section class="section main-blog color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container flow">
+    <header class="main-blog__header">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h1 id="{{ title_id }}" class="main-blog__title">{{ blog.title | escape }}</h1>
+      </div>
+
+      {%- if section.settings.show_tag_filters and blog.all_tags.size > 0 -%}
+        <nav class="main-blog__tags" aria-label="{{ 'blogs.blog.categories_label' | t }}">
+          <a class="main-blog__tag" href="{{ blog.url }}" {% if current_tags == blank %}aria-current="page"{% endif %}>
+            {{- 'blogs.blog.all_stories' | t -}}
+          </a>
+          {%- for tag in blog.all_tags -%}
+            {%- assign tag_handle = tag | handle -%}
+            <a
+              class="main-blog__tag"
+              href="{{ blog.url }}/tagged/{{ tag_handle }}"
+              {% if current_tags contains tag %}aria-current="page"{% endif %}
+            >
+              {{- tag | escape -}}
+            </a>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+    </header>
+
+    {%- paginate blog.articles by section.settings.articles_per_page -%}
+      {%- if paginate.current_page == 1 and featured_article != blank -%}
+        {%- liquid
+          assign featured_word_count = featured_article.content | strip_html | split: ' ' | size
+          assign featured_reading_time = featured_word_count | divided_by: 200
+          assign featured_remainder = featured_word_count | modulo: 200
+          if featured_remainder > 0
+            assign featured_reading_time = featured_reading_time | plus: 1
+          endif
+          assign featured_reading_time = featured_reading_time | at_least: 1
+          assign featured_category = featured_article.tags.first
+          if featured_category == blank
+            assign featured_category = 'blogs.blog.editorial' | t
+          endif
+          assign featured_alt = featured_article.image.alt | default: featured_article.title
+        -%}
+        <article class="main-blog__featured">
+          <a class="main-blog__featured-media" href="{{ featured_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: featured_article.title | escape }}">
+            {%- if featured_article.image != blank -%}
+              {% render 'responsive-image',
+                image: featured_article.image,
+                sizes: '(min-width: 62rem) 58vw, 100vw',
+                widths: '390, 550, 750, 960, 1200, 1600',
+                image_class: 'main-blog__featured-image',
+                alt: featured_alt,
+                prioritize: true
+              %}
+            {%- else -%}
+              <span class="main-blog__media-placeholder" aria-hidden="true"></span>
+            {%- endif -%}
+          </a>
+          <div class="main-blog__featured-copy flow">
+            <p class="eyebrow">
+              {{- featured_category | escape -}}
+              <span aria-hidden="true"> / </span>
+              {{- 'blogs.article.reading_time' | t: count: featured_reading_time -}}
+            </p>
+            <h2><a href="{{ featured_article.url }}">{{ featured_article.title | escape }}</a></h2>
+            {%- if section.settings.show_excerpts -%}
+              <div class="main-blog__excerpt rte">
+                {{- featured_article.excerpt_or_content | strip_html | truncatewords: 34 -}}
+              </div>
+            {%- endif -%}
+            <p class="main-blog__meta">
+              {%- if section.settings.show_author and featured_article.author != blank -%}
+                {{- 'blogs.article.by_author' | t: author: featured_article.author | escape -}}
+                <span aria-hidden="true"> / </span>
+              {%- endif -%}
+              {%- if section.settings.show_date -%}
+                {{- featured_article.published_at | time_tag: format: 'date' -}}
+              {%- endif -%}
+            </p>
+            <a class="button main-blog__featured-link" href="{{ featured_article.url }}">
+              {{- 'blogs.blog.read_essay' | t -}}
+            </a>
+          </div>
+        </article>
+      {%- endif -%}
+
+      {%- if blog.articles.size > 0 -%}
+        <div class="main-blog__latest-heading">
+          <p class="eyebrow">{{ 'blogs.blog.latest' | t }}</p>
+          <p>{{ 'blogs.blog.article_count' | t: count: blog.articles_count }}</p>
+        </div>
+        <ul class="main-blog__grid unstyled-list">
+          {%- for blog_article in blog.articles -%}
+            {%- unless paginate.current_page == 1 and blog_article.id == featured_article.id -%}
+              {%- liquid
+                assign article_word_count = blog_article.content | strip_html | split: ' ' | size
+                assign article_reading_time = article_word_count | divided_by: 200
+                assign article_remainder = article_word_count | modulo: 200
+                if article_remainder > 0
+                  assign article_reading_time = article_reading_time | plus: 1
+                endif
+                assign article_reading_time = article_reading_time | at_least: 1
+                assign article_category = blog_article.tags.first
+                if article_category == blank
+                  assign article_category = 'blogs.blog.editorial' | t
+                endif
+                assign article_alt = blog_article.image.alt | default: blog_article.title
+              -%}
+              <li>
+                <article class="article-card">
+                  <a class="article-card__media" href="{{ blog_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: blog_article.title | escape }}">
+                    {%- if blog_article.image != blank -%}
+                      {% render 'responsive-image',
+                        image: blog_article.image,
+                        sizes: '(min-width: 48rem) 50vw, 100vw',
+                        widths: '390, 550, 750, 960, 1200',
+                        image_class: 'article-card__image',
+                        alt: article_alt
+                      %}
+                    {%- else -%}
+                      <span class="main-blog__media-placeholder" aria-hidden="true"></span>
+                    {%- endif -%}
+                  </a>
+                  <div class="article-card__content flow">
+                    <p class="eyebrow">
+                      {{- article_category | escape -}}
+                      <span aria-hidden="true"> / </span>
+                      {{- 'blogs.article.reading_time' | t: count: article_reading_time -}}
+                    </p>
+                    <h2 class="article-card__title"><a href="{{ blog_article.url }}">{{ blog_article.title | escape }}</a></h2>
+                    {%- if section.settings.show_excerpts -%}
+                      <p class="article-card__excerpt">
+                        {{- blog_article.excerpt_or_content | strip_html | truncatewords: 24 -}}
+                      </p>
+                    {%- endif -%}
+                    {%- if section.settings.show_date -%}
+                      <p class="article-card__date">{{ blog_article.published_at | time_tag: format: 'date' }}</p>
+                    {%- endif -%}
+                  </div>
+                </article>
+              </li>
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p class="main-blog__empty">{{ 'blogs.blog.empty' | t }}</p>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+          {%- if paginate.previous -%}
+            <a class="pagination__link" href="{{ paginate.previous.url }}">{{ 'general.pagination.previous' | t }}</a>
+          {%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a class="pagination__link" href="{{ part.url }}">{{ part.title }}</a>
+            {%- elsif part.title == paginate.current_page -%}
+              <span class="pagination__link" aria-current="page">{{ part.title }}</span>
+            {%- else -%}
+              <span class="pagination__ellipsis">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}
+            <a class="pagination__link" href="{{ paginate.next.url }}">{{ 'general.pagination.next' | t }}</a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main blog",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Atelier notes / Journal"
+    },
+    {
+      "type": "article",
+      "id": "featured_article",
+      "label": "Featured article"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "label": "Articles per page",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_filters",
+      "label": "Show tag filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpts",
+      "label": "Show excerpts",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show featured article author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show publication dates",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,80 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'NotFoundTitle-' | append: section.id
+  assign search_id = 'NotFoundSearch-' | append: section.id
+  assign recommendation_collection = section.settings.recommendation_collection
+  if recommendation_collection == blank
+    assign recommendation_collection = collections['all']
+  endif
+-%}
+
+<section class="section main-404 color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container main-404__layout">
+    <div class="main-404__message flow">
+      <p class="eyebrow">{{ 'not_found.eyebrow' | t }}</p>
+      <p class="main-404__code" aria-hidden="true">404</p>
+      <h1 id="{{ title_id }}">{{ 'not_found.title' | t }}</h1>
+      <p class="lede">{{ 'not_found.message' | t }}</p>
+
+      <form class="main-404__search" action="{{ routes.search_url }}" method="get" role="search">
+        <label for="{{ search_id }}">{{ 'not_found.search_label' | t }}</label>
+        <div class="main-404__search-row">
+          <input id="{{ search_id }}" type="search" name="q" placeholder="{{ 'not_found.search_placeholder' | t }}" required>
+          <input type="hidden" name="options[prefix]" value="last">
+          <button class="button" type="submit">{{ 'not_found.search_submit' | t }}</button>
+        </div>
+      </form>
+
+      <a class="button button--secondary" href="{{ routes.all_products_collection_url }}">
+        {{- 'not_found.return_to_collection' | t -}}
+      </a>
+    </div>
+
+    {%- if recommendation_collection != blank and recommendation_collection.products.size > 0 -%}
+      <aside class="main-404__recommendations" aria-labelledby="NotFoundRecommendations-{{ section.id }}">
+        <h2 id="NotFoundRecommendations-{{ section.id }}" class="eyebrow">{{ 'not_found.recommendations' | t }}</h2>
+        <ul class="main-404__product-grid unstyled-list">
+          {%- for recommended_product in recommendation_collection.products limit: section.settings.products_to_show -%}
+            <li>
+              {% render 'product-card',
+                card_product: recommended_product,
+                show_secondary_image: true,
+                show_vendor: false,
+                show_quick_add: false
+              %}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </aside>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main 404",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "collection",
+      "id": "recommendation_collection",
+      "label": "Recommendation collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products to show",
+      "default": 3
+    }
+  ]
+}
+{% endschema %}

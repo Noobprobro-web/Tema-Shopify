@@ -1,0 +1,321 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign service_scheme = section.settings.service_color_scheme.id | default: section.settings.service_color_scheme | default: section_scheme
+  assign title_id = 'ContactTitle-' | append: section.id
+  assign contact_form_id = 'ContactForm-' | append: section.id
+  assign contact_name_id = 'ContactName-' | append: section.id
+  assign contact_email_id = 'ContactEmail-' | append: section.id
+  assign contact_reason_id = 'ContactReason-' | append: section.id
+  assign contact_message_id = 'ContactMessage-' | append: section.id
+  assign contact_consent_id = 'ContactConsent-' | append: section.id
+  assign faq_count = 0
+  assign service_count = 0
+
+  for block in section.blocks
+    if block.type == 'faq_item'
+      assign faq_count = faq_count | plus: 1
+    elsif block.type == 'service_detail'
+      assign service_count = service_count | plus: 1
+    endif
+  endfor
+-%}
+
+<section class="section main-contact color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container flow">
+    <header class="main-contact__header">
+      <div class="main-contact__intro flow">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h1 id="{{ title_id }}" class="main-contact__title">{{ page.title | escape }}</h1>
+        {%- if section.settings.intro != blank -%}
+          <div class="rte lede">{{ section.settings.intro }}</div>
+        {%- endif -%}
+        {%- if page.content != blank -%}
+          <div class="rte main-contact__page-content">{{ page.content }}</div>
+        {%- endif -%}
+      </div>
+
+      <dl class="main-contact__atelier-facts">
+        {%- if section.settings.studio_hours != blank -%}
+          <div>
+            <dt>{{ 'contact.atelier.hours' | t }}</dt>
+            <dd>{{ section.settings.studio_hours | escape | newline_to_br }}</dd>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.showroom_address != blank -%}
+          <div>
+            <dt>{{ 'contact.atelier.showroom' | t }}</dt>
+            <dd>{{ section.settings.showroom_address | escape | newline_to_br }}</dd>
+          </div>
+        {%- endif -%}
+      </dl>
+    </header>
+
+    <div class="main-contact__layout">
+      <div class="main-contact__form-column flow">
+        <div>
+          <p class="eyebrow">{{ 'contact.form.eyebrow' | t }}</p>
+          <h2>{{ 'contact.form.title' | t }}</h2>
+        </div>
+
+        {%- form 'contact', id: contact_form_id, class: 'contact-form flow' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="form-message form-message--success" role="status" tabindex="-1">
+              {{- 'contact.form.success' | t -}}
+            </p>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="form-message form-message--error" id="ContactErrors-{{ section.id }}" role="alert" tabindex="-1">
+              <p>{{ 'contact.form.error_heading' | t }}</p>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="contact-form__grid">
+            <div class="form-field">
+              <label for="{{ contact_name_id }}">{{ 'contact.form.name' | t }}</label>
+              <input
+                id="{{ contact_name_id }}"
+                type="text"
+                name="contact[name]"
+                value="{{ form.name | default: customer.name | escape }}"
+                autocomplete="name"
+                aria-required="true"
+                required
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="{{ contact_email_id }}">{{ 'contact.form.email' | t }}</label>
+              <input
+                id="{{ contact_email_id }}"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email | default: customer.email | escape }}"
+                autocomplete="email"
+                autocapitalize="off"
+                spellcheck="false"
+                aria-required="true"
+                aria-invalid="{% if form.errors contains 'email' %}true{% else %}false{% endif %}"
+                {% if form.errors contains 'email' %}aria-describedby="ContactErrors-{{ section.id }}"{% endif %}
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="{{ contact_reason_id }}">{{ 'contact.form.reason' | t }}</label>
+            <select id="{{ contact_reason_id }}" name="contact[Reason]" aria-required="true" required>
+              <option value="">{{ 'contact.form.reason_placeholder' | t }}</option>
+              <option value="{{ 'contact.form.reason_order' | t | escape }}">{{ 'contact.form.reason_order' | t }}</option>
+              <option value="{{ 'contact.form.reason_materials' | t | escape }}">{{ 'contact.form.reason_materials' | t }}</option>
+              <option value="{{ 'contact.form.reason_appointment' | t | escape }}">{{ 'contact.form.reason_appointment' | t }}</option>
+              <option value="{{ 'contact.form.reason_press' | t | escape }}">{{ 'contact.form.reason_press' | t }}</option>
+              <option value="{{ 'contact.form.reason_other' | t | escape }}">{{ 'contact.form.reason_other' | t }}</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="{{ contact_message_id }}">{{ 'contact.form.message' | t }}</label>
+            <textarea
+              id="{{ contact_message_id }}"
+              name="contact[body]"
+              maxlength="1000"
+              aria-required="true"
+              aria-describedby="ContactMessageHelp-{{ section.id }}"
+              required
+            >{{- form.body | escape -}}</textarea>
+            <p id="ContactMessageHelp-{{ section.id }}" class="form-field__help">
+              {{- 'contact.form.message_help' | t -}}
+            </p>
+          </div>
+
+          <label class="form-checkbox" for="{{ contact_consent_id }}">
+            <input
+              id="{{ contact_consent_id }}"
+              type="checkbox"
+              name="contact[Consent]"
+              value="{{ 'contact.form.consent_value' | t | escape }}"
+              aria-required="true"
+              required
+            >
+            <span>{{ 'contact.form.consent' | t }}</span>
+          </label>
+
+          <div class="contact-form__footer">
+            <p class="form-field__help">{{ 'contact.form.required_note' | t }}</p>
+            <button class="button contact-form__submit" type="submit">
+              {{- 'contact.form.submit' | t -}}
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+
+      <aside class="main-contact__aside">
+        {%- if faq_count > 0 -%}
+          <div class="main-contact__faq flow">
+            <div>
+              <p class="eyebrow">{{ 'contact.faq.eyebrow' | t }}</p>
+              <h2>{{ 'contact.faq.title' | t }}</h2>
+            </div>
+            <faq-accordion {% if section.settings.single_open_faq %}data-single-open{% endif %}>
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'faq_item' -%}
+                  <details class="faq-item" {% if block.settings.open_by_default %}open{% endif %} {{ block.shopify_attributes }}>
+                    <summary class="faq-item__summary">
+                      <span>{{ block.settings.question | escape }}</span>
+                      <span class="faq-item__icon" aria-hidden="true"></span>
+                    </summary>
+                    <div class="faq-item__answer rte">{{ block.settings.answer }}</div>
+                  </details>
+                {%- endif -%}
+              {%- endfor -%}
+            </faq-accordion>
+          </div>
+        {%- endif -%}
+
+        {%- if service_count > 0 -%}
+          <div class="main-contact__services color-{{ service_scheme }}">
+            <p class="eyebrow">{{ 'contact.services.title' | t }}</p>
+            <ul class="main-contact__service-list unstyled-list">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'service_detail' -%}
+                  <li {{ block.shopify_attributes }}>
+                    {%- if block.settings.link != blank -%}
+                      <a class="main-contact__service-link" href="{{ block.settings.link }}">
+                        <span>
+                          <strong>{{ block.settings.title | escape }}</strong>
+                          {%- if block.settings.detail != blank -%}
+                            <small>{{ block.settings.detail | escape }}</small>
+                          {%- endif -%}
+                        </span>
+                        {% render 'icon', name: 'arrow', size: 18 %}
+                      </a>
+                    {%- else -%}
+                      <div class="main-contact__service-link">
+                        <span>
+                          <strong>{{ block.settings.title | escape }}</strong>
+                          {%- if block.settings.detail != blank -%}
+                            <small>{{ block.settings.detail | escape }}</small>
+                          {%- endif -%}
+                        </span>
+                      </div>
+                    {%- endif -%}
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+            <p class="main-contact__response-note">{{ 'contact.services.response' | t }}</p>
+          </div>
+        {%- endif -%}
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main contact and FAQ",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Contact / Private client services"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introduction",
+      "default": "<p>Write to the studio about an order, a material or a private appointment.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "studio_hours",
+      "label": "Studio hours",
+      "default": "Monday to Friday / 10:00–18:00 CET"
+    },
+    {
+      "type": "textarea",
+      "id": "showroom_address",
+      "label": "Showroom address",
+      "default": "By appointment / Milan"
+    },
+    {
+      "type": "checkbox",
+      "id": "single_open_faq",
+      "label": "Keep only one FAQ open",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "service_color_scheme",
+      "label": "Direct contacts color scheme",
+      "default": "scheme-2"
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Shipping and provenance"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Available pieces leave the atelier within three business days.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "service_detail",
+      "name": "Direct contact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Order concierge"
+        },
+        {
+          "type": "text",
+          "id": "detail",
+          "label": "Detail"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main contact and FAQ"
+    }
+  ]
+}
+{% endschema %}

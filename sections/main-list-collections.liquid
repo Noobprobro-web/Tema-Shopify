@@ -1,0 +1,123 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'CollectionsTitle-' | append: section.id
+-%}
+
+<section class="section main-list-collections color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container flow">
+    <header class="main-list-collections__header flow">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="{{ title_id }}" class="main-list-collections__title">{{ 'list_collections.title' | t }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <div class="rte lede">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </header>
+
+    {%- paginate collections by section.settings.collections_per_page -%}
+      {%- if collections.size > 0 -%}
+        <ul class="collection-directory unstyled-list" data-columns="{{ section.settings.columns_desktop }}">
+          {%- for collection_item in collections -%}
+            {%- liquid
+              assign collection_image = collection_item.featured_image
+              if collection_image == blank
+                assign collection_image = collection_item.products.first.featured_media.preview_image
+              endif
+              assign collection_alt = collection_image.alt | default: collection_item.title
+            -%}
+            <li>
+              <article class="collection-directory__card">
+                <a class="collection-directory__media" href="{{ collection_item.url }}" aria-label="{{ 'list_collections.view_collection' | t: title: collection_item.title | escape }}">
+                  {%- if collection_image != blank -%}
+                    {% render 'responsive-image',
+                      image: collection_image,
+                      sizes: '(min-width: 62rem) 33vw, (min-width: 48rem) 50vw, 100vw',
+                      widths: '390, 550, 750, 960, 1200',
+                      image_class: 'collection-directory__image',
+                      alt: collection_alt
+                    %}
+                  {%- else -%}
+                    <span class="collection-directory__placeholder" aria-hidden="true"></span>
+                  {%- endif -%}
+                </a>
+                <div class="collection-directory__content">
+                  <h2><a href="{{ collection_item.url }}">{{ collection_item.title | escape }}</a></h2>
+                  <p>{{ 'list_collections.product_count' | t: count: collection_item.products_count }}</p>
+                </div>
+              </article>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p>{{ 'list_collections.empty' | t }}</p>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+          {%- if paginate.previous -%}
+            <a class="pagination__link" href="{{ paginate.previous.url }}">{{ 'general.pagination.previous' | t }}</a>
+          {%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a class="pagination__link" href="{{ part.url }}">{{ part.title }}</a>
+            {%- elsif part.title == paginate.current_page -%}
+              <span class="pagination__link" aria-current="page">{{ part.title }}</span>
+            {%- else -%}
+              <span class="pagination__ellipsis">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}
+            <a class="pagination__link" href="{{ paginate.next.url }}">{{ 'general.pagination.next' | t }}</a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main collection list",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Collections / Current edition"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introduction"
+    },
+    {
+      "type": "range",
+      "id": "collections_per_page",
+      "min": 6,
+      "max": 30,
+      "step": 3,
+      "label": "Collections per page",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Desktop columns",
+      "options": [
+        { "value": "2", "label": "Two" },
+        { "value": "3", "label": "Three" },
+        { "value": "4", "label": "Four" }
+      ],
+      "default": "3"
+    }
+  ]
+}
+{% endschema %}

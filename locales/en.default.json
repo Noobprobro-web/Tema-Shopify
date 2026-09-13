@@ -15,7 +15,10 @@
       "label": "Search"
     },
     "pagination": {
-      "page": "Page {{ number }}"
+      "page": "Page {{ number }}",
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next"
     },
     "social": {
       "follow_us": "Follow us",
@@ -136,6 +139,158 @@
         "play": "Play editorial highlights"
       }
     }
+  },
+  "contact": {
+    "atelier": {
+      "hours": "Studio hours",
+      "showroom": "Showroom"
+    },
+    "form": {
+      "eyebrow": "Write to the atelier",
+      "title": "Your inquiry",
+      "success": "Thank you. The atelier will reply as soon as possible.",
+      "error_heading": "Please review the following fields:",
+      "name": "Name",
+      "email": "Email",
+      "reason": "Reason for inquiry",
+      "reason_placeholder": "Choose a reason",
+      "reason_order": "Order and delivery",
+      "reason_materials": "Materials and care",
+      "reason_appointment": "Private appointment",
+      "reason_press": "Press and trade",
+      "reason_other": "Other",
+      "message": "Message",
+      "message_help": "Include an order number when relevant. Maximum 1000 characters.",
+      "consent": "I agree that my details may be used to answer this inquiry.",
+      "consent_value": "Accepted",
+      "required_note": "All fields are required.",
+      "submit": "Send inquiry"
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "Before you write"
+    },
+    "services": {
+      "title": "Direct studio contacts",
+      "response": "Response standard: two business days"
+    }
+  },
+  "blogs": {
+    "blog": {
+      "categories_label": "Journal categories",
+      "all_stories": "All stories",
+      "editorial": "Editorial",
+      "read_article": "Read {{ title }}",
+      "read_essay": "Read the essay",
+      "latest": "Latest essays",
+      "article_count": {
+        "one": "{{ count }} essay",
+        "other": "{{ count }} essays"
+      },
+      "empty": "No essays have been published yet."
+    },
+    "article": {
+      "reading_time": {
+        "one": "{{ count }} min read",
+        "other": "{{ count }} min read"
+      },
+      "by_author": "Words by {{ author }}",
+      "featured_objects": "Objects featured in this story",
+      "navigation": "More journal stories",
+      "previous": "Previous story",
+      "next": "Next story"
+    },
+    "comments": {
+      "eyebrow": "Conversation",
+      "count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      },
+      "none": "Be the first to leave a comment.",
+      "pagination": "Comment pagination",
+      "form_title": "Leave a comment",
+      "success": "Your comment was published.",
+      "success_moderated": "Your comment was received and will appear after review.",
+      "error_heading": "Please review the following fields:",
+      "name": "Name",
+      "email": "Email",
+      "message": "Comment",
+      "submit": "Post comment"
+    }
+  },
+  "search": {
+    "header": {
+      "eyebrow": "Search the atelier",
+      "title": "Search",
+      "results_for": "Results for \"{{ terms }}\""
+    },
+    "tabs": {
+      "label": "Search result types",
+      "all": "All",
+      "products": "Products",
+      "articles": "Journal",
+      "pages": "Pages"
+    },
+    "form": {
+      "label": "Search",
+      "placeholder": "Search products, materials and stories",
+      "submit": "Search"
+    },
+    "results": {
+      "count": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      },
+      "article": "Journal",
+      "page": "Page",
+      "view_page": "View page",
+      "none_title": "No results for \"{{ terms }}\"",
+      "none_text": "Try a broader material or object type, or browse the current collection.",
+      "browse": "Explore all products"
+    },
+    "prompt": {
+      "title": "Find an object or story",
+      "text": "Search by material, category or title."
+    }
+  },
+  "not_found": {
+    "eyebrow": "Error / Archive index",
+    "title": "Object not found in the atelier.",
+    "message": "The requested page is not in our current series. It may have moved into the archive.",
+    "search_label": "Search the atelier",
+    "search_placeholder": "Search products and stories",
+    "search_submit": "Search",
+    "return_to_collection": "Return to collection",
+    "recommendations": "Popular pieces / Continue exploring"
+  },
+  "password": {
+    "image_alt": "Editorial preview of the next collection",
+    "opening_label": "Opening note",
+    "newsletter": {
+      "email": "Email address",
+      "submit": "Request early access",
+      "privacy": "Private notes only. Unsubscribe at any time.",
+      "success": "Thank you. Your early access request was received.",
+      "error_heading": "Please check your email address:"
+    },
+    "access": {
+      "open": "Enter with password",
+      "eyebrow": "Private access",
+      "title": "Enter the atelier",
+      "instructions": "Use the password provided by the atelier.",
+      "label": "Store password",
+      "submit": "Enter store",
+      "error": "The password was not accepted. Please try again."
+    }
+  },
+  "list_collections": {
+    "title": "Collections",
+    "view_collection": "View {{ title }}",
+    "product_count": {
+      "one": "{{ count }} piece",
+      "other": "{{ count }} pieces"
+    },
+    "empty": "No collections are available yet."
   },
   "products": {
     "product": {

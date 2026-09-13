@@ -1,0 +1,181 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'MainPageTitle-' | append: section.id
+-%}
+
+<section class="section main-page color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container">
+    <header class="main-page__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="{{ title_id }}" class="main-page__title">{{ page.title | escape }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <div class="main-page__intro rte">{{ section.settings.intro }}</div>
+      {%- endif -%}
+    </header>
+
+    {%- if page.content != blank -%}
+      <div class="main-page__reading rte">{{ page.content }}</div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="main-page__blocks">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'image' -%}
+              {%- if block.settings.image != blank -%}
+                {%- liquid
+                  assign image_alt = block.settings.image_alt
+                  if image_alt == blank
+                    assign image_alt = block.settings.caption | strip_html
+                  endif
+                -%}
+                <figure class="main-page__figure" {{ block.shopify_attributes }}>
+                  <div class="main-page__figure-media">
+                    {% render 'responsive-image',
+                      image: block.settings.image,
+                      sizes: '(min-width: 62rem) min(100vw - 4rem, 1300px), 100vw',
+                      widths: '390, 550, 750, 960, 1200, 1600, 2000, 2400',
+                      image_class: 'main-page__image',
+                      alt: image_alt
+                    %}
+                  </div>
+                  {%- if block.settings.caption != blank -%}
+                    <figcaption class="main-page__caption">{{ block.settings.caption | escape }}</figcaption>
+                  {%- endif -%}
+                </figure>
+              {%- endif -%}
+
+            {%- when 'quote' -%}
+              {%- if block.settings.quote != blank -%}
+                <figure class="main-page__quote" {{ block.shopify_attributes }}>
+                  <blockquote>{{ block.settings.quote }}</blockquote>
+                  {%- if block.settings.attribution != blank -%}
+                    <figcaption>{{ block.settings.attribution | escape }}</figcaption>
+                  {%- endif -%}
+                </figure>
+              {%- endif -%}
+
+            {%- when 'signature' -%}
+              <aside class="main-page__signature flow" {{ block.shopify_attributes }}>
+                {%- if block.settings.eyebrow != blank -%}
+                  <p class="eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.note != blank -%}
+                  <div class="main-page__signature-note rte">{{ block.settings.note }}</div>
+                {%- endif -%}
+                {%- if block.settings.name != blank -%}
+                  <p class="main-page__signature-name">{{ block.settings.name | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.role != blank -%}
+                  <p class="main-page__signature-role">{{ block.settings.role | escape }}</p>
+                {%- endif -%}
+              </aside>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main page",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Atelier / Story"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introduction"
+    }
+  ],
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Full-width image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alternative text"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption"
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Editorial quote",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Made slowly, kept closely."
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "Attribution"
+        }
+      ]
+    },
+    {
+      "type": "signature",
+      "name": "Atelier signature",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "A note from the studio"
+        },
+        {
+          "type": "richtext",
+          "id": "note",
+          "label": "Note",
+          "default": "<p>We hope the work becomes more yours with time.</p>"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main page"
+    }
+  ]
+}
+{% endschema %}
