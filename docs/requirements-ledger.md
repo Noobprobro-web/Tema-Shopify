@@ -1,11 +1,11 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO VIVO: 36 / 45 CUMPLIDOS (26 COMPLETOS + 10 CÓDIGO VERIFICADO)
-Desglose actual: 36 Cumplido | 4 Parcial | 0 Ausente | 5 No Verificado
-Última sincronización: 2026-09-13 (Evidencia local GPT-4B-001; pendiente dictamen Gemini)
+CONTEO VIVO: 26 CUMPLIDOS DEFINITIVOS | 14 CÓDIGO COMPLETO (PENDIENTE TIENDA REAL) | 5 PENDIENTES EXTERNOS
+Desglose de compuertas: 26 Cumplido definitivo | 14 Código verificado (Gate 5 pendiente) | 0 Ausente | 5 No verificado / Externo
+Última sincronización: 2026-09-13 (Verificación en código de entrega CLAUDE-IMPL-4B-002 y dictamen GPT-OPINION-001)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
-Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o pruebas en tienda real.
+Regla GEMINI-PROTOCOL-001: El código escrito NO cierra una fila que exige medición o prueba en tienda real. Cada fila abierta tiene dueño y artefacto de cierre explícito.
 ```
 
 ---
@@ -32,9 +32,9 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | **JavaScript Modular Vanilla (Zero Libs)** | Official Requirements: Performance | `cumplido` | `assets/theme.js:1-2408` (Web Components puros sobre `ThemeElement`). Cero frameworks externos. | GPT | Sprint 2A-3B |
 | **Cero CSS/SCSS Obsoleto y No Minificado** | Official Requirements: Performance | `cumplido` | `assets/base.css:1-5315` estructurado y legible. Cero archivos `.scss` o `.scss.liquid`. | GPT | Sprint 2A-3B |
 | **Imágenes Responsivas (`srcset`, `sizes`)** | Official Requirements: Media | `cumplido` | `snippets/responsive-image.liquid:1-42` usando `image_tag` adaptativo por contexto. | GPT | Sprint 2B |
-| **Punto Focal Nativo (`focal_point`)** | Acceptance Matrix / Official Specs | `parcial` | `snippets/responsive-image.liquid:30` lo lee, pero `hero-editorial.liquid` no lo aprovecha en su layout. | GPT | Sprint 3B.2 |
-| **Optimización LCP (`fetchpriority="high"`)** | Official Requirements: Performance | `cumplido` | `snippets/responsive-image.liquid:11` y `sections/hero-editorial.liquid:37` (`prioritize: true`). | GPT | Sprint 3B.2 |
-| **Dimensiones Explícitas (CLS < 0.1)** | Official Requirements: Performance | `parcial` | `snippets/responsive-image.liquid:27` emite width/height, pero `<source>` móvil en `hero-editorial.liquid:35-45` no los declara. | GPT | Sprint 3B.2 |
+| **Punto Focal Nativo (`focal_point`)** | Acceptance Matrix / Official Specs | `código completo (pendiente tienda)` | `hero-editorial.liquid:58` inyecta `--hero-focal-point: {{ hero_focal_point }}` y `base.css:2237` aplica `object-position: var(--hero-focal-point, center)`. Artefacto de cierre: verificación visual con imagen de prueba con punto focal en tienda real. | Claude / Johandry | Sprint 4B-002 |
+| **Optimización LCP (`fetchpriority="high"`)** | Official Requirements: Performance | `cumplido` | `snippets/responsive-image.liquid:11` y `sections/hero-editorial.liquid:78` (`prioritize: true`). | GPT | Sprint 3B.2 |
+| **Dimensiones Explícitas (CLS < 0.1)** | Official Requirements: Performance | `código completo (pendiente tienda)` | `snippets/responsive-image.liquid:27` emite width/height en `<img>`, y `<source>` móvil en `hero-editorial.liquid:70-71, 107-108` ahora declara `width` y `height` explícitos. Artefacto de cierre: reporte de Lighthouse en tienda conectada con CLS < 0.1. | Claude / Johandry | Sprint 4B-002 |
 
 ---
 
@@ -42,15 +42,15 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 
 | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Lighthouse Accesibilidad >= 90** | Official Requirements: Accessibility | `no verificado` | Pendiente de auditoría axe-core/Lighthouse en tienda conectada. | Gemini | Phase 4 QA |
+| **Lighthouse Accesibilidad >= 90** | Official Requirements: Accessibility | `no verificado` | Pendiente de auditoría axe-core/Lighthouse en tienda conectada con catálogo real. Artefacto de cierre: puntuación Lighthouse >= 90. | Johandry / Gemini | Phase 4 QA |
 | **Contraste de Texto >= 4.5:1** | WCAG 2.2 AA (1.4.3) | `cumplido (código)` | Base cumple (`#1c1917` sobre `#faf8f5`). Corregido `.button[aria-busy]` a opacidad 1 (`base.css:5215`, ratio 4.5:1+) y texto unselected en complete-the-look (`base.css:3447`, ratios 6.49:1 y 8.60:1). `GPT-4A-001`. | GPT | Sprint 4A |
 | **Contraste de Interfaz No-Texto >= 3:1** | WCAG 2.2 AA (1.4.11) | `cumplido (código)` | `--color-control-border` introducido (`base.css:5224-5250`) con ratios 4.39:1 (Couture claro) y 6.35:1 (Couture oscuro) en inputs, chips y selectors. `GPT-4A-001`. | GPT | Sprint 4A |
-| **Navegación por Teclado e Indicador de Foco** | WCAG 2.2 AA (2.4.7) | `parcial` | `:focus-visible` definido en `base.css:239`, pero anulado en `base.css:384` (`.site-main:focus { outline: 0 }`) y recortado en tabs (`base.css:2102`). | GPT | Sprint 2A |
+| **Navegación por Teclado e Indicador de Foco** | WCAG 2.2 AA (2.4.7) | `código completo (pendiente tienda)` | `:focus-visible` definido en `base.css:239`, `.site-main:focus:not(:focus-visible)` en `base.css:386` (restaura contorno al usar skip-link), y `outline-offset: -2px` en `base.css:2417` (`.curated-showcase__tab:focus-visible`). Artefacto de cierre: pasada manual con teclado documentada en tienda real. | Claude / Johandry | Sprint 4B-002 |
 | **Focus Trap y Gestión en Modales/Drawers** | WCAG 2.2 AA (2.4.3) | `cumplido` | `sections/cart-drawer.liquid`, `assets/theme.js:1010-1080` y `assets/theme.js:2780-2810` (inert, focus trap, escape, restore focus en búsqueda predictiva). | GPT | Sprint 4A |
-| **Áreas Táctiles Mínimas (>= 44x44 px)** | WCAG 2.2 AA (2.5.8) | `parcial` | 45+ reglas usan `--tap-target-min: 44px`. Newsletter y búsqueda usan 52px en acciones primarias (`base.css:5270, 5380`). Pendiente ajuste de submenu desktop (36px). | GPT | Sprint 4A |
-| **Jerarquía Estricta de Encabezados (h1 único)** | WCAG 2.2 AA (1.3.1) | `parcial` | `hero-editorial.liquid:22` emite `<h1>` sin restricción a `index`, y `main-404.liquid:36` usa `<h2 class="eyebrow">` visualmente idéntico a label. | GPT | Sprint 3B.2 |
+| **Áreas Táctiles Mínimas (>= 44x44 px)** | WCAG 2.2 AA (2.5.8) | `código completo (pendiente tienda)` | 45+ reglas usan `--tap-target-min: 44px`. Corregido submenú desktop a `min-height: var(--tap-target-min, 44px)` en `base.css:3349` y toggle de gift card en `base.css:4185`. Artefacto de cierre: inventario/auditoría Lighthouse de tap targets en tienda conectada. | Claude / Johandry | Sprint 4B-002 |
+| **Jerarquía Estricta de Encabezados (h1 único)** | WCAG 2.2 AA (1.3.1) | `código completo (pendiente tienda)` | `hero-editorial.liquid:12-18` reduce dinámicamente a `h2` en plantillas distintas de `index`, y `main-404.liquid:36` sustituye `.eyebrow` por `.main-404__recommendations-heading` estilizado (`base.css:5145`). Artefacto de cierre: informe axe-core sin violaciones `heading-order`. | Claude / Johandry | Sprint 4B-002 |
 | **Labels Asociados en Formularios** | WCAG 2.2 AA (3.3.2) | `cumplido` | `sections/main-contact.liquid:38-75`, `snippets/gift-card-recipient.liquid:50-80`, `snippets/predictive-search.liquid:30-60` con `<label for="...">`. | GPT | Sprint 4A |
-| **Live Regions (`aria-live`)** | WCAG 2.2 AA (4.1.3) | `cumplido` | `sections/cart-drawer.liquid:17`, `sections/main-product.liquid:52`, `snippets/pickup-availability.liquid:31`, `snippets/predictive-search.liquid:83`. | GPT | Sprint 4A |
+| **Live Regions (`aria-live`)** | WCAG 2.2 AA (4.1.3) | `código completo (pendiente tienda)` | `cart-drawer.liquid:17`, `main-product.liquid:52`, `pickup-availability.liquid:31`, `predictive-search.liquid:83`. Añadido contenedor persistente `[data-facet-live-region]` en `main-collection.liquid:28` y `main-search.liquid:37` con copia tras filtrado (`theme.js:1735`). Artefacto de cierre: comprobación con lector de pantalla (VoiceOver/NVDA). | Claude / Johandry | Sprint 4B-002 |
 | **Skip to Content Link** | WCAG 2.2 AA (2.4.1) | `cumplido` | `layout/theme.liquid:34-37` (`#MainContent`), `assets/base.css:380-388`. | GPT | Sprint 2A |
 | **Soporte de `prefers-reduced-motion`** | WCAG 2.2 AA (2.3.3) | `cumplido` | `assets/base.css:5225-5245` (animaciones en `no-preference`, lista estática para marquee). | GPT | Sprint 3B.2 |
 
@@ -64,7 +64,7 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | **Shop Pay Installments (`form \| payment_terms`)** | Official Requirements: PDP | `cumplido` | `sections/main-product.liquid:174` dentro del formulario de producto nativo. | GPT | Sprint 3B.5 |
 | **Precio Unitario (UE Legal)** | Official Requirements: Pricing | `cumplido` | `snippets/price.liquid:30-43` (`variant.unit_price_measurement`). | GPT | Sprint 2B |
 | **Selector de Variantes y Swatches Nativos** | Official Requirements: Product | `cumplido` | `sections/main-product.liquid:102-127` soportando `swatch.image` y `swatch.color`. | GPT | Sprint 3B.5 |
-| **Precios Comparativos y Descuentos** | Official Requirements: Pricing | `parcial` | `snippets/price.liquid:15-28`, pero cuando `price_varies` no muestra comparativo ni badge de oferta. | GPT | Sprint 2B |
+| **Precios Comparativos y Descuentos** | Official Requirements: Pricing | `código completo (pendiente tienda)` | `snippets/price.liquid:43-45` evalúa `product.compare_at_price_max` para `target_is_product`, y líneas 58-63 renderizan compare price y badge con `price_varies`. Artefacto de cierre: verificación en catálogo demo de producto con variantes rebajadas. | Claude / Johandry | Sprint 4B-002 |
 | **Planes de Venta / Suscripciones** | Official Requirements: Subscriptions | `cumplido` | `sections/main-product.liquid:129-166` (soporte variante y producto, fallback no-js). | GPT | Sprint 3B.5 |
 | **Disponibilidad de Retiro Local (Pickup)** | Official Requirements: Pickup | `cumplido` | `snippets/pickup-availability.liquid:1-136` y Web Component reactivo en `assets/theme.js:2150`. | GPT | Sprint 3B.5 |
 | **Destinatario de Gift Cards** | Official Requirements: Gift Cards | `cumplido` | `snippets/gift-card-recipient.liquid:1-149` con campos nativos validados por Shopify. | GPT | Sprint 3B.5 |
@@ -73,7 +73,7 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | **Follow on Shop** | Official Requirements: Shop App | `cumplido` | `sections/footer.liquid:57` (`shop \| login_button: action: 'follow'`). | GPT | Sprint 2A |
 | **Cuentas de Cliente Modernas (`<shopify-account>`)** | Official Requirements: Accounts (Jul 2026) | `cumplido` | `sections/header.liquid:157`. Cero plantillas customers/* deprecadas. | GPT | Sprint 2A |
 | **Filtros Facetados Nativos en Colección y Búsqueda** | Official Requirements: Filters | `cumplido (código)` | `sections/main-collection.liquid:104-118` y `sections/main-search.liquid:135-149` con normalización de coma decimal europea, espacios, miles y apóstrofes. `GPT-4A-001`. | GPT | Sprint 4A |
-| **Ordenamiento (Sorting) en Colección y Búsqueda** | Official Requirements: Filters | `parcial` | `sections/main-collection.liquid:138` funciona, pero en `main-search.liquid:80` se pierde si no hay filtros activos. | GPT | Sprint 3B.4 |
+| **Ordenamiento (Sorting) en Colección y Búsqueda** | Official Requirements: Filters | `código completo (pendiente tienda)` | `main-collection.liquid:161-170` activo. `main-search.liquid:204-218` desacoplado de `search.filters.size > 0`, se renderiza siempre que `search.results_count > 0`. Artefacto de cierre: verificación en búsqueda con resultados en tienda real. | Claude / Johandry | Sprint 4B-002 |
 | **Búsqueda Predictiva (`/search/suggest`)** | Official Requirements: Search | `cumplido (código)` | Web Component `<predictive-search>` en `assets/theme.js:2415-2820`, snippet `snippets/predictive-search.liquid:1-125`, CSS en `assets/base.css:5335-5490`. Debounce, listbox WAI-ARIA, 4 tipos de entidad. Pendiente tienda real. | GPT-4A | Sprint 4A |
 | **Selector de País / Moneda (`form 'localization'`)** | Official Requirements: Markets | `cumplido (código)` | `<localization-form>` en `assets/theme.js:2390-2410`, `snippets/localization-selectors.liquid`, CSS en `assets/base.css:5224-5250`. Auto-submit en `change`, fallback sin JS. | GPT-4A | Sprint 4A |
 | **Selector de Idioma (`form 'localization'`)** | Official Requirements: Markets | `cumplido (código)` | `<localization-form>` en `assets/theme.js:2390-2410`, `snippets/localization-selectors.liquid`, CSS en `assets/base.css:5224-5250`. Auto-submit en `change`, fallback sin JS. | GPT-4A | Sprint 4A |
@@ -98,7 +98,7 @@ Regla de oro: "Theme Check pasa" NO es evidencia. Solo referencias de código o 
 | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Alineación de Nombre: Tema vs Preset** | Official Requirements: Naming | `cumplido` | `config/settings_schema.json:4` (`theme_name: "Couture"`) coincide con `config/settings_data.json:42` (`presets.Couture`). Decisión Johandry D1. | Johandry / Gemini | Phase 4 |
-| **Validación de Nombre contra Reglamento y Marcas** | Official Requirements: Naming | `no verificado` | Pendiente verificar colisiones de marca en clases 25/42 y directorio oficial de la Theme Store. | Johandry | Phase 4 |
+| **Validación de Nombre contra Reglamento y Marcas** | Official Requirements: Naming | `no verificado (bloqueador P0)` | COLISIÓN DETECTADA: 'Couture' es preset oficial de Prestige (Maestrooo) y 'Studio' es tema oficial de Shopify. Requiere renombramiento comercial por Johandry (candidatos limpios verificados: Sartorial, Maison, Silhouette) y búsqueda en registros de marca clase 25/42. | Johandry | Phase 4 |
 | **Presets Diferenciados (1 a 4)** | Official Requirements: Presets | `cumplido (código)` | `config/settings_data.json` contiene Couture, Studio y Archive con cinco esquemas cada uno; `/listings/<preset>/templates/` incluye nueve overrides diferenciados. `Couture-1.0.0.zip` empaquetado con `/listings/`. Pendiente smoke test de instalación en las tres demos. | Claude / GPT | Sprint 4B |
 | **`theme_info` Comercial y Soporte Real** | Official Requirements: Support & Info | `parcial` | URLs declaradas en `config/settings_schema.json:3-9`. Páginas destino de soporte y docs pendientes de publicar en ruizdigital.com, Hito 4.6. | Johandry | Phase 4 |
 | **3 Tiendas Demo Auténticas (Sin Lorem Ipsum)** | Official Requirements: Demos | `no verificado` | Pendiente de producción de catálogo, copy y assets con derechos para las 3 demos. | Johandry / Claude | Phase 4 |

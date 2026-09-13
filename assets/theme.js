@@ -54,6 +54,36 @@
     return () => container.removeEventListener('keydown', handleKeydown);
   };
 
+  // The seven amount tokens Shopify allows inside money_format / money_with_currency_format.
+  const MONEY_PATTERNS = {
+    amount: { precision: 2, thousands: ',', decimal: '.' },
+    amount_no_decimals: { precision: 0, thousands: ',', decimal: '.' },
+    amount_with_comma_separator: { precision: 2, thousands: '.', decimal: ',' },
+    amount_no_decimals_with_comma_separator: { precision: 0, thousands: '.', decimal: ',' },
+    amount_with_apostrophe_separator: { precision: 2, thousands: "'", decimal: '.' },
+    amount_no_decimals_with_space_separator: { precision: 0, thousands: ' ', decimal: '.' },
+    amount_with_space_separator: { precision: 2, thousands: ' ', decimal: ',' },
+  };
+
+  const MONEY_TOKEN = /\{\{\s*(\w+)\s*\}\}/;
+
+  const formatMoney = (cents, format) => {
+    const amount = Math.round(Number(cents));
+    if (!Number.isFinite(amount)) return '';
+
+    const template = typeof format === 'string' && MONEY_TOKEN.test(format)
+      ? format
+      : '${{amount}}';
+    const token = template.match(MONEY_TOKEN)[1];
+    const pattern = MONEY_PATTERNS[token] || MONEY_PATTERNS.amount;
+    const fixed = (amount / 100).toFixed(pattern.precision);
+    const [whole, fraction] = fixed.split('.');
+    const grouped = whole.replace(/(\d)(?=(\d{3})+$)/g, `$1${pattern.thousands}`);
+    const value = fraction ? `${grouped}${pattern.decimal}${fraction}` : grouped;
+
+    return template.replace(MONEY_TOKEN, value);
+  };
+
   class ThemeElement extends HTMLElement {
     startListening() {
       this.stopListening();
@@ -262,6 +292,16 @@
       this.variantData = this.getVariantData();
 
       if (this.variantData.length === 0) return;
+
+      this.moneyFormat = this.dataset.moneyFormat || '';
+      this.quantityInput = this.querySelector('[data-quantity-input]');
+      this.lineTotal = this.querySelector('[data-line-total]');
+
+      if (this.quantityInput && this.lineTotal) {
+        const recalculate = () => this.updateLineTotal();
+        this.listen(this.quantityInput, 'input', recalculate);
+        this.listen(this.quantityInput, 'change', recalculate);
+      }
 
       this.listen(this, 'change', (event) => {
         if (event.target.matches('[data-option-position]')) {
@@ -566,6 +606,51 @@
           }
         }
       }
+
+      this.updateLineTotal();
+    }
+
+    // Shows what the line will cost, without ever touching the unit price above it.
+    updateLineTotal() {
+      if (!this.lineTotal || !this.quantityInput) return;
+
+      const label = this.lineTotal.querySelector('[data-line-total-label]');
+      const current = this.lineTotal.querySelector('[data-line-total-current]');
+      const compare = this.lineTotal.querySelector('[data-line-total-compare]');
+      const compareValue = this.lineTotal.querySelector('[data-line-total-compare-value]');
+      const priceSource = this.currentAllocation || this.currentVariant;
+      const quantity = Number.parseInt(this.quantityInput.value, 10);
+      const unitCents = Number(priceSource?.price_cents);
+
+      const showTotal = Number.isFinite(quantity)
+        && quantity > 1
+        && Number.isFinite(unitCents);
+
+      if (!showTotal) {
+        this.lineTotal.setAttribute('data-empty', '');
+        if (label) label.textContent = '';
+        if (current) current.textContent = '';
+        if (compareValue) compareValue.textContent = '';
+        if (compare) compare.hidden = true;
+        return;
+      }
+
+      const compareCents = Number(priceSource?.compare_at_price_cents);
+      const hasCompare = Number.isFinite(compareCents) && compareCents > unitCents;
+
+      if (label) {
+        label.textContent = (this.dataset.lineTotalTemplate || '')
+          .replace('[quantity]', String(quantity));
+      }
+      if (current) current.textContent = formatMoney(unitCents * quantity, this.moneyFormat);
+      if (compareValue) {
+        compareValue.textContent = hasCompare
+          ? formatMoney(compareCents * quantity, this.moneyFormat)
+          : '';
+      }
+      if (compare) compare.hidden = !hasCompare;
+
+      this.lineTotal.removeAttribute('data-empty');
     }
 
     updateQuantityRules(variant) {
@@ -1624,6 +1709,7 @@
 
         this.innerHTML = nextElement.innerHTML;
         this.applyStoredGridView();
+        this.announceResultCount();
         if (pushState) window.history.pushState({}, '', navigationUrl);
 
         if (focusedId) {
@@ -1640,6 +1726,17 @@
     setBusy(busy) {
       const grid = this.querySelector('[data-product-grid]');
       if (grid) grid.setAttribute('aria-busy', String(busy));
+    }
+
+    // The result count lives inside the subtree this component replaces, so screen
+    // readers lose the node it was announcing. Mirror the text into a region that
+    // sits outside the swap and therefore keeps its identity.
+    announceResultCount() {
+      const liveRegion = this.parentElement?.querySelector(':scope > [data-facet-live-region]');
+      if (!liveRegion) return;
+
+      const status = this.querySelector('[data-results-status]');
+      liveRegion.textContent = status?.textContent?.trim() || '';
     }
 
     applyStoredGridView() {

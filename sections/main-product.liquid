@@ -83,6 +83,8 @@
       data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
       data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
       data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
+      data-money-format="{{ shop.money_format | strip_html | escape }}"
+      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape }}"
     >
       <div class="product-main__info flow">
         {%- for block in section.blocks -%}
@@ -307,6 +309,20 @@
                   inputmode="numeric"
                   data-quantity-input
                 >
+                <p
+                  class="product-form__line-total"
+                  data-line-total
+                  data-empty
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  <span data-line-total-label></span>
+                  <s data-line-total-compare hidden>
+                    <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                    <span data-line-total-compare-value></span>
+                  </s>
+                  <span data-line-total-current></span>
+                </p>
               </div>
 
             {%- when 'buy_buttons' -%}
@@ -502,7 +518,9 @@
               "available": {{ variant.available | json }},
               "options": {{ variant.options | json }},
               "price": {{ variant.price | money | json }},
+              "price_cents": {{ variant.price | json }},
               "compare_at_price": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+              "compare_at_price_cents": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | json }}{% else %}null{% endif %},
               "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
               "unit_reference_value": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_value | json }}{% else %}null{% endif %},
               "unit_reference_unit": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_unit | json }}{% else %}null{% endif %},
@@ -518,7 +536,9 @@
                     "name": {{ allocation.selling_plan.name | json }},
                     "group_id": {{ allocation.selling_plan_group_id | json }},
                     "price": {{ allocation.price | money | json }},
+                    "price_cents": {{ allocation.price | json }},
                     "compare_at_price": {% if allocation.compare_at_price > allocation.price %}{{ allocation.compare_at_price | money | json }}{% else %}null{% endif %},
+                    "compare_at_price_cents": {% if allocation.compare_at_price > allocation.price %}{{ allocation.compare_at_price | json }}{% else %}null{% endif %},
                     "per_delivery_price": {{ allocation.per_delivery_price | money | json }},
                     "unit_price": {% if allocation.unit_price != blank %}{{ allocation.unit_price | money | json }}{% else %}null{% endif %}
                   }{% unless forloop.last %},{% endunless %}

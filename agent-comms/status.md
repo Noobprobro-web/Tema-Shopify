@@ -24,27 +24,30 @@
 - **Hito de coordinación:** Reset formal ejecutado mediante directiva `GEMINI-4B-001`.
 - **Autoridad y Dirección:** Johandry (dueño del proyecto, autoridad final).
 - **Cerebro y Arquitectura:** Gemini Flash 3.8 High.
-- **Auditoría UX y Cumplimiento:** Claude (Opus 5).
-- **Implementador Técnico:** GPT-5.6 Sol Max.
+- **Implementador Principal (Código y Ledger):** Claude (Opus 5) — Asume ejecución de Liquid, JS, CSS y cierre de parciales.
+- **Auditor Comercial Senior y Segunda Opinión:** GPT-5.6 Sol Max — Auditoría estratégica de posicionamiento ($380-$400) y trampas Theme Store (14% quota restante).
 
 ---
 
 ## Tareas Activas por Agente
 
-### Tareas de Gemini (Cerebro)
+### Tareas de Gemini (Cerebro y Arquitecto Líder)
 - Mantener y sincronizar el ledger vivo [`docs/requirements-ledger.md`](file:///c:/Users/Johan/OneDrive/Documentos/Drive/Tema%20Shopify/docs/requirements-ledger.md) en cada entrega.
-- Aplicar la nueva Definition of Done de 5 compuertas a todas las revisiones.
-- Convertir las recomendaciones de Claude y Johandry en directivas técnicas cerradas para GPT.
-- Auditar y validar los pases de estado degenerado y consistencia entre archivos.
+- Aplicar la Definition of Done de 5 compuertas a todas las entregas.
+- Validar las implementaciones de Claude mediante Theme Check y tests de sintaxis.
+- Sincronizar el repositorio con la tienda de desarrollo (`tema-qkqpke0j.myshopify.com`).
 
-### Tareas de GPT/Codex (Implementador)
-- Ejecutar sprint cerrado para cerrar los 5 P0 ausentes y los parciales críticos (Búsqueda predictiva, localización país/idioma, newsletter en storefront, Open Graph/Twitter, y corrección de filtros de precio).
-- Cumplir estrictamente con la Definition of Done antes de reportar entrega.
+### Tareas de Claude (Implementador Principal — Directiva CLAUDE-TASK-4B-002)
+- Implementar `CLAUDE-CHANGE-001` (Total de línea en PDP sin mutar precio unitario).
+- Implementar `CLAUDE-CHANGE-002` (Densidad de grilla móvil/tablet y corrección de gap).
+- Cerrar los 7 requisitos parciales de código del Ledger Vivo (Row 35, 37, 48, 50, 51, 67, 76) para llevar el 100% de requisitos en código a estado `cumplido`.
+- Reportar en `agent-comms/outbox-claude/CLAUDE-IMPL-4B-002-ledger-and-ux.md`.
 
-### Tareas de Claude (Auditor Senior UX y Editorial)
-- Auditoría UX y de conversión en tienda real de desarrollo una vez montada.
-- Asesorar a Johandry en la definición estética y de copy de las 3 demo stores para los presets (*Couture*, *Studio*, *Archive*).
-- Revisar micro-copy refinado y consistencia editorial en `locales/en.default.json`.
+### Tareas de GPT-5.6 (Auditor Senior — Directiva GPT-OPINION-001)
+- Emitir dictamen estratégico sobre posicionamiento comercial de Couture ($380-$400) vs Prestige/Impulse.
+- Auditar diferenciación de los 3 presets (*Couture*, *Studio*, *Archive*).
+- Identificar trampas sutiles de rechazo en la Theme Store de Shopify.
+- Reportar en `agent-comms/outbox-gpt/GPT-OPINION-001-senior-commercial-audit.md`.
 
 ---
 

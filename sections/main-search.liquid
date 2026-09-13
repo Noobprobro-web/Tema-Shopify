@@ -30,6 +30,13 @@
   assign clear_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=' | append: encoded_search_types | append: '&options%5Bprefix%5D=last'
 -%}
 
+<div
+  class="visually-hidden"
+  aria-live="polite"
+  aria-atomic="true"
+  data-facet-live-region
+></div>
+
 <facet-filters-form data-section-id="{{ section.id }}">
   <section class="section main-search color-{{ section_scheme }}" aria-labelledby="{{ title_id }}" data-facet-section>
     <div class="container flow">
@@ -185,15 +192,6 @@
               </details>
             {%- endfor -%}
 
-            <div class="facets__sort">
-              <label for="SearchSortBy-{{ section.id }}">{{ 'collections.filters.sort_by' | t }}</label>
-              <select id="SearchSortBy-{{ section.id }}" name="sort_by" data-facet-sort>
-                {%- for option in search.sort_options -%}
-                  <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
-                {%- endfor -%}
-              </select>
-            </div>
-
             <div class="facets__actions cluster">
               <button class="button" type="submit">{{ 'collections.filters.apply' | t }}</button>
               {%- if active_filter_count > 0 -%}
@@ -202,11 +200,27 @@
             </div>
           </div>
         {%- endif -%}
+
+        {%- if search.performed and search.results_count > 0 -%}
+          <div class="main-search__sort-bar">
+            <div class="facets__sort">
+              <label for="SearchSortBy-{{ section.id }}">{{ 'collections.filters.sort_by' | t }}</label>
+              <select id="SearchSortBy-{{ section.id }}" name="sort_by" data-facet-sort>
+                {%- for option in search.sort_options -%}
+                  <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+            <button class="button button--secondary no-js-only" type="submit">
+              {{- 'collections.filters.apply' | t -}}
+            </button>
+          </div>
+        {%- endif -%}
       </form>
 
       <div class="main-search__results" data-product-grid aria-busy="false">
         {%- if search.performed -%}
-          <p class="main-search__count" role="status" aria-live="polite" data-results-status>
+          <p class="main-search__count" data-results-status>
             {{- 'search.results.count' | t: count: search.results_count -}}
           </p>
 

@@ -21,8 +21,6 @@
         "subheading": "<p>A quiet system for objects that speak for themselves.</p>",
         "button_primary_label": "Browse all objects",
         "button_primary_url": "/collections/all",
-        "button_secondary_label": "Read the method",
-        "button_secondary_url": "/",
         "color_scheme": "scheme-1"
       }
     },
@@ -48,7 +46,7 @@
         "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all" } },
         "product1": { "type": "card_product", "settings": {} },
         "product2": { "type": "card_product", "settings": {} },
-        "story": { "type": "card_editorial", "settings": { "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "link_label": "Read the study", "link": "/" } }
+        "story": { "type": "card_editorial", "settings": { "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>" } }
       },
       "block_order": ["collection", "product1", "product2", "story"],
       "settings": {
@@ -85,8 +83,6 @@
         "eyebrow": "METHOD / 05",
         "quote": "Remove until only the useful form remains.",
         "body": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
-        "button_label": "Read the method",
-        "button_url": "/",
         "media_label": "",
         "use_surface_background": false,
         "color_scheme": "scheme-4"

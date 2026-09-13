@@ -383,7 +383,7 @@ blockquote {
   transform: translateY(0);
 }
 
-.site-main:focus {
+.site-main:focus:not(:focus-visible) {
   outline: 0;
 }
 
@@ -2225,6 +2225,10 @@ body[data-sticky-cart-visible] {
   object-fit: cover;
 }
 
+.hero-editorial__image {
+  object-position: var(--hero-focal-point, center);
+}
+
 .hero-editorial__video {
   position: absolute;
   z-index: 1;
@@ -2408,6 +2412,10 @@ curated-showcase {
   content: '';
   transform-origin: left;
   transition: transform 180ms ease;
+}
+
+.curated-showcase__tab:focus-visible {
+  outline-offset: -2px;
 }
 
 .curated-showcase__tab:hover,
@@ -3251,7 +3259,7 @@ marquee-banner {
 
   .product-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap-inline: var(--space-3);
+    column-gap: var(--space-3);
   }
 
   .cart-item {
@@ -3338,7 +3346,7 @@ marquee-banner {
   .desktop-nav__submenu a,
   .desktop-nav__grandchildren a {
     display: flex;
-    min-height: 36px;
+    min-height: var(--tap-target-min, 44px);
     align-items: center;
     color: currentColor;
     text-decoration: none;
@@ -3899,6 +3907,19 @@ complete-the-look {
   background: currentColor;
 }
 
+/*
+  On phones the two options are one and two products per row, so the icons drop the
+  bars they cannot deliver and each button announces the density it really applies.
+*/
+.collection-grid-switcher__icon--two i:nth-child(n + 2),
+.collection-grid-switcher__icon--four i:nth-child(n + 3) {
+  display: none;
+}
+
+.collection-grid-switcher__label--wide {
+  display: none;
+}
+
 .product-grid[data-grid-columns='2'] {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -3983,7 +4004,24 @@ complete-the-look {
   }
 
   .product-grid[data-grid-columns='4'] {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .product-grid[data-grid-columns='4'] .product-grid__item--promotion {
+    grid-column: auto;
+  }
+
+  .collection-grid-switcher__icon--two i:nth-child(n + 2),
+  .collection-grid-switcher__icon--four i:nth-child(n + 3) {
+    display: block;
+  }
+
+  .collection-grid-switcher__label--small {
+    display: none;
+  }
+
+  .collection-grid-switcher__label--wide {
+    display: inline;
   }
 }
 
@@ -4177,12 +4215,38 @@ product-recommendations:not([hidden]):empty {
   font-size: 0.8125rem;
 }
 
+.product-form__line-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs);
+  margin-block: var(--space-xs) 0;
+  color: var(--color-foreground-muted);
+  font-size: 0.875rem;
+}
+
+.product-form__line-total[data-empty] {
+  display: none;
+}
+
+.product-form__line-total [data-line-total-compare] {
+  opacity: 0.68;
+}
+
+.product-form__line-total [data-line-total-current] {
+  color: var(--color-foreground);
+  font-weight: 700;
+}
+
 .gift-card-recipient {
   padding-block: var(--space-md);
   border-block: 1px solid var(--color-border-hairline);
 }
 
 .gift-card-recipient__toggle {
+  display: inline-flex;
+  min-height: var(--tap-target-min, 44px);
+  align-items: center;
   font-weight: 700;
 }
 
@@ -5067,6 +5131,24 @@ password-modal {
   border: 1px solid var(--color-border-hairline);
 }
 
+.main-search__sort-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--space-md);
+}
+
+.main-search__sort-bar .facets__sort {
+  margin-block-start: 0;
+}
+
+.main-404__recommendations-heading {
+  margin-block-end: var(--space-md);
+  font-size: 1.125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .main-search__count {
   margin: 0;
   padding-block-end: var(--space-md);
@@ -5473,7 +5555,7 @@ password-modal {
 
   .search-results-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap-inline: var(--space-xl);
+    column-gap: var(--space-xl);
   }
 
   .main-404__layout {

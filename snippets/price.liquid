@@ -37,6 +37,13 @@
     assign unit_price_target = product.selected_or_first_available_variant
   endif
 
+  # product.compare_at_price reports the minimum, so a product whose variants vary
+  # hides every discounted variant behind an undiscounted one. The max is what tells
+  # us whether anything in the product is actually on sale.
+  if target_is_product
+    assign compare_price = product.compare_at_price_max
+  endif
+
   assign on_sale = false
   if compare_price != blank and compare_price > current_price
     assign on_sale = true
@@ -48,6 +55,12 @@
     {%- if price_varies -%}
       <span>{{ 'products.product.price_from' | t }}</span>
       <span data-current-price>{{ current_price | money }}</span>
+      {%- if on_sale -%}
+        <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+        <s class="price__compare" data-compare-price>{{ compare_price | money }}</s>
+      {%- else -%}
+        <s class="price__compare" data-compare-price hidden></s>
+      {%- endif -%}
     {%- elsif on_sale -%}
       <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
       <span data-current-price>{{ current_price | money }}</span>

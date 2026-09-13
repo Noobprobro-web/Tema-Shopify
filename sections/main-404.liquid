@@ -33,7 +33,9 @@
 
     {%- if recommendation_collection != blank and recommendation_collection.products.size > 0 -%}
       <aside class="main-404__recommendations" aria-labelledby="NotFoundRecommendations-{{ section.id }}">
-        <h2 id="NotFoundRecommendations-{{ section.id }}" class="eyebrow">{{ 'not_found.recommendations' | t }}</h2>
+        <h2 id="NotFoundRecommendations-{{ section.id }}" class="main-404__recommendations-heading">
+          {{- 'not_found.recommendations' | t -}}
+        </h2>
         <ul class="main-404__product-grid unstyled-list">
           {%- for recommended_product in recommendation_collection.products limit: section.settings.products_to_show -%}
             <li>

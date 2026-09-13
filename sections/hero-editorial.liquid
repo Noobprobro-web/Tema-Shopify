@@ -2,11 +2,43 @@
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign layout_mode = section.settings.layout_mode | default: 'split'
-  assign heading_tag = section.settings.heading_tag | default: 'h1'
   assign hero_image = section.settings.image_desktop | default: section.settings.image_mobile
   assign hero_video = section.settings.video
   assign video_poster = section.settings.video_poster | default: hero_image | default: hero_video.preview_image
   assign hero_alt = section.settings.image_alt | default: section.settings.heading
+
+  # The hero only claims the page h1 on the homepage. Every other template already
+  # renders its own h1, so the automatic level drops to h2 there.
+  assign heading_tag = section.settings.heading_tag
+  if heading_tag == blank or heading_tag == 'auto'
+    assign heading_tag = 'h2'
+    if template.name == 'index'
+      assign heading_tag = 'h1'
+    endif
+  endif
+
+  assign uses_video = false
+  if section.settings.media_type == 'video' and hero_video != blank and video_poster != blank
+    assign uses_video = true
+  endif
+
+  # Native focal point of whichever asset actually renders.
+  assign focal_image = hero_image
+  if uses_video
+    assign focal_image = video_poster
+  endif
+  assign hero_focal_point = focal_image.presentation.focal_point | default: 'center'
+
+  # A button needs both a label and a destination. With no destination there is no
+  # button at all, rather than a button that silently returns to the homepage.
+  assign has_primary_button = false
+  assign has_secondary_button = false
+  if section.settings.button_primary_label != blank and section.settings.button_primary_url != blank
+    assign has_primary_button = true
+  endif
+  if section.settings.button_secondary_label != blank and section.settings.button_secondary_url != blank
+    assign has_secondary_button = true
+  endif
 -%}
 
 <editorial-hero
@@ -23,8 +55,8 @@
     {% endif %}
   >
     <div class="hero-editorial__inner">
-      <div class="hero-editorial__media">
-        {%- if video_poster != blank and section.settings.media_type == 'video' and hero_video != blank -%}
+      <div class="hero-editorial__media" style="--hero-focal-point: {{ hero_focal_point }};">
+        {%- if uses_video -%}
           <picture class="hero-editorial__poster">
             {%- if section.settings.image_mobile != blank -%}
               <source
@@ -35,6 +67,8 @@
                   {{ section.settings.image_mobile | image_url: width: 750 }} 750w
                 "
                 sizes="100vw"
+                width="{{ section.settings.image_mobile.width }}"
+                height="{{ section.settings.image_mobile.height }}"
               >
             {%- endif -%}
             {% render 'responsive-image',
@@ -70,6 +104,8 @@
                   {{ section.settings.image_mobile | image_url: width: 750 }} 750w
                 "
                 sizes="100vw"
+                width="{{ section.settings.image_mobile.width }}"
+                height="{{ section.settings.image_mobile.height }}"
               >
             {%- endif -%}
             {% render 'responsive-image',
@@ -109,21 +145,21 @@
           {%- endif -%}
         </div>
 
-        {%- if section.settings.button_primary_label != blank or section.settings.button_secondary_label != blank -%}
+        {%- if has_primary_button or has_secondary_button -%}
           <div class="hero-editorial__actions">
-            {%- if section.settings.button_primary_label != blank -%}
+            {%- if has_primary_button -%}
               <a
                 class="button hero-editorial__button"
-                href="{{ section.settings.button_primary_url | default: routes.all_products_collection_url | escape }}"
+                href="{{ section.settings.button_primary_url | escape }}"
               >
                 <span>{{ section.settings.button_primary_label | escape }}</span>
                 {% render 'icon', name: 'arrow', size: 18 %}
               </a>
             {%- endif -%}
-            {%- if section.settings.button_secondary_label != blank -%}
+            {%- if has_secondary_button -%}
               <a
                 class="button button--secondary hero-editorial__button"
-                href="{{ section.settings.button_secondary_url | default: routes.root_url | escape }}"
+                href="{{ section.settings.button_secondary_url | escape }}"
               >
                 <span>{{ section.settings.button_secondary_label | escape }}</span>
                 {% render 'icon', name: 'arrow', size: 18 %}
@@ -312,10 +348,11 @@
       "label": "t:sections.hero_editorial.settings.heading_tag.label",
       "info": "t:sections.hero_editorial.settings.heading_tag.info",
       "options": [
+        { "value": "auto", "label": "t:sections.hero_editorial.settings.heading_tag.options__3.label" },
         { "value": "h1", "label": "t:sections.hero_editorial.settings.heading_tag.options__1.label" },
         { "value": "h2", "label": "t:sections.hero_editorial.settings.heading_tag.options__2.label" }
       ],
-      "default": "h1"
+      "default": "auto"
     },
     {
       "type": "text",
@@ -344,7 +381,8 @@
     {
       "type": "url",
       "id": "button_primary_url",
-      "label": "t:sections.hero_editorial.settings.button_primary_url.label"
+      "label": "t:sections.hero_editorial.settings.button_primary_url.label",
+      "info": "t:sections.hero_editorial.settings.button_primary_url.info"
     },
     {
       "type": "text",
@@ -355,7 +393,8 @@
     {
       "type": "url",
       "id": "button_secondary_url",
-      "label": "t:sections.hero_editorial.settings.button_secondary_url.label"
+      "label": "t:sections.hero_editorial.settings.button_secondary_url.label",
+      "info": "t:sections.hero_editorial.settings.button_secondary_url.info"
     },
     {
       "type": "color_scheme",

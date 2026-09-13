@@ -22,8 +22,6 @@
         "subheading": "<p>A collection shaped by provenance, handwork and time.</p>",
         "button_primary_label": "Enter the catalogue",
         "button_primary_url": "/collections/all",
-        "button_secondary_label": "Read our history",
-        "button_secondary_url": "/",
         "color_scheme": "scheme-2"
       }
     },
@@ -40,8 +38,6 @@
         "eyebrow": "INDEX II / PROVENANCE",
         "quote": "What endures carries the record of how it was made.",
         "body": "<p>The catalogue follows material from source to workshop and object.</p>",
-        "button_label": "Read the house history",
-        "button_url": "/",
         "media_label": "PLATE IV / HAND AND TOOL",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
@@ -94,8 +90,8 @@
     "discovery": {
       "type": "bento-discovery",
       "blocks": {
-        "story1": { "type": "card_editorial", "settings": { "eyebrow": "[I] FIELD NOTE", "heading": "Where the fibre begins", "body": "<p>A record of material, place and season.</p>", "link_label": "Open the record", "link": "/" } },
-        "story2": { "type": "card_editorial", "settings": { "eyebrow": "[II] WORKSHOP NOTE", "heading": "The mark of the tool", "body": "<p>Hands, edges and the small variations that make an object singular.</p>", "link_label": "Visit the workshop", "link": "/" } },
+        "story1": { "type": "card_editorial", "settings": { "eyebrow": "[I] FIELD NOTE", "heading": "Where the fibre begins", "body": "<p>A record of material, place and season.</p>" } },
+        "story2": { "type": "card_editorial", "settings": { "eyebrow": "[II] WORKSHOP NOTE", "heading": "The mark of the tool", "body": "<p>Hands, edges and the small variations that make an object singular.</p>" } },
         "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[III] CATALOGUE", "heading": "The permanent collection", "link": "/collections/all" } }
       },
       "block_order": ["story1", "story2", "collection"],

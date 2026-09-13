@@ -21,6 +21,13 @@
   endfor
 -%}
 
+<div
+  class="visually-hidden"
+  aria-live="polite"
+  aria-atomic="true"
+  data-facet-live-region
+></div>
+
 <facet-filters-form
   data-section-id="{{ section.id }}"
   data-default-grid-columns="{{ default_grid_columns }}"
@@ -180,11 +187,11 @@
         <div class="collection-products" data-product-grid aria-busy="false">
           {%- paginate collection.products by section.settings.products_per_page -%}
             <div class="collection-products__toolbar">
-              <p class="collection-products__count" aria-live="polite" data-results-status>
+              <p class="collection-products__count" data-results-status>
                 {{- 'collections.general.products_count' | t: count: collection.products_count -}}
               </p>
               <div
-                class="collection-grid-switcher"
+                class="collection-grid-switcher js-only"
                 role="group"
                 aria-label="{{ 'collections.grid.label' | t }}"
               >
@@ -195,22 +202,32 @@
                   class="collection-grid-switcher__button"
                   type="button"
                   data-grid-view="2"
-                  aria-label="{{ 'collections.grid.view_compact' | t }}"
                   aria-pressed="{% if default_grid_columns == '2' %}true{% else %}false{% endif %}"
                 >
                   <span class="collection-grid-switcher__icon collection-grid-switcher__icon--two" aria-hidden="true">
                     <i></i><i></i>
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label--small">
+                    {{- 'collections.grid.one_column' | t -}}
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label--wide">
+                    {{- 'collections.grid.two_columns' | t -}}
                   </span>
                 </button>
                 <button
                   class="collection-grid-switcher__button"
                   type="button"
                   data-grid-view="4"
-                  aria-label="{{ 'collections.grid.view_dense' | t }}"
                   aria-pressed="{% if default_grid_columns == '4' %}true{% else %}false{% endif %}"
                 >
                   <span class="collection-grid-switcher__icon collection-grid-switcher__icon--four" aria-hidden="true">
                     <i></i><i></i><i></i><i></i>
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label--small">
+                    {{- 'collections.grid.two_columns' | t -}}
+                  </span>
+                  <span class="visually-hidden collection-grid-switcher__label--wide">
+                    {{- 'collections.grid.four_columns' | t -}}
                   </span>
                 </button>
               </div>
@@ -369,6 +386,7 @@
       "type": "select",
       "id": "default_grid_columns",
       "label": "t:sections.main_collection.settings.default_grid_columns.label",
+      "info": "t:sections.main_collection.settings.default_grid_columns.info",
       "options": [
         { "value": "2", "label": "t:sections.main_collection.settings.default_grid_columns.options__1.label" },
         { "value": "4", "label": "t:sections.main_collection.settings.default_grid_columns.options__2.label" }

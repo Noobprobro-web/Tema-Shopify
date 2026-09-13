@@ -2,11 +2,11 @@
 
 ## Autoridad vigente
 
-1. **Usuario:** autoridad final sobre prioridades de negocio, nombre, direccion visual y cambios de alcance.
+1. **Usuario (Johandry / Ruiz Digital):** autoridad final sobre prioridades de negocio, nombre, direccion visual y cambios de alcance.
 2. **Gemini Flash 3.8 High:** cerebro y coordinador principal. Define arquitectura operativa, scope, criterios de aceptacion, delegacion y orden de trabajo.
-3. **GPT-5.6 Sol Max:** implementacion tecnica principal bajo una directiva escrita de Gemini.
-4. **GPT-5.5 low:** tareas mecanicas, documentacion, prompts, QA simple y mantenimiento ligero asignado por Gemini.
-5. **Claude:** revision editorial, UX, copy y documentacion cuando Gemini lo solicite con una pregunta concreta.
+3. **Claude (Opus 5):** implementador técnico principal de código (Liquid, JSON, CSS, JS, schemas) desde el 2026-09-13, además de su función de auditoría senior UX/UI y disciplina técnica.
+4. **GPT-5.6 Sol Max:** auditor senior de producto, UX, estrategia comercial y segunda opinión crítica.
+5. **GPT-5.5 low:** tareas mecanicas puntuales, inventarios y mantenimiento ligero si se requiere.
 
 Codex en este chat funciona como ejecutor o revisor cuando el usuario le trae una tarea. No sustituye a Gemini como cerebro salvo que el usuario cambie expresamente la autoridad.
 

@@ -8,8 +8,6 @@
         "subheading": "<p>A study in quiet movement. Sculptural layers and tactile materials, made in small series.</p>",
         "button_primary_label": "Discover the collection",
         "button_primary_url": "/collections/all",
-        "button_secondary_label": "Explore lookbook",
-        "button_secondary_url": "/",
         "layout_split": "image_first",
         "color_scheme": "scheme-1"
       }
@@ -51,21 +49,9 @@
             "collection": "all",
             "tab_label": "New arrivals"
           }
-        },
-        "collection_permanent": {
-          "type": "collection_tab",
-          "settings": {
-            "tab_label": "Permanent collection"
-          }
-        },
-        "collection_objects": {
-          "type": "collection_tab",
-          "settings": {
-            "tab_label": "Objects"
-          }
         }
       },
-      "block_order": ["collection_new", "collection_permanent", "collection_objects"],
+      "block_order": ["collection_new"],
       "settings": {
         "eyebrow": "CURATED EDIT / 02",
         "heading": "Selected forms for the season",
@@ -104,8 +90,6 @@
         "eyebrow": "THE HAND AND THE MATERIAL / 03",
         "quote": "Objects gain meaning through the hands that make them.",
         "body": "<p>Every seam, edge and finish records a decision made by an artisan, not an anonymous process.</p>",
-        "button_label": "Read our process",
-        "button_url": "/",
         "media_label": "MACRO STUDY / MATERIAL 07",
         "use_surface_background": true,
         "color_scheme": "scheme-1"
@@ -128,9 +112,7 @@
           "settings": {
             "eyebrow": "[02] MATERIAL STUDY",
             "heading": "Carried close",
-            "body": "<p>An editorial study in proportion, tactility and daily use.</p>",
-            "link_label": "Explore the story",
-            "link": "/"
+            "body": "<p>An editorial study in proportion, tactility and daily use.</p>"
           }
         },
         "bento_product": {

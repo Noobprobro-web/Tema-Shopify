@@ -31,10 +31,10 @@
         <div class="brand-manifesto__body rte">{{ section.settings.body }}</div>
       {%- endif -%}
 
-      {%- if section.settings.button_label != blank -%}
+      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
         <a
           class="button button--secondary brand-manifesto__button"
-          href="{{ section.settings.button_url | default: routes.root_url }}"
+          href="{{ section.settings.button_url | escape }}"
         >
           <span>{{ section.settings.button_label | escape }}</span>
           {% render 'icon', name: 'arrow', size: 18 %}
@@ -116,7 +116,8 @@
     {
       "type": "url",
       "id": "button_url",
-      "label": "t:sections.all.button_url.label"
+      "label": "t:sections.all.button_url.label",
+      "info": "t:sections.all.button_url.info"
     },
     {
       "type": "image_picker",

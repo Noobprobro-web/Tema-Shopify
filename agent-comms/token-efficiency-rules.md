@@ -18,20 +18,16 @@ No leer el repo completo por defecto. No pegar contenido de archivos ya conocido
 ## Jerarquia de modelos
 
 ### Gemini Flash 3.8 High: cerebro
+Usarlo para coordinacion, arquitectura operativa, priorizacion, criterios de aceptacion, verificacion en codigo, sintesis de informes, conflictos y delegacion. Gemini conserva el contexto maestro y decide el siguiente trabajo.
 
-Usarlo para coordinacion, arquitectura operativa, priorizacion, criterios de aceptacion, sintesis de informes, conflictos y delegacion. Gemini conserva el contexto maestro y decide el siguiente trabajo.
+### Claude (Opus 5): implementador principal y auditor senior UX
+Usarlo para Liquid/CSS/JS/JSON, schemas, componentes, adaptaciones responsive, controles de accesibilidad y cierre de código del ledger (reasignado como implementador principal el 2026-09-13). Mantiene además su rol senior de tono premium, claridad UX y ergonomía del comerciante.
 
-### GPT-5.6 Sol Max: fuerza tecnica
-
-Usarlo para Liquid/CSS/JS/JSON no trivial, schemas, componentes, integraciones de Shopify, Phase 2B, bugs complejos y validaciones tecnicas de alto impacto bajo una tarea de Gemini.
+### GPT-5.6 Sol Max: auditor senior de producto y estrategia comercial
+Usarlo para análisis de posicionamiento comercial, segunda opinión crítica, auditoría de precios y detección de riesgos sutiles de rechazo en Theme Store (optimizando su 14% de cuota restante sin generar código).
 
 ### GPT-5.5 low: trabajo mecanico
-
-Usarlo para prompts, estados, documentos cortos, inventarios, parseos, QA simple y tareas repetitivas con bajo riesgo.
-
-### Claude: especialista editorial/UX
-
-Usarlo para copy de settings, labels, empty states, documentacion merchant-facing, tono premium, claridad UX y segunda opinion de producto. No duplicar implementacion ni investigacion.
+Usarlo para inventarios, parseos y QA simple si se requiere.
 
 ### GPT-6 Astra u otro modelo superior
 
