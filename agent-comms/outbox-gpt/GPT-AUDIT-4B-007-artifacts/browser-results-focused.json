@@ -1,0 +1,29 @@
+[
+  {
+    "name": "F03-same-count-other-tab",
+    "pass": true,
+    "drawer": {
+      "count": "1",
+      "quantity": "1",
+      "note": "",
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "inCart": true
+      },
+      "open": [
+        {
+          "tag": "cart-drawer",
+          "inert": false
+        }
+      ],
+      "body": {
+        "drawer": true,
+        "modal": false
+      }
+    },
+    "expectedTitle": "On sale with compare at price",
+    "titles": "Complimentary Shipping unlocked. Add $100.00 for an Atelier Gift\n\nShipping at $150.00\nGift at $250.00\nOn sale with compare at price\n$150.00\nQuantity\n\nCURATED FOR THIS ORDER\n\nComplimentary Additions\n\nOn sale with compare at price\n\n$150.00\n\nAdded\nOrder note \nSubtotal\n$150.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart",
+    "pageErrors": []
+  }
+]

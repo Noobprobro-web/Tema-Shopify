@@ -73,6 +73,11 @@
     });
   };
 
+  const syncDialogScrollLocks = () => {
+    document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
+    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open]')));
+  };
+
   // The eight amount tokens Shopify allows inside money_format / money_with_currency_format.
   const MONEY_PATTERNS = {
     amount: { precision: 2, thousands: ',', decimal: '.' },
@@ -123,6 +128,11 @@
 
     return textTemplate.replace(new RegExp(MONEY_TOKEN.source, 'g'), value);
   };
+
+  const fetchCommerce = (url, options, errorMessage) => fetch(url, options).catch((error) => {
+    if (error.name === 'AbortError') throw error;
+    throw new Error(errorMessage);
+  });
 
   class ThemeElement extends HTMLElement {
     startListening() {
@@ -234,7 +244,7 @@
       this.panel.inert = !open;
       this.overlay.hidden = !open;
       this.toggleAttribute('data-open', open);
-      document.body.toggleAttribute('data-drawer-open', open);
+      syncDialogScrollLocks();
 
       if (open) {
         this.applyBackgroundInert();
@@ -914,7 +924,7 @@
       this.releaseFocusTrap?.();
       this.releaseFocusTrap = null;
       this.setClosedState();
-      document.body.removeAttribute('data-modal-open');
+      syncDialogScrollLocks();
       this.restoreBackgroundInert();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
@@ -1106,7 +1116,9 @@
     open(trigger) {
       if (!this.overlay || !this.panel || this.isOpen) return;
 
-      this.returnFocusTarget = trigger || document.activeElement;
+      const returnTarget = trigger || document.activeElement;
+      closeOtherDialogs(this);
+      this.returnFocusTarget = returnTarget;
       this.overlay.hidden = false;
       this.panel.inert = false;
       this.panel.setAttribute('aria-modal', 'true');
@@ -1124,7 +1136,7 @@
       this.releaseFocusTrap?.();
       this.releaseFocusTrap = null;
       this.setClosedState();
-      document.body.removeAttribute('data-modal-open');
+      syncDialogScrollLocks();
       this.restoreBackgroundInert();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
@@ -1283,6 +1295,10 @@
       this.returnFocusTarget = null;
       this.requestController = null;
       this.crossSellController = null;
+      this.pendingMutations = 0;
+      this.syncRevision = 0;
+      this.renderedRevision = 0;
+      this.syncAfterMutation = false;
 
       if (!this.overlay || !this.panel) return;
 
@@ -1370,6 +1386,7 @@
       if (!removeButton) return;
 
       this.changeLine(Number(removeButton.dataset.line), 0).catch((error) => {
+        if (error.name === 'AbortError') return;
         this.showError(error.message);
       });
     }
@@ -1388,6 +1405,9 @@
 
       const quantity = Number(quantityInput.value);
       this.changeLine(Number(quantityInput.dataset.line), quantity).catch((error) => {
+        // beginMutation() aborts an in-flight section read, so a superseded request must
+        // stay silent instead of showing the browser's own English abort text.
+        if (error.name === 'AbortError') return;
         this.showError(error.message);
       });
     }
@@ -1425,7 +1445,7 @@
       this.releaseFocusTrap?.();
       this.releaseFocusTrap = null;
       this.setClosedState();
-      document.body.removeAttribute('data-drawer-open');
+      syncDialogScrollLocks();
       this.restoreBackgroundInert();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
@@ -1467,6 +1487,7 @@
       // updateForms; that path now reads this flag and leaves it disabled.
       if (form.dataset.cartAddPending === 'true') return;
       form.dataset.cartAddPending = 'true';
+      this.beginMutation();
       this.clearMessages(form);
       this.setFormBusy(form, submitter, true);
 
@@ -1475,14 +1496,14 @@
         formData.set('sections', this.dataset.sectionId);
         formData.set('sections_url', `${window.location.pathname}${window.location.search}`);
 
-        const response = await fetch(this.dataset.cartAddUrl, {
+        const response = await fetchCommerce(this.dataset.cartAddUrl, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
           },
           body: formData,
-        });
+        }, this.dataset.errorMessage);
         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
         // failure is turned into the localized message instead. A deliberate abort keeps
@@ -1504,6 +1525,7 @@
         // may not be the one this request was submitted for.
         const variants = form.closest('variant-selects');
         if (variants?.isConnected) variants.updateForms(variants.currentVariant);
+        this.endMutation();
       }
     }
 
@@ -1511,6 +1533,7 @@
       const variantId = Number(button.dataset.variantId);
       if (!variantId || button.disabled) return;
 
+      this.beginMutation();
       this.clearMessages();
       this.setCrossSellBusy(button, true);
       this.setDrawerBusy(true);
@@ -1518,7 +1541,7 @@
       this.crossSellController = new AbortController();
 
       try {
-        const response = await fetch(this.dataset.cartAddUrl, {
+        const response = await fetchCommerce(this.dataset.cartAddUrl, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -1531,7 +1554,7 @@
             sections_url: `${window.location.pathname}${window.location.search}`,
           }),
           signal: this.crossSellController.signal,
-        });
+        }, this.dataset.errorMessage);
         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
         // failure is turned into the localized message instead. A deliberate abort keeps
@@ -1553,15 +1576,17 @@
       } finally {
         this.setDrawerBusy(false);
         this.setCrossSellBusy(button, false);
+        this.endMutation();
       }
     }
 
     async changeLine(line, quantity) {
+      this.beginMutation();
       this.clearMessages();
       this.setDrawerBusy(true);
 
       try {
-        const response = await fetch(this.dataset.cartChangeUrl, {
+        const response = await fetchCommerce(this.dataset.cartChangeUrl, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -1574,7 +1599,7 @@
             sections: [this.dataset.sectionId],
             sections_url: `${window.location.pathname}${window.location.search}`,
           }),
-        });
+        }, this.dataset.errorMessage);
         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
         // failure is turned into the localized message instead. A deliberate abort keeps
@@ -1589,13 +1614,37 @@
         await this.renderCartResponse(result);
       } finally {
         this.setDrawerBusy(false);
+        this.endMutation();
       }
+    }
+
+    beginMutation() {
+      this.pendingMutations += 1;
+      this.syncRevision += 1;
+      this.requestController?.abort();
+    }
+
+    endMutation() {
+      this.pendingMutations = Math.max(0, this.pendingMutations - 1);
+      if (this.pendingMutations || !this.syncAfterMutation) return;
+      this.syncAfterMutation = false;
+      // A mutation that rendered already brought back server-fresh HTML, so the sync it
+      // displaced has nothing to do. Only an unrendered revision — a mutation that failed
+      // or was aborted — leaves the drawer possibly stale and earns the extra request.
+      if (this.renderedRevision === this.syncRevision) return;
+      if (this.isConnected && this.isOpen) this.syncCart().catch(() => {});
     }
 
     // Always re-renders on open. Comparing item_count alone missed same-count changes:
     // a line swapped for another in a second tab, a price change, or edited properties.
     async syncCart() {
+      if (this.pendingMutations) {
+        this.syncAfterMutation = true;
+        return;
+      }
+      const revision = this.syncRevision;
       const sectionHtml = await this.requestSection();
+      if (!this.isConnected || revision !== this.syncRevision || this.pendingMutations) return;
       this.renderSection(sectionHtml);
     }
 
@@ -1655,6 +1704,11 @@
       const currentCount = this.querySelector('[data-cart-drawer-count]');
       const nextCount = nextDrawer.querySelector('[data-cart-drawer-count]');
       if (currentCount && nextCount) currentCount.textContent = nextCount.textContent;
+
+      // Records which revision the visible HTML came from. endMutation() compares this
+      // against syncRevision to decide whether a deferred sync still has anything to
+      // fetch: if every mutation since the sync was requested has rendered, it does not.
+      this.renderedRevision = this.syncRevision;
 
       this.updateHeaderCount();
     }
@@ -2212,6 +2266,7 @@
       this.requestController?.abort();
       this.requestController = new AbortController();
       const drawer = document.querySelector('cart-drawer');
+      drawer?.beginMutation?.();
       const requestBody = {
         items: selectedItems.map(({ id, quantity }) => ({ id, quantity })),
       };
@@ -2222,7 +2277,7 @@
       }
 
       try {
-        const response = await fetch(this.dataset.cartAddUrl, {
+        const response = await fetchCommerce(this.dataset.cartAddUrl, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -2231,7 +2286,7 @@
           },
           body: JSON.stringify(requestBody),
           signal: this.requestController.signal,
-        });
+        }, this.dataset.errorMessage);
         // See addItem: an HTML error page must surface as the localized message, not as
         // a JSON SyntaxError, and an abort must stay an abort.
         const result = await response.json().catch((error) => {
@@ -2265,6 +2320,7 @@
         this.showStatus(this.dataset.addedMessage);
       } finally {
         this.setBusy(false);
+        drawer?.endMutation?.();
       }
     }
 
@@ -2579,7 +2635,9 @@
     open(initialFocus = null) {
       if (this.isOpen) return;
 
-      this.returnFocusTarget = document.activeElement;
+      const returnTarget = document.activeElement;
+      closeOtherDialogs(this);
+      this.returnFocusTarget = returnTarget;
       this.overlay.hidden = false;
       this.panel.inert = false;
       this.panel.setAttribute('aria-modal', 'true');
@@ -2600,7 +2658,7 @@
       this.releaseFocusTrap?.();
       this.releaseFocusTrap = null;
       this.setClosedState();
-      document.body.removeAttribute('data-modal-open');
+      syncDialogScrollLocks();
       this.restoreBackgroundInert();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
@@ -2721,12 +2779,13 @@
     setOpen(open, restoreFocus = false) {
       if (!this.trigger || !this.overlay || !this.panel || !this.input) return;
 
+      if (open) closeOtherDialogs(this);
       this.trigger.setAttribute('aria-expanded', String(open));
       this.panel.setAttribute('aria-hidden', String(!open));
       this.panel.inert = !open;
       this.overlay.hidden = !open;
       this.toggleAttribute('data-open', open);
-      document.body.toggleAttribute('data-modal-open', open);
+      syncDialogScrollLocks();
 
       if (open) {
         this.applyBackgroundInert();

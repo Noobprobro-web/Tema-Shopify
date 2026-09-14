@@ -41,6 +41,25 @@
       <p data-bundle-count></p>
       <button type="button" data-complete-look-submit><span data-complete-look-label>Add</span></button>
     </complete-the-look>
+
+
+    <form id="add-form" data-cart-add-form action="/cart/add" method="post">
+      <input type="hidden" name="id" value="111">
+      <input type="number" name="quantity" value="1" min="1" step="1" required data-quantity-input>
+      <button type="submit" name="add" data-add-to-cart><span data-add-to-cart-text>Add to cart</span></button>
+    </form>
+    <predictive-search id="psearch">
+      <button type="button" data-predictive-search-open aria-expanded="false">Search</button>
+      <div data-predictive-search-overlay hidden></div>
+      <div data-predictive-search-panel>
+        <form data-predictive-search-form>
+          <input type="search" data-predictive-search-input value="">
+        </form>
+        <div data-predictive-search-results></div>
+        <p data-predictive-search-status role="status"></p>
+        <button type="button" data-predictive-search-close>Close search</button>
+      </div>
+    </predictive-search>
   </main>
 
   <cart-drawer

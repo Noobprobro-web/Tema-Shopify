@@ -1,6 +1,6 @@
 export default {
   testDir: '/tmp/claude-0/-home-claude/d73764fe-4b4e-52bf-897c-0328b17337e3/scratchpad/harness',
-  testMatch: '**/verify.spec.mjs',
+  testMatch: '**/*.spec.mjs',
   fullyParallel: false,
   workers: 1,
   timeout: 30000,

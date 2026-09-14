@@ -1,0 +1,87 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index 6781667..4bcbab1 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -124,6 +124,11 @@
+     return textTemplate.replace(new RegExp(MONEY_TOKEN.source, 'g'), value);
+   };
+ 
++  const fetchCommerce = (url, options, errorMessage) => fetch(url, options).catch((error) => {
++    if (error.name === 'AbortError') throw error;
++    throw new Error(errorMessage);
++  });
++
+   class ThemeElement extends HTMLElement {
+     startListening() {
+       this.stopListening();
+@@ -1475,14 +1480,14 @@
+         formData.set('sections', this.dataset.sectionId);
+         formData.set('sections_url', `${window.location.pathname}${window.location.search}`);
+ 
+-        const response = await fetch(this.dataset.cartAddUrl, {
++        const response = await fetchCommerce(this.dataset.cartAddUrl, {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+             'X-Requested-With': 'XMLHttpRequest',
+           },
+           body: formData,
+-        });
++        }, this.dataset.errorMessage);
+         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+         // failure is turned into the localized message instead. A deliberate abort keeps
+@@ -1518,7 +1523,7 @@
+       this.crossSellController = new AbortController();
+ 
+       try {
+-        const response = await fetch(this.dataset.cartAddUrl, {
++        const response = await fetchCommerce(this.dataset.cartAddUrl, {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+@@ -1531,7 +1536,7 @@
+             sections_url: `${window.location.pathname}${window.location.search}`,
+           }),
+           signal: this.crossSellController.signal,
+-        });
++        }, this.dataset.errorMessage);
+         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+         // failure is turned into the localized message instead. A deliberate abort keeps
+@@ -1561,7 +1566,7 @@
+       this.setDrawerBusy(true);
+ 
+       try {
+-        const response = await fetch(this.dataset.cartChangeUrl, {
++        const response = await fetchCommerce(this.dataset.cartChangeUrl, {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+@@ -1574,7 +1579,7 @@
+             sections: [this.dataset.sectionId],
+             sections_url: `${window.location.pathname}${window.location.search}`,
+           }),
+-        });
++        }, this.dataset.errorMessage);
+         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+         // failure is turned into the localized message instead. A deliberate abort keeps
+@@ -2222,7 +2227,7 @@
+       }
+ 
+       try {
+-        const response = await fetch(this.dataset.cartAddUrl, {
++        const response = await fetchCommerce(this.dataset.cartAddUrl, {
+           method: 'POST',
+           headers: {
+             Accept: 'application/json',
+@@ -2231,7 +2236,7 @@
+           },
+           body: JSON.stringify(requestBody),
+           signal: this.requestController.signal,
+-        });
++        }, this.dataset.errorMessage);
+         // See addItem: an HTML error page must surface as the localized message, not as
+         // a JSON SyntaxError, and an abort must stay an abort.
+         const result = await response.json().catch((error) => {

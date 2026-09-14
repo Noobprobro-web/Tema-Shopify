@@ -1,0 +1,70 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index 6781667..842f882 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -73,6 +73,11 @@
+     });
+   };
+ 
++  const syncDialogScrollLocks = () => {
++    document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
++    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open]')));
++  };
++
+   // The eight amount tokens Shopify allows inside money_format / money_with_currency_format.
+   const MONEY_PATTERNS = {
+     amount: { precision: 2, thousands: ',', decimal: '.' },
+@@ -234,7 +239,7 @@
+       this.panel.inert = !open;
+       this.overlay.hidden = !open;
+       this.toggleAttribute('data-open', open);
+-      document.body.toggleAttribute('data-drawer-open', open);
++      syncDialogScrollLocks();
+ 
+       if (open) {
+         this.applyBackgroundInert();
+@@ -914,7 +919,7 @@
+       this.releaseFocusTrap?.();
+       this.releaseFocusTrap = null;
+       this.setClosedState();
+-      document.body.removeAttribute('data-modal-open');
++      syncDialogScrollLocks();
+       this.restoreBackgroundInert();
+ 
+       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+@@ -1124,7 +1129,7 @@
+       this.releaseFocusTrap?.();
+       this.releaseFocusTrap = null;
+       this.setClosedState();
+-      document.body.removeAttribute('data-modal-open');
++      syncDialogScrollLocks();
+       this.restoreBackgroundInert();
+ 
+       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+@@ -1425,7 +1430,7 @@
+       this.releaseFocusTrap?.();
+       this.releaseFocusTrap = null;
+       this.setClosedState();
+-      document.body.removeAttribute('data-drawer-open');
++      syncDialogScrollLocks();
+       this.restoreBackgroundInert();
+ 
+       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+@@ -2600,7 +2605,7 @@
+       this.releaseFocusTrap?.();
+       this.releaseFocusTrap = null;
+       this.setClosedState();
+-      document.body.removeAttribute('data-modal-open');
++      syncDialogScrollLocks();
+       this.restoreBackgroundInert();
+ 
+       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+@@ -2726,7 +2731,7 @@
+       this.panel.inert = !open;
+       this.overlay.hidden = !open;
+       this.toggleAttribute('data-open', open);
+-      document.body.toggleAttribute('data-modal-open', open);
++      syncDialogScrollLocks();
+ 
+       if (open) {
+         this.applyBackgroundInert();

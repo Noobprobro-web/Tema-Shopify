@@ -1,0 +1,16 @@
+{
+  "commit": "bee742bc1592677c0861fcb1db0fcfb61ac0afce",
+  "productionFilesCompared": 69,
+  "productionFilesChanged": [],
+  "originalThemeJsSha256": "ec5f81a2d967f7d25bc84d57c8d299e199aa817b201619ef0448c58fc848f9d2",
+  "servedThemeJsSha256": "ec5f81a2d967f7d25bc84d57c8d299e199aa817b201619ef0448c58fc848f9d2",
+  "requestedThemeId": 165809488115,
+  "testedDevelopmentThemeId": 165815288051,
+  "candidateThemeJsSha256": "734d1a3349baf8290d50c04cf220ecc197e37ef36860886e3ced488ae8a4fca4",
+  "originalBrowserChecks": 12,
+  "originalBrowserFailures": [
+    "F01-directional-dialog-matrix",
+    "F03-stale-open-response-after-mutation"
+  ],
+  "evidenceCorrection": "Initial same-count oracle used an assumed product title. Focused rerun uses the real catalog title. Raw run retained; effective summary substitutes only that test."
+}

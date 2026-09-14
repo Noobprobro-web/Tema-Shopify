@@ -1,0 +1,920 @@
+[
+  {
+    "name": "F01-directional-dialog-matrix",
+    "pass": true,
+    "kind": "Real components; public opening APIs, not inaccessible native clicks",
+    "matrix": [
+      {
+        "first": "theme-drawer",
+        "second": "cart-drawer",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": true
+          },
+          "open": [
+            {
+              "tag": "cart-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": true
+          },
+          "open": [
+            {
+              "tag": "cart-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "theme-drawer",
+        "second": "size-guide-modal",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "size-guide-modal",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-TabCm",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "size-guide-modal",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-TabCm",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "theme-drawer",
+        "second": "predictive-search",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "INPUT",
+            "id": "PredictiveSearchInput-sections--23527370064115__header",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "predictive-search",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "predictive-search",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "cart-drawer",
+        "second": "theme-drawer",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "theme-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "theme-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "cart-drawer",
+        "second": "size-guide-modal",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "size-guide-modal",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-TabCm",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "size-guide-modal",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-TabCm",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "cart-drawer",
+        "second": "predictive-search",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "INPUT",
+            "id": "PredictiveSearchInput-sections--23527370064115__header",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "predictive-search",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "predictive-search",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "size-guide-modal",
+        "second": "theme-drawer",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "theme-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "theme-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "size-guide-modal",
+        "second": "cart-drawer",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": true
+          },
+          "open": [
+            {
+              "tag": "cart-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": true
+          },
+          "open": [
+            {
+              "tag": "cart-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": true
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "size-guide-modal",
+        "second": "predictive-search",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "INPUT",
+            "id": "PredictiveSearchInput-sections--23527370064115__header",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "predictive-search",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "predictive-search",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "predictive-search",
+        "second": "theme-drawer",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "theme-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "theme-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "predictive-search",
+        "second": "cart-drawer",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": true
+          },
+          "open": [
+            {
+              "tag": "cart-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": true
+          },
+          "open": [
+            {
+              "tag": "cart-drawer",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": true,
+            "modal": false
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "A",
+            "id": "",
+            "inCart": true
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      },
+      {
+        "first": "predictive-search",
+        "second": "size-guide-modal",
+        "before": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "size-guide-modal",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterTab": {
+          "count": "0",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-TabCm",
+            "inCart": false
+          },
+          "open": [
+            {
+              "tag": "size-guide-modal",
+              "inert": false
+            }
+          ],
+          "body": {
+            "drawer": false,
+            "modal": true
+          }
+        },
+        "afterEscape": {
+          "count": "0",
+          "focus": {
+            "tag": "BODY",
+            "id": "",
+            "inCart": false
+          },
+          "open": [],
+          "body": {
+            "drawer": false,
+            "modal": false
+          }
+        },
+        "pass": true
+      }
+    ],
+    "pageErrors": []
+  },
+  {
+    "name": "F03-stale-open-response-after-mutation",
+    "pass": true,
+    "fresh": {
+      "count": "2",
+      "quantity": "2",
+      "note": "",
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "inCart": true
+      },
+      "open": [
+        {
+          "tag": "cart-drawer",
+          "inert": false
+        }
+      ],
+      "body": {
+        "drawer": true,
+        "modal": false
+      }
+    },
+    "late": {
+      "count": "2",
+      "quantity": "2",
+      "note": "",
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "inCart": true
+      },
+      "open": [
+        {
+          "tag": "cart-drawer",
+          "inert": false
+        }
+      ],
+      "body": {
+        "drawer": true,
+        "modal": false
+      }
+    },
+    "server": {
+      "item_count": 2,
+      "total_price": 12000,
+      "quantities": [
+        2
+      ]
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "F02-pending-variant-duplicate-submit",
+    "pass": true,
+    "calls": 1,
+    "pending": {
+      "disabled": true,
+      "pending": "true",
+      "variant": 51271417069811
+    },
+    "cart": [
+      {
+        "variant_id": 51271417037043,
+        "quantity": 1
+      }
+    ],
+    "pageErrors": []
+  },
+  {
+    "name": "F04-native-note-and-focus-mutations",
+    "pass": true,
+    "quantity": {
+      "count": "2",
+      "quantity": "2",
+      "note": "Keep this unsaved draft: gift for Ada",
+      "dirty": "true",
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "inCart": true
+      },
+      "open": [
+        {
+          "tag": "cart-drawer",
+          "inert": false
+        }
+      ],
+      "body": {
+        "drawer": true,
+        "modal": false
+      }
+    },
+    "crossSell": {
+      "count": "3",
+      "quantity": "1",
+      "note": "Keep this unsaved draft: gift for Ada",
+      "dirty": "true",
+      "focus": {
+        "tag": "ARTICLE",
+        "id": "",
+        "inCart": true
+      },
+      "open": [
+        {
+          "tag": "cart-drawer",
+          "inert": false
+        }
+      ],
+      "body": {
+        "drawer": true,
+        "modal": false
+      }
+    },
+    "pageErrors": []
+  },
+  {
+    "name": "F03-same-count-other-tab",
+    "pass": true,
+    "drawer": {
+      "count": "1",
+      "quantity": "1",
+      "note": "",
+      "focus": {
+        "tag": "BUTTON",
+        "id": "",
+        "inCart": true
+      },
+      "open": [
+        {
+          "tag": "cart-drawer",
+          "inert": false
+        }
+      ],
+      "body": {
+        "drawer": true,
+        "modal": false
+      }
+    },
+    "expectedTitle": "On sale with compare at price",
+    "titles": "Complimentary Shipping unlocked. Add $100.00 for an Atelier Gift\n\nShipping at $150.00\nGift at $250.00\nOn sale with compare at price\n$150.00\nQuantity\n\nCURATED FOR THIS ORDER\n\nComplimentary Additions\n\nOn sale with compare at price\n\n$150.00\n\nAdded\nOrder note \nSubtotal\n$150.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart",
+    "pageErrors": []
+  },
+  {
+    "name": "F10-sixteen-HTML-mutation-errors",
+    "pass": true,
+    "rows": [
+      {
+        "flow": "addItem",
+        "status": 500,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addItem",
+        "status": 502,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addItem",
+        "status": 503,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addItem",
+        "status": 429,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addCrossSell",
+        "status": 500,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addCrossSell",
+        "status": 502,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addCrossSell",
+        "status": 503,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addCrossSell",
+        "status": 429,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "changeLine",
+        "status": 500,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "changeLine",
+        "status": 502,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "changeLine",
+        "status": 503,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "changeLine",
+        "status": 429,
+        "message": "We could not update your cart. Please try again.",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": true
+      },
+      {
+        "flow": "addSelectedItems",
+        "status": 500,
+        "message": "We could not add this look. Review the selected options and try again.",
+        "expected": "We could not add this look. Review the selected options and try again.",
+        "pass": true
+      },
+      {
+        "flow": "addSelectedItems",
+        "status": 502,
+        "message": "We could not add this look. Review the selected options and try again.",
+        "expected": "We could not add this look. Review the selected options and try again.",
+        "pass": true
+      },
+      {
+        "flow": "addSelectedItems",
+        "status": 503,
+        "message": "We could not add this look. Review the selected options and try again.",
+        "expected": "We could not add this look. Review the selected options and try again.",
+        "pass": true
+      },
+      {
+        "flow": "addSelectedItems",
+        "status": 429,
+        "message": "We could not add this look. Review the selected options and try again.",
+        "expected": "We could not add this look. Review the selected options and try again.",
+        "pass": true
+      }
+    ],
+    "pageErrors": []
+  }
+]

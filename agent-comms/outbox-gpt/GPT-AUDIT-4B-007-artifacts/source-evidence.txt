@@ -1,0 +1,910 @@
+Source: master bee742b. Line numbers are 1-based.
+
+assets/theme.js:L57-L124
+57:   // Only one dialog may own the focus trap and the inert background at a time. Two open
+58:   // at once make each other's ancestors inert, which leaves the visible dialog's own
+59:   // controls unclickable and sends Escape to the wrong surface. Every dialog therefore
+60:   // dismisses the others as it opens.
+61:   const DIALOGS_WITH_SET_OPEN = 'theme-drawer[data-open], predictive-search[data-open]';
+62:   const DIALOGS_WITH_CLOSE = 'cart-drawer[data-open], size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open]';
+63: 
+64:   const closeOtherDialogs = (except = null) => {
+65:     document.querySelectorAll(DIALOGS_WITH_SET_OPEN).forEach((dialog) => {
+66:       if (dialog === except || typeof dialog.setOpen !== 'function') return;
+67:       dialog.setOpen(false);
+68:     });
+69: 
+70:     document.querySelectorAll(DIALOGS_WITH_CLOSE).forEach((dialog) => {
+71:       if (dialog === except || typeof dialog.close !== 'function') return;
+72:       dialog.close(false);
+73:     });
+74:   };
+75: 
+76:   // The eight amount tokens Shopify allows inside money_format / money_with_currency_format.
+77:   const MONEY_PATTERNS = {
+78:     amount: { precision: 2, thousands: ',', decimal: '.' },
+79:     amount_no_decimals: { precision: 0, thousands: ',', decimal: '.' },
+80:     amount_with_comma_separator: { precision: 2, thousands: '.', decimal: ',' },
+81:     amount_no_decimals_with_comma_separator: { precision: 0, thousands: '.', decimal: ',' },
+82:     amount_with_apostrophe_separator: { precision: 2, thousands: "'", decimal: '.' },
+83:     amount_no_decimals_with_space_separator: { precision: 0, thousands: ' ', decimal: '.' },
+84:     amount_with_space_separator: { precision: 2, thousands: ' ', decimal: ',' },
+85:     amount_with_period_and_space_separator: { precision: 2, thousands: ' ', decimal: '.' },
+86:   };
+87: 
+88:   const MONEY_TOKEN = /\{\{\s*(\w+)\s*\}\}/;
+89: 
+90:   // Last-resort template. Only reached when the shop exposes no usable money_format,
+91:   // and exists so a price degrades to a readable number instead of an empty node.
+92:   const DEFAULT_MONEY_FORMAT = '${{amount}}';
+93: 
+94:   // Accepts cents as a number, or as a string of digits. A decimal string such as
+95:   // "12.34" is rejected rather than silently read as 12 cents.
+96:   const isCentsLike = (cents) => typeof cents === 'number'
+97:     || (typeof cents === 'string' && /^-?\d+$/.test(cents.trim()));
+98: 
+99:   const formatMoney = (cents, format) => {
+100:     if (!isCentsLike(cents)) return '';
+101:     const amount = Math.round(Number(cents));
+102:     if (!Number.isFinite(amount)) return '';
+103: 
+104:     const template = [
+105:       format,
+106:       window.theme?.moneyFormat,
+107:       document.documentElement.dataset.moneyFormat,
+108:       DEFAULT_MONEY_FORMAT,
+109:     ].find((candidate) => typeof candidate === 'string'
+110:       && Object.hasOwn(MONEY_PATTERNS, candidate.match(MONEY_TOKEN)?.[1]));
+111:     if (!template) return '';
+112: 
+113:     const pattern = MONEY_PATTERNS[template.match(MONEY_TOKEN)[1]];
+114:     // Decodes entities a merchant may have typed into money_format (&pound;, &#36;)
+115:     // while keeping any markup inert, since the result is written with textContent.
+116:     const decoder = document.createElement('textarea');
+117:     decoder.innerHTML = template.replace(/</g, '&lt;');
+118:     const textTemplate = decoder.value;
+119:     const fixed = (amount / 100).toFixed(pattern.precision);
+120:     const [whole, fraction] = fixed.split('.');
+121:     const grouped = whole.replace(/(\d)(?=(\d{3})+$)/g, `$1${pattern.thousands}`);
+122:     const value = fraction ? `${grouped}${pattern.decimal}${fraction}` : grouped;
+123: 
+124:     return textTemplate.replace(new RegExp(MONEY_TOKEN.source, 'g'), value);
+
+assets/theme.js:L216-L251
+216:     disconnectedCallback() {
+217:       this.setOpen(false);
+218:       super.disconnectedCallback();
+219:     }
+220: 
+221:     get isOpen() {
+222:       return this.trigger?.getAttribute('aria-expanded') === 'true';
+223:     }
+224: 
+225:     setOpen(open, restoreFocus = false) {
+226:       if (!this.trigger || !this.overlay || !this.panel) return;
+227: 
+228:       // Runs before this drawer touches body[data-drawer-open] or the inert background,
+229:       // so a closing cart drawer cannot strip the state this one is about to set.
+230:       if (open) closeOtherDialogs(this);
+231: 
+232:       this.trigger.setAttribute('aria-expanded', String(open));
+233:       this.panel.setAttribute('aria-hidden', String(!open));
+234:       this.panel.inert = !open;
+235:       this.overlay.hidden = !open;
+236:       this.toggleAttribute('data-open', open);
+237:       document.body.toggleAttribute('data-drawer-open', open);
+238: 
+239:       if (open) {
+240:         this.applyBackgroundInert();
+241:         const initialFocus = this.querySelector('[data-drawer-close]');
+242:         this.releaseFocusTrap = trapFocus(this.panel, initialFocus);
+243:       } else {
+244:         this.releaseFocusTrap?.();
+245:         this.releaseFocusTrap = null;
+246:         this.restoreBackgroundInert();
+247:         if (restoreFocus) this.trigger.focus();
+248:       }
+249:     }
+250: 
+251:     applyBackgroundInert() {
+
+assets/theme.js:L599-L605
+599:       const purchaseOptionValid = this.isPurchaseOptionValid(variant);
+600:       this.querySelectorAll('[data-add-to-cart]').forEach((button) => {
+601:         // Never re-enable a button whose form still has an add-to-cart request in flight.
+602:         button.disabled = !purchaseOptionValid || button.form?.dataset.cartAddPending === 'true';
+603:         const label = button.querySelector('[data-add-to-cart-text]');
+604:         if (!label) return;
+605: 
+
+assets/theme.js:L894-L925
+894:     open() {
+895:       if (this.isOpen) return;
+896: 
+897:       const returnTarget = document.activeElement;
+898:       closeOtherDialogs(this);
+899: 
+900:       this.returnFocusTarget = returnTarget;
+901:       this.overlay.hidden = false;
+902:       this.panel.inert = false;
+903:       this.panel.setAttribute('aria-hidden', 'false');
+904:       this.trigger.setAttribute('aria-expanded', 'true');
+905:       this.setAttribute('data-open', '');
+906:       document.body.setAttribute('data-modal-open', '');
+907:       this.applyBackgroundInert();
+908:       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton);
+909:     }
+910: 
+911:     close(restoreFocus = false) {
+912:       if (!this.overlay || !this.panel || !this.trigger) return;
+913: 
+914:       this.releaseFocusTrap?.();
+915:       this.releaseFocusTrap = null;
+916:       this.setClosedState();
+917:       document.body.removeAttribute('data-modal-open');
+918:       this.restoreBackgroundInert();
+919: 
+920:       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+921:         this.returnFocusTarget.focus();
+922:       }
+923:     }
+924: 
+925:     setUnit(unit, focus = false) {
+
+assets/theme.js:L1106-L1140
+1106:     open(trigger) {
+1107:       if (!this.overlay || !this.panel || this.isOpen) return;
+1108: 
+1109:       this.returnFocusTarget = trigger || document.activeElement;
+1110:       this.overlay.hidden = false;
+1111:       this.panel.inert = false;
+1112:       this.panel.setAttribute('aria-modal', 'true');
+1113:       this.panel.setAttribute('aria-hidden', 'false');
+1114:       this.trigger?.setAttribute('aria-expanded', 'true');
+1115:       this.setAttribute('data-open', '');
+1116:       document.body.setAttribute('data-modal-open', '');
+1117:       this.applyBackgroundInert();
+1118:       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton || this.panel);
+1119:     }
+1120: 
+1121:     close(restoreFocus = false) {
+1122:       if (!this.overlay || !this.panel) return;
+1123: 
+1124:       this.releaseFocusTrap?.();
+1125:       this.releaseFocusTrap = null;
+1126:       this.setClosedState();
+1127:       document.body.removeAttribute('data-modal-open');
+1128:       this.restoreBackgroundInert();
+1129: 
+1130:       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+1131:         this.returnFocusTarget.focus();
+1132:       }
+1133:     }
+1134: 
+1135:     async updateForVariant(variant) {
+1136:       this.close(false);
+1137:       this.requestController?.abort();
+1138: 
+1139:       if (!variant?.id || !this.dataset.productUrl || !this.dataset.sectionId) {
+1140:         this.hidden = true;
+
+assets/theme.js:L1291-L1301
+1291:       this.listen(document, 'submit', (event) => this.handleAddSubmit(event));
+1292:       this.listen(this, 'click', (event) => this.handleDrawerClick(event));
+1293:       this.listen(this, 'change', (event) => this.handleDrawerChange(event));
+1294:       this.listen(this, 'input', (event) => {
+1295:         if (event.target.matches('textarea[name="note"]')) event.target.dataset.dirty = 'true';
+1296:       });
+1297:       this.listen(this.overlay, 'pointerdown', (event) => {
+1298:         if (event.target === this.overlay) this.close(true);
+1299:       });
+1300:       this.listen(document, 'keydown', (event) => {
+1301:         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
+
+assets/theme.js:L1377-L1434
+1377:     handleDrawerChange(event) {
+1378:       const quantityInput = event.target.closest('[data-cart-quantity]');
+1379:       if (!quantityInput) return;
+1380: 
+1381:       // An empty or malformed field used to fall through parseInt('') || 0 and silently
+1382:       // delete the line. Let the browser report it instead, and keep 0 as the one value
+1383:       // that is allowed to bypass min and remove the item on purpose.
+1384:       if (!quantityInput.checkValidity() && quantityInput.value !== '0') {
+1385:         quantityInput.reportValidity();
+1386:         return;
+1387:       }
+1388: 
+1389:       const quantity = Number(quantityInput.value);
+1390:       this.changeLine(Number(quantityInput.dataset.line), quantity).catch((error) => {
+1391:         this.showError(error.message);
+1392:       });
+1393:     }
+1394: 
+1395:     open(trigger = null) {
+1396:       if (this.isOpen || !this.isConnected) return;
+1397: 
+1398:       // Resolved before the other dialogs close: making a panel inert blurs whatever
+1399:       // inside it holds focus, and a cart opened from the mobile menu must hand focus
+1400:       // back to the menu trigger rather than to a link that is about to disappear.
+1401:       let returnTarget = trigger || document.activeElement;
+1402:       const sourceMenu = returnTarget?.closest?.('theme-drawer[data-open]');
+1403:       const menuTrigger = sourceMenu?.querySelector('[data-drawer-trigger]');
+1404:       if (menuTrigger) returnTarget = menuTrigger;
+1405: 
+1406:       closeOtherDialogs(this);
+1407: 
+1408:       this.returnFocusTarget = returnTarget;
+1409:       this.overlay.hidden = false;
+1410:       this.panel.inert = false;
+1411:       this.panel.setAttribute('aria-hidden', 'false');
+1412:       this.setAttribute('data-open', '');
+1413:       document.body.setAttribute('data-drawer-open', '');
+1414:       this.applyBackgroundInert();
+1415:       this.releaseFocusTrap = trapFocus(
+1416:         this.panel,
+1417:         this.querySelector('[data-cart-drawer-close]'),
+1418:       );
+1419:       this.syncCart().catch(() => {});
+1420:     }
+1421: 
+1422:     close(restoreFocus = false) {
+1423:       if (!this.overlay || !this.panel) return;
+1424: 
+1425:       this.releaseFocusTrap?.();
+1426:       this.releaseFocusTrap = null;
+1427:       this.setClosedState();
+1428:       document.body.removeAttribute('data-drawer-open');
+1429:       this.restoreBackgroundInert();
+1430: 
+1431:       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+1432:         this.returnFocusTarget.focus();
+1433:       }
+1434:     }
+
+assets/theme.js:L1464-L1660
+1464:     async addItem(form, submitter) {
+1465:       // Blocks a second submit while the first is in flight, which otherwise buys the
+1466:       // item twice. Switching variant mid-request used to re-enable the button through
+1467:       // updateForms; that path now reads this flag and leaves it disabled.
+1468:       if (form.dataset.cartAddPending === 'true') return;
+1469:       form.dataset.cartAddPending = 'true';
+1470:       this.clearMessages(form);
+1471:       this.setFormBusy(form, submitter, true);
+1472: 
+1473:       try {
+1474:         const formData = new FormData(form);
+1475:         formData.set('sections', this.dataset.sectionId);
+1476:         formData.set('sections_url', `${window.location.pathname}${window.location.search}`);
+1477: 
+1478:         const response = await fetch(this.dataset.cartAddUrl, {
+1479:           method: 'POST',
+1480:           headers: {
+1481:             Accept: 'application/json',
+1482:             'X-Requested-With': 'XMLHttpRequest',
+1483:           },
+1484:           body: formData,
+1485:         });
+1486:         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+1487:         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+1488:         // failure is turned into the localized message instead. A deliberate abort keeps
+1489:         // its own name, because callers use it to stay silent.
+1490:         const result = await response.json().catch((error) => {
+1491:           if (error.name === 'AbortError') throw error;
+1492:           throw new Error(this.dataset.errorMessage);
+1493:         });
+1494: 
+1495:         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+1496: 
+1497:         await this.renderCartResponse(result);
+1498:         this.showStatus(this.dataset.addedMessage);
+1499:         this.open(submitter);
+1500:       } finally {
+1501:         delete form.dataset.cartAddPending;
+1502:         this.setFormBusy(form, submitter, false);
+1503:         // Re-applies the availability state of whatever variant is selected now, which
+1504:         // may not be the one this request was submitted for.
+1505:         const variants = form.closest('variant-selects');
+1506:         if (variants?.isConnected) variants.updateForms(variants.currentVariant);
+1507:       }
+1508:     }
+1509: 
+1510:     async addCrossSell(button) {
+1511:       const variantId = Number(button.dataset.variantId);
+1512:       if (!variantId || button.disabled) return;
+1513: 
+1514:       this.clearMessages();
+1515:       this.setCrossSellBusy(button, true);
+1516:       this.setDrawerBusy(true);
+1517:       this.crossSellController?.abort();
+1518:       this.crossSellController = new AbortController();
+1519: 
+1520:       try {
+1521:         const response = await fetch(this.dataset.cartAddUrl, {
+1522:           method: 'POST',
+1523:           headers: {
+1524:             Accept: 'application/json',
+1525:             'Content-Type': 'application/json',
+1526:             'X-Requested-With': 'XMLHttpRequest',
+1527:           },
+1528:           body: JSON.stringify({
+1529:             items: [{ id: variantId, quantity: 1 }],
+1530:             sections: [this.dataset.sectionId],
+1531:             sections_url: `${window.location.pathname}${window.location.search}`,
+1532:           }),
+1533:           signal: this.crossSellController.signal,
+1534:         });
+1535:         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+1536:         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+1537:         // failure is turned into the localized message instead. A deliberate abort keeps
+1538:         // its own name, because callers use it to stay silent.
+1539:         const result = await response.json().catch((error) => {
+1540:           if (error.name === 'AbortError') throw error;
+1541:           throw new Error(this.dataset.errorMessage);
+1542:         });
+1543: 
+1544:         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+1545: 
+1546:         await this.renderCartResponse(result);
+1547:         this.showStatus(this.dataset.addedMessage);
+1548: 
+1549:         const focusTarget = Array.from(this.querySelectorAll('[data-cross-sell-focus]')).find(
+1550:           (element) => Number(element.dataset.crossSellFocus) === variantId,
+1551:         );
+1552:         focusTarget?.focus({ preventScroll: true });
+1553:       } finally {
+1554:         this.setDrawerBusy(false);
+1555:         this.setCrossSellBusy(button, false);
+1556:       }
+1557:     }
+1558: 
+1559:     async changeLine(line, quantity) {
+1560:       this.clearMessages();
+1561:       this.setDrawerBusy(true);
+1562: 
+1563:       try {
+1564:         const response = await fetch(this.dataset.cartChangeUrl, {
+1565:           method: 'POST',
+1566:           headers: {
+1567:             Accept: 'application/json',
+1568:             'Content-Type': 'application/json',
+1569:             'X-Requested-With': 'XMLHttpRequest',
+1570:           },
+1571:           body: JSON.stringify({
+1572:             line,
+1573:             quantity,
+1574:             sections: [this.dataset.sectionId],
+1575:             sections_url: `${window.location.pathname}${window.location.search}`,
+1576:           }),
+1577:         });
+1578:         // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+1579:         // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+1580:         // failure is turned into the localized message instead. A deliberate abort keeps
+1581:         // its own name, because callers use it to stay silent.
+1582:         const result = await response.json().catch((error) => {
+1583:           if (error.name === 'AbortError') throw error;
+1584:           throw new Error(this.dataset.errorMessage);
+1585:         });
+1586: 
+1587:         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+1588: 
+1589:         await this.renderCartResponse(result);
+1590:       } finally {
+1591:         this.setDrawerBusy(false);
+1592:       }
+1593:     }
+1594: 
+1595:     // Always re-renders on open. Comparing item_count alone missed same-count changes:
+1596:     // a line swapped for another in a second tab, a price change, or edited properties.
+1597:     async syncCart() {
+1598:       const sectionHtml = await this.requestSection();
+1599:       this.renderSection(sectionHtml);
+1600:     }
+1601: 
+1602:     async requestSection() {
+1603:       this.requestController?.abort();
+1604:       this.requestController = new AbortController();
+1605: 
+1606:       const url = new URL(this.dataset.cartUrl, window.location.origin);
+1607:       url.searchParams.set('section_id', this.dataset.sectionId);
+1608:       const response = await fetch(url, {
+1609:         headers: { 'X-Requested-With': 'XMLHttpRequest' },
+1610:         signal: this.requestController.signal,
+1611:       });
+1612: 
+1613:       if (!response.ok) throw new Error(this.dataset.errorMessage);
+1614:       return response.text();
+1615:     }
+1616: 
+1617:     async renderCartResponse(result) {
+1618:       let sectionHtml = result.sections?.[this.dataset.sectionId];
+1619:       if (!sectionHtml) sectionHtml = await this.requestSection();
+1620:       this.renderSection(sectionHtml);
+1621:     }
+1622: 
+1623:     renderSection(sectionHtml) {
+1624:       if (!sectionHtml) throw new Error(this.dataset.errorMessage);
+1625: 
+1626:       const documentFragment = new DOMParser().parseFromString(sectionHtml, 'text/html');
+1627:       const nextDrawer = documentFragment.querySelector('cart-drawer');
+1628:       const nextContent = nextDrawer?.querySelector('[data-cart-drawer-content]');
+1629:       const currentContent = this.querySelector('[data-cart-drawer-content]');
+1630: 
+1631:       if (!nextDrawer || !nextContent || !currentContent) throw new Error(this.dataset.errorMessage);
+1632: 
+1633:       // A re-render replaces the whole drawer body. Carry over an order note the shopper
+1634:       // has typed but not yet saved, and keep focus inside the drawer instead of dropping
+1635:       // it on document.body, which would strand keyboard and screen-reader users.
+1636:       const previousNote = currentContent.querySelector('textarea[name="note"][data-dirty="true"]');
+1637:       const nextNote = nextContent.querySelector('textarea[name="note"]');
+1638:       if (previousNote && nextNote) {
+1639:         nextNote.value = previousNote.value;
+1640:         nextNote.dataset.dirty = 'true';
+1641:       }
+1642: 
+1643:       const active = document.activeElement;
+1644:       const restoreFocus = this.isOpen && (currentContent.contains(active) || active === document.body);
+1645: 
+1646:       currentContent.replaceWith(nextContent);
+1647: 
+1648:       if (restoreFocus) {
+1649:         const target = active?.id ? nextContent.querySelector(`#${CSS.escape(active.id)}`) : null;
+1650:         (target || this.querySelector('[data-cart-drawer-close]'))?.focus();
+1651:       }
+1652:       this.dataset.itemCount = nextDrawer.dataset.itemCount;
+1653:       this.dataset.cartCountLabel = nextDrawer.dataset.cartCountLabel;
+1654: 
+1655:       const currentCount = this.querySelector('[data-cart-drawer-count]');
+1656:       const nextCount = nextDrawer.querySelector('[data-cart-drawer-count]');
+1657:       if (currentCount && nextCount) currentCount.textContent = nextCount.textContent;
+1658: 
+1659:       this.updateHeaderCount();
+1660:     }
+
+assets/theme.js:L1725-L1748
+1725:       if (spinner) spinner.hidden = !busy;
+1726:       if (!busy) delete button.dataset.wasDisabled;
+1727:     }
+1728: 
+1729:     clearMessages(form = null) {
+1730:       const localError = form?.querySelector('[data-product-form-error]');
+1731:       const drawerError = this.querySelector('[data-cart-error]');
+1732:       const status = this.querySelector('[data-cart-status]');
+1733: 
+1734:       [localError, drawerError, status].forEach((message) => {
+1735:         if (!message) return;
+1736:         message.hidden = true;
+1737:         message.textContent = '';
+1738:       });
+1739:     }
+1740: 
+1741:     showError(message, form = null) {
+1742:       const output = form?.querySelector('[data-product-form-error]') || this.querySelector('[data-cart-error]');
+1743:       if (!output) return;
+1744:       output.textContent = message || this.dataset.errorMessage;
+1745:       output.hidden = false;
+1746:     }
+1747: 
+1748:     showStatus(message) {
+
+assets/theme.js:L2206-L2268
+2206:     async addSelectedItems() {
+2207:       const selectedItems = this.getSelectedItems();
+2208:       if (selectedItems.length === 0 || this.busy) return;
+2209: 
+2210:       this.clearMessages();
+2211:       this.setBusy(true);
+2212:       this.requestController?.abort();
+2213:       this.requestController = new AbortController();
+2214:       const drawer = document.querySelector('cart-drawer');
+2215:       const requestBody = {
+2216:         items: selectedItems.map(({ id, quantity }) => ({ id, quantity })),
+2217:       };
+2218: 
+2219:       if (drawer?.dataset.sectionId) {
+2220:         requestBody.sections = [drawer.dataset.sectionId];
+2221:         requestBody.sections_url = `${window.location.pathname}${window.location.search}`;
+2222:       }
+2223: 
+2224:       try {
+2225:         const response = await fetch(this.dataset.cartAddUrl, {
+2226:           method: 'POST',
+2227:           headers: {
+2228:             Accept: 'application/json',
+2229:             'Content-Type': 'application/json',
+2230:             'X-Requested-With': 'XMLHttpRequest',
+2231:           },
+2232:           body: JSON.stringify(requestBody),
+2233:           signal: this.requestController.signal,
+2234:         });
+2235:         // See addItem: an HTML error page must surface as the localized message, not as
+2236:         // a JSON SyntaxError, and an abort must stay an abort.
+2237:         const result = await response.json().catch((error) => {
+2238:           if (error.name === 'AbortError') throw error;
+2239:           throw new Error(this.dataset.errorMessage);
+2240:         });
+2241: 
+2242:         if (!response.ok) {
+2243:           throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+2244:         }
+2245: 
+2246:         const canRenderDrawer = drawer
+2247:           && typeof drawer.renderCartResponse === 'function'
+2248:           && typeof drawer.open === 'function'
+2249:           && result.sections;
+2250: 
+2251:         if (!canRenderDrawer) {
+2252:           window.location.assign(this.dataset.cartUrl);
+2253:           return;
+2254:         }
+2255: 
+2256:         try {
+2257:           await drawer.renderCartResponse(result);
+2258:         } catch (_error) {
+2259:           window.location.assign(this.dataset.cartUrl);
+2260:           return;
+2261:         }
+2262: 
+2263:         drawer.showStatus?.(this.dataset.addedMessage);
+2264:         drawer.open(this.submitButton);
+2265:         this.showStatus(this.dataset.addedMessage);
+2266:       } finally {
+2267:         this.setBusy(false);
+2268:       }
+
+assets/theme.js:L2425-L2438
+2425:         this.interactionPaused = true;
+2426:         this.clearTimer();
+2427:       });
+2428:       this.listen(this, 'focusout', () => {
+2429:         requestAnimationFrame(() => {
+2430:           // The frame can land after the Theme Editor has removed this section.
+2431:           if (!this.isConnected || this.contains(document.activeElement)) return;
+2432:           this.interactionPaused = false;
+2433:           this.schedule();
+2434:         });
+2435:       });
+2436:       this.listen(reducedMotionQuery, 'change', () => this.schedule());
+2437: 
+2438:       this.setActive(this.activeIndex, false);
+
+assets/theme.js:L2476-L2489
+2476: 
+2477:     schedule() {
+2478:       this.clearTimer();
+2479:       if (!this.isConnected) return;
+2480:       if (!this.autoRotate || this.userPaused || this.interactionPaused || reducedMotionQuery.matches) return;
+2481: 
+2482:       this.timer = window.setTimeout(() => {
+2483:         this.setActive((this.activeIndex + 1) % this.items.length, false);
+2484:         this.schedule();
+2485:       }, this.interval);
+2486:     }
+2487: 
+2488:     clearTimer() {
+2489:       if (this.timer === null) return;
+
+assets/theme.js:L2550-L2566
+2550:       });
+2551: 
+2552:       if (this.querySelector('[data-password-error]')) {
+2553:         // Without the guard, a section removed in the Theme Editor before this frame runs
+2554:         // still opens and leaves body[data-modal-open] set with no modal to close it.
+2555:         requestAnimationFrame(() => {
+2556:           if (this.isConnected) this.open(this.passwordInput);
+2557:         });
+2558:       }
+2559:     }
+2560: 
+2561:     disconnectedCallback() {
+2562:       this.close(false);
+2563:       super.disconnectedCallback();
+2564:     }
+2565: 
+2566:     get isOpen() {
+
+assets/theme.js:L2579-L2612
+2579:     open(initialFocus = null) {
+2580:       if (this.isOpen) return;
+2581: 
+2582:       this.returnFocusTarget = document.activeElement;
+2583:       this.overlay.hidden = false;
+2584:       this.panel.inert = false;
+2585:       this.panel.setAttribute('aria-modal', 'true');
+2586:       this.panel.setAttribute('aria-hidden', 'false');
+2587:       this.trigger.setAttribute('aria-expanded', 'true');
+2588:       this.setAttribute('data-open', '');
+2589:       document.body.setAttribute('data-modal-open', '');
+2590:       this.applyBackgroundInert();
+2591:       this.releaseFocusTrap = trapFocus(
+2592:         this.panel,
+2593:         initialFocus || this.passwordInput || this.closeButton,
+2594:       );
+2595:     }
+2596: 
+2597:     close(restoreFocus = false) {
+2598:       if (!this.overlay || !this.panel || !this.trigger) return;
+2599: 
+2600:       this.releaseFocusTrap?.();
+2601:       this.releaseFocusTrap = null;
+2602:       this.setClosedState();
+2603:       document.body.removeAttribute('data-modal-open');
+2604:       this.restoreBackgroundInert();
+2605: 
+2606:       if (restoreFocus && this.returnFocusTarget?.isConnected) {
+2607:         this.returnFocusTarget.focus();
+2608:       }
+2609:     }
+2610: 
+2611:     applyBackgroundInert() {
+2612:       this.restoreBackgroundInert();
+
+assets/theme.js:L2710-L2746
+2710:     disconnectedCallback() {
+2711:       window.clearTimeout(this.searchTimer);
+2712:       this.requestController?.abort();
+2713:       this.setOpen(false);
+2714:       super.disconnectedCallback();
+2715:     }
+2716: 
+2717:     get isOpen() {
+2718:       return this.trigger?.getAttribute('aria-expanded') === 'true';
+2719:     }
+2720: 
+2721:     setOpen(open, restoreFocus = false) {
+2722:       if (!this.trigger || !this.overlay || !this.panel || !this.input) return;
+2723: 
+2724:       this.trigger.setAttribute('aria-expanded', String(open));
+2725:       this.panel.setAttribute('aria-hidden', String(!open));
+2726:       this.panel.inert = !open;
+2727:       this.overlay.hidden = !open;
+2728:       this.toggleAttribute('data-open', open);
+2729:       document.body.toggleAttribute('data-modal-open', open);
+2730: 
+2731:       if (open) {
+2732:         this.applyBackgroundInert();
+2733:         this.releaseFocusTrap = trapFocus(this.panel, this.input);
+2734:         this.updateComboboxState();
+2735:       } else {
+2736:         window.clearTimeout(this.searchTimer);
+2737:         this.requestController?.abort();
+2738:         this.requestController = null;
+2739:         this.releaseFocusTrap?.();
+2740:         this.releaseFocusTrap = null;
+2741:         this.restoreBackgroundInert();
+2742:         this.resetActiveOption();
+2743:         this.input.setAttribute('aria-expanded', 'false');
+2744:         if (restoreFocus && this.trigger.isConnected) this.trigger.focus();
+2745:       }
+2746:     }
+
+sections/main-product.liquid:L299-L315
+299:                 <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+300:                 <input
+301:                   id="Quantity-{{ section.id }}"
+302:                   type="number"
+303:                   name="quantity"
+304:                   form="{{ product_form_id }}"
+305:                   value="{{ selected_variant.quantity_rule.min | default: 1 }}"
+306:                   min="{{ selected_variant.quantity_rule.min | default: 1 }}"
+307:                   step="{{ selected_variant.quantity_rule.increment | default: 1 }}"
+308:                   {% if selected_variant.quantity_rule.max != blank %}max="{{ selected_variant.quantity_rule.max }}"{% endif %}
+309:                   inputmode="numeric"
+310:                   required
+311:                   data-quantity-input
+312:                 >
+313:                 <p
+314:                   class="product-form__line-total"
+315:                   data-line-total
+
+sections/featured-product.liquid:L151-L168
+151:             {%- when 'quantity_selector' -%}
+152:               {%- if featured_product != blank -%}
+153:                 <div class="product-form__quantity" {{ block.shopify_attributes }}>
+154:                   <label for="FeaturedQuantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+155:                   <input
+156:                     id="FeaturedQuantity-{{ section.id }}"
+157:                     type="number"
+158:                     name="quantity"
+159:                     form="{{ product_form_id }}"
+160:                     value="{{ selected_variant.quantity_rule.min | default: 1 }}"
+161:                     min="{{ selected_variant.quantity_rule.min | default: 1 }}"
+162:                     step="{{ selected_variant.quantity_rule.increment | default: 1 }}"
+163:                     {% if selected_variant.quantity_rule.max != blank %}max="{{ selected_variant.quantity_rule.max }}"{% endif %}
+164:                     inputmode="numeric"
+165:                     required
+166:                     data-quantity-input
+167:                   >
+168:                 </div>
+
+sections/cart-drawer.liquid:L198-L219
+198:                       {%- endif -%}
+199:                     </div>
+200: 
+201:                     <label for="DrawerQuantity-{{ forloop.index }}">{{ 'sections.cart.quantity' | t }}</label>
+202:                     <input
+203:                       id="DrawerQuantity-{{ forloop.index }}"
+204:                       class="cart-drawer-item__quantity"
+205:                       type="number"
+206:                       name="updates[]"
+207:                       value="{{ item.quantity }}"
+208:                       min="{{ item.variant.quantity_rule.min | default: 1 }}"
+209:                       step="{{ item.variant.quantity_rule.increment | default: 1 }}"
+210:                       {% if item.variant.quantity_rule.max != blank %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
+211:                       inputmode="numeric"
+212:                       required
+213:                       data-cart-quantity
+214:                       data-line="{{ forloop.index }}"
+215:                     >
+216:                   </div>
+217: 
+218:                   <button
+219:                     class="icon-button cart-drawer-item__remove"
+
+sections/main-collection.liquid:L108-L119
+108:                   {%- when 'price_range' -%}
+109:                     {%- liquid
+110:                       # Shopify hands these over in cents for every currency, so dividing
+111:                       # is exact. The previous string surgery on money_without_currency
+112:                       # broke on space-separated formats: "1 250,50" lost its decimal
+113:                       # comma and submitted 125050.
+114:                       assign range_max_value = filter.range_max | divided_by: 100.0
+115:                       assign minimum_filter_value = filter.min_value.value | divided_by: 100.0
+116:                       assign maximum_filter_value = filter.max_value.value | divided_by: 100.0
+117:                     -%}
+118:                     <div class="facet__price-range">
+119:                       <div>
+
+sections/main-collection.liquid:L124-L153
+124:                           <span aria-hidden="true">{{ cart.currency.symbol }}</span>
+125:                           <input
+126:                             id="Filter-{{ section.id }}-{{ filter.min_value.param_name }}"
+127:                             type="number"
+128:                             name="{{ filter.min_value.param_name }}"
+129:                             min="0"
+130:                             max="{{ range_max_value | escape }}"
+131:                             step="any"
+132:                             {% if filter.min_value.value != nil %}value="{{ minimum_filter_value | escape }}"{% endif %}
+133:                           >
+134:                         </div>
+135:                       </div>
+136:                       <div>
+137:                         <label for="Filter-{{ section.id }}-{{ filter.max_value.param_name }}">
+138:                           {{- 'collections.filters.to' | t -}}
+139:                         </label>
+140:                         <div class="facet__price-input">
+141:                           <span aria-hidden="true">{{ cart.currency.symbol }}</span>
+142:                           <input
+143:                             id="Filter-{{ section.id }}-{{ filter.max_value.param_name }}"
+144:                             type="number"
+145:                             name="{{ filter.max_value.param_name }}"
+146:                             min="0"
+147:                             max="{{ range_max_value | escape }}"
+148:                             step="any"
+149:                             {% if filter.max_value.value != nil %}value="{{ maximum_filter_value | escape }}"{% endif %}
+150:                           >
+151:                         </div>
+152:                       </div>
+153:                     </div>
+
+sections/main-search.liquid:L40-L45
+40:         <p class="eyebrow">{{ 'search.header.eyebrow' | t }}</p>
+41:         <h1 id="{{ title_id }}" class="main-search__title">
+42:           {%- if search.performed -%}
+43:             {{- 'search.header.results_for' | t: terms: search.terms | escape_once -}}
+44:           {%- else -%}
+45:             {{- 'search.header.title' | t -}}
+
+sections/main-search.liquid:L139-L175
+139:                     {%- when 'price_range' -%}
+140:                       {%- liquid
+141:                         # Shopify hands these over in cents for every currency, so dividing
+142:                         # is exact. The previous string surgery on money_without_currency
+143:                         # broke on space-separated formats: "1 250,50" lost its decimal
+144:                         # comma and submitted 125050.
+145:                         assign range_max_value = filter.range_max | divided_by: 100.0
+146:                         assign minimum_filter_value = filter.min_value.value | divided_by: 100.0
+147:                         assign maximum_filter_value = filter.max_value.value | divided_by: 100.0
+148:                       -%}
+149:                       <div class="facet__price-range">
+150:                         <div>
+151:                           <label for="SearchFilter-{{ section.id }}-{{ filter.min_value.param_name }}">{{ 'collections.filters.from' | t }}</label>
+152:                           <div class="facet__price-input">
+153:                             <span aria-hidden="true">{{ cart.currency.symbol }}</span>
+154:                             <input
+155:                               id="SearchFilter-{{ section.id }}-{{ filter.min_value.param_name }}"
+156:                               type="number"
+157:                               name="{{ filter.min_value.param_name }}"
+158:                               min="0"
+159:                               max="{{ range_max_value | escape }}"
+160:                               step="any"
+161:                               {% if filter.min_value.value != nil %}value="{{ minimum_filter_value | escape }}"{% endif %}
+162:                             >
+163:                           </div>
+164:                         </div>
+165:                         <div>
+166:                           <label for="SearchFilter-{{ section.id }}-{{ filter.max_value.param_name }}">{{ 'collections.filters.to' | t }}</label>
+167:                           <div class="facet__price-input">
+168:                             <span aria-hidden="true">{{ cart.currency.symbol }}</span>
+169:                             <input
+170:                               id="SearchFilter-{{ section.id }}-{{ filter.max_value.param_name }}"
+171:                               type="number"
+172:                               name="{{ filter.max_value.param_name }}"
+173:                               min="0"
+174:                               max="{{ range_max_value | escape }}"
+175:                               step="any"
+
+sections/main-search.liquid:L277-L280
+277:             {%- else -%}
+278:               <div class="main-search__empty flow">
+279:                 <h2>{{ 'search.results.none_title' | t: terms: search.terms | escape_once }}</h2>
+280:                 <p>{{ 'search.results.none_text' | t }}</p>
+
+snippets/predictive-search.liquid:L1-L36
+1: {%- comment -%}
+2:   Renders the predictive search trigger and accessible dialog.
+3: 
+4:   Accepts:
+5:   - section: the parent header section
+6: {%- endcomment -%}
+7: 
+8: {%- liquid
+9:   assign search_context = section.id | default: 'header'
+10:   assign search_panel_id = 'PredictiveSearchPanel-' | append: search_context
+11:   assign search_input_id = 'PredictiveSearchInput-' | append: search_context
+12:   assign search_results_id = 'predictive-search-results-' | append: search_context
+13: -%}
+14: 
+15: <predictive-search
+16:   class="predictive-search js-only"
+17:   data-predictive-search-url="{{ routes.predictive_search_url | escape }}"
+18:   data-search-url="{{ routes.search_url | escape }}"
+19:   data-money-format="{{ shop.money_format | strip_html | escape }}"
+20:   data-loading-text="{{ 'predictive_search.loading' | t | escape_once }}"
+21:   data-no-results-text="{{ 'predictive_search.no_results' | t | escape_once }}"
+22:   data-products-heading="{{ 'predictive_search.products' | t | escape_once }}"
+23:   data-collections-heading="{{ 'predictive_search.collections' | t | escape_once }}"
+24:   data-articles-heading="{{ 'predictive_search.articles' | t | escape_once }}"
+25:   data-pages-heading="{{ 'predictive_search.pages' | t | escape_once }}"
+26:   data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
+27:   data-in-stock-text="{{ 'predictive_search.in_stock' | t | escape_once }}"
+28:   data-regular-price-text="{{ 'products.product.regular_price' | t | escape_once }}"
+29:   data-view-all-template="{{ 'predictive_search.view_all' | t: terms: '[terms]' | escape_once }}"
+30:   data-results-count-one="{{ 'predictive_search.results_count.one' | t | escape_once }}"
+31:   data-results-count-other="{{ 'predictive_search.results_count.other' | t: count: '[count]' | escape_once }}"
+32: >
+33:   <button
+34:     class="icon-button predictive-search__trigger"
+35:     type="button"
+36:     aria-label="{{ 'general.search.label' | t }}"
+
+assets/base.css:L63-L73
+63:   --color-surface: color-mix(in srgb, var(--color-background) 94%, var(--color-foreground));
+64:   --color-surface-subtle: color-mix(in srgb, var(--color-background) 90%, var(--color-foreground));
+65:   --color-foreground-muted: color-mix(in srgb, var(--color-foreground) 72%, var(--color-background));
+66:   --color-accent: var(--color-button);
+67:   --color-accent-contrast: var(--color-button-label);
+68:   --color-border-hairline: color-mix(in srgb, var(--color-border) 58%, var(--color-background));
+69:   --color-control-border: color-mix(in srgb, var(--color-foreground) 60%, var(--color-background));
+70:   --color-sale-badge-bg: var(--color-foreground);
+71:   --color-sale-badge-text: var(--color-background);
+72: }
+73: 
+
+assets/base.css:L979-L995
+979: /* The sale badge is the one piece of merchandising colour on a product card, so it
+980:    consumes the scheme tokens. Sold out stays outlined and recessive, which is what
+981:    keeps the two readable at a glance. */
+982: .badge[data-sale-badge] {
+983:   border-color: var(--color-sale-badge-bg);
+984:   background-color: var(--color-sale-badge-bg);
+985:   color: var(--color-sale-badge-text);
+986: }
+987: 
+988: .badge[data-sold-out-badge] {
+989:   border-color: currentColor;
+990:   background-color: transparent;
+991:   color: currentColor;
+992:   opacity: 0.8;
+993: }
+994: 
+995: .product-main {

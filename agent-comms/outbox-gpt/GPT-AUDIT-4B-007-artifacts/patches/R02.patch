@@ -1,0 +1,34 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index 6781667..5cd4ea0 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -1106,7 +1106,9 @@
+     open(trigger) {
+       if (!this.overlay || !this.panel || this.isOpen) return;
+ 
+-      this.returnFocusTarget = trigger || document.activeElement;
++      const returnTarget = trigger || document.activeElement;
++      closeOtherDialogs(this);
++      this.returnFocusTarget = returnTarget;
+       this.overlay.hidden = false;
+       this.panel.inert = false;
+       this.panel.setAttribute('aria-modal', 'true');
+@@ -2579,7 +2581,9 @@
+     open(initialFocus = null) {
+       if (this.isOpen) return;
+ 
+-      this.returnFocusTarget = document.activeElement;
++      const returnTarget = document.activeElement;
++      closeOtherDialogs(this);
++      this.returnFocusTarget = returnTarget;
+       this.overlay.hidden = false;
+       this.panel.inert = false;
+       this.panel.setAttribute('aria-modal', 'true');
+@@ -2721,6 +2725,7 @@
+     setOpen(open, restoreFocus = false) {
+       if (!this.trigger || !this.overlay || !this.panel || !this.input) return;
+ 
++      if (open) closeOtherDialogs(this);
+       this.trigger.setAttribute('aria-expanded', String(open));
+       this.panel.setAttribute('aria-hidden', String(!open));
+       this.panel.inert = !open;

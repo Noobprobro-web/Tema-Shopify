@@ -1,0 +1,101 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index 6781667..0182b1b 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -1283,6 +1283,9 @@
+       this.returnFocusTarget = null;
+       this.requestController = null;
+       this.crossSellController = null;
++      this.pendingMutations = 0;
++      this.syncRevision = 0;
++      this.syncAfterMutation = false;
+ 
+       if (!this.overlay || !this.panel) return;
+ 
+@@ -1467,6 +1470,7 @@
+       // updateForms; that path now reads this flag and leaves it disabled.
+       if (form.dataset.cartAddPending === 'true') return;
+       form.dataset.cartAddPending = 'true';
++      this.beginMutation();
+       this.clearMessages(form);
+       this.setFormBusy(form, submitter, true);
+ 
+@@ -1504,6 +1508,7 @@
+         // may not be the one this request was submitted for.
+         const variants = form.closest('variant-selects');
+         if (variants?.isConnected) variants.updateForms(variants.currentVariant);
++        this.endMutation();
+       }
+     }
+ 
+@@ -1511,6 +1516,7 @@
+       const variantId = Number(button.dataset.variantId);
+       if (!variantId || button.disabled) return;
+ 
++      this.beginMutation();
+       this.clearMessages();
+       this.setCrossSellBusy(button, true);
+       this.setDrawerBusy(true);
+@@ -1553,10 +1559,12 @@
+       } finally {
+         this.setDrawerBusy(false);
+         this.setCrossSellBusy(button, false);
++        this.endMutation();
+       }
+     }
+ 
+     async changeLine(line, quantity) {
++      this.beginMutation();
+       this.clearMessages();
+       this.setDrawerBusy(true);
+ 
+@@ -1589,13 +1597,33 @@
+         await this.renderCartResponse(result);
+       } finally {
+         this.setDrawerBusy(false);
++        this.endMutation();
+       }
+     }
+ 
++    beginMutation() {
++      this.pendingMutations += 1;
++      this.syncRevision += 1;
++      this.requestController?.abort();
++    }
++
++    endMutation() {
++      this.pendingMutations = Math.max(0, this.pendingMutations - 1);
++      if (this.pendingMutations || !this.syncAfterMutation) return;
++      this.syncAfterMutation = false;
++      if (this.isConnected && this.isOpen) this.syncCart().catch(() => {});
++    }
++
+     // Always re-renders on open. Comparing item_count alone missed same-count changes:
+     // a line swapped for another in a second tab, a price change, or edited properties.
+     async syncCart() {
++      if (this.pendingMutations) {
++        this.syncAfterMutation = true;
++        return;
++      }
++      const revision = this.syncRevision;
+       const sectionHtml = await this.requestSection();
++      if (!this.isConnected || revision !== this.syncRevision || this.pendingMutations) return;
+       this.renderSection(sectionHtml);
+     }
+ 
+@@ -2212,6 +2240,7 @@
+       this.requestController?.abort();
+       this.requestController = new AbortController();
+       const drawer = document.querySelector('cart-drawer');
++      drawer?.beginMutation?.();
+       const requestBody = {
+         items: selectedItems.map(({ id, quantity }) => ({ id, quantity })),
+       };
+@@ -2265,6 +2294,7 @@
+         this.showStatus(this.dataset.addedMessage);
+       } finally {
+         this.setBusy(false);
++        drawer?.endMutation?.();
+       }
+     }
+ 

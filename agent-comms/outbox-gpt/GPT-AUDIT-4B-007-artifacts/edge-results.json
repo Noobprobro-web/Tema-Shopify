@@ -1,0 +1,178 @@
+[
+  {
+    "name": "rAF-announcement-disconnect",
+    "fixture": "Clone of real Liquid announcement; second item for rotating branch",
+    "activeTimer": true,
+    "queuedFrames": 1,
+    "timerAfterRemoval": null,
+    "isConnected": false,
+    "pass": true,
+    "pageErrors": []
+  },
+  {
+    "name": "rAF-password-disconnect",
+    "fixture": "Real password markup clone, synthetic error marker, delayed rAF",
+    "frames": 1,
+    "connected": false,
+    "open": false,
+    "bodyModal": false,
+    "pass": true,
+    "pageErrors": []
+  },
+  {
+    "name": "closed-header-unmount-while-cart-open",
+    "fixture": "Native disconnectedCallback via removal of closed menu; models Theme Editor section unload",
+    "before": {
+      "cartOpen": true,
+      "menuOpen": false,
+      "bodyDrawer": true,
+      "overflow": "hidden"
+    },
+    "after": {
+      "cartOpen": true,
+      "bodyDrawer": false,
+      "overflow": "visible"
+    },
+    "pass": false,
+    "pageErrors": []
+  },
+  {
+    "name": "network-disconnection-four-flows",
+    "pass": false,
+    "rows": [
+      {
+        "flow": "addItem",
+        "message": "Failed to fetch",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": false
+      },
+      {
+        "flow": "addCrossSell",
+        "message": "Failed to fetch",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": false
+      },
+      {
+        "flow": "changeLine",
+        "message": "Failed to fetch",
+        "expected": "We could not update your cart. Please try again.",
+        "pass": false
+      },
+      {
+        "flow": "addSelectedItems",
+        "message": "Failed to fetch",
+        "expected": "We could not add this look. Review the selected options and try again.",
+        "pass": false
+      }
+    ],
+    "pageErrors": []
+  },
+  {
+    "name": "keyboard-native-menu-cart-and-loops",
+    "pass": true,
+    "initial": {
+      "menu": false,
+      "cart": true,
+      "inert": false
+    },
+    "escaped": [],
+    "returnToMenu": true,
+    "scope": "Actual mouse/keyboard; fixture cart link added to merchant menu DOM",
+    "pageErrors": []
+  },
+  {
+    "name": "hostile-catalog-smoke-mobile",
+    "pass": true,
+    "rows": [
+      {
+        "path": "/collections/all?filter.v.price.gte=999999999",
+        "width": 390,
+        "scrollWidth": 390,
+        "h1": [
+          "Products"
+        ],
+        "cart": true,
+        "pass": true
+      },
+      {
+        "path": "/products/qa-16-single-char",
+        "width": 390,
+        "scrollWidth": 390,
+        "h1": [
+          "A"
+        ],
+        "variants": 1,
+        "cart": true,
+        "pass": true
+      },
+      {
+        "path": "/products/qa-06-many-variants",
+        "width": 390,
+        "scrollWidth": 390,
+        "h1": [
+          "Three options and twenty four variants"
+        ],
+        "variants": 24,
+        "cart": true,
+        "pass": true
+      },
+      {
+        "path": "/products/qa-01-long-title",
+        "width": 390,
+        "scrollWidth": 390,
+        "h1": [
+          "Oversized Double-Faced Wool And Cashmere Belted Wrap Coat With Raglan Sleeves, Concealed Placket And Detachable Storm Collar"
+        ],
+        "variants": 1,
+        "cart": true,
+        "pass": true
+      },
+      {
+        "path": "/products/qa-02-no-image",
+        "width": 390,
+        "scrollWidth": 390,
+        "h1": [
+          "No image at all"
+        ],
+        "variants": 1,
+        "cart": true,
+        "pass": true
+      },
+      {
+        "path": "/products/qa-15-no-description",
+        "width": 390,
+        "scrollWidth": 390,
+        "h1": [
+          "No description"
+        ],
+        "variants": 1,
+        "cart": true,
+        "pass": true
+      }
+    ],
+    "limit": "Catalog has max 24 variants, 4 images, 124 title characters. No 50/250 variant or 10-image certification.",
+    "pageErrors": []
+  },
+  {
+    "name": "PDP-featured-native-empty-quantity-submit",
+    "pass": true,
+    "adds": 0,
+    "rows": [
+      {
+        "required": true,
+        "valid": false,
+        "sameForm": true,
+        "noValidate": false,
+        "value": ""
+      },
+      {
+        "required": true,
+        "valid": false,
+        "sameForm": true,
+        "noValidate": false,
+        "value": ""
+      }
+    ],
+    "pageErrors": []
+  }
+]
