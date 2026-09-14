@@ -1,0 +1,33 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index cca2bb3..0e5fa53 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -557,7 +557,7 @@
+ 
+       const purchaseOptionValid = this.isPurchaseOptionValid(variant);
+       this.querySelectorAll('[data-add-to-cart]').forEach((button) => {
+-        button.disabled = !purchaseOptionValid;
++        button.disabled = !purchaseOptionValid || button.form?.dataset.cartAddPending === 'true';
+         const label = button.querySelector('[data-add-to-cart-text]');
+         if (!label) return;
+ 
+@@ -1394,6 +1394,8 @@
+     }
+ 
+     async addItem(form, submitter) {
++      if (form.dataset.cartAddPending === 'true') return;
++      form.dataset.cartAddPending = 'true';
+       this.clearMessages(form);
+       this.setFormBusy(form, submitter, true);
+ 
+@@ -1418,7 +1420,10 @@
+         this.showStatus(this.dataset.addedMessage);
+         this.open(submitter);
+       } finally {
++        delete form.dataset.cartAddPending;
+         this.setFormBusy(form, submitter, false);
++        const variants = form.closest('variant-selects');
++        if (variants?.isConnected) variants.updateForms(variants.currentVariant);
+       }
+     }
+ 

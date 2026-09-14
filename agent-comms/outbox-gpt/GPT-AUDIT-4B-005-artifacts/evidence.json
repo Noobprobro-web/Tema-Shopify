@@ -1,0 +1,2370 @@
+{
+  "inventory": {
+    "url": "http://127.0.0.1:9292/collections/all",
+    "products": [
+      {
+        "handle": "qa-18-many-images",
+        "title": "Ten images in the gallery",
+        "images": 4,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 91,
+        "id": 51271419560179,
+        "price": "340.00"
+      },
+      {
+        "handle": "qa-17-single-variant",
+        "title": "Single variant, quick add visible",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 101,
+        "id": 51271419232499,
+        "price": "165.00"
+      },
+      {
+        "handle": "qa-16-single-char",
+        "title": "A",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 62,
+        "id": 51271418872051,
+        "price": "60.00"
+      },
+      {
+        "handle": "qa-15-no-description",
+        "title": "No description",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 0,
+        "id": 51271418544371,
+        "price": "130.00"
+      },
+      {
+        "handle": "qa-14-long-description",
+        "title": "Very long description",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 4287,
+        "id": 51271418249459,
+        "price": "210.00"
+      },
+      {
+        "handle": "qa-13-expensive",
+        "title": "High price thousands separator",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 149,
+        "id": 51271417954547,
+        "price": "12500.00"
+      },
+      {
+        "handle": "qa-12-free",
+        "title": "Free sample",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 40,
+        "id": 51271417659635,
+        "price": "0.00"
+      },
+      {
+        "handle": "qa-11-special-chars",
+        "title": "Niño & Compañía — “curved quotes”, ç, ü, ø, 100%",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 100,
+        "id": 51271417430259,
+        "price": "88.00"
+      },
+      {
+        "handle": "qa-09-price-varies",
+        "title": "Price varies with one variant on sale",
+        "images": 1,
+        "variants": 3,
+        "options": [
+          {
+            "name": "Size",
+            "position": 1,
+            "values": [
+              "Small",
+              "Medium",
+              "Large"
+            ]
+          }
+        ],
+        "descriptionLength": 101,
+        "id": 51271417037043,
+        "price": "120.00"
+      },
+      {
+        "handle": "qa-08-on-sale",
+        "title": "On sale with compare at price",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 50,
+        "id": 51271416709363,
+        "price": "150.00"
+      },
+      {
+        "handle": "qa-07-sold-out",
+        "title": "Completely sold out",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 65,
+        "id": 51271416414451,
+        "price": "180.00"
+      },
+      {
+        "handle": "qa-06-many-variants",
+        "title": "Three options and twenty four variants",
+        "images": 1,
+        "variants": 24,
+        "options": [
+          {
+            "name": "Color",
+            "position": 1,
+            "values": [
+              "Ink",
+              "Bone",
+              "Clay"
+            ]
+          },
+          {
+            "name": "Size",
+            "position": 2,
+            "values": [
+              "XS",
+              "S",
+              "M",
+              "L"
+            ]
+          },
+          {
+            "name": "Fit",
+            "position": 3,
+            "values": [
+              "Regular",
+              "Long"
+            ]
+          }
+        ],
+        "descriptionLength": 109,
+        "id": 51271415300339,
+        "price": "420.00"
+      },
+      {
+        "handle": "qa-05-quoted-vendor",
+        "title": "Quote test 12\" panel",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 121,
+        "id": 51271414939891,
+        "price": "95.00"
+      },
+      {
+        "handle": "qa-04-ultra-tall",
+        "title": "Ultra tall image 2:5",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 59,
+        "id": 51271414644979,
+        "price": "275.00"
+      },
+      {
+        "handle": "qa-03-panoramic",
+        "title": "Panoramic image 21:9",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 57,
+        "id": 51271414382835,
+        "price": "310.00"
+      },
+      {
+        "handle": "qa-02-no-image",
+        "title": "No image at all",
+        "images": 0,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 89,
+        "id": 51271413989619,
+        "price": "240.00"
+      },
+      {
+        "handle": "qa-01-long-title",
+        "title": "Oversized Double-Faced Wool And Cashmere Belted Wrap Coat With Raglan Sleeves, Concealed Placket And Detachable Storm Collar",
+        "images": 1,
+        "variants": 1,
+        "options": [
+          {
+            "name": "Title",
+            "position": 1,
+            "values": [
+              "Default Title"
+            ]
+          }
+        ],
+        "descriptionLength": 122,
+        "id": 51271413596403,
+        "price": "1890.00"
+      }
+    ],
+    "errors": [],
+    "page": {
+      "title": "Products – Tema",
+      "money": "${{amount}}",
+      "overflow": 1440,
+      "headings": [
+        [
+          "H1",
+          "Products"
+        ],
+        [
+          "H2",
+          "Filter and sort"
+        ],
+        [
+          "H3",
+          "A"
+        ],
+        [
+          "H3",
+          "Completely sold out"
+        ],
+        [
+          "H3",
+          "Free sample"
+        ],
+        [
+          "H3",
+          "High price thousands separator"
+        ],
+        [
+          "H3",
+          "Niño & Compañía — “curved quotes”, ç, ü, ø, 100%"
+        ],
+        [
+          "H3",
+          "No description"
+        ],
+        [
+          "H3",
+          "No image at all"
+        ],
+        [
+          "H3",
+          "On sale with compare at price"
+        ],
+        [
+          "H3",
+          "Oversized Double-Faced Wool And Cashmere Belted Wrap Coat With Raglan Sleeves, Concealed Placket And Detachable Storm Collar"
+        ],
+        [
+          "H3",
+          "Panoramic image 21:9"
+        ],
+        [
+          "H3",
+          "Price varies with one variant on sale"
+        ],
+        [
+          "H3",
+          "Quote test 12\" panel"
+        ],
+        [
+          "H3",
+          "Single variant, quick add visible"
+        ],
+        [
+          "H3",
+          "Ten images in the gallery"
+        ],
+        [
+          "H3",
+          "Three options and twenty four variants"
+        ],
+        [
+          "H3",
+          "Ultra tall image 2:5"
+        ],
+        [
+          "H3",
+          "Very long description"
+        ]
+      ],
+      "collectionLinks": [
+        "/collections/all"
+      ]
+    }
+  },
+  "browser-results": {
+    "results": [
+      {
+        "name": "catalog-mobile",
+        "detail": [
+          {
+            "url": "/products/qa-01-long-title",
+            "width": 390,
+            "scrollWidth": 390,
+            "h1s": 1,
+            "heading": "Oversized Double-Faced Wool And Cashmere Belted Wrap Coat With Raglan Sleeves, Concealed Placket And Detachable Storm Collar",
+            "images": 1,
+            "emptyDescription": [],
+            "small": []
+          },
+          {
+            "url": "/products/qa-02-no-image",
+            "width": 390,
+            "scrollWidth": 390,
+            "h1s": 1,
+            "heading": "No image at all",
+            "images": 0,
+            "emptyDescription": [],
+            "small": []
+          },
+          {
+            "url": "/products/qa-15-no-description",
+            "width": 390,
+            "scrollWidth": 390,
+            "h1s": 1,
+            "heading": "No description",
+            "images": 1,
+            "emptyDescription": [],
+            "small": []
+          },
+          {
+            "url": "/products/qa-06-many-variants",
+            "width": 390,
+            "scrollWidth": 390,
+            "h1s": 1,
+            "heading": "Three options and twenty four variants",
+            "images": 1,
+            "emptyDescription": [],
+            "small": []
+          },
+          {
+            "url": "/products/qa-18-many-images",
+            "width": 390,
+            "scrollWidth": 390,
+            "h1s": 1,
+            "heading": "Ten images in the gallery",
+            "images": 4,
+            "emptyDescription": [],
+            "small": []
+          },
+          {
+            "url": "/products/qa-13-expensive",
+            "width": 390,
+            "scrollWidth": 390,
+            "h1s": 1,
+            "heading": "High price thousands separator",
+            "images": 1,
+            "emptyDescription": [],
+            "small": []
+          },
+          {
+            "url": "/products/qa-12-free",
+            "width": 390,
+            "scrollWidth": 390,
+            "h1s": 1,
+            "heading": "Free sample",
+            "images": 1,
+            "emptyDescription": [],
+            "small": []
+          }
+        ]
+      },
+      {
+        "name": "pdp-quantity-and-money",
+        "detail": {
+          "values": [
+            {
+              "input": "0",
+              "stored": "0",
+              "valid": false,
+              "total": "Regular price"
+            },
+            {
+              "input": "-2",
+              "stored": "-2",
+              "valid": false,
+              "total": "Regular price"
+            },
+            {
+              "input": "abc",
+              "stored": "",
+              "valid": true,
+              "total": "Regular price"
+            },
+            {
+              "input": "",
+              "stored": "",
+              "valid": true,
+              "total": "Regular price"
+            },
+            {
+              "input": "1.5",
+              "stored": "1.5",
+              "valid": false,
+              "total": "Regular price"
+            },
+            {
+              "input": "2",
+              "stored": "2",
+              "valid": true,
+              "total": "Total for 2\n                  \n                    Regular price\n                    $600.00\n                  \n                  $300.00"
+            },
+            {
+              "input": "3",
+              "stored": "3",
+              "valid": true,
+              "total": "Total for 3\n                  \n                    Regular price\n                    $900.00\n                  \n                  $450.00"
+            }
+          ],
+          "money": [
+            {
+              "name": "JPY",
+              "cents": 125000,
+              "format": "¥{{ amount_no_decimals }}",
+              "total": "¥2,500"
+            },
+            {
+              "name": "EUR",
+              "cents": 125050,
+              "format": "{{ amount_with_comma_separator }} €",
+              "total": "2.501,00 €"
+            },
+            {
+              "name": "EUR space",
+              "cents": 125050,
+              "format": "{{ amount_with_space_separator }} €",
+              "total": "2 501,00 €"
+            },
+            {
+              "name": "HTML entity",
+              "cents": 125050,
+              "format": "{{ amount_with_comma_separator }}&nbsp;&euro;",
+              "total": "2.501,00&nbsp;&euro;"
+            },
+            {
+              "name": "missing price",
+              "cents": null,
+              "format": "${{amount}}",
+              "total": "$0.00"
+            }
+          ]
+        }
+      },
+      {
+        "name": "double-click",
+        "detail": {
+          "posts": 1,
+          "itemCount": 1,
+          "state": {
+            "focus": "<button class=\"icon-button\" type=\"button\" aria-label=\"Close\" data-cart-drawer-close=\"\">\n          <svg class=\"icon icon--close\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentCol",
+            "cartOpen": true,
+            "cartInert": false,
+            "menuOpen": false,
+            "count": "1"
+          }
+        }
+      },
+      {
+        "name": "note-and-quantity-focus",
+        "error": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#CartDrawerNote')\u001b[22m\n"
+      },
+      {
+        "name": "same-count-cart-sync",
+        "detail": {
+          "server": [
+            {
+              "title": "No image at all",
+              "quantity": 2
+            }
+          ],
+          "drawer": [],
+          "text": "Complimentary Shipping and Atelier Gift unlocked\n            \n              \n              \n              \n            \n            \n              Shipping at $150.00\n              Gift at $250.00\n            \n          \n            \n                  \n\n                  \n                    \n      "
+        }
+      },
+      {
+        "name": "empty-quantity-removes-item",
+        "detail": {
+          "itemCount": 0,
+          "state": {
+            "focus": "<body class=\"template-product color-scheme-1\" data-drawer-open=\"\">\n    <a class=\"skip-link\" href=\"#MainContent\" inert=\"\">Skip to content</a>\n\n    <!-- BEGIN sections: header-group -->\n<div id=\"shopify-section-sections--2",
+            "cartOpen": true,
+            "cartInert": false,
+            "menuOpen": false,
+            "count": "0"
+          }
+        }
+      },
+      {
+        "name": "nested-nav-cart",
+        "detail": {
+          "fixture": "One additional cart URL link inside the existing merchant nav; no JS changed",
+          "before": {
+            "focus": "<body class=\"template-product color-scheme-1\" data-drawer-open=\"\">\n    <a class=\"skip-link\" href=\"#MainContent\" inert=\"\">Skip to content</a>\n\n    <!-- BEGIN sections: header-group -->\n<div id=\"shopify-section-sections--2",
+            "cartOpen": true,
+            "cartInert": true,
+            "menuOpen": true,
+            "count": "0"
+          },
+          "tab": {
+            "focus": "<body class=\"template-product color-scheme-1\" data-drawer-open=\"\">\n    <a class=\"skip-link\" href=\"#MainContent\" inert=\"\">Skip to content</a>\n\n    <!-- BEGIN sections: header-group -->\n<div id=\"shopify-section-sections--2",
+            "cartOpen": true,
+            "cartInert": true,
+            "menuOpen": true,
+            "count": "0"
+          },
+          "escape1": {
+            "focus": "<body class=\"template-product color-scheme-1\">\n    <a class=\"skip-link\" href=\"#MainContent\">Skip to content</a>\n\n    <!-- BEGIN sections: header-group -->\n<div id=\"shopify-section-sections--23527370064115__announcement_b",
+            "cartOpen": true,
+            "cartInert": false,
+            "menuOpen": false,
+            "count": "0"
+          },
+          "escape2": {
+            "focus": "<body class=\"template-product color-scheme-1\">\n    <a class=\"skip-link\" href=\"#MainContent\">Skip to content</a>\n\n    <!-- BEGIN sections: header-group -->\n<div id=\"shopify-section-sections--23527370064115__announcement_b",
+            "cartOpen": false,
+            "cartInert": false,
+            "menuOpen": false,
+            "count": "0"
+          }
+        }
+      },
+      {
+        "name": "cart-500-error",
+        "detail": {
+          "message": "Unexpected token '<', \"<h1>Tempor\"... is not valid JSON",
+          "buttonEnabled": true
+        }
+      }
+    ],
+    "errors": []
+  },
+  "targeted-results": [
+    {
+      "name": "note-loss-and-focus",
+      "detail": {
+        "note": "",
+        "serverNote": "",
+        "focusAfterReplacement": {
+          "tag": "BODY",
+          "id": "",
+          "insideCart": false,
+          "insideSearch": false,
+          "cartInert": false,
+          "cartOpen": true,
+          "sizeOpen": false,
+          "bodyInert": [
+            "A",
+            "shopify-section-sections--23527370064115__announcement_bar",
+            "shopify-section-sections--23527370064115__header",
+            "MainContent",
+            "shopify-section-sections--23527370031347__footer",
+            "SCRIPT",
+            "SHOP-CART-SYNC",
+            "web-pixels-manager-sandbox-container"
+          ]
+        },
+        "nextTab": {
+          "tag": "A",
+          "id": "",
+          "insideCart": true,
+          "insideSearch": false,
+          "cartInert": false,
+          "cartOpen": true,
+          "sizeOpen": false,
+          "bodyInert": [
+            "A",
+            "shopify-section-sections--23527370064115__announcement_bar",
+            "shopify-section-sections--23527370064115__header",
+            "MainContent",
+            "shopify-section-sections--23527370031347__footer",
+            "SCRIPT",
+            "SHOP-CART-SYNC",
+            "web-pixels-manager-sandbox-container"
+          ]
+        }
+      },
+      "errors": []
+    },
+    {
+      "name": "same-count-stale-cart",
+      "detail": {
+        "before": [
+          "\n                      A\n                    "
+        ],
+        "drawer": [
+          "\n                      A\n                    "
+        ],
+        "server": [
+          "No image at all"
+        ],
+        "count": 1
+      },
+      "errors": []
+    },
+    {
+      "name": "variant-switch-in-flight",
+      "detail": {
+        "reenabled": true,
+        "busy": "true",
+        "posts": 2,
+        "items": [
+          {
+            "title": "Price varies with one variant on sale - Medium",
+            "quantity": 1
+          }
+        ],
+        "buttonEnabled": true
+      },
+      "errors": []
+    },
+    {
+      "name": "add-response-over-size-guide",
+      "detail": {
+        "initial": {
+          "tag": "BODY",
+          "id": "",
+          "insideCart": false,
+          "insideSearch": false,
+          "cartInert": true,
+          "cartOpen": true,
+          "sizeOpen": true,
+          "bodyInert": [
+            "A",
+            "shopify-section-sections--23527370064115__announcement_bar",
+            "shopify-section-sections--23527370064115__header",
+            "MainContent",
+            "shopify-section-sections--23527370031347__footer",
+            "shopify-section-cart-drawer",
+            "SCRIPT",
+            "SHOP-CART-SYNC",
+            "web-pixels-manager-sandbox-container"
+          ]
+        },
+        "tab": {
+          "tag": "BODY",
+          "id": "",
+          "insideCart": false,
+          "insideSearch": false,
+          "cartInert": true,
+          "cartOpen": true,
+          "sizeOpen": true,
+          "bodyInert": [
+            "A",
+            "shopify-section-sections--23527370064115__announcement_bar",
+            "shopify-section-sections--23527370064115__header",
+            "MainContent",
+            "shopify-section-sections--23527370031347__footer",
+            "shopify-section-cart-drawer",
+            "SCRIPT",
+            "SHOP-CART-SYNC",
+            "web-pixels-manager-sandbox-container"
+          ]
+        }
+      },
+      "errors": []
+    },
+    {
+      "name": "size-guide-tab-cycle",
+      "detail": {
+        "steps": [
+          {
+            "tag": "DIV",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-PanelCm",
+            "insideCart": false,
+            "insideSearch": false,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": true,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "shopify-section-sections--23527370064115__header",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT"
+            ]
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "insideCart": false,
+            "insideSearch": false,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": true,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "shopify-section-sections--23527370064115__header",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT"
+            ]
+          },
+          {
+            "tag": "BUTTON",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-TabCm",
+            "insideCart": false,
+            "insideSearch": false,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": true,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "shopify-section-sections--23527370064115__header",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT"
+            ]
+          },
+          {
+            "tag": "DIV",
+            "id": "SizeGuide-template--23527370391795__main-audit_size-PanelCm",
+            "insideCart": false,
+            "insideSearch": false,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": true,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "shopify-section-sections--23527370064115__header",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT"
+            ]
+          }
+        ],
+        "escape": {
+          "tag": "BUTTON",
+          "id": "",
+          "insideCart": false,
+          "insideSearch": false,
+          "cartInert": false,
+          "cartOpen": false,
+          "sizeOpen": false,
+          "bodyInert": []
+        }
+      },
+      "errors": []
+    },
+    {
+      "name": "bundle-empty-and-post",
+      "detail": {
+        "count": 2,
+        "empty": {
+          "disabled": true,
+          "label": "Select at least one piece",
+          "total": "$0.00"
+        },
+        "posts": 1,
+        "itemsPosted": [
+          {
+            "id": 51271418872051,
+            "quantity": 1
+          },
+          {
+            "id": 51271416709363,
+            "quantity": 1
+          }
+        ],
+        "cartItems": 2
+      },
+      "errors": []
+    },
+    {
+      "name": "predictive-race-and-focus",
+      "detail": {
+        "seen": [
+          "slow",
+          "fast",
+          "slow",
+          "fast"
+        ],
+        "aborted": 2,
+        "latest": "Productsfast$1,250.50In stockView all results for &quot;fast&quot;",
+        "cleared": {
+          "text": "",
+          "expanded": "false"
+        },
+        "keyboard": [
+          {
+            "tag": "A",
+            "id": "",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          },
+          {
+            "tag": "INPUT",
+            "id": "PredictiveSearchInput-sections--23527370064115__header",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          },
+          {
+            "tag": "A",
+            "id": "",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          },
+          {
+            "tag": "BUTTON",
+            "id": "",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          },
+          {
+            "tag": "INPUT",
+            "id": "PredictiveSearchInput-sections--23527370064115__header",
+            "insideCart": false,
+            "insideSearch": true,
+            "cartInert": true,
+            "cartOpen": false,
+            "sizeOpen": false,
+            "bodyInert": [
+              "A",
+              "shopify-section-sections--23527370064115__announcement_bar",
+              "MainContent",
+              "shopify-section-sections--23527370031347__footer",
+              "shopify-section-cart-drawer",
+              "SCRIPT",
+              "SHOP-CART-SYNC"
+            ]
+          }
+        ],
+        "escape": {
+          "tag": "BUTTON",
+          "id": "",
+          "insideCart": false,
+          "insideSearch": true,
+          "cartInert": false,
+          "cartOpen": false,
+          "sizeOpen": false,
+          "bodyInert": []
+        }
+      },
+      "errors": []
+    },
+    {
+      "name": "predictive-500",
+      "detail": {
+        "status": "0 suggestions available",
+        "results": "No suggestions yet. Press enter to search the full catalog.View all results for &quot;coat&quot;"
+      },
+      "errors": []
+    },
+    {
+      "name": "disconnect-cart-during-add",
+      "detail": {
+        "connected": false,
+        "detachedOpen": false,
+        "bodyScrollLocked": false,
+        "focus": "BODY"
+      },
+      "errors": []
+    }
+  ],
+  "final-probes": {
+    "cartNoteInjection": {
+      "apiStatus": 200,
+      "marker": null,
+      "images": 0,
+      "note": "</textarea><img src=\"/audit-missing-image\" onerror=\"document.documentElement.dataset.auditNote=1\"><textarea>"
+    },
+    "concurrent": {
+      "enabled": true,
+      "busy": "true",
+      "requests": [
+        {
+          "status": 200,
+          "body": "51271417037043"
+        },
+        {
+          "status": 200,
+          "body": "51271417037043"
+        }
+      ],
+      "items": [
+        {
+          "title": "Price varies with one variant on sale - Small",
+          "quantity": 2
+        }
+      ]
+    },
+    "money8": "25,000.00 EUR",
+    "emptySearch": "SEARCH THE ATELIER\n\nResults for &quot;THIS_PRODUCT_DOES_NOT_EXIST_976&quot;\nAll\nProducts\nJournal\nPages\nSearch \nSEARCH\n\n0 results\n\nNo results for &quot;THIS_PRODUCT_DOES_NOT_EXIST_976&quot;\n\nTry a broader material or object type, or browse the current collection.\n\nEXPLORE ALL PRODUCTS",
+    "emptyCollection": "COLLECTION\n\nProducts\nFilter and sort\n1\nAvailability\nPrice\nFrom\n$\nTo\n$\nSort by \nFeatured\nMost relevant\nBest selling\nAlphabetically, A-Z\nAlphabetically, Z-A\nPrice, low to high\nPrice, high to low\nDate, old to new\nDate, new to old\nAPPLY\nClear all\n\n0 products\n\nGrid\nShow one product per row\nShow two products per row\n\nNo products match your selection.\n\nClear all",
+    "singleSearch": "SEARCH THE ATELIER\n\nResults for &quot;Single variant, quick add visible&quot;\nAll\nProducts\nJournal\nPages\nSearch \nSEARCH\nFilter and sort\nAvailability\nPrice\nAPPLY\nSort by \nRelevance\nPrice, low to high\nPrice, high to low\n\n1 result\n\nSingle variant, quick add visible\nRegular price\n$165.00\nADD TO CART",
+    "predictiveReal": {
+      "text": "ProductsOn sale with compare at price$150.00$300.00In stockPrice varies with one variant on sale$120.00$520.00In stockFree sample$0.00In stockView all results for &quot;sale&quot;",
+      "template": "View all results for &quot;[terms]&quot;",
+      "links": [
+        {
+          "href": "http://127.0.0.1:9292/products/qa-08-on-sale?_pos=1&_psq=sale&_psid=fa653ce49&_ss=e",
+          "role": "option"
+        },
+        {
+          "href": "http://127.0.0.1:9292/products/qa-09-price-varies?_pos=2&_psq=sale&_psid=fa653ce49&_ss=e",
+          "role": "option"
+        },
+        {
+          "href": "http://127.0.0.1:9292/products/qa-12-free?_pos=3&_psq=sale&_psid=fa653ce49&_ss=e",
+          "role": "option"
+        },
+        {
+          "href": "http://127.0.0.1:9292/search?q=sale&type=product%2Ccollection%2Cpage%2Carticle&options%5Bprefix%5D=last",
+          "role": null
+        }
+      ]
+    }
+  },
+  "static-results": {
+    "untranslated": [],
+    "missingInfo": [
+      {
+        "file": "config/settings_schema.json",
+        "line": 237,
+        "type": "url",
+        "id": "social_instagram_link"
+      },
+      {
+        "file": "config/settings_schema.json",
+        "line": 242,
+        "type": "url",
+        "id": "social_facebook_link"
+      },
+      {
+        "file": "config/settings_schema.json",
+        "line": 247,
+        "type": "url",
+        "id": "social_pinterest_link"
+      },
+      {
+        "file": "config/settings_schema.json",
+        "line": 252,
+        "type": "url",
+        "id": "social_tiktok_link"
+      },
+      {
+        "file": "config/settings_schema.json",
+        "line": 257,
+        "type": "url",
+        "id": "social_youtube_link"
+      },
+      {
+        "file": "sections/announcement-bar.liquid",
+        "line": 127,
+        "type": "url",
+        "id": "link"
+      },
+      {
+        "file": "sections/bento-discovery.liquid",
+        "line": 189,
+        "type": "collection",
+        "id": "collection"
+      },
+      {
+        "file": "sections/bento-discovery.liquid",
+        "line": 216,
+        "type": "url",
+        "id": "link"
+      },
+      {
+        "file": "sections/bento-discovery.liquid",
+        "line": 216,
+        "type": "url",
+        "id": "link"
+      },
+      {
+        "file": "sections/bento-discovery.liquid",
+        "line": 272,
+        "type": "product",
+        "id": "product"
+      },
+      {
+        "file": "sections/curated-showcase.liquid",
+        "line": 208,
+        "type": "collection",
+        "id": "collection"
+      },
+      {
+        "file": "sections/featured-product.liquid",
+        "line": 454,
+        "type": "product",
+        "id": "product"
+      },
+      {
+        "file": "sections/footer.liquid",
+        "line": 146,
+        "type": "link_list",
+        "id": "menu"
+      },
+      {
+        "file": "sections/header.liquid",
+        "line": 188,
+        "type": "link_list",
+        "id": "menu"
+      },
+      {
+        "file": "sections/header.liquid",
+        "line": 200,
+        "type": "link_list",
+        "id": "customer_account_menu"
+      },
+      {
+        "file": "sections/lookbook.liquid",
+        "line": 240,
+        "type": "product",
+        "id": "product"
+      },
+      {
+        "file": "sections/main-404.liquid",
+        "line": 68,
+        "type": "collection",
+        "id": "recommendation_collection"
+      },
+      {
+        "file": "sections/main-article.liquid",
+        "line": 275,
+        "type": "product",
+        "id": "product"
+      },
+      {
+        "file": "sections/main-collection.liquid",
+        "line": 468,
+        "type": "url",
+        "id": "link_url"
+      },
+      {
+        "file": "sections/main-contact.liquid",
+        "line": 309,
+        "type": "url",
+        "id": "link"
+      }
+    ],
+    "defaults": [
+      {
+        "file": "sections/footer.liquid",
+        "type": "link_list",
+        "id": "menu",
+        "value": "footer"
+      },
+      {
+        "file": "sections/header.liquid",
+        "type": "link_list",
+        "id": "menu",
+        "value": "main-menu"
+      },
+      {
+        "file": "sections/header.liquid",
+        "type": "link_list",
+        "id": "customer_account_menu",
+        "value": "customer-account-main-menu"
+      }
+    ],
+    "presets": {
+      "archive": {
+        "collection.json": {
+          "order": [
+            {
+              "id": "main",
+              "type": "main-collection",
+              "blocks": {
+                "catalogue_note": {
+                  "type": "promotion_tile",
+                  "settings": {
+                    "position_in_grid": 3,
+                    "eyebrow": "CATALOGUE NOTE / III",
+                    "heading": "The record begins with the maker",
+                    "text": "<p>Read the provenance behind this group of objects.</p>",
+                    "color_scheme": "scheme-4"
+                  }
+                }
+              },
+              "block_order": [
+                "catalogue_note"
+              ],
+              "settings": {
+                "color_scheme": "scheme-1",
+                "products_per_page": 24,
+                "show_collection_image": true,
+                "default_grid_columns": "2",
+                "show_secondary_image": true,
+                "show_vendor": true,
+                "show_quick_add": true
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        },
+        "index.json": {
+          "order": [
+            {
+              "id": "hero",
+              "type": "hero-editorial",
+              "settings": {
+                "layout_mode": "cinematic",
+                "split_ratio": "60_40",
+                "layout_split": "image_first",
+                "height_desktop": 75,
+                "height_mobile": 75,
+                "media_type": "image",
+                "enable_video_mobile": false,
+                "overlay_style": "scrim",
+                "overlay_opacity": 55,
+                "content_position_x": "center",
+                "content_position_y": "center",
+                "text_alignment": "center",
+                "content_width": 30,
+                "heading_tag": "h1",
+                "eyebrow": "CATALOGUE I / THE HOUSE",
+                "heading": "Objects with a remembered life",
+                "subheading": "<p>A collection shaped by provenance, handwork and time.</p>",
+                "button_primary_label": "Enter the catalogue",
+                "button_primary_url": "/collections/all",
+                "color_scheme": "scheme-2"
+              }
+            },
+            {
+              "id": "manifesto",
+              "type": "brand-manifesto",
+              "blocks": {
+                "founded": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Founded",
+                    "value": "A continuing workshop tradition"
+                  }
+                },
+                "origin": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Origin",
+                    "value": "Made near the material source"
+                  }
+                },
+                "maker": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Maker",
+                    "value": "Named with every object"
+                  }
+                },
+                "record": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Record",
+                    "value": "Numbered and documented"
+                  }
+                }
+              },
+              "block_order": [
+                "founded",
+                "origin",
+                "maker",
+                "record"
+              ],
+              "settings": {
+                "eyebrow": "INDEX II / PROVENANCE",
+                "quote": "What endures carries the record of how it was made.",
+                "body": "<p>The catalogue follows material from source to workshop and object.</p>",
+                "media_label": "PLATE IV / HAND AND TOOL",
+                "use_surface_background": true,
+                "color_scheme": "scheme-3"
+              }
+            },
+            {
+              "id": "marquee",
+              "type": "marquee",
+              "blocks": {
+                "year": {
+                  "type": "item",
+                  "settings": {
+                    "text": "ESTABLISHED 1987 / CONTINUING WORKSHOP"
+                  }
+                },
+                "place": {
+                  "type": "item",
+                  "settings": {
+                    "text": "MADE BETWEEN FIELD AND ATELIER"
+                  }
+                },
+                "record": {
+                  "type": "item",
+                  "settings": {
+                    "text": "EACH OBJECT NUMBERED AND RECORDED"
+                  }
+                }
+              },
+              "block_order": [
+                "year",
+                "place",
+                "record"
+              ],
+              "settings": {
+                "speed": 46,
+                "color_scheme": "scheme-4"
+              }
+            },
+            {
+              "id": "collections",
+              "type": "curated-showcase",
+              "blocks": {
+                "current": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "Current catalogue"
+                  }
+                },
+                "archive": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "Archive selection"
+                  }
+                }
+              },
+              "block_order": [
+                "current",
+                "archive"
+              ],
+              "settings": {
+                "eyebrow": "CATALOGUE III / OBJECTS",
+                "heading": "Entries from the permanent record",
+                "show_secondary_image": false,
+                "show_vendor": true,
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "lookbook",
+              "type": "lookbook",
+              "blocks": {
+                "marker1": {
+                  "type": "hotspot",
+                  "settings": {
+                    "horizontal_position": 30,
+                    "vertical_position": 38,
+                    "horizontal_position_mobile": 32,
+                    "vertical_position_mobile": 35,
+                    "popover_position": "right"
+                  }
+                },
+                "marker2": {
+                  "type": "hotspot",
+                  "settings": {
+                    "horizontal_position": 55,
+                    "vertical_position": 66,
+                    "horizontal_position_mobile": 54,
+                    "vertical_position_mobile": 65,
+                    "popover_position": "top"
+                  }
+                },
+                "marker3": {
+                  "type": "hotspot",
+                  "settings": {
+                    "horizontal_position": 76,
+                    "vertical_position": 42,
+                    "horizontal_position_mobile": 72,
+                    "vertical_position_mobile": 45,
+                    "popover_position": "left"
+                  }
+                }
+              },
+              "block_order": [
+                "marker1",
+                "marker2",
+                "marker3"
+              ],
+              "settings": {
+                "eyebrow": "PLATE V / ARCHIVE STUDY",
+                "heading": "Three objects from the record",
+                "description": "<p>Open each marker to trace the object back to its catalogue entry.</p>",
+                "caption": "Warm light, worn surfaces and the evidence of use.",
+                "color_scheme": "scheme-5"
+              }
+            },
+            {
+              "id": "discovery",
+              "type": "bento-discovery",
+              "blocks": {
+                "story1": {
+                  "type": "card_editorial",
+                  "settings": {
+                    "eyebrow": "[I] FIELD NOTE",
+                    "heading": "Where the fibre begins",
+                    "body": "<p>A record of material, place and season.</p>"
+                  }
+                },
+                "story2": {
+                  "type": "card_editorial",
+                  "settings": {
+                    "eyebrow": "[II] WORKSHOP NOTE",
+                    "heading": "The mark of the tool",
+                    "body": "<p>Hands, edges and the small variations that make an object singular.</p>"
+                  }
+                },
+                "collection": {
+                  "type": "card_featured",
+                  "settings": {
+                    "collection": "all",
+                    "eyebrow": "[III] CATALOGUE",
+                    "heading": "The permanent collection",
+                    "link": "/collections/all"
+                  }
+                }
+              },
+              "block_order": [
+                "story1",
+                "story2",
+                "collection"
+              ],
+              "settings": {
+                "eyebrow": "INDEX VI / STORIES AND OBJECTS",
+                "heading": "Read the catalogue by provenance",
+                "subheading": "<p>Documents, makers and enduring forms.</p>",
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "newsletter",
+              "type": "newsletter",
+              "settings": {
+                "color_scheme": "scheme-3",
+                "eyebrow": "CATALOGUE NOTICES",
+                "heading": "New entries in the archive",
+                "text": "<p>Occasional notices of restored objects, new records and workshop visits.</p>"
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        },
+        "product.json": {
+          "order": [
+            {
+              "id": "main",
+              "type": "main-product",
+              "blocks": {
+                "vendor": {
+                  "type": "vendor",
+                  "settings": {}
+                },
+                "title": {
+                  "type": "title",
+                  "settings": {}
+                },
+                "price": {
+                  "type": "price",
+                  "settings": {}
+                },
+                "options": {
+                  "type": "variant_picker",
+                  "settings": {}
+                },
+                "quantity": {
+                  "type": "quantity",
+                  "settings": {}
+                },
+                "buy": {
+                  "type": "buy_buttons",
+                  "settings": {
+                    "show_dynamic_checkout": true
+                  }
+                },
+                "description": {
+                  "type": "description",
+                  "settings": {}
+                }
+              },
+              "block_order": [
+                "vendor",
+                "title",
+                "price",
+                "options",
+                "quantity",
+                "buy",
+                "description"
+              ],
+              "settings": {
+                "color_scheme": "scheme-1",
+                "media_layout": "thumbnails",
+                "enable_sticky_cart": true
+              }
+            },
+            {
+              "id": "recommendations",
+              "type": "product-recommendations",
+              "settings": {
+                "color_scheme": "scheme-5",
+                "intent": "related",
+                "eyebrow": "RELATED CATALOGUE ENTRIES",
+                "products_to_show": 4,
+                "columns_desktop": "4",
+                "show_secondary_image": true,
+                "show_vendor": true,
+                "show_quick_add": true
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        }
+      },
+      "edition": {
+        "collection.json": {
+          "order": [
+            {
+              "id": "main",
+              "type": "main-collection",
+              "settings": {
+                "color_scheme": "scheme-1",
+                "products_per_page": 32,
+                "show_collection_image": false,
+                "default_grid_columns": "4",
+                "show_secondary_image": false,
+                "show_vendor": false,
+                "show_quick_add": true
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        },
+        "index.json": {
+          "order": [
+            {
+              "id": "hero",
+              "type": "hero-editorial",
+              "settings": {
+                "layout_mode": "split",
+                "split_ratio": "50_50",
+                "layout_split": "image_first",
+                "height_desktop": 75,
+                "height_mobile": 65,
+                "media_type": "image",
+                "overlay_style": "none",
+                "overlay_opacity": 0,
+                "content_position_x": "start",
+                "content_position_y": "end",
+                "text_alignment": "left",
+                "content_width": 34,
+                "heading_tag": "h1",
+                "eyebrow": "OBJECT STUDY / 01",
+                "heading": "Useful forms, precisely considered",
+                "subheading": "<p>A quiet system for objects that speak for themselves.</p>",
+                "button_primary_label": "Browse all objects",
+                "button_primary_url": "/collections/all",
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "collections",
+              "type": "curated-showcase",
+              "blocks": {
+                "daily": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "Daily objects"
+                  }
+                },
+                "workspace": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "Workspace"
+                  }
+                },
+                "limited": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "Limited studies"
+                  }
+                }
+              },
+              "block_order": [
+                "daily",
+                "workspace",
+                "limited"
+              ],
+              "settings": {
+                "eyebrow": "CATALOGUE / 02",
+                "heading": "Selected objects",
+                "show_secondary_image": false,
+                "show_vendor": false,
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "discovery",
+              "type": "bento-discovery",
+              "blocks": {
+                "collection": {
+                  "type": "card_featured",
+                  "settings": {
+                    "collection": "all",
+                    "eyebrow": "[01] SYSTEM",
+                    "heading": "Objects for the desk",
+                    "link": "/collections/all"
+                  }
+                },
+                "product1": {
+                  "type": "card_product",
+                  "settings": {}
+                },
+                "product2": {
+                  "type": "card_product",
+                  "settings": {}
+                },
+                "story": {
+                  "type": "card_editorial",
+                  "settings": {
+                    "eyebrow": "[04] PROCESS",
+                    "heading": "Measured by use",
+                    "body": "<p>Materials and dimensions reduced to what the object needs.</p>"
+                  }
+                }
+              },
+              "block_order": [
+                "collection",
+                "product1",
+                "product2",
+                "story"
+              ],
+              "settings": {
+                "eyebrow": "GRID STUDY / 03",
+                "heading": "Collection, product, process",
+                "subheading": "<p>A denser view of the working collection.</p>",
+                "color_scheme": "scheme-3"
+              }
+            },
+            {
+              "id": "set",
+              "type": "complete-the-look",
+              "blocks": {
+                "object1": {
+                  "type": "bundle_product",
+                  "settings": {}
+                },
+                "object2": {
+                  "type": "bundle_product",
+                  "settings": {}
+                },
+                "object3": {
+                  "type": "bundle_product",
+                  "settings": {}
+                }
+              },
+              "block_order": [
+                "object1",
+                "object2",
+                "object3"
+              ],
+              "settings": {
+                "eyebrow": "DESK SET / 04",
+                "heading": "Build the working set",
+                "description": "<p>Select the objects you need and add them together.</p>",
+                "caption": "A modular arrangement for daily work.",
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "manifesto",
+              "type": "brand-manifesto",
+              "blocks": {
+                "measure": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Measure",
+                    "value": "Proportion follows use"
+                  }
+                },
+                "material": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Material",
+                    "value": "Chosen for tactility and endurance"
+                  }
+                }
+              },
+              "block_order": [
+                "measure",
+                "material"
+              ],
+              "settings": {
+                "eyebrow": "METHOD / 05",
+                "quote": "Remove until only the useful form remains.",
+                "body": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
+                "media_label": "",
+                "use_surface_background": false,
+                "color_scheme": "scheme-4"
+              }
+            },
+            {
+              "id": "newsletter",
+              "type": "newsletter",
+              "settings": {
+                "color_scheme": "scheme-3",
+                "eyebrow": "EDITION NOTES",
+                "heading": "New studies, occasionally",
+                "text": "<p>Product releases, material tests and measured updates.</p>"
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        },
+        "product.json": {
+          "order": [
+            {
+              "id": "main",
+              "type": "main-product",
+              "blocks": {
+                "vendor": {
+                  "type": "vendor",
+                  "settings": {}
+                },
+                "title": {
+                  "type": "title",
+                  "settings": {}
+                },
+                "price": {
+                  "type": "price",
+                  "settings": {}
+                },
+                "options": {
+                  "type": "variant_picker",
+                  "settings": {}
+                },
+                "quantity": {
+                  "type": "quantity",
+                  "settings": {}
+                },
+                "buy": {
+                  "type": "buy_buttons",
+                  "settings": {
+                    "show_dynamic_checkout": true
+                  }
+                },
+                "description": {
+                  "type": "description",
+                  "settings": {}
+                }
+              },
+              "block_order": [
+                "vendor",
+                "title",
+                "price",
+                "options",
+                "quantity",
+                "buy",
+                "description"
+              ],
+              "settings": {
+                "color_scheme": "scheme-1",
+                "media_layout": "grid",
+                "enable_sticky_cart": true
+              }
+            },
+            {
+              "id": "recommendations",
+              "type": "product-recommendations",
+              "settings": {
+                "color_scheme": "scheme-3",
+                "intent": "related",
+                "eyebrow": "RELATED OBJECTS",
+                "products_to_show": 4,
+                "columns_desktop": "4",
+                "show_secondary_image": false,
+                "show_vendor": false,
+                "show_quick_add": true
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        }
+      },
+      "sartorial": {
+        "collection.json": {
+          "order": [
+            {
+              "id": "main",
+              "type": "main-collection",
+              "blocks": {
+                "editorial": {
+                  "type": "promotion_tile",
+                  "settings": {
+                    "position_in_grid": 4,
+                    "eyebrow": "ATELIER NOTE / 01",
+                    "heading": "Cloth remembers the shape of daily life",
+                    "text": "<p>Follow a material study from fibre to finished form.</p>",
+                    "color_scheme": "scheme-4"
+                  }
+                }
+              },
+              "block_order": [
+                "editorial"
+              ],
+              "settings": {
+                "color_scheme": "scheme-1",
+                "products_per_page": 24,
+                "show_collection_image": true,
+                "default_grid_columns": "2",
+                "show_secondary_image": true,
+                "show_vendor": false,
+                "show_quick_add": true
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        },
+        "index.json": {
+          "order": [
+            {
+              "id": "hero",
+              "type": "hero-editorial",
+              "settings": {
+                "layout_mode": "cinematic",
+                "split_ratio": "60_40",
+                "layout_split": "image_first",
+                "height_desktop": 90,
+                "height_mobile": 75,
+                "media_type": "video",
+                "enable_video_mobile": false,
+                "overlay_style": "gradient_bottom",
+                "overlay_opacity": 40,
+                "content_position_x": "start",
+                "content_position_y": "end",
+                "text_alignment": "left",
+                "content_width": 38,
+                "heading_tag": "h1",
+                "eyebrow": "THE EDIT / SARTORIAL 01",
+                "heading": "Form in quiet movement",
+                "subheading": "<p>Sculptural layers and tactile materials, made in small series.</p>",
+                "button_primary_label": "Discover the collection",
+                "button_primary_url": "/collections/all",
+                "color_scheme": "scheme-2"
+              }
+            },
+            {
+              "id": "marquee",
+              "type": "marquee",
+              "blocks": {
+                "origin": {
+                  "type": "item",
+                  "settings": {
+                    "text": "NATURAL FIBRES / TRACEABLE ORIGIN"
+                  }
+                },
+                "series": {
+                  "type": "item",
+                  "settings": {
+                    "text": "MADE IN SMALL SERIES"
+                  }
+                },
+                "hand": {
+                  "type": "item",
+                  "settings": {
+                    "text": "CUT AND FINISHED BY HAND"
+                  }
+                },
+                "character": {
+                  "type": "item",
+                  "settings": {
+                    "text": "DESIGNED TO GATHER CHARACTER"
+                  }
+                }
+              },
+              "block_order": [
+                "origin",
+                "series",
+                "hand",
+                "character"
+              ],
+              "settings": {
+                "speed": 38,
+                "color_scheme": "scheme-2"
+              }
+            },
+            {
+              "id": "lookbook",
+              "type": "lookbook",
+              "blocks": {
+                "marker1": {
+                  "type": "hotspot",
+                  "settings": {
+                    "horizontal_position": 26,
+                    "vertical_position": 34,
+                    "horizontal_position_mobile": 28,
+                    "vertical_position_mobile": 30,
+                    "popover_position": "right"
+                  }
+                },
+                "marker2": {
+                  "type": "hotspot",
+                  "settings": {
+                    "horizontal_position": 48,
+                    "vertical_position": 66,
+                    "horizontal_position_mobile": 46,
+                    "vertical_position_mobile": 64,
+                    "popover_position": "top"
+                  }
+                },
+                "marker3": {
+                  "type": "hotspot",
+                  "settings": {
+                    "horizontal_position": 69,
+                    "vertical_position": 38,
+                    "horizontal_position_mobile": 68,
+                    "vertical_position_mobile": 42,
+                    "popover_position": "left"
+                  }
+                },
+                "marker4": {
+                  "type": "hotspot",
+                  "settings": {
+                    "horizontal_position": 82,
+                    "vertical_position": 72,
+                    "horizontal_position_mobile": 78,
+                    "vertical_position_mobile": 74,
+                    "popover_position": "left"
+                  }
+                }
+              },
+              "block_order": [
+                "marker1",
+                "marker2",
+                "marker3",
+                "marker4"
+              ],
+              "settings": {
+                "eyebrow": "CAMPAIGN STUDY / LOOK 01",
+                "heading": "Objects in quiet conversation",
+                "description": "<p>Move through the composition and discover each piece.</p>",
+                "caption": "A study in proportion, texture and daily movement.",
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "collections",
+              "type": "curated-showcase",
+              "blocks": {
+                "new": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "New forms"
+                  }
+                },
+                "permanent": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "Permanent collection"
+                  }
+                },
+                "objects": {
+                  "type": "collection_tab",
+                  "settings": {
+                    "collection": "all",
+                    "tab_label": "Atelier objects"
+                  }
+                }
+              },
+              "block_order": [
+                "new",
+                "permanent",
+                "objects"
+              ],
+              "settings": {
+                "eyebrow": "CURATED EDIT / 02",
+                "heading": "Selected forms for the season",
+                "show_secondary_image": true,
+                "show_vendor": false,
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "manifesto",
+              "type": "brand-manifesto",
+              "blocks": {
+                "material": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Materials",
+                    "value": "Traceable natural fibres"
+                  }
+                },
+                "origin": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Origin",
+                    "value": "Made close to the source"
+                  }
+                },
+                "finish": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Finish",
+                    "value": "Formed and finished by hand"
+                  }
+                },
+                "series": {
+                  "type": "detail",
+                  "settings": {
+                    "label": "Series",
+                    "value": "Numbered in small runs"
+                  }
+                }
+              },
+              "block_order": [
+                "material",
+                "origin",
+                "finish",
+                "series"
+              ],
+              "settings": {
+                "eyebrow": "THE HAND AND THE MATERIAL / 03",
+                "quote": "Objects gain meaning through the hands that make them.",
+                "body": "<p>Every edge and finish records a decision made by an artisan.</p>",
+                "media_label": "MACRO STUDY / MATERIAL 07",
+                "use_surface_background": true,
+                "color_scheme": "scheme-3"
+              }
+            },
+            {
+              "id": "capsule",
+              "type": "complete-the-look",
+              "blocks": {
+                "piece1": {
+                  "type": "bundle_product",
+                  "settings": {}
+                },
+                "piece2": {
+                  "type": "bundle_product",
+                  "settings": {}
+                },
+                "piece3": {
+                  "type": "bundle_product",
+                  "settings": {}
+                }
+              },
+              "block_order": [
+                "piece1",
+                "piece2",
+                "piece3"
+              ],
+              "settings": {
+                "eyebrow": "SHOPPABLE CAPSULE / LOOK 03",
+                "heading": "Complete the look",
+                "description": "<p>Choose each piece, select its size and add the full composition at once.</p>",
+                "caption": "Soft architecture photographed in natural atelier light.",
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "discovery",
+              "type": "bento-discovery",
+              "blocks": {
+                "collection": {
+                  "type": "card_featured",
+                  "settings": {
+                    "collection": "all",
+                    "eyebrow": "[01] FEATURED COLLECTION",
+                    "heading": "Sculptural layers",
+                    "link": "/collections/all"
+                  }
+                },
+                "story": {
+                  "type": "card_editorial",
+                  "settings": {
+                    "eyebrow": "[02] MATERIAL STUDY",
+                    "heading": "Carried close",
+                    "body": "<p>An editorial study in proportion, tactility and daily use.</p>"
+                  }
+                },
+                "product": {
+                  "type": "card_product",
+                  "settings": {}
+                }
+              },
+              "block_order": [
+                "collection",
+                "story",
+                "product"
+              ],
+              "settings": {
+                "eyebrow": "DISCOVER BY FORM / 04",
+                "heading": "A wardrobe, a room, a way of living",
+                "subheading": "<p>Three studies. One material language.</p>",
+                "color_scheme": "scheme-1"
+              }
+            },
+            {
+              "id": "newsletter",
+              "type": "newsletter",
+              "settings": {
+                "color_scheme": "scheme-3",
+                "eyebrow": "PRIVATE CORRESPONDENCE",
+                "heading": "Notes from the atelier",
+                "text": "<p>New objects, material studies and private previews, sent with restraint.</p>"
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        },
+        "product.json": {
+          "order": [
+            {
+              "id": "main",
+              "type": "main-product",
+              "blocks": {
+                "vendor": {
+                  "type": "vendor",
+                  "settings": {}
+                },
+                "title": {
+                  "type": "title",
+                  "settings": {}
+                },
+                "price": {
+                  "type": "price",
+                  "settings": {}
+                },
+                "options": {
+                  "type": "variant_picker",
+                  "settings": {}
+                },
+                "size": {
+                  "type": "size_guide",
+                  "settings": {
+                    "show_model_fit_below": true
+                  }
+                },
+                "quantity": {
+                  "type": "quantity",
+                  "settings": {}
+                },
+                "buy": {
+                  "type": "buy_buttons",
+                  "settings": {
+                    "show_dynamic_checkout": true
+                  }
+                },
+                "description": {
+                  "type": "description",
+                  "settings": {}
+                }
+              },
+              "block_order": [
+                "vendor",
+                "title",
+                "price",
+                "options",
+                "size",
+                "quantity",
+                "buy",
+                "description"
+              ],
+              "settings": {
+                "color_scheme": "scheme-1",
+                "media_layout": "grid",
+                "enable_sticky_cart": true
+              }
+            },
+            {
+              "id": "recommendations",
+              "type": "product-recommendations",
+              "settings": {
+                "color_scheme": "scheme-3",
+                "intent": "related",
+                "eyebrow": "CONTINUE THE STUDY",
+                "products_to_show": 4,
+                "columns_desktop": "4",
+                "show_secondary_image": true,
+                "show_vendor": false,
+                "show_quick_add": true
+              }
+            }
+          ],
+          "topKeys": [
+            "sections",
+            "order"
+          ]
+        }
+      }
+    },
+    "themeInfo": {
+      "name": "theme_info",
+      "theme_name": "Sartorial",
+      "theme_author": "Ruiz Digital",
+      "theme_version": "1.0.0",
+      "theme_documentation_url": "https://ruizdigital.com/themes/sartorial/docs",
+      "theme_support_url": "https://ruizdigital.com/themes/sartorial/support"
+    },
+    "presetNames": [
+      "Sartorial",
+      "Edition",
+      "Archive"
+    ]
+  },
+  "proposal-validation": {
+    "proposedPatches": 10,
+    "combinedApply": "PASS in ignored copy only",
+    "nodeCheck": 0,
+    "jsonAndSchemasParsed": 54,
+    "productionFilesChangedSinceSnapshot": []
+  }
+}

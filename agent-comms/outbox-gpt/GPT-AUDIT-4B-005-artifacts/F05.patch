@@ -1,0 +1,55 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index cca2bb3..b3ec615 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -1328,7 +1328,11 @@
+       const quantityInput = event.target.closest('[data-cart-quantity]');
+       if (!quantityInput) return;
+ 
+-      const quantity = Math.max(0, Number.parseInt(quantityInput.value, 10) || 0);
++      if (!quantityInput.checkValidity() && quantityInput.value !== '0') {
++        quantityInput.reportValidity();
++        return;
++      }
++      const quantity = Number(quantityInput.value);
+       this.changeLine(Number(quantityInput.dataset.line), quantity).catch((error) => {
+         this.showError(error.message);
+       });
+diff --git a/sections/main-product.liquid b/sections/main-product.liquid
+index 34c0046..5e13cb6 100644
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -307,6 +307,7 @@
+                   step="{{ selected_variant.quantity_rule.increment | default: 1 }}"
+                   {% if selected_variant.quantity_rule.max != blank %}max="{{ selected_variant.quantity_rule.max }}"{% endif %}
+                   inputmode="numeric"
++                  required
+                   data-quantity-input
+                 >
+                 <p
+diff --git a/sections/featured-product.liquid b/sections/featured-product.liquid
+index 58d7692..0d7f711 100644
+--- a/sections/featured-product.liquid
++++ b/sections/featured-product.liquid
+@@ -162,7 +162,8 @@
+                     step="{{ selected_variant.quantity_rule.increment | default: 1 }}"
+                     {% if selected_variant.quantity_rule.max != blank %}max="{{ selected_variant.quantity_rule.max }}"{% endif %}
+                     inputmode="numeric"
+-                    data-quantity-input
++                    required
++                  data-quantity-input
+                   >
+                 </div>
+               {%- endif -%}
+diff --git a/sections/cart-drawer.liquid b/sections/cart-drawer.liquid
+index 1057257..ed6749e 100644
+--- a/sections/cart-drawer.liquid
++++ b/sections/cart-drawer.liquid
+@@ -210,6 +210,7 @@
+                       step="{{ item.variant.quantity_rule.increment | default: 1 }}"
+                       {% if item.variant.quantity_rule.max != blank %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
+                       inputmode="numeric"
++                      required
+                       data-cart-quantity
+                       data-line="{{ forloop.index }}"
+                     >

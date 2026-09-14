@@ -6,10 +6,6 @@
   assign default_grid_columns = section.settings.default_grid_columns | default: '4'
   assign collection_banner_image = collection.featured_image
   assign collection_image_alt = collection_banner_image.alt | default: collection.title
-  assign money_uses_comma_decimal = false
-  if shop.money_format contains 'amount_with_comma_separator' or shop.money_with_currency_format contains 'amount_with_comma_separator'
-    assign money_uses_comma_decimal = true
-  endif
 
   for filter in collection.filters
     assign active_filter_count = active_filter_count | plus: filter.active_values.size
@@ -111,18 +107,13 @@
 
                   {%- when 'price_range' -%}
                     {%- liquid
-                      assign range_max_value = filter.range_max | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
-                      assign minimum_filter_value = filter.min_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
-                      assign maximum_filter_value = filter.max_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
-                      if money_uses_comma_decimal
-                        assign range_max_value = range_max_value | replace: '.', '' | replace: ',', '.'
-                        assign minimum_filter_value = minimum_filter_value | replace: '.', '' | replace: ',', '.'
-                        assign maximum_filter_value = maximum_filter_value | replace: '.', '' | replace: ',', '.'
-                      else
-                        assign range_max_value = range_max_value | replace: ',', ''
-                        assign minimum_filter_value = minimum_filter_value | replace: ',', ''
-                        assign maximum_filter_value = maximum_filter_value | replace: ',', ''
-                      endif
+                      # Shopify hands these over in cents for every currency, so dividing
+                      # is exact. The previous string surgery on money_without_currency
+                      # broke on space-separated formats: "1 250,50" lost its decimal
+                      # comma and submitted 125050.
+                      assign range_max_value = filter.range_max | divided_by: 100.0
+                      assign minimum_filter_value = filter.min_value.value | divided_by: 100.0
+                      assign maximum_filter_value = filter.max_value.value | divided_by: 100.0
                     -%}
                     <div class="facet__price-range">
                       <div>
@@ -466,7 +457,8 @@
         {
           "type": "url",
           "id": "link_url",
-          "label": "t:sections.main_collection.blocks.promotion_tile.settings.link_url.label"
+          "label": "t:sections.main_collection.blocks.promotion_tile.settings.link_url.label",
+          "info": "t:sections.all.link_destination_info"
         },
         {
           "type": "color_scheme",

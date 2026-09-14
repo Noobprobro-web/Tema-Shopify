@@ -1,0 +1,34 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index cca2bb3..e4806ef 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -1244,6 +1244,9 @@
+       this.listen(document, 'submit', (event) => this.handleAddSubmit(event));
+       this.listen(this, 'click', (event) => this.handleDrawerClick(event));
+       this.listen(this, 'change', (event) => this.handleDrawerChange(event));
++      this.listen(this, 'input', (event) => {
++        if (event.target.matches('textarea[name="note"]')) event.target.dataset.dirty = 'true';
++      });
+       this.listen(this.overlay, 'pointerdown', (event) => {
+         if (event.target === this.overlay) this.close(true);
+       });
+@@ -1537,7 +1540,19 @@
+ 
+       if (!nextDrawer || !nextContent || !currentContent) throw new Error(this.dataset.errorMessage);
+ 
++      const previousNote = currentContent.querySelector('textarea[name="note"][data-dirty="true"]');
++      const nextNote = nextContent.querySelector('textarea[name="note"]');
++      if (previousNote && nextNote) {
++        nextNote.value = previousNote.value;
++        nextNote.dataset.dirty = 'true';
++      }
++      const active = document.activeElement;
++      const restoreFocus = this.isOpen && (currentContent.contains(active) || active === document.body);
+       currentContent.replaceWith(nextContent);
++      if (restoreFocus) {
++        const target = active.id ? nextContent.querySelector('#' + CSS.escape(active.id)) : null;
++        (target || this.querySelector('[data-cart-drawer-close]'))?.focus();
++      }
+       this.dataset.itemCount = nextDrawer.dataset.itemCount;
+       this.dataset.cartCountLabel = nextDrawer.dataset.cartCountLabel;
+ 

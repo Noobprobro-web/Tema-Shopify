@@ -1,0 +1,12 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const base='.tmp/gpt-audit-4b-005/theme/';
+const config=JSON.parse(await readFile(base+'config/settings_data.json','utf8'));
+config.current.show_cart_note=true;
+await writeFile(base+'config/settings_data.json',JSON.stringify(config,null,2));
+const template=JSON.parse(await readFile(base+'templates/product.json','utf8'));
+template.sections.main.blocks.audit_size={type:'size_guide',settings:{}};
+if(!template.sections.main.block_order.includes('audit_size'))template.sections.main.block_order.splice(4,0,'audit_size');
+template.sections.audit_bundle={type:'complete-the-look',settings:{heading:'Audit capsule'},blocks:{a:{type:'bundle_product',settings:{product:'qa-16-single-char'}},b:{type:'bundle_product',settings:{product:'qa-08-on-sale'}}},block_order:['a','b']};
+if(!template.order.includes('audit_bundle'))template.order.push('audit_bundle');
+await writeFile(base+'templates/product.json',JSON.stringify(template,null,2));
+console.log('Only ignored snapshot configured: show_cart_note=true; size_guide; complete-the-look with two existing QA products. Production files unchanged.');

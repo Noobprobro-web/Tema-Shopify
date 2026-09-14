@@ -38,7 +38,6 @@
   class="cart-drawer color-{{ section_scheme }}"
   data-section-id="{{ section.id }}"
   data-cart-url="{{ routes.cart_url }}"
-  data-cart-json-url="{{ routes.cart_url }}.js"
   data-cart-add-url="{{ routes.cart_add_url }}.js"
   data-cart-change-url="{{ routes.cart_change_url }}.js"
   data-item-count="{{ cart.item_count }}"
@@ -210,6 +209,7 @@
                       step="{{ item.variant.quantity_rule.increment | default: 1 }}"
                       {% if item.variant.quantity_rule.max != blank %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
                       inputmode="numeric"
+                      required
                       data-cart-quantity
                       data-line="{{ forloop.index }}"
                     >

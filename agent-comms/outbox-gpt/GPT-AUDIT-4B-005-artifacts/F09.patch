@@ -1,0 +1,120 @@
+diff --git a/config/settings_schema.json b/config/settings_schema.json
+index 343c945..25b9065 100644
+--- a/config/settings_schema.json
++++ b/config/settings_schema.json
+@@ -235,27 +235,32 @@
+       {
+         "type": "url",
+         "id": "social_instagram_link",
+-        "label": "t:settings_schema.social.settings.instagram.label"
++        "label": "t:settings_schema.social.settings.instagram.label",
++        "info": "t:sections.all.link_destination_info"
+       },
+       {
+         "type": "url",
+         "id": "social_facebook_link",
+-        "label": "t:settings_schema.social.settings.facebook.label"
++        "label": "t:settings_schema.social.settings.facebook.label",
++        "info": "t:sections.all.link_destination_info"
+       },
+       {
+         "type": "url",
+         "id": "social_pinterest_link",
+-        "label": "t:settings_schema.social.settings.pinterest.label"
++        "label": "t:settings_schema.social.settings.pinterest.label",
++        "info": "t:sections.all.link_destination_info"
+       },
+       {
+         "type": "url",
+         "id": "social_tiktok_link",
+-        "label": "t:settings_schema.social.settings.tiktok.label"
++        "label": "t:settings_schema.social.settings.tiktok.label",
++        "info": "t:sections.all.link_destination_info"
+       },
+       {
+         "type": "url",
+         "id": "social_youtube_link",
+-        "label": "t:settings_schema.social.settings.youtube.label"
++        "label": "t:settings_schema.social.settings.youtube.label",
++        "info": "t:sections.all.link_destination_info"
+       }
+     ]
+   }
+diff --git a/sections/announcement-bar.liquid b/sections/announcement-bar.liquid
+index d560331..e7fa7b5 100644
+--- a/sections/announcement-bar.liquid
++++ b/sections/announcement-bar.liquid
+@@ -125,7 +125,8 @@
+         {
+           "type": "url",
+           "id": "link",
+-          "label": "t:sections.all.link.label"
++          "label": "t:sections.all.link.label",
++          "info": "t:sections.all.link_destination_info"
+         }
+       ]
+     }
+diff --git a/sections/bento-discovery.liquid b/sections/bento-discovery.liquid
+index bc2f249..b27e8e8 100644
+--- a/sections/bento-discovery.liquid
++++ b/sections/bento-discovery.liquid
+@@ -214,7 +214,8 @@
+         {
+           "type": "url",
+           "id": "link",
+-          "label": "t:sections.bento_discovery.blocks.card_featured.settings.link.label"
++          "label": "t:sections.bento_discovery.blocks.card_featured.settings.link.label",
++          "info": "t:sections.all.link_destination_info"
+         }
+       ]
+     },
+@@ -259,7 +260,8 @@
+         {
+           "type": "url",
+           "id": "link",
+-          "label": "t:sections.all.link.label"
++          "label": "t:sections.all.link.label",
++          "info": "t:sections.all.link_destination_info"
+         }
+       ]
+     },
+diff --git a/sections/main-collection.liquid b/sections/main-collection.liquid
+index abfe2af..530dd51 100644
+--- a/sections/main-collection.liquid
++++ b/sections/main-collection.liquid
+@@ -466,7 +466,8 @@
+         {
+           "type": "url",
+           "id": "link_url",
+-          "label": "t:sections.main_collection.blocks.promotion_tile.settings.link_url.label"
++          "label": "t:sections.main_collection.blocks.promotion_tile.settings.link_url.label",
++          "info": "t:sections.all.link_destination_info"
+         },
+         {
+           "type": "color_scheme",
+diff --git a/sections/main-contact.liquid b/sections/main-contact.liquid
+index 44a7a6a..9c95e60 100644
+--- a/sections/main-contact.liquid
++++ b/sections/main-contact.liquid
+@@ -307,7 +307,8 @@
+         {
+           "type": "url",
+           "id": "link",
+-          "label": "t:sections.all.link.label"
++          "label": "t:sections.all.link.label",
++          "info": "t:sections.all.link_destination_info"
+         }
+       ]
+     }
+diff --git a/locales/en.default.schema.json b/locales/en.default.schema.json
+index f2333e8..b1f5040 100644
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -249,6 +249,7 @@
+   },
+   "sections": {
+     "all": {
++      "link_destination_info": "Choose a store page or paste the full HTTPS address. External pages must stay publicly accessible.",
+       "color_scheme": {
+         "label": "Color scheme"
+       },

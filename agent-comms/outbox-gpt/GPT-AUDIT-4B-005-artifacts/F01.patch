@@ -1,0 +1,24 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index cca2bb3..ee55b20 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -1335,9 +1335,16 @@
+     }
+ 
+     open(trigger = null) {
+-      if (this.isOpen) return;
+-
+-      this.returnFocusTarget = trigger || document.activeElement;
++      if (this.isOpen || !this.isConnected) return;
++
++      let returnTarget = trigger || document.activeElement;
++      const sourceMenu = returnTarget?.closest('theme-drawer[data-open]');
++      if (sourceMenu) returnTarget = sourceMenu.querySelector('[data-drawer-trigger]');
++      document.querySelectorAll('theme-drawer[data-open], predictive-search[data-open]')
++        .forEach((dialog) => dialog.setOpen(false));
++      document.querySelectorAll('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open]')
++        .forEach((dialog) => dialog.close(false));
++      this.returnFocusTarget = returnTarget;
+       this.overlay.hidden = false;
+       this.panel.inert = false;
+       this.panel.setAttribute('aria-hidden', 'false');

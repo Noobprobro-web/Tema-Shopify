@@ -307,6 +307,7 @@
                   step="{{ selected_variant.quantity_rule.increment | default: 1 }}"
                   {% if selected_variant.quantity_rule.max != blank %}max="{{ selected_variant.quantity_rule.max }}"{% endif %}
                   inputmode="numeric"
+                  required
                   data-quantity-input
                 >
                 <p

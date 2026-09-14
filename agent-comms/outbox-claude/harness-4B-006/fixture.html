@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>4B-006 harness</title></head>
+<body>
+  <header id="site-header">
+    <theme-drawer id="menu">
+      <button type="button" data-drawer-trigger aria-expanded="false">Menu</button>
+      <div data-drawer-overlay hidden></div>
+      <div data-drawer-panel>
+        <button type="button" data-drawer-close>Close menu</button>
+        <a id="menu-cart-link" href="/cart">Cart from menu</a>
+      </div>
+    </theme-drawer>
+  </header>
+
+  <main id="page">
+    <a id="page-cart-link" href="/cart">Cart from page</a>
+
+    <size-guide-modal id="sizeguide" data-default-unit="cm">
+      <button type="button" data-size-guide-open aria-expanded="false">Size guide</button>
+      <div data-size-guide-overlay hidden></div>
+      <div data-size-guide-panel>
+        <button type="button" data-size-guide-close>Close</button>
+        <div data-size-guide-panel-unit="cm"></div>
+        <button type="button" data-size-guide-unit="cm">cm</button>
+      </div>
+    </size-guide-modal>
+
+    <complete-the-look
+      id="ctl"
+      data-money-format="${{amount}}"
+      data-cart-add-url="/cart/add.js"
+      data-cart-url="/cart"
+      data-error-message="Bundle error"
+      data-selected-one-template="[count] selected"
+      data-selected-many-template="[count] selected">
+      <div data-bundle-item>
+        <input type="checkbox" data-bundle-select checked>
+        <input type="hidden" data-bundle-variant value="111" data-price="129900" data-quantity="1">
+      </div>
+      <p data-bundle-total></p>
+      <p data-bundle-count></p>
+      <button type="button" data-complete-look-submit><span data-complete-look-label>Add</span></button>
+    </complete-the-look>
+  </main>
+
+  <cart-drawer
+    id="cart"
+    data-section-id="cart-drawer"
+    data-cart-url="/cart"
+    data-cart-add-url="/cart/add.js"
+    data-cart-change-url="/cart/change.js"
+    data-item-count="1"
+    data-cart-count-label="1 item"
+    data-error-message="Cart is unavailable. Please try again."
+    data-added-message="Added">
+    <div data-cart-drawer-overlay hidden></div>
+    <div data-cart-drawer-panel>
+      <button type="button" data-cart-drawer-close>Close cart</button>
+      <span data-cart-drawer-count>1</span>
+      <div data-cart-drawer-content>
+        <textarea id="CartNote" name="note"></textarea>
+        <input id="DrawerQuantity-1" type="number" name="updates[]" value="2" min="1" step="1" required data-cart-quantity data-line="1">
+      </div>
+      <p data-cart-drawer-status role="status"></p>
+      <p data-cart-drawer-error></p>
+    </div>
+  </cart-drawer>
+
+  <script src="theme.js" defer></script>
+</body></html>

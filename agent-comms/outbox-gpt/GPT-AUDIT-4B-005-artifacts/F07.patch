@@ -1,0 +1,64 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index cca2bb3..2185d23 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -54,7 +54,7 @@
+     return () => container.removeEventListener('keydown', handleKeydown);
+   };
+ 
+-  // The seven amount tokens Shopify allows inside money_format / money_with_currency_format.
++  // Amount patterns supported by Shopify currency formatting.
+   const MONEY_PATTERNS = {
+     amount: { precision: 2, thousands: ',', decimal: '.' },
+     amount_no_decimals: { precision: 0, thousands: ',', decimal: '.' },
+@@ -63,28 +63,31 @@
+     amount_with_apostrophe_separator: { precision: 2, thousands: "'", decimal: '.' },
+     amount_no_decimals_with_space_separator: { precision: 0, thousands: ' ', decimal: '.' },
+     amount_with_space_separator: { precision: 2, thousands: ' ', decimal: ',' },
++    amount_with_period_and_space_separator: { precision: 2, thousands: ' ', decimal: '.' },
+   };
+ 
+   const MONEY_TOKEN = /\{\{\s*(\w+)\s*\}\}/;
+ 
+   const formatMoney = (cents, format) => {
++    if (typeof cents !== 'number' && (typeof cents !== 'string' || cents.trim() === '')) return '';
+     const amount = Math.round(Number(cents));
+     if (!Number.isFinite(amount)) return '';
+ 
+-    const fallback = window.theme?.moneyFormat
+-      || document.documentElement.dataset.moneyFormat
+-      || '${{amount}}';
+-    const template = typeof format === 'string' && MONEY_TOKEN.test(format)
+-      ? format
+-      : fallback;
++    const template = [format, window.theme?.moneyFormat, document.documentElement.dataset.moneyFormat]
++      .find((candidate) => typeof candidate === 'string'
++        && Object.hasOwn(MONEY_PATTERNS, candidate.match(MONEY_TOKEN)?.[1]));
++    if (!template) return '';
+     const token = template.match(MONEY_TOKEN)[1];
+-    const pattern = MONEY_PATTERNS[token] || MONEY_PATTERNS.amount;
++    const pattern = MONEY_PATTERNS[token];
++    const decoder = document.createElement('textarea');
++    decoder.innerHTML = template.replace(/</g, '&lt;');
++    const textTemplate = decoder.value;
+     const fixed = (amount / 100).toFixed(pattern.precision);
+     const [whole, fraction] = fixed.split('.');
+     const grouped = whole.replace(/(\d)(?=(\d{3})+$)/g, `$1${pattern.thousands}`);
+     const value = fraction ? `${grouped}${pattern.decimal}${fraction}` : grouped;
+ 
+-    return template.replace(MONEY_TOKEN, value);
++    return textTemplate.replace(MONEY_TOKEN, value);
+   };
+ 
+   class ThemeElement extends HTMLElement {
+@@ -625,7 +628,9 @@
+       const quantity = Number.parseInt(this.quantityInput.value, 10);
+       const unitCents = Number(priceSource?.price_cents);
+ 
+-      const showTotal = Number.isFinite(quantity)
++      const showTotal = priceSource?.price_cents != null
++        && priceSource.price_cents !== ''
++        && Number.isFinite(quantity)
+         && quantity > 1
+         && Number.isFinite(unitCents);
+ 

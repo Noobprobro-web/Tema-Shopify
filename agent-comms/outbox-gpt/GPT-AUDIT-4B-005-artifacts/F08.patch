@@ -1,0 +1,511 @@
+diff --git a/sections/announcement-bar.liquid b/sections/announcement-bar.liquid
+index d560331..5a70e8c 100644
+--- a/sections/announcement-bar.liquid
++++ b/sections/announcement-bar.liquid
+@@ -58,8 +58,8 @@
+         class="announcement-bar__control announcement-bar__control--pause"
+         type="button"
+         aria-label="{{ 'sections.announcement_bar.pause' | t }}"
+-        data-pause-label="{{ 'sections.announcement_bar.pause' | t | escape }}"
+-        data-play-label="{{ 'sections.announcement_bar.play' | t | escape }}"
++        data-pause-label="{{ 'sections.announcement_bar.pause' | t | escape_once }}"
++        data-play-label="{{ 'sections.announcement_bar.play' | t | escape_once }}"
+         data-announcement-pause
+         {% if announcement_count == 1 or section.settings.auto_rotate == false %}hidden{% endif %}
+       >
+diff --git a/sections/bento-discovery.liquid b/sections/bento-discovery.liquid
+index bc2f249..d727811 100644
+--- a/sections/bento-discovery.liquid
++++ b/sections/bento-discovery.liquid
+@@ -43,7 +43,7 @@
+               <a
+                 class="bento-card bento-card--featured"
+                 href="{{ card_url }}"
+-                aria-label="{{ 'sections.homepage.bento.explore' | t: title: card_title | escape }}"
++                aria-label="{{ 'sections.homepage.bento.explore' | t: title: card_title | escape_once }}"
+               >
+                 <span class="bento-card__media">
+                   {%- if card_image != blank -%}
+@@ -82,7 +82,7 @@
+                 <a
+                   class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}"
+                   href="{{ block.settings.link }}"
+-                  aria-label="{{ 'sections.homepage.bento.explore' | t: title: editorial_title | escape }}"
++                  aria-label="{{ 'sections.homepage.bento.explore' | t: title: editorial_title | escape_once }}"
+                 >
+               {%- else -%}
+                 <div class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}">
+diff --git a/sections/cart-drawer.liquid b/sections/cart-drawer.liquid
+index 1057257..657107a 100644
+--- a/sections/cart-drawer.liquid
++++ b/sections/cart-drawer.liquid
+@@ -42,9 +42,9 @@
+   data-cart-add-url="{{ routes.cart_add_url }}.js"
+   data-cart-change-url="{{ routes.cart_change_url }}.js"
+   data-item-count="{{ cart.item_count }}"
+-  data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape }}"
+-  data-error-message="{{ 'sections.cart.error' | t | escape }}"
+-  data-added-message="{{ 'sections.cart.added' | t | escape }}"
++  data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape_once }}"
++  data-error-message="{{ 'sections.cart.error' | t | escape_once }}"
++  data-added-message="{{ 'sections.cart.added' | t | escape_once }}"
+ >
+   <div class="cart-drawer__overlay" data-cart-drawer-overlay hidden>
+     <aside
+@@ -218,7 +218,7 @@
+                   <button
+                     class="icon-button cart-drawer-item__remove"
+                     type="button"
+-                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape }}"
++                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}"
+                     data-cart-remove
+                     data-line="{{ forloop.index }}"
+                   >
+@@ -386,7 +386,7 @@
+               {%- if settings.show_cart_note -%}
+                 <div class="cart-note">
+                   <label for="CartDrawerNote">{{ 'sections.cart.note' | t }}</label>
+-                  <textarea id="CartDrawerNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape }}">{{ cart.note }}</textarea>
++                  <textarea id="CartDrawerNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape_once }}">{{ cart.note }}</textarea>
+                 </div>
+               {%- endif -%}
+ 
+diff --git a/sections/complete-the-look.liquid b/sections/complete-the-look.liquid
+index 639453e..911c512 100644
+--- a/sections/complete-the-look.liquid
++++ b/sections/complete-the-look.liquid
+@@ -59,13 +59,13 @@
+   data-cart-add-url="{{ routes.cart_add_url }}.js"
+   data-cart-url="{{ routes.cart_url }}"
+   data-money-format="{{ shop.money_format | strip_html | escape }}"
+-  data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape }}"
+-  data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape }}"
+-  data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape }}"
+-  data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape }}"
+-  data-empty-label="{{ 'sections.complete_the_look.select_items' | t | escape }}"
+-  data-error-message="{{ 'sections.complete_the_look.error' | t | escape }}"
+-  data-added-message="{{ 'sections.complete_the_look.added' | t | escape }}"
++  data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape_once }}"
++  data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape_once }}"
++  data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape_once }}"
++  data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape_once }}"
++  data-empty-label="{{ 'sections.complete_the_look.select_items' | t | escape_once }}"
++  data-error-message="{{ 'sections.complete_the_look.error' | t | escape_once }}"
++  data-added-message="{{ 'sections.complete_the_look.added' | t | escape_once }}"
+ >
+   <section
+     class="section complete-the-look__section color-{{ section_scheme }}"
+@@ -180,7 +180,7 @@
+                       {% if bundle_can_add %}checked{% else %}disabled{% endif %}
+                     >
+                     <span class="visually-hidden">
+-                      {{- 'sections.complete_the_look.select_product' | t: product: bundle_product.title | escape -}}
++                      {{- 'sections.complete_the_look.select_product' | t: product: bundle_product.title | escape_once -}}
+                     </span>
+                   </label>
+ 
+@@ -220,7 +220,7 @@
+                       >
+                     {%- else -%}
+                       <label class="visually-hidden" for="{{ variant_select_id }}">
+-                        {{- 'sections.complete_the_look.choose_variant' | t: product: bundle_product.title | escape -}}
++                        {{- 'sections.complete_the_look.choose_variant' | t: product: bundle_product.title | escape_once -}}
+                       </label>
+                       <select
+                         id="{{ variant_select_id }}"
+diff --git a/sections/curated-showcase.liquid b/sections/curated-showcase.liquid
+index 223959e..3d42d5e 100644
+--- a/sections/curated-showcase.liquid
++++ b/sections/curated-showcase.liquid
+@@ -89,7 +89,7 @@
+               <a
+                 class="curated-showcase__spotlight-media"
+                 href="{{ spotlight_url }}"
+-                aria-label="{{ 'sections.homepage.curated.open_spotlight' | t: title: spotlight_title | escape }}"
++                aria-label="{{ 'sections.homepage.curated.open_spotlight' | t: title: spotlight_title | escape_once }}"
+               >
+                 {%- if spotlight_image != blank -%}
+                   {% render 'responsive-image',
+@@ -143,7 +143,7 @@
+             <footer class="curated-showcase__footer">
+               <span aria-hidden="true">{{ tab_number }} / {{ section.blocks.size | prepend: '0' }}</span>
+               <a href="{{ collection_url }}">
+-                <span>{{ 'sections.homepage.curated.view_collection' | t: title: tab_label | escape }}</span>
++                <span>{{ 'sections.homepage.curated.view_collection' | t: title: tab_label | escape_once }}</span>
+                 {% render 'icon', name: 'arrow', size: 18 %}
+               </a>
+             </footer>
+diff --git a/sections/featured-product.liquid b/sections/featured-product.liquid
+index 58d7692..7f81740 100644
+--- a/sections/featured-product.liquid
++++ b/sections/featured-product.liquid
+@@ -53,14 +53,14 @@
+ 
+     <variant-selects
+       class="featured-product__details"
+-      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape }}"
+-      data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+-      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+-      data-available-status="{{ 'products.product.variant_available' | t | escape }}"
+-      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
+-      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
+-      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
+-      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
++      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape_once }}"
++      data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
++      data-unavailable-text="{{ 'products.product.unavailable' | t | escape_once }}"
++      data-available-status="{{ 'products.product.variant_available' | t | escape_once }}"
++      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape_once }}"
++      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape_once }}"
++      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape_once }}"
++      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
+     >
+       <div class="featured-product__info flow">
+         {%- for block in section.blocks -%}
+diff --git a/sections/footer.liquid b/sections/footer.liquid
+index e4fe223..8f9cf8b 100644
+--- a/sections/footer.liquid
++++ b/sections/footer.liquid
+@@ -49,7 +49,7 @@
+               autocomplete="email"
+               autocapitalize="off"
+               autocorrect="off"
+-              placeholder="{{ 'newsletter.email_placeholder' | t | escape }}"
++              placeholder="{{ 'newsletter.email_placeholder' | t | escape_once }}"
+               aria-required="true"
+               {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletterError"{% endif %}
+               required
+diff --git a/sections/lookbook.liquid b/sections/lookbook.liquid
+index d2307c5..4016be8 100644
+--- a/sections/lookbook.liquid
++++ b/sections/lookbook.liquid
+@@ -91,7 +91,7 @@
+                 class="lookbook-hotspot__trigger"
+                 type="button"
+                 role="button"
+-                aria-label="{{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape }}"
++                aria-label="{{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape_once }}"
+                 aria-controls="{{ popover_id }}"
+                 aria-haspopup="dialog"
+                 aria-expanded="false"
+diff --git a/sections/main-article.liquid b/sections/main-article.liquid
+index d3103af..bad18c8 100644
+--- a/sections/main-article.liquid
++++ b/sections/main-article.liquid
+@@ -30,7 +30,7 @@
+       <h1 id="{{ title_id }}" class="main-article__title">{{ article.title | escape }}</h1>
+       <p class="main-article__meta">
+         {%- if section.settings.show_author and article.author != blank -%}
+-          {{- 'blogs.article.by_author' | t: author: article.author | escape -}}
++          {{- 'blogs.article.by_author' | t: author: article.author | escape_once -}}
+           <span aria-hidden="true"> / </span>
+         {%- endif -%}
+         {{- article.published_at | time_tag: format: 'date' -}}
+diff --git a/sections/main-blog.liquid b/sections/main-blog.liquid
+index b4ec37f..c935084 100644
+--- a/sections/main-blog.liquid
++++ b/sections/main-blog.liquid
+@@ -54,7 +54,7 @@
+           assign featured_alt = featured_article.image.alt | default: featured_article.title
+         -%}
+         <article class="main-blog__featured">
+-          <a class="main-blog__featured-media" href="{{ featured_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: featured_article.title | escape }}">
++          <a class="main-blog__featured-media" href="{{ featured_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: featured_article.title | escape_once }}">
+             {%- if featured_article.image != blank -%}
+               {% render 'responsive-image',
+                 image: featured_article.image,
+@@ -82,7 +82,7 @@
+             {%- endif -%}
+             <p class="main-blog__meta">
+               {%- if section.settings.show_author and featured_article.author != blank -%}
+-                {{- 'blogs.article.by_author' | t: author: featured_article.author | escape -}}
++                {{- 'blogs.article.by_author' | t: author: featured_article.author | escape_once -}}
+                 <span aria-hidden="true"> / </span>
+               {%- endif -%}
+               {%- if section.settings.show_date -%}
+@@ -120,7 +120,7 @@
+               -%}
+               <li>
+                 <article class="article-card">
+-                  <a class="article-card__media" href="{{ blog_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: blog_article.title | escape }}">
++                  <a class="article-card__media" href="{{ blog_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: blog_article.title | escape_once }}">
+                     {%- if blog_article.image != blank -%}
+                       {% render 'responsive-image',
+                         image: blog_article.image,
+diff --git a/sections/main-cart-items.liquid b/sections/main-cart-items.liquid
+index 0c0c43c..5d60192 100644
+--- a/sections/main-cart-items.liquid
++++ b/sections/main-cart-items.liquid
+@@ -118,7 +118,7 @@
+                   {% if item.variant.quantity_rule.max != blank %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
+                   inputmode="numeric"
+                 >
+-                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape }}">
++                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}">
+                   {{- 'sections.cart.remove' | t -}}
+                 </a>
+               </div>
+@@ -130,7 +130,7 @@
+           {%- if settings.show_cart_note -%}
+             <div class="cart-note">
+               <label for="CartNote">{{ 'sections.cart.note' | t }}</label>
+-              <textarea id="CartNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape }}">{{ cart.note }}</textarea>
++              <textarea id="CartNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape_once }}">{{ cart.note }}</textarea>
+             </div>
+           {%- endif -%}
+ 
+diff --git a/sections/main-contact.liquid b/sections/main-contact.liquid
+index 44a7a6a..4e34d80 100644
+--- a/sections/main-contact.liquid
++++ b/sections/main-contact.liquid
+@@ -110,11 +110,11 @@
+             <label for="{{ contact_reason_id }}">{{ 'contact.form.reason' | t }}</label>
+             <select id="{{ contact_reason_id }}" name="contact[Reason]" aria-required="true" required>
+               <option value="">{{ 'contact.form.reason_placeholder' | t }}</option>
+-              <option value="{{ 'contact.form.reason_order' | t | escape }}">{{ 'contact.form.reason_order' | t }}</option>
+-              <option value="{{ 'contact.form.reason_materials' | t | escape }}">{{ 'contact.form.reason_materials' | t }}</option>
+-              <option value="{{ 'contact.form.reason_appointment' | t | escape }}">{{ 'contact.form.reason_appointment' | t }}</option>
+-              <option value="{{ 'contact.form.reason_press' | t | escape }}">{{ 'contact.form.reason_press' | t }}</option>
+-              <option value="{{ 'contact.form.reason_other' | t | escape }}">{{ 'contact.form.reason_other' | t }}</option>
++              <option value="{{ 'contact.form.reason_order' | t | escape_once }}">{{ 'contact.form.reason_order' | t }}</option>
++              <option value="{{ 'contact.form.reason_materials' | t | escape_once }}">{{ 'contact.form.reason_materials' | t }}</option>
++              <option value="{{ 'contact.form.reason_appointment' | t | escape_once }}">{{ 'contact.form.reason_appointment' | t }}</option>
++              <option value="{{ 'contact.form.reason_press' | t | escape_once }}">{{ 'contact.form.reason_press' | t }}</option>
++              <option value="{{ 'contact.form.reason_other' | t | escape_once }}">{{ 'contact.form.reason_other' | t }}</option>
+             </select>
+           </div>
+ 
+@@ -138,7 +138,7 @@
+               id="{{ contact_consent_id }}"
+               type="checkbox"
+               name="contact[Consent]"
+-              value="{{ 'contact.form.consent_value' | t | escape }}"
++              value="{{ 'contact.form.consent_value' | t | escape_once }}"
+               aria-required="true"
+               required
+             >
+diff --git a/sections/main-list-collections.liquid b/sections/main-list-collections.liquid
+index b7f1675..eac4dd4 100644
+--- a/sections/main-list-collections.liquid
++++ b/sections/main-list-collections.liquid
+@@ -29,7 +29,7 @@
+             -%}
+             <li>
+               <article class="collection-directory__card">
+-                <a class="collection-directory__media" href="{{ collection_item.url }}" aria-label="{{ 'list_collections.view_collection' | t: title: collection_item.title | escape }}">
++                <a class="collection-directory__media" href="{{ collection_item.url }}" aria-label="{{ 'list_collections.view_collection' | t: title: collection_item.title | escape_once }}">
+                   {%- if collection_image != blank -%}
+                     {% render 'responsive-image',
+                       image: collection_image,
+diff --git a/sections/main-placeholder.liquid b/sections/main-placeholder.liquid
+index ef9590e..6cb24ba 100644
+--- a/sections/main-placeholder.liquid
++++ b/sections/main-placeholder.liquid
+@@ -2,7 +2,7 @@
+   <div class="container container--narrow flow">
+     {%- case request.page_type -%}
+       {%- when 'index' -%}
+-        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.home.title' | t: shop: shop.name | escape }}</h1>
++        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.home.title' | t: shop: shop.name | escape_once }}</h1>
+         <p class="lede">{{ 'templates.home.message' | t }}</p>
+ 
+       {%- when 'product' -%}
+@@ -32,7 +32,7 @@
+ 
+       {%- when 'search' -%}
+         {%- if search.performed -%}
+-          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.results_for' | t: terms: search.terms | escape }}</h1>
++          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.results_for' | t: terms: search.terms | escape_once }}</h1>
+         {%- else -%}
+           <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.title' | t }}</h1>
+           <p>{{ 'templates.search.prompt' | t }}</p>
+diff --git a/sections/main-product.liquid b/sections/main-product.liquid
+index 34c0046..996e696 100644
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -47,7 +47,7 @@
+             <button
+               class="product-gallery__thumbnail"
+               type="button"
+-              aria-label="{{ 'products.product.view_media' | t: number: forloop.index | escape }}"
++              aria-label="{{ 'products.product.view_media' | t: number: forloop.index | escape_once }}"
+               aria-pressed="{% if media.id == selected_media_id %}true{% else %}false{% endif %}"
+               data-product-thumbnail
+               data-media-id="{{ media.id }}"
+@@ -75,16 +75,16 @@
+     <variant-selects
+       class="product-main__details"
+       data-product-url="{{ product.url }}"
+-      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape }}"
+-      data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+-      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+-      data-available-status="{{ 'products.product.variant_available' | t | escape }}"
+-      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
+-      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
+-      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
+-      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
++      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape_once }}"
++      data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
++      data-unavailable-text="{{ 'products.product.unavailable' | t | escape_once }}"
++      data-available-status="{{ 'products.product.variant_available' | t | escape_once }}"
++      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape_once }}"
++      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape_once }}"
++      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape_once }}"
++      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
+       data-money-format="{{ shop.money_format | strip_html | escape }}"
+-      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape }}"
++      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape_once }}"
+     >
+       <div class="product-main__info flow">
+         {%- for block in section.blocks -%}
+@@ -558,7 +558,7 @@
+     <sticky-cart-bar
+       class="sticky-cart-bar color-{{ section_scheme }}"
+       data-product-form-id="{{ product_form_id }}"
+-      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
++      data-unavailable-text="{{ 'products.product.unavailable' | t | escape_once }}"
+       {% if product.has_only_default_variant %}data-single-variant{% endif %}
+       aria-hidden="true"
+       inert
+@@ -595,7 +595,7 @@
+         <button
+           class="button sticky-cart-bar__submit"
+           type="button"
+-          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape }}"
++          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape_once }}"
+           data-sticky-submit
+           {% unless selected_variant.available %}disabled{% endunless %}
+         >
+diff --git a/sections/main-search.liquid b/sections/main-search.liquid
+index 01ead80..d5369e7 100644
+--- a/sections/main-search.liquid
++++ b/sections/main-search.liquid
+@@ -44,7 +44,7 @@
+         <p class="eyebrow">{{ 'search.header.eyebrow' | t }}</p>
+         <h1 id="{{ title_id }}" class="main-search__title">
+           {%- if search.performed -%}
+-            {{- 'search.header.results_for' | t: terms: search.terms | escape -}}
++            {{- 'search.header.results_for' | t: terms: search.terms | escape_once -}}
+           {%- else -%}
+             {{- 'search.header.title' | t -}}
+           {%- endif -%}
+@@ -285,7 +285,7 @@
+               </ul>
+             {%- else -%}
+               <div class="main-search__empty flow">
+-                <h2>{{ 'search.results.none_title' | t: terms: search.terms | escape }}</h2>
++                <h2>{{ 'search.results.none_title' | t: terms: search.terms | escape_once }}</h2>
+                 <p>{{ 'search.results.none_text' | t }}</p>
+                 <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'search.results.browse' | t }}</a>
+               </div>
+diff --git a/sections/marquee.liquid b/sections/marquee.liquid
+index 29b8d7c..95094f5 100644
+--- a/sections/marquee.liquid
++++ b/sections/marquee.liquid
+@@ -14,8 +14,8 @@
+     class="marquee-banner color-{{ section_scheme }}"
+     role="region"
+     aria-label="{{ 'sections.homepage.marquee.region_label' | t }}"
+-    data-pause-label="{{ 'sections.homepage.marquee.pause' | t | escape }}"
+-    data-play-label="{{ 'sections.homepage.marquee.play' | t | escape }}"
++    data-pause-label="{{ 'sections.homepage.marquee.pause' | t | escape_once }}"
++    data-play-label="{{ 'sections.homepage.marquee.play' | t | escape_once }}"
+   >
+     <div class="marquee-banner__inner">
+       <div class="marquee-banner__viewport">
+diff --git a/sections/newsletter.liquid b/sections/newsletter.liquid
+index ffff501..bd8551a 100644
+--- a/sections/newsletter.liquid
++++ b/sections/newsletter.liquid
+@@ -39,7 +39,7 @@
+           autocomplete="email"
+           autocapitalize="off"
+           autocorrect="off"
+-          placeholder="{{ 'newsletter.email_placeholder' | t | escape }}"
++          placeholder="{{ 'newsletter.email_placeholder' | t | escape_once }}"
+           aria-required="true"
+           {% if form.errors %}aria-invalid="true" aria-describedby="NewsletterError-{{ section.id }}"{% endif %}
+           required
+diff --git a/snippets/gift-card-recipient.liquid b/snippets/gift-card-recipient.liquid
+index 9a9dc29..d58c3b6 100644
+--- a/snippets/gift-card-recipient.liquid
++++ b/snippets/gift-card-recipient.liquid
+@@ -20,9 +20,9 @@
+ 
+ <gift-card-recipient
+   class="gift-card-recipient"
+-  data-enabled-status="{{ 'products.product.recipient.expanded' | t | escape }}"
+-  data-disabled-status="{{ 'products.product.recipient.collapsed' | t | escape }}"
+-  data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape }}"
++  data-enabled-status="{{ 'products.product.recipient.expanded' | t | escape_once }}"
++  data-disabled-status="{{ 'products.product.recipient.collapsed' | t | escape_once }}"
++  data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape_once }}"
+   {% if recipient_enabled %}data-enabled{% endif %}
+ >
+   <label class="form-checkbox gift-card-recipient__toggle" for="{{ recipient_id }}-Toggle">
+diff --git a/snippets/pickup-availability.liquid b/snippets/pickup-availability.liquid
+index f9886dc..b896566 100644
+--- a/snippets/pickup-availability.liquid
++++ b/snippets/pickup-availability.liquid
+@@ -18,7 +18,7 @@
+   data-product-url="{{ product.url }}"
+   data-section-id="{{ section.id }}"
+   data-variant-id="{{ variant.id }}"
+-  data-update-error="{{ 'products.product.pickup.update_error' | t | escape }}"
++  data-update-error="{{ 'products.product.pickup.update_error' | t | escape_once }}"
+   {% if pick_up_availabilities.size == 0 %}hidden{% endif %}
+ >
+   {%- if pick_up_availabilities.size > 0 -%}
+diff --git a/snippets/predictive-search.liquid b/snippets/predictive-search.liquid
+index 334b33f..ca4707d 100644
+--- a/snippets/predictive-search.liquid
++++ b/snippets/predictive-search.liquid
+@@ -17,18 +17,18 @@
+   data-predictive-search-url="{{ routes.predictive_search_url | escape }}"
+   data-search-url="{{ routes.search_url | escape }}"
+   data-money-format="{{ shop.money_format | strip_html | escape }}"
+-  data-loading-text="{{ 'predictive_search.loading' | t | escape }}"
+-  data-no-results-text="{{ 'predictive_search.no_results' | t | escape }}"
+-  data-products-heading="{{ 'predictive_search.products' | t | escape }}"
+-  data-collections-heading="{{ 'predictive_search.collections' | t | escape }}"
+-  data-articles-heading="{{ 'predictive_search.articles' | t | escape }}"
+-  data-pages-heading="{{ 'predictive_search.pages' | t | escape }}"
+-  data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+-  data-in-stock-text="{{ 'predictive_search.in_stock' | t | escape }}"
+-  data-regular-price-text="{{ 'products.product.regular_price' | t | escape }}"
+-  data-view-all-template="{{ 'predictive_search.view_all' | t: terms: '[terms]' | escape }}"
+-  data-results-count-one="{{ 'predictive_search.results_count.one' | t | escape }}"
+-  data-results-count-other="{{ 'predictive_search.results_count.other' | t: count: '[count]' | escape }}"
++  data-loading-text="{{ 'predictive_search.loading' | t | escape_once }}"
++  data-no-results-text="{{ 'predictive_search.no_results' | t | escape_once }}"
++  data-products-heading="{{ 'predictive_search.products' | t | escape_once }}"
++  data-collections-heading="{{ 'predictive_search.collections' | t | escape_once }}"
++  data-articles-heading="{{ 'predictive_search.articles' | t | escape_once }}"
++  data-pages-heading="{{ 'predictive_search.pages' | t | escape_once }}"
++  data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
++  data-in-stock-text="{{ 'predictive_search.in_stock' | t | escape_once }}"
++  data-regular-price-text="{{ 'products.product.regular_price' | t | escape_once }}"
++  data-view-all-template="{{ 'predictive_search.view_all' | t: terms: '[terms]' | escape_once }}"
++  data-results-count-one="{{ 'predictive_search.results_count.one' | t | escape_once }}"
++  data-results-count-other="{{ 'predictive_search.results_count.other' | t: count: '[count]' | escape_once }}"
+ >
+   <button
+     class="icon-button predictive-search__trigger"
+@@ -79,7 +79,7 @@
+             type="search"
+             name="q"
+             value="{{ search.terms | escape }}"
+-            placeholder="{{ 'predictive_search.placeholder' | t | escape }}"
++            placeholder="{{ 'predictive_search.placeholder' | t | escape_once }}"
+             role="combobox"
+             aria-expanded="false"
+             aria-haspopup="listbox"
+@@ -133,7 +133,7 @@
+       type="search"
+       name="q"
+       value="{{ search.terms | escape }}"
+-      placeholder="{{ 'predictive_search.placeholder' | t | escape }}"
++      placeholder="{{ 'predictive_search.placeholder' | t | escape_once }}"
+       required
+     >
+     <input type="hidden" name="options[prefix]" value="last">

@@ -976,6 +976,22 @@ button[aria-busy='true']:disabled {
   text-transform: uppercase;
 }
 
+/* The sale badge is the one piece of merchandising colour on a product card, so it
+   consumes the scheme tokens. Sold out stays outlined and recessive, which is what
+   keeps the two readable at a glance. */
+.badge[data-sale-badge] {
+  border-color: var(--color-sale-badge-bg);
+  background-color: var(--color-sale-badge-bg);
+  color: var(--color-sale-badge-text);
+}
+
+.badge[data-sold-out-badge] {
+  border-color: currentColor;
+  background-color: transparent;
+  color: currentColor;
+  opacity: 0.8;
+}
+
 .product-main {
   padding-block: var(--space-4) var(--section-spacing);
 }

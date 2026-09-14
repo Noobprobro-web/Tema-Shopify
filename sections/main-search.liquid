@@ -9,10 +9,6 @@
     assign active_search_types = 'product,article,page'
   endif
   assign active_filter_count = 0
-  assign money_uses_comma_decimal = false
-  if shop.money_format contains 'amount_with_comma_separator' or shop.money_with_currency_format contains 'amount_with_comma_separator'
-    assign money_uses_comma_decimal = true
-  endif
   for filter in search.filters
     assign active_filter_count = active_filter_count | plus: filter.active_values.size
     if filter.type == 'price_range'
@@ -44,7 +40,7 @@
         <p class="eyebrow">{{ 'search.header.eyebrow' | t }}</p>
         <h1 id="{{ title_id }}" class="main-search__title">
           {%- if search.performed -%}
-            {{- 'search.header.results_for' | t: terms: search.terms | escape -}}
+            {{- 'search.header.results_for' | t: terms: search.terms | escape_once -}}
           {%- else -%}
             {{- 'search.header.title' | t -}}
           {%- endif -%}
@@ -142,18 +138,13 @@
                       </ul>
                     {%- when 'price_range' -%}
                       {%- liquid
-                        assign range_max_value = filter.range_max | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
-                        assign minimum_filter_value = filter.min_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
-                        assign maximum_filter_value = filter.max_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
-                        if money_uses_comma_decimal
-                          assign range_max_value = range_max_value | replace: '.', '' | replace: ',', '.'
-                          assign minimum_filter_value = minimum_filter_value | replace: '.', '' | replace: ',', '.'
-                          assign maximum_filter_value = maximum_filter_value | replace: '.', '' | replace: ',', '.'
-                        else
-                          assign range_max_value = range_max_value | replace: ',', ''
-                          assign minimum_filter_value = minimum_filter_value | replace: ',', ''
-                          assign maximum_filter_value = maximum_filter_value | replace: ',', ''
-                        endif
+                        # Shopify hands these over in cents for every currency, so dividing
+                        # is exact. The previous string surgery on money_without_currency
+                        # broke on space-separated formats: "1 250,50" lost its decimal
+                        # comma and submitted 125050.
+                        assign range_max_value = filter.range_max | divided_by: 100.0
+                        assign minimum_filter_value = filter.min_value.value | divided_by: 100.0
+                        assign maximum_filter_value = filter.max_value.value | divided_by: 100.0
                       -%}
                       <div class="facet__price-range">
                         <div>
@@ -285,7 +276,7 @@
               </ul>
             {%- else -%}
               <div class="main-search__empty flow">
-                <h2>{{ 'search.results.none_title' | t: terms: search.terms | escape }}</h2>
+                <h2>{{ 'search.results.none_title' | t: terms: search.terms | escape_once }}</h2>
                 <p>{{ 'search.results.none_text' | t }}</p>
                 <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'search.results.browse' | t }}</a>
               </div>

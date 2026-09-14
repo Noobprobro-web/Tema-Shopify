@@ -1,0 +1,48 @@
+diff --git a/assets/theme.js b/assets/theme.js
+index cca2bb3..5971255 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -1410,7 +1410,9 @@
+           },
+           body: formData,
+         });
+-        const result = await response.json();
++        const result = await response.json().catch(() => {
++          throw new Error(this.dataset.errorMessage);
++        });
+ 
+         if (!response.ok) throw new Error(result.description || result.message || this.dataset.errorMessage);
+ 
+@@ -1447,7 +1449,9 @@
+           }),
+           signal: this.crossSellController.signal,
+         });
+-        const result = await response.json();
++        const result = await response.json().catch(() => {
++          throw new Error(this.dataset.errorMessage);
++        });
+ 
+         if (!response.ok) throw new Error(result.description || result.message || this.dataset.errorMessage);
+ 
+@@ -1483,7 +1487,9 @@
+             sections_url: `${window.location.pathname}${window.location.search}`,
+           }),
+         });
+-        const result = await response.json();
++        const result = await response.json().catch(() => {
++          throw new Error(this.dataset.errorMessage);
++        });
+ 
+         if (!response.ok) throw new Error(result.description || result.message || this.dataset.errorMessage);
+ 
+@@ -2121,7 +2127,9 @@
+           body: JSON.stringify(requestBody),
+           signal: this.requestController.signal,
+         });
+-        const result = await response.json();
++        const result = await response.json().catch(() => {
++          throw new Error(this.dataset.errorMessage);
++        });
+         if (!response.ok) {
+           throw new Error(result.description || result.message || this.dataset.errorMessage);
+         }

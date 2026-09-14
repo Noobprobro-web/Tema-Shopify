@@ -1,0 +1,74 @@
+diff --git a/sections/main-collection.liquid b/sections/main-collection.liquid
+index abfe2af..4a6d6b8 100644
+--- a/sections/main-collection.liquid
++++ b/sections/main-collection.liquid
+@@ -6,10 +6,6 @@
+   assign default_grid_columns = section.settings.default_grid_columns | default: '4'
+   assign collection_banner_image = collection.featured_image
+   assign collection_image_alt = collection_banner_image.alt | default: collection.title
+-  assign money_uses_comma_decimal = false
+-  if shop.money_format contains 'amount_with_comma_separator' or shop.money_with_currency_format contains 'amount_with_comma_separator'
+-    assign money_uses_comma_decimal = true
+-  endif
+ 
+   for filter in collection.filters
+     assign active_filter_count = active_filter_count | plus: filter.active_values.size
+@@ -111,18 +107,9 @@
+ 
+                   {%- when 'price_range' -%}
+                     {%- liquid
+-                      assign range_max_value = filter.range_max | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+-                      assign minimum_filter_value = filter.min_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+-                      assign maximum_filter_value = filter.max_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+-                      if money_uses_comma_decimal
+-                        assign range_max_value = range_max_value | replace: '.', '' | replace: ',', '.'
+-                        assign minimum_filter_value = minimum_filter_value | replace: '.', '' | replace: ',', '.'
+-                        assign maximum_filter_value = maximum_filter_value | replace: '.', '' | replace: ',', '.'
+-                      else
+-                        assign range_max_value = range_max_value | replace: ',', ''
+-                        assign minimum_filter_value = minimum_filter_value | replace: ',', ''
+-                        assign maximum_filter_value = maximum_filter_value | replace: ',', ''
+-                      endif
++                      assign range_max_value = filter.range_max | divided_by: 100.0
++                      assign minimum_filter_value = filter.min_value.value | divided_by: 100.0
++                      assign maximum_filter_value = filter.max_value.value | divided_by: 100.0
+                     -%}
+                     <div class="facet__price-range">
+                       <div>
+diff --git a/sections/main-search.liquid b/sections/main-search.liquid
+index 01ead80..c4df6dc 100644
+--- a/sections/main-search.liquid
++++ b/sections/main-search.liquid
+@@ -9,10 +9,6 @@
+     assign active_search_types = 'product,article,page'
+   endif
+   assign active_filter_count = 0
+-  assign money_uses_comma_decimal = false
+-  if shop.money_format contains 'amount_with_comma_separator' or shop.money_with_currency_format contains 'amount_with_comma_separator'
+-    assign money_uses_comma_decimal = true
+-  endif
+   for filter in search.filters
+     assign active_filter_count = active_filter_count | plus: filter.active_values.size
+     if filter.type == 'price_range'
+@@ -142,18 +138,9 @@
+                       </ul>
+                     {%- when 'price_range' -%}
+                       {%- liquid
+-                        assign range_max_value = filter.range_max | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+-                        assign minimum_filter_value = filter.min_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+-                        assign maximum_filter_value = filter.max_value.value | money_without_currency | strip | replace: ' ', '' | replace: "'", ''
+-                        if money_uses_comma_decimal
+-                          assign range_max_value = range_max_value | replace: '.', '' | replace: ',', '.'
+-                          assign minimum_filter_value = minimum_filter_value | replace: '.', '' | replace: ',', '.'
+-                          assign maximum_filter_value = maximum_filter_value | replace: '.', '' | replace: ',', '.'
+-                        else
+-                          assign range_max_value = range_max_value | replace: ',', ''
+-                          assign minimum_filter_value = minimum_filter_value | replace: ',', ''
+-                          assign maximum_filter_value = maximum_filter_value | replace: ',', ''
+-                        endif
++                        assign range_max_value = filter.range_max | divided_by: 100.0
++                        assign minimum_filter_value = filter.min_value.value | divided_by: 100.0
++                        assign maximum_filter_value = filter.max_value.value | divided_by: 100.0
+                       -%}
+                       <div class="facet__price-range">
+                         <div>

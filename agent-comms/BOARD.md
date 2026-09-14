@@ -10,9 +10,10 @@ Estado general: FASE 4B (Endurecimiento, Gate 5 y Preparación de Submission)
 
 ---
 
-## 1. Sprint Activo: SPRINT-4B-004 (Gate 5 & Hardening)
+## 1. Sprint Activo: SPRINT-4B-006 (Bug Elimination & Hardening) - COMPLETADO
 
-**Meta del Sprint:** Completar la verificación empírica en tienda real (`tema-qkqpke0j.myshopify.com`), unificar `formatMoney` eliminando `Intl`, resolver el riesgo P0 de URLs de soporte/documentación, y preparar la entrega final 1.0.0 de **Sartorial** para la Shopify Theme Store.
+**Meta del Sprint:** Resolver los 12 defectos técnicos (1 P0, 5 P1, 6 P2) identificados en las auditorías adversarias de GPT y Claude antes de la verificación empírica Gate 5.
+**Resultado:** Aceptado formalmente en `GEMINI-review-CLAUDE-4B-006.md`. 8 compuertas en verde, 0 ofensas en Theme Check.
 
 ---
 
@@ -21,9 +22,9 @@ Estado general: FASE 4B (Endurecimiento, Gate 5 y Preparación de Submission)
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Creación de páginas de docs y soporte en tienda Shopify (`docs/merchant/*.html`) | 🟢 En progreso | Páginas creadas en Shopify y URLs enlazadas en `settings_schema.json` |
-| **Claude (Opus 5)** | Implementador Principal | Unificación de `formatMoney` en `theme.js` (Compuerta 3) | 🟢 Aceptado | `CLAUDE-IMPL-4B-003`, Compuerta 3 cerrada con éxito |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Auditoría de entrega 4B-003 y ejecución de Gate 5 en tienda real | 🟢 En ejecución | Reporte de aceptación, suite Gate 5 en Playwright/Lighthouse |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría de catálogo hostil y validación de cobertura de Gate 5 | 🔵 En espera de directiva | Reporte de riesgos y casos límite en `outbox-gpt/` |
+| **Claude (Opus 5)** | Implementador Principal | Hardening de 12 bugs técnicos (`CLAUDE-TASK-4B-006`) | 🟢 Aceptado | `CLAUDE-IMPL-4B-006` aprobado, 8 compuertas en verde |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Ejecución y certificación de Gate 5 en tienda real | 🟡 En preparación | Medición Lighthouse, accesibilidad por teclado y axe |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría adversarial completada (`GPT-AUDIT-4B-005`) | 🟢 Entregado | 10 hallazgos resueltos y verificados |
 
 ---
 

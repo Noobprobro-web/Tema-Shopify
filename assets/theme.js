@@ -54,7 +54,26 @@
     return () => container.removeEventListener('keydown', handleKeydown);
   };
 
-  // The seven amount tokens Shopify allows inside money_format / money_with_currency_format.
+  // Only one dialog may own the focus trap and the inert background at a time. Two open
+  // at once make each other's ancestors inert, which leaves the visible dialog's own
+  // controls unclickable and sends Escape to the wrong surface. Every dialog therefore
+  // dismisses the others as it opens.
+  const DIALOGS_WITH_SET_OPEN = 'theme-drawer[data-open], predictive-search[data-open]';
+  const DIALOGS_WITH_CLOSE = 'cart-drawer[data-open], size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open]';
+
+  const closeOtherDialogs = (except = null) => {
+    document.querySelectorAll(DIALOGS_WITH_SET_OPEN).forEach((dialog) => {
+      if (dialog === except || typeof dialog.setOpen !== 'function') return;
+      dialog.setOpen(false);
+    });
+
+    document.querySelectorAll(DIALOGS_WITH_CLOSE).forEach((dialog) => {
+      if (dialog === except || typeof dialog.close !== 'function') return;
+      dialog.close(false);
+    });
+  };
+
+  // The eight amount tokens Shopify allows inside money_format / money_with_currency_format.
   const MONEY_PATTERNS = {
     amount: { precision: 2, thousands: ',', decimal: '.' },
     amount_no_decimals: { precision: 0, thousands: ',', decimal: '.' },
@@ -63,28 +82,46 @@
     amount_with_apostrophe_separator: { precision: 2, thousands: "'", decimal: '.' },
     amount_no_decimals_with_space_separator: { precision: 0, thousands: ' ', decimal: '.' },
     amount_with_space_separator: { precision: 2, thousands: ' ', decimal: ',' },
+    amount_with_period_and_space_separator: { precision: 2, thousands: ' ', decimal: '.' },
   };
 
   const MONEY_TOKEN = /\{\{\s*(\w+)\s*\}\}/;
 
+  // Last-resort template. Only reached when the shop exposes no usable money_format,
+  // and exists so a price degrades to a readable number instead of an empty node.
+  const DEFAULT_MONEY_FORMAT = '${{amount}}';
+
+  // Accepts cents as a number, or as a string of digits. A decimal string such as
+  // "12.34" is rejected rather than silently read as 12 cents.
+  const isCentsLike = (cents) => typeof cents === 'number'
+    || (typeof cents === 'string' && /^-?\d+$/.test(cents.trim()));
+
   const formatMoney = (cents, format) => {
+    if (!isCentsLike(cents)) return '';
     const amount = Math.round(Number(cents));
     if (!Number.isFinite(amount)) return '';
 
-    const fallback = window.theme?.moneyFormat
-      || document.documentElement.dataset.moneyFormat
-      || '${{amount}}';
-    const template = typeof format === 'string' && MONEY_TOKEN.test(format)
-      ? format
-      : fallback;
-    const token = template.match(MONEY_TOKEN)[1];
-    const pattern = MONEY_PATTERNS[token] || MONEY_PATTERNS.amount;
+    const template = [
+      format,
+      window.theme?.moneyFormat,
+      document.documentElement.dataset.moneyFormat,
+      DEFAULT_MONEY_FORMAT,
+    ].find((candidate) => typeof candidate === 'string'
+      && Object.hasOwn(MONEY_PATTERNS, candidate.match(MONEY_TOKEN)?.[1]));
+    if (!template) return '';
+
+    const pattern = MONEY_PATTERNS[template.match(MONEY_TOKEN)[1]];
+    // Decodes entities a merchant may have typed into money_format (&pound;, &#36;)
+    // while keeping any markup inert, since the result is written with textContent.
+    const decoder = document.createElement('textarea');
+    decoder.innerHTML = template.replace(/</g, '&lt;');
+    const textTemplate = decoder.value;
     const fixed = (amount / 100).toFixed(pattern.precision);
     const [whole, fraction] = fixed.split('.');
     const grouped = whole.replace(/(\d)(?=(\d{3})+$)/g, `$1${pattern.thousands}`);
     const value = fraction ? `${grouped}${pattern.decimal}${fraction}` : grouped;
 
-    return template.replace(MONEY_TOKEN, value);
+    return textTemplate.replace(new RegExp(MONEY_TOKEN.source, 'g'), value);
   };
 
   class ThemeElement extends HTMLElement {
@@ -187,6 +224,10 @@
 
     setOpen(open, restoreFocus = false) {
       if (!this.trigger || !this.overlay || !this.panel) return;
+
+      // Runs before this drawer touches body[data-drawer-open] or the inert background,
+      // so a closing cart drawer cannot strip the state this one is about to set.
+      if (open) closeOtherDialogs(this);
 
       this.trigger.setAttribute('aria-expanded', String(open));
       this.panel.setAttribute('aria-hidden', String(!open));
@@ -557,7 +598,8 @@
 
       const purchaseOptionValid = this.isPurchaseOptionValid(variant);
       this.querySelectorAll('[data-add-to-cart]').forEach((button) => {
-        button.disabled = !purchaseOptionValid;
+        // Never re-enable a button whose form still has an add-to-cart request in flight.
+        button.disabled = !purchaseOptionValid || button.form?.dataset.cartAddPending === 'true';
         const label = button.querySelector('[data-add-to-cart-text]');
         if (!label) return;
 
@@ -625,7 +667,9 @@
       const quantity = Number.parseInt(this.quantityInput.value, 10);
       const unitCents = Number(priceSource?.price_cents);
 
-      const showTotal = Number.isFinite(quantity)
+      const showTotal = priceSource?.price_cents != null
+        && priceSource.price_cents !== ''
+        && Number.isFinite(quantity)
         && quantity > 1
         && Number.isFinite(unitCents);
 
@@ -850,7 +894,10 @@
     open() {
       if (this.isOpen) return;
 
-      this.returnFocusTarget = document.activeElement;
+      const returnTarget = document.activeElement;
+      closeOtherDialogs(this);
+
+      this.returnFocusTarget = returnTarget;
       this.overlay.hidden = false;
       this.panel.inert = false;
       this.panel.setAttribute('aria-hidden', 'false');
@@ -1244,6 +1291,9 @@
       this.listen(document, 'submit', (event) => this.handleAddSubmit(event));
       this.listen(this, 'click', (event) => this.handleDrawerClick(event));
       this.listen(this, 'change', (event) => this.handleDrawerChange(event));
+      this.listen(this, 'input', (event) => {
+        if (event.target.matches('textarea[name="note"]')) event.target.dataset.dirty = 'true';
+      });
       this.listen(this.overlay, 'pointerdown', (event) => {
         if (event.target === this.overlay) this.close(true);
       });
@@ -1328,16 +1378,34 @@
       const quantityInput = event.target.closest('[data-cart-quantity]');
       if (!quantityInput) return;
 
-      const quantity = Math.max(0, Number.parseInt(quantityInput.value, 10) || 0);
+      // An empty or malformed field used to fall through parseInt('') || 0 and silently
+      // delete the line. Let the browser report it instead, and keep 0 as the one value
+      // that is allowed to bypass min and remove the item on purpose.
+      if (!quantityInput.checkValidity() && quantityInput.value !== '0') {
+        quantityInput.reportValidity();
+        return;
+      }
+
+      const quantity = Number(quantityInput.value);
       this.changeLine(Number(quantityInput.dataset.line), quantity).catch((error) => {
         this.showError(error.message);
       });
     }
 
     open(trigger = null) {
-      if (this.isOpen) return;
+      if (this.isOpen || !this.isConnected) return;
 
-      this.returnFocusTarget = trigger || document.activeElement;
+      // Resolved before the other dialogs close: making a panel inert blurs whatever
+      // inside it holds focus, and a cart opened from the mobile menu must hand focus
+      // back to the menu trigger rather than to a link that is about to disappear.
+      let returnTarget = trigger || document.activeElement;
+      const sourceMenu = returnTarget?.closest?.('theme-drawer[data-open]');
+      const menuTrigger = sourceMenu?.querySelector('[data-drawer-trigger]');
+      if (menuTrigger) returnTarget = menuTrigger;
+
+      closeOtherDialogs(this);
+
+      this.returnFocusTarget = returnTarget;
       this.overlay.hidden = false;
       this.panel.inert = false;
       this.panel.setAttribute('aria-hidden', 'false');
@@ -1394,6 +1462,11 @@
     }
 
     async addItem(form, submitter) {
+      // Blocks a second submit while the first is in flight, which otherwise buys the
+      // item twice. Switching variant mid-request used to re-enable the button through
+      // updateForms; that path now reads this flag and leaves it disabled.
+      if (form.dataset.cartAddPending === 'true') return;
+      form.dataset.cartAddPending = 'true';
       this.clearMessages(form);
       this.setFormBusy(form, submitter, true);
 
@@ -1410,15 +1483,27 @@
           },
           body: formData,
         });
-        const result = await response.json();
+        // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+        // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+        // failure is turned into the localized message instead. A deliberate abort keeps
+        // its own name, because callers use it to stay silent.
+        const result = await response.json().catch((error) => {
+          if (error.name === 'AbortError') throw error;
+          throw new Error(this.dataset.errorMessage);
+        });
 
-        if (!response.ok) throw new Error(result.description || result.message || this.dataset.errorMessage);
+        if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
         await this.renderCartResponse(result);
         this.showStatus(this.dataset.addedMessage);
         this.open(submitter);
       } finally {
+        delete form.dataset.cartAddPending;
         this.setFormBusy(form, submitter, false);
+        // Re-applies the availability state of whatever variant is selected now, which
+        // may not be the one this request was submitted for.
+        const variants = form.closest('variant-selects');
+        if (variants?.isConnected) variants.updateForms(variants.currentVariant);
       }
     }
 
@@ -1447,9 +1532,16 @@
           }),
           signal: this.crossSellController.signal,
         });
-        const result = await response.json();
+        // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+        // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+        // failure is turned into the localized message instead. A deliberate abort keeps
+        // its own name, because callers use it to stay silent.
+        const result = await response.json().catch((error) => {
+          if (error.name === 'AbortError') throw error;
+          throw new Error(this.dataset.errorMessage);
+        });
 
-        if (!response.ok) throw new Error(result.description || result.message || this.dataset.errorMessage);
+        if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
         await this.renderCartResponse(result);
         this.showStatus(this.dataset.addedMessage);
@@ -1483,9 +1575,16 @@
             sections_url: `${window.location.pathname}${window.location.search}`,
           }),
         });
-        const result = await response.json();
+        // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
+        // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
+        // failure is turned into the localized message instead. A deliberate abort keeps
+        // its own name, because callers use it to stay silent.
+        const result = await response.json().catch((error) => {
+          if (error.name === 'AbortError') throw error;
+          throw new Error(this.dataset.errorMessage);
+        });
 
-        if (!response.ok) throw new Error(result.description || result.message || this.dataset.errorMessage);
+        if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
         await this.renderCartResponse(result);
       } finally {
@@ -1493,15 +1592,9 @@
       }
     }
 
+    // Always re-renders on open. Comparing item_count alone missed same-count changes:
+    // a line swapped for another in a second tab, a price change, or edited properties.
     async syncCart() {
-      const response = await fetch(this.dataset.cartJsonUrl, {
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) return;
-
-      const cart = await response.json();
-      if (Number(this.dataset.itemCount) === Number(cart.item_count)) return;
-
       const sectionHtml = await this.requestSection();
       this.renderSection(sectionHtml);
     }
@@ -1537,7 +1630,25 @@
 
       if (!nextDrawer || !nextContent || !currentContent) throw new Error(this.dataset.errorMessage);
 
+      // A re-render replaces the whole drawer body. Carry over an order note the shopper
+      // has typed but not yet saved, and keep focus inside the drawer instead of dropping
+      // it on document.body, which would strand keyboard and screen-reader users.
+      const previousNote = currentContent.querySelector('textarea[name="note"][data-dirty="true"]');
+      const nextNote = nextContent.querySelector('textarea[name="note"]');
+      if (previousNote && nextNote) {
+        nextNote.value = previousNote.value;
+        nextNote.dataset.dirty = 'true';
+      }
+
+      const active = document.activeElement;
+      const restoreFocus = this.isOpen && (currentContent.contains(active) || active === document.body);
+
       currentContent.replaceWith(nextContent);
+
+      if (restoreFocus) {
+        const target = active?.id ? nextContent.querySelector(`#${CSS.escape(active.id)}`) : null;
+        (target || this.querySelector('[data-cart-drawer-close]'))?.focus();
+      }
       this.dataset.itemCount = nextDrawer.dataset.itemCount;
       this.dataset.cartCountLabel = nextDrawer.dataset.cartCountLabel;
 
@@ -2121,9 +2232,15 @@
           body: JSON.stringify(requestBody),
           signal: this.requestController.signal,
         });
-        const result = await response.json();
+        // See addItem: an HTML error page must surface as the localized message, not as
+        // a JSON SyntaxError, and an abort must stay an abort.
+        const result = await response.json().catch((error) => {
+          if (error.name === 'AbortError') throw error;
+          throw new Error(this.dataset.errorMessage);
+        });
+
         if (!response.ok) {
-          throw new Error(result.description || result.message || this.dataset.errorMessage);
+          throw new Error(result?.description || result?.message || this.dataset.errorMessage);
         }
 
         const canRenderDrawer = drawer
@@ -2310,7 +2427,8 @@
       });
       this.listen(this, 'focusout', () => {
         requestAnimationFrame(() => {
-          if (this.contains(document.activeElement)) return;
+          // The frame can land after the Theme Editor has removed this section.
+          if (!this.isConnected || this.contains(document.activeElement)) return;
           this.interactionPaused = false;
           this.schedule();
         });
@@ -2358,6 +2476,7 @@
 
     schedule() {
       this.clearTimer();
+      if (!this.isConnected) return;
       if (!this.autoRotate || this.userPaused || this.interactionPaused || reducedMotionQuery.matches) return;
 
       this.timer = window.setTimeout(() => {
@@ -2431,7 +2550,11 @@
       });
 
       if (this.querySelector('[data-password-error]')) {
-        requestAnimationFrame(() => this.open(this.passwordInput));
+        // Without the guard, a section removed in the Theme Editor before this frame runs
+        // still opens and leaves body[data-modal-open] set with no modal to close it.
+        requestAnimationFrame(() => {
+          if (this.isConnected) this.open(this.passwordInput);
+        });
       }
     }
 
