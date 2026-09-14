@@ -1,0 +1,49 @@
+﻿name: Theme CI (Static Gates)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-gates:
+    name: Static Quality & Integrity Gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Theme Check Sanity Gate
+        run: npm run gates:sanity
+
+      - name: Run Locale Key Inventory Gate
+        run: npm run gates:locales
+
+      - name: Run Shopify Theme Check (0 offenses)
+        run: npm run gates:theme-check
+
+      - name: Run JavaScript Syntax Check
+        run: npm run gates:syntax
+
+      - name: Verify Packaging (ZIP generation)
+        run: npm run gates:package
+
+      - name: Verify Playwright Test Discovery
+        run: npx playwright test --list

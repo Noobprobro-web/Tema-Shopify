@@ -5,8 +5,8 @@
 ### 1. Salud Técnica (Análisis Estático)
 - Archivos en el tema: 72
 - Ofensas en Shopify Theme Check: **0 ofensas**
-- Sintaxis JS (`node --check assets/theme.js`): **PASS (Código 0)**
 - Repositorio: `https://github.com/Noobprobro-web/Tema-Shopify` (rama `master`)
+- CI / Calidad Continua: **GitHub Actions activado** (`.github/workflows/ci.yml`) ejecutando `gates:static` (Sanity, Locales, Theme Check 0, JS Syntax y Packaging) en cada push y PR contra `master`.
 
 ### 2. Cobertura de Requisitos Oficiales (Shopify Theme Store)
 - Cobertura verificada con evidencia: **37 / 45 requisitos cumplidos** (82.2% — 27 completos + 10 código verificado)

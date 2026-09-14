@@ -23,7 +23,7 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(SCRIPT_DIR, '..');
-const SANDBOX = path.join(REPO, '.tmp', 'theme-check-sanity');
+const SANDBOX = path.join(REPO, '.tmp', `theme-check-sanity-${process.pid}`);
 const SHOPIFY_CLI = path.join(REPO, 'node_modules', '@shopify', 'cli', 'bin', 'run.js');
 const KEEP = process.argv.includes('--keep');
 
@@ -60,9 +60,10 @@ const MUTATIONS = [
   },
 ];
 
+class GateFailure extends Error {}
+
 function fail(message) {
-  console.error(`\n[theme-check-sanity] FALLO: ${message}`);
-  process.exit(1);
+  throw new GateFailure(message);
 }
 
 // Guarda de ruta: el sandbox tiene que quedar dentro del repositorio.
@@ -71,91 +72,99 @@ if (relative.startsWith('..') || path.isAbsolute(relative)) {
   fail(`el sandbox quedaria fuera del repositorio: ${SANDBOX}`);
 }
 
-await rm(SANDBOX, { recursive: true, force: true });
-await mkdir(SANDBOX, { recursive: true });
-
-let copied = 0;
-for (const dir of THEME_DIRS) {
-  const from = path.join(REPO, dir);
-  try {
-    await access(from);
-  } catch {
-    continue; // carpeta opcional, por ejemplo blocks
-  }
-  await cp(from, path.join(SANDBOX, dir), { recursive: true });
-  copied += 1;
-}
-
-if (copied === 0) fail('no se copio ninguna carpeta de tema, revisa la ruta del repositorio');
-console.log(`[theme-check-sanity] sandbox en .tmp/theme-check-sanity con ${copied} carpetas de tema`);
-
 try {
-  await access(SHOPIFY_CLI);
-} catch {
-  fail('no se encontro el Shopify CLI local. Ejecuta npm install antes de probar la compuerta.');
-}
+  await rm(SANDBOX, { recursive: true, force: true });
+  await mkdir(SANDBOX, { recursive: true });
 
-function runThemeCheck() {
-  const run = spawnSync(process.execPath, [SHOPIFY_CLI, 'theme', 'check', '--path', SANDBOX], {
-    encoding: 'utf8',
-    env: { ...process.env, CI: '1', SHOPIFY_CLI_NO_ANALYTICS: '1' },
-    shell: false,
-  });
-  if (run.error) fail(`no se pudo ejecutar Theme Check: ${run.error.message}`);
-  return `${run.stdout || ''}${run.stderr || ''}`;
-}
-
-const notDetected = [];
-
-for (const mutation of MUTATIONS) {
-  const target = path.join(SANDBOX, mutation.file);
-  let original;
-  try {
-    original = await readFile(target, 'utf8');
-  } catch {
-    fail(`no existe el archivo a mutar: ${mutation.file}. Ajusta MUTATIONS.`);
+  let copied = 0;
+  for (const dir of THEME_DIRS) {
+    const from = path.join(REPO, dir);
+    try {
+      await access(from);
+    } catch {
+      continue; // carpeta opcional, por ejemplo blocks
+    }
+    await cp(from, path.join(SANDBOX, dir), { recursive: true });
+    copied += 1;
   }
 
-  const mutated = mutation.apply(original);
-  if (mutated === original) fail(`la mutacion de ${mutation.check} no cambio ${mutation.file}`);
+  if (copied === 0) fail('no se copio ninguna carpeta de tema, revisa la ruta del repositorio');
+  console.log(`[theme-check-sanity] sandbox en ${path.relative(REPO, SANDBOX)} con ${copied} carpetas de tema`);
 
-  await writeFile(target, mutated, 'utf8');
-  const output = runThemeCheck();
-  await writeFile(target, original, 'utf8');
+  try {
+    await access(SHOPIFY_CLI);
+  } catch {
+    fail('no se encontro el Shopify CLI local. Ejecuta npm install antes de probar la compuerta.');
+  }
 
-  const detected = output.includes(mutation.check);
+  function runThemeCheck() {
+    const run = spawnSync(process.execPath, [SHOPIFY_CLI, 'theme', 'check', '--path', SANDBOX], {
+      encoding: 'utf8',
+      env: { ...process.env, CI: '1', SHOPIFY_CLI_NO_ANALYTICS: '1' },
+      shell: false,
+    });
+    if (run.error) fail(`no se pudo ejecutar Theme Check: ${run.error.message}`);
+    return `${run.stdout || ''}${run.stderr || ''}`;
+  }
+
+  const notDetected = [];
+
+  for (const mutation of MUTATIONS) {
+    const target = path.join(SANDBOX, mutation.file);
+    let original;
+    try {
+      original = await readFile(target, 'utf8');
+    } catch {
+      fail(`no existe el archivo a mutar: ${mutation.file}. Ajusta MUTATIONS.`);
+    }
+
+    const mutated = mutation.apply(original);
+    if (mutated === original) fail(`la mutacion de ${mutation.check} no cambio ${mutation.file}`);
+
+    await writeFile(target, mutated, 'utf8');
+    const output = runThemeCheck();
+    await writeFile(target, original, 'utf8');
+
+    const detected = output.includes(mutation.check);
+    console.log(
+      `[theme-check-sanity] ${detected ? 'detectado ' : 'NO DETECTADO '}`
+      + `${mutation.check} (${mutation.why}) en ${mutation.file}`,
+    );
+    if (!detected) notDetected.push({ ...mutation, output });
+  }
+
+  // Con los archivos ya restaurados, el sandbox debe volver a estar limpio.
+  const baseline = runThemeCheck();
+  const baselineClean = /no offenses found/i.test(baseline);
+
+  if (notDetected.length > 0) {
+    console.error(notDetected[0].output);
+    fail(
+      `Theme Check no reporto ${notDetected.map((m) => m.check).join(', ')}. `
+      + 'La compuerta no detecta esas clases de error, asi que un verde no prueba nada sobre ellas.',
+    );
+  }
+
+  if (!baselineClean) {
+    console.error(baseline);
+    fail('el sandbox restaurado no quedo limpio, asi que las mutaciones no se revirtieron bien');
+  }
+
   console.log(
-    `[theme-check-sanity] ${detected ? 'detectado ' : 'NO DETECTADO '}`
-    + `${mutation.check} (${mutation.why}) en ${mutation.file}`,
+    `\n[theme-check-sanity] OK. Las ${MUTATIONS.length} clases se detectaron por separado `
+    + 'y el sandbox restaurado volvio a 0 ofensas.',
   );
-  if (!detected) notDetected.push({ ...mutation, output });
-}
-
-// Con los archivos ya restaurados, el sandbox debe volver a estar limpio.
-const baseline = runThemeCheck();
-const baselineClean = /no offenses found/i.test(baseline);
-
-if (!KEEP) await rm(path.join(REPO, '.tmp'), { recursive: true, force: true });
-
-if (notDetected.length > 0) {
-  console.error(notDetected[0].output);
-  fail(
-    `Theme Check no reporto ${notDetected.map((m) => m.check).join(', ')}. `
-    + 'La compuerta no detecta esas clases de error, asi que un verde no prueba nada sobre ellas.',
+  console.log(
+    '[theme-check-sanity] ALCANCE DE ESTA PRUEBA: demuestra que esos tres checks estan activos '
+    + 'y que disparan sobre archivos de tema. No demuestra cobertura exhaustiva de todas las '
+    + 'referencias de traduccion. Para eso corre scripts/locale-key-inventory.mjs.',
   );
+} catch (error) {
+  if (!(error instanceof GateFailure)) throw error;
+  console.error(`\n[theme-check-sanity] FALLO: ${error.message}`);
+  process.exitCode = 1;
+} finally {
+  // Limpia SOLO su propio sandbox. Nunca todo REPO/.tmp: otro agente puede
+  // estar corriendo esta misma compuerta y tener artefactos ahi.
+  if (!KEEP) await rm(SANDBOX, { recursive: true, force: true });
 }
-
-if (!baselineClean) {
-  console.error(baseline);
-  fail('el sandbox restaurado no quedo limpio, asi que las mutaciones no se revirtieron bien');
-}
-
-console.log(
-  `\n[theme-check-sanity] OK. Las ${MUTATIONS.length} clases se detectaron por separado `
-  + 'y el sandbox restaurado volvio a 0 ofensas.',
-);
-console.log(
-  '[theme-check-sanity] ALCANCE DE ESTA PRUEBA: demuestra que esos tres checks estan activos '
-  + 'y que disparan sobre archivos de tema. No demuestra cobertura exhaustiva de todas las '
-  + 'referencias de traduccion. Para eso corre scripts/locale-key-inventory.mjs.',
-);

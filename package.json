@@ -8,6 +8,12 @@
     "theme:check": "shopify theme check",
     "theme:dev": "shopify theme dev",
     "theme:package": "shopify theme package",
+    "gates:sanity": "node scripts/theme-check-sanity.mjs",
+    "gates:locales": "node scripts/locale-key-inventory.mjs",
+    "gates:theme-check": "shopify theme check",
+    "gates:syntax": "node --check assets/theme.js",
+    "gates:package": "shopify theme package",
+    "gates:static": "npm run gates:sanity && npm run gates:locales && npm run gates:theme-check && npm run gates:syntax && npm run gates:package",
     "test:visual": "playwright test"
   },
   "devDependencies": {
