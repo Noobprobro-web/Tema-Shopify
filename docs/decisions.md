@@ -168,5 +168,11 @@ Registro de decisiones importantes del tema.
     - Edition: *"Dense, square, quiet. For objects that speak for themselves."* (60c)
     - Archive: *"Heritage catalogue pages, with provenance on every line."* (56c)
 
+## 2026-09-14: Resolución de DP-001: Alojamiento de Documentación y Soporte en la Tienda Shopify (Johandry)
+
+- Johandry (dueño del proyecto) decide no utilizar el dominio externo `ruizdigital.com` en esta etapa y alojar las páginas de documentación y soporte directamente en la tienda Shopify (Online Store Pages).
+- Se proporcionan los artefactos turnkey `docs/merchant/docs.html` y `docs/merchant/support.html` para ser cargados como páginas en Shopify.
+- En cuanto las páginas estén creadas en la tienda, se actualizarán las URLs en `config/settings_schema.json` para que apunten a los endpoints de Shopify y devuelvan HTTP 200.
+
 
 

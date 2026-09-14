@@ -20,8 +20,8 @@ Estado general: FASE 4B (Endurecimiento, Gate 5 y Preparación de Submission)
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de hosting para URLs de docs/soporte (`ruizdigital.com`) | 🟡 Bloqueante P0 | Páginas de soporte y docs respondiendo HTTP 200 |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Consolidación documental, validador de ledger y directivas de sprint | 🟢 En ejecución | `BOARD.md`, `RULES.md`, `scripts/ledger-verify.mjs` |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Creación de páginas de docs y soporte en tienda Shopify (`docs/merchant/*.html`) | 🟢 En progreso | Páginas creadas en Shopify y URLs enlazadas en `settings_schema.json` |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Consolidación documental, validador de ledger y preparación de Gate 5 | 🟢 Completado | `BOARD.md`, `RULES.md`, `scripts/ledger-verify.mjs` (commit ffbf586) |
 | **Claude (Opus 5)** | Implementador Principal | Unificación de `formatMoney` en `theme.js` (Compuerta 3) | 🔵 Asignado en `inbox-claude/` | Eliminación de `Intl.NumberFormat`, 0 regresiones |
 | **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría de catálogo hostil y validación de cobertura de Gate 5 | 🔵 En espera de directiva | Reporte de riesgos y casos límite en `outbox-gpt/` |
 
