@@ -1,0 +1,338 @@
+{
+  "timestamp": "2026-09-14T14:45:54.600Z",
+  "baseUrl": "http://127.0.0.1:9292",
+  "pages": {
+    "404": {
+      "path": "/404-nonexistent-page",
+      "mobile": {
+        "status": 404,
+        "cwv": {
+          "cls": 0,
+          "lcpMs": 720
+        },
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 7,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": true,
+          "violationsCount": 0,
+          "sampleViolations": []
+        },
+        "axe": {
+          "passes": 29,
+          "violationsCount": 0,
+          "violations": []
+        }
+      },
+      "desktop": {
+        "status": 404,
+        "cwv": {
+          "cls": 0,
+          "lcpMs": 1224
+        },
+        "overflow": {
+          "scrollWidth": 1280,
+          "clientWidth": 1280,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 7,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": false,
+          "violationsCount": 0,
+          "sampleViolations": []
+        },
+        "axe": {
+          "passes": 29,
+          "violationsCount": 0,
+          "violations": []
+        }
+      }
+    },
+    "Home": {
+      "path": "/",
+      "mobile": {
+        "status": 200,
+        "cwv": {
+          "cls": 0,
+          "lcpMs": 776
+        },
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 18,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": true,
+          "violationsCount": 1,
+          "sampleViolations": [
+            {
+              "selector": "a",
+              "text": "A",
+              "width": 21.6,
+              "height": 44
+            }
+          ]
+        },
+        "axe": {
+          "passes": 32,
+          "violationsCount": 0,
+          "violations": []
+        }
+      },
+      "desktop": {
+        "status": 200,
+        "cwv": {
+          "cls": 0.011,
+          "lcpMs": 572
+        },
+        "overflow": {
+          "scrollWidth": 1280,
+          "clientWidth": 1280,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 18,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": false,
+          "violationsCount": 0,
+          "sampleViolations": []
+        },
+        "axe": {
+          "passes": 31,
+          "violationsCount": 0,
+          "violations": []
+        }
+      }
+    },
+    "Collection": {
+      "path": "/collections/all",
+      "mobile": {
+        "status": 200,
+        "cwv": {
+          "cls": 0,
+          "lcpMs": 1012
+        },
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 21,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": true,
+          "violationsCount": 2,
+          "sampleViolations": [
+            {
+              "selector": "input",
+              "text": "1",
+              "width": 18.4,
+              "height": 18.4
+            },
+            {
+              "selector": "input",
+              "text": "0",
+              "width": 18.4,
+              "height": 18.4
+            }
+          ]
+        },
+        "axe": {
+          "passes": 30,
+          "violationsCount": 0,
+          "violations": []
+        }
+      },
+      "desktop": {
+        "status": 200,
+        "cwv": {
+          "cls": 0.001,
+          "lcpMs": 656
+        },
+        "overflow": {
+          "scrollWidth": 1280,
+          "clientWidth": 1280,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 21,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": false,
+          "violationsCount": 0,
+          "sampleViolations": []
+        },
+        "axe": {
+          "passes": 30,
+          "violationsCount": 0,
+          "violations": []
+        }
+      }
+    },
+    "PDP": {
+      "path": "/products/qa-16-single-char",
+      "mobile": {
+        "status": 200,
+        "cwv": {
+          "cls": 0,
+          "lcpMs": 532
+        },
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 8,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": true,
+          "violationsCount": 0,
+          "sampleViolations": []
+        },
+        "axe": {
+          "passes": 28,
+          "violationsCount": 0,
+          "violations": []
+        }
+      },
+      "desktop": {
+        "status": 200,
+        "cwv": {
+          "cls": 0.152,
+          "lcpMs": 580
+        },
+        "overflow": {
+          "scrollWidth": 1280,
+          "clientWidth": 1280,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 8,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": false,
+          "violationsCount": 0,
+          "sampleViolations": []
+        },
+        "axe": {
+          "passes": 28,
+          "violationsCount": 0,
+          "violations": []
+        }
+      }
+    },
+    "Search": {
+      "path": "/search?q=sartorial",
+      "mobile": {
+        "status": 200,
+        "cwv": {
+          "cls": 0,
+          "lcpMs": 508
+        },
+        "overflow": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 5,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": true,
+          "violationsCount": 2,
+          "sampleViolations": [
+            {
+              "selector": "input",
+              "text": "1",
+              "width": 18.4,
+              "height": 52
+            },
+            {
+              "selector": "input",
+              "text": "0",
+              "width": 18.4,
+              "height": 52
+            }
+          ]
+        },
+        "axe": {
+          "passes": 30,
+          "violationsCount": 0,
+          "violations": []
+        }
+      },
+      "desktop": {
+        "status": 200,
+        "cwv": {
+          "cls": 0.001,
+          "lcpMs": 488
+        },
+        "overflow": {
+          "scrollWidth": 1280,
+          "clientWidth": 1280,
+          "hasOverflow": false
+        },
+        "headings": {
+          "count": 5,
+          "h1Count": 1,
+          "errors": []
+        },
+        "tapTargets": {
+          "checked": false,
+          "violationsCount": 0,
+          "sampleViolations": []
+        },
+        "axe": {
+          "passes": 30,
+          "violationsCount": 0,
+          "violations": []
+        }
+      }
+    }
+  },
+  "summary": {
+    "totalViolations": 0,
+    "headingFailures": 0,
+    "tapTargetFailures": 3,
+    "overflowFailures": 0,
+    "maxCLS": 0.15187946328057184
+  },
+  "cartDrawerAudit": {
+    "triggerExists": true,
+    "drawerOpened": true,
+    "focusInside": true,
+    "escapeCloses": true,
+    "focusRestored": true
+  }
+}

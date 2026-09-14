@@ -3,13 +3,26 @@
     "hero_editorial": {
       "type": "hero-editorial",
       "settings": {
+        "layout_mode": "cinematic",
+        "split_ratio": "60_40",
+        "layout_split": "image_first",
+        "height_desktop": 90,
+        "height_mobile": 75,
+        "media_type": "image",
+        "enable_video_mobile": false,
+        "overlay_style": "gradient_bottom",
+        "overlay_opacity": 40,
+        "content_position_x": "start",
+        "content_position_y": "end",
+        "text_alignment": "left",
+        "content_width": 38,
+        "heading_tag": "h1",
         "eyebrow": "THE EDIT / SARTORIAL 01",
-        "heading": "Autumn / Winter 26",
+        "heading": "Form in quiet movement",
         "subheading": "<p>A study in quiet movement. Sculptural layers and tactile materials, made in small series.</p>",
         "button_primary_label": "Discover the collection",
-        "button_primary_url": "/collections/all",
-        "layout_split": "image_first",
-        "color_scheme": "scheme-1"
+        "button_secondary_label": "Explore lookbook",
+        "color_scheme": "scheme-2"
       }
     },
     "marquee": {
@@ -32,11 +45,22 @@
           "settings": {
             "text": "DESIGNED TO GATHER CHARACTER"
           }
+        },
+        "marquee_origin": {
+          "type": "item",
+          "settings": {
+            "text": "NATURAL FIBRES / TRACEABLE ORIGIN"
+          }
         }
       },
-      "block_order": ["marquee_form", "marquee_series", "marquee_trace"],
+      "block_order": [
+        "marquee_origin",
+        "marquee_form",
+        "marquee_series",
+        "marquee_trace"
+      ],
       "settings": {
-        "speed": 32,
+        "speed": 38,
         "color_scheme": "scheme-2"
       }
     },
@@ -47,11 +71,29 @@
           "type": "collection_tab",
           "settings": {
             "collection": "all",
-            "tab_label": "New arrivals"
+            "tab_label": "New forms"
+          }
+        },
+        "collection_permanent": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "all",
+            "tab_label": "Permanent collection"
+          }
+        },
+        "collection_objects": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "all",
+            "tab_label": "Atelier objects"
           }
         }
       },
-      "block_order": ["collection_new"],
+      "block_order": [
+        "collection_new",
+        "collection_permanent",
+        "collection_objects"
+      ],
       "settings": {
         "eyebrow": "CURATED EDIT / 02",
         "heading": "Selected forms for the season",
@@ -83,16 +125,28 @@
             "label": "Finish",
             "value": "Formed and finished by hand"
           }
+        },
+        "detail_series": {
+          "type": "detail",
+          "settings": {
+            "label": "Series",
+            "value": "Numbered in small runs"
+          }
         }
       },
-      "block_order": ["detail_material", "detail_origin", "detail_finish"],
+      "block_order": [
+        "detail_material",
+        "detail_origin",
+        "detail_finish",
+        "detail_series"
+      ],
       "settings": {
         "eyebrow": "THE HAND AND THE MATERIAL / 03",
         "quote": "Objects gain meaning through the hands that make them.",
         "body": "<p>Every seam, edge and finish records a decision made by an artisan, not an anonymous process.</p>",
         "media_label": "MACRO STUDY / MATERIAL 07",
         "use_surface_background": true,
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-3"
       }
     },
     "bento_discovery": {
@@ -120,14 +174,123 @@
           "settings": {}
         }
       },
-      "block_order": ["bento_featured", "bento_editorial", "bento_product"],
+      "block_order": [
+        "bento_featured",
+        "bento_editorial",
+        "bento_product"
+      ],
       "settings": {
         "eyebrow": "DISCOVER BY FORM / 04",
         "heading": "A wardrobe, a room, a way of living",
         "subheading": "<p>Three studies. One material language.</p>",
         "color_scheme": "scheme-1"
       }
+    },
+    "lookbook": {
+      "type": "lookbook",
+      "blocks": {
+        "hotspot_1": {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 26,
+            "vertical_position": 34,
+            "horizontal_position_mobile": 28,
+            "vertical_position_mobile": 30,
+            "popover_position": "right"
+          }
+        },
+        "hotspot_2": {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 48,
+            "vertical_position": 66,
+            "horizontal_position_mobile": 46,
+            "vertical_position_mobile": 64,
+            "popover_position": "top"
+          }
+        },
+        "hotspot_3": {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 69,
+            "vertical_position": 38,
+            "horizontal_position_mobile": 68,
+            "vertical_position_mobile": 42,
+            "popover_position": "left"
+          }
+        },
+        "hotspot_4": {
+          "type": "hotspot",
+          "settings": {
+            "horizontal_position": 82,
+            "vertical_position": 72,
+            "horizontal_position_mobile": 78,
+            "vertical_position_mobile": 74,
+            "popover_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "hotspot_1",
+        "hotspot_2",
+        "hotspot_3",
+        "hotspot_4"
+      ],
+      "settings": {
+        "eyebrow": "CAMPAIGN STUDY / LOOK 01",
+        "heading": "Objects in quiet conversation",
+        "description": "<p>Move through the composition and discover each piece.</p>",
+        "caption": "A study in proportion, texture and daily movement.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "complete_the_look": {
+      "type": "complete-the-look",
+      "blocks": {
+        "bundle_1": {
+          "type": "bundle_product",
+          "settings": {}
+        },
+        "bundle_2": {
+          "type": "bundle_product",
+          "settings": {}
+        },
+        "bundle_3": {
+          "type": "bundle_product",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "bundle_1",
+        "bundle_2",
+        "bundle_3"
+      ],
+      "settings": {
+        "eyebrow": "SHOPPABLE CAPSULE / LOOK 03",
+        "heading": "Complete the look",
+        "description": "<p>Choose each piece, select its size and add the full composition at once.</p>",
+        "caption": "Soft architecture photographed in natural atelier light.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "eyebrow": "Private correspondence",
+        "heading": "Notes from the atelier",
+        "text": "<p>New objects, material studies and private previews, sent with restraint.</p>"
+      }
     }
   },
-  "order": ["hero_editorial", "marquee", "curated_showcase", "brand_manifesto", "bento_discovery"]
+  "order": [
+    "hero_editorial",
+    "marquee",
+    "lookbook",
+    "curated_showcase",
+    "brand_manifesto",
+    "complete_the_look",
+    "bento_discovery",
+    "newsletter"
+  ]
 }

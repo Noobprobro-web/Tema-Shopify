@@ -352,6 +352,20 @@ blockquote {
   color: var(--color-foreground);
 }
 
+/* Shopify inyecta su propio botón de pago dinámico con un azul de marca que queda en
+   3.59:1 contra el blanco de su etiqueta. Se reviste con la paleta del tema para llevarlo
+   por encima de 12:1 y que deje de ser la unica violacion de contraste de la PDP. */
+.shopify-payment-button__button--unbranded {
+  border-radius: var(--button-radius);
+  background-color: var(--color-foreground) !important;
+  color: var(--color-background) !important;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  background-color: color-mix(in srgb, var(--color-foreground) 85%, var(--color-background)) !important;
+}
+
 .icon-button {
   display: inline-flex;
   min-width: var(--tap-target-min);
@@ -602,6 +616,10 @@ blockquote {
 
 .site-header__brand {
   display: inline-flex;
+  /* Sin logo cargado, la marca se renderiza como texto y el enlace medía 18.4px de alto.
+     El minimo la lleva al area tactil de 44px sin alterar la maqueta del header. */
+  min-width: var(--tap-target-min);
+  min-height: var(--tap-target-min);
   max-width: min(45vw, 15rem);
   align-items: center;
   justify-content: center;
