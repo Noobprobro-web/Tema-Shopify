@@ -1,8 +1,8 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO VIVO: 31 CUMPLIDOS DEFINITIVOS | 18 CÓDIGO COMPLETO (PENDIENTE TIENDA REAL) | 4 PENDIENTES EXTERNOS
-Desglose de compuertas: 31 Cumplido definitivo | 18 Código verificado (Gate 5 pendiente) | 0 Ausente | 4 No verificado / Externo
+CONTEO CALCULADO: 53 filas | 31 cumplido | 18 código completo | 4 no verificado | 0 ausente
+Desglose recalculado por scripts/ledger-verify.mjs el 2026-09-14.
 Última sincronización: 2026-09-14 (Consolidación a 4 estados canónicos y verificación matemática automática)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
 Regla RULES.md: El código escrito NO cierra una fila que exige medición o prueba en tienda real. Cada fila abierta tiene dueño y artefacto de cierre explícito.
@@ -31,7 +31,7 @@ Regla RULES.md: El código escrito NO cierra una fila que exige medición o prue
 | **Lighthouse Performance >= 60 Móvil** | Official Requirements: Performance | `no verificado` | Pendiente de medición en tienda de desarrollo real con catálogo completo. | Gemini | Phase 4 QA |
 | **JavaScript Modular Vanilla (Zero Libs)** | Official Requirements: Performance | `cumplido` | `assets/theme.js:1-2408` (Web Components puros sobre `ThemeElement`). Cero frameworks externos. | GPT | Sprint 2A-3B |
 | **Cero CSS/SCSS Obsoleto y No Minificado** | Official Requirements: Performance | `cumplido` | `assets/base.css:1-5315` estructurado y legible. Cero archivos `.scss` o `.scss.liquid`. | GPT | Sprint 2A-3B |
-| **Imágenes Responsivas (`srcset`, `sizes`)** | Official Requirements: Media | `cumplido` | `snippets/responsive-image.liquid:1-42` usando `image_tag` adaptativo por contexto. | GPT | Sprint 2B |
+| **Imágenes Responsivas (`srcset`, `sizes`)** | Official Requirements: Media | `cumplido` | `snippets/responsive-image.liquid:1-40` usando `image_tag` adaptativo por contexto. | GPT | Sprint 2B |
 | **Punto Focal Nativo (`focal_point`)** | Acceptance Matrix / Official Specs | `código completo` | `hero-editorial.liquid:58` inyecta `--hero-focal-point: {{ hero_focal_point }}` y `base.css:2237` aplica `object-position: var(--hero-focal-point, center)`. Artefacto de cierre: verificación visual con imagen de prueba con punto focal en tienda real. | Claude / Johandry | Sprint 4B-002 |
 | **Optimización LCP (`fetchpriority="high"`)** | Official Requirements: Performance | `cumplido` | `snippets/responsive-image.liquid:11` y `sections/hero-editorial.liquid:78` (`prioritize: true`). | GPT | Sprint 3B.2 |
 | **Dimensiones Explícitas (CLS < 0.1)** | Official Requirements: Performance | `código completo` | `snippets/responsive-image.liquid:27` emite width/height en `<img>`, y `<source>` móvil en `hero-editorial.liquid:70-71, 107-108` ahora declara `width` y `height` explícitos. Artefacto de cierre: reporte de Lighthouse en tienda conectada con CLS < 0.1. | Claude / Johandry | Sprint 4B-002 |
@@ -69,7 +69,7 @@ Regla RULES.md: El código escrito NO cierra una fila que exige medición o prue
 | **Disponibilidad de Retiro Local (Pickup)** | Official Requirements: Pickup | `cumplido` | `snippets/pickup-availability.liquid:1-136` y Web Component reactivo en `assets/theme.js:2150`. | GPT | Sprint 3B.5 |
 | **Destinatario de Gift Cards** | Official Requirements: Gift Cards | `cumplido` | `snippets/gift-card-recipient.liquid:1-149` con campos nativos validados por Shopify. | GPT | Sprint 3B.5 |
 | **Recomendaciones Nativas de Producto** | Official Requirements: Recommendations | `cumplido` | `sections/product-recommendations.liquid:1-129` consumiendo `routes.product_recommendations_url`. | GPT | Sprint 3B.5 |
-| **Medios Enriquecidos y Modelos 3D** | Official Requirements: Media | `código completo` | `snippets/product-media.liquid:1-40`, `layout/theme.liquid:122` (`shopify-xr.js`), CSS responsive de `.product-gallery__view-in-space` en `assets/base.css:5490-5510`. Pendiente test AR en móvil real. | GPT-4A | Sprint 4A |
+| **Medios Enriquecidos y Modelos 3D** | Official Requirements: Media | `código completo` | `snippets/product-media.liquid:1-36`, `layout/theme.liquid:122` (`shopify-xr.js`), CSS responsive de `.product-gallery__view-in-space` en `assets/base.css:5490-5510`. Pendiente test AR en móvil real. | GPT-4A | Sprint 4A |
 | **Follow on Shop** | Official Requirements: Shop App | `cumplido` | `sections/footer.liquid:57` (`shop \| login_button: action: 'follow'`). | GPT | Sprint 2A |
 | **Cuentas de Cliente Modernas (`<shopify-account>`)** | Official Requirements: Accounts (Jul 2026) | `cumplido` | `sections/header.liquid:157`. Cero plantillas customers/* deprecadas. | GPT | Sprint 2A |
 | **Filtros Facetados Nativos en Colección y Búsqueda** | Official Requirements: Filters | `código completo` | `sections/main-collection.liquid:104-118` y `sections/main-search.liquid:135-149` con normalización de coma decimal europea, espacios, miles y apóstrofes. `GPT-4A-001`. | GPT | Sprint 4A |
@@ -88,7 +88,7 @@ Regla RULES.md: El código escrito NO cierra una fila que exige medición o prue
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Datos Estructurados JSON-LD** | Official Requirements: SEO | `cumplido` | `snippets/structured-data.liquid:1-62` (Organization, Breadcrumbs y Product nativo). | GPT | Sprint 3B.5 |
 | **Metadatos Open Graph Completos** | Official Requirements: SEO / Social | `cumplido` | `snippets/social-meta-tags.liquid:1-35` (og:title, og:type, og:url, og:image, og:description) renderizado en `layout/theme.liquid:24`. | GPT-4A / Gemini | Sprint 4A |
-| **Metadatos Twitter Cards** | Official Requirements: SEO / Social | `cumplido` | `snippets/social-meta-tags.liquid:37-48` (twitter:card, twitter:title, twitter:description, twitter:image). | GPT-4A / Gemini | Sprint 4A |
+| **Metadatos Twitter Cards** | Official Requirements: SEO / Social | `cumplido` | `snippets/social-meta-tags.liquid:37-47` (twitter:card, twitter:title, twitter:description, twitter:image). | GPT-4A / Gemini | Sprint 4A |
 | **URLs Canónicas y Títulos Únicos** | Official Requirements: SEO | `cumplido` | `layout/theme.liquid:11-22` (`canonical_url`, `page_title`, `page_description`). | GPT | Sprint 2A |
 
 ---

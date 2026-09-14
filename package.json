@@ -14,8 +14,10 @@
     "gates:theme-check": "shopify theme check",
     "gates:syntax": "node --check assets/theme.js",
     "gates:package": "shopify theme package",
-    "gates:static": "npm run gates:sanity && npm run gates:locales && npm run gates:ledger && npm run gates:theme-check && npm run gates:syntax && npm run gates:package",
-    "test:visual": "playwright test"
+    "gates:static": "npm run gates:json && npm run gates:hooks && npm run gates:sanity && npm run gates:locales && npm run gates:ledger && npm run gates:theme-check && npm run gates:syntax && npm run gates:package",
+    "test:visual": "playwright test",
+    "gates:json": "node scripts/json-validate.mjs",
+    "gates:hooks": "node scripts/dataset-hooks.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",

@@ -71,9 +71,12 @@
     const amount = Math.round(Number(cents));
     if (!Number.isFinite(amount)) return '';
 
+    const fallback = window.theme?.moneyFormat
+      || document.documentElement.dataset.moneyFormat
+      || '${{amount}}';
     const template = typeof format === 'string' && MONEY_TOKEN.test(format)
       ? format
-      : '${{amount}}';
+      : fallback;
     const token = template.match(MONEY_TOKEN)[1];
     const pattern = MONEY_PATTERNS[token] || MONEY_PATTERNS.amount;
     const fixed = (amount / 100).toFixed(pattern.precision);
@@ -2054,7 +2057,7 @@
         (sum, item) => sum + (item.price * item.quantity),
         0,
       );
-      const formattedTotal = this.formatMoney(total);
+      const formattedTotal = formatMoney(total, this.dataset.moneyFormat);
       const countTemplate = count === 1
         ? this.dataset.selectedOneTemplate
         : this.dataset.selectedManyTemplate;
@@ -2080,17 +2083,6 @@
         }
       }
       this.submitButton.disabled = this.busy || count === 0;
-    }
-
-    formatMoney(cents) {
-      try {
-        return new Intl.NumberFormat(document.documentElement.lang || undefined, {
-          style: 'currency',
-          currency: this.dataset.currencyCode,
-        }).format(cents / 100);
-      } catch (_error) {
-        return `${this.dataset.currencySymbol || ''}${(cents / 100).toFixed(2)}`;
-      }
     }
 
     interpolate(template = '', values = {}) {
@@ -2777,13 +2769,13 @@
 
       if (Number.isFinite(currentPrice)) {
         const price = document.createElement('span');
-        price.textContent = this.formatMoney(currentPrice);
+        price.textContent = formatMoney(Math.round(currentPrice * 100), this.dataset.moneyFormat);
         priceRow.append(price);
       }
       if (Number.isFinite(compareAtPrice) && compareAtPrice > currentPrice) {
         const regularPrice = document.createElement('s');
         regularPrice.setAttribute('aria-label', this.dataset.regularPriceText || '');
-        regularPrice.textContent = this.formatMoney(compareAtPrice);
+        regularPrice.textContent = formatMoney(Math.round(compareAtPrice * 100), this.dataset.moneyFormat);
         priceRow.append(regularPrice);
       }
 
@@ -2828,17 +2820,6 @@
       url.searchParams.set('type', 'product,collection,page,article');
       url.searchParams.set('options[prefix]', 'last');
       return url.toString();
-    }
-
-    formatMoney(value) {
-      try {
-        return new Intl.NumberFormat(this.dataset.locale || document.documentElement.lang, {
-          style: 'currency',
-          currency: this.dataset.currency || 'USD',
-        }).format(value);
-      } catch (_error) {
-        return String(value);
-      }
     }
 
     getResultsCountText(count) {

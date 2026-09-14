@@ -21,8 +21,8 @@ Estado general: FASE 4B (Endurecimiento, Gate 5 y Preparación de Submission)
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Creación de páginas de docs y soporte en tienda Shopify (`docs/merchant/*.html`) | 🟢 En progreso | Páginas creadas en Shopify y URLs enlazadas en `settings_schema.json` |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Consolidación documental, validador de ledger y preparación de Gate 5 | 🟢 Completado | `BOARD.md`, `RULES.md`, `scripts/ledger-verify.mjs` (commit ffbf586) |
-| **Claude (Opus 5)** | Implementador Principal | Unificación de `formatMoney` en `theme.js` (Compuerta 3) | 🔵 Asignado en `inbox-claude/` | Eliminación de `Intl.NumberFormat`, 0 regresiones |
+| **Claude (Opus 5)** | Implementador Principal | Unificación de `formatMoney` en `theme.js` (Compuerta 3) | 🟢 Aceptado | `CLAUDE-IMPL-4B-003`, Compuerta 3 cerrada con éxito |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Auditoría de entrega 4B-003 y ejecución de Gate 5 en tienda real | 🟢 En ejecución | Reporte de aceptación, suite Gate 5 en Playwright/Lighthouse |
 | **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría de catálogo hostil y validación de cobertura de Gate 5 | 🔵 En espera de directiva | Reporte de riesgos y casos límite en `outbox-gpt/` |
 
 ---
@@ -53,13 +53,10 @@ Estado general: FASE 4B (Endurecimiento, Gate 5 y Preparación de Submission)
 
 ## 4. Bloqueadores y Dependencias Críticas
 
-1. **[P0 - Comercial] URLs de Documentación y Soporte (HTTP 404):**
-   - URLs declaradas en `config/settings_schema.json`:
-     * `https://ruizdigital.com/themes/sartorial/docs`
-     * `https://ruizdigital.com/themes/sartorial/support`
-   - Ambas devuelven 404. Es causal de rechazo automático inmediato por los revisores de Shopify. Requiere acción de Johandry.
+1. **[P0 - Comercial] URLs de Documentación y Soporte:**
+   - Resuelto por Johandry (DP-001): se publicarán en la tienda Shopify a partir de `docs/merchant/docs.html` y `support.html`. Una vez activas, se enlazarán en `settings_schema.json`.
 2. **[P1 - Técnico] Violación de Compuerta 3 en `assets/theme.js`:**
-   - Líneas 2085 (`complete-the-look`) y 2833 (`predictive-search`) usan `new Intl.NumberFormat` hardcodeado en vez de consumir el helper global `formatMoney(cents, format)` con `shop.money_format`. Tarea asignada a Claude.
+   - **RESUELTO Y CERRADO:** 0 ocurrencias de `Intl.NumberFormat`, `formatMoney` centralizado con fallback seguro a la moneda de la tienda. Aceptado en `GEMINI-review-CLAUDE-4B-003.md`.
 
 ---
 

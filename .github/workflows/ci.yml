@@ -30,6 +30,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate every JSON, including /listings
+        run: npm run gates:json
+
+      - name: Verify the JS to Liquid data-* contract
+        run: npm run gates:hooks
+
       - name: Run Theme Check Sanity Gate
         run: npm run gates:sanity
 

@@ -93,6 +93,9 @@
     <script>
       document.documentElement.classList.remove('no-js');
       document.documentElement.classList.add('js');
+      window.theme = window.theme || {};
+      window.theme.moneyFormat = {{ shop.money_format | strip_html | json }};
+      document.documentElement.dataset.moneyFormat = window.theme.moneyFormat;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.dataset.reducedMotion = 'true';
       }

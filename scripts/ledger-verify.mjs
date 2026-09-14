@@ -1,136 +1,152 @@
 #!/usr/bin/env node
+/*
+ * ledger-verify.mjs
+ *
+ * Compuerta estructural del Requirements Ledger. Comprueba lo que una maquina
+ * puede comprobar y NADA MAS.
+ *
+ * QUE VERIFICA
+ *   1. Vocabulario cerrado: solo cumplido, codigo completo, no verificado, ausente.
+ *   2. Integridad de fila: las seis columnas presentes y no vacias.
+ *   3. Aritmetica: el conteo del encabezado coincide con la tabla. --fix lo reescribe.
+ *   4. Localizadores: toda cita "archivo:linea" existe y la linea esta en rango.
+ *
+ * QUE NO VERIFICA, Y NUNCA DEBE
+ *   Si una evidencia es PERTINENTE al requisito. Que la linea 58 exista no
+ *   demuestra que pruebe nada. Este script jamas marca una fila como cumplida
+ *   ni cambia un estado: solo falla por incoherencias mecanicas. El juicio
+ *   sobre suficiencia de evidencia es humano y sigue siendo de Gemini.
+ *
+ * Uso: node scripts/ledger-verify.mjs [--fix]
+ * Sin dependencias. Sale 1 si hay incoherencias.
+ */
 
-import fs from 'node:fs';
+import { readFile, writeFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import process from 'node:process';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const ledgerPath = path.join(rootDir, 'docs', 'requirements-ledger.md');
+const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const LEDGER = path.join(REPO, 'docs', 'requirements-ledger.md');
+const FIX = process.argv.includes('--fix');
 
-const CANONICAL_STATES = new Set([
-  '`cumplido`',
-  '`código completo`',
-  '`no verificado`',
-  '`ausente`'
-]);
+const VOCABULARY = ['cumplido', 'código completo', 'no verificado', 'ausente'];
+const SEARCH_DIRS = ['assets', 'config', 'layout', 'locales', 'sections', 'snippets', 'templates', 'scripts', 'tests', 'blocks'];
 
-function run() {
-  if (!fs.existsSync(ledgerPath)) {
-    console.error(`❌ Ledger file not found at: ${ledgerPath}`);
-    process.exit(1);
-  }
+const problems = [];
+const note = (kind, line, message) => problems.push({ kind, line, message });
 
-  const content = fs.readFileSync(ledgerPath, 'utf8');
-  const lines = content.split('\n');
-
-  const rows = [];
-  let headerCounts = null;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (line.startsWith('| **')) {
-      // Temporarily replace escaped pipes \|
-      const sanitized = line.replace(/\\\|/g, '__ESCAPED_PIPE__');
-      const parts = sanitized.split('|').map(p => p.trim().replace(/__ESCAPED_PIPE__/g, '|'));
-      // parts[0] is '', parts[1] is Requisito, parts[2] is Fuente, parts[3] is Estado, parts[4] is Evidencia, parts[5] is Dueño, parts[6] is Sprint
-      if (parts.length >= 7) {
-        rows.push({
-          lineNum: i + 1,
-          requisito: parts[1],
-          fuente: parts[2],
-          estado: parts[3],
-          evidencia: parts[4],
-          dueno: parts[5],
-          sprint: parts[6]
-        });
-      }
+// ---- indice de nombres de archivo, para resolver citas sin carpeta ----
+async function indexFiles(dir, index = new Map()) {
+  let entries;
+  try { entries = await readdir(dir, { withFileTypes: true }); } catch { return index; }
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) await indexFiles(full, index);
+    else {
+      if (!index.has(entry.name)) index.set(entry.name, []);
+      index.get(entry.name).push(full);
     }
   }
-
-  console.log(`\n========================================`);
-  console.log(`📋 SARTORIAL LEDGER VERIFIER`);
-  console.log(`========================================\n`);
-
-  console.log(`Total requirement rows found: ${rows.length}`);
-
-  let errors = [];
-  const stateCounts = {
-    '`cumplido`': 0,
-    '`código completo`': 0,
-    '`no verificado`': 0,
-    '`ausente`': 0
-  };
-
-  rows.forEach((row) => {
-    if (!CANONICAL_STATES.has(row.estado)) {
-      errors.push(`Línea ${row.lineNum}: Estado no canónico "${row.estado}". Permitidos: \`cumplido\`, \`código completo\`, \`no verificado\`, \`ausente\`.`);
-    } else {
-      stateCounts[row.estado]++;
-    }
-
-    if (!row.dueno || row.dueno === '' || row.dueno === '-') {
-      errors.push(`Línea ${row.lineNum} ("${row.requisito}"): Falta dueño responsable.`);
-    }
-
-    if (!row.evidencia || row.evidencia === '' || row.evidencia === '-') {
-      errors.push(`Línea ${row.lineNum} ("${row.requisito}"): Falta evidencia.`);
-    }
-
-    // Check file existence for cited paths in evidencia
-    const fileMatches = row.evidencia.matchAll(/`([a-zA-Z0-9_\-\.\/]+)(?::[0-9\-]+)?`/g);
-    for (const match of fileMatches) {
-      const candidatePath = match[1];
-      // Only verify relative paths pointing inside known theme folders
-      if (candidatePath.includes('/') && !candidatePath.startsWith('http') && !candidatePath.startsWith('t:')) {
-        const fullCandidate = path.join(rootDir, candidatePath);
-        if (!fs.existsSync(fullCandidate)) {
-          // Check if candidate is a glob or listing dir
-          if (!candidatePath.includes('*')) {
-            errors.push(`Línea ${row.lineNum}: Archivo citado no existe en disco: "${candidatePath}"`);
-          }
-        }
-      }
-    }
-  });
-
-  console.log(`\nConteo por estado canónico:`);
-  console.log(`  - cumplido:        ${stateCounts['`cumplido`']}`);
-  console.log(`  - código completo: ${stateCounts['`código completo`']}`);
-  console.log(`  - no verificado:   ${stateCounts['`no verificado`']}`);
-  console.log(`  - ausente:         ${stateCounts['`ausente`']}`);
-  console.log(`  -----------------------------`);
-  console.log(`  TOTAL:             ${rows.length}`);
-
-  // Validate that the summary block at top matches exact counts
-  const headerMatch = content.match(/CONTEO VIVO:\s*(\d+)\s*CUMPLIDOS DEFINITIVOS\s*\|\s*(\d+)\s*CÓDIGO COMPLETO[^\n]*\|\s*(\d+)\s*PENDIENTES EXTERNOS/i);
-  if (headerMatch) {
-    const hdrCumplidos = parseInt(headerMatch[1], 10);
-    const hdrCodigo = parseInt(headerMatch[2], 10);
-    const hdrPendientes = parseInt(headerMatch[3], 10);
-
-    if (hdrCumplidos !== stateCounts['`cumplido`']) {
-      errors.push(`Discrepancia en encabezado CONTEO VIVO: declara ${hdrCumplidos} cumplidos pero hay ${stateCounts['`cumplido`']}.`);
-    }
-    if (hdrCodigo !== stateCounts['`código completo`']) {
-      errors.push(`Discrepancia en encabezado CONTEO VIVO: declara ${hdrCodigo} código completo pero hay ${stateCounts['`código completo`']}.`);
-    }
-    if (hdrPendientes !== (stateCounts['`no verificado`'] + stateCounts['`ausente`'])) {
-      errors.push(`Discrepancia en encabezado CONTEO VIVO: declara ${hdrPendientes} pendientes pero hay ${stateCounts['`no verificado`'] + stateCounts['`ausente`']}.`);
-    }
-  } else {
-    errors.push(`Encabezado "CONTEO VIVO:" no encontrado o con formato inesperado.`);
-  }
-
-  if (errors.length > 0) {
-    console.error(`\n❌ Se encontraron ${errors.length} errores de validación en el ledger:\n`);
-    errors.forEach((err, idx) => console.error(`  ${idx + 1}. ${err}`));
-    process.exit(1);
-  }
-
-  console.log(`\n✅ Ledger 100% consistente y matemáticamente verificado.\n`);
-  process.exit(0);
+  return index;
 }
 
-run();
+const index = new Map();
+for (const dir of SEARCH_DIRS) await indexFiles(path.join(REPO, dir), index);
+
+const source = await readFile(LEDGER, 'utf8');
+const lines = source.split('\n');
+
+// ---- 1, 2 y 4: filas ----
+const states = [];
+for (let i = 0; i < lines.length; i += 1) {
+  const raw = lines[i];
+  if (!raw.trim().startsWith('| **')) continue;
+  const cells = raw.split(/(?<!\\)\|/).map((c) => c.trim());
+  // | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
+  const [, requisito, fuente, estado, evidencia, dueno, sprint] = cells;
+  const n = i + 1;
+
+  if (cells.length - 2 !== 6) {
+    note('estructura', n, `la fila tiene ${cells.length - 2} columnas y deben ser 6`);
+  }
+  for (const [name, value] of [['Fuente', fuente], ['Evidencia', evidencia], ['Dueño', dueno], ['Sprint', sprint]]) {
+    if (!value) note('estructura', n, `columna ${name} vacía en "${requisito.replace(/\*/g, '').slice(0, 50)}"`);
+  }
+
+  const match = estado.match(/^`([^`]+)`$/);
+  if (!match) {
+    note('vocabulario', n, `estado sin backticks o ilegible: ${estado.slice(0, 60)}`);
+    continue;
+  }
+  const state = match[1];
+  states.push(state);
+  if (!VOCABULARY.includes(state)) {
+    note('vocabulario', n, `estado "${state}" fuera del vocabulario cerrado (${VOCABULARY.join(', ')})`);
+  }
+
+  for (const loc of evidencia.matchAll(/([A-Za-z0-9_\-/.]+\.(?:liquid|json|js|css|mjs)):(\d+)(?:\s*[-–]\s*(\d+))?/g)) {
+    const [whole, file, from, to] = loc;
+    let target = path.join(REPO, file);
+    let exists = index.has(path.basename(file))
+      && (index.get(path.basename(file)).includes(target) || !file.includes('/'));
+    if (!file.includes('/')) {
+      const candidates = index.get(path.basename(file)) || [];
+      if (candidates.length === 0) { note('localizador', n, `${whole}: el archivo no existe`); continue; }
+      if (candidates.length > 1) { note('localizador', n, `${whole}: nombre ambiguo, ${candidates.length} coincidencias`); continue; }
+      target = candidates[0];
+      exists = true;
+    } else if (!(index.get(path.basename(file)) || []).includes(target)) {
+      note('localizador', n, `${whole}: el archivo no existe en esa ruta`);
+      continue;
+    }
+    const total = (await readFile(target, 'utf8')).split('\n').length;
+    const last = Number(to || from);
+    if (Number(from) < 1 || last > total) {
+      note('localizador', n, `${whole}: fuera de rango, el archivo tiene ${total} líneas`);
+    }
+  }
+}
+
+// ---- 3: aritmética del encabezado ----
+const counts = Object.fromEntries(VOCABULARY.map((v) => [v, 0]));
+for (const s of states) if (s in counts) counts[s] += 1;
+
+const summary = `CONTEO CALCULADO: ${states.length} filas | `
+  + VOCABULARY.map((v) => `${counts[v]} ${v}`).join(' | ');
+
+const headerLine = lines.findIndex((l) => l.startsWith('CONTEO'));
+if (headerLine === -1) {
+  note('aritmética', 0, 'no se encontró la línea CONTEO en el encabezado');
+} else if (lines[headerLine] !== summary) {
+  note('aritmética', headerLine + 1, `el encabezado dice "${lines[headerLine]}" y la tabla dice "${summary}"`);
+  if (FIX) {
+    lines[headerLine] = summary;
+    const desglose = lines.findIndex((l) => l.startsWith('Desglose'));
+    if (desglose !== -1) lines[desglose] = `Desglose recalculado por scripts/ledger-verify.mjs el ${new Date().toISOString().slice(0, 10)}.`;
+    await writeFile(LEDGER, lines.join('\n'), 'utf8');
+    console.log('[ledger-verify] encabezado reescrito con el conteo real');
+  }
+}
+
+// ---- informe ----
+console.log('-'.repeat(70));
+console.log('LEDGER VERIFY');
+console.log('-'.repeat(70));
+console.log(`Filas de requisito: ${states.length}`);
+for (const v of VOCABULARY) console.log(`  ${String(counts[v]).padStart(3)}  ${v}`);
+const fuera = states.filter((s) => !VOCABULARY.includes(s));
+if (fuera.length) console.log(`  ${String(fuera.length).padStart(3)}  FUERA DE VOCABULARIO`);
+
+const byKind = problems.reduce((acc, p) => ({ ...acc, [p.kind]: (acc[p.kind] || 0) + 1 }), {});
+console.log(`\nIncoherencias: ${problems.length}`, problems.length ? byKind : '');
+for (const p of problems) console.log(`  [${p.kind}] línea ${p.line}: ${p.message}`);
+
+console.log(`\n${'-'.repeat(70)}`);
+console.log('ALCANCE: esta compuerta comprueba vocabulario, estructura, aritmética y');
+console.log('localizadores. NO comprueba que una evidencia pruebe su requisito, y');
+console.log('nunca marca una fila como cumplida. Eso sigue siendo juicio humano.');
+
+if (problems.length > 0 && !(FIX && problems.every((p) => p.kind === 'aritmética'))) {
+  process.exitCode = 1;
+}

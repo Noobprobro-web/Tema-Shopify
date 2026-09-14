@@ -52,16 +52,13 @@
   endfor
 
   assign selected_total_money = selected_total | money
-  assign active_currency = localization.country.currency.iso_code | default: cart.currency.iso_code | default: shop.currency
-  assign active_currency_symbol = cart.currency.symbol
 -%}
 
 <complete-the-look
   class="complete-the-look"
   data-cart-add-url="{{ routes.cart_add_url }}.js"
   data-cart-url="{{ routes.cart_url }}"
-  data-currency-code="{{ active_currency | escape }}"
-  data-currency-symbol="{{ active_currency_symbol | escape }}"
+  data-money-format="{{ shop.money_format | strip_html | escape }}"
   data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape }}"
   data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape }}"
   data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape }}"
