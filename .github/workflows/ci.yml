@@ -1,4 +1,4 @@
-﻿name: Theme CI (Static Gates)
+name: Theme CI (Static Gates)
 
 on:
   push:
@@ -35,6 +35,9 @@ jobs:
 
       - name: Run Locale Key Inventory Gate
         run: npm run gates:locales
+
+      - name: Run Ledger Mathematical Verification Gate
+        run: npm run gates:ledger
 
       - name: Run Shopify Theme Check (0 offenses)
         run: npm run gates:theme-check

@@ -22,15 +22,14 @@ Si un agente ejecutor aparece como Codex, actua como implementador/revisor opera
 - Evitar dependencias externas salvo que aporten valor claro y Gemini apruebe su uso.
 - No minificar archivos fuente propios.
 - No introducir SCSS/Sass.
-- Documentar decisiones importantes en `docs/decisions.md` o `agent-comms/reviews/`.
-- Usar `agent-comms/` para comunicacion formal entre agentes.
-- Leer y seguir `agent-comms/token-efficiency-rules.md` para ahorrar tokens sin degradar calidad.
-- Lectura obligatoria permanente: `agent-comms/PROTOCOL-IMPLEMENTATION.md` (normativa vinculante para cualquier agente que implemente código) y `agent-comms/PROTOCOL-VERIFICATION.md` (normativa vinculante para Gemini y cualquier agente auditor al verificar entregas).
-- No iniciar Phase 2B por inferencia: requiere directiva de Gemini y autorizacion de alcance del usuario.
+- Documentar decisiones importantes en `docs/decisions.md` o registrar abiertas en `docs/decisions-pending.md`.
+- Usar `agent-comms/` para comunicacion formal entre agentes, consultando `agent-comms/BOARD.md` como punto de entrada de estado.
+- Lectura obligatoria permanente: `agent-comms/RULES.md` (reglamento operativo unificado vinculante: eficiencia de tokens, compuertas de calidad, normativa de implementación y protocolo de verificación).
+- No alterar arquitectura ni alcance sin directiva de Gemini y autorización del usuario.
 
 ## Definition of Done (Las 5 Compuertas Obligatorias)
 
-Ninguna entrega de código o sprint técnico se da por aceptada si falla una sola de estas cinco compuertas. Aplican tanto a GPT al implementar como a Gemini al auditar y autorizar commits:
+Ninguna entrega de código o sprint técnico se da por aceptada si falla una sola de estas cinco compuertas. Aplican tanto a Claude al implementar como a Gemini al auditar y autorizar commits:
 
 1. **Compuerta de Requisitos (Ledger Vivo):**
    - Cada entrega debe declarar explícitamente qué filas de `docs/requirements-ledger.md` cierra o modifica.
@@ -64,39 +63,40 @@ Ninguna entrega de código o sprint técnico se da por aceptada si falla una sol
 - Revisar diffs y evidencia de validacion antes de aceptar una entrega.
 - Decidir cuando escalar a otro modelo o pedir una revision editorial.
 
-## Tareas de GPT/Codex
+## Tareas de Claude (Opus 5 - Implementador Principal)
 
-- Implementar exactamente el alcance escrito por Gemini.
+- Implementar exactamente el alcance escrito por Gemini en Liquid, JSON, CSS, JS y schemas.
 - Revisar `git status` y los archivos referenciados antes de editar.
-- Ejecutar Theme Check, parseos, checks de sintaxis y QA proporcional.
-- Mantener cambios pequenos, originales y sin dependencias nuevas.
-- Reportar archivos tocados, comandos, resultados, riesgos y bloqueos en `agent-comms/outbox-gpt/`.
-- No cambiar arquitectura, scope o decisiones aprobadas sin devolver una propuesta a Gemini.
-- Crear commit/push solo cuando la directiva de Gemini lo incluya y la validacion pase.
+- Ejecutar Theme Check, linters, validaciones de sintaxis y scripts de compuerta antes de entregar.
+- Cumplir estrictamente `agent-comms/RULES.md` (o `PROTOCOL-IMPLEMENTATION.md`) y no alterar arquitectura ni scope sin devolver propuesta a Gemini.
+- Mantener cambios pequeños, originales y sin dependencias externas.
+- Reportar archivos tocados con líneas exactas, comandos y evidencias en `agent-comms/outbox-claude/`.
+- Crear commit/push solo cuando la directiva de Gemini o el usuario lo autorice explícitamente.
 
-## Tareas ideales para Claude
+## Tareas de GPT-5.6 Sol Max (Auditor Senior de Producto y Comercio)
 
-- Revision editorial de documentacion merchant-facing.
-- Revision de copy, labels, empty states y mensajes de error.
-- Segunda opinion UX/producto.
-- Auditoria de claridad, tono premium y conversion.
-- Auditorias tecnicas puntuales solo cuando Gemini las asigne con criterios concretos.
+- Auditoría senior de UX, conversión, merchandising y viabilidad comercial para Shopify Theme Store.
+- Detección proactiva de riesgos de rechazo comercial o funcional según directrices de Shopify.
+- Segunda opinión crítica sobre decisiones de arquitectura, diseño de schemas y experiencia de usuario.
+- Validación de catálogos límite y apoyo analítico en pruebas de tienda de desarrollo.
+- Reportar dictámenes, análisis de riesgos y revisiones en `agent-comms/outbox-gpt/`.
 
 ## Protocolo de comunicacion
 
-- El punto de entrada vigente para Gemini es `agent-comms/GEMINI-LEAD-HANDOFF.md`.
-- Gemini puede recibir tareas en `agent-comms/inbox-gemini/` y dejar decisiones o sintesis en `agent-comms/outbox-gemini/`.
-- Gemini delega implementacion a GPT en `agent-comms/inbox-gpt/`; GPT entrega resultados en `agent-comms/outbox-gpt/`.
-- Gemini puede delegar revisiones a Claude en `agent-comms/inbox-claude/`; Claude entrega en `agent-comms/outbox-claude/`.
+- El punto de entrada y tablero vivo del proyecto es `agent-comms/BOARD.md` (único escritor: Gemini).
+- El reglamento operativo único es `agent-comms/RULES.md`.
+- Gemini recibe tareas en `agent-comms/inbox-gemini/` y deja decisiones o síntesis en `agent-comms/outbox-gemini/`.
+- Gemini delega implementación técnica a Claude en `agent-comms/inbox-claude/`; Claude entrega resultados en `agent-comms/outbox-claude/`.
+- Gemini delega auditorías comerciales y de producto a GPT en `agent-comms/inbox-gpt/`; GPT entrega en `agent-comms/outbox-gpt/`.
 - Las revisiones y aceptaciones quedan en `agent-comms/reviews/`.
-- El estado vivo esta en `agent-comms/status.md` y las decisiones estables en `docs/decisions.md`.
-- Cada tarea y entrega mantiene un ID estable (`GEMINI-003`, `GPT-2B-001`, `CLAUDE-2B-001`, etc.).
-- Si un agente no puede escribir en una carpeta de comunicacion, entrega el texto al usuario sin inventar que el archivo fue creado.
+- Las decisiones acordadas quedan en `docs/decisions.md` y las abiertas en `docs/decisions-pending.md`.
+- Cada tarea y entrega mantiene un ID estable (`GEMINI-003`, `CLAUDE-4B-002`, `GPT-OPINION-PROCESO-001`, etc.).
+- Si un agente no puede escribir en una carpeta de comunicación, entrega el texto al usuario sin inventar que el archivo fue creado.
 
 ## Modelo y escalamiento
 
-- Gemini Flash 3.8 High toma las decisiones de arquitectura y coordina las fases.
-- GPT-5.6 Sol Max se reserva para implementacion transversal, Liquid/CSS/JS no trivial, schemas y bugs complejos.
-- GPT-5.5 low se usa para trabajo corto, documentacion, prompts, commits y QA simple.
-- Claude se usa para claridad editorial, UX y segunda opinion cuando aporte una mirada distinta.
+- Gemini Flash 3.8 High toma las decisiones de arquitectura, mantiene `BOARD.md` y coordina las fases.
+- Claude (Opus 5) es el implementador principal de Liquid, JSON, CSS, JS, schemas y disciplina técnica frontend.
+- GPT-5.6 Sol Max es el auditor senior de producto, UX comercial, viabilidad de Theme Store y segunda opinión.
+- GPT-5.5 low se usa para tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
 - Gemini debe marcar `ESCALATE_MODEL_RECOMMENDED` cuando exista riesgo transversal, ambiguedad de Shopify, posible rechazo en Theme Store o conflicto no resoluble con la evidencia disponible.
