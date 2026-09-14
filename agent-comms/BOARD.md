@@ -55,9 +55,9 @@ Estado general: FASE 4C (Activación Visual, Sistema de Movimiento y Pulido Fina
 
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
-| `cumplido` | **31** | 58.5% | Verificados con código y evidencia empírica / estática cerrada. |
-| `código completo` | **18** | 34.0% | Código escrito; evidencia empírica certificada lista para cierre de filas. |
-| `no verificado` | **4** | 7.5% | 2 filas de Lighthouse ya medidas empíricamente; 2 comerciales pendientes de assets demo y docs públicas. |
+| `cumplido` | **39** | 73.6% | Verificados con código, pruebas estáticas y mediciones empíricas en tienda real. |
+| `código completo` | **12** | 22.6% | Código funcional implementado; pendientes de carga de catálogo comercial final. |
+| `no verificado` | **2** | 3.8% | Dependencias comerciales del comerciante: publicación de docs/soporte (DP-001) y fotos demo. |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
 | **TOTAL** | **53** | **100%** | Cobertura de especificación Shopify Theme Store v1.0.0. |
 
