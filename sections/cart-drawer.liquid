@@ -122,7 +122,12 @@
           <form class="cart-drawer__form" action="{{ routes.cart_url }}" method="post" data-cart-form>
             <div class="cart-drawer__items" role="list">
               {%- for item in cart.items -%}
-                <article class="cart-drawer-item" role="listitem" data-cart-item-key="{{ item.key }}">
+                <article
+                  class="cart-drawer-item"
+                  role="listitem"
+                  data-cart-item-key="{{ item.key }}"
+                  style="--item-index: {{ forloop.index0 }};"
+                >
                   <a class="cart-drawer-item__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
                     {%- if item.image != blank -%}
                       {% render 'responsive-image',

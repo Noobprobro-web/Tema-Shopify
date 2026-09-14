@@ -10,13 +10,12 @@ Estado general: FASE 4C (Activación Visual, Sistema de Movimiento y Pulido Fina
 
 ---
 
-## 1. Sprint Activo: SPRINT-4C-001 (Activación Bloque A y Pulidos Gate 5) - EN EJECUCIÓN
+## 1. Sprint Activo: SPRINT-4C-002 (Sistema de Movimiento Cinemático - Bloque B) - COMPLETADO Y ACEPTADO
 
-**Meta del Sprint:**
-1. Resolver los 3 micro-ajustes detectados en la auditoría empírica Gate 5 (contraste del botón dinámico de Shopify, tap target del logo en móvil, aspect ratio de la galería en desktop, más higiene de `.gitignore`).
-2. Implementar el **Bloque A de Activación Total** propuesto en `CLAUDE-PLAN-4C-001` (8 secciones en `templates/index.json`, defaults canónicos para 10 settings de `url`, presets poblados para `hero-editorial` y `newsletter`, fallbacks SVG y defaults en `settings_data.json`).
+**Meta del Sprint:** Implementar el sistema de movimiento unificado propuesto en `CLAUDE-PLAN-4C-001` (B0 tokens en `:root`, B1 setting maestro `animations`, B2 scroll reveal progresivo sin tocar LCP, B3 hero cinemático, B4 hover/quick-add en product-card, B5 View Transitions API, B6 galería PDP, B7 cabecera condensada y cart drawer escalonado).
+**Resultado:** APROBADO Y ACEPTADO formalmente en `GEMINI-review-CLAUDE-4C-002.md`. 8 compuertas estáticas en código 0, Theme Check en 91 archivos con 0 ofensas, y banco de pruebas Playwright en 24/24 PASS.
 
-**Directiva vinculante:** `agent-comms/inbox-claude/CLAUDE-DIRECTIVE-4C-001-activacion-y-pulido.md`.
+*Siguiente Fase:* Transición final a Submission: cierre de filas de requisitos en `docs/requirements-ledger.md`, generación de catálogo demo y publicación de páginas de documentación.
 
 ---
 
@@ -25,26 +24,28 @@ Estado general: FASE 4C (Activación Visual, Sistema de Movimiento y Pulido Fina
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Generación de imágenes demo según guía de Claude (`CLAUDE-PLAN-4C-001`) | 🟢 En marcha | 24 imágenes de producto y 11 de escena en `demo-assets/images/` |
-| **Claude (Opus 5)** | Implementador Principal | Implementación de Sprint 4C-001 (`CLAUDE-DIRECTIVE-4C-001`) | 🟡 En ejecución | Código en árbol de trabajo, 8 compuertas en verde e informe en outbox-claude |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Supervisión de Sprint 4C-001 y preparación de Sprint 4C-002 (Movimiento) | 🟢 Activo | Revisión de diffs, re-verificación empírica y actualización de ledger |
+| **Claude (Opus 5)** | Implementador Principal | Sprint 4C-002 completado y aceptado | 🟢 Entregado | `CLAUDE-REPORT-4C-002` aprobado |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Consolidación de mediciones en `requirements-ledger.md` y commit/push | 🟢 Activo | Registro de commit y actualización matemática del ledger |
 | **GPT-5.6 Sol Max** | Auditor Senior de Producto | Standby / Auditoría de activación visual y merchandising | 🟢 Listo | Segunda opinión UX sobre el homepage activo y presets |
 
 ---
 
-## 3. Resultados Empíricos de Compuerta 5 (Medición en Tienda Real)
+## 3. Resultados Empíricos de Compuerta 5 (Medición en Tienda Real con Movimiento Activo)
 
 *Medición certificada con Google Lighthouse 13.4.1 y Playwright Chromium sobre proxy dev en tienda real:*
 
 | Plantilla | Performance Móvil (Req >= 60) | Accesibilidad (Req >= 90) | CLS Móvil (Req < 0.1) | TBT | Estado |
 |---|:---:|:---:|:---:|:---:|:---:|
-| **Home (`/`)** | **83 / 100** | **100 / 100** | **0.001** | 140 ms | **CUMPLIDO** |
+| **Home (`/`)** *(8 secciones + movimiento)* | **72 / 100** | **100 / 100** | **0.022** | 180 ms | **CUMPLIDO** |
 | **Colección (`/collections/all`)** | **77 / 100** | **100 / 100** | **0.003** | 70 ms | **CUMPLIDO** |
-| **PDP (`/products/...`)** | **87 / 100** | **97 / 100** (100 con parche de botón) | **0.001** | 180 ms | **CUMPLIDO** |
+| **PDP (`/products/...`)** | **87 / 100** | **100 / 100** | **0.001** | 180 ms | **CUMPLIDO** |
 
 *Validaciones Estructurales y WCAG 2.2 AA con axe-core 4.10.2:*
 - **Jerarquía de Encabezados (h1 único):** 100% PASS en Home, Colección, PDP, Búsqueda y 404. Cero saltos de nivel.
 - **Desbordamiento Horizontal en Móvil (390px):** 100% PASS (0px de overflow).
 - **Interactividad y Foco por Teclado (`CartDrawer`):** 100% PASS (apertura, focus trap, Escape, restauración de foco).
+- **Violaciones de accesibilidad en toda la tienda:** **0 violaciones** (100% limpio).
+- **Modo Reducción de Movimiento:** Verificado con `@media (prefers-reduced-motion: reduce)` activo; el tema desactiva 100% de transiciones e ignorar reveal.
 
 ---
 
@@ -55,8 +56,8 @@ Estado general: FASE 4C (Activación Visual, Sistema de Movimiento y Pulido Fina
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
 | `cumplido` | **31** | 58.5% | Verificados con código y evidencia empírica / estática cerrada. |
-| `código completo` | **18** | 34.0% | Código escrito; evidencia empírica recolectada lista para consolidación en ledger. |
-| `no verificado` | **4** | 7.5% | 2 filas de Lighthouse ya medidas empíricamente (listas para transición a `cumplido`); 2 filas comerciales en curso (URLs de soporte y catálogo demo). |
+| `código completo` | **18** | 34.0% | Código escrito; evidencia empírica certificada lista para cierre de filas. |
+| `no verificado` | **4** | 7.5% | 2 filas de Lighthouse ya medidas empíricamente; 2 comerciales pendientes de assets demo y docs públicas. |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
 | **TOTAL** | **53** | **100%** | Cobertura de especificación Shopify Theme Store v1.0.0. |
 

@@ -196,6 +196,32 @@
     ]
   },
   {
+    "name": "t:settings_schema.animations.name",
+    "settings": [
+      {
+        "type": "select",
+        "id": "animations",
+        "label": "t:settings_schema.animations.settings.animations.label",
+        "info": "t:settings_schema.animations.settings.animations.info",
+        "options": [
+          {
+            "value": "none",
+            "label": "t:settings_schema.animations.settings.animations.options__none.label"
+          },
+          {
+            "value": "subtle",
+            "label": "t:settings_schema.animations.settings.animations.options__subtle.label"
+          },
+          {
+            "value": "full",
+            "label": "t:settings_schema.animations.settings.animations.options__full.label"
+          }
+        ],
+        "default": "subtle"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.cart.name",
     "settings": [
       {

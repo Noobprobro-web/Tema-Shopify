@@ -1,5 +1,23 @@
 {
   "settings_schema": {
+    "animations": {
+      "name": "Animations",
+      "settings": {
+        "animations": {
+          "label": "Motion",
+          "info": "Controls scroll reveals, hover transitions and page transitions. Visitors who ask their device to reduce motion always see the static theme, whichever option you choose.",
+          "options__none": {
+            "label": "None"
+          },
+          "options__subtle": {
+            "label": "Subtle"
+          },
+          "options__full": {
+            "label": "Full"
+          }
+        }
+      }
+    },
     "brand": {
       "name": "Brand",
       "settings": {
@@ -12,6 +30,27 @@
         "favicon": {
           "label": "Favicon",
           "info": "Use a square image for the clearest browser tab icon."
+        }
+      }
+    },
+    "cart": {
+      "name": "Cart",
+      "settings": {
+        "show_cart_count": {
+          "label": "Show cart item count"
+        },
+        "cart_type": {
+          "label": "Cart type",
+          "options__1": {
+            "label": "Slide-out drawer"
+          },
+          "options__2": {
+            "label": "Separate page"
+          }
+        },
+        "show_cart_note": {
+          "label": "Show order note field",
+          "info": "Lets customers add a message to their order."
         }
       }
     },
@@ -45,6 +84,126 @@
         },
         "default_color_scheme": {
           "label": "Default color scheme"
+        }
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "settings": {
+        "page_width": {
+          "label": "Page width"
+        },
+        "page_gutter": {
+          "label": "Side margin"
+        },
+        "section_spacing": {
+          "label": "Space between sections"
+        },
+        "button_radius": {
+          "label": "Button corner radius"
+        },
+        "corner_style": {
+          "label": "Corner style",
+          "info": "Applies to buttons, images, cards and form fields together.",
+          "options__1": {
+            "label": "Square"
+          },
+          "options__2": {
+            "label": "Soft"
+          },
+          "options__3": {
+            "label": "Rounded"
+          }
+        },
+        "border_thickness": {
+          "label": "Border thickness"
+        },
+        "border_contrast": {
+          "label": "Border strength",
+          "info": "Higher values make form fields and option buttons easier to see. Values below 40% may not meet accessibility contrast requirements."
+        },
+        "grid_density": {
+          "label": "Product grid density",
+          "options__1": {
+            "label": "Comfortable"
+          },
+          "options__2": {
+            "label": "Compact"
+          }
+        },
+        "enable_reveal_animation": {
+          "label": "Reveal sections on scroll",
+          "info": "Turns off automatically for visitors who prefer reduced motion."
+        }
+      }
+    },
+    "product": {
+      "name": "Product pages",
+      "settings": {
+        "pickup_hours_note": {
+          "label": "Pickup hours note",
+          "info": "Shown with every pickup location. Leave empty to hide."
+        }
+      }
+    },
+    "product_cards": {
+      "name": "Product cards",
+      "settings": {
+        "product_card_image_ratio": {
+          "label": "Image shape",
+          "options__1": {
+            "label": "Portrait"
+          },
+          "options__2": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Tall portrait"
+          },
+          "options__4": {
+            "label": "Natural"
+          }
+        },
+        "product_card_style": {
+          "label": "Card style",
+          "options__1": {
+            "label": "Minimal"
+          },
+          "options__2": {
+            "label": "Framed"
+          }
+        },
+        "button_style": {
+          "label": "Button style",
+          "options__1": {
+            "label": "Solid"
+          },
+          "options__2": {
+            "label": "Outline"
+          },
+          "options__3": {
+            "label": "Underline"
+          }
+        }
+      }
+    },
+    "social": {
+      "name": "Social media",
+      "settings": {
+        "instagram": {
+          "label": "Instagram URL"
+        },
+        "facebook": {
+          "label": "Facebook URL"
+        },
+        "pinterest": {
+          "label": "Pinterest URL"
+        },
+        "tiktok": {
+          "label": "TikTok URL"
+        },
+        "youtube": {
+          "label": "YouTube URL"
         }
       }
     },
@@ -102,147 +261,6 @@
         },
         "body_scale": {
           "label": "Body text size"
-        }
-      }
-    },
-    "layout": {
-      "name": "Layout",
-      "settings": {
-        "page_width": {
-          "label": "Page width"
-        },
-        "page_gutter": {
-          "label": "Side margin"
-        },
-        "section_spacing": {
-          "label": "Space between sections"
-        },
-        "button_radius": {
-          "label": "Button corner radius"
-        },
-        "corner_style": {
-          "label": "Corner style",
-          "info": "Applies to buttons, images, cards and form fields together.",
-          "options__1": {
-            "label": "Square"
-          },
-          "options__2": {
-            "label": "Soft"
-          },
-          "options__3": {
-            "label": "Rounded"
-          }
-        },
-        "border_thickness": {
-          "label": "Border thickness"
-        },
-        "border_contrast": {
-          "label": "Border strength",
-          "info": "Higher values make form fields and option buttons easier to see. Values below 40% may not meet accessibility contrast requirements."
-        },
-        "grid_density": {
-          "label": "Product grid density",
-          "options__1": {
-            "label": "Comfortable"
-          },
-          "options__2": {
-            "label": "Compact"
-          }
-        },
-        "enable_reveal_animation": {
-          "label": "Reveal sections on scroll",
-          "info": "Turns off automatically for visitors who prefer reduced motion."
-        }
-      }
-    },
-    "product_cards": {
-      "name": "Product cards",
-      "settings": {
-        "product_card_image_ratio": {
-          "label": "Image shape",
-          "options__1": {
-            "label": "Portrait"
-          },
-          "options__2": {
-            "label": "Square"
-          },
-          "options__3": {
-            "label": "Tall portrait"
-          },
-          "options__4": {
-            "label": "Natural"
-          }
-        },
-        "product_card_style": {
-          "label": "Card style",
-          "options__1": {
-            "label": "Minimal"
-          },
-          "options__2": {
-            "label": "Framed"
-          }
-        },
-        "button_style": {
-          "label": "Button style",
-          "options__1": {
-            "label": "Solid"
-          },
-          "options__2": {
-            "label": "Outline"
-          },
-          "options__3": {
-            "label": "Underline"
-          }
-        }
-      }
-    },
-    "cart": {
-      "name": "Cart",
-      "settings": {
-        "show_cart_count": {
-          "label": "Show cart item count"
-        },
-        "cart_type": {
-          "label": "Cart type",
-          "options__1": {
-            "label": "Slide-out drawer"
-          },
-          "options__2": {
-            "label": "Separate page"
-          }
-        },
-        "show_cart_note": {
-          "label": "Show order note field",
-          "info": "Lets customers add a message to their order."
-        }
-      }
-    },
-    "product": {
-      "name": "Product pages",
-      "settings": {
-        "pickup_hours_note": {
-          "label": "Pickup hours note",
-          "info": "Shown with every pickup location. Leave empty to hide."
-        }
-      }
-    },
-    "social": {
-      "name": "Social media",
-      "settings": {
-        "instagram": {
-          "label": "Instagram URL"
-        },
-        "facebook": {
-          "label": "Facebook URL"
-        },
-        "pinterest": {
-          "label": "Pinterest URL"
-        },
-        "tiktok": {
-          "label": "TikTok URL"
-        },
-        "youtube": {
-          "label": "YouTube URL"
         }
       }
     }

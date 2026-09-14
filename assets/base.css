@@ -38,6 +38,21 @@
   --radius-input: 0px;
   --border-width: 1px;
   --tap-target-min: 44px;
+
+  /* B0. Una sola familia de duraciones y curvas para todo el tema. Tres curvas y tres
+     duraciones bastan: lo que hace que una interfaz se sienta cara es que todo comparta
+     el mismo vocabulario de movimiento, no que cada efecto tenga el suyo. */
+  --motion-fast: 160ms;
+  --motion-base: 320ms;
+  --motion-slow: 640ms;
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Distancia de entrada del scroll reveal. Se mantiene corta a proposito: por encima de
+     unos 16px el desplazamiento deja de leerse como asentamiento y empieza a leerse como
+     carga lenta. */
+  --reveal-shift: 12px;
+  --reveal-stagger: 60ms;
   --space-none: 0px;
   --space-3xs: 2px;
   --space-2xs: 4px;
@@ -344,7 +359,7 @@ blockquote {
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition: background-color var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
 }
 
 .button:hover {
@@ -359,7 +374,7 @@ blockquote {
   border-radius: var(--button-radius);
   background-color: var(--color-foreground) !important;
   color: var(--color-background) !important;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition: background-color var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
 }
 
 .shopify-payment-button__button--unbranded:hover:not([disabled]) {
@@ -744,7 +759,7 @@ blockquote {
 
 .mobile-nav__toggle svg,
 .desktop-nav__toggle svg {
-  transition: transform 180ms ease;
+  transition: transform var(--motion-fast) var(--ease-move);
 }
 
 .mobile-nav__submenu {
@@ -1675,7 +1690,7 @@ body[data-sticky-cart-visible] {
   height: 100%;
   inset: 0;
   object-fit: cover;
-  transition: opacity 220ms ease, transform 320ms ease;
+  transition: opacity var(--motion-base) var(--ease-enter), transform var(--motion-slow) var(--ease-move);
 }
 
 .product-card__image--secondary {
@@ -1733,6 +1748,29 @@ body[data-sticky-cart-visible] {
 
 .product-card__action {
   margin-block-start: var(--space-2);
+}
+
+/* B4. El quick add se asienta al pasar el cursor. Conserva SIEMPRE su espacio en la
+   rejilla, asi que no provoca ni un pixel de desplazamiento: solo cambian opacidad y
+   transform, las dos propiedades que el compositor resuelve sin relayout. En pantallas
+   tactiles, donde no hay hover que dispare nada, se queda visible y directamente
+   pulsable. */
+@media (hover: hover) and (pointer: fine) {
+  html[data-animations='subtle'] .product-card__action,
+  html[data-animations='full'] .product-card__action {
+    opacity: 0;
+    transform: translateY(var(--reveal-shift));
+    transition: opacity var(--motion-base) var(--ease-enter),
+      transform var(--motion-base) var(--ease-enter);
+  }
+
+  html[data-animations='subtle'] .product-card:hover .product-card__action,
+  html[data-animations='full'] .product-card:hover .product-card__action,
+  html[data-animations='subtle'] .product-card:focus-within .product-card__action,
+  html[data-animations='full'] .product-card:focus-within .product-card__action {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .pagination {
@@ -1976,7 +2014,7 @@ body[data-sticky-cart-visible] {
   inset-block-start: 0;
   inset-inline-start: 0;
   background: var(--color-accent);
-  transition: width 220ms ease;
+  transition: width var(--motion-base) var(--ease-move);
 }
 
 .cart-rewards__marker {
@@ -2268,7 +2306,7 @@ body[data-sticky-cart-visible] {
   z-index: 1;
   inset: 0;
   opacity: 0;
-  transition: opacity 240ms ease;
+  transition: opacity var(--motion-base) var(--ease-enter);
 }
 
 .editorial-hero[data-video-active] .hero-editorial__video {
@@ -2445,7 +2483,7 @@ curated-showcase {
   background: currentColor;
   content: '';
   transform-origin: left;
-  transition: transform 180ms ease;
+  transition: transform var(--motion-fast) var(--ease-move);
 }
 
 .curated-showcase__tab:focus-visible {
@@ -2490,7 +2528,7 @@ curated-showcase {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 260ms ease;
+  transition: transform var(--motion-slow) var(--ease-move);
 }
 
 .curated-showcase__spotlight-media:hover .curated-showcase__spotlight-image,
@@ -2783,7 +2821,7 @@ curated-showcase {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 260ms ease;
+  transition: transform var(--motion-slow) var(--ease-move);
 }
 
 .bento-card:hover .bento-card__image,
@@ -3530,7 +3568,7 @@ complete-the-look {
   font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition: background-color var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
 }
 
 .lookbook-hotspot__trigger::before {
@@ -4820,7 +4858,7 @@ password-modal {
   background: currentColor;
   content: '';
   transform: translate(-50%, -50%);
-  transition: transform 180ms ease;
+  transition: transform var(--motion-fast) var(--ease-move);
 }
 
 .faq-item__icon::after {
@@ -6021,7 +6059,7 @@ password-modal {
   }
 
   .sticky-cart-bar {
-    transition: transform 220ms ease-out, visibility 220ms;
+    transition: transform var(--motion-base) var(--ease-enter), visibility var(--motion-base);
   }
 
   .announcement-bar__item:not([hidden]) {
@@ -6096,5 +6134,155 @@ password-modal {
   .gift-card__actions,
   .gift-card__wallet {
     display: none;
+  }
+}
+
+
+/* =========================================================================
+   SISTEMA DE MOVIMIENTO (Sprint 4C-002)
+   Todo lo de aqui abajo esta gobernado por html[data-animations] y por
+   prefers-reduced-motion. Las dos llaves de apagado viven al final del bloque.
+   ========================================================================= */
+
+/* B5. Transiciones de pagina nativas. Una sola regla, sin JavaScript y sin librerias.
+   Los navegadores que no implementan la API la ignoran por completo. */
+@view-transition {
+  navigation: auto;
+}
+
+/* B2. El estado oculto SOLO existe cuando el motor de reveal confirmo que puede
+   ejecutarse. Sin data-reveal-ready en <html> esta regla no aplica y todo se ve. */
+html[data-reveal-ready] [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+}
+
+html[data-reveal-ready] [data-reveal] {
+  transition: opacity var(--motion-base) var(--ease-enter),
+    transform var(--motion-base) var(--ease-enter);
+  transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
+  will-change: opacity, transform;
+}
+
+html[data-reveal-ready] [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+  /* Se retira en cuanto termina: dejar will-change permanente reserva una capa de
+     composicion por elemento y penaliza la memoria en rejillas largas. */
+  will-change: auto;
+}
+
+/* B3. Hero editorial. La imagen NO se anima ni se oculta: es el LCP. Lo unico que se
+   mueve es el bloque de texto, y solo en modo full, con una entrada corta que arranca
+   ya pintada. */
+html[data-animations='full'] .hero-editorial__content {
+  animation: hero-content-settle var(--motion-slow) var(--ease-enter) both;
+}
+
+@keyframes hero-content-settle {
+  from {
+    opacity: 0.001;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* B6. Galeria de PDP: la imagen que pasa a estar seleccionada entra con un fundido
+   corto en vez de aparecer de golpe al cambiar de variante o de miniatura. */
+html[data-animations='subtle'] .product-gallery__item[data-selected] .product-gallery__image,
+html[data-animations='full'] .product-gallery__item[data-selected] .product-gallery__image {
+  animation: gallery-media-in var(--motion-base) var(--ease-enter) both;
+}
+
+@keyframes gallery-media-in {
+  from {
+    opacity: 0.001;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* B7. Cabecera condensada. El atributo lo pone initHeaderScrollState. */
+.site-header {
+  transition: padding-block var(--motion-base) var(--ease-move),
+    box-shadow var(--motion-base) var(--ease-move),
+    background-color var(--motion-base) var(--ease-move);
+}
+
+.site-header[data-header-scrolled] .site-header__inner {
+  padding-block: var(--space-2);
+}
+
+.site-header[data-header-scrolled] {
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--color-foreground) 12%, transparent);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  html[data-animations='full'] .site-header[data-header-scrolled] {
+    backdrop-filter: blur(8px);
+    background-color: color-mix(in srgb, var(--color-background) 88%, transparent);
+  }
+}
+
+/* B7. Lineas del carrito escalonadas al abrir el drawer. El indice lo emite el Liquid. */
+html[data-animations='subtle'] cart-drawer[data-open] .cart-drawer-item,
+html[data-animations='full'] cart-drawer[data-open] .cart-drawer-item {
+  animation: cart-line-in var(--motion-base) var(--ease-enter) both;
+  animation-delay: calc(var(--item-index, 0) * 40ms);
+}
+
+@keyframes cart-line-in {
+  from {
+    opacity: 0.001;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Llave 1: el comerciante apaga el movimiento ---------- */
+html[data-animations='none'] *,
+html[data-animations='none'] *::before,
+html[data-animations='none'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0ms !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-animations='none'] [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ---------- Llave 2: el visitante pidio reducir movimiento. Gana siempre ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  @view-transition {
+    navigation: none;
   }
 }

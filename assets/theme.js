@@ -3203,4 +3203,95 @@
   if (!customElements.get('predictive-search')) {
     customElements.define('predictive-search', PredictiveSearch);
   }
+
+  // ---------------------------------------------------------------------------
+  // B2. Motor de scroll reveal.
+  //
+  // Regla de oro: el contenido nace visible. El CSS solo oculta un elemento pendiente
+  // cuando <html> lleva data-reveal-ready, y ese atributo lo pone este codigo unicamente
+  // si hay IntersectionObserver, el comerciante no eligio animations: none y el visitante
+  // no pidio reducir movimiento. Sin JS, con JS roto o en cualquiera de esos tres casos,
+  // la tienda se lee entera y no queda un solo elemento escondido.
+  //
+  // El hero editorial no entra nunca: es el LCP, y animarlo cuesta la puntuacion de
+  // rendimiento que la revision de Theme Store mira primero.
+  // ---------------------------------------------------------------------------
+  const REVEAL_TARGETS = [
+    '.product-grid__item',
+    '.bento-discovery__item',
+    '.brand-manifesto__detail',
+    '.brand-manifesto__media',
+    '.complete-the-look__item',
+    '.complete-the-look__media',
+    '.curated-showcase__spotlight',
+    '.lookbook__media',
+    '.newsletter-section .newsletter__inner',
+  ].join(', ');
+
+  // Tope del escalonado. Sin el, una rejilla de 40 productos tardaria mas de dos segundos
+  // en terminar de entrar y el escalonado dejaria de leerse como ritmo.
+  const REVEAL_STAGGER_CAP = 7;
+
+  const initScrollReveal = () => {
+    const root = document.documentElement;
+    if (!('IntersectionObserver' in window)) return;
+    if (root.dataset.animations === 'none') return;
+    if (reducedMotionQuery.matches) return;
+
+    root.dataset.revealReady = 'true';
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.setAttribute('data-revealed', '');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+
+    const register = (scope) => {
+      const nodes = Array.from(scope.querySelectorAll(REVEAL_TARGETS));
+      const seen = new Map();
+
+      nodes.forEach((node) => {
+        if (node.hasAttribute('data-reveal') || node.closest('.hero-editorial')) return;
+
+        // El indice se cuenta entre hermanos, para que cada rejilla escalone por su cuenta
+        // en vez de heredar el conteo de la seccion anterior.
+        const parent = node.parentElement;
+        const index = seen.get(parent) ?? 0;
+        seen.set(parent, index + 1);
+
+        node.style.setProperty('--reveal-index', String(Math.min(index, REVEAL_STAGGER_CAP)));
+        node.setAttribute('data-reveal', '');
+        observer.observe(node);
+      });
+    };
+
+    register(document);
+    // El editor de temas reemplaza secciones enteras: lo que entra tambien debe entrar.
+    document.addEventListener('shopify:section:load', (event) => register(event.target));
+  };
+
+  // ---------------------------------------------------------------------------
+  // B7. Cabecera condensada al bajar. Solo escribe cuando el estado cambia, asi que el
+  // listener pasivo no toca el DOM en la inmensa mayoria de los eventos de scroll.
+  // ---------------------------------------------------------------------------
+  const initHeaderScrollState = () => {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+
+    let scrolled = null;
+    const sync = () => {
+      const next = window.scrollY > 40;
+      if (next === scrolled) return;
+      scrolled = next;
+      header.toggleAttribute('data-header-scrolled', next);
+    };
+
+    sync();
+    window.addEventListener('scroll', sync, { passive: true });
+  };
+
+  initScrollReveal();
+  initHeaderScrollState();
 })();
