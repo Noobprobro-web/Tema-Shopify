@@ -4,18 +4,18 @@
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5), GPT-5.6 Sol Max
-Última actualización: 2026-09-14
-Estado general: FASE 4C (Activación Visual, Sistema de Movimiento y Pulido Final)
+Última actualización: 2026-09-15
+Estado general: FASE 4D CONCLUIDA (Hardening, Sistema Cinemático y Steppers Accesibles 44px)
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT-4C-002 (Sistema de Movimiento Cinemático - Bloque B) - COMPLETADO Y ACEPTADO
+## 1. Sprint Activo: CIERRE DE FASE 4D — LISTO PARA COMMIT UNIFICADO
 
-**Meta del Sprint:** Implementar el sistema de movimiento unificado propuesto en `CLAUDE-PLAN-4C-001` (B0 tokens en `:root`, B1 setting maestro `animations`, B2 scroll reveal progresivo sin tocar LCP, B3 hero cinemático, B4 hover/quick-add en product-card, B5 View Transitions API, B6 galería PDP, B7 cabecera condensada y cart drawer escalonado).
-**Resultado:** APROBADO Y ACEPTADO formalmente en `GEMINI-review-CLAUDE-4C-002.md`. 8 compuertas estáticas en código 0, Theme Check en 91 archivos con 0 ofensas, y banco de pruebas Playwright en 24/24 PASS.
+**Meta del Sprint:** Culminación de Phase 4D (Hardening anti-carreras en Cart Drawer, recalibración de cadencia cinemática de lujo en scroll reveal y hover, y componente `.quantity-stepper` unificado con área táctil de 44px en Cart Drawer, `/cart`, PDP y Featured Product).
+**Estado:** 100% implementado, auditado y formalmente aprobado. Suite de 45 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas, 0 ofensas en Theme Check (92 ficheros), cero `shopify://` en código.
 
-*Siguiente Fase:* Transición final a Submission: cierre de filas de requisitos en `docs/requirements-ledger.md`, generación de catálogo demo y publicación de páginas de documentación.
+*Siguiente Paso:* Ejecutar commit unificado de Fase 4D y avanzar a publicación de páginas de documentación/soporte (DP-001).
 
 ---
 
@@ -23,10 +23,10 @@ Estado general: FASE 4C (Activación Visual, Sistema de Movimiento y Pulido Fina
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Generación de imágenes demo según guía de Claude (`CLAUDE-PLAN-4C-001`) | 🟢 En marcha | 24 imágenes de producto y 11 de escena en `demo-assets/images/` |
-| **Claude (Opus 5)** | Implementador Principal | Sprint 4C-002 completado y aceptado | 🟢 Entregado | `CLAUDE-REPORT-4C-002` aprobado |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Consolidación de mediciones en `requirements-ledger.md` y commit/push | 🟢 Activo | Registro de commit y actualización matemática del ledger |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Standby / Auditoría de activación visual y merchandising | 🟢 Listo | Segunda opinión UX sobre el homepage activo y presets |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión y creación de `/pages/documentation` y `/pages/support` (DP-001) | 🟢 Activo | Páginas publicadas en Shopify |
+| **Claude (Fable 5.1 Max / Opus 5)** | Implementador Principal | Fase 4D completada con honores (4D-001, 4D-002, 4D-003) | 🟢 En espera | Tareas de pulido final o submission si se requieren |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictámenes de aceptación, ejecución de commit unificado y coordinación final | 🟢 Activo | Commit unificado + empaquetado final |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Standby / Auditoría comercial y de conversión pre-submission | 🟢 Listo | Segunda opinión UX sobre el catálogo completo |
 
 ---
 

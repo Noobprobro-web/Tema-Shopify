@@ -714,6 +714,13 @@
       const quantityInput = this.querySelector('[data-quantity-input]');
       if (!quantityInput || !variant) return;
 
+      const before = [
+        quantityInput.value,
+        quantityInput.getAttribute('min'),
+        quantityInput.getAttribute('step'),
+        quantityInput.getAttribute('max'),
+      ].join('|');
+
       quantityInput.min = variant.quantity_min;
       quantityInput.step = variant.quantity_increment;
       quantityInput.value = Math.max(Number(quantityInput.value), Number(variant.quantity_min));
@@ -724,6 +731,20 @@
         quantityInput.max = variant.quantity_max;
         quantityInput.value = Math.min(Number(quantityInput.value), Number(variant.quantity_max));
       }
+
+      const after = [
+        quantityInput.value,
+        quantityInput.getAttribute('min'),
+        quantityInput.getAttribute('step'),
+        quantityInput.getAttribute('max'),
+      ].join('|');
+
+      // Cambiar de variante puede mover el minimo o el maximo, y con ellos la cantidad.
+      // Nadie se enteraba: el total de linea lo calcula updatePrice(), que corre ANTES que
+      // esto, asi que se quedaba anunciando la cantidad anterior; y el stepper no tenia
+      // forma de saber que la rejilla habia cambiado bajo sus pies. Un 'change' avisa a
+      // los dos por el mismo camino que usa el visitante al teclear.
+      if (before !== after) quantityInput.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     updateMedia(variant) {
@@ -1487,7 +1508,7 @@
       // updateForms; that path now reads this flag and leaves it disabled.
       if (form.dataset.cartAddPending === 'true') return;
       form.dataset.cartAddPending = 'true';
-      this.beginMutation();
+      const revision = this.beginMutation();
       this.clearMessages(form);
       this.setFormBusy(form, submitter, true);
 
@@ -1515,7 +1536,7 @@
 
         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
-        await this.renderCartResponse(result);
+        await this.renderCartResponse(result, revision);
         this.showStatus(this.dataset.addedMessage);
         this.open(submitter);
       } finally {
@@ -1533,7 +1554,7 @@
       const variantId = Number(button.dataset.variantId);
       if (!variantId || button.disabled) return;
 
-      this.beginMutation();
+      const revision = this.beginMutation();
       this.clearMessages();
       this.setCrossSellBusy(button, true);
       this.setDrawerBusy(true);
@@ -1566,7 +1587,7 @@
 
         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
-        await this.renderCartResponse(result);
+        await this.renderCartResponse(result, revision);
         this.showStatus(this.dataset.addedMessage);
 
         const focusTarget = Array.from(this.querySelectorAll('[data-cross-sell-focus]')).find(
@@ -1581,7 +1602,7 @@
     }
 
     async changeLine(line, quantity) {
-      this.beginMutation();
+      const revision = this.beginMutation();
       this.clearMessages();
       this.setDrawerBusy(true);
 
@@ -1611,26 +1632,30 @@
 
         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
-        await this.renderCartResponse(result);
+        await this.renderCartResponse(result, revision);
       } finally {
         this.setDrawerBusy(false);
         this.endMutation();
       }
     }
 
+    // Returns the revision this mutation belongs to. Callers hand it back to
+    // renderCartResponse so that a response overtaken by a newer mutation is dropped.
     beginMutation() {
       this.pendingMutations += 1;
       this.syncRevision += 1;
       this.requestController?.abort();
+      return this.syncRevision;
     }
 
     endMutation() {
       this.pendingMutations = Math.max(0, this.pendingMutations - 1);
-      if (this.pendingMutations || !this.syncAfterMutation) return;
+      if (this.pendingMutations) return;
       this.syncAfterMutation = false;
-      // A mutation that rendered already brought back server-fresh HTML, so the sync it
-      // displaced has nothing to do. Only an unrendered revision — a mutation that failed
-      // or was aborted — leaves the drawer possibly stale and earns the extra request.
+      // A mutation that rendered already brought back server-fresh HTML, so nothing is
+      // left to fetch. Only an unrendered latest revision — a mutation that failed, was
+      // aborted, or whose response lost the race to an older one — leaves the drawer
+      // possibly stale and earns the extra request.
       if (this.renderedRevision === this.syncRevision) return;
       if (this.isConnected && this.isOpen) this.syncCart().catch(() => {});
     }
@@ -1663,9 +1688,16 @@
       return response.text();
     }
 
-    async renderCartResponse(result) {
+    // `revision` is what beginMutation() returned for this request. Shopify renders the
+    // section at the moment it applies the change, so when several mutations are in
+    // flight a slow response carries older HTML than a fast one. Painting it would show
+    // a quantity the server has already moved past; a superseded response is dropped and
+    // endMutation() decides whether the latest state still needs a fetch.
+    async renderCartResponse(result, revision = this.syncRevision) {
+      if (revision !== this.syncRevision) return;
       let sectionHtml = result.sections?.[this.dataset.sectionId];
       if (!sectionHtml) sectionHtml = await this.requestSection();
+      if (revision !== this.syncRevision) return;
       this.renderSection(sectionHtml);
     }
 
@@ -1695,7 +1727,14 @@
       currentContent.replaceWith(nextContent);
 
       if (restoreFocus) {
-        const target = active?.id ? nextContent.querySelector(`#${CSS.escape(active.id)}`) : null;
+        const restored = active?.id ? nextContent.querySelector(`#${CSS.escape(active.id)}`) : null;
+        // El control puede volver deshabilitado desde el servidor: el boton mas se apaga
+        // cuando la linea toca el tope de inventario, que el cliente no conoce. Un focus()
+        // sobre un control deshabilitado no hace nada y el foco caeria al body, asi que se
+        // busca primero el hermano utilizable del mismo stepper.
+        const target = restored && !restored.disabled
+          ? restored
+          : restored?.closest('[data-quantity-stepper]')?.querySelector('[data-quantity-button]:not([disabled])');
         (target || this.querySelector('[data-cart-drawer-close]'))?.focus();
       }
       this.dataset.itemCount = nextDrawer.dataset.itemCount;
@@ -2266,7 +2305,7 @@
       this.requestController?.abort();
       this.requestController = new AbortController();
       const drawer = document.querySelector('cart-drawer');
-      drawer?.beginMutation?.();
+      const revision = drawer?.beginMutation?.();
       const requestBody = {
         items: selectedItems.map(({ id, quantity }) => ({ id, quantity })),
       };
@@ -2309,7 +2348,7 @@
         }
 
         try {
-          await drawer.renderCartResponse(result);
+          await drawer.renderCartResponse(result, revision);
         } catch (_error) {
           window.location.assign(this.dataset.cartUrl);
           return;
@@ -3217,6 +3256,17 @@
   // rendimiento que la revision de Theme Store mira primero.
   // ---------------------------------------------------------------------------
   const REVEAL_TARGETS = [
+    // Encabezados de seccion del homepage. Van primero porque intersectan antes que sus
+    // rejillas, asi que el titulo anuncia y las tarjetas responden. Los encabezados de
+    // pagina (colección, busqueda, blog, listado) se dejan fuera a proposito: son el h1
+    // y estan sobre el pliegue; esconderlos aunque sea 680ms es retrasar contenido primario.
+    '.lookbook__header',
+    '.curated-showcase__header',
+    '.complete-the-look__header',
+    '.bento-discovery__header',
+    '.product-recommendations__header',
+    '.brand-manifesto__statement',
+    // Contenido
     '.product-grid__item',
     '.bento-discovery__item',
     '.brand-manifesto__detail',
@@ -3246,7 +3296,13 @@
         entry.target.setAttribute('data-revealed', '');
         observer.unobserve(entry.target);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+    }, {
+      // -6%: el elemento arranca cuando de verdad entra en el campo visual, sin
+      // anticiparse desde fuera del pliegue. 0.05: basta un asomo para disparar, asi que
+      // un elemento alto no espera a estar medio visible.
+      rootMargin: '0px 0px -6% 0px',
+      threshold: 0.05,
+    });
 
     const register = (scope) => {
       const nodes = Array.from(scope.querySelectorAll(REVEAL_TARGETS));
@@ -3292,6 +3348,106 @@
     window.addEventListener('scroll', sync, { passive: true });
   };
 
+  // ---------------------------------------------------------------------------
+  // 4D-002. Stepper de cantidad (menos / mas) del carrito.
+  //
+  // Delegado en document, no atado a cada boton: el cajon reemplaza su contenido
+  // entero en cada mutacion, asi que no hay nodo al que atar un listener que
+  // sobreviva al re-render.
+  //
+  // El boton NO llama a changeLine: escribe el valor y emite un 'change' sobre el
+  // campo, que es exactamente lo que hace un visitante al teclear. De ahi en
+  // adelante manda el camino ya endurecido y una sola implementacion sirve a las
+  // dos superficies:
+  //   - En el cajon lo recoge handleDrawerChange -> validacion -> changeLine(),
+  //     con la revision por mutacion de 4D-001 que descarta respuestas superadas.
+  //   - En la pagina de carrito, que es un formulario sin JavaScript, el campo
+  //     queda editado a la espera de "Update cart", igual que si se hubiera escrito.
+  // ---------------------------------------------------------------------------
+  const readQuantityRules = (input) => {
+    const step = Math.abs(Number(input.getAttribute('step'))) || 1;
+    const min = Number(input.getAttribute('min'));
+    const max = Number(input.getAttribute('max'));
+    return {
+      step,
+      min: Number.isFinite(min) ? min : 0,
+      max: input.getAttribute('max') === null || !Number.isFinite(max) ? Infinity : max,
+    };
+  };
+
+  // Shopify no acepta cualquier entero: los valores validos son min + n * incremento.
+  // Un campo con min 2 e incremento 2 no puede pasar por 5, asi que el boton se mueve
+  // por esa rejilla en lugar de sumar y restar a ciegas. Con floor al subir y ceil al
+  // bajar, un valor fuera de rejilla (tecleado a mano) cae al escalon correcto.
+  const nextQuantity = (input, direction) => {
+    const { step, min, max } = readQuantityRules(input);
+    const current = Number(input.value);
+    const base = Number.isFinite(current) ? current : min;
+    const offset = (base - min) / step;
+    const index = direction > 0 ? Math.floor(offset) : Math.ceil(offset);
+    return Math.min(max, Math.max(min, min + (index + direction) * step));
+  };
+
+  // Un boton se apaga exactamente cuando pulsarlo no cambiaria nada. Comparar contra el
+  // salto real, y no contra min o max sueltos, es lo que mantiene el estado coherente
+  // tambien cuando el valor esta fuera de la rejilla.
+  const syncQuantityStepper = (stepper) => {
+    const input = stepper.querySelector('[data-quantity-input]');
+    if (!input) return;
+
+    const { min } = readQuantityRules(input);
+    const current = Number(input.value);
+    const value = Number.isFinite(current) ? current : min;
+
+    stepper.querySelectorAll('[data-quantity-button]').forEach((button) => {
+      const direction = button.dataset.quantityButton === 'increase' ? 1 : -1;
+      button.disabled = nextQuantity(input, direction) === value;
+    });
+  };
+
+  const initQuantitySteppers = () => {
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-quantity-button]');
+      if (!button || button.disabled) return;
+
+      const stepper = button.closest('[data-quantity-stepper]');
+      const input = stepper?.querySelector('[data-quantity-input]');
+      if (!input) return;
+
+      const direction = button.dataset.quantityButton === 'increase' ? 1 : -1;
+      const next = nextQuantity(input, direction);
+      if (String(next) === input.value) return;
+
+      // Se anota ANTES de sincronizar: al deshabilitar un elemento enfocado el navegador
+      // lo desenfoca en el acto, asi que despues ya no hay forma de saber si el foco
+      // estaba aqui. Este orden lo descubrio la prueba del minimo, no la lectura.
+      const hadFocus = document.activeElement === button;
+
+      input.value = String(next);
+      syncQuantityStepper(stepper);
+
+      // Si el boton recien pulsado toca el limite y se apaga, el foco caeria al body:
+      // se pasa al hermano, que es el unico movimiento que le queda al teclado.
+      if (hadFocus && button.disabled) {
+        stepper.querySelector('[data-quantity-button]:not([disabled])')?.focus();
+      }
+
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    // El servidor ya emite el estado correcto en cada render; esto cubre lo que el
+    // servidor no ve: el numero que el visitante escribe a mano ('input') y, en la ficha
+    // de producto, la rejilla de cantidades que cambia al elegir otra variante ('change',
+    // emitido por updateQuantityRules).
+    ['input', 'change'].forEach((type) => {
+      document.addEventListener(type, (event) => {
+        const stepper = event.target.closest?.('[data-quantity-stepper]');
+        if (stepper) syncQuantityStepper(stepper);
+      });
+    });
+  };
+
   initScrollReveal();
   initHeaderScrollState();
+  initQuantitySteppers();
 })();

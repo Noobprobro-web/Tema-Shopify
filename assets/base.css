@@ -33,27 +33,32 @@
   --container-max-width: 1440px;
   --section-spacing: 72px;
   --button-radius: 0;
-  --radius-card: 0px;
-  --radius-button: 2px;
   --radius-input: 0px;
   --border-width: 1px;
   --tap-target-min: 44px;
 
   /* B0. Una sola familia de duraciones y curvas para todo el tema. Tres curvas y tres
      duraciones bastan: lo que hace que una interfaz se sienta cara es que todo comparta
-     el mismo vocabulario de movimiento, no que cada efecto tenga el suyo. */
+     el mismo vocabulario de movimiento, no que cada efecto tenga el suyo.
+
+     Reparto por intencion, no por valor:
+       fast  realimentacion que sigue al usuario: hover de boton, chevron, cabecera
+       base  entrada de superficie: cruce de imagen, reveal, quick add, lineas de carrito
+       slow  masas grandes: cajones, modales, escala de imagen en hover
+
+     Calibracion 4D-001 ("Atelier Prime"): el ojo no registraba 320ms ni 12px en pantallas
+     grandes. Con la curva expo-out, el 80% del recorrido ocurre en el primer tercio del
+     tiempo, asi que 680ms se percibe como una llegada suave y no como lentitud. */
   --motion-fast: 160ms;
-  --motion-base: 320ms;
-  --motion-slow: 640ms;
+  --motion-base: 680ms;
+  --motion-slow: 1000ms;
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
   --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
-  /* Distancia de entrada del scroll reveal. Se mantiene corta a proposito: por encima de
-     unos 16px el desplazamiento deja de leerse como asentamiento y empieza a leerse como
-     carga lenta. */
-  --reveal-shift: 12px;
-  --reveal-stagger: 60ms;
-  --space-none: 0px;
+  /* Distancia y ritmo del scroll reveal. 24px tiene peso sin leerse como carga lenta;
+     90ms entre hermanos hace legible la secuencia de una rejilla al hacer scroll. */
+  --reveal-shift: 24px;
+  --reveal-stagger: 90ms;
   --space-3xs: 2px;
   --space-2xs: 4px;
   --space-xs: 8px;
@@ -1320,7 +1325,17 @@ button[aria-busy='true']:disabled {
 }
 
 .product-form__quantity {
-  max-width: 8rem;
+  /* Sin tope de ancho: el stepper es inline-grid y ya se mide por su contenido. El
+     max-width de 8rem existia solo para que el campo suelto no se estirase, y de paso
+     partia el total de linea en una columna estrecha. */
+  display: block;
+}
+
+/* La etiqueta global es inline-block porque acompanaba a un campo de ancho completo.
+   Junto a un stepper inline-grid se le pondria al lado, asi que aqui vuelve a su linea
+   y su margen inferior recupera sentido. */
+.product-form__quantity label {
+  display: block;
 }
 
 .product-form__form,
@@ -1543,7 +1558,7 @@ sticky-cart-bar {
   min-width: 7.5rem;
   min-height: var(--tap-target-min);
   padding-inline: var(--space-sm);
-  border-radius: var(--radius-button);
+  border-radius: var(--button-radius);
   white-space: nowrap;
 }
 
@@ -1693,23 +1708,30 @@ body[data-sticky-cart-visible] {
   transition: opacity var(--motion-base) var(--ease-enter), transform var(--motion-slow) var(--ease-move);
 }
 
+/* Cruce de imagenes: la que se va acelera (ease-exit), la que llega frena (ease-enter).
+   La curva la fija el estilo de destino, asi que cada regla describe el estado al que
+   se entra: al pasar el cursor la primaria sale y la secundaria entra; al retirarlo,
+   al reves. El transform conserva su propia curva en las cuatro reglas. */
 .product-card__image--secondary {
   opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-exit), transform var(--motion-slow) var(--ease-move);
 }
 
 .product-card__media:hover .product-card__image--primary,
 .product-card__media:focus-visible .product-card__image--primary {
   opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-exit), transform var(--motion-slow) var(--ease-move);
 }
 
 .product-card__media:hover .product-card__image--secondary,
 .product-card__media:focus-visible .product-card__image--secondary {
   opacity: 1;
+  transition: opacity var(--motion-base) var(--ease-enter), transform var(--motion-slow) var(--ease-move);
 }
 
 .product-card__media:hover .product-card__image,
 .product-card__media:focus-visible .product-card__image {
-  transform: scale(1.015);
+  transform: scale(1.025);
 }
 
 .product-card__media-placeholder {
@@ -1884,10 +1906,105 @@ body[data-sticky-cart-visible] {
   align-items: baseline;
 }
 
+/* 4D-002. Stepper de cantidad (menos, campo, mas). Pieza compartida por el cajon y por
+   la pagina de carrito. Una sola caja con hilo de 1px: los botones no llevan borde
+   propio y se separan del campo con lineas internas, para que el control se lea como
+   un objeto y no como tres piezas sueltas. Sin radio ni relleno de color, en la linea
+   editorial del tema. */
+.quantity-stepper {
+  display: inline-grid;
+  border: 1px solid var(--color-control-border);
+  background: var(--color-background);
+  grid-template-columns: var(--tap-target-min) minmax(2.25rem, 1fr) var(--tap-target-min);
+}
+
+.quantity-stepper__button {
+  display: inline-flex;
+  min-width: var(--tap-target-min);
+  /* 44 x 44 px exactos en cualquier viewport. Es el criterio 2.5.8 de WCAG 2.2 que
+     revisa la Theme Store, no una holgura estetica. */
+  min-height: var(--tap-target-min);
+  padding: 0;
+  border: 0;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--ease-move);
+}
+
+.quantity-stepper__button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+}
+
+/* El anillo de foco se dibuja hacia dentro: con el outline-offset global de 3px
+   quedaria por fuera de la caja y pisaria el borde del stepper. */
+.quantity-stepper__button:focus-visible,
+.quantity-stepper__input:focus-visible {
+  outline-offset: -3px;
+}
+
+/* El selector va doblado a proposito. La regla global de campos es
+   input:not([type='checkbox'], [type='radio']), y :not() suma la especificidad de su
+   argumento: (0,1,1) contra los (0,1,0) de una clase suelta. Sin doblar, el campo se
+   quedaba con el borde y el relleno de un input normal y el stepper se leia como tres
+   cajas apiladas en vez de una sola pieza. */
+.quantity-stepper .quantity-stepper__input {
+  width: 100%;
+  min-height: var(--tap-target-min);
+  padding: 0 0.25rem;
+  border: 0;
+  /* Hilos internos en el borde suave, no en el de control: separan lo justo para que se
+     vean tres zonas pulsables sin que el conjunto parezca una tabla. */
+  border-inline: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* Las flechas nativas duplicarian el control, y ademas son objetivos tactiles de
+   unos 10 px que arruinarian la reticula de 44 px. */
+.quantity-stepper__input::-webkit-outer-spin-button,
+.quantity-stepper__input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Mientras el cajon espera al servidor, setDrawerBusy deshabilita el campo. Eso es una
+   espera, no un control muerto, asi que el numero se mantiene legible: el mismo criterio
+   que el tema ya aplica a .button[aria-busy='true']:disabled. */
+[aria-busy='true'] .quantity-stepper__input:disabled {
+  cursor: progress;
+  opacity: 1;
+}
+
+/* Sin JavaScript los botones no pueden hacer nada, asi que se retiran en vez de quedarse
+   como controles muertos. El campo sobrevive y sigue siendo funcional: en la pagina de
+   carrito con el boton "Update cart", y en el cajon porque el cajon no existe sin JS. */
+.no-js .quantity-stepper__button {
+  display: none;
+}
+
+.no-js .quantity-stepper {
+  /* El ancho que tenia el campo antes del stepper: sin botones, una caja de 50 px seria
+     un retroceso frente a la version que este sprint sustituye. */
+  grid-template-columns: minmax(5rem, 7rem);
+}
+
+.no-js .quantity-stepper .quantity-stepper__input {
+  border-inline: 0;
+}
+
 .cart-item__controls {
   display: grid;
   grid-column: 2;
-  grid-template-columns: minmax(5rem, 7rem) auto;
+  /* max-content para que el stepper entre entero (44 + campo + 44) sin comprimirse. */
+  grid-template-columns: max-content auto;
   gap: var(--space-2);
   align-items: end;
 }
@@ -2094,8 +2211,10 @@ body[data-sticky-cart-visible] {
   font-size: 0.875rem;
 }
 
-.cart-drawer-item__quantity {
-  max-width: 6rem;
+.cart-drawer-item__stepper {
+  /* El stepper es inline-grid, asi que se mide por su contenido; el maximo solo evita
+     que el campo se estire en lineas con titulos cortos. */
+  max-width: 9rem;
 }
 
 .cart-drawer-item__remove {
@@ -2177,7 +2296,7 @@ body[data-sticky-cart-visible] {
   min-height: var(--tap-target-min);
   padding-inline: var(--space-xs);
   border: var(--border-width) solid var(--color-foreground);
-  border-radius: var(--radius-button);
+  border-radius: var(--button-radius);
   background: var(--color-background);
   color: var(--color-foreground);
   font-size: 0.75rem;
@@ -6055,7 +6174,7 @@ password-modal {
   }
 
   cart-drawer[data-open] .cart-drawer__panel {
-    animation: cart-drawer-enter 220ms ease-out both;
+    animation: cart-drawer-enter var(--motion-slow) var(--ease-enter) both;
   }
 
   .sticky-cart-bar {
@@ -6063,7 +6182,7 @@ password-modal {
   }
 
   .announcement-bar__item:not([hidden]) {
-    animation: announcement-reveal 180ms ease-out both;
+    animation: announcement-reveal var(--motion-base) var(--ease-enter) both;
   }
 }
 
@@ -6155,18 +6274,20 @@ password-modal {
 html[data-reveal-ready] [data-reveal]:not([data-revealed]) {
   opacity: 0;
   transform: translateY(var(--reveal-shift));
-}
-
-html[data-reveal-ready] [data-reveal] {
-  transition: opacity var(--motion-base) var(--ease-enter),
-    transform var(--motion-base) var(--ease-enter);
-  transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
   will-change: opacity, transform;
 }
 
+/* La transicion vive SOLO en el estado revelado. Si viviera en [data-reveal] a secas,
+   un elemento que ya tenia estilo calculado cuando el motor arranca (la pagina pinto
+   antes de llegar al script, cosa habitual) se animaria de visible a oculto en vez de
+   ocultarse al instante; sobre el pliegue eso se veia como un parpadeo y anulaba la
+   entrada. Ocultar es instantaneo; solo revelar se anima. */
 html[data-reveal-ready] [data-reveal][data-revealed] {
   opacity: 1;
   transform: none;
+  transition: opacity var(--motion-base) var(--ease-enter),
+    transform var(--motion-base) var(--ease-enter);
+  transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
   /* Se retira en cuanto termina: dejar will-change permanente reserva una capa de
      composicion por elemento y penaliza la memoria en rejillas largas. */
   will-change: auto;
@@ -6176,7 +6297,9 @@ html[data-reveal-ready] [data-reveal][data-revealed] {
    mueve es el bloque de texto, y solo en modo full, con una entrada corta que arranca
    ya pintada. */
 html[data-animations='full'] .hero-editorial__content {
-  animation: hero-content-settle var(--motion-slow) var(--ease-enter) both;
+  /* Texto, no masa: un segundo de titular casi invisible ya seria retrasar contenido
+     primario. Base lo asienta en 680ms y solo en modo full. */
+  animation: hero-content-settle var(--motion-base) var(--ease-enter) both;
 }
 
 @keyframes hero-content-settle {
@@ -6210,9 +6333,11 @@ html[data-animations='full'] .product-gallery__item[data-selected] .product-gall
 
 /* B7. Cabecera condensada. El atributo lo pone initHeaderScrollState. */
 .site-header {
-  transition: padding-block var(--motion-base) var(--ease-move),
-    box-shadow var(--motion-base) var(--ease-move),
-    background-color var(--motion-base) var(--ease-move);
+  /* Sigue al scroll del usuario: si tarda lo que una entrada de superficie, se rezaga
+     detras del contenido y se lee como lag. Va en fast. */
+  transition: padding-block var(--motion-fast) var(--ease-move),
+    box-shadow var(--motion-fast) var(--ease-move),
+    background-color var(--motion-fast) var(--ease-move);
 }
 
 .site-header[data-header-scrolled] .site-header__inner {

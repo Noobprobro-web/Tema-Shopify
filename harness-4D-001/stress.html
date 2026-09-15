@@ -1,0 +1,84 @@
+<!doctype html><html class="js" data-animations="none"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="base.css"></head>
+<body>
+  <main id="page" class="container">
+
+    <!-- 1. Rejilla de producto con titulos hostiles -->
+    <ul class="product-grid" id="grid" style="list-style:none;padding:0">
+      <li class="product-grid__item">
+        <article class="product-card" id="card-long" data-product-id="1">
+          <a class="product-card__media" href="#"><span class="product-card__media-placeholder" aria-hidden="true"></span></a>
+          <div class="product-card__content">
+            <h3 class="product-card__title"><a href="#">Double-faced wool and cashmere wrap coat with raglan sleeves, unlined construction, self-fabric belt, and a numbered limited edition SKU-LN-AW26-SERRA-COAT-CAMEL-DOUBLEFACE-EXTRALONGIDENTIFIER-000001</a></h3>
+            <div class="price"><span class="price__current">$1,890.00</span></div>
+          </div>
+        </article>
+      </li>
+      <li class="product-grid__item">
+        <article class="product-card" id="card-normal" data-product-id="2">
+          <a class="product-card__media" href="#"><span class="product-card__media-placeholder" aria-hidden="true"></span></a>
+          <div class="product-card__content">
+            <h3 class="product-card__title"><a href="#">Nove Blazer</a></h3>
+            <div class="price"><span class="price__current">$1,150.00</span></div>
+          </div>
+        </article>
+      </li>
+    </ul>
+
+    <!-- 2. Modal de guia de tallas con titulo largo -->
+    <size-guide-modal id="sizeguide" data-default-unit="cm">
+      <button type="button" data-size-guide-open aria-expanded="false">Size guide</button>
+      <div class="size-guide-modal__overlay" data-size-guide-overlay hidden>
+        <div class="size-guide-modal__panel" role="dialog" aria-modal="true" data-size-guide-panel>
+          <h2 class="size-guide-modal__title" id="sg-title">Size guide for the Double-faced wool and cashmere wrap coat with raglan sleeves and an unbroken SIZEGUIDE-IDENTIFIER-THAT-IS-VERY-LONG-AND-HAS-NO-SPACES-ANYWHERE-IN-IT-AT-ALL</h2>
+          <button type="button" data-size-guide-close>Close</button>
+          <div data-size-guide-panel-unit="cm">cm table</div>
+          <div data-size-guide-panel-unit="in" hidden>in table</div>
+          <button type="button" data-size-guide-unit="cm">cm</button>
+          <button type="button" data-size-guide-unit="in">in</button>
+        </div>
+      </div>
+    </size-guide-modal>
+
+    <a id="page-cart-link" href="/cart">Cart</a>
+  </main>
+
+  <!-- 3. Cart drawer con linea de titulo hostil y 6 opciones largas -->
+  <cart-drawer id="cart" data-section-id="cart-drawer" data-cart-url="/cart" data-cart-add-url="/cart/add.js" data-cart-change-url="/cart/change.js" data-item-count="1" data-cart-count-label="1 item" data-error-message="Cart is unavailable. Please try again." data-added-message="Added">
+    <div class="cart-drawer__overlay" data-cart-drawer-overlay hidden>
+      <aside class="cart-drawer__panel" role="dialog" aria-modal="true" data-cart-drawer-panel inert>
+        <header class="cart-drawer__header">
+          <button class="icon-button" type="button" data-cart-drawer-close aria-label="Close">×</button>
+          <span data-cart-drawer-count>1</span>
+        </header>
+        <div class="cart-drawer__content" data-cart-drawer-content>
+          <div class="cart-drawer__items" role="list">
+            <article class="cart-drawer-item" id="line-long" role="listitem" style="--item-index:0">
+              <a class="cart-drawer-item__media" href="#"></a>
+              <div class="cart-drawer-item__details">
+                <h3 class="cart-drawer-item__title"><a href="#">Double-faced wool and cashmere wrap coat with raglan sleeves, unlined, self belt, numbered SKU-LN-AW26-SERRA-COAT-CAMEL-DOUBLEFACE-EXTRALONGIDENTIFIER-000001</a></h3>
+                <dl class="cart-item__options">
+                  <div><dt>Colour of the outer double-faced shell fabric</dt><dd>Camel with ink undertone, Biella mill lot 2026-AW-0091</dd></div>
+                  <div><dt>Size</dt><dd>Extra extra large tall with extended sleeve length option selected</dd></div>
+                  <div><dt>Lining</dt><dd>Unlined</dd></div>
+                  <div><dt>Monogram</dt><dd>JRR</dd></div>
+                  <div><dt>Belt</dt><dd>Self fabric</dd></div>
+                  <div><dt>Gift wrap</dt><dd>Yes</dd></div>
+                </dl>
+                <input id="DrawerQuantity-1" class="cart-drawer-item__quantity" type="number" name="updates[]" value="2" min="1" step="1" required data-cart-quantity data-line="1">
+                <button class="icon-button" type="button" data-cart-remove data-line="1" aria-label="Remove">Remove</button>
+              </div>
+            </article>
+          </div>
+          <textarea id="CartNote" name="note"></textarea>
+        </div>
+        <p class="cart-drawer__message" role="status" aria-live="polite" data-cart-status hidden></p>
+        <p class="cart-drawer__message" role="alert" data-cart-error hidden></p>
+        <button class="button" type="button" id="checkout-btn">Checkout</button>
+      </aside>
+    </div>
+  </cart-drawer>
+
+  <script src="theme.js"></script>
+</body></html>

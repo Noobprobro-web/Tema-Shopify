@@ -295,21 +295,56 @@
               </size-guide-modal>
 
             {%- when 'quantity' -%}
+              {%- liquid
+                assign quantity_min = selected_variant.quantity_rule.min | default: 1
+                assign quantity_step = selected_variant.quantity_rule.increment | default: 1
+                assign quantity_max = selected_variant.quantity_rule.max
+              -%}
               <div class="product-form__quantity" {{ block.shopify_attributes }}>
                 <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
-                <input
-                  id="Quantity-{{ section.id }}"
-                  type="number"
-                  name="quantity"
-                  form="{{ product_form_id }}"
-                  value="{{ selected_variant.quantity_rule.min | default: 1 }}"
-                  min="{{ selected_variant.quantity_rule.min | default: 1 }}"
-                  step="{{ selected_variant.quantity_rule.increment | default: 1 }}"
-                  {% if selected_variant.quantity_rule.max != blank %}max="{{ selected_variant.quantity_rule.max }}"{% endif %}
-                  inputmode="numeric"
-                  required
-                  data-quantity-input
-                >
+                {%- comment -%}
+                  El valor inicial es el minimo de la variante seleccionada, asi que el
+                  boton de restar nace apagado. Al cambiar de variante manda
+                  updateQuantityRules, que emite un change y el stepper se resincroniza.
+                {%- endcomment -%}
+                <div class="quantity-stepper product-form__stepper" data-quantity-stepper>
+                  <button
+                    class="quantity-stepper__button"
+                    type="button"
+                    name="minus"
+                    aria-label="{{ 'products.product.decrease_quantity' | t: product: product.title | escape }}"
+                    aria-controls="Quantity-{{ section.id }}"
+                    data-quantity-button="decrease"
+                    disabled
+                  >
+                    {% render 'icon', name: 'minus', size: 16 %}
+                  </button>
+                  <input
+                    id="Quantity-{{ section.id }}"
+                    class="quantity-stepper__input"
+                    type="number"
+                    name="quantity"
+                    form="{{ product_form_id }}"
+                    value="{{ quantity_min }}"
+                    min="{{ quantity_min }}"
+                    step="{{ quantity_step }}"
+                    {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
+                    inputmode="numeric"
+                    required
+                    data-quantity-input
+                  >
+                  <button
+                    class="quantity-stepper__button"
+                    type="button"
+                    name="plus"
+                    aria-label="{{ 'products.product.increase_quantity' | t: product: product.title | escape }}"
+                    aria-controls="Quantity-{{ section.id }}"
+                    data-quantity-button="increase"
+                    {% if quantity_max != blank and quantity_min >= quantity_max %}disabled{% endif %}
+                  >
+                    {% render 'icon', name: 'plus', size: 16 %}
+                  </button>
+                </div>
                 <p
                   class="product-form__line-total"
                   data-line-total
@@ -580,6 +615,7 @@
           <p class="sticky-cart-bar__title">{{ product.title | escape }}</p>
           <p class="sticky-cart-bar__meta">
             <span
+              class="sticky-cart-bar__variant"
               data-sticky-variant
               {% if product.has_only_default_variant %}hidden{% endif %}
             >

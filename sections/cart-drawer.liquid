@@ -168,6 +168,7 @@
                           {%- if property.last contains '/uploads/' -%}
                             <a href="{{ property.last | escape }}" target="_blank" rel="noopener">
                               {{- property.last | split: '/' | last | escape -}}
+                              <span class="visually-hidden"> {{ 'general.accessibility.opens_in_new_window' | t }}</span>
                             </a>
                           {%- else -%}
                             {{- property.last | escape -}}
@@ -203,21 +204,58 @@
                       {%- endif -%}
                     </div>
 
+                    {%- liquid
+                      assign quantity_min = item.variant.quantity_rule.min | default: 1
+                      assign quantity_step = item.variant.quantity_rule.increment | default: 1
+                      assign quantity_max = item.variant.quantity_rule.max
+                    -%}
                     <label for="DrawerQuantity-{{ forloop.index }}">{{ 'sections.cart.quantity' | t }}</label>
-                    <input
-                      id="DrawerQuantity-{{ forloop.index }}"
-                      class="cart-drawer-item__quantity"
-                      type="number"
-                      name="updates[]"
-                      value="{{ item.quantity }}"
-                      min="{{ item.variant.quantity_rule.min | default: 1 }}"
-                      step="{{ item.variant.quantity_rule.increment | default: 1 }}"
-                      {% if item.variant.quantity_rule.max != blank %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
-                      inputmode="numeric"
-                      required
-                      data-cart-quantity
-                      data-line="{{ forloop.index }}"
-                    >
+                    {%- comment -%}
+                      El estado disabled de los dos botones lo decide el servidor en cada
+                      render, no solo el JavaScript: asi la linea llega correcta desde el
+                      primer pintado y tras cada re-render del cajon.
+                    {%- endcomment -%}
+                    <div class="quantity-stepper cart-drawer-item__stepper" data-quantity-stepper>
+                      <button
+                        id="DrawerQuantityMinus-{{ forloop.index }}"
+                        class="quantity-stepper__button"
+                        type="button"
+                        name="minus"
+                        aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape }}"
+                        aria-controls="DrawerQuantity-{{ forloop.index }}"
+                        data-quantity-button="decrease"
+                        {% if item.quantity <= quantity_min %}disabled{% endif %}
+                      >
+                        {% render 'icon', name: 'minus', size: 16 %}
+                      </button>
+                      <input
+                        id="DrawerQuantity-{{ forloop.index }}"
+                        class="quantity-stepper__input"
+                        type="number"
+                        name="updates[]"
+                        value="{{ item.quantity }}"
+                        min="{{ quantity_min }}"
+                        step="{{ quantity_step }}"
+                        {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
+                        inputmode="numeric"
+                        required
+                        data-quantity-input
+                        data-cart-quantity
+                        data-line="{{ forloop.index }}"
+                      >
+                      <button
+                        id="DrawerQuantityPlus-{{ forloop.index }}"
+                        class="quantity-stepper__button"
+                        type="button"
+                        name="plus"
+                        aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape }}"
+                        aria-controls="DrawerQuantity-{{ forloop.index }}"
+                        data-quantity-button="increase"
+                        {% if quantity_max != blank and item.quantity >= quantity_max %}disabled{% endif %}
+                      >
+                        {% render 'icon', name: 'plus', size: 16 %}
+                      </button>
+                    </div>
                   </div>
 
                   <button
