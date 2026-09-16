@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-about",
+      "blocks": {
+        "story": {
+          "type": "hero_story",
+          "settings": {
+            "image_ratio": "21 / 9",
+            "title": "The atelier",
+            "text": "<p>Tell the story of how the house began, who makes the work, and what it is made from. Two or three paragraphs are usually enough.</p>"
+          }
+        },
+        "quote": {
+          "type": "artisan_quote",
+          "settings": {
+            "quote": "A garment is finished when nothing else can be taken away.",
+            "attribution": "Head of atelier",
+            "role": "Cutting and finishing"
+          }
+        },
+        "values": {
+          "type": "values_grid",
+          "settings": {
+            "title": "What we hold to",
+            "value_1_title": "Traceable fibres",
+            "value_1_text": "<p>Every cloth is bought from a mill we can name.</p>",
+            "value_2_title": "Hand finished",
+            "value_2_text": "<p>Edges, linings and buttonholes are worked by hand.</p>",
+            "value_3_title": "Small series",
+            "value_3_text": "<p>Pieces are cut in short runs and rarely repeated.</p>"
+          }
+        },
+        "gallery": {
+          "type": "atelier_gallery",
+          "settings": {
+            "title": "Inside the studio",
+            "show_third_image": true,
+            "caption": "Cutting, fitting and finishing, photographed over one season."
+          }
+        }
+      },
+      "block_order": ["story", "quote", "values", "gallery"],
+      "settings": {
+        "eyebrow": "Our story"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,61 @@
+<!doctype html><html class="js" data-animations="none"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="base.css"></head>
+<body>
+  <section class="section main-documentation">
+    <div class="container">
+      <header class="main-documentation__header flow">
+        <p class="eyebrow">Theme documentation</p>
+        <h1 class="main-documentation__title">Documentation</h1>
+        <div class="rte lede"><p>Setup, presets and a reference for every section of the theme.</p></div>
+      </header>
+      <div class="main-documentation__layout">
+        <anchor-nav class="main-documentation__nav">
+          <details class="anchor-nav__disclosure" data-anchor-disclosure open>
+            <summary class="anchor-nav__summary"><span>On this page</span><span class="faq-item__icon" aria-hidden="true"></span></summary>
+            <nav aria-label="On this page">
+              <ol class="anchor-nav__list unstyled-list" data-anchor-list>
+                <li><a class="anchor-nav__link" href="#quick-start" data-anchor-link>Quick start and installation</a></li>
+                <li><a class="anchor-nav__link" href="#presets" data-anchor-link>Theme presets</a></li>
+                <li><a class="anchor-nav__link" href="#cart" data-anchor-link>Cart drawer</a></li>
+              </ol>
+            </nav>
+          </details>
+        </anchor-nav>
+        <div class="main-documentation__body">
+          <article id="quick-start" class="doc-section">
+            <h2 class="doc-section__title">Quick start and installation</h2>
+            <p class="doc-section__summary">Upload the theme and open the editor.</p>
+            <div class="rte doc-section__content"><p>The theme is built for Online Store 2.0 with native vanilla JavaScript.</p><ol><li>Download the theme zip file.</li><li>Go to <strong>Online store &gt; Themes</strong>.</li></ol></div>
+          </article>
+          <copy-text class="doc-snippet" data-copy-source="#DocSnippet-a" data-copied-label="Copied">
+            <div class="doc-snippet__bar">
+              <p class="doc-snippet__title">Theme file</p>
+              <button class="doc-snippet__copy" type="button" data-copy-trigger hidden><span data-copy-label>Copy</span></button>
+            </div>
+            <pre class="doc-snippet__code"><code id="DocSnippet-a">Sartorial-1.0.0.zip</code></pre>
+            <p id="DocSnippetStatus-a" class="visually-hidden" role="status" data-copy-status></p>
+          </copy-text>
+          <article id="presets" class="doc-section" style="min-height:900px">
+            <h2 class="doc-section__title">Theme presets</h2>
+            <div class="rte doc-section__content"><p>Each preset changes theme settings only.</p></div>
+          </article>
+          <article class="doc-preset">
+            <p class="doc-preset__badge">Default</p>
+            <h3 class="doc-preset__name">Sartorial</h3>
+            <div class="rte doc-preset__description"><p>Warm editorial elegance for tailoring and bespoke fashion.</p></div>
+          </article>
+          <aside class="doc-callout doc-callout--tip">
+            <p class="doc-callout__label">Tip</p>
+            <div class="rte doc-callout__text"><p>To change preset, open <strong>Theme settings</strong>.</p></div>
+          </aside>
+          <article id="cart" class="doc-section" style="min-height:900px">
+            <h2 class="doc-section__title">Cart drawer</h2>
+            <div class="rte doc-section__content"><p>Free shipping progress with a threshold you set.</p></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="theme.js"></script>
+</body></html>

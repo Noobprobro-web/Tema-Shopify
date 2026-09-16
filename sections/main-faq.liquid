@@ -1,0 +1,222 @@
+{%- comment -%}
+  Preguntas frecuentes para el comprador final, agrupadas por categoria.
+
+  Los acordeones reutilizan <faq-accordion> y la pieza .faq-item que ya usa la pagina de
+  contacto: mismo <details>/<summary> nativo, mismo icono que gira de mas a menos, mismo
+  objetivo tactil de 44 px y la misma respuesta a shopify:block:select en el editor. Un
+  segundo acordeon propio solo anadiria un dialecto visual mas que mantener.
+
+  Cada categoria abre su propio <faq-accordion>, asi que "abrir solo uno" actua dentro de
+  su categoria y no apaga la respuesta que el visitante dejo abierta en otra. El markup se
+  emite por categoria en una pasada completa, nunca abriendo una etiqueta en una rama del
+  bucle para cerrarla en otra.
+{%- endcomment -%}
+
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign cta_scheme = section.settings.cta_color_scheme.id | default: section.settings.cta_color_scheme | default: section_scheme
+  assign title_id = 'MainFaqTitle-' | append: section.id
+
+  comment
+    Indice del primer encabezado de categoria. Lo que quede por delante son preguntas sin
+    categorizar, que es como empieza siempre una pagina nueva: se agrupan en un acordeon
+    de cabecera en vez de perderse.
+  endcomment
+  assign leading_limit = section.blocks.size
+
+  for block in section.blocks
+    if block.type == 'category_header'
+      assign leading_limit = forloop.index0
+      break
+    endif
+  endfor
+-%}
+
+<section class="section main-faq color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container container--narrow">
+    <header class="main-faq__header flow">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="{{ title_id }}" class="main-faq__title">{{ page.title | escape }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <div class="rte lede">{{ section.settings.intro }}</div>
+      {%- endif -%}
+      {%- if page.content != blank -%}
+        <div class="rte main-faq__page-content">{{ page.content }}</div>
+      {%- endif -%}
+    </header>
+
+    {%- if leading_limit > 0 -%}
+      <div class="main-faq__group">
+        <faq-accordion {% if section.settings.single_open %}data-single-open{% endif %}>
+          {%- for block in section.blocks limit: leading_limit -%}
+            {%- if block.type == 'faq_item' -%}
+              {% render 'faq-entry', block: block %}
+            {%- endif -%}
+          {%- endfor -%}
+        </faq-accordion>
+      </div>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'category_header' -%}
+        {%- assign header_index = forloop.index0 -%}
+        <div class="main-faq__group" {{ block.shopify_attributes }}>
+          <h2 class="main-faq__category">{{ block.settings.title | escape }}</h2>
+          {%- if block.settings.description != blank -%}
+            <div class="rte main-faq__category-description">{{ block.settings.description }}</div>
+          {%- endif -%}
+          <faq-accordion {% if section.settings.single_open %}data-single-open{% endif %}>
+            {%- for entry in section.blocks offset: header_index -%}
+              {%- if forloop.index0 == 0 -%}
+                {%- continue -%}
+              {%- endif -%}
+              {%- if entry.type == 'category_header' -%}
+                {%- break -%}
+              {%- endif -%}
+              {%- if entry.type == 'faq_item' -%}
+                {% render 'faq-entry', block: entry %}
+              {%- endif -%}
+            {%- endfor -%}
+          </faq-accordion>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'unresolved_cta' -%}
+        <aside class="main-faq__cta color-{{ cta_scheme }}" {{ block.shopify_attributes }}>
+          <div class="main-faq__cta-text flow">
+            <h2 class="main-faq__cta-title">{{ block.settings.title | escape }}</h2>
+            {%- if block.settings.text != blank -%}
+              <div class="rte">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </div>
+          {%- if block.settings.button_label != blank and block.settings.button_url != blank -%}
+            <a class="button main-faq__cta-button" href="{{ block.settings.button_url }}">
+              {{- block.settings.button_label | escape -}}
+            </a>
+          {%- endif -%}
+        </aside>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_faq.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "t:sections.all.intro.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "single_open",
+      "label": "t:sections.main_faq.settings.single_open.label",
+      "info": "t:sections.main_faq.settings.single_open.info",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "cta_color_scheme",
+      "label": "t:sections.main_faq.settings.cta_color_scheme.label",
+      "default": "scheme-2"
+    }
+  ],
+  "max_blocks": 40,
+  "blocks": [
+    {
+      "type": "category_header",
+      "name": "t:sections.main_faq.blocks.category_header.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.all.heading.label",
+          "default": "Shipping and orders"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:sections.all.description.label"
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "t:sections.main_faq.blocks.faq_item.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "t:sections.main_faq.blocks.faq_item.settings.question.label",
+          "default": "When will my order arrive?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "t:sections.main_faq.blocks.faq_item.settings.answer.label",
+          "default": "<p>Add the answer your customers need here.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "t:sections.main_faq.blocks.faq_item.settings.open_by_default.label",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "unresolved_cta",
+      "name": "t:sections.main_faq.blocks.unresolved_cta.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.all.heading.label",
+          "default": "Still have a question?"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.all.text.label",
+          "default": "<p>Write to the atelier and a person will answer you.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.all.button_label.label",
+          "default": "Contact the atelier"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:sections.all.button_url.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.main_faq.presets.name"
+    }
+  ]
+}
+{% endschema %}

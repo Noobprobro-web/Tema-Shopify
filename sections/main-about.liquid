@@ -1,0 +1,374 @@
+{%- comment -%}
+  Pagina editorial de historia de marca. Todo el contenido vive en bloques, de modo que el
+  comerciante ordena la narrativa sin escribir HTML en el editor de texto.
+
+  Las imagenes vacias caen en placeholder_svg_tag: una seccion recien anadida se ve como
+  lo que es desde el primer momento, y no queda un hueco sin altura que descoloque la
+  pagina mientras se configura.
+{%- endcomment -%}
+
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'MainAboutTitle-' | append: section.id
+-%}
+
+<section class="section main-about color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container">
+    <header class="main-about__header flow">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="{{ title_id }}" class="main-about__title">{{ page.title | escape }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <div class="rte lede">{{ section.settings.intro }}</div>
+      {%- endif -%}
+      {%- if page.content != blank -%}
+        <div class="rte main-about__page-content">{{ page.content }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="main-about__blocks">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'hero_story' -%}
+            <article
+              class="main-about__story"
+              style="--about-story-ratio: {{ block.settings.image_ratio }};"
+              {{ block.shopify_attributes }}
+            >
+              <div class="main-about__story-media">
+                {%- if block.settings.image != blank -%}
+                  {% render 'responsive-image',
+                    image: block.settings.image,
+                    sizes: '(min-width: 62rem) min(100vw - 4rem, 1300px), 100vw',
+                    widths: '390, 550, 750, 960, 1200, 1600, 2000, 2400',
+                    image_class: 'main-about__story-image',
+                    alt: block.settings.image_alt
+                  %}
+                {%- else -%}
+                  <div class="main-about__placeholder" aria-hidden="true">
+                    {{- 'lifestyle-1' | placeholder_svg_tag: 'homepage-placeholder' -}}
+                  </div>
+                {%- endif -%}
+              </div>
+              {%- if block.settings.title != blank or block.settings.text != blank -%}
+                <div class="main-about__story-text flow">
+                  {%- if block.settings.title != blank -%}
+                    <h2 class="main-about__story-title">{{ block.settings.title | escape }}</h2>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="rte">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </article>
+
+          {%- when 'artisan_quote' -%}
+            {%- if block.settings.quote != blank -%}
+              <figure class="main-about__quote" {{ block.shopify_attributes }}>
+                <blockquote class="main-about__quote-text">{{ block.settings.quote }}</blockquote>
+                {%- if block.settings.attribution != blank or block.settings.role != blank -%}
+                  <figcaption class="main-about__quote-attribution">
+                    {%- if block.settings.attribution != blank -%}
+                      <span class="main-about__quote-name">{{ block.settings.attribution | escape }}</span>
+                    {%- endif -%}
+                    {%- if block.settings.role != blank -%}
+                      <span class="main-about__quote-role">{{ block.settings.role | escape }}</span>
+                    {%- endif -%}
+                  </figcaption>
+                {%- endif -%}
+              </figure>
+            {%- endif -%}
+
+          {%- when 'values_grid' -%}
+            <div class="main-about__values" {{ block.shopify_attributes }}>
+              {%- if block.settings.title != blank -%}
+                <h2 class="main-about__values-title">{{ block.settings.title | escape }}</h2>
+              {%- endif -%}
+              <ul class="main-about__values-grid unstyled-list">
+                {%- if block.settings.value_1_title != blank -%}
+                  <li class="main-about__value">
+                    <h3 class="main-about__value-title">{{ block.settings.value_1_title | escape }}</h3>
+                    {%- if block.settings.value_1_text != blank -%}
+                      <div class="rte main-about__value-text">{{ block.settings.value_1_text }}</div>
+                    {%- endif -%}
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.value_2_title != blank -%}
+                  <li class="main-about__value">
+                    <h3 class="main-about__value-title">{{ block.settings.value_2_title | escape }}</h3>
+                    {%- if block.settings.value_2_text != blank -%}
+                      <div class="rte main-about__value-text">{{ block.settings.value_2_text }}</div>
+                    {%- endif -%}
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.value_3_title != blank -%}
+                  <li class="main-about__value">
+                    <h3 class="main-about__value-title">{{ block.settings.value_3_title | escape }}</h3>
+                    {%- if block.settings.value_3_text != blank -%}
+                      <div class="rte main-about__value-text">{{ block.settings.value_3_text }}</div>
+                    {%- endif -%}
+                  </li>
+                {%- endif -%}
+              </ul>
+            </div>
+
+          {%- when 'atelier_gallery' -%}
+            <div class="main-about__gallery" {{ block.shopify_attributes }}>
+              {%- if block.settings.title != blank -%}
+                <h2 class="main-about__gallery-title">{{ block.settings.title | escape }}</h2>
+              {%- endif -%}
+              <ul class="main-about__gallery-grid unstyled-list">
+                {%- for index in (1..3) -%}
+                  {%- liquid
+                    case index
+                      when 1
+                        assign gallery_image = block.settings.image_1
+                        assign gallery_alt = block.settings.image_1_alt
+                        assign gallery_placeholder = 'lifestyle-1'
+                      when 2
+                        assign gallery_image = block.settings.image_2
+                        assign gallery_alt = block.settings.image_2_alt
+                        assign gallery_placeholder = 'lifestyle-2'
+                      else
+                        assign gallery_image = block.settings.image_3
+                        assign gallery_alt = block.settings.image_3_alt
+                        assign gallery_placeholder = 'detailed-apparel-1'
+                    endcase
+                  -%}
+                  {%- if index < 3 or block.settings.show_third_image -%}
+                    <li class="main-about__gallery-item">
+                      {%- if gallery_image != blank -%}
+                        {% render 'responsive-image',
+                          image: gallery_image,
+                          sizes: '(min-width: 62rem) 32vw, 90vw',
+                          widths: '390, 550, 750, 960, 1200',
+                          image_class: 'main-about__gallery-image',
+                          alt: gallery_alt
+                        %}
+                      {%- else -%}
+                        <div class="main-about__placeholder" aria-hidden="true">
+                          {{- gallery_placeholder | placeholder_svg_tag: 'homepage-placeholder' -}}
+                        </div>
+                      {%- endif -%}
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+              {%- if block.settings.caption != blank -%}
+                <p class="main-about__gallery-caption">{{ block.settings.caption | escape }}</p>
+              {%- endif -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_about.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "t:sections.all.intro.label"
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "hero_story",
+      "name": "t:sections.main_about.blocks.hero_story.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.all.image.label"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "t:sections.all.image_alt.label"
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "label": "t:sections.main_about.blocks.hero_story.settings.image_ratio.label",
+          "options": [
+            {
+              "value": "21 / 9",
+              "label": "t:sections.main_about.blocks.hero_story.settings.image_ratio.options__panoramic.label"
+            },
+            {
+              "value": "16 / 9",
+              "label": "t:sections.main_about.blocks.hero_story.settings.image_ratio.options__wide.label"
+            },
+            {
+              "value": "3 / 2",
+              "label": "t:sections.main_about.blocks.hero_story.settings.image_ratio.options__landscape.label"
+            },
+            {
+              "value": "4 / 5",
+              "label": "t:sections.main_about.blocks.hero_story.settings.image_ratio.options__portrait.label"
+            }
+          ],
+          "default": "21 / 9"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.all.heading.label",
+          "default": "The atelier"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.all.text.label",
+          "default": "<p>Tell the story of how the house began, who makes the work, and what it is made from.</p>"
+        }
+      ]
+    },
+    {
+      "type": "artisan_quote",
+      "name": "t:sections.main_about.blocks.artisan_quote.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "quote",
+          "label": "t:sections.all.quote.label",
+          "default": "A garment is finished when nothing else can be taken away."
+        },
+        {
+          "type": "text",
+          "id": "attribution",
+          "label": "t:sections.all.attribution.label"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "t:sections.main_about.blocks.artisan_quote.settings.role.label"
+        }
+      ]
+    },
+    {
+      "type": "values_grid",
+      "name": "t:sections.main_about.blocks.values_grid.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.all.heading.label",
+          "default": "What we hold to"
+        },
+        {
+          "type": "text",
+          "id": "value_1_title",
+          "label": "t:sections.main_about.blocks.values_grid.settings.value_1_title.label",
+          "default": "Traceable fibres"
+        },
+        {
+          "type": "richtext",
+          "id": "value_1_text",
+          "label": "t:sections.main_about.blocks.values_grid.settings.value_1_text.label",
+          "default": "<p>Every cloth is bought from a mill we can name.</p>"
+        },
+        {
+          "type": "text",
+          "id": "value_2_title",
+          "label": "t:sections.main_about.blocks.values_grid.settings.value_2_title.label",
+          "default": "Hand finished"
+        },
+        {
+          "type": "richtext",
+          "id": "value_2_text",
+          "label": "t:sections.main_about.blocks.values_grid.settings.value_2_text.label",
+          "default": "<p>Edges, linings and buttonholes are worked by hand.</p>"
+        },
+        {
+          "type": "text",
+          "id": "value_3_title",
+          "label": "t:sections.main_about.blocks.values_grid.settings.value_3_title.label",
+          "default": "Small series"
+        },
+        {
+          "type": "richtext",
+          "id": "value_3_text",
+          "label": "t:sections.main_about.blocks.values_grid.settings.value_3_text.label",
+          "default": "<p>Pieces are cut in short runs and rarely repeated.</p>"
+        }
+      ]
+    },
+    {
+      "type": "atelier_gallery",
+      "name": "t:sections.main_about.blocks.atelier_gallery.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.all.heading.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "t:sections.main_about.blocks.atelier_gallery.settings.image_1.label"
+        },
+        {
+          "type": "text",
+          "id": "image_1_alt",
+          "label": "t:sections.all.image_alt.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "t:sections.main_about.blocks.atelier_gallery.settings.image_2.label"
+        },
+        {
+          "type": "text",
+          "id": "image_2_alt",
+          "label": "t:sections.all.image_alt.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_third_image",
+          "label": "t:sections.main_about.blocks.atelier_gallery.settings.show_third_image.label",
+          "info": "t:sections.main_about.blocks.atelier_gallery.settings.show_third_image.info",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "t:sections.main_about.blocks.atelier_gallery.settings.image_3.label"
+        },
+        {
+          "type": "text",
+          "id": "image_3_alt",
+          "label": "t:sections.all.image_alt.label"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "t:sections.all.caption.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.main_about.presets.name"
+    }
+  ]
+}
+{% endschema %}

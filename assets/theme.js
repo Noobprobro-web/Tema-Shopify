@@ -2618,6 +2618,195 @@
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // 4E-001. Indice de anclas con seguimiento del scroll.
+  //
+  // Dos consumidores, una sola pieza:
+  //   - Documentacion: el Liquid ya sirve la lista, porque los ids de ancla son un
+  //     ajuste del bloque y el servidor los conoce.
+  //   - Paginas legales: los encabezados los escribe el comerciante en el editor de
+  //     paginas, asi que no hay ids que emitir y la lista se construye aqui.
+  //
+  // El elemento nace con [hidden] y solo se muestra al encontrar dos destinos o mas: un
+  // indice de una sola entrada no orienta a nadie, y sin JavaScript no puede quedarse en
+  // pantalla un desplegable vacio. El contenido al que apunta se lee entero igual.
+  // ---------------------------------------------------------------------------
+  class AnchorNav extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.list = this.querySelector('[data-anchor-list]');
+      this.targets = this.collectTargets();
+
+      if (this.targets.length < 2) return;
+      if (this.list && !this.list.children.length) this.buildList();
+
+      this.links = new Map();
+      this.querySelectorAll('[data-anchor-link]').forEach((link) => {
+        const id = link.getAttribute('href')?.slice(1);
+        if (id) this.links.set(id, link);
+      });
+
+      if (!this.links.size) return;
+
+      this.hidden = false;
+      this.watchTargets();
+      // El indice de las paginas legales vive dentro de un <details> abierto: en movil
+      // ocupa media pantalla, asi que se cierra solo al saltar a una seccion.
+      this.listen(this, 'click', (event) => {
+        if (!event.target.closest('[data-anchor-link]')) return;
+        const disclosure = this.querySelector('[data-anchor-disclosure]');
+        if (disclosure && window.matchMedia('(max-width: 61.99rem)').matches) {
+          disclosure.open = false;
+        }
+      });
+    }
+
+    disconnectedCallback() {
+      this.observer?.disconnect();
+      super.disconnectedCallback();
+    }
+
+    collectTargets() {
+      const source = this.dataset.anchorSource
+        ? document.querySelector(this.dataset.anchorSource)
+        : null;
+
+      // Modo servido: los destinos son los que ya apuntan los enlaces del Liquid.
+      if (!source) {
+        return Array.from(this.querySelectorAll('[data-anchor-link]'))
+          .map((link) => document.getElementById(link.getAttribute('href')?.slice(1) || ''))
+          .filter(Boolean);
+      }
+
+      // Modo construido: se numeran los encabezados y se les da id si no lo traen, que
+      // es lo normal en texto pegado desde el editor de paginas.
+      const prefix = this.dataset.anchorPrefix || 'AnchorNavSection';
+      return Array.from(source.querySelectorAll(this.dataset.anchorSelector || 'h2'))
+        .filter((heading) => heading.textContent.trim())
+        .map((heading, index) => {
+          if (!heading.id) heading.id = `${prefix}-${index + 1}`;
+          return heading;
+        });
+    }
+
+    buildList() {
+      const fragment = document.createDocumentFragment();
+
+      this.targets.forEach((target) => {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `#${target.id}`;
+        link.className = 'anchor-nav__link';
+        link.textContent = target.textContent.trim();
+        link.setAttribute('data-anchor-link', '');
+        item.appendChild(link);
+        fragment.appendChild(item);
+      });
+
+      this.list.appendChild(fragment);
+    }
+
+    watchTargets() {
+      if (!('IntersectionObserver' in window)) return;
+
+      this.visible = new Set();
+
+      // -45% abajo: cuenta como "en pantalla" lo que ocupa la mitad superior de la
+      // ventana, no lo que acaba de asomar por el borde inferior.
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) this.visible.add(entry.target.id);
+          else this.visible.delete(entry.target.id);
+        });
+        this.syncCurrent();
+      }, { rootMargin: '0px 0px -45% 0px', threshold: 0 });
+
+      this.targets.forEach((target) => this.observer.observe(target));
+      this.listen(window, 'scroll', () => this.syncCurrent(), { passive: true });
+    }
+
+    // Con varios apartados en pantalla manda el primero, no el ultimo que aviso el
+    // observador: el orden en que llegan sus llamadas no es el orden de la pagina.
+    syncCurrent() {
+      if (this.atBottom()) {
+        this.setCurrent(this.targets[this.targets.length - 1].id);
+        return;
+      }
+
+      const first = this.targets.find((target) => this.visible.has(target.id));
+      if (first) this.setCurrent(first.id);
+    }
+
+    // El ultimo apartado de un documento suele ser mas corto que el margen inferior del
+    // observador, asi que por si solo nunca llegaria a estar "en pantalla" y su entrada
+    // del indice quedaria muerta. Al final de la pagina, el ultimo es el que toca.
+    atBottom() {
+      const scrolled = window.scrollY + window.innerHeight;
+      return scrolled >= document.documentElement.scrollHeight - 2;
+    }
+
+    setCurrent(id) {
+      const link = this.links.get(id);
+      if (!link || link === this.currentLink) return;
+
+      this.currentLink?.removeAttribute('aria-current');
+      link.setAttribute('aria-current', 'true');
+      this.currentLink = link;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4E-001. Copiado de un fragmento de la documentacion.
+  //
+  // El boton nace con [hidden] en el Liquid y solo se revela aqui, cuando consta que el
+  // navegador tiene portapapeles. Sin JavaScript, o en un contexto sin permiso, el
+  // fragmento se sigue leyendo y seleccionando y no queda un boton inerte en pantalla.
+  // ---------------------------------------------------------------------------
+  class CopyText extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.trigger = this.querySelector('[data-copy-trigger]');
+      this.label = this.querySelector('[data-copy-label]');
+      this.status = this.querySelector('[data-copy-status]');
+      this.source = this.dataset.copySource
+        ? this.querySelector(this.dataset.copySource) || document.querySelector(this.dataset.copySource)
+        : null;
+
+      if (!this.trigger || !this.source || !navigator.clipboard?.writeText) return;
+
+      this.idleLabel = this.label?.textContent || '';
+      this.trigger.hidden = false;
+      this.listen(this.trigger, 'click', () => this.copy());
+    }
+
+    disconnectedCallback() {
+      clearTimeout(this.resetTimer);
+      super.disconnectedCallback();
+    }
+
+    async copy() {
+      try {
+        await navigator.clipboard.writeText(this.source.textContent.trim());
+      } catch {
+        // Un portapapeles denegado no es un error que el comerciante pueda resolver: se
+        // deja el texto como estaba y el fragmento sigue ahi para seleccionarlo a mano.
+        return;
+      }
+
+      const done = this.dataset.copiedLabel || this.idleLabel;
+      if (this.label && this.dataset.copiedLabel) this.label.textContent = done;
+      // El anuncio va en una region viva aparte: cambiar solo la etiqueta del boton no se
+      // lee en un lector de pantalla si el foco ya estaba en el.
+      if (this.status) this.status.textContent = this.dataset.copiedLabel || '';
+
+      clearTimeout(this.resetTimer);
+      this.resetTimer = setTimeout(() => {
+        if (this.label) this.label.textContent = this.idleLabel;
+        if (this.status) this.status.textContent = '';
+      }, 2000);
+    }
+  }
+
   class PasswordModal extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -3231,6 +3420,14 @@
     customElements.define('faq-accordion', FaqAccordion);
   }
 
+  if (!customElements.get('anchor-nav')) {
+    customElements.define('anchor-nav', AnchorNav);
+  }
+
+  if (!customElements.get('copy-text')) {
+    customElements.define('copy-text', CopyText);
+  }
+
   if (!customElements.get('password-modal')) {
     customElements.define('password-modal', PasswordModal);
   }
@@ -3447,7 +3644,28 @@
     });
   };
 
+  // ---------------------------------------------------------------------------
+  // 4E-001. Foco en el resultado de un formulario recien enviado.
+  //
+  // Los formularios nativos de Shopify (contacto, soporte, comentarios, contrasena)
+  // recargan la pagina entera al enviarse. El foco vuelve al principio del documento y la
+  // region viva no anuncia nada, porque no cambia despues de cargar: el visitante no oye
+  // ni ve el resultado de lo que acaba de enviar. El markup ya traia tabindex="-1" en
+  // esos mensajes desde su primera version, esperando justo esto.
+  // ---------------------------------------------------------------------------
+  const initFormMessageFocus = () => {
+    const message = document.querySelector('.form-message[tabindex="-1"]');
+    if (!message) return;
+
+    // Un frame de margen: el foco se mueve cuando la pagina ya esta compuesta, no a mitad
+    // del primer pintado, que es cuando el navegador todavia puede reajustar el scroll.
+    requestAnimationFrame(() => {
+      if (message.isConnected) message.focus();
+    });
+  };
+
   initScrollReveal();
   initHeaderScrollState();
   initQuantitySteppers();
+  initFormMessageFocus();
 })();

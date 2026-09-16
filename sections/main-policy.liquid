@@ -1,0 +1,103 @@
+{%- comment -%}
+  Plantilla de lectura para paginas legales (terminos, privacidad, envios, reembolsos).
+  El contenido lo escribe el comerciante en el editor de paginas; esta seccion solo pone
+  la medida de lectura, la jerarquia tipografica y, si hay suficientes encabezados, un
+  indice construido en el cliente.
+
+  El indice nace oculto y solo aparece si <anchor-nav> logra construirlo: sin JavaScript
+  no queda un control vacio en pantalla, y el texto legal se lee entero igual.
+{%- endcomment -%}
+
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'MainPolicyTitle-' | append: section.id
+  assign body_id = 'MainPolicyBody-' | append: section.id
+-%}
+
+<section class="section main-policy color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container">
+    <header class="main-policy__header flow">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="{{ title_id }}" class="main-policy__title">{{ page.title | escape }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <div class="rte lede">{{ section.settings.intro }}</div>
+      {%- endif -%}
+      {%- if section.settings.updated_at != blank -%}
+        <p class="main-policy__updated">
+          {{- 'policy.updated' | t: date: section.settings.updated_at -}}
+        </p>
+      {%- endif -%}
+    </header>
+
+    <div class="main-policy__layout">
+      {%- if section.settings.show_toc -%}
+        <anchor-nav
+          class="main-policy__nav"
+          data-anchor-source="#{{ body_id }}"
+          data-anchor-selector="h2"
+          data-anchor-prefix="MainPolicySection-{{ section.id }}"
+          hidden
+        >
+          <details class="anchor-nav__disclosure" data-anchor-disclosure open>
+            <summary class="anchor-nav__summary">
+              <span>{{ 'policy.contents' | t }}</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </summary>
+            <nav aria-label="{{ 'policy.contents' | t | escape }}">
+              <ol class="anchor-nav__list unstyled-list" data-anchor-list></ol>
+            </nav>
+          </details>
+        </anchor-nav>
+      {%- endif -%}
+
+      {%- if page.content != blank -%}
+        <div id="{{ body_id }}" class="main-policy__body rte">{{ page.content }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_policy.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "t:sections.all.intro.label"
+    },
+    {
+      "type": "text",
+      "id": "updated_at",
+      "label": "t:sections.main_policy.settings.updated_at.label",
+      "info": "t:sections.main_policy.settings.updated_at.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_toc",
+      "label": "t:sections.main_policy.settings.show_toc.label",
+      "info": "t:sections.main_policy.settings.show_toc.info",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.main_policy.presets.name"
+    }
+  ]
+}
+{% endschema %}

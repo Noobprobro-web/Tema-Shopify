@@ -1,0 +1,149 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-documentation",
+      "blocks": {
+        "doc_quick_start": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "quick-start",
+            "content": "<p>The theme is built for Online Store 2.0 with native vanilla JavaScript, so there is no framework to install and nothing to configure before the first preview.</p><ol><li>Download the theme zip file from your Shopify account or your Theme Store purchase.</li><li>In the Shopify admin, go to <strong>Online store &gt; Themes</strong>.</li><li>Under <strong>Theme library</strong>, choose <strong>Add theme &gt; Upload zip file</strong>.</li><li>Select the zip file and upload it.</li><li>Choose <strong>Customize</strong> to open the theme editor.</li></ol>",
+            "summary": "Upload the theme and open the editor.",
+            "title": "Quick start and installation"
+          }
+        },
+        "doc_quick_start_file": {
+          "type": "code_snippet",
+          "settings": {
+            "code": "Sartorial-1.0.0.zip",
+            "title": "Theme file"
+          }
+        },
+        "doc_presets": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "presets",
+            "content": "<p>Each preset changes theme settings only, so switching does not move or delete the content of your sections.</p>",
+            "summary": "Three starting points for different houses.",
+            "title": "Theme presets"
+          }
+        },
+        "doc_preset_sartorial": {
+          "type": "preset_card",
+          "settings": {
+            "badge": "Default",
+            "description": "<p>Warm editorial elegance for tailoring and bespoke fashion. Alabaster grounds, rich contrast and a serif voice.</p>",
+            "title": "Sartorial"
+          }
+        },
+        "doc_preset_edition": {
+          "type": "preset_card",
+          "settings": {
+            "badge": "Preset",
+            "description": "<p>Crisp architectural minimalism. High contrast type, sharp rules and gallery whitespace for contemporary fashion and accessories.</p>",
+            "title": "Edition"
+          }
+        },
+        "doc_preset_archive": {
+          "type": "preset_card",
+          "settings": {
+            "badge": "Preset",
+            "description": "<p>Heritage warmth with deeper tones and dramatic composition, for vintage curation, leather goods, watches and legacy houses.</p>",
+            "title": "Archive"
+          }
+        },
+        "doc_presets_tip": {
+          "type": "callout_box",
+          "settings": {
+            "text": "<p>To change preset, open <strong>Theme settings</strong> and pick one from the preset list at the top of the panel.</p>",
+            "tone": "tip"
+          }
+        },
+        "doc_colour": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "color-schemes",
+            "content": "<p>Colour schemes are configured in <strong>Theme settings &gt; Colours</strong>, and every section can carry its own scheme. Body and heading fonts, scale and weight live in <strong>Theme settings &gt; Typography</strong>, with system fallbacks handled for you.</p><p>The shipped schemes hold the contrast ratios that accessibility review asks for: 4.5:1 for text and 3:1 for interface boundaries. If you change the colours, keep that in mind.</p>",
+            "summary": "Where the palette and the type scale live.",
+            "title": "Colour schemes and typography"
+          }
+        },
+        "doc_sections": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "sections",
+            "content": "<ul><li><strong>Hero editorial:</strong> full viewport and split banners with separate desktop and mobile images, focal point control and alignment settings.</li><li><strong>Complete the look:</strong> shoppable bundles that add several products to the cart at once, each with its own variant picker.</li><li><strong>Lookbook:</strong> hotspots over a photograph that open product cards with live price and availability.</li><li><strong>Curated showcase:</strong> tabbed collections with keyboard support.</li><li><strong>Featured product:</strong> a standalone product with variant pickers, gallery and accelerated checkout.</li></ul>",
+            "summary": "The pieces that carry the storefront.",
+            "title": "Signature sections"
+          }
+        },
+        "doc_pdp": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "pdp",
+            "content": "<ul><li><strong>3D models and augmented reality:</strong> upload .glb or .gltf files to the product media gallery and the viewer starts on supported devices.</li><li><strong>Colour swatches:</strong> native Shopify category swatches, with either a colour or a swatch image.</li><li><strong>Line total:</strong> the total for the chosen quantity is recalculated as the shopper changes it, without touching the unit price above.</li><li><strong>Gift card recipient:</strong> name, email, message and send date for digital gift cards.</li><li><strong>Pickup availability:</strong> live local stock and pickup times.</li></ul>",
+            "summary": "Models, swatches, quantity and pickup.",
+            "title": "Product page and media"
+          }
+        },
+        "doc_cart": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "cart",
+            "content": "<ul><li>Free shipping progress with a threshold you set.</li><li>Order notes, terms checkbox and discount display.</li><li>Accelerated checkout buttons.</li><li>Quantity steppers that keep the cart in step with the server even under fast repeated taps.</li></ul>",
+            "summary": "What the slide-out cart can do.",
+            "title": "Cart drawer"
+          }
+        },
+        "doc_search": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "search-filters",
+            "content": "<p>Search suggests products, collections, pages and articles as the shopper types, through Shopify’s own predictive search.</p><p>Collection and search pages carry faceted filters that read prices written with a comma decimal separator and announce every result change to screen readers.</p>",
+            "summary": "How shoppers find things.",
+            "title": "Predictive search and filters"
+          }
+        },
+        "doc_support": {
+          "type": "doc_section",
+          "settings": {
+            "anchor": "support",
+            "content": "<p>Open a ticket from the support page of this store. Say which page you were on, what you expected and what happened, and include your store address.</p>",
+            "summary": "Where to write when something is wrong.",
+            "title": "Support and updates"
+          }
+        },
+        "doc_support_note": {
+          "type": "callout_box",
+          "settings": {
+            "text": "<p>Check that you are on the latest version of the theme before reporting an issue.</p>",
+            "tone": "info"
+          }
+        }
+      },
+      "block_order": [
+        "doc_quick_start",
+        "doc_quick_start_file",
+        "doc_presets",
+        "doc_preset_sartorial",
+        "doc_preset_edition",
+        "doc_preset_archive",
+        "doc_presets_tip",
+        "doc_colour",
+        "doc_sections",
+        "doc_pdp",
+        "doc_cart",
+        "doc_search",
+        "doc_support",
+        "doc_support_note"
+      ],
+      "settings": {
+        "eyebrow": "Theme documentation",
+        "intro": "<p>Setup, presets and a reference for every section of the theme.</p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

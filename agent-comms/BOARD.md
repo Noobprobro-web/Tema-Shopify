@@ -10,12 +10,12 @@ Estado general: FASE 4D CONCLUIDA (Hardening, Sistema Cinemático y Steppers Acc
 
 ---
 
-## 1. Sprint Activo: CIERRE DE FASE 4D — LISTO PARA COMMIT UNIFICADO
+## 1. Sprint Activo: SPRINT-4E-001 (Páginas Nativas y Plantillas Esenciales de Comercio) - EN CURSO
 
-**Meta del Sprint:** Culminación de Phase 4D (Hardening anti-carreras en Cart Drawer, recalibración de cadencia cinemática de lujo en scroll reveal y hover, y componente `.quantity-stepper` unificado con área táctil de 44px en Cart Drawer, `/cart`, PDP y Featured Product).
-**Estado:** 100% implementado, auditado y formalmente aprobado. Suite de 45 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas, 0 ofensas en Theme Check (92 ficheros), cero `shopify://` en código.
+**Meta del Sprint:** Implementar como plantillas JSON y secciones Liquid nativas las 5 páginas esenciales de comercio y Theme Store (Documentation, Support, FAQ, About/Story, Legal/Policy), eliminando la necesidad de pegar HTML en el editor y resolviendo la duplicación de formularios en `/pages/support`.
+**Estado:** Directiva emitida por Gemini Flash 3.8 High en `agent-comms/inbox-claude/CLAUDE-DIRECTIVE-4E-001-paginas-nativas.md`. Lista para ejecución por Claude.
 
-*Siguiente Paso:* Ejecutar commit unificado de Fase 4D y avanzar a publicación de páginas de documentación/soporte (DP-001).
+*Siguiente Paso:* Claude implementa las 5 plantillas, secciones modulares, estilos en base.css y claves de locale t:, pasando las 8 compuertas estáticas.
 
 ---
 

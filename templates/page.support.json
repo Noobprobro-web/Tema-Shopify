@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-support",
+      "blocks": {
+        "policy_covered": {
+          "type": "policy_card",
+          "settings": {
+            "title": "What is covered",
+            "items": "<ul><li>Help with theme settings, sections and preset configuration.</li><li>Fixing bugs and unexpected behaviour caused by the theme code.</li><li>Theme updates and maintenance releases.</li></ul>"
+          }
+        },
+        "policy_not_covered": {
+          "type": "policy_card",
+          "settings": {
+            "title": "What is not covered",
+            "items": "<ul><li>Custom code, bespoke features and custom Liquid.</li><li>Third-party apps and conflicts caused by external scripts.</li><li>Business advice, marketing consultation and SEO audits.</li></ul>"
+          }
+        },
+        "faq_presets": {
+          "type": "support_faq",
+          "settings": {
+            "question": "How do I switch between the Sartorial, Edition and Archive presets?",
+            "answer": "<p>Open your theme in the editor, go to theme settings and choose a preset at the top of the panel. Presets change settings only, so your section content stays where it is.</p>",
+            "open_by_default": true
+          }
+        },
+        "faq_models": {
+          "type": "support_faq",
+          "settings": {
+            "question": "How do 3D models and augmented reality work?",
+            "answer": "<p>Upload your .glb or .gltf files to the product media gallery in the Shopify admin. The theme starts the Shopify XR viewer on supported devices without any extra setup.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_swatches": {
+          "type": "support_faq",
+          "settings": {
+            "question": "How do I set up colour swatches for variants?",
+            "answer": "<p>The theme reads native Shopify category swatches. Categorise the option as colour in the admin and define the colour or swatch image on the variant.</p>",
+            "open_by_default": false
+          }
+        },
+        "channel_hours": {
+          "type": "contact_channel",
+          "settings": {
+            "title": "Studio hours",
+            "detail": "Monday to Friday"
+          }
+        },
+        "channel_docs": {
+          "type": "contact_channel",
+          "settings": {
+            "title": "Theme documentation",
+            "detail": "Setup guide and section reference"
+          }
+        },
+        "channel_updates": {
+          "type": "contact_channel",
+          "settings": {
+            "title": "Release notes",
+            "detail": "What changed in each version"
+          }
+        }
+      },
+      "block_order": [
+        "policy_covered",
+        "policy_not_covered",
+        "faq_presets",
+        "faq_models",
+        "faq_swatches",
+        "channel_hours",
+        "channel_docs",
+        "channel_updates"
+      ],
+      "settings": {
+        "eyebrow": "Theme support",
+        "intro": "<p>Dedicated assistance for merchants running this theme. Before you write, check that you are on the latest version and have a look at the documentation.</p>"
+      }
+    }
+  },
+  "order": ["main"]
+}

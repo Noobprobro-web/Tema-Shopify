@@ -1,0 +1,108 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-faq",
+      "blocks": {
+        "cat_shipping": {
+          "type": "category_header",
+          "settings": { "title": "Shipping and orders" }
+        },
+        "q_dispatch": {
+          "type": "faq_item",
+          "settings": {
+            "question": "When will my order be dispatched?",
+            "answer": "<p>Pieces held in the atelier leave within three business days. Made-to-order work carries its own dispatch estimate on the product page.</p>",
+            "open_by_default": false
+          }
+        },
+        "q_tracking": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I follow my parcel?",
+            "answer": "<p>A tracking link is sent as soon as the parcel leaves the studio. It can take a day before the carrier shows the first scan.</p>",
+            "open_by_default": false
+          }
+        },
+        "cat_sizing": {
+          "type": "category_header",
+          "settings": { "title": "Sizing and tailoring" }
+        },
+        "q_size": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Which size should I choose?",
+            "answer": "<p>Every product page carries the measurements of the piece and of the model wearing it. Write to us with your usual size and we will tell you how this cut behaves.</p>",
+            "open_by_default": false
+          }
+        },
+        "q_alterations": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you alter garments?",
+            "answer": "<p>Sleeve and hem adjustments are available on tailored pieces. Ask before ordering so the work is scheduled with the making.</p>",
+            "open_by_default": false
+          }
+        },
+        "cat_care": {
+          "type": "category_header",
+          "settings": { "title": "Garment care" }
+        },
+        "q_care": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How should I care for these fabrics?",
+            "answer": "<p>Care instructions travel with each piece. As a rule, natural fibres prefer airing over washing and a cool iron over a hot one.</p>",
+            "open_by_default": false
+          }
+        },
+        "q_repairs": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can a piece be repaired?",
+            "answer": "<p>Yes. Send a photograph and the order number and the studio will tell you what can be done and what it costs.</p>",
+            "open_by_default": false
+          }
+        },
+        "cat_returns": {
+          "type": "category_header",
+          "settings": { "title": "Returns and exchanges" }
+        },
+        "q_returns": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the return window?",
+            "answer": "<p>Unworn pieces can be returned within fourteen days of delivery, with their tags in place. Made-to-order work is final sale.</p>",
+            "open_by_default": false
+          }
+        },
+        "cta": {
+          "type": "unresolved_cta",
+          "settings": {
+            "title": "Still have a question?",
+            "text": "<p>Write to the atelier and a person will answer you.</p>",
+            "button_label": "Contact the atelier"
+          }
+        }
+      },
+      "block_order": [
+        "cat_shipping",
+        "q_dispatch",
+        "q_tracking",
+        "cat_sizing",
+        "q_size",
+        "q_alterations",
+        "cat_care",
+        "q_care",
+        "q_repairs",
+        "cat_returns",
+        "q_returns",
+        "cta"
+      ],
+      "settings": {
+        "eyebrow": "Answers",
+        "single_open": false
+      }
+    }
+  },
+  "order": ["main"]
+}

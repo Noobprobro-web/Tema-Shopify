@@ -4677,7 +4677,9 @@ product-recommendations:not([hidden]):empty {
 /* Content, editorial, and system templates */
 
 faq-accordion,
-password-modal {
+password-modal,
+anchor-nav,
+copy-text {
   display: block;
 }
 
@@ -4690,6 +4692,9 @@ password-modal {
 .form-message--error {
   padding: var(--space-md);
   border: 1px solid var(--color-border);
+  /* initFormMessageFocus lleva el foco aqui tras enviar un formulario. El margen evita
+     que la cabecera pegajosa tape el mensaje al que se acaba de saltar. */
+  scroll-margin-block-start: var(--space-4xl);
 }
 
 .form-message--success {
@@ -4893,6 +4898,7 @@ password-modal {
 }
 
 .contact-form,
+.support-form,
 .comment-form,
 .password-newsletter,
 .storefront-password-form {
@@ -4918,18 +4924,21 @@ password-modal {
 }
 
 .contact-form__grid,
+.support-form__grid,
 .comment-form__grid {
   display: grid;
   gap: var(--space-lg);
 }
 
-.contact-form__footer {
+.contact-form__footer,
+.support-form__footer {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
-.contact-form__submit {
+.contact-form__submit,
+.support-form__submit {
   min-height: 52px;
 }
 
@@ -5000,15 +5009,18 @@ password-modal {
   color: var(--color-foreground);
 }
 
-.main-contact__service-list {
+.main-contact__service-list,
+.main-support__channel-list {
   border-top: 1px solid var(--color-border);
 }
 
-.main-contact__service-list li {
+.main-contact__service-list li,
+.main-support__channel-list li {
   border-bottom: 1px solid var(--color-border);
 }
 
-.main-contact__service-link {
+.main-contact__service-link,
+.main-support__channel {
   display: flex;
   min-height: 64px;
   align-items: center;
@@ -5019,11 +5031,14 @@ password-modal {
 }
 
 .main-contact__service-link strong,
-.main-contact__service-link small {
+.main-contact__service-link small,
+.main-support__channel strong,
+.main-support__channel small {
   display: block;
 }
 
-.main-contact__service-link small {
+.main-contact__service-link small,
+.main-support__channel small {
   margin-block-start: var(--space-3xs);
   color: var(--color-foreground-muted);
 }
@@ -6253,6 +6268,532 @@ password-modal {
   .gift-card__actions,
   .gift-card__wallet {
     display: none;
+  }
+}
+
+/* =========================================================================
+   PAGINAS NATIVAS (Sprint 4E-001)
+   Documentacion, soporte, preguntas frecuentes, historia de marca y paginas
+   legales. Todo se apoya en los tokens ya existentes: ni un color, ni una
+   duracion, ni un espacio nuevos.
+   ========================================================================= */
+
+/* ---------- Indice de anclas, compartido por documentacion y paginas legales ---------- */
+.anchor-nav__disclosure {
+  border-block: 1px solid var(--color-border-hairline);
+}
+
+.anchor-nav__summary {
+  display: grid;
+  min-height: var(--tap-target-min);
+  grid-template-columns: minmax(0, 1fr) var(--tap-target-min);
+  align-items: center;
+  gap: var(--space-md);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: var(--font-letter-spacing-eyebrow);
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.anchor-nav__summary::-webkit-details-marker {
+  display: none;
+}
+
+.anchor-nav__list {
+  padding-block: var(--space-xs) var(--space-md);
+  counter-reset: anchor-nav;
+}
+
+.anchor-nav__link {
+  display: flex;
+  /* 44 px de alto por entrada: es una lista de navegacion, no una nota al pie. */
+  min-height: var(--tap-target-min);
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-foreground-muted);
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: color var(--motion-fast) var(--ease-move);
+}
+
+.anchor-nav__link::before {
+  counter-increment: anchor-nav;
+  content: counter(anchor-nav) '.';
+  font-variant-numeric: tabular-nums;
+  opacity: 0.5;
+}
+
+.anchor-nav__link:hover,
+.anchor-nav__link[aria-current] {
+  color: var(--color-foreground);
+}
+
+/* El apartado en pantalla se marca con peso, no solo con color: el color por si solo no
+   distingue nada para quien no lo percibe. */
+.anchor-nav__link[aria-current] {
+  font-weight: 700;
+}
+
+/* ---------- Documentacion ---------- */
+.main-documentation__header {
+  max-width: 46rem;
+}
+
+.main-documentation__layout {
+  display: grid;
+  gap: var(--space-2xl);
+  margin-block-start: var(--space-3xl);
+}
+
+.main-documentation__body {
+  display: grid;
+  gap: var(--space-2xl);
+  min-width: 0;
+}
+
+/* Un elemento de rejilla se mide por su contenido minimo salvo que se le diga lo
+   contrario. Sin esto, un comando largo dentro de un <pre> estira la columna entera y la
+   pagina acaba scrolleando en horizontal en movil, en vez de scrollear el bloque. */
+.main-documentation__body > * {
+  min-width: 0;
+}
+
+.doc-section {
+  scroll-margin-block-start: var(--space-3xl);
+}
+
+.doc-section__title {
+  font-size: calc(clamp(1.5rem, 3vw, 2.125rem) * var(--font-heading-scale));
+}
+
+.doc-section__summary {
+  margin-block: var(--space-xs) 0;
+  color: var(--color-foreground-muted);
+}
+
+.doc-section__content {
+  max-width: 68ch;
+  margin-block-start: var(--space-md);
+  line-height: 1.7;
+}
+
+.doc-section__content > * + * {
+  margin-block-start: var(--space-md);
+}
+
+/* Tarjetas, fragmentos y avisos comparten la medida del texto (68ch): la columna de
+   lectura se mantiene recta de arriba abajo en vez de ensancharse en cada pieza. */
+.doc-preset {
+  max-width: 68ch;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.doc-preset__badge {
+  margin-block-end: var(--space-xs);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: var(--font-letter-spacing-eyebrow);
+  text-transform: uppercase;
+}
+
+.doc-preset__description {
+  margin-block-start: var(--space-xs);
+  color: var(--color-foreground-muted);
+}
+
+.doc-snippet {
+  max-width: 68ch;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.doc-snippet__bar {
+  display: flex;
+  min-height: var(--tap-target-min);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-inline-start: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.doc-snippet__title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.doc-snippet__copy {
+  min-width: var(--tap-target-min);
+  min-height: var(--tap-target-min);
+  padding-inline: var(--space-md);
+  border: 0;
+  border-inline-start: 1px solid var(--color-border);
+  background: transparent;
+  color: currentColor;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: var(--font-letter-spacing-eyebrow);
+  text-transform: uppercase;
+  transition: background-color var(--motion-fast) var(--ease-move);
+}
+
+.doc-snippet__copy:hover {
+  background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+}
+
+.doc-snippet__copy:focus-visible {
+  outline-offset: -3px;
+}
+
+.doc-snippet__code {
+  /* El unico sitio del tema con tipografia monoespaciada: un fragmento de codigo se lee
+     mal en una serif editorial, y aqui la exactitud importa mas que el tono.
+
+     Y el unico sitio que se sale del overflow-wrap: anywhere global: un comando partido a
+     mitad de una ruta o de un flag se copia mal y se lee peor. Aqui el bloque scrollea. */
+  overflow-wrap: normal;
+  margin: 0;
+  padding: var(--space-md);
+  overflow-x: auto;
+  font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.doc-callout {
+  max-width: 68ch;
+  padding: var(--space-md) var(--space-lg);
+  border-inline-start: 3px solid var(--color-border);
+  background: var(--color-surface-subtle);
+}
+
+.doc-callout--tip {
+  border-inline-start-color: var(--color-accent);
+}
+
+/* Aviso importante: el unico que lleva el borde a plena intensidad. No se usa color para
+   comunicarlo, porque la etiqueta de texto ya dice lo que es. */
+.doc-callout--warning {
+  border-inline-start-color: var(--color-foreground);
+}
+
+.doc-callout__label {
+  margin-block-end: var(--space-2xs);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: var(--font-letter-spacing-eyebrow);
+  text-transform: uppercase;
+}
+
+.doc-callout__text {
+  color: var(--color-foreground-muted);
+}
+
+/* ---------- Soporte ---------- */
+.main-support__header {
+  max-width: 46rem;
+}
+
+.main-support__sla {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-inline: var(--space-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 0.8125rem;
+}
+
+.main-support__sla-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.main-support__layout {
+  display: grid;
+  gap: var(--space-3xl);
+  margin-block-start: var(--space-2xl);
+}
+
+.main-support__policies {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.main-support__policy {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  background: var(--gradient-background, var(--color-background));
+  color: var(--color-foreground);
+}
+
+.main-support__policy-title {
+  font-size: 1.125rem;
+}
+
+.main-support__policy-items {
+  margin-block-start: var(--space-sm);
+  color: var(--color-foreground-muted);
+  font-size: 0.9375rem;
+}
+
+.main-support__policy-items li + li {
+  margin-block-start: var(--space-2xs);
+}
+
+/* ---------- Preguntas frecuentes ---------- */
+.main-faq__header {
+  max-width: 42rem;
+}
+
+.main-faq__group + .main-faq__group {
+  margin-block-start: var(--space-2xl);
+}
+
+.main-faq__groups {
+  margin-block-start: var(--space-2xl);
+}
+
+.main-faq__category {
+  margin-block-end: var(--space-md);
+  font-size: calc(clamp(1.375rem, 2.5vw, 1.75rem) * var(--font-heading-scale));
+}
+
+.main-faq__category-description {
+  margin-block: calc(var(--space-md) * -1) var(--space-md);
+  color: var(--color-foreground-muted);
+}
+
+.main-faq__cta {
+  display: grid;
+  gap: var(--space-lg);
+  margin-block-start: var(--space-3xl);
+  padding: var(--space-xl);
+  background: var(--gradient-background, var(--color-background));
+  color: var(--color-foreground);
+}
+
+.main-faq__cta-title {
+  font-size: 1.5rem;
+}
+
+/* ---------- Historia de marca ---------- */
+.main-about__header {
+  max-width: 46rem;
+}
+
+.main-about__blocks {
+  display: grid;
+  gap: var(--space-4xl);
+  margin-block-start: var(--space-3xl);
+}
+
+.main-about__story-media {
+  position: relative;
+  overflow: hidden;
+  /* El ratio lo fija el bloque, asi que la caja reserva su altura antes de que llegue la
+     imagen y la pagina no salta al cargarla. */
+  aspect-ratio: var(--about-story-ratio, 21 / 9);
+  background: var(--color-surface);
+}
+
+.main-about__story-image,
+.main-about__gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-about__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.main-about__story-text {
+  max-width: 62ch;
+  margin-block-start: var(--space-lg);
+}
+
+.main-about__quote {
+  max-width: 34ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.main-about__quote-text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-heading-family);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.main-about__quote-attribution {
+  margin-block-start: var(--space-md);
+  font-size: 0.8125rem;
+}
+
+.main-about__quote-name,
+.main-about__quote-role {
+  display: block;
+}
+
+.main-about__quote-role {
+  color: var(--color-foreground-muted);
+}
+
+.main-about__values-title,
+.main-about__gallery-title {
+  margin-block-end: var(--space-lg);
+  font-size: calc(clamp(1.375rem, 2.5vw, 1.75rem) * var(--font-heading-scale));
+}
+
+.main-about__values-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.main-about__value {
+  padding-block-start: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.main-about__value-title {
+  font-size: 1.125rem;
+}
+
+.main-about__value-text {
+  margin-block-start: var(--space-xs);
+  color: var(--color-foreground-muted);
+}
+
+.main-about__gallery-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.main-about__gallery-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--color-surface);
+}
+
+.main-about__gallery-caption {
+  margin-block-start: var(--space-md);
+  color: var(--color-foreground-muted);
+  font-size: 0.8125rem;
+}
+
+/* ---------- Paginas legales ---------- */
+.main-policy__header {
+  max-width: 46rem;
+}
+
+.main-policy__updated {
+  color: var(--color-foreground-muted);
+  font-size: 0.8125rem;
+}
+
+.main-policy__layout {
+  display: grid;
+  gap: var(--space-2xl);
+  margin-block-start: var(--space-2xl);
+}
+
+.main-policy__body {
+  /* 70ch: la medida de lectura de un texto legal largo. Por encima de 75 el ojo pierde el
+     principio de la linea siguiente, y este es contenido que la gente lee entero. */
+  max-width: 70ch;
+  min-width: 0;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.main-policy__body > * + * {
+  margin-block-start: var(--space-lg);
+}
+
+.main-policy__body h2 {
+  margin-block-start: var(--space-2xl);
+  font-size: calc(clamp(1.375rem, 2.5vw, 1.75rem) * var(--font-heading-scale));
+  scroll-margin-block-start: var(--space-3xl);
+}
+
+.main-policy__body h3 {
+  margin-block-start: var(--space-xl);
+  font-size: 1.1875rem;
+}
+
+.main-policy__body h2 + *,
+.main-policy__body h3 + * {
+  margin-block-start: var(--space-sm);
+}
+
+.main-policy__body li + li {
+  margin-block-start: var(--space-xs);
+}
+
+@media (min-width: 62rem) {
+  .main-documentation__layout,
+  .main-policy__layout {
+    grid-template-columns: minmax(12rem, 0.24fr) minmax(0, 1fr);
+    gap: var(--space-4xl);
+    align-items: start;
+  }
+
+  /* La barra lateral acompana al scroll, pero nunca supera la altura de la ventana: con
+     un indice largo, lo que sobra se desplaza dentro de ella en vez de quedar fuera. */
+  .main-documentation__nav,
+  .main-policy__nav {
+    position: sticky;
+    top: var(--space-2xl);
+    max-height: calc(100vh - (var(--space-2xl) * 2));
+    overflow-y: auto;
+  }
+
+  .main-support__layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
+    gap: var(--space-4xl);
+    align-items: start;
+  }
+
+  .support-form__grid,
+  .main-support__policies {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .support-form__footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .main-about__values-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .main-about__gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    grid-auto-flow: column;
+  }
+
+  .main-faq__cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
   }
 }
 

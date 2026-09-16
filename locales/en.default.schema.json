@@ -1199,6 +1199,236 @@
         "name": "Contact and FAQ"
       }
     },
+    "main_documentation": {
+      "name": "Theme documentation",
+      "blocks": {
+        "doc_section": {
+          "name": "Documentation section",
+          "settings": {
+            "anchor": {
+              "label": "Anchor",
+              "info": "Used in the table of contents link, for example quick-start. Leave empty to build it from the heading. Each anchor must be unique on the page."
+            },
+            "summary": {
+              "label": "Short summary"
+            }
+          }
+        },
+        "preset_card": {
+          "name": "Preset card",
+          "settings": {
+            "title": {
+              "label": "Preset name"
+            },
+            "badge": {
+              "label": "Badge"
+            }
+          }
+        },
+        "code_snippet": {
+          "name": "Code snippet",
+          "settings": {
+            "title": {
+              "label": "File or label"
+            },
+            "code": {
+              "label": "Snippet",
+              "info": "Shown in a monospaced block with a copy button."
+            }
+          }
+        },
+        "callout_box": {
+          "name": "Callout",
+          "settings": {
+            "tone": {
+              "label": "Tone",
+              "options__info": {
+                "label": "Note"
+              },
+              "options__tip": {
+                "label": "Tip"
+              },
+              "options__warning": {
+                "label": "Important"
+              }
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Theme documentation"
+      }
+    },
+    "main_support": {
+      "name": "Theme support",
+      "settings": {
+        "sla": {
+          "label": "Response time badge",
+          "info": "Shown under the introduction. Leave empty to hide it."
+        },
+        "single_open_faq": {
+          "label": "Open one answer at a time"
+        },
+        "card_color_scheme": {
+          "label": "Support policy card colour scheme"
+        }
+      },
+      "blocks": {
+        "policy_card": {
+          "name": "Support policy card",
+          "settings": {
+            "items": {
+              "label": "Points",
+              "info": "A bulleted list reads best here."
+            }
+          }
+        },
+        "support_faq": {
+          "name": "Technical question"
+        },
+        "contact_channel": {
+          "name": "Contact channel",
+          "settings": {
+            "detail": {
+              "label": "Detail"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Theme support"
+      }
+    },
+    "main_about": {
+      "name": "Brand story",
+      "blocks": {
+        "hero_story": {
+          "name": "Story panel",
+          "settings": {
+            "image_ratio": {
+              "label": "Image ratio",
+              "options__panoramic": {
+                "label": "Panoramic"
+              },
+              "options__wide": {
+                "label": "Wide"
+              },
+              "options__landscape": {
+                "label": "Landscape"
+              },
+              "options__portrait": {
+                "label": "Portrait"
+              }
+            }
+          }
+        },
+        "artisan_quote": {
+          "name": "Artisan quote",
+          "settings": {
+            "role": {
+              "label": "Role"
+            }
+          }
+        },
+        "values_grid": {
+          "name": "Values",
+          "settings": {
+            "value_1_title": {
+              "label": "First value"
+            },
+            "value_1_text": {
+              "label": "First value text"
+            },
+            "value_2_title": {
+              "label": "Second value"
+            },
+            "value_2_text": {
+              "label": "Second value text"
+            },
+            "value_3_title": {
+              "label": "Third value"
+            },
+            "value_3_text": {
+              "label": "Third value text"
+            }
+          }
+        },
+        "atelier_gallery": {
+          "name": "Atelier gallery",
+          "settings": {
+            "image_1": {
+              "label": "First image"
+            },
+            "image_2": {
+              "label": "Second image"
+            },
+            "image_3": {
+              "label": "Third image"
+            },
+            "show_third_image": {
+              "label": "Show a third image",
+              "info": "Turn this off for a two image mosaic."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Brand story"
+      }
+    },
+    "main_faq": {
+      "name": "FAQ",
+      "settings": {
+        "single_open": {
+          "label": "Open one answer at a time",
+          "info": "Opening an answer closes the others in the same category."
+        },
+        "cta_color_scheme": {
+          "label": "Closing card colour scheme"
+        }
+      },
+      "blocks": {
+        "category_header": {
+          "name": "Category heading"
+        },
+        "faq_item": {
+          "name": "Question",
+          "settings": {
+            "question": {
+              "label": "Question"
+            },
+            "answer": {
+              "label": "Answer"
+            },
+            "open_by_default": {
+              "label": "Open by default"
+            }
+          }
+        },
+        "unresolved_cta": {
+          "name": "Closing card"
+        }
+      },
+      "presets": {
+        "name": "FAQ"
+      }
+    },
+    "main_policy": {
+      "name": "Legal page",
+      "settings": {
+        "updated_at": {
+          "label": "Last updated",
+          "info": "Shown under the page title. Leave empty to hide it."
+        },
+        "show_toc": {
+          "label": "Show table of contents",
+          "info": "Built from the heading level 2 titles in the page content. Hidden when the page has fewer than two."
+        }
+      },
+      "presets": {
+        "name": "Legal page"
+      }
+    },
     "main_password": {
       "name": "Password page",
       "settings": {

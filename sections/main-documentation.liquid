@@ -1,0 +1,285 @@
+{%- comment -%}
+  Documentacion del tema para el comerciante, servida por la propia tienda.
+
+  Existe para que nadie tenga que pegar HTML en un editor de texto enriquecido: cada
+  apartado, tarjeta de preset, fragmento de codigo y aviso es un bloque con sus ajustes.
+
+  El indice lateral se construye en el Liquid, no en el cliente, porque los anclajes son
+  un ajuste del bloque y el servidor los conoce. <anchor-nav> solo anade el seguimiento
+  del scroll encima de unos enlaces que ya funcionan sin JavaScript.
+{%- endcomment -%}
+
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign title_id = 'MainDocumentationTitle-' | append: section.id
+  assign doc_count = 0
+
+  for block in section.blocks
+    if block.type == 'doc_section'
+      assign doc_count = doc_count | plus: 1
+    endif
+  endfor
+-%}
+
+<section class="section main-documentation color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+  <div class="container">
+    <header class="main-documentation__header flow">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 id="{{ title_id }}" class="main-documentation__title">{{ page.title | escape }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <div class="rte lede">{{ section.settings.intro }}</div>
+      {%- endif -%}
+      {%- if page.content != blank -%}
+        <div class="rte main-documentation__page-content">{{ page.content }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="main-documentation__layout">
+      {%- if doc_count > 1 -%}
+        <anchor-nav class="main-documentation__nav">
+          <details class="anchor-nav__disclosure" data-anchor-disclosure open>
+            <summary class="anchor-nav__summary">
+              <span>{{ 'documentation.contents' | t }}</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </summary>
+            <nav aria-label="{{ 'documentation.contents' | t | escape }}">
+              <ol class="anchor-nav__list unstyled-list" data-anchor-list>
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'doc_section' -%}
+                    {%- liquid
+                      assign doc_anchor = block.settings.anchor | handleize
+                      if doc_anchor == blank
+                        assign doc_anchor = block.settings.title | handleize
+                      endif
+                    -%}
+                    <li>
+                      <a class="anchor-nav__link" href="#{{ doc_anchor }}" data-anchor-link>
+                        {{- block.settings.title | escape -}}
+                      </a>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ol>
+            </nav>
+          </details>
+        </anchor-nav>
+      {%- endif -%}
+
+      <div class="main-documentation__body">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'doc_section' -%}
+              {%- liquid
+                assign doc_anchor = block.settings.anchor | handleize
+                if doc_anchor == blank
+                  assign doc_anchor = block.settings.title | handleize
+                endif
+              -%}
+              <article id="{{ doc_anchor }}" class="doc-section" {{ block.shopify_attributes }}>
+                <h2 class="doc-section__title">{{ block.settings.title | escape }}</h2>
+                {%- if block.settings.summary != blank -%}
+                  <p class="doc-section__summary">{{ block.settings.summary | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.content != blank -%}
+                  <div class="rte doc-section__content">{{ block.settings.content }}</div>
+                {%- endif -%}
+              </article>
+
+            {%- when 'preset_card' -%}
+              <article class="doc-preset" {{ block.shopify_attributes }}>
+                {%- if block.settings.badge != blank -%}
+                  <p class="doc-preset__badge">{{ block.settings.badge | escape }}</p>
+                {%- endif -%}
+                <h3 class="doc-preset__name">{{ block.settings.title | escape }}</h3>
+                {%- if block.settings.description != blank -%}
+                  <div class="rte doc-preset__description">{{ block.settings.description }}</div>
+                {%- endif -%}
+              </article>
+
+            {%- when 'code_snippet' -%}
+              {%- liquid
+                assign snippet_id = 'DocSnippet-' | append: block.id
+                assign snippet_status_id = 'DocSnippetStatus-' | append: block.id
+              -%}
+              <copy-text
+                class="doc-snippet"
+                data-copy-source="#{{ snippet_id }}"
+                data-copied-label="{{ 'documentation.copied' | t | escape }}"
+                {{ block.shopify_attributes }}
+              >
+                <div class="doc-snippet__bar">
+                  {%- if block.settings.title != blank -%}
+                    <p class="doc-snippet__title">{{ block.settings.title | escape }}</p>
+                  {%- endif -%}
+                  {%- comment -%}
+                    El boton nace oculto y solo lo muestra <copy-text> si el navegador tiene
+                    portapapeles: sin JavaScript el codigo se sigue leyendo y seleccionando,
+                    y no queda un boton que no hace nada.
+                  {%- endcomment -%}
+                  <button class="doc-snippet__copy" type="button" data-copy-trigger hidden>
+                    <span data-copy-label>{{ 'documentation.copy' | t }}</span>
+                  </button>
+                </div>
+                <pre class="doc-snippet__code"><code id="{{ snippet_id }}">{{- block.settings.code -}}</code></pre>
+                <p id="{{ snippet_status_id }}" class="visually-hidden" role="status" data-copy-status></p>
+              </copy-text>
+
+            {%- when 'callout_box' -%}
+              <aside class="doc-callout doc-callout--{{ block.settings.tone }}" {{ block.shopify_attributes }}>
+                <p class="doc-callout__label">
+                  {%- case block.settings.tone -%}
+                    {%- when 'tip' -%}
+                      {{ 'documentation.callout.tip' | t }}
+                    {%- when 'warning' -%}
+                      {{ 'documentation.callout.warning' | t }}
+                    {%- else -%}
+                      {{ 'documentation.callout.info' | t }}
+                  {%- endcase -%}
+                </p>
+                {%- if block.settings.text != blank -%}
+                  <div class="rte doc-callout__text">{{ block.settings.text }}</div>
+                {%- endif -%}
+              </aside>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_documentation.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "t:sections.all.intro.label"
+    }
+  ],
+  "max_blocks": 50,
+  "blocks": [
+    {
+      "type": "doc_section",
+      "name": "t:sections.main_documentation.blocks.doc_section.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.all.heading.label",
+          "default": "Quick start"
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "t:sections.main_documentation.blocks.doc_section.settings.anchor.label",
+          "info": "t:sections.main_documentation.blocks.doc_section.settings.anchor.info"
+        },
+        {
+          "type": "text",
+          "id": "summary",
+          "label": "t:sections.main_documentation.blocks.doc_section.settings.summary.label"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.all.body.label",
+          "default": "<p>Explain this part of the theme in a few short paragraphs.</p>"
+        }
+      ]
+    },
+    {
+      "type": "preset_card",
+      "name": "t:sections.main_documentation.blocks.preset_card.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.main_documentation.blocks.preset_card.settings.title.label",
+          "default": "Sartorial"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "t:sections.main_documentation.blocks.preset_card.settings.badge.label",
+          "default": "Default"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:sections.all.description.label",
+          "default": "<p>Describe the look this preset gives the store.</p>"
+        }
+      ]
+    },
+    {
+      "type": "code_snippet",
+      "name": "t:sections.main_documentation.blocks.code_snippet.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.main_documentation.blocks.code_snippet.settings.title.label"
+        },
+        {
+          "type": "textarea",
+          "id": "code",
+          "label": "t:sections.main_documentation.blocks.code_snippet.settings.code.label",
+          "info": "t:sections.main_documentation.blocks.code_snippet.settings.code.info"
+        }
+      ]
+    },
+    {
+      "type": "callout_box",
+      "name": "t:sections.main_documentation.blocks.callout_box.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tone",
+          "label": "t:sections.main_documentation.blocks.callout_box.settings.tone.label",
+          "options": [
+            {
+              "value": "info",
+              "label": "t:sections.main_documentation.blocks.callout_box.settings.tone.options__info.label"
+            },
+            {
+              "value": "tip",
+              "label": "t:sections.main_documentation.blocks.callout_box.settings.tone.options__tip.label"
+            },
+            {
+              "value": "warning",
+              "label": "t:sections.main_documentation.blocks.callout_box.settings.tone.options__warning.label"
+            }
+          ],
+          "default": "info"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.all.text.label",
+          "default": "<p>Use this to flag something the merchant should not miss.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.main_documentation.presets.name"
+    }
+  ]
+}
+{% endschema %}
