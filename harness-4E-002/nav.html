@@ -1,0 +1,36 @@
+<!doctype html><html class="js" data-animations="subtle"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="base.css"></head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <nav class="site-header__desktop-nav" aria-label="Primary">
+        <ul class="desktop-nav unstyled-list" role="list">
+          <li>
+            <theme-disclosure class="desktop-nav__disclosure" data-disclosure-arrows>
+              <button class="desktop-nav__toggle" type="button" aria-expanded="false" aria-controls="dm1" data-disclosure-trigger id="nav-trigger"><span>Shop</span></button>
+              <div id="dm1" class="desktop-nav__panel" data-disclosure-panel hidden>
+                <ul class="desktop-nav__submenu unstyled-list" role="list">
+                  <li><a href="#all" id="lnk-all">View all</a></li>
+                  <li><a href="#coats" id="lnk-coats">Coats</a></li>
+                  <li><a href="#knit" id="lnk-knit">Knitwear</a></li>
+                </ul>
+              </div>
+            </theme-disclosure>
+          </li>
+        </ul>
+      </nav>
+      <a class="site-header__brand" href="/"><span class="site-header__brand-text">Atelier</span></a>
+      <div class="site-header__actions">
+        <nav class="site-header__secondary" aria-label="Secondary">
+          <ul class="site-header__secondary-list unstyled-list" role="list">
+            <li><a href="/pages/documentation">Documentation</a></li>
+            <li><a href="/pages/support">Support</a></li>
+          </ul>
+        </nav>
+        <a class="icon-button site-header__cart" href="/cart" aria-label="Cart">Cart</a>
+      </div>
+    </div>
+  </header>
+  <script src="theme.js"></script>
+</body></html>

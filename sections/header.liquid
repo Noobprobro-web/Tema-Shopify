@@ -80,6 +80,18 @@
              </ul>
            </nav>
 
+          {%- if section.settings.secondary_menu.links.size > 0 -%}
+            <div class="drawer-panel__secondary">
+              <nav aria-label="{{ 'general.navigation.secondary' | t }}">
+                <ul class="drawer-panel__secondary-list unstyled-list" role="list">
+                  {%- for link in section.settings.secondary_menu.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </nav>
+            </div>
+          {%- endif -%}
+
           <div class="mobile-nav__localization">
             {% render 'localization-selectors', context: 'header-mobile' %}
           </div>
@@ -92,7 +104,7 @@
         {%- for link in section.settings.menu.links -%}
           <li>
             {%- if link.links != blank -%}
-              <theme-disclosure class="desktop-nav__disclosure">
+              <theme-disclosure class="desktop-nav__disclosure" data-disclosure-arrows>
                 <button
                   class="desktop-nav__toggle"
                   type="button"
@@ -153,6 +165,20 @@
     </a>
 
      <div class="site-header__actions">
+      {%- comment -%}
+        Los mismos enlaces aparecen al pie del menu lateral en movil, donde hay sitio. Aqui
+        se muestran solo desde 62rem, que es donde empieza la navegacion de escritorio.
+      {%- endcomment -%}
+      {%- if section.settings.secondary_menu.links.size > 0 -%}
+        <nav class="site-header__secondary" aria-label="{{ 'general.navigation.secondary' | t }}">
+          <ul class="site-header__secondary-list unstyled-list" role="list">
+            {%- for link in section.settings.secondary_menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
       {% render 'predictive-search', section: section %}
 
       {%- if shop.customer_accounts_enabled -%}
@@ -194,6 +220,12 @@
       "id": "color_scheme",
       "label": "t:sections.header.settings.color_scheme.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "t:sections.header.settings.secondary_menu.label",
+      "info": "t:sections.header.settings.secondary_menu.info"
     },
     {
       "type": "link_list",

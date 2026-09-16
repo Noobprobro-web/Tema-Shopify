@@ -1,0 +1,73 @@
+<!doctype html><html class="js" data-animations="none"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="base.css"></head>
+<body>
+  <main id="page" class="container">
+    <variant-selects
+      class="product-main__details"
+      data-product-url="/products/serra-coat"
+      data-add-to-cart-text="Add to cart"
+      data-sold-out-text="Sold out"
+      data-unavailable-text="Unavailable"
+      data-available-status="Variant available."
+      data-sold-out-status="Variant sold out."
+      data-one-time-text="One-time purchase"
+      data-selling-plan-unavailable-text="Unavailable"
+      data-per-delivery-template="[price] per delivery"
+      data-money-format="${{amount}}"
+      data-line-total-template="Total for [quantity]"
+    >
+      <p class="price"><span data-current-price>$1,890.00</span></p>
+
+      <fieldset>
+        <legend>Colour</legend>
+        <label for="opt-camel">Camel</label>
+        <input id="opt-camel" type="radio" name="Colour" value="Camel" data-option-position="1" checked>
+        <label for="opt-ink">Ink</label>
+        <input id="opt-ink" type="radio" name="Colour" value="Ink" data-option-position="1">
+        <label for="opt-bone">Bone</label>
+        <input id="opt-bone" type="radio" name="Colour" value="Bone" data-option-position="1">
+      </fieldset>
+
+      <div class="product-form__quantity">
+        <label for="Quantity-pdp">Quantity</label>
+        <div class="quantity-stepper product-form__stepper" data-quantity-stepper>
+          <button class="quantity-stepper__button" type="button" name="minus" aria-label="Decrease quantity for Serra coat" aria-controls="Quantity-pdp" data-quantity-button="decrease" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14"></path></svg></button>
+          <input id="Quantity-pdp" class="quantity-stepper__input" type="number" name="quantity" form="pdp-form" value="1" min="1" step="1" inputmode="numeric" required data-quantity-input>
+          <button class="quantity-stepper__button" type="button" name="plus" aria-label="Increase quantity for Serra coat" aria-controls="Quantity-pdp" data-quantity-button="increase"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"></path></svg></button>
+        </div>
+        <p class="product-form__line-total" data-line-total data-empty aria-live="polite" aria-atomic="true">
+          <span data-line-total-label></span>
+          <s data-line-total-compare hidden><span data-line-total-compare-value></span></s>
+          <span data-line-total-current></span>
+        </p>
+      </div>
+
+      <form id="pdp-form" data-cart-add-form action="/cart/add" method="post">
+        <input type="hidden" name="id" value="101" data-variant-id>
+        <button type="submit" name="add" data-add-to-cart><span data-add-to-cart-text>Add to cart</span></button>
+      </form>
+
+      <script type="application/json" data-variant-json>
+      [
+        { "id": 101, "title": "Camel", "available": true, "options": ["Camel"],
+          "price": "$1,890.00", "price_cents": 189000, "compare_at_price": null, "compare_at_price_cents": null,
+          "unit_price": null, "unit_reference_value": null, "unit_reference_unit": null, "featured_media_id": null,
+          "quantity_min": 1, "quantity_increment": 1, "quantity_max": null,
+          "requires_selling_plan": false, "selling_plan_allocations": [] },
+        { "id": 102, "title": "Ink", "available": true, "options": ["Ink"],
+          "price": "$1,890.00", "price_cents": 189000, "compare_at_price": null, "compare_at_price_cents": null,
+          "unit_price": null, "unit_reference_value": null, "unit_reference_unit": null, "featured_media_id": null,
+          "quantity_min": 4, "quantity_increment": 2, "quantity_max": 10,
+          "requires_selling_plan": false, "selling_plan_allocations": [] },
+        { "id": 103, "title": "Bone", "available": true, "options": ["Bone"],
+          "price": "$1,890.00", "price_cents": 189000, "compare_at_price": null, "compare_at_price_cents": null,
+          "unit_price": null, "unit_reference_value": null, "unit_reference_unit": null, "featured_media_id": null,
+          "quantity_min": 1, "quantity_increment": 1, "quantity_max": 6,
+          "requires_selling_plan": false, "selling_plan_allocations": [] }
+      ]
+      </script>
+    </variant-selects>
+  </main>
+  <script src="theme.js"></script>
+</body></html>

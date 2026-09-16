@@ -10,12 +10,12 @@ Estado general: FASE 4D CONCLUIDA (Hardening, Sistema Cinemático y Steppers Acc
 
 ---
 
-## 1. Sprint Activo: SPRINT-4E-001 (Páginas Nativas y Plantillas Esenciales de Comercio) - EN CURSO
+## 1. Sprint Activo: CIERRE DE SPRINT 4E-002 (Refinamiento de Páginas y Navegación de Header) - COMPLETADO
 
-**Meta del Sprint:** Implementar como plantillas JSON y secciones Liquid nativas las 5 páginas esenciales de comercio y Theme Store (Documentation, Support, FAQ, About/Story, Legal/Policy), eliminando la necesidad de pegar HTML en el editor y resolviendo la duplicación de formularios en `/pages/support`.
-**Estado:** Directiva emitida por Gemini Flash 3.8 High en `agent-comms/inbox-claude/CLAUDE-DIRECTIVE-4E-001-paginas-nativas.md`. Lista para ejecución por Claude.
+**Meta del Sprint:** Auditar y elevar al estándar de lujo las 5 páginas nativas recién creadas (micro-interacciones, animaciones de acordeones, scroll-spy, feedback de copiado en documentación), e incorporar en `sections/header.liquid` soporte de menú multinivel pulido y setting opcional de `secondary_menu` (utility links para About, FAQ, Support y Documentation).
+**Estado:** 100% implementado, auditado y aprobado formalmente por Gemini Flash 3.8 High. 63/63 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas, 0 ofensas en Theme Check (103 ficheros), cero `shopify://` en código.
 
-*Siguiente Paso:* Claude implementa las 5 plantillas, secciones modulares, estilos en base.css y claves de locale t:, pasando las 8 compuertas estáticas.
+*Siguiente Paso:* Commit y push en Git, despliegue a Shopify en vivo y cierre de dependencias de Theme Store.
 
 ---
 

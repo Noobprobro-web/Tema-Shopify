@@ -1,0 +1,37 @@
+<!doctype html><html class="js" data-animations="subtle"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="base.css"></head>
+<body>
+  <section class="section main-faq">
+    <div class="container container--narrow">
+      <header class="main-faq__header flow"><h1 class="main-faq__title">Questions</h1></header>
+
+      <faq-filter class="main-faq__search js-only" data-filter-count-template="Matches: [count]">
+        <div class="form-field">
+          <label for="q">Search the questions</label>
+          <input id="q" type="search" autocomplete="off" placeholder="Shipping, sizing, returns" aria-describedby="qs" data-filter-input>
+        </div>
+        <p id="qs" class="main-faq__search-status" role="status" aria-live="polite" data-filter-status></p>
+        <p class="main-faq__search-empty" data-filter-empty hidden>No question matches that search.</p>
+      </faq-filter>
+
+      <div class="main-faq__groups">
+        <div class="main-faq__group" data-filter-group id="grp-ship">
+          <h2 class="main-faq__category">Shipping and orders</h2>
+          <faq-accordion>
+            <details class="faq-item" id="q-dispatch"><summary class="faq-item__summary"><span>When will my order be dispatched?</span><span class="faq-item__icon" aria-hidden="true"></span></summary><div class="faq-item__answer rte"><p>Pieces leave within three business days.</p></div></details>
+            <details class="faq-item" id="q-tracking"><summary class="faq-item__summary"><span>How do I follow my parcel?</span><span class="faq-item__icon" aria-hidden="true"></span></summary><div class="faq-item__answer rte"><p>A tracking link is sent when it leaves.</p></div></details>
+          </faq-accordion>
+        </div>
+        <div class="main-faq__group" data-filter-group id="grp-size">
+          <h2 class="main-faq__category">Sizing and tailoring</h2>
+          <faq-accordion>
+            <details class="faq-item" id="q-size"><summary class="faq-item__summary"><span>Which size should I choose?</span><span class="faq-item__icon" aria-hidden="true"></span></summary><div class="faq-item__answer rte"><p>Every product page carries the measurements.</p></div></details>
+            <details class="faq-item" id="q-envio"><summary class="faq-item__summary"><span>Cuanto cuesta el envío internacional?</span><span class="faq-item__icon" aria-hidden="true"></span></summary><div class="faq-item__answer rte"><p>Depende del destino.</p></div></details>
+          </faq-accordion>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="theme.js"></script>
+</body></html>

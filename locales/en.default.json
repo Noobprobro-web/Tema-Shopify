@@ -9,6 +9,7 @@
       "home": "Home",
       "menu": "Menu",
       "primary": "Primary navigation",
+      "secondary": "Secondary",
       "footer": "Footer navigation",
       "view_all": "View all {{ title }}"
     },
@@ -187,6 +188,14 @@
     "services": {
       "title": "Direct studio contacts",
       "response": "Response standard: two business days"
+    }
+  },
+  "faq": {
+    "search": {
+      "label": "Search the questions",
+      "placeholder": "Shipping, sizing, returns",
+      "results": "Matches: {{ count }}",
+      "empty": "No question matches that search. Try a shorter word, or write to the atelier."
     }
   },
   "documentation": {

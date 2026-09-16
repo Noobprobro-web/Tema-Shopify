@@ -366,6 +366,10 @@
         "menu": {
           "label": "Menu"
         },
+        "secondary_menu": {
+          "label": "Secondary menu",
+          "info": "Optional menu for documentation, support or about links. Shown beside the header actions and at the bottom of the mobile menu."
+        },
         "color_scheme": {
           "label": "Color scheme"
         },
@@ -1382,6 +1386,10 @@
         "single_open": {
           "label": "Open one answer at a time",
           "info": "Opening an answer closes the others in the same category."
+        },
+        "show_search": {
+          "label": "Show the instant search field",
+          "info": "Filters the questions as the shopper types. Hidden when the page has fewer than two questions, or when JavaScript is unavailable."
         },
         "cta_color_scheme": {
           "label": "Closing card colour scheme"

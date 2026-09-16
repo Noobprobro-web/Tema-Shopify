@@ -173,15 +173,59 @@
         if (this.isOpen && !this.contains(event.target)) this.setOpen(false);
       });
       this.listen(this, 'keydown', (event) => {
-        if (event.key !== 'Escape' || !this.isOpen) return;
-        event.preventDefault();
-        event.stopPropagation();
-        this.setOpen(false, true);
+        if (event.key === 'Escape' && this.isOpen) {
+          event.preventDefault();
+          event.stopPropagation();
+          this.setOpen(false, true);
+          return;
+        }
+
+        // Las flechas son opcionales en un menu de divulgacion: la navegacion esperada es
+        // Tab, y en el cajon movil capturar ArrowDown le quitaria el scroll al teclado.
+        // Por eso las pide quien las quiere, con data-disclosure-arrows.
+        if (this.dataset.disclosureArrows !== undefined) this.handleArrowKeys(event);
       });
     }
 
     get isOpen() {
       return this.trigger?.getAttribute('aria-expanded') === 'true';
+    }
+
+    get focusableLinks() {
+      return Array.from(this.panel?.querySelectorAll('a[href]') || []);
+    }
+
+    handleArrowKeys(event) {
+      const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
+      if (!keys.includes(event.key)) return;
+
+      // Desde el disparador, bajar abre el panel y entra en el: es el gesto que espera
+      // quien navega con teclado, y ahorra un Tab.
+      if (event.target === this.trigger && event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (!this.isOpen) this.setOpen(true);
+        this.focusableLinks[0]?.focus();
+        return;
+      }
+
+      const links = this.focusableLinks;
+      const index = links.indexOf(event.target);
+      if (index === -1) return;
+
+      event.preventDefault();
+      let next = index;
+      if (event.key === 'ArrowDown') next = index + 1;
+      else if (event.key === 'ArrowUp') next = index - 1;
+      else if (event.key === 'Home') next = 0;
+      else next = links.length - 1;
+
+      // Sin ciclo: al pasarse por arriba se vuelve al disparador, y por abajo no se mueve.
+      // Envolver la lista deja a quien no ve la pantalla sin saber donde termina.
+      if (next < 0) {
+        this.trigger.focus();
+        return;
+      }
+      links[Math.min(next, links.length - 1)]?.focus();
     }
 
     setOpen(open, restoreFocus = false) {
@@ -2784,6 +2828,18 @@
       super.disconnectedCallback();
     }
 
+    // El estado de exito vive en un atributo, no en clases sueltas: el CSS decide como se
+    // ve (marca de verificacion, color) y el JavaScript solo dice que ha pasado.
+    setCopied(copied) {
+      this.toggleAttribute('data-copied', copied);
+      if (this.label && this.dataset.copiedLabel) {
+        this.label.textContent = copied ? this.dataset.copiedLabel : this.idleLabel;
+      }
+      // El anuncio va en una region viva aparte: cambiar solo la etiqueta del boton no se
+      // lee en un lector de pantalla si el foco ya estaba en el.
+      if (this.status) this.status.textContent = copied ? (this.dataset.copiedLabel || '') : '';
+    }
+
     async copy() {
       try {
         await navigator.clipboard.writeText(this.source.textContent.trim());
@@ -2793,17 +2849,97 @@
         return;
       }
 
-      const done = this.dataset.copiedLabel || this.idleLabel;
-      if (this.label && this.dataset.copiedLabel) this.label.textContent = done;
-      // El anuncio va en una region viva aparte: cambiar solo la etiqueta del boton no se
-      // lee en un lector de pantalla si el foco ya estaba en el.
-      if (this.status) this.status.textContent = this.dataset.copiedLabel || '';
+      this.setCopied(true);
 
       clearTimeout(this.resetTimer);
-      this.resetTimer = setTimeout(() => {
-        if (this.label) this.label.textContent = this.idleLabel;
+      this.resetTimer = setTimeout(() => this.setCopied(false), 2000);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // 4E-002. Filtro instantaneo de preguntas frecuentes.
+  //
+  // Mejora progresiva pura: el campo llega oculto por la utilidad js-only del tema, de
+  // modo que sin JavaScript la pagina muestra todas las preguntas y no queda un buscador
+  // que no busca. No navega, no recarga y no toca la URL.
+  //
+  // Se compara pregunta y respuesta, sin acentos ni mayusculas, porque quien escribe
+  // "envio" espera encontrar "envío".
+  // ---------------------------------------------------------------------------
+  const foldText = (value) => value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  class FaqFilter extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.input = this.querySelector('[data-filter-input]');
+      this.status = this.querySelector('[data-filter-status]');
+      this.empty = this.querySelector('[data-filter-empty]');
+      this.groups = Array.from(document.querySelectorAll('[data-filter-group]'));
+      this.items = this.groups.flatMap((group) => Array.from(group.querySelectorAll('details')));
+
+      if (!this.input || !this.items.length) return;
+
+      // El texto se indexa una vez: filtrar en cada pulsacion no deberia costar un
+      // recorrido del DOM por pregunta.
+      this.index = this.items.map((item) => ({
+        item,
+        text: foldText(item.textContent || ''),
+      }));
+
+      this.listen(this.input, 'input', () => this.schedule());
+      // Escape limpia el campo sin sacar el foco de el, que es lo que espera cualquiera
+      // que haya usado un buscador.
+      this.listen(this.input, 'keydown', (event) => {
+        if (event.key !== 'Escape' || !this.input.value) return;
+        event.preventDefault();
+        event.stopPropagation();
+        this.input.value = '';
+        this.apply();
+      });
+    }
+
+    disconnectedCallback() {
+      clearTimeout(this.debounce);
+      super.disconnectedCallback();
+    }
+
+    schedule() {
+      clearTimeout(this.debounce);
+      this.debounce = setTimeout(() => this.apply(), 120);
+    }
+
+    apply() {
+      const query = foldText(this.input.value.trim());
+
+      if (!query) {
+        this.index.forEach(({ item }) => { item.hidden = false; });
+        this.groups.forEach((group) => { group.hidden = false; });
+        if (this.empty) this.empty.hidden = true;
         if (this.status) this.status.textContent = '';
-      }, 2000);
+        return;
+      }
+
+      let matches = 0;
+      this.index.forEach(({ item, text }) => {
+        const hit = text.includes(query);
+        item.hidden = !hit;
+        if (hit) matches += 1;
+      });
+
+      // Una categoria sin resultados se retira entera: dejar su titulo colgando sobre una
+      // lista vacia se lee como un fallo de la pagina.
+      this.groups.forEach((group) => {
+        group.hidden = !Array.from(group.querySelectorAll('details')).some((item) => !item.hidden);
+      });
+
+      if (this.empty) this.empty.hidden = matches > 0;
+      if (this.status) {
+        this.status.textContent = (this.dataset.filterCountTemplate || '')
+          .replace('[count]', String(matches));
+      }
     }
   }
 
@@ -3428,6 +3564,10 @@
     customElements.define('copy-text', CopyText);
   }
 
+  if (!customElements.get('faq-filter')) {
+    customElements.define('faq-filter', FaqFilter);
+  }
+
   if (!customElements.get('password-modal')) {
     customElements.define('password-modal', PasswordModal);
   }
@@ -3473,6 +3613,13 @@
     '.curated-showcase__spotlight',
     '.lookbook__media',
     '.newsletter-section .newsletter__inner',
+    // 4E-002. Historia de marca. Entra el TEXTO del panel, nunca su imagen: en esa pagina
+    // la fotografia del primer bloque es el LCP, y esconderla aunque sea medio segundo es
+    // exactamente lo que la regla de oro de 4D-001 prohibe.
+    '.main-about__story-text',
+    '.main-about__quote',
+    '.main-about__value',
+    '.main-about__gallery-item',
   ].join(', ');
 
   // Tope del escalonado. Sin el, una rejilla de 40 productos tardaria mas de dos segundos
@@ -3506,6 +3653,9 @@
       const seen = new Map();
 
       nodes.forEach((node) => {
+        // Ojo: este guardia hace que un data-reveal escrito a mano en el Liquid NO llegue
+        // nunca al observador, y el CSS lo dejaria oculto para siempre. Los objetivos se
+        // declaran arriba, en REVEAL_TARGETS, no en las secciones.
         if (node.hasAttribute('data-reveal') || node.closest('.hero-editorial')) return;
 
         // El indice se cuenta entre hermanos, para que cada rejilla escalone por su cuenta

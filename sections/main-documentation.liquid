@@ -120,6 +120,9 @@
                     y no queda un boton que no hace nada.
                   {%- endcomment -%}
                   <button class="doc-snippet__copy" type="button" data-copy-trigger hidden>
+                    <span class="doc-snippet__copy-icon" aria-hidden="true" data-copy-icon>
+                      {% render 'icon', name: 'check', size: 14 %}
+                    </span>
                     <span data-copy-label>{{ 'documentation.copy' | t }}</span>
                   </button>
                 </div>

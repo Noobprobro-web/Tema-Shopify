@@ -1,0 +1,56 @@
+<!doctype html><html class="js" data-animations="subtle"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="base.css"></head>
+<body>
+  <section class="section main-support">
+    <div class="container">
+      <header class="main-support__header flow">
+        <p class="eyebrow">Theme support</p>
+        <h1 class="main-support__title">Support</h1>
+        <div class="rte lede"><p>Dedicated assistance for merchants running this theme.</p></div>
+        <p class="main-support__sla"><span class="main-support__sla-dot" aria-hidden="true"></span>Average response time: under 24 business hours</p>
+      </header>
+      <div class="main-support__layout">
+        <div class="main-support__form-column flow">
+          <div><p class="eyebrow">Open a ticket</p><h2>Support request</h2></div>
+          <form class="support-form flow">
+            <div class="support-form__grid">
+              <div class="form-field"><label for="n">Name</label><input id="n" type="text" required></div>
+              <div class="form-field"><label for="e">Email</label><input id="e" type="email" required></div>
+            </div>
+            <div class="form-field">
+              <label for="s">Shopify store URL</label>
+              <input id="s" type="text" placeholder="your-store.myshopify.com">
+              <p class="form-field__help">Optional. It lets us look at the same store you are describing.</p>
+            </div>
+            <div class="form-field">
+              <label for="c">What is this about?</label>
+              <select id="c" required><option value="">Choose a category</option><option>Preset setup</option></select>
+            </div>
+            <div class="form-field">
+              <label for="b">Description</label>
+              <textarea id="b" rows="4" required></textarea>
+            </div>
+            <div class="support-form__footer">
+              <p class="form-field__help">Name, email, category and description are required.</p>
+              <button class="button support-form__submit" type="submit">Send request</button>
+            </div>
+          </form>
+        </div>
+        <aside class="main-support__aside flow">
+          <div class="main-support__policies">
+            <article class="main-support__policy">
+              <h2 class="main-support__policy-title">What is covered</h2>
+              <div class="rte main-support__policy-items"><ul><li>Help with theme settings, sections and preset configuration.</li><li>Fixing bugs caused by the theme code.</li><li>Theme updates and maintenance releases.</li></ul></div>
+            </article>
+            <article class="main-support__policy">
+              <h2 class="main-support__policy-title">What is not covered</h2>
+              <div class="rte main-support__policy-items"><ul><li>Custom code and bespoke features.</li><li>Third-party apps and external scripts.</li><li>Business advice and SEO audits.</li></ul></div>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <script src="theme.js"></script>
+</body></html>

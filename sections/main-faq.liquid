@@ -24,6 +24,13 @@
     de cabecera en vez de perderse.
   endcomment
   assign leading_limit = section.blocks.size
+  assign question_total = 0
+
+  for block in section.blocks
+    if block.type == 'faq_item'
+      assign question_total = question_total | plus: 1
+    endif
+  endfor
 
   for block in section.blocks
     if block.type == 'category_header'
@@ -48,8 +55,38 @@
       {%- endif -%}
     </header>
 
+    {%- if section.settings.show_search and question_total > 1 -%}
+      {%- liquid
+        assign search_id = 'MainFaqSearch-' | append: section.id
+        assign status_id = 'MainFaqSearchStatus-' | append: section.id
+      -%}
+      {%- comment -%}
+        Mejora progresiva. El campo lleva la utilidad js-only del tema, asi que sin
+        JavaScript no aparece y la pagina se lee entera con todas las preguntas abiertas a
+        la vista. Nada aqui recarga ni navega.
+      {%- endcomment -%}
+      <faq-filter
+        class="main-faq__search js-only"
+        data-filter-count-template="{{ 'faq.search.results' | t: count: '[count]' | escape }}"
+      >
+        <div class="form-field">
+          <label for="{{ search_id }}">{{ 'faq.search.label' | t }}</label>
+          <input
+            id="{{ search_id }}"
+            type="search"
+            autocomplete="off"
+            placeholder="{{ 'faq.search.placeholder' | t | escape }}"
+            aria-describedby="{{ status_id }}"
+            data-filter-input
+          >
+        </div>
+        <p id="{{ status_id }}" class="main-faq__search-status" role="status" aria-live="polite" data-filter-status></p>
+        <p class="main-faq__search-empty" data-filter-empty hidden>{{ 'faq.search.empty' | t }}</p>
+      </faq-filter>
+    {%- endif -%}
+
     {%- if leading_limit > 0 -%}
-      <div class="main-faq__group">
+      <div class="main-faq__group" data-filter-group>
         <faq-accordion {% if section.settings.single_open %}data-single-open{% endif %}>
           {%- for block in section.blocks limit: leading_limit -%}
             {%- if block.type == 'faq_item' -%}
@@ -63,7 +100,7 @@
     {%- for block in section.blocks -%}
       {%- if block.type == 'category_header' -%}
         {%- assign header_index = forloop.index0 -%}
-        <div class="main-faq__group" {{ block.shopify_attributes }}>
+        <div class="main-faq__group" data-filter-group {{ block.shopify_attributes }}>
           <h2 class="main-faq__category">{{ block.settings.title | escape }}</h2>
           {%- if block.settings.description != blank -%}
             <div class="rte main-faq__category-description">{{ block.settings.description }}</div>
@@ -124,6 +161,13 @@
       "type": "richtext",
       "id": "intro",
       "label": "t:sections.all.intro.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "t:sections.main_faq.settings.show_search.label",
+      "info": "t:sections.main_faq.settings.show_search.info",
+      "default": true
     },
     {
       "type": "checkbox",

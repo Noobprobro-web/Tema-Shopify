@@ -6307,15 +6307,23 @@ copy-text {
 }
 
 .anchor-nav__link {
-  display: flex;
+  display: grid;
   /* 44 px de alto por entrada: es una lista de navegacion, no una nota al pie. */
   min-height: var(--tap-target-min);
+  /* Sangria francesa: un titulo largo que ocupa dos lineas alinea la segunda con la
+     primera, no debajo del numero. */
+  grid-template-columns: 1.25rem minmax(0, 1fr);
   align-items: center;
   gap: var(--space-xs);
+  /* La linea de acento se dibuja con el borde, que no ocupa sitio al aparecer: animar un
+     ancho movería el texto de toda la lista al cambiar de apartado. */
+  padding-inline-start: var(--space-sm);
+  border-inline-start: 2px solid transparent;
   color: var(--color-foreground-muted);
   font-size: 0.9375rem;
   text-decoration: none;
-  transition: color var(--motion-fast) var(--ease-move);
+  transition: color var(--motion-fast) var(--ease-move),
+    border-color var(--motion-fast) var(--ease-move);
 }
 
 .anchor-nav__link::before {
@@ -6330,10 +6338,15 @@ copy-text {
   color: var(--color-foreground);
 }
 
-/* El apartado en pantalla se marca con peso, no solo con color: el color por si solo no
-   distingue nada para quien no lo percibe. */
+/* El apartado en pantalla se marca con peso y con una linea de acento, no solo con
+   color: el color por si solo no distingue nada para quien no lo percibe. */
 .anchor-nav__link[aria-current] {
+  border-inline-start-color: var(--color-foreground);
   font-weight: 700;
+}
+
+.anchor-nav__link[aria-current]::before {
+  opacity: 1;
 }
 
 /* ---------- Documentacion ---------- */
@@ -6428,11 +6441,15 @@ copy-text {
 }
 
 .doc-snippet__copy {
+  display: inline-flex;
   min-width: var(--tap-target-min);
   min-height: var(--tap-target-min);
   padding-inline: var(--space-md);
   border: 0;
   border-inline-start: 1px solid var(--color-border);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
   background: transparent;
   color: currentColor;
   cursor: pointer;
@@ -6441,6 +6458,34 @@ copy-text {
   letter-spacing: var(--font-letter-spacing-eyebrow);
   text-transform: uppercase;
   transition: background-color var(--motion-fast) var(--ease-move);
+}
+
+/* La marca de verificacion no existe hasta que hay algo que confirmar: reservarle sitio
+   desplazaria la etiqueta al aparecer. Entra con la escala, que no mueve a nadie. */
+.doc-snippet__copy-icon {
+  display: none;
+  line-height: 0;
+}
+
+[data-copied] .doc-snippet__copy-icon {
+  display: block;
+  animation: doc-copied-in var(--motion-fast) var(--ease-enter) both;
+}
+
+@keyframes doc-copied-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-copied] .doc-snippet__copy {
+  background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
 }
 
 .doc-snippet__copy:hover {
@@ -6794,6 +6839,216 @@ copy-text {
   .main-faq__cta {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
+  }
+}
+
+/* =========================================================================
+   REFINAMIENTO DE PAGINAS Y NAVEGACION (Sprint 4E-002)
+   ========================================================================= */
+
+/* ---------- Acordeones: apertura sedosa ----------
+   Un <details> nativo no renderiza su contenido cuando esta cerrado, asi que una
+   transicion de ida nunca tendria fotograma inicial. Una animacion si arranca en el
+   momento en que el contenido pasa a existir, que es justo lo que queremos animar. El
+   cierre es instantaneo a proposito: retenerlo obligaria a gobernar el atributo open
+   desde JavaScript y a pelearse con el teclado. */
+html[data-animations='subtle'] .faq-item[open] .faq-item__answer,
+html[data-animations='full'] .faq-item[open] .faq-item__answer {
+  animation: faq-answer-in var(--motion-base) var(--ease-enter) both;
+}
+
+@keyframes faq-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* El mas gira al convertirse en menos. El giro completo se nota sin llamar la atencion,
+   porque las dos barras acaban formando la misma figura. */
+.faq-item__icon {
+  transition: transform var(--motion-base) var(--ease-enter);
+}
+
+.faq-item[open] .faq-item__icon {
+  transform: rotate(180deg);
+}
+
+/* ---------- Buscador instantaneo de preguntas ---------- */
+.main-faq__search {
+  display: block;
+  max-width: 26rem;
+  margin-block-start: var(--space-2xl);
+}
+
+.main-faq__search-status {
+  margin-block: var(--space-xs) 0;
+  color: var(--color-foreground-muted);
+  font-size: 0.8125rem;
+  /* Reserva su linea: sin esto, el conteo de resultados empuja la lista hacia abajo en
+     cuanto aparece y toda la pagina da un salto al primer caracter. */
+  min-height: 1.2em;
+}
+
+.main-faq__search-empty {
+  margin-block-start: var(--space-2xl);
+  color: var(--color-foreground-muted);
+}
+
+/* ---------- Soporte: validacion sutil y tarjetas de alcance ----------
+   :user-invalid, no :invalid: el navegador solo lo aplica despues de que la persona haya
+   interactuado con el campo, asi que un formulario recien abierto no aparece en rojo
+   antes de que nadie escriba nada. */
+.support-form .form-field input:user-invalid,
+.support-form .form-field select:user-invalid,
+.support-form .form-field textarea:user-invalid {
+  border-color: var(--color-foreground);
+  box-shadow: inset 2px 0 0 var(--color-foreground);
+}
+
+.main-support__policy {
+  border-color: var(--color-border-hairline);
+}
+
+.main-support__policy-items ul {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+/* Vinete de raya, no de punto: la raya es la marca editorial que el tema ya usa en los
+   hilos de separacion, y se alinea con el texto en vez de flotar sobre el. */
+.main-support__policy-items li {
+  position: relative;
+  padding-inline-start: var(--space-md);
+}
+
+.main-support__policy-items li::before {
+  position: absolute;
+  width: 0.5rem;
+  height: 1px;
+  inset-block-start: 0.7em;
+  inset-inline-start: 0;
+  background: currentColor;
+  content: '';
+  opacity: 0.6;
+}
+
+/* ---------- Historia de marca: comillas editoriales ---------- */
+.main-about__quote-text::before {
+  display: block;
+  margin-block-end: calc(var(--space-md) * -1);
+  color: var(--color-foreground-muted);
+  content: '\201C';
+  font-family: var(--font-heading-family);
+  font-size: 3em;
+  line-height: 1;
+  opacity: 0.35;
+}
+
+/* ---------- Paginas legales: enlaces del texto ---------- */
+.main-policy__body a {
+  color: currentColor;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--motion-fast) var(--ease-move);
+}
+
+.main-policy__body a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* ---------- Header: panel desplegable de escritorio ---------- */
+@media (min-width: 62rem) {
+  .desktop-nav__panel {
+    border-color: var(--color-border-hairline);
+    box-shadow: 0 1.25rem 2.5rem color-mix(in srgb, var(--color-shadow) 10%, transparent);
+  }
+
+  /* Igual que el acordeon: el panel pasa de no existir a existir, asi que lo que entra es
+     una animacion, no una transicion. */
+  html[data-animations='subtle'] .desktop-nav__disclosure[data-open] .desktop-nav__panel,
+  html[data-animations='full'] .desktop-nav__disclosure[data-open] .desktop-nav__panel {
+    animation: desktop-nav-panel-in var(--motion-fast) var(--ease-enter) both;
+  }
+}
+
+@keyframes desktop-nav-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Header: menu secundario ---------- */
+.site-header__secondary {
+  display: none;
+}
+
+.drawer-panel__secondary {
+  padding: var(--space-lg) var(--page-gutter);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.drawer-panel__secondary-list {
+  display: grid;
+}
+
+.drawer-panel__secondary-list a,
+.site-header__secondary-list a {
+  display: flex;
+  min-height: var(--tap-target-min);
+  align-items: center;
+  color: currentColor;
+  text-decoration: none;
+}
+
+.drawer-panel__secondary-list a {
+  color: var(--color-foreground-muted);
+  font-size: 0.9375rem;
+}
+
+.drawer-panel__secondary-list a:hover {
+  color: var(--color-foreground);
+}
+
+@media (min-width: 62rem) {
+  /* Solo en escritorio: en movil estos enlaces ya viven al pie del menu lateral, y
+     repetirlos en una cabecera estrecha le quitaria sitio al carrito. */
+  .site-header__secondary {
+    display: block;
+    /* El margen va aqui y no como gap del contenedor: los botones de icono vecinos ya se
+       separan con su propio relleno de 44 px, y un gap los alejaria de mas. */
+    margin-inline-end: var(--space-3);
+  }
+
+  .site-header__secondary-list {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .site-header__secondary-list a {
+    color: var(--color-foreground-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: var(--font-letter-spacing-eyebrow);
+    text-transform: uppercase;
+    transition: color var(--motion-fast) var(--ease-move);
+  }
+
+  .site-header__secondary-list a:hover {
+    color: var(--color-foreground);
   }
 }
 
