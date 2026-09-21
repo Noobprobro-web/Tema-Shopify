@@ -10,13 +10,10 @@ Estado general: SPRINT 4E-003 CONCLUIDO (Escala Tipográfica Armonizada y Balanc
 
 ---
 
-## 1. Sprint Activo: SPRINT 4F-001 (Elevación de Calidad Técnica a 8.5+ Theme Store Tier $380) - COMPLETADO Y APROBADO
+## 1. Sprint Activo: SPRINT 4F-002 (Resolución de Fricciones Comerciales y Sincronización UX) - EN CURSO
 
-**Meta del Sprint:** Resolver en código todos los hallazgos P0 y P1 detectados en la auditoría en vivo (`CLAUDE-AUDIT-LIVE-001`): checkout acelerado en carrito (`additional_checkout_buttons`), stacking context de anuncio vs menú/búsqueda, contraste del hero (>=5.56:1 en peor píxel), ancho de galería sin hueco de 401px, botón de búsqueda horizontal a 96px, scroll y flexbox en drawer de carrito a 650px de altura, carrusel táctil en PDP móvil (título sube de y=1990 a y=652), cabecera sticky y blindaje contra estilos residuales en páginas nativas.
-**Nota de catálogo:** 17 productos `qa-*` en `DRAFT` mediante GraphQL; catálogo `/collections/all` 100% limpio.
-**Estado:** 100% implementado por Claude (`CLAUDE-REPORT-4F-001.md`), auditado y formalmente aprobado por Gemini (`GEMINI-review-CLAUDE-4F-001.md`). 86/86 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas (Theme Check: 0 ofensas, 105 archivos).
-
-*Siguiente Paso:* Commit unificado, despliegue a Shopify en vivo (`Couture` #165809488115) y verificación final Gate 5.
+**Meta del Sprint:** Resolver los hallazgos comerciales críticos del informe de GPT-5.6 Sol Max (`GPT-AUDIT-002`): confirmación de cantidad y total en Sticky ATC (UX-05), sincronización de `/cart` y eliminación del desborde horizontal de 50px en desktop (UX-06), bloques plegables de cuidados/envíos en PDP (UX-09), y corrección gramatical de plural en bundle con mapeo de enlaces editoriales (UX-08 / UX-12).
+**Estado:** Directiva `CLAUDE-DIRECTIVE-4F-002.md` emitida. Claude en fase de implementación.
 
 ---
 
