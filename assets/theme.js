@@ -945,11 +945,39 @@
       this.submitButton = this.querySelector('[data-sticky-submit]');
       this.variantOutput = this.querySelector('[data-sticky-variant]');
       this.priceOutput = this.querySelector('[data-sticky-price]');
+      this.totalOutput = this.querySelector('[data-sticky-total]');
       this.label = this.querySelector('[data-sticky-label]');
       this.spinner = this.querySelector('[data-loading-icon]');
       this.variantSelects = this.closest('[data-section-id]')?.querySelector('variant-selects');
 
       if (!this.productForm || !this.primaryButton || !this.submitButton) return;
+
+      // 4F-002. La barra aparece cuando el formulario ya no se ve, asi que tiene que decir
+      // lo mismo que el: cuantas unidades se anaden y cuanto suman. La cantidad sale del
+      // campo del formulario (dentro o asociado con form="") y el total, del total de linea
+      // que ya pinta VariantSelects, nunca de una segunda cuenta.
+      const quantityField = this.productForm.elements.namedItem('quantity');
+      this.quantityInput = quantityField instanceof HTMLInputElement ? quantityField : null;
+      this.lineTotal = this.closest('[data-section-id]')?.querySelector('[data-line-total]') || null;
+      this.unitPrice = this.priceOutput?.textContent.trim() || '';
+      this.defaultAriaLabel = this.submitButton.getAttribute('aria-label') || '';
+
+      if (this.quantityInput) {
+        this.listen(this.quantityInput, 'input', () => this.renderQuantity());
+        this.listen(this.quantityInput, 'change', () => this.renderQuantity());
+      }
+      if (this.lineTotal) {
+        // El total de linea se reescribe despues de cada cambio de cantidad, variante o
+        // plan de compra: observarlo evita depender del orden en que corren los listeners.
+        this.lineTotalObserver = new MutationObserver(() => this.renderQuantity());
+        this.lineTotalObserver.observe(this.lineTotal, {
+          attributes: true,
+          attributeFilter: ['data-empty'],
+          childList: true,
+          characterData: true,
+          subtree: true,
+        });
+      }
 
       this.setVisible(false);
       this.listen(this.submitButton, 'click', () => {
@@ -961,7 +989,8 @@
           this.updateVariant(event.detail?.variant);
         });
         this.listen(this.variantSelects, 'theme:purchase-option-change', (event) => {
-          if (this.priceOutput) this.priceOutput.textContent = event.detail?.price || '';
+          this.unitPrice = event.detail?.price || '';
+          this.renderQuantity();
           this.syncButtonState();
         });
       }
@@ -988,12 +1017,14 @@
         updateVisibility();
       }
 
+      this.renderQuantity();
       this.syncButtonState();
     }
 
     disconnectedCallback() {
       this.intersectionObserver?.disconnect();
       this.buttonObserver?.disconnect();
+      this.lineTotalObserver?.disconnect();
       this.setVisible(false);
       super.disconnectedCallback();
     }
@@ -1009,8 +1040,38 @@
       if (this.variantOutput && !this.hasAttribute('data-single-variant')) {
         this.variantOutput.textContent = variant?.title || this.dataset.unavailableText;
       }
-      if (this.priceOutput) this.priceOutput.textContent = variant?.price || '';
+      this.unitPrice = variant?.price || '';
+      this.renderQuantity();
       this.syncButtonState();
+    }
+
+    renderQuantity() {
+      const quantity = Number.parseInt(this.quantityInput?.value || '', 10);
+      const multiple = Number.isFinite(quantity) && quantity > 1;
+      const total = this.lineTotal && !this.lineTotal.hasAttribute('data-empty')
+        ? this.lineTotal.querySelector('[data-line-total-current]')?.textContent.trim() || ''
+        : '';
+
+      if (this.priceOutput) {
+        this.priceOutput.textContent = multiple && this.unitPrice
+          ? (this.dataset.quantityPriceTemplate || '')
+            .replace('[quantity]', String(quantity))
+            .replace('[price]', this.unitPrice)
+          : this.unitPrice;
+      }
+
+      if (this.totalOutput) {
+        const showTotal = multiple && total !== '';
+        this.totalOutput.hidden = !showTotal;
+        this.totalOutput.textContent = showTotal
+          ? (this.dataset.totalTemplate || '').replace('[total]', total)
+          : '';
+      }
+
+      const ariaLabel = multiple && this.dataset.quantityLabelTemplate
+        ? this.dataset.quantityLabelTemplate.replace('[quantity]', String(quantity))
+        : this.defaultAriaLabel;
+      if (ariaLabel) this.submitButton.setAttribute('aria-label', ariaLabel);
     }
 
     syncButtonState() {
@@ -1667,7 +1728,7 @@
 
       try {
         const formData = new FormData(form);
-        formData.set('sections', this.dataset.sectionId);
+        formData.set('sections', this.renderSectionIds().join(','));
         formData.set('sections_url', `${window.location.pathname}${window.location.search}`);
 
         const response = await fetchCommerce(this.dataset.cartAddUrl, {
@@ -1724,7 +1785,7 @@
           },
           body: JSON.stringify({
             items: [{ id: variantId, quantity: 1 }],
-            sections: [this.dataset.sectionId],
+            sections: this.renderSectionIds(),
             sections_url: `${window.location.pathname}${window.location.search}`,
           }),
           signal: this.crossSellController.signal,
@@ -1770,7 +1831,7 @@
           body: JSON.stringify({
             line,
             quantity,
-            sections: [this.dataset.sectionId],
+            sections: this.renderSectionIds(),
             sections_url: `${window.location.pathname}${window.location.search}`,
           }),
         }, this.dataset.errorMessage);
@@ -1824,6 +1885,8 @@
       const sectionHtml = await this.requestSection();
       if (!this.isConnected || revision !== this.syncRevision || this.pendingMutations) return;
       this.renderSection(sectionHtml);
+      // Si el carrito cambio en otra pestana, la pagina /cart de fondo tambien esta vieja.
+      this.renderCartPage(null, revision).catch(() => {});
     }
 
     async requestSection() {
@@ -1852,6 +1915,50 @@
       if (!sectionHtml) sectionHtml = await this.requestSection();
       if (revision !== this.syncRevision) return;
       this.renderSection(sectionHtml);
+      await this.renderCartPage(result.sections, revision);
+    }
+
+    // 4F-002. En /cart el cajon y la pagina de carrito muestran la misma compra. Si el
+    // cajon cambia una linea y la pagina no se entera, el comprador ve dos carritos
+    // distintos hasta que recarga (GPT-AUDIT-002, UX-06). Cada mutacion pide tambien la
+    // seccion de la pagina en la misma llamada, asi las dos salen del mismo estado del
+    // servidor y no hace falta una segunda peticion.
+    cartPageSection() {
+      return document.querySelector('[data-cart-page][data-section-id]');
+    }
+
+    renderSectionIds() {
+      const pageSectionId = this.cartPageSection()?.dataset.sectionId;
+      return pageSectionId && pageSectionId !== this.dataset.sectionId
+        ? [this.dataset.sectionId, pageSectionId]
+        : [this.dataset.sectionId];
+    }
+
+    // La pagina se refresca como complemento: si falla, el cajon ya quedo bien pintado y
+    // la pagina se corrige con la siguiente mutacion o al recargar, sin mostrar un error.
+    async renderCartPage(sections, revision = this.syncRevision) {
+      const page = this.cartPageSection();
+      if (!page) return;
+
+      const pageSectionId = page.dataset.sectionId;
+      let pageHtml = sections?.[pageSectionId];
+
+      if (!pageHtml) {
+        try {
+          const url = new URL(this.dataset.cartUrl, window.location.origin);
+          url.searchParams.set('section_id', pageSectionId);
+          const response = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+          if (!response.ok) return;
+          pageHtml = await response.text();
+        } catch {
+          return;
+        }
+      }
+
+      if (revision !== this.syncRevision) return;
+      const nextPage = new DOMParser().parseFromString(pageHtml, 'text/html').querySelector('[data-cart-page]');
+      const currentPage = this.cartPageSection();
+      if (nextPage && currentPage?.isConnected) currentPage.replaceWith(nextPage);
     }
 
     renderSection(sectionHtml) {
@@ -2421,7 +2528,9 @@
         0,
       );
       const formattedTotal = formatMoney(total, this.dataset.moneyFormat);
-      const countTemplate = count === 1
+      // El sustantivo concuerda con el total de piezas del look, no con las seleccionadas:
+      // "1 of 3 items selected" (4F-002).
+      const countTemplate = this.items.length === 1
         ? this.dataset.selectedOneTemplate
         : this.dataset.selectedManyTemplate;
 
@@ -2470,7 +2579,9 @@
       };
 
       if (drawer?.dataset.sectionId) {
-        requestBody.sections = [drawer.dataset.sectionId];
+        requestBody.sections = typeof drawer.renderSectionIds === 'function'
+          ? drawer.renderSectionIds()
+          : [drawer.dataset.sectionId];
         requestBody.sections_url = `${window.location.pathname}${window.location.search}`;
       }
 

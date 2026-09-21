@@ -32,6 +32,20 @@
         "description": {
           "type": "description",
           "settings": {}
+        },
+        "composition_care": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Composition & care",
+            "content": "<p>Each piece is made from natural materials chosen for how they age with use. The exact composition is listed in the description above.</p><ul><li>Follow the care label sewn into each piece; most prefer airing over washing.</li><li>Dry flat, away from direct heat and sunlight, and press with a cool iron.</li><li>Store knitwear folded; hang tailoring and outerwear on a shaped hanger.</li></ul>"
+          }
+        },
+        "shipping_returns": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & complimentary returns",
+            "content": "<p>Pieces held in the atelier leave within three business days, with tracking. Shipping is complimentary on orders over $150.</p><p>Returns are complimentary within fourteen days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
+          }
         }
       },
       "block_order": [
@@ -41,7 +55,9 @@
         "variant_picker",
         "quantity",
         "buy_buttons",
-        "description"
+        "description",
+        "composition_care",
+        "shipping_returns"
       ],
       "settings": {
         "color_scheme": "scheme-1",

@@ -21,7 +21,9 @@
         "heading": "Form in quiet movement",
         "subheading": "<p>A study in quiet movement. Sculptural layers and tactile materials, made in small series.</p>",
         "button_primary_label": "Discover the collection",
-        "button_secondary_label": "Explore lookbook",
+        "button_primary_url": "/collections/all",
+        "button_secondary_label": "Explore the series",
+        "button_secondary_url": "/collections/the-autumn-series",
         "color_scheme": "scheme-2"
       }
     },
@@ -145,6 +147,7 @@
         "quote": "Objects gain meaning through the hands that make them.",
         "body": "<p>Every seam, edge and finish records a decision made by an artisan, not an anonymous process.</p>",
         "media_label": "MACRO STUDY / MATERIAL 07",
+        "button_url": "/pages/about",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
@@ -155,10 +158,10 @@
         "bento_featured": {
           "type": "card_featured",
           "settings": {
-            "collection": "all",
+            "collection": "the-autumn-series",
             "eyebrow": "[01] APPAREL / FEATURED",
             "heading": "Sculptural layers",
-            "link": "/collections/all"
+            "link": "/collections/the-autumn-series"
           }
         },
         "bento_editorial": {
@@ -166,7 +169,8 @@
           "settings": {
             "eyebrow": "[02] MATERIAL STUDY",
             "heading": "Carried close",
-            "body": "<p>An editorial study in proportion, tactility and daily use.</p>"
+            "body": "<p>An editorial study in proportion, tactility and daily use.</p>",
+            "link": "/pages/about"
           }
         },
         "bento_product": {
@@ -202,30 +206,20 @@
         "hotspot_2": {
           "type": "hotspot",
           "settings": {
-            "horizontal_position": 48,
-            "vertical_position": 66,
-            "horizontal_position_mobile": 46,
-            "vertical_position_mobile": 64,
-            "popover_position": "top"
+            "horizontal_position": 52,
+            "vertical_position": 10,
+            "horizontal_position_mobile": 52,
+            "vertical_position_mobile": 27,
+            "popover_position": "bottom"
           }
         },
         "hotspot_3": {
           "type": "hotspot",
           "settings": {
-            "horizontal_position": 69,
-            "vertical_position": 38,
-            "horizontal_position_mobile": 68,
-            "vertical_position_mobile": 42,
-            "popover_position": "left"
-          }
-        },
-        "hotspot_4": {
-          "type": "hotspot",
-          "settings": {
-            "horizontal_position": 82,
-            "vertical_position": 72,
-            "horizontal_position_mobile": 78,
-            "vertical_position_mobile": 74,
+            "horizontal_position": 56,
+            "vertical_position": 74,
+            "horizontal_position_mobile": 54,
+            "vertical_position_mobile": 66,
             "popover_position": "left"
           }
         }
@@ -233,8 +227,7 @@
       "block_order": [
         "hotspot_1",
         "hotspot_2",
-        "hotspot_3",
-        "hotspot_4"
+        "hotspot_3"
       ],
       "settings": {
         "eyebrow": "CAMPAIGN STUDY / LOOK 01",

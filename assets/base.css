@@ -7398,6 +7398,168 @@ input[type='search']::-webkit-search-decoration {
 
 
 /* =========================================================================
+   FRICCIONES COMERCIALES DE GPT-AUDIT-002 (Sprint 4F-002)
+   ========================================================================= */
+
+/* ---------- T1. Sticky ATC: cantidad y total ---------- */
+/* La linea de datos pasa a flex para que, si no cabe, se recorte el nombre de la variante
+   y nunca "12 x $980.00". El total va en su propia linea: con 12 unidades a 360 px
+   ("Total $11,760.00") no cabria junto al resto y se habria cortado justo lo que el
+   comprador necesita confirmar antes de pulsar. */
+.sticky-cart-bar__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+}
+
+.sticky-cart-bar__variant {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-cart-bar__separator,
+.sticky-cart-bar__price {
+  flex: none;
+}
+
+.sticky-cart-bar__total {
+  overflow: hidden;
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Con la linea del total la barra crece unos 12 px: la reserva inferior del documento
+   crece con ella para que el final de la pagina no quede escondido debajo. */
+body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidden])) {
+  padding-block-end: calc(5rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 48rem) {
+  body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidden])) {
+    padding-block-end: calc(5.75rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* ---------- T2. Pagina de carrito sin desborde horizontal ---------- */
+/* El stepper es inline-grid y su pista central es minmax(2.25rem, 1fr): medido por su
+   contenido, el campo numerico aporta su ancho intrinseco (unos 170 px) y el control
+   llegaba a 265 px dentro de una columna de 160. Mismo tope que ya usa el cajon. */
+.cart-item__stepper {
+  max-width: 9rem;
+}
+
+/* Cantidad y "Remove" comparten fila si caben y, si no, Remove baja a la siguiente en vez
+   de salirse por el borde derecho. */
+.cart-item__controls {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-2);
+  row-gap: var(--space-1);
+}
+
+.cart-item__controls label {
+  flex-basis: 100%;
+}
+
+.cart-item__controls > a {
+  display: inline-flex;
+  min-height: var(--tap-target-min);
+  align-items: center;
+}
+
+/* ---------- T3. Acordeones de la ficha de producto ---------- */
+/* Hilo fino arriba y abajo, titulo en versalitas pequenas como los rotulos del tema y una
+   flecha que gira al abrir. Varios seguidos forman una sola lista: sin aire entre ellos y
+   sin doble hilo. */
+.product-details__accordion {
+  border-block: 1px solid var(--color-border-hairline);
+}
+
+.product-main__info > .product-details__accordion + .product-details__accordion {
+  margin-block-start: 0;
+  border-block-start: 0;
+}
+
+.product-details__summary {
+  display: grid;
+  min-height: 3.5rem;
+  grid-template-columns: minmax(0, 1fr) var(--tap-target-min);
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  list-style: none;
+}
+
+.product-details__summary::-webkit-details-marker {
+  display: none;
+}
+
+.product-details__heading {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.product-details__icon {
+  display: inline-flex;
+  justify-content: center;
+  transition: transform var(--motion-base) var(--ease-enter);
+}
+
+.product-details__accordion[open] .product-details__icon {
+  transform: rotate(180deg);
+}
+
+.product-details__content {
+  max-width: 64ch;
+  padding-block-end: var(--space-4);
+  color: var(--color-foreground-muted);
+  font-size: 0.9375rem;
+}
+
+/* Misma entrada que las respuestas del FAQ: el contenido de un <details> no existe
+   cerrado, asi que se anima al aparecer y el cierre es instantaneo. */
+html[data-animations='subtle'] .product-details__accordion[open] .product-details__content,
+html[data-animations='full'] .product-details__accordion[open] .product-details__content {
+  animation: faq-answer-in var(--motion-base) var(--ease-enter) both;
+}
+
+/* ---------- Cabecera movil con nombre de tienda largo ---------- */
+/* Con la marca centrada y tres iconos a la derecha, en 390 px la columna central tiene
+   unos 70 px: "LINEA NOVE" pisaba la lupa 26 px (41 px a 360). Por debajo de 48rem la
+   marca se alinea a la izquierda junto a un boton de menu solo con icono; la palabra
+   "Menu" sigue ahi para lectores de pantalla. Decision aprobada por Johandry en 4F-002. */
+@media (max-width: 47.99rem) {
+  .site-header__inner {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .site-header__brand {
+    min-width: 0;
+    max-width: 100%;
+    justify-self: start;
+  }
+
+  .site-header__menu-button span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
+
+/* =========================================================================
    SISTEMA DE MOVIMIENTO (Sprint 4C-002)
    Todo lo de aqui abajo esta gobernado por html[data-animations] y por
    prefers-reduced-motion. Las dos llaves de apagado viven al final del bloque.

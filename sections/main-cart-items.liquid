@@ -3,7 +3,12 @@
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
 -%}
 
-<section class="section cart-page color-{{ section_scheme }}">
+{%- comment -%}
+  data-cart-page y data-section-id existen para el cajon (4F-002): cuando el cajon cambia el
+  carrito estando en /cart, pide tambien esta seccion y la reemplaza, asi la pagina de fondo
+  nunca muestra lineas que ya no existen.
+{%- endcomment -%}
+<section class="section cart-page color-{{ section_scheme }}" data-cart-page data-section-id="{{ section.id }}">
   <div class="container flow">
     <header class="cart-page__header cluster">
       <h1>{{ 'sections.cart.title' | t }}</h1>

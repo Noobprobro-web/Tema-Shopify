@@ -585,6 +585,39 @@
                 </div>
               {%- endif -%}
 
+            {%- when 'collapsible_tab' -%}
+              {%- comment -%}
+                4F-002. Informacion de compra plegable (composicion, cuidados, envios,
+                devoluciones). <details> nativo: se abre con teclado y lector de pantalla sin
+                JavaScript. Si se elige una pagina, su contenido va despues del texto, para
+                que una misma politica sirva a todos los productos sin copiarla.
+              {%- endcomment -%}
+              {%- liquid
+                assign tab_page_content = block.settings.page.content
+                assign tab_has_content = false
+                if block.settings.content != blank or tab_page_content != blank
+                  assign tab_has_content = true
+                endif
+              -%}
+              {%- if block.settings.heading != blank and tab_has_content -%}
+                <details class="product-details__accordion" {{ block.shopify_attributes }}>
+                  <summary class="product-details__summary">
+                    <span class="product-details__heading">{{ block.settings.heading | escape }}</span>
+                    <span class="product-details__icon" aria-hidden="true">
+                      {%- render 'icon', name: 'chevron-down', size: 14 -%}
+                    </span>
+                  </summary>
+                  <div class="product-details__content rte">
+                    {%- if block.settings.content != blank -%}
+                      {{ block.settings.content }}
+                    {%- endif -%}
+                    {%- if tab_page_content != blank -%}
+                      {{ tab_page_content }}
+                    {%- endif -%}
+                  </div>
+                </details>
+              {%- endif -%}
+
             {%- when '@app' -%}
               {% render block %}
           {%- endcase -%}
@@ -643,6 +676,9 @@
       class="sticky-cart-bar color-{{ section_scheme }}"
       data-product-form-id="{{ product_form_id }}"
       data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+      data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape }}"
+      data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape }}"
+      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape }}"
       {% if product.has_only_default_variant %}data-single-variant{% endif %}
       aria-hidden="true"
       inert
@@ -674,8 +710,15 @@
               aria-hidden="true"
               {% if product.has_only_default_variant %}hidden{% endif %}
             > / </span>
-            <span data-sticky-price>{{ selected_variant.price | money }}</span>
+            <span class="sticky-cart-bar__price" data-sticky-price>{{ selected_variant.price | money }}</span>
           </p>
+          {%- comment -%}
+            4F-002. Con cantidad 2 o mas la barra dice cuantas unidades va a anadir y el total
+            de la linea, en su propia linea para que nunca se recorte. El total no se calcula
+            aqui: se copia del total que ya muestra el bloque de cantidad, asi la barra nunca
+            puede discrepar de la ficha.
+          {%- endcomment -%}
+          <p class="sticky-cart-bar__total" data-sticky-total hidden></p>
         </div>
         <button
           class="button sticky-cart-bar__submit"
@@ -822,6 +865,30 @@
       "type": "description",
       "name": "t:sections.main_product.blocks.description.name",
       "limit": 1
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "t:sections.main_product.blocks.collapsible_tab.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.all.heading.label",
+          "default": "Composition & care"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.all.text.label",
+          "default": "<p>Describe the fibres, the finish and how to care for the piece.</p>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "t:sections.main_product.blocks.collapsible_tab.settings.page.label",
+          "info": "t:sections.main_product.blocks.collapsible_tab.settings.page.info"
+        }
+      ]
     },
     {
       "type": "@app"

@@ -284,8 +284,13 @@
             <div class="complete-the-look__summary-heading" aria-live="polite" aria-atomic="true">
               <div>
                 <p class="eyebrow">{{ 'sections.complete_the_look.total_label' | t }}</p>
+                {%- comment -%}
+                  4F-002. El sustantivo concuerda con el total, no con lo seleccionado:
+                  "1 of 3 items selected", "1 of 1 item selected". Antes se elegia la forma
+                  por la seleccion y salia "1 of 3 item selected" (GPT-AUDIT-002, UX-12).
+                {%- endcomment -%}
                 <p data-bundle-count>
-                  {%- if selected_item_count == 1 -%}
+                  {%- if rendered_item_count == 1 -%}
                     {{- 'sections.complete_the_look.selected_count.one' | t: count: selected_item_count, total: rendered_item_count -}}
                   {%- else -%}
                     {{- 'sections.complete_the_look.selected_count.other' | t: count: selected_item_count, total: rendered_item_count -}}
