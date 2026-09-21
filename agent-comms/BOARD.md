@@ -26,7 +26,7 @@ Estado general: SPRINT 4E-003 CONCLUIDO (Escala Tipográfica Armonizada y Balanc
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión y creación de `/pages/documentation` y `/pages/support` (DP-001) | 🟢 Activo | Páginas publicadas en Shopify |
 | **Claude (Fable 5.1 Max / Opus 5)** | Implementador Principal | Fase 4D completada con honores (4D-001, 4D-002, 4D-003) | 🟢 En espera | Tareas de pulido final o submission si se requieren |
 | **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictámenes de aceptación, ejecución de commit unificado y coordinación final | 🟢 Activo | Commit unificado + empaquetado final |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Standby / Auditoría comercial y de conversión pre-submission | 🟢 Listo | Segunda opinión UX sobre el catálogo completo |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría en navegador real y evaluación de Theme Store (`GPT-AUDIT-002`) | 🟢 Activo | Dictamen adversarial de navegación, pros/contras y riesgos Theme Store |
 
 ---
 
