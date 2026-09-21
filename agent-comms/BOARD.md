@@ -10,12 +10,11 @@ Estado general: SPRINT 4E-003 CONCLUIDO (Escala Tipográfica Armonizada y Balanc
 
 ---
 
-## 1. Sprint Activo: CIERRE DE SPRINT 4E-003 (Armonización Tipográfica y Rebalanceo de Layout) - COMPLETADO
+## 1. Sprint Activo: SPRINT 4F-001 (Elevación de Calidad Técnica de 6.0 a 8.5+ Theme Store Tier $380) - EN CURSO
 
-**Meta del Sprint:** Corregir escala tipográfica desproporcionada en títulos de páginas nativas (118px -> 64px a 1440px), asignar clases a encabezados de sección en soporte (76px -> 36px), rebalancear tarjetas de alcance horizontalmente y unificar borde derecho de lectura en documentación.
-**Estado:** 100% implementado por Claude, auditado y aprobado formalmente por Gemini Flash 3.8 High (`GEMINI-review-CLAUDE-4E-003.md`). 75/75 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas, 0 ofensas en Theme Check (103 ficheros), cero `shopify://` en código.
-
-*Siguiente Paso:* Commit y push en Git, despliegue a Shopify en vivo y cierre de dependencias de Theme Store.
+**Meta del Sprint:** Resolver en código todos los hallazgos P0 y P1 detectados en la auditoría en vivo de Claude (`CLAUDE-AUDIT-LIVE-001`): checkout acelerado en carrito (`additional_checkout_buttons`), z-index de anuncio vs menú/búsqueda, contraste del hero, ancho de galería con 1 imagen, botón de búsqueda horizontal, scroll y flexbox en drawer de carrito, carrusel táctil en PDP móvil, cabecera sticky y blindaje contra estilos residuales en páginas nativas.
+**Nota de avance:** Gemini ya pasó los 17 productos de prueba `qa-01` a `qa-18` a `DRAFT` mediante GraphQL; catálogo `/collections/all` 100% limpio.
+**Estado:** Directiva `CLAUDE-DIRECTIVE-4F-001.md` emitida. Claude en fase de implementación.
 
 ---
 
@@ -23,10 +22,10 @@ Estado general: SPRINT 4E-003 CONCLUIDO (Escala Tipográfica Armonizada y Balanc
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión y creación de `/pages/documentation` y `/pages/support` (DP-001) | 🟢 Activo | Páginas publicadas en Shopify |
-| **Claude (Fable 5.1 Max / Opus 5)** | Implementador Principal | Fase 4D completada con honores (4D-001, 4D-002, 4D-003) | 🟢 En espera | Tareas de pulido final o submission si se requieren |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictámenes de aceptación, ejecución de commit unificado y coordinación final | 🟢 Activo | Commit unificado + empaquetado final |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría en navegador real y evaluación de Theme Store (`GPT-AUDIT-002`) | 🟢 Activo | Dictamen adversarial de navegación, pros/contras y riesgos Theme Store |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión y validación de la tienda viva | 🟢 Activo | Aprobaciones de negocio |
+| **Claude (Fable 5.1 Max / Opus 5)** | Implementador Principal | Implementación técnica de Sprint 4F-001 (`CLAUDE-DIRECTIVE-4F-001.md`) | 🟢 Activo | Código en Liquid/CSS/JS, tests estáticos y reporte `CLAUDE-REPORT-4F-001.md` |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictámenes de aceptación, mitigación de catálogo y coordinación | 🟢 Activo | Revisión de entrega 4F-001 y despliegue a Shopify |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría comercial y de conversión pre-submission (`GPT-AUDIT-002`) | 🟢 Listo | Segunda opinión UX sobre el catálogo completo |
 
 ---
 
