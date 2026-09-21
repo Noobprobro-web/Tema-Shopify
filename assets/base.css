@@ -4748,10 +4748,20 @@ copy-text {
   text-align: center;
 }
 
+/* Las paginas de utilidad comparten una sola escala de titulo. Sin esta linea, un
+   h1 de pagina cae en el clamp de portada (hasta 7rem) y en un portatil el titulo se
+   come la pantalla: "Documentation" no cabe en la cabecera y se parte a mitad de
+   palabra. */
+.main-documentation__title,
+.main-support__title,
+.main-faq__title,
+.main-about__title,
+.main-policy__title,
 .main-page__title,
 .main-contact__title,
 .main-blog__title,
-.main-list-collections__title {
+.main-list-collections__title,
+.main-search__title {
   font-size: 2.75rem;
 }
 
@@ -5639,6 +5649,11 @@ copy-text {
 }
 
 @media (min-width: 48rem) {
+  .main-documentation__title,
+  .main-support__title,
+  .main-faq__title,
+  .main-about__title,
+  .main-policy__title,
   .main-page__title,
   .main-contact__title,
   .main-blog__title,
@@ -5702,6 +5717,11 @@ copy-text {
 }
 
 @media (min-width: 62rem) {
+  .main-documentation__title,
+  .main-support__title,
+  .main-faq__title,
+  .main-about__title,
+  .main-policy__title,
   .main-page__title,
   .main-contact__title,
   .main-blog__title,
@@ -6362,6 +6382,10 @@ copy-text {
 
 .main-documentation__body {
   display: grid;
+  /* La medida de lectura vive en la columna, no en cada pieza. Cuando la llevaba cada
+     hijo, los <h2> se quedaban sin limite y llegaban al borde del contenedor mientras el
+     texto paraba 380 px antes: el apartado no tenia un borde derecho, tenia dos. */
+  max-width: 68ch;
   gap: var(--space-2xl);
   min-width: 0;
 }
@@ -6387,7 +6411,6 @@ copy-text {
 }
 
 .doc-section__content {
-  max-width: 68ch;
   margin-block-start: var(--space-md);
   line-height: 1.7;
 }
@@ -6396,10 +6419,9 @@ copy-text {
   margin-block-start: var(--space-md);
 }
 
-/* Tarjetas, fragmentos y avisos comparten la medida del texto (68ch): la columna de
-   lectura se mantiene recta de arriba abajo en vez de ensancharse en cada pieza. */
+/* Tarjetas, fragmentos y avisos ya no llevan medida propia: la heredan de la columna,
+   que es lo que mantiene recto el borde derecho de todo el apartado. */
 .doc-preset {
-  max-width: 68ch;
   padding: var(--space-lg);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -6419,7 +6441,6 @@ copy-text {
 }
 
 .doc-snippet {
-  max-width: 68ch;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
 }
@@ -6513,7 +6534,6 @@ copy-text {
 }
 
 .doc-callout {
-  max-width: 68ch;
   padding: var(--space-md) var(--space-lg);
   border-inline-start: 3px solid var(--color-border);
   background: var(--color-surface-subtle);
@@ -6570,8 +6590,16 @@ copy-text {
   margin-block-start: var(--space-2xl);
 }
 
+/* Los tres apartados de la pagina (formulario, preguntas y canales) comparten la misma
+   escala que un apartado de la documentacion. Antes eran <h2> sin clase y caian en el
+   clamp de portada: 76 px en un portatil, mas grandes que el propio contenido. */
+.main-support__section-title {
+  font-size: calc(clamp(1.5rem, 3vw, 2.125rem) * var(--font-heading-scale));
+}
+
 .main-support__policies {
   display: grid;
+  margin-block-start: var(--space-2xl);
   gap: var(--space-lg);
 }
 
@@ -6601,11 +6629,10 @@ copy-text {
   max-width: 42rem;
 }
 
-.main-faq__group + .main-faq__group {
-  margin-block-start: var(--space-2xl);
-}
-
-.main-faq__groups {
+/* El margen va en cada grupo, no en el par adyacente: con el selector "+" el primero se
+   quedaba sin separacion y su encabezado de categoria chocaba contra el descendente de la
+   ultima linea del h1. .main-faq__groups no existe en el markup; era regla muerta. */
+.main-faq__group {
   margin-block-start: var(--space-2xl);
 }
 
@@ -6698,6 +6725,12 @@ copy-text {
 
 .main-about__quote-role {
   color: var(--color-foreground-muted);
+}
+
+/* El relato encabeza su propio panel, asi que pesa un punto mas que los otros dos
+   apartados, pero sigue siendo un titulo de apartado y no una portada. */
+.main-about__story-title {
+  font-size: calc(clamp(1.75rem, 3.5vw, 2.5rem) * var(--font-heading-scale));
 }
 
 .main-about__values-title,

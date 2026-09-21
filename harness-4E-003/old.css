@@ -1,0 +1,7 @@
+.main-documentation .container, .main-policy .container { max-width: none; }
+.main-documentation__title,.main-support__title,.main-faq__title,.main-about__title,.main-policy__title{ font-size: calc(clamp(2.5rem, 9vw, 7rem) * var(--font-heading-scale)); }
+.main-support__section-title{ font-size: calc(clamp(2rem, 5vw, 4.5rem) * var(--font-heading-scale)); }
+.main-documentation__body{ max-width: none; }
+.doc-section__content,.doc-preset,.doc-snippet,.doc-callout{ max-width: 68ch; }
+.main-faq__group{ margin-block-start: 0; }
+.main-faq__group + .main-faq__group{ margin-block-start: var(--space-2xl); }

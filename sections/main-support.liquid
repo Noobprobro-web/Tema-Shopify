@@ -59,11 +59,31 @@
       {%- endif -%}
     </header>
 
+    {%- comment -%}
+      El alcance del soporte va antes del formulario y a todo el ancho: es lo que decide si
+      merece la pena escribir. Dentro de la columna lateral, cada tarjeta se quedaba en 231
+      px y un titulo de tres palabras se partia en dos lineas.
+    {%- endcomment -%}
+    {%- if policy_count > 0 -%}
+      <div class="main-support__policies">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'policy_card' -%}
+            <article class="main-support__policy color-{{ card_scheme }}" {{ block.shopify_attributes }}>
+              <h2 class="main-support__policy-title">{{ block.settings.title | escape }}</h2>
+              {%- if block.settings.items != blank -%}
+                <div class="rte main-support__policy-items">{{ block.settings.items }}</div>
+              {%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
     <div class="main-support__layout">
       <div class="main-support__form-column flow">
         <div>
           <p class="eyebrow">{{ 'support.form.eyebrow' | t }}</p>
-          <h2>{{ 'support.form.title' | t }}</h2>
+          <h2 class="main-support__section-title">{{ 'support.form.title' | t }}</h2>
         </div>
 
         {%- form 'contact', id: form_id, class: 'support-form flow' -%}
@@ -171,24 +191,9 @@
       </div>
 
       <aside class="main-support__aside flow">
-        {%- if policy_count > 0 -%}
-          <div class="main-support__policies">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'policy_card' -%}
-                <article class="main-support__policy color-{{ card_scheme }}" {{ block.shopify_attributes }}>
-                  <h2 class="main-support__policy-title">{{ block.settings.title | escape }}</h2>
-                  {%- if block.settings.items != blank -%}
-                    <div class="rte main-support__policy-items">{{ block.settings.items }}</div>
-                  {%- endif -%}
-                </article>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-
         {%- if faq_count > 0 -%}
           <div class="main-support__faq flow">
-            <h2>{{ 'support.faq.title' | t }}</h2>
+            <h2 class="main-support__section-title">{{ 'support.faq.title' | t }}</h2>
             <faq-accordion {% if section.settings.single_open_faq %}data-single-open{% endif %}>
               {%- for block in section.blocks -%}
                 {%- if block.type == 'support_faq' -%}
@@ -201,7 +206,7 @@
 
         {%- if channel_count > 0 -%}
           <div class="main-support__channels flow">
-            <h2>{{ 'support.channels.title' | t }}</h2>
+            <h2 class="main-support__section-title">{{ 'support.channels.title' | t }}</h2>
             <ul class="main-support__channel-list unstyled-list">
               {%- for block in section.blocks -%}
                 {%- if block.type == 'contact_channel' -%}

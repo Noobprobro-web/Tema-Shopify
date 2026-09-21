@@ -4,16 +4,16 @@
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5), GPT-5.6 Sol Max
-Última actualización: 2026-09-15
-Estado general: FASE 4D CONCLUIDA (Hardening, Sistema Cinemático y Steppers Accesibles 44px)
+Última actualización: 2026-09-20
+Estado general: SPRINT 4E-003 CONCLUIDO (Escala Tipográfica Armonizada y Balance Estructural de Páginas Nativas)
 ```
 
 ---
 
-## 1. Sprint Activo: CIERRE DE SPRINT 4E-002 (Refinamiento de Páginas y Navegación de Header) - COMPLETADO
+## 1. Sprint Activo: CIERRE DE SPRINT 4E-003 (Armonización Tipográfica y Rebalanceo de Layout) - COMPLETADO
 
-**Meta del Sprint:** Auditar y elevar al estándar de lujo las 5 páginas nativas recién creadas (micro-interacciones, animaciones de acordeones, scroll-spy, feedback de copiado en documentación), e incorporar en `sections/header.liquid` soporte de menú multinivel pulido y setting opcional de `secondary_menu` (utility links para About, FAQ, Support y Documentation).
-**Estado:** 100% implementado, auditado y aprobado formalmente por Gemini Flash 3.8 High. 63/63 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas, 0 ofensas en Theme Check (103 ficheros), cero `shopify://` en código.
+**Meta del Sprint:** Corregir escala tipográfica desproporcionada en títulos de páginas nativas (118px -> 64px a 1440px), asignar clases a encabezados de sección en soporte (76px -> 36px), rebalancear tarjetas de alcance horizontalmente y unificar borde derecho de lectura en documentación.
+**Estado:** 100% implementado por Claude, auditado y aprobado formalmente por Gemini Flash 3.8 High (`GEMINI-review-CLAUDE-4E-003.md`). 75/75 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas, 0 ofensas en Theme Check (103 ficheros), cero `shopify://` en código.
 
 *Siguiente Paso:* Commit y push en Git, despliegue a Shopify en vivo y cierre de dependencias de Theme Store.
 
