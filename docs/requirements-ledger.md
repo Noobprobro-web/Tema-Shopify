@@ -1,8 +1,8 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO CALCULADO: 53 filas | 39 cumplido | 12 código completo | 2 no verificado | 0 ausente
-Desglose recalculado por scripts/ledger-verify.mjs el 2026-09-14.
+CONTEO CALCULADO: 53 filas | 38 cumplido | 13 código completo | 2 no verificado | 0 ausente
+Desglose recalculado por scripts/ledger-verify.mjs el 2026-09-21.
 Última sincronización: 2026-09-14 (Consolidación a 4 estados canónicos y verificación matemática automática)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
 Regla RULES.md: El código escrito NO cierra una fila que exige medición o prueba en tienda real. Cada fila abierta tiene dueño y artefacto de cierre explícito.
@@ -60,7 +60,7 @@ Regla RULES.md: El código escrito NO cierra una fila que exige medición o prue
 
 | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Checkout Acelerado (`additional_checkout_buttons`)** | Official Requirements: Cart & PDP | `cumplido` | `sections/main-product.liquid:178`, `sections/cart-drawer.liquid:262`. | GPT | Sprint 2B |
+| **Checkout Acelerado (`additional_checkout_buttons`)** | Official Requirements: Cart & PDP | `código completo` | PDP `sections/main-product.liquid:570` (`form \| payment_button`); cajón `sections/cart-drawer.liquid:491-495`; carrito `sections/main-cart-items.liquid:214-218`. Pendiente Gate 5 en tienda real con pasarela activa. | Claude | Sprint 4F-001 |
 | **Shop Pay Installments (`form \| payment_terms`)** | Official Requirements: PDP | `cumplido` | `sections/main-product.liquid:174` dentro del formulario de producto nativo. | GPT | Sprint 3B.5 |
 | **Precio Unitario (UE Legal)** | Official Requirements: Pricing | `cumplido` | `snippets/price.liquid:30-43` (`variant.unit_price_measurement`). | GPT | Sprint 2B |
 | **Selector de Variantes y Swatches Nativos** | Official Requirements: Product | `cumplido` | `sections/main-product.liquid:102-127` soportando `swatch.image` y `swatch.color`. | GPT | Sprint 3B.5 |

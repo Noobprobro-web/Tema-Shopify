@@ -205,6 +205,17 @@
                 {{- 'sections.cart.checkout' | t -}}
               </button>
             </div>
+
+            {%- comment -%}
+              Checkout acelerado: requisito de Theme Store en la pagina de carrito. Va debajo
+              del boton Checkout para que el comprador elija entre el checkout normal y el
+              acelerado, como recomienda Shopify.
+            {%- endcomment -%}
+            {%- if additional_checkout_buttons -%}
+              <div class="cart__dynamic-checkout">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+            {%- endif -%}
           </div>
         </footer>
       </form>

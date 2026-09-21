@@ -54,8 +54,33 @@
           {{ section.settings.sla | escape }}
         </p>
       {%- endif -%}
-      {%- if page.content != blank -%}
-        <div class="rte main-support__page-content">{{ page.content }}</div>
+      {%- comment -%}
+        Blindaje ante HTML residual (4F-001). Una pagina que antes se maqueto pegando HTML
+        en el editor puede traer bloques <style> y <script> con selectores globales
+        (header, main, body) que secuestran la cabecera, el pie y la tipografia de todo el
+        tema. Aqui se quitan esos bloques enteros y se conserva el resto del contenido con
+        su formato. La misma logica vive en main-documentation.liquid.
+      {%- endcomment -%}
+      {%- liquid
+        assign page_body = page.content
+        if page_body contains '<style' or page_body contains '<script'
+          assign without_styles = ''
+          assign style_chunks = page_body | split: '</style>'
+          for style_chunk in style_chunks
+            assign kept_chunk = style_chunk | split: '<style' | first
+            assign without_styles = without_styles | append: kept_chunk
+          endfor
+          assign page_body = ''
+          assign script_chunks = without_styles | split: '</script>'
+          for script_chunk in script_chunks
+            assign kept_chunk = script_chunk | split: '<script' | first
+            assign page_body = page_body | append: kept_chunk
+          endfor
+        endif
+        assign page_body = page_body | strip
+      -%}
+      {%- if page_body != blank -%}
+        <div class="rte main-support__page-content">{{ page_body }}</div>
       {%- endif -%}
     </header>
 

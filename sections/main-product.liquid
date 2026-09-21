@@ -14,6 +14,17 @@
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_models = product.media | where: 'media_type', 'model'
   assign selected_media_id = selected_variant.featured_media.id | default: product.featured_media.id
+
+  comment
+    Proporcion del carrusel movil (4F-001): la de la primera imagen, acotada entre 2:3 y
+    3:2. Todas las diapositivas comparten marco para que el carrusel no cambie de alto al
+    deslizar; una imagen de otra proporcion se muestra entera dentro de ese marco.
+  endcomment
+  assign gallery_ratio = product.media.first.aspect_ratio | default: 0.8 | at_least: 0.667 | at_most: 1.5
+  assign gallery_is_carousel = false
+  if section.settings.media_layout != 'thumbnails' and product.media.size > 1
+    assign gallery_is_carousel = true
+  endif
 -%}
 
 <section class="section product-main color-{{ section_scheme }}" data-section-id="{{ section.id }}">
@@ -23,8 +34,9 @@
       data-layout="{{ section.settings.media_layout }}"
       role="region"
       aria-label="{{ 'products.product.media_gallery' | t }}"
+      style="--gallery-ratio: {{ gallery_ratio }};"
     >
-      <div class="product-gallery__items">
+      <div class="product-gallery__items" data-gallery-track>
         {%- if product.media.size > 0 -%}
           {%- for media in product.media -%}
             <figure
@@ -40,6 +52,42 @@
           <div class="product-gallery__placeholder" aria-hidden="true"></div>
         {%- endif -%}
       </div>
+
+      {%- if gallery_is_carousel -%}
+        {%- comment -%}
+          Paginador del carrusel movil. Nace oculto y solo lo muestra <product-gallery> por
+          debajo de 62rem, que es donde la galeria se convierte en carrusel: sin JavaScript
+          el carrusel se sigue deslizando con el dedo y no queda ningun boton que no haga
+          nada. El contador es visual; el anuncio para lector de pantalla va en el estado.
+        {%- endcomment -%}
+        <div
+          class="product-gallery__pager"
+          data-gallery-pager
+          data-view-media-template="{{ 'products.product.view_media' | t: number: '[number]' | escape }}"
+          hidden
+        >
+          <button
+            class="icon-button product-gallery__step product-gallery__step--previous"
+            type="button"
+            aria-label="{{ 'general.pagination.previous' | t | escape }}"
+            data-gallery-step="-1"
+          >
+            {% render 'icon', name: 'chevron-down', size: 18 %}
+          </button>
+          <p class="product-gallery__counter" aria-hidden="true">
+            <span data-gallery-current>1</span> / {{ product.media.size }}
+          </p>
+          <button
+            class="icon-button product-gallery__step product-gallery__step--next"
+            type="button"
+            aria-label="{{ 'general.pagination.next' | t | escape }}"
+            data-gallery-step="1"
+          >
+            {% render 'icon', name: 'chevron-down', size: 18 %}
+          </button>
+          <p class="visually-hidden" aria-live="polite" data-gallery-status></p>
+        </div>
+      {%- endif -%}
 
       {%- if section.settings.media_layout == 'thumbnails' and product.media.size > 1 -%}
         <div class="product-gallery__thumbnails" role="group" aria-label="{{ 'products.product.media_thumbnails' | t }}">

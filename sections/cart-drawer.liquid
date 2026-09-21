@@ -71,6 +71,14 @@
         </button>
       </header>
 
+      {%- comment -%}
+        Los avisos van justo bajo la cabecera y fuera de la zona desplazable: se leen sin
+        buscarlos y nunca tapan el pie. JavaScript los localiza por su atributo, no por su
+        posicion.
+      {%- endcomment -%}
+      <p class="cart-drawer__message" role="status" aria-live="polite" data-cart-status hidden></p>
+      <p class="cart-drawer__message" role="alert" data-cart-error hidden></p>
+
       <div class="cart-drawer__content" data-cart-drawer-content>
         {%- if section.settings.enable_tiered_progress and rewards_currency_supported -%}
           <div
@@ -120,6 +128,13 @@
           </div>
         {%- else -%}
           <form class="cart-drawer__form" action="{{ routes.cart_url }}" method="post" data-cart-form>
+            {%- comment -%}
+              Lineas y recomendaciones se desplazan dentro de su propia pista; el pie con el
+              subtotal y el Checkout queda fuera de ella y siempre a la vista (4F-001). Antes
+              desplazaba el panel entero y, en pantallas bajas, el aviso de estado tapaba el
+              boton Checkout.
+            {%- endcomment -%}
+            <div class="cart-drawer__scroll" data-cart-scroll>
             <div class="cart-drawer__items" role="list">
               {%- for item in cart.items -%}
                 <article
@@ -424,6 +439,7 @@
                 </div>
               </section>
             {%- endif -%}
+            </div>
 
             <footer class="cart-drawer__footer flow">
               {%- if settings.show_cart_note -%}
@@ -465,6 +481,18 @@
               <button class="button button--full" type="submit" name="checkout">
                 {{- 'sections.cart.checkout' | t -}}
               </button>
+              {%- comment -%}
+                Checkout acelerado (Shop Pay, Apple Pay, Google Pay, PayPal). Theme Store lo
+                exige en el carrito, y el cajon es un carrito: el Section Rendering API vuelve a
+                pintar los botones cada vez que el cajon se re-renderiza. Sin forzar el apilado
+                vertical: Shopify los pone en fila si caben y solo los apila si no, y en un
+                cajon cada fila de mas es alto que se le quita a la lista de productos.
+              {%- endcomment -%}
+              {%- if additional_checkout_buttons -%}
+                <div class="cart__dynamic-checkout">
+                  {{ content_for_additional_checkout_buttons }}
+                </div>
+              {%- endif -%}
               <a class="cart-drawer__view-cart" href="{{ routes.cart_url }}">
                 {{- 'sections.cart.view_cart' | t -}}
               </a>
@@ -473,8 +501,6 @@
         {%- endif -%}
       </div>
 
-      <p class="cart-drawer__message" role="status" aria-live="polite" data-cart-status hidden></p>
-      <p class="cart-drawer__message" role="alert" data-cart-error hidden></p>
     </aside>
   </div>
 </cart-drawer>

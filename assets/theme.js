@@ -334,7 +334,10 @@
   class ProductGallery extends ThemeElement {
     connectedCallback() {
       this.startListening();
-      if (this.dataset.layout !== 'thumbnails') return;
+      if (this.dataset.layout !== 'thumbnails') {
+        this.initCarousel();
+        return;
+      }
 
       this.items = Array.from(this.querySelectorAll('[data-product-media-id]'));
       this.thumbnails = Array.from(this.querySelectorAll('[data-product-thumbnail]'));
@@ -356,6 +359,112 @@
       const initialMedia = this.items.find((item) => item.hasAttribute('data-selected'))
         || this.items[0];
       this.selectMedia(initialMedia.dataset.productMediaId, false);
+    }
+
+    // 4F-001. Carrusel movil. Por debajo de 62rem la galeria (stack o grid) es una fila
+    // con scroll-snap que el CSS ya hace deslizable sin JavaScript. Aqui solo se anade lo
+    // que el CSS no sabe hacer: contador, botones anterior y siguiente, foco de teclado en
+    // la pista y saltar a la imagen de la variante elegida.
+    initCarousel() {
+      this.track = this.querySelector('[data-gallery-track]');
+      this.pager = this.querySelector('[data-gallery-pager]');
+      this.slides = Array.from(this.querySelectorAll('[data-product-media-id]'));
+      if (!this.track || !this.pager || this.slides.length < 2) return;
+
+      this.counter = this.pager.querySelector('[data-gallery-current]');
+      this.carouselStatus = this.pager.querySelector('[data-gallery-status]');
+      this.steps = Array.from(this.pager.querySelectorAll('[data-gallery-step]'));
+      this.carouselQuery = window.matchMedia('(max-width: 61.99rem)');
+      this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.currentSlide = -1;
+
+      this.steps.forEach((step) => {
+        this.listen(step, 'click', () => {
+          this.goToSlide(this.currentSlide + Number(step.dataset.galleryStep), true);
+        });
+      });
+
+      // El indice sale de la posicion de scroll, que es lo que ve el comprador tanto si
+      // desliza con el dedo, con el trackpad o con las flechas del teclado.
+      let frame = 0;
+      this.listen(this.track, 'scroll', () => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => this.syncSlide(false));
+      }, { passive: true });
+
+      this.listen(this.carouselQuery, 'change', () => this.syncCarouselMode());
+
+      const productSection = this.closest('[data-section-id]');
+      if (productSection) {
+        this.listen(productSection, 'theme:variant-change', (event) => {
+          const mediaId = event.detail?.variant?.featured_media_id;
+          const index = this.slides.findIndex(
+            (slide) => String(slide.dataset.productMediaId) === String(mediaId),
+          );
+          if (index >= 0) this.goToSlide(index, false);
+        });
+      }
+
+      this.syncCarouselMode();
+    }
+
+    syncCarouselMode() {
+      const active = this.carouselQuery.matches;
+      this.pager.hidden = !active;
+
+      // Una pista desplazable tiene que poder recibir el foco para que el teclado la mueva
+      // (axe: scrollable-region-focusable). Fuera del carrusel no es desplazable y no debe
+      // ser una parada de tabulacion vacia.
+      if (active) {
+        this.track.tabIndex = 0;
+        this.track.setAttribute('aria-label', this.getAttribute('aria-label') || '');
+      } else {
+        this.track.removeAttribute('tabindex');
+        this.track.removeAttribute('aria-label');
+      }
+
+      this.syncSlide(false);
+    }
+
+    slideIndexFromScroll() {
+      const width = this.track.clientWidth;
+      if (!width) return 0;
+      // En RTL scrollLeft es negativo; el valor absoluto cuenta desde el inicio igual.
+      const index = Math.round(Math.abs(this.track.scrollLeft) / width);
+      return Math.min(Math.max(index, 0), this.slides.length - 1);
+    }
+
+    syncSlide(announce) {
+      this.applySlide(this.slideIndexFromScroll(), announce);
+    }
+
+    applySlide(index, announce) {
+      if (index === this.currentSlide && !announce) return;
+      this.currentSlide = index;
+
+      if (this.counter) this.counter.textContent = String(index + 1);
+      this.steps.forEach((step) => {
+        const direction = Number(step.dataset.galleryStep);
+        step.disabled = direction < 0 ? index === 0 : index === this.slides.length - 1;
+      });
+
+      if (announce && this.carouselStatus) {
+        const template = this.pager.dataset.viewMediaTemplate || '';
+        this.carouselStatus.textContent = template.replace('[number]', String(index + 1));
+      }
+    }
+
+    goToSlide(index, announce) {
+      if (!this.carouselQuery?.matches) return;
+      const target = Math.min(Math.max(index, 0), this.slides.length - 1);
+      const rtl = getComputedStyle(this.track).direction === 'rtl';
+      const left = target * this.track.clientWidth * (rtl ? -1 : 1);
+
+      this.track.scrollTo({ left, behavior: this.reducedMotionQuery.matches ? 'auto' : 'smooth' });
+      // El contador salta ya al destino: esperar al scroll suave lo dejaria unos cientos
+      // de milisegundos en la imagen de origen, y con la pista ya en su sitio no habria
+      // evento scroll que lo corrigiera.
+      this.applySlide(target, announce);
     }
 
     selectMedia(mediaId, announce) {
@@ -1767,8 +1876,14 @@
 
       const active = document.activeElement;
       const restoreFocus = this.isOpen && (currentContent.contains(active) || active === document.body);
+      // La pista desplazable vive dentro del bloque que se reemplaza: sin esto, cambiar la
+      // cantidad de una linea al fondo de la lista devolveria la pista arriba del todo.
+      const previousScroll = currentContent.querySelector('[data-cart-scroll]')?.scrollTop || 0;
 
       currentContent.replaceWith(nextContent);
+
+      const nextScroll = nextContent.querySelector('[data-cart-scroll]');
+      if (nextScroll && previousScroll) nextScroll.scrollTop = previousScroll;
 
       if (restoreFocus) {
         const restored = active?.id ? nextContent.querySelector(`#${CSS.escape(active.id)}`) : null;
@@ -3295,7 +3410,21 @@
 
       if (imageUrl) {
         const image = document.createElement('img');
-        image.src = imageUrl;
+        // La API de sugerencias devuelve la URL del original (1800 px o mas). El CDN de
+        // Shopify sirve cualquier ancho con ?width=: se piden las densidades 1x, 2x y 3x
+        // de una miniatura de 72 px en vez de descargar el original entero (4F-001).
+        const sizedUrl = (width) => {
+          try {
+            const url = new URL(imageUrl, window.location.origin);
+            url.searchParams.set('width', String(width));
+            return url.toString();
+          } catch {
+            return imageUrl;
+          }
+        };
+        image.src = sizedUrl(144);
+        image.srcset = [72, 144, 216].map((width) => `${sizedUrl(width)} ${width}w`).join(', ');
+        image.sizes = '72px';
         image.alt = product.featured_image?.alt || '';
         image.loading = 'lazy';
         image.width = 72;
@@ -3678,21 +3807,54 @@
   // ---------------------------------------------------------------------------
   // B7. Cabecera condensada al bajar. Solo escribe cuando el estado cambia, asi que el
   // listener pasivo no toca el DOM en la inmensa mayoria de los eventos de scroll.
+  //
+  // 4F-001. La cabecera es sticky (lo declara header.liquid sobre su seccion). Aqui se
+  // publica ademas su altura real en --header-offset, que usan scroll-padding (anclas y
+  // foco por teclado nunca quedan debajo de la cabecera, WCAG 2.4.11) y las columnas
+  // sticky de ficha, coleccion y documentacion. Si la seccion no es sticky (sin soporte
+  // o sin JS) el desplazamiento es 0 y nada cambia de sitio.
   // ---------------------------------------------------------------------------
   const initHeaderScrollState = () => {
-    const header = document.querySelector('.site-header');
-    if (!header) return;
-
+    let header = null;
     let scrolled = null;
+    let offset = null;
+
     const sync = () => {
       const next = window.scrollY > 40;
-      if (next === scrolled) return;
+      if (!header || next === scrolled) return;
       scrolled = next;
       header.toggleAttribute('data-header-scrolled', next);
     };
 
-    sync();
+    const publishOffset = () => {
+      const stickyBox = header?.parentElement;
+      const isSticky = stickyBox && getComputedStyle(stickyBox).position === 'sticky';
+      const next = isSticky ? Math.round(stickyBox.getBoundingClientRect().height) : 0;
+      if (next === offset) return;
+      offset = next;
+      document.documentElement.style.setProperty('--header-offset', `${next}px`);
+    };
+
+    const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(publishOffset) : null;
+
+    const bind = () => {
+      resizeObserver?.disconnect();
+      header = document.querySelector('.site-header');
+      scrolled = null;
+      if (!header) return;
+      if (header.parentElement) resizeObserver?.observe(header.parentElement);
+      publishOffset();
+      sync();
+    };
+
+    bind();
     window.addEventListener('scroll', sync, { passive: true });
+    if (!resizeObserver) window.addEventListener('resize', publishOffset, { passive: true });
+    // El editor de temas reemplaza la seccion entera al cambiar un ajuste: sin volver a
+    // enlazar, el atributo y la medida se aplicarian a un nodo que ya no esta en la pagina.
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.target.querySelector?.('.site-header')) bind();
+    });
   };
 
   // ---------------------------------------------------------------------------

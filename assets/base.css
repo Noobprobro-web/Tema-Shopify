@@ -753,6 +753,7 @@ blockquote {
 .mobile-nav__toggle {
   border: 0;
   justify-content: space-between;
+  padding-inline: 0;
   background: transparent;
   text-align: start;
 }
@@ -2447,10 +2448,6 @@ body[data-sticky-cart-visible] {
   background: linear-gradient(to top, rgb(0 0 0 / var(--hero-overlay-opacity)), transparent 72%);
 }
 
-.hero-editorial__overlay--gradient_content {
-  background: linear-gradient(to right, rgb(0 0 0 / var(--hero-overlay-opacity)), transparent 68%);
-}
-
 .hero-editorial__actions {
   display: grid;
   gap: var(--space-sm);
@@ -3174,7 +3171,7 @@ marquee-banner {
 
 @media (min-width: 48rem) {
   .hero-editorial__actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   }
 
   .bento-discovery__header {
@@ -7087,6 +7084,320 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 
 
 /* =========================================================================
+   AUDITORIA EN VIVO: CORRECCIONES P0 Y P1 (Sprint 4F-001)
+   Referencia: agent-comms/outbox-claude/CLAUDE-AUDIT-LIVE-001-tienda-en-vivo.md
+   ========================================================================= */
+
+/* ---------- T1. Checkout acelerado en el carrito ---------- */
+/* Los botones viven en un custom element con shadow DOM cerrado: solo se tocan con las
+   propiedades que publica Shopify, declaradas sobre el propio elemento como recomienda la
+   documentacion (heredadas desde el contenedor perderian frente a sus valores por
+   defecto). block-size es la altura en la pila vertical e inline-size la altura en la
+   fila horizontal: las dos a la altura tactil del boton Checkout, con su mismo radio y el
+   esqueleto de carga en el tono de superficie del esquema. */
+.cart__dynamic-checkout {
+  width: 100%;
+  margin-block-start: var(--space-2);
+}
+
+.cart__dynamic-checkout shopify-accelerated-checkout-cart {
+  --shopify-accelerated-checkout-button-block-size: var(--tap-target-min);
+  --shopify-accelerated-checkout-button-inline-size: var(--tap-target-min);
+  --shopify-accelerated-checkout-button-border-radius: var(--button-radius, 0px);
+  --shopify-accelerated-checkout-skeleton-background-color: var(--color-surface);
+}
+
+/* ---------- T2. Escalera de apilamiento ---------- */
+/* La cabecera sticky queda en 150 (header.liquid). Todo modal global va por encima; el
+   de contrasena estaba en 90 y la cabecera le habria tapado el boton de cerrar. */
+.password-modal__overlay {
+  z-index: 240;
+}
+
+/* ---------- T8. Consecuencias de la cabecera sticky ---------- */
+/* --header-offset lo publica initHeaderScrollState con la altura real de la cabecera;
+   vale 0 cuando no es sticky. scroll-padding hace que las anclas y el foco por teclado
+   se detengan debajo de la cabecera y no detras de ella (WCAG 2.4.11). */
+:root {
+  --header-offset: 0px;
+}
+
+html {
+  scroll-padding-block-start: var(--header-offset);
+}
+
+@media (min-width: 62rem) {
+  .product-main__details,
+  .featured-product__details {
+    inset-block-start: calc(var(--header-offset) + var(--space-4));
+  }
+
+  .facets {
+    inset-block-start: calc(var(--header-offset) + var(--space-3));
+  }
+
+  .main-documentation__nav,
+  .main-policy__nav {
+    top: calc(var(--header-offset) + var(--space-2xl));
+    max-height: calc(100vh - var(--header-offset) - (var(--space-2xl) * 2));
+  }
+}
+
+/* ---------- T3. Legibilidad del hero cinematografico ---------- */
+/* Sobre fotografia no hay gris seguro: el subtitulo usa el color de texto del esquema,
+   igual que el titular. Medido antes del cambio: 1.19:1 a 390 px. */
+.hero-editorial--cinematic .hero-editorial__subheading {
+  color: var(--color-foreground);
+}
+
+/* "Gradient behind the text only": un velo que sigue al bloque de texto donde se
+   coloque. El texto va siempre sobre la parte opaca del velo (el difuminado empieza
+   fuera de la caja del texto) y su opacidad nunca baja de 60 %: es el minimo con el que
+   un texto crema de 16 px llega a 4.5:1 incluso sobre blanco puro (con 55 % se queda en
+   4.34:1). */
+.hero-editorial--cinematic.hero-editorial--overlay-gradient_content {
+  --hero-scrim-alpha: max(0.6, var(--hero-overlay-opacity, 0.6));
+}
+
+.hero-editorial--cinematic.hero-editorial--overlay-gradient_content .hero-editorial__inner {
+  overflow: clip;
+}
+
+.hero-editorial--cinematic.hero-editorial--overlay-gradient_content .hero-editorial__content {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Un velo radial del doble de alto y de ancho que el bloque de texto, centrado en el. Con
+   el tramo opaco hasta el 72 % del radio, las cuatro esquinas del bloque (a 70.7 %) quedan
+   dentro de la zona opaca y el difuminado ocurre entero fuera del texto: se lee como luz
+   que cae, no como una caja gris. */
+.hero-editorial--cinematic.hero-editorial--overlay-gradient_content .hero-editorial__content::before {
+  position: absolute;
+  z-index: -1;
+  inset: -50%;
+  /* Caida escalonada (curva de salida suave): con dos paradas el borde del velo se leia
+     como un arco sobre el techo de la foto. */
+  background: radial-gradient(
+    closest-side,
+    rgb(0 0 0 / var(--hero-scrim-alpha)) 72%,
+    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.84)) 77%,
+    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.6)) 82%,
+    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.36)) 88%,
+    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.14)) 94%,
+    rgb(0 0 0 / 0) 100%
+  );
+  content: '';
+  pointer-events: none;
+}
+
+/* ---------- T4. Galeria de producto sin huecos ---------- */
+/* Una sola imagen, o ninguna, ocupa todo el ancho de la galeria. Con un numero impar de
+   imagenes la primera abre a todo el ancho y el resto va por parejas, la misma regla que
+   ya usa el producto destacado: la ultima fila nunca queda con una celda vacia. */
+.product-gallery__item:only-child,
+.product-gallery__placeholder {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 62rem) {
+  .product-main__layout--grid .product-gallery__item:first-child:nth-last-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- T7. Carrusel tactil de la galeria (por debajo de 62rem) ---------- */
+/* Hasta 62rem la ficha es de una columna: apilar las imagenes empujaba el titulo y el
+   boton de compra tres pantallas abajo. Aqui la galeria es una fila con scroll-snap que
+   se desliza sin JavaScript; <product-gallery> anade contador y botones. Todas las
+   diapositivas comparten el marco de la primera imagen (--gallery-ratio, acotado en el
+   Liquid) y nunca pasan de 55 % del alto de la ventana: en un movil bajo (690 px) el
+   titulo del producto sigue entrando en la primera pantalla. */
+.product-gallery__pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.product-gallery__counter {
+  min-width: 5ch;
+  margin: 0;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.product-gallery__step--previous svg {
+  transform: rotate(90deg);
+}
+
+.product-gallery__step--next svg {
+  transform: rotate(-90deg);
+}
+
+[dir='rtl'] .product-gallery__step--previous svg {
+  transform: rotate(-90deg);
+}
+
+[dir='rtl'] .product-gallery__step--next svg {
+  transform: rotate(90deg);
+}
+
+.product-gallery__step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 61.99rem) {
+  .product-main__layout--stack .product-gallery__items,
+  .product-main__layout--grid .product-gallery__items {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+  }
+
+  .js .product-main__layout--stack .product-gallery__items,
+  .js .product-main__layout--grid .product-gallery__items {
+    scrollbar-width: none;
+  }
+
+  .js .product-main__layout--stack .product-gallery__items::-webkit-scrollbar,
+  .js .product-main__layout--grid .product-gallery__items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-main__layout--stack .product-gallery__items:focus-visible,
+  .product-main__layout--grid .product-gallery__items:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .product-main__layout--stack .product-gallery__item,
+  .product-main__layout--grid .product-gallery__item,
+  .product-main__layout--stack .product-gallery__placeholder,
+  .product-main__layout--grid .product-gallery__placeholder {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* El borde de "imagen de la variante" sirve en la rejilla de escritorio; en un
+     carrusel de una imagen a la vez no marca nada. */
+  .product-main__layout--stack .product-gallery__item[data-selected]::after,
+  .product-main__layout--grid .product-gallery__item[data-selected]::after {
+    content: none;
+  }
+
+  .product-main__layout--stack .product-gallery__image,
+  .product-main__layout--grid .product-gallery__image {
+    height: auto;
+    max-height: 55svh;
+    aspect-ratio: var(--gallery-ratio, 0.8);
+    object-fit: contain;
+  }
+}
+
+/* ---------- T5. Buscador: fila estable y una sola cruz ---------- */
+/* El boton de borrar sale del flujo cuando esta oculto; sin posiciones explicitas el
+   boton de enviar caia en su pista de 44 px y "SEARCH" se apilaba letra a letra. */
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.predictive-search__input-icon {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+/* El campo ocupa tambien la pista del boton de borrar y le reserva sitio con su relleno:
+   con el campo vacio no queda un hueco de 44 px entre el texto y SEARCH, y al escribir la
+   cruz aparece dentro del campo, no a su lado. */
+.predictive-search__input {
+  grid-row: 1;
+  grid-column: 2 / 4;
+  padding-inline-end: var(--tap-target-min);
+}
+
+.predictive-search__clear {
+  z-index: 1;
+  grid-row: 1;
+  grid-column: 3;
+}
+
+.predictive-search__submit {
+  white-space: nowrap;
+}
+
+@media (min-width: 48rem) {
+  .predictive-search__submit {
+    grid-row: 1;
+    grid-column: 4;
+  }
+}
+
+/* ---------- T6. Cajon del carrito en pantallas bajas ---------- */
+/* El panel ya no se desplaza entero: cabecera, avisos y pie quedan fijos y solo se
+   mueve la pista de lineas y recomendaciones. Si la ventana es tan baja que ni la pista
+   minima cabe, el contenido entero pasa a desplazarse como ultimo recurso. */
+.cart-drawer__panel {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cart-drawer__header,
+.cart-drawer__message {
+  flex-shrink: 0;
+}
+
+.cart-drawer__content {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cart-drawer__form {
+  min-height: 0;
+}
+
+.cart-drawer__scroll {
+  flex: 1 1 auto;
+  min-height: 7rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cart-drawer__footer {
+  flex-shrink: 0;
+}
+
+.cart-rewards {
+  flex-shrink: 0;
+}
+
+/* En ventanas bajas (un portatil de 768 px con la barra del navegador se queda en unos
+   650) el pie y la barra de envio compactan su aire para que la primera linea del
+   carrito se vea entera sin desplazar la pista. */
+@media (max-height: 45rem) {
+  .cart-drawer__header {
+    min-height: 4.5rem;
+  }
+
+  .cart-rewards {
+    gap: var(--space-xs);
+    padding-block: var(--space-sm);
+  }
+
+  .cart-drawer__footer {
+    --flow-space: var(--space-xs);
+    padding-block: var(--space-sm);
+  }
+}
+
+
+/* =========================================================================
    SISTEMA DE MOVIMIENTO (Sprint 4C-002)
    Todo lo de aqui abajo esta gobernado por html[data-animations] y por
    prefers-reduced-motion. Las dos llaves de apagado viven al final del bloque.
@@ -7160,27 +7471,39 @@ html[data-animations='full'] .product-gallery__item[data-selected] .product-gall
   }
 }
 
-/* B7. Cabecera condensada. El atributo lo pone initHeaderScrollState. */
+/* B7. Cabecera condensada. El atributo lo pone initHeaderScrollState.
+   4F-001: desde que la cabecera es sticky el estado condensado se ve de verdad. Ya no
+   cambia de altura: una cabecera pegada que encoge desplaza todo el contenido de debajo
+   a mitad de scroll, y eso es desplazamiento de layout. Cambian sombra y fondo. */
 .site-header {
   /* Sigue al scroll del usuario: si tarda lo que una entrada de superficie, se rezaga
      detras del contenido y se lee como lag. Va en fast. */
-  transition: padding-block var(--motion-fast) var(--ease-move),
-    box-shadow var(--motion-fast) var(--ease-move),
+  transition: box-shadow var(--motion-fast) var(--ease-move),
     background-color var(--motion-fast) var(--ease-move);
 }
 
-.site-header[data-header-scrolled] .site-header__inner {
-  padding-block: var(--space-2);
-}
-
 .site-header[data-header-scrolled] {
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--color-foreground) 12%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--color-foreground) 12%, transparent),
+    0 0.75rem 1.5rem -1.25rem color-mix(in srgb, var(--color-shadow) 45%, transparent);
 }
 
+/* El desenfoque va en un pseudo-elemento y nunca en la cabecera: un backdrop-filter la
+   convertiria en el bloque contenedor de sus descendientes position: fixed, y el menu
+   movil y el buscador quedarian encerrados en los 77 px de la cabecera en cuanto se
+   hiciera scroll. */
 @supports (backdrop-filter: blur(8px)) {
   html[data-animations='full'] .site-header[data-header-scrolled] {
-    backdrop-filter: blur(8px);
+    background: transparent;
+  }
+
+  html[data-animations='full'] .site-header[data-header-scrolled]::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
     background-color: color-mix(in srgb, var(--color-background) 88%, transparent);
+    backdrop-filter: blur(8px);
+    content: '';
+    pointer-events: none;
   }
 }
 

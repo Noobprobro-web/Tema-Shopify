@@ -46,7 +46,7 @@
   data-enable-video-mobile="{{ section.settings.enable_video_mobile }}"
 >
   <section
-    class="section hero-editorial hero-editorial--{{ layout_mode }} hero-editorial--{{ section.settings.layout_split }} hero-editorial--split-{{ section.settings.split_ratio }} hero-editorial--x-{{ section.settings.content_position_x }} hero-editorial--y-{{ section.settings.content_position_y }} hero-editorial--align-{{ section.settings.text_alignment }} color-{{ section_scheme }}"
+    class="section hero-editorial hero-editorial--{{ layout_mode }} hero-editorial--{{ section.settings.layout_split }} hero-editorial--split-{{ section.settings.split_ratio }} hero-editorial--x-{{ section.settings.content_position_x }} hero-editorial--y-{{ section.settings.content_position_y }} hero-editorial--align-{{ section.settings.text_alignment }} hero-editorial--overlay-{{ section.settings.overlay_style }} color-{{ section_scheme }}"
     style="--hero-height-desktop: {{ section.settings.height_desktop }}svh; --hero-height-mobile: {{ section.settings.height_mobile }}svh; --hero-content-width: {{ section.settings.content_width }}%; --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
     {% if section.settings.heading != blank %}
       aria-labelledby="HeroEditorialTitle-{{ section.id }}"
@@ -123,7 +123,13 @@
           </div>
         {%- endif -%}
 
-        {%- if layout_mode == 'cinematic' and section.settings.overlay_style != 'none' -%}
+        {%- comment -%}
+          "Gradient behind the text only" (gradient_content) ya no oscurece la imagen entera: el velo se
+          dibuja detras del bloque de texto y lo sigue a donde se coloque (4F-001). Antes era
+          un degradado fijo desde la izquierda que no hacia lo que decia su etiqueta y
+          dejaba el texto sin fondo en cuanto el contenido iba a la derecha.
+        {%- endcomment -%}
+        {%- if layout_mode == 'cinematic' and section.settings.overlay_style != 'none' and section.settings.overlay_style != 'gradient_content' -%}
           <span class="hero-editorial__overlay hero-editorial__overlay--{{ section.settings.overlay_style }}" aria-hidden="true"></span>
         {%- endif -%}
       </div>
