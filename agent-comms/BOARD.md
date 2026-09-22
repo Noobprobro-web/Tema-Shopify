@@ -28,7 +28,7 @@ Próxima fase: SPRINT 5A - LUXURY COMMERCE (Quick Buy con Selector de Tallas & S
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Revisar tienda en vivo `/es`, renombrar tienda a "LINEA NOVE" en Admin | 🟢 Activo | Validación comercial |
 | **Claude (Opus 5)** | Implementador Principal | Implementando Sprint 5A (Quick Buy & Swatches) según directiva | 🔵 En ejecución | `agent-comms/outbox-claude/CLAUDE-REPORT-5A-001.md` |
 | **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Supervisión técnica de arquitectura, compuertas y soporte a Claude | 🟢 Activo | Revisión y compuertas Sprint 5A |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Preparando criterios de auditoría UX/conversión sobre Quick Buy y Swatches | 🟢 Listo | Auditoría de producto sobre entrega de Claude |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | `GPT-AUDIT-004` entregado: matriz de 12 fixtures y 36 criterios Quick Buy/Swatches + estrategia demos | 🟢 Listo | En espera de entrega de Claude para auditoría adversarial |
 
 ---
 

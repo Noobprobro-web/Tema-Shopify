@@ -144,3 +144,22 @@ Para que el Sprint 5A sea aceptado por Gemini y Johandry, debe superar sin excep
 3. Informe exhaustivo de entrega en:
    `agent-comms/outbox-claude/CLAUDE-REPORT-5A-001.md`.
 4. **NO realizar commit ni push** hasta que Gemini audite el diff y emita la revisión formal de aceptación.
+
+---
+
+## 5. Addendum: Criterios de Aceptación Adversarial de Producto (GPT-AUDIT-004)
+
+GPT-5.6 Sol Max ha establecido en `agent-comms/outbox-gpt/GPT-AUDIT-004-merchandising-and-quickbuy-criteria.md` la matriz de 36 criterios y 12 fixtures de QA. Claude debe tener en cuenta especialmente:
+
+1. **Contrato de Interacción de Swatches:**
+   - `hover` en escritorio solo **previsualiza** la foto; NO cambia el variant ID comprometido.
+   - `pointerleave` restaura la imagen de la variante comprometida.
+   - `click` / tap / teclado **confirma** el color; entonces actualiza variante seleccionada, precio, disponibilidad y opciones de talla.
+2. **Grid Móvil de 2 Columnas (390px):**
+   - En cards de ancho reducido, mostrar máximo **2 swatches visibles + pill `+N`**, garantizando que cada control táctil mantenga `44×44px` sin desbordamiento horizontal. En tarjetas >= 260px mostrar hasta 4 swatches + `+N`.
+3. **Fallbacks Seguros a PDP:**
+   - Si un producto requiere plan de venta obligatorio (`requires_selling_plan`), es una gift card con campos de destinatario, o tiene >250 variantes, degradar limpiamente a botón "Elegir opciones" / "Ver detalles" hacia el PDP.
+4. **Confirmación en CartDrawer:**
+   - La barra de $150 de envío de cortesía se calcula sobre el subtotal neto después de descuentos (sin valores negativos ni > 100%).
+   - Preservar notas de pedido (`data-dirty`) durante re-renders.
+   - Excluir del cross-sell productos agotados o ya presentes en el carrito.
