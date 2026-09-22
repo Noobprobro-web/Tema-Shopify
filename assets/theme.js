@@ -3291,6 +3291,10 @@
       this.form = this.querySelector('form');
       if (!this.form) return;
 
+      this.listen(this.form, 'submit', () => {
+        this.form.setAttribute('aria-busy', 'true');
+      });
+
       this.querySelectorAll('[data-localization-select]').forEach((select) => {
         this.listen(select, 'change', () => this.submitForm());
       });

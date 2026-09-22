@@ -5823,37 +5823,88 @@ copy-text {
   }
 }
 
-/* Phase 4 storefront compliance components */
+/* Minimalist language switcher (Header & Mobile Drawer) */
 .mobile-nav__localization {
-  padding: var(--space-lg) var(--page-gutter) var(--space-xl);
-  border-block-start: 1px solid var(--color-border);
+  padding: var(--space-md) var(--page-gutter);
+  border-block-start: 1px solid var(--color-border-hairline);
+}
+
+.localization-form--header {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .localization-form--header {
+    display: inline-flex;
+    align-items: center;
+    margin-inline-end: var(--space-xs);
+  }
 }
 
 .localization-form__form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  align-items: end;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
 }
 
 .localization-form__form[aria-busy='true'] {
   cursor: progress;
+  opacity: 0.6;
 }
 
-.localization-form__field {
-  min-width: min(100%, 11rem);
-  flex: 1 1 11rem;
-}
-
-.localization-form__field label {
+.localization-form__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-body-family);
   font-size: 0.75rem;
-  letter-spacing: var(--font-letter-spacing-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  line-height: 1;
 }
 
-.localization-form__field select {
+.localization-form__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.35rem;
+  min-width: 1.75rem;
   min-height: var(--tap-target-min);
-  background-color: transparent;
+  background: none;
+  border: 0;
+  color: var(--color-foreground);
+  font: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: default;
+  transition: opacity var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
+}
+
+.localization-form__item.is-active {
+  font-weight: 700;
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+.localization-form__btn {
+  cursor: pointer;
+  opacity: 0.45;
+}
+
+.localization-form__btn:hover,
+.localization-form__btn:focus-visible {
+  opacity: 1;
+}
+
+.localization-form__divider {
+  color: var(--color-foreground-muted);
+  opacity: 0.4;
+  font-size: 0.7rem;
+  user-select: none;
 }
 
 .site-footer__newsletter {

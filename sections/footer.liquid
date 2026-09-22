@@ -108,10 +108,8 @@
     {%- endif -%}
   </div>
 
-  <div class="container site-footer__utilities">
-    {% render 'localization-selectors', context: 'footer' %}
-
-    {%- if shop.enabled_payment_types.size > 0 -%}
+  {%- if shop.enabled_payment_types.size > 0 -%}
+    <div class="container site-footer__utilities">
       <div class="site-footer__payments" aria-label="{{ 'sections.footer.payment_methods' | t }}">
         <span class="visually-hidden">{{ 'sections.footer.payment_methods' | t }}</span>
         <ul class="site-footer__payment-list unstyled-list" role="list">
@@ -120,8 +118,8 @@
           {%- endfor -%}
         </ul>
       </div>
-    {%- endif -%}
-  </div>
+    </div>
+  {%- endif -%}
 
   <div class="container site-footer__bottom">
     <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name }}</small>
