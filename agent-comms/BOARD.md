@@ -4,18 +4,18 @@
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5), GPT-5.6 Sol Max
-Última actualización: 2026-09-20
-Estado general: SPRINT 4E-003 CONCLUIDO (Escala Tipográfica Armonizada y Balance Estructural de Páginas Nativas)
+Última actualización: 2026-09-21
+Estado general: SPRINT MULTI-LANG-001 CONCLUIDO (Soporte Multi-Idioma Español, Calibración de Presets WCAG AA y Escala Tipográfica)
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT 4F-002 (Resolución de Fricciones Comerciales y Reconciliación de Tienda) - COMPLETADO Y APROBADO
+## 1. Sprint Activo: SPRINT MULTI-LANG-001 (Multi-Idioma Español y Calibración de Presets) - COMPLETADO Y APROBADO
 
-**Meta del Sprint:** Resolver los hallazgos comerciales de GPT-5.6 Sol Max (`GPT-AUDIT-002`): confirmación de cantidad y total en Sticky ATC (UX-05), auto-sincronización de `/cart` y eliminación del desborde horizontal de 50px en desktop (UX-06), bloques plegables de cuidados/envíos en PDP (UX-09), corrección gramatical de plural en bundle con mapeo de enlaces editoriales (UX-08 / UX-12), y reconciliación de las 5 páginas nativas y menús en vivo (UX-01 / UX-02 / UX-03).
-**Estado:** 100% implementado por Claude (`CLAUDE-REPORT-4F-002.md`), auditado y formalmente aprobado por Gemini (`GEMINI-review-CLAUDE-4F-002.md`). 106/106 pruebas Playwright en verde, 8/8 compuertas estáticas aprobadas (Theme Check: 0 ofensas, 105 archivos), 5 páginas nativas activas (status 200).
+**Meta del Sprint:** Entregar paridad total en español (`locales/es.json` con 374 claves), auditar accesibilidad en los 15 esquemas de color de los 3 presets (`Sartorial`, `Edition`, `Archive`), calibrar contrastes WCAG AA (texto secundario al 78% y Archive scheme-4 a `#6E482F`), y armonizar la escala tipográfica (`--font-heading-scale`) en títulos de exhibición.
+**Estado:** 100% implementado y validado (`CLAUDE-REPORT-MULTI-LANG-001.md`, `GEMINI-review-CLAUDE-MULTI-LANG-001.md`). 0 ofensas en Theme Check (108 archivos), `locale-parity.mjs` en verde (374/374 claves), 8/8 compuertas estáticas aprobadas.
 
-*Siguiente Paso:* Commit unificado, despliegue a Shopify en vivo (`Couture` #165809488115), fusión de settings y re-auditoría de cierre.
+*Siguiente Paso:* Commit y despliegue a la tienda en vivo (`Couture` #165809488115), activación del español en Admin por Johandry, y arranque del sprint de funcionalidades de lujo (Zoom de tejido, Quick Buy con tallas y Swatches).
 
 ---
 
@@ -23,10 +23,10 @@ Estado general: SPRINT 4E-003 CONCLUIDO (Escala Tipográfica Armonizada y Balanc
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión y cambio de nombre de tienda en Admin ("LINEA NOVE") | 🟢 Activo | Aprobaciones de negocio |
-| **Claude (Fable 5.1 Max / Opus 5)** | Implementador Principal | Sprint 4F-002 completado con honores | 🟢 Listo | En espera de siguientes directivas de preparación submission |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictámenes de aceptación, mitigación de catálogo y coordinación | 🟢 Activo | Revisión de entrega 4F-001 y despliegue a Shopify |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría comercial y de conversión pre-submission (`GPT-AUDIT-002`) | 🟢 Listo | Segunda opinión UX sobre el catálogo completo |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Publicar Español en Admin (*Settings > Languages*) y previsualizar Presets | 🟢 Activo | Pruebas de storefront en vivo |
+| **Claude (Fable 5.1 Max / Opus 5)** | Implementador Principal | `es.json` y auditoría de presets completados con honores | 🟢 Listo | En espera de directiva técnica para Sprint de Lujo (Zoom, Quick Buy, Swatches) |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Calibración de presets, revisión formal y despliegue a Shopify | 🟢 Activo | Coordinación de directivas técnicas y roadmap |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | En espera de reanudación de cuota para segunda opinión sobre presets y roadmap | 🟡 En espera | Auditoría de catálogo en español y roadmap |
 
 ---
 
