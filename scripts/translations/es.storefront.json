@@ -1,0 +1,819 @@
+{
+  "locale": "es",
+  "source_locale": "en",
+  "updated": "2026-09-22",
+  "notes": [
+    "Cada entrada guarda el texto inglés de origen y su traducción. El script solo registra una traducción si el SHA-256 del inglés coincide con el digest vivo de Shopify, así un texto inglés editado nunca recibe una traducción vieja.",
+    "Las URL tipadas se traducen con el prefijo /es para que la navegación no salga del idioma.",
+    "pending_deploy marca ajustes que hoy salen del valor por defecto del esquema: no existen en la plantilla en vivo hasta que la plantilla los declare y se despliegue.",
+    "No se traducen anclas, nombres de archivo, imágenes, handles ni los nombres propios de los estilos (Sartorial, Edition, Archive)."
+  ],
+  "keep_source": [
+    "Sartorial",
+    "Edition",
+    "Archive"
+  ],
+  "theme": {
+    "index.json": {
+      "hero_editorial.eyebrow": {
+        "en": "THE EDIT / SARTORIAL 01",
+        "es": "LA SELECCIÓN / SARTORIAL 01"
+      },
+      "hero_editorial.heading": {
+        "en": "Form in quiet movement",
+        "es": "La forma en movimiento sereno"
+      },
+      "hero_editorial.subheading": {
+        "en": "<p>A study in quiet movement. Sculptural layers and tactile materials, made in small series.</p>",
+        "es": "<p>Un estudio del movimiento sereno. Capas escultóricas y materiales táctiles, hechos en series cortas.</p>"
+      },
+      "hero_editorial.button_primary_label": {
+        "en": "Discover the collection",
+        "es": "Descubre la colección"
+      },
+      "hero_editorial.button_primary_url": {
+        "en": "/collections/all",
+        "es": "/es/collections/all"
+      },
+      "hero_editorial.button_secondary_label": {
+        "en": "Explore the series",
+        "es": "Explora la serie"
+      },
+      "hero_editorial.button_secondary_url": {
+        "en": "/collections/the-autumn-series",
+        "es": "/es/collections/the-autumn-series"
+      },
+      "marquee.marquee_form.text": {
+        "en": "FORM / MATERIAL / MOVEMENT",
+        "es": "FORMA / MATERIA / MOVIMIENTO"
+      },
+      "marquee.marquee_series.text": {
+        "en": "MADE IN SMALL SERIES",
+        "es": "HECHO EN SERIES CORTAS"
+      },
+      "marquee.marquee_trace.text": {
+        "en": "DESIGNED TO GATHER CHARACTER",
+        "es": "PENSADO PARA GANAR CARÁCTER"
+      },
+      "marquee.marquee_origin.text": {
+        "en": "NATURAL FIBRES / TRACEABLE ORIGIN",
+        "es": "FIBRAS NATURALES / ORIGEN TRAZABLE"
+      },
+      "lookbook.eyebrow": {
+        "en": "CAMPAIGN STUDY / LOOK 01",
+        "es": "ESTUDIO DE CAMPAÑA / LOOK 01"
+      },
+      "lookbook.heading": {
+        "en": "Objects in quiet conversation",
+        "es": "Objetos en conversación serena"
+      },
+      "lookbook.description": {
+        "en": "<p>Move through the composition and discover each piece.</p>",
+        "es": "<p>Recorre la composición y descubre cada pieza.</p>"
+      },
+      "lookbook.caption": {
+        "en": "A study in proportion, texture and daily movement.",
+        "es": "Un estudio de proporción, textura y movimiento cotidiano."
+      },
+      "curated_showcase.eyebrow": {
+        "en": "CURATED EDIT / 02",
+        "es": "SELECCIÓN CURADA / 02"
+      },
+      "curated_showcase.heading": {
+        "en": "Selected forms for the season",
+        "es": "Formas escogidas para la temporada"
+      },
+      "curated_showcase.collection_new.tab_label": {
+        "en": "New forms",
+        "es": "Nuevas formas"
+      },
+      "curated_showcase.collection_permanent.tab_label": {
+        "en": "Permanent collection",
+        "es": "Colección permanente"
+      },
+      "curated_showcase.collection_objects.tab_label": {
+        "en": "Atelier objects",
+        "es": "Objetos del atelier"
+      },
+      "brand_manifesto.eyebrow": {
+        "en": "THE HAND AND THE MATERIAL / 03",
+        "es": "LA MANO Y LA MATERIA / 03"
+      },
+      "brand_manifesto.quote": {
+        "en": "Objects gain meaning through the hands that make them.",
+        "es": "Los objetos cobran sentido a través de las manos que los hacen."
+      },
+      "brand_manifesto.body": {
+        "en": "<p>Every seam, edge and finish records a decision made by an artisan, not an anonymous process.</p>",
+        "es": "<p>Cada costura, cada canto y cada acabado registran una decisión tomada por un artesano, no por un proceso anónimo.</p>"
+      },
+      "brand_manifesto.button_url": {
+        "en": "/pages/about",
+        "es": "/es/pages/about"
+      },
+      "brand_manifesto.media_label": {
+        "en": "MACRO STUDY / MATERIAL 07",
+        "es": "ESTUDIO MACRO / MATERIA 07"
+      },
+      "brand_manifesto.detail_material.label": {
+        "en": "Materials",
+        "es": "Materiales"
+      },
+      "brand_manifesto.detail_material.value": {
+        "en": "100% traceable natural fibres",
+        "es": "Fibras naturales 100 % trazables"
+      },
+      "brand_manifesto.detail_origin.label": {
+        "en": "Origin",
+        "es": "Origen"
+      },
+      "brand_manifesto.detail_origin.value": {
+        "en": "Made close to the source",
+        "es": "Hecho cerca del origen"
+      },
+      "brand_manifesto.detail_finish.label": {
+        "en": "Finish",
+        "es": "Acabado"
+      },
+      "brand_manifesto.detail_finish.value": {
+        "en": "Formed and finished by hand",
+        "es": "Formado y acabado a mano"
+      },
+      "brand_manifesto.detail_series.label": {
+        "en": "Series",
+        "es": "Serie"
+      },
+      "brand_manifesto.detail_series.value": {
+        "en": "Numbered in small runs",
+        "es": "Numerado en tiradas cortas"
+      },
+      "complete_the_look.eyebrow": {
+        "en": "SHOPPABLE CAPSULE / LOOK 03",
+        "es": "CÁPSULA COMPRABLE / LOOK 03"
+      },
+      "complete_the_look.heading": {
+        "en": "Complete the look",
+        "es": "Completa el look"
+      },
+      "complete_the_look.description": {
+        "en": "<p>Choose each piece, select its size and add the full composition at once.</p>",
+        "es": "<p>Elige cada pieza, selecciona su talla y añade la composición completa de una vez.</p>"
+      },
+      "complete_the_look.caption": {
+        "en": "Soft architecture photographed in natural atelier light.",
+        "es": "Arquitectura suave fotografiada con la luz natural del atelier."
+      },
+      "bento_discovery.eyebrow": {
+        "en": "DISCOVER BY FORM / 04",
+        "es": "DESCUBRE POR FORMA / 04"
+      },
+      "bento_discovery.heading": {
+        "en": "A wardrobe, a room, a way of living",
+        "es": "Un armario, una estancia, una forma de vivir"
+      },
+      "bento_discovery.subheading": {
+        "en": "<p>Three studies. One material language.</p>",
+        "es": "<p>Tres estudios. Un mismo lenguaje material.</p>"
+      },
+      "bento_discovery.bento_featured.eyebrow": {
+        "en": "[01] APPAREL / FEATURED",
+        "es": "[01] PRENDAS / DESTACADO"
+      },
+      "bento_discovery.bento_featured.heading": {
+        "en": "Sculptural layers",
+        "es": "Capas escultóricas"
+      },
+      "bento_discovery.bento_featured.link": {
+        "en": "/collections/the-autumn-series",
+        "es": "/es/collections/the-autumn-series"
+      },
+      "bento_discovery.bento_editorial.eyebrow": {
+        "en": "[02] MATERIAL STUDY",
+        "es": "[02] ESTUDIO DE MATERIA"
+      },
+      "bento_discovery.bento_editorial.heading": {
+        "en": "Carried close",
+        "es": "Siempre cerca"
+      },
+      "bento_discovery.bento_editorial.body": {
+        "en": "<p>An editorial study in proportion, tactility and daily use.</p>",
+        "es": "<p>Un estudio editorial de proporción, tacto y uso cotidiano.</p>"
+      },
+      "bento_discovery.bento_editorial.link": {
+        "en": "/pages/about",
+        "es": "/es/pages/about"
+      },
+      "newsletter.eyebrow": {
+        "en": "Private correspondence",
+        "es": "Correspondencia privada"
+      },
+      "newsletter.heading": {
+        "en": "Notes from the atelier",
+        "es": "Notas del atelier"
+      },
+      "newsletter.text": {
+        "en": "<p>New objects, material studies and private previews, sent with restraint.</p>",
+        "es": "<p>Nuevos objetos, estudios de materiales y avances privados, enviados con mesura.</p>"
+      },
+      "brand_manifesto.button_label": {
+        "en": "Read our process",
+        "es": "Conoce nuestro proceso",
+        "pending_deploy": true
+      },
+      "bento_discovery.bento_editorial.link_label": {
+        "en": "Explore the story",
+        "es": "Descubre la historia",
+        "pending_deploy": true
+      }
+    },
+    "page.about.json": {
+      "main.eyebrow": {
+        "en": "Our story",
+        "es": "Nuestra historia"
+      },
+      "main.story.title": {
+        "en": "The atelier",
+        "es": "El atelier"
+      },
+      "main.story.text": {
+        "en": "<p>Tell the story of how the house began, who makes the work, and what it is made from. Two or three paragraphs are usually enough.</p>",
+        "es": "<p>Cuenta cómo nació la casa, quién hace el trabajo y con qué materiales. Dos o tres párrafos suelen bastar.</p>"
+      },
+      "main.quote.quote": {
+        "en": "A garment is finished when nothing else can be taken away.",
+        "es": "Una prenda está terminada cuando ya no se le puede quitar nada más."
+      },
+      "main.quote.attribution": {
+        "en": "Head of atelier",
+        "es": "Dirección del atelier"
+      },
+      "main.quote.role": {
+        "en": "Cutting and finishing",
+        "es": "Corte y acabado"
+      },
+      "main.values.title": {
+        "en": "What we hold to",
+        "es": "Lo que defendemos"
+      },
+      "main.values.value_1_title": {
+        "en": "Traceable fibres",
+        "es": "Fibras trazables"
+      },
+      "main.values.value_1_text": {
+        "en": "<p>Every cloth is bought from a mill we can name.</p>",
+        "es": "<p>Cada tejido se compra a una tejeduría que podemos nombrar.</p>"
+      },
+      "main.values.value_2_title": {
+        "en": "Hand finished",
+        "es": "Acabado a mano"
+      },
+      "main.values.value_2_text": {
+        "en": "<p>Edges, linings and buttonholes are worked by hand.</p>",
+        "es": "<p>Cantos, forros y ojales se trabajan a mano.</p>"
+      },
+      "main.values.value_3_title": {
+        "en": "Small series",
+        "es": "Series cortas"
+      },
+      "main.values.value_3_text": {
+        "en": "<p>Pieces are cut in short runs and rarely repeated.</p>",
+        "es": "<p>Las piezas se cortan en tiradas cortas y rara vez se repiten.</p>"
+      },
+      "main.gallery.title": {
+        "en": "Inside the studio",
+        "es": "Dentro del estudio"
+      },
+      "main.gallery.caption": {
+        "en": "Cutting, fitting and finishing, photographed over one season.",
+        "es": "Corte, prueba y acabado, fotografiados a lo largo de una temporada."
+      }
+    },
+    "page.contact.json": {
+      "main.faq_shipping.question": {
+        "en": "Shipping and provenance",
+        "es": "Envío y procedencia"
+      },
+      "main.faq_shipping.answer": {
+        "en": "<p>Available pieces leave the atelier within three business days. Made-to-order work includes a dispatch estimate.</p>",
+        "es": "<p>Las piezas disponibles salen del atelier en un plazo de tres días hábiles. Los trabajos por encargo incluyen una estimación de envío.</p>"
+      },
+      "main.faq_care.question": {
+        "en": "Care and longevity",
+        "es": "Cuidado y durabilidad"
+      },
+      "main.faq_care.answer": {
+        "en": "<p>Care instructions accompany each edition. Contact the atelier for repair and material-specific guidance.</p>",
+        "es": "<p>Cada edición incluye sus instrucciones de cuidado. Escribe al atelier para reparaciones y recomendaciones según el material.</p>"
+      },
+      "main.faq_returns.question": {
+        "en": "Returns and exchanges",
+        "es": "Devoluciones y cambios"
+      },
+      "main.faq_returns.answer": {
+        "en": "<p>Contact the concierge with your order number to begin a return or exchange.</p>",
+        "es": "<p>Escribe a nuestro servicio de atención con tu número de pedido para iniciar una devolución o un cambio.</p>"
+      },
+      "main.faq_bespoke.question": {
+        "en": "Private appointments",
+        "es": "Citas privadas"
+      },
+      "main.faq_bespoke.answer": {
+        "en": "<p>Showroom and remote appointments are available by request.</p>",
+        "es": "<p>Ofrecemos citas en el showroom y a distancia, previa solicitud.</p>"
+      },
+      "main.service_appointments.title": {
+        "en": "Showroom appointments",
+        "es": "Citas en el showroom"
+      },
+      "main.service_appointments.detail": {
+        "en": "Tuesday through Friday",
+        "es": "De martes a viernes"
+      },
+      "main.service_orders.title": {
+        "en": "Order concierge",
+        "es": "Atención de pedidos"
+      },
+      "main.service_orders.detail": {
+        "en": "Personal assistance",
+        "es": "Asistencia personalizada"
+      },
+      "main.service_trade.title": {
+        "en": "Press and trade",
+        "es": "Prensa y profesionales"
+      },
+      "main.service_trade.detail": {
+        "en": "Studio inquiries",
+        "es": "Consultas al estudio"
+      },
+      "main.eyebrow": {
+        "en": "Contact / Private client services",
+        "es": "Contacto / Atención a clientes privados",
+        "pending_deploy": true
+      },
+      "main.intro": {
+        "en": "<p>Write to the studio about an order, a material or a private appointment.</p>",
+        "es": "<p>Escribe al estudio sobre un pedido, un material o una cita privada.</p>",
+        "pending_deploy": true
+      },
+      "main.studio_hours": {
+        "en": "Monday to Friday / 10:00–18:00 CET",
+        "es": "De lunes a viernes / 10:00–18:00 CET",
+        "pending_deploy": true
+      },
+      "main.showroom_address": {
+        "en": "By appointment / Milan",
+        "es": "Con cita previa / Milán",
+        "pending_deploy": true
+      }
+    },
+    "page.documentation.json": {
+      "main.eyebrow": {
+        "en": "Theme documentation",
+        "es": "Documentación del tema"
+      },
+      "main.intro": {
+        "en": "<p>Setup, presets and a reference for every section of the theme.</p>",
+        "es": "<p>Configuración, estilos y una referencia de cada sección del tema.</p>"
+      },
+      "main.doc_quick_start.title": {
+        "en": "Quick start and installation",
+        "es": "Inicio rápido e instalación"
+      },
+      "main.doc_quick_start.summary": {
+        "en": "Upload the theme and open the editor.",
+        "es": "Sube el tema y abre el editor."
+      },
+      "main.doc_quick_start.content": {
+        "en": "<p>The theme is built for Online Store 2.0 with native vanilla JavaScript, so there is no framework to install and nothing to configure before the first preview.</p><ol><li>Download the theme zip file from your Shopify account or your Theme Store purchase.</li><li>In the Shopify admin, go to <strong>Online store &gt; Themes</strong>.</li><li>Under <strong>Theme library</strong>, choose <strong>Add theme &gt; Upload zip file</strong>.</li><li>Select the zip file and upload it.</li><li>Choose <strong>Customize</strong> to open the theme editor.</li></ol>",
+        "es": "<p>El tema está creado para Online Store 2.0 con JavaScript nativo, sin frameworks, así que no hay nada que instalar ni configurar antes de la primera vista previa.</p><ol><li>Descarga el archivo zip del tema desde tu cuenta de Shopify o desde tu compra en la Theme Store.</li><li>En el panel de Shopify, ve a <strong>Tienda online &gt; Temas</strong>.</li><li>En <strong>Biblioteca de temas</strong>, elige <strong>Agregar tema &gt; Subir archivo zip</strong>.</li><li>Selecciona el archivo zip y súbelo.</li><li>Elige <strong>Personalizar</strong> para abrir el editor de temas.</li></ol>"
+      },
+      "main.doc_quick_start_file.title": {
+        "en": "Theme file",
+        "es": "Archivo del tema"
+      },
+      "main.doc_presets.title": {
+        "en": "Theme presets",
+        "es": "Estilos del tema"
+      },
+      "main.doc_presets.summary": {
+        "en": "Three starting points for different houses.",
+        "es": "Tres puntos de partida para casas distintas."
+      },
+      "main.doc_presets.content": {
+        "en": "<p>Each preset changes theme settings only, so switching does not move or delete the content of your sections.</p>",
+        "es": "<p>Cada estilo cambia solo la configuración del tema, así que al pasar de uno a otro el contenido de tus secciones no se mueve ni se borra.</p>"
+      },
+      "main.doc_preset_sartorial.badge": {
+        "en": "Default",
+        "es": "Predeterminado"
+      },
+      "main.doc_preset_sartorial.description": {
+        "en": "<p>Warm editorial elegance for tailoring and bespoke fashion. Alabaster grounds, rich contrast and a serif voice.</p>",
+        "es": "<p>Elegancia editorial cálida para sastrería y moda a medida. Fondos alabastro, contraste intenso y una voz con serifa.</p>"
+      },
+      "main.doc_preset_edition.badge": {
+        "en": "Preset",
+        "es": "Estilo"
+      },
+      "main.doc_preset_edition.description": {
+        "en": "<p>Crisp architectural minimalism. High contrast type, sharp rules and gallery whitespace for contemporary fashion and accessories.</p>",
+        "es": "<p>Minimalismo arquitectónico y nítido. Tipografía de alto contraste, filetes precisos y el espacio en blanco de una galería, para moda y accesorios contemporáneos.</p>"
+      },
+      "main.doc_preset_archive.badge": {
+        "en": "Preset",
+        "es": "Estilo"
+      },
+      "main.doc_preset_archive.description": {
+        "en": "<p>Heritage warmth with deeper tones and dramatic composition, for vintage curation, leather goods, watches and legacy houses.</p>",
+        "es": "<p>Calidez de herencia con tonos más profundos y composición dramática, para selecciones vintage, marroquinería, relojería y casas con legado.</p>"
+      },
+      "main.doc_presets_tip.text": {
+        "en": "<p>To change preset, open <strong>Theme settings</strong> and pick one from the preset list at the top of the panel.</p>",
+        "es": "<p>Para cambiar de estilo, abre <strong>Configuración del tema</strong> y elige uno de la lista de estilos, en la parte superior del panel.</p>"
+      },
+      "main.doc_colour.title": {
+        "en": "Colour schemes and typography",
+        "es": "Esquemas de color y tipografía"
+      },
+      "main.doc_colour.summary": {
+        "en": "Where the palette and the type scale live.",
+        "es": "Dónde se definen la paleta y la escala tipográfica."
+      },
+      "main.doc_colour.content": {
+        "en": "<p>Colour schemes are configured in <strong>Theme settings &gt; Colours</strong>, and every section can carry its own scheme. Body and heading fonts, scale and weight live in <strong>Theme settings &gt; Typography</strong>, with system fallbacks handled for you.</p><p>The shipped schemes hold the contrast ratios that accessibility review asks for: 4.5:1 for text and 3:1 for interface boundaries. If you change the colours, keep that in mind.</p>",
+        "es": "<p>Los esquemas de color se configuran en <strong>Configuración del tema &gt; Colores</strong>, y cada sección puede llevar su propio esquema. Las fuentes del cuerpo y de los títulos, su escala y su peso están en <strong>Configuración del tema &gt; Tipografía</strong>, con las fuentes de respaldo del sistema ya resueltas.</p><p>Los esquemas incluidos mantienen las relaciones de contraste que exige la revisión de accesibilidad: 4.5:1 para el texto y 3:1 para los límites de la interfaz. Tenlo en cuenta si cambias los colores.</p>"
+      },
+      "main.doc_sections.title": {
+        "en": "Signature sections",
+        "es": "Secciones distintivas"
+      },
+      "main.doc_sections.summary": {
+        "en": "The pieces that carry the storefront.",
+        "es": "Las piezas que sostienen la tienda."
+      },
+      "main.doc_sections.content": {
+        "en": "<ul><li><strong>Hero editorial:</strong> full viewport and split banners with separate desktop and mobile images, focal point control and alignment settings.</li><li><strong>Complete the look:</strong> shoppable bundles that add several products to the cart at once, each with its own variant picker.</li><li><strong>Lookbook:</strong> hotspots over a photograph that open product cards with live price and availability.</li><li><strong>Curated showcase:</strong> tabbed collections with keyboard support.</li><li><strong>Featured product:</strong> a standalone product with variant pickers, gallery and accelerated checkout.</li></ul>",
+        "es": "<ul><li><strong>Hero editorial:</strong> banners a pantalla completa y divididos, con imágenes independientes para escritorio y móvil, control del punto focal y ajustes de alineación.</li><li><strong>Complete the look:</strong> conjuntos comprables que añaden varios productos al carrito a la vez, cada uno con su propio selector de variantes.</li><li><strong>Lookbook:</strong> puntos interactivos sobre una fotografía que abren fichas de producto con precio y disponibilidad en tiempo real.</li><li><strong>Curated showcase:</strong> colecciones en pestañas con navegación por teclado.</li><li><strong>Featured product:</strong> un producto destacado con selectores de variantes, galería y pago acelerado.</li></ul>"
+      },
+      "main.doc_pdp.title": {
+        "en": "Product page and media",
+        "es": "Página de producto y contenido multimedia"
+      },
+      "main.doc_pdp.summary": {
+        "en": "Models, swatches, quantity and pickup.",
+        "es": "Modelos 3D, muestras de color, cantidad y recogida."
+      },
+      "main.doc_pdp.content": {
+        "en": "<ul><li><strong>3D models and augmented reality:</strong> upload .glb or .gltf files to the product media gallery and the viewer starts on supported devices.</li><li><strong>Colour swatches:</strong> native Shopify category swatches, with either a colour or a swatch image.</li><li><strong>Line total:</strong> the total for the chosen quantity is recalculated as the shopper changes it, without touching the unit price above.</li><li><strong>Gift card recipient:</strong> name, email, message and send date for digital gift cards.</li><li><strong>Pickup availability:</strong> live local stock and pickup times.</li></ul>",
+        "es": "<ul><li><strong>Modelos 3D y realidad aumentada:</strong> sube archivos .glb o .gltf a la galería multimedia del producto y el visor se activa en los dispositivos compatibles.</li><li><strong>Muestras de color:</strong> muestras nativas de categoría de Shopify, con un color o una imagen de muestra.</li><li><strong>Total de la línea:</strong> el total de la cantidad elegida se recalcula a medida que el cliente la cambia, sin alterar el precio unitario que aparece arriba.</li><li><strong>Destinatario de la tarjeta de regalo:</strong> nombre, correo electrónico, mensaje y fecha de envío para tarjetas de regalo digitales.</li><li><strong>Disponibilidad de recogida:</strong> existencias locales en tiempo real y plazos de recogida.</li></ul>"
+      },
+      "main.doc_cart.title": {
+        "en": "Cart drawer",
+        "es": "Carrito lateral"
+      },
+      "main.doc_cart.summary": {
+        "en": "What the slide-out cart can do.",
+        "es": "Lo que puede hacer el carrito deslizable."
+      },
+      "main.doc_cart.content": {
+        "en": "<ul><li>Free shipping progress with a threshold you set.</li><li>Order notes, terms checkbox and discount display.</li><li>Accelerated checkout buttons.</li><li>Quantity steppers that keep the cart in step with the server even under fast repeated taps.</li></ul>",
+        "es": "<ul><li>Progreso hacia el envío gratuito, con el umbral que tú definas.</li><li>Notas del pedido, casilla de condiciones y visualización de descuentos.</li><li>Botones de pago acelerado.</li><li>Selectores de cantidad que mantienen el carrito sincronizado con el servidor incluso con toques rápidos y repetidos.</li></ul>"
+      },
+      "main.doc_search.title": {
+        "en": "Predictive search and filters",
+        "es": "Búsqueda predictiva y filtros"
+      },
+      "main.doc_search.summary": {
+        "en": "How shoppers find things.",
+        "es": "Cómo encuentran las cosas tus clientes."
+      },
+      "main.doc_search.content": {
+        "en": "<p>Search suggests products, collections, pages and articles as the shopper types, through Shopify’s own predictive search.</p><p>Collection and search pages carry faceted filters that read prices written with a comma decimal separator and announce every result change to screen readers.</p>",
+        "es": "<p>La búsqueda sugiere productos, colecciones, páginas y artículos mientras el cliente escribe, con la búsqueda predictiva propia de Shopify.</p><p>Las páginas de colección y de búsqueda incluyen filtros por facetas que interpretan precios escritos con coma decimal y anuncian cada cambio de resultados a los lectores de pantalla.</p>"
+      },
+      "main.doc_support.title": {
+        "en": "Support and updates",
+        "es": "Soporte y actualizaciones"
+      },
+      "main.doc_support.summary": {
+        "en": "Where to write when something is wrong.",
+        "es": "Dónde escribir cuando algo no funciona."
+      },
+      "main.doc_support.content": {
+        "en": "<p>Open a ticket from the support page of this store. Say which page you were on, what you expected and what happened, and include your store address.</p>",
+        "es": "<p>Abre una solicitud desde la página de soporte de esta tienda. Indica en qué página estabas, qué esperabas y qué ocurrió, e incluye la dirección de tu tienda.</p>"
+      },
+      "main.doc_support_note.text": {
+        "en": "<p>Check that you are on the latest version of the theme before reporting an issue.</p>",
+        "es": "<p>Antes de informar de un problema, comprueba que tienes la última versión del tema.</p>"
+      }
+    },
+    "page.faq.json": {
+      "main.eyebrow": {
+        "en": "Answers",
+        "es": "Respuestas"
+      },
+      "main.cat_shipping.title": {
+        "en": "Shipping and orders",
+        "es": "Envíos y pedidos"
+      },
+      "main.q_dispatch.question": {
+        "en": "When will my order be dispatched?",
+        "es": "¿Cuándo se enviará mi pedido?"
+      },
+      "main.q_dispatch.answer": {
+        "en": "<p>Pieces held in the atelier leave within three business days. Made-to-order work carries its own dispatch estimate on the product page.</p>",
+        "es": "<p>Las piezas disponibles en el atelier salen en un plazo de tres días hábiles. Los trabajos por encargo muestran su propia estimación de envío en la página del producto.</p>"
+      },
+      "main.q_tracking.question": {
+        "en": "How do I follow my parcel?",
+        "es": "¿Cómo sigo mi paquete?"
+      },
+      "main.q_tracking.answer": {
+        "en": "<p>A tracking link is sent as soon as the parcel leaves the studio. It can take a day before the carrier shows the first scan.</p>",
+        "es": "<p>Te enviamos un enlace de seguimiento en cuanto el paquete sale del estudio. La empresa de transporte puede tardar un día en mostrar el primer registro.</p>"
+      },
+      "main.cat_sizing.title": {
+        "en": "Sizing and tailoring",
+        "es": "Tallas y arreglos"
+      },
+      "main.q_size.question": {
+        "en": "Which size should I choose?",
+        "es": "¿Qué talla debo elegir?"
+      },
+      "main.q_size.answer": {
+        "en": "<p>Every product page carries the measurements of the piece and of the model wearing it. Write to us with your usual size and we will tell you how this cut behaves.</p>",
+        "es": "<p>Cada página de producto incluye las medidas de la pieza y las del modelo que la lleva. Escríbenos con tu talla habitual y te diremos cómo se comporta este corte.</p>"
+      },
+      "main.q_alterations.question": {
+        "en": "Do you alter garments?",
+        "es": "¿Hacen arreglos a las prendas?"
+      },
+      "main.q_alterations.answer": {
+        "en": "<p>Sleeve and hem adjustments are available on tailored pieces. Ask before ordering so the work is scheduled with the making.</p>",
+        "es": "<p>Las piezas de sastrería admiten ajustes de manga y de bajo. Consúltanos antes de hacer el pedido para programar el trabajo junto con la confección.</p>"
+      },
+      "main.cat_care.title": {
+        "en": "Garment care",
+        "es": "Cuidado de las prendas"
+      },
+      "main.cat_returns.title": {
+        "en": "Returns and exchanges",
+        "es": "Devoluciones y cambios"
+      },
+      "main.q_care.question": {
+        "en": "How should I care for these fabrics?",
+        "es": "¿Cómo debo cuidar estos tejidos?"
+      },
+      "main.q_care.answer": {
+        "en": "<p>Care instructions travel with each piece. As a rule, natural fibres prefer airing over washing and a cool iron over a hot one.</p>",
+        "es": "<p>Cada pieza viaja con sus instrucciones de cuidado. Por regla general, las fibras naturales prefieren airearse antes que lavarse, y la plancha tibia antes que la caliente.</p>"
+      },
+      "main.q_repairs.question": {
+        "en": "Can a piece be repaired?",
+        "es": "¿Se puede reparar una pieza?"
+      },
+      "main.q_repairs.answer": {
+        "en": "<p>Yes. Send a photograph and the order number and the studio will tell you what can be done and what it costs.</p>",
+        "es": "<p>Sí. Envía una fotografía y el número de pedido, y el estudio te dirá qué se puede hacer y cuánto cuesta.</p>"
+      },
+      "main.q_returns.question": {
+        "en": "What is the return window?",
+        "es": "¿Qué plazo tengo para devolver una pieza?"
+      },
+      "main.q_returns.answer": {
+        "en": "<p>Unworn pieces can be returned within fourteen days of delivery, with their tags in place. Made-to-order work is final sale.</p>",
+        "es": "<p>Las piezas sin usar pueden devolverse en un plazo de catorce días desde la entrega, con sus etiquetas puestas. Los trabajos por encargo no admiten devolución.</p>"
+      },
+      "main.cta.title": {
+        "en": "Still have a question?",
+        "es": "¿Aún tienes alguna pregunta?"
+      },
+      "main.cta.text": {
+        "en": "<p>Write to the atelier and a person will answer you.</p>",
+        "es": "<p>Escribe al atelier y una persona te responderá.</p>"
+      },
+      "main.cta.button_label": {
+        "en": "Contact the atelier",
+        "es": "Escribe al atelier"
+      },
+      "main.cta.button_url": {
+        "en": "/pages/contact",
+        "es": "/es/pages/contact",
+        "pending_deploy": true
+      }
+    },
+    "page.support.json": {
+      "main.eyebrow": {
+        "en": "Theme support",
+        "es": "Soporte del tema"
+      },
+      "main.intro": {
+        "en": "<p>Dedicated assistance for merchants running this theme. Before you write, check that you are on the latest version and have a look at the documentation.</p>",
+        "es": "<p>Asistencia dedicada para las tiendas que usan este tema. Antes de escribir, comprueba que tienes la última versión y consulta la documentación.</p>"
+      },
+      "main.policy_covered.title": {
+        "en": "What is covered",
+        "es": "Qué incluye"
+      },
+      "main.policy_covered.items": {
+        "en": "<ul><li>Help with theme settings, sections and preset configuration.</li><li>Fixing bugs and unexpected behaviour caused by the theme code.</li><li>Theme updates and maintenance releases.</li></ul>",
+        "es": "<ul><li>Ayuda con la configuración del tema, las secciones y los estilos.</li><li>Corrección de errores y comportamientos inesperados causados por el código del tema.</li><li>Actualizaciones del tema y versiones de mantenimiento.</li></ul>"
+      },
+      "main.policy_not_covered.title": {
+        "en": "What is not covered",
+        "es": "Qué no incluye"
+      },
+      "main.policy_not_covered.items": {
+        "en": "<ul><li>Custom code, bespoke features and custom Liquid.</li><li>Third-party apps and conflicts caused by external scripts.</li><li>Business advice, marketing consultation and SEO audits.</li></ul>",
+        "es": "<ul><li>Código personalizado, funciones a medida y Liquid personalizado.</li><li>Aplicaciones de terceros y conflictos causados por scripts externos.</li><li>Asesoría de negocio, consultoría de marketing y auditorías SEO.</li></ul>"
+      },
+      "main.faq_presets.question": {
+        "en": "How do I switch between the Sartorial, Edition and Archive presets?",
+        "es": "¿Cómo cambio entre los estilos Sartorial, Edition y Archive?"
+      },
+      "main.faq_presets.answer": {
+        "en": "<p>Open your theme in the editor, go to theme settings and choose a preset at the top of the panel. Presets change settings only, so your section content stays where it is.</p>",
+        "es": "<p>Abre tu tema en el editor, ve a la configuración del tema y elige un estilo en la parte superior del panel. Los estilos solo cambian la configuración, así que el contenido de tus secciones se queda donde está.</p>"
+      },
+      "main.faq_models.question": {
+        "en": "How do 3D models and augmented reality work?",
+        "es": "¿Cómo funcionan los modelos 3D y la realidad aumentada?"
+      },
+      "main.faq_models.answer": {
+        "en": "<p>Upload your .glb or .gltf files to the product media gallery in the Shopify admin. The theme starts the Shopify XR viewer on supported devices without any extra setup.</p>",
+        "es": "<p>Sube tus archivos .glb o .gltf a la galería multimedia del producto en el panel de Shopify. El tema activa el visor Shopify XR en los dispositivos compatibles sin ninguna configuración adicional.</p>"
+      },
+      "main.faq_swatches.question": {
+        "en": "How do I set up colour swatches for variants?",
+        "es": "¿Cómo configuro las muestras de color de las variantes?"
+      },
+      "main.faq_swatches.answer": {
+        "en": "<p>The theme reads native Shopify category swatches. Categorise the option as colour in the admin and define the colour or swatch image on the variant.</p>",
+        "es": "<p>El tema lee las muestras nativas de categoría de Shopify. Clasifica la opción como color en el panel y define el color o la imagen de muestra en la variante.</p>"
+      },
+      "main.channel_hours.title": {
+        "en": "Studio hours",
+        "es": "Horario del estudio"
+      },
+      "main.channel_hours.detail": {
+        "en": "Monday to Friday",
+        "es": "De lunes a viernes"
+      },
+      "main.channel_docs.title": {
+        "en": "Theme documentation",
+        "es": "Documentación del tema"
+      },
+      "main.channel_docs.detail": {
+        "en": "Setup guide and section reference",
+        "es": "Guía de configuración y referencia de secciones"
+      },
+      "main.channel_updates.title": {
+        "en": "Release notes",
+        "es": "Notas de versión"
+      },
+      "main.channel_updates.detail": {
+        "en": "What changed in each version",
+        "es": "Qué cambió en cada versión"
+      },
+      "main.sla": {
+        "en": "Average response time: under 24 business hours",
+        "es": "Tiempo medio de respuesta: menos de 24 horas hábiles",
+        "pending_deploy": true
+      }
+    },
+    "product.json": {
+      "main.composition_care.heading": {
+        "en": "Composition & care",
+        "es": "Composición y cuidados"
+      },
+      "main.composition_care.content": {
+        "en": "<p>Each piece is made from natural materials chosen for how they age with use. The exact composition is listed in the description above.</p><ul><li>Follow the care label sewn into each piece; most prefer airing over washing.</li><li>Dry flat, away from direct heat and sunlight, and press with a cool iron.</li><li>Store knitwear folded; hang tailoring and outerwear on a shaped hanger.</li></ul>",
+        "es": "<p>Cada pieza está hecha con materiales naturales elegidos por cómo envejecen con el uso. La composición exacta figura en la descripción de arriba.</p><ul><li>Sigue la etiqueta de cuidado cosida en cada pieza; la mayoría prefiere airearse antes que lavarse.</li><li>Seca en plano, lejos del calor directo y del sol, y plancha a temperatura baja.</li><li>Guarda el punto doblado; cuelga la sastrería y las prendas de abrigo en una percha con forma.</li></ul>"
+      },
+      "main.shipping_returns.heading": {
+        "en": "Shipping & complimentary returns",
+        "es": "Envío y devoluciones de cortesía"
+      },
+      "main.shipping_returns.content": {
+        "en": "<p>Pieces held in the atelier leave within three business days, with tracking. Shipping is complimentary on orders over $150.</p><p>Returns are complimentary within fourteen days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>",
+        "es": "<p>Las piezas disponibles en el atelier salen en un plazo de tres días hábiles, con seguimiento. El envío es de cortesía en pedidos superiores a $150.</p><p>Las devoluciones son de cortesía durante los catorce días siguientes a la entrega, para piezas sin usar y con sus etiquetas puestas. Los trabajos por encargo no admiten devolución.</p>"
+      },
+      "recommendations.eyebrow": {
+        "en": "Continue the study",
+        "es": "Continúa el estudio"
+      }
+    },
+    "sections/header-group.json": {
+      "announcement_bar.announcement_1.text": {
+        "en": "Complimentary shipping on orders over $150",
+        "es": "Envío de cortesía en pedidos superiores a $150"
+      },
+      "announcement_bar.announcement_1.link": {
+        "en": "/collections/all",
+        "es": "/es/collections/all",
+        "pending_deploy": true
+      }
+    }
+  },
+  "titles": [
+    {
+      "en": "Contact",
+      "es": "Contacto"
+    },
+    {
+      "en": "Documentation",
+      "es": "Documentación"
+    },
+    {
+      "en": "Support",
+      "es": "Soporte"
+    },
+    {
+      "en": "Frequently asked questions",
+      "es": "Preguntas frecuentes"
+    },
+    {
+      "en": "About",
+      "es": "Sobre nosotros"
+    },
+    {
+      "en": "Shipping & returns",
+      "es": "Envíos y devoluciones"
+    },
+    {
+      "en": "Home",
+      "es": "Inicio"
+    },
+    {
+      "en": "Catalog",
+      "es": "Catálogo"
+    },
+    {
+      "en": "Search",
+      "es": "Buscar"
+    },
+    {
+      "en": "Orders",
+      "es": "Pedidos"
+    },
+    {
+      "en": "Profile",
+      "es": "Perfil"
+    },
+    {
+      "en": "Your Privacy Choices",
+      "es": "Tus opciones de privacidad"
+    },
+    {
+      "en": "Outerwear",
+      "es": "Prendas de abrigo"
+    },
+    {
+      "en": "Knitwear",
+      "es": "Punto"
+    },
+    {
+      "en": "Tailoring",
+      "es": "Sastrería"
+    },
+    {
+      "en": "Accessories",
+      "es": "Accesorios"
+    },
+    {
+      "en": "The Autumn Series",
+      "es": "La serie de otoño"
+    },
+    {
+      "en": "The Permanent Collection",
+      "es": "La colección permanente"
+    },
+    {
+      "en": "FAQ",
+      "es": "Preguntas frecuentes"
+    },
+    {
+      "en": "Main menu",
+      "es": "Menú principal"
+    },
+    {
+      "en": "Footer menu",
+      "es": "Menú del pie de página"
+    },
+    {
+      "en": "Customer account main menu",
+      "es": "Menú principal de la cuenta de cliente"
+    },
+    {
+      "en": "Home page",
+      "es": "Página de inicio"
+    }
+  ],
+  "page_bodies": {
+    "policy": {
+      "en": "<p>Every LINEA NOVE piece is finished and packed by hand in our atelier. This page explains how your order travels to you and how to return a piece that is not right.</p><h2>Order processing</h2><p>Pieces held in the atelier leave within three business days. Made-to-order work carries its own dispatch estimate on the product page. You receive a tracking link as soon as your parcel leaves the studio.</p><h2>Shipping</h2><p>Shipping is complimentary on orders over $150. Below that amount, the shipping rate for your address is shown at checkout before you pay. Delivery times depend on your destination and are estimated at checkout.</p><h2>Returns</h2><p>Returns are complimentary within fourteen days of delivery. Pieces must be unworn and returned with their original tags in place. Made-to-order work is final sale. Start a return by writing to us through the contact page with your order number.</p><h2>Refunds</h2><p>Once your return reaches the atelier and passes inspection, we refund the original payment method. Your bank may take a few business days to show the refund.</p><h2>Exchanges</h2><p>To change a size or colour, return the original piece and place a new order. This keeps the piece you want reserved while the return travels back to us.</p><h2>Damaged or incorrect items</h2><p>If a piece arrives damaged or is not what you ordered, contact us within seven days of delivery with a photograph and your order number. We cover the return and send a replacement or a full refund.</p>",
+      "es": "<p>Cada pieza de LINEA NOVE se termina y se empaqueta a mano en nuestro atelier. Esta página explica cómo viaja tu pedido hasta ti y cómo devolver una pieza que no es la adecuada.</p><h2>Preparación del pedido</h2><p>Las piezas disponibles en el atelier salen en un plazo de tres días hábiles. Los trabajos por encargo muestran su propia estimación de envío en la página del producto. Recibirás un enlace de seguimiento en cuanto tu paquete salga del estudio.</p><h2>Envío</h2><p>El envío es de cortesía en pedidos superiores a $150. Por debajo de ese importe, la tarifa de envío para tu dirección se muestra al finalizar la compra, antes de pagar. Los plazos de entrega dependen del destino y se estiman al finalizar la compra.</p><h2>Devoluciones</h2><p>Las devoluciones son de cortesía durante los catorce días siguientes a la entrega. Las piezas deben estar sin usar y devolverse con sus etiquetas originales puestas. Los trabajos por encargo no admiten devolución. Para iniciar una devolución, escríbenos desde la página de contacto con tu número de pedido.</p><h2>Reembolsos</h2><p>Cuando tu devolución llega al atelier y supera la revisión, reembolsamos el importe al método de pago original. Tu banco puede tardar unos días hábiles en reflejar el reembolso.</p><h2>Cambios</h2><p>Para cambiar una talla o un color, devuelve la pieza original y haz un pedido nuevo. Así la pieza que quieres queda reservada mientras la devolución vuelve a nosotros.</p><h2>Artículos dañados o incorrectos</h2><p>Si una pieza llega dañada o no es la que pediste, escríbenos en un plazo de siete días desde la entrega con una fotografía y tu número de pedido. Nos hacemos cargo de la devolución y te enviamos un reemplazo o un reembolso completo.</p>"
+    }
+  }
+}

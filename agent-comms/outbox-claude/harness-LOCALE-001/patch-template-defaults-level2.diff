@@ -1,0 +1,30 @@
+diff -ru a/sections/header-group.json b/sections/header-group.json
+--- a/sections/header-group.json	2026-09-22 02:44:13.273037599 +0000
++++ b/sections/header-group.json	2026-09-22 02:44:13.287301196 +0000
+@@ -8,7 +8,8 @@
+         "announcement_1": {
+           "type": "announcement",
+           "settings": {
+-            "text": "Complimentary shipping on orders over $150"
++            "text": "Complimentary shipping on orders over $150",
++            "link": "/collections/all"
+           }
+         }
+       },
+diff -ru a/templates/page.contact.json b/templates/page.contact.json
+--- a/templates/page.contact.json	2026-09-22 02:44:13.271319856 +0000
++++ b/templates/page.contact.json	2026-09-22 02:44:13.287200794 +0000
+@@ -66,7 +66,12 @@
+         "service_orders",
+         "service_trade"
+       ],
+-      "settings": {}
++      "settings": {
++        "eyebrow": "Contact / Private client services",
++        "intro": "<p>Write to the studio about an order, a material or a private appointment.</p>",
++        "studio_hours": "Monday to Friday / 10:00–18:00 CET",
++        "showroom_address": "By appointment / Milan"
++      }
+     }
+   },
+   "order": ["main"]

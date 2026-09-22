@@ -4,18 +4,26 @@
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5), GPT-5.6 Sol Max
-Última actualización: 2026-09-21
-Estado general: SPRINT MULTI-LANG-001 CONCLUIDO (Soporte Multi-Idioma Español, Calibración de Presets WCAG AA y Escala Tipográfica)
+Última actualización: 2026-09-22
+Estado general: LOCALE-AUDIT-001 APROBADO (Paridad Bilingüe Total, 196+9 Traducciones Storefront, Selector Minimalista EN/ES 44px + Fallback Multipaís)
+Próxima fase: SPRINT 5A - LUXURY COMMERCE (Quick Buy con Selector de Tallas & Swatches Nativos en Tarjetas y Filtros)
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT MULTI-LANG-001 (Multi-Idioma Español y Calibración de Presets) - COMPLETADO Y APROBADO
+## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (En Preparación de Directiva)
 
-**Meta del Sprint:** Entregar paridad total en español (`locales/es.json` con 374 claves), auditar accesibilidad en los 15 esquemas de color de los 3 presets (`Sartorial`, `Edition`, `Archive`), calibrar contrastes WCAG AA (texto secundario al 78% y Archive scheme-4 a `#6E482F`), y armonizar la escala tipográfica (`--font-heading-scale`) en títulos de exhibición.
-**Estado:** 100% implementado y validado (`CLAUDE-REPORT-MULTI-LANG-001.md`, `GEMINI-review-CLAUDE-MULTI-LANG-001.md`). 0 ofensas en Theme Check (108 archivos), `locale-parity.mjs` en verde (374/374 claves), 8/8 compuertas estáticas aprobadas.
+**Meta del Sprint:** Conforme a la auditoría senior de producto `GPT-AUDIT-003` y los benchmarks competitivos de $380-$400 (Prestige, Focal, Impulse), implementar las dos funcionalidades P0 inmediatas de conversión y reducción de fricción:
+1. **Quick Buy con selector interactivo de talla y variante en tarjetas de producto:** Permite añadir al carrito directamente desde la colección y módulos de recomendación sin abandonar el flujo de exploración, manejando stock, estados agotados, accesibilidad WCAG y feedback háptico/visual.
+2. **Swatches nativos de color/material en tarjetas y filtros facetados:** Renderizado de muestras visuales basadas en categoría nativa de Shopify, sincronizadas con el cambio de imagen y estado de variante compartida con el Quick Buy.
 
-*Siguiente Paso:* Commit y despliegue a la tienda en vivo (`Couture` #165809488115), activación del español en Admin por Johandry, y arranque del sprint de funcionalidades de lujo (Zoom de tejido, Quick Buy con tallas y Swatches).
+**Estado del Sprint Previo (MULTI-LANG-001 & LOCALE-AUDIT-001):** 
+- **100% COMPLETADO Y CERTIFICADO** (`CLAUDE-REPORT-LOCALE-AUDIT-001.md`, `GEMINI-review-CLAUDE-LOCALE-AUDIT-001.md`).
+- 196 traducciones registradas en Shopify en vivo vía GraphQL API.
+- Parche Nivel 2 aplicado (`page.contact.json` y `header-group.json` con valores declarados), dejando 9 traducciones listas para registrar tras el push.
+- Selector de idioma en header con touch target de 44×44px y anuncio accesible para lectores de pantalla.
+- Selector de país/moneda nativo condicional (solo visible si la tienda activa más de 1 mercado/país).
+- 0 huérfanas en storefront, 0 claves sin resolver, 115 archivos en Theme Check con 0 ofensas.
 
 ---
 
@@ -23,10 +31,10 @@ Estado general: SPRINT MULTI-LANG-001 CONCLUIDO (Soporte Multi-Idioma Español, 
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Publicar Español en Admin (*Settings > Languages*) y previsualizar Presets | 🟢 Activo | Pruebas de storefront en vivo |
-| **Claude (Fable 5.1 Max / Opus 5)** | Implementador Principal | `es.json` y auditoría de presets completados con honores | 🟢 Listo | En espera de directiva técnica para Sprint de Lujo (Zoom, Quick Buy, Swatches) |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Calibración de presets, revisión formal y despliegue a Shopify | 🟢 Activo | Coordinación de directivas técnicas y roadmap |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | En espera de reanudación de cuota para segunda opinión sobre presets y roadmap | 🟡 En espera | Auditoría de catálogo en español y roadmap |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Revisar tienda en vivo `/es`, renombrar tienda a "LINEA NOVE" en Admin y autorizar push | 🟢 Activo | Validación comercial |
+| **Claude (Opus 5)** | Implementador Principal | `LOCALE-AUDIT-001` entregado con excelencia; en espera de directiva 5A | 🟢 Listo | En espera de `CLAUDE-DIRECTIVE-5A-001` |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictamen formal emitido, tablero actualizado, redacción de directiva Sprint 5A | 🟢 Activo | `CLAUDE-DIRECTIVE-5A-001` |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | `GPT-AUDIT-003` completado con dictamen de roadmap reordenado | 🟢 Listo | Auditoría de UX/conversión sobre Quick Buy y Swatches una vez entregados |
 
 ---
 
@@ -45,7 +53,7 @@ Estado general: SPRINT MULTI-LANG-001 CONCLUIDO (Soporte Multi-Idioma Español, 
 - **Desbordamiento Horizontal en Móvil (390px):** 100% PASS (0px de overflow).
 - **Interactividad y Foco por Teclado (`CartDrawer`):** 100% PASS (apertura, focus trap, Escape, restauración de foco).
 - **Violaciones de accesibilidad en toda la tienda:** **0 violaciones** (100% limpio).
-- **Modo Reducción de Movimiento:** Verificado con `@media (prefers-reduced-motion: reduce)` activo; el tema desactiva 100% de transiciones e ignorar reveal.
+- **Modo Reducción de Movimiento:** Verificado con `@media (prefers-reduced-motion: reduce)` activo; el tema desactiva 100% de transiciones e ignora reveal.
 
 ---
 
@@ -65,7 +73,9 @@ Estado general: SPRINT MULTI-LANG-001 CONCLUIDO (Soporte Multi-Idioma Español, 
 
 ## 5. Bloqueadores y Dependencias Críticas
 
-1. **[P0 - Comercial] URLs de Documentación y Soporte:**
-   - Resuelto por Johandry (DP-001): se publicarán en la tienda Shopify a partir de `docs/merchant/docs.html` y `support.html`. Una vez activas, se enlazarán en `settings_schema.json`.
-2. **[P1 - Técnico] Violación de Compuerta 3 en `assets/theme.js`:**
-   - **RESUELTO Y CERRADO:** 0 ocurrencias de `Intl.NumberFormat`, `formatMoney` centralizado con fallback seguro a la moneda de la tienda.
+1. **[P0 - Comercial] Nombre de Tienda y Títulos de Catálogo:**
+   - En *Settings > Store details*, cambiar nombre a "LINEA NOVE" (elimina "– Tema" del título).
+   - Opcional: traducir títulos de producto y alt de fotos con la app nativa *Translate & Adapt*.
+2. **[P0 - Operativo] Despliegue de Plantillas y Registro de 9 Claves:**
+   - Desplegar tema a tienda en vivo (`Couture` #165809488115).
+   - Ejecutar `translate-storefront.mjs --apply --verify` para registrar las 9 claves expuestas por el parche de nivel 2.
