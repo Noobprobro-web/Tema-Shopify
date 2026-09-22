@@ -28,9 +28,9 @@ Próximo hito: Auditoría adversarial senior de UX/comercio por GPT-5.6 Sol Max 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Agregar filtro "Color" en Search & Discovery. 2) Opcional: activar Gift Cards en Admin. | 🟢 Activo | Configuración de tienda |
-| **Claude (Opus 5)** | Implementador Principal | Sprint 5A completado con distinción máxima; en reposo para Sprint 5B | 🟢 Completado | Listo para siguiente sprint |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Aprobación de Compuerta 5, actualización de Ledger/Board, despacho a GPT | 🟢 Activo | Orquestación y control |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Auditoría adversarial de producto sobre `/collections/qa-sprint-5a` (`GPT-TASK-005`) | 🔵 En ejecución | `agent-comms/outbox-gpt/GPT-AUDIT-005-sprint-5a-adversarial.md` |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor Frontend | Auditoría diagnóstica profunda de código y deuda técnica (`CLAUDE-DIRECTIVE-OPUS-AUDIT-001`) | 🔵 En ejecución | `agent-comms/outbox-claude/CLAUDE-AUDIT-OPUS-001.md` |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Guardián de tokens, orquestación, consolidación de auditorías y directivas cerradas | 🟢 Activo | Plan de acción unificado |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Auditoría adversarial de producto sobre `/collections/qa-sprint-5a` (`GPT-TASK-005`) | 🔵 En ejecución | `agent-comms/outbox-gpt/GPT-AUDIT-005-sprint-5a-adversarial.md` |
 
 ---
 

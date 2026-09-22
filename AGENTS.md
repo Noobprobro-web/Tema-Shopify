@@ -6,9 +6,9 @@ Este proyecto usa multiples agentes de IA. Desde el handoff de `GEMINI-003`, Gem
 
 1. **Usuario (Johandry / Ruiz Digital):** dueño del proyecto, prioridades de negocio, aprobaciones grandes y cambios de alcance.
 2. **Gemini Flash 3.8 High:** cerebro/orquestador; define arquitectura, criterios de aceptacion, orden de trabajo, delegacion y decision tecnica operativa.
-3. **Claude (Opus 5):** implementador principal de Liquid, JSON, CSS, JS, schemas y correcciones técnicas complejas (reasignado por Johandry el 2026-09-13 para asumir las tareas de código). Mantiene además su rol de auditoría senior UX/UI y disciplina técnica.
-4. **GPT-5.6 Sol Max:** auditor senior de producto, UX, estrategia comercial, segunda opinión y detección de riesgos en Theme Store (reasignado por Johandry para optimizar su cuota restante sin escribir código).
-5. **GPT-5.5 low:** tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
+3. **Claude (Opus 5.5 Extra):** implementador principal de Liquid, JSON, CSS, JS, schemas y correcciones técnicas complejas con máxima profundidad de razonamiento. Mantiene además su rol de auditoría senior UX/UI y disciplina técnica.
+4. **GPT-6 Sol Max:** auditor senior de producto, UX, estrategia comercial, segunda opinión y detección de riesgos en Theme Store con capacidad máxima de análisis.
+5. **GPT-5.5 / modelos ligeros:** tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
 
 Si un agente ejecutor aparece como Codex, actua como implementador/revisor operativo y no sustituye la autoridad vigente de Gemini. Las decisiones que afecten producto o alcance mas alla de lo aprobado vuelven al usuario.
 
@@ -96,7 +96,7 @@ Ninguna entrega de código o sprint técnico se da por aceptada si falla una sol
 ## Modelo y escalamiento
 
 - Gemini Flash 3.8 High toma las decisiones de arquitectura, mantiene `BOARD.md` y coordina las fases.
-- Claude (Opus 5) es el implementador principal de Liquid, JSON, CSS, JS, schemas y disciplina técnica frontend.
-- GPT-5.6 Sol Max es el auditor senior de producto, UX comercial, viabilidad de Theme Store y segunda opinión.
-- GPT-5.5 low se usa para tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
+- Claude (Opus 5.5 Extra) es el implementador principal de Liquid, JSON, CSS, JS, schemas y disciplina técnica frontend.
+- GPT-6 Sol Max es el auditor senior de producto, UX comercial, viabilidad de Theme Store y segunda opinión.
+- Modelos ligeros (Flash / GPT-5.5) se usan para tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
 - Gemini debe marcar `ESCALATE_MODEL_RECOMMENDED` cuando exista riesgo transversal, ambiguedad de Shopify, posible rechazo en Theme Store o conflicto no resoluble con la evidencia disponible.
