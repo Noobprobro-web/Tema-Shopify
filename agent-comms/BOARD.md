@@ -5,23 +5,24 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5), GPT-5.6 Sol Max
 Última actualización: 2026-09-22
-Estado general: AUDITORÍAS CONCLUIDAS (GPT-6 Sol Max & Opus 5.5 Extra) -> DIRECTIVA DE REMEDIACIÓN UNIFICADA 5A-003 EMITIDA
-Próximo hito: Ejecución quirúrgica por Opus 5.5 Extra, verificación estática y despliegue final antes de Sprint 5B
+Estado general: SPRINT 5A - OLA 1 DE REMEDIACIÓN APROBADA Y CERTIFICADA (Theme Check 116 archivos 0 ofensas, 384 claves en/es)
+Próximo hito: Despliegue en tienda viva (Couture #165809488115), re-evaluación por GPT-6 Sol Max y arranque de Sprint 5B (Zoom & PDP Media)
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (Fase de Remediación P0/P1 Unificada)
+## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (Ola 1 Implementada y Aprobada)
 
-**Meta del Sprint:** Conforme a `GPT-AUDIT-005` y `CLAUDE-AUDIT-OPUS-001`, ejecutar en un pase único las 8 correcciones de alta prioridad:
-1. **Fail-Closed en Selling Plans (GPT H1 - P0):** Deshabilitar Add/Buy it now en PDP cuando un producto requiere selling plan pero carece de asignaciones válidas.
-2. **Quick Buy Trigger ante Color Agotado (GPT H2 - P0/P1):** Deshabilitar disparador `.quick-buy__trigger` y marcar "Agotado" en tarjeta cuando el color seleccionado no tiene tallas disponibles.
-3. **Eliminación de Doble Escape (Claude H-01 - P1):** Corregir 40 ocurrencias de `| t: ... | escape` en Liquid para evitar entidades visibles como `&amp;` o `O&#39;Brien`.
-4. **Efectividad de `logo_width` (Claude H-02 - P1):** Conectar setting de schema con variables CSS en header.
-5. **Requisito Theme Store `secondary_menu` (Claude H-03 - P1):** Declarar default `"main-menu"` en schema y prevenir duplicidad.
-6. **Neutralización de Cart Drawer (Claude H-04 & GPT H3 - P1):** Default `false` para progress tiered y textos neutros sin términos de marca no configurados.
-7. **Ergonomía de Marca Móvil a 390 px (Claude H-05 & GPT H4 - P1/P2):** Ajustar posición de contador, cuenta y font clamp para evitar elipsis en "LINEA NOVE".
-8. **Colección Vacía (Claude H-09 - P2):** Distinguir estado de colección vacía nativa ("Esta colección está vacía") de colección filtrada sin resultados.
+**Meta del Sprint:** Conforme a `GPT-AUDIT-005`, `CLAUDE-AUDIT-OPUS-001` y `CLAUDE-REPORT-5A-003`, se resolvieron las 8 tareas críticas + 2 parches de consistencia (E1 y E2):
+1. **Fail-Closed en Selling Plans (GPT H1 - P0):** Implementado en Liquid (`main-product.liquid:13-26,570-597` y `featured-product.liquid:14-25,350-375`), `VariantSelects` (`theme.js:733-742`) y `CartDrawer.addItem` (`theme.js:2203-2217`).
+2. **Quick Buy Trigger ante Color Agotado (GPT H2 - P0/P1):** Disparador deshabilitado con label "Agotado" / "Sold out" cuando el color seleccionado no tiene tallas disponibles (`theme.js:1829-1838` y `snippets/product-card.liquid`).
+3. **Eliminación de Doble Escape (Claude H-01 - P1):** Corregidas 41 instancias de `| t: ... | escape` con `| escape_once` a lo largo de 14 archivos. Cero entidades HTML crudas visibles.
+4. **Efectividad de `logo_width` (Claude H-02 - P1):** Conectado `--logo-width` en `header.liquid` y `base.css:650-659` con tope móvil de 3rem de alto para seguridad.
+5. **Requisito Theme Store `secondary_menu` (Claude H-03 - P1):** Declarado default `"main-menu"` en schema y prevenida la duplicación en cabecera si es idéntico a `menu`.
+6. **Neutralización de Cart Drawer (Claude H-04 & GPT H3 - P1):** Default `false` para progress tiered; textos neutros ("Free shipping and gift unlocked").
+7. **Ergonomía de Marca Móvil a 390 px (Claude H-05 & GPT H4 - P1/P2):** Ajustada posición de contador, delimitada cuenta a 44px y font clamp optimizado con `column-gap` móvil: "LINEA NOVE" no se corta a 360 px ni a 390 px.
+8. **Colección Vacía (Claude H-09 - P2):** Distingue colección vacía ("Esta colección está vacía") de colección filtrada sin resultados.
+9. **Parches de Consistencia E1 y E2:** Cobertura de planes de venta en producto destacado y respeto al setting `show_cart_count`.
 
 ---
 
@@ -30,9 +31,9 @@ Próximo hito: Ejecución quirúrgica por Opus 5.5 Extra, verificación estátic
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Agregar filtro "Color" en Search & Discovery. 2) Opcional: activar Gift Cards en Admin. | 🟢 Activo | Configuración de tienda |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Ejecutar remediación unificada P0/P1 (`CLAUDE-DIRECTIVE-5A-003`) | 🔵 En ejecución | `agent-comms/outbox-claude/CLAUDE-REPORT-5A-003.md` |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Supervisión técnica, auditoría de diffs, compuertas estáticas y autorización de commits | 🟢 Activo | Validación y cierre de Sprint 5A |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Auditoría adversarial 005 completada con éxito; en reposo para revisión final | 🟢 Completado | Listo para re-evaluación post-remediación |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Ola 1 completada con honores (23 archivos tocados); en reposo para Sprint 5B | 🟢 Completado | Listo para Sprint 5B |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Aprobación de Ola 1, actualización de Ledger/Board, despliegue y pase a GPT | 🟢 Activo | Orquestación continua |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Re-verificación de F06 y F04 en tienda real post-despliegue | 🔵 En espera | Dictamen de cierre definitivo 5A |
 
 ---
 

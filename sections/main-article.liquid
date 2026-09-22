@@ -30,7 +30,7 @@
       <h1 id="{{ title_id }}" class="main-article__title">{{ article.title | escape }}</h1>
       <p class="main-article__meta">
         {%- if section.settings.show_author and article.author != blank -%}
-          {{- 'blogs.article.by_author' | t: author: article.author | escape -}}
+          {{- 'blogs.article.by_author' | t: author: article.author | escape_once -}}
           <span aria-hidden="true"> / </span>
         {%- endif -%}
         {{- article.published_at | time_tag: format: 'date' -}}

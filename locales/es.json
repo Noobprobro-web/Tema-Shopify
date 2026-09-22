@@ -73,9 +73,10 @@
       "view_cart": "Ver carrito",
       "error": "No pudimos actualizar tu carrito. Inténtalo de nuevo.",
       "added": "Artículo añadido a tu carrito.",
-      "shipping_remaining": "Añade {{ amount }} para disfrutar del envío de cortesía",
-      "shipping_unlocked_gift_remaining": "Envío de cortesía desbloqueado. Añade {{ amount }} para recibir un obsequio del atelier",
-      "rewards_unlocked": "Envío de cortesía y obsequio del atelier desbloqueados",
+      "add_failed": "No se pudo añadir este artículo al carrito.",
+      "shipping_remaining": "Añade {{ amount }} para el envío gratuito",
+      "shipping_unlocked_gift_remaining": "Envío gratuito desbloqueado. Añade {{ amount }} para recibir un obsequio",
+      "rewards_unlocked": "Envío gratuito y obsequio desbloqueados",
       "rewards_progress": "Progreso de las ventajas del carrito",
       "shipping_milestone": "Envío desde {{ amount }}",
       "gift_milestone": "Obsequio desde {{ amount }}",
@@ -401,7 +402,8 @@
         "subscribe": "Suscríbete y ahorra",
         "delivery_schedule": "Frecuencia de entrega",
         "per_delivery": "{{ price }} por entrega",
-        "unavailable": "Esta opción de compra no está disponible"
+        "unavailable": "Esta opción de compra no está disponible",
+        "plan_required": "Esta opción requiere un plan de suscripción que ahora no está disponible."
       },
       "pickup": {
         "eyebrow": "Recogida en tienda",
@@ -442,7 +444,9 @@
         "one": "{{ count }} producto",
         "other": "{{ count }} productos"
       },
-      "no_products": "Ningún producto coincide con tu selección."
+      "no_products": "Ningún producto coincide con tu selección.",
+      "empty": "Esta colección está vacía.",
+      "browse_all": "Ver todos los productos"
     },
     "filters": {
       "title": "Filtrar y ordenar",

@@ -67,7 +67,7 @@
       {%- endcomment -%}
       <faq-filter
         class="main-faq__search js-only"
-        data-filter-count-template="{{ 'faq.search.results' | t: count: '[count]' | escape }}"
+        data-filter-count-template="{{ 'faq.search.results' | t: count: '[count]' | escape_once }}"
       >
         <div class="form-field">
           <label for="{{ search_id }}">{{ 'faq.search.label' | t }}</label>

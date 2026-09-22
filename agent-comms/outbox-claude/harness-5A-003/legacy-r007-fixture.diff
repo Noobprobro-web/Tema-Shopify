@@ -1,0 +1,32 @@
+--- a/r007.spec.mjs	2026-09-22 19:28:37.972117145 +0000
++++ b/r007.spec.mjs	2026-09-22 19:28:37.985613535 +0000
+@@ -3,6 +3,7 @@
+ const section = (qty) => `<cart-drawer data-item-count="${qty}" data-cart-count-label="${qty} items">
+   <div data-cart-drawer-content>
+     <textarea id="CartNote" name="note"></textarea>
++    <h3 class="cart-drawer-item__title"><a href="/products/fixture?variant=111">Fixture</a></h3>
+     <input id="DrawerQuantity-1" type="number" name="updates[]" value="${qty}" min="1" step="1" required data-cart-quantity data-line="1">
+   </div>
+   <span data-cart-drawer-count>${qty}</span>
+@@ -19,6 +20,7 @@
+     window.__section = (qty) => `<cart-drawer data-item-count="${qty}" data-cart-count-label="${qty} items">
+   <div data-cart-drawer-content>
+     <textarea id="CartNote" name="note"></textarea>
++    <h3 class="cart-drawer-item__title"><a href="/products/fixture?variant=111">Fixture</a></h3>
+     <input id="DrawerQuantity-1" type="number" name="updates[]" value="${qty}" min="1" step="1" required data-cart-quantity data-line="1">
+   </div>
+   <span data-cart-drawer-count>${qty}</span>
+@@ -35,7 +37,12 @@
+         const body = init.body && typeof init.body === 'string' ? JSON.parse(init.body) : null;
+         if (body && typeof body.quantity === 'number') window.__cartQty = body.quantity;
+         return Promise.resolve(new Response(
+-          JSON.stringify({ sections: { 'cart-drawer': window.__section(window.__cartQty) } }),
++          // 5A-003: /cart/add.js real devuelve la linea anadida (variant_id). Sin ella el
++          // cajon ya no anuncia exito (respuesta {} de F06, GPT-AUDIT-005 H1).
++          JSON.stringify({
++            variant_id: url.includes('/cart/add') ? 111 : undefined,
++            sections: { 'cart-drawer': window.__section(window.__cartQty) },
++          }),
+           { status: 200, headers: { 'Content-Type': 'application/json' } },
+         ));
+       }

@@ -1,0 +1,32 @@
+--- a/agent-comms/outbox-claude/harness-5A-001/quickbuy5a.spec.mjs
++++ b/agent-comms/outbox-claude/harness-5A-001/quickbuy5a.spec.mjs
+@@ -194,14 +194,24 @@
+     await expect(xl).toBeDisabled();
+     await expect(xl.locator('[data-quick-buy-state]')).toHaveText(L.unavailable);
+     await page.keyboard.press('Escape');
+-    // Olive: ni foto propia ni tallas disponibles.
++    // Olive: ni foto propia ni tallas disponibles. 5A-003 (GPT-AUDIT-005 H2, SW-06): el
++    // disparador pasa a "Agotado" e inactivo en vez de abrir un selector sin salida.
+     await c.locator('[data-card-swatch][data-swatch-value="Olive"]').click();
+     await expect(img).toHaveAttribute('src', originalSrc);
+     await expect(c.locator('product-card-variants')).not.toHaveAttribute('data-variant-media', '');
+-    await c.locator('[data-quick-buy-trigger]').click();
+-    expect(await panel.locator('.quick-buy__value:not([disabled])').count()).toBe(0);
+-    expect((await activeInfo(page)).tag).toBe('BUTTON');
+-    expect(await page.evaluate(() => document.activeElement.hasAttribute('data-quick-buy-close'))).toBe(true);
++    const trigger = c.locator('[data-quick-buy-trigger]');
++    await expect(trigger).toBeDisabled();
++    await expect(trigger).toHaveText(L.sold);
++    await trigger.click({ force: true });
++    await c.locator('product-card-variants').evaluate((el) => el.open());
++    await expect(panel).not.toHaveAttribute('open', '');
++    // Otro color con existencias devuelve la compra rapida.
++    await c.locator('[data-card-swatch][data-swatch-value="Ink"]').click();
++    await expect(trigger).toBeEnabled();
++    await expect(trigger).toHaveText(L.quick);
++    await trigger.click();
++    await expect(panel).toHaveAttribute('open', '');
++    expect(await panel.locator('.quick-buy__value:not([disabled])').count()).toBeGreaterThan(0);
+   });
+ 
+   test('B3 teclado en swatches: flechas con ciclo, Home y End, tabindex itinerante', async ({ page }) => {

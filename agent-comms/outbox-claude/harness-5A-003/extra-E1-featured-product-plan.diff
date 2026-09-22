@@ -1,0 +1,58 @@
+diff --git a/a/sections/featured-product.liquid b/b/sections/featured-product.liquid
+index 94c3862..1730266 100644
+--- a/a/sections/featured-product.liquid
++++ b/b/sections/featured-product.liquid
+@@ -14,6 +14,15 @@
+   if selected_selling_plan_id != blank
+     assign subscription_selected = true
+   endif
++  # Misma regla que main-product (5A-003, GPT-AUDIT-005 H1): plan exigido sin asignacion.
++  assign plan_required_unavailable = false
++  if selected_variant.requires_selling_plan and selected_variant.selling_plan_allocations.size == 0
++    assign plan_required_unavailable = true
++  endif
++  assign can_add_to_cart = selected_variant.available
++  if plan_required_unavailable
++    assign can_add_to_cart = false
++  endif
+   assign featured_models = featured_product.media | where: 'media_type', 'model'
+   assign title_blocks = section.blocks | where: 'type', 'title'
+ -%}
+@@ -341,13 +350,15 @@
+                       type="submit"
+                       name="add"
+                       data-add-to-cart
+-                      {% unless selected_variant.available %}disabled{% endunless %}
++                      {% unless can_add_to_cart %}disabled{% endunless %}
+                     >
+                       <span data-add-to-cart-text>
+-                        {%- if selected_variant.available -%}
+-                          {{- 'products.product.add_to_cart' | t -}}
+-                        {%- else -%}
++                        {%- if selected_variant.available == false -%}
+                           {{- 'products.product.sold_out' | t -}}
++                        {%- elsif plan_required_unavailable -%}
++                          {{- 'products.product.purchase_options.unavailable' | t -}}
++                        {%- else -%}
++                          {{- 'products.product.add_to_cart' | t -}}
+                         {%- endif -%}
+                       </span>
+                       <span class="button__spinner" data-loading-icon hidden>
+@@ -355,8 +366,16 @@
+                       </span>
+                     </button>
+ 
++                    <p
++                      class="form-message"
++                      data-plan-required-notice
++                      {% unless plan_required_unavailable and selected_variant.available %}hidden{% endunless %}
++                    >
++                      {{- 'products.product.purchase_options.plan_required' | t -}}
++                    </p>
++
+                     {%- if block.settings.show_dynamic_checkout -%}
+-                      <div class="product-form__dynamic-checkout">
++                      <div class="product-form__dynamic-checkout"{% unless can_add_to_cart %} hidden{% endunless %}>
+                         {{- form | payment_button -}}
+                       </div>
+                     {%- endif -%}

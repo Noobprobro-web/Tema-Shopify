@@ -73,9 +73,10 @@
       "view_cart": "View cart",
       "error": "We could not update your cart. Please try again.",
       "added": "Item added to your cart.",
-      "shipping_remaining": "Add {{ amount }} for Complimentary Shipping",
-      "shipping_unlocked_gift_remaining": "Complimentary Shipping unlocked. Add {{ amount }} for an Atelier Gift",
-      "rewards_unlocked": "Complimentary Shipping and Atelier Gift unlocked",
+      "add_failed": "This item could not be added to your cart.",
+      "shipping_remaining": "Add {{ amount }} for free shipping",
+      "shipping_unlocked_gift_remaining": "Free shipping unlocked. Add {{ amount }} for a gift",
+      "rewards_unlocked": "Free shipping and gift unlocked",
       "rewards_progress": "Cart rewards progress",
       "shipping_milestone": "Shipping at {{ amount }}",
       "gift_milestone": "Gift at {{ amount }}",
@@ -401,7 +402,8 @@
         "subscribe": "Subscribe and save",
         "delivery_schedule": "Delivery schedule",
         "per_delivery": "{{ price }} per delivery",
-        "unavailable": "This purchase option is unavailable"
+        "unavailable": "This purchase option is unavailable",
+        "plan_required": "This option requires a subscription plan that is not available right now."
       },
       "pickup": {
         "eyebrow": "Local pickup",
@@ -442,7 +444,9 @@
         "one": "{{ count }} product",
         "other": "{{ count }} products"
       },
-      "no_products": "No products match your selection."
+      "no_products": "No products match your selection.",
+      "empty": "This collection is empty.",
+      "browse_all": "Browse all products"
     },
     "filters": {
       "title": "Filter and sort",

@@ -59,10 +59,10 @@
   data-cart-add-url="{{ routes.cart_add_url }}.js"
   data-cart-url="{{ routes.cart_url }}"
   data-money-format="{{ shop.money_format | strip_html | escape }}"
-  data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape }}"
-  data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape }}"
-  data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape }}"
-  data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape }}"
+  data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape_once }}"
+  data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape_once }}"
+  data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape_once }}"
+  data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape_once }}"
   data-empty-label="{{ 'sections.complete_the_look.select_items' | t | escape }}"
   data-error-message="{{ 'sections.complete_the_look.error' | t | escape }}"
   data-added-message="{{ 'sections.complete_the_look.added' | t | escape }}"
@@ -180,7 +180,7 @@
                       {% if bundle_can_add %}checked{% else %}disabled{% endif %}
                     >
                     <span class="visually-hidden">
-                      {{- 'sections.complete_the_look.select_product' | t: product: bundle_product.title | escape -}}
+                      {{- 'sections.complete_the_look.select_product' | t: product: bundle_product.title | escape_once -}}
                     </span>
                   </label>
 
@@ -220,7 +220,7 @@
                       >
                     {%- else -%}
                       <label class="visually-hidden" for="{{ variant_select_id }}">
-                        {{- 'sections.complete_the_look.choose_variant' | t: product: bundle_product.title | escape -}}
+                        {{- 'sections.complete_the_look.choose_variant' | t: product: bundle_product.title | escape_once -}}
                       </label>
                       <select
                         id="{{ variant_select_id }}"

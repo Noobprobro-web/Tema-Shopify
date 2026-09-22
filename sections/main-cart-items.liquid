@@ -130,7 +130,7 @@
                     class="quantity-stepper__button"
                     type="button"
                     name="minus"
-                    aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape }}"
+                    aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape_once }}"
                     aria-controls="CartQuantity-{{ forloop.index }}"
                     data-quantity-button="decrease"
                     {% if item.quantity <= quantity_min %}disabled{% endif %}
@@ -153,7 +153,7 @@
                     class="quantity-stepper__button"
                     type="button"
                     name="plus"
-                    aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape }}"
+                    aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape_once }}"
                     aria-controls="CartQuantity-{{ forloop.index }}"
                     data-quantity-button="increase"
                     {% if quantity_max != blank and item.quantity >= quantity_max %}disabled{% endif %}
@@ -161,7 +161,7 @@
                     {% render 'icon', name: 'plus', size: 16 %}
                   </button>
                 </div>
-                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape }}">
+                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}">
                   {{- 'sections.cart.remove' | t -}}
                 </a>
               </div>

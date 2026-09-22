@@ -29,7 +29,7 @@
             -%}
             <li>
               <article class="collection-directory__card">
-                <a class="collection-directory__media" href="{{ collection_item.url }}" aria-label="{{ 'list_collections.view_collection' | t: title: collection_item.title | escape }}">
+                <a class="collection-directory__media" href="{{ collection_item.url }}" aria-label="{{ 'list_collections.view_collection' | t: title: collection_item.title | escape_once }}">
                   {%- if collection_image != blank -%}
                     {% render 'responsive-image',
                       image: collection_image,

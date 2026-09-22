@@ -9,6 +9,21 @@
   if selected_selling_plan_id != blank
     assign subscription_selected = true
   endif
+
+  comment
+    5A-003, GPT-AUDIT-005 H1. Una variante que exige plan de venta y no tiene ninguno
+    asignado no se puede comprar: Shopify responde 200 a /cart/add sin crear la linea. La
+    ficha falla cerrada desde el servidor: sin boton activo, sin pago acelerado y con el
+    motivo a la vista. VariantSelects repite la misma regla al cambiar de variante.
+  endcomment
+  assign plan_required_unavailable = false
+  if selected_variant.requires_selling_plan and selected_variant.selling_plan_allocations.size == 0
+    assign plan_required_unavailable = true
+  endif
+  assign can_add_to_cart = selected_variant.available
+  if plan_required_unavailable
+    assign can_add_to_cart = false
+  endif
   assign product_form_id = 'product-form-' | append: section.id
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
@@ -63,7 +78,7 @@
         <div
           class="product-gallery__pager"
           data-gallery-pager
-          data-view-media-template="{{ 'products.product.view_media' | t: number: '[number]' | escape }}"
+          data-view-media-template="{{ 'products.product.view_media' | t: number: '[number]' | escape_once }}"
           hidden
         >
           <button
@@ -95,7 +110,7 @@
             <button
               class="product-gallery__thumbnail"
               type="button"
-              aria-label="{{ 'products.product.view_media' | t: number: forloop.index | escape }}"
+              aria-label="{{ 'products.product.view_media' | t: number: forloop.index | escape_once }}"
               aria-pressed="{% if media.id == selected_media_id %}true{% else %}false{% endif %}"
               data-product-thumbnail
               data-media-id="{{ media.id }}"
@@ -130,9 +145,9 @@
       data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
       data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
       data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
-      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
+      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
       data-money-format="{{ shop.money_format | strip_html | escape }}"
-      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape }}"
+      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape_once }}"
     >
       <div class="product-main__info flow">
         {%- for block in section.blocks -%}
@@ -360,7 +375,7 @@
                     class="quantity-stepper__button"
                     type="button"
                     name="minus"
-                    aria-label="{{ 'products.product.decrease_quantity' | t: product: product.title | escape }}"
+                    aria-label="{{ 'products.product.decrease_quantity' | t: product: product.title | escape_once }}"
                     aria-controls="Quantity-{{ section.id }}"
                     data-quantity-button="decrease"
                     disabled
@@ -385,7 +400,7 @@
                     class="quantity-stepper__button"
                     type="button"
                     name="plus"
-                    aria-label="{{ 'products.product.increase_quantity' | t: product: product.title | escape }}"
+                    aria-label="{{ 'products.product.increase_quantity' | t: product: product.title | escape_once }}"
                     aria-controls="Quantity-{{ section.id }}"
                     data-quantity-button="increase"
                     {% if quantity_max != blank and quantity_min >= quantity_max %}disabled{% endif %}
@@ -552,13 +567,15 @@
                     type="submit"
                     name="add"
                     data-add-to-cart
-                    {% unless selected_variant.available %}disabled{% endunless %}
+                    {% unless can_add_to_cart %}disabled{% endunless %}
                   >
                     <span data-add-to-cart-text>
-                      {%- if selected_variant.available -%}
-                        {{- 'products.product.add_to_cart' | t -}}
-                      {%- else -%}
+                      {%- if selected_variant.available == false -%}
                         {{- 'products.product.sold_out' | t -}}
+                      {%- elsif plan_required_unavailable -%}
+                        {{- 'products.product.purchase_options.unavailable' | t -}}
+                      {%- else -%}
+                        {{- 'products.product.add_to_cart' | t -}}
                       {%- endif -%}
                     </span>
                     <span class="button__spinner" data-loading-icon hidden>
@@ -566,8 +583,16 @@
                     </span>
                   </button>
 
+                  <p
+                    class="form-message"
+                    data-plan-required-notice
+                    {% unless plan_required_unavailable and selected_variant.available %}hidden{% endunless %}
+                  >
+                    {{- 'products.product.purchase_options.plan_required' | t -}}
+                  </p>
+
                   {%- if block.settings.show_dynamic_checkout -%}
-                    <div class="product-form__dynamic-checkout">
+                    <div class="product-form__dynamic-checkout"{% unless can_add_to_cart %} hidden{% endunless %}>
                       {{ form | payment_button }}
                     </div>
                   {%- endif -%}
@@ -676,9 +701,9 @@
       class="sticky-cart-bar color-{{ section_scheme }}"
       data-product-form-id="{{ product_form_id }}"
       data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
-      data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape }}"
-      data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape }}"
-      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape }}"
+      data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape_once }}"
+      data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape_once }}"
+      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape_once }}"
       {% if product.has_only_default_variant %}data-single-variant{% endif %}
       aria-hidden="true"
       inert
@@ -723,15 +748,17 @@
         <button
           class="button sticky-cart-bar__submit"
           type="button"
-          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape }}"
+          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape_once }}"
           data-sticky-submit
-          {% unless selected_variant.available %}disabled{% endunless %}
+          {% unless can_add_to_cart %}disabled{% endunless %}
         >
           <span data-sticky-label>
-            {%- if selected_variant.available -%}
-              {{- 'products.product.add_to_cart' | t -}}
-            {%- else -%}
+            {%- if selected_variant.available == false -%}
               {{- 'products.product.sold_out' | t -}}
+            {%- elsif plan_required_unavailable -%}
+              {{- 'products.product.purchase_options.unavailable' | t -}}
+            {%- else -%}
+              {{- 'products.product.add_to_cart' | t -}}
             {%- endif -%}
           </span>
           <span class="button__spinner" data-loading-icon hidden>

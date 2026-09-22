@@ -2,7 +2,7 @@
   <div class="container container--narrow flow">
     {%- case request.page_type -%}
       {%- when 'index' -%}
-        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.home.title' | t: shop: shop.name | escape }}</h1>
+        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.home.title' | t: shop: shop.name | escape_once }}</h1>
         <p class="lede">{{ 'templates.home.message' | t }}</p>
 
       {%- when 'product' -%}
@@ -32,7 +32,7 @@
 
       {%- when 'search' -%}
         {%- if search.performed -%}
-          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.results_for' | t: terms: search.terms | escape }}</h1>
+          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.results_for' | t: terms: search.terms | escape_once }}</h1>
         {%- else -%}
           <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.title' | t }}</h1>
           <p>{{ 'templates.search.prompt' | t }}</p>

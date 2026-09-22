@@ -89,7 +89,7 @@
               <a
                 class="curated-showcase__spotlight-media"
                 href="{{ spotlight_url }}"
-                aria-label="{{ 'sections.homepage.curated.open_spotlight' | t: title: spotlight_title | escape }}"
+                aria-label="{{ 'sections.homepage.curated.open_spotlight' | t: title: spotlight_title | escape_once }}"
               >
                 {%- if spotlight_image != blank -%}
                   {% render 'responsive-image',
@@ -143,7 +143,7 @@
             <footer class="curated-showcase__footer">
               <span aria-hidden="true">{{ tab_number }} / {{ section.blocks.size | prepend: '0' }}</span>
               <a href="{{ collection_url }}">
-                <span>{{ 'sections.homepage.curated.view_collection' | t: title: tab_label | escape }}</span>
+                <span>{{ 'sections.homepage.curated.view_collection' | t: title: tab_label | escape_once }}</span>
                 {% render 'icon', name: 'arrow', size: 18 %}
               </a>
             </footer>

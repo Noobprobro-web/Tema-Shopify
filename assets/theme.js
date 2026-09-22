@@ -732,7 +732,10 @@
 
     isPurchaseOptionValid(variant) {
       if (!variant?.available) return false;
-      if (!this.sellingPlans) return true;
+      // 5A-003, GPT-AUDIT-005 H1. Sin bloque de planes en la ficha (el producto no tiene
+      // grupos que ofrecer) una variante que exige plan tampoco se puede comprar: Shopify
+      // responde 200 a /cart/add sin crear la linea. Falla cerrado, igual que el Liquid.
+      if (!this.sellingPlans) return !variant.requires_selling_plan;
       if (this.getPurchaseMode() === 'subscription') return Boolean(this.currentAllocation);
       return !variant.requires_selling_plan;
     }
@@ -779,6 +782,17 @@
 
       this.querySelectorAll('.product-form__dynamic-checkout').forEach((container) => {
         container.hidden = !purchaseOptionValid;
+      });
+
+      // El motivo se explica solo cuando es ese: variante disponible que exige un plan y no
+      // tiene ninguno asignado. Agotada o inexistente ya lo dice la etiqueta del boton.
+      const planMissing = Boolean(
+        variant?.available
+        && variant.requires_selling_plan
+        && !(variant.selling_plan_allocations || []).length,
+      );
+      this.querySelectorAll('[data-plan-required-notice]').forEach((notice) => {
+        notice.hidden = !planMissing;
       });
     }
 
@@ -1784,6 +1798,7 @@
       if (!this.dialog || !this.data || this.data.pickerIndex < 0) return;
       const { swatchIndex, pickerIndex, variants } = this.data;
       const offered = variants.filter((variant) => swatchIndex < 0 || variant.options[swatchIndex] === this.selectedValue);
+      this.syncTrigger(offered.some((variant) => variant.available));
       // Si las tallas de este color cuestan distinto, cada talla muestra su precio: la talla
       // es la adicion, asi que el precio tiene que verse antes del toque.
       const pricesVary = offered.some((variant) => variant.cents !== offered[0]?.cents);
@@ -1809,6 +1824,17 @@
           price.textContent = pricesVary && variant ? variant.price : '';
         }
       });
+    }
+
+    // 5A-003, GPT-AUDIT-005 H2. Un color sin ninguna talla disponible no abre un selector
+    // sin salida: el disparador dice "Agotado" y queda inactivo. Al comprometer otro color
+    // con existencias vuelve a "Anadir rapido". La tarjeta y su enlace a la ficha siguen
+    // accesibles, y la etiqueta de agotado del precio ya la pone updatePrice().
+    syncTrigger(hasAvailable) {
+      if (!this.trigger) return;
+      this.trigger.disabled = !hasAvailable;
+      const label = hasAvailable ? this.trigger.dataset.labelQuickAdd : this.trigger.dataset.labelSoldOut;
+      if (label) this.trigger.textContent = label;
     }
 
     bindQuickBuy() {
@@ -1897,7 +1923,7 @@
     }
 
     open() {
-      if (this.isOpen || !this.dialog) return;
+      if (this.isOpen || !this.dialog || this.trigger?.disabled) return;
       closeOtherDialogs(this);
       this.syncPicker();
       this.clearError();
@@ -2174,10 +2200,22 @@
         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
         await this.renderCartResponse(result, revision);
+
+        // 5A-003, GPT-AUDIT-005 H1. Un 200 no prueba que la linea exista: con una variante
+        // que exige plan de venta Shopify devuelve {} (medido en la tienda con F06) y el
+        // cajon anunciaba un exito falso. El exito solo se anuncia si la respuesta trae la
+        // variante pedida y, cuando fue esta respuesta la que se pinto, si el carrito fresco
+        // tiene su linea. Si otra mutacion la adelanto, basta con la respuesta.
+        const requestedId = String(formData.get('id') || '');
+        const addedLine = this.findLineFor({ variant_id: requestedId });
+        const renderedHere = this.renderedRevision === revision;
+        if (!this.responseHasVariant(result, requestedId) || (renderedHere && !addedLine)) {
+          throw new Error(this.dataset.addFailedMessage || this.dataset.errorMessage);
+        }
+
         this.showStatus(this.dataset.addedMessage);
         // Desde una tarjeta, el foco aterriza en la linea que se acaba de anadir.
-        const addedLine = form.hasAttribute('data-quick-buy-form') ? this.findLineFor(result) : null;
-        this.open(submitter, addedLine);
+        this.open(submitter, form.hasAttribute('data-quick-buy-form') ? addedLine : null);
       } finally {
         delete form.dataset.cartAddPending;
         this.setFormBusy(form, submitter, false);
@@ -2189,6 +2227,13 @@
         if (card?.isConnected) card.syncQuickBuy();
         this.endMutation();
       }
+    }
+
+    // /cart/add.js devuelve la linea anadida ({ variant_id }) o, con items[], { items: [...] }.
+    responseHasVariant(result, variantId) {
+      if (!variantId) return false;
+      const items = Array.isArray(result?.items) ? result.items : [result];
+      return items.some((item) => String(item?.variant_id ?? '') === variantId);
     }
 
     // /cart/add.js devuelve la linea anadida; su enlace lleva ?variant=, igual que item.url.
@@ -2468,7 +2513,8 @@
         link.setAttribute('aria-label', this.dataset.cartCountLabel);
         let count = link.querySelector('.site-header__cart-count');
 
-        if (itemCount > 0 && !count) {
+        // El ajuste "Show cart count" apagado no debe encenderse al primer alta.
+        if (itemCount > 0 && !count && link.hasAttribute('data-cart-count-enabled')) {
           count = document.createElement('span');
           count.className = 'site-header__cart-count';
           count.setAttribute('aria-hidden', 'true');

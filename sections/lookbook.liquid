@@ -91,7 +91,7 @@
                 class="lookbook-hotspot__trigger"
                 type="button"
                 role="button"
-                aria-label="{{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape }}"
+                aria-label="{{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape_once }}"
                 aria-controls="{{ popover_id }}"
                 aria-haspopup="dialog"
                 aria-expanded="false"

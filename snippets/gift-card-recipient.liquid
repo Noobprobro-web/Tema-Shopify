@@ -22,7 +22,7 @@
   class="gift-card-recipient"
   data-enabled-status="{{ 'products.product.recipient.expanded' | t | escape }}"
   data-disabled-status="{{ 'products.product.recipient.collapsed' | t | escape }}"
-  data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape }}"
+  data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape_once }}"
   {% if recipient_enabled %}data-enabled{% endif %}
 >
   <label class="form-checkbox gift-card-recipient__toggle" for="{{ recipient_id }}-Toggle">

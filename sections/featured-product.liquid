@@ -14,6 +14,15 @@
   if selected_selling_plan_id != blank
     assign subscription_selected = true
   endif
+  # Misma regla que main-product (5A-003, GPT-AUDIT-005 H1): plan exigido sin asignacion.
+  assign plan_required_unavailable = false
+  if selected_variant.requires_selling_plan and selected_variant.selling_plan_allocations.size == 0
+    assign plan_required_unavailable = true
+  endif
+  assign can_add_to_cart = selected_variant.available
+  if plan_required_unavailable
+    assign can_add_to_cart = false
+  endif
   assign featured_models = featured_product.media | where: 'media_type', 'model'
   assign title_blocks = section.blocks | where: 'type', 'title'
 -%}
@@ -60,7 +69,7 @@
       data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
       data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
       data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
-      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
+      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
     >
       <div class="featured-product__info flow">
         {%- for block in section.blocks -%}
@@ -162,7 +171,7 @@
                       class="quantity-stepper__button"
                       type="button"
                       name="minus"
-                      aria-label="{{ 'products.product.decrease_quantity' | t: product: featured_product.title | escape }}"
+                      aria-label="{{ 'products.product.decrease_quantity' | t: product: featured_product.title | escape_once }}"
                       aria-controls="FeaturedQuantity-{{ section.id }}"
                       data-quantity-button="decrease"
                       disabled
@@ -187,7 +196,7 @@
                       class="quantity-stepper__button"
                       type="button"
                       name="plus"
-                      aria-label="{{ 'products.product.increase_quantity' | t: product: featured_product.title | escape }}"
+                      aria-label="{{ 'products.product.increase_quantity' | t: product: featured_product.title | escape_once }}"
                       aria-controls="FeaturedQuantity-{{ section.id }}"
                       data-quantity-button="increase"
                       {% if quantity_max != blank and quantity_min >= quantity_max %}disabled{% endif %}
@@ -341,13 +350,15 @@
                       type="submit"
                       name="add"
                       data-add-to-cart
-                      {% unless selected_variant.available %}disabled{% endunless %}
+                      {% unless can_add_to_cart %}disabled{% endunless %}
                     >
                       <span data-add-to-cart-text>
-                        {%- if selected_variant.available -%}
-                          {{- 'products.product.add_to_cart' | t -}}
-                        {%- else -%}
+                        {%- if selected_variant.available == false -%}
                           {{- 'products.product.sold_out' | t -}}
+                        {%- elsif plan_required_unavailable -%}
+                          {{- 'products.product.purchase_options.unavailable' | t -}}
+                        {%- else -%}
+                          {{- 'products.product.add_to_cart' | t -}}
                         {%- endif -%}
                       </span>
                       <span class="button__spinner" data-loading-icon hidden>
@@ -355,8 +366,16 @@
                       </span>
                     </button>
 
+                    <p
+                      class="form-message"
+                      data-plan-required-notice
+                      {% unless plan_required_unavailable and selected_variant.available %}hidden{% endunless %}
+                    >
+                      {{- 'products.product.purchase_options.plan_required' | t -}}
+                    </p>
+
                     {%- if block.settings.show_dynamic_checkout -%}
-                      <div class="product-form__dynamic-checkout">
+                      <div class="product-form__dynamic-checkout"{% unless can_add_to_cart %} hidden{% endunless %}>
                         {{- form | payment_button -}}
                       </div>
                     {%- endif -%}

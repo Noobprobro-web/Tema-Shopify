@@ -1,0 +1,895 @@
+diff --git a/assets/base.css b/assets/base.css
+index f00d53f..4574cc7 100644
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -647,9 +647,15 @@ blockquote {
+   text-decoration: none;
+ }
+ 
++/* 5A-003, H-02. El ancho sale del ajuste "Logo width" (--logo-width en header.liquid);
++   antes width: auto y un tope de 3rem de alto lo anulaban y el editor no cambiaba nada. El
++   alto sigue la proporcion del archivo, sea horizontal, cuadrado o vertical. El ancho es
++   fijo y el tope va en max-width: un min() con porcentaje dentro de width hace que la
++   columna de la marca se mida con el tamano natural de la foto y no con el ajuste. */
+ .site-header__logo-image {
+-  width: auto;
+-  max-height: 3rem;
++  width: var(--logo-width, 140px);
++  max-width: 100%;
++  height: auto;
+ }
+ 
+ .site-header__brand-text {
+@@ -670,6 +676,9 @@ blockquote {
+ 
+ .site-header__account {
+   --shopify-account-signed-in-avatar-size: 2.25rem;
++  /* 5A-003, H-05. El boton del componente toma su minimo de esta variable; sin ella lo
++     calcula como 1,57 veces el avatar (50,2 px) y la cabecera movil pierde 6 px. */
++  --shopify-account-avatar-size: var(--tap-target-min);
+   display: grid;
+   min-width: 44px;
+   min-height: 44px;
+@@ -684,10 +693,15 @@ blockquote {
+ 
+ .site-header__cart {
+   position: relative;
+-  padding-inline-end: 0;
+ }
+ 
++/* 5A-003, H-05. El contador va sobre la esquina del icono, fuera del flujo: dentro del
++   enlace le sumaba 10,8 px al carrito y cortaba el nombre de la tienda a 390 px. Con 0
++   articulos no se pinta (hidden desde header.liquid y desde CartDrawer). */
+ .site-header__cart-count {
++  position: absolute;
++  inset-block-start: var(--space-3xs);
++  inset-inline-end: var(--space-3xs);
+   display: grid;
+   min-width: 1.15rem;
+   height: 1.15rem;
+@@ -8000,6 +8014,9 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
+ @media (max-width: 47.99rem) {
+   .site-header__inner {
+     grid-template-columns: auto minmax(0, 1fr) auto;
++    /* 5A-003. Los 44 px de cada boton ya separan: con el hueco de 12 px "LINEA NOVE"
++       seguia cortada a 360 px (le faltaban 12 px medidos en la tienda). */
++    column-gap: var(--space-2xs);
+   }
+ 
+   .site-header__brand {
+@@ -8008,6 +8025,18 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
+     justify-self: start;
+   }
+ 
++  .site-header__brand-text {
++    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
++  }
++
++  /* 5A-003. La cabecera movil es fija: sin tope, un logo vertical a 140 px de ancho la
++     llevaba a 280 px de alto. El ancho que se pinta es el menor entre el ajuste y el que
++     deja el logo en 3rem de alto (max-width: 100 % sigue conteniendolo en la columna), asi
++     que la proporcion no se deforma. */
++  .site-header__logo-image {
++    width: min(var(--logo-width, 140px), calc(3rem * var(--logo-ratio, 1)));
++  }
++
+   .site-header__menu-button span {
+     position: absolute;
+     width: 1px;
+diff --git a/assets/theme.js b/assets/theme.js
+index 533126c..0e08141 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -732,7 +732,10 @@
+ 
+     isPurchaseOptionValid(variant) {
+       if (!variant?.available) return false;
+-      if (!this.sellingPlans) return true;
++      // 5A-003, GPT-AUDIT-005 H1. Sin bloque de planes en la ficha (el producto no tiene
++      // grupos que ofrecer) una variante que exige plan tampoco se puede comprar: Shopify
++      // responde 200 a /cart/add sin crear la linea. Falla cerrado, igual que el Liquid.
++      if (!this.sellingPlans) return !variant.requires_selling_plan;
+       if (this.getPurchaseMode() === 'subscription') return Boolean(this.currentAllocation);
+       return !variant.requires_selling_plan;
+     }
+@@ -780,6 +783,17 @@
+       this.querySelectorAll('.product-form__dynamic-checkout').forEach((container) => {
+         container.hidden = !purchaseOptionValid;
+       });
++
++      // El motivo se explica solo cuando es ese: variante disponible que exige un plan y no
++      // tiene ninguno asignado. Agotada o inexistente ya lo dice la etiqueta del boton.
++      const planMissing = Boolean(
++        variant?.available
++        && variant.requires_selling_plan
++        && !(variant.selling_plan_allocations || []).length,
++      );
++      this.querySelectorAll('[data-plan-required-notice]').forEach((notice) => {
++        notice.hidden = !planMissing;
++      });
+     }
+ 
+     updatePrice(variant) {
+@@ -1784,6 +1798,7 @@
+       if (!this.dialog || !this.data || this.data.pickerIndex < 0) return;
+       const { swatchIndex, pickerIndex, variants } = this.data;
+       const offered = variants.filter((variant) => swatchIndex < 0 || variant.options[swatchIndex] === this.selectedValue);
++      this.syncTrigger(offered.some((variant) => variant.available));
+       // Si las tallas de este color cuestan distinto, cada talla muestra su precio: la talla
+       // es la adicion, asi que el precio tiene que verse antes del toque.
+       const pricesVary = offered.some((variant) => variant.cents !== offered[0]?.cents);
+@@ -1811,6 +1826,17 @@
+       });
+     }
+ 
++    // 5A-003, GPT-AUDIT-005 H2. Un color sin ninguna talla disponible no abre un selector
++    // sin salida: el disparador dice "Agotado" y queda inactivo. Al comprometer otro color
++    // con existencias vuelve a "Anadir rapido". La tarjeta y su enlace a la ficha siguen
++    // accesibles, y la etiqueta de agotado del precio ya la pone updatePrice().
++    syncTrigger(hasAvailable) {
++      if (!this.trigger) return;
++      this.trigger.disabled = !hasAvailable;
++      const label = hasAvailable ? this.trigger.dataset.labelQuickAdd : this.trigger.dataset.labelSoldOut;
++      if (label) this.trigger.textContent = label;
++    }
++
+     bindQuickBuy() {
+       this.listen(this.trigger, 'click', () => {
+         if (this.isOpen) this.close(true);
+@@ -1897,7 +1923,7 @@
+     }
+ 
+     open() {
+-      if (this.isOpen || !this.dialog) return;
++      if (this.isOpen || !this.dialog || this.trigger?.disabled) return;
+       closeOtherDialogs(this);
+       this.syncPicker();
+       this.clearError();
+@@ -2174,10 +2200,22 @@
+         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+ 
+         await this.renderCartResponse(result, revision);
++
++        // 5A-003, GPT-AUDIT-005 H1. Un 200 no prueba que la linea exista: con una variante
++        // que exige plan de venta Shopify devuelve {} (medido en la tienda con F06) y el
++        // cajon anunciaba un exito falso. El exito solo se anuncia si la respuesta trae la
++        // variante pedida y, cuando fue esta respuesta la que se pinto, si el carrito fresco
++        // tiene su linea. Si otra mutacion la adelanto, basta con la respuesta.
++        const requestedId = String(formData.get('id') || '');
++        const addedLine = this.findLineFor({ variant_id: requestedId });
++        const renderedHere = this.renderedRevision === revision;
++        if (!this.responseHasVariant(result, requestedId) || (renderedHere && !addedLine)) {
++          throw new Error(this.dataset.addFailedMessage || this.dataset.errorMessage);
++        }
++
+         this.showStatus(this.dataset.addedMessage);
+         // Desde una tarjeta, el foco aterriza en la linea que se acaba de anadir.
+-        const addedLine = form.hasAttribute('data-quick-buy-form') ? this.findLineFor(result) : null;
+-        this.open(submitter, addedLine);
++        this.open(submitter, form.hasAttribute('data-quick-buy-form') ? addedLine : null);
+       } finally {
+         delete form.dataset.cartAddPending;
+         this.setFormBusy(form, submitter, false);
+@@ -2191,6 +2229,13 @@
+       }
+     }
+ 
++    // /cart/add.js devuelve la linea anadida ({ variant_id }) o, con items[], { items: [...] }.
++    responseHasVariant(result, variantId) {
++      if (!variantId) return false;
++      const items = Array.isArray(result?.items) ? result.items : [result];
++      return items.some((item) => String(item?.variant_id ?? '') === variantId);
++    }
++
+     // /cart/add.js devuelve la linea anadida; su enlace lleva ?variant=, igual que item.url.
+     findLineFor(result) {
+       const variantId = String(result?.variant_id ?? result?.items?.[0]?.variant_id ?? '');
+diff --git a/locales/en.default.json b/locales/en.default.json
+index c3916a1..2dedd27 100644
+--- a/locales/en.default.json
++++ b/locales/en.default.json
+@@ -73,9 +73,10 @@
+       "view_cart": "View cart",
+       "error": "We could not update your cart. Please try again.",
+       "added": "Item added to your cart.",
+-      "shipping_remaining": "Add {{ amount }} for Complimentary Shipping",
+-      "shipping_unlocked_gift_remaining": "Complimentary Shipping unlocked. Add {{ amount }} for an Atelier Gift",
+-      "rewards_unlocked": "Complimentary Shipping and Atelier Gift unlocked",
++      "add_failed": "This item could not be added to your cart.",
++      "shipping_remaining": "Add {{ amount }} for free shipping",
++      "shipping_unlocked_gift_remaining": "Free shipping unlocked. Add {{ amount }} for a gift",
++      "rewards_unlocked": "Free shipping and gift unlocked",
+       "rewards_progress": "Cart rewards progress",
+       "shipping_milestone": "Shipping at {{ amount }}",
+       "gift_milestone": "Gift at {{ amount }}",
+@@ -401,7 +402,8 @@
+         "subscribe": "Subscribe and save",
+         "delivery_schedule": "Delivery schedule",
+         "per_delivery": "{{ price }} per delivery",
+-        "unavailable": "This purchase option is unavailable"
++        "unavailable": "This purchase option is unavailable",
++        "plan_required": "This option requires a subscription plan that is not available right now."
+       },
+       "pickup": {
+         "eyebrow": "Local pickup",
+@@ -442,7 +444,9 @@
+         "one": "{{ count }} product",
+         "other": "{{ count }} products"
+       },
+-      "no_products": "No products match your selection."
++      "no_products": "No products match your selection.",
++      "empty": "This collection is empty.",
++      "browse_all": "Browse all products"
+     },
+     "filters": {
+       "title": "Filter and sort",
+diff --git a/locales/en.default.schema.json b/locales/en.default.schema.json
+index e30ab12..f50439a 100644
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -368,7 +368,7 @@
+         },
+         "secondary_menu": {
+           "label": "Secondary menu",
+-          "info": "Optional menu for documentation, support or about links. Shown beside the header actions and at the bottom of the mobile menu."
++          "info": "Optional menu for documentation, support or about links. Shown beside the header actions and at the bottom of the mobile menu. Hidden when it is the same menu as the main menu."
+         },
+         "color_scheme": {
+           "label": "Color scheme"
+diff --git a/locales/es.json b/locales/es.json
+index c89ecf5..f40f7ed 100644
+--- a/locales/es.json
++++ b/locales/es.json
+@@ -73,9 +73,10 @@
+       "view_cart": "Ver carrito",
+       "error": "No pudimos actualizar tu carrito. Inténtalo de nuevo.",
+       "added": "Artículo añadido a tu carrito.",
+-      "shipping_remaining": "Añade {{ amount }} para disfrutar del envío de cortesía",
+-      "shipping_unlocked_gift_remaining": "Envío de cortesía desbloqueado. Añade {{ amount }} para recibir un obsequio del atelier",
+-      "rewards_unlocked": "Envío de cortesía y obsequio del atelier desbloqueados",
++      "add_failed": "No se pudo añadir este artículo al carrito.",
++      "shipping_remaining": "Añade {{ amount }} para el envío gratuito",
++      "shipping_unlocked_gift_remaining": "Envío gratuito desbloqueado. Añade {{ amount }} para recibir un obsequio",
++      "rewards_unlocked": "Envío gratuito y obsequio desbloqueados",
+       "rewards_progress": "Progreso de las ventajas del carrito",
+       "shipping_milestone": "Envío desde {{ amount }}",
+       "gift_milestone": "Obsequio desde {{ amount }}",
+@@ -401,7 +402,8 @@
+         "subscribe": "Suscríbete y ahorra",
+         "delivery_schedule": "Frecuencia de entrega",
+         "per_delivery": "{{ price }} por entrega",
+-        "unavailable": "Esta opción de compra no está disponible"
++        "unavailable": "Esta opción de compra no está disponible",
++        "plan_required": "Esta opción requiere un plan de suscripción que ahora no está disponible."
+       },
+       "pickup": {
+         "eyebrow": "Recogida en tienda",
+@@ -442,7 +444,9 @@
+         "one": "{{ count }} producto",
+         "other": "{{ count }} productos"
+       },
+-      "no_products": "Ningún producto coincide con tu selección."
++      "no_products": "Ningún producto coincide con tu selección.",
++      "empty": "Esta colección está vacía.",
++      "browse_all": "Ver todos los productos"
+     },
+     "filters": {
+       "title": "Filtrar y ordenar",
+diff --git a/sections/bento-discovery.liquid b/sections/bento-discovery.liquid
+index 83d8480..21ad2c7 100644
+--- a/sections/bento-discovery.liquid
++++ b/sections/bento-discovery.liquid
+@@ -43,7 +43,7 @@
+               <a
+                 class="bento-card bento-card--featured"
+                 href="{{ card_url }}"
+-                aria-label="{{ 'sections.homepage.bento.explore' | t: title: card_title | escape }}"
++                aria-label="{{ 'sections.homepage.bento.explore' | t: title: card_title | escape_once }}"
+               >
+                 <span class="bento-card__media">
+                   {%- if card_image != blank -%}
+@@ -82,7 +82,7 @@
+                 <a
+                   class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}"
+                   href="{{ block.settings.link }}"
+-                  aria-label="{{ 'sections.homepage.bento.explore' | t: title: editorial_title | escape }}"
++                  aria-label="{{ 'sections.homepage.bento.explore' | t: title: editorial_title | escape_once }}"
+                 >
+               {%- else -%}
+                 <div class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}">
+diff --git a/sections/cart-drawer.liquid b/sections/cart-drawer.liquid
+index fc48b2a..887dbc2 100644
+--- a/sections/cart-drawer.liquid
++++ b/sections/cart-drawer.liquid
+@@ -41,9 +41,10 @@
+   data-cart-add-url="{{ routes.cart_add_url }}.js"
+   data-cart-change-url="{{ routes.cart_change_url }}.js"
+   data-item-count="{{ cart.item_count }}"
+-  data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape }}"
++  data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape_once }}"
+   data-error-message="{{ 'sections.cart.error' | t | escape }}"
+   data-added-message="{{ 'sections.cart.added' | t | escape }}"
++  data-add-failed-message="{{ 'sections.cart.add_failed' | t | escape_once }}"
+ >
+   <div class="cart-drawer__overlay" data-cart-drawer-overlay hidden>
+     <aside
+@@ -96,7 +97,7 @@
+               aria-valuemin="0"
+               aria-valuemax="100"
+               aria-valuenow="{{ rewards_progress }}"
+-              aria-valuetext="{{ rewards_message | escape }}"
++              aria-valuetext="{{ rewards_message | escape_once }}"
+             >
+               <span class="cart-rewards__fill" aria-hidden="true"></span>
+               <span
+@@ -236,7 +237,7 @@
+                         class="quantity-stepper__button"
+                         type="button"
+                         name="minus"
+-                        aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape }}"
++                        aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape_once }}"
+                         aria-controls="DrawerQuantity-{{ forloop.index }}"
+                         data-quantity-button="decrease"
+                         {% if item.quantity <= quantity_min %}disabled{% endif %}
+@@ -263,7 +264,7 @@
+                         class="quantity-stepper__button"
+                         type="button"
+                         name="plus"
+-                        aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape }}"
++                        aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape_once }}"
+                         aria-controls="DrawerQuantity-{{ forloop.index }}"
+                         data-quantity-button="increase"
+                         {% if quantity_max != blank and item.quantity >= quantity_max %}disabled{% endif %}
+@@ -276,7 +277,7 @@
+                   <button
+                     class="icon-button cart-drawer-item__remove"
+                     type="button"
+-                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape }}"
++                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}"
+                     data-cart-remove
+                     data-line="{{ forloop.index }}"
+                   >
+@@ -342,7 +343,7 @@
+                     <button
+                       class="cart-cross-sell__button"
+                       type="button"
+-                      aria-label="{{ cross_sell_aria | escape }}"
++                      aria-label="{{ cross_sell_aria | escape_once }}"
+                       data-cross-sell-add
+                       data-variant-id="{{ recommendation_variant.id }}"
+                       {% if recommendation_in_cart or recommendation_variant.available == false %}disabled{% endif %}
+@@ -415,7 +416,7 @@
+                     <button
+                       class="cart-cross-sell__button"
+                       type="button"
+-                      aria-label="{{ cross_sell_aria | escape }}"
++                      aria-label="{{ cross_sell_aria | escape_once }}"
+                       data-cross-sell-add
+                       data-variant-id="{{ recommendation_variant.id }}"
+                       {% if recommendation_in_cart or recommendation_variant.available == false %}disabled{% endif %}
+@@ -527,7 +528,7 @@
+       "type": "checkbox",
+       "id": "enable_tiered_progress",
+       "label": "t:sections.cart_drawer.settings.enable_tiered_progress.label",
+-      "default": true
++      "default": false
+     },
+     {
+       "type": "number",
+diff --git a/sections/complete-the-look.liquid b/sections/complete-the-look.liquid
+index 72f5e09..c9bf328 100644
+--- a/sections/complete-the-look.liquid
++++ b/sections/complete-the-look.liquid
+@@ -59,10 +59,10 @@
+   data-cart-add-url="{{ routes.cart_add_url }}.js"
+   data-cart-url="{{ routes.cart_url }}"
+   data-money-format="{{ shop.money_format | strip_html | escape }}"
+-  data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape }}"
+-  data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape }}"
+-  data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape }}"
+-  data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape }}"
++  data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape_once }}"
++  data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape_once }}"
++  data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape_once }}"
++  data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape_once }}"
+   data-empty-label="{{ 'sections.complete_the_look.select_items' | t | escape }}"
+   data-error-message="{{ 'sections.complete_the_look.error' | t | escape }}"
+   data-added-message="{{ 'sections.complete_the_look.added' | t | escape }}"
+@@ -180,7 +180,7 @@
+                       {% if bundle_can_add %}checked{% else %}disabled{% endif %}
+                     >
+                     <span class="visually-hidden">
+-                      {{- 'sections.complete_the_look.select_product' | t: product: bundle_product.title | escape -}}
++                      {{- 'sections.complete_the_look.select_product' | t: product: bundle_product.title | escape_once -}}
+                     </span>
+                   </label>
+ 
+@@ -220,7 +220,7 @@
+                       >
+                     {%- else -%}
+                       <label class="visually-hidden" for="{{ variant_select_id }}">
+-                        {{- 'sections.complete_the_look.choose_variant' | t: product: bundle_product.title | escape -}}
++                        {{- 'sections.complete_the_look.choose_variant' | t: product: bundle_product.title | escape_once -}}
+                       </label>
+                       <select
+                         id="{{ variant_select_id }}"
+diff --git a/sections/curated-showcase.liquid b/sections/curated-showcase.liquid
+index 223959e..3d42d5e 100644
+--- a/sections/curated-showcase.liquid
++++ b/sections/curated-showcase.liquid
+@@ -89,7 +89,7 @@
+               <a
+                 class="curated-showcase__spotlight-media"
+                 href="{{ spotlight_url }}"
+-                aria-label="{{ 'sections.homepage.curated.open_spotlight' | t: title: spotlight_title | escape }}"
++                aria-label="{{ 'sections.homepage.curated.open_spotlight' | t: title: spotlight_title | escape_once }}"
+               >
+                 {%- if spotlight_image != blank -%}
+                   {% render 'responsive-image',
+@@ -143,7 +143,7 @@
+             <footer class="curated-showcase__footer">
+               <span aria-hidden="true">{{ tab_number }} / {{ section.blocks.size | prepend: '0' }}</span>
+               <a href="{{ collection_url }}">
+-                <span>{{ 'sections.homepage.curated.view_collection' | t: title: tab_label | escape }}</span>
++                <span>{{ 'sections.homepage.curated.view_collection' | t: title: tab_label | escape_once }}</span>
+                 {% render 'icon', name: 'arrow', size: 18 %}
+               </a>
+             </footer>
+diff --git a/sections/featured-product.liquid b/sections/featured-product.liquid
+index b76ab15..94c3862 100644
+--- a/sections/featured-product.liquid
++++ b/sections/featured-product.liquid
+@@ -60,7 +60,7 @@
+       data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
+       data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
+       data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
+-      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
++      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
+     >
+       <div class="featured-product__info flow">
+         {%- for block in section.blocks -%}
+@@ -162,7 +162,7 @@
+                       class="quantity-stepper__button"
+                       type="button"
+                       name="minus"
+-                      aria-label="{{ 'products.product.decrease_quantity' | t: product: featured_product.title | escape }}"
++                      aria-label="{{ 'products.product.decrease_quantity' | t: product: featured_product.title | escape_once }}"
+                       aria-controls="FeaturedQuantity-{{ section.id }}"
+                       data-quantity-button="decrease"
+                       disabled
+@@ -187,7 +187,7 @@
+                       class="quantity-stepper__button"
+                       type="button"
+                       name="plus"
+-                      aria-label="{{ 'products.product.increase_quantity' | t: product: featured_product.title | escape }}"
++                      aria-label="{{ 'products.product.increase_quantity' | t: product: featured_product.title | escape_once }}"
+                       aria-controls="FeaturedQuantity-{{ section.id }}"
+                       data-quantity-button="increase"
+                       {% if quantity_max != blank and quantity_min >= quantity_max %}disabled{% endif %}
+diff --git a/sections/header.liquid b/sections/header.liquid
+index 977912e..60afda3 100644
+--- a/sections/header.liquid
++++ b/sections/header.liquid
+@@ -1,6 +1,14 @@
+ {%- liquid
+   assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
+   assign logo_alt = settings.logo.alt | default: shop.name
++
++  # 5A-003, H-03. secondary_menu trae main-menu por defecto, como pide la Theme Store para
++  # todo link_list de la cabecera. Si el comerciante no elige otro, seria el mismo menu que
++  # el principal: en ese caso, o sin enlaces, no se pinta dos veces.
++  assign show_secondary_menu = false
++  if section.settings.secondary_menu.links.size > 0 and section.settings.secondary_menu.handle != section.settings.menu.handle
++    assign show_secondary_menu = true
++  endif
+ -%}
+ 
+ {%- comment -%}
+@@ -103,7 +111,7 @@
+              </ul>
+            </nav>
+ 
+-          {%- if section.settings.secondary_menu.links.size > 0 -%}
++          {%- if show_secondary_menu -%}
+             <div class="drawer-panel__secondary">
+               <nav aria-label="{{ 'general.navigation.secondary' | t }}">
+                 <ul class="drawer-panel__secondary-list unstyled-list" role="list">
+@@ -171,7 +179,17 @@
+       </ul>
+     </nav>
+ 
+-    <a class="site-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
++    {%- comment -%}
++      5A-003, H-02. El ancho del logo llega como variable CSS: el atributo width del <img>
++      lo anulaba la regla de base.css y el ajuste del editor no cambiaba nada. La proporcion
++      sirve para acotar el alto en la cabecera movil sin deformar el archivo.
++    {%- endcomment -%}
++    <a
++      class="site-header__brand"
++      href="{{ routes.root_url }}"
++      aria-label="{{ shop.name | escape }}"
++      {% if settings.logo != blank %}style="--logo-width: {{ settings.logo_width }}px; --logo-ratio: {{ settings.logo.aspect_ratio | default: 1 }};"{% endif %}
++    >
+       {%- if settings.logo != blank -%}
+         {{-
+           settings.logo
+@@ -192,7 +210,7 @@
+         Los mismos enlaces aparecen al pie del menu lateral en movil, donde hay sitio. Aqui
+         se muestran solo desde 62rem, que es donde empieza la navegacion de escritorio.
+       {%- endcomment -%}
+-      {%- if section.settings.secondary_menu.links.size > 0 -%}
++      {%- if show_secondary_menu -%}
+         <nav class="site-header__secondary" aria-label="{{ 'general.navigation.secondary' | t }}">
+           <ul class="site-header__secondary-list unstyled-list" role="list">
+             {%- for link in section.settings.secondary_menu.links -%}
+@@ -217,7 +235,7 @@
+       >
+         {% render 'icon', name: 'bag' %}
+         {%- if settings.show_cart_count -%}
+-          <span class="site-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
++          <span class="site-header__cart-count" aria-hidden="true"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+         {%- endif -%}
+       </a>
+     </div>
+@@ -250,7 +268,8 @@
+       "type": "link_list",
+       "id": "secondary_menu",
+       "label": "t:sections.header.settings.secondary_menu.label",
+-      "info": "t:sections.header.settings.secondary_menu.info"
++      "info": "t:sections.header.settings.secondary_menu.info",
++      "default": "main-menu"
+     },
+     {
+       "type": "link_list",
+diff --git a/sections/lookbook.liquid b/sections/lookbook.liquid
+index d2307c5..4016be8 100644
+--- a/sections/lookbook.liquid
++++ b/sections/lookbook.liquid
+@@ -91,7 +91,7 @@
+                 class="lookbook-hotspot__trigger"
+                 type="button"
+                 role="button"
+-                aria-label="{{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape }}"
++                aria-label="{{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape_once }}"
+                 aria-controls="{{ popover_id }}"
+                 aria-haspopup="dialog"
+                 aria-expanded="false"
+diff --git a/sections/main-article.liquid b/sections/main-article.liquid
+index d3103af..bad18c8 100644
+--- a/sections/main-article.liquid
++++ b/sections/main-article.liquid
+@@ -30,7 +30,7 @@
+       <h1 id="{{ title_id }}" class="main-article__title">{{ article.title | escape }}</h1>
+       <p class="main-article__meta">
+         {%- if section.settings.show_author and article.author != blank -%}
+-          {{- 'blogs.article.by_author' | t: author: article.author | escape -}}
++          {{- 'blogs.article.by_author' | t: author: article.author | escape_once -}}
+           <span aria-hidden="true"> / </span>
+         {%- endif -%}
+         {{- article.published_at | time_tag: format: 'date' -}}
+diff --git a/sections/main-blog.liquid b/sections/main-blog.liquid
+index b4ec37f..c935084 100644
+--- a/sections/main-blog.liquid
++++ b/sections/main-blog.liquid
+@@ -54,7 +54,7 @@
+           assign featured_alt = featured_article.image.alt | default: featured_article.title
+         -%}
+         <article class="main-blog__featured">
+-          <a class="main-blog__featured-media" href="{{ featured_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: featured_article.title | escape }}">
++          <a class="main-blog__featured-media" href="{{ featured_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: featured_article.title | escape_once }}">
+             {%- if featured_article.image != blank -%}
+               {% render 'responsive-image',
+                 image: featured_article.image,
+@@ -82,7 +82,7 @@
+             {%- endif -%}
+             <p class="main-blog__meta">
+               {%- if section.settings.show_author and featured_article.author != blank -%}
+-                {{- 'blogs.article.by_author' | t: author: featured_article.author | escape -}}
++                {{- 'blogs.article.by_author' | t: author: featured_article.author | escape_once -}}
+                 <span aria-hidden="true"> / </span>
+               {%- endif -%}
+               {%- if section.settings.show_date -%}
+@@ -120,7 +120,7 @@
+               -%}
+               <li>
+                 <article class="article-card">
+-                  <a class="article-card__media" href="{{ blog_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: blog_article.title | escape }}">
++                  <a class="article-card__media" href="{{ blog_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: blog_article.title | escape_once }}">
+                     {%- if blog_article.image != blank -%}
+                       {% render 'responsive-image',
+                         image: blog_article.image,
+diff --git a/sections/main-cart-items.liquid b/sections/main-cart-items.liquid
+index 0e9d9d5..df9ec6e 100644
+--- a/sections/main-cart-items.liquid
++++ b/sections/main-cart-items.liquid
+@@ -130,7 +130,7 @@
+                     class="quantity-stepper__button"
+                     type="button"
+                     name="minus"
+-                    aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape }}"
++                    aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape_once }}"
+                     aria-controls="CartQuantity-{{ forloop.index }}"
+                     data-quantity-button="decrease"
+                     {% if item.quantity <= quantity_min %}disabled{% endif %}
+@@ -153,7 +153,7 @@
+                     class="quantity-stepper__button"
+                     type="button"
+                     name="plus"
+-                    aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape }}"
++                    aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape_once }}"
+                     aria-controls="CartQuantity-{{ forloop.index }}"
+                     data-quantity-button="increase"
+                     {% if quantity_max != blank and item.quantity >= quantity_max %}disabled{% endif %}
+@@ -161,7 +161,7 @@
+                     {% render 'icon', name: 'plus', size: 16 %}
+                   </button>
+                 </div>
+-                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape }}">
++                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}">
+                   {{- 'sections.cart.remove' | t -}}
+                 </a>
+               </div>
+diff --git a/sections/main-collection.liquid b/sections/main-collection.liquid
+index 8dfba10..e7dba74 100644
+--- a/sections/main-collection.liquid
++++ b/sections/main-collection.liquid
+@@ -374,10 +374,22 @@
+               </ul>
+             {%- endif -%}
+ 
++            {%- comment -%}
++              5A-003, H-09. "Ningun producto coincide" solo tiene sentido con filtros puestos
++              (o en una pagina fuera de rango de una coleccion con productos). Una coleccion
++              sin productos lo dice y lleva a todo el catalogo, salvo que ya sea ese catalogo.
++            {%- endcomment -%}
+             {%- if collection.products.size == 0 -%}
+               <div class="collection-products__empty flow">
+-                <p>{{ 'collections.general.no_products' | t }}</p>
+-                <a href="{{ collection.url }}">{{ 'collections.filters.clear_all' | t }}</a>
++                {%- if active_filter_count > 0 or collection.all_products_count > 0 -%}
++                  <p>{{ 'collections.general.no_products' | t }}</p>
++                  <a href="{{ collection.url }}?sort_by={{ sort_by | url_encode }}">{{ 'collections.filters.clear_all' | t }}</a>
++                {%- else -%}
++                  <p>{{ 'collections.general.empty' | t }}</p>
++                  {%- if collection.handle != 'all' -%}
++                    <a href="{{ routes.all_products_collection_url }}">{{ 'collections.general.browse_all' | t }}</a>
++                  {%- endif -%}
++                {%- endif -%}
+               </div>
+             {%- endif -%}
+ 
+diff --git a/sections/main-faq.liquid b/sections/main-faq.liquid
+index 671f2af..4d068d6 100644
+--- a/sections/main-faq.liquid
++++ b/sections/main-faq.liquid
+@@ -67,7 +67,7 @@
+       {%- endcomment -%}
+       <faq-filter
+         class="main-faq__search js-only"
+-        data-filter-count-template="{{ 'faq.search.results' | t: count: '[count]' | escape }}"
++        data-filter-count-template="{{ 'faq.search.results' | t: count: '[count]' | escape_once }}"
+       >
+         <div class="form-field">
+           <label for="{{ search_id }}">{{ 'faq.search.label' | t }}</label>
+diff --git a/sections/main-list-collections.liquid b/sections/main-list-collections.liquid
+index b7f1675..eac4dd4 100644
+--- a/sections/main-list-collections.liquid
++++ b/sections/main-list-collections.liquid
+@@ -29,7 +29,7 @@
+             -%}
+             <li>
+               <article class="collection-directory__card">
+-                <a class="collection-directory__media" href="{{ collection_item.url }}" aria-label="{{ 'list_collections.view_collection' | t: title: collection_item.title | escape }}">
++                <a class="collection-directory__media" href="{{ collection_item.url }}" aria-label="{{ 'list_collections.view_collection' | t: title: collection_item.title | escape_once }}">
+                   {%- if collection_image != blank -%}
+                     {% render 'responsive-image',
+                       image: collection_image,
+diff --git a/sections/main-placeholder.liquid b/sections/main-placeholder.liquid
+index ef9590e..6cb24ba 100644
+--- a/sections/main-placeholder.liquid
++++ b/sections/main-placeholder.liquid
+@@ -2,7 +2,7 @@
+   <div class="container container--narrow flow">
+     {%- case request.page_type -%}
+       {%- when 'index' -%}
+-        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.home.title' | t: shop: shop.name | escape }}</h1>
++        <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.home.title' | t: shop: shop.name | escape_once }}</h1>
+         <p class="lede">{{ 'templates.home.message' | t }}</p>
+ 
+       {%- when 'product' -%}
+@@ -32,7 +32,7 @@
+ 
+       {%- when 'search' -%}
+         {%- if search.performed -%}
+-          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.results_for' | t: terms: search.terms | escape }}</h1>
++          <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.results_for' | t: terms: search.terms | escape_once }}</h1>
+         {%- else -%}
+           <h1 id="FoundationTitle-{{ section.id }}">{{ 'templates.search.title' | t }}</h1>
+           <p>{{ 'templates.search.prompt' | t }}</p>
+diff --git a/sections/main-product.liquid b/sections/main-product.liquid
+index c8bec53..4734c5c 100644
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -9,6 +9,21 @@
+   if selected_selling_plan_id != blank
+     assign subscription_selected = true
+   endif
++
++  comment
++    5A-003, GPT-AUDIT-005 H1. Una variante que exige plan de venta y no tiene ninguno
++    asignado no se puede comprar: Shopify responde 200 a /cart/add sin crear la linea. La
++    ficha falla cerrada desde el servidor: sin boton activo, sin pago acelerado y con el
++    motivo a la vista. VariantSelects repite la misma regla al cambiar de variante.
++  endcomment
++  assign plan_required_unavailable = false
++  if selected_variant.requires_selling_plan and selected_variant.selling_plan_allocations.size == 0
++    assign plan_required_unavailable = true
++  endif
++  assign can_add_to_cart = selected_variant.available
++  if plan_required_unavailable
++    assign can_add_to_cart = false
++  endif
+   assign product_form_id = 'product-form-' | append: section.id
+   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+@@ -63,7 +78,7 @@
+         <div
+           class="product-gallery__pager"
+           data-gallery-pager
+-          data-view-media-template="{{ 'products.product.view_media' | t: number: '[number]' | escape }}"
++          data-view-media-template="{{ 'products.product.view_media' | t: number: '[number]' | escape_once }}"
+           hidden
+         >
+           <button
+@@ -95,7 +110,7 @@
+             <button
+               class="product-gallery__thumbnail"
+               type="button"
+-              aria-label="{{ 'products.product.view_media' | t: number: forloop.index | escape }}"
++              aria-label="{{ 'products.product.view_media' | t: number: forloop.index | escape_once }}"
+               aria-pressed="{% if media.id == selected_media_id %}true{% else %}false{% endif %}"
+               data-product-thumbnail
+               data-media-id="{{ media.id }}"
+@@ -130,9 +145,9 @@
+       data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
+       data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
+       data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
+-      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape }}"
++      data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
+       data-money-format="{{ shop.money_format | strip_html | escape }}"
+-      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape }}"
++      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape_once }}"
+     >
+       <div class="product-main__info flow">
+         {%- for block in section.blocks -%}
+@@ -360,7 +375,7 @@
+                     class="quantity-stepper__button"
+                     type="button"
+                     name="minus"
+-                    aria-label="{{ 'products.product.decrease_quantity' | t: product: product.title | escape }}"
++                    aria-label="{{ 'products.product.decrease_quantity' | t: product: product.title | escape_once }}"
+                     aria-controls="Quantity-{{ section.id }}"
+                     data-quantity-button="decrease"
+                     disabled
+@@ -385,7 +400,7 @@
+                     class="quantity-stepper__button"
+                     type="button"
+                     name="plus"
+-                    aria-label="{{ 'products.product.increase_quantity' | t: product: product.title | escape }}"
++                    aria-label="{{ 'products.product.increase_quantity' | t: product: product.title | escape_once }}"
+                     aria-controls="Quantity-{{ section.id }}"
+                     data-quantity-button="increase"
+                     {% if quantity_max != blank and quantity_min >= quantity_max %}disabled{% endif %}
+@@ -552,13 +567,15 @@
+                     type="submit"
+                     name="add"
+                     data-add-to-cart
+-                    {% unless selected_variant.available %}disabled{% endunless %}
++                    {% unless can_add_to_cart %}disabled{% endunless %}
+                   >
+                     <span data-add-to-cart-text>
+-                      {%- if selected_variant.available -%}
+-                        {{- 'products.product.add_to_cart' | t -}}
+-                      {%- else -%}
++                      {%- if selected_variant.available == false -%}
+                         {{- 'products.product.sold_out' | t -}}
++                      {%- elsif plan_required_unavailable -%}
++                        {{- 'products.product.purchase_options.unavailable' | t -}}
++                      {%- else -%}
++                        {{- 'products.product.add_to_cart' | t -}}
+                       {%- endif -%}
+                     </span>
+                     <span class="button__spinner" data-loading-icon hidden>
+@@ -566,8 +583,16 @@
+                     </span>
+                   </button>
+ 
++                  <p
++                    class="form-message"
++                    data-plan-required-notice
++                    {% unless plan_required_unavailable and selected_variant.available %}hidden{% endunless %}
++                  >
++                    {{- 'products.product.purchase_options.plan_required' | t -}}
++                  </p>
++
+                   {%- if block.settings.show_dynamic_checkout -%}
+-                    <div class="product-form__dynamic-checkout">
++                    <div class="product-form__dynamic-checkout"{% unless can_add_to_cart %} hidden{% endunless %}>
+                       {{ form | payment_button }}
+                     </div>
+                   {%- endif -%}
+@@ -676,9 +701,9 @@
+       class="sticky-cart-bar color-{{ section_scheme }}"
+       data-product-form-id="{{ product_form_id }}"
+       data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+-      data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape }}"
+-      data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape }}"
+-      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape }}"
++      data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape_once }}"
++      data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape_once }}"
++      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape_once }}"
+       {% if product.has_only_default_variant %}data-single-variant{% endif %}
+       aria-hidden="true"
+       inert
+@@ -723,15 +748,17 @@
+         <button
+           class="button sticky-cart-bar__submit"
+           type="button"
+-          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape }}"
++          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape_once }}"
+           data-sticky-submit
+-          {% unless selected_variant.available %}disabled{% endunless %}
++          {% unless can_add_to_cart %}disabled{% endunless %}
+         >
+           <span data-sticky-label>
+-            {%- if selected_variant.available -%}
+-              {{- 'products.product.add_to_cart' | t -}}
+-            {%- else -%}
++            {%- if selected_variant.available == false -%}
+               {{- 'products.product.sold_out' | t -}}
++            {%- elsif plan_required_unavailable -%}
++              {{- 'products.product.purchase_options.unavailable' | t -}}
++            {%- else -%}
++              {{- 'products.product.add_to_cart' | t -}}
+             {%- endif -%}
+           </span>
+           <span class="button__spinner" data-loading-icon hidden>
+diff --git a/snippets/gift-card-recipient.liquid b/snippets/gift-card-recipient.liquid
+index 9a9dc29..0abc0ef 100644
+--- a/snippets/gift-card-recipient.liquid
++++ b/snippets/gift-card-recipient.liquid
+@@ -22,7 +22,7 @@
+   class="gift-card-recipient"
+   data-enabled-status="{{ 'products.product.recipient.expanded' | t | escape }}"
+   data-disabled-status="{{ 'products.product.recipient.collapsed' | t | escape }}"
+-  data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape }}"
++  data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape_once }}"
+   {% if recipient_enabled %}data-enabled{% endif %}
+ >
+   <label class="form-checkbox gift-card-recipient__toggle" for="{{ recipient_id }}-Toggle">
+diff --git a/snippets/product-card.liquid b/snippets/product-card.liquid
+index 1fefe84..67432bb 100644
+--- a/snippets/product-card.liquid
++++ b/snippets/product-card.liquid
+@@ -347,6 +347,8 @@
+                 aria-controls="{{ quick_buy_id }}"
+                 aria-describedby="{{ card_title_id }}"
+                 data-quick-buy-trigger
++                data-label-quick-add="{{ 'products.product.quick_add' | t }}"
++                data-label-sold-out="{{ 'products.product.sold_out' | t }}"
+               >
+                 {{- 'products.product.quick_add' | t -}}
+               </button>
+diff --git a/templates/gift_card.liquid b/templates/gift_card.liquid
+index d16cbf4..51e8edf 100644
+--- a/templates/gift_card.liquid
++++ b/templates/gift_card.liquid
+@@ -18,7 +18,7 @@
+     <meta name="robots" content="noindex">
+     <link rel="canonical" href="{{ canonical_url }}">
+ 
+-    <title>{{ 'gift_cards.issued.title' | t: value: initial_value, shop: shop.name | escape }}</title>
++    <title>{{ 'gift_cards.issued.title' | t: value: initial_value, shop: shop.name | escape_once }}</title>
+ 
+     {%- if settings.favicon != blank -%}
+       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">

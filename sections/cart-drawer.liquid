@@ -41,9 +41,10 @@
   data-cart-add-url="{{ routes.cart_add_url }}.js"
   data-cart-change-url="{{ routes.cart_change_url }}.js"
   data-item-count="{{ cart.item_count }}"
-  data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape }}"
+  data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape_once }}"
   data-error-message="{{ 'sections.cart.error' | t | escape }}"
   data-added-message="{{ 'sections.cart.added' | t | escape }}"
+  data-add-failed-message="{{ 'sections.cart.add_failed' | t | escape_once }}"
 >
   <div class="cart-drawer__overlay" data-cart-drawer-overlay hidden>
     <aside
@@ -96,7 +97,7 @@
               aria-valuemin="0"
               aria-valuemax="100"
               aria-valuenow="{{ rewards_progress }}"
-              aria-valuetext="{{ rewards_message | escape }}"
+              aria-valuetext="{{ rewards_message | escape_once }}"
             >
               <span class="cart-rewards__fill" aria-hidden="true"></span>
               <span
@@ -236,7 +237,7 @@
                         class="quantity-stepper__button"
                         type="button"
                         name="minus"
-                        aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape }}"
+                        aria-label="{{ 'sections.cart.decrease_quantity' | t: title: item.title | escape_once }}"
                         aria-controls="DrawerQuantity-{{ forloop.index }}"
                         data-quantity-button="decrease"
                         {% if item.quantity <= quantity_min %}disabled{% endif %}
@@ -263,7 +264,7 @@
                         class="quantity-stepper__button"
                         type="button"
                         name="plus"
-                        aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape }}"
+                        aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape_once }}"
                         aria-controls="DrawerQuantity-{{ forloop.index }}"
                         data-quantity-button="increase"
                         {% if quantity_max != blank and item.quantity >= quantity_max %}disabled{% endif %}
@@ -276,7 +277,7 @@
                   <button
                     class="icon-button cart-drawer-item__remove"
                     type="button"
-                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape }}"
+                    aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}"
                     data-cart-remove
                     data-line="{{ forloop.index }}"
                   >
@@ -342,7 +343,7 @@
                     <button
                       class="cart-cross-sell__button"
                       type="button"
-                      aria-label="{{ cross_sell_aria | escape }}"
+                      aria-label="{{ cross_sell_aria | escape_once }}"
                       data-cross-sell-add
                       data-variant-id="{{ recommendation_variant.id }}"
                       {% if recommendation_in_cart or recommendation_variant.available == false %}disabled{% endif %}
@@ -415,7 +416,7 @@
                     <button
                       class="cart-cross-sell__button"
                       type="button"
-                      aria-label="{{ cross_sell_aria | escape }}"
+                      aria-label="{{ cross_sell_aria | escape_once }}"
                       data-cross-sell-add
                       data-variant-id="{{ recommendation_variant.id }}"
                       {% if recommendation_in_cart or recommendation_variant.available == false %}disabled{% endif %}
@@ -527,7 +528,7 @@
       "type": "checkbox",
       "id": "enable_tiered_progress",
       "label": "t:sections.cart_drawer.settings.enable_tiered_progress.label",
-      "default": true
+      "default": false
     },
     {
       "type": "number",

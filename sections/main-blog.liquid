@@ -54,7 +54,7 @@
           assign featured_alt = featured_article.image.alt | default: featured_article.title
         -%}
         <article class="main-blog__featured">
-          <a class="main-blog__featured-media" href="{{ featured_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: featured_article.title | escape }}">
+          <a class="main-blog__featured-media" href="{{ featured_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: featured_article.title | escape_once }}">
             {%- if featured_article.image != blank -%}
               {% render 'responsive-image',
                 image: featured_article.image,
@@ -82,7 +82,7 @@
             {%- endif -%}
             <p class="main-blog__meta">
               {%- if section.settings.show_author and featured_article.author != blank -%}
-                {{- 'blogs.article.by_author' | t: author: featured_article.author | escape -}}
+                {{- 'blogs.article.by_author' | t: author: featured_article.author | escape_once -}}
                 <span aria-hidden="true"> / </span>
               {%- endif -%}
               {%- if section.settings.show_date -%}
@@ -120,7 +120,7 @@
               -%}
               <li>
                 <article class="article-card">
-                  <a class="article-card__media" href="{{ blog_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: blog_article.title | escape }}">
+                  <a class="article-card__media" href="{{ blog_article.url }}" aria-label="{{ 'blogs.blog.read_article' | t: title: blog_article.title | escape_once }}">
                     {%- if blog_article.image != blank -%}
                       {% render 'responsive-image',
                         image: blog_article.image,

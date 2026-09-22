@@ -43,7 +43,7 @@
               <a
                 class="bento-card bento-card--featured"
                 href="{{ card_url }}"
-                aria-label="{{ 'sections.homepage.bento.explore' | t: title: card_title | escape }}"
+                aria-label="{{ 'sections.homepage.bento.explore' | t: title: card_title | escape_once }}"
               >
                 <span class="bento-card__media">
                   {%- if card_image != blank -%}
@@ -82,7 +82,7 @@
                 <a
                   class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}"
                   href="{{ block.settings.link }}"
-                  aria-label="{{ 'sections.homepage.bento.explore' | t: title: editorial_title | escape }}"
+                  aria-label="{{ 'sections.homepage.bento.explore' | t: title: editorial_title | escape_once }}"
                 >
               {%- else -%}
                 <div class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}">

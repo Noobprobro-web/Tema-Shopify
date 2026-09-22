@@ -647,9 +647,15 @@ blockquote {
   text-decoration: none;
 }
 
+/* 5A-003, H-02. El ancho sale del ajuste "Logo width" (--logo-width en header.liquid);
+   antes width: auto y un tope de 3rem de alto lo anulaban y el editor no cambiaba nada. El
+   alto sigue la proporcion del archivo, sea horizontal, cuadrado o vertical. El ancho es
+   fijo y el tope va en max-width: un min() con porcentaje dentro de width hace que la
+   columna de la marca se mida con el tamano natural de la foto y no con el ajuste. */
 .site-header__logo-image {
-  width: auto;
-  max-height: 3rem;
+  width: var(--logo-width, 140px);
+  max-width: 100%;
+  height: auto;
 }
 
 .site-header__brand-text {
@@ -670,6 +676,9 @@ blockquote {
 
 .site-header__account {
   --shopify-account-signed-in-avatar-size: 2.25rem;
+  /* 5A-003, H-05. El boton del componente toma su minimo de esta variable; sin ella lo
+     calcula como 1,57 veces el avatar (50,2 px) y la cabecera movil pierde 6 px. */
+  --shopify-account-avatar-size: var(--tap-target-min);
   display: grid;
   min-width: 44px;
   min-height: 44px;
@@ -684,10 +693,15 @@ blockquote {
 
 .site-header__cart {
   position: relative;
-  padding-inline-end: 0;
 }
 
+/* 5A-003, H-05. El contador va sobre la esquina del icono, fuera del flujo: dentro del
+   enlace le sumaba 10,8 px al carrito y cortaba el nombre de la tienda a 390 px. Con 0
+   articulos no se pinta (hidden desde header.liquid y desde CartDrawer). */
 .site-header__cart-count {
+  position: absolute;
+  inset-block-start: var(--space-3xs);
+  inset-inline-end: var(--space-3xs);
   display: grid;
   min-width: 1.15rem;
   height: 1.15rem;
@@ -8000,12 +8014,27 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
 @media (max-width: 47.99rem) {
   .site-header__inner {
     grid-template-columns: auto minmax(0, 1fr) auto;
+    /* 5A-003. Los 44 px de cada boton ya separan: con el hueco de 12 px "LINEA NOVE"
+       seguia cortada a 360 px (le faltaban 12 px medidos en la tienda). */
+    column-gap: var(--space-2xs);
   }
 
   .site-header__brand {
     min-width: 0;
     max-width: 100%;
     justify-self: start;
+  }
+
+  .site-header__brand-text {
+    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+  }
+
+  /* 5A-003. La cabecera movil es fija: sin tope, un logo vertical a 140 px de ancho la
+     llevaba a 280 px de alto. El ancho que se pinta es el menor entre el ajuste y el que
+     deja el logo en 3rem de alto (max-width: 100 % sigue conteniendolo en la columna), asi
+     que la proporcion no se deforma. */
+  .site-header__logo-image {
+    width: min(var(--logo-width, 140px), calc(3rem * var(--logo-ratio, 1)));
   }
 
   .site-header__menu-button span {

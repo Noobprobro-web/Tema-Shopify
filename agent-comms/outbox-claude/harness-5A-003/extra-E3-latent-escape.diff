@@ -1,0 +1,382 @@
+diff --git a/sections/announcement-bar.liquid b/sections/announcement-bar.liquid
+index 584e8ea..fc7c31c 100644
+--- a/sections/announcement-bar.liquid
++++ b/sections/announcement-bar.liquid
+@@ -58,8 +58,8 @@
+         class="announcement-bar__control announcement-bar__control--pause"
+         type="button"
+         aria-label="{{ 'sections.announcement_bar.pause' | t }}"
+-        data-pause-label="{{ 'sections.announcement_bar.pause' | t | escape }}"
+-        data-play-label="{{ 'sections.announcement_bar.play' | t | escape }}"
++        data-pause-label="{{ 'sections.announcement_bar.pause' | t | escape_once }}"
++        data-play-label="{{ 'sections.announcement_bar.play' | t | escape_once }}"
+         data-announcement-pause
+         {% if announcement_count == 1 or section.settings.auto_rotate == false %}hidden{% endif %}
+       >
+diff --git a/sections/cart-drawer.liquid b/sections/cart-drawer.liquid
+index 887dbc2..abdc7d8 100644
+--- a/sections/cart-drawer.liquid
++++ b/sections/cart-drawer.liquid
+@@ -42,8 +42,8 @@
+   data-cart-change-url="{{ routes.cart_change_url }}.js"
+   data-item-count="{{ cart.item_count }}"
+   data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape_once }}"
+-  data-error-message="{{ 'sections.cart.error' | t | escape }}"
+-  data-added-message="{{ 'sections.cart.added' | t | escape }}"
++  data-error-message="{{ 'sections.cart.error' | t | escape_once }}"
++  data-added-message="{{ 'sections.cart.added' | t | escape_once }}"
+   data-add-failed-message="{{ 'sections.cart.add_failed' | t | escape_once }}"
+ >
+   <div class="cart-drawer__overlay" data-cart-drawer-overlay hidden>
+@@ -454,7 +454,7 @@
+               {%- if settings.show_cart_note -%}
+                 <div class="cart-note">
+                   <label for="CartDrawerNote">{{ 'sections.cart.note' | t }}</label>
+-                  <textarea id="CartDrawerNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape }}">{{ cart.note }}</textarea>
++                  <textarea id="CartDrawerNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape_once }}">{{ cart.note }}</textarea>
+                 </div>
+               {%- endif -%}
+ 
+diff --git a/sections/complete-the-look.liquid b/sections/complete-the-look.liquid
+index c9bf328..5ce4f41 100644
+--- a/sections/complete-the-look.liquid
++++ b/sections/complete-the-look.liquid
+@@ -63,9 +63,9 @@
+   data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape_once }}"
+   data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape_once }}"
+   data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape_once }}"
+-  data-empty-label="{{ 'sections.complete_the_look.select_items' | t | escape }}"
+-  data-error-message="{{ 'sections.complete_the_look.error' | t | escape }}"
+-  data-added-message="{{ 'sections.complete_the_look.added' | t | escape }}"
++  data-empty-label="{{ 'sections.complete_the_look.select_items' | t | escape_once }}"
++  data-error-message="{{ 'sections.complete_the_look.error' | t | escape_once }}"
++  data-added-message="{{ 'sections.complete_the_look.added' | t | escape_once }}"
+ >
+   <section
+     class="section complete-the-look__section color-{{ section_scheme }}"
+diff --git a/sections/curated-showcase.liquid b/sections/curated-showcase.liquid
+index 3d42d5e..3557847 100644
+--- a/sections/curated-showcase.liquid
++++ b/sections/curated-showcase.liquid
+@@ -53,7 +53,7 @@
+                 data-curated-tab
+               >
+                 <span aria-hidden="true">[{{ tab_number }}]</span>
+-                <span>{{ tab_label | escape }}</span>
++                <span>{{ tab_label | escape_once }}</span>
+               </button>
+             {%- endfor -%}
+           </div>
+diff --git a/sections/featured-product.liquid b/sections/featured-product.liquid
+index 94c3862..f0b0224 100644
+--- a/sections/featured-product.liquid
++++ b/sections/featured-product.liquid
+@@ -53,13 +53,13 @@
+ 
+     <variant-selects
+       class="featured-product__details"
+-      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape }}"
+-      data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+-      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+-      data-available-status="{{ 'products.product.variant_available' | t | escape }}"
+-      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
+-      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
+-      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
++      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape_once }}"
++      data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
++      data-unavailable-text="{{ 'products.product.unavailable' | t | escape_once }}"
++      data-available-status="{{ 'products.product.variant_available' | t | escape_once }}"
++      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape_once }}"
++      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape_once }}"
++      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape_once }}"
+       data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
+     >
+       <div class="featured-product__info flow">
+diff --git a/sections/footer.liquid b/sections/footer.liquid
+index d35b749..19eccd4 100644
+--- a/sections/footer.liquid
++++ b/sections/footer.liquid
+@@ -49,7 +49,7 @@
+               autocomplete="email"
+               autocapitalize="off"
+               autocorrect="off"
+-              placeholder="{{ 'newsletter.email_placeholder' | t | escape }}"
++              placeholder="{{ 'newsletter.email_placeholder' | t | escape_once }}"
+               aria-required="true"
+               {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletterError"{% endif %}
+               required
+diff --git a/sections/main-article.liquid b/sections/main-article.liquid
+index bad18c8..64a49a4 100644
+--- a/sections/main-article.liquid
++++ b/sections/main-article.liquid
+@@ -26,7 +26,7 @@
+ <article class="section main-article color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+   <div class="container flow">
+     <header class="main-article__header flow">
+-      <p class="eyebrow">{{ article_category | escape }}</p>
++      <p class="eyebrow">{{ article_category | escape_once }}</p>
+       <h1 id="{{ title_id }}" class="main-article__title">{{ article.title | escape }}</h1>
+       <p class="main-article__meta">
+         {%- if section.settings.show_author and article.author != blank -%}
+diff --git a/sections/main-blog.liquid b/sections/main-blog.liquid
+index c935084..deefe55 100644
+--- a/sections/main-blog.liquid
++++ b/sections/main-blog.liquid
+@@ -70,7 +70,7 @@
+           </a>
+           <div class="main-blog__featured-copy flow">
+             <p class="eyebrow">
+-              {{- featured_category | escape -}}
++              {{- featured_category | escape_once -}}
+               <span aria-hidden="true"> / </span>
+               {{- 'blogs.article.reading_time' | t: count: featured_reading_time -}}
+             </p>
+@@ -135,7 +135,7 @@
+                   </a>
+                   <div class="article-card__content flow">
+                     <p class="eyebrow">
+-                      {{- article_category | escape -}}
++                      {{- article_category | escape_once -}}
+                       <span aria-hidden="true"> / </span>
+                       {{- 'blogs.article.reading_time' | t: count: article_reading_time -}}
+                     </p>
+diff --git a/sections/main-cart-items.liquid b/sections/main-cart-items.liquid
+index df9ec6e..bf00ef6 100644
+--- a/sections/main-cart-items.liquid
++++ b/sections/main-cart-items.liquid
+@@ -173,7 +173,7 @@
+           {%- if settings.show_cart_note -%}
+             <div class="cart-note">
+               <label for="CartNote">{{ 'sections.cart.note' | t }}</label>
+-              <textarea id="CartNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape }}">{{ cart.note }}</textarea>
++              <textarea id="CartNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape_once }}">{{ cart.note }}</textarea>
+             </div>
+           {%- endif -%}
+ 
+diff --git a/sections/main-contact.liquid b/sections/main-contact.liquid
+index 9c95e60..b60e421 100644
+--- a/sections/main-contact.liquid
++++ b/sections/main-contact.liquid
+@@ -110,11 +110,11 @@
+             <label for="{{ contact_reason_id }}">{{ 'contact.form.reason' | t }}</label>
+             <select id="{{ contact_reason_id }}" name="contact[Reason]" aria-required="true" required>
+               <option value="">{{ 'contact.form.reason_placeholder' | t }}</option>
+-              <option value="{{ 'contact.form.reason_order' | t | escape }}">{{ 'contact.form.reason_order' | t }}</option>
+-              <option value="{{ 'contact.form.reason_materials' | t | escape }}">{{ 'contact.form.reason_materials' | t }}</option>
+-              <option value="{{ 'contact.form.reason_appointment' | t | escape }}">{{ 'contact.form.reason_appointment' | t }}</option>
+-              <option value="{{ 'contact.form.reason_press' | t | escape }}">{{ 'contact.form.reason_press' | t }}</option>
+-              <option value="{{ 'contact.form.reason_other' | t | escape }}">{{ 'contact.form.reason_other' | t }}</option>
++              <option value="{{ 'contact.form.reason_order' | t | escape_once }}">{{ 'contact.form.reason_order' | t }}</option>
++              <option value="{{ 'contact.form.reason_materials' | t | escape_once }}">{{ 'contact.form.reason_materials' | t }}</option>
++              <option value="{{ 'contact.form.reason_appointment' | t | escape_once }}">{{ 'contact.form.reason_appointment' | t }}</option>
++              <option value="{{ 'contact.form.reason_press' | t | escape_once }}">{{ 'contact.form.reason_press' | t }}</option>
++              <option value="{{ 'contact.form.reason_other' | t | escape_once }}">{{ 'contact.form.reason_other' | t }}</option>
+             </select>
+           </div>
+ 
+@@ -138,7 +138,7 @@
+               id="{{ contact_consent_id }}"
+               type="checkbox"
+               name="contact[Consent]"
+-              value="{{ 'contact.form.consent_value' | t | escape }}"
++              value="{{ 'contact.form.consent_value' | t | escape_once }}"
+               aria-required="true"
+               required
+             >
+diff --git a/sections/main-documentation.liquid b/sections/main-documentation.liquid
+index dfdcf74..82dd7ac 100644
+--- a/sections/main-documentation.liquid
++++ b/sections/main-documentation.liquid
+@@ -70,7 +70,7 @@
+               <span>{{ 'documentation.contents' | t }}</span>
+               <span class="faq-item__icon" aria-hidden="true"></span>
+             </summary>
+-            <nav aria-label="{{ 'documentation.contents' | t | escape }}">
++            <nav aria-label="{{ 'documentation.contents' | t | escape_once }}">
+               <ol class="anchor-nav__list unstyled-list" data-anchor-list>
+                 {%- for block in section.blocks -%}
+                   {%- if block.type == 'doc_section' -%}
+@@ -132,7 +132,7 @@
+               <copy-text
+                 class="doc-snippet"
+                 data-copy-source="#{{ snippet_id }}"
+-                data-copied-label="{{ 'documentation.copied' | t | escape }}"
++                data-copied-label="{{ 'documentation.copied' | t | escape_once }}"
+                 {{ block.shopify_attributes }}
+               >
+                 <div class="doc-snippet__bar">
+diff --git a/sections/main-faq.liquid b/sections/main-faq.liquid
+index 4d068d6..359ec37 100644
+--- a/sections/main-faq.liquid
++++ b/sections/main-faq.liquid
+@@ -75,7 +75,7 @@
+             id="{{ search_id }}"
+             type="search"
+             autocomplete="off"
+-            placeholder="{{ 'faq.search.placeholder' | t | escape }}"
++            placeholder="{{ 'faq.search.placeholder' | t | escape_once }}"
+             aria-describedby="{{ status_id }}"
+             data-filter-input
+           >
+diff --git a/sections/main-policy.liquid b/sections/main-policy.liquid
+index d1e7b93..8b7f9c0 100644
+--- a/sections/main-policy.liquid
++++ b/sections/main-policy.liquid
+@@ -46,7 +46,7 @@
+               <span>{{ 'policy.contents' | t }}</span>
+               <span class="faq-item__icon" aria-hidden="true"></span>
+             </summary>
+-            <nav aria-label="{{ 'policy.contents' | t | escape }}">
++            <nav aria-label="{{ 'policy.contents' | t | escape_once }}">
+               <ol class="anchor-nav__list unstyled-list" data-anchor-list></ol>
+             </nav>
+           </details>
+diff --git a/sections/main-product.liquid b/sections/main-product.liquid
+index 4734c5c..1450761 100644
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -84,7 +84,7 @@
+           <button
+             class="icon-button product-gallery__step product-gallery__step--previous"
+             type="button"
+-            aria-label="{{ 'general.pagination.previous' | t | escape }}"
++            aria-label="{{ 'general.pagination.previous' | t | escape_once }}"
+             data-gallery-step="-1"
+           >
+             {% render 'icon', name: 'chevron-down', size: 18 %}
+@@ -95,7 +95,7 @@
+           <button
+             class="icon-button product-gallery__step product-gallery__step--next"
+             type="button"
+-            aria-label="{{ 'general.pagination.next' | t | escape }}"
++            aria-label="{{ 'general.pagination.next' | t | escape_once }}"
+             data-gallery-step="1"
+           >
+             {% render 'icon', name: 'chevron-down', size: 18 %}
+@@ -138,13 +138,13 @@
+     <variant-selects
+       class="product-main__details"
+       data-product-url="{{ product.url }}"
+-      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape }}"
+-      data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+-      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
+-      data-available-status="{{ 'products.product.variant_available' | t | escape }}"
+-      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
+-      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
+-      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
++      data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape_once }}"
++      data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
++      data-unavailable-text="{{ 'products.product.unavailable' | t | escape_once }}"
++      data-available-status="{{ 'products.product.variant_available' | t | escape_once }}"
++      data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape_once }}"
++      data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape_once }}"
++      data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape_once }}"
+       data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
+       data-money-format="{{ shop.money_format | strip_html | escape }}"
+       data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape_once }}"
+@@ -700,7 +700,7 @@
+     <sticky-cart-bar
+       class="sticky-cart-bar color-{{ section_scheme }}"
+       data-product-form-id="{{ product_form_id }}"
+-      data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
++      data-unavailable-text="{{ 'products.product.unavailable' | t | escape_once }}"
+       data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape_once }}"
+       data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape_once }}"
+       data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape_once }}"
+diff --git a/sections/main-support.liquid b/sections/main-support.liquid
+index 4f20ddc..9ca2d7f 100644
+--- a/sections/main-support.liquid
++++ b/sections/main-support.liquid
+@@ -171,7 +171,7 @@
+               inputmode="url"
+               autocapitalize="off"
+               spellcheck="false"
+-              placeholder="{{ 'support.form.store_url_placeholder' | t | escape }}"
++              placeholder="{{ 'support.form.store_url_placeholder' | t | escape_once }}"
+               aria-describedby="SupportStoreHelp-{{ section.id }}"
+             >
+             <p id="SupportStoreHelp-{{ section.id }}" class="form-field__help">
+@@ -183,10 +183,10 @@
+             <label for="{{ category_id }}">{{ 'support.form.category' | t }}</label>
+             <select id="{{ category_id }}" name="contact[Category]" aria-required="true" required>
+               <option value="">{{ 'support.form.category_placeholder' | t }}</option>
+-              <option value="{{ 'support.form.category_presets' | t | escape }}">{{ 'support.form.category_presets' | t }}</option>
+-              <option value="{{ 'support.form.category_sections' | t | escape }}">{{ 'support.form.category_sections' | t }}</option>
+-              <option value="{{ 'support.form.category_issue' | t | escape }}">{{ 'support.form.category_issue' | t }}</option>
+-              <option value="{{ 'support.form.category_commercial' | t | escape }}">{{ 'support.form.category_commercial' | t }}</option>
++              <option value="{{ 'support.form.category_presets' | t | escape_once }}">{{ 'support.form.category_presets' | t }}</option>
++              <option value="{{ 'support.form.category_sections' | t | escape_once }}">{{ 'support.form.category_sections' | t }}</option>
++              <option value="{{ 'support.form.category_issue' | t | escape_once }}">{{ 'support.form.category_issue' | t }}</option>
++              <option value="{{ 'support.form.category_commercial' | t | escape_once }}">{{ 'support.form.category_commercial' | t }}</option>
+             </select>
+           </div>
+ 
+diff --git a/sections/marquee.liquid b/sections/marquee.liquid
+index 29b8d7c..95094f5 100644
+--- a/sections/marquee.liquid
++++ b/sections/marquee.liquid
+@@ -14,8 +14,8 @@
+     class="marquee-banner color-{{ section_scheme }}"
+     role="region"
+     aria-label="{{ 'sections.homepage.marquee.region_label' | t }}"
+-    data-pause-label="{{ 'sections.homepage.marquee.pause' | t | escape }}"
+-    data-play-label="{{ 'sections.homepage.marquee.play' | t | escape }}"
++    data-pause-label="{{ 'sections.homepage.marquee.pause' | t | escape_once }}"
++    data-play-label="{{ 'sections.homepage.marquee.play' | t | escape_once }}"
+   >
+     <div class="marquee-banner__inner">
+       <div class="marquee-banner__viewport">
+diff --git a/sections/newsletter.liquid b/sections/newsletter.liquid
+index ffff501..bd8551a 100644
+--- a/sections/newsletter.liquid
++++ b/sections/newsletter.liquid
+@@ -39,7 +39,7 @@
+           autocomplete="email"
+           autocapitalize="off"
+           autocorrect="off"
+-          placeholder="{{ 'newsletter.email_placeholder' | t | escape }}"
++          placeholder="{{ 'newsletter.email_placeholder' | t | escape_once }}"
+           aria-required="true"
+           {% if form.errors %}aria-invalid="true" aria-describedby="NewsletterError-{{ section.id }}"{% endif %}
+           required
+diff --git a/sections/product-recommendations.liquid b/sections/product-recommendations.liquid
+index aceb1c1..5ca40c4 100644
+--- a/sections/product-recommendations.liquid
++++ b/sections/product-recommendations.liquid
+@@ -26,7 +26,7 @@
+           {%- if section.settings.eyebrow != blank -%}
+             <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+           {%- endif -%}
+-          <h2 id="RecommendationsTitle-{{ section.id }}">{{ recommendations_heading | escape }}</h2>
++          <h2 id="RecommendationsTitle-{{ section.id }}">{{ recommendations_heading | escape_once }}</h2>
+         </header>
+ 
+         <ul
+diff --git a/snippets/gift-card-recipient.liquid b/snippets/gift-card-recipient.liquid
+index 0abc0ef..d58c3b6 100644
+--- a/snippets/gift-card-recipient.liquid
++++ b/snippets/gift-card-recipient.liquid
+@@ -20,8 +20,8 @@
+ 
+ <gift-card-recipient
+   class="gift-card-recipient"
+-  data-enabled-status="{{ 'products.product.recipient.expanded' | t | escape }}"
+-  data-disabled-status="{{ 'products.product.recipient.collapsed' | t | escape }}"
++  data-enabled-status="{{ 'products.product.recipient.expanded' | t | escape_once }}"
++  data-disabled-status="{{ 'products.product.recipient.collapsed' | t | escape_once }}"
+   data-characters-template="{{ 'products.product.recipient.characters_remaining' | t: count: '[count]' | escape_once }}"
+   {% if recipient_enabled %}data-enabled{% endif %}
+ >
+diff --git a/snippets/pickup-availability.liquid b/snippets/pickup-availability.liquid
+index f9886dc..b896566 100644
+--- a/snippets/pickup-availability.liquid
++++ b/snippets/pickup-availability.liquid
+@@ -18,7 +18,7 @@
+   data-product-url="{{ product.url }}"
+   data-section-id="{{ section.id }}"
+   data-variant-id="{{ variant.id }}"
+-  data-update-error="{{ 'products.product.pickup.update_error' | t | escape }}"
++  data-update-error="{{ 'products.product.pickup.update_error' | t | escape_once }}"
+   {% if pick_up_availabilities.size == 0 %}hidden{% endif %}
+ >
+   {%- if pick_up_availabilities.size > 0 -%}

@@ -1,6 +1,14 @@
 {%- liquid
   assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
   assign logo_alt = settings.logo.alt | default: shop.name
+
+  # 5A-003, H-03. secondary_menu trae main-menu por defecto, como pide la Theme Store para
+  # todo link_list de la cabecera. Si el comerciante no elige otro, seria el mismo menu que
+  # el principal: en ese caso, o sin enlaces, no se pinta dos veces.
+  assign show_secondary_menu = false
+  if section.settings.secondary_menu.links.size > 0 and section.settings.secondary_menu.handle != section.settings.menu.handle
+    assign show_secondary_menu = true
+  endif
 -%}
 
 {%- comment -%}
@@ -103,7 +111,7 @@
              </ul>
            </nav>
 
-          {%- if section.settings.secondary_menu.links.size > 0 -%}
+          {%- if show_secondary_menu -%}
             <div class="drawer-panel__secondary">
               <nav aria-label="{{ 'general.navigation.secondary' | t }}">
                 <ul class="drawer-panel__secondary-list unstyled-list" role="list">
@@ -171,7 +179,17 @@
       </ul>
     </nav>
 
-    <a class="site-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+    {%- comment -%}
+      5A-003, H-02. El ancho del logo llega como variable CSS: el atributo width del <img>
+      lo anulaba la regla de base.css y el ajuste del editor no cambiaba nada. La proporcion
+      sirve para acotar el alto en la cabecera movil sin deformar el archivo.
+    {%- endcomment -%}
+    <a
+      class="site-header__brand"
+      href="{{ routes.root_url }}"
+      aria-label="{{ shop.name | escape }}"
+      {% if settings.logo != blank %}style="--logo-width: {{ settings.logo_width }}px; --logo-ratio: {{ settings.logo.aspect_ratio | default: 1 }};"{% endif %}
+    >
       {%- if settings.logo != blank -%}
         {{-
           settings.logo
@@ -192,7 +210,7 @@
         Los mismos enlaces aparecen al pie del menu lateral en movil, donde hay sitio. Aqui
         se muestran solo desde 62rem, que es donde empieza la navegacion de escritorio.
       {%- endcomment -%}
-      {%- if section.settings.secondary_menu.links.size > 0 -%}
+      {%- if show_secondary_menu -%}
         <nav class="site-header__secondary" aria-label="{{ 'general.navigation.secondary' | t }}">
           <ul class="site-header__secondary-list unstyled-list" role="list">
             {%- for link in section.settings.secondary_menu.links -%}
@@ -213,11 +231,12 @@
       <a
         class="icon-button site-header__cart"
         href="{{ routes.cart_url }}"
+        {% if settings.show_cart_count %}data-cart-count-enabled{% endif %}
         aria-label="{% if settings.show_cart_count %}{{ 'sections.header.cart_count' | t: count: cart.item_count }}{% else %}{{ 'sections.header.cart' | t }}{% endif %}"
       >
         {% render 'icon', name: 'bag' %}
         {%- if settings.show_cart_count -%}
-          <span class="site-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
+          <span class="site-header__cart-count" aria-hidden="true"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
         {%- endif -%}
       </a>
     </div>
@@ -250,7 +269,8 @@
       "type": "link_list",
       "id": "secondary_menu",
       "label": "t:sections.header.settings.secondary_menu.label",
-      "info": "t:sections.header.settings.secondary_menu.info"
+      "info": "t:sections.header.settings.secondary_menu.info",
+      "default": "main-menu"
     },
     {
       "type": "link_list",
