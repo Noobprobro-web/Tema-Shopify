@@ -11,19 +11,13 @@ Próxima fase: SPRINT 5A - LUXURY COMMERCE (Quick Buy con Selector de Tallas & S
 
 ---
 
-## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (En Preparación de Directiva)
+## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (En Ejecución por Claude)
 
 **Meta del Sprint:** Conforme a la auditoría senior de producto `GPT-AUDIT-003` y los benchmarks competitivos de $380-$400 (Prestige, Focal, Impulse), implementar las dos funcionalidades P0 inmediatas de conversión y reducción de fricción:
 1. **Quick Buy con selector interactivo de talla y variante en tarjetas de producto:** Permite añadir al carrito directamente desde la colección y módulos de recomendación sin abandonar el flujo de exploración, manejando stock, estados agotados, accesibilidad WCAG y feedback háptico/visual.
 2. **Swatches nativos de color/material en tarjetas y filtros facetados:** Renderizado de muestras visuales basadas en categoría nativa de Shopify, sincronizadas con el cambio de imagen y estado de variante compartida con el Quick Buy.
 
-**Estado del Sprint Previo (MULTI-LANG-001 & LOCALE-AUDIT-001):** 
-- **100% COMPLETADO Y CERTIFICADO** (`CLAUDE-REPORT-LOCALE-AUDIT-001.md`, `GEMINI-review-CLAUDE-LOCALE-AUDIT-001.md`).
-- 196 traducciones registradas en Shopify en vivo vía GraphQL API.
-- Parche Nivel 2 aplicado (`page.contact.json` y `header-group.json` con valores declarados), dejando 9 traducciones listas para registrar tras el push.
-- Selector de idioma en header con touch target de 44×44px y anuncio accesible para lectores de pantalla.
-- Selector de país/moneda nativo condicional (solo visible si la tienda activa más de 1 mercado/país).
-- 0 huérfanas en storefront, 0 claves sin resolver, 115 archivos en Theme Check con 0 ofensas.
+**Directiva emitida:** `agent-comms/inbox-claude/CLAUDE-DIRECTIVE-5A-001.md`.
 
 ---
 
@@ -31,10 +25,10 @@ Próxima fase: SPRINT 5A - LUXURY COMMERCE (Quick Buy con Selector de Tallas & S
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Revisar tienda en vivo `/es`, renombrar tienda a "LINEA NOVE" en Admin y autorizar push | 🟢 Activo | Validación comercial |
-| **Claude (Opus 5)** | Implementador Principal | `LOCALE-AUDIT-001` entregado con excelencia; en espera de directiva 5A | 🟢 Listo | En espera de `CLAUDE-DIRECTIVE-5A-001` |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictamen formal emitido, tablero actualizado, redacción de directiva Sprint 5A | 🟢 Activo | `CLAUDE-DIRECTIVE-5A-001` |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | `GPT-AUDIT-003` completado con dictamen de roadmap reordenado | 🟢 Listo | Auditoría de UX/conversión sobre Quick Buy y Swatches una vez entregados |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Revisar tienda en vivo `/es`, renombrar tienda a "LINEA NOVE" en Admin | 🟢 Activo | Validación comercial |
+| **Claude (Opus 5)** | Implementador Principal | Implementando Sprint 5A (Quick Buy & Swatches) según directiva | 🔵 En ejecución | `agent-comms/outbox-claude/CLAUDE-REPORT-5A-001.md` |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Supervisión técnica de arquitectura, compuertas y soporte a Claude | 🟢 Activo | Revisión y compuertas Sprint 5A |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | Preparando criterios de auditoría UX/conversión sobre Quick Buy y Swatches | 🟢 Listo | Auditoría de producto sobre entrega de Claude |
 
 ---
 
