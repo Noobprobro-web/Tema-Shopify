@@ -21,7 +21,8 @@
         {%- for language in localization.available_languages -%}
           {%- if language.iso_code == localization.language.iso_code -%}
             <span class="localization-form__item is-active" aria-current="true">
-              {{- language.iso_code | upcase -}}
+              <span class="visually-hidden">{{ language.endonym_name | capitalize | escape }} ({{ 'sections.collection_template.filters_selected.one' | default: 'active' }})</span>
+              <span aria-hidden="true">{{- language.iso_code | upcase -}}</span>
             </span>
           {%- else -%}
             <button
