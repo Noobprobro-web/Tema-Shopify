@@ -5,24 +5,28 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5), GPT-5.6 Sol Max
 Última actualización: 2026-09-22
-Estado general: SPRINT 5A - OLA 1 DE REMEDIACIÓN APROBADA Y CERTIFICADA (Theme Check 116 archivos 0 ofensas, 384 claves en/es)
-Próximo hito: Despliegue en tienda viva (Couture #165809488115), re-evaluación por GPT-6 Sol Max y arranque de Sprint 5B (Zoom & PDP Media)
+Estado general: OLA 1 CERTIFICADA POR GPT-6 SOL MAX (GPT-AUDIT-006) -> AVANCE OFICIAL A SPRINT 5B (Zoom & Galería de Medios PDP)
+Próximo hito: Directiva e implementación de Sprint 5B por Opus 5.5 Extra (Web Component <product-zoom>, modal dialog, gestos táctiles y optimización de media)
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (Ola 1 Implementada y Aprobada)
+## 1. Sprint Activo: SPRINT 5B - LUXURY PDP MEDIA & ACCESSIBLE ZOOM
 
-**Meta del Sprint:** Conforme a `GPT-AUDIT-005`, `CLAUDE-AUDIT-OPUS-001` y `CLAUDE-REPORT-5A-003`, se resolvieron las 8 tareas críticas + 2 parches de consistencia (E1 y E2):
-1. **Fail-Closed en Selling Plans (GPT H1 - P0):** Implementado en Liquid (`main-product.liquid:13-26,570-597` y `featured-product.liquid:14-25,350-375`), `VariantSelects` (`theme.js:733-742`) y `CartDrawer.addItem` (`theme.js:2203-2217`).
-2. **Quick Buy Trigger ante Color Agotado (GPT H2 - P0/P1):** Disparador deshabilitado con label "Agotado" / "Sold out" cuando el color seleccionado no tiene tallas disponibles (`theme.js:1829-1838` y `snippets/product-card.liquid`).
-3. **Eliminación de Doble Escape (Claude H-01 - P1):** Corregidas 41 instancias de `| t: ... | escape` con `| escape_once` a lo largo de 14 archivos. Cero entidades HTML crudas visibles.
-4. **Efectividad de `logo_width` (Claude H-02 - P1):** Conectado `--logo-width` en `header.liquid` y `base.css:650-659` con tope móvil de 3rem de alto para seguridad.
-5. **Requisito Theme Store `secondary_menu` (Claude H-03 - P1):** Declarado default `"main-menu"` en schema y prevenida la duplicación en cabecera si es idéntico a `menu`.
-6. **Neutralización de Cart Drawer (Claude H-04 & GPT H3 - P1):** Default `false` para progress tiered; textos neutros ("Free shipping and gift unlocked").
-7. **Ergonomía de Marca Móvil a 390 px (Claude H-05 & GPT H4 - P1/P2):** Ajustada posición de contador, delimitada cuenta a 44px y font clamp optimizado con `column-gap` móvil: "LINEA NOVE" no se corta a 360 px ni a 390 px.
-8. **Colección Vacía (Claude H-09 - P2):** Distingue colección vacía ("Esta colección está vacía") de colección filtrada sin resultados.
-9. **Parches de Consistencia E1 y E2:** Cobertura de planes de venta en producto destacado y respeto al setting `show_cart_count`.
+**Meta del Sprint:** Conforme a `GPT-AUDIT-003`, `CLAUDE-AUDIT-OPUS-001` y el dictamen de avance de `GPT-AUDIT-006`, implementar la experiencia multimedia inmersiva de ficha de producto (PDP) propia de un tema de lujo ($380 USD):
+1. **Web Component `<product-zoom>` en `assets/product-zoom.js`:** Carga bajo demanda (`defer`) exclusiva en PDP (`main-product.liquid`) cuando el ajuste `enable_media_zoom` está activo (0 KB de impacto en el resto de páginas).
+2. **Visor Modal Nativo con `<dialog>` y Pointer Events:**
+   - Cero librerías externas.
+   - Modo 1x y modo zoom máximo limitado por la resolución real de la fotografía: `min(3, naturalWidth / renderedWidth)`.
+   - Soporte gestual táctil: pellizco con dos dedos, arrastre (pan) y doble toque para alternar zoom.
+   - Soporte ratón: clic para alternar y modo "seguir cursor" para inspección de tejido.
+   - Navegación por teclado completa (`+`, `-`, `0`, flechas, Home, End, Tab confinado y Escape con restauración de foco).
+   - Modo de movimiento reducido respetado (`prefers-reduced-motion: reduce`).
+3. **Carga Inteligente de Medios (Zero LCP Penalty):** Imágenes maestras de alta resolución cargadas de forma perezosa (`data-srcset`) únicamente al abrir el diálogo modal.
+4. **Optimizaciones de Galería PDP:**
+   - H-07: Ajuste de `sizes` en `snippets/product-media.liquid` para evitar sobre-descarga en rejilla de 2 columnas.
+   - H-13: Pausa automática de `<video>` al deslizar o salir del foco en carrusel móvil.
+   - H-19: Texto alternativo secuencial descriptivo cuando el catálogo no provea alt individual ("{{ title }}, imagen {{ n }} de {{ total }}").
 
 ---
 
@@ -31,9 +35,9 @@ Próximo hito: Despliegue en tienda viva (Couture #165809488115), re-evaluación
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Agregar filtro "Color" en Search & Discovery. 2) Opcional: activar Gift Cards en Admin. | 🟢 Activo | Configuración de tienda |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Ola 1 completada con honores (23 archivos tocados); en reposo para Sprint 5B | 🟢 Completado | Listo para Sprint 5B |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Aprobación de Ola 1, actualización de Ledger/Board, despliegue y pase a GPT | 🟢 Activo | Orquestación continua |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Re-verificación de F06 y F04 en tienda real post-despliegue | 🔵 En espera | Dictamen de cierre definitivo 5A |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Implementación de Sprint 5B (`assets/product-zoom.js`, markup, gestos, a11y) | 🔵 En preparación | `agent-comms/outbox-claude/CLAUDE-REPORT-5B-001.md` |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Emisión de directiva 5B, supervisión técnica, compuertas y despliegue | 🟢 Activo | Directiva técnica vinculante |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Certificación de Ola 1 completada en GPT-AUDIT-006; en reposo para auditar 5B | 🟢 Completado | Auditoría de producto de Sprint 5B |
 
 ---
 
