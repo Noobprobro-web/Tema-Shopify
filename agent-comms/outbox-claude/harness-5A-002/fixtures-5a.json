@@ -1,0 +1,19 @@
+{
+  "store": "tema-qkqpke0j.myshopify.com",
+  "created": "2026-09-22",
+  "collection": { "id": "gid://shopify/Collection/490144170227", "handle": "qa-sprint-5a", "url": "/collections/qa-sprint-5a", "published": "Tienda online" },
+  "products": {
+    "F01": { "id": "gid://shopify/Product/10290790138099", "handle": "qa5a-f01-single", "mode": "single", "notes": "1 variante, 20 unidades" },
+    "F02": { "id": "gid://shopify/Product/10290790203635", "handle": "qa5a-f02-sold-out", "mode": "sold_out", "notes": "1 variante, 0 unidades" },
+    "F03": { "id": "gid://shopify/Product/10290790334707", "handle": "qa5a-f03-size-only", "mode": "picker", "notes": "XS S M L XL, M agotada" },
+    "F04": { "id": "gid://shopify/Product/10290793971955", "handle": "qa5a-f04-colour-size", "mode": "picker", "notes": "Color sin swatch nativo (Ink, Camel, Olive, Bone) x S M L XL; Ink en oferta 320/380; Camel 340 con S y M agotadas; Olive XL no existe; Bone agotado entero; foto por color" },
+    "F05": { "id": "gid://shopify/Product/10290794070259", "handle": "qa5a-f05-native-swatches", "mode": "picker", "notes": "Color enlazado a shopify.color-pattern: Ink (color), Bone (color), Clay (imagen), Undyed (sin swatch) x S M L; Bone S agotada; Undyed sin foto" },
+    "F06": { "id": "gid://shopify/Product/10290795282675", "handle": "qa5a-f06-subscription", "mode": "options", "notes": "requiresSellingPlan: true" },
+    "F08": { "id": null, "handle": "qa5a-f08-gift-card", "mode": "options", "notes": "NO CREADO: GIFT_CARDS_NOT_ACTIVATED" },
+    "F10": { "id": "gid://shopify/Product/10290790367475", "handle": "qa5a-f10-hostile", "mode": "picker", "notes": "título de 142 caracteres, vendor largo, una sola foto, S M L" },
+    "F11": { "id": "gid://shopify/Product/10290794168563", "handle": "qa5a-f11-many-swatches", "mode": "direct", "notes": "7 colores enlazados (Ink, Bone, Camel, Olive, Burgundy, Slate, Forest); Burgundy agotado; 4 con foto" }
+  },
+  "metaobjects": { "type": "shopify--color-pattern", "definition": "gid://shopify/MetaobjectDefinition/23655940339", "handles": ["qa5a-ink", "qa5a-bone", "qa5a-clay", "qa5a-undyed", "qa5a-camel", "qa5a-olive", "qa5a-burgundy", "qa5a-slate", "qa5a-forest"] },
+  "metafieldDefinition": { "id": "gid://shopify/MetafieldDefinition/267711381747", "namespace": "shopify", "key": "color-pattern", "owner": "PRODUCT" },
+  "tag": "qa-sprint-5a"
+}

@@ -6298,12 +6298,12 @@ copy-text {
 
 .localization-form__btn {
   cursor: pointer;
-  opacity: 0.45;
+  color: var(--color-foreground-muted);
 }
 
 .localization-form__btn:hover,
 .localization-form__btn:focus-visible {
-  opacity: 1;
+  color: var(--color-foreground);
 }
 
 .localization-form__divider {

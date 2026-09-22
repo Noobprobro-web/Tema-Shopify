@@ -1,0 +1,22 @@
+--- a/sections/header.liquid
++++ b/sections/header.liquid
+@@ -227,7 +227,7 @@
+ {% schema %}
+ {
+   "name": "t:sections.header.name",
+-  "tag": "section",
++  "tag": "div",
+   "class": "section-header",
+   "limit": 1,
+   "enabled_on": {
+--- a/sections/footer.liquid
++++ b/sections/footer.liquid
+@@ -132,7 +132,7 @@
+ {% schema %}
+ {
+   "name": "t:sections.footer.name",
+-  "tag": "section",
++  "tag": "div",
+   "class": "section-footer",
+   "limit": 1,
+   "enabled_on": {

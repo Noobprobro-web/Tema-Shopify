@@ -1,0 +1,19 @@
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -6298,12 +6298,14 @@
+ 
+ .localization-form__btn {
+   cursor: pointer;
+-  opacity: 0.45;
++  /* El idioma inactivo usaba opacity 0.45: 2.80:1 sobre el fondo, por debajo de 4.5:1.
++     El atenuado del tema pasa AA; el activo sigue marcado por peso y subrayado. */
++  color: var(--color-foreground-muted);
+ }
+ 
+ .localization-form__btn:hover,
+ .localization-form__btn:focus-visible {
+-  opacity: 1;
++  color: var(--color-foreground);
+ }
+ 
+ .localization-form__divider {
