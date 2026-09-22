@@ -26,10 +26,10 @@ Próximo hito: Despliegue en vivo y ejecución de Compuerta 5 con fixtures F01-F
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Autorizar fixtures de prueba en dev store y renombrar tienda a "LINEA NOVE" | 🟢 Activo | Validación comercial |
-| **Claude (Opus 5)** | Implementador Principal | Sprint 5A completado con honores; listo para desplegar y correr Compuerta 5 | 🟢 Listo | Ejecución de Compuerta 5 en vivo |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictamen formal emitido (`GEMINI-review-CLAUDE-5A-001.md`), parches aplicados | 🟢 Activo | Commit, despliegue y orquestación |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | `GPT-AUDIT-004` entregado; en espera de despliegue para auditoría adversarial | 🟢 Listo | Auditoría adversarial de producto sobre tienda real |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Autorización concedida para fixtures; renombrar tienda a "LINEA NOVE" | 🟢 Activo | Validación comercial |
+| **Claude (Opus 5)** | Implementador Principal | Creando fixtures F01-F12 y ejecutando Compuerta 5 (`CLAUDE-DIRECTIVE-5A-002`) | 🔵 En ejecución | `agent-comms/outbox-claude/CLAUDE-REPORT-5A-002.md` |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Supervisión técnica y preparación para auditoría final de Sprint 5A | 🟢 Activo | Validación de Compuerta 5 y orquestación |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | En espera de fixtures en tienda real para auditoría adversarial de producto | 🟢 Listo | Auditoría adversarial de producto sobre tienda real |
 
 ---
 
