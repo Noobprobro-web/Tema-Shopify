@@ -5,19 +5,20 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5), GPT-5.6 Sol Max
 Última actualización: 2026-09-22
-Estado general: LOCALE-AUDIT-001 APROBADO (Paridad Bilingüe Total, 196+9 Traducciones Storefront, Selector Minimalista EN/ES 44px + Fallback Multipaís)
-Próxima fase: SPRINT 5A - LUXURY COMMERCE (Quick Buy con Selector de Tallas & Swatches Nativos en Tarjetas y Filtros)
+Estado general: SPRINT 5A IMPLEMENTADO Y APROBADO (Quick Buy con Tallas, Swatches Nativos en Tarjetas y Filtros, Exclusión de Agotados en Cart Drawer)
+Próximo hito: Despliegue en vivo y ejecución de Compuerta 5 con fixtures F01-F12 en dev store
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (En Ejecución por Claude)
+## 1. Sprint Activo: SPRINT 5A - LUXURY COMMERCE (Código Completo y Aprobado)
 
-**Meta del Sprint:** Conforme a la auditoría senior de producto `GPT-AUDIT-003` y los benchmarks competitivos de $380-$400 (Prestige, Focal, Impulse), implementar las dos funcionalidades P0 inmediatas de conversión y reducción de fricción:
-1. **Quick Buy con selector interactivo de talla y variante en tarjetas de producto:** Permite añadir al carrito directamente desde la colección y módulos de recomendación sin abandonar el flujo de exploración, manejando stock, estados agotados, accesibilidad WCAG y feedback háptico/visual.
-2. **Swatches nativos de color/material en tarjetas y filtros facetados:** Renderizado de muestras visuales basadas en categoría nativa de Shopify, sincronizadas con el cambio de imagen y estado de variante compartida con el Quick Buy.
+**Meta del Sprint:** Conforme a `GPT-AUDIT-003` y `GPT-AUDIT-004`, implementar las dos funcionalidades P0 de conversión y reducción de fricción:
+1. **Quick Buy interactivo con selector de tallas y variantes en tarjetas de producto:** 1 clic en variantes únicas, popover en escritorio y bottom sheet modal en móvil para tallas, 44×44px mínimo, intercepción global por `CartDrawer` y degradación a PDP para productos complejos.
+2. **Swatches nativos de color/material en tarjetas y filtros:** Muestras de `swatch.color` y `swatch.image` con hover para preview y click para commit; 2 swatches + `+N` en móvil de 2 columnas; swatches en filtros de colección y búsqueda.
+3. **Optimización de Cross-Sell en CartDrawer:** Exclusión de productos agotados o ya presentes en el carrito.
 
-**Directiva emitida:** `agent-comms/inbox-claude/CLAUDE-DIRECTIVE-5A-001.md`.
+**Estado:** 100% implementado y validado en arnés local (`CLAUDE-REPORT-5A-001.md`, `GEMINI-review-CLAUDE-5A-001.md`). Theme Check pasa con 0 ofensas (115 archivos), inventario con 0 huérfanas en storefront y paridad bilingüe perfecta (380 claves).
 
 ---
 
@@ -25,10 +26,10 @@ Próxima fase: SPRINT 5A - LUXURY COMMERCE (Quick Buy con Selector de Tallas & S
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Revisar tienda en vivo `/es`, renombrar tienda a "LINEA NOVE" en Admin | 🟢 Activo | Validación comercial |
-| **Claude (Opus 5)** | Implementador Principal | Implementando Sprint 5A (Quick Buy & Swatches) según directiva | 🔵 En ejecución | `agent-comms/outbox-claude/CLAUDE-REPORT-5A-001.md` |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Supervisión técnica de arquitectura, compuertas y soporte a Claude | 🟢 Activo | Revisión y compuertas Sprint 5A |
-| **GPT-5.6 Sol Max** | Auditor Senior de Producto | `GPT-AUDIT-004` entregado: matriz de 12 fixtures y 36 criterios Quick Buy/Swatches + estrategia demos | 🟢 Listo | En espera de entrega de Claude para auditoría adversarial |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Autorizar fixtures de prueba en dev store y renombrar tienda a "LINEA NOVE" | 🟢 Activo | Validación comercial |
+| **Claude (Opus 5)** | Implementador Principal | Sprint 5A completado con honores; listo para desplegar y correr Compuerta 5 | 🟢 Listo | Ejecución de Compuerta 5 en vivo |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictamen formal emitido (`GEMINI-review-CLAUDE-5A-001.md`), parches aplicados | 🟢 Activo | Commit, despliegue y orquestación |
+| **GPT-5.6 Sol Max** | Auditor Senior de Producto | `GPT-AUDIT-004` entregado; en espera de despliegue para auditoría adversarial | 🟢 Listo | Auditoría adversarial de producto sobre tienda real |
 
 ---
 

@@ -18,6 +18,8 @@
     endif
   endfor
   assign encoded_terms = search.terms | url_encode
+  # Filtros que se pintan como swatch aunque Search & Discovery no los marque asi.
+  assign facet_swatch_names = 'color,colour,coloris,farbe,material' | split: ','
   assign encoded_search_types = active_search_types | url_encode
   assign all_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last'
   assign product_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=product&options%5Bprefix%5D=last'
@@ -114,28 +116,91 @@
                 <div class="facet__content">
                   {%- case filter.type -%}
                     {%- when 'boolean' or 'list' -%}
-                      <ul class="facet__values unstyled-list">
-                        {%- for value in filter.values -%}
-                          {%- liquid
-                            assign filter_handle = filter.param_name | handle
-                            assign filter_id = 'SearchFilter-' | append: section.id | append: '-' | append: filter_handle | append: '-' | append: forloop.index
-                          -%}
-                          <li>
-                            <label class="facet__value" for="{{ filter_id }}">
-                              <input
-                                id="{{ filter_id }}"
-                                type="checkbox"
-                                name="{{ value.param_name }}"
-                                value="{{ value.value | escape }}"
-                                {% if value.active %}checked{% endif %}
-                                {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                      {%- liquid
+                        assign filter_label_name = filter.label | downcase | strip
+                        assign filter_is_swatch = false
+                        if filter.presentation == 'swatch' or filter.presentation == 'image'
+                          assign filter_is_swatch = true
+                        elsif filter.type == 'list' and facet_swatch_names contains filter_label_name
+                          assign filter_is_swatch = true
+                        endif
+                      -%}
+                      {%- if filter_is_swatch -%}
+                        <ul class="facet__values facet__values--swatch unstyled-list">
+                          {%- for value in filter.values -%}
+                            {%- liquid
+                              assign filter_handle = filter.param_name | handle
+                              assign filter_id = 'SearchFilter-' | append: section.id | append: '-' | append: filter_handle | append: '-' | append: forloop.index
+                              assign facet_swatch_css = nil
+                              assign facet_swatch_focal = nil
+                              if value.swatch.image
+                                assign facet_swatch_url = value.swatch.image | image_url: width: 72
+                                assign facet_swatch_css = 'url(' | append: facet_swatch_url | append: ')'
+                                assign facet_swatch_focal = value.swatch.image.presentation.focal_point
+                              elsif value.swatch.color
+                                assign facet_swatch_css = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                              elsif value.image
+                                assign facet_swatch_url = value.image | image_url: width: 72
+                                assign facet_swatch_css = 'url(' | append: facet_swatch_url | append: ')'
+                                assign facet_swatch_focal = value.image.presentation.focal_point
+                              endif
+                              assign facet_value_empty = false
+                              if value.count == 0 and value.active == false
+                                assign facet_value_empty = true
+                              endif
+                            -%}
+                            <li>
+                              <label
+                                class="facet__swatch-value{% if facet_value_empty %} facet__swatch-value--empty{% endif %}"
+                                for="{{ filter_id }}"
                               >
-                              <span>{{ value.label | escape }}</span>
-                              <span aria-hidden="true">{{ value.count }}</span>
-                            </label>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
+                                <input
+                                  class="facet__swatch-input visually-hidden"
+                                  id="{{ filter_id }}"
+                                  type="checkbox"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value | escape }}"
+                                  aria-label="{{ 'collections.filters.swatch_color' | t: filter: filter.label, value: value.label }}"
+                                  {% if value.active %}checked{% endif %}
+                                  {% if facet_value_empty %}disabled{% endif %}
+                                >
+                                <span
+                                  class="facet__swatch"
+                                  {% if facet_swatch_css %}
+                                    style="--variant-swatch: {{ facet_swatch_css }};{% if facet_swatch_focal %} --variant-swatch-position: {{ facet_swatch_focal }};{% endif %}"
+                                  {% endif %}
+                                  aria-hidden="true"
+                                ></span>
+                                <span class="facet__swatch-label">{{ value.label | escape }}</span>
+                                <span class="facet__swatch-count" aria-hidden="true">{{ value.count }}</span>
+                              </label>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- else -%}
+                        <ul class="facet__values unstyled-list">
+                          {%- for value in filter.values -%}
+                            {%- liquid
+                              assign filter_handle = filter.param_name | handle
+                              assign filter_id = 'SearchFilter-' | append: section.id | append: '-' | append: filter_handle | append: '-' | append: forloop.index
+                            -%}
+                            <li>
+                              <label class="facet__value" for="{{ filter_id }}">
+                                <input
+                                  id="{{ filter_id }}"
+                                  type="checkbox"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value | escape }}"
+                                  {% if value.active %}checked{% endif %}
+                                  {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                                >
+                                <span>{{ value.label | escape }}</span>
+                                <span aria-hidden="true">{{ value.count }}</span>
+                              </label>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
                     {%- when 'price_range' -%}
                       {%- liquid
                         # Shopify hands these over in cents for every currency, so dividing
@@ -348,6 +413,7 @@
       "type": "checkbox",
       "id": "show_quick_add",
       "label": "t:sections.all.show_quick_add.label",
+      "info": "t:sections.all.show_quick_add.info",
       "default": true
     }
   ]

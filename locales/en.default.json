@@ -363,6 +363,10 @@
     "product": {
       "add_to_cart": "Add to cart",
       "choose_options": "Choose options",
+      "quick_add": "Quick add",
+      "select_size": "Select size",
+      "color_swatch": "{{ option }}: {{ value }}",
+      "more_swatches": "+{{ count }} more",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
       "sale": "Sale",
@@ -450,7 +454,8 @@
       "to": "To",
       "sort_by": "Sort by",
       "apply": "Apply",
-      "clear_all": "Clear all"
+      "clear_all": "Clear all",
+      "swatch_color": "{{ filter }}: {{ value }}"
     },
     "pagination": {
       "label": "Collection pagination",

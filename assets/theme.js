@@ -59,7 +59,7 @@
   // controls unclickable and sends Escape to the wrong surface. Every dialog therefore
   // dismisses the others as it opens.
   const DIALOGS_WITH_SET_OPEN = 'theme-drawer[data-open], predictive-search[data-open]';
-  const DIALOGS_WITH_CLOSE = 'cart-drawer[data-open], size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open]';
+  const DIALOGS_WITH_CLOSE = 'cart-drawer[data-open], size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], product-card-variants[data-open]';
 
   const closeOtherDialogs = (except = null) => {
     document.querySelectorAll(DIALOGS_WITH_SET_OPEN).forEach((dialog) => {
@@ -75,7 +75,7 @@
 
   const syncDialogScrollLocks = () => {
     document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
-    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open]')));
+    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal]')));
   };
 
   // The eight amount tokens Shopify allows inside money_format / money_with_currency_format.
@@ -1520,6 +1520,425 @@
     }
   }
 
+  // 5A. Tarjeta de producto con swatches y compra rapida. Un solo estado de variante (el
+  // color comprometido) alimenta foto, enlaces, precio y selector de tallas. El cursor solo
+  // previsualiza la foto; el clic, el toque o el teclado comprometen el color. La adicion al
+  // carrito no se duplica aqui: el formulario lleva data-cart-add-form y el CartDrawer lo
+  // intercepta igual que en la ficha de producto.
+  class ProductCardVariants extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.data = this.readData();
+      this.swatches = Array.from(this.querySelectorAll('[data-card-swatch]'));
+      this.trigger = this.querySelector('[data-quick-buy-trigger]');
+      this.dialog = this.querySelector('[data-quick-buy-panel]');
+      this.form = this.dialog?.querySelector('[data-cart-add-form]') || null;
+      this.idInput = this.querySelector('[data-quick-buy-id]');
+      this.directButton = this.querySelector('[data-quick-buy-direct]');
+      this.links = Array.from(this.querySelectorAll('[data-card-link]'));
+      this.image = this.querySelector('.product-card__image--primary');
+      this.defaultImage = this.image
+        ? { src: this.image.getAttribute('src'), srcset: this.image.getAttribute('srcset'), alt: this.image.getAttribute('alt') }
+        : null;
+      this.loadedSources = new Set(this.defaultImage?.src ? [this.defaultImage.src] : []);
+      this.imageRequest = 0;
+      this.releaseFocusTrap = null;
+      this.selectedValue = this.swatches
+        .find((swatch) => swatch.getAttribute('aria-checked') === 'true')?.dataset.swatchValue ?? null;
+      this.mobileQuery = window.matchMedia('(max-width: 47.99rem)');
+
+      if (this.swatches.length > 0 && this.data) this.bindSwatches();
+      if (this.trigger && this.dialog) this.bindQuickBuy();
+    }
+
+    disconnectedCallback() {
+      this.resizeObserver?.disconnect();
+      if (this.isOpen) this.close(false);
+      super.disconnectedCallback();
+    }
+
+    readData() {
+      const element = this.querySelector('[data-card-variants]');
+      if (!element) return null;
+
+      try {
+        const data = JSON.parse(element.textContent);
+        return Array.isArray(data.variants) ? data : null;
+      } catch {
+        return null;
+      }
+    }
+
+    get isOpen() {
+      return this.hasAttribute('data-open');
+    }
+
+    // ---------- swatches ----------
+
+    bindSwatches() {
+      const group = this.querySelector('[data-card-swatches]');
+
+      this.swatches.forEach((swatch) => {
+        this.listen(swatch, 'click', () => this.selectSwatch(swatch));
+        // El cursor solo previsualiza: seleccionar al pasar cambiaria la variante a quien
+        // cruza la fila camino del boton de compra.
+        this.listen(swatch, 'pointerenter', (event) => {
+          if (event.pointerType === 'mouse') this.showImageFor(swatch.dataset.swatchValue);
+        });
+      });
+
+      if (!group) return;
+      this.listen(group, 'pointerleave', (event) => {
+        if (event.pointerType === 'mouse') this.showImageFor(this.selectedValue);
+      });
+      this.listen(group, 'keydown', (event) => this.handleSwatchKeys(event));
+
+      // Cuantos swatches caben depende del ancho de la tarjeta (2 o 4): el unico tab stop
+      // tiene que ser uno visible.
+      this.refreshTabStop();
+      if ('ResizeObserver' in window) {
+        this.resizeObserver = new ResizeObserver(() => this.refreshTabStop());
+        this.resizeObserver.observe(group);
+      }
+    }
+
+    visibleSwatches() {
+      return this.swatches.filter((swatch) => swatch.getClientRects().length > 0);
+    }
+
+    refreshTabStop() {
+      const visible = this.visibleSwatches();
+      const checked = visible.find((swatch) => swatch.getAttribute('aria-checked') === 'true');
+      const stop = checked || visible[0];
+      this.swatches.forEach((swatch) => { swatch.tabIndex = swatch === stop ? 0 : -1; });
+    }
+
+    // Patron radiogroup: las flechas mueven foco y seleccion con ciclo entre los visibles;
+    // Tab entra y sale del grupo por un solo swatch.
+    handleSwatchKeys(event) {
+      const visible = this.visibleSwatches();
+      const current = visible.indexOf(event.target.closest('[data-card-swatch]'));
+      if (current === -1) return;
+
+      const rtl = getComputedStyle(this).direction === 'rtl';
+      const steps = { ArrowDown: 1, ArrowUp: -1, ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1 };
+      let next;
+      if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = visible.length - 1;
+      else if (event.key in steps) next = (current + steps[event.key] + visible.length) % visible.length;
+      else return;
+
+      event.preventDefault();
+      visible[next].focus();
+      this.selectSwatch(visible[next]);
+    }
+
+    selectSwatch(swatch) {
+      this.selectedValue = swatch.dataset.swatchValue;
+      this.swatches.forEach((item) => item.setAttribute('aria-checked', String(item === swatch)));
+      this.refreshTabStop();
+
+      this.showImageFor(this.selectedValue);
+      this.updateLinks(this.variantForSwatch(this.selectedValue));
+      this.updatePrice(this.selectedValue);
+      this.syncQuickBuy();
+    }
+
+    variantsForSwatch(value) {
+      if (!this.data || value == null) return [];
+      return this.data.variants.filter((variant) => variant.options[this.data.swatchIndex] === value);
+    }
+
+    variantForSwatch(value) {
+      const variants = this.variantsForSwatch(value);
+      return variants.find((variant) => variant.available) || variants[0] || null;
+    }
+
+    // La foto nueva se descarga antes de cambiarla, asi que no hay destello ni bloque roto;
+    // si el comprador pasa de A a B a C, solo C llega a pintarse. Sin foto propia para ese
+    // color, la tarjeta vuelve a la foto del producto.
+    showImageFor(value) {
+      if (!this.image || !this.defaultImage?.src) return;
+
+      const withMedia = this.variantsForSwatch(value).find((variant) => variant.media && this.data.media?.[variant.media]);
+      const isOwnMedia = Boolean(withMedia) && String(withMedia.media) !== this.dataset.featuredMediaId;
+      const target = isOwnMedia ? this.data.media[withMedia.media] : this.defaultImage;
+      const request = ++this.imageRequest;
+
+      const apply = () => {
+        if (request !== this.imageRequest || !this.image.isConnected) return;
+        if (this.image.getAttribute('src') !== target.src) {
+          if (target.srcset) this.image.setAttribute('srcset', target.srcset);
+          else this.image.removeAttribute('srcset');
+          this.image.setAttribute('src', target.src);
+        }
+        this.image.setAttribute('alt', target.alt || this.defaultImage.alt || '');
+        this.toggleAttribute('data-variant-media', isOwnMedia);
+      };
+
+      if (this.loadedSources.has(target.src)) {
+        apply();
+        return;
+      }
+
+      const loader = new Image();
+      loader.sizes = this.image.getAttribute('sizes') || '';
+      if (target.srcset) loader.srcset = target.srcset;
+      loader.src = target.src;
+      loader.decode().then(() => {
+        this.loadedSources.add(target.src);
+        apply();
+      }).catch(() => {});
+    }
+
+    updateLinks(variant) {
+      if (!this.dataset.productUrl) return;
+      const url = new URL(this.dataset.productUrl, window.location.origin);
+      if (variant) url.searchParams.set('variant', String(variant.id));
+      const href = `${url.pathname}${url.search}`;
+      this.links.forEach((link) => link.setAttribute('href', href));
+    }
+
+    // Precio del color comprometido, con la misma estructura que snippets/price.liquid. Los
+    // importes llegan ya formateados por Liquid con el money_format de la tienda.
+    updatePrice(value) {
+      const wrapper = this.querySelector('[data-price-wrapper]');
+      const values = wrapper?.querySelector('.price__values');
+      const variants = this.variantsForSwatch(value);
+      if (!values || variants.length === 0) return;
+
+      const cheapest = variants.reduce((low, variant) => (variant.cents < low.cents ? variant : low));
+      const varies = variants.some((variant) => variant.cents !== cheapest.cents);
+      const shown = varies ? cheapest : this.variantForSwatch(value);
+      const onSale = Boolean(shown.compare);
+      const hiddenLabel = (text) => {
+        const label = document.createElement('span');
+        label.className = 'visually-hidden';
+        label.textContent = text;
+        return label;
+      };
+      const current = document.createElement('span');
+      current.dataset.currentPrice = '';
+      current.textContent = shown.price;
+      const compare = document.createElement('s');
+      compare.className = 'price__compare';
+      compare.dataset.comparePrice = '';
+      compare.textContent = shown.compare || '';
+      compare.hidden = !onSale;
+
+      const parts = [];
+      if (varies) {
+        const from = document.createElement('span');
+        from.textContent = this.dataset.labelFrom;
+        parts.push(from, current);
+        if (onSale) parts.push(hiddenLabel(this.dataset.labelRegularPrice));
+      } else if (onSale) {
+        parts.push(hiddenLabel(this.dataset.labelSalePrice), current, hiddenLabel(this.dataset.labelRegularPrice));
+      } else {
+        parts.push(hiddenLabel(this.dataset.labelRegularPrice), current);
+      }
+      parts.push(compare);
+      values.replaceChildren(...parts);
+
+      const saleBadge = wrapper.querySelector('[data-sale-badge]');
+      if (saleBadge) saleBadge.hidden = !onSale;
+      const soldOutBadge = wrapper.querySelector('[data-sold-out-badge]');
+      if (soldOutBadge) soldOutBadge.hidden = variants.some((variant) => variant.available);
+
+      const unit = wrapper.querySelector('[data-unit-price]');
+      if (unit) {
+        unit.hidden = !shown.unit;
+        const unitValue = unit.querySelector('[data-unit-price-value]');
+        const unitReference = unit.querySelector('[data-unit-price-reference]');
+        if (unitValue) unitValue.textContent = shown.unit || '';
+        if (unitReference) unitReference.textContent = shown.unitReference || '';
+      }
+    }
+
+    // ---------- compra rapida ----------
+
+    // Tambien lo llama el CartDrawer al terminar una adicion: si el comprador cambio de
+    // color con la peticion en vuelo, el estado corresponde al color de ahora.
+    syncQuickBuy() {
+      this.dialog?.removeAttribute('aria-busy');
+      if (this.dataset.quickBuyMode === 'direct') this.syncDirect();
+      else if (this.dataset.quickBuyMode === 'picker') this.syncPicker();
+    }
+
+    syncDirect() {
+      const variant = this.variantForSwatch(this.selectedValue);
+      if (!variant || !this.idInput || !this.directButton) return;
+      if (this.directButton.getAttribute('aria-busy') === 'true') return;
+
+      this.idInput.value = String(variant.id);
+      this.directButton.disabled = !variant.available;
+      const label = this.directButton.querySelector('[data-add-to-cart-text]');
+      if (label) {
+        label.textContent = variant.available
+          ? this.directButton.dataset.labelAdd
+          : this.directButton.dataset.labelSoldOut;
+      }
+    }
+
+    syncPicker() {
+      if (!this.dialog || !this.data || this.data.pickerIndex < 0) return;
+      const { swatchIndex, pickerIndex, variants } = this.data;
+      const offered = variants.filter((variant) => swatchIndex < 0 || variant.options[swatchIndex] === this.selectedValue);
+      // Si las tallas de este color cuestan distinto, cada talla muestra su precio: la talla
+      // es la adicion, asi que el precio tiene que verse antes del toque.
+      const pricesVary = offered.some((variant) => variant.cents !== offered[0]?.cents);
+
+      this.dialog.querySelectorAll('.quick-buy__value').forEach((button) => {
+        const variant = offered.find((candidate) => candidate.options[pickerIndex] === button.dataset.optionValue);
+        const available = Boolean(variant?.available);
+
+        button.dataset.variantId = variant ? String(variant.id) : '';
+        if (button.getAttribute('aria-busy') !== 'true') button.disabled = !available;
+        if (available) button.removeAttribute('aria-disabled');
+        else button.setAttribute('aria-disabled', 'true');
+
+        const state = button.querySelector('[data-quick-buy-state]');
+        if (state) {
+          state.hidden = available;
+          state.textContent = variant ? this.dialog.dataset.labelSoldOut : this.dialog.dataset.labelUnavailable;
+        }
+
+        const price = button.querySelector('[data-quick-buy-price]');
+        if (price) {
+          price.hidden = !(pricesVary && variant);
+          price.textContent = pricesVary && variant ? variant.price : '';
+        }
+      });
+    }
+
+    bindQuickBuy() {
+      this.listen(this.trigger, 'click', () => {
+        if (this.isOpen) this.close(true);
+        else this.open();
+      });
+
+      this.listen(this.dialog, 'click', (event) => {
+        if (event.target.closest('[data-quick-buy-close]')) {
+          this.close(true);
+          return;
+        }
+
+        // El clic llega antes que el submit que intercepta el CartDrawer, asi que el id de
+        // la talla ya esta en el formulario cuando este lo lee.
+        const value = event.target.closest('.quick-buy__value');
+        if (value?.dataset.variantId && this.idInput) {
+          if (this.form?.dataset.cartAddPending !== 'true') this.idInput.value = value.dataset.variantId;
+          return;
+        }
+
+        // En movil el <dialog> modal ocupa el fondo: un clic fuera de su caja lo cierra.
+        if (event.target === this.dialog && this.dialog.matches(':modal')) {
+          const box = this.dialog.getBoundingClientRect();
+          const inside = event.clientX >= box.left && event.clientX <= box.right
+            && event.clientY >= box.top && event.clientY <= box.bottom;
+          if (!inside) this.close(true);
+        }
+      });
+
+      // Con una talla en vuelo, las demas quedan inactivas: un segundo toque no puede
+      // cambiar en silencio la variante pendiente ni lanzar otra alta.
+      if (this.form) {
+        this.listen(this.form, 'submit', (event) => {
+          if (this.form.dataset.cartAddPending === 'true') return;
+          this.dialog.setAttribute('aria-busy', 'true');
+          this.dialog.querySelectorAll('.quick-buy__value').forEach((button) => {
+            if (button !== event.submitter) button.disabled = true;
+          });
+        });
+      }
+
+      // Escape en el modal dispara cancel; se cierra por el mismo camino para devolver el foco.
+      this.listen(this.dialog, 'cancel', (event) => {
+        event.preventDefault();
+        this.close(true);
+      });
+      this.listen(this.dialog, 'keydown', (event) => this.handlePanelKeys(event));
+      this.listen(document, 'pointerdown', (event) => {
+        if (!this.isOpen || this.dialog.matches(':modal')) return;
+        if (this.dialog.contains(event.target) || this.trigger.contains(event.target)) return;
+        this.close(false);
+      });
+      this.listen(this.mobileQuery, 'change', () => {
+        if (this.isOpen) this.close(false);
+      });
+    }
+
+    enabledValues() {
+      return Array.from(this.dialog.querySelectorAll('.quick-buy__value:not([disabled])'));
+    }
+
+    handlePanelKeys(event) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopPropagation();
+        this.close(true);
+        return;
+      }
+
+      const buttons = this.enabledValues();
+      const current = buttons.indexOf(event.target);
+      if (current === -1) return;
+
+      const rtl = getComputedStyle(this).direction === 'rtl';
+      const steps = { ArrowDown: 1, ArrowUp: -1, ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1 };
+      let next;
+      if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = buttons.length - 1;
+      else if (event.key in steps) next = (current + steps[event.key] + buttons.length) % buttons.length;
+      else return;
+
+      event.preventDefault();
+      buttons[next].focus();
+    }
+
+    open() {
+      if (this.isOpen || !this.dialog) return;
+      closeOtherDialogs(this);
+      this.syncPicker();
+      this.clearError();
+
+      const modal = this.mobileQuery.matches;
+      if (modal) this.dialog.showModal();
+      else this.dialog.show();
+
+      this.setAttribute('data-open', '');
+      this.toggleAttribute('data-modal', modal);
+      this.trigger.setAttribute('aria-expanded', 'true');
+      syncDialogScrollLocks();
+
+      // El foco no sale del panel con Tab, ni en la hoja movil ni sobre la tarjeta; se sale
+      // con Escape, con Cerrar o eligiendo talla.
+      const first = this.enabledValues()[0] || this.dialog.querySelector('[data-quick-buy-close]');
+      first?.focus();
+      this.releaseFocusTrap = trapFocus(this.dialog, first);
+    }
+
+    close(restoreFocus = false) {
+      if (!this.dialog) return;
+      this.releaseFocusTrap?.();
+      this.releaseFocusTrap = null;
+      if (this.dialog.open) this.dialog.close();
+
+      this.removeAttribute('data-open');
+      this.removeAttribute('data-modal');
+      this.trigger?.setAttribute('aria-expanded', 'false');
+      syncDialogScrollLocks();
+      if (restoreFocus) this.trigger?.focus();
+    }
+
+    clearError() {
+      const error = this.dialog?.querySelector('[data-product-form-error]');
+      if (!error) return;
+      error.hidden = true;
+      error.textContent = '';
+    }
+  }
+
   class CartDrawer extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -1647,7 +2066,7 @@
       });
     }
 
-    open(trigger = null) {
+    open(trigger = null, initialFocus = null) {
       if (this.isOpen || !this.isConnected) return;
 
       // Resolved before the other dialogs close: making a panel inert blurs whatever
@@ -1657,6 +2076,10 @@
       const sourceMenu = returnTarget?.closest?.('theme-drawer[data-open]');
       const menuTrigger = sourceMenu?.querySelector('[data-drawer-trigger]');
       if (menuTrigger) returnTarget = menuTrigger;
+      // Lo mismo con la compra rapida de una tarjeta: su panel se cierra al abrirse el
+      // cajon, asi que el foco vuelve al boton que lo abrio y no a una talla oculta.
+      const quickBuy = returnTarget?.closest?.('product-card-variants');
+      if (quickBuy?.dialog?.contains(returnTarget) && quickBuy.trigger) returnTarget = quickBuy.trigger;
 
       closeOtherDialogs(this);
 
@@ -1669,7 +2092,7 @@
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
         this.panel,
-        this.querySelector('[data-cart-drawer-close]'),
+        initialFocus?.isConnected ? initialFocus : this.querySelector('[data-cart-drawer-close]'),
       );
       this.syncCart().catch(() => {});
     }
@@ -1752,7 +2175,9 @@
 
         await this.renderCartResponse(result, revision);
         this.showStatus(this.dataset.addedMessage);
-        this.open(submitter);
+        // Desde una tarjeta, el foco aterriza en la linea que se acaba de anadir.
+        const addedLine = form.hasAttribute('data-quick-buy-form') ? this.findLineFor(result) : null;
+        this.open(submitter, addedLine);
       } finally {
         delete form.dataset.cartAddPending;
         this.setFormBusy(form, submitter, false);
@@ -1760,8 +2185,20 @@
         // may not be the one this request was submitted for.
         const variants = form.closest('variant-selects');
         if (variants?.isConnected) variants.updateForms(variants.currentVariant);
+        const card = form.closest('product-card-variants');
+        if (card?.isConnected) card.syncQuickBuy();
         this.endMutation();
       }
+    }
+
+    // /cart/add.js devuelve la linea anadida; su enlace lleva ?variant=, igual que item.url.
+    findLineFor(result) {
+      const variantId = String(result?.variant_id ?? result?.items?.[0]?.variant_id ?? '');
+      if (!variantId) return null;
+      return Array.from(this.querySelectorAll('.cart-drawer-item__title a[href]')).find((link) => {
+        const url = new URL(link.getAttribute('href'), window.location.origin);
+        return url.searchParams.get('variant') === variantId;
+      }) || null;
     }
 
     async addCrossSell(button) {
@@ -1807,7 +2244,8 @@
         const focusTarget = Array.from(this.querySelectorAll('[data-cross-sell-focus]')).find(
           (element) => Number(element.dataset.crossSellFocus) === variantId,
         );
-        focusTarget?.focus({ preventScroll: true });
+        // La recomendacion ya anadida deja de mostrarse; el foco pasa a su linea del carrito.
+        (focusTarget || this.findLineFor({ variant_id: variantId }))?.focus({ preventScroll: true });
       } finally {
         this.setDrawerBusy(false);
         this.setCrossSellBusy(button, false);
@@ -3766,6 +4204,10 @@
 
   if (!customElements.get('cart-drawer')) {
     customElements.define('cart-drawer', CartDrawer);
+  }
+
+  if (!customElements.get('product-card-variants')) {
+    customElements.define('product-card-variants', ProductCardVariants);
   }
 
   if (!customElements.get('facet-filters-form')) {

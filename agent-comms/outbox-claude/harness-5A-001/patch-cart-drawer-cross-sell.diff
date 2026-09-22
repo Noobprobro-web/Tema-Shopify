@@ -1,0 +1,36 @@
+--- a/sections/cart-drawer.liquid
++++ b/sections/cart-drawer.liquid
+@@ -302,6 +302,10 @@
+                       {%- break -%}
+                     {%- endif -%}
+                   {%- endfor -%}
++                  {%- comment -%} GPT-AUDIT-004 5.4: ni agotados ni productos ya en el carrito. {%- endcomment -%}
++                  {%- if recommendation_in_cart or recommendation_variant.available == false -%}
++                    {%- continue -%}
++                  {%- endif -%}
+                   {%- if recommendation_in_cart -%}
+                     {%- assign cross_sell_action = 'sections.cart.already_added' | t -%}
+                     {%- assign cross_sell_aria = 'sections.cart.already_added_product' | t: product: recommendation.title -%}
+@@ -372,6 +376,10 @@
+                       {%- break -%}
+                     {%- endif -%}
+                   {%- endfor -%}
++                  {%- comment -%} GPT-AUDIT-004 5.4: ni agotados ni productos ya en el carrito. {%- endcomment -%}
++                  {%- if recommendation_in_cart or recommendation_variant.available == false -%}
++                    {%- continue -%}
++                  {%- endif -%}
+                   {%- if recommendation_in_cart -%}
+                     {%- assign cross_sell_action = 'sections.cart.already_added' | t -%}
+                     {%- assign cross_sell_aria = 'sections.cart.already_added_product' | t: product: recommendation.title -%}
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -2244,7 +2244,8 @@
+         const focusTarget = Array.from(this.querySelectorAll('[data-cross-sell-focus]')).find(
+           (element) => Number(element.dataset.crossSellFocus) === variantId,
+         );
+-        focusTarget?.focus({ preventScroll: true });
++        // La recomendacion ya anadida deja de mostrarse; el foco pasa a su linea del carrito.
++        (focusTarget || this.findLineFor({ variant_id: variantId }))?.focus({ preventScroll: true });
+       } finally {
+         this.setDrawerBusy(false);
+         this.setCrossSellBusy(button, false);

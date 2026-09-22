@@ -363,6 +363,10 @@
     "product": {
       "add_to_cart": "Añadir al carrito",
       "choose_options": "Elegir opciones",
+      "quick_add": "Añadir rápido",
+      "select_size": "Seleccionar talla",
+      "color_swatch": "{{ option }}: {{ value }}",
+      "more_swatches": "+{{ count }} más",
       "sold_out": "Agotado",
       "unavailable": "No disponible",
       "sale": "Oferta",
@@ -450,7 +454,8 @@
       "to": "Hasta",
       "sort_by": "Ordenar por",
       "apply": "Aplicar",
-      "clear_all": "Borrar todo"
+      "clear_all": "Borrar todo",
+      "swatch_color": "{{ filter }}: {{ value }}"
     },
     "pagination": {
       "label": "Paginación de la colección",

@@ -302,6 +302,10 @@
                       {%- break -%}
                     {%- endif -%}
                   {%- endfor -%}
+                  {%- comment -%} GPT-AUDIT-004 5.4: ni agotados ni productos ya en el carrito. {%- endcomment -%}
+                  {%- if recommendation_in_cart or recommendation_variant.available == false -%}
+                    {%- continue -%}
+                  {%- endif -%}
                   {%- if recommendation_in_cart -%}
                     {%- assign cross_sell_action = 'sections.cart.already_added' | t -%}
                     {%- assign cross_sell_aria = 'sections.cart.already_added_product' | t: product: recommendation.title -%}
@@ -372,6 +376,10 @@
                       {%- break -%}
                     {%- endif -%}
                   {%- endfor -%}
+                  {%- comment -%} GPT-AUDIT-004 5.4: ni agotados ni productos ya en el carrito. {%- endcomment -%}
+                  {%- if recommendation_in_cart or recommendation_variant.available == false -%}
+                    {%- continue -%}
+                  {%- endif -%}
                   {%- if recommendation_in_cart -%}
                     {%- assign cross_sell_action = 'sections.cart.already_added' | t -%}
                     {%- assign cross_sell_aria = 'sections.cart.already_added_product' | t: product: recommendation.title -%}

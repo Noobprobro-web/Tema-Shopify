@@ -1796,6 +1796,412 @@ body[data-sticky-cart-visible] {
   }
 }
 
+/* 5A. Tarjeta de producto: swatches y compra rapida.
+   El elemento que coordina la variante envuelve la tarjeta con display: contents, asi que
+   la rejilla de .product-card (y las variantes de bento y curated showcase) siguen viendo
+   los mismos hijos de siempre. */
+product-card-variants {
+  display: contents;
+}
+
+/* Abierto, el panel se ancla al bloque de texto: la accion no puede conservar el transform
+   del reveal (lo convertiria en el ancla). La especificidad supera la del :focus-within. */
+html[data-animations] .product-card product-card-variants[data-open] .product-card__action {
+  opacity: 1;
+  transform: none;
+}
+
+/* Con la foto de un color a la vista, el cruce hacia la segunda imagen del producto
+   mostraria otro color: se desactiva hasta volver a la foto del producto. */
+product-card-variants[data-variant-media] .product-card__image--secondary {
+  display: none;
+}
+
+product-card-variants[data-variant-media] .product-card__media:hover .product-card__image--primary,
+product-card-variants[data-variant-media] .product-card__media:focus-visible .product-card__image--primary {
+  opacity: 1;
+}
+
+.product-card__swatches {
+  --card-swatch-size: 1.5rem;
+  container: card-swatches / inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* Cada swatch ocupa 44x44 para el toque, pero el circulo mide 24: el margen negativo
+     alinea el primer circulo con el borde del titulo. */
+  margin-inline-start: calc((var(--tap-target-min) - var(--card-swatch-size)) / -2);
+}
+
+.product-card__swatch-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-card__swatch-item {
+  display: inline-flex;
+}
+
+/* Dos swatches y el contador en una tarjeta estrecha (la rejilla movil de dos columnas);
+   cuatro desde 260px de tarjeta. Tres swatches mas el contador no caben a 44px cada uno. */
+.product-card__swatches .card-swatch--wide-only,
+.product-card__swatches .card-swatch-more--wide {
+  display: none;
+}
+
+@container card-swatches (min-width: 270px) {
+  .product-card__swatches .card-swatch--wide-only,
+  .product-card__swatches .card-swatch-more--wide {
+    display: inline-grid;
+  }
+
+  .product-card__swatches .product-card__swatch-item.card-swatch--wide-only {
+    display: inline-flex;
+  }
+
+  .product-card__swatches .card-swatch-more--narrow {
+    display: none;
+  }
+}
+
+/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. */
+.card-swatch--text {
+  width: auto;
+  min-width: var(--tap-target-min);
+  max-width: 100%;
+  padding-inline: var(--space-2xs);
+}
+
+.card-swatch__text {
+  display: block;
+  max-width: 8rem;
+  padding: 0.25rem 0.55rem;
+  overflow: hidden;
+  border: 1px solid var(--color-control-border);
+  border-radius: var(--button-radius);
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-swatch--text[aria-checked='true'] .card-swatch__text {
+  border-color: var(--color-foreground);
+  box-shadow: inset 0 0 0 1px var(--color-foreground);
+  font-weight: 700;
+}
+
+.card-swatch--text.card-swatch--sold-out .card-swatch__text {
+  color: var(--color-foreground-muted);
+  text-decoration: line-through;
+}
+
+.card-swatch--text:focus-visible .card-swatch__text {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: 3px;
+}
+
+.card-swatch,
+.card-swatch-more {
+  display: inline-grid;
+  width: var(--tap-target-min);
+  height: var(--tap-target-min);
+  padding: 0;
+  border: 0;
+  place-items: center;
+  background: transparent;
+  color: var(--color-foreground);
+  cursor: pointer;
+}
+
+/* Solo datos nativos de Shopify (swatch.color o swatch.image). Un valor sin swatch nunca
+   recibe un color deducido de su nombre: en la tarjeta muestra el nombre y en el filtro una
+   trama neutra junto a la etiqueta visible. */
+.card-swatch__color,
+.facet__swatch {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  border: 1px solid var(--color-control-border);
+  border-radius: 50%;
+  /* Posicion y tamano van aparte: si el punto focal llega vacio, el fondo no se invalida
+     entero, solo vuelve la posicion inicial. */
+  background: var(--variant-swatch, repeating-linear-gradient(135deg, var(--color-surface) 0 3px, var(--color-surface-subtle) 3px 6px));
+  background-position: var(--variant-swatch-position, center);
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: transform var(--motion-fast) var(--ease-move), box-shadow var(--motion-fast) var(--ease-move);
+}
+
+.card-swatch__color {
+  width: var(--card-swatch-size);
+  height: var(--card-swatch-size);
+}
+
+.card-swatch:hover .card-swatch__color {
+  transform: scale(1.08);
+}
+
+/* Anillo concentrico: separacion del color del fondo y trazo del texto, 3:1 o mas con
+   cualquier esquema porque usa el propio primer plano. */
+.card-swatch[aria-checked='true'] .card-swatch__color {
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 3px var(--color-foreground);
+}
+
+.card-swatch:focus-visible {
+  outline: none;
+}
+
+.card-swatch:focus-visible .card-swatch__color {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: 5px;
+}
+
+.card-swatch--sold-out .card-swatch__color {
+  opacity: 0.55;
+}
+
+.card-swatch--sold-out .card-swatch__color::after,
+.facet__swatch-value--empty .facet__swatch::after {
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  right: -2px;
+  height: 1px;
+  background: var(--color-foreground);
+  content: '';
+  transform: rotate(-45deg);
+}
+
+.card-swatch-more {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-foreground-muted);
+  text-decoration: none;
+}
+
+.card-swatch-more:hover {
+  color: var(--color-foreground);
+  text-decoration: underline;
+}
+
+
+/* Compra rapida. En escritorio el panel se apoya sobre la base de la imagen, justo encima
+   del bloque de texto: no mueve la rejilla ni tapa el boton, el titulo o los swatches. En
+   movil el mismo <dialog> se abre modal como hoja inferior. El ancla es el bloque de texto;
+   por eso la accion, abierta, pierde su transform (que la convertiria en el ancla). */
+.product-card__content {
+  position: relative;
+}
+
+.js .quick-buy__fallback,
+.no-js .quick-buy__trigger {
+  display: none;
+}
+
+.quick-buy__panel {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: var(--space-sm);
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.quick-buy__panel[open] {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.quick-buy__panel:not(:modal) {
+  position: absolute;
+  inset: auto 0 calc(100% + var(--space-2));
+  z-index: 3;
+  box-shadow: 0 -16px 32px -24px color-mix(in srgb, var(--color-shadow) 60%, transparent);
+}
+
+.quick-buy__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+}
+
+.quick-buy__title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: var(--font-letter-spacing-eyebrow);
+  text-transform: uppercase;
+}
+
+.quick-buy__close {
+  margin: calc(var(--space-sm) * -1) calc(var(--space-sm) * -1) calc(var(--space-sm) * -1) 0;
+}
+
+.quick-buy__product {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-foreground-muted);
+}
+
+/* Sobre la tarjeta el titulo ya esta a la vista: el del panel queda solo para lectores de
+   pantalla, que lo reciben como descripcion del dialogo. */
+.quick-buy__panel:not(:modal) .quick-buy__product {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.quick-buy__form {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.quick-buy__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.quick-buy__value {
+  position: relative;
+  display: inline-flex;
+  min-width: var(--tap-target-min);
+  max-width: 100%;
+  min-height: var(--tap-target-min);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-control-border);
+  border-radius: var(--button-radius);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  background: transparent;
+  color: var(--color-foreground);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  text-align: center;
+  transition: background-color var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
+}
+
+.quick-buy__value-price {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.quick-buy__value:hover:not([disabled]),
+.quick-buy__value[aria-busy='true'] {
+  border-color: var(--color-foreground);
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.quick-buy__value:focus-visible {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+/* Agotado: trazo diagonal fino y texto atenuado; el lector de pantalla oye "Agotado". */
+.quick-buy__value[disabled]:not([aria-busy='true']) {
+  border-color: var(--color-border);
+  background: linear-gradient(to top left, transparent calc(50% - 0.5px), var(--color-foreground-muted) 50%, transparent calc(50% + 0.5px));
+  color: var(--color-foreground-muted);
+  cursor: not-allowed;
+}
+
+.quick-buy__panel:modal {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: min(85vh, 36rem);
+  overflow-y: auto;
+  padding: var(--space-md) var(--page-gutter-mobile) calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+  border-width: var(--border-width) 0 0;
+}
+
+.quick-buy__panel::backdrop {
+  /* Mismo velo que el cajon; ::backdrop no hereda variables en navegadores antiguos, de ahi el respaldo. */
+  background: color-mix(in srgb, var(--color-shadow, rgb(28 25 23)) 48%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-animations='subtle'] .quick-buy__panel[open],
+  html[data-animations='full'] .quick-buy__panel[open] {
+    animation: quick-buy-rise var(--motion-base) var(--ease-enter) both;
+  }
+}
+
+@keyframes quick-buy-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-xs));
+  }
+}
+
+/* Filtros con swatch: el checkbox sigue siendo el control real (mismo name y value, misma
+   sumision estandar y AJAX); el circulo solo lo viste. */
+.facet__values--swatch {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.25rem, 1fr));
+  gap: var(--space-xs) var(--space-2xs);
+}
+
+.facet__swatch-value {
+  position: relative;
+  display: grid;
+  min-height: var(--tap-target-min);
+  padding-block: var(--space-2xs);
+  justify-items: center;
+  gap: var(--space-2xs);
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.facet__swatch {
+  width: 2rem;
+  height: 2rem;
+}
+
+.facet__swatch-value:hover .facet__swatch {
+  transform: scale(1.06);
+}
+
+.facet__swatch-input:checked + .facet__swatch {
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-foreground);
+}
+
+.facet__swatch-input:checked ~ .facet__swatch-label {
+  font-weight: 700;
+}
+
+.facet__swatch-input:focus-visible + .facet__swatch {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: 6px;
+}
+
+.facet__swatch-count {
+  color: var(--color-foreground-muted);
+  font-size: 0.6875rem;
+}
+
+.facet__swatch-value--empty {
+  cursor: not-allowed;
+}
+
+.facet__swatch-value--empty > :not(input) {
+  opacity: 0.45;
+}
+
 .pagination {
   display: flex;
   flex-wrap: wrap;
