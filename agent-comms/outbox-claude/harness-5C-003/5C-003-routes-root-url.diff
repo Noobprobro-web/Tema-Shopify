@@ -1,0 +1,22 @@
+--- a/snippets/mega-menu.liquid
++++ b/snippets/mega-menu.liquid
+@@ -130,7 +130,7 @@
+                   assign first_char = card_link | slice: 0, 1
+                   assign second_char = card_link | slice: 1, 1
+                   if first_char == '/' and second_char != '/'
+-                    assign locale_root = request.locale.root_url
++                    assign locale_root = routes.root_url
+                     if locale_root != '/' and locale_root != blank
+                       assign locale_prefix_check = locale_root | append: '/'
+                       assign starts_with_prefix = card_link | slice: 0, locale_prefix_check.size
+--- a/sections/announcement-bar.liquid
++++ b/sections/announcement-bar.liquid
+@@ -56,7 +56,7 @@
+                 assign first_char = announcement_link | slice: 0, 1
+                 assign second_char = announcement_link | slice: 1, 1
+                 if first_char == '/' and second_char != '/'
+-                  assign locale_root = request.locale.root_url
++                  assign locale_root = routes.root_url
+                   if locale_root != '/' and locale_root != blank
+                     assign locale_prefix_check = locale_root | append: '/'
+                     assign starts_with_prefix = announcement_link | slice: 0, locale_prefix_check.size
