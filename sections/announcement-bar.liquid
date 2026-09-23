@@ -44,9 +44,6 @@
           >
             {%- liquid
               assign item_text = block.settings.text
-              if request.locale.iso_code == 'es' and item_text == 'Complimentary shipping on orders over $150'
-                assign item_text = 'Envío de cortesía en pedidos superiores a $150'
-              endif
               assign announcement_link = block.settings.link
               if announcement_link == '/collections/all'
                 assign announcement_link = routes.all_products_collection_url

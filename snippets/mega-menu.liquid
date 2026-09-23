@@ -106,20 +106,6 @@
                 assign card_subheading = promo.settings[subheading_key]
                 assign card_link = promo.settings[link_key]
 
-                # Fallback bilingue para fixtures de demo en espanol cuando no hay traduccion en settings
-                if request.locale.iso_code == 'es'
-                  if card_heading == 'New Arrivals'
-                    assign card_heading = 'Novedades'
-                  elsif card_heading == 'Capsule Wardrobe'
-                    assign card_heading = 'Armario cápsula'
-                  endif
-                  if card_subheading == 'Explore the autumn edit'
-                    assign card_subheading = 'Explora la selección de otoño'
-                  elsif card_subheading == 'Pieces made in small series'
-                    assign card_subheading = 'Piezas hechas en series cortas'
-                  endif
-                endif
-
                 # P1: Localizar URL de tarjeta para preservar el locale en /es/ y mercados
                 assign localized_card_link = card_link
                 if card_link == '/collections/all'
