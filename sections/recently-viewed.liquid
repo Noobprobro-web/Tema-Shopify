@@ -1,9 +1,18 @@
 {%- liquid
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign eyebrow = section.settings.eyebrow
   assign heading = section.settings.heading
   if heading == blank
     assign heading = 'sections.recently_viewed.heading' | t
+  endif
+  if request.locale.iso_code == 'es'
+    if eyebrow == 'Recently viewed'
+      assign eyebrow = 'Vistos recientemente'
+    endif
+    if heading == 'Pieces you considered'
+      assign heading = 'Piezas que has explorado'
+    endif
   endif
 -%}
 
@@ -22,8 +31,8 @@
   <section class="section recently-viewed__content" aria-labelledby="RecentlyViewedTitle-{{ section.id }}">
     <div class="container flow">
       <header class="recently-viewed__header">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- if eyebrow != blank -%}
+          <p class="eyebrow">{{ eyebrow | escape }}</p>
         {%- endif -%}
         <h2 id="RecentlyViewedTitle-{{ section.id }}">{{ heading | escape }}</h2>
       </header>

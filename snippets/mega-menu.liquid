@@ -106,6 +106,41 @@
                 assign card_subheading = promo.settings[subheading_key]
                 assign card_link = promo.settings[link_key]
 
+                # Fallback bilingue para fixtures de demo en espanol cuando no hay traduccion en settings
+                if request.locale.iso_code == 'es'
+                  if card_heading == 'New Arrivals'
+                    assign card_heading = 'Novedades'
+                  elsif card_heading == 'Capsule Wardrobe'
+                    assign card_heading = 'Armario cápsula'
+                  endif
+                  if card_subheading == 'Explore the autumn edit'
+                    assign card_subheading = 'Explora la selección de otoño'
+                  elsif card_subheading == 'Pieces made in small series'
+                    assign card_subheading = 'Piezas hechas en series cortas'
+                  endif
+                endif
+
+                # P1: Localizar URL de tarjeta para preservar el locale en /es/ y mercados
+                assign localized_card_link = card_link
+                if card_link == '/collections/all'
+                  assign localized_card_link = routes.all_products_collection_url
+                elsif card_link == '/'
+                  assign localized_card_link = routes.root_url
+                elsif card_link != blank
+                  assign first_char = card_link | slice: 0, 1
+                  assign second_char = card_link | slice: 1, 1
+                  if first_char == '/' and second_char != '/'
+                    assign locale_root = request.locale.root_url
+                    if locale_root != '/' and locale_root != blank
+                      assign locale_prefix_check = locale_root | append: '/'
+                      assign starts_with_prefix = card_link | slice: 0, locale_prefix_check.size
+                      if starts_with_prefix != locale_prefix_check and card_link != locale_root
+                        assign localized_card_link = locale_root | append: card_link
+                      endif
+                    endif
+                  endif
+                endif
+
                 # Con titulo, la foto acompana al texto del enlace y su alt iria repetido: va
                 # vacio. Sin titulo, la foto es el nombre del enlace: su alt o el del menu.
                 assign card_alt = ''
@@ -146,8 +181,8 @@
                   {%- endif -%}
                 {%- endcapture -%}
                 <li class="mega-menu__promo">
-                  {%- if card_link != blank -%}
-                    <a class="mega-menu__promo-card" href="{{ card_link }}">{{ card_inner }}</a>
+                  {%- if localized_card_link != blank -%}
+                    <a class="mega-menu__promo-card" href="{{ localized_card_link | escape }}">{{ card_inner }}</a>
                   {%- else -%}
                     <div class="mega-menu__promo-card">{{ card_inner }}</div>
                   {%- endif -%}

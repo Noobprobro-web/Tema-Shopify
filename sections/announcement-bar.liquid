@@ -42,12 +42,37 @@
             {% if announcement_index > 0 %}hidden aria-hidden="true"{% else %}aria-hidden="false"{% endif %}
             {{ block.shopify_attributes }}
           >
-            {%- if block.settings.link != blank -%}
-              <a class="announcement-bar__link" href="{{ block.settings.link }}">
-                {{- block.settings.text | escape -}}
+            {%- liquid
+              assign item_text = block.settings.text
+              if request.locale.iso_code == 'es' and item_text == 'Complimentary shipping on orders over $150'
+                assign item_text = 'Envío de cortesía en pedidos superiores a $150'
+              endif
+              assign announcement_link = block.settings.link
+              if announcement_link == '/collections/all'
+                assign announcement_link = routes.all_products_collection_url
+              elsif announcement_link == '/'
+                assign announcement_link = routes.root_url
+              elsif announcement_link != blank
+                assign first_char = announcement_link | slice: 0, 1
+                assign second_char = announcement_link | slice: 1, 1
+                if first_char == '/' and second_char != '/'
+                  assign locale_root = request.locale.root_url
+                  if locale_root != '/' and locale_root != blank
+                    assign locale_prefix_check = locale_root | append: '/'
+                    assign starts_with_prefix = announcement_link | slice: 0, locale_prefix_check.size
+                    if starts_with_prefix != locale_prefix_check and announcement_link != locale_root
+                      assign announcement_link = locale_root | append: announcement_link
+                    endif
+                  endif
+                endif
+              endif
+            -%}
+            {%- if announcement_link != blank -%}
+              <a class="announcement-bar__link" href="{{ announcement_link | escape }}">
+                {{- item_text | escape -}}
               </a>
             {%- else -%}
-              <span class="announcement-bar__text">{{ block.settings.text | escape }}</span>
+              <span class="announcement-bar__text">{{ item_text | escape }}</span>
             {%- endif -%}
           </p>
           {%- assign announcement_index = announcement_index | plus: 1 -%}
