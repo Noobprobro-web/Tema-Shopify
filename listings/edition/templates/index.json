@@ -9,6 +9,7 @@
         "height_desktop": 75,
         "height_mobile": 65,
         "media_type": "image",
+        "image_desktop": "shopify://shop_images/capsule-look-01.jpg",
         "overlay_style": "none",
         "overlay_opacity": 0,
         "content_position_x": "start",
@@ -43,10 +44,10 @@
     "discovery": {
       "type": "bento-discovery",
       "blocks": {
-        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all" } },
+        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
         "product1": { "type": "card_product", "settings": {} },
         "product2": { "type": "card_product", "settings": {} },
-        "story": { "type": "card_editorial", "settings": { "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>" } }
+        "story": { "type": "card_editorial", "settings": { "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } }
       },
       "block_order": ["collection", "product1", "product2", "story"],
       "settings": {
@@ -69,6 +70,7 @@
         "heading": "Build the working set",
         "description": "<p>Select the objects you need and add them together.</p>",
         "caption": "A modular arrangement for daily work.",
+        "image_desktop": "shopify://shop_images/lookbook-scene-01.jpg",
         "color_scheme": "scheme-1"
       }
     },
@@ -84,6 +86,7 @@
         "quote": "Remove until only the useful form remains.",
         "body": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
         "media_label": "",
+        "image": "shopify://shop_images/manifesto-01.jpg",
         "use_surface_background": false,
         "color_scheme": "scheme-4"
       }
