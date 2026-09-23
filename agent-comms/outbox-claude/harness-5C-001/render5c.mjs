@@ -16,6 +16,13 @@ import { Liquid, Tag, Value } from 'liquidjs';
 // Por defecto, la raiz del tema es tres niveles arriba de esta carpeta (agent-comms/outbox-claude/harness-5C-001).
 const ROOT = process.env.THEME_ROOT || path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const OUT = path.resolve(process.env.OUT_DIR || 'site');
+// 5C-003: ROOT_URL=/es (o /en-ca) pinta las rutas de Shopify con el prefijo de idioma o mercado,
+// como hace la tienda: routes.root_url = '/es' y el resto de rutas con '/es' delante.
+const ROOT_URL = process.env.ROOT_URL || '/';
+// request.locale.root_url: por defecto igual que routes.root_url; LOCALE_ROOT_URL permite simular un
+// mercado en subcarpeta donde el locale no lleve el prefijo del mercado (no verificado en Shopify).
+const LOCALE_ROOT_URL = process.env.LOCALE_ROOT_URL || ROOT_URL;
+const localized = (routes) => (ROOT_URL === '/' ? routes : Object.fromEntries(Object.entries(routes).map(([k, v]) => [k, k === 'root_url' ? ROOT_URL : ROOT_URL + v])));
 fs.mkdirSync(OUT, { recursive: true });
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const locales = JSON.parse(read(process.env.LOCALE_FILE || 'locales/en.default.json'));
@@ -122,7 +129,7 @@ async function renderSection(type, id, conf, ctxExtra) {
 const styleBlock = read('layout/theme.liquid').split('{% style %}')[1].split('{% endstyle %}')[0];
 async function page(file, { title, main, cart, template = 'index', product = null, pageObj = null, extraBody = '', globals = {}, hgOverride = null, drawerConf = null }) {
   const hg = hgOverride || JSON.parse(read('sections/header-group.json'));
-  const base = { shop: { name: 'LINEA NOVE', currency: 'USD', customer_accounts_enabled: true, money_format: '${{amount}}' }, routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', search_url: '/search', predictive_search_url: '/search/suggest', all_products_collection_url: '/collections/all', product_recommendations_url: '/recommendations/products' }, request: { page_type: template, locale: { iso_code: process.env.LOCALE_ISO || 'en', direction: 'ltr' }, design_mode: false }, template: { name: template }, localization: { available_countries: [{}], available_languages: [{}], country: { currency: { iso_code: 'USD' } } }, cart, search: { terms: '' }, product, page: pageObj, additional_checkout_buttons: true, content_for_additional_checkout_buttons: WALLETS, linklists, ...globals };
+  const base = { shop: { name: 'LINEA NOVE', currency: 'USD', customer_accounts_enabled: true, money_format: '${{amount}}' }, routes: localized({ root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', search_url: '/search', predictive_search_url: '/search/suggest', all_products_collection_url: '/collections/all', product_recommendations_url: '/recommendations/products' }), request: { page_type: template, locale: { iso_code: process.env.LOCALE_ISO || 'en', direction: 'ltr', root_url: LOCALE_ROOT_URL }, design_mode: false }, template: { name: template }, localization: { available_countries: [{}], available_languages: [{}], country: { currency: { iso_code: 'USD' } } }, cart, search: { terms: '' }, product, page: pageObj, additional_checkout_buttons: true, content_for_additional_checkout_buttons: WALLETS, linklists, ...globals };
   for (const k of Object.keys(GLOBALS)) delete GLOBALS[k];
   Object.assign(GLOBALS, base, { settings });
   let headerGroup = '';
@@ -223,7 +230,7 @@ await page('collection.html', { title: 'Collection 5A', template: 'collection', 
 {
   const responses = {};
   const lineFor = (p, v) => ({ key: `${v.id}:k`, id: v.id, variant_id: v.id, index: 0, quantity: 1, title: `${p.title} - ${v.title}`, product_title: p.title, variant_title: v.title, url: `${p.url}?variant=${v.id}`, image: p.media[0] || null, final_price: v.price, final_line_price: v.price, original_price: v.price, original_line_price: v.price, line_level_discount_allocations: [], properties: {}, selling_plan_allocation: null, product: p, variant: { ...v, quantity_rule: { min: 1, max: null, increment: 1 }, unit_price_measurement: null }, options_with_values: p.has_only_default_variant ? [] : p.options.map((name, i) => ({ name, value: v.options[i] })), unit_price_measurement: null, discounts: [] });
-  const base = { shop: { name: 'LINEA NOVE', currency: 'USD', money_format: '${{amount}}' }, routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', all_products_collection_url: '/collections/all' }, request: { page_type: 'collection', locale: { iso_code: process.env.LOCALE_ISO || 'en', direction: 'ltr' } }, template: { name: 'collection' }, additional_checkout_buttons: true, content_for_additional_checkout_buttons: WALLETS, linklists };
+  const base = { shop: { name: 'LINEA NOVE', currency: 'USD', money_format: '${{amount}}' }, routes: localized({ root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', all_products_collection_url: '/collections/all' }), request: { page_type: 'collection', locale: { iso_code: process.env.LOCALE_ISO || 'en', direction: 'ltr', root_url: LOCALE_ROOT_URL } }, template: { name: 'collection' }, additional_checkout_buttons: true, content_for_additional_checkout_buttons: WALLETS, linklists };
   for (const p of products) {
     for (const v of p.variants) {
       const cart = { ...emptyCart, item_count: 1, 'empty?': false, empty: false, total_price: v.price, items: [lineFor(p, v)] };
@@ -295,6 +302,16 @@ await page('mega-noblocks.html', { title: 'Mega menu without blocks', template: 
 // Cabecera por defecto (main-menu de dos niveles) sin bloques: el panel clasico de siempre. Los
 // bloques se vacian a proposito: desde d5a7d62 header-group.json trae uno para Catalog.
 await page('classic.html', { title: 'Classic header', template: 'index', cart: cart5c, main: [], extraBody: body5c, hgOverride: hgWith(baseHg.sections.header.settings.menu, {}) });
+// 5C-003: la cabecera tal cual se desplego (header-group.json del repositorio, con el bloque de
+// Catalog y sus dos enlaces "/collections/all") y un menu con seis enlaces de tarjeta: interno,
+// /collections/all, externo con &, protocolo relativo, ya localizado y uno que empieza por /es sin
+// serlo. Con ROOT_URL=/es o /en-ca se comprueba que solo se prefijan las rutas internas.
+await page('deployed.html', { title: 'Deployed header', template: 'index', cart: cart5c, main: [], extraBody: body5c });
+await page('mega-links.html', { title: 'Mega menu card links', template: 'index', cart: cart5c, main: [], extraBody: body5c, hgOverride: hgWith('mega-menu', {
+  links_catalog: { type: 'mega_menu_promo', settings: { menu_item: 'Catalog', heading_1: 'All pieces', link_1: '/collections/all', heading_2: 'Appointments', link_2: '/pages/appointments' } },
+  links_journal: { type: 'mega_menu_promo', settings: { menu_item: 'Journal', heading_1: 'External lookbook', link_1: 'https://example.com/lookbook?a=1&b=2', heading_2: 'Protocol relative', link_2: '//cdn.example.com/look' } },
+  links_atelier: { type: 'mega_menu_promo', settings: { menu_item: 'Atelier', heading_1: 'Already localized', link_1: '/es/pages/about', heading_2: 'Starts like es', link_2: '/eshop' } },
+}) });
 // 5C-002: mega menu con una tarjeta apaisada, como hero-campaign-01 en la tienda.
 await page('mega-landscape.html', { title: 'Mega menu landscape card', template: 'index', cart: cart5c, main: [], extraBody: body5c, hgOverride: hgWith('mega-menu', { promo_catalog: { type: 'mega_menu_promo', settings: { ...promoBlocks.promo_catalog.settings, image_1: 'promo-l.png' } }, promo_atelier: promoBlocks.promo_atelier }) });
 console.log('OK 5C-001 pages');
