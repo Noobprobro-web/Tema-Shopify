@@ -41,6 +41,30 @@ const state = (page) => page.evaluate(async () => {
 const highResRequests = (urls) => urls.map((u) => u.match(HIGH_RES)).filter((m) => m && Number(m[2]) >= 1600).map((m) => `${m[1]}@${m[2]}`);
 
 test.describe(`5B-001 zoom (${SITE})`, () => {
+  // 5C-002. <product-zoom> dentro de .product-main__layout era un hijo mas de la rejilla: ocupaba
+  // la segunda columna y la ficha (precio, compra) caia debajo de la galeria en escritorio.
+  test('Z0 1280 y 390: el visor no ocupa sitio en la rejilla; la ficha sigue a la derecha de la galeria', async ({ page }) => {
+    for (const file of ['pdp-zoom.html', 'pdp-zoom-off.html']) {
+      await go(page, file);
+      const r = await page.evaluate(() => {
+        const g = document.querySelector('product-gallery').getBoundingClientRect();
+        const d = document.querySelector('.product-main__details').getBoundingClientRect();
+        return { galleryRight: g.right, galleryTop: g.top, detailsLeft: d.left, detailsTop: d.top, gridChildren: [...document.querySelector('.product-main__layout').children].map((c) => c.tagName.toLowerCase()) };
+      });
+      expect(r.gridChildren).not.toContain('product-zoom');
+      expect(r.detailsLeft).toBeGreaterThan(r.galleryRight);
+      expect(Math.abs(r.detailsTop - r.galleryTop)).toBeLessThanOrEqual(1);
+    }
+    await go(page, 'pdp-zoom.html', 390, 844);
+    const gap = await page.evaluate(() => {
+      const g = document.querySelector('product-gallery').getBoundingClientRect();
+      const d = document.querySelector('.product-main__details').getBoundingClientRect();
+      return Math.round(d.top - g.bottom);
+    });
+    const gapOff = await (async () => { await go(page, 'pdp-zoom-off.html', 390, 844); return page.evaluate(() => Math.round(document.querySelector('.product-main__details').getBoundingClientRect().top - document.querySelector('product-gallery').getBoundingClientRect().bottom)); })();
+    expect(gap).toBe(gapOff);
+  });
+
   test('Z1 cero peticiones de alta resolucion antes de abrir; al abrir, la actual (high) y sus vecinas', async ({ page }) => {
     const urls = [];
     page.on('request', (request) => urls.push(request.url()));

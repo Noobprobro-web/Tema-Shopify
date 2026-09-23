@@ -166,10 +166,6 @@
       {%- endif -%}
     </product-gallery>
 
-    {%- if zoom_enabled -%}
-      {% render 'product-zoom', product: product, images: zoom_images %}
-    {%- endif -%}
-
     {%- if product_models.size > 0 -%}
       <script type="application/json" id="ProductModelJSON-{{ section.id }}">
         {{- product_models | json -}}
@@ -741,6 +737,14 @@
       </script>
     </variant-selects>
   </div>
+
+  {%- comment -%}
+    5C-002. El visor va fuera de .product-main__layout: dentro era un hijo mas de la rejilla,
+    ocupaba la segunda columna con alto 0 y mandaba la ficha debajo de la galeria.
+  {%- endcomment -%}
+  {%- if zoom_enabled -%}
+    {% render 'product-zoom', product: product, images: zoom_images %}
+  {%- endif -%}
 
   {%- if section.settings.enable_sticky_cart -%}
     {%- liquid

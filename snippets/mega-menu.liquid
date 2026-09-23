@@ -112,6 +112,15 @@
                 if card_heading == blank
                   assign card_alt = card_image.alt | default: link.title
                 endif
+
+                # 5C-002. La caja es 4:5 y la foto la cubre: una apaisada se pinta mas ancha que la
+                # tarjeta (1376 x 768 ocupa 2,24 veces sus 15rem). sizes declara ese ancho pintado
+                # para que el navegador no elija una copia pequena y la estire.
+                assign card_rem = 15
+                if card_image.aspect_ratio > 0.8
+                  assign card_rem = card_image.aspect_ratio | times: 18.75 | round: 2
+                endif
+                assign card_sizes = '(min-width: 62rem) ' | append: card_rem | append: 'rem, 100vw'
               -%}
               {%- if card_image != blank or card_heading != blank -%}
                 {%- capture card_inner -%}
@@ -119,12 +128,12 @@
                     <span class="mega-menu__promo-media">
                       {{-
                         card_image
-                        | image_url: width: 800
+                        | image_url: width: 1100
                         | image_tag:
                           class: 'mega-menu__promo-image',
                           loading: 'lazy',
-                          widths: '240, 320, 400, 560, 800',
-                          sizes: '(min-width: 62rem) 15rem, 100vw',
+                          widths: '240, 320, 400, 560, 800, 1100',
+                          sizes: card_sizes,
                           alt: card_alt
                       -}}
                     </span>

@@ -6,7 +6,7 @@ const DIR = process.env.HARNESS_DIR || path.dirname(fileURLToPath(import.meta.ur
 
 export default {
   testDir: DIR,
-  testMatch: 'mega5c.spec.mjs',
+  testMatch: process.env.SPEC || 'mega5c.spec.mjs',
   outputDir: process.env.PW_OUTPUT || path.join(os.tmpdir(), 'pw-5c-results'),
   fullyParallel: false,
   workers: 1,
