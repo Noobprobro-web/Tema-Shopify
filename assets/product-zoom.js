@@ -1,4 +1,4 @@
-/* 5B-001. Zoom de la ficha: <dialog>, Pointer Events y teclado. Sin globales. */
+/* 5B-001. Zoom de la ficha: <dialog>, Pointer Events y teclado. */
 if (window.ThemeCore && !customElements.get('product-zoom')) customElements.define('product-zoom', class extends window.ThemeCore.ThemeElement {
   clamp = (value, min, max) => Math.min(Math.max(value, min), max);
   pointers = new Map();
@@ -29,7 +29,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     let frame = 0;
     on(this.track, 'scroll', () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => this.select(this.indexFromScroll()));
+      frame = requestAnimationFrame(() => this.select(this.clamp(Math.round(Math.abs(this.track.scrollLeft) / (this.track.clientWidth || 1)), 0, this.slides.length - 1)));
     });
     ['down', 'move', 'up', 'cancel'].forEach((type) => on(this.track, `pointer${type}`, (event) => this.handlePointer(event)));
     // Dos dedos a 1x: si no, el navegador lo toma como pan-x.
@@ -40,7 +40,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
   }
 
   disconnectedCallback() {
-    if (this.dialog?.open) this.dialog.close();
+    this.dialog?.close();
     super.disconnectedCallback();
   }
 
@@ -68,7 +68,6 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.opener?.focus();
   }
 
-  // 1x: cabe en la ventana sin pasar del tamano natural.
   layout() {
     const { clientWidth: width, clientHeight: height } = this.track;
     this.fits = this.slides.map((slide) => {
@@ -91,16 +90,12 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     return index * this.track.clientWidth * (this.rtl ? -1 : 1);
   }
 
-  indexFromScroll() {
-    return this.clamp(Math.round(Math.abs(this.track.scrollLeft) / (this.track.clientWidth || 1)), 0, this.slides.length - 1);
-  }
-
   goTo(index, smooth = true) {
     const target = this.clamp(index, 0, this.slides.length - 1);
     const left = this.offsetOf(target);
     this.scrollTarget = Math.abs(this.track.scrollLeft - left) > 1 ? target : null;
-    const still = !smooth || matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.track.scrollTo({ left, behavior: still ? 'auto' : 'smooth' });
+    const smoothly = smooth && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.track.scrollTo({ left, behavior: smoothly ? 'smooth' : 'auto' });
     this.select(target, true);
   }
 
@@ -114,15 +109,12 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.index = index;
     this.fit = this.fits[index];
     [index, index - 1, index + 1].forEach((slide, order) => this.load(slide, !order));
-    this.steps.forEach((step) => {
-      step.disabled = !this.slides[index + Number(step.dataset.zoomStep)];
-    });
+    this.set(this.steps.map((step) => [step, !this.slides[index + Number(step.dataset.zoomStep)]]), this.steps);
     this.counter.textContent = `${index + 1} / ${this.slides.length}`;
     this.apply();
     this.announce();
   }
 
-  // Marcador: la foto que ya pinto la galeria; luego, el srcset grande.
   load(index, priority) {
     const slide = this.slides[index];
     const img = slide?.querySelector('img');
@@ -157,16 +149,22 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     fit.img.style.transform = scale > 1 ? `translate3d(${this.x}px, ${this.y}px, 0) scale(${scale})` : '';
     dialog.toggleAttribute('data-zoomable', fit.max >= 1.25);
     dialog.toggleAttribute('data-zoomed', scale > 1);
-    this.inButton.disabled = fit.max < 1.25 || scale >= fit.max - 0.01;
-    this.outButton.disabled = scale <= 1;
-    this.resetButton.hidden = scale <= 1;
-    const active = document.activeElement;
-    if (dialog.contains(active) && (active.disabled || active.hidden)) {
-      [this.inButton, this.outButton, ...this.steps, this.closeButton].find((button) => !button.disabled && !button.hidden)?.focus();
-    }
+    this.set([[this.inButton, fit.max < 1.25 || scale >= fit.max - 0.01], [this.outButton, scale <= 1], [this.resetButton, scale <= 1]]);
   }
 
-  // (pointX, pointY): punto fijo, relativo al centro de la pista.
+  // F01: Chromium deja el foco en body si el boton enfocado se oculta o se desactiva; antes
+  // pasa al primer control que sigue activo (Alejar antes que Cerrar).
+  set(states, prefer = []) {
+    const next = new Map(states);
+    const move = () => [...prefer, this.inButton, this.outButton, ...this.steps, this.closeButton]
+      .find((button) => !(next.has(button) ? next.get(button) : button.disabled || button.hidden))?.focus();
+    if (next.get(document.activeElement)) move();
+    next.forEach((off, button) => {
+      button[button === this.resetButton ? 'hidden' : 'disabled'] = off;
+    });
+    if (this.dialog.open && !this.dialog.contains(document.activeElement)) move();
+  }
+
   zoomTo(next, pointX = 0, pointY = 0) {
     const { fit } = this;
     if (!fit || fit.max < 1.25) return;
@@ -176,7 +174,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.x = pointX - (pointX - this.x) * ratio;
     this.y = pointY - (pointY - this.y) * ratio;
     this.scale = scale;
-    // Primer zoom: sizes al ancho ampliado; el srcset sube de candidato.
+    // Primer zoom: sizes al ancho ampliado.
     if (scale > 1 && fit.img.sizes === '100vw') fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
     this.apply();
     if (Math.abs(ratio - 1) > 0.001 && !this.pinch) this.announce();
@@ -207,7 +205,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
       if (b) this.pinch = { gap: gap(a, b) || 1, scale: this.scale, x: this.x, y: this.y, mid: mid(a, b) };
       if (this.scale > 1 || this.pinch) {
         this.dialog.setAttribute('data-gesture', '');
-        this.track.setPointerCapture?.(id);
+        this.track.setPointerCapture(id);
       }
     } else if (type === 'pointermove') {
       if (!pointers.has(id)) {
@@ -217,7 +215,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
       pointers.set(id, event);
       const [a, b] = pointers.values();
       if (pinch && b) {
-        // Desde el inicio del pellizco: la foto sigue al punto medio de los dedos.
+        // Pellizco absoluto: la foto sigue al punto medio.
         const [pointX, pointY] = mid(a, b);
         this.scale = pinch.scale;
         this.x = pinch.x + pointX - pinch.mid[0];
@@ -241,8 +239,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     }
   }
 
-  // Clic o doble toque (< 300 ms, < 24 px) en la foto alterna; fuera, a 1x, cierra.
-  // target: el del pointerdown (con captura, el pointerup llega a la pista).
+  // target es el del pointerdown: con captura, el pointerup llega a la pista.
   tap(event, target) {
     const onImage = target === this.fit.img;
     const toggle = () => this.zoomTo(this.scale > 1 ? 1 : 3, ...this.point(event));
@@ -280,7 +277,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
   }
 
   announce() {
-    this.output.textContent = (this.dataset.statusTemplate || '')
+    this.output.textContent = this.dataset.statusTemplate
       .replace('[index]', this.index + 1)
       .replace('[total]', this.slides.length)
       .replace('[zoom]', Math.round(this.scale * 100));

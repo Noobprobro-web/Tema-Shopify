@@ -4,17 +4,17 @@
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
-Última actualización: 2026-09-22
-Estado general: SPRINT 5B IMPLEMENTADO Y AUDITADO POR GEMINI (GEMINI-review-CLAUDE-5B-001) -> DESPLIEGUE A TIENDA VIVA Y AUDITORÍA ADVERSARIAL DE PRODUCTO POR GPT-6 SOL MAX
-Próximo hito: Despliegue live del tema Couture (#165809488115), validación en tienda real y dictamen adversarial de GPT-6 Sol Max
+Última actualización: 2026-09-23
+Estado general: HOTFIX F01 SPRINT 5B COMPLETADO Y APROBADO (GEMINI-review-CLAUDE-5B-002) -> DESPLIEGUE A TIENDA VIVA Y CERTIFICACIÓN FINAL POR GPT-6 SOL MAX
+Próximo hito: Despliegue live del tema Couture (#165809488115), verificación en tienda real y certificación final de Sprint 5B por GPT-6 Sol Max
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT 5B - LUXURY PDP MEDIA & ACCESSIBLE ZOOM (Completado en Código)
+## 1. Sprint Activo: SPRINT 5B - LUXURY PDP MEDIA & ACCESSIBLE ZOOM (Hotfix F01 Aplicado)
 
-**Meta del Sprint:** Conforme a `GPT-AUDIT-003`, `CLAUDE-AUDIT-OPUS-001` y el dictamen de avance de `GPT-AUDIT-006`, implementar la experiencia multimedia inmersiva de ficha de producto (PDP) propia de un tema de lujo ($380 USD):
-1. **Web Component `<product-zoom>` en `assets/product-zoom.js`:** Carga bajo demanda (`defer`) exclusiva en PDP (`main-product.liquid`) cuando el ajuste `enable_media_zoom` está activo (0 KB de impacto en el resto de páginas). 11.970 bytes (3.877 bytes gzipped).
+**Meta del Sprint:** Conforme a `GPT-AUDIT-003`, `CLAUDE-AUDIT-OPUS-001`, `GPT-AUDIT-006` y `GPT-AUDIT-007`, implementar la experiencia multimedia inmersiva de ficha de producto (PDP) propia de un tema de lujo ($380 USD):
+1. **Web Component `<product-zoom>` en `assets/product-zoom.js`:** Carga bajo demanda (`defer`) exclusiva en PDP (`main-product.liquid`) cuando el ajuste `enable_media_zoom` está activo (0 KB de impacto en el resto de páginas). 11.945 bytes (3.850 bytes gzipped).
 2. **Visor Modal Nativo con `<dialog>` y Pointer Events:**
    - Cero librerías externas.
    - Modo 1x y modo zoom máximo limitado por la resolución real de la fotografía: `min(3, naturalWidth / renderedWidth)`.
@@ -22,9 +22,13 @@ Próximo hito: Despliegue live del tema Couture (#165809488115), validación en 
    - Soporte ratón: clic para alternar y modo "seguir cursor" para inspección de tejido.
    - Navegación por teclado completa (`+`, `-`, `0`, flechas, Home, End, Tab confinado y Escape con restauración de foco al disparador exacto).
    - Modo de movimiento reducido respetado (`prefers-reduced-motion: reduce`).
-3. **Carga Inteligente de Medios (Zero LCP Penalty):** Marcador transparente en línea; imágenes maestras de alta resolución cargadas de forma perezosa (`data-srcset`) únicamente al abrir el diálogo modal con `fetchpriority="high"` en la foto activa y sus vecinas.
-4. **Optimizaciones de Galería PDP:**
-   - H-07: Ajuste de `sizes` en `snippets/product-media.liquid` y `sections/main-product.liquid` a `(min-width: 62rem) 30vw, 100vw` para evitar sobre-descarga en rejilla de 2 columnas de escritorio.
+3. **Hotfix F01 y Blindaje de Foco Modal (Sprint 5B-002):**
+   - Transición proactiva de foco antes de ocultar o deshabilitar controles (`assets/product-zoom.js:155-166`).
+   - Cobertura de las 6 rutas críticas: Reset zoom -> Acercar; Acercar al máximo -> Alejar; Alejar a 1x -> Acercar; Siguiente en 4/4 -> Anterior; Anterior en 1/4 -> Siguiente; y salvaguarda general ante cualquier blur externo.
+   - Cero fugas de foco a `BODY` mientras el visor permanece abierto.
+4. **Carga Inteligente de Medios (Zero LCP Penalty):** Marcador transparente en línea; imágenes maestras de alta resolución cargadas de forma perezosa (`data-srcset`) únicamente al abrir el diálogo modal con `fetchpriority="high"` en la foto activa y sus vecinas.
+5. **Optimizaciones de Galería PDP:**
+   - H-07: Ajuste de `sizes` en `snippets/product-media.liquid` y `sections/main-product.liquid` a `(min-width: 62rem) 30vw, 100vw` en rejilla de 2 columnas de escritorio.
    - H-13: Pausa automática de `<video>` y envío de `postMessage` a YouTube (`pauseVideo`) y Vimeo (`pause`) al cambiar de diapositiva o deslizar carrusel móvil.
    - H-19: Texto alternativo secuencial descriptivo (`snippets/media-alt.liquid`) cuando el catálogo no provea alt individual ("{{ title }} – Image {{ n }} of {{ total }}").
 
@@ -35,13 +39,13 @@ Próximo hito: Despliegue live del tema Couture (#165809488115), validación en 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Agregar filtro "Color" en Search & Discovery. 2) Opcional: activar Gift Cards en Admin. 3) Fotografía de catálogo >= 3000 px para demo de Theme Store. | 🟢 Activo | Configuración de tienda |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Entrega de Sprint 5B completada (`CLAUDE-REPORT-5B-001.md`, arnés 16/16 superado). | 🟢 Completado | Standby para feedback de auditoría |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictamen formal emitido (`GEMINI-review-CLAUDE-5B-001.md`), compuertas estáticas verificadas, commit y despliegue a tienda viva. | 🟢 Activo | Commit, push, deploy y directiva GPT-6 |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Auditoría adversarial de producto, UX, interacción gestual en PDP y riesgos comerciales de Sprint 5B. | 🔵 Próximo | `agent-comms/outbox-gpt/GPT-AUDIT-007-sprint-5b.md` |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Hotfix F01 entregado con éxito (`CLAUDE-REPORT-5B-002.md`, arnés 25/25). | 🟢 Completado | Standby para feedback final |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictamen formal emitido (`GEMINI-review-CLAUDE-5B-002.md`), compuertas estáticas verificadas, commit y despliegue a tienda viva. | 🟢 Activo | Commit, push, deploy y re-evaluación live |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Verificación de remediación de F01 en tienda real y certificación final de cierre de Sprint 5B. | 🔵 Próximo | `agent-comms/outbox-gpt/GPT-AUDIT-008-sprint-5b-certification.md` |
 
 ---
 
-## 3. Estado de Calidad y Compuertas Estáticas (Sprint 5B)
+## 3. Estado de Calidad y Compuertas Estáticas (Sprint 5B-002)
 
 | Compuerta | Herramienta / Verificación | Resultado | Estado |
 |---|---|:---:|:---:|
@@ -52,7 +56,7 @@ Próximo hito: Despliegue live del tema Couture (#165809488115), validación en 
 | **Sintaxis JavaScript** | `node --check assets/*.js` | `theme.js` y `product-zoom.js` limpios | 🟢 SUPERADO |
 | **Empaquetado** | `shopify theme package` | `Sartorial-1.0.0.zip` (98 archivos de tema) | 🟢 SUPERADO |
 | **Ledger Estructural** | `scripts/ledger-verify.mjs` | 54 filas, 0 incoherencias, 0 errores | 🟢 SUPERADO |
-| **Arnés 5B Automatizado** | `harness-5B-001/` (Liquid real + Chromium) | 16/16 tests en inglés y 16/16 en español | 🟢 SUPERADO |
+| **Arnés 5B Automatizado** | `harness-5B-001/` (Liquid real + Chromium) | **25/25 tests en inglés y 25/25 en español** | 🟢 SUPERADO |
 
 ---
 

@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
    product-zoom.js y base.css reales. SITE=site (ingles), site-es (espanol) o site-before
    (arbol previo, para ver que las pruebas detectan la ausencia del zoom y los defectos). */
 const SITE = process.env.SITE || 'site';
-const ES = SITE === 'site-es';
+const ES = SITE.endsWith('-es');
 const L = ES
   ? { status: (i, t, z) => `Imagen ${i} de ${t}, zoom ${z} %`, image: (i, t) => `Imagen ${i} de ${t}`, open: (i, t) => `Ampliar imagen ${i} de ${t}` }
   : { status: (i, t, z) => `Image ${i} of ${t}, zoom ${z}%`, image: (i, t) => `Image ${i} of ${t}`, open: (i, t) => `Zoom image ${i} of ${t}` };
@@ -179,6 +179,106 @@ test.describe(`5B-001 zoom (${SITE})`, () => {
     expect(after.index).toBe(0);
     expect(after.x).toBeLessThan(before.x);
     expect(after.y).toBeLessThan(before.y);
+  });
+
+  // 5B-002, F01 (GPT-AUDIT-007). Un boton enfocado que se oculta o se desactiva deja el foco en
+  // body si nadie lo mueve antes. focusout con relatedTarget fuera del dialogo abierto = foco perdido,
+  // aunque un arreglo posterior lo devuelva dentro en la misma tarea.
+  const watchFocus = (page) => page.evaluate(() => {
+    window.__lost = [];
+    const zoomDialog = document.querySelector('dialog.product-zoom');
+    zoomDialog.addEventListener('focusout', (event) => {
+      if (zoomDialog.open && !zoomDialog.contains(event.relatedTarget)) {
+        window.__lost.push(event.target.getAttribute('aria-label') || event.target.textContent.trim());
+      }
+    });
+  });
+  const focusState = (page) => page.evaluate(() => {
+    const zoomDialog = document.querySelector('dialog.product-zoom');
+    const active = document.activeElement;
+    return {
+      open: zoomDialog.open, inside: zoomDialog.contains(active), tag: active.tagName, lost: window.__lost,
+      hook: ['in', 'out', 'reset', 'close', 'step'].find((name) => active.hasAttribute(`data-zoom-${name}`)) || null,
+      step: active.dataset.zoomStep || null, scale: document.querySelector('product-zoom').scale,
+    };
+  });
+
+  for (const [w, h] of [[1280, 800], [360, 800]]) {
+    for (const how of ['click', 'Enter', 'Space']) {
+      test(`F01 ${w}px ${how}: Reset zoom devuelve 1x y el foco sigue dentro del visor, en Acercar`, async ({ page }) => {
+        await go(page, 'pdp-zoom.html', w, h);
+        await openZoom(page, 0);
+        await watchFocus(page);
+        await page.locator('[data-zoom-in]').click();
+        const reset = page.locator('[data-zoom-reset]');
+        await expect(reset).toBeVisible();
+        if (how === 'click') {
+          await reset.click();
+        } else {
+          await reset.focus();
+          await page.keyboard.press(how);
+        }
+        const s = await focusState(page);
+        expect(s.scale).toBe(1);
+        expect(s.open).toBe(true);
+        expect(s.inside).toBe(true);
+        expect(s.tag).not.toBe('BODY');
+        expect(s.hook).toBe('in');
+        expect(s.lost).toEqual([]);
+        await expect(reset).toBeHidden();
+        // Tab sigue atrapado despues del Reset.
+        for (let i = 0; i < 8; i += 1) {
+          await page.keyboard.press('Tab');
+          expect((await focusState(page)).inside).toBe(true);
+        }
+      });
+    }
+
+    test(`F01 ${w}px: Acercar al maximo, Alejar a 1x y Siguiente al final no pierden el foco`, async ({ page }) => {
+      await go(page, 'pdp-zoom.html', w, h);
+      await openZoom(page, 0);
+      await watchFocus(page);
+      // Acercar con Enter hasta el maximo (3x): el boton se desactiva y el foco pasa a Alejar, no a Cerrar,
+      // para que un Enter mas no cierre el visor.
+      await page.locator('[data-zoom-in]').focus();
+      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Enter');
+      let s = await focusState(page);
+      expect(s.scale).toBe(3);
+      await expect(page.locator('[data-zoom-in]')).toBeDisabled();
+      expect([s.inside, s.hook, s.lost]).toEqual([true, 'out', []]);
+      // Alejar con Espacio hasta 1x: Alejar y Reset se desactivan u ocultan; el foco pasa a Acercar.
+      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Space');
+      s = await focusState(page);
+      expect(s.scale).toBe(1);
+      expect([s.inside, s.hook, s.lost]).toEqual([true, 'in', []]);
+      // Siguiente con Enter hasta la ultima foto: el boton se desactiva y el foco pasa a Anterior.
+      await page.locator('[data-zoom-step="1"]').focus();
+      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Enter');
+      s = await focusState(page);
+      expect(s.inside).toBe(true);
+      expect(s.hook).toBe('step');
+      expect(s.step).toBe('-1');
+      expect(s.lost).toEqual([]);
+      await expect(page.locator('[data-zoom-step="1"]')).toBeDisabled();
+      // Y Anterior hasta la primera: el foco vuelve a Siguiente.
+      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Enter');
+      s = await focusState(page);
+      expect([s.inside, s.hook, s.step, s.lost]).toEqual([true, 'step', '1', []]);
+    });
+  }
+
+  test('F01 salvaguarda: con el visor abierto y el foco fuera, la siguiente actualizacion lo devuelve dentro', async ({ page }) => {
+    await go(page, 'pdp-zoom.html');
+    await openZoom(page, 0);
+    const result = await page.evaluate(() => {
+      const zoom = document.querySelector('product-zoom');
+      document.activeElement.blur();
+      const before = document.activeElement.tagName;
+      zoom.zoomTo(1.5);
+      const active = document.activeElement;
+      return { before, inside: zoom.dialog.contains(active), isIn: active === zoom.inButton, open: zoom.dialog.open };
+    });
+    expect(result).toEqual({ before: 'BODY', inside: true, isIn: true, open: true });
   });
 
   test('Z6 raton: clic alterna en el punto y el zoom sigue al cursor', async ({ page }) => {

@@ -1,0 +1,276 @@
+--- a/assets/product-zoom.js
++++ b/assets/product-zoom.js
+@@ -1,4 +1,4 @@
+-/* 5B-001. Zoom de la ficha: <dialog>, Pointer Events y teclado. Sin globales. */
++/* 5B-001. Zoom de la ficha: <dialog>, Pointer Events y teclado. */
+ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.define('product-zoom', class extends window.ThemeCore.ThemeElement {
+   clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+   pointers = new Map();
+@@ -29,7 +29,7 @@
+     let frame = 0;
+     on(this.track, 'scroll', () => {
+       cancelAnimationFrame(frame);
+-      frame = requestAnimationFrame(() => this.select(this.indexFromScroll()));
++      frame = requestAnimationFrame(() => this.select(this.clamp(Math.round(Math.abs(this.track.scrollLeft) / (this.track.clientWidth || 1)), 0, this.slides.length - 1)));
+     });
+     ['down', 'move', 'up', 'cancel'].forEach((type) => on(this.track, `pointer${type}`, (event) => this.handlePointer(event)));
+     // Dos dedos a 1x: si no, el navegador lo toma como pan-x.
+@@ -40,7 +40,7 @@
+   }
+ 
+   disconnectedCallback() {
+-    if (this.dialog?.open) this.dialog.close();
++    this.dialog?.close();
+     super.disconnectedCallback();
+   }
+ 
+@@ -68,7 +68,6 @@
+     this.opener?.focus();
+   }
+ 
+-  // 1x: cabe en la ventana sin pasar del tamano natural.
+   layout() {
+     const { clientWidth: width, clientHeight: height } = this.track;
+     this.fits = this.slides.map((slide) => {
+@@ -91,16 +90,12 @@
+     return index * this.track.clientWidth * (this.rtl ? -1 : 1);
+   }
+ 
+-  indexFromScroll() {
+-    return this.clamp(Math.round(Math.abs(this.track.scrollLeft) / (this.track.clientWidth || 1)), 0, this.slides.length - 1);
+-  }
+-
+   goTo(index, smooth = true) {
+     const target = this.clamp(index, 0, this.slides.length - 1);
+     const left = this.offsetOf(target);
+     this.scrollTarget = Math.abs(this.track.scrollLeft - left) > 1 ? target : null;
+-    const still = !smooth || matchMedia('(prefers-reduced-motion: reduce)').matches;
+-    this.track.scrollTo({ left, behavior: still ? 'auto' : 'smooth' });
++    const smoothly = smooth && !matchMedia('(prefers-reduced-motion: reduce)').matches;
++    this.track.scrollTo({ left, behavior: smoothly ? 'smooth' : 'auto' });
+     this.select(target, true);
+   }
+ 
+@@ -114,15 +109,12 @@
+     this.index = index;
+     this.fit = this.fits[index];
+     [index, index - 1, index + 1].forEach((slide, order) => this.load(slide, !order));
+-    this.steps.forEach((step) => {
+-      step.disabled = !this.slides[index + Number(step.dataset.zoomStep)];
+-    });
++    this.set(this.steps.map((step) => [step, !this.slides[index + Number(step.dataset.zoomStep)]]), this.steps);
+     this.counter.textContent = `${index + 1} / ${this.slides.length}`;
+     this.apply();
+     this.announce();
+   }
+ 
+-  // Marcador: la foto que ya pinto la galeria; luego, el srcset grande.
+   load(index, priority) {
+     const slide = this.slides[index];
+     const img = slide?.querySelector('img');
+@@ -157,16 +149,22 @@
+     fit.img.style.transform = scale > 1 ? `translate3d(${this.x}px, ${this.y}px, 0) scale(${scale})` : '';
+     dialog.toggleAttribute('data-zoomable', fit.max >= 1.25);
+     dialog.toggleAttribute('data-zoomed', scale > 1);
+-    this.inButton.disabled = fit.max < 1.25 || scale >= fit.max - 0.01;
+-    this.outButton.disabled = scale <= 1;
+-    this.resetButton.hidden = scale <= 1;
+-    const active = document.activeElement;
+-    if (dialog.contains(active) && (active.disabled || active.hidden)) {
+-      [this.inButton, this.outButton, ...this.steps, this.closeButton].find((button) => !button.disabled && !button.hidden)?.focus();
+-    }
++    this.set([[this.inButton, fit.max < 1.25 || scale >= fit.max - 0.01], [this.outButton, scale <= 1], [this.resetButton, scale <= 1]]);
++  }
++
++  // F01: Chromium deja el foco en body si el boton enfocado se oculta o se desactiva; antes
++  // pasa al primer control que sigue activo (Alejar antes que Cerrar).
++  set(states, prefer = []) {
++    const next = new Map(states);
++    const move = () => [...prefer, this.inButton, this.outButton, ...this.steps, this.closeButton]
++      .find((button) => !(next.has(button) ? next.get(button) : button.disabled || button.hidden))?.focus();
++    if (next.get(document.activeElement)) move();
++    next.forEach((off, button) => {
++      button[button === this.resetButton ? 'hidden' : 'disabled'] = off;
++    });
++    if (this.dialog.open && !this.dialog.contains(document.activeElement)) move();
+   }
+ 
+-  // (pointX, pointY): punto fijo, relativo al centro de la pista.
+   zoomTo(next, pointX = 0, pointY = 0) {
+     const { fit } = this;
+     if (!fit || fit.max < 1.25) return;
+@@ -176,7 +174,7 @@
+     this.x = pointX - (pointX - this.x) * ratio;
+     this.y = pointY - (pointY - this.y) * ratio;
+     this.scale = scale;
+-    // Primer zoom: sizes al ancho ampliado; el srcset sube de candidato.
++    // Primer zoom: sizes al ancho ampliado.
+     if (scale > 1 && fit.img.sizes === '100vw') fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
+     this.apply();
+     if (Math.abs(ratio - 1) > 0.001 && !this.pinch) this.announce();
+@@ -207,7 +205,7 @@
+       if (b) this.pinch = { gap: gap(a, b) || 1, scale: this.scale, x: this.x, y: this.y, mid: mid(a, b) };
+       if (this.scale > 1 || this.pinch) {
+         this.dialog.setAttribute('data-gesture', '');
+-        this.track.setPointerCapture?.(id);
++        this.track.setPointerCapture(id);
+       }
+     } else if (type === 'pointermove') {
+       if (!pointers.has(id)) {
+@@ -217,7 +215,7 @@
+       pointers.set(id, event);
+       const [a, b] = pointers.values();
+       if (pinch && b) {
+-        // Desde el inicio del pellizco: la foto sigue al punto medio de los dedos.
++        // Pellizco absoluto: la foto sigue al punto medio.
+         const [pointX, pointY] = mid(a, b);
+         this.scale = pinch.scale;
+         this.x = pinch.x + pointX - pinch.mid[0];
+@@ -241,8 +239,7 @@
+     }
+   }
+ 
+-  // Clic o doble toque (< 300 ms, < 24 px) en la foto alterna; fuera, a 1x, cierra.
+-  // target: el del pointerdown (con captura, el pointerup llega a la pista).
++  // target es el del pointerdown: con captura, el pointerup llega a la pista.
+   tap(event, target) {
+     const onImage = target === this.fit.img;
+     const toggle = () => this.zoomTo(this.scale > 1 ? 1 : 3, ...this.point(event));
+@@ -280,7 +277,7 @@
+   }
+ 
+   announce() {
+-    this.output.textContent = (this.dataset.statusTemplate || '')
++    this.output.textContent = this.dataset.statusTemplate
+       .replace('[index]', this.index + 1)
+       .replace('[total]', this.slides.length)
+       .replace('[zoom]', Math.round(this.scale * 100));
+--- a/docs/requirements-ledger.md
++++ b/docs/requirements-ledger.md
+@@ -70,7 +70,7 @@
+ | **Destinatario de Gift Cards** | Official Requirements: Gift Cards | `cumplido` | `snippets/gift-card-recipient.liquid:1-149` con campos nativos validados por Shopify. | GPT | Sprint 3B.5 |
+ | **Recomendaciones Nativas de Producto** | Official Requirements: Recommendations | `cumplido` | `sections/product-recommendations.liquid:1-129` consumiendo `routes.product_recommendations_url`. | GPT | Sprint 3B.5 |
+ | **Medios Enriquecidos y Modelos 3D** | Official Requirements: Media | `código completo` | `snippets/product-media.liquid:1-38`, `layout/theme.liquid:122` (`shopify-xr.js`), CSS responsive de `.product-gallery__view-in-space` en `assets/base.css:5490-5510`. Sprint 5B: H-13 pausa automática de `<video>`, YouTube y Vimeo al cambiar slide (`assets/theme.js:81-94,459-461,498`). Pendiente test AR en móvil real. | GPT-4A / Claude | Sprint 4A / 5B |
+-| **Zoom de Imagen Nativo y Accesible en PDP** | Official Requirements: Product / Media | `código completo` | Web Component `<product-zoom>` (`assets/product-zoom.js:1-288`), diálogo modal (`snippets/product-zoom.liquid:1-116`), integración PDP (`sections/main-product.liquid:44-55,76-100,169-171,835-841`) y estilos (`assets/base.css:7774-7960`). Arnés 5B 16/16 superado en EN y ES. Pendiente Compuerta 5 en tienda real. | Claude / Gemini | Sprint 5B |
++| **Zoom de Imagen Nativo y Accesible en PDP** | Official Requirements: Product / Media | `código completo` | Web Component `<product-zoom>` (`assets/product-zoom.js:1-285`), diálogo modal (`snippets/product-zoom.liquid:1-116`), integración PDP (`sections/main-product.liquid:44-55,76-100,169-171,835-841`) y estilos (`assets/base.css:7774-7960`). Hotfix F01 de foco (GPT-AUDIT-007, `CLAUDE-REPORT-5B-002`): `assets/product-zoom.js:112,152-166`. Arnés 5B 25/25 en EN y ES. Pendiente Compuerta 5 en tienda real. | Claude / Gemini | Sprint 5B |
+ | **Follow on Shop** | Official Requirements: Shop App | `cumplido` | `sections/footer.liquid:57` (`shop \| login_button: action: 'follow'`). | GPT | Sprint 2A |
+ | **Cuentas de Cliente Modernas (`<shopify-account>`)** | Official Requirements: Accounts (Jul 2026) | `cumplido` | `sections/header.liquid:157`. Cero plantillas customers/* deprecadas. | GPT | Sprint 2A |
+ | **Filtros Facetados Nativos en Colección y Búsqueda** | Official Requirements: Filters | `código completo` | `sections/main-collection.liquid:104-118` y `sections/main-search.liquid:135-149` con normalización de coma decimal europea, espacios, miles y apóstrofes. `GPT-4A-001`. Sprint 5A: `filter.presentation` swatch/imagen y filtros de color o material por nombre en `sections/main-collection.liquid:10,86-172`, con el mismo checkbox (`name`, `value`, envío estándar y AJAX); búsqueda pendiente del parche de `CLAUDE-REPORT-5A-001`. | GPT / Claude | Sprint 4A / 5A |
+--- a/agent-comms/outbox-claude/harness-5B-001/zoom5b.spec.mjs
++++ b/agent-comms/outbox-claude/harness-5B-001/zoom5b.spec.mjs
+@@ -4,7 +4,7 @@
+    product-zoom.js y base.css reales. SITE=site (ingles), site-es (espanol) o site-before
+    (arbol previo, para ver que las pruebas detectan la ausencia del zoom y los defectos). */
+ const SITE = process.env.SITE || 'site';
+-const ES = SITE === 'site-es';
++const ES = SITE.endsWith('-es');
+ const L = ES
+   ? { status: (i, t, z) => `Imagen ${i} de ${t}, zoom ${z} %`, image: (i, t) => `Imagen ${i} de ${t}`, open: (i, t) => `Ampliar imagen ${i} de ${t}` }
+   : { status: (i, t, z) => `Image ${i} of ${t}, zoom ${z}%`, image: (i, t) => `Image ${i} of ${t}`, open: (i, t) => `Zoom image ${i} of ${t}` };
+@@ -181,6 +181,106 @@
+     expect(after.y).toBeLessThan(before.y);
+   });
+ 
++  // 5B-002, F01 (GPT-AUDIT-007). Un boton enfocado que se oculta o se desactiva deja el foco en
++  // body si nadie lo mueve antes. focusout con relatedTarget fuera del dialogo abierto = foco perdido,
++  // aunque un arreglo posterior lo devuelva dentro en la misma tarea.
++  const watchFocus = (page) => page.evaluate(() => {
++    window.__lost = [];
++    const zoomDialog = document.querySelector('dialog.product-zoom');
++    zoomDialog.addEventListener('focusout', (event) => {
++      if (zoomDialog.open && !zoomDialog.contains(event.relatedTarget)) {
++        window.__lost.push(event.target.getAttribute('aria-label') || event.target.textContent.trim());
++      }
++    });
++  });
++  const focusState = (page) => page.evaluate(() => {
++    const zoomDialog = document.querySelector('dialog.product-zoom');
++    const active = document.activeElement;
++    return {
++      open: zoomDialog.open, inside: zoomDialog.contains(active), tag: active.tagName, lost: window.__lost,
++      hook: ['in', 'out', 'reset', 'close', 'step'].find((name) => active.hasAttribute(`data-zoom-${name}`)) || null,
++      step: active.dataset.zoomStep || null, scale: document.querySelector('product-zoom').scale,
++    };
++  });
++
++  for (const [w, h] of [[1280, 800], [360, 800]]) {
++    for (const how of ['click', 'Enter', 'Space']) {
++      test(`F01 ${w}px ${how}: Reset zoom devuelve 1x y el foco sigue dentro del visor, en Acercar`, async ({ page }) => {
++        await go(page, 'pdp-zoom.html', w, h);
++        await openZoom(page, 0);
++        await watchFocus(page);
++        await page.locator('[data-zoom-in]').click();
++        const reset = page.locator('[data-zoom-reset]');
++        await expect(reset).toBeVisible();
++        if (how === 'click') {
++          await reset.click();
++        } else {
++          await reset.focus();
++          await page.keyboard.press(how);
++        }
++        const s = await focusState(page);
++        expect(s.scale).toBe(1);
++        expect(s.open).toBe(true);
++        expect(s.inside).toBe(true);
++        expect(s.tag).not.toBe('BODY');
++        expect(s.hook).toBe('in');
++        expect(s.lost).toEqual([]);
++        await expect(reset).toBeHidden();
++        // Tab sigue atrapado despues del Reset.
++        for (let i = 0; i < 8; i += 1) {
++          await page.keyboard.press('Tab');
++          expect((await focusState(page)).inside).toBe(true);
++        }
++      });
++    }
++
++    test(`F01 ${w}px: Acercar al maximo, Alejar a 1x y Siguiente al final no pierden el foco`, async ({ page }) => {
++      await go(page, 'pdp-zoom.html', w, h);
++      await openZoom(page, 0);
++      await watchFocus(page);
++      // Acercar con Enter hasta el maximo (3x): el boton se desactiva y el foco pasa a Alejar, no a Cerrar,
++      // para que un Enter mas no cierre el visor.
++      await page.locator('[data-zoom-in]').focus();
++      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Enter');
++      let s = await focusState(page);
++      expect(s.scale).toBe(3);
++      await expect(page.locator('[data-zoom-in]')).toBeDisabled();
++      expect([s.inside, s.hook, s.lost]).toEqual([true, 'out', []]);
++      // Alejar con Espacio hasta 1x: Alejar y Reset se desactivan u ocultan; el foco pasa a Acercar.
++      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Space');
++      s = await focusState(page);
++      expect(s.scale).toBe(1);
++      expect([s.inside, s.hook, s.lost]).toEqual([true, 'in', []]);
++      // Siguiente con Enter hasta la ultima foto: el boton se desactiva y el foco pasa a Anterior.
++      await page.locator('[data-zoom-step="1"]').focus();
++      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Enter');
++      s = await focusState(page);
++      expect(s.inside).toBe(true);
++      expect(s.hook).toBe('step');
++      expect(s.step).toBe('-1');
++      expect(s.lost).toEqual([]);
++      await expect(page.locator('[data-zoom-step="1"]')).toBeDisabled();
++      // Y Anterior hasta la primera: el foco vuelve a Siguiente.
++      for (let i = 0; i < 3; i += 1) await page.keyboard.press('Enter');
++      s = await focusState(page);
++      expect([s.inside, s.hook, s.step, s.lost]).toEqual([true, 'step', '1', []]);
++    });
++  }
++
++  test('F01 salvaguarda: con el visor abierto y el foco fuera, la siguiente actualizacion lo devuelve dentro', async ({ page }) => {
++    await go(page, 'pdp-zoom.html');
++    await openZoom(page, 0);
++    const result = await page.evaluate(() => {
++      const zoom = document.querySelector('product-zoom');
++      document.activeElement.blur();
++      const before = document.activeElement.tagName;
++      zoom.zoomTo(1.5);
++      const active = document.activeElement;
++      return { before, inside: zoom.dialog.contains(active), isIn: active === zoom.inButton, open: zoom.dialog.open };
++    });
++    expect(result).toEqual({ before: 'BODY', inside: true, isIn: true, open: true });
++  });
++
+   test('Z6 raton: clic alterna en el punto y el zoom sigue al cursor', async ({ page }) => {
+     await go(page, 'pdp-zoom.html');
+     await openZoom(page, 0);
