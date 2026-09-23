@@ -3,16 +3,86 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": { "type": "vendor", "settings": {} },
-        "title": { "type": "title", "settings": {} },
-        "price": { "type": "price", "settings": {} },
-        "options": { "type": "variant_picker", "settings": {} },
-        "size": { "type": "size_guide", "settings": { "show_model_fit_below": true } },
-        "quantity": { "type": "quantity", "settings": {} },
-        "buy": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
-        "description": { "type": "description", "settings": {} }
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {}
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "settings": {
+            "threshold": 5,
+            "show_count": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "shipping_lead_time": {
+          "type": "shipping_lead_time",
+          "settings": {
+            "delivery_text": "",
+            "icon": "truck"
+          }
+        },
+        "trust_badges": {
+          "type": "trust_badges",
+          "settings": {
+            "returns_text": "",
+            "icon": "return"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "composition_care": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Composition & care",
+            "content": "<p>Each piece is made from natural materials chosen for how they age with use. The exact composition is listed in the description above.</p><ul><li>Follow the care label sewn into each piece; most prefer airing over washing.</li><li>Dry flat, away from direct heat and sunlight, and press with a cool iron.</li><li>Store knitwear folded; hang tailoring and outerwear on a shaped hanger.</li></ul>"
+          }
+        },
+        "shipping_returns": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & complimentary returns",
+            "content": "<p>Pieces held in the atelier leave within three business days, with tracking. Shipping is complimentary on orders over $150.</p><p>Returns are complimentary within fourteen days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
+          }
+        }
       },
-      "block_order": ["vendor", "title", "price", "options", "size", "quantity", "buy", "description"],
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity",
+        "inventory_status",
+        "buy_buttons",
+        "shipping_lead_time",
+        "trust_badges",
+        "description",
+        "composition_care",
+        "shipping_returns"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
         "media_layout": "grid",
@@ -22,9 +92,22 @@
     "recommendations": {
       "type": "product-recommendations",
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-1",
         "intent": "related",
-        "eyebrow": "CONTINUE THE STUDY",
+        "eyebrow": "Continue the study",
+        "products_to_show": 4,
+        "columns_desktop": "4",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_quick_add": true
+      }
+    },
+    "recently_viewed": {
+      "type": "recently-viewed",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "Recently viewed",
+        "heading": "Pieces you considered",
         "products_to_show": 4,
         "columns_desktop": "4",
         "show_secondary_image": true,
@@ -33,5 +116,9 @@
       }
     }
   },
-  "order": ["main", "recommendations"]
+  "order": [
+    "main",
+    "recommendations",
+    "recently_viewed"
+  ]
 }

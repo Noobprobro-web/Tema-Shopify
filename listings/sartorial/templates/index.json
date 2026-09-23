@@ -8,7 +8,8 @@
         "layout_split": "image_first",
         "height_desktop": 90,
         "height_mobile": 75,
-        "media_type": "video",
+        "media_type": "image",
+        "image_desktop": "shopify://shop_images/hero-campaign-01.jpg",
         "enable_video_mobile": false,
         "overlay_style": "gradient_bottom",
         "overlay_opacity": 40,
@@ -53,6 +54,7 @@
         "heading": "Objects in quiet conversation",
         "description": "<p>Move through the composition and discover each piece.</p>",
         "caption": "A study in proportion, texture and daily movement.",
+        "image_desktop": "shopify://shop_images/lookbook-scene-01.jpg",
         "color_scheme": "scheme-1"
       }
     },
@@ -86,6 +88,7 @@
         "quote": "Objects gain meaning through the hands that make them.",
         "body": "<p>Every edge and finish records a decision made by an artisan.</p>",
         "media_label": "MACRO STUDY / MATERIAL 07",
+        "image": "shopify://shop_images/manifesto-01.jpg",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
@@ -103,14 +106,15 @@
         "heading": "Complete the look",
         "description": "<p>Choose each piece, select its size and add the full composition at once.</p>",
         "caption": "Soft architecture photographed in natural atelier light.",
+        "image_desktop": "shopify://shop_images/capsule-look-01.jpg",
         "color_scheme": "scheme-1"
       }
     },
     "discovery": {
       "type": "bento-discovery",
       "blocks": {
-        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] FEATURED COLLECTION", "heading": "Sculptural layers", "link": "/collections/all" } },
-        "story": { "type": "card_editorial", "settings": { "eyebrow": "[02] MATERIAL STUDY", "heading": "Carried close", "body": "<p>An editorial study in proportion, tactility and daily use.</p>" } },
+        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] FEATURED COLLECTION", "heading": "Sculptural layers", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
+        "story": { "type": "card_editorial", "settings": { "eyebrow": "[02] MATERIAL STUDY", "heading": "Carried close", "body": "<p>An editorial study in proportion, tactility and daily use.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } },
         "product": { "type": "card_product", "settings": {} }
       },
       "block_order": ["collection", "story", "product"],

@@ -9,6 +9,7 @@
         "height_desktop": 75,
         "height_mobile": 75,
         "media_type": "image",
+        "image_desktop": "shopify://shop_images/hero-campaign-01.jpg",
         "enable_video_mobile": false,
         "overlay_style": "scrim",
         "overlay_opacity": 55,
@@ -39,6 +40,7 @@
         "quote": "What endures carries the record of how it was made.",
         "body": "<p>The catalogue follows material from source to workshop and object.</p>",
         "media_label": "PLATE IV / HAND AND TOOL",
+        "image": "shopify://shop_images/manifesto-01.jpg",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
@@ -84,15 +86,16 @@
         "heading": "Three objects from the record",
         "description": "<p>Open each marker to trace the object back to its catalogue entry.</p>",
         "caption": "Warm light, worn surfaces and the evidence of use.",
+        "image_desktop": "shopify://shop_images/lookbook-scene-01.jpg",
         "color_scheme": "scheme-5"
       }
     },
     "discovery": {
       "type": "bento-discovery",
       "blocks": {
-        "story1": { "type": "card_editorial", "settings": { "eyebrow": "[I] FIELD NOTE", "heading": "Where the fibre begins", "body": "<p>A record of material, place and season.</p>" } },
+        "story1": { "type": "card_editorial", "settings": { "eyebrow": "[I] FIELD NOTE", "heading": "Where the fibre begins", "body": "<p>A record of material, place and season.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } },
         "story2": { "type": "card_editorial", "settings": { "eyebrow": "[II] WORKSHOP NOTE", "heading": "The mark of the tool", "body": "<p>Hands, edges and the small variations that make an object singular.</p>" } },
-        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[III] CATALOGUE", "heading": "The permanent collection", "link": "/collections/all" } }
+        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[III] CATALOGUE", "heading": "The permanent collection", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } }
       },
       "block_order": ["story1", "story2", "collection"],
       "settings": {
