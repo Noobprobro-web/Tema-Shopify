@@ -1,0 +1,80 @@
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -166,10 +166,6 @@
+       {%- endif -%}
+     </product-gallery>
+ 
+-    {%- if zoom_enabled -%}
+-      {% render 'product-zoom', product: product, images: zoom_images %}
+-    {%- endif -%}
+-
+     {%- if product_models.size > 0 -%}
+       <script type="application/json" id="ProductModelJSON-{{ section.id }}">
+         {{- product_models | json -}}
+@@ -742,6 +738,14 @@
+     </variant-selects>
+   </div>
+ 
++  {%- comment -%}
++    5C-002. El visor va fuera de .product-main__layout: dentro era un hijo mas de la rejilla,
++    ocupaba la segunda columna con alto 0 y mandaba la ficha debajo de la galeria.
++  {%- endcomment -%}
++  {%- if zoom_enabled -%}
++    {% render 'product-zoom', product: product, images: zoom_images %}
++  {%- endif -%}
++
+   {%- if section.settings.enable_sticky_cart -%}
+     {%- liquid
+       assign sticky_media = selected_variant.featured_media.preview_image | default: product.featured_media.preview_image
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -189,6 +189,15 @@
+       });
+       this.listen(this, 'shopify:block:select', () => this.setOpen(true));
+       this.listen(this, 'shopify:block:deselect', () => this.setOpen(false));
++      // 5C-002. En escritorio el panel tapa la pagina bajo la cabecera: si el foco llega a algo
++      // de fuera, se cierra para no dejarlo debajo (WCAG 2.4.11). Dentro de la cabecera no tapa
++      // nada y Shift+Tab sigue volviendo al panel. El cajon movil no lo necesita.
++      const header = this.closest('.desktop-nav') && this.closest('.site-header');
++      if (header) {
++        this.listen(document, 'focusin', (event) => {
++          if (this.isOpen && !header.contains(event.target)) this.setOpen(false);
++        });
++      }
+       this.listen(this, 'keydown', (event) => {
+         if (event.key === 'Escape' && this.isOpen) {
+           event.preventDefault();
+--- a/snippets/mega-menu.liquid
++++ b/snippets/mega-menu.liquid
+@@ -112,6 +112,15 @@
+                 if card_heading == blank
+                   assign card_alt = card_image.alt | default: link.title
+                 endif
++
++                # 5C-002. La caja es 4:5 y la foto la cubre: una apaisada se pinta mas ancha que la
++                # tarjeta (1376 x 768 ocupa 2,24 veces sus 15rem). sizes declara ese ancho pintado
++                # para que el navegador no elija una copia pequena y la estire.
++                assign card_rem = 15
++                if card_image.aspect_ratio > 0.8
++                  assign card_rem = card_image.aspect_ratio | times: 18.75 | round: 2
++                endif
++                assign card_sizes = '(min-width: 62rem) ' | append: card_rem | append: 'rem, 100vw'
+               -%}
+               {%- if card_image != blank or card_heading != blank -%}
+                 {%- capture card_inner -%}
+@@ -119,12 +128,12 @@
+                     <span class="mega-menu__promo-media">
+                       {{-
+                         card_image
+-                        | image_url: width: 800
++                        | image_url: width: 1100
+                         | image_tag:
+                           class: 'mega-menu__promo-image',
+                           loading: 'lazy',
+-                          widths: '240, 320, 400, 560, 800',
+-                          sizes: '(min-width: 62rem) 15rem, 100vw',
++                          widths: '240, 320, 400, 560, 800, 1100',
++                          sizes: card_sizes,
+                           alt: card_alt
+                       -}}
+                     </span>

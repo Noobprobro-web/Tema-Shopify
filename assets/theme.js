@@ -189,6 +189,15 @@
       });
       this.listen(this, 'shopify:block:select', () => this.setOpen(true));
       this.listen(this, 'shopify:block:deselect', () => this.setOpen(false));
+      // 5C-002. En escritorio el panel tapa la pagina bajo la cabecera: si el foco llega a algo
+      // de fuera, se cierra para no dejarlo debajo (WCAG 2.4.11). Dentro de la cabecera no tapa
+      // nada y Shift+Tab sigue volviendo al panel. El cajon movil no lo necesita.
+      const header = this.closest('.desktop-nav') && this.closest('.site-header');
+      if (header) {
+        this.listen(document, 'focusin', (event) => {
+          if (this.isOpen && !header.contains(event.target)) this.setOpen(false);
+        });
+      }
       this.listen(this, 'keydown', (event) => {
         if (event.key === 'Escape' && this.isOpen) {
           event.preventDefault();

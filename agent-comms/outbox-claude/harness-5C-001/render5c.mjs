@@ -245,6 +245,8 @@ await page('collection.html', { title: 'Collection 5A', template: 'collection', 
 const promoA = img('promo-a.png', 1200, 1500, 'Model in a camel coat', 9101);
 const promoB = img('promo-b.png', 1200, 1500, 'Tailor measuring a sleeve', 9102);
 const promoC = img('promo-c.png', 960, 1200, 'Atelier interior', 9103);
+// 5C-002: la foto de campana apaisada de la demo (hero-campaign-01, 1376 x 768) en una tarjeta 4:5.
+const promoL = img('promo-l.png', 1376, 768, 'Two models in the autumn edit', 9104);
 const node = (title, url, kids = [], handle = handleize(title)) => ({ title, url, handle, links: kids });
 const megaMenu = (t) => ({ links: [
   node(t.home, '/'),
@@ -290,8 +292,11 @@ await page('mega.html', { title: 'Mega menu', template: 'index', cart: cart5c, m
 await page('mega-es-titles.html', { title: 'Mega menu es', template: 'index', cart: cart5c, main: [], extraBody: body5c, hgOverride: hgWith('mega-menu-es', { promo_catalog: { type: 'mega_menu_promo', settings: { ...promoBlocks.promo_catalog.settings, menu_item: 'Catalog' } } }) });
 // Tres niveles sin ningun bloque: mega menu solo con columnas.
 await page('mega-noblocks.html', { title: 'Mega menu without blocks', template: 'index', cart: cart5c, main: [], extraBody: body5c, hgOverride: hgWith('mega-menu', {}) });
-// Cabecera por defecto (main-menu de dos niveles, sin bloques): el panel clasico de siempre.
-await page('classic.html', { title: 'Classic header', template: 'index', cart: cart5c, main: [], extraBody: body5c });
+// Cabecera por defecto (main-menu de dos niveles) sin bloques: el panel clasico de siempre. Los
+// bloques se vacian a proposito: desde d5a7d62 header-group.json trae uno para Catalog.
+await page('classic.html', { title: 'Classic header', template: 'index', cart: cart5c, main: [], extraBody: body5c, hgOverride: hgWith(baseHg.sections.header.settings.menu, {}) });
+// 5C-002: mega menu con una tarjeta apaisada, como hero-campaign-01 en la tienda.
+await page('mega-landscape.html', { title: 'Mega menu landscape card', template: 'index', cart: cart5c, main: [], extraBody: body5c, hgOverride: hgWith('mega-menu', { promo_catalog: { type: 'mega_menu_promo', settings: { ...promoBlocks.promo_catalog.settings, image_1: 'promo-l.png' } }, promo_atelier: promoBlocks.promo_atelier }) });
 console.log('OK 5C-001 pages');
 
 // Dependencias estaticas del sitio de prueba: assets reales del tema, axe y fotos.
