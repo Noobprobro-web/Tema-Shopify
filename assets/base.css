@@ -8401,3 +8401,305 @@ html[data-animations='none'] [data-reveal] {
     navigation: none;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* 5C-002. PDP Confianza, Inventario y Recently Viewed                        */
+/* -------------------------------------------------------------------------- */
+
+product-inventory {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.product-inventory__dot {
+  position: relative;
+  flex: 0 0 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+product-inventory[data-stock-state='low_stock'] .product-inventory__dot::after {
+  position: absolute;
+  inset: -0.25rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: '';
+}
+
+html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .product-inventory__dot::after {
+  animation: inventory-pulse 2s ease-in-out infinite;
+}
+
+@keyframes inventory-pulse {
+  50% { transform: scale(1.2); opacity: 0.45; }
+}
+
+.product-trust {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.product-trust__icon {
+  display: inline-flex;
+  flex: 0 0 1.25rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.5rem;
+}
+
+.product-trust__icon:empty { display: none; }
+
+.product-accordion .product-details__heading {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.product-accordion__leading-icon {
+  display: inline-flex;
+  flex: 0 0 1.125rem;
+}
+
+.product-accordion > summary:focus-visible {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+.featured-product__info > .product-accordion + .product-accordion {
+  margin-block-start: 0;
+  border-block-start: 0;
+}
+
+.recently-viewed[hidden] { display: none; }
+
+.recently-viewed__header { max-width: 48rem; }
+
+.recently-viewed__header h2 {
+  font-size: calc(2.25rem * var(--font-heading-scale));
+}
+
+.recently-viewed__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2xl) var(--space-md);
+}
+
+@media (min-width: 48rem) {
+  .recently-viewed__grid[data-columns='3'],
+  .recently-viewed__grid[data-columns='4'] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 62rem) {
+  .recently-viewed__grid[data-columns='2'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .recently-viewed__grid[data-columns='3'] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .recently-viewed__grid[data-columns='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  product-inventory[data-stock-state='low_stock'] .product-inventory__dot::after {
+    animation: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5C-001. Mega Menú Editorial Multicolumna                                   */
+/* -------------------------------------------------------------------------- */
+/* El panel es el mismo [data-disclosure-panel] de <theme-disclosure>: sin JS nuevo. Con el
+   disparador en position: static, el panel se ancla a .site-header (position: relative) y
+   ocupa todo el ancho bajo la cabecera; dentro, .container alinea la rejilla con la pagina.
+   Las tarjetas llevan loading="lazy" y viven en un panel con hidden: ninguna foto se pide
+   hasta abrir. Sin JS el panel se pinta dentro de la cabecera (reglas .no-js de arriba):
+   ahi sobran las fotos y solo quedan las columnas. */
+.no-js .mega-menu__promos {
+  display: none;
+}
+
+.no-js .mega-menu__grid {
+  width: auto;
+}
+
+.no-js .mega-menu__columns,
+.no-js .mega-menu__column-list,
+.no-js .mega-menu__sublist {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.no-js .mega-menu__view-all,
+.no-js .mega-menu__column-title,
+.no-js .mega-menu__sublist a {
+  display: inline-flex;
+  min-height: var(--tap-target-min, 44px);
+  align-items: center;
+  color: currentColor;
+}
+
+@media (min-width: 62rem) {
+  .desktop-nav__disclosure--mega {
+    position: static;
+  }
+
+  .desktop-nav__mega-menu {
+    inset-block-start: 100%;
+    inset-inline: 0;
+    min-width: 0;
+    /* Con la cabecera pegada, un menu mas alto que la ventana se recorre dentro del panel. */
+    max-height: calc(100dvh - var(--header-offset, 0px) - var(--space-6));
+    padding: var(--space-5) 0 var(--space-6);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-inline: 0;
+  }
+
+  /* Las tarjetas abren una segunda columna implicita: sin ellas no queda hueco a la derecha. */
+  .mega-menu__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    align-items: start;
+    column-gap: var(--space-6);
+  }
+
+  .mega-menu__columns {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+  }
+
+  .mega-menu__view-all,
+  .mega-menu__column-title,
+  .mega-menu__sublist a,
+  .mega-menu__promo-card {
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  .mega-menu__view-all {
+    display: inline-flex;
+    min-height: var(--tap-target-min, 44px);
+    justify-self: start;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-transform: uppercase;
+    text-underline-offset: 0.35em;
+  }
+
+  .mega-menu__column-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+    gap: var(--space-4) var(--space-5);
+  }
+
+  .mega-menu__column {
+    display: grid;
+    align-content: start;
+  }
+
+  .mega-menu__column-title {
+    display: flex;
+    min-height: var(--tap-target-min, 44px);
+    align-items: center;
+    border-block-end: 1px solid var(--color-border-hairline);
+    font-family: var(--font-heading-family);
+    font-size: 1.125rem;
+    line-height: 1.2;
+  }
+
+  .mega-menu__sublist {
+    display: grid;
+    padding-block-start: var(--space-1);
+  }
+
+  .mega-menu__sublist a {
+    display: flex;
+    min-height: var(--tap-target-min, 44px);
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  .mega-menu__column-title:hover,
+  .mega-menu__sublist a:hover,
+  .mega-menu__view-all:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+  }
+
+  .mega-menu__promos {
+    display: grid;
+    grid-auto-columns: 15rem;
+    grid-auto-flow: column;
+    gap: var(--space-4);
+  }
+
+  .mega-menu__promo-card {
+    display: grid;
+    min-height: var(--tap-target-min, 44px);
+    align-content: start;
+    gap: var(--space-1);
+  }
+
+  /* Retrato 4:5 fijo: la foto ocupa su hueco antes de llegar y no mueve el texto. */
+  .mega-menu__promo-media {
+    display: block;
+    overflow: hidden;
+    margin-block-end: var(--space-1);
+    aspect-ratio: 4 / 5;
+    background: var(--color-surface);
+  }
+
+  .mega-menu__promo-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mega-menu__promo-heading {
+    font-family: var(--font-heading-family);
+    font-size: 1.125rem;
+    line-height: 1.25;
+  }
+
+  .mega-menu__promo-subheading {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  a.mega-menu__promo-card:hover .mega-menu__promo-heading {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  html[data-animations='full'] .mega-menu__promo-image {
+    transition: transform var(--motion-slow) var(--ease-move);
+  }
+
+  /* El mismo gesto que la foto de la tarjeta de producto. */
+  html[data-animations='full'] a.mega-menu__promo-card:hover .mega-menu__promo-image {
+    transform: scale(1.025);
+  }
+}

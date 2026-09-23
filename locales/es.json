@@ -43,6 +43,9 @@
       "cart_count": {
         "one": "Carrito, {{ count }} artículo",
         "other": "Carrito, {{ count }} artículos"
+      },
+      "mega_menu": {
+        "featured": "Destacados"
       }
     },
     "footer": {
@@ -129,6 +132,27 @@
       "region_label": "Producto destacado",
       "onboarding_title": "Producto de lujo destacado",
       "onboarding_price": "$480.00"
+    },
+    "recently_viewed": {
+      "heading": "Vistos recientemente"
+    },
+    "main_product": {
+      "blocks": {
+        "inventory_status": {
+          "low_stock": "Pocas existencias: [count] disponibles",
+          "low_stock_generic": "Pocas existencias",
+          "in_stock": "En existencias, listo para enviar",
+          "preorder": "Disponible bajo pedido",
+          "sold_out": "Agotado",
+          "unavailable": "Esta opción no está disponible"
+        },
+        "shipping_lead_time": {
+          "delivery_fallback": "Plazos y costes de entrega confirmados al pagar"
+        },
+        "trust_badges": {
+          "returns_fallback": "Devoluciones sujetas a la política de la tienda"
+        }
+      }
     },
     "homepage": {
       "hero": {

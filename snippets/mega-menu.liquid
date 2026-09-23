@@ -1,0 +1,179 @@
+{%- comment -%}
+  5C-001. Desplegable de un enlace de primer nivel del menu de escritorio. Lo pinta
+  sections/header.liquid para cada enlace con hijos; aqui vive la decision entre el panel
+  clasico y el mega menu, para que la cabecera no crezca en complejidad.
+
+  Mega menu cuando el enlace tiene un bloque mega_menu_promo asociado o tres niveles:
+  - una columna por enlace de segundo nivel, encabezada por el propio enlace, con sus
+    enlaces de tercer nivel debajo;
+  - a la derecha, hasta dos tarjetas del bloque (imagen 4:5 diferida, titulo, subtitulo).
+  Si no, el panel clasico de siempre, con el mismo marcado que antes de 5C (sin tercer
+  nivel, que ahora siempre abre el mega menu).
+
+  El bloque se asocia por nombre, sin distinguir mayusculas ni acentos: vale el titulo que
+  ve el comprador ("Catalogo" en /es) o el handle del enlace, que no cambia de idioma
+  ("catalog"). Si dos bloques nombran el mismo enlace, gana el primero.
+
+  Sin JS nuevo: <theme-disclosure> ya abre y cierra, sincroniza aria-expanded, cierra con
+  Escape devolviendo el foco al disparador y con un clic fuera. Tab recorre el panel en el
+  orden del DOM y sale de el sin trampa.
+
+  Accepts:
+  - link: enlace de primer nivel con hijos (link.links != blank)
+  - section: la seccion header (id y bloques)
+  - index: forloop.index del enlace, para los ids
+  - color_scheme_id: esquema de color de la cabecera
+{%- endcomment -%}
+{%- liquid
+  assign promo = nil
+  assign link_title = link.title | downcase | strip
+  assign link_handle = link.title | handleize
+  for block in section.blocks
+    if block.type == 'mega_menu_promo' and promo == nil
+      assign wanted = block.settings.menu_item | downcase | strip
+      assign wanted_handle = block.settings.menu_item | handleize
+      if wanted != blank
+        if wanted == link_title or wanted_handle == link_handle or wanted_handle == link.handle
+          assign promo = block
+        endif
+      endif
+    endif
+  endfor
+
+  assign has_third_level = false
+  for child_link in link.links
+    if child_link.links != blank
+      assign has_third_level = true
+    endif
+  endfor
+
+  assign is_mega = false
+  if promo != nil or has_third_level
+    assign is_mega = true
+  endif
+  assign panel_id = 'DesktopMenu-' | append: section.id | append: '-' | append: index
+-%}
+
+<theme-disclosure class="desktop-nav__disclosure{% if is_mega %} desktop-nav__disclosure--mega{% endif %}" data-disclosure-arrows>
+  <button
+    class="desktop-nav__toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="{{ panel_id }}"
+    data-disclosure-trigger
+  >
+    <span>{{ link.title | escape }}</span>
+    {% render 'icon', name: 'chevron-down', size: 14 %}
+  </button>
+  {%- if is_mega -%}
+    <div
+      id="{{ panel_id }}"
+      class="desktop-nav__panel desktop-nav__mega-menu color-{{ color_scheme_id }}"
+      data-disclosure-panel
+      hidden
+    >
+      <div class="container mega-menu__grid">
+        <div class="mega-menu__columns">
+          <a class="mega-menu__view-all" href="{{ link.url }}">
+            {{- 'general.navigation.view_all' | t: title: link.title -}}
+          </a>
+          <ul class="mega-menu__column-list unstyled-list" role="list">
+            {%- for child_link in link.links -%}
+              <li class="mega-menu__column">
+                <a class="mega-menu__column-title" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
+                {%- if child_link.links != blank -%}
+                  <ul class="mega-menu__sublist unstyled-list" role="list">
+                    {%- for grandchild_link in child_link.links -%}
+                      <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title | escape }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        {%- if promo != nil -%}
+          {%- capture promo_cards -%}
+            {%- for n in (1..2) -%}
+              {%- liquid
+                assign image_key = 'image_' | append: n
+                assign heading_key = 'heading_' | append: n
+                assign subheading_key = 'subheading_' | append: n
+                assign link_key = 'link_' | append: n
+                assign card_image = promo.settings[image_key]
+                assign card_heading = promo.settings[heading_key]
+                assign card_subheading = promo.settings[subheading_key]
+                assign card_link = promo.settings[link_key]
+
+                # Con titulo, la foto acompana al texto del enlace y su alt iria repetido: va
+                # vacio. Sin titulo, la foto es el nombre del enlace: su alt o el del menu.
+                assign card_alt = ''
+                if card_heading == blank
+                  assign card_alt = card_image.alt | default: link.title
+                endif
+              -%}
+              {%- if card_image != blank or card_heading != blank -%}
+                {%- capture card_inner -%}
+                  {%- if card_image != blank -%}
+                    <span class="mega-menu__promo-media">
+                      {{-
+                        card_image
+                        | image_url: width: 800
+                        | image_tag:
+                          class: 'mega-menu__promo-image',
+                          loading: 'lazy',
+                          widths: '240, 320, 400, 560, 800',
+                          sizes: '(min-width: 62rem) 15rem, 100vw',
+                          alt: card_alt
+                      -}}
+                    </span>
+                  {%- endif -%}
+                  {%- if card_heading != blank -%}
+                    <span class="mega-menu__promo-heading">{{ card_heading | escape }}</span>
+                  {%- endif -%}
+                  {%- if card_subheading != blank -%}
+                    <span class="mega-menu__promo-subheading">{{ card_subheading | escape }}</span>
+                  {%- endif -%}
+                {%- endcapture -%}
+                <li class="mega-menu__promo">
+                  {%- if card_link != blank -%}
+                    <a class="mega-menu__promo-card" href="{{ card_link }}">{{ card_inner }}</a>
+                  {%- else -%}
+                    <div class="mega-menu__promo-card">{{ card_inner }}</div>
+                  {%- endif -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
+          {%- if promo_cards != blank -%}
+            <ul
+              class="mega-menu__promos unstyled-list"
+              role="list"
+              aria-label="{{ 'sections.header.mega_menu.featured' | t | escape_once }}"
+              {{ promo.shopify_attributes }}
+            >
+              {{- promo_cards -}}
+            </ul>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    <div
+      id="{{ panel_id }}"
+      class="desktop-nav__panel color-{{ color_scheme_id }}"
+      data-disclosure-panel
+      hidden
+    >
+      <ul class="desktop-nav__submenu unstyled-list" role="list">
+        <li>
+          <a href="{{ link.url }}">{{ 'general.navigation.view_all' | t: title: link.title }}</a>
+        </li>
+        {%- for child_link in link.links -%}
+          <li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+</theme-disclosure>

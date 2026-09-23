@@ -376,6 +376,49 @@
         "customer_account_menu": {
           "label": "Customer account menu"
         }
+      },
+      "blocks": {
+        "mega_menu_promo": {
+          "name": "Mega menu promotion",
+          "settings": {
+            "menu_item": {
+              "label": "Menu item",
+              "info": "Name of the top-level menu item that opens this mega menu, for example \"Catalog\". Capitals don't matter, and in other languages the translated name also works. The item needs sub-links. Items with three levels of links open a mega menu even without this block."
+            },
+            "card_1": {
+              "content": "Card 1"
+            },
+            "image_1": {
+              "label": "Image",
+              "info": "Shown in portrait, 4:5. Use an image at least 800 px wide."
+            },
+            "heading_1": {
+              "label": "Heading"
+            },
+            "subheading_1": {
+              "label": "Subheading"
+            },
+            "link_1": {
+              "label": "Link"
+            },
+            "card_2": {
+              "content": "Card 2"
+            },
+            "image_2": {
+              "label": "Image",
+              "info": "Shown in portrait, 4:5. Use an image at least 800 px wide."
+            },
+            "heading_2": {
+              "label": "Heading"
+            },
+            "subheading_2": {
+              "label": "Subheading"
+            },
+            "link_2": {
+              "label": "Link"
+            }
+          }
+        }
       }
     },
     "footer": {
@@ -899,6 +942,17 @@
         "name": "Product recommendations"
       }
     },
+    "recently_viewed": {
+      "name": "Recently viewed",
+      "settings": {
+        "heading": {
+          "info": "Leave blank to show the translated default heading. Products are stored in this browser only."
+        }
+      },
+      "presets": {
+        "name": "Recently viewed"
+      }
+    },
     "cart_drawer": {
       "name": "Cart drawer",
       "settings": {
@@ -962,6 +1016,15 @@
         }
       },
       "blocks": {
+        "icons": {
+          "none": "No icon",
+          "truck": "Truck",
+          "clock": "Clock",
+          "shield": "Shield",
+          "ruler": "Ruler",
+          "bag": "Bag",
+          "check": "Check"
+        },
         "vendor": {
           "name": "Vendor"
         },
@@ -1013,9 +1076,48 @@
         "description": {
           "name": "Description"
         },
+        "inventory_status": {
+          "name": "Inventory status",
+          "settings": {
+            "threshold": {
+              "label": "Low stock threshold",
+              "info": "The count appears only when Shopify tracks inventory for the selected option."
+            },
+            "show_count": {
+              "label": "Show remaining count"
+            }
+          }
+        },
+        "shipping_lead_time": {
+          "name": "Delivery estimate",
+          "settings": {
+            "delivery_text": {
+              "label": "Delivery message",
+              "info": "Match your shipping rates and delivery estimates. Leave blank for a neutral checkout message."
+            },
+            "icon": {
+              "label": "Icon"
+            }
+          }
+        },
+        "trust_badges": {
+          "name": "Returns reassurance",
+          "settings": {
+            "returns_text": {
+              "label": "Returns message",
+              "info": "Match your published returns policy. Leave blank for a neutral policy message."
+            },
+            "icon": {
+              "label": "Icon"
+            }
+          }
+        },
         "collapsible_tab": {
           "name": "Collapsible tab",
           "settings": {
+            "icon": {
+              "label": "Icon"
+            },
             "page": {
               "label": "Page",
               "info": "Its content appears after the text above. Use it to share one policy across many products."

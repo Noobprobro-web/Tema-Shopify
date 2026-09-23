@@ -1,0 +1,49 @@
+{%- liquid
+  assign inventory_variant = variant | default: product.selected_or_first_available_variant
+  assign inventory_state = 'in_stock'
+  if inventory_variant == blank
+    assign inventory_state = 'unavailable'
+  elsif inventory_variant.available == false
+    assign inventory_state = 'sold_out'
+  elsif inventory_variant.inventory_management == 'shopify'
+    if inventory_variant.inventory_policy == 'continue' and inventory_variant.inventory_quantity <= 0
+      assign inventory_state = 'preorder'
+    elsif inventory_variant.inventory_quantity > 0 and inventory_variant.inventory_quantity <= block.settings.threshold
+      assign inventory_state = 'low_stock'
+    endif
+  endif
+-%}
+
+<product-inventory
+  class="product-inventory"
+  data-stock-state="{{ inventory_state }}"
+  data-threshold="{{ block.settings.threshold }}"
+  data-show-count="{{ block.settings.show_count }}"
+  data-low-stock-template="{{ 'sections.main_product.blocks.inventory_status.low_stock' | t | escape }}"
+  data-low-stock-generic="{{ 'sections.main_product.blocks.inventory_status.low_stock_generic' | t | escape }}"
+  data-in-stock="{{ 'sections.main_product.blocks.inventory_status.in_stock' | t | escape }}"
+  data-preorder="{{ 'sections.main_product.blocks.inventory_status.preorder' | t | escape }}"
+  data-sold-out="{{ 'sections.main_product.blocks.inventory_status.sold_out' | t | escape }}"
+  data-unavailable="{{ 'sections.main_product.blocks.inventory_status.unavailable' | t | escape }}"
+  {{ block.shopify_attributes }}
+>
+  <span class="product-inventory__dot" aria-hidden="true"></span>
+  <span class="product-inventory__message" role="status" aria-live="polite" data-inventory-message>
+    {%- case inventory_state -%}
+      {%- when 'low_stock' -%}
+        {%- if block.settings.show_count -%}
+          {{- 'sections.main_product.blocks.inventory_status.low_stock' | t | replace: '[count]', inventory_variant.inventory_quantity -}}
+        {%- else -%}
+          {{- 'sections.main_product.blocks.inventory_status.low_stock_generic' | t -}}
+        {%- endif -%}
+      {%- when 'preorder' -%}
+        {{- 'sections.main_product.blocks.inventory_status.preorder' | t -}}
+      {%- when 'sold_out' -%}
+        {{- 'sections.main_product.blocks.inventory_status.sold_out' | t -}}
+      {%- when 'unavailable' -%}
+        {{- 'sections.main_product.blocks.inventory_status.unavailable' | t -}}
+      {%- else -%}
+        {{- 'sections.main_product.blocks.inventory_status.in_stock' | t -}}
+    {%- endcase -%}
+  </span>
+</product-inventory>

@@ -394,6 +394,50 @@
                 </div>
               {%- endif -%}
 
+            {%- when 'inventory_status' -%}
+              {%- if featured_product != blank -%}
+                {% render 'product-inventory', product: featured_product, variant: selected_variant, block: block %}
+              {%- endif -%}
+
+            {%- when 'shipping_lead_time' -%}
+              {%- if featured_product != blank -%}
+                {%- liquid
+                  assign delivery_fallback = 'sections.main_product.blocks.shipping_lead_time.delivery_fallback' | t
+                  assign delivery_text = block.settings.delivery_text | default: delivery_fallback
+                -%}
+                <p class="product-trust" {{ block.shopify_attributes }}>
+                  <span class="product-trust__icon" aria-hidden="true">
+                    {%- if block.settings.icon == 'clock' -%}
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    {%- elsif block.settings.icon == 'truck' -%}
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v11H2zM14 9h4l4 4v4h-8z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
+                    {%- endif -%}
+                  </span>
+                  <span>{{ delivery_text | escape }}</span>
+                </p>
+              {%- endif -%}
+
+            {%- when 'trust_badges' -%}
+              {%- if featured_product != blank -%}
+                {%- liquid
+                  assign returns_fallback = 'sections.main_product.blocks.trust_badges.returns_fallback' | t
+                  assign returns_text = block.settings.returns_text | default: returns_fallback
+                -%}
+                <p class="product-trust" {{ block.shopify_attributes }}>
+                  <span class="product-trust__icon" aria-hidden="true">
+                    {%- if block.settings.icon == 'ruler' -%}
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 2 7 7L9 22l-7-7L15 2Z"/><path d="m11 6 2 2m-5 1 2 2m-5 1 2 2m4-9 2 2"/></svg>
+                    {%- elsif block.settings.icon == 'shield' -%}
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+                    {%- endif -%}
+                  </span>
+                  <span>{{ returns_text | escape }}</span>
+                </p>
+              {%- endif -%}
+
+            {%- when 'collapsible_tab' -%}
+              {% render 'product-accordion', block: block %}
+
             {%- when 'custom_liquid' -%}
               <div class="featured-product__custom-liquid" {{ block.shopify_attributes }}>
                 {{- block.settings.custom_liquid -}}
@@ -415,6 +459,9 @@
                 "id": {{ variant.id | json }},
                 "title": {{ variant.title | json }},
                 "available": {{ variant.available | json }},
+                "inventory_management": {{ variant.inventory_management | json }},
+                "inventory_quantity": {{ variant.inventory_quantity | json }},
+                "inventory_policy": {{ variant.inventory_policy | json }},
                 "options": {{ variant.options | json }},
                 "price": {{ variant.price | money | json }},
                 "compare_at_price": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
@@ -576,6 +623,110 @@
       "type": "description",
       "name": "t:sections.featured_product.blocks.description.name",
       "limit": 1
+    },
+    {
+      "type": "inventory_status",
+      "name": "t:sections.main_product.blocks.inventory_status.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "threshold",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "label": "t:sections.main_product.blocks.inventory_status.settings.threshold.label",
+          "info": "t:sections.main_product.blocks.inventory_status.settings.threshold.info",
+          "default": 5
+        },
+        {
+          "type": "checkbox",
+          "id": "show_count",
+          "label": "t:sections.main_product.blocks.inventory_status.settings.show_count.label",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "shipping_lead_time",
+      "name": "t:sections.main_product.blocks.shipping_lead_time.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "delivery_text",
+          "label": "t:sections.main_product.blocks.shipping_lead_time.settings.delivery_text.label",
+          "info": "t:sections.main_product.blocks.shipping_lead_time.settings.delivery_text.info"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.main_product.blocks.shipping_lead_time.settings.icon.label",
+          "options": [
+            { "value": "none", "label": "t:sections.main_product.blocks.icons.none" },
+            { "value": "truck", "label": "t:sections.main_product.blocks.icons.truck" },
+            { "value": "clock", "label": "t:sections.main_product.blocks.icons.clock" }
+          ],
+          "default": "truck"
+        }
+      ]
+    },
+    {
+      "type": "trust_badges",
+      "name": "t:sections.main_product.blocks.trust_badges.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "returns_text",
+          "label": "t:sections.main_product.blocks.trust_badges.settings.returns_text.label",
+          "info": "t:sections.main_product.blocks.trust_badges.settings.returns_text.info"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.main_product.blocks.trust_badges.settings.icon.label",
+          "options": [
+            { "value": "none", "label": "t:sections.main_product.blocks.icons.none" },
+            { "value": "shield", "label": "t:sections.main_product.blocks.icons.shield" },
+            { "value": "ruler", "label": "t:sections.main_product.blocks.icons.ruler" }
+          ],
+          "default": "shield"
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "t:sections.main_product.blocks.collapsible_tab.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.all.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.all.text.label"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.main_product.blocks.collapsible_tab.settings.icon.label",
+          "options": [
+            { "value": "none", "label": "t:sections.main_product.blocks.icons.none" },
+            { "value": "bag", "label": "t:sections.main_product.blocks.icons.bag" },
+            { "value": "check", "label": "t:sections.main_product.blocks.icons.check" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "t:sections.main_product.blocks.collapsible_tab.settings.page.label",
+          "info": "t:sections.main_product.blocks.collapsible_tab.settings.page.info"
+        }
+      ]
     },
     {
       "type": "custom_liquid",

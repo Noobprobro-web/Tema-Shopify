@@ -187,6 +187,8 @@
       this.listen(document, 'pointerdown', (event) => {
         if (this.isOpen && !this.contains(event.target)) this.setOpen(false);
       });
+      this.listen(this, 'shopify:block:select', () => this.setOpen(true));
+      this.listen(this, 'shopify:block:deselect', () => this.setOpen(false));
       this.listen(this, 'keydown', (event) => {
         if (event.key === 'Escape' && this.isOpen) {
           event.preventDefault();
@@ -245,6 +247,11 @@
 
     setOpen(open, restoreFocus = false) {
       if (!this.trigger || !this.panel) return;
+
+      if (open) {
+        this.closest('.desktop-nav')?.querySelectorAll('theme-disclosure[data-open]')
+          .forEach((other) => other !== this && other.setOpen(false));
+      }
 
       this.trigger.setAttribute('aria-expanded', String(open));
       this.panel.hidden = !open;
@@ -966,6 +973,149 @@
         url.searchParams.delete('selling_plan');
       }
       window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+    }
+  }
+
+  class ProductInventory extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.message = this.querySelector('[data-inventory-message]');
+      const variants = this.closest('variant-selects');
+      if (!variants || !this.message) return;
+
+      this.listen(variants, 'theme:variant-change', (event) => {
+        this.update(event.detail?.variant);
+      });
+    }
+
+    update(variant) {
+      const quantity = Number(variant?.inventory_quantity);
+      let state = 'inStock';
+
+      if (!variant) {
+        state = 'unavailable';
+      } else if (!variant.available) {
+        state = 'soldOut';
+      } else if (variant.inventory_management === 'shopify') {
+        if (variant.inventory_policy === 'continue' && quantity <= 0) {
+          state = 'preorder';
+        } else if (quantity > 0 && quantity <= Number(this.dataset.threshold)) {
+          state = 'lowStock';
+        }
+      }
+
+      this.dataset.stockState = state.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+      this.message.textContent = state === 'lowStock'
+        ? (this.dataset.showCount === 'true'
+          ? this.dataset.lowStockTemplate.replace('[count]', String(quantity))
+          : this.dataset.lowStockGeneric)
+        : this.dataset[state];
+    }
+  }
+
+  const recentViewsKey = 'theme:recently-viewed';
+  const readRecentViews = () => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(recentViewsKey) || '[]');
+      if (!Array.isArray(stored)) return [];
+      return [...new Set(stored.map(String).filter((id) => /^\d{1,20}$/.test(id)))].slice(0, 8);
+    } catch {
+      return [];
+    }
+  };
+
+  const rememberViewedProduct = () => {
+    const productId = document.querySelector('[data-recently-viewed-product-id]')
+      ?.dataset.recentlyViewedProductId;
+    if (!/^\d{1,20}$/.test(productId || '')) return;
+    try {
+      localStorage.setItem(
+        recentViewsKey,
+        JSON.stringify([productId, ...readRecentViews().filter((id) => id !== productId)].slice(0, 8)),
+      );
+    } catch {
+      // Storage can be unavailable in private contexts; the storefront remains usable.
+    }
+  };
+
+  class RecentlyViewed extends ThemeElement {
+    connectedCallback() {
+      this.startListening();
+      this.grid = this.querySelector('[data-recently-viewed-grid]');
+      this.requestController = null;
+      if (!this.grid || !this.dataset.sectionId || !this.dataset.searchUrl) return;
+
+      this.listen(window, 'storage', (event) => {
+        if (event.key === recentViewsKey) this.load();
+      });
+      this.load();
+    }
+
+    disconnectedCallback() {
+      this.requestController?.abort();
+      super.disconnectedCallback();
+    }
+
+    async load() {
+      this.requestController?.abort();
+      this.grid.replaceChildren();
+      this.hidden = true;
+
+      const ids = readRecentViews()
+        .filter((id) => id !== this.dataset.currentProductId)
+        .slice(0, Math.min(8, Number(this.dataset.productsToShow) || 4));
+      if (ids.length === 0) return;
+
+      const request = new AbortController();
+      this.requestController = request;
+      const params = new URLSearchParams({
+        section_id: this.dataset.sectionId,
+        type: 'product',
+        q: ids.map((id) => `id:${id}`).join(' OR '),
+      });
+      this.setAttribute('aria-busy', 'true');
+
+      try {
+        const response = await fetch(`${this.dataset.searchUrl}?${params}`, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          signal: request.signal,
+        });
+        if (!response.ok) throw new Error(String(response.status));
+
+        const sectionHtml = await response.text();
+        if (request !== this.requestController || !this.isConnected) return;
+        const parsed = new DOMParser().parseFromString(sectionHtml, 'text/html');
+        const source = parsed.querySelector('recently-viewed');
+        if (!source) return;
+
+        const cards = new Map(
+          Array.from(source.querySelectorAll('[data-recently-viewed-card]'))
+            .map((card) => [card.dataset.productId, card]),
+        );
+        const selected = ids.map((id) => cards.get(id)).filter(Boolean);
+        if (selected.length === 0) return;
+
+        selected.forEach((card) => {
+          if (this.dataset.showSecondaryImage !== 'true') {
+            card.querySelectorAll('.product-card__image--secondary').forEach((image) => image.remove());
+          }
+          if (this.dataset.showVendor !== 'true') {
+            card.querySelectorAll('.product-card__vendor').forEach((vendor) => vendor.remove());
+          }
+          if (this.dataset.showQuickAdd !== 'true') {
+            card.querySelectorAll('.product-card__action').forEach((action) => action.remove());
+            const variants = card.querySelector('product-card-variants');
+            if (variants) variants.dataset.quickBuyMode = 'none';
+          }
+        });
+
+        this.grid.replaceChildren(...selected);
+        this.hidden = false;
+      } catch (error) {
+        if (error.name !== 'AbortError') this.hidden = true;
+      } finally {
+        if (request === this.requestController) this.setAttribute('aria-busy', 'false');
+      }
     }
   }
 
@@ -2231,7 +2381,17 @@
           throw new Error(this.dataset.addFailedMessage || this.dataset.errorMessage);
         }
 
-        this.showStatus(this.dataset.addedMessage);
+        const addedItem = Array.isArray(result.items)
+          ? result.items.find((item) => String(item.variant_id || item.id) === requestedId)
+          : result;
+        const productTitle = addedItem?.product_title || addedItem?.title || '';
+        const variantTitle = addedItem?.variant_title === 'Default Title'
+          ? ''
+          : (addedItem?.variant_title || '');
+        const itemDescription = [productTitle, variantTitle].filter(Boolean).join(' - ');
+        this.showStatus(itemDescription
+          ? `${this.dataset.addedMessage} ${itemDescription}`
+          : this.dataset.addedMessage);
         // Desde una tarjeta, el foco aterriza en la linea que se acaba de anadir.
         this.open(submitter, form.hasAttribute('data-quick-buy-form') ? addedLine : null);
       } finally {
@@ -4243,6 +4403,15 @@
 
   if (!customElements.get('variant-selects')) {
     customElements.define('variant-selects', VariantSelects);
+  }
+
+  if (!customElements.get('product-inventory')) {
+    customElements.define('product-inventory', ProductInventory);
+  }
+
+  rememberViewedProduct();
+  if (!customElements.get('recently-viewed')) {
+    customElements.define('recently-viewed', RecentlyViewed);
   }
 
   if (!customElements.get('product-gallery')) {

@@ -184,6 +184,13 @@ Registro de decisiones importantes del tema.
   - **Registro P2-01:** Registrado hallazgo no bloqueante sobre actualización de región viva en resize con zoom activo, programado para incorporación técnica en la siguiente directiva.
   - **Autorización de avance:** Se autoriza la transición formal al **Sprint 5C**.
 
+## 2026-09-23: Integración de Sprint 5C (The Luxury Triple Crown: Mega Menú, Recently Viewed e Inventario)
 
-
+- **Decisión conjunta (Gemini Flash 3.8 High, Johandry, Claude Opus 5.5 Extra, GPT-6 Sol Max):**
+  - Integración exitosa de los dos tracks paralelos de Sprint 5C sin colisiones de archivos ni regresiones.
+  - **Track 1 (Claude):** Mega Menú Editorial modularizado en `snippets/mega-menu.liquid` reduciendo la complejidad de `header.liquid` a 21. Cero JS adicional mediante reutilización del Web Component accesible `<theme-disclosure>`. Tarjetas promocionales con proporción 4:5 y `loading="lazy"`. Subsanación de P2-01 en `assets/product-zoom.js` (11.988 bytes).
+  - **Track 2 (GPT):** Web Component `<recently-viewed>` en `assets/theme.js` con API `/search` Section Rendering nativa y límite de 8 IDs locales. Web Component `<product-inventory>` reactivo a variantes. Acordeones nativos `<details>` y anuncio sonoro en live region al añadir al carrito.
+  - **Micro-parches de Gemini:** Exclusividad de paneles abiertos en navegación de escritorio y apertura reactiva ante `shopify:block:select` en el Theme Editor.
+  - **Compuertas Estáticas:** 122 archivos inspeccionados por Theme Check con 0 ofensas, 404 claves con paridad absoluta EN/ES, 70 archivos JSON válidos, 22 contratos de dataset respetados, y 57 filas en `docs/requirements-ledger.md` con 0 inconsistencias.
+  - **Dictamen:** Aprobado para commit, push y despliegue a tienda de desarrollo para verificación Gate 5.
 

@@ -281,6 +281,33 @@ test.describe(`5B-001 zoom (${SITE})`, () => {
     expect(result).toEqual({ before: 'BODY', inside: true, isIn: true, open: true });
   });
 
+  // 5C-001, P2-01 (GPT-AUDIT-008). Al girar el movil o redimensionar, el zoom maximo puede bajar
+  // y la escala se ajusta; la region viva tiene que anunciar el porcentaje nuevo.
+  test('P2-01 resize 390 -> 1280 con la foto de 928 px a 225 %: se anuncia el zoom reajustado y el foco sigue dentro', async ({ page }) => {
+    await go(page, 'pdp-zoom.html', 390, 844);
+    await openZoom(page, 2);
+    await page.locator('[data-zoom-in]').focus();
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Enter');
+    let s = await state(page);
+    expect(s.index).toBe(2);
+    expect(s.scale).toBeCloseTo(2.25, 5);
+    expect(s.status).toBe(L.status(3, 4, 225));
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await expect.poll(async () => (await state(page)).max, { timeout: 3000 }).toBeLessThan(2.25);
+    s = await state(page);
+    expect(s.scale).toBeCloseTo(s.max, 5);
+    expect(s.matrixScale).toBeCloseTo(s.max, 2);
+    expect(s.status).toBe(L.status(3, 4, Math.round(s.max * 100)));
+    await expect(page.locator('[data-zoom-in]')).toBeDisabled();
+    await expect(page.locator('[data-zoom-out]')).toBeFocused();
+    // Un resize que no cambia la escala no repite el anuncio.
+    await page.evaluate(() => { document.querySelector('[data-zoom-status]').textContent = 'sin cambios'; });
+    await page.setViewportSize({ width: 1280, height: 801 });
+    await page.waitForTimeout(200);
+    expect((await state(page)).status).toBe('sin cambios');
+  });
+
   test('Z6 raton: clic alterna en el punto y el zoom sigue al cursor', async ({ page }) => {
     await go(page, 'pdp-zoom.html');
     await openZoom(page, 0);

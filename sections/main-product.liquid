@@ -55,7 +55,7 @@
   assign odd_media = product.media.size | modulo: 2
 -%}
 
-<section class="section product-main color-{{ section_scheme }}" data-section-id="{{ section.id }}">
+<section class="section product-main color-{{ section_scheme }}" data-section-id="{{ section.id }}" data-recently-viewed-product-id="{{ product.id }}">
   <div class="container product-main__layout product-main__layout--{{ section.settings.media_layout }}">
     <product-gallery
       class="product-gallery"
@@ -651,38 +651,43 @@
                 </div>
               {%- endif -%}
 
-            {%- when 'collapsible_tab' -%}
-              {%- comment -%}
-                4F-002. Informacion de compra plegable (composicion, cuidados, envios,
-                devoluciones). <details> nativo: se abre con teclado y lector de pantalla sin
-                JavaScript. Si se elige una pagina, su contenido va despues del texto, para
-                que una misma politica sirva a todos los productos sin copiarla.
-              {%- endcomment -%}
+            {%- when 'inventory_status' -%}
+              {% render 'product-inventory', product: product, variant: selected_variant, block: block %}
+
+            {%- when 'shipping_lead_time' -%}
               {%- liquid
-                assign tab_page_content = block.settings.page.content
-                assign tab_has_content = false
-                if block.settings.content != blank or tab_page_content != blank
-                  assign tab_has_content = true
-                endif
+                assign delivery_fallback = 'sections.main_product.blocks.shipping_lead_time.delivery_fallback' | t
+                assign delivery_text = block.settings.delivery_text | default: delivery_fallback
               -%}
-              {%- if block.settings.heading != blank and tab_has_content -%}
-                <details class="product-details__accordion" {{ block.shopify_attributes }}>
-                  <summary class="product-details__summary">
-                    <span class="product-details__heading">{{ block.settings.heading | escape }}</span>
-                    <span class="product-details__icon" aria-hidden="true">
-                      {%- render 'icon', name: 'chevron-down', size: 14 -%}
-                    </span>
-                  </summary>
-                  <div class="product-details__content rte">
-                    {%- if block.settings.content != blank -%}
-                      {{ block.settings.content }}
-                    {%- endif -%}
-                    {%- if tab_page_content != blank -%}
-                      {{ tab_page_content }}
-                    {%- endif -%}
-                  </div>
-                </details>
-              {%- endif -%}
+              <p class="product-trust" {{ block.shopify_attributes }}>
+                <span class="product-trust__icon" aria-hidden="true">
+                  {%- if block.settings.icon == 'clock' -%}
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                  {%- elsif block.settings.icon == 'truck' -%}
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v11H2zM14 9h4l4 4v4h-8z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
+                  {%- endif -%}
+                </span>
+                <span>{{ delivery_text | escape }}</span>
+              </p>
+
+            {%- when 'trust_badges' -%}
+              {%- liquid
+                assign returns_fallback = 'sections.main_product.blocks.trust_badges.returns_fallback' | t
+                assign returns_text = block.settings.returns_text | default: returns_fallback
+              -%}
+              <p class="product-trust" {{ block.shopify_attributes }}>
+                <span class="product-trust__icon" aria-hidden="true">
+                  {%- if block.settings.icon == 'ruler' -%}
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 2 7 7L9 22l-7-7L15 2Z"/><path d="m11 6 2 2m-5 1 2 2m-5 1 2 2m4-9 2 2"/></svg>
+                  {%- elsif block.settings.icon == 'shield' -%}
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+                  {%- endif -%}
+                </span>
+                <span>{{ returns_text | escape }}</span>
+              </p>
+
+            {%- when 'collapsible_tab' -%}
+              {% render 'product-accordion', block: block %}
 
             {%- when '@app' -%}
               {% render block %}
@@ -699,6 +704,9 @@
               "id": {{ variant.id | json }},
               "title": {{ variant.title | json }},
               "available": {{ variant.available | json }},
+              "inventory_management": {{ variant.inventory_management | json }},
+              "inventory_quantity": {{ variant.inventory_quantity | json }},
+              "inventory_policy": {{ variant.inventory_policy | json }},
               "options": {{ variant.options | json }},
               "price": {{ variant.price | money | json }},
               "price_cents": {{ variant.price | json }},
@@ -942,6 +950,77 @@
       "limit": 1
     },
     {
+      "type": "inventory_status",
+      "name": "t:sections.main_product.blocks.inventory_status.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "threshold",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "label": "t:sections.main_product.blocks.inventory_status.settings.threshold.label",
+          "info": "t:sections.main_product.blocks.inventory_status.settings.threshold.info",
+          "default": 5
+        },
+        {
+          "type": "checkbox",
+          "id": "show_count",
+          "label": "t:sections.main_product.blocks.inventory_status.settings.show_count.label",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "shipping_lead_time",
+      "name": "t:sections.main_product.blocks.shipping_lead_time.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "delivery_text",
+          "label": "t:sections.main_product.blocks.shipping_lead_time.settings.delivery_text.label",
+          "info": "t:sections.main_product.blocks.shipping_lead_time.settings.delivery_text.info"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.main_product.blocks.shipping_lead_time.settings.icon.label",
+          "options": [
+            { "value": "none", "label": "t:sections.main_product.blocks.icons.none" },
+            { "value": "truck", "label": "t:sections.main_product.blocks.icons.truck" },
+            { "value": "clock", "label": "t:sections.main_product.blocks.icons.clock" }
+          ],
+          "default": "truck"
+        }
+      ]
+    },
+    {
+      "type": "trust_badges",
+      "name": "t:sections.main_product.blocks.trust_badges.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "returns_text",
+          "label": "t:sections.main_product.blocks.trust_badges.settings.returns_text.label",
+          "info": "t:sections.main_product.blocks.trust_badges.settings.returns_text.info"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.main_product.blocks.trust_badges.settings.icon.label",
+          "options": [
+            { "value": "none", "label": "t:sections.main_product.blocks.icons.none" },
+            { "value": "shield", "label": "t:sections.main_product.blocks.icons.shield" },
+            { "value": "ruler", "label": "t:sections.main_product.blocks.icons.ruler" }
+          ],
+          "default": "shield"
+        }
+      ]
+    },
+    {
       "type": "collapsible_tab",
       "name": "t:sections.main_product.blocks.collapsible_tab.name",
       "settings": [
@@ -956,6 +1035,17 @@
           "id": "content",
           "label": "t:sections.all.text.label",
           "default": "<p>Describe the fibres, the finish and how to care for the piece.</p>"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.main_product.blocks.collapsible_tab.settings.icon.label",
+          "options": [
+            { "value": "none", "label": "t:sections.main_product.blocks.icons.none" },
+            { "value": "bag", "label": "t:sections.main_product.blocks.icons.bag" },
+            { "value": "check", "label": "t:sections.main_product.blocks.icons.check" }
+          ],
+          "default": "none"
         },
         {
           "type": "page",

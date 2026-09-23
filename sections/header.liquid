@@ -135,42 +135,8 @@
         {%- for link in section.settings.menu.links -%}
           <li>
             {%- if link.links != blank -%}
-              <theme-disclosure class="desktop-nav__disclosure" data-disclosure-arrows>
-                <button
-                  class="desktop-nav__toggle"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="DesktopMenu-{{ section.id }}-{{ forloop.index }}"
-                  data-disclosure-trigger
-                >
-                  <span>{{ link.title | escape }}</span>
-                  {% render 'icon', name: 'chevron-down', size: 14 %}
-                </button>
-                <div
-                  id="DesktopMenu-{{ section.id }}-{{ forloop.index }}"
-                  class="desktop-nav__panel color-{{ color_scheme_id }}"
-                  data-disclosure-panel
-                  hidden
-                >
-                  <ul class="desktop-nav__submenu unstyled-list" role="list">
-                    <li>
-                      <a href="{{ link.url }}">{{ 'general.navigation.view_all' | t: title: link.title }}</a>
-                    </li>
-                    {%- for child_link in link.links -%}
-                      <li>
-                        <a href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
-                        {%- if child_link.links != blank -%}
-                          <ul class="desktop-nav__grandchildren unstyled-list" role="list">
-                            {%- for grandchild_link in child_link.links -%}
-                              <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title | escape }}</a></li>
-                            {%- endfor -%}
-                          </ul>
-                        {%- endif -%}
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </div>
-              </theme-disclosure>
+              {%- comment -%} 5C-001: panel clasico o mega menu, en el snippet. {%- endcomment -%}
+              {%- render 'mega-menu', link: link, section: section, index: forloop.index, color_scheme_id: color_scheme_id -%}
             {%- else -%}
               <a class="desktop-nav__link" href="{{ link.url }}">{{ link.title | escape }}</a>
             {%- endif -%}
@@ -277,6 +243,71 @@
       "id": "customer_account_menu",
       "label": "t:sections.header.settings.customer_account_menu.label",
       "default": "customer-account-main-menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_menu_promo",
+      "name": "t:sections.header.blocks.mega_menu_promo.name",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.menu_item.label",
+          "info": "t:sections.header.blocks.mega_menu_promo.settings.menu_item.info"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu_promo.settings.card_1.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.image_1.label",
+          "info": "t:sections.header.blocks.mega_menu_promo.settings.image_1.info"
+        },
+        {
+          "type": "text",
+          "id": "heading_1",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.heading_1.label"
+        },
+        {
+          "type": "text",
+          "id": "subheading_1",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.subheading_1.label"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_1.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu_promo.settings.card_2.content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.image_2.label",
+          "info": "t:sections.header.blocks.mega_menu_promo.settings.image_2.info"
+        },
+        {
+          "type": "text",
+          "id": "heading_2",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.heading_2.label"
+        },
+        {
+          "type": "text",
+          "id": "subheading_2",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.subheading_2.label"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_2.label"
+        }
+      ]
     }
   ]
 }

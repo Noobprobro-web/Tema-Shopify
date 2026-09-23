@@ -1,0 +1,33 @@
+{%- liquid
+  assign tab_page_content = block.settings.page.content
+  assign tab_has_content = false
+  if block.settings.content != blank or tab_page_content != blank
+    assign tab_has_content = true
+  endif
+-%}
+
+{%- if block.settings.heading != blank and tab_has_content -%}
+  <details class="product-accordion product-details__accordion" {{ block.shopify_attributes }}>
+    <summary class="product-details__summary">
+      <span class="product-details__heading">
+        {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+          <span class="product-accordion__leading-icon" aria-hidden="true">
+            {%- render 'icon', name: block.settings.icon, size: 18 -%}
+          </span>
+        {%- endif -%}
+        {{ block.settings.heading | escape }}
+      </span>
+      <span class="product-details__icon" aria-hidden="true">
+        {%- render 'icon', name: 'chevron-down', size: 14 -%}
+      </span>
+    </summary>
+    <div class="product-details__content rte">
+      {%- if block.settings.content != blank -%}
+        {{ block.settings.content }}
+      {%- endif -%}
+      {%- if tab_page_content != blank -%}
+        {{ tab_page_content }}
+      {%- endif -%}
+    </div>
+  </details>
+{%- endif -%}

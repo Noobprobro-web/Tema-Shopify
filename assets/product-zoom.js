@@ -19,7 +19,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     const on = (...args) => this.listen(...args);
     on(this.section, 'click', (event) => {
       const trigger = event.target.closest('[data-zoom-open]');
-      if (trigger) this.open(Number(trigger.dataset.zoomOpen) || 0, trigger);
+      if (trigger) this.open(+trigger.dataset.zoomOpen || 0, trigger);
     });
     on(this.closeButton, 'click', () => this.dialog.close());
     [[this.inButton, 1.5], [this.outButton, 2 / 3], [this.resetButton, 0]].forEach(([button, factor]) => on(button, 'click', () => this.zoomTo(this.scale * factor)));
@@ -48,13 +48,17 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     if (this.dialog.open) return;
     this.opener = trigger;
     this.dialog.showModal();
-    this.setAttribute('data-open', '');
-    window.ThemeCore.syncDialogScrollLocks();
+    this.lock(true);
     this.rtl = getComputedStyle(this.track).direction === 'rtl';
     this.releaseFocus = window.ThemeCore.trapFocus(this.dialog, this.closeButton);
     this.index = -1;
     this.layout();
     this.goTo(index, false);
+  }
+
+  lock(open) {
+    this.toggleAttribute('data-open', open);
+    window.ThemeCore.syncDialogScrollLocks();
   }
 
   handleClose() {
@@ -63,8 +67,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.pointers.clear();
     this.start = this.pinch = null;
     this.resetView();
-    this.removeAttribute('data-open');
-    window.ThemeCore.syncDialogScrollLocks();
+    this.lock(false);
     this.opener?.focus();
   }
 
@@ -72,8 +75,8 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     const { clientWidth: width, clientHeight: height } = this.track;
     this.fits = this.slides.map((slide) => {
       const img = slide.querySelector('img');
-      const natural = Number(img.dataset.width) || 1;
-      const ratio = Number(img.dataset.ratio) || 1;
+      const natural = +img.dataset.width || 1;
+      const ratio = +img.dataset.ratio || 1;
       const fit = Math.min(width, height * ratio, natural);
       img.style.width = `${fit}px`;
       img.style.height = `${fit / ratio}px`;
@@ -81,9 +84,12 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     });
     if (this.index < 0) return;
     this.fit = this.fits[this.index];
-    this.scale = Math.min(this.scale, Math.max(1, this.fit.max));
+    const previous = this.scale;
+    this.scale = Math.min(previous, Math.max(1, this.fit.max));
     this.track.scrollLeft = this.offsetOf(this.index);
     this.apply();
+    // P2-01: anuncia el zoom reajustado.
+    if (this.dialog.open && Math.round(this.scale * 100) !== Math.round(previous * 100)) this.announce();
   }
 
   offsetOf(index) {
@@ -118,10 +124,10 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
   load(index, priority) {
     const slide = this.slides[index];
     const img = slide?.querySelector('img');
-    if (!img || img.hasAttribute('srcset')) return;
+    if (!img || img.srcset) return;
     if (priority) img.fetchPriority = 'high';
-    if ('pending' in img.dataset) return;
-    img.dataset.pending = '';
+    if (img.dataset.pending) return;
+    img.dataset.pending = 1;
     const upgrade = () => img.setAttribute('srcset', img.dataset.srcset);
     const shown = this.section.querySelector(`[data-product-media-id="${slide.dataset.mediaId}"] img`)?.currentSrc;
     if (!shown) return upgrade();
@@ -152,8 +158,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.set([[this.inButton, fit.max < 1.25 || scale >= fit.max - 0.01], [this.outButton, scale <= 1], [this.resetButton, scale <= 1]]);
   }
 
-  // F01: Chromium deja el foco en body si el boton enfocado se oculta o se desactiva; antes
-  // pasa al primer control que sigue activo (Alejar antes que Cerrar).
+  // F01: el foco sale del boton antes de ocultarlo o desactivarlo (si no, cae en body).
   set(states, prefer = []) {
     const next = new Map(states);
     const move = () => [...prefer, this.inButton, this.outButton, ...this.steps, this.closeButton]

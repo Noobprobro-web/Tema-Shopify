@@ -43,6 +43,9 @@
       "cart_count": {
         "one": "Cart, {{ count }} item",
         "other": "Cart, {{ count }} items"
+      },
+      "mega_menu": {
+        "featured": "Featured"
       }
     },
     "footer": {
@@ -129,6 +132,27 @@
       "region_label": "Featured product",
       "onboarding_title": "Featured luxury product",
       "onboarding_price": "$480.00"
+    },
+    "recently_viewed": {
+      "heading": "Recently viewed"
+    },
+    "main_product": {
+      "blocks": {
+        "inventory_status": {
+          "low_stock": "Low stock: [count] left",
+          "low_stock_generic": "Low stock",
+          "in_stock": "In stock, ready to ship",
+          "preorder": "Available for pre-order",
+          "sold_out": "Sold out",
+          "unavailable": "This option is unavailable"
+        },
+        "shipping_lead_time": {
+          "delivery_fallback": "Delivery times and costs confirmed at checkout"
+        },
+        "trust_badges": {
+          "returns_fallback": "Returns subject to our store policy"
+        }
+      }
     },
     "homepage": {
       "hero": {

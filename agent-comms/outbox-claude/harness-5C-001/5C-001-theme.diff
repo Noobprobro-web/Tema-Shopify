@@ -1,0 +1,660 @@
+--- a/sections/header.liquid
++++ b/sections/header.liquid
+@@ -135,42 +135,8 @@
+         {%- for link in section.settings.menu.links -%}
+           <li>
+             {%- if link.links != blank -%}
+-              <theme-disclosure class="desktop-nav__disclosure" data-disclosure-arrows>
+-                <button
+-                  class="desktop-nav__toggle"
+-                  type="button"
+-                  aria-expanded="false"
+-                  aria-controls="DesktopMenu-{{ section.id }}-{{ forloop.index }}"
+-                  data-disclosure-trigger
+-                >
+-                  <span>{{ link.title | escape }}</span>
+-                  {% render 'icon', name: 'chevron-down', size: 14 %}
+-                </button>
+-                <div
+-                  id="DesktopMenu-{{ section.id }}-{{ forloop.index }}"
+-                  class="desktop-nav__panel color-{{ color_scheme_id }}"
+-                  data-disclosure-panel
+-                  hidden
+-                >
+-                  <ul class="desktop-nav__submenu unstyled-list" role="list">
+-                    <li>
+-                      <a href="{{ link.url }}">{{ 'general.navigation.view_all' | t: title: link.title }}</a>
+-                    </li>
+-                    {%- for child_link in link.links -%}
+-                      <li>
+-                        <a href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
+-                        {%- if child_link.links != blank -%}
+-                          <ul class="desktop-nav__grandchildren unstyled-list" role="list">
+-                            {%- for grandchild_link in child_link.links -%}
+-                              <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title | escape }}</a></li>
+-                            {%- endfor -%}
+-                          </ul>
+-                        {%- endif -%}
+-                      </li>
+-                    {%- endfor -%}
+-                  </ul>
+-                </div>
+-              </theme-disclosure>
++              {%- comment -%} 5C-001: panel clasico o mega menu, en el snippet. {%- endcomment -%}
++              {%- render 'mega-menu', link: link, section: section, index: forloop.index, color_scheme_id: color_scheme_id -%}
+             {%- else -%}
+               <a class="desktop-nav__link" href="{{ link.url }}">{{ link.title | escape }}</a>
+             {%- endif -%}
+@@ -278,6 +244,71 @@
+       "label": "t:sections.header.settings.customer_account_menu.label",
+       "default": "customer-account-main-menu"
+     }
++  ],
++  "blocks": [
++    {
++      "type": "mega_menu_promo",
++      "name": "t:sections.header.blocks.mega_menu_promo.name",
++      "limit": 6,
++      "settings": [
++        {
++          "type": "text",
++          "id": "menu_item",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.menu_item.label",
++          "info": "t:sections.header.blocks.mega_menu_promo.settings.menu_item.info"
++        },
++        {
++          "type": "header",
++          "content": "t:sections.header.blocks.mega_menu_promo.settings.card_1.content"
++        },
++        {
++          "type": "image_picker",
++          "id": "image_1",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.image_1.label",
++          "info": "t:sections.header.blocks.mega_menu_promo.settings.image_1.info"
++        },
++        {
++          "type": "text",
++          "id": "heading_1",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.heading_1.label"
++        },
++        {
++          "type": "text",
++          "id": "subheading_1",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.subheading_1.label"
++        },
++        {
++          "type": "url",
++          "id": "link_1",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_1.label"
++        },
++        {
++          "type": "header",
++          "content": "t:sections.header.blocks.mega_menu_promo.settings.card_2.content"
++        },
++        {
++          "type": "image_picker",
++          "id": "image_2",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.image_2.label",
++          "info": "t:sections.header.blocks.mega_menu_promo.settings.image_2.info"
++        },
++        {
++          "type": "text",
++          "id": "heading_2",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.heading_2.label"
++        },
++        {
++          "type": "text",
++          "id": "subheading_2",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.subheading_2.label"
++        },
++        {
++          "type": "url",
++          "id": "link_2",
++          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_2.label"
++        }
++      ]
++    }
+   ]
+ }
+ {% endschema %}
+--- a/snippets/mega-menu.liquid
++++ b/snippets/mega-menu.liquid
+@@ -0,0 +1,179 @@
++{%- comment -%}
++  5C-001. Desplegable de un enlace de primer nivel del menu de escritorio. Lo pinta
++  sections/header.liquid para cada enlace con hijos; aqui vive la decision entre el panel
++  clasico y el mega menu, para que la cabecera no crezca en complejidad.
++
++  Mega menu cuando el enlace tiene un bloque mega_menu_promo asociado o tres niveles:
++  - una columna por enlace de segundo nivel, encabezada por el propio enlace, con sus
++    enlaces de tercer nivel debajo;
++  - a la derecha, hasta dos tarjetas del bloque (imagen 4:5 diferida, titulo, subtitulo).
++  Si no, el panel clasico de siempre, con el mismo marcado que antes de 5C (sin tercer
++  nivel, que ahora siempre abre el mega menu).
++
++  El bloque se asocia por nombre, sin distinguir mayusculas ni acentos: vale el titulo que
++  ve el comprador ("Catalogo" en /es) o el handle del enlace, que no cambia de idioma
++  ("catalog"). Si dos bloques nombran el mismo enlace, gana el primero.
++
++  Sin JS nuevo: <theme-disclosure> ya abre y cierra, sincroniza aria-expanded, cierra con
++  Escape devolviendo el foco al disparador y con un clic fuera. Tab recorre el panel en el
++  orden del DOM y sale de el sin trampa.
++
++  Accepts:
++  - link: enlace de primer nivel con hijos (link.links != blank)
++  - section: la seccion header (id y bloques)
++  - index: forloop.index del enlace, para los ids
++  - color_scheme_id: esquema de color de la cabecera
++{%- endcomment -%}
++{%- liquid
++  assign promo = nil
++  assign link_title = link.title | downcase | strip
++  assign link_handle = link.title | handleize
++  for block in section.blocks
++    if block.type == 'mega_menu_promo' and promo == nil
++      assign wanted = block.settings.menu_item | downcase | strip
++      assign wanted_handle = block.settings.menu_item | handleize
++      if wanted != blank
++        if wanted == link_title or wanted_handle == link_handle or wanted_handle == link.handle
++          assign promo = block
++        endif
++      endif
++    endif
++  endfor
++
++  assign has_third_level = false
++  for child_link in link.links
++    if child_link.links != blank
++      assign has_third_level = true
++    endif
++  endfor
++
++  assign is_mega = false
++  if promo != nil or has_third_level
++    assign is_mega = true
++  endif
++  assign panel_id = 'DesktopMenu-' | append: section.id | append: '-' | append: index
++-%}
++
++<theme-disclosure class="desktop-nav__disclosure{% if is_mega %} desktop-nav__disclosure--mega{% endif %}" data-disclosure-arrows>
++  <button
++    class="desktop-nav__toggle"
++    type="button"
++    aria-expanded="false"
++    aria-controls="{{ panel_id }}"
++    data-disclosure-trigger
++  >
++    <span>{{ link.title | escape }}</span>
++    {% render 'icon', name: 'chevron-down', size: 14 %}
++  </button>
++  {%- if is_mega -%}
++    <div
++      id="{{ panel_id }}"
++      class="desktop-nav__panel desktop-nav__mega-menu color-{{ color_scheme_id }}"
++      data-disclosure-panel
++      hidden
++    >
++      <div class="container mega-menu__grid">
++        <div class="mega-menu__columns">
++          <a class="mega-menu__view-all" href="{{ link.url }}">
++            {{- 'general.navigation.view_all' | t: title: link.title -}}
++          </a>
++          <ul class="mega-menu__column-list unstyled-list" role="list">
++            {%- for child_link in link.links -%}
++              <li class="mega-menu__column">
++                <a class="mega-menu__column-title" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
++                {%- if child_link.links != blank -%}
++                  <ul class="mega-menu__sublist unstyled-list" role="list">
++                    {%- for grandchild_link in child_link.links -%}
++                      <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title | escape }}</a></li>
++                    {%- endfor -%}
++                  </ul>
++                {%- endif -%}
++              </li>
++            {%- endfor -%}
++          </ul>
++        </div>
++
++        {%- if promo != nil -%}
++          {%- capture promo_cards -%}
++            {%- for n in (1..2) -%}
++              {%- liquid
++                assign image_key = 'image_' | append: n
++                assign heading_key = 'heading_' | append: n
++                assign subheading_key = 'subheading_' | append: n
++                assign link_key = 'link_' | append: n
++                assign card_image = promo.settings[image_key]
++                assign card_heading = promo.settings[heading_key]
++                assign card_subheading = promo.settings[subheading_key]
++                assign card_link = promo.settings[link_key]
++
++                # Con titulo, la foto acompana al texto del enlace y su alt iria repetido: va
++                # vacio. Sin titulo, la foto es el nombre del enlace: su alt o el del menu.
++                assign card_alt = ''
++                if card_heading == blank
++                  assign card_alt = card_image.alt | default: link.title
++                endif
++              -%}
++              {%- if card_image != blank or card_heading != blank -%}
++                {%- capture card_inner -%}
++                  {%- if card_image != blank -%}
++                    <span class="mega-menu__promo-media">
++                      {{-
++                        card_image
++                        | image_url: width: 800
++                        | image_tag:
++                          class: 'mega-menu__promo-image',
++                          loading: 'lazy',
++                          widths: '240, 320, 400, 560, 800',
++                          sizes: '(min-width: 62rem) 15rem, 100vw',
++                          alt: card_alt
++                      -}}
++                    </span>
++                  {%- endif -%}
++                  {%- if card_heading != blank -%}
++                    <span class="mega-menu__promo-heading">{{ card_heading | escape }}</span>
++                  {%- endif -%}
++                  {%- if card_subheading != blank -%}
++                    <span class="mega-menu__promo-subheading">{{ card_subheading | escape }}</span>
++                  {%- endif -%}
++                {%- endcapture -%}
++                <li class="mega-menu__promo">
++                  {%- if card_link != blank -%}
++                    <a class="mega-menu__promo-card" href="{{ card_link }}">{{ card_inner }}</a>
++                  {%- else -%}
++                    <div class="mega-menu__promo-card">{{ card_inner }}</div>
++                  {%- endif -%}
++                </li>
++              {%- endif -%}
++            {%- endfor -%}
++          {%- endcapture -%}
++          {%- if promo_cards != blank -%}
++            <ul
++              class="mega-menu__promos unstyled-list"
++              role="list"
++              aria-label="{{ 'sections.header.mega_menu.featured' | t | escape_once }}"
++              {{ promo.shopify_attributes }}
++            >
++              {{- promo_cards -}}
++            </ul>
++          {%- endif -%}
++        {%- endif -%}
++      </div>
++    </div>
++  {%- else -%}
++    <div
++      id="{{ panel_id }}"
++      class="desktop-nav__panel color-{{ color_scheme_id }}"
++      data-disclosure-panel
++      hidden
++    >
++      <ul class="desktop-nav__submenu unstyled-list" role="list">
++        <li>
++          <a href="{{ link.url }}">{{ 'general.navigation.view_all' | t: title: link.title }}</a>
++        </li>
++        {%- for child_link in link.links -%}
++          <li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
++        {%- endfor -%}
++      </ul>
++    </div>
++  {%- endif -%}
++</theme-disclosure>
+--- a/assets/product-zoom.js
++++ b/assets/product-zoom.js
+@@ -19,7 +19,7 @@
+     const on = (...args) => this.listen(...args);
+     on(this.section, 'click', (event) => {
+       const trigger = event.target.closest('[data-zoom-open]');
+-      if (trigger) this.open(Number(trigger.dataset.zoomOpen) || 0, trigger);
++      if (trigger) this.open(+trigger.dataset.zoomOpen || 0, trigger);
+     });
+     on(this.closeButton, 'click', () => this.dialog.close());
+     [[this.inButton, 1.5], [this.outButton, 2 / 3], [this.resetButton, 0]].forEach(([button, factor]) => on(button, 'click', () => this.zoomTo(this.scale * factor)));
+@@ -48,8 +48,7 @@
+     if (this.dialog.open) return;
+     this.opener = trigger;
+     this.dialog.showModal();
+-    this.setAttribute('data-open', '');
+-    window.ThemeCore.syncDialogScrollLocks();
++    this.lock(true);
+     this.rtl = getComputedStyle(this.track).direction === 'rtl';
+     this.releaseFocus = window.ThemeCore.trapFocus(this.dialog, this.closeButton);
+     this.index = -1;
+@@ -57,14 +56,18 @@
+     this.goTo(index, false);
+   }
+ 
++  lock(open) {
++    this.toggleAttribute('data-open', open);
++    window.ThemeCore.syncDialogScrollLocks();
++  }
++
+   handleClose() {
+     this.releaseFocus?.();
+     clearTimeout(this.tapTimer);
+     this.pointers.clear();
+     this.start = this.pinch = null;
+     this.resetView();
+-    this.removeAttribute('data-open');
+-    window.ThemeCore.syncDialogScrollLocks();
++    this.lock(false);
+     this.opener?.focus();
+   }
+ 
+@@ -72,8 +75,8 @@
+     const { clientWidth: width, clientHeight: height } = this.track;
+     this.fits = this.slides.map((slide) => {
+       const img = slide.querySelector('img');
+-      const natural = Number(img.dataset.width) || 1;
+-      const ratio = Number(img.dataset.ratio) || 1;
++      const natural = +img.dataset.width || 1;
++      const ratio = +img.dataset.ratio || 1;
+       const fit = Math.min(width, height * ratio, natural);
+       img.style.width = `${fit}px`;
+       img.style.height = `${fit / ratio}px`;
+@@ -81,9 +84,12 @@
+     });
+     if (this.index < 0) return;
+     this.fit = this.fits[this.index];
+-    this.scale = Math.min(this.scale, Math.max(1, this.fit.max));
++    const previous = this.scale;
++    this.scale = Math.min(previous, Math.max(1, this.fit.max));
+     this.track.scrollLeft = this.offsetOf(this.index);
+     this.apply();
++    // P2-01: anuncia el zoom reajustado.
++    if (this.dialog.open && Math.round(this.scale * 100) !== Math.round(previous * 100)) this.announce();
+   }
+ 
+   offsetOf(index) {
+@@ -118,10 +124,10 @@
+   load(index, priority) {
+     const slide = this.slides[index];
+     const img = slide?.querySelector('img');
+-    if (!img || img.hasAttribute('srcset')) return;
++    if (!img || img.srcset) return;
+     if (priority) img.fetchPriority = 'high';
+-    if ('pending' in img.dataset) return;
+-    img.dataset.pending = '';
++    if (img.dataset.pending) return;
++    img.dataset.pending = 1;
+     const upgrade = () => img.setAttribute('srcset', img.dataset.srcset);
+     const shown = this.section.querySelector(`[data-product-media-id="${slide.dataset.mediaId}"] img`)?.currentSrc;
+     if (!shown) return upgrade();
+@@ -152,8 +158,7 @@
+     this.set([[this.inButton, fit.max < 1.25 || scale >= fit.max - 0.01], [this.outButton, scale <= 1], [this.resetButton, scale <= 1]]);
+   }
+ 
+-  // F01: Chromium deja el foco en body si el boton enfocado se oculta o se desactiva; antes
+-  // pasa al primer control que sigue activo (Alejar antes que Cerrar).
++  // F01: el foco sale del boton antes de ocultarlo o desactivarlo (si no, cae en body).
+   set(states, prefer = []) {
+     const next = new Map(states);
+     const move = () => [...prefer, this.inButton, this.outButton, ...this.steps, this.closeButton]
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -8401,3 +8401,189 @@
+     navigation: none;
+   }
+ }
++
++/* -------------------------------------------------------------------------- */
++/* 5C-001. Mega Menú Editorial Multicolumna                                   */
++/* -------------------------------------------------------------------------- */
++/* El panel es el mismo [data-disclosure-panel] de <theme-disclosure>: sin JS nuevo. Con el
++   disparador en position: static, el panel se ancla a .site-header (position: relative) y
++   ocupa todo el ancho bajo la cabecera; dentro, .container alinea la rejilla con la pagina.
++   Las tarjetas llevan loading="lazy" y viven en un panel con hidden: ninguna foto se pide
++   hasta abrir. Sin JS el panel se pinta dentro de la cabecera (reglas .no-js de arriba):
++   ahi sobran las fotos y solo quedan las columnas. */
++.no-js .mega-menu__promos {
++  display: none;
++}
++
++.no-js .mega-menu__grid {
++  width: auto;
++}
++
++.no-js .mega-menu__columns,
++.no-js .mega-menu__column-list,
++.no-js .mega-menu__sublist {
++  display: grid;
++  gap: var(--space-1);
++}
++
++.no-js .mega-menu__view-all,
++.no-js .mega-menu__column-title,
++.no-js .mega-menu__sublist a {
++  display: inline-flex;
++  min-height: var(--tap-target-min, 44px);
++  align-items: center;
++  color: currentColor;
++}
++
++@media (min-width: 62rem) {
++  .desktop-nav__disclosure--mega {
++    position: static;
++  }
++
++  .desktop-nav__mega-menu {
++    inset-block-start: 100%;
++    inset-inline: 0;
++    min-width: 0;
++    /* Con la cabecera pegada, un menu mas alto que la ventana se recorre dentro del panel. */
++    max-height: calc(100dvh - var(--header-offset, 0px) - var(--space-6));
++    padding: var(--space-5) 0 var(--space-6);
++    overflow-y: auto;
++    overscroll-behavior: contain;
++    border-inline: 0;
++  }
++
++  /* Las tarjetas abren una segunda columna implicita: sin ellas no queda hueco a la derecha. */
++  .mega-menu__grid {
++    display: grid;
++    grid-template-columns: minmax(0, 1fr);
++    grid-auto-columns: auto;
++    grid-auto-flow: column;
++    align-items: start;
++    column-gap: var(--space-6);
++  }
++
++  .mega-menu__columns {
++    display: grid;
++    align-content: start;
++    gap: var(--space-3);
++  }
++
++  .mega-menu__view-all,
++  .mega-menu__column-title,
++  .mega-menu__sublist a,
++  .mega-menu__promo-card {
++    color: currentColor;
++    text-decoration: none;
++  }
++
++  .mega-menu__view-all {
++    display: inline-flex;
++    min-height: var(--tap-target-min, 44px);
++    justify-self: start;
++    align-items: center;
++    font-size: 0.75rem;
++    font-weight: 700;
++    letter-spacing: 0.08em;
++    text-decoration: underline;
++    text-decoration-thickness: 1px;
++    text-transform: uppercase;
++    text-underline-offset: 0.35em;
++  }
++
++  .mega-menu__column-list {
++    display: grid;
++    grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
++    gap: var(--space-4) var(--space-5);
++  }
++
++  .mega-menu__column {
++    display: grid;
++    align-content: start;
++  }
++
++  .mega-menu__column-title {
++    display: flex;
++    min-height: var(--tap-target-min, 44px);
++    align-items: center;
++    border-block-end: 1px solid var(--color-border-hairline);
++    font-family: var(--font-heading-family);
++    font-size: 1.125rem;
++    line-height: 1.2;
++  }
++
++  .mega-menu__sublist {
++    display: grid;
++    padding-block-start: var(--space-1);
++  }
++
++  .mega-menu__sublist a {
++    display: flex;
++    min-height: var(--tap-target-min, 44px);
++    align-items: center;
++    font-size: 0.875rem;
++  }
++
++  .mega-menu__column-title:hover,
++  .mega-menu__sublist a:hover,
++  .mega-menu__view-all:hover {
++    text-decoration: underline;
++    text-decoration-thickness: 1px;
++    text-underline-offset: 0.25em;
++  }
++
++  .mega-menu__promos {
++    display: grid;
++    grid-auto-columns: 15rem;
++    grid-auto-flow: column;
++    gap: var(--space-4);
++  }
++
++  .mega-menu__promo-card {
++    display: grid;
++    min-height: var(--tap-target-min, 44px);
++    align-content: start;
++    gap: var(--space-1);
++  }
++
++  /* Retrato 4:5 fijo: la foto ocupa su hueco antes de llegar y no mueve el texto. */
++  .mega-menu__promo-media {
++    display: block;
++    overflow: hidden;
++    margin-block-end: var(--space-1);
++    aspect-ratio: 4 / 5;
++    background: var(--color-surface);
++  }
++
++  .mega-menu__promo-image {
++    display: block;
++    width: 100%;
++    height: 100%;
++    object-fit: cover;
++  }
++
++  .mega-menu__promo-heading {
++    font-family: var(--font-heading-family);
++    font-size: 1.125rem;
++    line-height: 1.25;
++  }
++
++  .mega-menu__promo-subheading {
++    font-size: 0.8125rem;
++    line-height: 1.45;
++  }
++
++  a.mega-menu__promo-card:hover .mega-menu__promo-heading {
++    text-decoration: underline;
++    text-decoration-thickness: 1px;
++    text-underline-offset: 0.2em;
++  }
++
++  html[data-animations='full'] .mega-menu__promo-image {
++    transition: transform var(--motion-slow) var(--ease-move);
++  }
++
++  /* El mismo gesto que la foto de la tarjeta de producto. */
++  html[data-animations='full'] a.mega-menu__promo-card:hover .mega-menu__promo-image {
++    transform: scale(1.025);
++  }
++}
+--- a/locales/en.default.json
++++ b/locales/en.default.json
+@@ -43,6 +43,9 @@
+       "cart_count": {
+         "one": "Cart, {{ count }} item",
+         "other": "Cart, {{ count }} items"
++      },
++      "mega_menu": {
++        "featured": "Featured"
+       }
+     },
+     "footer": {
+--- a/locales/es.json
++++ b/locales/es.json
+@@ -43,6 +43,9 @@
+       "cart_count": {
+         "one": "Carrito, {{ count }} artículo",
+         "other": "Carrito, {{ count }} artículos"
++      },
++      "mega_menu": {
++        "featured": "Destacados"
+       }
+     },
+     "footer": {
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -376,6 +376,49 @@
+         "customer_account_menu": {
+           "label": "Customer account menu"
+         }
++      },
++      "blocks": {
++        "mega_menu_promo": {
++          "name": "Mega menu promotion",
++          "settings": {
++            "menu_item": {
++              "label": "Menu item",
++              "info": "Name of the top-level menu item that opens this mega menu, for example \"Catalog\". Capitals don't matter, and in other languages the translated name also works. The item needs sub-links. Items with three levels of links open a mega menu even without this block."
++            },
++            "card_1": {
++              "content": "Card 1"
++            },
++            "image_1": {
++              "label": "Image",
++              "info": "Shown in portrait, 4:5. Use an image at least 800 px wide."
++            },
++            "heading_1": {
++              "label": "Heading"
++            },
++            "subheading_1": {
++              "label": "Subheading"
++            },
++            "link_1": {
++              "label": "Link"
++            },
++            "card_2": {
++              "content": "Card 2"
++            },
++            "image_2": {
++              "label": "Image",
++              "info": "Shown in portrait, 4:5. Use an image at least 800 px wide."
++            },
++            "heading_2": {
++              "label": "Heading"
++            },
++            "subheading_2": {
++              "label": "Subheading"
++            },
++            "link_2": {
++              "label": "Link"
++            }
++          }
++        }
+       }
+     },
+     "footer": {
