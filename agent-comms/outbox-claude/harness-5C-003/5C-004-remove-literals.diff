@@ -1,0 +1,58 @@
+diff --git a/sections/announcement-bar.liquid b/sections/announcement-bar.liquid
+index 9d1f8cf..b83c273 100644
+--- a/sections/announcement-bar.liquid
++++ b/sections/announcement-bar.liquid
+@@ -44,9 +44,6 @@
+           >
+             {%- liquid
+               assign item_text = block.settings.text
+-              if request.locale.iso_code == 'es' and item_text == 'Complimentary shipping on orders over $150'
+-                assign item_text = 'Envío de cortesía en pedidos superiores a $150'
+-              endif
+               assign announcement_link = block.settings.link
+               if announcement_link == '/collections/all'
+                 assign announcement_link = routes.all_products_collection_url
+diff --git a/sections/recently-viewed.liquid b/sections/recently-viewed.liquid
+index 692ef9c..0a8aada 100644
+--- a/sections/recently-viewed.liquid
++++ b/sections/recently-viewed.liquid
+@@ -6,14 +6,6 @@
+   if heading == blank
+     assign heading = 'sections.recently_viewed.heading' | t
+   endif
+-  if request.locale.iso_code == 'es'
+-    if eyebrow == 'Recently viewed'
+-      assign eyebrow = 'Vistos recientemente'
+-    endif
+-    if heading == 'Pieces you considered'
+-      assign heading = 'Piezas que has explorado'
+-    endif
+-  endif
+ -%}
+ 
+ <recently-viewed
+diff --git a/snippets/mega-menu.liquid b/snippets/mega-menu.liquid
+index cca80e9..1f9e346 100644
+--- a/snippets/mega-menu.liquid
++++ b/snippets/mega-menu.liquid
+@@ -106,20 +106,6 @@
+                 assign card_subheading = promo.settings[subheading_key]
+                 assign card_link = promo.settings[link_key]
+ 
+-                # Fallback bilingue para fixtures de demo en espanol cuando no hay traduccion en settings
+-                if request.locale.iso_code == 'es'
+-                  if card_heading == 'New Arrivals'
+-                    assign card_heading = 'Novedades'
+-                  elsif card_heading == 'Capsule Wardrobe'
+-                    assign card_heading = 'Armario cápsula'
+-                  endif
+-                  if card_subheading == 'Explore the autumn edit'
+-                    assign card_subheading = 'Explora la selección de otoño'
+-                  elsif card_subheading == 'Pieces made in small series'
+-                    assign card_subheading = 'Piezas hechas en series cortas'
+-                  endif
+-                endif
+-
+                 # P1: Localizar URL de tarjeta para preservar el locale en /es/ y mercados
+                 assign localized_card_link = card_link
+                 if card_link == '/collections/all'
