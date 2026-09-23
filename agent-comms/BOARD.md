@@ -39,10 +39,10 @@ Próximo hito: Push de tema a tienda real (#165809488115), fixture de Mega Menú
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Autorización de commit/push. 2) Opcional: montar bloque demo de mega menú en editor. | 🟢 Activo | Autorización y feedback |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Integración completada, compuertas estáticas en verde (122 archivos, 0 ofensas). Despliegue y directiva de certificación. | 🟢 Activo | `GEMINI-review-SPRINT-5C.md` / Commit / Push |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal | Track 1 completado y verificado (13/13 pruebas arnés 5C). En espera de siguiente sprint. | 🟢 Completado | Reposo técnico |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Track 2 completado. Pendiente ejecución de auditoría adversarial en tienda viva (Gate 5). | 🔵 En espera de despliegue | `GPT-AUDIT-009-sprint-5c.md` |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset principal. | 🟢 Activo | Feedback y dirección |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Fixtures de demo desplegados en los 4 temas. Directivas emitidas a GPT y Claude. | 🟢 Activo | Supervisión de certificación |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Auditoría técnica frontend y validación de presets en tienda viva (`CLAUDE-TASK-5C-002`). | 🔵 En ejecución | `CLAUDE-REPORT-5C-002.md` |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Re-verificación adversarial en tienda viva con fixtures activos (`GPT-TASK-010`). | 🔵 En ejecución | `GPT-AUDIT-010-sprint-5c-certification.md` |
 
 ---
 
