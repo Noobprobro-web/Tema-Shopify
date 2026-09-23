@@ -40,6 +40,19 @@
   if section.settings.media_layout != 'thumbnails' and product.media.size > 1
     assign gallery_is_carousel = true
   endif
+
+  comment
+    5B-001. Zoom de imagen (CLAUDE-AUDIT-OPUS-001, seccion 6). Solo las imagenes se amplian:
+    el video y el 3D conservan sus controles. Con el ajuste apagado o sin imagenes no hay
+    disparadores, ni visor, ni product-zoom.js.
+  endcomment
+  assign zoom_images = product.media | where: 'media_type', 'image'
+  assign zoom_enabled = false
+  if section.settings.enable_media_zoom and zoom_images.size > 0
+    assign zoom_enabled = true
+  endif
+  assign zoom_position = 0
+  assign odd_media = product.media.size | modulo: 2
 -%}
 
 <section class="section product-main color-{{ section_scheme }}" data-section-id="{{ section.id }}">
@@ -60,7 +73,31 @@
               {% if media.id == selected_media_id %}data-selected{% endif %}
               {% if section.settings.media_layout == 'thumbnails' and media.id != selected_media_id %}hidden{% endif %}
             >
-              {% render 'product-media', media: media, product: product, prioritize: forloop.first %}
+              {%- liquid
+                # 5B-001, H-07. En la rejilla de escritorio cada foto ocupa media columna de la
+                # galeria (unos 30vw); la primera, si el total es impar, ocupa las dos.
+                assign media_sizes = '(min-width: 62rem) 60vw, 100vw'
+                if section.settings.media_layout == 'grid' and product.media.size > 1
+                  unless forloop.first and odd_media == 1
+                    assign media_sizes = '(min-width: 62rem) 30vw, 100vw'
+                  endunless
+                endif
+              -%}
+              {% render 'product-media', media: media, product: product, prioritize: forloop.first, sizes: media_sizes %}
+              {%- if zoom_enabled and media.media_type == 'image' -%}
+                {%- assign zoom_position = zoom_position | plus: 1 -%}
+                <button
+                  class="product-gallery__zoom-trigger"
+                  type="button"
+                  aria-haspopup="dialog"
+                  aria-label="{{ 'products.product.media_zoom.open' | t: index: zoom_position, total: zoom_images.size | escape_once }}"
+                  data-zoom-open="{{ zoom_position | minus: 1 }}"
+                >
+                  <span class="product-gallery__zoom-icon" aria-hidden="true">
+                    {%- render 'icon', name: 'search', size: 18 -%}
+                  </span>
+                </button>
+              {%- endif -%}
             </figure>
           {%- endfor -%}
         {%- else -%}
@@ -128,6 +165,10 @@
         <p class="visually-hidden" aria-live="polite" data-product-gallery-status></p>
       {%- endif -%}
     </product-gallery>
+
+    {%- if zoom_enabled -%}
+      {% render 'product-zoom', product: product, images: zoom_images %}
+    {%- endif -%}
 
     {%- if product_models.size > 0 -%}
       <script type="application/json" id="ProductModelJSON-{{ section.id }}">
@@ -790,6 +831,13 @@
         { "value": "thumbnails", "label": "t:sections.main_product.settings.media_layout.options__3.label" }
       ],
       "default": "grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_media_zoom",
+      "label": "t:sections.main_product.settings.enable_media_zoom.label",
+      "info": "t:sections.main_product.settings.enable_media_zoom.info",
+      "default": true
     },
     {
       "type": "checkbox",

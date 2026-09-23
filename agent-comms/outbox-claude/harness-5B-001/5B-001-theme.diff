@@ -1,0 +1,931 @@
+--- a/assets/product-zoom.js
++++ b/assets/product-zoom.js
+@@ -0,0 +1,288 @@
++/* 5B-001. Zoom de la ficha: <dialog>, Pointer Events y teclado. Sin globales. */
++if (window.ThemeCore && !customElements.get('product-zoom')) customElements.define('product-zoom', class extends window.ThemeCore.ThemeElement {
++  clamp = (value, min, max) => Math.min(Math.max(value, min), max);
++  pointers = new Map();
++  gap = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
++  mid = (a, b) => this.point({ clientX: (a.clientX + b.clientX) / 2, clientY: (a.clientY + b.clientY) / 2 });
++
++  connectedCallback() {
++    this.startListening();
++    const find = (name) => this.querySelector(`[data-zoom-${name}]`);
++    [this.dialog, this.track, this.output, this.counter, this.inButton, this.outButton, this.resetButton, this.closeButton] =
++      'dialog track status counter in out reset close'.split(' ').map(find);
++    this.section = this.closest('[data-section-id]');
++    this.slides = [...this.querySelectorAll('[data-zoom-slide]')];
++    this.steps = [...this.querySelectorAll('[data-zoom-step]')];
++    if (!this.section || !this.slides.length) return;
++    this.resetView();
++
++    const on = (...args) => this.listen(...args);
++    on(this.section, 'click', (event) => {
++      const trigger = event.target.closest('[data-zoom-open]');
++      if (trigger) this.open(Number(trigger.dataset.zoomOpen) || 0, trigger);
++    });
++    on(this.closeButton, 'click', () => this.dialog.close());
++    [[this.inButton, 1.5], [this.outButton, 2 / 3], [this.resetButton, 0]].forEach(([button, factor]) => on(button, 'click', () => this.zoomTo(this.scale * factor)));
++    this.steps.forEach((step) => on(step, 'click', () => this.goTo(this.index + Number(step.dataset.zoomStep))));
++    on(this.dialog, 'keydown', (event) => this.handleKey(event));
++    on(this.dialog, 'close', () => this.handleClose());
++    let frame = 0;
++    on(this.track, 'scroll', () => {
++      cancelAnimationFrame(frame);
++      frame = requestAnimationFrame(() => this.select(this.indexFromScroll()));
++    });
++    ['down', 'move', 'up', 'cancel'].forEach((type) => on(this.track, `pointer${type}`, (event) => this.handlePointer(event)));
++    // Dos dedos a 1x: si no, el navegador lo toma como pan-x.
++    on(this.track, 'touchmove', (event) => {
++      if (event.touches.length > 1 || this.scale > 1) event.preventDefault();
++    }, { passive: false });
++    on(window, 'resize', () => this.dialog.open && this.layout());
++  }
++
++  disconnectedCallback() {
++    if (this.dialog?.open) this.dialog.close();
++    super.disconnectedCallback();
++  }
++
++  open(index, trigger) {
++    if (this.dialog.open) return;
++    this.opener = trigger;
++    this.dialog.showModal();
++    this.setAttribute('data-open', '');
++    window.ThemeCore.syncDialogScrollLocks();
++    this.rtl = getComputedStyle(this.track).direction === 'rtl';
++    this.releaseFocus = window.ThemeCore.trapFocus(this.dialog, this.closeButton);
++    this.index = -1;
++    this.layout();
++    this.goTo(index, false);
++  }
++
++  handleClose() {
++    this.releaseFocus?.();
++    clearTimeout(this.tapTimer);
++    this.pointers.clear();
++    this.start = this.pinch = null;
++    this.resetView();
++    this.removeAttribute('data-open');
++    window.ThemeCore.syncDialogScrollLocks();
++    this.opener?.focus();
++  }
++
++  // 1x: cabe en la ventana sin pasar del tamano natural.
++  layout() {
++    const { clientWidth: width, clientHeight: height } = this.track;
++    this.fits = this.slides.map((slide) => {
++      const img = slide.querySelector('img');
++      const natural = Number(img.dataset.width) || 1;
++      const ratio = Number(img.dataset.ratio) || 1;
++      const fit = Math.min(width, height * ratio, natural);
++      img.style.width = `${fit}px`;
++      img.style.height = `${fit / ratio}px`;
++      return { img, width: fit, height: fit / ratio, max: Math.min(3, natural / fit) };
++    });
++    if (this.index < 0) return;
++    this.fit = this.fits[this.index];
++    this.scale = Math.min(this.scale, Math.max(1, this.fit.max));
++    this.track.scrollLeft = this.offsetOf(this.index);
++    this.apply();
++  }
++
++  offsetOf(index) {
++    return index * this.track.clientWidth * (this.rtl ? -1 : 1);
++  }
++
++  indexFromScroll() {
++    return this.clamp(Math.round(Math.abs(this.track.scrollLeft) / (this.track.clientWidth || 1)), 0, this.slides.length - 1);
++  }
++
++  goTo(index, smooth = true) {
++    const target = this.clamp(index, 0, this.slides.length - 1);
++    const left = this.offsetOf(target);
++    this.scrollTarget = Math.abs(this.track.scrollLeft - left) > 1 ? target : null;
++    const still = !smooth || matchMedia('(prefers-reduced-motion: reduce)').matches;
++    this.track.scrollTo({ left, behavior: still ? 'auto' : 'smooth' });
++    this.select(target, true);
++  }
++
++  select(index, force) {
++    if (!force && this.scrollTarget != null) {
++      if (index === this.scrollTarget) this.scrollTarget = null;
++      return;
++    }
++    if (index === this.index || !this.fits) return;
++    this.resetView();
++    this.index = index;
++    this.fit = this.fits[index];
++    [index, index - 1, index + 1].forEach((slide, order) => this.load(slide, !order));
++    this.steps.forEach((step) => {
++      step.disabled = !this.slides[index + Number(step.dataset.zoomStep)];
++    });
++    this.counter.textContent = `${index + 1} / ${this.slides.length}`;
++    this.apply();
++    this.announce();
++  }
++
++  // Marcador: la foto que ya pinto la galeria; luego, el srcset grande.
++  load(index, priority) {
++    const slide = this.slides[index];
++    const img = slide?.querySelector('img');
++    if (!img || img.hasAttribute('srcset')) return;
++    if (priority) img.fetchPriority = 'high';
++    if ('pending' in img.dataset) return;
++    img.dataset.pending = '';
++    const upgrade = () => img.setAttribute('srcset', img.dataset.srcset);
++    const shown = this.section.querySelector(`[data-product-media-id="${slide.dataset.mediaId}"] img`)?.currentSrc;
++    if (!shown) return upgrade();
++    img.src = shown;
++    img.decode().then(upgrade, upgrade);
++  }
++
++  resetView() {
++    this.scale = 1;
++    this.x = this.y = 0;
++    if (this.fit) this.apply();
++  }
++
++  bounds() {
++    const { fit, scale, track } = this;
++    return [Math.max(0, (fit.width * scale - track.clientWidth) / 2), Math.max(0, (fit.height * scale - track.clientHeight) / 2)];
++  }
++
++  apply() {
++    const { fit, scale, dialog } = this;
++    if (!fit) return;
++    const [boundX, boundY] = this.bounds();
++    this.x = this.clamp(this.x, -boundX, boundX);
++    this.y = this.clamp(this.y, -boundY, boundY);
++    fit.img.style.transform = scale > 1 ? `translate3d(${this.x}px, ${this.y}px, 0) scale(${scale})` : '';
++    dialog.toggleAttribute('data-zoomable', fit.max >= 1.25);
++    dialog.toggleAttribute('data-zoomed', scale > 1);
++    this.inButton.disabled = fit.max < 1.25 || scale >= fit.max - 0.01;
++    this.outButton.disabled = scale <= 1;
++    this.resetButton.hidden = scale <= 1;
++    const active = document.activeElement;
++    if (dialog.contains(active) && (active.disabled || active.hidden)) {
++      [this.inButton, this.outButton, ...this.steps, this.closeButton].find((button) => !button.disabled && !button.hidden)?.focus();
++    }
++  }
++
++  // (pointX, pointY): punto fijo, relativo al centro de la pista.
++  zoomTo(next, pointX = 0, pointY = 0) {
++    const { fit } = this;
++    if (!fit || fit.max < 1.25) return;
++    let scale = this.clamp(next, 1, fit.max);
++    if (scale < 1.01) scale = 1;
++    const ratio = scale / this.scale;
++    this.x = pointX - (pointX - this.x) * ratio;
++    this.y = pointY - (pointY - this.y) * ratio;
++    this.scale = scale;
++    // Primer zoom: sizes al ancho ampliado; el srcset sube de candidato.
++    if (scale > 1 && fit.img.sizes === '100vw') fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
++    this.apply();
++    if (Math.abs(ratio - 1) > 0.001 && !this.pinch) this.announce();
++  }
++
++  point({ clientX, clientY }) {
++    const rect = this.track.getBoundingClientRect();
++    return [clientX - rect.left - rect.width / 2, clientY - rect.top - rect.height / 2];
++  }
++
++  follow(event) {
++    const [pointX, pointY] = this.point(event);
++    const [boundX, boundY] = this.bounds();
++    this.x = (-2 * pointX * boundX) / this.track.clientWidth;
++    this.y = (-2 * pointY * boundY) / this.track.clientHeight;
++    this.apply();
++  }
++
++  handlePointer(event) {
++    const { type, pointerId: id } = event;
++    const { pointers, start, pinch, gap, mid } = this;
++    if (type === 'pointerdown') {
++      if (event.button) return;
++      this.scrollTarget = null;
++      pointers.set(id, event);
++      this.start = pointers.size === 1 ? { event, x: this.x, y: this.y } : null;
++      const [a, b] = pointers.values();
++      if (b) this.pinch = { gap: gap(a, b) || 1, scale: this.scale, x: this.x, y: this.y, mid: mid(a, b) };
++      if (this.scale > 1 || this.pinch) {
++        this.dialog.setAttribute('data-gesture', '');
++        this.track.setPointerCapture?.(id);
++      }
++    } else if (type === 'pointermove') {
++      if (!pointers.has(id)) {
++        if (event.pointerType === 'mouse' && this.scale > 1) this.follow(event);
++        return;
++      }
++      pointers.set(id, event);
++      const [a, b] = pointers.values();
++      if (pinch && b) {
++        // Desde el inicio del pellizco: la foto sigue al punto medio de los dedos.
++        const [pointX, pointY] = mid(a, b);
++        this.scale = pinch.scale;
++        this.x = pinch.x + pointX - pinch.mid[0];
++        this.y = pinch.y + pointY - pinch.mid[1];
++        this.zoomTo((pinch.scale * gap(a, b)) / pinch.gap, pointX, pointY);
++      } else if (start) {
++        if (gap(event, start.event) > 8) start.moved = true;
++        if (this.scale <= 1) return;
++        if (event.pointerType === 'mouse') return this.follow(event);
++        this.x = start.x + event.clientX - start.event.clientX;
++        this.y = start.y + event.clientY - start.event.clientY;
++        this.apply();
++      }
++    } else if (pointers.delete(id) && !pointers.size) {
++      this.start = this.pinch = null;
++      this.dialog.removeAttribute('data-gesture');
++      if (pinch) this.announce();
++      else if (type === 'pointerup' && start && !start.moved && event.timeStamp - start.event.timeStamp < 500) {
++        this.tap(event, start.event.target);
++      }
++    }
++  }
++
++  // Clic o doble toque (< 300 ms, < 24 px) en la foto alterna; fuera, a 1x, cierra.
++  // target: el del pointerdown (con captura, el pointerup llega a la pista).
++  tap(event, target) {
++    const onImage = target === this.fit.img;
++    const toggle = () => this.zoomTo(this.scale > 1 ? 1 : 3, ...this.point(event));
++    const close = !onImage && this.scale <= 1;
++    const last = this.lastTap;
++    clearTimeout(this.tapTimer);
++    this.lastTap = null;
++    if (event.pointerType === 'mouse') {
++      if (onImage) toggle();
++      else if (close) this.dialog.close();
++    } else if (last && event.timeStamp - last.timeStamp < 300 && this.gap(event, last) < 24) {
++      toggle();
++    } else {
++      this.lastTap = event;
++      if (close) this.tapTimer = setTimeout(() => this.dialog.close(), 300);
++    }
++  }
++
++  handleKey(event) {
++    const { key } = event;
++    if (event.altKey || event.ctrlKey || event.metaKey) return;
++    const side = this.rtl ? -1 : 1;
++    const [panX, panY] = [this.track.clientWidth * 0.15, this.track.clientHeight * 0.15];
++    const move = { ArrowLeft: [panX, 0, -side], ArrowRight: [-panX, 0, side], ArrowUp: [0, panY], ArrowDown: [0, -panY] }[key];
++    const factor = { '+': 1.5, '=': 1.5, '-': 2 / 3, _: 2 / 3, 0: 0 }[key];
++    if (factor != null) this.zoomTo(this.scale * factor);
++    else if (key === 'Home' || key === 'End') this.goTo(key === 'End' ? this.slides.length : 0);
++    else if (move && this.scale > 1) {
++      this.x += move[0];
++      this.y += move[1];
++      this.apply();
++    } else if (move?.[2]) this.goTo(this.index + move[2]);
++    else return;
++    event.preventDefault();
++  }
++
++  announce() {
++    this.output.textContent = (this.dataset.statusTemplate || '')
++      .replace('[index]', this.index + 1)
++      .replace('[total]', this.slides.length)
++      .replace('[zoom]', Math.round(this.scale * 100));
++  }
++});
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -75,7 +75,22 @@
+ 
+   const syncDialogScrollLocks = () => {
+     document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
+-    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal]')));
++    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]')));
++  };
++
++  // 5B-001, H-13. Una diapositiva que sale de la vista no puede seguir sonando: <video> se
++  // pausa y los reproductores de YouTube y Vimeo (media_tag con su API activa) reciben la
++  // orden de pausa por postMessage, el mismo mensaje que documenta cada plataforma.
++  const pauseMedia = (container) => {
++    container.querySelectorAll('video').forEach((video) => video.pause());
++    container.querySelectorAll('iframe').forEach((frame) => {
++      const source = frame.getAttribute('src') || '';
++      if (source.includes('youtube')) {
++        frame.contentWindow?.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
++      } else if (source.includes('vimeo')) {
++        frame.contentWindow?.postMessage('{"method":"pause"}', '*');
++      }
++    });
+   };
+ 
+   // The eight amount tokens Shopify allows inside money_format / money_with_currency_format.
+@@ -441,6 +456,9 @@
+     applySlide(index, announce) {
+       if (index === this.currentSlide && !announce) return;
+       this.currentSlide = index;
++      this.slides.forEach((slide, position) => {
++        if (position !== index) pauseMedia(slide);
++      });
+ 
+       if (this.counter) this.counter.textContent = String(index + 1);
+       this.steps.forEach((step) => {
+@@ -477,7 +495,7 @@
+         const selected = item === selectedItem;
+         item.hidden = !selected;
+         item.toggleAttribute('data-selected', selected);
+-        if (!selected) item.querySelector('video')?.pause();
++        if (!selected) pauseMedia(item);
+       });
+ 
+       let selectedThumbnail = null;
+@@ -4205,11 +4223,14 @@
+   reflectReducedMotion(reducedMotionQuery);
+   reducedMotionQuery.addEventListener?.('change', reflectReducedMotion);
+ 
++  // 5B-001. product-zoom.js se carga aparte, solo en la ficha, y extiende estas piezas en
++  // vez de copiarlas.
+   window.ThemeCore = {
+     initialized: true,
+     ThemeElement,
+     trapFocus,
+     getFocusableElements,
++    syncDialogScrollLocks,
+   };
+ 
+   if (!customElements.get('theme-disclosure')) {
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -7771,6 +7771,194 @@
+   }
+ }
+ 
++/* ---------- 5B-001. Zoom de imagen de la ficha ---------- */
++/* Disparador: la foto entera es el boton (un toque o un clic la amplian) y la lupa de 44 px
++   solo lo anuncia. Tras un deslizamiento el navegador no dispara click, asi que no choca
++   con el carrusel movil. Sin JavaScript no hay visor y el boton no se muestra. */
++.product-gallery__zoom-trigger {
++  position: absolute;
++  inset: 0;
++  display: flex;
++  padding: var(--space-2);
++  border: 0;
++  align-items: flex-end;
++  justify-content: flex-end;
++  background: transparent;
++  color: var(--color-foreground);
++  cursor: zoom-in;
++}
++
++.no-js .product-gallery__zoom-trigger {
++  display: none;
++}
++
++.product-gallery__zoom-trigger:focus-visible {
++  outline-offset: -3px;
++}
++
++.product-gallery__zoom-icon {
++  display: grid;
++  width: var(--tap-target-min);
++  height: var(--tap-target-min);
++  border-radius: 50%;
++  place-items: center;
++  background: color-mix(in srgb, var(--color-background) 86%, transparent);
++  box-shadow: 0 0.25rem 1rem color-mix(in srgb, var(--color-shadow) 12%, transparent);
++}
++
++/* Visor: <dialog> a pantalla completa en la capa superior, con el fondo del esquema de la
++   seccion. La pista es un scroll-snap horizontal; con zoom deja de desplazarse y el gesto
++   pasa a ser del visor (touch-action: none). El JS fija el tamano de cada foto a 1x. */
++.product-zoom {
++  width: 100%;
++  max-width: none;
++  height: 100%;
++  max-height: none;
++  margin: 0;
++  padding: 0;
++  overflow: hidden;
++  border: 0;
++  background: var(--color-background);
++  color: var(--color-foreground);
++}
++
++.product-zoom[open] {
++  display: grid;
++  grid-template-rows: auto minmax(0, 1fr) auto;
++}
++
++.product-zoom::backdrop {
++  background: var(--color-background);
++}
++
++.product-zoom__top,
++.product-zoom__bar {
++  display: flex;
++  align-items: center;
++  gap: var(--space-1);
++  padding: var(--space-1) var(--page-gutter);
++}
++
++.product-zoom__top {
++  justify-content: space-between;
++  padding-block-start: calc(var(--space-1) + env(safe-area-inset-top, 0px));
++}
++
++.product-zoom__bar {
++  justify-content: center;
++  padding-block-end: calc(var(--space-1) + env(safe-area-inset-bottom, 0px));
++}
++
++.product-zoom__counter {
++  margin: 0;
++  font-size: 0.875rem;
++  font-variant-numeric: tabular-nums;
++}
++
++.product-zoom__actions {
++  display: flex;
++  align-items: center;
++  gap: var(--space-1);
++}
++
++.product-zoom__reset {
++  min-height: var(--tap-target-min);
++  padding: 0 var(--space-2);
++  border: 0;
++  background: transparent;
++  color: inherit;
++  font-size: 0.8125rem;
++  letter-spacing: 0.06em;
++  text-decoration: underline;
++  text-underline-offset: 0.25em;
++  text-transform: uppercase;
++  cursor: pointer;
++}
++
++.product-zoom__track {
++  display: flex;
++  overflow-x: auto;
++  overscroll-behavior: contain;
++  scroll-snap-type: x mandatory;
++  scrollbar-width: none;
++}
++
++.product-zoom__track::-webkit-scrollbar {
++  display: none;
++}
++
++.product-zoom__track:focus-visible {
++  outline-offset: -3px;
++}
++
++.product-zoom__slide {
++  display: grid;
++  flex: 0 0 100%;
++  margin: 0;
++  overflow: hidden;
++  place-items: center;
++  scroll-snap-align: center;
++  scroll-snap-stop: always;
++  touch-action: pan-x;
++}
++
++.product-zoom__image {
++  max-width: 100%;
++  max-height: 100%;
++  object-fit: contain;
++  transition: transform var(--motion-fast) var(--ease-move);
++  user-select: none;
++  -webkit-user-drag: none;
++}
++
++.product-zoom[data-zoomable] .product-zoom__image {
++  cursor: zoom-in;
++}
++
++.product-zoom[data-zoomed] .product-zoom__track {
++  overflow: hidden;
++}
++
++.product-zoom[data-zoomed] .product-zoom__slide {
++  touch-action: none;
++}
++
++.product-zoom[data-zoomed] .product-zoom__image {
++  cursor: zoom-out;
++}
++
++/* Durante el pellizco o el arrastre la foto va pegada al dedo, sin transicion. */
++.product-zoom[data-gesture] .product-zoom__image {
++  transition: none;
++  will-change: transform;
++}
++
++.product-zoom button:disabled {
++  opacity: 0.35;
++  cursor: default;
++}
++
++.product-zoom__step--previous svg {
++  transform: rotate(90deg);
++}
++
++.product-zoom__step--next svg {
++  transform: rotate(-90deg);
++}
++
++[dir='rtl'] .product-zoom__step--previous svg {
++  transform: rotate(-90deg);
++}
++
++[dir='rtl'] .product-zoom__step--next svg {
++  transform: rotate(90deg);
++}
++
++html[data-animations='subtle'] .product-zoom[open],
++html[data-animations='full'] .product-zoom[open] {
++  animation: gallery-media-in var(--motion-fast) var(--ease-enter) both;
++}
++
+ /* ---------- T5. Buscador: fila estable y una sola cruz ---------- */
+ /* El boton de borrar sale del flujo cuando esta oculto; sin posiciones explicitas el
+    boton de enviar caia en su pista de 44 px y "SEARCH" se apilaba letra a letra. */
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -40,6 +40,19 @@
+   if section.settings.media_layout != 'thumbnails' and product.media.size > 1
+     assign gallery_is_carousel = true
+   endif
++
++  comment
++    5B-001. Zoom de imagen (CLAUDE-AUDIT-OPUS-001, seccion 6). Solo las imagenes se amplian:
++    el video y el 3D conservan sus controles. Con el ajuste apagado o sin imagenes no hay
++    disparadores, ni visor, ni product-zoom.js.
++  endcomment
++  assign zoom_images = product.media | where: 'media_type', 'image'
++  assign zoom_enabled = false
++  if section.settings.enable_media_zoom and zoom_images.size > 0
++    assign zoom_enabled = true
++  endif
++  assign zoom_position = 0
++  assign odd_media = product.media.size | modulo: 2
+ -%}
+ 
+ <section class="section product-main color-{{ section_scheme }}" data-section-id="{{ section.id }}">
+@@ -60,7 +73,31 @@
+               {% if media.id == selected_media_id %}data-selected{% endif %}
+               {% if section.settings.media_layout == 'thumbnails' and media.id != selected_media_id %}hidden{% endif %}
+             >
+-              {% render 'product-media', media: media, product: product, prioritize: forloop.first %}
++              {%- liquid
++                # 5B-001, H-07. En la rejilla de escritorio cada foto ocupa media columna de la
++                # galeria (unos 30vw); la primera, si el total es impar, ocupa las dos.
++                assign media_sizes = '(min-width: 62rem) 60vw, 100vw'
++                if section.settings.media_layout == 'grid' and product.media.size > 1
++                  unless forloop.first and odd_media == 1
++                    assign media_sizes = '(min-width: 62rem) 30vw, 100vw'
++                  endunless
++                endif
++              -%}
++              {% render 'product-media', media: media, product: product, prioritize: forloop.first, sizes: media_sizes %}
++              {%- if zoom_enabled and media.media_type == 'image' -%}
++                {%- assign zoom_position = zoom_position | plus: 1 -%}
++                <button
++                  class="product-gallery__zoom-trigger"
++                  type="button"
++                  aria-haspopup="dialog"
++                  aria-label="{{ 'products.product.media_zoom.open' | t: index: zoom_position, total: zoom_images.size | escape_once }}"
++                  data-zoom-open="{{ zoom_position | minus: 1 }}"
++                >
++                  <span class="product-gallery__zoom-icon" aria-hidden="true">
++                    {%- render 'icon', name: 'search', size: 18 -%}
++                  </span>
++                </button>
++              {%- endif -%}
+             </figure>
+           {%- endfor -%}
+         {%- else -%}
+@@ -129,6 +166,10 @@
+       {%- endif -%}
+     </product-gallery>
+ 
++    {%- if zoom_enabled -%}
++      {% render 'product-zoom', product: product, images: zoom_images %}
++    {%- endif -%}
++
+     {%- if product_models.size > 0 -%}
+       <script type="application/json" id="ProductModelJSON-{{ section.id }}">
+         {{- product_models | json -}}
+@@ -793,6 +834,13 @@
+     },
+     {
+       "type": "checkbox",
++      "id": "enable_media_zoom",
++      "label": "t:sections.main_product.settings.enable_media_zoom.label",
++      "info": "t:sections.main_product.settings.enable_media_zoom.info",
++      "default": true
++    },
++    {
++      "type": "checkbox",
+       "id": "enable_sticky_cart",
+       "label": "t:sections.main_product.settings.enable_sticky_cart.label",
+       "info": "t:sections.main_product.settings.enable_sticky_cart.info",
+--- a/snippets/product-media.liquid
++++ b/snippets/product-media.liquid
+@@ -5,15 +5,17 @@
+   - media: product media object
+   - product: product object
+   - prioritize: whether the image should load eagerly
++  - sizes: optional responsive sizes; main-product passes the one of its layout (5B-001, H-07)
+ {%- endcomment -%}
+ 
+-{%- assign media_alt = media.alt | default: product.title -%}
++{%- capture media_alt -%}{% render 'media-alt', media: media, product: product %}{%- endcapture -%}
++{%- assign media_sizes = sizes | default: '(min-width: 62rem) 60vw, 100vw' -%}
+ 
+ {%- case media.media_type -%}
+   {%- when 'image' -%}
+     {% render 'responsive-image',
+       image: media.preview_image,
+-      sizes: '(min-width: 990px) 60vw, 100vw',
++      sizes: media_sizes,
+       prioritize: prioritize,
+       image_class: 'product-gallery__image',
+       alt: media_alt
+--- a/snippets/media-alt.liquid
++++ b/snippets/media-alt.liquid
+@@ -0,0 +1,18 @@
++{%- comment -%}
++  5B-001, H-19. Texto alternativo de una foto de producto. Sin alt en el catalogo, el titulo
++  del producto y su posicion ("Image 3 of 8"): diez fotos con el mismo alt se anunciaban
++  como la misma foto. Con una sola foto basta el titulo.
++
++  Accepts:
++  - media: product media object
++  - product: product object
++
++  Devuelve texto sin escapar; quien lo pinta lo escapa (image_tag o escape_once).
++{%- endcomment -%}
++{%- if media.alt != blank -%}
++  {{- media.alt -}}
++{%- elsif product.media.size > 1 -%}
++  {{- product.title }} – {{ 'products.product.media_zoom.image_index' | t: index: media.position, total: product.media.size -}}
++{%- else -%}
++  {{- product.title -}}
++{%- endif -%}
+--- a/snippets/product-zoom.liquid
++++ b/snippets/product-zoom.liquid
+@@ -0,0 +1,115 @@
++{%- comment -%}
++  5B-001. Visor de zoom de la ficha (<product-zoom>, assets/product-zoom.js). Lo pinta
++  main-product solo con el ajuste enable_media_zoom activo y al menos una imagen.
++
++  Las fotos llevan data-srcset (1600 a 4096 px, sin pasar del original) y ninguna peticion
++  sale hasta abrir: product-zoom.js copia primero la foto ya descargada de la galeria y
++  despues pide la alta resolucion de la actual y sus vecinas. El src inicial es un GIF
++  transparente en linea, sin red.
++
++  Accepts:
++  - product: product object
++  - images: product.media filtrado a media_type 'image' (video y 3D no se amplian)
++{%- endcomment -%}
++<product-zoom
++  data-status-template="{{ 'products.product.media_zoom.status' | t: index: '[index]', total: '[total]', zoom: '[zoom]' | escape_once }}"
++>
++  <dialog class="product-zoom" aria-label="{{ 'products.product.media_zoom.title' | t | escape_once }}" data-zoom-dialog>
++    <div class="product-zoom__top">
++      <p class="product-zoom__counter" aria-hidden="true" data-zoom-counter>1 / {{ images.size }}</p>
++      <div class="product-zoom__actions">
++        <button class="product-zoom__reset" type="button" data-zoom-reset hidden>
++          {{- 'products.product.media_zoom.reset' | t -}}
++        </button>
++        <button
++          class="icon-button"
++          type="button"
++          aria-label="{{ 'products.product.media_zoom.close' | t | escape_once }}"
++          data-zoom-close
++        >
++          {% render 'icon', name: 'close', size: 20 %}
++        </button>
++      </div>
++    </div>
++
++    <div
++      class="product-zoom__track"
++      role="group"
++      tabindex="0"
++      aria-label="{{ 'products.product.media_gallery' | t | escape_once }}"
++      data-zoom-track
++    >
++      {%- for image in images -%}
++        {%- liquid
++          assign zoom_image = image.preview_image
++          assign zoom_width = zoom_image.width | at_most: 4096
++          assign zoom_srcset = ''
++          assign zoom_candidates = '1600,2000,2400,3000,3600' | split: ','
++          for candidate in zoom_candidates
++            assign candidate_width = candidate | plus: 0
++            if candidate_width < zoom_width
++              assign candidate_url = zoom_image | image_url: width: candidate_width
++              assign zoom_srcset = zoom_srcset | append: candidate_url | append: ' ' | append: candidate_width | append: 'w, '
++            endif
++          endfor
++          assign candidate_url = zoom_image | image_url: width: zoom_width
++          assign zoom_srcset = zoom_srcset | append: candidate_url | append: ' ' | append: zoom_width | append: 'w'
++          assign zoom_height = zoom_width | divided_by: zoom_image.aspect_ratio | round
++        -%}
++        {%- capture zoom_alt -%}{% render 'media-alt', media: image, product: product %}{%- endcapture -%}
++        <figure class="product-zoom__slide" data-zoom-slide data-media-id="{{ image.id }}">
++          <img
++            class="product-zoom__image"
++            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
++            data-srcset="{{ zoom_srcset }}"
++            sizes="100vw"
++            width="{{ zoom_width }}"
++            height="{{ zoom_height }}"
++            alt="{{ zoom_alt | escape_once }}"
++            decoding="async"
++            draggable="false"
++            data-width="{{ zoom_width }}"
++            data-ratio="{{ zoom_image.aspect_ratio }}"
++          >
++        </figure>
++      {%- endfor -%}
++    </div>
++
++    <div class="product-zoom__bar">
++      <button
++        class="icon-button product-zoom__step product-zoom__step--previous"
++        type="button"
++        aria-label="{{ 'products.product.media_zoom.previous' | t | escape_once }}"
++        data-zoom-step="-1"
++      >
++        {% render 'icon', name: 'chevron-down', size: 20 %}
++      </button>
++      <button
++        class="icon-button"
++        type="button"
++        aria-label="{{ 'products.product.media_zoom.zoom_out' | t | escape_once }}"
++        data-zoom-out
++      >
++        {% render 'icon', name: 'minus', size: 20 %}
++      </button>
++      <button
++        class="icon-button"
++        type="button"
++        aria-label="{{ 'products.product.media_zoom.zoom_in' | t | escape_once }}"
++        data-zoom-in
++      >
++        {% render 'icon', name: 'plus', size: 20 %}
++      </button>
++      <button
++        class="icon-button product-zoom__step product-zoom__step--next"
++        type="button"
++        aria-label="{{ 'products.product.media_zoom.next' | t | escape_once }}"
++        data-zoom-step="1"
++      >
++        {% render 'icon', name: 'chevron-down', size: 20 %}
++      </button>
++    </div>
++    <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-zoom-status></p>
++  </dialog>
++</product-zoom>
++<script src="{{ 'product-zoom.js' | asset_url }}" defer="defer"></script>
+--- a/locales/en.default.json
++++ b/locales/en.default.json
+@@ -383,6 +383,18 @@
+       "media_gallery": "Product media gallery",
+       "media_thumbnails": "Product media thumbnails",
+       "view_media": "View product media {{ number }}",
++      "media_zoom": {
++        "title": "Image zoom",
++        "open": "Zoom image {{ index }} of {{ total }}",
++        "close": "Close zoom",
++        "zoom_in": "Zoom in",
++        "zoom_out": "Zoom out",
++        "reset": "Reset zoom",
++        "previous": "Previous image",
++        "next": "Next image",
++        "status": "Image {{ index }} of {{ total }}, zoom {{ zoom }}%",
++        "image_index": "Image {{ index }} of {{ total }}"
++      },
+       "view_in_space": "View in your space",
+       "option_unavailable": "Option unavailable",
+       "variant_available": "Variant available.",
+--- a/locales/es.json
++++ b/locales/es.json
+@@ -383,6 +383,18 @@
+       "media_gallery": "Galería de imágenes del producto",
+       "media_thumbnails": "Miniaturas del producto",
+       "view_media": "Ver imagen {{ number }} del producto",
++      "media_zoom": {
++        "title": "Zoom de imagen",
++        "open": "Ampliar imagen {{ index }} de {{ total }}",
++        "close": "Cerrar zoom",
++        "zoom_in": "Acercar",
++        "zoom_out": "Alejar",
++        "reset": "Restablecer zoom",
++        "previous": "Imagen anterior",
++        "next": "Imagen siguiente",
++        "status": "Imagen {{ index }} de {{ total }}, zoom {{ zoom }} %",
++        "image_index": "Imagen {{ index }} de {{ total }}"
++      },
+       "view_in_space": "Ver en tu espacio",
+       "option_unavailable": "Opción no disponible",
+       "variant_available": "Variante disponible.",
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -948,6 +948,10 @@
+             "label": "Large image with thumbnails"
+           }
+         },
++        "enable_media_zoom": {
++          "label": "Enable image zoom",
++          "info": "Opens product images in a full-screen viewer with click, pinch and keyboard zoom. Zoom stops at the resolution of the uploaded file: for close-up detail, upload images at least 3000 px wide."
++        },
+         "enable_sticky_cart": {
+           "label": "Show sticky add to cart bar",
+           "info": "Appears once the customer scrolls past the add to cart button."
+--- a/package.json
++++ b/package.json
+@@ -12,7 +12,7 @@
+     "gates:locales": "node scripts/locale-key-inventory.mjs",
+     "gates:ledger": "node scripts/ledger-verify.mjs",
+     "gates:theme-check": "shopify theme check",
+-    "gates:syntax": "node --check assets/theme.js",
++    "gates:syntax": "node --check assets/theme.js && node --check assets/product-zoom.js",
+     "gates:package": "shopify theme package",
+     "gates:static": "npm run gates:json && npm run gates:hooks && npm run gates:sanity && npm run gates:locales && npm run gates:ledger && npm run gates:theme-check && npm run gates:syntax && npm run gates:package",
+     "test:visual": "playwright test",
+--- a/scripts/dataset-hooks.mjs
++++ b/scripts/dataset-hooks.mjs
+@@ -18,6 +18,9 @@
+  * Exentas: las claves que el propio JS escribe (dataset.x = ...), que son
+  * estado de runtime y no contrato con Liquid.
+  *
++ * 5B-001: lee todos los assets/*.js (theme.js y product-zoom.js) y reconoce tambien
++ * customElements.define('tag', class extends X { ... }) con clase anonima.
++ *
+  * Uso: node scripts/dataset-hooks.mjs
+  * Sin dependencias. Sale 1 si un contrato esta roto.
+  */
+@@ -28,7 +31,7 @@
+ import process from 'node:process';
+ 
+ const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+-const JS_FILE = path.join(REPO, 'assets', 'theme.js');
++const ASSETS = path.join(REPO, 'assets');
+ const LIQUID_DIRS = ['sections', 'snippets', 'layout', 'templates', 'blocks'];
+ 
+ const toAttribute = (camel) => `data-${camel.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
+@@ -46,7 +49,8 @@
+   return out;
+ }
+ 
+-const js = await readFile(JS_FILE, 'utf8');
++const jsFiles = (await readdir(ASSETS)).filter((name) => name.endsWith('.js')).sort();
++const js = (await Promise.all(jsFiles.map((name) => readFile(path.join(ASSETS, name), 'utf8')))).join('\n');
+ const files = (await Promise.all(LIQUID_DIRS.map((d) => collect(path.join(REPO, d))))).flat();
+ 
+ // Claves que el propio JS escribe: exentas en todo el archivo.
+@@ -55,16 +59,18 @@
+ for (const m of js.matchAll(/delete\s+[^;]*?dataset\.([A-Za-z][A-Za-z0-9]*)/g)) written.add(m[1]);
+ 
+ // class X extends ThemeElement { ... }  ->  cuerpo por llaves balanceadas.
+-const classes = new Map();
+-for (const m of js.matchAll(/class\s+([A-Za-z0-9_]+)\s+extends\s+[A-Za-z0-9_.]+\s*\{/g)) {
++const bodyFrom = (open) => {
+   let depth = 0;
+-  let i = m.index + m[0].length - 1;
+-  const start = i;
++  let i = open;
+   for (; i < js.length; i += 1) {
+     if (js[i] === '{') depth += 1;
+     else if (js[i] === '}') { depth -= 1; if (depth === 0) break; }
+   }
+-  classes.set(m[1], js.slice(start, i));
++  return js.slice(open, i);
++};
++const classes = new Map();
++for (const m of js.matchAll(/class\s+([A-Za-z0-9_]+)\s+extends\s+[A-Za-z0-9_.]+\s*\{/g)) {
++  classes.set(m[1], bodyFrom(m.index + m[0].length - 1));
+ }
+ 
+ // customElements.define('tag', Class)
+@@ -72,6 +78,12 @@
+ for (const m of js.matchAll(/customElements\.define\(\s*['"]([a-z][a-z0-9-]*)['"]\s*,\s*([A-Za-z0-9_]+)\s*\)/g)) {
+   tagOf.set(m[2], m[1]);
+ }
++// customElements.define('tag', class extends X { ... }): clase anonima, se nombra por su etiqueta.
++for (const m of js.matchAll(/customElements\.define\(\s*['"]([a-z][a-z0-9-]*)['"]\s*,\s*class\s+extends\s+[A-Za-z0-9_.]+\s*\{/g)) {
++  const name = `(anonima ${m[1]})`;
++  classes.set(name, bodyFrom(m.index + m[0].length - 1));
++  tagOf.set(name, m[1]);
++}
+ 
+ const rows = [];
+ const broken = [];
+@@ -105,6 +117,7 @@
+ console.log('-'.repeat(74));
+ console.log('DATASET HOOKS  (contrato JS <-> Liquid, por componente)');
+ console.log('-'.repeat(74));
++console.log(`JS leido:                           ${jsFiles.map((name) => `assets/${name}`).join(', ')}`);
+ console.log(`Componentes con data-* de contrato: ${rows.length}`);
+ console.log(`Exentas por escritura en runtime:   ${[...written].sort().join(', ') || 'ninguna'}`);
+ for (const r of rows) {

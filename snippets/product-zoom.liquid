@@ -1,0 +1,115 @@
+{%- comment -%}
+  5B-001. Visor de zoom de la ficha (<product-zoom>, assets/product-zoom.js). Lo pinta
+  main-product solo con el ajuste enable_media_zoom activo y al menos una imagen.
+
+  Las fotos llevan data-srcset (1600 a 4096 px, sin pasar del original) y ninguna peticion
+  sale hasta abrir: product-zoom.js copia primero la foto ya descargada de la galeria y
+  despues pide la alta resolucion de la actual y sus vecinas. El src inicial es un GIF
+  transparente en linea, sin red.
+
+  Accepts:
+  - product: product object
+  - images: product.media filtrado a media_type 'image' (video y 3D no se amplian)
+{%- endcomment -%}
+<product-zoom
+  data-status-template="{{ 'products.product.media_zoom.status' | t: index: '[index]', total: '[total]', zoom: '[zoom]' | escape_once }}"
+>
+  <dialog class="product-zoom" aria-label="{{ 'products.product.media_zoom.title' | t | escape_once }}" data-zoom-dialog>
+    <div class="product-zoom__top">
+      <p class="product-zoom__counter" aria-hidden="true" data-zoom-counter>1 / {{ images.size }}</p>
+      <div class="product-zoom__actions">
+        <button class="product-zoom__reset" type="button" data-zoom-reset hidden>
+          {{- 'products.product.media_zoom.reset' | t -}}
+        </button>
+        <button
+          class="icon-button"
+          type="button"
+          aria-label="{{ 'products.product.media_zoom.close' | t | escape_once }}"
+          data-zoom-close
+        >
+          {% render 'icon', name: 'close', size: 20 %}
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="product-zoom__track"
+      role="group"
+      tabindex="0"
+      aria-label="{{ 'products.product.media_gallery' | t | escape_once }}"
+      data-zoom-track
+    >
+      {%- for image in images -%}
+        {%- liquid
+          assign zoom_image = image.preview_image
+          assign zoom_width = zoom_image.width | at_most: 4096
+          assign zoom_srcset = ''
+          assign zoom_candidates = '1600,2000,2400,3000,3600' | split: ','
+          for candidate in zoom_candidates
+            assign candidate_width = candidate | plus: 0
+            if candidate_width < zoom_width
+              assign candidate_url = zoom_image | image_url: width: candidate_width
+              assign zoom_srcset = zoom_srcset | append: candidate_url | append: ' ' | append: candidate_width | append: 'w, '
+            endif
+          endfor
+          assign candidate_url = zoom_image | image_url: width: zoom_width
+          assign zoom_srcset = zoom_srcset | append: candidate_url | append: ' ' | append: zoom_width | append: 'w'
+          assign zoom_height = zoom_width | divided_by: zoom_image.aspect_ratio | round
+        -%}
+        {%- capture zoom_alt -%}{% render 'media-alt', media: image, product: product %}{%- endcapture -%}
+        <figure class="product-zoom__slide" data-zoom-slide data-media-id="{{ image.id }}">
+          <img
+            class="product-zoom__image"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            data-srcset="{{ zoom_srcset }}"
+            sizes="100vw"
+            width="{{ zoom_width }}"
+            height="{{ zoom_height }}"
+            alt="{{ zoom_alt | escape_once }}"
+            decoding="async"
+            draggable="false"
+            data-width="{{ zoom_width }}"
+            data-ratio="{{ zoom_image.aspect_ratio }}"
+          >
+        </figure>
+      {%- endfor -%}
+    </div>
+
+    <div class="product-zoom__bar">
+      <button
+        class="icon-button product-zoom__step product-zoom__step--previous"
+        type="button"
+        aria-label="{{ 'products.product.media_zoom.previous' | t | escape_once }}"
+        data-zoom-step="-1"
+      >
+        {% render 'icon', name: 'chevron-down', size: 20 %}
+      </button>
+      <button
+        class="icon-button"
+        type="button"
+        aria-label="{{ 'products.product.media_zoom.zoom_out' | t | escape_once }}"
+        data-zoom-out
+      >
+        {% render 'icon', name: 'minus', size: 20 %}
+      </button>
+      <button
+        class="icon-button"
+        type="button"
+        aria-label="{{ 'products.product.media_zoom.zoom_in' | t | escape_once }}"
+        data-zoom-in
+      >
+        {% render 'icon', name: 'plus', size: 20 %}
+      </button>
+      <button
+        class="icon-button product-zoom__step product-zoom__step--next"
+        type="button"
+        aria-label="{{ 'products.product.media_zoom.next' | t | escape_once }}"
+        data-zoom-step="1"
+      >
+        {% render 'icon', name: 'chevron-down', size: 20 %}
+      </button>
+    </div>
+    <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-zoom-status></p>
+  </dialog>
+</product-zoom>
+<script src="{{ 'product-zoom.js' | asset_url }}" defer="defer"></script>

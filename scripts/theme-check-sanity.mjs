@@ -166,5 +166,5 @@ try {
 } finally {
   // Limpia SOLO su propio sandbox. Nunca todo REPO/.tmp: otro agente puede
   // estar corriendo esta misma compuerta y tener artefactos ahi.
-  if (!KEEP) await rm(SANDBOX, { recursive: true, force: true });
+  if (!KEEP) await rm(SANDBOX, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 }

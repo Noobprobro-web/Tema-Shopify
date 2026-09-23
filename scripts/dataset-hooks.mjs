@@ -18,6 +18,9 @@
  * Exentas: las claves que el propio JS escribe (dataset.x = ...), que son
  * estado de runtime y no contrato con Liquid.
  *
+ * 5B-001: lee todos los assets/*.js (theme.js y product-zoom.js) y reconoce tambien
+ * customElements.define('tag', class extends X { ... }) con clase anonima.
+ *
  * Uso: node scripts/dataset-hooks.mjs
  * Sin dependencias. Sale 1 si un contrato esta roto.
  */
@@ -28,7 +31,7 @@ import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const JS_FILE = path.join(REPO, 'assets', 'theme.js');
+const ASSETS = path.join(REPO, 'assets');
 const LIQUID_DIRS = ['sections', 'snippets', 'layout', 'templates', 'blocks'];
 
 const toAttribute = (camel) => `data-${camel.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
@@ -46,7 +49,8 @@ async function collect(dir, out = []) {
   return out;
 }
 
-const js = await readFile(JS_FILE, 'utf8');
+const jsFiles = (await readdir(ASSETS)).filter((name) => name.endsWith('.js')).sort();
+const js = (await Promise.all(jsFiles.map((name) => readFile(path.join(ASSETS, name), 'utf8')))).join('\n');
 const files = (await Promise.all(LIQUID_DIRS.map((d) => collect(path.join(REPO, d))))).flat();
 
 // Claves que el propio JS escribe: exentas en todo el archivo.
@@ -55,22 +59,30 @@ for (const m of js.matchAll(/dataset\.([A-Za-z][A-Za-z0-9]*)\s*=[^=]/g)) written
 for (const m of js.matchAll(/delete\s+[^;]*?dataset\.([A-Za-z][A-Za-z0-9]*)/g)) written.add(m[1]);
 
 // class X extends ThemeElement { ... }  ->  cuerpo por llaves balanceadas.
-const classes = new Map();
-for (const m of js.matchAll(/class\s+([A-Za-z0-9_]+)\s+extends\s+[A-Za-z0-9_.]+\s*\{/g)) {
+const bodyFrom = (open) => {
   let depth = 0;
-  let i = m.index + m[0].length - 1;
-  const start = i;
+  let i = open;
   for (; i < js.length; i += 1) {
     if (js[i] === '{') depth += 1;
     else if (js[i] === '}') { depth -= 1; if (depth === 0) break; }
   }
-  classes.set(m[1], js.slice(start, i));
+  return js.slice(open, i);
+};
+const classes = new Map();
+for (const m of js.matchAll(/class\s+([A-Za-z0-9_]+)\s+extends\s+[A-Za-z0-9_.]+\s*\{/g)) {
+  classes.set(m[1], bodyFrom(m.index + m[0].length - 1));
 }
 
 // customElements.define('tag', Class)
 const tagOf = new Map();
 for (const m of js.matchAll(/customElements\.define\(\s*['"]([a-z][a-z0-9-]*)['"]\s*,\s*([A-Za-z0-9_]+)\s*\)/g)) {
   tagOf.set(m[2], m[1]);
+}
+// customElements.define('tag', class extends X { ... }): clase anonima, se nombra por su etiqueta.
+for (const m of js.matchAll(/customElements\.define\(\s*['"]([a-z][a-z0-9-]*)['"]\s*,\s*class\s+extends\s+[A-Za-z0-9_.]+\s*\{/g)) {
+  const name = `(anonima ${m[1]})`;
+  classes.set(name, bodyFrom(m.index + m[0].length - 1));
+  tagOf.set(name, m[1]);
 }
 
 const rows = [];
@@ -105,6 +117,7 @@ for (const [className, body] of classes) {
 console.log('-'.repeat(74));
 console.log('DATASET HOOKS  (contrato JS <-> Liquid, por componente)');
 console.log('-'.repeat(74));
+console.log(`JS leido:                           ${jsFiles.map((name) => `assets/${name}`).join(', ')}`);
 console.log(`Componentes con data-* de contrato: ${rows.length}`);
 console.log(`Exentas por escritura en runtime:   ${[...written].sort().join(', ') || 'ninguna'}`);
 for (const r of rows) {

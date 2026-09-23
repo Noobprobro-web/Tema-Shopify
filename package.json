@@ -12,7 +12,7 @@
     "gates:locales": "node scripts/locale-key-inventory.mjs",
     "gates:ledger": "node scripts/ledger-verify.mjs",
     "gates:theme-check": "shopify theme check",
-    "gates:syntax": "node --check assets/theme.js",
+    "gates:syntax": "node --check assets/theme.js && node --check assets/product-zoom.js",
     "gates:package": "shopify theme package",
     "gates:static": "npm run gates:json && npm run gates:hooks && npm run gates:sanity && npm run gates:locales && npm run gates:ledger && npm run gates:theme-check && npm run gates:syntax && npm run gates:package",
     "test:visual": "playwright test",

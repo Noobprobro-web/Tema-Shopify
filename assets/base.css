@@ -7771,6 +7771,194 @@ html {
   }
 }
 
+/* ---------- 5B-001. Zoom de imagen de la ficha ---------- */
+/* Disparador: la foto entera es el boton (un toque o un clic la amplian) y la lupa de 44 px
+   solo lo anuncia. Tras un deslizamiento el navegador no dispara click, asi que no choca
+   con el carrusel movil. Sin JavaScript no hay visor y el boton no se muestra. */
+.product-gallery__zoom-trigger {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  padding: var(--space-2);
+  border: 0;
+  align-items: flex-end;
+  justify-content: flex-end;
+  background: transparent;
+  color: var(--color-foreground);
+  cursor: zoom-in;
+}
+
+.no-js .product-gallery__zoom-trigger {
+  display: none;
+}
+
+.product-gallery__zoom-trigger:focus-visible {
+  outline-offset: -3px;
+}
+
+.product-gallery__zoom-icon {
+  display: grid;
+  width: var(--tap-target-min);
+  height: var(--tap-target-min);
+  border-radius: 50%;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-background) 86%, transparent);
+  box-shadow: 0 0.25rem 1rem color-mix(in srgb, var(--color-shadow) 12%, transparent);
+}
+
+/* Visor: <dialog> a pantalla completa en la capa superior, con el fondo del esquema de la
+   seccion. La pista es un scroll-snap horizontal; con zoom deja de desplazarse y el gesto
+   pasa a ser del visor (touch-action: none). El JS fija el tamano de cada foto a 1x. */
+.product-zoom {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.product-zoom[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.product-zoom::backdrop {
+  background: var(--color-background);
+}
+
+.product-zoom__top,
+.product-zoom__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--page-gutter);
+}
+
+.product-zoom__top {
+  justify-content: space-between;
+  padding-block-start: calc(var(--space-1) + env(safe-area-inset-top, 0px));
+}
+
+.product-zoom__bar {
+  justify-content: center;
+  padding-block-end: calc(var(--space-1) + env(safe-area-inset-bottom, 0px));
+}
+
+.product-zoom__counter {
+  margin: 0;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.product-zoom__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.product-zoom__reset {
+  min-height: var(--tap-target-min);
+  padding: 0 var(--space-2);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.product-zoom__track {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.product-zoom__track::-webkit-scrollbar {
+  display: none;
+}
+
+.product-zoom__track:focus-visible {
+  outline-offset: -3px;
+}
+
+.product-zoom__slide {
+  display: grid;
+  flex: 0 0 100%;
+  margin: 0;
+  overflow: hidden;
+  place-items: center;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  touch-action: pan-x;
+}
+
+.product-zoom__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform var(--motion-fast) var(--ease-move);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.product-zoom[data-zoomable] .product-zoom__image {
+  cursor: zoom-in;
+}
+
+.product-zoom[data-zoomed] .product-zoom__track {
+  overflow: hidden;
+}
+
+.product-zoom[data-zoomed] .product-zoom__slide {
+  touch-action: none;
+}
+
+.product-zoom[data-zoomed] .product-zoom__image {
+  cursor: zoom-out;
+}
+
+/* Durante el pellizco o el arrastre la foto va pegada al dedo, sin transicion. */
+.product-zoom[data-gesture] .product-zoom__image {
+  transition: none;
+  will-change: transform;
+}
+
+.product-zoom button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.product-zoom__step--previous svg {
+  transform: rotate(90deg);
+}
+
+.product-zoom__step--next svg {
+  transform: rotate(-90deg);
+}
+
+[dir='rtl'] .product-zoom__step--previous svg {
+  transform: rotate(-90deg);
+}
+
+[dir='rtl'] .product-zoom__step--next svg {
+  transform: rotate(90deg);
+}
+
+html[data-animations='subtle'] .product-zoom[open],
+html[data-animations='full'] .product-zoom[open] {
+  animation: gallery-media-in var(--motion-fast) var(--ease-enter) both;
+}
+
 /* ---------- T5. Buscador: fila estable y una sola cruz ---------- */
 /* El boton de borrar sale del flujo cuando esta oculto; sin posiciones explicitas el
    boton de enviar caia en su pista de 44 px y "SEARCH" se apilaba letra a letra. */

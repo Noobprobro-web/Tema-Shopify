@@ -75,7 +75,22 @@
 
   const syncDialogScrollLocks = () => {
     document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
-    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal]')));
+    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]')));
+  };
+
+  // 5B-001, H-13. Una diapositiva que sale de la vista no puede seguir sonando: <video> se
+  // pausa y los reproductores de YouTube y Vimeo (media_tag con su API activa) reciben la
+  // orden de pausa por postMessage, el mismo mensaje que documenta cada plataforma.
+  const pauseMedia = (container) => {
+    container.querySelectorAll('video').forEach((video) => video.pause());
+    container.querySelectorAll('iframe').forEach((frame) => {
+      const source = frame.getAttribute('src') || '';
+      if (source.includes('youtube')) {
+        frame.contentWindow?.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      } else if (source.includes('vimeo')) {
+        frame.contentWindow?.postMessage('{"method":"pause"}', '*');
+      }
+    });
   };
 
   // The eight amount tokens Shopify allows inside money_format / money_with_currency_format.
@@ -441,6 +456,9 @@
     applySlide(index, announce) {
       if (index === this.currentSlide && !announce) return;
       this.currentSlide = index;
+      this.slides.forEach((slide, position) => {
+        if (position !== index) pauseMedia(slide);
+      });
 
       if (this.counter) this.counter.textContent = String(index + 1);
       this.steps.forEach((step) => {
@@ -477,7 +495,7 @@
         const selected = item === selectedItem;
         item.hidden = !selected;
         item.toggleAttribute('data-selected', selected);
-        if (!selected) item.querySelector('video')?.pause();
+        if (!selected) pauseMedia(item);
       });
 
       let selectedThumbnail = null;
@@ -4205,11 +4223,14 @@
   reflectReducedMotion(reducedMotionQuery);
   reducedMotionQuery.addEventListener?.('change', reflectReducedMotion);
 
+  // 5B-001. product-zoom.js se carga aparte, solo en la ficha, y extiende estas piezas en
+  // vez de copiarlas.
   window.ThemeCore = {
     initialized: true,
     ThemeElement,
     trapFocus,
     getFocusableElements,
+    syncDialogScrollLocks,
   };
 
   if (!customElements.get('theme-disclosure')) {
