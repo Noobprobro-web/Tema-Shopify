@@ -5,58 +5,46 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
 Última actualización: 2026-09-23
-Estado general: HOTFIX F01 SPRINT 5B COMPLETADO Y APROBADO (GEMINI-review-CLAUDE-5B-002) -> DESPLIEGUE A TIENDA VIVA Y CERTIFICACIÓN FINAL POR GPT-6 SOL MAX
-Próximo hito: Despliegue live del tema Couture (#165809488115), verificación en tienda real y certificación final de Sprint 5B por GPT-6 Sol Max
+Estado general: SPRINT 5B CERTIFICADO Y CERRADO (GPT-AUDIT-008) -> KICKOFF Y ALINEACIÓN DE SPRINT 5C (Mega Menú Editorial y Retención de Lujo)
+Próximo hito: Directiva técnica vinculante para Sprint 5C y ejecución por Claude Opus 5.5 Extra
 ```
 
 ---
 
-## 1. Sprint Activo: SPRINT 5B - LUXURY PDP MEDIA & ACCESSIBLE ZOOM (Hotfix F01 Aplicado)
+## 1. Sprint Cerrado: SPRINT 5B - LUXURY PDP MEDIA & ACCESSIBLE ZOOM (Certificado 100%)
 
-**Meta del Sprint:** Conforme a `GPT-AUDIT-003`, `CLAUDE-AUDIT-OPUS-001`, `GPT-AUDIT-006` y `GPT-AUDIT-007`, implementar la experiencia multimedia inmersiva de ficha de producto (PDP) propia de un tema de lujo ($380 USD):
-1. **Web Component `<product-zoom>` en `assets/product-zoom.js`:** Carga bajo demanda (`defer`) exclusiva en PDP (`main-product.liquid`) cuando el ajuste `enable_media_zoom` está activo (0 KB de impacto en el resto de páginas). 11.945 bytes (3.850 bytes gzipped).
-2. **Visor Modal Nativo con `<dialog>` y Pointer Events:**
-   - Cero librerías externas.
-   - Modo 1x y modo zoom máximo limitado por la resolución real de la fotografía: `min(3, naturalWidth / renderedWidth)`.
-   - Soporte gestual táctil: pellizco con dos dedos con ancla absoluta desde el estado inicial, arrastre (pan) y doble toque para alternar zoom.
-   - Soporte ratón: clic para alternar y modo "seguir cursor" para inspección de tejido.
-   - Navegación por teclado completa (`+`, `-`, `0`, flechas, Home, End, Tab confinado y Escape con restauración de foco al disparador exacto).
-   - Modo de movimiento reducido respetado (`prefers-reduced-motion: reduce`).
-3. **Hotfix F01 y Blindaje de Foco Modal (Sprint 5B-002):**
-   - Transición proactiva de foco antes de ocultar o deshabilitar controles (`assets/product-zoom.js:155-166`).
-   - Cobertura de las 6 rutas críticas: Reset zoom -> Acercar; Acercar al máximo -> Alejar; Alejar a 1x -> Acercar; Siguiente en 4/4 -> Anterior; Anterior en 1/4 -> Siguiente; y salvaguarda general ante cualquier blur externo.
-   - Cero fugas de foco a `BODY` mientras el visor permanece abierto.
-4. **Carga Inteligente de Medios (Zero LCP Penalty):** Marcador transparente en línea; imágenes maestras de alta resolución cargadas de forma perezosa (`data-srcset`) únicamente al abrir el diálogo modal con `fetchpriority="high"` en la foto activa y sus vecinas.
-5. **Optimizaciones de Galería PDP:**
-   - H-07: Ajuste de `sizes` en `snippets/product-media.liquid` y `sections/main-product.liquid` a `(min-width: 62rem) 30vw, 100vw` en rejilla de 2 columnas de escritorio.
-   - H-13: Pausa automática de `<video>` y envío de `postMessage` a YouTube (`pauseVideo`) y Vimeo (`pause`) al cambiar de diapositiva o deslizar carrusel móvil.
-   - H-19: Texto alternativo secuencial descriptivo (`snippets/media-alt.liquid`) cuando el catálogo no provea alt individual ("{{ title }} – Image {{ n }} of {{ total }}").
+**Certificación de Cierre:** Emitida por GPT-6 Sol Max en [`agent-comms/outbox-gpt/GPT-AUDIT-008-sprint-5b-certification.md`](outbox-gpt/GPT-AUDIT-008-sprint-5b-certification.md) tras verificar la remediación de F01 en la tienda viva (`tema-qkqpke0j.myshopify.com/products/qa5a-f04-colour-size` en EN/ES a 1280px, 390px y 360px).
+- **Web Component `<product-zoom>` en `assets/product-zoom.js`:** 11.945 bytes (3.850 bytes gzipped), cero dependencias, carga diferida `defer` exclusiva en PDP.
+- **Interacciones nativas:** `<dialog>` modal, protección de resolución natural anti-pixelado, gestos táctiles (pinch, drag, double-tap), teclado completo (+, -, 0, flechas, Home, End, Tab trapped, Escape).
+- **Gestión atómica de foco (F01 resuelto):** Foco reubicado proactivamente en las 6 rutas críticas antes de mutar `hidden`/`disabled`. Cero pérdidas a `BODY`.
+- **Optimizaciones de medios:** H-07 (`sizes` 30vw en rejilla), H-13 (pausa de `<video>`, YouTube y Vimeo al cambiar slide) y H-19 (alts secuenciales descriptivos).
+- **Calidad estática:** 118 archivos inspeccionados por Theme Check con 0 ofensas, 394 claves con paridad total EN/ES y 25/25 pruebas en arnés automatizado.
 
 ---
 
-## 2. Asignaciones Activas por Agente
+## 2. Sprint Activo: SPRINT 5C - EDITORIAL MEGA MENU & LUXURY COMMERCE
+
+**Objetivo Estratégico ($380 USD Tier):** Implementar la experiencia de navegación de cabecera propia de los grandes temas de lujo (Prestige, Focal) y resolver los pulidos de retención pendientes:
+1. **Mega Menú Editorial Multicolumna en Cabecera (`sections/header.liquid`):**
+   - Transición de dropdown simple de 1 columna a Mega Menú estructurado en columnas por enlaces de segundo nivel con sub-enlaces de tercer nivel.
+   - Bloques promocionales editoriales (`mega_menu_promo`) configurables desde el editor de temas: imagen destacada, título de colección/campaña, subtítulo y enlace directo (1 a 2 bloques por menú).
+   - Accesibilidad completa WCAG 2.2 AA (navegación fluida por Tabulador, Escape para cerrar, `aria-expanded`, sin trampas de foco).
+   - 0 KB de JS nuevo: basado en la arquitectura existente `<theme-disclosure>` con imágenes `loading="lazy"`.
+2. **Pulido P2-01 (Actualización de Live Region en Resize):**
+   - Actualización del porcentaje anunciado en `announce()` tras `layout()` si la escala se reajusta por giro de pantalla o resize con zoom activo (`assets/product-zoom.js:71-86`).
+3. **Cart Drawer Accesible & Retención:**
+   - Anuncio sonoro explícito en live region al agregar producto ("*Added Serra Coat - Size M to cart*").
+
+---
+
+## 3. Asignaciones Activas por Agente
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Agregar filtro "Color" en Search & Discovery. 2) Opcional: activar Gift Cards en Admin. 3) Fotografía de catálogo >= 3000 px para demo de Theme Store. | 🟢 Activo | Configuración de tienda |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Hotfix F01 entregado con éxito (`CLAUDE-REPORT-5B-002.md`, arnés 25/25). | 🟢 Completado | Standby para feedback final |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Dictamen formal emitido (`GEMINI-review-CLAUDE-5B-002.md`), compuertas estáticas verificadas, commit y despliegue a tienda viva. | 🟢 Activo | Commit, push, deploy y re-evaluación live |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Verificación de remediación de F01 en tienda real y certificación final de cierre de Sprint 5B. | 🔵 Próximo | `agent-comms/outbox-gpt/GPT-AUDIT-008-sprint-5b-certification.md` |
-
----
-
-## 3. Estado de Calidad y Compuertas Estáticas (Sprint 5B-002)
-
-| Compuerta | Herramienta / Verificación | Resultado | Estado |
-|---|---|:---:|:---:|
-| **Theme Check** | Shopify CLI 3.x (`gates:theme-check`) | 118 archivos inspeccionados, **0 ofensas** | 🟢 SUPERADO |
-| **Inventario de Locales** | `scripts/locale-key-inventory.mjs` | 394 claves, 0 sin resolver, 0 huérfanas en storefront | 🟢 SUPERADO |
-| **Paridad Bilingüe** | `en.default.json` vs `es.json` | 394 / 394 claves, 100% paridad, 0 diferencias | 🟢 SUPERADO |
-| **Dataset Hooks (Contratos)** | `scripts/dataset-hooks.mjs` | 20 componentes con data-* de contrato, 0 rotos | 🟢 SUPERADO |
-| **Sintaxis JavaScript** | `node --check assets/*.js` | `theme.js` y `product-zoom.js` limpios | 🟢 SUPERADO |
-| **Empaquetado** | `shopify theme package` | `Sartorial-1.0.0.zip` (98 archivos de tema) | 🟢 SUPERADO |
-| **Ledger Estructural** | `scripts/ledger-verify.mjs` | 54 filas, 0 incoherencias, 0 errores | 🟢 SUPERADO |
-| **Arnés 5B Automatizado** | `harness-5B-001/` (Liquid real + Chromium) | **25/25 tests en inglés y 25/25 en español** | 🟢 SUPERADO |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Decisión/aprobación de alcance para Sprint 5C. 2) Opcional: configurar filtro "Color" en Search & Discovery. | 🟢 Activo | Aprobación de alcance |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Cierre de Sprint 5B, actualización de `BOARD.md` y `docs/decisions.md`, y redacción de directiva Sprint 5C. | 🟢 Activo | `CLAUDE-DIRECTIVE-5C-001.md` |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Disciplina Técnica | Preparado para recibir directiva 5C e implementar mega menú editorial y pulidos. | 🔵 En espera de directiva | `CLAUDE-REPORT-5C-001.md` |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Certificación 5B completada (`GPT-AUDIT-008`). En reposo para auditar Sprint 5C. | 🟢 Completado | Auditoría de producto de Sprint 5C |
 
 ---
 
@@ -67,7 +55,7 @@ Próximo hito: Despliegue live del tema Couture (#165809488115), verificación e
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
 | `cumplido` | **38** | 70.4% | Verificados con código, pruebas estáticas y mediciones empíricas en tienda real. |
-| `código completo` | **14** | 25.9% | Código funcional implementado; pendientes de catálogo comercial o apps externas. |
+| `código completo` | **14** | 25.9% | Código funcional implementado; fila 73 de Zoom PDP verificada en tienda viva; pendiente hardware multitáctil. |
 | `no verificado` | **2** | 3.7% | Dependencias comerciales del comerciante: publicación de docs/soporte (DP-001) y fotos demo. |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
 | **TOTAL** | **54** | **100%** | Cobertura de especificación Shopify Theme Store v1.0.0. |
@@ -77,8 +65,6 @@ Próximo hito: Despliegue live del tema Couture (#165809488115), verificación e
 ## 5. Bloqueadores y Dependencias del Merchant (Johandry)
 
 1. **[Comercial] Filtro de Color en Search & Discovery:**
-   - En Shopify Admin > *Apps > Search & Discovery > Filtros*: Añadir filtro para la opción de producto "Color". Esto activará de inmediato los swatches facetados en la tienda real (el código ya está desplegado).
+   - En Shopify Admin > *Apps > Search & Discovery > Filtros*: Añadir filtro para la opción de producto "Color" para activar las muestras facetadas en tienda viva.
 2. **[Calidad de Imagen] Fotografía de Catálogo para Zoom de Tejido (R3):**
-   - Para que el zoom de alta costura despliegue todo su valor ante los evaluadores de Shopify Theme Store, se recomienda subir imágenes con ancho mínimo de 3000 px. El tema respeta la resolución original para evitar pixelaciones.
-3. **[Opcional] Activación de Tarjetas de Regalo:**
-   - En *Configuración > Tarjetas de regalo*, habilitar si se desea crear y probar el fixture F08 en vivo.
+   - Para la submission final a Shopify Theme Store, subir fotografías de alta costura con resolución >= 3000 px de ancho para exhibir el detalle textil.

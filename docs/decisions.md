@@ -174,5 +174,16 @@ Registro de decisiones importantes del tema.
 - Se proporcionan los artefactos turnkey `docs/merchant/docs.html` y `docs/merchant/support.html` para ser cargados como páginas en Shopify.
 - En cuanto las páginas estén creadas en la tienda, se actualizarán las URLs en `config/settings_schema.json` para que apunten a los endpoints de Shopify y devuelvan HTTP 200.
 
+## 2026-09-23: Certificación y Cierre Operativo de Sprint 5B (Native Accessible Zoom & Luxury PDP Media)
+
+- **Decisión conjunta (Johandry, Gemini Flash 3.8 High, GPT-6 Sol Max, Claude Opus 5.5 Extra):**
+  - Se certifica formalmente el cierre operativo de **Sprint 5B** tras la subsanación y verificación empírica en tienda viva del hotfix F01 (gestión atómica de foco en `Reset zoom` y blindaje de las 6 rutas de transición de botones en `assets/product-zoom.js:155-166`).
+  - **Dictamen oficial:** Aprobado y certificado por GPT-6 Sol Max en `agent-comms/outbox-gpt/GPT-AUDIT-008-sprint-5b-certification.md`.
+  - **Componente:** `<product-zoom>` en `assets/product-zoom.js` (11.945 bytes, 3.850 bytes gzipped, cero dependencias).
+  - **Compuertas estáticas:** 118 archivos inspeccionados por Theme Check con 0 ofensas, 394 claves con paridad total inglés/español, 54 filas de ledger con 0 incoherencias, y 25/25 pruebas automatizadas superadas en EN y ES (`harness-5B-001/`).
+  - **Registro P2-01:** Registrado hallazgo no bloqueante sobre actualización de región viva en resize con zoom activo, programado para incorporación técnica en la siguiente directiva.
+  - **Autorización de avance:** Se autoriza la transición formal al **Sprint 5C**.
+
+
 
 
