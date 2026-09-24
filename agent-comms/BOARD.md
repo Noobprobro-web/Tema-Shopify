@@ -5,8 +5,8 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
 Última actualización: 2026-09-23
-Estado general: PULIDO UNIFICADO COMPLETADO -> FIX DE TITULARES DESPLEGADO -> AUDITORÍA INTEGRAL DE PRESETS ASIGNADA A CLAUDE (CLAUDE-DIRECTIVE-AUDIT-PRESETS-001)
-Próximo hito: Auditoría visual, bilingüe y de producto en vivo de Claude en los 4 temas (CLAUDE-REPORT-AUDIT-PRESETS-001)
+Estado general: AUDITORÍA DE PRESETS CUMPLIDA (CLAUDE-REPORT-AUDIT-PRESETS-001) -> DICTAMEN APTO -> PARCHES H1 (CENTRADO HERO ARCHIVE) Y H2 (A11Y PRECIO PDP) DESPLEGADOS Y VERIFICADOS EN VIVO
+Próximo hito: Validación final de contenido por Johandry (imágenes demo) y avance hacia las filas restantes de 'código completo'
 ```
 
 ---
@@ -23,9 +23,9 @@ Próximo hito: Auditoría visual, bilingüe y de producto en vivo de Claude en l
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset favorito. Solicitó auditoría a cargo de Claude. | 🟢 Activo | Feedback y dirección |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Fix de titulares desplegado a los 4 temas. Directiva de auditoría emitida a Claude (`CLAUDE-DIRECTIVE-AUDIT-PRESETS-001`). | 🟢 Activo | Supervisión y validación |
-| Claude (Opus 5.5 Extra) | Implementador Principal / Auditor UX | Auditoría integral exhaustiva de los 3 presets y tema principal (`CLAUDE-DIRECTIVE-AUDIT-PRESETS-001`). | 🟡 En curso | `CLAUDE-REPORT-AUDIT-PRESETS-001.md` |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial confirmado intacto. Revisión de decisiones de contenido (imágenes demo de presets). | 🟢 Activo | Feedback y dirección |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Parches H1 (centrado Archive) y H2 (a11y precio variante PDP) aplicados, desplegados y verificados en vivo. | 🟢 Activo | Supervisión y cierre |
+| Claude (Opus 5.5 Extra) | Implementador Principal / Auditor UX | Auditoría integral exhaustiva completada con dictamen APTO (`CLAUDE-REPORT-AUDIT-PRESETS-001`). | 🟢 Cumplido | `CLAUDE-REPORT-AUDIT-PRESETS-001.md` |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (reemplazado por Claude para esta auditoría por disponibilidad de usuario). | ⚪ En reposo | N/A |
 
 ---

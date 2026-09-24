@@ -1,0 +1,37 @@
+diff -ru a/assets/base.css b/assets/base.css
+--- a/assets/base.css	2026-09-24 02:58:07.700353150 +0000
++++ b/assets/base.css	2026-09-24 02:58:19.770354107 +0000
+@@ -2938,6 +2938,19 @@
+ .hero-editorial--align-center .hero-editorial__actions,
+ .hero-editorial--align-right .hero-editorial__actions {
+   justify-content: inherit;
++}
++
++/* AUDIT-PRESETS-001. Titular y subtitulo tienen max-width: con texto centrado o a la derecha,
++   su caja tambien se centra o se alinea a la derecha. Sin esto, en Archive (align-center) el
++   subtitulo queda 141 px a la izquierda del eje a 1280 px. */
++.hero-editorial--align-center .hero-editorial__heading,
++.hero-editorial--align-center .hero-editorial__subheading {
++  margin-inline: auto;
++}
++
++.hero-editorial--align-right .hero-editorial__heading,
++.hero-editorial--align-right .hero-editorial__subheading {
++  margin-inline-start: auto;
+ }
+ 
+ curated-showcase {
+@@ -3656,6 +3669,13 @@
+   .hero-editorial__heading {
+     font-size: calc(4.5rem * var(--font-heading-scale));
+     line-height: 1.06;
++  }
++
++  /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
++     columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
++     Los heroes alineados a la izquierda (Sartorial, Couture, Edition) no cambian. */
++  .hero-editorial--align-center .hero-editorial__heading {
++    font-size: min(calc(4.5rem * var(--font-heading-scale)), 6.2vw);
+   }
+ 
+   .hero-editorial--split .hero-editorial__actions {

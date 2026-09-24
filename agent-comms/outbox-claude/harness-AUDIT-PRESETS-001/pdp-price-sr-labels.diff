@@ -1,0 +1,45 @@
+diff -ru a/assets/theme.js b/assets/theme.js
+--- a/assets/theme.js	2026-09-24 02:56:49.732346967 +0000
++++ b/assets/theme.js	2026-09-24 02:56:49.767346970 +0000
+@@ -846,6 +846,24 @@
+       }
+ 
+       if (saleBadge) saleBadge.hidden = !priceSource?.compare_at_price;
++
++      // AUDIT-PRESETS-001. Las etiquetas para lectores de pantalla siguen al estado de oferta del
++      // variante elegido, como ya hace la tarjeta (product-card-variants). Sin esto, pasar de un
++      // variante en oferta a uno sin oferta se sigue leyendo "Precio de oferta ... Precio habitual".
++      const values = currentPrice?.closest('.price__values');
++      const wrapper = currentPrice?.closest('[data-price-wrapper]');
++      const varies = values && [...values.children].some((child) => child.tagName === 'SPAN'
++        && !child.classList.contains('visually-hidden') && !child.hasAttribute('data-current-price'));
++      if (values && wrapper?.dataset.labelSale && !varies) {
++        const label = (text) => Object.assign(document.createElement('span'), { className: 'visually-hidden', textContent: text });
++        values.querySelectorAll(':scope > .visually-hidden').forEach((node) => node.remove());
++        if (priceSource?.compare_at_price) {
++          currentPrice.before(label(wrapper.dataset.labelSale));
++          comparePrice?.before(label(wrapper.dataset.labelRegular));
++        } else {
++          currentPrice.before(label(wrapper.dataset.labelRegular));
++        }
++      }
+       if (soldOutBadge) soldOutBadge.hidden = Boolean(variant?.available);
+ 
+       if (unitPrice) {
+diff -ru a/snippets/price.liquid b/snippets/price.liquid
+--- a/snippets/price.liquid	2026-09-24 02:56:49.737346967 +0000
++++ b/snippets/price.liquid	2026-09-24 02:56:49.768346970 +0000
+@@ -50,7 +50,12 @@
+   endif
+ -%}
+ 
+-<div class="price{% if price_class != blank %} {{ price_class }}{% endif %}" data-price-wrapper>
++<div
++  class="price{% if price_class != blank %} {{ price_class }}{% endif %}"
++  data-price-wrapper
++  data-label-sale="{{ 'products.product.sale_price' | t | escape }}"
++  data-label-regular="{{ 'products.product.regular_price' | t | escape }}"
++>
+   <div class="price__values">
+     {%- if price_varies -%}
+       <span>{{ 'products.product.price_from' | t }}</span>

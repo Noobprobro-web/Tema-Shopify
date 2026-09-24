@@ -50,7 +50,12 @@
   endif
 -%}
 
-<div class="price{% if price_class != blank %} {{ price_class }}{% endif %}" data-price-wrapper>
+<div
+  class="price{% if price_class != blank %} {{ price_class }}{% endif %}"
+  data-price-wrapper
+  data-label-sale="{{ 'products.product.sale_price' | t | escape }}"
+  data-label-regular="{{ 'products.product.regular_price' | t | escape }}"
+>
   <div class="price__values">
     {%- if price_varies -%}
       <span>{{ 'products.product.price_from' | t }}</span>
