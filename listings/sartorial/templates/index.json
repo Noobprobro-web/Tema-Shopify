@@ -23,6 +23,8 @@
         "subheading": "<p>Sculptural layers and tactile materials, made in small series.</p>",
         "button_primary_label": "Discover the collection",
         "button_primary_url": "/collections/all",
+        "button_secondary_label": "Explore lookbook",
+        "button_secondary_url": "/collections",
         "color_scheme": "scheme-2"
       }
     },
@@ -87,6 +89,8 @@
         "eyebrow": "THE HAND AND THE MATERIAL / 03",
         "quote": "Objects gain meaning through the hands that make them.",
         "body": "<p>Every edge and finish records a decision made by an artisan.</p>",
+        "button_label": "Read our process",
+        "button_url": "/collections/all",
         "media_label": "MACRO STUDY / MATERIAL 07",
         "image": "shopify://shop_images/manifesto-01.jpg",
         "use_surface_background": true,
@@ -114,7 +118,7 @@
       "type": "bento-discovery",
       "blocks": {
         "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] FEATURED COLLECTION", "heading": "Sculptural layers", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
-        "story": { "type": "card_editorial", "settings": { "eyebrow": "[02] MATERIAL STUDY", "heading": "Carried close", "body": "<p>An editorial study in proportion, tactility and daily use.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } },
+        "story": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[02] MATERIAL STUDY", "heading": "Carried close", "body": "<p>An editorial study in proportion, tactility and daily use.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } },
         "product": { "type": "card_product", "settings": {} }
       },
       "block_order": ["collection", "story", "product"],
