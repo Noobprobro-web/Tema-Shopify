@@ -5,8 +5,8 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
 Última actualización: 2026-09-23
-Estado general: SPRINT 5C INTEGRADO Y REVISADO (GEMINI-review-SPRINT-5C) -> DESPLIEGUE A TIENDA VIVA Y AUDITORÍA ADVERSARIAL DE CIERRE (GPT-AUDIT-009)
-Próximo hito: Push de tema a tienda real (#165809488115), fixture de Mega Menú y certificación Gate 5 por GPT-6
+Estado general: SPRINT 5C CERRADO Y CERTIFICADO (GPT-AUDIT-011) -> PULIDO UNIFICADO DE TRADUCCIONES Y AUDITORÍA INTEGRAL DE PRESETS (CLAUDE-DIRECTIVE-UNIFIED-POLISH-001)
+Próximo hito: Registro de 8 gaps en Couture + 10 botones en presets remotos por Claude, verificación bilingüe en vivo de los 4 temas y auditoría comercial final de GPT-6
 ```
 
 ---
@@ -23,10 +23,10 @@ Próximo hito: Push de tema a tienda real (#165809488115), fixture de Mega Menú
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset principal. | 🟢 Activo | Feedback y dirección |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Gate 5 aceptado. Filas 83-85 a `cumplido`. Supervisión de traducciones en presets. | 🟢 Activo | Coordinación de cierre |
-| Claude (Opus 5.5 Extra) | Implementador Principal / Auditor UX | 451 traducciones registradas en los 3 presets (`CLAUDE-REPORT-PRESETS-I18N-001`). | 🟢 Cumplido | `CLAUDE-REPORT-PRESETS-I18N-001.md` |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Certificación final en vivo de Gate 5 completada con éxito (`GPT-AUDIT-011`). | 🟢 Cumplido | `GPT-AUDIT-011-sprint-5c-certification.md` |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset favorito. Directiva de unificación emitida. | 🟢 Activo | Feedback y dirección |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Presets index.json desplegados a los 3 temas remotos. Directiva unificada emitida a Claude (`CLAUDE-DIRECTIVE-UNIFIED-POLISH-001`). | 🟢 Activo | Coordinación y supervisión |
+| Claude (Opus 5.5 Extra) | Implementador Principal / Auditor UX | Ejecución de 8 gaps en Couture + 10 botones en presets y verificación viva bilingüe (`CLAUDE-DIRECTIVE-UNIFIED-POLISH-001`). | 🟡 En curso | `CLAUDE-REPORT-UNIFIED-POLISH-001.md` |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Espera entrega de Claude para auditoría integral final de catálogo y presets (`GPT-AUDIT-012`). | ⚪ En espera | `GPT-AUDIT-012` |
 
 ---
 
