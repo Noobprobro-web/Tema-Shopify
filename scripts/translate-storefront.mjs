@@ -33,6 +33,12 @@ const data = JSON.parse(fs.readFileSync(DATA, 'utf8'));
 const LOCALE = data.locale;
 const SKIP = /\.(anchor|code|image|image_desktop|image_mobile|video)$/;
 const RESOURCE_TYPES = ['ONLINE_STORE_THEME_JSON_TEMPLATE', 'ONLINE_STORE_THEME_SECTION_GROUP', 'PAGE', 'LINK', 'MENU', 'COLLECTION'];
+// Los temas de preset usan otros ids de sección para los mismos textos (hero en lugar de
+// hero_editorial). Si la ruta no está en el diccionario, la entrada se busca por el digest del
+// inglés: primero en el mismo archivo y después en by_text (textos que solo existen en presets).
+const BY_DIGEST = new Map();
+for (const [f, ents] of Object.entries(data.theme)) for (const e of Object.values(ents)) { const k = `${f} ${sha(e.en)}`; if (!BY_DIGEST.has(k)) BY_DIGEST.set(k, e); }
+for (const e of data.by_text || []) BY_DIGEST.set(`* ${sha(e.en)}`, e);
 
 function tagSeq(html) { return (html.match(/<\/?[a-z0-9]+/gi) || []).join(' '); }
 function stripJsonComment(t) { return t.replace(/^\s*\/\*[\s\S]*?\*\//, ''); }
@@ -67,6 +73,10 @@ function check() {
     }
   }
   for (const t of data.titles) if (!t.es || t.es === t.en) problems.push(`título "${t.en}": traducción vacía o idéntica`);
+  for (const e of data.by_text || []) {
+    if (!e.es || !e.es.trim() || e.es === e.en) problems.push(`by_text "${e.en}": traducción vacía o idéntica`);
+    if (tagSeq(e.en) !== tagSeq(e.es)) problems.push(`by_text "${e.en}": etiquetas HTML distintas`);
+  }
   for (const [h, b] of Object.entries(data.page_bodies || {})) if (tagSeq(b.en) !== tagSeq(b.es)) problems.push(`cuerpo ${h}: etiquetas HTML distintas`);
   console.log(`check: ${ok} entradas de tema coinciden con las plantillas locales, ${ready} listas para registrar tras el despliegue, ${needsPatch.length} requieren declarar el valor en la plantilla, ${data.titles.length} títulos, ${Object.keys(data.page_bodies || {}).length} cuerpos de página`);
   needsPatch.forEach((x) => console.log('  REQUIERE PARCHE DE PLANTILLA ' + x));
@@ -100,6 +110,7 @@ function plan(resources, themeId) {
         if (SKIP.test(p)) { report.skipped++; continue; }
         seenTheme.add(`${file} ${p}`);
         entry = data.theme[file] && data.theme[file][p];
+        if (!entry || sha(entry.en) !== c.digest) entry = BY_DIGEST.get(`${file} ${c.digest}`) || BY_DIGEST.get(`* ${c.digest}`) || entry || null;
         if (!entry && keep.has(c.value)) { report.skipped++; continue; }
         if (!entry) { if (c.value && !/^(shopify:\/\/|\/)/.test(c.value)) report.untranslated.push(`${r.resourceId} ${c.key} = ${JSON.stringify(c.value).slice(0, 70)}`); continue; }
       } else if (c.key === 'title') {

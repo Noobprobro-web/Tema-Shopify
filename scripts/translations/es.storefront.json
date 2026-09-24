@@ -6,7 +6,8 @@
     "Cada entrada guarda el texto inglés de origen y su traducción. El script solo registra una traducción si el SHA-256 del inglés coincide con el digest vivo de Shopify, así un texto inglés editado nunca recibe una traducción vieja.",
     "Las URL tipadas se traducen con el prefijo /es para que la navegación no salga del idioma.",
     "pending_deploy marca ajustes que hoy salen del valor por defecto del esquema: no existen en la plantilla en vivo hasta que la plantilla los declare y se despliegue.",
-    "No se traducen anclas, nombres de archivo, imágenes, handles ni los nombres propios de los estilos (Sartorial, Edition, Archive)."
+    "No se traducen anclas, nombres de archivo, imágenes, handles ni los nombres propios de los estilos (Sartorial, Edition, Archive).",
+    "by_text: textos que solo existen en las plantillas de los presets (Sartorial, Edition, Archive), cuyo index.json usa otros ids de sección. El script los encuentra por el digest del inglés."
   ],
   "keep_source": [
     "Sartorial",
@@ -847,5 +848,393 @@
       "en": "<p>Every LINEA NOVE piece is finished and packed by hand in our atelier. This page explains how your order travels to you and how to return a piece that is not right.</p><h2>Order processing</h2><p>Pieces held in the atelier leave within three business days. Made-to-order work carries its own dispatch estimate on the product page. You receive a tracking link as soon as your parcel leaves the studio.</p><h2>Shipping</h2><p>Shipping is complimentary on orders over $150. Below that amount, the shipping rate for your address is shown at checkout before you pay. Delivery times depend on your destination and are estimated at checkout.</p><h2>Returns</h2><p>Returns are complimentary within fourteen days of delivery. Pieces must be unworn and returned with their original tags in place. Made-to-order work is final sale. Start a return by writing to us through the contact page with your order number.</p><h2>Refunds</h2><p>Once your return reaches the atelier and passes inspection, we refund the original payment method. Your bank may take a few business days to show the refund.</p><h2>Exchanges</h2><p>To change a size or colour, return the original piece and place a new order. This keeps the piece you want reserved while the return travels back to us.</p><h2>Damaged or incorrect items</h2><p>If a piece arrives damaged or is not what you ordered, contact us within seven days of delivery with a photograph and your order number. We cover the return and send a replacement or a full refund.</p>",
       "es": "<p>Cada pieza de LINEA NOVE se termina y se empaqueta a mano en nuestro atelier. Esta página explica cómo viaja tu pedido hasta ti y cómo devolver una pieza que no es la adecuada.</p><h2>Preparación del pedido</h2><p>Las piezas disponibles en el atelier salen en un plazo de tres días hábiles. Los trabajos por encargo muestran su propia estimación de envío en la página del producto. Recibirás un enlace de seguimiento en cuanto tu paquete salga del estudio.</p><h2>Envío</h2><p>El envío es de cortesía en pedidos superiores a $150. Por debajo de ese importe, la tarifa de envío para tu dirección se muestra al finalizar la compra, antes de pagar. Los plazos de entrega dependen del destino y se estiman al finalizar la compra.</p><h2>Devoluciones</h2><p>Las devoluciones son de cortesía durante los catorce días siguientes a la entrega. Las piezas deben estar sin usar y devolverse con sus etiquetas originales puestas. Los trabajos por encargo no admiten devolución. Para iniciar una devolución, escríbenos desde la página de contacto con tu número de pedido.</p><h2>Reembolsos</h2><p>Cuando tu devolución llega al atelier y supera la revisión, reembolsamos el importe al método de pago original. Tu banco puede tardar unos días hábiles en reflejar el reembolso.</p><h2>Cambios</h2><p>Para cambiar una talla o un color, devuelve la pieza original y haz un pedido nuevo. Así la pieza que quieres queda reservada mientras la devolución vuelve a nosotros.</p><h2>Artículos dañados o incorrectos</h2><p>Si una pieza llega dañada o no es la que pediste, escríbenos en un plazo de siete días desde la entrega con una fotografía y tu número de pedido. Nos hacemos cargo de la devolución y te enviamos un reemplazo o un reembolso completo.</p>"
     }
-  }
+  },
+  "by_text": [
+    {
+      "en": "<p>Sculptural layers and tactile materials, made in small series.</p>",
+      "es": "<p>Capas escultóricas y materiales táctiles, hechos en series cortas.</p>",
+      "where": "presets index.json hero.subheading"
+    },
+    {
+      "en": "CUT AND FINISHED BY HAND",
+      "es": "CORTADO Y ACABADO A MANO",
+      "where": "presets index.json marquee.hand.text"
+    },
+    {
+      "en": "<p>Every edge and finish records a decision made by an artisan.</p>",
+      "es": "<p>Cada canto y cada acabado registran una decisión tomada por un artesano.</p>",
+      "where": "presets index.json manifesto.body"
+    },
+    {
+      "en": "Traceable natural fibres",
+      "es": "Fibras naturales trazables",
+      "where": "presets index.json manifesto.material.value"
+    },
+    {
+      "en": "[01] FEATURED COLLECTION",
+      "es": "[01] COLECCIÓN DESTACADA",
+      "where": "presets index.json discovery.collection.eyebrow"
+    },
+    {
+      "en": "PRIVATE CORRESPONDENCE",
+      "es": "CORRESPONDENCIA PRIVADA",
+      "where": "presets index.json newsletter.eyebrow"
+    },
+    {
+      "en": "OBJECT STUDY / 01",
+      "es": "ESTUDIO DE OBJETO / 01",
+      "where": "Edition index.json hero.eyebrow"
+    },
+    {
+      "en": "Useful forms, precisely considered",
+      "es": "Formas útiles, pensadas con precisión",
+      "where": "Edition index.json hero.heading"
+    },
+    {
+      "en": "<p>A quiet system for objects that speak for themselves.</p>",
+      "es": "<p>Un sistema sereno para objetos que hablan por sí mismos.</p>",
+      "where": "Edition index.json hero.subheading"
+    },
+    {
+      "en": "Browse all objects",
+      "es": "Ver todos los objetos",
+      "where": "Edition index.json hero.button_primary_label"
+    },
+    {
+      "en": "CATALOGUE / 02",
+      "es": "CATÁLOGO / 02",
+      "where": "Edition index.json collections.eyebrow"
+    },
+    {
+      "en": "Selected objects",
+      "es": "Objetos seleccionados",
+      "where": "Edition index.json collections.heading"
+    },
+    {
+      "en": "Daily objects",
+      "es": "Objetos cotidianos",
+      "where": "Edition index.json collections.daily.tab_label"
+    },
+    {
+      "en": "Workspace",
+      "es": "Espacio de trabajo",
+      "where": "Edition index.json collections.workspace.tab_label"
+    },
+    {
+      "en": "Limited studies",
+      "es": "Estudios limitados",
+      "where": "Edition index.json collections.limited.tab_label"
+    },
+    {
+      "en": "GRID STUDY / 03",
+      "es": "ESTUDIO EN RETÍCULA / 03",
+      "where": "Edition index.json discovery.eyebrow"
+    },
+    {
+      "en": "Collection, product, process",
+      "es": "Colección, producto, proceso",
+      "where": "Edition index.json discovery.heading"
+    },
+    {
+      "en": "<p>A denser view of the working collection.</p>",
+      "es": "<p>Una vista más densa de la colección en curso.</p>",
+      "where": "Edition index.json discovery.subheading"
+    },
+    {
+      "en": "[01] SYSTEM",
+      "es": "[01] SISTEMA",
+      "where": "Edition index.json discovery.collection.eyebrow"
+    },
+    {
+      "en": "Objects for the desk",
+      "es": "Objetos para el escritorio",
+      "where": "Edition index.json discovery.collection.heading"
+    },
+    {
+      "en": "[04] PROCESS",
+      "es": "[04] PROCESO",
+      "where": "Edition index.json discovery.story.eyebrow"
+    },
+    {
+      "en": "Measured by use",
+      "es": "Medido por el uso",
+      "where": "Edition index.json discovery.story.heading"
+    },
+    {
+      "en": "<p>Materials and dimensions reduced to what the object needs.</p>",
+      "es": "<p>Materiales y medidas reducidos a lo que el objeto necesita.</p>",
+      "where": "Edition index.json discovery.story.body"
+    },
+    {
+      "en": "DESK SET / 04",
+      "es": "CONJUNTO DE ESCRITORIO / 04",
+      "where": "Edition index.json set.eyebrow"
+    },
+    {
+      "en": "Build the working set",
+      "es": "Arma tu conjunto de trabajo",
+      "where": "Edition index.json set.heading"
+    },
+    {
+      "en": "<p>Select the objects you need and add them together.</p>",
+      "es": "<p>Elige los objetos que necesitas y añádelos juntos.</p>",
+      "where": "Edition index.json set.description"
+    },
+    {
+      "en": "A modular arrangement for daily work.",
+      "es": "Una disposición modular para el trabajo diario.",
+      "where": "Edition index.json set.caption"
+    },
+    {
+      "en": "METHOD / 05",
+      "es": "MÉTODO / 05",
+      "where": "Edition index.json manifesto.eyebrow"
+    },
+    {
+      "en": "Remove until only the useful form remains.",
+      "es": "Quitar hasta que solo quede la forma útil.",
+      "where": "Edition index.json manifesto.quote"
+    },
+    {
+      "en": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
+      "es": "<p>Cada objeto empieza por el uso y después encuentra su material y su medida exactos.</p>",
+      "where": "Edition index.json manifesto.body"
+    },
+    {
+      "en": "Measure",
+      "es": "Medida",
+      "where": "Edition index.json manifesto.measure.label"
+    },
+    {
+      "en": "Proportion follows use",
+      "es": "La proporción sigue al uso",
+      "where": "Edition index.json manifesto.measure.value"
+    },
+    {
+      "en": "Chosen for tactility and endurance",
+      "es": "Elegido por su tacto y su resistencia",
+      "where": "Edition index.json manifesto.material.value"
+    },
+    {
+      "en": "EDITION NOTES",
+      "es": "NOTAS DE EDITION",
+      "where": "Edition index.json newsletter.eyebrow"
+    },
+    {
+      "en": "New studies, occasionally",
+      "es": "Nuevos estudios, de vez en cuando",
+      "where": "Edition index.json newsletter.heading"
+    },
+    {
+      "en": "<p>Product releases, material tests and measured updates.</p>",
+      "es": "<p>Lanzamientos de producto, pruebas de materiales y novedades con mesura.</p>",
+      "where": "Edition index.json newsletter.text"
+    },
+    {
+      "en": "CATALOGUE I / THE HOUSE",
+      "es": "CATÁLOGO I / LA CASA",
+      "where": "Archive index.json hero.eyebrow"
+    },
+    {
+      "en": "Objects with a remembered life",
+      "es": "Objetos con una vida recordada",
+      "where": "Archive index.json hero.heading"
+    },
+    {
+      "en": "<p>A collection shaped by provenance, handwork and time.</p>",
+      "es": "<p>Una colección formada por la procedencia, el trabajo manual y el tiempo.</p>",
+      "where": "Archive index.json hero.subheading"
+    },
+    {
+      "en": "Enter the catalogue",
+      "es": "Entra en el catálogo",
+      "where": "Archive index.json hero.button_primary_label"
+    },
+    {
+      "en": "INDEX II / PROVENANCE",
+      "es": "ÍNDICE II / PROCEDENCIA",
+      "where": "Archive index.json manifesto.eyebrow"
+    },
+    {
+      "en": "What endures carries the record of how it was made.",
+      "es": "Lo que perdura lleva consigo la huella de cómo se hizo.",
+      "where": "Archive index.json manifesto.quote"
+    },
+    {
+      "en": "<p>The catalogue follows material from source to workshop and object.</p>",
+      "es": "<p>El catálogo sigue la materia desde su origen hasta el taller y el objeto.</p>",
+      "where": "Archive index.json manifesto.body"
+    },
+    {
+      "en": "PLATE IV / HAND AND TOOL",
+      "es": "LÁMINA IV / MANO Y HERRAMIENTA",
+      "where": "Archive index.json manifesto.media_label"
+    },
+    {
+      "en": "Founded",
+      "es": "Fundación",
+      "where": "Archive index.json manifesto.founded.label"
+    },
+    {
+      "en": "A continuing workshop tradition",
+      "es": "Una tradición de taller que continúa",
+      "where": "Archive index.json manifesto.founded.value"
+    },
+    {
+      "en": "Made near the material source",
+      "es": "Hecho cerca del origen de la materia",
+      "where": "Archive index.json manifesto.origin.value"
+    },
+    {
+      "en": "Maker",
+      "es": "Artesano",
+      "where": "Archive index.json manifesto.maker.label"
+    },
+    {
+      "en": "Named with every object",
+      "es": "Nombrado en cada objeto",
+      "where": "Archive index.json manifesto.maker.value"
+    },
+    {
+      "en": "Record",
+      "es": "Registro",
+      "where": "Archive index.json manifesto.record.label"
+    },
+    {
+      "en": "Numbered and documented",
+      "es": "Numerado y documentado",
+      "where": "Archive index.json manifesto.record.value"
+    },
+    {
+      "en": "ESTABLISHED 1987 / CONTINUING WORKSHOP",
+      "es": "DESDE 1987 / TALLER EN ACTIVO",
+      "where": "Archive index.json marquee.year.text"
+    },
+    {
+      "en": "MADE BETWEEN FIELD AND ATELIER",
+      "es": "HECHO ENTRE EL CAMPO Y EL ATELIER",
+      "where": "Archive index.json marquee.place.text"
+    },
+    {
+      "en": "EACH OBJECT NUMBERED AND RECORDED",
+      "es": "CADA OBJETO NUMERADO Y REGISTRADO",
+      "where": "Archive index.json marquee.record.text"
+    },
+    {
+      "en": "CATALOGUE III / OBJECTS",
+      "es": "CATÁLOGO III / OBJETOS",
+      "where": "Archive index.json collections.eyebrow"
+    },
+    {
+      "en": "Entries from the permanent record",
+      "es": "Entradas del registro permanente",
+      "where": "Archive index.json collections.heading"
+    },
+    {
+      "en": "Current catalogue",
+      "es": "Catálogo actual",
+      "where": "Archive index.json collections.current.tab_label"
+    },
+    {
+      "en": "Archive selection",
+      "es": "Selección de archivo",
+      "where": "Archive index.json collections.archive.tab_label"
+    },
+    {
+      "en": "PLATE V / ARCHIVE STUDY",
+      "es": "LÁMINA V / ESTUDIO DE ARCHIVO",
+      "where": "Archive index.json lookbook.eyebrow"
+    },
+    {
+      "en": "Three objects from the record",
+      "es": "Tres objetos del registro",
+      "where": "Archive index.json lookbook.heading"
+    },
+    {
+      "en": "<p>Open each marker to trace the object back to its catalogue entry.</p>",
+      "es": "<p>Abre cada marcador para seguir el objeto hasta su entrada en el catálogo.</p>",
+      "where": "Archive index.json lookbook.description"
+    },
+    {
+      "en": "Warm light, worn surfaces and the evidence of use.",
+      "es": "Luz cálida, superficies gastadas y la huella del uso.",
+      "where": "Archive index.json lookbook.caption"
+    },
+    {
+      "en": "INDEX VI / STORIES AND OBJECTS",
+      "es": "ÍNDICE VI / HISTORIAS Y OBJETOS",
+      "where": "Archive index.json discovery.eyebrow"
+    },
+    {
+      "en": "Read the catalogue by provenance",
+      "es": "Lee el catálogo por procedencia",
+      "where": "Archive index.json discovery.heading"
+    },
+    {
+      "en": "<p>Documents, makers and enduring forms.</p>",
+      "es": "<p>Documentos, artesanos y formas que perduran.</p>",
+      "where": "Archive index.json discovery.subheading"
+    },
+    {
+      "en": "[I] FIELD NOTE",
+      "es": "[I] NOTA DE CAMPO",
+      "where": "Archive index.json discovery.story1.eyebrow"
+    },
+    {
+      "en": "Where the fibre begins",
+      "es": "Donde empieza la fibra",
+      "where": "Archive index.json discovery.story1.heading"
+    },
+    {
+      "en": "<p>A record of material, place and season.</p>",
+      "es": "<p>Un registro de materia, lugar y temporada.</p>",
+      "where": "Archive index.json discovery.story1.body"
+    },
+    {
+      "en": "[II] WORKSHOP NOTE",
+      "es": "[II] NOTA DE TALLER",
+      "where": "Archive index.json discovery.story2.eyebrow"
+    },
+    {
+      "en": "The mark of the tool",
+      "es": "La marca de la herramienta",
+      "where": "Archive index.json discovery.story2.heading"
+    },
+    {
+      "en": "<p>Hands, edges and the small variations that make an object singular.</p>",
+      "es": "<p>Manos, cantos y las pequeñas variaciones que hacen único a un objeto.</p>",
+      "where": "Archive index.json discovery.story2.body"
+    },
+    {
+      "en": "[III] CATALOGUE",
+      "es": "[III] CATÁLOGO",
+      "where": "Archive index.json discovery.collection.eyebrow"
+    },
+    {
+      "en": "The permanent collection",
+      "es": "La colección permanente",
+      "where": "Archive index.json discovery.collection.heading"
+    },
+    {
+      "en": "CATALOGUE NOTICES",
+      "es": "AVISOS DEL CATÁLOGO",
+      "where": "Archive index.json newsletter.eyebrow"
+    },
+    {
+      "en": "New entries in the archive",
+      "es": "Nuevas entradas en el archivo",
+      "where": "Archive index.json newsletter.heading"
+    },
+    {
+      "en": "<p>Occasional notices of restored objects, new records and workshop visits.</p>",
+      "es": "<p>Avisos ocasionales de objetos restaurados, nuevos registros y visitas al taller.</p>",
+      "where": "Archive index.json newsletter.text"
+    },
+    {
+      "en": "Explore lookbook",
+      "es": "Explora el lookbook",
+      "where": "presets index.json hero.button_secondary_label (hoy sale del valor por defecto del esquema)",
+      "pending_deploy": true
+    }
+  ]
 }

@@ -1,7 +1,7 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO CALCULADO: 57 filas | 38 cumplido | 17 código completo | 2 no verificado | 0 ausente
+CONTEO CALCULADO: 57 filas | 41 cumplido | 14 código completo | 2 no verificado | 0 ausente
 Desglose recalculado por scripts/ledger-verify.mjs el 2026-09-23.
 Última sincronización: 2026-09-14 (Consolidación a 4 estados canónicos y verificación matemática automática)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
@@ -80,9 +80,9 @@ Regla RULES.md: El código escrito NO cierra una fila que exige medición o prue
 | **Selector de Idioma (`form 'localization'`)** | Official Requirements: Markets | `código completo` | `<localization-form>` en `assets/theme.js:2390-2410`, `snippets/localization-selectors.liquid`, CSS en `assets/base.css:5224-5250`. Auto-submit en `change`, fallback sin JS. | GPT-4A | Sprint 4A |
 | **Formulario de Newsletter en Storefront** | Official Requirements: Customer Engagement | `código completo` | `sections/newsletter.liquid:1-95`, `sections/footer.liquid:12-32`, layout responsive y targets en `assets/base.css:5255-5330`. | GPT-4A | Sprint 4A |
 | **Iconos de Métodos de Pago en Footer** | Official Requirements: Trust & Footer | `código completo` | `sections/footer.liquid:66-73` (`payment_type_svg_tag`), layout flex y dimensiones mínimas en `assets/base.css:5280-5305`. | GPT-4A | Sprint 4A |
-| **Mega Menú Editorial en Cabecera** | Official Requirements: Navigation | `código completo` | `snippets/mega-menu.liquid:1-179`, `sections/header.liquid:138-139,248-314`, CSS en `assets/base.css:8520-8705`. Navegación multinivel y tarjetas 4:5 con loading="lazy". Arnés 5C 13/13 en EN y ES. Pendiente Gate 5 en tienda real. | Claude / Gemini | Sprint 5C |
-| **Productos Vistos Recientemente** | Official Requirements: Product Discovery | `código completo` | `sections/recently-viewed.liquid:1-116`, Web Component `<recently-viewed>` en `assets/theme.js:1010-1125,4405-4408`, CSS en `assets/base.css:8405-8460`. Persistencia local max 8 IDs y renderizado nativo /search. Pendiente Gate 5 en tienda real. | GPT / Gemini | Sprint 5C |
-| **Capa de Confianza e Inventario Reactivo en PDP** | Official Requirements: Product & Trust | `código completo` | `snippets/product-inventory.liquid:1-49`, `snippets/product-accordion.liquid:1-33`, bloques PDP en `sections/main-product.liquid:58,707` y `sections/featured-product.liquid:462`, Web Component `<product-inventory>` en `assets/theme.js:969-1008`, anuncio accesible de carrito en `assets/theme.js:2375-2387`, CSS en `assets/base.css:8461-8519`. Pendiente Gate 5 en tienda real. | GPT / Gemini | Sprint 5C |
+| **Mega Menú Editorial en Cabecera** | Official Requirements: Navigation | `cumplido` | `snippets/mega-menu.liquid:1-175`, `sections/header.liquid:138-139,248-314`, CSS en `assets/base.css`. Certificado en tienda real Couture #165809488115 (`GPT-AUDIT-011`): navegación /es/ a `/es/collections/all`, tarjetas 4:5 nativas (manifesto-01.jpg, 240x300 px), CLS=0 medido empíricamente, exclusividad E1 y cierre al salir el foco (WCAG 2.2 SC 2.4.11). | Claude / Gemini / GPT | Sprint 5C |
+| **Productos Vistos Recientemente** | Official Requirements: Product Discovery | `cumplido` | `sections/recently-viewed.liquid:1-109`, Web Component `<recently-viewed>` en `assets/theme.js:1010-1125`, CSS en `assets/base.css`. Certificado en tienda real Couture #165809488115 (`GPT-AUDIT-011`): renderizado secuencial de 0, 1, 2 y 4 tarjetas en orden reciente, exclusión estricta de PDP activo, límite de 8 IDs, responsive sin overflow a 390/360 px, degradación sin storage. | GPT / Gemini | Sprint 5C |
+| **Capa de Confianza e Inventario Reactivo en PDP** | Official Requirements: Product & Trust | `cumplido` | `snippets/product-inventory.liquid:1-49`, `snippets/product-accordion.liquid:1-33`, bloques PDP en `sections/main-product.liquid` y `sections/featured-product.liquid`, Web Component `<product-inventory>` en `assets/theme.js`, anuncio accesible de carrito en `assets/theme.js:2375-2387`. Certificado en tienda real Couture #165809488115 (`GPT-AUDIT-011`): layout 2 columnas desktop con ATC visible en viewport inicial, reactividad F04/F11 (in_stock, low_stock, sold_out, preorder), acordeones y mensajes bilingües. | GPT / Claude / Gemini | Sprint 5C |
 
 ---
 
