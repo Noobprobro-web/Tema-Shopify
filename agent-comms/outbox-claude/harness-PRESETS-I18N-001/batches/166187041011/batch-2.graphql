@@ -1,0 +1,5 @@
+mutation TranslateStorefront($r0: ID!, $t0: [TranslationInput!]!, $r1: ID!, $t1: [TranslationInput!]!, $r2: ID!, $t2: [TranslationInput!]!) {
+  a0: translationsRegister(resourceId: $r0, translations: $t0) { userErrors { field message code } translations { key locale } }
+  a1: translationsRegister(resourceId: $r1, translations: $t1) { userErrors { field message code } translations { key locale } }
+  a2: translationsRegister(resourceId: $r2, translations: $t2) { userErrors { field message code } translations { key locale } }
+}

@@ -15,45 +15,29 @@ Próximo hito: Push de tema a tienda real (#165809488115), fixture de Mega Menú
 
 - **Sprint 5A - High-Fashion Catalog Architecture & Swatches:** Certificado en tienda real con 8 fixtures F01-F06, F10, F11 (`GPT-AUDIT-006`).
 - **Sprint 5B - Luxury PDP Media & Accessible Zoom:** Certificado en tienda real (`GPT-AUDIT-008`). Hotfix F01 implementado con gestión atómica de foco.
+- **Sprint 5C - The Luxury Triple Crown ($380 USD Tier):** Certificado en tienda real Couture #165809488115 (`GPT-AUDIT-011`). Mega Menú editorial bilingüe (0 CLS, tarjetas 4:5, links dinámicos localizados), Recently Viewed nativo (0-4 tarjetas, persistencia 8 IDs, sin overflow 390/360 px), inventario reactivo multi-estado (in_stock, low_stock, sold_out, preorder), acordeones bilingües y anuncio accesible de carrito. Filas 83-85 del ledger pasadas a `cumplido`.
 
 ---
 
-## 2. Sprint Integrado: SPRINT 5C - THE LUXURY TRIPLE CROWN ($380 USD Tier)
-
-**Objetivo Logrado:**
-1. **Track 1 (Claude Opus 5.5 Extra):**
-   - **Mega Menú Editorial Multicolumna (`sections/header.liquid`, `snippets/mega-menu.liquid`):** Navegación fluida por columnas para enlaces de 2º y 3º nivel; hasta 2 tarjetas promocionales editoriales con imágenes 4:5 y `loading="lazy"`. 0 KB de JS nuevo sobre `<theme-disclosure>`.
-   - **Pulido P2-01 en `assets/product-zoom.js`:** Actualización dinámica de live region (`announce()`) al reescalar por giro o resize manteniendo el zoom abierto. Peso: 11.988 bytes (< 12.000 bytes).
-2. **Track 2 (GPT-6 Sol Max):**
-   - **Sección Recently Viewed (`sections/recently-viewed.liquid`):** Web Component `<recently-viewed>` en `assets/theme.js` persistiendo hasta 8 IDs en `localStorage` y renderizado mediante `/search?type=product&q=id:X OR id:Y`.
-   - **Inventario Reactivo por Variante (`snippets/product-inventory.liquid`):** Estados semánticos (`in_stock`, `low_stock`, `preorder`, `sold_out`) reactivos al evento `theme:variant-change`.
-   - **Acordeones Nativos (`snippets/product-accordion.liquid`):** `<details>` nativos accesibles sin JS con soporte para contenido de página o texto estático.
-   - **Anuncio Accesible de Carrito:** Confirmación por lector de pantalla con nombre y variante al añadir producto al carrito.
-3. **Micro-Parches de Integración (Gemini):**
-   - Exclusividad de paneles en menú de escritorio (cierre automático de disclosures hermanos).
-   - Apertura/cierre automático de mega menú en el Theme Editor ante `shopify:block:select` y `shopify:block:deselect`.
-
----
-
-## 3. Asignaciones Activas por Agente
+## 2. Asignaciones Activas por Agente
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset principal. | 🟢 Activo | Feedback y dirección |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Liquid limpio desplegado a los 4 temas (`781bcca`). Verificación nativa exitosa. | 🟢 Activo | Supervisión de certificación |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Gate 5 aceptado. Filas 83-85 a `cumplido`. Supervisión de traducciones en presets. | 🟢 Activo | Coordinación de cierre |
 | **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Registro completo de traducciones storefront en los 3 presets (`CLAUDE-DIRECTIVE-PRESETS-I18N-001`). | 🔵 En ejecución | `CLAUDE-REPORT-PRESETS-I18N-001.md` |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Certificación final en vivo de Gate 5 con P1 resuelto (`GPT-TASK-011`). | 🔵 En ejecución | `GPT-AUDIT-011-sprint-5c-certification.md` |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Certificación final en vivo de Gate 5 completada con éxito (`GPT-AUDIT-011`). | 🟢 Cumplido | `GPT-AUDIT-011-sprint-5c-certification.md` |
 
 ---
 
-## 4. Estado del Ledger de Requisitos (`docs/requirements-ledger.md`)
+## 3. Estado del Ledger de Requisitos (`docs/requirements-ledger.md`)
 
 *Conteo auditado matemáticamente por `scripts/ledger-verify.mjs` sobre 57 filas oficiales:*
 
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
-| `cumplido` | **38** | 66.7% | Verificados con código, pruebas estáticas y mediciones empíricas en tienda real. |
-| `código completo` | **17** | 29.8% | Código funcional implementado; pendientes pruebas en tienda real / Gate 5. |
+| `cumplido` | **41** | 71.9% | Verificados con código, pruebas estáticas y mediciones empíricas en tienda real. |
+| `código completo` | **14** | 24.6% | Código funcional implementado; pendientes pruebas en tienda real / Gate 5. |
 | `no verificado` | **2** | 3.5% | Dependencias comerciales del comerciante: publicación de docs/soporte (DP-001) y fotos demo. |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
 | **TOTAL** | **57** | **100%** | Cobertura de especificación Shopify Theme Store v1.0.0. |
