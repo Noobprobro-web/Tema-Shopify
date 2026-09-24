@@ -846,6 +846,24 @@
       }
 
       if (saleBadge) saleBadge.hidden = !priceSource?.compare_at_price;
+
+      // AUDIT-PRESETS-001. Las etiquetas para lectores de pantalla siguen al estado de oferta del
+      // variante elegido, como ya hace la tarjeta (product-card-variants). Sin esto, pasar de un
+      // variante en oferta a uno sin oferta se sigue leyendo "Precio de oferta ... Precio habitual".
+      const values = currentPrice?.closest('.price__values');
+      const wrapper = currentPrice?.closest('[data-price-wrapper]');
+      const varies = values && [...values.children].some((child) => child.tagName === 'SPAN'
+        && !child.classList.contains('visually-hidden') && !child.hasAttribute('data-current-price'));
+      if (values && wrapper?.dataset.labelSale && !varies) {
+        const label = (text) => Object.assign(document.createElement('span'), { className: 'visually-hidden', textContent: text });
+        values.querySelectorAll(':scope > .visually-hidden').forEach((node) => node.remove());
+        if (priceSource?.compare_at_price) {
+          currentPrice.before(label(wrapper.dataset.labelSale));
+          comparePrice?.before(label(wrapper.dataset.labelRegular));
+        } else {
+          currentPrice.before(label(wrapper.dataset.labelRegular));
+        }
+      }
       if (soldOutBadge) soldOutBadge.hidden = Boolean(variant?.available);
 
       if (unitPrice) {
