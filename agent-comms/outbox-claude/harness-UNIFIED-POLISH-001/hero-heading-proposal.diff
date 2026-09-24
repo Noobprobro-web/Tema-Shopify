@@ -1,0 +1,28 @@
+diff -ru a/assets/base.css b/assets/base.css
+--- a/assets/base.css	2026-09-24 01:58:48.532070883 +0000
++++ b/assets/base.css	2026-09-24 01:58:48.576070886 +0000
+@@ -2796,9 +2796,11 @@
+ 
+ .hero-editorial__heading {
+   max-width: 11ch;
+-  font-size: min(3.25rem, calc(2.75rem * var(--font-heading-scale)));
++  font-size: min(3.25rem, calc(2.75rem * var(--font-heading-scale)), 10.5vw);
+   letter-spacing: 0;
+   line-height: 1.04;
++  /* Titulares grandes: nunca partir una palabra para ajustar el ancho (en y es). */
++  overflow-wrap: break-word;
+ }
+ 
+ .hero-editorial__subheading {
+diff -ru a/listings/archive/templates/index.json b/listings/archive/templates/index.json
+--- a/listings/archive/templates/index.json	2026-09-24 01:58:48.547070884 +0000
++++ b/listings/archive/templates/index.json	2026-09-24 01:58:53.181071252 +0000
+@@ -16,7 +16,7 @@
+         "content_position_x": "center",
+         "content_position_y": "center",
+         "text_alignment": "center",
+-        "content_width": 30,
++        "content_width": 45,
+         "heading_tag": "h1",
+         "eyebrow": "CATALOGUE I / THE HOUSE",
+         "heading": "Objects with a remembered life",

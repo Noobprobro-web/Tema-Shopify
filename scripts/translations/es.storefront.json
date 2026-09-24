@@ -1233,14 +1233,17 @@
     {
       "en": "Explore lookbook",
       "es": "Explora el lookbook",
-      "where": "presets index.json hero.button_secondary_label",
-      "pending_deploy": true
+      "where": "presets index.json hero.button_secondary_label"
     },
     {
       "en": "Browse collections",
       "es": "Ver colecciones",
-      "where": "Edition index.json hero.button_secondary_label",
-      "pending_deploy": true
+      "where": "Edition index.json hero.button_secondary_label"
+    },
+    {
+      "en": "/collections",
+      "es": "/es/collections",
+      "where": "presets index.json hero.button_secondary_url"
     }
   ]
 }
