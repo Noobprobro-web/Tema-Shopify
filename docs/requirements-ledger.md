@@ -1,8 +1,8 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO CALCULADO: 57 filas | 41 cumplido | 14 código completo | 2 no verificado | 0 ausente
-Desglose recalculado por scripts/ledger-verify.mjs el 2026-09-23.
+CONTEO CALCULADO: 57 filas | 42 cumplido | 13 código completo | 2 no verificado | 0 ausente
+Desglose recalculado por scripts/ledger-verify.mjs el 2026-09-24.
 Última sincronización: 2026-09-14 (Consolidación a 4 estados canónicos y verificación matemática automática)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
 Regla RULES.md: El código escrito NO cierra una fila que exige medición o prueba en tienda real. Cada fila abierta tiene dueño y artefacto de cierre explícito.
@@ -103,6 +103,6 @@ Regla RULES.md: El código escrito NO cierra una fila que exige medición o prue
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Alineación de Nombre: Tema vs Preset** | Official Requirements: Naming | `cumplido` | `config/settings_schema.json:4` (`theme_name: "Sartorial"`) coincide con `config/settings_data.json` (`presets.Sartorial`). Decisión Johandry Opción A. | Johandry / Gemini | Phase 4 |
 | **Validación de Nombre contra Reglamento y Marcas** | Official Requirements: Naming | `cumplido` | Opción A adoptada por Johandry: Tema 'Sartorial' con presets 'Sartorial', 'Edition' y 'Archive'. Verificado: Cero colisiones con temas o presets existentes en Shopify Theme Store (todos devuelven 404). Pendiente verificación de marca clase 25/42 previo a submission (DP-003). | Johandry / Gemini | Phase 4 |
-| **Presets Diferenciados (1 a 4)** | Official Requirements: Presets | `código completo` | `config/settings_data.json` contiene Sartorial, Edition y Archive con cinco esquemas cada uno; `/listings/<preset>/templates/` incluye nueve overrides diferenciados (`/listings/sartorial/`, `/listings/edition/`, `/listings/archive/`). `Sartorial-1.0.0.zip` empaquetado con `/listings/`. Pendiente smoke test de instalación en las tres demos. | Claude / GPT / Gemini | Sprint 4B |
+| **Presets Diferenciados (1 a 4)** | Official Requirements: Presets | `cumplido` | `config/settings_data.json` contiene Sartorial, Edition y Archive con esquemas diferenciados; `/listings/<preset>/templates/` incluye overrides completos. Certificado en vivo en los 4 temas en tienda real (`CLAUDE-REPORT-AUDIT-PRESETS-001`, temas #165809488115, #166186909939, #166186942707, #166187041011) en 1280, 1024, 768, 375 y 360 px en / y /es (100% imágenes cargadas, 0 CLS, 0 horizontal scroll, 862 enlaces localizados, mega menú, zoom e inventario operativos). Parches H1 (centrado hero Archive) y H2 (a11y precio variante PDP) desplegados en `af6ee6d`. Paquete `Sartorial-1.0.0.zip` empaquetado con `/listings/`. Dictamen: APTO. | Claude / Gemini | Sprint 5C / Audit |
 | **`theme_info` Comercial y Soporte Real** | Official Requirements: Support & Info | `no verificado` | URLs declaradas en `config/settings_schema.json:3-9`. Páginas destino de soporte y docs pendientes de publicar en ruizdigital.com, Hito 4.6 (DP-001). | Johandry | Phase 4 |
 | **3 Tiendas Demo Auténticas (Sin Lorem Ipsum)** | Official Requirements: Demos | `no verificado` | Pendiente de producción de catálogo, copy y assets con derechos para las 3 demos. | Johandry / Claude | Phase 4 |
