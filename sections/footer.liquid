@@ -110,7 +110,7 @@
 
   {%- if shop.enabled_payment_types.size > 0 -%}
     <div class="container site-footer__utilities">
-      <div class="site-footer__payments" aria-label="{{ 'sections.footer.payment_methods' | t }}">
+      <div class="site-footer__payments">
         <span class="visually-hidden">{{ 'sections.footer.payment_methods' | t }}</span>
         <ul class="site-footer__payment-list unstyled-list" role="list">
           {%- for type in shop.enabled_payment_types -%}
