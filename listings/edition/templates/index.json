@@ -22,6 +22,8 @@
         "subheading": "<p>A quiet system for objects that speak for themselves.</p>",
         "button_primary_label": "Browse all objects",
         "button_primary_url": "/collections/all",
+        "button_secondary_label": "Browse collections",
+        "button_secondary_url": "/collections",
         "color_scheme": "scheme-1"
       }
     },
@@ -47,7 +49,7 @@
         "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
         "product1": { "type": "card_product", "settings": {} },
         "product2": { "type": "card_product", "settings": {} },
-        "story": { "type": "card_editorial", "settings": { "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } }
+        "story": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } }
       },
       "block_order": ["collection", "product1", "product2", "story"],
       "settings": {
@@ -85,6 +87,8 @@
         "eyebrow": "METHOD / 05",
         "quote": "Remove until only the useful form remains.",
         "body": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
+        "button_label": "Read our process",
+        "button_url": "/collections/all",
         "media_label": "",
         "image": "shopify://shop_images/manifesto-01.jpg",
         "use_surface_background": false,
