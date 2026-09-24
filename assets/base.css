@@ -2796,9 +2796,11 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .hero-editorial__heading {
   max-width: 11ch;
-  font-size: min(3.25rem, calc(2.75rem * var(--font-heading-scale)));
+  font-size: min(3.25rem, calc(2.75rem * var(--font-heading-scale)), 10.5vw);
   letter-spacing: 0;
   line-height: 1.04;
+  /* Titulares grandes: nunca partir una palabra para ajustar el ancho (en y es). */
+  overflow-wrap: break-word;
 }
 
 .hero-editorial__subheading {
