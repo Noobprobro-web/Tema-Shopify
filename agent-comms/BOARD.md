@@ -5,8 +5,8 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
 Última actualización: 2026-09-23
-Estado general: PULIDO UNIFICADO DE TRADUCCIONES COMPLETADO (CLAUDE-REPORT-UNIFIED-POLISH-001) -> CORRECCIÓN VISUAL DE TITULARES DESPLEGADA -> AUDITORÍA INTEGRAL DE PRESETS (GPT-TASK-012)
-Próximo hito: Auditoría visual, bilingüe y de producto de GPT-6 Sol Max en los 4 temas (GPT-AUDIT-012)
+Estado general: PULIDO UNIFICADO COMPLETADO -> FIX DE TITULARES DESPLEGADO -> AUDITORÍA INTEGRAL DE PRESETS ASIGNADA A CLAUDE (CLAUDE-DIRECTIVE-AUDIT-PRESETS-001)
+Próximo hito: Auditoría visual, bilingüe y de producto en vivo de Claude en los 4 temas (CLAUDE-REPORT-AUDIT-PRESETS-001)
 ```
 
 ---
@@ -23,10 +23,10 @@ Próximo hito: Auditoría visual, bilingüe y de producto de GPT-6 Sol Max en lo
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset favorito. | 🟢 Activo | Feedback y dirección |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Fix de titulares (`overflow-wrap: break-word` + `content_width: 46` en Archive) desplegado a los 4 temas. Tarea de auditoría emitida a GPT-6. | 🟢 Activo | Supervisión y cierre |
-| Claude (Opus 5.5 Extra) | Implementador Principal / Auditor UX | 28 traducciones registradas en Couture y presets (`CLAUDE-REPORT-UNIFIED-POLISH-001`). 0 userErrors, 0 outdated. | 🟢 Cumplido | `CLAUDE-REPORT-UNIFIED-POLISH-001.md` |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Auditoría integral exhaustiva de los 3 presets y tema principal (`GPT-TASK-012-final-unified-audit.md`). | 🟡 En curso | `GPT-AUDIT-012` |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset favorito. Solicitó auditoría a cargo de Claude. | 🟢 Activo | Feedback y dirección |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Fix de titulares desplegado a los 4 temas. Directiva de auditoría emitida a Claude (`CLAUDE-DIRECTIVE-AUDIT-PRESETS-001`). | 🟢 Activo | Supervisión y validación |
+| Claude (Opus 5.5 Extra) | Implementador Principal / Auditor UX | Auditoría integral exhaustiva de los 3 presets y tema principal (`CLAUDE-DIRECTIVE-AUDIT-PRESETS-001`). | 🟡 En curso | `CLAUDE-REPORT-AUDIT-PRESETS-001.md` |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (reemplazado por Claude para esta auditoría por disponibilidad de usuario). | ⚪ En reposo | N/A |
 
 ---
 
