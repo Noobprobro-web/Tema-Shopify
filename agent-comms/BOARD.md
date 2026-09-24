@@ -41,7 +41,7 @@ Próximo hito: Push de tema a tienda real (#165809488115), fixture de Mega Menú
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión de diseño: Sartorial seleccionado como preset principal. | 🟢 Activo | Feedback y dirección |
 | **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Liquid limpio desplegado a los 4 temas (`781bcca`). Verificación nativa exitosa. | 🟢 Activo | Supervisión de certificación |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | 60 traducciones registradas en vivo y literales eliminados (`CLAUDE-REPORT-5C-004`). | 🟢 Cumplido | `CLAUDE-REPORT-5C-004.md` |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Registro completo de traducciones storefront en los 3 presets (`CLAUDE-DIRECTIVE-PRESETS-I18N-001`). | 🔵 En ejecución | `CLAUDE-REPORT-PRESETS-I18N-001.md` |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Certificación final en vivo de Gate 5 con P1 resuelto (`GPT-TASK-011`). | 🔵 En ejecución | `GPT-AUDIT-011-sprint-5c-certification.md` |
 
 ---
