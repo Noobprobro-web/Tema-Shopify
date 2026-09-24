@@ -379,6 +379,12 @@ blockquote {
   border-radius: var(--button-radius);
   background-color: var(--color-foreground) !important;
   color: var(--color-background) !important;
+  /* Misma tipografia que .button para que "Buy it now" no rompa la pareja con Add to cart (6A-001). */
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
   transition: background-color var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
 }
 
@@ -6512,7 +6518,15 @@ copy-text {
 
 .predictive-search__results {
   min-height: 4rem;
-  padding: var(--space-lg) var(--page-gutter) var(--space-2xl);
+  padding: var(--space-lg) var(--page-gutter) 0;
+}
+
+.predictive-search__footer {
+  padding: 0 var(--page-gutter) var(--space-2xl);
+}
+
+.predictive-search__results[hidden] + .predictive-search__footer {
+  padding-block-start: var(--space-lg);
 }
 
 .predictive-search__group + .predictive-search__group {
@@ -8483,6 +8497,12 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 }
 
 .product-trust__icon:empty { display: none; }
+
+/* .product-trust anula el margen de flujo: sin esto la nota de envio queda pegada (0 px) al
+   boton de pago dinamico o al de compra (6A-001). */
+.product-form + .product-trust {
+  margin-block-start: var(--space-3);
+}
 
 .product-accordion .product-details__heading {
   display: inline-flex;

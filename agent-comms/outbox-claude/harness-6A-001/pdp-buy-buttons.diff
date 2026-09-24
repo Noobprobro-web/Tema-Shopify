@@ -1,0 +1,29 @@
+diff -ruN a/assets/base.css b/assets/base.css
+--- a/assets/base.css	2026-09-24 19:17:50.314985426 +0000
++++ b/assets/base.css	2026-09-24 19:17:50.326985427 +0000
+@@ -379,6 +379,12 @@
+   border-radius: var(--button-radius);
+   background-color: var(--color-foreground) !important;
+   color: var(--color-background) !important;
++  /* Misma tipografia que .button para que "Buy it now" no rompa la pareja con Add to cart (6A-001). */
++  font-size: 0.875rem;
++  font-weight: 700;
++  letter-spacing: 0.06em;
++  line-height: 1.2;
++  text-transform: uppercase;
+   transition: background-color var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
+ }
+ 
+@@ -8484,6 +8490,12 @@
+ 
+ .product-trust__icon:empty { display: none; }
+ 
++/* .product-trust anula el margen de flujo: sin esto la nota de envio queda pegada (0 px) al
++   boton de pago dinamico o al de compra (6A-001). */
++.product-form + .product-trust {
++  margin-block-start: var(--space-3);
++}
++
+ .product-accordion .product-details__heading {
+   display: inline-flex;
+   min-width: 0;

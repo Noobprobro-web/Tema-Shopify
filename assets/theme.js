@@ -4011,6 +4011,7 @@
       this.input = this.querySelector('[data-predictive-search-input]');
       this.results = this.querySelector('[data-predictive-search-results]');
       this.status = this.querySelector('[data-predictive-search-status]');
+      this.footer = this.querySelector('[data-predictive-search-footer]');
       this.clearButton = this.querySelector('[data-predictive-search-clear]');
       this.closeButton = this.querySelector('[data-predictive-search-close]');
       this.managedInertElements = [];
@@ -4090,6 +4091,7 @@
     handleInput() {
       const query = this.input.value.trim();
       if (this.clearButton) this.clearButton.hidden = query.length === 0;
+      this.clearFooter();
       window.clearTimeout(this.searchTimer);
       this.requestController?.abort();
       this.resetActiveOption();
@@ -4165,6 +4167,9 @@
         group.setAttribute('aria-labelledby', headingId);
         headingElement.id = headingId;
         headingElement.className = 'predictive-search__group-title eyebrow';
+        // Dentro de un listbox solo caben option y group: el titulo nombra el grupo por
+        // aria-labelledby y no expone su propio rol (WAI-ARIA 1.2, 6A-001).
+        headingElement.setAttribute('role', 'presentation');
         headingElement.textContent = heading || '';
         list.className = 'predictive-search__list';
 
@@ -4185,21 +4190,31 @@
         fragment.append(group);
       });
 
+      // El estado vacio y "Ver todos" no son opciones: van al pie del panel, fuera del
+      // listbox, para que este solo contenga option y group (axe aria-required-children).
+      const footer = document.createDocumentFragment();
       if (resultCount === 0) {
         const empty = document.createElement('p');
         empty.className = 'predictive-search__empty';
         empty.textContent = this.dataset.noResultsText || '';
-        fragment.append(empty);
+        footer.append(empty);
       }
 
       const viewAll = document.createElement('a');
       viewAll.className = 'predictive-search__view-all button button--secondary';
       viewAll.href = this.createSearchUrl(query);
       viewAll.textContent = (this.dataset.viewAllTemplate || '').replace('[terms]', query);
-      fragment.append(viewAll);
+      footer.append(viewAll);
 
       this.results.replaceChildren(fragment);
-      this.results.hidden = false;
+      if (this.footer) {
+        this.footer.replaceChildren(footer);
+        this.footer.hidden = false;
+        this.results.hidden = resultCount === 0;
+      } else {
+        this.results.append(footer);
+        this.results.hidden = false;
+      }
       this.options = Array.from(this.results.querySelectorAll('[role="option"]'));
       this.activeIndex = -1;
       this.updateComboboxState();
@@ -4246,15 +4261,25 @@
       title.textContent = product.title || '';
       priceRow.className = 'predictive-search__price';
 
+      // aria-label no esta permitido en <s> (rol deletion) y el precio rebajado no tenia
+      // etiqueta: se anuncian con texto oculto, igual que price.liquid tras af6ee6d (6A-001).
+      const onSale = Number.isFinite(compareAtPrice) && compareAtPrice > currentPrice;
+      const srLabel = (text) => {
+        const label = document.createElement('span');
+        label.className = 'visually-hidden';
+        label.textContent = `${text} `;
+        return label;
+      };
       if (Number.isFinite(currentPrice)) {
         const price = document.createElement('span');
-        price.textContent = formatMoney(Math.round(currentPrice * 100), this.dataset.moneyFormat);
+        if (onSale && this.dataset.salePriceText) price.append(srLabel(this.dataset.salePriceText));
+        price.append(formatMoney(Math.round(currentPrice * 100), this.dataset.moneyFormat));
         priceRow.append(price);
       }
-      if (Number.isFinite(compareAtPrice) && compareAtPrice > currentPrice) {
+      if (onSale) {
         const regularPrice = document.createElement('s');
-        regularPrice.setAttribute('aria-label', this.dataset.regularPriceText || '');
-        regularPrice.textContent = formatMoney(Math.round(compareAtPrice * 100), this.dataset.moneyFormat);
+        if (this.dataset.regularPriceText) regularPrice.append(srLabel(this.dataset.regularPriceText));
+        regularPrice.append(formatMoney(Math.round(compareAtPrice * 100), this.dataset.moneyFormat));
         priceRow.append(regularPrice);
       }
 
@@ -4369,6 +4394,13 @@
       this.results.setAttribute('aria-busy', 'false');
       this.input.setAttribute('aria-expanded', 'false');
       if (this.status) this.status.textContent = '';
+      this.clearFooter();
+    }
+
+    clearFooter() {
+      if (!this.footer) return;
+      this.footer.replaceChildren();
+      this.footer.hidden = true;
     }
 
     applyBackgroundInert() {

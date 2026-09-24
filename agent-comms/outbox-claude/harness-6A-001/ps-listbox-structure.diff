@@ -1,0 +1,109 @@
+diff -ruN a/assets/base.css b/assets/base.css
+--- a/assets/base.css	2026-09-24 19:17:50.163985414 +0000
++++ b/assets/base.css	2026-09-24 19:17:50.230985419 +0000
+@@ -6512,7 +6512,15 @@
+ 
+ .predictive-search__results {
+   min-height: 4rem;
+-  padding: var(--space-lg) var(--page-gutter) var(--space-2xl);
++  padding: var(--space-lg) var(--page-gutter) 0;
++}
++
++.predictive-search__footer {
++  padding: 0 var(--page-gutter) var(--space-2xl);
++}
++
++.predictive-search__results[hidden] + .predictive-search__footer {
++  padding-block-start: var(--space-lg);
+ }
+ 
+ .predictive-search__group + .predictive-search__group {
+diff -ruN a/assets/theme.js b/assets/theme.js
+--- a/assets/theme.js	2026-09-24 19:17:50.154985413 +0000
++++ b/assets/theme.js	2026-09-24 19:17:50.228985419 +0000
+@@ -4011,6 +4011,7 @@
+       this.input = this.querySelector('[data-predictive-search-input]');
+       this.results = this.querySelector('[data-predictive-search-results]');
+       this.status = this.querySelector('[data-predictive-search-status]');
++      this.footer = this.querySelector('[data-predictive-search-footer]');
+       this.clearButton = this.querySelector('[data-predictive-search-clear]');
+       this.closeButton = this.querySelector('[data-predictive-search-close]');
+       this.managedInertElements = [];
+@@ -4090,6 +4091,7 @@
+     handleInput() {
+       const query = this.input.value.trim();
+       if (this.clearButton) this.clearButton.hidden = query.length === 0;
++      this.clearFooter();
+       window.clearTimeout(this.searchTimer);
+       this.requestController?.abort();
+       this.resetActiveOption();
+@@ -4165,6 +4167,9 @@
+         group.setAttribute('aria-labelledby', headingId);
+         headingElement.id = headingId;
+         headingElement.className = 'predictive-search__group-title eyebrow';
++        // Dentro de un listbox solo caben option y group: el titulo nombra el grupo por
++        // aria-labelledby y no expone su propio rol (WAI-ARIA 1.2, 6A-001).
++        headingElement.setAttribute('role', 'presentation');
+         headingElement.textContent = heading || '';
+         list.className = 'predictive-search__list';
+ 
+@@ -4185,21 +4190,31 @@
+         fragment.append(group);
+       });
+ 
++      // El estado vacio y "Ver todos" no son opciones: van al pie del panel, fuera del
++      // listbox, para que este solo contenga option y group (axe aria-required-children).
++      const footer = document.createDocumentFragment();
+       if (resultCount === 0) {
+         const empty = document.createElement('p');
+         empty.className = 'predictive-search__empty';
+         empty.textContent = this.dataset.noResultsText || '';
+-        fragment.append(empty);
++        footer.append(empty);
+       }
+ 
+       const viewAll = document.createElement('a');
+       viewAll.className = 'predictive-search__view-all button button--secondary';
+       viewAll.href = this.createSearchUrl(query);
+       viewAll.textContent = (this.dataset.viewAllTemplate || '').replace('[terms]', query);
+-      fragment.append(viewAll);
++      footer.append(viewAll);
+ 
+       this.results.replaceChildren(fragment);
+-      this.results.hidden = false;
++      if (this.footer) {
++        this.footer.replaceChildren(footer);
++        this.footer.hidden = false;
++        this.results.hidden = resultCount === 0;
++      } else {
++        this.results.append(footer);
++        this.results.hidden = false;
++      }
+       this.options = Array.from(this.results.querySelectorAll('[role="option"]'));
+       this.activeIndex = -1;
+       this.updateComboboxState();
+@@ -4369,6 +4384,13 @@
+       this.results.setAttribute('aria-busy', 'false');
+       this.input.setAttribute('aria-expanded', 'false');
+       if (this.status) this.status.textContent = '';
++      this.clearFooter();
++    }
++
++    clearFooter() {
++      if (!this.footer) return;
++      this.footer.replaceChildren();
++      this.footer.hidden = true;
+     }
+ 
+     applyBackgroundInert() {
+diff -ruN a/snippets/predictive-search.liquid b/snippets/predictive-search.liquid
+--- a/snippets/predictive-search.liquid	2026-09-24 19:17:50.145985413 +0000
++++ b/snippets/predictive-search.liquid	2026-09-24 19:17:50.188985416 +0000
+@@ -118,6 +118,7 @@
+         data-predictive-search-results
+         hidden
+       ></div>
++      <div class="predictive-search__footer" data-predictive-search-footer hidden></div>
+     </div>
+   </div>
+ </predictive-search>

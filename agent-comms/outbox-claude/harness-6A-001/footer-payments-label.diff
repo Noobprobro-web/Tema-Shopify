@@ -1,0 +1,12 @@
+diff -ruN a/sections/footer.liquid b/sections/footer.liquid
+--- a/sections/footer.liquid	2026-09-24 19:17:50.297985425 +0000
++++ b/sections/footer.liquid	2026-09-24 19:17:50.302985425 +0000
+@@ -110,7 +110,7 @@
+ 
+   {%- if shop.enabled_payment_types.size > 0 -%}
+     <div class="container site-footer__utilities">
+-      <div class="site-footer__payments" aria-label="{{ 'sections.footer.payment_methods' | t }}">
++      <div class="site-footer__payments">
+         <span class="visually-hidden">{{ 'sections.footer.payment_methods' | t }}</span>
+         <ul class="site-footer__payment-list unstyled-list" role="list">
+           {%- for type in shop.enabled_payment_types -%}

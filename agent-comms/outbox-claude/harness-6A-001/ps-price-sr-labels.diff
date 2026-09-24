@@ -1,0 +1,44 @@
+diff -ruN a/assets/theme.js b/assets/theme.js
+--- a/assets/theme.js	2026-09-24 19:17:50.252985421 +0000
++++ b/assets/theme.js	2026-09-24 19:17:50.271985423 +0000
+@@ -4246,15 +4246,25 @@
+       title.textContent = product.title || '';
+       priceRow.className = 'predictive-search__price';
+ 
++      // aria-label no esta permitido en <s> (rol deletion) y el precio rebajado no tenia
++      // etiqueta: se anuncian con texto oculto, igual que price.liquid tras af6ee6d (6A-001).
++      const onSale = Number.isFinite(compareAtPrice) && compareAtPrice > currentPrice;
++      const srLabel = (text) => {
++        const label = document.createElement('span');
++        label.className = 'visually-hidden';
++        label.textContent = `${text} `;
++        return label;
++      };
+       if (Number.isFinite(currentPrice)) {
+         const price = document.createElement('span');
+-        price.textContent = formatMoney(Math.round(currentPrice * 100), this.dataset.moneyFormat);
++        if (onSale && this.dataset.salePriceText) price.append(srLabel(this.dataset.salePriceText));
++        price.append(formatMoney(Math.round(currentPrice * 100), this.dataset.moneyFormat));
+         priceRow.append(price);
+       }
+-      if (Number.isFinite(compareAtPrice) && compareAtPrice > currentPrice) {
++      if (onSale) {
+         const regularPrice = document.createElement('s');
+-        regularPrice.setAttribute('aria-label', this.dataset.regularPriceText || '');
+-        regularPrice.textContent = formatMoney(Math.round(compareAtPrice * 100), this.dataset.moneyFormat);
++        if (this.dataset.regularPriceText) regularPrice.append(srLabel(this.dataset.regularPriceText));
++        regularPrice.append(formatMoney(Math.round(compareAtPrice * 100), this.dataset.moneyFormat));
+         priceRow.append(regularPrice);
+       }
+ 
+diff -ruN a/snippets/predictive-search.liquid b/snippets/predictive-search.liquid
+--- a/snippets/predictive-search.liquid	2026-09-24 19:17:50.244985421 +0000
++++ b/snippets/predictive-search.liquid	2026-09-24 19:17:50.268985422 +0000
+@@ -26,6 +26,7 @@
+   data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
+   data-in-stock-text="{{ 'predictive_search.in_stock' | t | escape_once }}"
+   data-regular-price-text="{{ 'products.product.regular_price' | t | escape_once }}"
++  data-sale-price-text="{{ 'products.product.sale_price' | t | escape_once }}"
+   data-view-all-template="{{ 'predictive_search.view_all' | t: terms: '[terms]' | escape_once }}"
+   data-results-count-one="{{ 'predictive_search.results_count.one' | t | escape_once }}"
+   data-results-count-other="{{ 'predictive_search.results_count.other' | t: count: '[count]' | escape_once }}"

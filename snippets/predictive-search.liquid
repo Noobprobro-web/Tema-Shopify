@@ -26,6 +26,7 @@
   data-sold-out-text="{{ 'products.product.sold_out' | t | escape_once }}"
   data-in-stock-text="{{ 'predictive_search.in_stock' | t | escape_once }}"
   data-regular-price-text="{{ 'products.product.regular_price' | t | escape_once }}"
+  data-sale-price-text="{{ 'products.product.sale_price' | t | escape_once }}"
   data-view-all-template="{{ 'predictive_search.view_all' | t: terms: '[terms]' | escape_once }}"
   data-results-count-one="{{ 'predictive_search.results_count.one' | t | escape_once }}"
   data-results-count-other="{{ 'predictive_search.results_count.other' | t: count: '[count]' | escape_once }}"
@@ -118,6 +119,7 @@
         data-predictive-search-results
         hidden
       ></div>
+      <div class="predictive-search__footer" data-predictive-search-footer hidden></div>
     </div>
   </div>
 </predictive-search>
