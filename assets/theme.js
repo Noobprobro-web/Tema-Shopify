@@ -1243,6 +1243,9 @@
       this.setAttribute('aria-hidden', String(!visible));
       this.inert = !visible;
       document.body.toggleAttribute('data-sticky-cart-visible', visible);
+      // AF-08 (AUDIT-FINAL-001, WCAG 2.4.11): con la barra visible, el foco por teclado se detiene
+      // por encima de ella. Es el mismo mecanismo que --header-offset usa arriba.
+      document.documentElement.style.setProperty('--sticky-cart-offset', visible ? `${this.offsetHeight}px` : '0px');
     }
 
     updateVariant(variant) {
@@ -2867,6 +2870,8 @@
     // repintado (la pildora que se acaba de quitar no tiene id ni existe en el HTML nuevo).
     async renderUrl(urlValue, pushState, focusFallback = null) {
       const navigationUrl = new URL(urlValue, window.location.origin);
+      // AF-14 (AUDIT-FINAL-001): solo se pinta o se navega dentro de la propia tienda.
+      if (navigationUrl.origin !== window.location.origin) return;
       navigationUrl.searchParams.delete('section_id');
       const requestUrl = new URL(navigationUrl);
       requestUrl.searchParams.set('section_id', this.dataset.sectionId);

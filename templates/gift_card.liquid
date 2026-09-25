@@ -111,7 +111,7 @@
 
         <div class="gift-card__actions">
           <a class="button" href="{{ routes.root_url }}">{{ 'gift_cards.issued.shop_link' | t }}</a>
-          <button class="button" type="button" onclick="window.print()">{{ 'gift_cards.issued.print' | t }}</button>
+          <button class="button" type="button" data-gift-card-print>{{ 'gift_cards.issued.print' | t }}</button>
         </div>
 
         {%- if gift_card.pass_url -%}
@@ -129,6 +129,14 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
+        // AF-13 (AUDIT-FINAL-001): sin manejadores en línea, compatible con una CSP estricta.
+        var printButton = document.querySelector('[data-gift-card-print]');
+        if (printButton) {
+          printButton.addEventListener('click', function () {
+            window.print();
+          });
+        }
+
         var qrCodeElement = document.getElementById('GiftCardQrCode');
         if (!qrCodeElement || !qrCodeElement.dataset.identifier || typeof QRCode === 'undefined') return;
 

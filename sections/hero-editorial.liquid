@@ -2,6 +2,20 @@
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign layout_mode = section.settings.layout_mode | default: 'split'
+
+  # AF-10 (AUDIT-FINAL-001): en modo split la imagen ocupa 60/65/50 % del ancho desde 62rem
+  # (base.css, .hero-editorial--split). Con sizes 100vw el navegador bajaba casi el doble.
+  assign hero_sizes = '100vw'
+  if layout_mode == 'split'
+    case section.settings.split_ratio
+      when '65_35'
+        assign hero_sizes = '(min-width: 62rem) 65vw, 100vw'
+      when '50_50'
+        assign hero_sizes = '(min-width: 62rem) 50vw, 100vw'
+      else
+        assign hero_sizes = '(min-width: 62rem) 60vw, 100vw'
+    endcase
+  endif
   assign hero_image = section.settings.image_desktop | default: section.settings.image_mobile
   assign hero_video = section.settings.video
   assign video_poster = section.settings.video_poster | default: hero_image | default: hero_video.preview_image
@@ -73,7 +87,7 @@
             {%- endif -%}
             {% render 'responsive-image',
               image: video_poster,
-              sizes: '100vw',
+              sizes: hero_sizes,
               widths: '550, 750, 960, 1200, 1600, 2000, 2400',
               prioritize: true,
               image_class: 'hero-editorial__image',
@@ -110,7 +124,7 @@
             {%- endif -%}
             {% render 'responsive-image',
               image: hero_image,
-              sizes: '(min-width: 62rem) 100vw, 100vw',
+              sizes: hero_sizes,
               widths: '550, 750, 960, 1200, 1600, 2000, 2400',
               prioritize: true,
               image_class: 'hero-editorial__image',

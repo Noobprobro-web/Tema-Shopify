@@ -1277,6 +1277,13 @@ button[aria-busy='true']:disabled {
   letter-spacing: 0;
 }
 
+/* AF-09 (AUDIT-FINAL-001): con 60+ caracteres, 3rem y 18ch el titulo llegaba a 13 lineas y
+   dejaba precio y boton de compra bajo el pliegue a 1280x800. Mismo tipo, cuerpo menor. */
+.product-main__title[data-long-title='1'] {
+  max-width: 28ch;
+  font-size: calc(1.6rem * var(--font-heading-scale));
+}
+
 .product-main__price {
   font-size: 1.1rem;
 }
@@ -3949,6 +3956,10 @@ marquee-banner {
 
   .product-main__title {
     font-size: calc(3rem * var(--font-heading-scale));
+  }
+
+  .product-main__title[data-long-title='1'] {
+    font-size: calc(1.75rem * var(--font-heading-scale));
   }
 
   .product-grid {
@@ -7752,6 +7763,8 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 
 html {
   scroll-padding-block-start: var(--header-offset);
+  /* AF-08 (AUDIT-FINAL-001): la barra fija de compra publica su altura en --sticky-cart-offset. */
+  scroll-padding-block-end: var(--sticky-cart-offset, 0px);
 }
 
 @media (min-width: 62rem) {

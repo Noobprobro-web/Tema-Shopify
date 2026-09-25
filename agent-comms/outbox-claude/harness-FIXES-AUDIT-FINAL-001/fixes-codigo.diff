@@ -1,0 +1,199 @@
+diff --git a/assets/base.css b/assets/base.css
+index 109e3a4..baaae21 100644
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -1277,6 +1277,13 @@ button[aria-busy='true']:disabled {
+   letter-spacing: 0;
+ }
+ 
++/* AF-09 (AUDIT-FINAL-001): con 60+ caracteres, 3rem y 18ch el titulo llegaba a 13 lineas y
++   dejaba precio y boton de compra bajo el pliegue a 1280x800. Mismo tipo, cuerpo menor. */
++.product-main__title[data-long-title='1'] {
++  max-width: 28ch;
++  font-size: calc(1.6rem * var(--font-heading-scale));
++}
++
+ .product-main__price {
+   font-size: 1.1rem;
+ }
+@@ -3951,6 +3958,10 @@ marquee-banner {
+     font-size: calc(3rem * var(--font-heading-scale));
+   }
+ 
++  .product-main__title[data-long-title='1'] {
++    font-size: calc(1.75rem * var(--font-heading-scale));
++  }
++
+   .product-grid {
+     grid-template-columns: repeat(3, minmax(0, 1fr));
+     column-gap: var(--space-3);
+@@ -7752,6 +7763,8 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
+ 
+ html {
+   scroll-padding-block-start: var(--header-offset);
++  /* AF-08 (AUDIT-FINAL-001): la barra fija de compra publica su altura en --sticky-cart-offset. */
++  scroll-padding-block-end: var(--sticky-cart-offset, 0px);
+ }
+ 
+ @media (min-width: 62rem) {
+diff --git a/assets/theme.js b/assets/theme.js
+index ea39d51..8113e5f 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -1243,6 +1243,9 @@
+       this.setAttribute('aria-hidden', String(!visible));
+       this.inert = !visible;
+       document.body.toggleAttribute('data-sticky-cart-visible', visible);
++      // AF-08 (AUDIT-FINAL-001, WCAG 2.4.11): con la barra visible, el foco por teclado se detiene
++      // por encima de ella. Es el mismo mecanismo que --header-offset usa arriba.
++      document.documentElement.style.setProperty('--sticky-cart-offset', visible ? `${this.offsetHeight}px` : '0px');
+     }
+ 
+     updateVariant(variant) {
+@@ -2867,6 +2870,8 @@
+     // repintado (la pildora que se acaba de quitar no tiene id ni existe en el HTML nuevo).
+     async renderUrl(urlValue, pushState, focusFallback = null) {
+       const navigationUrl = new URL(urlValue, window.location.origin);
++      // AF-14 (AUDIT-FINAL-001): solo se pinta o se navega dentro de la propia tienda.
++      if (navigationUrl.origin !== window.location.origin) return;
+       navigationUrl.searchParams.delete('section_id');
+       const requestUrl = new URL(navigationUrl);
+       requestUrl.searchParams.set('section_id', this.dataset.sectionId);
+diff --git a/sections/featured-product.liquid b/sections/featured-product.liquid
+index 7a700e8..2bb80dd 100644
+--- a/sections/featured-product.liquid
++++ b/sections/featured-product.liquid
+@@ -452,6 +452,15 @@
+       </div>
+ 
+       {%- if featured_product != blank -%}
++        {%- comment -%}
++          AF-07 (AUDIT-FINAL-001): el JSON de variantes no publica el stock exacto. Se limita al
++          umbral del bloque de inventario más 1 (o a 1 si no hay bloque): ProductInventory
++          (assets/theme.js) calcula el mismo estado y nadie más lee este campo.
++        {%- endcomment -%}
++        {%- liquid
++          assign inventory_block = section.blocks | where: 'type', 'inventory_status' | first
++          assign inventory_cap = inventory_block.settings.threshold | default: 0 | plus: 1
++        -%}
+         <script type="application/json" data-variant-json>
+           [
+             {%- for variant in featured_product.variants -%}
+@@ -460,7 +469,7 @@
+                 "title": {{ variant.title | json }},
+                 "available": {{ variant.available | json }},
+                 "inventory_management": {{ variant.inventory_management | json }},
+-                "inventory_quantity": {{ variant.inventory_quantity | json }},
++                "inventory_quantity": {{ variant.inventory_quantity | at_most: inventory_cap | json }},
+                 "inventory_policy": {{ variant.inventory_policy | json }},
+                 "options": {{ variant.options | json }},
+                 "price": {{ variant.price | money | json }},
+diff --git a/sections/hero-editorial.liquid b/sections/hero-editorial.liquid
+index af05d37..4321d1c 100644
+--- a/sections/hero-editorial.liquid
++++ b/sections/hero-editorial.liquid
+@@ -2,6 +2,20 @@
+   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+   assign layout_mode = section.settings.layout_mode | default: 'split'
++
++  # AF-10 (AUDIT-FINAL-001): en modo split la imagen ocupa 60/65/50 % del ancho desde 62rem
++  # (base.css, .hero-editorial--split). Con sizes 100vw el navegador bajaba casi el doble.
++  assign hero_sizes = '100vw'
++  if layout_mode == 'split'
++    case section.settings.split_ratio
++      when '65_35'
++        assign hero_sizes = '(min-width: 62rem) 65vw, 100vw'
++      when '50_50'
++        assign hero_sizes = '(min-width: 62rem) 50vw, 100vw'
++      else
++        assign hero_sizes = '(min-width: 62rem) 60vw, 100vw'
++    endcase
++  endif
+   assign hero_image = section.settings.image_desktop | default: section.settings.image_mobile
+   assign hero_video = section.settings.video
+   assign video_poster = section.settings.video_poster | default: hero_image | default: hero_video.preview_image
+@@ -73,7 +87,7 @@
+             {%- endif -%}
+             {% render 'responsive-image',
+               image: video_poster,
+-              sizes: '100vw',
++              sizes: hero_sizes,
+               widths: '550, 750, 960, 1200, 1600, 2000, 2400',
+               prioritize: true,
+               image_class: 'hero-editorial__image',
+@@ -110,7 +124,7 @@
+             {%- endif -%}
+             {% render 'responsive-image',
+               image: hero_image,
+-              sizes: '(min-width: 62rem) 100vw, 100vw',
++              sizes: hero_sizes,
+               widths: '550, 750, 960, 1200, 1600, 2000, 2400',
+               prioritize: true,
+               image_class: 'hero-editorial__image',
+diff --git a/sections/main-product.liquid b/sections/main-product.liquid
+index 63ecdf6..df8bfaf 100644
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -198,7 +198,7 @@
+ 
+             {%- when 'title' -%}
+               <header class="product-main__header" {{ block.shopify_attributes }}>
+-                <h1 class="product-main__title">{{ product.title | escape }}</h1>
++                <h1 class="product-main__title" data-long-title="{{ product.title.size | divided_by: 61 | floor | at_most: 1 }}">{{ product.title | escape }}</h1>
+               </header>
+ 
+             {%- when 'price' -%}
+@@ -693,6 +693,15 @@
+         <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-variant-status></p>
+       </div>
+ 
++      {%- comment -%}
++        AF-07 (AUDIT-FINAL-001): el JSON de variantes no publica el stock exacto. Se limita al
++        umbral del bloque de inventario más 1 (o a 1 si no hay bloque): ProductInventory
++        (assets/theme.js) calcula el mismo estado y nadie más lee este campo.
++      {%- endcomment -%}
++      {%- liquid
++        assign inventory_block = section.blocks | where: 'type', 'inventory_status' | first
++        assign inventory_cap = inventory_block.settings.threshold | default: 0 | plus: 1
++      -%}
+       <script type="application/json" data-variant-json>
+         [
+           {%- for variant in product.variants -%}
+@@ -701,7 +710,7 @@
+               "title": {{ variant.title | json }},
+               "available": {{ variant.available | json }},
+               "inventory_management": {{ variant.inventory_management | json }},
+-              "inventory_quantity": {{ variant.inventory_quantity | json }},
++              "inventory_quantity": {{ variant.inventory_quantity | at_most: inventory_cap | json }},
+               "inventory_policy": {{ variant.inventory_policy | json }},
+               "options": {{ variant.options | json }},
+               "price": {{ variant.price | money | json }},
+diff --git a/templates/gift_card.liquid b/templates/gift_card.liquid
+index 51e8edf..f763f5a 100644
+--- a/templates/gift_card.liquid
++++ b/templates/gift_card.liquid
+@@ -111,7 +111,7 @@
+ 
+         <div class="gift-card__actions">
+           <a class="button" href="{{ routes.root_url }}">{{ 'gift_cards.issued.shop_link' | t }}</a>
+-          <button class="button" type="button" onclick="window.print()">{{ 'gift_cards.issued.print' | t }}</button>
++          <button class="button" type="button" data-gift-card-print>{{ 'gift_cards.issued.print' | t }}</button>
+         </div>
+ 
+         {%- if gift_card.pass_url -%}
+@@ -129,6 +129,14 @@
+ 
+     <script>
+       document.addEventListener('DOMContentLoaded', function () {
++        // AF-13 (AUDIT-FINAL-001): sin manejadores en línea, compatible con una CSP estricta.
++        var printButton = document.querySelector('[data-gift-card-print]');
++        if (printButton) {
++          printButton.addEventListener('click', function () {
++            window.print();
++          });
++        }
++
+         var qrCodeElement = document.getElementById('GiftCardQrCode');
+         if (!qrCodeElement || !qrCodeElement.dataset.identifier || typeof QRCode === 'undefined') return;
+ 
