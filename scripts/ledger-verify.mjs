@@ -31,7 +31,7 @@ const LEDGER = path.join(REPO, 'docs', 'requirements-ledger.md');
 const FIX = process.argv.includes('--fix');
 
 const VOCABULARY = ['cumplido', 'código completo', 'no verificado', 'ausente'];
-const SEARCH_DIRS = ['assets', 'config', 'layout', 'locales', 'sections', 'snippets', 'templates', 'scripts', 'tests', 'blocks'];
+const SEARCH_DIRS = ['assets', 'config', 'layout', 'locales', 'sections', 'snippets', 'templates', 'scripts', 'tests', 'blocks', 'listings'];
 
 const problems = [];
 const note = (kind, line, message) => problems.push({ kind, line, message });
