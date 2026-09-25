@@ -1,0 +1,84 @@
+CLAUDE-DIRECTIVE-AUDIT-FINAL-001. Salida literal resumida de las sondas (2026-09-25, 06:30-07:30 UTC).
+Tienda: tema-qkqpke0j.myshopify.com, sesión de vista previa ya abierta. Panel del navegador oculto.
+
+== Track 2. CLS proxy y LCP (cwv-proxy.js). Formato: tema ancho página | CLS~ | candidato a LCP | recursos bloqueantes
+Couture 1280 / | CLS~0 | img.hero-editorial__image 83.8% load=eager fp=high | block base.css
+Couture 1280 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 52.5% load=eager fp=high | block base.css
+Couture 1280 /products/serra-coat | CLS~0 | img.product-gallery__image 49% load=eager fp=high | block base.css,accelerated-checkout.css
+Couture 375 / | CLS~0 | img.hero-editorial__image 72% load=eager fp=high | block base.css
+Couture 375 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 18.7% load=eager fp=high | block base.css
+Couture 375 /products/serra-coat | CLS~0 | img.product-gallery__image 41.7% load=eager fp=high | block base.css,accelerated-checkout.css
+Couture 360 / | CLS~0 | img.hero-editorial__image 71.8% load=eager fp=high | block base.css
+Couture 360 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 18.3% load=eager fp=high | block base.css
+Couture 360 /products/serra-coat | CLS~0 | img.product-gallery__image 41.1% load=eager fp=high | block base.css,accelerated-checkout.css
+Sartorial 1280 / | CLS~0 | img.hero-editorial__image 83.8% load=eager fp=high | block base.css
+Sartorial 1280 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 52.5% load=eager fp=high | block base.css
+Sartorial 1280 /products/serra-coat | CLS~0 | img.product-gallery__image 49% load=eager fp=high | block base.css,accelerated-checkout.css
+Sartorial 375 / | CLS~0 | img.hero-editorial__image 72% load=eager fp=high | block base.css
+Sartorial 375 /collections/the-permanent-collection | CLS~0.0003 (announcement-bar__item y4->0, rotación del anuncio) | img.collection-main__banner-image 18.7% | block base.css
+Sartorial 375 /products/serra-coat | CLS~0.0001 (announcement-bar__item y4->2) | img.product-gallery__image 41.7% | block base.css,accelerated-checkout.css
+Sartorial 360 / | CLS~0 | img.hero-editorial__image 71.8% load=eager fp=high | block base.css
+Sartorial 360 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 18.3% | block base.css
+Sartorial 360 /products/serra-coat | CLS~0 | img.product-gallery__image 41.1% | block base.css,accelerated-checkout.css
+Edition 1280 / | CLS~0 | img.hero-editorial__image 33.1% load=eager fp=high w=1200/567 | block base.css
+Edition 1280 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 54.7% | block base.css
+Edition 1280 /products/serra-coat | CLS~0 | img.product-gallery__image 49% | block base.css,accelerated-checkout.css
+Edition 375 / | CLS~0 | img.hero-editorial__image 25.1% load=eager fp=high | block base.css
+Edition 375 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 18.7% | block base.css
+Edition 375 /products/serra-coat | CLS~0.0003 (announcement-bar__item) | img.product-gallery__image 41.7% | block base.css,accelerated-checkout.css
+Edition 360 / | CLS~0.0002 (announcement-bar__item) | img.hero-editorial__image 22.9% | block base.css
+Edition 360 /collections/the-permanent-collection | CLS~5.8966 ARTEFACTO: todo el documento del iframe se desplazó 470 px (scroll, no layout shift). Repetido 2 veces con el rastreador corregido: CLS~0, scrollY 0
+Edition 360 /products/serra-coat | CLS~0.0003 (announcement-bar__item) | img.product-gallery__image 41.1% | block base.css,accelerated-checkout.css
+Archive 1280 / | CLS~0.0001 (announcement-bar__item) | img.hero-editorial__image 83.8% load=eager fp=high | block base.css
+Archive 1280 /collections/the-permanent-collection | CLS~0.0001 | img.collection-main__banner-image 52.1% | block base.css
+Archive 1280 /products/serra-coat | CLS~0.0001 | img.product-gallery__image 49% | block base.css,accelerated-checkout.css
+Archive 375 / | CLS~0.0008 (p.eyebrow y795->819) | img.hero-editorial__image 72% | block base.css
+Archive 375 /collections/the-permanent-collection | CLS~0.0002 | img.collection-main__banner-image 18.7% | block base.css
+Archive 375 /products/serra-coat | CLS~0 | img.product-gallery__image 41.7% | block base.css,accelerated-checkout.css
+Archive 360 / | CLS~0.0006 (p.eyebrow y773->797) | img.hero-editorial__image 71.8% | block base.css
+Archive 360 /collections/the-permanent-collection | CLS~0 | img.collection-main__banner-image 18.3% | block base.css
+Archive 360 /products/serra-coat | CLS~0 | img.product-gallery__image 41.1% | block base.css,accelerated-checkout.css
+Repeticiones con el rastreador corregido (compensa scroll): Edition 360 colección x2, Couture 360, Sartorial 360, Archive 360, Edition 375 colección: CLS~0 y scrollY 0 en las 6.
+En las 36 cargas: 0 imágenes sin width/height, 0 imágenes lazy en la primera pantalla, shopify-xr.js ausente (no hay modelos 3D).
+Control positivo del rastreador: imagen sin dimensiones sobre un párrafo -> p y42->399, CLS~0.0502.
+
+== Track 3. axe-core 4.10.2, etiquetas wcag2a wcag2aa wcag21a wcag21aa wcag22aa. V = violaciones, I = incompletos (revisión manual), BP = best-practice
+Couture 1280 / V:0 I:aria-valid-attr-value:4,color-contrast:5 BP:region(moderate)
+Couture 1280 /collections/the-permanent-collection V:0 I: BP:region(moderate)
+Couture 1280 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Couture 375 / V:0 I:aria-valid-attr-value:4,color-contrast:6 BP:region(moderate)
+Couture 375 /collections/the-permanent-collection V:0 I:color-contrast:2 BP:region(moderate)
+Couture 375 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Couture 360 / V:0 I:aria-valid-attr-value:4,color-contrast:6 BP:region(moderate)
+Couture 360 /collections/the-permanent-collection V:0 I:color-contrast:1 BP:region(moderate)
+Couture 360 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Sartorial 1280 / V:0 I:color-contrast:5 BP:region(moderate)
+Sartorial 1280 /collections/the-permanent-collection V:0 I: BP:region(moderate)
+Sartorial 1280 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Sartorial 375 / V:0 I:color-contrast:5 BP:region(moderate)
+Sartorial 375 /collections/the-permanent-collection V:0 I:color-contrast:2 BP:region(moderate)
+Sartorial 375 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Sartorial 360 / V:0 I:color-contrast:5 BP:region(moderate)
+Sartorial 360 /collections/the-permanent-collection V:0 I:color-contrast:1 BP:region(moderate)
+Sartorial 360 /products/serra-coat V:0 I:color-contrast:2 BP:region(moderate)
+Edition 1280 / V:0 I:color-contrast:3 BP:region(moderate)
+Edition 1280 /collections/the-permanent-collection V:0 I: BP:region(moderate)
+Edition 1280 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Edition 375 / V:0 I: BP:region(moderate)
+Edition 375 /collections/the-permanent-collection V:0 I:color-contrast:3 BP:region(moderate)
+Edition 375 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Edition 360 / V:0 I: BP:region(moderate)
+Edition 360 /collections/the-permanent-collection V:0 I:color-contrast:2 BP:region(moderate)
+Edition 360 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Archive 1280 / V:0 I:color-contrast:4 BP:region(moderate)
+Archive 1280 /collections/the-permanent-collection V:0 I: BP:region(moderate)
+Archive 1280 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Archive 375 / (1.a pasada devolvió Couture por carrera de la cookie de vista previa; repetida sola) V:0 I:color-contrast:4 BP:region(moderate)
+Archive 375 /collections/the-permanent-collection V:0 I:color-contrast:2 BP:region(moderate)
+Archive 375 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Archive 360 / V:0 I:color-contrast:4 BP:region(moderate)
+Archive 360 /collections/the-permanent-collection V:0 I:color-contrast:1 BP:region(moderate)
+Archive 360 /products/serra-coat V:0 I:aria-valid-attr-value:2,color-contrast:2 BP:region(moderate)
+Scroll horizontal (hs) = 0 en las 36.
+aria-valid-attr-value incompleto: botones .lookbook-hotspot__trigger (aria-haspopup="dialog", aria-controls a un div con hidden que sí existe) y el input de búsqueda predictiva (aria-haspopup="listbox"). Revisado: los id existen. No es violación.
+region (best-practice, moderate): el .skip-link queda fuera de un landmark. Igual que Dawn. No es criterio WCAG.

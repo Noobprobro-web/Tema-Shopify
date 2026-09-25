@@ -33,11 +33,15 @@ Próximo hito: Publicación de soporte/docs y verificación final de catálogo d
   - Fila 35 (Punto Focal): Liquid inyecta `--hero-focal-point` desde `presentation.focal_point` nativo, computado en `object-position` sin deformación.
   - Fila 46 (Contraste de Texto): Hero en Couture >= 6.08:1; hero en Sartorial con velo `gradient_content` al 60% desplegado en vivo >= 5.49:1 (superando 4.5:1).
   - Fila 72 (Medios 3D y Video): Carga condicional estricta de `shopify-xr.js` en PDP (cero bloat cuando no hay modelos) y pausa automática de videos (`pauseAllMedia`) certificada.
-- **Auditoría Integral Multi-Agente Pre-Submission (Teamwork Preview):** VICTORY CONFIRMED (`.agents/teamwork/orchestrator_1/AUDIT_REPORT.md` y `victory_auditor/VICTORY_AUDIT_REPORT.md`).
-  - R1 (Seguridad): Parches de escape aplicados en `sections/cart-drawer.liquid:184,457` y `sections/main-cart-items.liquid:73,176` (blindaje contra stored XSS en `cart.note` y validación HTTPS en enlaces de archivo).
-  - R2 (Core Web Vitals): CLS móvil = 0.0000 plano en 24 combinaciones (4 presets x 2 viewports x 3 páginas); LCP < 1.85s con `fetchpriority="high"`; 0 tareas largas (> 50ms).
-  - R3 (Accesibilidad WCAG 2.2 AA): 0 violaciones de axe-core en 12 páginas reales; contrastes 5.53:1 a 21.00:1; trampa de foco y Escape validados.
-  - R4 (Theme Store): Theme Check con 0 ofensas en 150 archivos; 0 dependencias externas; 100% OS 2.0; paquete `Sartorial-1.0.0.zip` regenerado y sincronizado a los 4 temas remotos (#165809488115, #166186909939, #166186942707, #166187041011).
+- **Auditoría Integral Multi-Agente Pre-Submission & Certificación de Claude:** VICTORY CONFIRMED & CERTIFICADO (`.agents/teamwork/orchestrator_1/AUDIT_REPORT.md`, `CLAUDE-REPORT-AUDIT-FINAL-001.md`, `CLAUDE-CERTIFICATION-GEMINI-FINAL-001.md`).
+  - AF-01: Hero de Archive ajustado a `overlay_opacity: 60` en `listings/archive/templates/index.json:15` (contraste elevado a 4.85:1 en 1280px y 5.22:1 en móvil, cumpliendo WCAG 2.2 AA).
+  - AF-02: Blindaje de seguridad estricto de esquema en enlaces de archivos en `sections/cart-drawer.liquid:184` y `sections/main-cart-items.liquid:73` (`property_scheme == 'https://'`).
+  - AF-03: Corrección de búsqueda con caracteres especiales (`&`, `"`, `'`) en `sections/main-search.liquid:20`.
+  - AF-04: Sanitización de `cart.note | escape` validada en `sections/cart-drawer.liquid:457` y `sections/main-cart-items.liquid:176`.
+  - AF-05: Filas 35 y 72 reflejadas honestamente como `código completo` por Opción A de Johandry.
+  - AF-06: Plantillas de colección por listing desplegadas en sus temas remotos correspondientes (`templates/collection.json` en Sartorial #166186909939, Edition #166186942707, Archive #166187041011).
+  - Paquete `Couture-1.0.0.zip` antiguo retirado.
+  - Paquete oficial definitivo `Sartorial-1.0.0.zip` (296 KB) regenerado y sincronizado a los 4 temas remotos (#165809488115, #166186909939, #166186942707, #166187041011).
 
 ---
 
@@ -46,8 +50,8 @@ Próximo hito: Publicación de soporte/docs y verificación final de catálogo d
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión sobre URLs finales de docs/soporte (Fila 107) y confirmación de catálogo demo (Fila 108). | 🟢 Activo | Revisión final |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | 100% de la arquitectura técnica cerrada. Ledger en 55/57 (96.5%). Preparación de empaquetado oficial. | 🟢 Cumplido | Empaquetado Sartorial-1.0.0.zip |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Implementación y auditoría completadas al 100%. Compuertas estáticas en verde (150 archivos). | 🟢 Cumplido | Standby para submission |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | 100% de la arquitectura técnica y seguridad cerradas. Paquete oficial `Sartorial-1.0.0.zip` validado. | 🟢 Cumplido | Empaquetado oficial listo |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Auditoría pre-submission y certificación técnica final completadas. | 🟢 Cumplido | Reportes entregados |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (reemplazado por Claude para esta auditoría por disponibilidad de usuario). | ⚪ En reposo | N/A |
 
 ---
@@ -58,8 +62,8 @@ Próximo hito: Publicación de soporte/docs y verificación final de catálogo d
 
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
-| `cumplido` | **55** | 96.5% | 100% de requisitos técnicos oficiales verificados con código y tienda real. |
-| `código completo` | **0** | 0.0% | 0 requisitos técnicos pendientes de certificación. |
+| `cumplido` | **53** | 93.0% | Requisitos oficiales verificados exhaustivamente en código y tienda real. |
+| `código completo` | **2** | 3.5% | Filas 35 (Punto Focal) y 72 (Medios 3D): código 100% implementado, pendientes fixtures en admin para test en vivo (Opción A). |
 | `no verificado` | **2** | 3.5% | Dependencias comerciales del comerciante: publicación de docs/soporte (107) y fotos demo (108). |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
 | **TOTAL** | **57** | **100%** | Cobertura total de especificación Shopify Theme Store v1.0.0. |
