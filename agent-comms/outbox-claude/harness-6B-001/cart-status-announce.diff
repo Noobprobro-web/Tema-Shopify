@@ -1,0 +1,18 @@
+diff -ruN a/assets/theme.js b/assets/theme.js
+--- a/assets/theme.js	2026-09-25 03:08:17.350850373 +0000
++++ b/assets/theme.js	2026-09-25 03:08:27.132851149 +0000
+@@ -2796,8 +2796,13 @@
+     showStatus(message) {
+       const output = this.querySelector('[data-cart-status]');
+       if (!output) return;
+-      output.textContent = message;
++      // La region se muestra vacia y el texto llega despues: una region viva que aparece ya
++      // con contenido no siempre se anuncia (NVDA/JAWS con Chrome). 6B-001.
++      output.textContent = '';
+       output.hidden = false;
++      window.setTimeout(() => {
++        output.textContent = message;
++      }, 100);
+     }
+   }
+ 

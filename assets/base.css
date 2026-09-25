@@ -1691,6 +1691,65 @@ body[data-sticky-cart-visible] {
   margin-block-start: var(--space-3);
 }
 
+/* Barra de filtros activos (6B-001). Pildoras con el borde de control (>= 3:1 contra el fondo),
+   la misma escala tipografica que los chips de variante y 44 px de objetivo tactil. */
+.facets__active-filters {
+  margin-block-end: var(--space-3);
+}
+
+.facets__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.facets__pills > li {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.facet__pill {
+  display: inline-flex;
+  min-height: var(--tap-target-min);
+  max-width: 100%;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--color-control-border);
+  border-radius: var(--button-radius);
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: border-color var(--motion-fast) var(--ease-move);
+}
+
+.facet__pill:hover {
+  border-color: var(--color-foreground);
+}
+
+.facet__pill-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.facet__pill-icon {
+  display: inline-flex;
+  flex: none;
+}
+
+.facets__clear-all {
+  display: inline-flex;
+  min-height: var(--tap-target-min);
+  padding-inline: 0.25rem;
+  align-items: center;
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .collection-products__count {
   margin-block: 0 var(--space-3);
   font-size: 0.875rem;

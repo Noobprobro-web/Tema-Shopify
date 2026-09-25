@@ -1,0 +1,70 @@
+{%- comment -%}
+  Barra de filtros activos de colección y búsqueda (6B-001).
+
+  Accepts:
+  - filters: collection.filters o search.filters
+  - clear_url: URL sin filtros que conserva el orden (y los términos en búsqueda)
+  - section_id: id de la sección, para el id del título oculto
+
+  Cada píldora es un enlace a url_to_remove: sin JS navega de forma nativa y
+  FacetFiltersForm intercepta [data-facet-remove] y [data-facet-clear-all] para
+  refrescar por AJAX. El nombre accesible sale del contenido ("Quitar filtro
+  Disponibilidad: En existencia"): el precio no pasa por la interpolación de t,
+  que escaparía otra vez las entidades de un money_format como "&nbsp;€".
+{%- endcomment -%}
+
+{%- liquid
+  assign active_pill_count = 0
+  for filter in filters
+    assign active_pill_count = active_pill_count | plus: filter.active_values.size
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign active_pill_count = active_pill_count | plus: 1
+      endif
+    endif
+  endfor
+-%}
+
+{%- if active_pill_count > 0 -%}
+  <div class="facets__active-filters">
+    <h2 class="visually-hidden" id="ActiveFilters-{{ section_id }}">{{ 'collections.filters.active_filters' | t }}</h2>
+    <ul class="facets__pills unstyled-list" role="list" aria-labelledby="ActiveFilters-{{ section_id }}">
+      {%- for filter in filters -%}
+        {%- if filter.type == 'price_range' -%}
+          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+            <li>
+              <a class="facet__pill" href="{{ filter.url_to_remove }}" data-facet-remove>
+                <span class="visually-hidden">{{ 'collections.filters.remove_filter' | t: filter: filter.label }}</span>
+                <span class="facet__pill-label">
+                  {%- if filter.min_value.value != nil and filter.max_value.value != nil -%}
+                    {{- filter.min_value.value | money }} – {{ filter.max_value.value | money -}}
+                  {%- elsif filter.min_value.value != nil -%}
+                    {{- 'collections.filters.from' | t }} {{ filter.min_value.value | money -}}
+                  {%- else -%}
+                    {{- 'collections.filters.to' | t }} {{ filter.max_value.value | money -}}
+                  {%- endif -%}
+                </span>
+                <span class="facet__pill-icon" aria-hidden="true">{% render 'icon', name: 'close', size: 14 %}</span>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- else -%}
+          {%- for value in filter.active_values -%}
+            <li>
+              <a class="facet__pill" href="{{ value.url_to_remove }}" data-facet-remove>
+                <span class="visually-hidden">{{ 'collections.filters.remove_filter' | t: filter: filter.label }}</span>
+                <span class="facet__pill-label">{{ value.label | escape }}</span>
+                <span class="facet__pill-icon" aria-hidden="true">{% render 'icon', name: 'close', size: 14 %}</span>
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <li>
+        <a class="facets__clear-all" href="{{ clear_url | escape }}" data-facet-clear-all>
+          {{- 'collections.filters.clear_all' | t -}}
+        </a>
+      </li>
+    </ul>
+  </div>
+{%- endif -%}

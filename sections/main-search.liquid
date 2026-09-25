@@ -250,9 +250,6 @@
 
             <div class="facets__actions cluster">
               <button class="button" type="submit">{{ 'collections.filters.apply' | t }}</button>
-              {%- if active_filter_count > 0 -%}
-                <a href="{{ clear_search_url | escape }}">{{ 'collections.filters.clear_all' | t }}</a>
-              {%- endif -%}
             </div>
           </div>
         {%- endif -%}
@@ -276,7 +273,9 @@
 
       <div class="main-search__results" data-product-grid aria-busy="false">
         {%- if search.performed -%}
-          <p class="main-search__count" data-results-status>
+          {% render 'facets-active-filters', filters: search.filters, clear_url: clear_search_url, section_id: section.id %}
+
+          <p class="main-search__count" data-results-status tabindex="-1">
             {{- 'search.results.count' | t: count: search.results_count -}}
           </p>
 
