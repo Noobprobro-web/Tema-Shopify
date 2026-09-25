@@ -181,7 +181,7 @@
                       {%- if property.last != blank and property_first_character != '_' -%}
                         <p>
                           <span>{{ property.first | escape }}:</span>
-                          {%- if property.last contains '/uploads/' -%}
+                          {%- if property.last contains '/uploads/' and property.last contains 'https://' -%}
                             <a href="{{ property.last | escape }}" target="_blank" rel="noopener">
                               {{- property.last | split: '/' | last | escape -}}
                               <span class="visually-hidden"> {{ 'general.accessibility.opens_in_new_window' | t }}</span>
@@ -454,7 +454,7 @@
               {%- if settings.show_cart_note -%}
                 <div class="cart-note">
                   <label for="CartDrawerNote">{{ 'sections.cart.note' | t }}</label>
-                  <textarea id="CartDrawerNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape }}">{{ cart.note }}</textarea>
+                  <textarea id="CartDrawerNote" name="note" placeholder="{{ 'sections.cart.note_placeholder' | t | escape }}">{{ cart.note | escape }}</textarea>
                 </div>
               {%- endif -%}
 
