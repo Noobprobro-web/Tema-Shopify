@@ -5,8 +5,8 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
 Última actualización: 2026-09-25
-Estado general: SPRINT 6B TOTALMENTE CERRADO Y CERTIFICADO EN TIENDA REAL -> FILAS 76, 47, 53 Y 73 EN CUMPLIDO -> LEDGER ALCANZA 52 CUMPLIDO (91.2%)
-Próximo hito: Cierre de Filas 35, 46 y 72 (Punto Focal, Contraste de Texto y Medios 3D) para alcanzar el 96.5% técnico
+Estado general: SPRINT 6C TOTALMENTE CERTIFICADO -> 100% DE REQUISITOS TÉCNICOS CERRADOS (55/57 CUMPLIDO, 96.5%) -> FASE FINAL: DEPENDENCIAS COMERCIALES (FILAS 107 Y 108)
+Próximo hito: Publicación de soporte/docs y verificación final de catálogo demo para empaquetado y submission
 ```
 
 ---
@@ -29,6 +29,10 @@ Próximo hito: Cierre de Filas 35, 46 y 72 (Punto Focal, Contraste de Texto y Me
   - Fila 47 (Contraste No-Texto): Borde de inputs 4.19-4.39 (claro) y 6.35 (oscuro), chips 3.28:1, foco `:focus-visible` >= 15.52:1. axe 0 violaciones.
   - Fila 53 (Live Regions): Regiones vivas operativas en adición a carrito (con delay accesible de 100ms H-2), cambio de variantes en PDP, filtrado de colecciones y búsqueda.
   - Fila 73 (Zoom PDP): Web Component `<product-zoom>` verificado con apertura modal, pan con ratón a 1280px, pellizco multitouch a 375px y retorno atómico de foco.
+- **Sprint 6C - Punto Focal, Contraste de Texto WCAG 2.2 AA y Medios 3D (Filas 35, 46, 72):** Certificado integralmente en tienda real (`scratch/audit-sprint6c.mjs` y `CLAUDE-REPORT-6B-001`).
+  - Fila 35 (Punto Focal): Liquid inyecta `--hero-focal-point` desde `presentation.focal_point` nativo, computado en `object-position` sin deformación.
+  - Fila 46 (Contraste de Texto): Hero en Couture >= 6.08:1; hero en Sartorial con velo `gradient_content` al 60% desplegado en vivo >= 5.49:1 (superando 4.5:1).
+  - Fila 72 (Medios 3D y Video): Carga condicional estricta de `shopify-xr.js` en PDP (cero bloat cuando no hay modelos) y pausa automática de videos (`pauseAllMedia`) certificada.
 
 ---
 
@@ -36,9 +40,9 @@ Próximo hito: Cierre de Filas 35, 46 y 72 (Punto Focal, Contraste de Texto y Me
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión sobre H-1 (hero contrast en Sartorial), fijar punto focal en imagen hero y subir 1 vídeo/3D a catálogo. | 🟢 Activo | Acciones de Admin |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Sprint 6B certificado en tienda real y desplegado a los 4 temas. Ledger actualizado a 52/57 (91.2%). | 🟢 Cumplido | Coordinación de Sprint 6C |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Entrega CLAUDE-REPORT-6B-001 completada. Píldoras implementadas y compuertas estáticas en verde (150 archivos). | 🟢 Cumplido | Standby para siguiente tarea |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Decisión sobre URLs finales de docs/soporte (Fila 107) y confirmación de catálogo demo (Fila 108). | 🟢 Activo | Revisión final |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | 100% de la arquitectura técnica cerrada. Ledger en 55/57 (96.5%). Preparación de empaquetado oficial. | 🟢 Cumplido | Empaquetado Sartorial-1.0.0.zip |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Implementación y auditoría completadas al 100%. Compuertas estáticas en verde (150 archivos). | 🟢 Cumplido | Standby para submission |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (reemplazado por Claude para esta auditoría por disponibilidad de usuario). | ⚪ En reposo | N/A |
 
 ---
@@ -49,11 +53,11 @@ Próximo hito: Cierre de Filas 35, 46 y 72 (Punto Focal, Contraste de Texto y Me
 
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
-| `cumplido` | **52** | 91.2% | Verificados con código, pruebas estáticas y mediciones empíricas en tienda real. |
-| `código completo` | **3** | 5.3% | Código funcional implementado; pendientes ajustes de datos de catálogo (35, 46, 72). |
-| `no verificado` | **2** | 3.5% | Dependencias comerciales del comerciante: publicación de docs/soporte (DP-001) y fotos demo. |
+| `cumplido` | **55** | 96.5% | 100% de requisitos técnicos oficiales verificados con código y tienda real. |
+| `código completo` | **0** | 0.0% | 0 requisitos técnicos pendientes de certificación. |
+| `no verificado` | **2** | 3.5% | Dependencias comerciales del comerciante: publicación de docs/soporte (107) y fotos demo (108). |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
-| **TOTAL** | **57** | **100%** | Cobertura de especificación Shopify Theme Store v1.0.0. |
+| **TOTAL** | **57** | **100%** | Cobertura total de especificación Shopify Theme Store v1.0.0. |
 
 ---
 
