@@ -1,0 +1,258 @@
+diff --git a/locales/en.default.schema.json b/locales/en.default.schema.json
+index 96435de..65565a4 100644
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -101,89 +101,6 @@
+         },
+         "button_radius": {
+           "label": "Button corner radius"
+-        },
+-        "corner_style": {
+-          "label": "Corner style",
+-          "info": "Applies to buttons, images, cards and form fields together.",
+-          "options__1": {
+-            "label": "Square"
+-          },
+-          "options__2": {
+-            "label": "Soft"
+-          },
+-          "options__3": {
+-            "label": "Rounded"
+-          }
+-        },
+-        "border_thickness": {
+-          "label": "Border thickness"
+-        },
+-        "border_contrast": {
+-          "label": "Border strength",
+-          "info": "Higher values make form fields and option buttons easier to see. Values below 40% may not meet accessibility contrast requirements."
+-        },
+-        "grid_density": {
+-          "label": "Product grid density",
+-          "options__1": {
+-            "label": "Comfortable"
+-          },
+-          "options__2": {
+-            "label": "Compact"
+-          }
+-        },
+-        "enable_reveal_animation": {
+-          "label": "Reveal sections on scroll",
+-          "info": "Turns off automatically for visitors who prefer reduced motion."
+-        }
+-      }
+-    },
+-    "product": {
+-      "name": "Product pages",
+-      "settings": {
+-        "pickup_hours_note": {
+-          "label": "Pickup hours note",
+-          "info": "Shown with every pickup location. Leave empty to hide."
+-        }
+-      }
+-    },
+-    "product_cards": {
+-      "name": "Product cards",
+-      "settings": {
+-        "product_card_image_ratio": {
+-          "label": "Image shape",
+-          "options__1": {
+-            "label": "Portrait"
+-          },
+-          "options__2": {
+-            "label": "Square"
+-          },
+-          "options__3": {
+-            "label": "Tall portrait"
+-          },
+-          "options__4": {
+-            "label": "Natural"
+-          }
+-        },
+-        "product_card_style": {
+-          "label": "Card style",
+-          "options__1": {
+-            "label": "Minimal"
+-          },
+-          "options__2": {
+-            "label": "Framed"
+-          }
+-        },
+-        "button_style": {
+-          "label": "Button style",
+-          "options__1": {
+-            "label": "Solid"
+-          },
+-          "options__2": {
+-            "label": "Outline"
+-          },
+-          "options__3": {
+-            "label": "Underline"
+-          }
+         }
+       }
+     },
+@@ -216,46 +133,6 @@
+         "heading_scale": {
+           "label": "Heading size"
+         },
+-        "heading_letter_spacing": {
+-          "label": "Heading letter spacing",
+-          "options__1": {
+-            "label": "Tight"
+-          },
+-          "options__2": {
+-            "label": "Normal"
+-          },
+-          "options__3": {
+-            "label": "Wide"
+-          },
+-          "options__4": {
+-            "label": "Extra wide"
+-          }
+-        },
+-        "heading_text_transform": {
+-          "label": "Heading capitalization",
+-          "options__1": {
+-            "label": "As typed"
+-          },
+-          "options__2": {
+-            "label": "Uppercase"
+-          }
+-        },
+-        "eyebrow_style": {
+-          "label": "Small label style",
+-          "info": "Applies to the short labels above section headings.",
+-          "options__1": {
+-            "label": "Uppercase, wide spacing"
+-          },
+-          "options__2": {
+-            "label": "Uppercase, tight spacing"
+-          },
+-          "options__3": {
+-            "label": "Sentence case"
+-          },
+-          "options__4": {
+-            "label": "Small caps"
+-          }
+-        },
+         "body_font": {
+           "label": "Body font"
+         },
+@@ -277,12 +154,10 @@
+         "label": "Desktop image"
+       },
+       "image_mobile": {
+-        "label": "Mobile image",
+-        "info": "Use the same composition as the desktop image so the crop stays correct."
++        "label": "Mobile image"
+       },
+       "image_alt": {
+-        "label": "Image alternative text",
+-        "info": "Describe the image for customers using a screen reader."
++        "label": "Image alternative text"
+       },
+       "eyebrow": {
+         "label": "Small label"
+@@ -482,15 +357,7 @@
+       },
+       "blocks": {
+         "announcement": {
+-          "name": "Announcement",
+-          "settings": {
+-            "text": {
+-              "label": "Text"
+-            },
+-            "link": {
+-              "label": "Link"
+-            }
+-          }
++          "name": "Announcement"
+         }
+       },
+       "presets": {
+@@ -542,40 +409,10 @@
+           }
+         },
+         "height_desktop": {
+-          "label": "Section height on desktop",
+-          "options__1": {
+-            "label": "Follow the image shape"
+-          },
+-          "options__2": {
+-            "label": "Small"
+-          },
+-          "options__3": {
+-            "label": "Medium"
+-          },
+-          "options__4": {
+-            "label": "Large"
+-          },
+-          "options__5": {
+-            "label": "Full screen"
+-          }
++          "label": "Section height on desktop"
+         },
+         "height_mobile": {
+-          "label": "Section height on mobile",
+-          "options__1": {
+-            "label": "Follow the image shape"
+-          },
+-          "options__2": {
+-            "label": "Small"
+-          },
+-          "options__3": {
+-            "label": "Medium"
+-          },
+-          "options__4": {
+-            "label": "Large"
+-          },
+-          "options__5": {
+-            "label": "Full screen"
+-          }
++          "label": "Section height on mobile"
+         },
+         "media_type": {
+           "label": "Background media",
+@@ -702,12 +539,7 @@
+       },
+       "blocks": {
+         "item": {
+-          "name": "Text item",
+-          "settings": {
+-            "text": {
+-              "label": "Text"
+-            }
+-          }
++          "name": "Text item"
+         }
+       },
+       "presets": {
+@@ -779,8 +611,7 @@
+           "name": "Collection card",
+           "settings": {
+             "link": {
+-              "label": "Custom link",
+-              "info": "Leave empty to link to the collection."
++              "label": "Custom link"
+             }
+           }
+         },
+@@ -980,7 +811,6 @@
+           "name": "Suggested product",
+           "settings": {
+             "product": {
+-              "label": "Product",
+               "info": "Products with options are added in their first available option, so single-variant products work best here."
+             }
+           }
+@@ -1307,9 +1137,6 @@
+             },
+             "detail": {
+               "label": "Detail"
+-            },
+-            "link": {
+-              "label": "Link"
+             }
+           }
+         }

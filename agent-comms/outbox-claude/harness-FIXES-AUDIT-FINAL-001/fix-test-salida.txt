@@ -1,0 +1,10 @@
+sin bloque, 57 uds     | emite   1 | estado antes inStock          | después inStock
+umbral 5, 57 uds       | emite   6 | estado antes inStock          | después inStock
+umbral 5, 3 uds        | emite   3 | estado antes lowStock(3)      | después lowStock(3)
+umbral 5, 6 uds        | emite   6 | estado antes inStock          | después inStock
+umbral 5, -2 uds       | emite  -2 | estado antes preorder/soldOut | después preorder/soldOut
+umbral 0, 4 uds        | emite   1 | estado antes inStock          | después inStock
+título de  10 caracteres -> data-long-title="0"
+título de  60 caracteres -> data-long-title="0"
+título de  61 caracteres -> data-long-title="1"
+título de 142 caracteres -> data-long-title="1"

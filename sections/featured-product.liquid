@@ -452,6 +452,15 @@
       </div>
 
       {%- if featured_product != blank -%}
+        {%- comment -%}
+          AF-07 (AUDIT-FINAL-001): el JSON de variantes no publica el stock exacto. Se limita al
+          umbral del bloque de inventario más 1 (o a 1 si no hay bloque): ProductInventory
+          (assets/theme.js) calcula el mismo estado y nadie más lee este campo.
+        {%- endcomment -%}
+        {%- liquid
+          assign inventory_block = section.blocks | where: 'type', 'inventory_status' | first
+          assign inventory_cap = inventory_block.settings.threshold | default: 0 | plus: 1
+        -%}
         <script type="application/json" data-variant-json>
           [
             {%- for variant in featured_product.variants -%}
@@ -460,7 +469,7 @@
                 "title": {{ variant.title | json }},
                 "available": {{ variant.available | json }},
                 "inventory_management": {{ variant.inventory_management | json }},
-                "inventory_quantity": {{ variant.inventory_quantity | json }},
+                "inventory_quantity": {{ variant.inventory_quantity | at_most: inventory_cap | json }},
                 "inventory_policy": {{ variant.inventory_policy | json }},
                 "options": {{ variant.options | json }},
                 "price": {{ variant.price | money | json }},
