@@ -6355,6 +6355,66 @@ copy-text {
   user-select: none;
 }
 
+/* Selector de moneda con el mismo lenguaje que el toggle EN/ES: texto de 12 px en mayusculas,
+   sin caja, chevron de linea como el del menu y objetivo tactil de 44 px. Una raya fina lo
+   separa del toggle de idioma. */
+.localization-form__country-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-foreground);
+}
+
+.localization-form__country-wrapper::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: 0.35rem;
+  top: 50%;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-inline-end: 1.5px solid currentColor;
+  border-block-end: 1.5px solid currentColor;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.localization-form__toggle + .localization-form__country-wrapper::before {
+  content: '';
+  width: 1px;
+  height: 1rem;
+  margin-inline: 0.5rem 0.25rem;
+  background: var(--color-border-hairline);
+}
+
+.localization-form__country {
+  width: auto;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.25rem 1.1rem 0.25rem 0.25rem;
+  border: 0;
+  border-radius: 0;
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-body-family);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* Sin JS el boton de enviar va dentro del mismo contenedor: el chevron dibujado se quita y el
+   select vuelve a su flecha nativa para no taparlo. */
+.no-js .localization-form__country-wrapper::after {
+  content: none;
+}
+
+.no-js .localization-form__country {
+  appearance: auto;
+}
+
 .site-footer__newsletter {
   max-width: 34rem;
 }
