@@ -1,0 +1,69 @@
+CLAUDE-DIRECTIVE-AUDIT-FINAL-001. Salida literal resumida (2026-09-25, 06:40-07:05 UTC). Panel del navegador oculto.
+
+== Track 4. Estados degenerados (axe-degenerate-probes.js, iframe srcdoc; y navegación directa donde se indica)
+Formato: tema ancho ruta | scroll horizontal | desbordes | líneas del h1 | estado vacío | tarjetas | paginación | controles de variante | medios
+Couture 1280 /blogs/news | hs 0 | - | 1 | "No essays have been published yet." | 0
+Couture 1280 /collections/the-permanent-collection?filter.v.price.gte=999999 | hs 0 | - | 1 | "No products match your selection. Clear all" | 0
+Couture 1280 /search?q=qwxzvbnmkkjh (section_id) | "No results for "qwxzvbnmkkjh" Try a broader material or object type..." | 0 resultados
+  (con q=zzqqxxnomatch Shopify devuelve 3 coincidencias difusas; no es estado vacío)
+Couture 1280 /cart | hs 0 | "Your cart is currently empty. Continue shopping" | 0
+Couture 1280 /collections/frontpage | hs 0 | "This collection is empty. Browse all products" (1 producto asignado, ninguno visible)
+Couture 1280 /collections/all | hs 0 | 24 tarjetas | "1 2 Next"   ; ?page=2 | 8 tarjetas | "Previous 1 2"
+Couture 1280 /products/qa5a-f10-hostile | hs 0 | h1 13 líneas | vendor "Atelier Nove Maison de Couture Contemporaine Milano Paris" | 3 variantes | 1 medio
+Couture 1280 /products/qa5a-f04-colour-size | hs 0 | h1 2 | 8 controles | 4 medios
+Couture 1280 /products/qa5a-f11-many-swatches | hs 0 | h1 4 | 7 controles | 4 medios
+Couture 1280 /products/qa5a-f01-single | hs 0 | h1 3 | 0 controles (variante única) | 1 medio
+Couture 1280 /products/qa5a-f06-subscription | hs 0 | h1 3 | 1 medio
+Couture 1280 /collections/qa-sprint-5a | hs 0 | 8 tarjetas
+Couture 360 (las mismas 13 rutas) | hs 0 en todas | F10 h1 14 líneas | vacíos con el mismo texto | paginación igual
+  F06 a 360: la sonda en iframe marcó un <span> fuera del ancho; en navegación directa: 0 desbordes, hs 0 (transitorio).
+Sartorial 1280 (las 13 rutas) | hs 0 en todas | F10 h1 13 líneas | vacíos y paginación iguales
+Sartorial 360 /blogs/news, /cart | hs 0 | estados vacíos correctos
+Edition 360 /products/qa5a-f10-hostile (navegación directa) | hs 0 | 0 desbordes | h1 9 líneas a 37.6px | tarjetas relacionadas 2 líneas
+Archive 360 /collections/qa-sprint-5a (navegación directa) | hs 0 | 0 desbordes | título de F10 en tarjeta de 154 px: 8 líneas (resto 1-2)
+
+Sartorial 1280 /products/qa5a-f10-hostile (navegación directa):
+  {"chars":142,"font":"50.4px Libre Baskerville","maxWidth":"647.741px","titleW":397,"titleH":688,"lines":13,
+   "columnW":397,"priceTop":910,"atcTop":1209,"atcVisible":false,"vh":800}
+
+== Track 3. Teclado (eventos despachados y click() como activación de Enter; las teclas reales no llegan con el panel oculto)
+Se sustituyó requestAnimationFrame por un MessageChannel porque con el panel oculto no corre.
+Mega menú (Couture 1280, <theme-disclosure data-disclosure-arrows>, 9 enlaces):
+  click(Enter) -> aria-expanded true, panel visible y no inert
+  ArrowDown en disparador -> "View all Catalog" (primer enlace) | ArrowDown -> "Outerwear" | End -> último enlace
+  ArrowDown en el último -> se queda (sin ciclo) | Home -> primero | ArrowUp en el primero -> vuelve al disparador
+  Escape en un enlace -> preventDefault, aria-expanded false, panel hidden, foco en el disparador
+  Foco a un enlace de <main> con el panel abierto -> se cierra (2.4.11)
+Cajón del carrito (Couture 1280, vacío):
+  abrir -> data-open, role=dialog, aria-modal=true, aria-labelledby=CartDrawerTitle, foco en "Close", <main> inert, body bloqueado
+  Tab en el último -> vuelve al primero | Shift+Tab en el primero -> va al último
+  Escape -> cerrado, foco en el disparador "Cart, 0 items"
+Búsqueda predictiva (Couture 1280):
+  abrir -> data-open, foco en el input role=combobox | "coat" -> 8 opciones, aria-expanded true, listbox presente
+  ArrowDown -> aria-activedescendant option-0 con aria-selected=true, el foco sigue en el input | ArrowDown -> option-1 | ArrowUp -> option-0
+  Escape -> cerrado, foco en el botón "Search"
+Zoom de ficha (Couture 1280, F04, 4 imágenes):
+  "Zoom image 2 of 4" -> <dialog> open y :modal, aria-label "Image zoom", foco en "Close zoom", 5 controles
+  cierre (cancel + close despachados: el evento close de <dialog> no llega con el panel oculto) -> foco exacto en "Zoom image 2 of 4", body sin data-modal-open
+Píldoras de filtros (Couture 1280, ?filter.v.availability=1&filter.v.price.gte=100):
+  inicio: ["Remove filter Availability: In stock", "Remove filter Price: From $100.00", "Clear all"]
+  click() en la 1.a -> URL ?filter.v.price.gte=100, foco en la píldora de precio, región viva "14 products"
+  click() en la última -> URL sin filtros, sin píldoras, foco en p.collection-products__count "14 products"
+Barra fija de compra (PDP 375, WCAG 2.4.11): prueba NO CONCLUYENTE.
+  Control: un enlace a y=1890 recibe focus() y no se desplaza (y=1890 antes y después, scrollY 0). Con el panel oculto
+  focus() no desplaza nada, así que no se puede observar si el foco termina tapado. Ver hallazgo AF-08.
+
+== Track 3. Contraste del texto del hero sobre la foto (píxel a píxel, velo real del tema)
+Sartorial 1280 (gradient_content, velo radial 0.6): eyebrow 12px peor 6.62 | heading 75.6px peor 6.23 | subheading 16px peor 6.12
+Sartorial 375: eyebrow peor 6.04 | heading 39.4px peor 5.6 | subheading 16px peor 5.49
+Archive 1280 (scrim rgba(0,0,0,0.55)): eyebrow peor 5.91 | heading 79.2px peor 4.35 (texto grande, basta 3:1) | subheading 16px peor 4.02, p95 4.12, mediana 4.87  <- NO LLEGA A 4.5
+Archive 375: subheading 16px peor 4.35, p95 4.55 | Archive 360: subheading peor 4.35, p95 4.52
+Simulación Archive con scrim 0.60: 1280 subheading peor 4.85 | 375 peor 5.22 ; con 0.65: 375 peor 6.29
+Archive 1280 botón secundario "Explore lookbook" (14px 700, fondo transparente): texto peor 4.68 (pasa); borde #B5885C peor 1.77 contra la zona más clara
+  (no exigible: el texto ya identifica el botón, 1.4.11 no pide borde).
+Edition: hero en modo split, texto sobre fondo liso (lo cubre axe: 0 violaciones).
+
+== Track 5. Identidad de Sartorial en vivo (1280)
+{"bg":"rgb(247, 243, 234)","fg":"rgb(29, 27, 24)","bodyFont":"Assistant","heroHeading":"Libre Baskerville 75.6px",
+ "h2":"Libre Baskerville 48-59px","headingScale":"1.05","pageWidth":"1300px","sectionSpacing":"72px","buttonRadius":"0px",
+ "eyebrow":"uppercase, 1.44px de tracking","fuentes cargadas":["Assistant 400","Assistant 700","Libre Baskerville 400"]}

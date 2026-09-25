@@ -1,0 +1,23 @@
+$ node search-terms-test.mjs
+"Tom & Jerry"    | actual: Tom+%26amp%3B+Jerry                | parche: Tom+%26+Jerry            | vuelve a "Tom & Jerry" OK
+"12\" frame"     | actual: 12%26quot%3B+frame                 | parche: 12%22+frame              | vuelve a "12\" frame" OK
+"O'Neil"         | actual: O%26%2339%3BNeil                   | parche: O'Neil                   | vuelve a "O'Neil" OK
+"<b>x</b>"       | actual: %26lt%3Bb%26gt%3Bx%26lt%3B%2Fb%26gt%3B | parche: %3Cb%3Ex%3C%2Fb%3E       | vuelve a "<b>x</b>" OK
+"a &amp; b"      | actual: a+%26amp%3Bamp%3B+b                | parche: a+%26amp%3B+b            | vuelve a "a &amp; b" OK
+"coat"           | actual: coat                               | parche: coat                     | vuelve a "coat" OK
+
+$ node inventory-test.mjs
+sin bloque de inventario, 57 uds | emite   1 | estado antes inStock          | después inStock
+umbral 5, 57 uds               | emite   6 | estado antes inStock          | después inStock
+umbral 5, 3 uds                | emite   3 | estado antes lowStock(3)      | después lowStock(3)
+umbral 5, 6 uds                | emite   6 | estado antes inStock          | después inStock
+umbral 5, -2 uds (preventa)    | emite  -2 | estado antes preorder/soldOut | después preorder/soldOut
+umbral 5, 0 uds                | emite   0 | estado antes preorder/soldOut | después preorder/soldOut
+
+$ node upload-test.mjs
+https://cdn.shopify.com/s/files/1/0/uploads/foto.png     | HEAD 02194ee: LINK   | propuesta: LINK
+javascript:alert(1)//https://cdn.shopify.com/uploads/x   | HEAD 02194ee: LINK   | propuesta: TEXTO
+JavaScript:alert(1)//https://x/uploads/                  | HEAD 02194ee: LINK   | propuesta: TEXTO
+HTTPS://cdn.shopify.com/uploads/a.png                    | HEAD 02194ee: TEXTO  | propuesta: LINK
+data:text/html,<b>x</b>//https://x/uploads/              | HEAD 02194ee: LINK   | propuesta: TEXTO
+Texto normal                                             | HEAD 02194ee: TEXTO  | propuesta: TEXTO

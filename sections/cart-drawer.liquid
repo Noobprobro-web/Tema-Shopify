@@ -181,7 +181,8 @@
                       {%- if property.last != blank and property_first_character != '_' -%}
                         <p>
                           <span>{{ property.first | escape }}:</span>
-                          {%- if property.last contains '/uploads/' and property.last contains 'https://' -%}
+                          {%- assign property_scheme = property.last | slice: 0, 8 | downcase -%}
+                          {%- if property.last contains '/uploads/' and property_scheme == 'https://' -%}
                             <a href="{{ property.last | escape }}" target="_blank" rel="noopener">
                               {{- property.last | split: '/' | last | escape -}}
                               <span class="visually-hidden"> {{ 'general.accessibility.opens_in_new_window' | t }}</span>
