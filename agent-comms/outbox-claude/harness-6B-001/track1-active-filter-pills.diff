@@ -1,0 +1,282 @@
+diff --git a/assets/base.css b/assets/base.css
+index 2ac9845..109e3a4 100644
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -1691,6 +1691,65 @@ body[data-sticky-cart-visible] {
+   margin-block-start: var(--space-3);
+ }
+ 
++/* Barra de filtros activos (6B-001). Pildoras con el borde de control (>= 3:1 contra el fondo),
++   la misma escala tipografica que los chips de variante y 44 px de objetivo tactil. */
++.facets__active-filters {
++  margin-block-end: var(--space-3);
++}
++
++.facets__pills {
++  display: flex;
++  flex-wrap: wrap;
++  align-items: center;
++  gap: var(--space-2);
++}
++
++.facets__pills > li {
++  min-width: 0;
++  max-width: 100%;
++}
++
++.facet__pill {
++  display: inline-flex;
++  min-height: var(--tap-target-min);
++  max-width: 100%;
++  padding: 0.5rem 0.85rem;
++  border: 1px solid var(--color-control-border);
++  border-radius: var(--button-radius);
++  align-items: center;
++  gap: 0.5rem;
++  color: var(--color-foreground);
++  font-size: 0.875rem;
++  line-height: 1.2;
++  text-decoration: none;
++  transition: border-color var(--motion-fast) var(--ease-move);
++}
++
++.facet__pill:hover {
++  border-color: var(--color-foreground);
++}
++
++.facet__pill-label {
++  min-width: 0;
++  overflow-wrap: anywhere;
++}
++
++.facet__pill-icon {
++  display: inline-flex;
++  flex: none;
++}
++
++.facets__clear-all {
++  display: inline-flex;
++  min-height: var(--tap-target-min);
++  padding-inline: 0.25rem;
++  align-items: center;
++  color: var(--color-foreground);
++  font-size: 0.875rem;
++  text-decoration: underline;
++  text-underline-offset: 0.2em;
++}
++
+ .collection-products__count {
+   margin-block: 0 var(--space-3);
+   font-size: 0.875rem;
+diff --git a/assets/theme.js b/assets/theme.js
+index 70dfeba..058f0f1 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -2820,6 +2820,18 @@
+       });
+ 
+       this.listen(this, 'click', (event) => {
++        // Pildoras de filtros activos y "Clear all" (6B-001): son enlaces a url_to_remove que
++        // funcionan sin JS; aqui se refrescan por AJAX. Ctrl/Cmd/Shift/clic central siguen
++        // abriendo el enlace como el navegador espera.
++        const removeLink = event.target.closest('[data-facet-remove], [data-facet-clear-all]');
++        if (removeLink) {
++          if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey
++            || event.shiftKey || event.altKey) return;
++          event.preventDefault();
++          this.renderUrl(removeLink.href, true, '[data-facet-remove], [data-facet-clear-all], [data-results-status]');
++          return;
++        }
++
+         const button = event.target.closest('[data-grid-view]');
+         if (!button) return;
+         this.setGridView(button.dataset.gridView, true);
+@@ -2846,7 +2858,9 @@
+       this.renderUrl(url, pushState);
+     }
+ 
+-    async renderUrl(urlValue, pushState) {
++    // focusFallback: selector que recibe el foco cuando el elemento enfocado no sobrevive al
++    // repintado (la pildora que se acaba de quitar no tiene id ni existe en el HTML nuevo).
++    async renderUrl(urlValue, pushState, focusFallback = null) {
+       const navigationUrl = new URL(urlValue, window.location.origin);
+       navigationUrl.searchParams.delete('section_id');
+       const requestUrl = new URL(navigationUrl);
+@@ -2874,8 +2888,11 @@
+         this.announceResultCount();
+         if (pushState) window.history.pushState({}, '', navigationUrl);
+ 
+-        if (focusedId) {
++        if (focusedId && document.getElementById(focusedId)) {
+           requestAnimationFrame(() => document.getElementById(focusedId)?.focus());
++        } else if (focusFallback) {
++          const fallbackTarget = this.querySelector(focusFallback);
++          if (fallbackTarget) requestAnimationFrame(() => fallbackTarget.focus());
+         }
+       } catch (error) {
+         if (error.name === 'AbortError') return;
+diff --git a/locales/en.default.json b/locales/en.default.json
+index c58d897..04f9a1c 100644
+--- a/locales/en.default.json
++++ b/locales/en.default.json
+@@ -495,6 +495,8 @@
+       "sort_by": "Sort by",
+       "apply": "Apply",
+       "clear_all": "Clear all",
++      "active_filters": "Active filters",
++      "remove_filter": "Remove filter {{ filter }}:",
+       "swatch_color": "{{ filter }}: {{ value }}"
+     },
+     "pagination": {
+diff --git a/locales/es.json b/locales/es.json
+index 2e8555b..3fbe573 100644
+--- a/locales/es.json
++++ b/locales/es.json
+@@ -495,6 +495,8 @@
+       "sort_by": "Ordenar por",
+       "apply": "Aplicar",
+       "clear_all": "Borrar todo",
++      "active_filters": "Filtros activos",
++      "remove_filter": "Quitar filtro {{ filter }}:",
+       "swatch_color": "{{ filter }}: {{ value }}"
+     },
+     "pagination": {
+diff --git a/sections/main-collection.liquid b/sections/main-collection.liquid
+index e7dba74..a6c6e33 100644
+--- a/sections/main-collection.liquid
++++ b/sections/main-collection.liquid
+@@ -234,16 +234,20 @@
+ 
+           <div class="facets__actions cluster">
+             <button class="button" type="submit">{{ 'collections.filters.apply' | t }}</button>
+-            {%- if active_filter_count > 0 -%}
+-              <a href="{{ collection.url }}?sort_by={{ sort_by | url_encode }}">{{ 'collections.filters.clear_all' | t }}</a>
+-            {%- endif -%}
+           </div>
+         </form>
+ 
+         <div class="collection-products" data-product-grid aria-busy="false">
++          {%- liquid
++            # "Clear all" vive en la barra de filtros activos y conserva el orden elegido.
++            assign sort_by_param = sort_by | url_encode
++            assign clear_filters_url = collection.url | append: '?sort_by=' | append: sort_by_param
++          -%}
++          {% render 'facets-active-filters', filters: collection.filters, clear_url: clear_filters_url, section_id: section.id %}
++
+           {%- paginate collection.products by section.settings.products_per_page -%}
+             <div class="collection-products__toolbar">
+-              <p class="collection-products__count" data-results-status>
++              <p class="collection-products__count" data-results-status tabindex="-1">
+                 {{- 'collections.general.products_count' | t: count: collection.products_count -}}
+               </p>
+               <div
+@@ -383,7 +387,7 @@
+               <div class="collection-products__empty flow">
+                 {%- if active_filter_count > 0 or collection.all_products_count > 0 -%}
+                   <p>{{ 'collections.general.no_products' | t }}</p>
+-                  <a href="{{ collection.url }}?sort_by={{ sort_by | url_encode }}">{{ 'collections.filters.clear_all' | t }}</a>
++                  <a href="{{ clear_filters_url }}" data-facet-clear-all>{{ 'collections.filters.clear_all' | t }}</a>
+                 {%- else -%}
+                   <p>{{ 'collections.general.empty' | t }}</p>
+                   {%- if collection.handle != 'all' -%}
+diff --git a/sections/main-search.liquid b/sections/main-search.liquid
+index 180a081..da0b78a 100644
+--- a/sections/main-search.liquid
++++ b/sections/main-search.liquid
+@@ -250,9 +250,6 @@
+ 
+             <div class="facets__actions cluster">
+               <button class="button" type="submit">{{ 'collections.filters.apply' | t }}</button>
+-              {%- if active_filter_count > 0 -%}
+-                <a href="{{ clear_search_url | escape }}">{{ 'collections.filters.clear_all' | t }}</a>
+-              {%- endif -%}
+             </div>
+           </div>
+         {%- endif -%}
+@@ -276,7 +273,9 @@
+ 
+       <div class="main-search__results" data-product-grid aria-busy="false">
+         {%- if search.performed -%}
+-          <p class="main-search__count" data-results-status>
++          {% render 'facets-active-filters', filters: search.filters, clear_url: clear_search_url, section_id: section.id %}
++
++          <p class="main-search__count" data-results-status tabindex="-1">
+             {{- 'search.results.count' | t: count: search.results_count -}}
+           </p>
+ 
+diff --git a/snippets/facets-active-filters.liquid b/snippets/facets-active-filters.liquid
+new file mode 100755
+index 0000000..e23d98b
+--- /dev/null
++++ b/snippets/facets-active-filters.liquid
+@@ -0,0 +1,70 @@
++{%- comment -%}
++  Barra de filtros activos de colección y búsqueda (6B-001).
++
++  Accepts:
++  - filters: collection.filters o search.filters
++  - clear_url: URL sin filtros que conserva el orden (y los términos en búsqueda)
++  - section_id: id de la sección, para el id del título oculto
++
++  Cada píldora es un enlace a url_to_remove: sin JS navega de forma nativa y
++  FacetFiltersForm intercepta [data-facet-remove] y [data-facet-clear-all] para
++  refrescar por AJAX. El nombre accesible sale del contenido ("Quitar filtro
++  Disponibilidad: En existencia"): el precio no pasa por la interpolación de t,
++  que escaparía otra vez las entidades de un money_format como "&nbsp;€".
++{%- endcomment -%}
++
++{%- liquid
++  assign active_pill_count = 0
++  for filter in filters
++    assign active_pill_count = active_pill_count | plus: filter.active_values.size
++    if filter.type == 'price_range'
++      if filter.min_value.value != nil or filter.max_value.value != nil
++        assign active_pill_count = active_pill_count | plus: 1
++      endif
++    endif
++  endfor
++-%}
++
++{%- if active_pill_count > 0 -%}
++  <div class="facets__active-filters">
++    <h2 class="visually-hidden" id="ActiveFilters-{{ section_id }}">{{ 'collections.filters.active_filters' | t }}</h2>
++    <ul class="facets__pills unstyled-list" role="list" aria-labelledby="ActiveFilters-{{ section_id }}">
++      {%- for filter in filters -%}
++        {%- if filter.type == 'price_range' -%}
++          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
++            <li>
++              <a class="facet__pill" href="{{ filter.url_to_remove }}" data-facet-remove>
++                <span class="visually-hidden">{{ 'collections.filters.remove_filter' | t: filter: filter.label }}</span>
++                <span class="facet__pill-label">
++                  {%- if filter.min_value.value != nil and filter.max_value.value != nil -%}
++                    {{- filter.min_value.value | money }} – {{ filter.max_value.value | money -}}
++                  {%- elsif filter.min_value.value != nil -%}
++                    {{- 'collections.filters.from' | t }} {{ filter.min_value.value | money -}}
++                  {%- else -%}
++                    {{- 'collections.filters.to' | t }} {{ filter.max_value.value | money -}}
++                  {%- endif -%}
++                </span>
++                <span class="facet__pill-icon" aria-hidden="true">{% render 'icon', name: 'close', size: 14 %}</span>
++              </a>
++            </li>
++          {%- endif -%}
++        {%- else -%}
++          {%- for value in filter.active_values -%}
++            <li>
++              <a class="facet__pill" href="{{ value.url_to_remove }}" data-facet-remove>
++                <span class="visually-hidden">{{ 'collections.filters.remove_filter' | t: filter: filter.label }}</span>
++                <span class="facet__pill-label">{{ value.label | escape }}</span>
++                <span class="facet__pill-icon" aria-hidden="true">{% render 'icon', name: 'close', size: 14 %}</span>
++              </a>
++            </li>
++          {%- endfor -%}
++        {%- endif -%}
++      {%- endfor -%}
++      <li>
++        <a class="facets__clear-all" href="{{ clear_url | escape }}" data-facet-clear-all>
++          {{- 'collections.filters.clear_all' | t -}}
++        </a>
++      </li>
++    </ul>
++  </div>
++{%- endif -%}

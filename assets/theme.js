@@ -2796,8 +2796,13 @@
     showStatus(message) {
       const output = this.querySelector('[data-cart-status]');
       if (!output) return;
-      output.textContent = message;
+      // La region se muestra vacia y el texto llega despues: una region viva que aparece ya
+      // con contenido no siempre se anuncia (NVDA/JAWS con Chrome). 6B-001.
+      output.textContent = '';
       output.hidden = false;
+      window.setTimeout(() => {
+        output.textContent = message;
+      }, 100);
     }
   }
 
@@ -2820,6 +2825,18 @@
       });
 
       this.listen(this, 'click', (event) => {
+        // Pildoras de filtros activos y "Clear all" (6B-001): son enlaces a url_to_remove que
+        // funcionan sin JS; aqui se refrescan por AJAX. Ctrl/Cmd/Shift/clic central siguen
+        // abriendo el enlace como el navegador espera.
+        const removeLink = event.target.closest('[data-facet-remove], [data-facet-clear-all]');
+        if (removeLink) {
+          if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey
+            || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          this.renderUrl(removeLink.href, true, '[data-facet-remove], [data-facet-clear-all], [data-results-status]');
+          return;
+        }
+
         const button = event.target.closest('[data-grid-view]');
         if (!button) return;
         this.setGridView(button.dataset.gridView, true);
@@ -2846,7 +2863,9 @@
       this.renderUrl(url, pushState);
     }
 
-    async renderUrl(urlValue, pushState) {
+    // focusFallback: selector que recibe el foco cuando el elemento enfocado no sobrevive al
+    // repintado (la pildora que se acaba de quitar no tiene id ni existe en el HTML nuevo).
+    async renderUrl(urlValue, pushState, focusFallback = null) {
       const navigationUrl = new URL(urlValue, window.location.origin);
       navigationUrl.searchParams.delete('section_id');
       const requestUrl = new URL(navigationUrl);
@@ -2874,8 +2893,11 @@
         this.announceResultCount();
         if (pushState) window.history.pushState({}, '', navigationUrl);
 
-        if (focusedId) {
+        if (focusedId && document.getElementById(focusedId)) {
           requestAnimationFrame(() => document.getElementById(focusedId)?.focus());
+        } else if (focusFallback) {
+          const fallbackTarget = this.querySelector(focusFallback);
+          if (fallbackTarget) requestAnimationFrame(() => fallbackTarget.focus());
         }
       } catch (error) {
         if (error.name === 'AbortError') return;

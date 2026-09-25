@@ -234,16 +234,20 @@
 
           <div class="facets__actions cluster">
             <button class="button" type="submit">{{ 'collections.filters.apply' | t }}</button>
-            {%- if active_filter_count > 0 -%}
-              <a href="{{ collection.url }}?sort_by={{ sort_by | url_encode }}">{{ 'collections.filters.clear_all' | t }}</a>
-            {%- endif -%}
           </div>
         </form>
 
         <div class="collection-products" data-product-grid aria-busy="false">
+          {%- liquid
+            # "Clear all" vive en la barra de filtros activos y conserva el orden elegido.
+            assign sort_by_param = sort_by | url_encode
+            assign clear_filters_url = collection.url | append: '?sort_by=' | append: sort_by_param
+          -%}
+          {% render 'facets-active-filters', filters: collection.filters, clear_url: clear_filters_url, section_id: section.id %}
+
           {%- paginate collection.products by section.settings.products_per_page -%}
             <div class="collection-products__toolbar">
-              <p class="collection-products__count" data-results-status>
+              <p class="collection-products__count" data-results-status tabindex="-1">
                 {{- 'collections.general.products_count' | t: count: collection.products_count -}}
               </p>
               <div
@@ -383,7 +387,7 @@
               <div class="collection-products__empty flow">
                 {%- if active_filter_count > 0 or collection.all_products_count > 0 -%}
                   <p>{{ 'collections.general.no_products' | t }}</p>
-                  <a href="{{ collection.url }}?sort_by={{ sort_by | url_encode }}">{{ 'collections.filters.clear_all' | t }}</a>
+                  <a href="{{ clear_filters_url }}" data-facet-clear-all>{{ 'collections.filters.clear_all' | t }}</a>
                 {%- else -%}
                   <p>{{ 'collections.general.empty' | t }}</p>
                   {%- if collection.handle != 'all' -%}
