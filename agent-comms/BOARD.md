@@ -5,8 +5,8 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
 Última actualización: 2026-09-25
-Estado general: SPRINT 6C TOTALMENTE CERTIFICADO -> 100% DE REQUISITOS TÉCNICOS CERRADOS (55/57 CUMPLIDO, 96.5%) -> FASE FINAL: DEPENDENCIAS COMERCIALES (FILAS 107 Y 108)
-Próximo hito: Publicación de soporte/docs y verificación final de catálogo demo para empaquetado y submission
+Estado general: TEMA 100% CERTIFICADO TÉCNICAMENTE Y EN TIENDA REAL (53/57 CUMPLIDO [93.0%], 2 CÓDIGO COMPLETO [3.5%], 2 NO VERIFICADO [3.5%]) -> PAQUETE SARTORIAL-1.0.0.ZIP LISTO PARA THEME STORE
+Próximo hito: Pruebas manuales finales de Johandry, publicación de soporte/docs y submission a Shopify Theme Store
 ```
 
 ---
@@ -33,26 +33,26 @@ Próximo hito: Publicación de soporte/docs y verificación final de catálogo d
   - Fila 35 (Punto Focal): Liquid inyecta `--hero-focal-point` desde `presentation.focal_point` nativo, computado en `object-position` sin deformación.
   - Fila 46 (Contraste de Texto): Hero en Couture >= 6.08:1; hero en Sartorial con velo `gradient_content` al 60% desplegado en vivo >= 5.49:1 (superando 4.5:1).
   - Fila 72 (Medios 3D y Video): Carga condicional estricta de `shopify-xr.js` en PDP (cero bloat cuando no hay modelos) y pausa automática de videos (`pauseAllMedia`) certificada.
-- **Auditoría Integral Multi-Agente Pre-Submission & Certificación de Claude:** Dictamen de Claude: `CERTIFICADO CON OBSERVACIONES` (`CLAUDE-REPORT-AUDIT-FINAL-001.md`, `CLAUDE-CERTIFICATION-GEMINI-FINAL-001.md`, `CLAUDE-REPORT-FIXES-AUDIT-FINAL-001.md`).
+- **Auditoría Integral Multi-Agente Pre-Submission & Certificación Final de Claude:** Dictamen de Claude: **`CERTIFICADO`** (`CLAUDE-REPORT-AUDIT-FINAL-001.md`, `CLAUDE-CERTIFICATION-GEMINI-FINAL-001.md`, `CLAUDE-REPORT-FIXES-AUDIT-FINAL-001.md`, `CLAUDE-VERIFICATION-LIVE-FINAL-001.md`). Verificación técnica en vivo 100% satisfactoria en los 4 temas remotos.
   - **Estado del Despliegue:**
     - Los 10 archivos de código (`assets/base.css`, `assets/theme.js`, `locales/en.default.schema.json`, `sections/cart-drawer.liquid`, `sections/main-cart-items.liquid`, `sections/main-search.liquid`, `sections/featured-product.liquid`, `sections/hero-editorial.liquid`, `sections/main-product.liquid`, `templates/gift_card.liquid`) desplegados con `--nodelete` a los 4 temas remotos (#165809488115 con `--allow-live`, #166186909939, #166186942707, #166187041011).
-    - Plantillas de listing (`index.json`, `collection.json`, `product.json`) desplegadas desde `listings/<preset>/templates/` a cada preset remoto (Sartorial, Edition y Archive) con `--nodelete`.
+    - Plantillas de listing (`index.json`, `collection.json`, `product.json`) desplegadas desde `listings/<preset>/templates/` a cada preset remoto (Sartorial, Edition y Archive) con `--nodelete`. Comprobado en vivo: mosaico editorial y banner en Sartorial/Archive, diseño minimalista sin banner en Edition.
     - Paquete de producción `Sartorial-1.0.0.zip` (296 KB) regenerado localmente tras pasar las 8 compuertas de `npm run gates:static` (0 ofensas en 150 archivos). Paquete obsoleto `Couture-1.0.0.zip` eliminado.
-  - **Matriz de Hallazgos y Correcciones (AF-01 a AF-16):**
-    - `AF-01` [P1 - WCAG 1.4.3]: Hero Archive `overlay_opacity: 60` aplicado en `listings/archive/templates/index.json:15` y desplegado. Comprobado en vivo: `--hero-overlay-opacity: 0.6`, contraste 4.85:1 (1280px) y 5.22:1 (375px), superando 4.5:1. Pendiente verificación en vivo por Claude.
-    - `AF-02` [P1 - Seguridad]: Enlace de subida con validación estricta de prefijo (`property_scheme == 'https://'`) en `sections/cart-drawer.liquid:184` y `sections/main-cart-items.liquid:73`. Desplegado a los 4 temas.
-    - `AF-03` [P2 - Funcional]: Búsqueda con entidades especiales (`&`, `"`, `'`, `<`, `>`) corregida en `sections/main-search.liquid:20`. Desplegado a los 4 temas; comprobado en vivo en Couture con `/search?q=Tom+%26+Jerry` sin doble escape.
-    - `AF-04` [P1 - Seguridad]: `cart.note | escape` en `sections/cart-drawer.liquid:457` y `sections/main-cart-items.liquid:176`. Desplegado a los 4 temas.
-    - `AF-05` [P2 - Ledger]: Filas 35 y 72 reflejadas honestamente como `código completo` por Opción A de Johandry. Conteo: 53 cumplido, 2 código completo, 2 no verificado, 0 ausente.
-    - `AF-06` [P2 - Entorno]: Plantillas de colección por listing desplegadas en Sartorial, Edition y Archive (#166186909939, #166186942707, #166187041011). `product-grid unstyled-list` verificado en vivo.
-    - `AF-07` [P3 - Privacidad de Stock]: Exposición de inventario exacto limitada con `inventory_cap: 10` sin bucles en `sections/main-product.liquid:696` y `sections/featured-product.liquid:455` (complejidad Liquid bajo control). Desplegado a los 4 temas.
-    - `AF-08` [P2 - WCAG 2.4.11]: Barra fija de compra móvil con `--sticky-cart-offset` dinámico y `scroll-padding-block-end` en `assets/theme.js:1246` y `assets/base.css:7766`. Desplegado a los 4 temas. Requiere prueba de Johandry con teclado físico en móvil a 375px.
-    - `AF-09` [P3 - Estado Degenerado]: Título muy largo (F10) escalado a 1.75rem con `data-long-title` en `sections/main-product.liquid:201` y `assets/base.css:1280,3961`. Desplegado a los 4 temas; comprobado en vivo en `/products/qa5a-f10-hostile` en Sartorial: botón de compra en y=707-751 (dentro del pliegue de 800px).
-    - `AF-10` [P3 - CWV]: `hero_sizes` responsivo en split ratio (50vw/60vw/65vw) en `sections/hero-editorial.liquid:6-18,90,127`. Desplegado a los 4 temas.
-    - `AF-11` [P3 - Superficie]: 61 claves huérfanas eliminadas de `locales/en.default.schema.json`. 0 huérfanas verificadas por compuertas estáticas. Desplegado a los 4 temas.
-    - `AF-12` [P3 - Entorno]: `layout/password.liquid` (48 bytes huérfanos generados en admin) pendiente de eliminación manual por Johandry desde "Editar código" en los 4 temas.
-    - `AF-13` [P4 - CSP]: Manejador en línea `window.print()` sustituido por listener no intrusivo `data-gift-card-print` en `templates/gift_card.liquid:114,131`. Desplegado a los 4 temas.
-    - `AF-14` [P4 - Seguridad]: Comprobación de mismo origen añadida en `renderUrl` en `assets/theme.js:2873`. Desplegado a los 4 temas.
+  - **Matriz de Hallazgos y Correcciones Certificadas (AF-01 a AF-16):**
+    - `AF-01` [P1 - WCAG 1.4.3]: Hero Archive `overlay_opacity: 60` aplicado en `listings/archive/templates/index.json:15` y desplegado. Verificado en vivo por Claude: subtítulo 4.85:1 a 1280px y 5.22:1 a 375px en el peor píxel (superando >= 4.5:1), axe 0 violaciones. CERTIFICADO.
+    - `AF-02` [P1 - Seguridad]: Enlace de subida con validación estricta de prefijo (`property_scheme == 'https://'`) en `sections/cart-drawer.liquid:184` y `sections/main-cart-items.liquid:73`. Desplegado y verificado en los 4 temas. CERTIFICADO.
+    - `AF-03` [P2 - Funcional]: Búsqueda con entidades especiales (`&`, `"`, `'`, `<`, `>`) corregida en `sections/main-search.liquid:20`. Desplegado a los 4 temas; comprobado en vivo en Couture con `/search?q=Tom+%26+Jerry`, '12" frame' y "O'Neil" sin corrupción de términos ni inyección de scripts. CERTIFICADO.
+    - `AF-04` [P1 - Seguridad]: `cart.note | escape` en `sections/cart-drawer.liquid:457` y `sections/main-cart-items.liquid:176`. Desplegado y verificado en los 4 temas. CERTIFICADO.
+    - `AF-05` [P2 - Ledger]: Filas 35 y 72 reflejadas honestamente como `código completo` por Opción A de Johandry. Conteo: 53 cumplido, 2 código completo, 2 no verificado, 0 ausente. CERTIFICADO.
+    - `AF-06` [P2 - Entorno]: Plantillas de colección por listing desplegadas en Sartorial, Edition y Archive (#166186909939, #166186942707, #166187041011). Verificado en vivo por Claude. CERTIFICADO.
+    - `AF-07` [P3 - Privacidad de Stock]: Exposición de inventario exacto limitada al umbral más uno (con umbral 5, stock 20 publica 6; stock 3 publica 3) en `sections/main-product.liquid:696` y `sections/featured-product.liquid:455` (complejidad Liquid bajo control). Verificado en vivo por Claude en F01, F06 y F10. CERTIFICADO.
+    - `AF-08` [P2 - WCAG 2.4.11]: Barra fija de compra móvil con `--sticky-cart-offset` dinámico y `scroll-padding-block-end` en `assets/theme.js:1246` y `assets/base.css:7766`. Mecanismo verificado en vivo (`setVisible(true)` activa 81px de offset y scroll-padding). Pendiente prueba con teclado físico por Johandry.
+    - `AF-09` [P3 - Estado Degenerado]: Título muy largo (F10) escalado a 1.75rem con `data-long-title="1"` en `sections/main-product.liquid:201` y `assets/base.css:1280,3961`. Verificado en vivo por Claude en `/products/qa5a-f10-hostile` en Sartorial: 7 líneas de título, botón de compra termina en y=781 (dentro de la primera pantalla de 800px). CERTIFICADO.
+    - `AF-10` [P3 - CWV]: `hero_sizes` responsivo en split ratio (50vw/60vw/65vw) en `sections/hero-editorial.liquid:6-18,90,127`. Verificado en vivo en Edition (50vw). CERTIFICADO.
+    - `AF-11` [P3 - Superficie]: 61 claves huérfanas eliminadas de `locales/en.default.schema.json`. 0 huérfanas verificadas por compuertas estáticas. CERTIFICADO.
+    - `AF-12` [P3 - Entorno]: `layout/password.liquid` (48 bytes huérfanos generados en admin) pendiente de eliminación manual por Johandry desde "Editar código" en los 4 temas. No va en el zip.
+    - `AF-13` [P4 - CSP]: Manejador en línea `window.print()` sustituido por listener no intrusivo `data-gift-card-print` en `templates/gift_card.liquid:114,131`. CERTIFICADO.
+    - `AF-14` [P4 - Seguridad]: Comprobación de mismo origen añadida en `renderUrl` en `assets/theme.js:2873`. CERTIFICADO.
     - `AF-15` [P4 - Visual]: Títulos de tarjeta sin recorte de líneas por decisión de diseño editorial (preserva estética de lujo y tipografía íntegra).
     - `AF-16` [P4 - A11y]: Skip link fuera de landmark mantenido conforme al estándar oficial Shopify Dawn / WCAG 2.4.1.
 
@@ -63,8 +63,8 @@ Próximo hito: Publicación de soporte/docs y verificación final de catálogo d
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Probar teclado físico en barra fija móvil (AF-08) en `/products/qa5a-f04-colour-size` (375px). 2) Borrar `layout/password.liquid` de los 4 temas en Shopify Admin (AF-12). 3) URLs docs/soporte (107) y fotos demo (108). | 🟢 Activo | Pruebas de usuario y config final |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Commit `657c325` y despliegue a los 4 temas completados. Compuertas estáticas en verde (0 ofensas). Ledger y BOARD actualizados. Coordinando verificación en vivo con Claude. | 🟢 Cumplido | Handoff para verificación en vivo |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Verificación técnica en vivo por Admin API (checksums de 10 archivos en 4 temas, contraste Archive y ficha F10) para confirmar dictamen final. | 🟡 En verificación | Dictamen final post-despliegue |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | 100% de la arquitectura técnica, seguridad y compuertas cerradas. Tablero y gobernanza alineados con el veredicto final. | 🟢 Cumplido | Tema certificado y coordinado |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Auditoría y verificación técnica en vivo por Admin API y render completada. Dictamen formal: CERTIFICADO (`CLAUDE-VERIFICATION-LIVE-FINAL-001.md`). | 🟢 Cumplido | Tema certificado para Theme Store |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (reemplazado por Claude para esta auditoría por disponibilidad de usuario). | ⚪ En reposo | N/A |
 
 ---
@@ -83,12 +83,13 @@ Próximo hito: Publicación de soporte/docs y verificación final de catálogo d
 
 ---
 
-## 5. Próximos Pasos Técnicos y Comerciales
+## 5. Próximos Pasos para la Submission a Shopify Theme Store
 
-1. **Sprint 6B — Filtros Facetados Nativos en Colección y Búsqueda (Fila 76):**
-   - Asegurar paridad completa entre `main-collection.liquid` y `main-search.liquid` con soporte de swatches y filtros nativos.
-2. **Sprint 6C — Accesibilidad y Medios Especializados (Filas 35, 46, 47, 53, 72, 73):**
-   - Certificación de punto focal nativo, contrastes WCAG 2.2 AA (>= 4.5:1 y 3:1), live regions y modelos 3D / media.
-3. **Fase Comercial del Comerciante (Filas 107 y 108):**
-   - Publicación de páginas de documentación y soporte en dominio propio (`ruizdigital.com`).
-   - Fotografía final y catálogo demo auténtico sin placeholders.
+1. **Pruebas y Limpieza Manual del Comerciante (Johandry):**
+   - Prueba con teclado físico en barra fija de compra móvil (AF-08) en `/products/qa5a-f04-colour-size` a 375px.
+   - Eliminación manual de `layout/password.liquid` en los 4 temas desde Shopify Admin (AF-12).
+2. **Dependencias Comerciales y de Contenido (Filas 107 y 108):**
+   - Configuración de URLs públicas finales de documentación y soporte en dominio propio (Fila 107).
+   - Sustitución de fotografías demo y catálogo final sin imágenes placeholder (Fila 108).
+3. **Envío del Paquete (Submission):**
+   - Subir el archivo `Sartorial-1.0.0.zip` al portal de partners de Shopify Theme Store.
