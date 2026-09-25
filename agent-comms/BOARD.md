@@ -5,8 +5,8 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
 Última actualización: 2026-09-24
-Estado general: SPRINT 6 TOTALMENTE CERRADO Y CERTIFICADO EN TIENDA REAL -> FILAS 63, 78, 79, 80, 81 Y 82 EN CUMPLIDO -> LEDGER ALCANZA 48 CUMPLIDO (84.2%)
-Próximo hito: Sprint 6B (Filtros Facetados Nativos en Colección y Búsqueda, Fila 76) y Sprint 6C (Punto Focal, Contrastes WCAG, Modelos 3D y Zoom táctil)
+Estado general: SPRINT 6A CERRADO AL 100% -> CLAUDE-DIRECTIVE-6B-001 EMITIDA -> CLAUDE ASIGNADO A SPRINT 6B & 6C (FILAS 76, 35, 46, 47, 53, 72, 73)
+Próximo hito: Cierre técnico total (55/57 cumplido, 96.5%) y preparación de entrega comercial final
 ```
 
 ---
@@ -17,10 +17,10 @@ Próximo hito: Sprint 6B (Filtros Facetados Nativos en Colección y Búsqueda, F
 - **Sprint 5B - Luxury PDP Media & Accessible Zoom:** Certificado en tienda real (`GPT-AUDIT-008`). Hotfix F01 implementado con gestión atómica de foco.
 - **Sprint 5C - The Luxury Triple Crown ($380 USD Tier):** Certificado en tienda real Couture #165809488115 (`GPT-AUDIT-011`). Mega Menú editorial bilingüe (0 CLS, tarjetas 4:5, links dinámicos localizados), Recently Viewed nativo (0-4 tarjetas, persistencia 8 IDs, sin overflow 390/360 px), inventario reactivo multi-estado (in_stock, low_stock, sold_out, preorder), acordeones bilingües y anuncio accesible de carrito. Filas 83-85 del ledger pasadas a `cumplido`.
 - **Auditoría de Presets y Cierre de Fila 106:** Certificado en tienda real en los 4 temas independientes (`CLAUDE-REPORT-AUDIT-PRESETS-001`). Dictamen APTO. Sartorial 100% preservado. Parches H1 y H2 aplicados (`af6ee6d`). Fila 106 en `cumplido`.
-- **Sprint 6 - Storefront Certification & Hardening (Filas 63, 78, 79, 80, 81, 82):** Certificado integralmente en tienda real (`CLAUDE-REPORT-6A-001` y mediciones Playwright automatizadas). 
+- **Sprint 6A - Storefront Certification & Hardening (Filas 63, 78, 79, 80, 81, 82):** Certificado integralmente en tienda real (`CLAUDE-REPORT-6A-001` y mediciones Playwright automatizadas). 
   - Fila 80 (Idioma): Toggle bilingüe probado en desktop y drawer móvil, POST nativo sin JS, 44x44, 7.87:1.
   - Fila 78 (Búsqueda Predictiva): Debounce (4 eventos -> 1 petición), 4 entidades, navegación teclado real, parches D1 y H-A desplegados, axe-core **0 violaciones**.
-  - Fila 79 (País / Moneda): 2 mercados activos (US/ES), cambio verificado con auto-submit, precios recalculados dinámicamente a Euros ("1.890,00 €"), fallback sin JS listo.
+  - Fila 79 (País / Moneda): Toggle minimalista `USD$/EUR€` verificado en vivo con recálculo dinámico a Euros ("1.890,00 €"), fallback sin JS listo.
   - Fila 82 (Iconos de Pago en Footer): 6 SVGs oficiales renderizados, responsivo flex-wrap sin scroll horizontal en móvil (375px), parche H-C aplicado.
   - Fila 81 (Newsletter): Envío manual por comerciante completado, estados `role="status"` y `role="alert"`.
   - Fila 63 (Checkout Acelerado): "Buy it now" activo y reactivo a variantes agotadas, tipografía homologada (14px uppercase), soporte nativo `additional_checkout_buttons`.
@@ -31,9 +31,9 @@ Próximo hito: Sprint 6B (Filtros Facetados Nativos en Colección y Búsqueda, F
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Acciones de Admin cumplidas con éxito (Bogus Gateway, 2do Mercado). Traducción de productos en curso con app oficial de Shopify. | 🟢 Activo | Dirección de prioridades |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Verificación empírica ejecutada con éxito. Filas 63, 79, 81 y 82 pasadas a cumplido. Ledger en 84.2%. | 🟢 Cumplido | Definición de Sprint 6B |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Auditorías de Sprint 6A y parches completados al 100%. En espera de directiva para Sprint 6B. | 🟢 Cumplido | Standby para siguiente tarea |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Traducción de productos en curso con app oficial de Shopify y fotos demo de catálogo. | 🟢 Activo | Dirección de prioridades |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Directiva técnica CLAUDE-DIRECTIVE-6B-001 emitida. Supervisión de compuertas estáticas y revisión de entregas. | 🟢 Activo | Revisión y autorización de commit |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Ejecución de CLAUDE-DIRECTIVE-6B-001: Certificación y cierre de Filas 76, 35, 46, 47, 53, 72, 73. | 🟡 En progreso | `agent-comms/outbox-claude/CLAUDE-REPORT-6B-001.md` |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (reemplazado por Claude para esta auditoría por disponibilidad de usuario). | ⚪ En reposo | N/A |
 
 ---
