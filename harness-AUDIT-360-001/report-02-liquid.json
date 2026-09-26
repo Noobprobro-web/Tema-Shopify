@@ -1,0 +1,57 @@
+{
+  "sectionsWithCustomLiquid": [
+    "sections\\featured-product.liquid"
+  ],
+  "sectionsWithAppBlock": [
+    "sections\\featured-product.liquid",
+    "sections\\main-product.liquid"
+  ],
+  "sectionsWithPresets": [
+    "sections\\announcement-bar.liquid",
+    "sections\\bento-discovery.liquid",
+    "sections\\brand-manifesto.liquid",
+    "sections\\complete-the-look.liquid",
+    "sections\\curated-showcase.liquid",
+    "sections\\custom-liquid.liquid",
+    "sections\\featured-product.liquid",
+    "sections\\hero-editorial.liquid",
+    "sections\\lookbook.liquid",
+    "sections\\main-about.liquid",
+    "sections\\main-contact.liquid",
+    "sections\\main-documentation.liquid",
+    "sections\\main-faq.liquid",
+    "sections\\main-page.liquid",
+    "sections\\main-policy.liquid",
+    "sections\\main-support.liquid",
+    "sections\\marquee.liquid",
+    "sections\\newsletter.liquid",
+    "sections\\product-recommendations.liquid",
+    "sections\\recently-viewed.liquid"
+  ],
+  "designModeUsages": [
+    {
+      "file": "layout\\theme.liquid",
+      "line": 109,
+      "code": "<body class=\"template-{{ request.page_type | handle }} color-{{ default_scheme_id }}{% if request.design_mode %} theme-editor{% endif %}\">"
+    }
+  ],
+  "emptyStateChecks": [],
+  "missingImageChecks": [
+    "sections\\bento-discovery.liquid",
+    "sections\\brand-manifesto.liquid",
+    "sections\\complete-the-look.liquid",
+    "sections\\curated-showcase.liquid",
+    "sections\\featured-product.liquid",
+    "sections\\hero-editorial.liquid",
+    "sections\\lookbook.liquid",
+    "sections\\main-about.liquid"
+  ],
+  "paginationChecks": [],
+  "loopsWithoutLimits": [
+    {
+      "file": "sections\\recently-viewed.liquid",
+      "loop": "{%- for result in search.results -%}"
+    }
+  ],
+  "filesChecked": 53
+}

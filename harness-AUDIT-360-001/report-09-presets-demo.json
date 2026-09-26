@@ -1,0 +1,63 @@
+{
+  "presets_found": [
+    "current (Couture)",
+    "Sartorial",
+    "Edition",
+    "Archive"
+  ],
+  "listings_structure": {
+    "archive": [
+      "collection.json",
+      "index.json",
+      "product.json"
+    ],
+    "edition": [
+      "collection.json",
+      "index.json",
+      "product.json"
+    ],
+    "sartorial": [
+      "collection.json",
+      "index.json",
+      "product.json"
+    ]
+  },
+  "placeholder_copy_found": [],
+  "placeholder_images_found": [],
+  "preset_differences": {
+    "Sartorial": {
+      "colors": {}
+    },
+    "Edition": {
+      "colors": {}
+    },
+    "Archive": {
+      "colors": {}
+    },
+    "current (Couture)": {
+      "colors": {}
+    }
+  },
+  "demo_store_requirements_gap": [
+    {
+      "requirement": "Demo stores must be distinct Client Transfer development stores",
+      "status": "GAP / P0",
+      "detail": "Currently only 1 development store (tema-qkqpke0j.myshopify.com) exists with 4 theme IDs. Shopify requires 3 public demo stores for Sartorial, Edition, and Archive, each with distinct catalogs and URLs."
+    },
+    {
+      "requirement": "Test payment gateway or Bogus Gateway enabled",
+      "status": "GAP / P1",
+      "detail": "Bogus Gateway is not enabled on tema-qkqpke0j.myshopify.com (store checkout requires real payment / password)."
+    },
+    {
+      "requirement": "No password protection on demo stores",
+      "status": "GAP / P0",
+      "detail": "Storefront password is enabled because development stores cannot disable password without transfer or active plan."
+    },
+    {
+      "requirement": "Authentic, high-quality photography with valid commercial licenses",
+      "status": "DOCUMENTATION REQUIRED / P1",
+      "detail": "Images used in demo catalog (Serra coat, Nove blazer, etc.) must have confirmed commercial licenses on file."
+    }
+  ]
+}

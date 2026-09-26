@@ -1,0 +1,374 @@
+{
+  "custom_elements": [
+    {
+      "file": "assets/theme.js",
+      "tag": "theme-disclosure",
+      "className": "ThemeDisclosure",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": false
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "theme-drawer",
+      "className": "ThemeDrawer",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "variant-selects",
+      "className": "VariantSelects",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": false
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "product-inventory",
+      "className": "ProductInventory",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "recently-viewed",
+      "className": "RecentlyViewed",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "product-gallery",
+      "className": "ProductGallery",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": false
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "sticky-cart-bar",
+      "className": "StickyCartBar",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "size-guide-modal",
+      "className": "SizeGuideModal",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "gift-card-recipient",
+      "className": "GiftCardRecipient",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": false
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "pickup-availability",
+      "className": "PickupAvailability",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "product-recommendations",
+      "className": "ProductRecommendations",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "cart-drawer",
+      "className": "CartDrawer",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "product-card-variants",
+      "className": "ProductCardVariants",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "facet-filters-form",
+      "className": "FacetFiltersForm",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "editorial-lookbook",
+      "className": "EditorialLookbook",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "editorial-hero",
+      "className": "EditorialHero",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "complete-the-look",
+      "className": "CompleteTheLook",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "curated-showcase",
+      "className": "CuratedShowcase",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": false
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "marquee-banner",
+      "className": "MarqueeBanner",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": false
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "announcement-bar",
+      "className": "AnnouncementBar",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "faq-accordion",
+      "className": "FaqAccordion",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "anchor-nav",
+      "className": "AnchorNav",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "copy-text",
+      "className": "CopyText",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "faq-filter",
+      "className": "FaqFilter",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "password-modal",
+      "className": "PasswordModal",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": true
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "localization-form",
+      "className": "LocalizationForm",
+      "hasConnectedCallback": true,
+      "hasDisconnectedCallback": false
+    },
+    {
+      "file": "assets/theme.js",
+      "tag": "predictive-search",
+      "className": "PredictiveSearch"
+    }
+  ],
+  "window_document_listeners": [
+    {
+      "file": "assets/theme.js",
+      "line": 4683,
+      "class": "PredictiveSearch",
+      "code": "document.addEventListener('shopify:section:load', (event) => register(event.target));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4730,
+      "class": "PredictiveSearch",
+      "code": "window.addEventListener('scroll', sync, { passive: true });"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4731,
+      "class": "PredictiveSearch",
+      "code": "if (!resizeObserver) window.addEventListener('resize', publishOffset, { passive: true });"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4734,
+      "class": "PredictiveSearch",
+      "code": "document.addEventListener('shopify:section:load', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4797,
+      "class": "PredictiveSearch",
+      "code": "document.addEventListener('click', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4831,
+      "class": "PredictiveSearch",
+      "code": "document.addEventListener(type, (event) => {"
+    }
+  ],
+  "fetch_calls": [
+    {
+      "file": "assets/theme.js",
+      "line": 147,
+      "hasCatch": true,
+      "checksOk": false,
+      "code": "const fetchCommerce = (url, options, errorMessage) => fetch(url, options).catch((error) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1106,
+      "hasCatch": false,
+      "checksOk": true,
+      "code": "const response = await fetch(`${this.dataset.searchUrl}?${params}`, {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1611,
+      "hasCatch": false,
+      "checksOk": true,
+      "code": "const response = await fetch(url, {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1706,
+      "hasCatch": false,
+      "checksOk": true,
+      "code": "const response = await fetch(this.dataset.url, {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2589,
+      "hasCatch": false,
+      "checksOk": true,
+      "code": "const response = await fetch(url, {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2641,
+      "hasCatch": true,
+      "checksOk": true,
+      "code": "const response = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2885,
+      "hasCatch": false,
+      "checksOk": true,
+      "code": "const response = await fetch(requestUrl, {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4153,
+      "hasCatch": true,
+      "checksOk": true,
+      "code": "const response = await fetch(endpoint.toString(), {"
+    }
+  ],
+  "inner_html_usages": [
+    {
+      "file": "assets/theme.js",
+      "line": 137,
+      "hasTemplateLiteral": false,
+      "code": "decoder.innerHTML = template.replace(/</g, '&lt;');"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1622,
+      "hasTemplateLiteral": false,
+      "code": "this.innerHTML = nextPickup.innerHTML;"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1723,
+      "hasTemplateLiteral": false,
+      "code": "this.innerHTML = nextRecommendations.innerHTML;"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2896,
+      "hasTemplateLiteral": false,
+      "code": "this.innerHTML = nextElement.innerHTML;"
+    }
+  ],
+  "console_statements": [],
+  "storage_usages": [
+    {
+      "file": "assets/theme.js",
+      "line": 1046,
+      "code": "const stored = JSON.parse(localStorage.getItem(recentViewsKey) || '[]');"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1059,
+      "code": "localStorage.setItem("
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2935,
+      "code": "storedValue = window.localStorage.getItem(this.gridStorageKey);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2960,
+      "code": "window.localStorage.setItem(this.gridStorageKey, gridView);"
+    }
+  ],
+  "unhandled_promises": [],
+  "editor_events": [
+    {
+      "file": "assets/theme.js",
+      "line": 190,
+      "code": "this.listen(this, 'shopify:block:select', () => this.setOpen(true));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 191,
+      "code": "this.listen(this, 'shopify:block:deselect', () => this.setOpen(false));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3045,
+      "code": "this.listen(this, 'shopify:block:select', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3408,
+      "code": "this.listen(this, 'shopify:block:select', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3585,
+      "code": "this.listen(this, 'shopify:block:select', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4683,
+      "code": "document.addEventListener('shopify:section:load', (event) => register(event.target));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4734,
+      "code": "document.addEventListener('shopify:section:load', (event) => {"
+    }
+  ]
+}

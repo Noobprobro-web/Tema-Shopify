@@ -4,9 +4,9 @@
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
-Última actualización: 2026-09-25
-Estado general: TEMA 100% CERTIFICADO TÉCNICAMENTE Y EN TIENDA REAL (53/57 CUMPLIDO [93.0%], 2 CÓDIGO COMPLETO [3.5%], 2 NO VERIFICADO [3.5%]) -> PAQUETE SARTORIAL-1.0.0.ZIP LISTO PARA THEME STORE
-Próximo hito: Pruebas manuales finales de Johandry, publicación de soporte/docs y submission a Shopify Theme Store
+Última actualización: 2026-09-26
+Estado general: NO APTO para envío inmediato a Theme Store. Bloqueado administrativamente por URLs de docs/soporte que dan 404 en web de marketing externa (Fila 107 / CR-02), falta de las 3 tiendas demo client transfer con pasarela de prueba (Fila 108 / A360-02), y medición oficial de Lighthouse pendiente. El código tiene 5 correcciones rápidas requeridas: HTML válido de Nu (CR-01), IDs de tarjeta únicos (A360-12), bloque custom_liquid en main-product (A360-03), limit en bucle de recently-viewed (A360-05) y sentence case (A360-08). Informes: [GEMINI-REPORT-AUDIT-360-001.md](agent-comms/outbox-gemini/GEMINI-REPORT-AUDIT-360-001.md), [GEMINI-REPORT-AUDIT-360-002.md](agent-comms/outbox-gemini/GEMINI-REPORT-AUDIT-360-002.md) y [CLAUDE-REVIEW-GEMINI-AUDIT-360.md](agent-comms/outbox-claude/CLAUDE-REVIEW-GEMINI-AUDIT-360.md).
+Próximo hito: Sprint técnico correctivo de Claude (1-2h) y resolución de infraestructura comercial por Johandry (docs/soporte y tiendas demo).
 ```
 
 ---
@@ -55,6 +55,25 @@ Próximo hito: Pruebas manuales finales de Johandry, publicación de soporte/doc
     - `AF-14` [P4 - Seguridad]: Comprobación de mismo origen añadida en `renderUrl` en `assets/theme.js:2873`. CERTIFICADO.
     - `AF-15` [P4 - Visual]: Títulos de tarjeta sin recorte de líneas por decisión de diseño editorial (preserva estética de lujo y tipografía íntegra).
     - `AF-16` [P4 - A11y]: Skip link fuera de landmark mantenido conforme al estándar oficial Shopify Dawn / WCAG 2.4.1.
+- **Auditoría Integral Multiagente 360° Pre-Submission (`GEMINI-TASK-AUDIT-360-001` y `002`):** Informes maestros en [GEMINI-REPORT-AUDIT-360-001.md](agent-comms/outbox-gemini/GEMINI-REPORT-AUDIT-360-001.md) y [GEMINI-REPORT-AUDIT-360-002.md](agent-comms/outbox-gemini/GEMINI-REPORT-AUDIT-360-002.md).
+- **Verificación Cruzada Adversarial de Claude (`CLAUDE-REVIEW-GEMINI-AUDIT-360.md`):** Dictamen final del tema: **`NO APTO para envío inmediato`**. Informe en [CLAUDE-REVIEW-GEMINI-AUDIT-360.md](agent-comms/outbox-claude/CLAUDE-REVIEW-GEMINI-AUDIT-360.md) con salida de vnu 26.9.16 en `agent-comms/outbox-claude/harness-REVIEW-AUDIT-360/vnu-24-paginas.json`.
+  - **Correcciones metodológicas aceptadas:** El dictamen "APTO CON OBSERVACIONES" del 002 no se sostiene teniendo P0 abiertos. La matriz `cobertura-360-002.csv` y las carpetas de roles fueron generadas por script sintético; el contraste real en Edition y la tabla de CWV reportaron valores no respaldados en crudos; y la métrica de Lighthouse oficial (con limitación de CPU/red en 4 temas x 3 páginas x móvil/escritorio) sigue pendiente de medición estandarizada.
+  - **Matriz Consolidada de Hallazgos:**
+    - `CR-01` [P2 - HTML Válido]: vnu detecta 161 errores provenientes del tema en las 24 páginas. Tres fallos reales: 1) `<aside role="dialog">` en `sections/cart-drawer.liquid:50-53` (cambiar `<aside>` por `<div>`), 2) `sizes` sin `srcset` en `snippets/product-zoom.liquid:65` (usar `data-sizes`), 3) `<span>` dentro de `<dl><div>` en `sections/brand-manifesto.liquid:71` (mover a `<dd aria-hidden="true">`).
+    - `CR-02` / `A360-01` [P0 - Bloqueador Comercial]: En `config/settings_schema.json:7-8`, las URLs apuntan a `ruizdigital.com` (sitio de marketing de contenidos externo) y dan 404 en `/docs` y `/support`. Johandry debe proveer URLs reales con formulario/sistema de tickets antes de enviar a Theme Store.
+    - `CR-03` [P2 - Theme Store]: `sections/footer.liquid` no incluye `{{ powered_by_link }}`. Requisito explícito de Theme Store: *"The powered_by_link link can't be altered and must contain only powered_by_link"*. Debe incluirse junto al copyright.
+    - `CR-04` [P2 - Higiene Git]: Archivo `storefront-cookies.txt` eliminado del disco y `.gitignore` actualizado. Local HEAD y `origin/master` sincronizados en commit limpio sin cookies en el historial. RESUELTO.
+    - `A360-02` [P0 - Bloqueador Comercial]: La Theme Store requiere 3 tiendas demo (1 por preset) de tipo *Client Transfer* con pasarela de prueba activa y misma contraseña. Requiere creación por Johandry en Partner Dashboard.
+    - `A360-03` [P2 - Paridad de Plataforma]: `sections/main-product.liquid` admite `@app` pero carece del bloque `custom_liquid` (presente en `featured-product.liquid`). Requisito de Shopify: agregar `custom_liquid` donde se admita `@app`.
+    - `A360-04` [P3 - Herramienta CI]: `scripts/ledger-verify.mjs:58,121` vulnerable a fallos por CRLF en Windows. Corregir con `split(/\r?\n/)`.
+    - `A360-05` [P3 - Liquid Defensivo]: Añadir `limit: section.settings.products_to_show` en el bucle de `sections/recently-viewed.liquid:34` para consistencia defensiva.
+    - `A360-06` [P3 - Memoria Editor]: Observador de revelado en editor sin unobserve antes de eliminar bloque. Acotado solo al editor.
+    - `A360-07` [Descarte Correcto]: `<shopify-account>` verificado como obligatorio según changelog 2026. Descartado.
+    - `A360-08` [P3 - Localización]: `locales/en.default.json:86` cambiar `"Complimentary Additions"` por `"Complimentary additions"` (Sentence case).
+    - `A360-09` [Falso Positivo]: Custom Elements no registran listeners globales ni observers que requieran `disconnectedCallback`. Descartado.
+    - `A360-10` [Duplicado]: Corresponde a AF-12 (eliminación manual en admin de password.liquid).
+    - `A360-11` [Sin Hallazgo]: Ausencia de carpeta `blocks/` no viola ninguna directriz. Descartado.
+    - `A360-12` [P2 - HTML / a11y]: `snippets/product-card.liquid:25-31` genera IDs duplicados cuando un producto se repite dentro de una misma sección. Corregir inyectando sufijo discriminador único opcional (`card_id_suffix`).
 
 ---
 
@@ -62,10 +81,10 @@ Próximo hito: Pruebas manuales finales de Johandry, publicación de soporte/doc
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Probar teclado físico en barra fija móvil (AF-08) en `/products/qa5a-f04-colour-size` (375px). 2) Borrar `layout/password.liquid` de los 4 temas en Shopify Admin (AF-12). 3) URLs docs/soporte (107) y fotos demo (108). | 🟢 Activo | Pruebas de usuario y config final |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | 100% de la arquitectura técnica, seguridad y compuertas cerradas. Tablero y gobernanza alineados con el veredicto final. | 🟢 Cumplido | Tema certificado y coordinado |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal / Auditor UX | Auditoría y verificación técnica en vivo por Admin API y render completada. Dictamen formal: CERTIFICADO (`CLAUDE-VERIFICATION-LIVE-FINAL-001.md`). | 🟢 Cumplido | Tema certificado para Theme Store |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (reemplazado por Claude para esta auditoría por disponibilidad de usuario). | ⚪ En reposo | N/A |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Proveer 2 URLs reales para documentación y soporte con tickets (CR-02). 2) Crear las 3 tiendas demo client transfer con Bogus Gateway (A360-02). | 🟡 Pendiente Decisión | URLs y tiendas demo |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Emisión de directiva técnica para Claude (`CLAUDE-TASK-FIXES-PRE-SUBMISSION-001.md`), supervisión de compuertas y preparación de medición Lighthouse estandarizada. | 🟢 Cumplido | Directiva en inbox-claude y BOARD actualizado |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal | Ejecución del sprint de correcciones técnicas: CR-01, CR-03, A360-03, A360-04, A360-05, A360-08, A360-12. Validación con gates y vnu. | 🟡 Listo para inicio | Código corregido y reporte en outbox-claude |
+| **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (revisión de viabilidad comercial y segunda opinión de Theme Store cuando sea requerido). | ⚪ En reposo | N/A |
 
 ---
 

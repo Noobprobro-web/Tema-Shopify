@@ -1,0 +1,70 @@
+{
+  "exclusivity": {
+    "creditMatches": [
+      {
+        "file": "config\\settings_schema.json"
+      }
+    ]
+  },
+  "prohibitedFiles": {
+    "config/markets.json": false,
+    "templates/robots.txt.liquid": false,
+    "layout/password.liquid": false,
+    "scss_files": []
+  },
+  "themeInfo": {
+    "name": "theme_info",
+    "theme_name": "Sartorial",
+    "theme_author": "Ruiz Digital",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://ruizdigital.com/themes/sartorial/docs",
+    "theme_support_url": "https://ruizdigital.com/themes/sartorial/support"
+  },
+  "presets": {
+    "names": [
+      "Sartorial",
+      "Edition",
+      "Archive"
+    ],
+    "listingsFolders": [
+      "archive",
+      "edition",
+      "sartorial"
+    ]
+  },
+  "requiredTemplates": {
+    "layout/theme.liquid": true,
+    "templates/404.json": true,
+    "templates/article.json": true,
+    "templates/blog.json": true,
+    "templates/cart.json": true,
+    "templates/collection.json": true,
+    "templates/index.json": true,
+    "templates/list-collections.json": true,
+    "templates/page.json": true,
+    "templates/page.contact.json": true,
+    "templates/password.json": true,
+    "templates/product.json": true,
+    "templates/search.json": true,
+    "templates/gift_card.liquid": true,
+    "config/settings_data.json": true,
+    "config/settings_schema.json": true
+  },
+  "requiredFeatures": {
+    "sections/header-group.json": true,
+    "sections/footer-group.json": true
+  },
+  "customLiquid": {
+    "custom-liquid.liquid": true
+  },
+  "blocksApp": {
+    "main-product_app_block": true,
+    "main-product_custom_liquid_block": false,
+    "featured-product_app_block": true,
+    "featured-product_custom_liquid_block": true
+  },
+  "supportDocs": {
+    "docsHtml": true,
+    "supportHtml": true
+  }
+}

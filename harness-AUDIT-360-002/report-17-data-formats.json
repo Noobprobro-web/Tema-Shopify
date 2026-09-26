@@ -1,0 +1,148 @@
+{
+  "codebase_static_analysis": {
+    "liquid": [
+      {
+        "file": "snippets/price.liquid",
+        "usesMoney": true,
+        "usesMoneyWithCurrency": false,
+        "hasUnitPrice": true,
+        "hasCompareAt": true
+      }
+    ],
+    "js": []
+  },
+  "rendered_hostile_tests": {
+    "Couture": {
+      "qa-01-long-title": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-05-quoted-vendor": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-11-special-chars": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-13-expensive": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa5a-f04-colour-size": {
+        "status": 200,
+        "data": {
+          "titleText": "F04 Colour and Size Knit",
+          "titleHeight": 106,
+          "priceText": "Sale price\n$320.00\nRegular price\n$380.00\nSALE",
+          "vendorText": "LINEA NOVE",
+          "atcBounding": {
+            "top": 736,
+            "left": 858,
+            "visibleAboveFold": true
+          },
+          "horizontalOverflow": false
+        }
+      }
+    },
+    "Sartorial": {
+      "qa-01-long-title": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-05-quoted-vendor": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-11-special-chars": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-13-expensive": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa5a-f04-colour-size": {
+        "status": 200,
+        "data": {
+          "titleText": "F04 Colour and Size Knit",
+          "titleHeight": 106,
+          "priceText": "Sale price\n$320.00\nRegular price\n$380.00\nSALE",
+          "vendorText": "LINEA NOVE",
+          "atcBounding": {
+            "top": 736,
+            "left": 858,
+            "visibleAboveFold": true
+          },
+          "horizontalOverflow": false
+        }
+      }
+    },
+    "Edition": {
+      "qa-01-long-title": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-05-quoted-vendor": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-11-special-chars": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-13-expensive": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa5a-f04-colour-size": {
+        "status": 200,
+        "data": {
+          "titleText": "F04 Colour and Size Knit",
+          "titleHeight": 101,
+          "priceText": "Sale price\n$320.00\nRegular price\n$380.00\nSALE",
+          "vendorText": "LINEA NOVE",
+          "atcBounding": {
+            "top": 731,
+            "left": 858,
+            "visibleAboveFold": true
+          },
+          "horizontalOverflow": false
+        }
+      }
+    },
+    "Archive": {
+      "qa-01-long-title": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-05-quoted-vendor": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-11-special-chars": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa-13-expensive": {
+        "status": 404,
+        "note": "Handle not populated on live store"
+      },
+      "qa5a-f04-colour-size": {
+        "status": 200,
+        "data": {
+          "titleText": "F04 Colour and Size Knit",
+          "titleHeight": 111,
+          "priceText": "Sale price\n$320.00\nRegular price\n$380.00\nSALE",
+          "vendorText": "LINEA NOVE",
+          "atcBounding": {
+            "top": 741,
+            "left": 858,
+            "visibleAboveFold": true
+          },
+          "horizontalOverflow": false
+        }
+      }
+    }
+  }
+}

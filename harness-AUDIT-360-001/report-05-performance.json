@@ -1,0 +1,621 @@
+{
+  "Couture": {
+    "home": {
+      "mobile": {
+        "median_fcp_ms": 524,
+        "median_lcp_ms": 528,
+        "median_cls": 0,
+        "median_ttfb_ms": 204,
+        "runs_lcp": [
+          752,
+          496,
+          528
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 989537,
+          "css": 186432,
+          "img": 142016,
+          "font": 0
+        },
+        "image_audit": {
+          "loading": "eager",
+          "fetchpriority": "high",
+          "srcset": true,
+          "sizes": "100vw"
+        }
+      },
+      "desktop": {
+        "median_fcp_ms": 504,
+        "median_lcp_ms": 588,
+        "median_cls": 0.0493,
+        "median_ttfb_ms": 191,
+        "runs_lcp": [
+          856,
+          588,
+          572
+        ],
+        "runs_cls": [
+          0.0493,
+          0.0493,
+          0.0484
+        ],
+        "transfer_sizes_bytes": {
+          "js": 988481,
+          "css": 186432,
+          "img": 217702,
+          "font": 0
+        },
+        "image_audit": {
+          "loading": "eager",
+          "fetchpriority": "high",
+          "srcset": true,
+          "sizes": "100vw"
+        }
+      }
+    },
+    "collection": {
+      "mobile": {
+        "median_fcp_ms": 660,
+        "median_lcp_ms": 660,
+        "median_cls": 0,
+        "median_ttfb_ms": 329,
+        "runs_lcp": [
+          660,
+          676,
+          600
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 994546,
+          "css": 208577,
+          "img": 230756,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 632,
+        "median_lcp_ms": 1160,
+        "median_cls": 0.0014,
+        "median_ttfb_ms": 291,
+        "runs_lcp": [
+          1232,
+          1160,
+          1052
+        ],
+        "runs_cls": [
+          0.0012,
+          0.0014,
+          0.0014
+        ],
+        "transfer_sizes_bytes": {
+          "js": 988481,
+          "css": 186432,
+          "img": 327540,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    },
+    "product": {
+      "mobile": {
+        "median_fcp_ms": 684,
+        "median_lcp_ms": 768,
+        "median_cls": 0,
+        "median_ttfb_ms": 346,
+        "runs_lcp": [
+          768,
+          508,
+          1228
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 1073156,
+          "css": 186432,
+          "img": 125338,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 652,
+        "median_lcp_ms": 684,
+        "median_cls": 0.0024,
+        "median_ttfb_ms": 318,
+        "runs_lcp": [
+          688,
+          388,
+          684
+        ],
+        "runs_cls": [
+          0.0024,
+          0,
+          0.0025
+        ],
+        "transfer_sizes_bytes": {
+          "js": 1071954,
+          "css": 186432,
+          "img": 125338,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    }
+  },
+  "Sartorial": {
+    "home": {
+      "mobile": {
+        "median_fcp_ms": 620,
+        "median_lcp_ms": 692,
+        "median_cls": 0,
+        "median_ttfb_ms": 309,
+        "runs_lcp": [
+          692,
+          1340,
+          636
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 989537,
+          "css": 208577,
+          "img": 136668,
+          "font": 0
+        },
+        "image_audit": {
+          "loading": "eager",
+          "fetchpriority": "high",
+          "srcset": true,
+          "sizes": "100vw"
+        }
+      },
+      "desktop": {
+        "median_fcp_ms": 488,
+        "median_lcp_ms": 536,
+        "median_cls": 0.0493,
+        "median_ttfb_ms": 186,
+        "runs_lcp": [
+          536,
+          620,
+          492
+        ],
+        "runs_cls": [
+          0.0493,
+          0.0501,
+          0.0493
+        ],
+        "transfer_sizes_bytes": {
+          "js": 989537,
+          "css": 186432,
+          "img": 193704,
+          "font": 0
+        },
+        "image_audit": {
+          "loading": "eager",
+          "fetchpriority": "high",
+          "srcset": true,
+          "sizes": "100vw"
+        }
+      }
+    },
+    "collection": {
+      "mobile": {
+        "median_fcp_ms": 600,
+        "median_lcp_ms": 632,
+        "median_cls": 0,
+        "median_ttfb_ms": 312,
+        "runs_lcp": [
+          644,
+          632,
+          568
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 990738,
+          "css": 211082,
+          "img": 61524,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 576,
+        "median_lcp_ms": 1164,
+        "median_cls": 0.0014,
+        "median_ttfb_ms": 285,
+        "runs_lcp": [
+          1204,
+          1164,
+          1144
+        ],
+        "runs_cls": [
+          0.0014,
+          0.0012,
+          0.0014
+        ],
+        "transfer_sizes_bytes": {
+          "js": 990739,
+          "css": 188937,
+          "img": 105118,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    },
+    "product": {
+      "mobile": {
+        "median_fcp_ms": 540,
+        "median_lcp_ms": 576,
+        "median_cls": 0,
+        "median_ttfb_ms": 245,
+        "runs_lcp": [
+          632,
+          200,
+          576
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 1071617,
+          "css": 208577,
+          "img": 125338,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 528,
+        "median_lcp_ms": 572,
+        "median_cls": 0.0014,
+        "median_ttfb_ms": 256,
+        "runs_lcp": [
+          216,
+          572,
+          1716
+        ],
+        "runs_cls": [
+          0,
+          0.0014,
+          0.0025
+        ],
+        "transfer_sizes_bytes": {
+          "js": 0,
+          "css": 0,
+          "img": 0,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    }
+  },
+  "Edition": {
+    "home": {
+      "mobile": {
+        "median_fcp_ms": 652,
+        "median_lcp_ms": 664,
+        "median_cls": 0,
+        "median_ttfb_ms": 358,
+        "runs_lcp": [
+          2600,
+          492,
+          664
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 996016,
+          "css": 175765,
+          "img": 105324,
+          "font": 0
+        },
+        "image_audit": {
+          "loading": "eager",
+          "fetchpriority": "high",
+          "srcset": true,
+          "sizes": "(min-width: 62rem) 50vw, 100vw"
+        }
+      },
+      "desktop": {
+        "median_fcp_ms": 228,
+        "median_lcp_ms": 228,
+        "median_cls": 0,
+        "median_ttfb_ms": 40,
+        "runs_lcp": [
+          228,
+          220,
+          556
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0.017
+        ],
+        "transfer_sizes_bytes": {
+          "js": 0,
+          "css": 0,
+          "img": 0,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    },
+    "collection": {
+      "mobile": {
+        "median_fcp_ms": 620,
+        "median_lcp_ms": 620,
+        "median_cls": 0,
+        "median_ttfb_ms": 282,
+        "runs_lcp": [
+          652,
+          620,
+          520
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 990739,
+          "css": 175765,
+          "img": 183232,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 520,
+        "median_lcp_ms": 1120,
+        "median_cls": 0.0014,
+        "median_ttfb_ms": 193,
+        "runs_lcp": [
+          1224,
+          1120,
+          1088
+        ],
+        "runs_cls": [
+          0.0014,
+          0.0014,
+          0.0014
+        ],
+        "transfer_sizes_bytes": {
+          "js": 996013,
+          "css": 153620,
+          "img": 372426,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    },
+    "product": {
+      "mobile": {
+        "median_fcp_ms": 620,
+        "median_lcp_ms": 652,
+        "median_cls": 0,
+        "median_ttfb_ms": 278,
+        "runs_lcp": [
+          652,
+          1712,
+          640
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 1069359,
+          "css": 175765,
+          "img": 125338,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 572,
+        "median_lcp_ms": 608,
+        "median_cls": 0.0024,
+        "median_ttfb_ms": 279,
+        "runs_lcp": [
+          608,
+          928,
+          516
+        ],
+        "runs_cls": [
+          0.0024,
+          0.0024,
+          0.0022
+        ],
+        "transfer_sizes_bytes": {
+          "js": 1071617,
+          "css": 153620,
+          "img": 125338,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    }
+  },
+  "Archive": {
+    "home": {
+      "mobile": {
+        "median_fcp_ms": 588,
+        "median_lcp_ms": 604,
+        "median_cls": 0,
+        "median_ttfb_ms": 241,
+        "runs_lcp": [
+          640,
+          604,
+          480
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 989536,
+          "css": 208577,
+          "img": 136668,
+          "font": 0
+        },
+        "image_audit": {
+          "loading": "eager",
+          "fetchpriority": "high",
+          "srcset": true,
+          "sizes": "100vw"
+        }
+      },
+      "desktop": {
+        "median_fcp_ms": 500,
+        "median_lcp_ms": 568,
+        "median_cls": 0.0389,
+        "median_ttfb_ms": 178,
+        "runs_lcp": [
+          584,
+          192,
+          568
+        ],
+        "runs_cls": [
+          0.0417,
+          0,
+          0.0389
+        ],
+        "transfer_sizes_bytes": {
+          "js": 990739,
+          "css": 186432,
+          "img": 193704,
+          "font": 0
+        },
+        "image_audit": {
+          "loading": "eager",
+          "fetchpriority": "high",
+          "srcset": true,
+          "sizes": "100vw"
+        }
+      }
+    },
+    "collection": {
+      "mobile": {
+        "median_fcp_ms": 592,
+        "median_lcp_ms": 592,
+        "median_cls": 0,
+        "median_ttfb_ms": 282,
+        "runs_lcp": [
+          620,
+          592,
+          572
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 990739,
+          "css": 211082,
+          "img": 61524,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 536,
+        "median_lcp_ms": 1104,
+        "median_cls": 0.0014,
+        "median_ttfb_ms": 203,
+        "runs_lcp": [
+          1104,
+          1192,
+          1096
+        ],
+        "runs_cls": [
+          0.0014,
+          0.0014,
+          0.0014
+        ],
+        "transfer_sizes_bytes": {
+          "js": 988481,
+          "css": 188937,
+          "img": 105118,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    },
+    "product": {
+      "mobile": {
+        "median_fcp_ms": 536,
+        "median_lcp_ms": 608,
+        "median_cls": 0,
+        "median_ttfb_ms": 278,
+        "runs_lcp": [
+          620,
+          596,
+          608
+        ],
+        "runs_cls": [
+          0,
+          0,
+          0
+        ],
+        "transfer_sizes_bytes": {
+          "js": 1071617,
+          "css": 208577,
+          "img": 125338,
+          "font": 0
+        },
+        "image_audit": null
+      },
+      "desktop": {
+        "median_fcp_ms": 2188,
+        "median_lcp_ms": 2236,
+        "median_cls": 0.0024,
+        "median_ttfb_ms": 181,
+        "runs_lcp": [
+          2236,
+          2236,
+          1412
+        ],
+        "runs_cls": [
+          0.0015,
+          0.0025,
+          0.0024
+        ],
+        "transfer_sizes_bytes": {
+          "js": 1070414,
+          "css": 186432,
+          "img": 125338,
+          "font": 0
+        },
+        "image_audit": null
+      }
+    }
+  }
+}

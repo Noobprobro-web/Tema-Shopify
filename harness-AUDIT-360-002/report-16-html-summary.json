@@ -1,0 +1,1502 @@
+{
+  "Couture": {
+    "404": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Couture_404.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 65,
+        "errors_count": 54,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 175,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 419,
+            "lastColumn": 146,
+            "firstColumn": 9,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "}\n</style><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 419,
+            "lastColumn": 278,
+            "firstColumn": 147,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "home": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Couture_home.html",
+      "duplicate_ids_count": 1,
+      "duplicate_ids": [
+        {
+          "id": "CardTitle-template--23525537874163__curated_showcase-10146342568179",
+          "count": 2,
+          "elements": [
+            "H3",
+            "H3.product-card__title"
+          ]
+        }
+      ],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 39,
+        "errors_count": 21,
+        "warnings_count": 18,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 178,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 448,
+            "lastColumn": 229,
+            "firstColumn": 92,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 448,
+            "lastColumn": 361,
+            "firstColumn": 230,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "collection": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "product": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "cart": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Couture_cart.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 52,
+        "errors_count": 41,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 178,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 422,
+            "lastColumn": 146,
+            "firstColumn": 9,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "}\n</style><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 422,
+            "lastColumn": 278,
+            "firstColumn": 147,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "search": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    }
+  },
+  "Sartorial": {
+    "404": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Sartorial_404.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 62,
+        "errors_count": 51,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 175,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 419,
+            "lastColumn": 146,
+            "firstColumn": 9,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "}\n</style><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 419,
+            "lastColumn": 278,
+            "firstColumn": 147,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "home": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Sartorial_home.html",
+      "duplicate_ids_count": 2,
+      "duplicate_ids": [
+        {
+          "id": "CardTitle-template--23645608116467__collections-10146342109427",
+          "count": 3,
+          "elements": [
+            "H3",
+            "H3.product-card__title",
+            "H3.product-card__title"
+          ]
+        },
+        {
+          "id": "CardTitle-template--23645608116467__collections-10146342568179",
+          "count": 3,
+          "elements": [
+            "H3",
+            "H3.product-card__title",
+            "H3.product-card__title"
+          ]
+        }
+      ],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 41,
+        "errors_count": 24,
+        "warnings_count": 17,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 178,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 422,
+            "lastColumn": 228,
+            "firstColumn": 91,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><style",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 448,
+            "lastColumn": 141,
+            "firstColumn": 10,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "\n}</style><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "collection": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "product": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "cart": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Sartorial_cart.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 48,
+        "errors_count": 37,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 178,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 422,
+            "lastColumn": 146,
+            "firstColumn": 9,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "}\n</style><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 422,
+            "lastColumn": 278,
+            "firstColumn": 147,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "search": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    }
+  },
+  "Edition": {
+    "404": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Edition_404.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 45,
+        "errors_count": 34,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 140,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 167,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 405,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 405,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 405,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 405,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 405,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 405,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 411,
+            "lastColumn": 228,
+            "firstColumn": 91,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 411,
+            "lastColumn": 360,
+            "firstColumn": 229,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "home": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Edition_home.html",
+      "duplicate_ids_count": 2,
+      "duplicate_ids": [
+        {
+          "id": "CardTitle-template--23645622763763__collections-10146342109427",
+          "count": 3,
+          "elements": [
+            "H3",
+            "H3.product-card__title",
+            "H3.product-card__title"
+          ]
+        },
+        {
+          "id": "CardTitle-template--23645622763763__collections-10146342568179",
+          "count": 3,
+          "elements": [
+            "H3",
+            "H3.product-card__title",
+            "H3.product-card__title"
+          ]
+        }
+      ],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 38,
+        "errors_count": 21,
+        "warnings_count": 17,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 140,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 170,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 440,
+            "lastColumn": 229,
+            "firstColumn": 92,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 440,
+            "lastColumn": 361,
+            "firstColumn": 230,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"></head",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "collection": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "product": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "cart": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Edition_cart.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 41,
+        "errors_count": 30,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 140,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 170,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 1958,
+            "firstColumn": 1821,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 408,
+            "lastColumn": 2090,
+            "firstColumn": 1959,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "search": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    }
+  },
+  "Archive": {
+    "404": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Archive_404.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 59,
+        "errors_count": 48,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 175,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 413,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 419,
+            "lastColumn": 146,
+            "firstColumn": 9,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "}\n</style><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 419,
+            "lastColumn": 278,
+            "firstColumn": 147,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "home": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Archive_home.html",
+      "duplicate_ids_count": 2,
+      "duplicate_ids": [
+        {
+          "id": "CardTitle-template--23645637050611__collections-10146342109427",
+          "count": 2,
+          "elements": [
+            "H3",
+            "H3.product-card__title"
+          ]
+        },
+        {
+          "id": "CardTitle-template--23645637050611__collections-10146342568179",
+          "count": 2,
+          "elements": [
+            "H3",
+            "H3.product-card__title"
+          ]
+        }
+      ],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 38,
+        "errors_count": 23,
+        "warnings_count": 15,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 178,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 448,
+            "lastColumn": 229,
+            "firstColumn": 92,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 448,
+            "lastColumn": 361,
+            "firstColumn": 230,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "collection": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "product": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    "cart": {
+      "raw_html": "harness-AUDIT-360-002/html-validation/Archive_cart.html",
+      "duplicate_ids_count": 0,
+      "duplicate_ids": [],
+      "broken_aria_count": 0,
+      "broken_aria": [],
+      "nesting_issues_count": 0,
+      "nesting_issues": [],
+      "nu_validator": {
+        "total_messages": 47,
+        "errors_count": 36,
+        "warnings_count": 11,
+        "errors": [
+          {
+            "type": "error",
+            "lastLine": 148,
+            "lastColumn": 61,
+            "firstColumn": 1,
+            "message": "Attribute “version” not allowed on element “link” at this point.",
+            "extract": "/dialog\">\n<link rel=\"ucp\" href=\"/.well-known/ucp\" version=\"2026-08-25\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 61
+          },
+          {
+            "type": "error",
+            "lastLine": 178,
+            "lastColumn": 144,
+            "firstColumn": 1,
+            "message": "A “script” element with “type=module” must not have a “defer” attribute.",
+            "extract": "</script>\n<script defer=\"defer\" async=\"\" type=\"module\" src=\"https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js\"></scri",
+            "hiliteStart": 10,
+            "hiliteLength": 144
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 287,
+            "firstColumn": 1,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "tent=\"t\">\n<meta http-equiv=\"origin-trial\" content=\"A1duO9QWZ/3h+eq5jQsvYqOTVq5h5q2AoGInpwNr4FT22/JUt3BxFERXHAo5iKhs6doOavi6G5hno0oBANPzSgIAAABxeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJlcmVuZGVyVW50aWxTY3JpcHQiLCJleHBpcnkiOjE3ODg4MjU2MDAsImlzVGhpcmRQYXJ0eSI6dHJ1ZX0=\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 287
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 590,
+            "firstColumn": 288,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "dHJ1ZX0=\"><meta http-equiv=\"origin-trial\" content=\"AwnTE1hYg9Bsa5x0wEDsbG6tOdZ3j6ebKzXxbr/2TnTilsCRK9FwndlhAyFVnnBH1qQAqpOPJxVWiKGUqBnOmAYAAAB8eyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiTG9uZ0FuaW1hdGlvbkZyYW1lU3R5bGVEdXJhdGlvbiIsImV4cGlyeSI6MTc5MTI0NDgwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 303
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 857,
+            "firstColumn": 591,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"A1cNj7yeFpBT/ETqZHRgUfM9tToLwOpBySTd4C9Eya3JtQo/BEQegM6MMV7BZESSyAjQJJXYgH/ovHY1UHmB8woAAABjeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1RoaXJkUGFydHkiOnRydWV9\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 267
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1148,
+            "firstColumn": 858,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "OnRydWV9\"><meta http-equiv=\"origin-trial\" content=\"A1XQljJxk3U4c44gueu4vlIeDofyyWFswfVKbUiNw4itZx4Yy8Uw3nIhtzBePIrv1bSXqzHGDfYymYF5W7TKKAoAAABzeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25NZWFzdXJlbWVudCIsImV4cGlyeSI6MTc5MzY2NDAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><meta ",
+            "hiliteStart": 10,
+            "hiliteLength": 291
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1475,
+            "firstColumn": 1149,
+            "message": "Bad value “origin-trial” for attribute “http-equiv” on element “meta”.",
+            "extract": "cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Ax9yX6wXQN8G5IFmAMuROwlLDFBpw1CUnFgsIGNYqJJ4H6td1fqjIYkL02d7HpmOAFMFSi3/1kym00LEfYqOdwYAAACOeyJvcmlnaW4iOiJodHRwczovL2Nkbi5zaG9waWZ5LmNvbTo0NDMiLCJmZWF0dXJlIjoiU3BlY3VsYXRpb25SdWxlc01vZGVyYXRlVmlld3BvcnRIZXVyaXN0aWNzQ29udHJvbCIsImV4cGlyeSI6MTc5NjY4ODAwMCwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==\"><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 327
+          },
+          {
+            "type": "error",
+            "lastLine": 416,
+            "lastColumn": 1518,
+            "firstColumn": 1510,
+            "message": "A “script” element with a “type” attribute whose value is “speculationrules” must contain a JSON object with at least one of the properties “prefetch” or “prerender”.",
+            "extract": "nrules\">{}</script><scrip",
+            "hiliteStart": 10,
+            "hiliteLength": 9
+          },
+          {
+            "type": "error",
+            "lastLine": 422,
+            "lastColumn": 146,
+            "firstColumn": 9,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "}\n</style><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 138
+          },
+          {
+            "type": "error",
+            "lastLine": 422,
+            "lastColumn": 278,
+            "firstColumn": 147,
+            "message": "A “link” element with an “as” attribute must have a “rel” attribute that contains the value “preload” or the value “modulepreload”.",
+            "extract": "origin=\"\"><link rel=\"prefetch\" fetchpriority=\"low\" as=\"script\" href=\"/cdn/shopifycloud/checkout-web/assets/c1/app.DbSrjjlA.js\" crossorigin=\"\"><link ",
+            "hiliteStart": 10,
+            "hiliteLength": 132
+          }
+        ]
+      }
+    },
+    "search": {
+      "error": "page.evaluate: TypeError: el.id.trim is not a function\n    at eval (eval at evaluate (:311:30), <anonymous>:5:30)\n    at NodeList.forEach (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:4:45)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    }
+  }
+}

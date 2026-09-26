@@ -1,0 +1,125 @@
+{
+  "non_t_labels": [],
+  "non_t_info": [],
+  "non_t_presets": [],
+  "title_case_labels_en": [
+    {
+      "key": "sections.cart.error",
+      "value": "We could not update your cart. Please try again.",
+      "words": [
+        "Please"
+      ]
+    },
+    {
+      "key": "sections.cart.complimentary_additions",
+      "value": "Complimentary Additions",
+      "words": [
+        "Additions"
+      ]
+    },
+    {
+      "key": "sections.complete_the_look.error",
+      "value": "We could not add this look. Review the selected options and try again.",
+      "words": [
+        "Review"
+      ]
+    }
+  ],
+  "forbidden_internal_terms": [
+    {
+      "file": "sections/bento-discovery.liquid",
+      "path": "sections/bento-discovery.liquid.blocks[0].settings[5]",
+      "field": "label",
+      "term": "bento",
+      "value": "t:sections.bento_discovery.blocks.card_featured.settings.link.label"
+    },
+    {
+      "file": "sections/bento-discovery.liquid",
+      "path": "sections/bento-discovery.liquid.blocks[1].settings[0]",
+      "field": "label",
+      "term": "bento",
+      "value": "t:sections.bento_discovery.blocks.card_editorial.settings.image.label"
+    },
+    {
+      "file": "sections/lookbook.liquid",
+      "path": "sections/lookbook.liquid.blocks[0].settings[5]",
+      "field": "label",
+      "term": "popover",
+      "value": "t:sections.lookbook.blocks.hotspot.settings.popover_position.label"
+    },
+    {
+      "file": "sections/lookbook.liquid",
+      "path": "sections/lookbook.liquid.blocks[0].settings[5]",
+      "field": "info",
+      "term": "popover",
+      "value": "t:sections.lookbook.blocks.hotspot.settings.popover_position.info"
+    },
+    {
+      "file": "sections/lookbook.liquid",
+      "path": "sections/lookbook.liquid.blocks[0].settings[5].options[0]",
+      "field": "label",
+      "term": "popover",
+      "value": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__1.label"
+    },
+    {
+      "file": "sections/lookbook.liquid",
+      "path": "sections/lookbook.liquid.blocks[0].settings[5].options[1]",
+      "field": "label",
+      "term": "popover",
+      "value": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__2.label"
+    },
+    {
+      "file": "sections/lookbook.liquid",
+      "path": "sections/lookbook.liquid.blocks[0].settings[5].options[2]",
+      "field": "label",
+      "term": "popover",
+      "value": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__3.label"
+    },
+    {
+      "file": "sections/lookbook.liquid",
+      "path": "sections/lookbook.liquid.blocks[0].settings[5].options[3]",
+      "field": "label",
+      "term": "popover",
+      "value": "t:sections.lookbook.blocks.hotspot.settings.popover_position.options__4.label"
+    },
+    {
+      "file": "sections/product-recommendations.liquid",
+      "path": "sections/product-recommendations.liquid.settings[1]",
+      "field": "label",
+      "term": "intent",
+      "value": "t:sections.product_recommendations.settings.intent.label"
+    },
+    {
+      "file": "sections/product-recommendations.liquid",
+      "path": "sections/product-recommendations.liquid.settings[1]",
+      "field": "info",
+      "term": "intent",
+      "value": "t:sections.product_recommendations.settings.intent.info"
+    },
+    {
+      "file": "sections/product-recommendations.liquid",
+      "path": "sections/product-recommendations.liquid.settings[1].options[0]",
+      "field": "label",
+      "term": "intent",
+      "value": "t:sections.product_recommendations.settings.intent.options__1.label"
+    },
+    {
+      "file": "sections/product-recommendations.liquid",
+      "path": "sections/product-recommendations.liquid.settings[1].options[1]",
+      "field": "label",
+      "term": "intent",
+      "value": "t:sections.product_recommendations.settings.intent.options__2.label"
+    }
+  ],
+  "locale_parity": {
+    "missing_in_es": [],
+    "missing_in_en": [],
+    "empty_values_en": [],
+    "empty_values_es": []
+  },
+  "presets_in_settings_data": [
+    "Sartorial",
+    "Edition",
+    "Archive"
+  ]
+}
