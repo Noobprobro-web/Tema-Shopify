@@ -74,12 +74,18 @@ Próximo hito: Sprint técnico correctivo de Claude (1-2h) y resolución de infr
     - `A360-10` [Duplicado]: Corresponde a AF-12 (eliminación manual en admin de password.liquid).
     - `A360-11` [Sin Hallazgo]: Ausencia de carpeta `blocks/` no viola ninguna directriz. Descartado.
     - `A360-12` [P2 - HTML / a11y]: `snippets/product-card.liquid:25-31` genera IDs duplicados cuando un producto se repite dentro de una misma sección. Corregido inyectando sufijo discriminador único opcional (`card_id_suffix`). RESUELTO.
-- **Sprint de Corrección Técnica Pre-Submission (`CLAUDE-REPORT-FIXES-PRE-SUBMISSION-001.md`):**
-  - **Commit:** `ee45f7f` (`fix(theme): apply pre-submission fixes CR-01, CR-03, A360-03 to A360-12 and achieve 0 theme HTML errors`).
-  - **Correcciones implementadas:** CR-01 (panel cart-drawer `<div>`, `data-sizes` en zoom, `<dd>` en manifiesto), CR-03 (`powered_by_link` en footer con área táctil 24px), A360-03 (bloque `custom_liquid` en `main-product`), A360-04 (CRLF en `ledger-verify.mjs`), A360-05 (`limit:` en `recently-viewed`), A360-08 (`locales/en.default.json:86` en sentence case), A360-12 (`card_id_suffix` en tarjetas de producto repetidas).
-  - **Ajustes de validez Nu (0 errores del tema):** D-1 (cabecera sticky migrada de `{% style %}` a `assets/base.css`) y D-2 (input de búsqueda predictiva a `type="text"` con `inputmode="search"`). Los 161 errores Nu HTML del tema bajaron a **0**.
-  - **Despliegue Remoto:** Los 15 archivos de tema desplegados exitosamente con `--nodelete` a los 4 temas remotos: Couture (#165809488115 con `--allow-live`), Sartorial (#166186909939), Edition (#166186942707) y Archive (#166187041011).
-  - **Compuertas:** `npm run gates:static` verificado en verde (`exit 0`, Theme Check 351 archivos con 0 ofensas, locales 0 huérfanas, ledger 53/2/2/0). Paquete de producción `Sartorial-1.0.0.zip` (296 KB) regenerado y sincronizado.
+    - `NF-01` [P2 - HTML Válido]: `<article role="listitem">` en items del carrito cambiado a `<div role="listitem">` en `sections/cart-drawer.liquid:141,287` y `sections/main-cart-items.liquid:31,169` (ARIA in HTML prohíbe `listitem` en `article`). Commit `c6a82b5` aplicado y desplegado a los 4 temas. 0 errores HTML tanto con carrito vacío como con carrito lleno. RESUELTO.
+- **Sprint de Corrección Técnica Pre-Submission (`CLAUDE-REPORT-FIXES-PRE-SUBMISSION-001.md` y `CLAUDE-VERIFICATION-LIVE-FIXES-PRE-SUBMISSION-001.md`):**
+  - **Commits:** `ee45f7f` (7 fixes principales) y `c6a82b5` (NF-01).
+  - **Verificación en Vivo en Storefront:** Certificada por Claude en los 4 temas remotos (`CLAUDE-VERIFICATION-LIVE-FIXES-PRE-SUBMISSION-001.md`). Dictamen **VERIFICADO**:
+    1. Checksums MD5 coincidentes al 100% en los 4 temas remotos.
+    2. Cabecera sticky verificada en top 0 a 1280px y 375px tras `scrollTo(2500)`. Cero `<style>` en el body.
+    3. Zoom: `sizes` asignado antes de `srcset` y cálculo ampliado a px verificado.
+    4. Búsqueda predictiva: 4 pulsaciones -> 1 petición AJAX con 8 opciones, teclado completo y HTML válido.
+    5. Footer: `{{ powered_by_link }}` con `rel="nofollow"`, altura táctil de 24px, en fila legal junto al copyright y contraste de 10.46:1 a 18.09:1.
+    6. Manifiesto: índice `<dd>` con tamaño y `line-height` idénticos a la versión previa.
+    7. Validador W3C / Nu HTML sobre 28 páginas servidas reales: **0 errores originados por el tema** (tanto en estado vacío como con carrito lleno tras NF-01).
+  - **Compuertas:** `npm run gates:static` verificado en verde (**exit 0**, Theme Check 351 archivos con 0 ofensas, locales 0 huérfanas, ledger 53/2/2/0). Paquete de producción `Sartorial-1.0.0.zip` (296 KB) sincronizado.
 
 ---
 
@@ -88,8 +94,8 @@ Próximo hito: Sprint técnico correctivo de Claude (1-2h) y resolución de infr
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Proveer 2 URLs reales para documentación y soporte con tickets (CR-02). 2) Crear las 3 tiendas demo client transfer con Bogus Gateway (A360-02). | 🟡 Pendiente Decisión | URLs y tiendas demo |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Despliegue completado a los 4 temas remotos. Coordinación de verificación en vivo con Claude y preparación de suite Lighthouse. | 🟢 Cumplido | Despliegue y BOARD actualizado |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal | Verificación en vivo en storefront de los 6 puntos de §3: sticky header, zoom, búsqueda, powered by Shopify en 4 temas, manifiesto y Nu HTML en vivo. | 🟡 Listo para verificar | Informe en outbox-claude |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | NF-01 parcheado y desplegado a los 4 temas remotos. Tablero actualizado. Preparación de suite Lighthouse. | 🟢 Cumplido | Código desplegado y BOARD actualizado |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal | Verificación en vivo completada exitosamente. Standby para ajustes finales o suite Lighthouse. | 🟢 Cumplido | Reporte entregado y validado |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (revisión de viabilidad comercial y segunda opinión de Theme Store cuando sea requerido). | ⚪ En reposo | N/A |
 
 ---
