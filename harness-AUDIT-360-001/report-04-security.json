@@ -1,0 +1,158 @@
+{
+  "raw_filter_usage": [],
+  "unescaped_search_terms": [],
+  "unescaped_cart_note_properties": [
+    {
+      "file": "sections/cart-drawer.liquid",
+      "line": 457,
+      "type": "cart.note",
+      "code": "<label for=\"CartDrawerNote\">{{ 'sections.cart.note' | t }}</label>"
+    },
+    {
+      "file": "sections/main-cart-items.liquid",
+      "line": 176,
+      "type": "cart.note",
+      "code": "<label for=\"CartNote\">{{ 'sections.cart.note' | t }}</label>"
+    }
+  ],
+  "unescaped_metafields": [],
+  "inline_event_handlers": [
+    {
+      "file": "layout/theme.liquid",
+      "line": 33,
+      "match": " onload=\"this.media='",
+      "code": "onload=\"this.media='all'\""
+    },
+    {
+      "file": "sections/featured-product.liquid",
+      "line": 514,
+      "match": " onload=\"this.media='",
+      "code": "onload=\"this.media='all'\""
+    }
+  ],
+  "script_tag_json_raw": [],
+  "external_urls_dependencies": [],
+  "open_redirect_patterns": [
+    {
+      "file": "assets/theme.js",
+      "line": 1908,
+      "code": "const url = new URL(this.dataset.productUrl, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2227,
+      "code": "const linkUrl = new URL(link.href, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2228,
+      "code": "const cartUrl = new URL(this.dataset.cartUrl, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2379,
+      "code": "formData.set('sections_url', `${window.location.pathname}${window.location.search}`);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2452,
+      "code": "const url = new URL(link.getAttribute('href'), window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2479,
+      "code": "sections_url: `${window.location.pathname}${window.location.search}`,"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2526,
+      "code": "sections_url: `${window.location.pathname}${window.location.search}`,"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2587,
+      "code": "const url = new URL(this.dataset.cartUrl, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2639,
+      "code": "const url = new URL(this.dataset.cartUrl, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2716,
+      "code": "const linkUrl = new URL(link.href, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2717,
+      "code": "const cartUrl = new URL(this.dataset.cartUrl, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2848,
+      "code": "this.listen(window, 'popstate', () => this.renderUrl(window.location.href, false));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2858,
+      "code": "const url = new URL(form.action, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2872,
+      "code": "const navigationUrl = new URL(urlValue, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2874,
+      "code": "if (navigationUrl.origin !== window.location.origin) return;"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2909,
+      "code": "window.location.assign(navigationUrl);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3301,
+      "code": "requestBody.sections_url = `${window.location.pathname}${window.location.search}`;"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3332,
+      "code": "window.location.assign(this.dataset.cartUrl);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3339,
+      "code": "window.location.assign(this.dataset.cartUrl);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4145,
+      "code": "const endpoint = new URL(this.dataset.predictiveSearchUrl, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4264,
+      "code": "const url = new URL(imageUrl, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4340,
+      "code": "const resultUrl = new URL(url, window.location.origin);"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4341,
+      "code": "link.href = resultUrl.origin === window.location.origin ? resultUrl.href : this.dataset.searchUrl;"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4349,
+      "code": "const url = new URL(this.dataset.searchUrl, window.location.origin);"
+    }
+  ],
+  "sensitive_data_exposure": []
+}

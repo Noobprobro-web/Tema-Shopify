@@ -1,0 +1,64 @@
+{
+  "theme_id": 165809488115,
+  "features": {
+    "homepage": {
+      "title": "LINEA NOVE",
+      "has_header": true,
+      "has_footer": true,
+      "has_cart_drawer": true
+    },
+    "pdp_f04": {
+      "has_add_to_cart_form": true,
+      "variant_selectors_count": 2,
+      "price_text": "Sale price\n$320.00\nRegular price\n$380.00\nSALE",
+      "has_unit_price": true,
+      "has_installments": false,
+      "has_pickup_availability": true,
+      "has_recipient_form": false,
+      "btn_text": "ADD TO CART",
+      "btn_disabled": false
+    },
+    "pdp_sold_out": {
+      "btn_text": "SOLD OUT",
+      "btn_disabled": true,
+      "badges": [
+        "Sale",
+        "SOLD OUT"
+      ]
+    },
+    "pdp_subscription": {
+      "has_selling_plan_container": false,
+      "selling_plan_inputs_count": 0
+    },
+    "gift_card": {
+      "exists": false,
+      "status": 404
+    },
+    "cart_page": {
+      "has_cart_container": true,
+      "empty_state_visible": true,
+      "has_checkout_btn": false
+    },
+    "search_page": {
+      "has_results_container": false,
+      "has_filters": true,
+      "has_sort_by": true
+    },
+    "blog": {
+      "status": 200
+    },
+    "page_404": {
+      "status": 404,
+      "has_home_link": true
+    },
+    "customer_login": {
+      "status": 200,
+      "has_customer_login_form": false,
+      "has_recover_password_form": false
+    },
+    "localization": {
+      "localization_forms_count": 2,
+      "selects_count": 2
+    }
+  }
+}

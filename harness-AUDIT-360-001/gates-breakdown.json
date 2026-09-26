@@ -1,0 +1,34 @@
+{
+  "npm run gates:json": {
+    "status": "PASS",
+    "output": "> shopify-theme-project@0.1.0 gates:json\n> node scripts/json-validate.mjs\n\n----------------------------------------------------------------------\nJSON VALIDATE\n----------------------------------------------------------------------\nArchivos .json comprobados: 97\n  de ellos en /listings/:    9  <- fuera del alcance de Theme Check\nFallos de parseo:           0\n\nALCANCE: comprueba que el JSON parsee. No comprueba que el schema\nsea semanticamente valido para Shopify: eso lo cubre Theme Check\nen las carpetas de tema, y nadie en /listings/."
+  },
+  "npm run gates:hooks": {
+    "status": "PASS",
+    "output": "> shopify-theme-project@0.1.0 gates:hooks\n> node scripts/dataset-hooks.mjs\n\n--------------------------------------------------------------------------\nDATASET HOOKS  (contrato JS <-> Liquid, por componente)\n--------------------------------------------------------------------------\nJS leido:                           assets/product-zoom.js, assets/theme.js\nComponentes con data-* de contrato: 22\nExentas por escritura en runtime:   cartAddPending, cartCountLabel, comparePrice, currentPrice, dirty, gridColumns, itemCount, pending, quickBuyMode, reducedMotion, revealReady, sourcesLoaded, stockState, variantId, wasDisabled\n  <theme-disclosure>            1 claves  2 montaje(s)\n  <product-gallery>             1 claves  1 montaje(s)\n  <variant-selects>            11 claves  2 montaje(s)\n  <product-inventory>           4 claves  1 montaje(s)\n  <recently-viewed>             7 claves  1 montaje(s)\n  <sticky-cart-bar>             5 claves  1 montaje(s)\n  <size-guide-modal>            1 claves  1 montaje(s)\n  <gift-card-recipient>         3 claves  1 montaje(s)\n  <pickup-availability>         3 claves  1 montaje(s)\n  <product-recommendations>     1 claves  1 montaje(s)\n  <product-card-variants>       5 claves  1 montaje(s)\n  <cart-drawer>                 7 claves  1 montaje(s)\n  <facet-filters-form>          2 claves  2 montaje(s)\n  <editorial-hero>              1 claves  1 montaje(s)\n  <complete-the-look>          10 claves  1 montaje(s)\n  <marquee-banner>              2 claves  1 montaje(s)\n  <announcement-bar>            2 claves  1 montaje(s)\n  <anchor-nav>                  3 claves  2 montaje(s)\n  <copy-text>                   2 claves  1 montaje(s)\n  <faq-filter>                  1 claves  1 montaje(s)\n  <predictive-search>          16 claves  1 montaje(s)\n  <product-zoom>                1 claves  1 montaje(s)\n\nContratos rotos: 0\n\nALCANCE: comprueba que el Liquid que monta el componente emita el atributo.\nNo comprueba que esté dentro de la etiqueta de apertura ni que su valor\nsea válido en runtime."
+  },
+  "npm run gates:sanity": {
+    "status": "PASS",
+    "output": "> shopify-theme-project@0.1.0 gates:sanity\n> node scripts/theme-check-sanity.mjs\n\n[theme-check-sanity] sandbox en .tmp\\theme-check-sanity-33812 con 7 carpetas de tema\n[theme-check-sanity] detectado LiquidHTMLSyntaxError (etiqueta Liquid sin cerrar) en sections/main-page.liquid\n[theme-check-sanity] detectado TranslationKeyExists (clave de traduccion inexistente) en sections/main-blog.liquid\n[theme-check-sanity] detectado ValidSchemaTranslations (clave t: de schema inexistente) en sections/main-placeholder.liquid\n\n[theme-check-sanity] OK. Las 3 clases se detectaron por separado y el sandbox restaurado volvio a 0 ofensas.\n[theme-check-sanity] ALCANCE DE ESTA PRUEBA: demuestra que esos tres checks estan activos y que disparan sobre archivos de tema. No demuestra cobertura exhaustiva de todas las referencias de traduccion. Para eso corre scripts/locale-key-inventory.mjs."
+  },
+  "npm run gates:locales": {
+    "status": "PASS",
+    "output": "> shopify-theme-project@0.1.0 gates:locales\n> node scripts/locale-key-inventory.mjs\n\n--------------------------------------------------------------------------\nINVENTARIO DE CLAVES DE TRADUCCION\n--------------------------------------------------------------------------\nArchivos escaneados:            83 (incluye /listings, fuera de Theme Check)\nReferencias estaticas | t:      396 claves distintas\nReferencias de schema t::       452 claves distintas\nClaves en en.default.json:        406 hojas\nClaves en en.default.schema.json: 452 hojas\n\nSin resolver en storefront:     0\nSin resolver en schema:         0\nConstruidas en runtime:         0  <- no verificables por ningun linter\nHuerfanas en storefront:        0\nHuerfanas en schema:            0\n\n--------------------------------------------------------------------------\nOK: todas las referencias estaticas resuelven contra los locales."
+  },
+  "npm run gates:ledger": {
+    "status": "FAIL",
+    "output": "> shopify-theme-project@0.1.0 gates:ledger\n> node scripts/ledger-verify.mjs\n\n----------------------------------------------------------------------\nLEDGER VERIFY\n----------------------------------------------------------------------\nFilas de requisito: 57\n   53  cumplido\n    2  código completo\n    2  no verificado\n    0  ausente\n\nIncoherencias: 1 { 'aritmética': 1 }\n  [aritmética] línea 4: el encabezado dice \"CONTEO CALCULADO: 57 filas | 53 cumplido | 2 código completo | 2 no verificado | 0 ausente\r\" y la tabla dice \"CONTEO CALCULADO: 57 filas | 53 cumplido | 2 código completo | 2 no verificado | 0 ausente\"\n\n----------------------------------------------------------------------\nALCANCE: esta compuerta comprueba vocabulario, estructura, aritmética y\nlocalizadores. NO comprueba que una evidencia pruebe su requisito, y\nnunca marca una fila como cumplida. Eso sigue siendo juicio humano."
+  },
+  "npm run gates:theme-check": {
+    "status": "PASS",
+    "output": "> shopify-theme-project@0.1.0 gates:theme-check\n> shopify theme check"
+  },
+  "npm run gates:syntax": {
+    "status": "PASS",
+    "output": "> shopify-theme-project@0.1.0 gates:syntax\n> node --check assets/theme.js && node --check assets/product-zoom.js"
+  },
+  "npm run gates:package": {
+    "status": "PASS",
+    "output": "> shopify-theme-project@0.1.0 gates:package\n> shopify theme package\n\n\nchanged 49 packages in 13s\n\n23 packages are looking for funding\n  run `npm fund` for details"
+  }
+}

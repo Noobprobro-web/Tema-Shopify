@@ -1,0 +1,329 @@
+{
+  "sectionEvents": [
+    {
+      "file": "assets/theme.js",
+      "line": 190,
+      "code": "this.listen(this, 'shopify:block:select', () => this.setOpen(true));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 191,
+      "code": "this.listen(this, 'shopify:block:deselect', () => this.setOpen(false));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3045,
+      "code": "this.listen(this, 'shopify:block:select', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3408,
+      "code": "this.listen(this, 'shopify:block:select', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3585,
+      "code": "this.listen(this, 'shopify:block:select', (event) => {"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4683,
+      "code": "document.addEventListener('shopify:section:load', (event) => register(event.target));"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4734,
+      "code": "document.addEventListener('shopify:section:load', (event) => {"
+    }
+  ],
+  "fetchCalls": [
+    {
+      "file": "assets/theme.js",
+      "line": 147,
+      "code": "const fetchCommerce = (url, options, errorMessage) => fetch(url, options).catch((error) => {",
+      "hasCatch": true,
+      "hasSignal": true
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1106,
+      "code": "const response = await fetch(`${this.dataset.searchUrl}?${params}`, {",
+      "hasCatch": false,
+      "hasSignal": true
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1611,
+      "code": "const response = await fetch(url, {",
+      "hasCatch": false,
+      "hasSignal": true
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1706,
+      "code": "const response = await fetch(this.dataset.url, {",
+      "hasCatch": false,
+      "hasSignal": true
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2589,
+      "code": "const response = await fetch(url, {",
+      "hasCatch": false,
+      "hasSignal": true
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2641,
+      "code": "const response = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });",
+      "hasCatch": false,
+      "hasSignal": false
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2885,
+      "code": "const response = await fetch(requestUrl, {",
+      "hasCatch": false,
+      "hasSignal": true
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4153,
+      "code": "const response = await fetch(endpoint.toString(), {",
+      "hasCatch": true,
+      "hasSignal": true
+    }
+  ],
+  "abortControllerUsages": [
+    {
+      "file": "assets/theme.js",
+      "line": 155,
+      "code": "this.abortController = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1096,
+      "code": "const request = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1603,
+      "code": "const requestController = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 1702,
+      "code": "this.requestController = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2466,
+      "code": "this.crossSellController = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2585,
+      "code": "this.requestController = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 2881,
+      "code": "this.requestController = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 3290,
+      "code": "this.requestController = new AbortController();"
+    },
+    {
+      "file": "assets/theme.js",
+      "line": 4141,
+      "code": "const requestController = new AbortController();"
+    }
+  ],
+  "customElements": [
+    {
+      "file": "assets/theme.js",
+      "className": "ThemeElement",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "ThemeDisclosure",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "ThemeDrawer",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "ProductGallery",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "VariantSelects",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "ProductInventory",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "RecentlyViewed",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "StickyCartBar",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "SizeGuideModal",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "GiftCardRecipient",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "PickupAvailability",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "ProductRecommendations",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "ProductCardVariants",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "CartDrawer",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "FacetFiltersForm",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "EditorialHero",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "EditorialLookbook",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "CompleteTheLook",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "CuratedShowcase",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "MarqueeBanner",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "AnnouncementBar",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "FaqAccordion",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "AnchorNav",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "CopyText",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "FaqFilter",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "PasswordModal",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "LocalizationForm",
+      "hasConnected": true,
+      "hasDisconnected": true
+    },
+    {
+      "file": "assets/theme.js",
+      "className": "PredictiveSearch",
+      "hasConnected": true,
+      "hasDisconnected": true
+    }
+  ],
+  "globalListenersWithoutCleanup": [],
+  "noJsSupport": [
+    "layout\\theme.liquid",
+    "sections\\cart-drawer.liquid",
+    "sections\\complete-the-look.liquid",
+    "sections\\featured-product.liquid",
+    "sections\\lookbook.liquid",
+    "sections\\main-cart-items.liquid",
+    "sections\\main-password.liquid",
+    "sections\\main-product.liquid",
+    "sections\\main-search.liquid",
+    "snippets\\gift-card-recipient.liquid",
+    "snippets\\localization-selectors.liquid",
+    "snippets\\predictive-search.liquid"
+  ]
+}

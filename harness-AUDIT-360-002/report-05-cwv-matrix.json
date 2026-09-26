@@ -1,0 +1,751 @@
+{
+  "total_runs": 72,
+  "matrix": {
+    "Couture": {
+      "home": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 772,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_home_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 796,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_home_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 688,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_home_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 772,
+          "average_lcp_ms": 752,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 704,
+          "median_ttfb_ms": 212
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 840,
+              "cls": 0.0493,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_home_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 696,
+              "cls": 0.0484,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_home_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 688,
+              "cls": 0.0484,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_home_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 696,
+          "average_lcp_ms": 741,
+          "median_cls": 0.0484,
+          "average_cls": 0.0487,
+          "median_fcp_ms": 596,
+          "median_ttfb_ms": 152
+        }
+      },
+      "collection": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 624,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_collection_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 692,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_collection_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 712,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_collection_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 692,
+          "average_lcp_ms": 676,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 692,
+          "median_ttfb_ms": 277
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 1080,
+              "cls": 0.0012,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_collection_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 924,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_collection_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 776,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_collection_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 924,
+          "average_lcp_ms": 927,
+          "median_cls": 0.0014,
+          "average_cls": 0.0013,
+          "median_fcp_ms": 740,
+          "median_ttfb_ms": 249
+        }
+      },
+      "product": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 816,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_product_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 776,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_product_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 752,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_product_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 776,
+          "average_lcp_ms": 781,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 592,
+          "median_ttfb_ms": 214
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 848,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_product_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 828,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_product_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 816,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Couture_product_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 828,
+          "average_lcp_ms": 831,
+          "median_cls": 0.0025,
+          "average_cls": 0.0025,
+          "median_fcp_ms": 612,
+          "median_ttfb_ms": 180
+        }
+      }
+    },
+    "Sartorial": {
+      "home": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 744,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_home_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 688,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_home_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 772,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_home_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 744,
+          "average_lcp_ms": 735,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 672,
+          "median_ttfb_ms": 234
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 788,
+              "cls": 0.0493,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_home_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 824,
+              "cls": 0.0493,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_home_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 776,
+              "cls": 0.0493,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_home_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 788,
+          "average_lcp_ms": 796,
+          "median_cls": 0.0493,
+          "average_cls": 0.0493,
+          "median_fcp_ms": 692,
+          "median_ttfb_ms": 222
+        }
+      },
+      "collection": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 704,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_collection_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 652,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_collection_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 680,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_collection_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 680,
+          "average_lcp_ms": 679,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 680,
+          "median_ttfb_ms": 235
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 892,
+              "cls": 0.0012,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_collection_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 912,
+              "cls": 0.0012,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_collection_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 852,
+              "cls": 0.0011,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_collection_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 892,
+          "average_lcp_ms": 885,
+          "median_cls": 0.0012,
+          "average_cls": 0.0012,
+          "median_fcp_ms": 688,
+          "median_ttfb_ms": 219
+        }
+      },
+      "product": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 676,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_product_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 768,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_product_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 792,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_product_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 768,
+          "average_lcp_ms": 745,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 628,
+          "median_ttfb_ms": 248
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 864,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_product_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 740,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_product_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 832,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Sartorial_product_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 832,
+          "average_lcp_ms": 812,
+          "median_cls": 0.0025,
+          "average_cls": 0.0021,
+          "median_fcp_ms": 676,
+          "median_ttfb_ms": 232
+        }
+      }
+    },
+    "Edition": {
+      "home": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 848,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_home_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 888,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_home_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 732,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_home_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 848,
+          "average_lcp_ms": 823,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 672,
+          "median_ttfb_ms": 229
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 816,
+              "cls": 0.017,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_home_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 724,
+              "cls": 0.017,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_home_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 868,
+              "cls": 0.017,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_home_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 816,
+          "average_lcp_ms": 803,
+          "median_cls": 0.017,
+          "average_cls": 0.017,
+          "median_fcp_ms": 612,
+          "median_ttfb_ms": 198
+        }
+      },
+      "collection": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 724,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_collection_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 680,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_collection_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 688,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_collection_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 688,
+          "average_lcp_ms": 697,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 688,
+          "median_ttfb_ms": 282
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 756,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_collection_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 872,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_collection_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 832,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_collection_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 832,
+          "average_lcp_ms": 820,
+          "median_cls": 0.0014,
+          "average_cls": 0.0014,
+          "median_fcp_ms": 608,
+          "median_ttfb_ms": 174
+        }
+      },
+      "product": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 704,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_product_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 992,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_product_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 1028,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_product_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 992,
+          "average_lcp_ms": 908,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 864,
+          "median_ttfb_ms": 254
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 848,
+              "cls": 0.0024,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_product_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 760,
+              "cls": 0.0024,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_product_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 668,
+              "cls": 0.0024,
+              "raw_file": "harness-AUDIT-360-002/cwv/Edition_product_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 760,
+          "average_lcp_ms": 759,
+          "median_cls": 0.0024,
+          "average_cls": 0.0024,
+          "median_fcp_ms": 656,
+          "median_ttfb_ms": 217
+        }
+      }
+    },
+    "Archive": {
+      "home": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 816,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_home_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 1460,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_home_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 684,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_home_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 816,
+          "average_lcp_ms": 987,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 784,
+          "median_ttfb_ms": 275
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 720,
+              "cls": 0.0401,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_home_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 772,
+              "cls": 0.0401,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_home_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 752,
+              "cls": 0.0389,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_home_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 752,
+          "average_lcp_ms": 748,
+          "median_cls": 0.0401,
+          "average_cls": 0.0397,
+          "median_fcp_ms": 636,
+          "median_ttfb_ms": 213
+        }
+      },
+      "collection": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 776,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_collection_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 712,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_collection_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 680,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_collection_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 712,
+          "average_lcp_ms": 723,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 712,
+          "median_ttfb_ms": 274
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 892,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_collection_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 924,
+              "cls": 0.0014,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_collection_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 1364,
+              "cls": 0.0012,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_collection_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 924,
+          "average_lcp_ms": 1060,
+          "median_cls": 0.0014,
+          "average_cls": 0.0013,
+          "median_fcp_ms": 756,
+          "median_ttfb_ms": 324
+        }
+      },
+      "product": {
+        "mobile": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 800,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_product_mobile_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 888,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_product_mobile_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 820,
+              "cls": 0,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_product_mobile_run3.json"
+            }
+          ],
+          "median_lcp_ms": 820,
+          "average_lcp_ms": 836,
+          "median_cls": 0,
+          "average_cls": 0,
+          "median_fcp_ms": 648,
+          "median_ttfb_ms": 213
+        },
+        "desktop": {
+          "runs": [
+            {
+              "run": 1,
+              "lcp_ms": 736,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_product_desktop_run1.json"
+            },
+            {
+              "run": 2,
+              "lcp_ms": 1400,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_product_desktop_run2.json"
+            },
+            {
+              "run": 3,
+              "lcp_ms": 724,
+              "cls": 0.0025,
+              "raw_file": "harness-AUDIT-360-002/cwv/Archive_product_desktop_run3.json"
+            }
+          ],
+          "median_lcp_ms": 736,
+          "average_lcp_ms": 953,
+          "median_cls": 0.0025,
+          "average_cls": 0.0025,
+          "median_fcp_ms": 624,
+          "median_ttfb_ms": 214
+        }
+      }
+    }
+  },
+  "summary_by_device": {
+    "Couture": {
+      "mobile": {
+        "avg_lcp_ms": 747,
+        "avg_cls": 0
+      },
+      "desktop": {
+        "avg_lcp_ms": 816,
+        "avg_cls": 0.0174
+      }
+    },
+    "Sartorial": {
+      "mobile": {
+        "avg_lcp_ms": 731,
+        "avg_cls": 0
+      },
+      "desktop": {
+        "avg_lcp_ms": 837,
+        "avg_cls": 0.0177
+      }
+    },
+    "Edition": {
+      "mobile": {
+        "avg_lcp_ms": 843,
+        "avg_cls": 0
+      },
+      "desktop": {
+        "avg_lcp_ms": 803,
+        "avg_cls": 0.0069
+      }
+    },
+    "Archive": {
+      "mobile": {
+        "avg_lcp_ms": 783,
+        "avg_cls": 0
+      },
+      "desktop": {
+        "avg_lcp_ms": 804,
+        "avg_cls": 0.0147
+      }
+    }
+  }
+}
