@@ -28,7 +28,7 @@
       <form class="cart-form" action="{{ routes.cart_url }}" method="post" novalidate>
         <div class="cart-items" role="list">
           {%- for item in cart.items -%}
-            <article class="cart-item" role="listitem">
+            <div class="cart-item" role="listitem">
               <a class="cart-item__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
                 {%- if item.image != blank -%}
                   {% render 'responsive-image',
@@ -166,7 +166,7 @@
                   {{- 'sections.cart.remove' | t -}}
                 </a>
               </div>
-            </article>
+            </div>
           {%- endfor -%}
         </div>
 
