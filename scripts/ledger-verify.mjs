@@ -55,7 +55,10 @@ const index = new Map();
 for (const dir of SEARCH_DIRS) await indexFiles(path.join(REPO, dir), index);
 
 const source = await readFile(LEDGER, 'utf8');
-const lines = source.split('\n');
+// Con un checkout CRLF (Windows, core.autocrlf) cada linea arrastraria un \r y todas las
+// comparaciones fallarian. Se parte en /\r?\n/ y se conserva el fin de linea del archivo al reescribir.
+const eol = source.includes('\r\n') ? '\r\n' : '\n';
+const lines = source.split(/\r?\n/);
 
 // ---- 1, 2 y 4: filas ----
 const states = [];
@@ -118,13 +121,13 @@ const summary = `CONTEO CALCULADO: ${states.length} filas | `
 const headerLine = lines.findIndex((l) => l.startsWith('CONTEO'));
 if (headerLine === -1) {
   note('aritmética', 0, 'no se encontró la línea CONTEO en el encabezado');
-} else if (lines[headerLine] !== summary) {
+} else if (lines[headerLine].trim() !== summary) {
   note('aritmética', headerLine + 1, `el encabezado dice "${lines[headerLine]}" y la tabla dice "${summary}"`);
   if (FIX) {
     lines[headerLine] = summary;
     const desglose = lines.findIndex((l) => l.startsWith('Desglose'));
     if (desglose !== -1) lines[desglose] = `Desglose recalculado por scripts/ledger-verify.mjs el ${new Date().toISOString().slice(0, 10)}.`;
-    await writeFile(LEDGER, lines.join('\n'), 'utf8');
+    await writeFile(LEDGER, lines.join(eol), 'utf8');
     console.log('[ledger-verify] encabezado reescrito con el conteo real');
   }
 }

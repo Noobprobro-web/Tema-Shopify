@@ -1,0 +1,9 @@
+product-card sin sufijo   -> CardTitle-template--1__collections-10146342109427|quick-add-template--1__collections-10146342109427|QuickBuy-template--1__collections-10146342109427|SwatchSoldOut-template--1__collections-10146342109427
+product-card sufijo vacio -> CardTitle-template--1__collections-10146342109427|quick-add-template--1__collections-10146342109427|QuickBuy-template--1__collections-10146342109427|SwatchSoldOut-template--1__collections-10146342109427
+product-card tab A        -> CardTitle-template--1__collections-10146342109427-tab_a|quick-add-template--1__collections-10146342109427-tab_a|QuickBuy-template--1__collections-10146342109427-tab_a|SwatchSoldOut-template--1__collections-10146342109427-tab_a
+product-card tab B        -> CardTitle-template--1__collections-10146342109427-tab_b|quick-add-template--1__collections-10146342109427-tab_b|QuickBuy-template--1__collections-10146342109427-tab_b|SwatchSoldOut-template--1__collections-10146342109427-tab_b
+brand-manifesto -> <dl class="brand-manifesto__details"><div class="brand-manifesto__detail" > <dt>L1</dt> <dd>V1</dd> <dd class="brand-manifesto__index" aria-hidden="true">01</dd> </div><div class="brand-manifesto__detail" > <dt>L2</dt> <dd>V2</dd>
+  span dentro del dl: false | dd de indice: 3
+recently-viewed products_to_show=4 con 10 resultados -> tarjetas: 4
+main-product custom_liquid -> <div class="product-main__custom-liquid" data-x><p>hola</p></div>
+  bloques del schema: vendor, title, price, variant_picker, size_guide, quantity, buy_buttons, description, inventory_status, shipping_lead_time, trust_badges, collapsible_tab, custom_liquid, @app

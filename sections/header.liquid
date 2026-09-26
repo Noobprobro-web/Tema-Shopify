@@ -25,14 +25,11 @@
 
   Solo con JavaScript: sin JS el menu de escritorio se despliega entero dentro de la
   cabecera, y pegar ese bloque alto a la ventana se comeria la pantalla.
+
+  La regla vive en assets/base.css (.js .section-header, la clase que el schema da a la
+  seccion). Antes era un bloque style de Liquid dentro del div de la seccion, y un
+  elemento style en el body no es HTML valido (FIXES-PRE-SUBMISSION-001).
 {%- endcomment -%}
-{% style %}
-  .js #shopify-section-{{ section.id }} {
-    position: sticky;
-    top: 0;
-    z-index: 150;
-  }
-{% endstyle %}
 
 <header class="site-header color-{{ color_scheme_id }}" data-section-id="{{ section.id }}">
   <div class="container site-header__inner">

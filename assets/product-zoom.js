@@ -128,7 +128,12 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     if (priority) img.fetchPriority = 'high';
     if (img.dataset.pending) return;
     img.dataset.pending = 1;
-    const upgrade = () => img.setAttribute('srcset', img.dataset.srcset);
+    // sizes viaja en data-sizes: sin srcset en el HTML, un sizes suelto no es valido.
+    // Se pone antes que srcset para que el navegador elija el candidato correcto.
+    const upgrade = () => {
+      if (!img.getAttribute('sizes')) img.setAttribute('sizes', img.dataset.sizes || '100vw');
+      img.setAttribute('srcset', img.dataset.srcset);
+    };
     const shown = this.section.querySelector(`[data-product-media-id="${slide.dataset.mediaId}"] img`)?.currentSrc;
     if (!shown) return upgrade();
     img.src = shown;
@@ -180,7 +185,10 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.y = pointY - (pointY - this.y) * ratio;
     this.scale = scale;
     // Primer zoom: sizes al ancho ampliado.
-    if (scale > 1 && fit.img.sizes === '100vw') fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
+    const baseSizes = fit.img.getAttribute('sizes');
+    if (scale > 1 && (!baseSizes || baseSizes === (fit.img.dataset.sizes || '100vw'))) {
+      fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
+    }
     this.apply();
     if (Math.abs(ratio - 1) > 0.001 && !this.pinch) this.announce();
   }

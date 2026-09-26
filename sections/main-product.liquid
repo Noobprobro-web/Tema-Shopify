@@ -685,6 +685,11 @@
             {%- when 'collapsible_tab' -%}
               {% render 'product-accordion', block: block %}
 
+            {%- when 'custom_liquid' -%}
+              <div class="product-main__custom-liquid" {{ block.shopify_attributes }}>
+                {{- block.settings.custom_liquid -}}
+              </div>
+
             {%- when '@app' -%}
               {% render block %}
           {%- endcase -%}
@@ -1065,6 +1070,17 @@
           "id": "page",
           "label": "t:sections.main_product.blocks.collapsible_tab.settings.page.label",
           "info": "t:sections.main_product.blocks.collapsible_tab.settings.page.info"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "t:sections.featured_product.blocks.custom_liquid.name",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "t:sections.featured_product.blocks.custom_liquid.settings.custom_liquid.label"
         }
       ]
     },

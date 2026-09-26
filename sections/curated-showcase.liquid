@@ -120,6 +120,7 @@
               {%- for card_product in tab_collection.products limit: 2 offset: 1 -%}
                 {% render 'product-card',
                   card_product: card_product,
+                  card_id_suffix: block.id,
                   show_secondary_image: section.settings.show_secondary_image,
                   show_vendor: section.settings.show_vendor,
                   show_quick_add: false

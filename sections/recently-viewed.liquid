@@ -31,7 +31,7 @@
 
       <ul class="recently-viewed__grid unstyled-list" data-recently-viewed-grid data-columns="{{ section.settings.columns_desktop }}">
         {%- if search.performed and search.results_count > 0 -%}
-          {%- for result in search.results -%}
+          {%- for result in search.results limit: section.settings.products_to_show -%}
             {%- if result.object_type == 'product' -%}
               <li data-recently-viewed-card data-product-id="{{ result.id }}">
                 {% render 'product-card',

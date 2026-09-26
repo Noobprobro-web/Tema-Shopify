@@ -569,6 +569,14 @@ blockquote {
   background: var(--color-surface);
 }
 
+/* Cabecera sticky (4F-001): se pega la seccion que envuelve a la <header>, solo con JS.
+   Ver el comentario de sections/header.liquid; antes era un {% style %} en el body. */
+.js .section-header {
+  position: sticky;
+  top: 0;
+  z-index: 150;
+}
+
 .site-header {
   position: relative;
   z-index: 20;
@@ -853,6 +861,20 @@ blockquote {
   margin-block-start: var(--space-6);
   padding-block-start: var(--space-3);
   border-top: 1px solid var(--color-border);
+}
+
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  align-items: center;
+}
+
+/* powered_by_link llega tal cual de Shopify: solo se le da un area tactil de 24 px (WCAG 2.5.8). */
+.site-footer__powered-by a {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
 }
 
 label {
@@ -3381,7 +3403,7 @@ curated-showcase {
 }
 
 .brand-manifesto__detail dt,
-.brand-manifesto__detail > span {
+.brand-manifesto__detail > .brand-manifesto__index {
   color: var(--color-foreground-muted);
   font-size: 0.6875rem;
   font-weight: 700;
@@ -3393,6 +3415,11 @@ curated-showcase {
   margin: 0;
   font-size: 0.8125rem;
   line-height: 1.4;
+}
+
+/* El indice es un dd (en un dl solo caben dt y dd) pero conserva la medida del span anterior. */
+.brand-manifesto__detail > .brand-manifesto__index {
+  line-height: inherit;
 }
 
 .bento-discovery.section {
