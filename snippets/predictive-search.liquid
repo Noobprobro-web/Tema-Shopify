@@ -77,7 +77,8 @@
           <input
             id="{{ search_input_id }}"
             class="predictive-search__input"
-            type="search"
+            type="text"
+            inputmode="search"
             name="q"
             value="{{ search.terms | escape }}"
             placeholder="{{ 'predictive_search.placeholder' | t | escape_once }}"

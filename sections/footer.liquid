@@ -122,7 +122,10 @@
   {%- endif -%}
 
   <div class="container site-footer__bottom">
-    <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name }}</small>
+    <div class="site-footer__legal">
+      <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name }}</small>
+      <small class="site-footer__powered-by">{{ powered_by_link }}</small>
+    </div>
     <div class="site-footer__follow">
       {{ shop | login_button: action: 'follow' }}
     </div>

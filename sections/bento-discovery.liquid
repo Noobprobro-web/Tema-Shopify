@@ -127,6 +127,7 @@
               {%- if block.settings.product != blank -%}
                 {% render 'product-card',
                   card_product: block.settings.product,
+                  card_id_suffix: block.id,
                   show_secondary_image: true,
                   show_vendor: false,
                   show_quick_add: false

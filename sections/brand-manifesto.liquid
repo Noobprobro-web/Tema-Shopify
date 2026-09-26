@@ -68,7 +68,7 @@
             <div class="brand-manifesto__detail" {{ block.shopify_attributes }}>
               <dt>{{ block.settings.label | escape }}</dt>
               <dd>{{ block.settings.value | escape }}</dd>
-              <span aria-hidden="true">{{ forloop.index | prepend: '0' }}</span>
+              <dd class="brand-manifesto__index" aria-hidden="true">{{ forloop.index | prepend: '0' }}</dd>
             </div>
           {%- endfor -%}
         </dl>

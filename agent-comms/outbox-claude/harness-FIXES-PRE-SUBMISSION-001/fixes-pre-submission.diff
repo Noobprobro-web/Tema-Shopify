@@ -1,0 +1,343 @@
+diff --git a/assets/base.css b/assets/base.css
+index baaae21..a51d078 100644
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -569,6 +569,14 @@ blockquote {
+   background: var(--color-surface);
+ }
+ 
++/* Cabecera sticky (4F-001): se pega la seccion que envuelve a la <header>, solo con JS.
++   Ver el comentario de sections/header.liquid; antes era un {% style %} en el body. */
++.js .section-header {
++  position: sticky;
++  top: 0;
++  z-index: 150;
++}
++
+ .site-header {
+   position: relative;
+   z-index: 20;
+@@ -855,6 +863,20 @@ blockquote {
+   border-top: 1px solid var(--color-border);
+ }
+ 
++.site-footer__legal {
++  display: flex;
++  flex-wrap: wrap;
++  gap: var(--space-1) var(--space-3);
++  align-items: center;
++}
++
++/* powered_by_link llega tal cual de Shopify: solo se le da un area tactil de 24 px (WCAG 2.5.8). */
++.site-footer__powered-by a {
++  display: inline-flex;
++  min-height: 24px;
++  align-items: center;
++}
++
+ label {
+   display: inline-block;
+   margin-block-end: var(--space-1);
+@@ -3381,7 +3403,7 @@ curated-showcase {
+ }
+ 
+ .brand-manifesto__detail dt,
+-.brand-manifesto__detail > span {
++.brand-manifesto__detail > .brand-manifesto__index {
+   color: var(--color-foreground-muted);
+   font-size: 0.6875rem;
+   font-weight: 700;
+@@ -3395,6 +3417,11 @@ curated-showcase {
+   line-height: 1.4;
+ }
+ 
++/* El indice es un dd (en un dl solo caben dt y dd) pero conserva la medida del span anterior. */
++.brand-manifesto__detail > .brand-manifesto__index {
++  line-height: inherit;
++}
++
+ .bento-discovery.section {
+   padding-block: var(--space-3xl);
+ }
+diff --git a/assets/product-zoom.js b/assets/product-zoom.js
+index 962e7dc..647c2cd 100644
+--- a/assets/product-zoom.js
++++ b/assets/product-zoom.js
+@@ -128,7 +128,12 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
+     if (priority) img.fetchPriority = 'high';
+     if (img.dataset.pending) return;
+     img.dataset.pending = 1;
+-    const upgrade = () => img.setAttribute('srcset', img.dataset.srcset);
++    // sizes viaja en data-sizes: sin srcset en el HTML, un sizes suelto no es valido.
++    // Se pone antes que srcset para que el navegador elija el candidato correcto.
++    const upgrade = () => {
++      if (!img.getAttribute('sizes')) img.setAttribute('sizes', img.dataset.sizes || '100vw');
++      img.setAttribute('srcset', img.dataset.srcset);
++    };
+     const shown = this.section.querySelector(`[data-product-media-id="${slide.dataset.mediaId}"] img`)?.currentSrc;
+     if (!shown) return upgrade();
+     img.src = shown;
+@@ -180,7 +185,10 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
+     this.y = pointY - (pointY - this.y) * ratio;
+     this.scale = scale;
+     // Primer zoom: sizes al ancho ampliado.
+-    if (scale > 1 && fit.img.sizes === '100vw') fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
++    const baseSizes = fit.img.getAttribute('sizes');
++    if (scale > 1 && (!baseSizes || baseSizes === (fit.img.dataset.sizes || '100vw'))) {
++      fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
++    }
+     this.apply();
+     if (Math.abs(ratio - 1) > 0.001 && !this.pinch) this.announce();
+   }
+diff --git a/locales/en.default.json b/locales/en.default.json
+index 04f9a1c..1c384c1 100644
+--- a/locales/en.default.json
++++ b/locales/en.default.json
+@@ -83,7 +83,7 @@
+       "rewards_progress": "Cart rewards progress",
+       "shipping_milestone": "Shipping at {{ amount }}",
+       "gift_milestone": "Gift at {{ amount }}",
+-      "complimentary_additions": "Complimentary Additions",
++      "complimentary_additions": "Complimentary additions",
+       "curated_for_order": "Curated for this order",
+       "add_complementary": "Add",
+       "add_complementary_product": "Add {{ product }} to your cart",
+diff --git a/scripts/ledger-verify.mjs b/scripts/ledger-verify.mjs
+index 9bdbf04..b819e97 100644
+--- a/scripts/ledger-verify.mjs
++++ b/scripts/ledger-verify.mjs
+@@ -55,7 +55,10 @@ const index = new Map();
+ for (const dir of SEARCH_DIRS) await indexFiles(path.join(REPO, dir), index);
+ 
+ const source = await readFile(LEDGER, 'utf8');
+-const lines = source.split('\n');
++// Con un checkout CRLF (Windows, core.autocrlf) cada linea arrastraria un \r y todas las
++// comparaciones fallarian. Se parte en /\r?\n/ y se conserva el fin de linea del archivo al reescribir.
++const eol = source.includes('\r\n') ? '\r\n' : '\n';
++const lines = source.split(/\r?\n/);
+ 
+ // ---- 1, 2 y 4: filas ----
+ const states = [];
+@@ -118,13 +121,13 @@ const summary = `CONTEO CALCULADO: ${states.length} filas | `
+ const headerLine = lines.findIndex((l) => l.startsWith('CONTEO'));
+ if (headerLine === -1) {
+   note('aritmética', 0, 'no se encontró la línea CONTEO en el encabezado');
+-} else if (lines[headerLine] !== summary) {
++} else if (lines[headerLine].trim() !== summary) {
+   note('aritmética', headerLine + 1, `el encabezado dice "${lines[headerLine]}" y la tabla dice "${summary}"`);
+   if (FIX) {
+     lines[headerLine] = summary;
+     const desglose = lines.findIndex((l) => l.startsWith('Desglose'));
+     if (desglose !== -1) lines[desglose] = `Desglose recalculado por scripts/ledger-verify.mjs el ${new Date().toISOString().slice(0, 10)}.`;
+-    await writeFile(LEDGER, lines.join('\n'), 'utf8');
++    await writeFile(LEDGER, lines.join(eol), 'utf8');
+     console.log('[ledger-verify] encabezado reescrito con el conteo real');
+   }
+ }
+diff --git a/sections/bento-discovery.liquid b/sections/bento-discovery.liquid
+index 21ad2c7..15af708 100644
+--- a/sections/bento-discovery.liquid
++++ b/sections/bento-discovery.liquid
+@@ -127,6 +127,7 @@
+               {%- if block.settings.product != blank -%}
+                 {% render 'product-card',
+                   card_product: block.settings.product,
++                  card_id_suffix: block.id,
+                   show_secondary_image: true,
+                   show_vendor: false,
+                   show_quick_add: false
+diff --git a/sections/brand-manifesto.liquid b/sections/brand-manifesto.liquid
+index ee20dcb..47a6600 100644
+--- a/sections/brand-manifesto.liquid
++++ b/sections/brand-manifesto.liquid
+@@ -68,7 +68,7 @@
+             <div class="brand-manifesto__detail" {{ block.shopify_attributes }}>
+               <dt>{{ block.settings.label | escape }}</dt>
+               <dd>{{ block.settings.value | escape }}</dd>
+-              <span aria-hidden="true">{{ forloop.index | prepend: '0' }}</span>
++              <dd class="brand-manifesto__index" aria-hidden="true">{{ forloop.index | prepend: '0' }}</dd>
+             </div>
+           {%- endfor -%}
+         </dl>
+diff --git a/sections/cart-drawer.liquid b/sections/cart-drawer.liquid
+index c4aebe8..702f1f9 100644
+--- a/sections/cart-drawer.liquid
++++ b/sections/cart-drawer.liquid
+@@ -47,7 +47,7 @@
+   data-add-failed-message="{{ 'sections.cart.add_failed' | t | escape_once }}"
+ >
+   <div class="cart-drawer__overlay" data-cart-drawer-overlay hidden>
+-    <aside
++    <div
+       class="cart-drawer__panel"
+       role="dialog"
+       aria-modal="true"
+@@ -511,7 +511,7 @@
+         {%- endif -%}
+       </div>
+ 
+-    </aside>
++    </div>
+   </div>
+ </cart-drawer>
+ 
+diff --git a/sections/curated-showcase.liquid b/sections/curated-showcase.liquid
+index 3d42d5e..fcd0636 100644
+--- a/sections/curated-showcase.liquid
++++ b/sections/curated-showcase.liquid
+@@ -120,6 +120,7 @@
+               {%- for card_product in tab_collection.products limit: 2 offset: 1 -%}
+                 {% render 'product-card',
+                   card_product: card_product,
++                  card_id_suffix: block.id,
+                   show_secondary_image: section.settings.show_secondary_image,
+                   show_vendor: section.settings.show_vendor,
+                   show_quick_add: false
+diff --git a/sections/footer.liquid b/sections/footer.liquid
+index ad7e20e..649d43e 100644
+--- a/sections/footer.liquid
++++ b/sections/footer.liquid
+@@ -122,7 +122,10 @@
+   {%- endif -%}
+ 
+   <div class="container site-footer__bottom">
+-    <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name }}</small>
++    <div class="site-footer__legal">
++      <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name }}</small>
++      <small class="site-footer__powered-by">{{ powered_by_link }}</small>
++    </div>
+     <div class="site-footer__follow">
+       {{ shop | login_button: action: 'follow' }}
+     </div>
+diff --git a/sections/header.liquid b/sections/header.liquid
+index a7d8c5f..fa8b528 100644
+--- a/sections/header.liquid
++++ b/sections/header.liquid
+@@ -25,14 +25,11 @@
+ 
+   Solo con JavaScript: sin JS el menu de escritorio se despliega entero dentro de la
+   cabecera, y pegar ese bloque alto a la ventana se comeria la pantalla.
++
++  La regla vive en assets/base.css (.js .section-header, la clase que el schema da a la
++  seccion). Antes era un bloque style de Liquid dentro del div de la seccion, y un
++  elemento style en el body no es HTML valido (FIXES-PRE-SUBMISSION-001).
+ {%- endcomment -%}
+-{% style %}
+-  .js #shopify-section-{{ section.id }} {
+-    position: sticky;
+-    top: 0;
+-    z-index: 150;
+-  }
+-{% endstyle %}
+ 
+ <header class="site-header color-{{ color_scheme_id }}" data-section-id="{{ section.id }}">
+   <div class="container site-header__inner">
+diff --git a/sections/main-article.liquid b/sections/main-article.liquid
+index bad18c8..774d44f 100644
+--- a/sections/main-article.liquid
++++ b/sections/main-article.liquid
+@@ -79,6 +79,7 @@
+               <li {{ block.shopify_attributes }}>
+                 {% render 'product-card',
+                   card_product: block.settings.product,
++                  card_id_suffix: block.id,
+                   show_secondary_image: true,
+                   show_vendor: false,
+                   show_quick_add: false
+diff --git a/sections/main-product.liquid b/sections/main-product.liquid
+index df8bfaf..fedaf86 100644
+--- a/sections/main-product.liquid
++++ b/sections/main-product.liquid
+@@ -685,6 +685,11 @@
+             {%- when 'collapsible_tab' -%}
+               {% render 'product-accordion', block: block %}
+ 
++            {%- when 'custom_liquid' -%}
++              <div class="product-main__custom-liquid" {{ block.shopify_attributes }}>
++                {{- block.settings.custom_liquid -}}
++              </div>
++
+             {%- when '@app' -%}
+               {% render block %}
+           {%- endcase -%}
+@@ -1068,6 +1073,17 @@
+         }
+       ]
+     },
++    {
++      "type": "custom_liquid",
++      "name": "t:sections.featured_product.blocks.custom_liquid.name",
++      "settings": [
++        {
++          "type": "liquid",
++          "id": "custom_liquid",
++          "label": "t:sections.featured_product.blocks.custom_liquid.settings.custom_liquid.label"
++        }
++      ]
++    },
+     {
+       "type": "@app"
+     }
+diff --git a/sections/recently-viewed.liquid b/sections/recently-viewed.liquid
+index 0a8aada..f6d815b 100644
+--- a/sections/recently-viewed.liquid
++++ b/sections/recently-viewed.liquid
+@@ -31,7 +31,7 @@
+ 
+       <ul class="recently-viewed__grid unstyled-list" data-recently-viewed-grid data-columns="{{ section.settings.columns_desktop }}">
+         {%- if search.performed and search.results_count > 0 -%}
+-          {%- for result in search.results -%}
++          {%- for result in search.results limit: section.settings.products_to_show -%}
+             {%- if result.object_type == 'product' -%}
+               <li data-recently-viewed-card data-product-id="{{ result.id }}">
+                 {% render 'product-card',
+diff --git a/snippets/predictive-search.liquid b/snippets/predictive-search.liquid
+index 796fc4d..f62be33 100644
+--- a/snippets/predictive-search.liquid
++++ b/snippets/predictive-search.liquid
+@@ -77,7 +77,8 @@
+           <input
+             id="{{ search_input_id }}"
+             class="predictive-search__input"
+-            type="search"
++            type="text"
++            inputmode="search"
+             name="q"
+             value="{{ search.terms | escape }}"
+             placeholder="{{ 'predictive_search.placeholder' | t | escape_once }}"
+diff --git a/snippets/product-card.liquid b/snippets/product-card.liquid
+index 67432bb..bf7b086 100644
+--- a/snippets/product-card.liquid
++++ b/snippets/product-card.liquid
+@@ -5,6 +5,8 @@
+   - card_product: product object
+   - show_secondary_image: reveal the second product image on hover/focus
+   - show_vendor: show the product vendor
++  - card_id_suffix: optional. Extra key for the card's ids when the same product can appear more
++    than once in one section (tabs or blocks). Pass block.id.
+   - show_quick_add: show quick add. A single variant adds in one click; a product whose
+     only option is its color adds the committed color in one click; a product with one
+     size-like option (plus an optional color) opens a size picker where the size itself is the
+@@ -23,6 +25,9 @@
+   assign secondary_image = card_product.images[1]
+   assign card_sizes = '(min-width: 990px) 25vw, 50vw'
+   assign card_key = section.id | append: '-' | append: card_product.id
++  if card_id_suffix != blank
++    assign card_key = card_key | append: '-' | append: card_id_suffix
++  endif
+   assign quick_add_id = 'quick-add-' | append: card_key
+   assign card_title_id = 'CardTitle-' | append: card_key
+   assign quick_buy_id = 'QuickBuy-' | append: card_key
+diff --git a/snippets/product-zoom.liquid b/snippets/product-zoom.liquid
+index 9eed42b..129401e 100644
+--- a/snippets/product-zoom.liquid
++++ b/snippets/product-zoom.liquid
+@@ -62,7 +62,7 @@
+             class="product-zoom__image"
+             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+             data-srcset="{{ zoom_srcset }}"
+-            sizes="100vw"
++            data-sizes="100vw"
+             width="{{ zoom_width }}"
+             height="{{ zoom_height }}"
+             alt="{{ zoom_alt | escape_once }}"
