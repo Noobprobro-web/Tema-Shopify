@@ -73,7 +73,13 @@ Próximo hito: Sprint técnico correctivo de Claude (1-2h) y resolución de infr
     - `A360-09` [Falso Positivo]: Custom Elements no registran listeners globales ni observers que requieran `disconnectedCallback`. Descartado.
     - `A360-10` [Duplicado]: Corresponde a AF-12 (eliminación manual en admin de password.liquid).
     - `A360-11` [Sin Hallazgo]: Ausencia de carpeta `blocks/` no viola ninguna directriz. Descartado.
-    - `A360-12` [P2 - HTML / a11y]: `snippets/product-card.liquid:25-31` genera IDs duplicados cuando un producto se repite dentro de una misma sección. Corregir inyectando sufijo discriminador único opcional (`card_id_suffix`).
+    - `A360-12` [P2 - HTML / a11y]: `snippets/product-card.liquid:25-31` genera IDs duplicados cuando un producto se repite dentro de una misma sección. Corregido inyectando sufijo discriminador único opcional (`card_id_suffix`). RESUELTO.
+- **Sprint de Corrección Técnica Pre-Submission (`CLAUDE-REPORT-FIXES-PRE-SUBMISSION-001.md`):**
+  - **Commit:** `ee45f7f` (`fix(theme): apply pre-submission fixes CR-01, CR-03, A360-03 to A360-12 and achieve 0 theme HTML errors`).
+  - **Correcciones implementadas:** CR-01 (panel cart-drawer `<div>`, `data-sizes` en zoom, `<dd>` en manifiesto), CR-03 (`powered_by_link` en footer con área táctil 24px), A360-03 (bloque `custom_liquid` en `main-product`), A360-04 (CRLF en `ledger-verify.mjs`), A360-05 (`limit:` en `recently-viewed`), A360-08 (`locales/en.default.json:86` en sentence case), A360-12 (`card_id_suffix` en tarjetas de producto repetidas).
+  - **Ajustes de validez Nu (0 errores del tema):** D-1 (cabecera sticky migrada de `{% style %}` a `assets/base.css`) y D-2 (input de búsqueda predictiva a `type="text"` con `inputmode="search"`). Los 161 errores Nu HTML del tema bajaron a **0**.
+  - **Despliegue Remoto:** Los 15 archivos de tema desplegados exitosamente con `--nodelete` a los 4 temas remotos: Couture (#165809488115 con `--allow-live`), Sartorial (#166186909939), Edition (#166186942707) y Archive (#166187041011).
+  - **Compuertas:** `npm run gates:static` verificado en verde (`exit 0`, Theme Check 351 archivos con 0 ofensas, locales 0 huérfanas, ledger 53/2/2/0). Paquete de producción `Sartorial-1.0.0.zip` (296 KB) regenerado y sincronizado.
 
 ---
 
@@ -82,8 +88,8 @@ Próximo hito: Sprint técnico correctivo de Claude (1-2h) y resolución de infr
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
 | **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Proveer 2 URLs reales para documentación y soporte con tickets (CR-02). 2) Crear las 3 tiendas demo client transfer con Bogus Gateway (A360-02). | 🟡 Pendiente Decisión | URLs y tiendas demo |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Emisión de directiva técnica para Claude (`CLAUDE-TASK-FIXES-PRE-SUBMISSION-001.md`), supervisión de compuertas y preparación de medición Lighthouse estandarizada. | 🟢 Cumplido | Directiva en inbox-claude y BOARD actualizado |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal | Ejecución del sprint de correcciones técnicas: CR-01, CR-03, A360-03, A360-04, A360-05, A360-08, A360-12. Validación con gates y vnu. | 🟡 Listo para inicio | Código corregido y reporte en outbox-claude |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Despliegue completado a los 4 temas remotos. Coordinación de verificación en vivo con Claude y preparación de suite Lighthouse. | 🟢 Cumplido | Despliegue y BOARD actualizado |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal | Verificación en vivo en storefront de los 6 puntos de §3: sticky header, zoom, búsqueda, powered by Shopify en 4 temas, manifiesto y Nu HTML en vivo. | 🟡 Listo para verificar | Informe en outbox-claude |
 | **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (revisión de viabilidad comercial y segunda opinión de Theme Store cuando sea requerido). | ⚪ En reposo | N/A |
 
 ---
