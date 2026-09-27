@@ -47,8 +47,8 @@
       "type": "bento-discovery",
       "blocks": {
         "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
-        "product1": { "type": "card_product", "settings": {} },
-        "product2": { "type": "card_product", "settings": {} },
+        "product1": { "type": "card_product", "settings": { "product": "fine-merino-turtleneck" } },
+        "product2": { "type": "card_product", "settings": { "product": "cigarette-trouser" } },
         "story": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } }
       },
       "block_order": ["collection", "product1", "product2", "story"],
@@ -62,9 +62,9 @@
     "set": {
       "type": "complete-the-look",
       "blocks": {
-        "object1": { "type": "bundle_product", "settings": {} },
-        "object2": { "type": "bundle_product", "settings": {} },
-        "object3": { "type": "bundle_product", "settings": {} }
+        "object1": { "type": "bundle_product", "settings": { "product": "structured-tote" } },
+        "object2": { "type": "bundle_product", "settings": { "product": "leather-belt" } },
+        "object3": { "type": "bundle_product", "settings": { "product": "cashmere-scarf" } }
       },
       "block_order": ["object1", "object2", "object3"],
       "settings": {

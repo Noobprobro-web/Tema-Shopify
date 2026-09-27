@@ -177,7 +177,9 @@
         },
         "bento_product": {
           "type": "card_product",
-          "settings": {}
+          "settings": {
+            "product": "oversized-alpaca-knit"
+          }
         }
       },
       "block_order": [
@@ -244,15 +246,21 @@
       "blocks": {
         "bundle_1": {
           "type": "bundle_product",
-          "settings": {}
+          "settings": {
+            "product": "doppio-trench"
+          }
         },
         "bundle_2": {
           "type": "bundle_product",
-          "settings": {}
+          "settings": {
+            "product": "cashmere-rib-crew"
+          }
         },
         "bundle_3": {
           "type": "bundle_product",
-          "settings": {}
+          "settings": {
+            "product": "wrap-wool-skirt"
+          }
         }
       },
       "block_order": [

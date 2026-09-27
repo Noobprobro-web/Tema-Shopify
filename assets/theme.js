@@ -619,19 +619,26 @@
       });
     }
 
+    // A360-05. El aviso de agotado depende de la combinacion con las demas opciones
+    // elegidas. Solo se desactiva un valor sin ninguna variante disponible: desactivar por
+    // combinacion dejaria combinaciones en stock inalcanzables (Camel/L y Black/S, por ejemplo).
     updateOptionAvailability() {
+      const selectedOptions = this.getSelectedOptions();
       this.querySelectorAll('[data-option-position]').forEach((input) => {
         const optionIndex = Number(input.dataset.optionPosition) - 1;
-        const isAvailable = this.variantData.some(
+        const inStock = this.variantData.filter(
           (variant) => variant.available && variant.options[optionIndex] === input.value,
         );
+        const availableHere = inStock.some((variant) => variant.options.every(
+          (value, index) => index === optionIndex || selectedOptions[index] == null || value === selectedOptions[index],
+        ));
         const unavailableLabel = this.querySelector(
           `label[for="${input.id}"] [data-unavailable-label]`,
         );
 
-        input.disabled = !isAvailable;
-        input.setAttribute('aria-disabled', String(!isAvailable));
-        if (unavailableLabel) unavailableLabel.hidden = isAvailable;
+        input.disabled = inStock.length === 0;
+        input.setAttribute('aria-disabled', String(input.disabled));
+        if (unavailableLabel) unavailableLabel.hidden = availableHere;
       });
     }
 
@@ -1239,6 +1246,8 @@
     }
 
     setVisible(visible) {
+      // A360-04 (WCAG 2.4.3): inert sobre un subarbol con foco lo tira a <body>.
+      if (!visible && this.contains(document.activeElement)) this.handOffFocus();
       this.toggleAttribute('data-visible', visible);
       this.setAttribute('aria-hidden', String(!visible));
       this.inert = !visible;
@@ -1246,6 +1255,17 @@
       // AF-08 (AUDIT-FINAL-001, WCAG 2.4.11): con la barra visible, el foco por teclado se detiene
       // por encima de ella. Es el mismo mecanismo que --header-offset usa arriba.
       document.documentElement.style.setProperty('--sticky-cart-offset', visible ? `${this.offsetHeight}px` : '0px');
+    }
+
+    // La barra se oculta porque el ATC principal ya esta en pantalla: el foco pasa a el.
+    handOffFocus() {
+      const target = this.primaryButton && !this.primaryButton.disabled
+        ? this.primaryButton
+        : Array.from(this.productForm?.elements || []).find(
+          (element) => !element.disabled && element.type !== 'hidden' && !this.contains(element)
+            && element.checkVisibility?.() !== false,
+        );
+      target?.focus({ preventScroll: target === this.primaryButton });
     }
 
     updateVariant(variant) {
@@ -2177,6 +2197,7 @@
       this.syncRevision = 0;
       this.renderedRevision = 0;
       this.syncAfterMutation = false;
+      this.overlappingMutations = false;
 
       if (!this.overlay || !this.panel) return;
 
@@ -2547,6 +2568,9 @@
     // Returns the revision this mutation belongs to. Callers hand it back to
     // renderCartResponse so that a response overtaken by a newer mutation is dropped.
     beginMutation() {
+      // A360-03. Shopify puede aplicar dos peticiones solapadas en otro orden que el de
+      // envio: la respuesta de la ultima no incluye entonces la otra linea.
+      if (this.pendingMutations) this.overlappingMutations = true;
       this.pendingMutations += 1;
       this.syncRevision += 1;
       this.requestController?.abort();
@@ -2557,11 +2581,12 @@
       this.pendingMutations = Math.max(0, this.pendingMutations - 1);
       if (this.pendingMutations) return;
       this.syncAfterMutation = false;
-      // A mutation that rendered already brought back server-fresh HTML, so nothing is
-      // left to fetch. Only an unrendered latest revision — a mutation that failed, was
-      // aborted, or whose response lost the race to an older one — leaves the drawer
-      // possibly stale and earns the extra request.
-      if (this.renderedRevision === this.syncRevision) return;
+      const overlapped = this.overlappingMutations;
+      this.overlappingMutations = false;
+      // A lone mutation that rendered already brought back server-fresh HTML. Overlapping
+      // ones may have been applied out of order, and an unrendered latest revision (failed,
+      // aborted or overtaken) is stale too: both earn one fresh read.
+      if (!overlapped && this.renderedRevision === this.syncRevision) return;
       if (this.isConnected && this.isOpen) this.syncCart().catch(() => {});
     }
 

@@ -39,8 +39,12 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     on(window, 'resize', () => this.dialog.open && this.layout());
   }
 
+  // A360-11. El evento close llega despues de abortar los listeners: se limpia aqui.
   disconnectedCallback() {
-    this.dialog?.close();
+    if (this.dialog?.open) {
+      this.dialog.close();
+      this.handleClose();
+    }
     super.disconnectedCallback();
   }
 
