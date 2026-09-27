@@ -100,9 +100,9 @@
     "capsule": {
       "type": "complete-the-look",
       "blocks": {
-        "piece1": { "type": "bundle_product", "settings": {} },
-        "piece2": { "type": "bundle_product", "settings": {} },
-        "piece3": { "type": "bundle_product", "settings": {} }
+        "piece1": { "type": "bundle_product", "settings": { "product": "nove-blazer" } },
+        "piece2": { "type": "bundle_product", "settings": { "product": "silk-charmeuse-blouse" } },
+        "piece3": { "type": "bundle_product", "settings": { "product": "pleated-wide-trouser" } }
       },
       "block_order": ["piece1", "piece2", "piece3"],
       "settings": {
@@ -119,7 +119,7 @@
       "blocks": {
         "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] FEATURED COLLECTION", "heading": "Sculptural layers", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
         "story": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[02] MATERIAL STUDY", "heading": "Carried close", "body": "<p>An editorial study in proportion, tactility and daily use.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } },
-        "product": { "type": "card_product", "settings": {} }
+        "product": { "type": "card_product", "settings": { "product": "serra-coat" } }
       },
       "block_order": ["collection", "story", "product"],
       "settings": {

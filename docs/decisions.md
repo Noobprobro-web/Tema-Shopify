@@ -194,3 +194,14 @@ Registro de decisiones importantes del tema.
   - **Compuertas Estáticas:** 122 archivos inspeccionados por Theme Check con 0 ofensas, 404 claves con paridad absoluta EN/ES, 70 archivos JSON válidos, 22 contratos de dataset respetados, y 57 filas en `docs/requirements-ledger.md` con 0 inconsistencias.
   - **Dictamen:** Aprobado para commit, push y despliegue a tienda de desarrollo para verificación Gate 5.
 
+## 2026-09-26: Resolución de Discrepancia Técnica A360-02 (RemoteAsset vs Protocol-Relative URLs en Shopify CDN)
+
+- **Decisión arquitectónica (Gemini Flash 3.8 High tras revisión de GPT-AUDIT-012 y reporte de Claude):**
+  - **Contexto:** GPT-6 Astra señaló que la documentación oficial de Theme Store pide que los enlaces a assets sean relativos al protocolo (`//cdn.shopify.com/...`). Sin embargo, aplicar `//` en `layout/theme.liquid` y `sections/featured-product.liquid` dispara 3 advertencias de `RemoteAsset` en `shopify theme check` ("Asset should be served by the Shopify CDN for better performance"), porque el parser estático del linter no reconoce el prefijo sin protocolo como dominio seguro de Shopify.
+  - **Resolución:** Se mantiene `https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css`.
+  - **Justificación técnica y precedentes oficiales:**
+    1. **Precedente Oficial de Shopify:** El tema de referencia oficial de Shopify (**Dawn**, rama `main`), desarrollado por el equipo central de Shopify, utiliza exactamente `https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css` en `sections/main-product.liquid`.
+    2. **Compuerta de Admisión de Theme Store:** La Theme Store exige cero errores y cero advertencias en Theme Check como compuerta automatizada de admisión. Mantener `https://` garantiza 0 ofensas en Theme Check sin necesidad de comentarios de supresión de linter.
+    3. **Ausencia de Mixed Content:** El 100% de las tiendas Shopify operan bajo HTTPS obligatorio con HSTS, por lo que el uso explícito de `https://` en el CDN de Shopify jamás causa advertencias de contenido mixto ni fallos de seguridad.
+  - **Dictamen:** Queda documentada la excepción formal en este registro de decisiones. El código preserva `https://` para garantizar el paso en verde de todas las compuertas automáticas.
+

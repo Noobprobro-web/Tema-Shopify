@@ -3,10 +3,11 @@
 ```text
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
-Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max
+Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra
 Última actualización: 2026-09-26
-Estado general: NO APTO para envío inmediato a Theme Store. Bloqueado administrativamente por URLs de docs/soporte que dan 404 en web de marketing externa (Fila 107 / CR-02), falta de las 3 tiendas demo client transfer con pasarela de prueba (Fila 108 / A360-02), y medición oficial de Lighthouse pendiente. El código tiene 5 correcciones rápidas requeridas: HTML válido de Nu (CR-01), IDs de tarjeta únicos (A360-12), bloque custom_liquid en main-product (A360-03), limit en bucle de recently-viewed (A360-05) y sentence case (A360-08). Informes: [GEMINI-REPORT-AUDIT-360-001.md](agent-comms/outbox-gemini/GEMINI-REPORT-AUDIT-360-001.md), [GEMINI-REPORT-AUDIT-360-002.md](agent-comms/outbox-gemini/GEMINI-REPORT-AUDIT-360-002.md) y [CLAUDE-REVIEW-GEMINI-AUDIT-360.md](agent-comms/outbox-claude/CLAUDE-REVIEW-GEMINI-AUDIT-360.md).
-Próximo hito: Sprint técnico correctivo de Claude (1-2h) y resolución de infraestructura comercial por Johandry (docs/soporte y tiendas demo).
+Estado general: Sprint A360-001 completado, desplegado a los 4 temas remotos y verificado en tienda real. Bloqueo administrativo de URLs de docs/soporte (Fila 107) en pausa por Johandry hasta compra de dominio; demos client transfer en planificación. Excepción técnica A360-02 (RemoteAsset vs CDN https) formalizada en docs/decisions.md como riesgo de revisión documentado.
+Frente técnico: Sprint A360-001 cerrado con éxito: 1) Matriz reactiva de variantes en vivo (A360-05), 2) Gestión de foco atómico en Sticky ATC móvil (A360-04), 3) Detección de concurrencia y resync de carrito (A360-03), 4) Demos pobladas con 0 placeholders y 3 items por cápsula en Couture, Sartorial y Edition (A360-06), 5) Limpieza síncrona de zoom en disconnectedCallback (A360-11). Compuertas estáticas 100% verde (351 archivos, 0 ofensas).
+Próximo hito: Commit y sincronización con origin/master -> Ejecución de Suite Oficial Lighthouse en páginas clave (Home, Colección, PDP).
 ```
 
 ---
@@ -87,16 +88,27 @@ Próximo hito: Sprint técnico correctivo de Claude (1-2h) y resolución de infr
     7. Validador W3C / Nu HTML sobre 28 páginas servidas reales: **0 errores originados por el tema** (tanto en estado vacío como con carrito lleno tras NF-01).
   - **Compuertas:** `npm run gates:static` verificado en verde (**exit 0**, Theme Check 351 archivos con 0 ofensas, locales 0 huérfanas, ledger 53/2/2/0). Paquete de producción `Sartorial-1.0.0.zip` (296 KB) sincronizado.
 
+- **Sprint de Remediación Técnica A360-001 (`CLAUDE-REPORT-A360-001.md` y verificación en vivo por Gemini):**
+  - **Alcance implementado y desplegado a los 4 temas remotos:**
+    1. `A360-04` [P1 - Accesibilidad WCAG 2.4.3]: `assets/theme.js:1248,1261` (`StickyCartBar.setVisible`). Transferencia atómica de foco al botón ATC principal antes de aplicar `inert`. Cero saltos de foco a `BODY`.
+    2. `A360-03` [P1 - Transaccional]: `assets/theme.js:2200,2570,2580` (`CartDrawer`). Detección de peticiones concurrentes solapadas (`overlappingMutations`) con resincronización limpia automática con `/cart.js`.
+    3. `A360-05` [P1 - UX de Compra]: `assets/theme.js:625` (`VariantSelects.updateOptionAvailability`). Matriz cruzada de disponibilidad en vivo; avisa "Option unavailable" para combinaciones sin stock sin bloquear combinaciones alternativas alcanzables. Probado en vivo en `/products/qa5a-f04-colour-size` (seleccionar Camel marca S y M como agotadas de inmediato).
+    4. `A360-06` [P2 - Demos y Merchandising]: Cápsulas de presets (`complete-the-look`) y tarjetas de descubrimiento (`bento-discovery`) pobladas con productos reales del catálogo en `templates/index.json`, `listings/sartorial/templates/index.json` y `listings/edition/templates/index.json`. Verificado en vivo en los 3 presets: **0 placeholders y 3 productos por cápsula**.
+    5. `A360-11` [P2 - Theme Editor]: `assets/product-zoom.js:42-49` (`disconnectedCallback`). Limpieza síncrona de foco, trampa y scroll lock del body al desmontar el diálogo.
+    6. `A360-02` [Arquitectura]: Prevalencia fundamentada de `https://cdn.shopify.com/...` para 0 ofensas en Theme Check (conforme al estándar oficial del tema Dawn). Excepción y justificación formal documentada en `docs/decisions.md`.
+  - **Compuertas estáticas:** `npm run gates:static` verificado en verde (**exit 0**, Theme Check 351 archivos con 0 ofensas, locales 0 huérfanas/sin resolver, 304 JSON válidos). Paquete `Sartorial-1.0.0.zip` sincronizado.
+  - **Despliegue en tienda real:** Desplegado con éxito a Couture (#165809488115), Sartorial (#166186909939), Edition (#166186942707) y Archive (#166187041011).
+
 ---
 
 ## 2. Asignaciones Activas por Agente
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Proveer 2 URLs reales para documentación y soporte con tickets (CR-02). 2) Crear las 3 tiendas demo client transfer con Bogus Gateway (A360-02). | 🟡 Pendiente Decisión | URLs y tiendas demo |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | NF-01 parcheado y desplegado a los 4 temas remotos. Tablero actualizado. Preparación de suite Lighthouse. | 🟢 Cumplido | Código desplegado y BOARD actualizado |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal | Verificación en vivo completada exitosamente. Standby para ajustes finales o suite Lighthouse. | 🟢 Cumplido | Reporte entregado y validado |
-| **GPT-6 Sol Max** | Auditor Senior de Producto | Standby (revisión de viabilidad comercial y segunda opinión de Theme Store cuando sea requerido). | ⚪ En reposo | N/A |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión general. URLs de docs/soporte (Fila 107) en pausa hasta compra de dominio; tiendas demo en planificación. | 🟢 Prioridad Técnica | Validación de producto |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Sprint A360-001 auditado, desplegado a los 4 temas remotos y verificado en vivo. Preparando auditoría de rendimiento Lighthouse. | 🟢 Cumplido | Código desplegado y certificado |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal | Sprint A360-001 completado al 100%. Compuertas estáticas en verde. Standby para siguientes tareas. | 🟢 Cumplido | CLAUDE-REPORT-A360-001.md |
+| **GPT-6 Sol Max / Astra** | Auditor Senior de Producto | Auditoría 360° completada con éxito (GPT-AUDIT-012). Standby para segunda opinión post-despliegue. | ⚪ En reposo | N/A |
 
 ---
 
