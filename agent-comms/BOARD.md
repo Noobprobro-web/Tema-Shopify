@@ -99,16 +99,23 @@ Próximo hito: Commit y sincronización con origin/master -> Ejecución de Suite
   - **Compuertas estáticas:** `npm run gates:static` verificado en verde (**exit 0**, Theme Check 351 archivos con 0 ofensas, locales 0 huérfanas/sin resolver, 304 JSON válidos). Paquete `Sartorial-1.0.0.zip` sincronizado.
   - **Despliegue en tienda real:** Desplegado con éxito a Couture (#165809488115), Sartorial (#166186909939), Edition (#166186942707) y Archive (#166187041011).
 
+- **Creación y Despliegue de las 3 Tiendas Demo Oficiales (Fila 108 / A360-02):**
+  - Creadas 3 tiendas de desarrollo independientes bajo la organización `joha.dev` (Owner: Johandry Maldonado):
+    1. **Sartorial Atelier:** `https://sartorial-atelier.myshopify.com` (Admin: `https://admin.shopify.com/store/sartorial-atelier`). Tema `Sartorial` [live] #188743188704 (Preset: Sartorial aplicado).
+    2. **Sartorial Edition:** `https://sartorial-edition.myshopify.com` (Admin: `https://admin.shopify.com/store/sartorial-edition`). Tema `Edition` [live] #188655599784 (Preset: Edition aplicado).
+    3. **Sartorial Archive:** `https://sartorial-archive.myshopify.com` (Admin: `https://admin.shopify.com/store/sartorial-archive`). Tema `Archive` [live] #191153275192 (Preset: Archive aplicado).
+  - Cada tienda opera con su estilo preconfigurado y publicado como tema principal.
+
 ---
 
 ## 2. Asignaciones Activas por Agente
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión general. URLs de docs/soporte (Fila 107) en pausa hasta compra de dominio; tiendas demo en planificación. | 🟢 Prioridad Técnica | Validación de producto |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Sprint A360-001 auditado, desplegado a los 4 temas remotos y verificado en vivo. Preparando auditoría de rendimiento Lighthouse. | 🟢 Cumplido | Código desplegado y certificado |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal | Sprint A360-001 completado al 100%. Compuertas estáticas en verde. Standby para siguientes tareas. | 🟢 Cumplido | CLAUDE-REPORT-A360-001.md |
-| **GPT-6 Sol Max / Astra** | Auditor Senior de Producto | Auditoría 360° completada con éxito (GPT-AUDIT-012). Standby para segunda opinión post-despliegue. | ⚪ En reposo | N/A |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión general. 3 tiendas demo creadas y en vivo; personalización y catálogo temático por estilo. | 🟢 Cumplido | Tiendas demo activas |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | 3 tiendas demo creadas y temas desplegados/publicados vía CLI. Preparación de importación de catálogos temáticos. | 🟢 Cumplido | Demos en vivo |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal | Sprint A360-001 completado. Standby para ajustes finos de plantillas en demos o scripts de fixtures. | 🟢 Cumplido | CLAUDE-REPORT-A360-001.md |
+| **GPT-6 Sol Max / Astra** | Auditor Senior de Producto | Auditoría 360° completada. Standby para revisión de las 3 demos y estrategia comercial. | ⚪ En reposo | N/A |
 
 ---
 
