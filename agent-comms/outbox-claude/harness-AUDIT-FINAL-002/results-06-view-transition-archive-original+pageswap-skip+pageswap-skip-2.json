@@ -1,0 +1,54 @@
+[
+ {
+  "store": "archive",
+  "mode": "original",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [
+   {
+    "at": "/checkouts/<token>",
+    "name": "InvalidStateError",
+    "msg": "Transition was aborted because of invalid state. ViewTransition opt-in disabled",
+    "stack": []
+   }
+  ],
+  "storefrontToStorefront": {
+   "landed": "/collections/permanent-archive",
+   "errors": 0
+  }
+ },
+ {
+  "store": "archive",
+  "mode": "pageswap-skip",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/permanent-archive",
+   "errors": 0
+  }
+ },
+ {
+  "store": "archive",
+  "mode": "pageswap-skip-2",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/permanent-archive",
+   "errors": 0
+  }
+ }
+]

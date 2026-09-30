@@ -287,8 +287,15 @@
                   <li class="search-results-grid__item search-results-grid__item--{{ item.object_type }}">
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
+                        {%- liquid
+                          assign is_eager_search_card = false
+                          if paginate.current_page == 1 and forloop.index <= 4
+                            assign is_eager_search_card = true
+                          endif
+                        -%}
                         {% render 'product-card',
                           card_product: item,
+                          eager_image: is_eager_search_card,
                           show_secondary_image: section.settings.show_secondary_image,
                           show_vendor: section.settings.show_vendor,
                           show_quick_add: section.settings.show_quick_add

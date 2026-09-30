@@ -1,0 +1,48 @@
+  [nav] /products/serra-coat → 429, reintento en 45 s
+
+## atelier
+ PDP serra-coat: opciones=Title(1) variantes=1 disponibles=1
+   inicial: id=67646970233056 precio="$1,890.00" badges=[] inv={"state":"in_stock","msg":"In stock, ready to ship","visible":true} atc={"text":"Add to cart","disabled":false,"ariaDisabled":null} lineTotal="Regular price"
+   cantidad: {"start":"1 / Regular price","plus2":"3 / Total for 3 Regular price $5,670.00","incDisabled":false,"minus1":"2","zero":"0","negative":"-3","attrs":{"min":"1","max":"","step":"1","type":"number","inputmode":"numeric","label":"Quantity"}}
+ PDP nove-blazer: opciones=Title(1) variantes=1 disponibles=1
+   inicial: id=67646970659040 precio="$1,150.00" badges=[] inv={"state":"in_stock","msg":"In stock, ready to ship","visible":true} atc={"text":"Add to cart","disabled":false,"ariaDisabled":null} lineTotal="Regular price"
+   cantidad: {"start":"1 / Regular price","plus2":"3 / Total for 3 Regular price $3,450.00","incDisabled":false,"minus1":"2","zero":"0","negative":"-3","attrs":{"min":"1","max":"","step":"1","type":"number","inputmode":"numeric","label":"Quantity"}}
+ PDP pleated-wide-trouser: opciones=Title(1) variantes=1 disponibles=1
+   inicial: id=67646970462432 precio="$580.00" badges=[] inv={"state":"in_stock","msg":"In stock, ready to ship","visible":true} atc={"text":"Add to cart","disabled":false,"ariaDisabled":null} lineTotal="Regular price"
+   cantidad: {"start":"1 / Regular price","plus2":"3 / Total for 3 Regular price $1,740.00","incDisabled":false,"minus1":"2","zero":"0","negative":"-3","attrs":{"min":"1","max":"","step":"1","type":"number","inputmode":"numeric","label":"Quantity"}}
+ PDP silk-charmeuse-blouse: opciones=Title(1) variantes=1 disponibles=1
+   inicial: id=67646970167520 precio="$520.00" badges=[] inv={"state":"in_stock","msg":"In stock, ready to ship","visible":true} atc={"text":"Add to cart","disabled":false,"ariaDisabled":null} lineTotal="Regular price"
+   cantidad: {"start":"1 / Regular price","plus2":"3 / Total for 3 Regular price $1,560.00","incDisabled":false,"minus1":"2","zero":"0","negative":"-3","attrs":{"min":"1","max":"","step":"1","type":"number","inputmode":"numeric","label":"Quantity"}}
+ STEP B1 add simple (serra-coat): open=true api{count=1 total=189000 items=serra-coat×1} dom{items=1(-off) count="1 item" subtotal="$1,890.00 USD" badge=1 label="Cart, 1 item" status={"hidden":false,"txt":"Item added to your cart. Serra Coat"} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=button.icon-button|Close inPanel=true
+ STEP B2 qty +1: open=true api{count=2 total=378000 items=serra-coat×2} dom{items=2 count="2 items" subtotal="$3,780.00 USD" badge=2 label="Cart, 2 items" status={"hidden":true,"txt":""} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=button.quantity-stepper__button|Increase quantity for Serra Coat inPanel=true
+ STEP B3 ráfaga 4×+ (concurrencia): open=true api{count=5 total=945000 items=serra-coat×5} dom{items=5 count="5 items" subtotal="$9,450.00 USD" badge=5 label="Cart, 5 items" status={"hidden":true,"txt":""} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=button.quantity-stepper__button|Increase quantity for Serra Coat inPanel=true
+ STEP B4 qty tecleada = 2: open=false api{count=2 total=378000 items=serra-coat×2} dom{items=2 count="2 items" subtotal="$3,780.00 USD" badge=2 label="Cart, 2 items" status={"hidden":true,"txt":""} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=body.template-cart.color-scheme-1|Skip to content
+
+    
+
+    
+      
+      inPanel=false
+ STEP B5 qty tecleada = 999: open=false api{count=2 total=378000 items=serra-coat×2} dom{items=2 count="2 items" subtotal="$3,780.00 USD" badge=2 label="Cart, 2 items" status={"hidden":true,"txt":""} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=body.template-cart.color-scheme-1|Skip to content
+
+    
+
+    
+      
+      inPanel=false
+ STEP B6 nota: textarea ausente en el drawer (settings.show_cart_note=false en esta tienda) 
+ STEP B7 remove → vacío: open=false api{count=2 total=378000 items=serra-coat×2} dom{items=2 count="2 items" subtotal="$3,780.00 USD" badge=2 label="Cart, 2 items" status={"hidden":true,"txt":""} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=body.template-cart.color-scheme-1|Skip to content
+
+    
+
+    
+      
+      inPanel=false
+ STEP C1 bundle completo: open=true api{count=5 total=603000 items=pleated-wide-trouser×1,silk-charmeuse-blouse×1,nove-blazer×1,serra-coat×2} dom{items=1(-off),1(-off),1(-off),2 count="5 items" subtotal="$6,030.00 USD" badge=5 label="Cart, 5 items" status={"hidden":false,"txt":"The selected look was added to your cart."} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=button.icon-button|Close inPanel=true
+    bundle pre {"btn":"Add 3 pieces to bag | $2,250.00","checks":["true","true","true"],"summary":"Capsule total3 of 3 items selected $2,250.00","labelBox":["44x44","44x44","44x44"]} unchecked {"btn":"Add 2 pieces to bag | $1,100.00","summary":"Capsule total2 of 3 items selected $1,100.00"} msg {"status":"The selected look was added to your cart.","error":""}
+ STEP D1 featured product → add: open=true api{count=6 total=792000 items=pleated-wide-trouser×1,silk-charmeuse-blouse×1,nove-blazer×1,serra-coat×3} dom{items=1(-off),1(-off),1(-off),3 count="6 items" subtotal="$7,920.00 USD" badge=6 label="Cart, 6 items" status={"hidden":false,"txt":"Item added to your cart. Serra Coat"} error={"hidden":true,"txt":""} rewards="null" now=undefined note=false empty="null" xsell=0 dyn=false} focus=button.icon-button|Close inPanel=true
+ /cart: {"h1":"Your cart","items":4,"note":false,"checkout":true,"dynamic":false,"subtotal":"$7,920.00 USD"}
+ checkout: {"url":"https://sartorial-atelier.myshopify.com/checkouts/<token>/en-us?_r=<redactado>","title":"Checkout - Sartorial Atelier","h":["Sartorial Atelier","Sartorial Atelier","Sartorial Atelier Checkout","Contact"]}
+ buyNow: {"url":"https://sartorial-atelier.myshopify.com/checkouts/cn/<token>/en-us?_r=<redactado>","title":"Checkout - Sartorial Atelier"}
+ console errors: [{"type":"error","text":"Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked.\n","url":"https://sartorial-atelier.myshopify.com/"},{"type":"error","text":"Failed to load resource: the server responded with a status of 403 ()","url":"https://sartorial-atelier.myshopify.com/"},{"type":"error","text":"Failed to load resource: the server responded with a status of 429 ()","url":"https://sartorial-atelier.myshopify.com/products/serra-coat"},{"type":"error","text":"%c%d font-size:0;color:transparent NaN","url":"https://sartorial-atelier.myshopify.com/products/serra-coat"},{"type":"error","text":"%c%d font-size:0;color:transparent NaN","url":"https://sartorial-atelier.myshopify.com/products/serra-coat"},{"type":"pageerror","text":"Transition was aborted because of invalid state. ViewTransition opt-in disabled","url":"https://sartorial-atelier.myshopify.com/checkouts/cn/<token>/en-us?_r=<redactado>"}]
+ failed: ["403 GET https://shop.app/pay/hop?analytics_trace_id=<redactado>&target_or","429 GET /products/serra-coat","401 GET https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/pat/a4341ee038b8fa9b/1790","401 GET /private_access_tokens?id=<redactado>&checkout_type=c1","401 GET /private_access_tokens?id=<redactado>&checkout_type=c1"]

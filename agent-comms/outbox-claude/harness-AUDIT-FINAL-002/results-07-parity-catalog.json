@@ -1,0 +1,546 @@
+{
+ "atelier": {
+  "theme": {
+   "id": 188743188704,
+   "name": "Sartorial",
+   "role": "main",
+   "schema": "Sartorial 1.0.0"
+  },
+  "assets": {
+   "base.css": {
+    "servedBytes": 153498,
+    "localBytes": 218549,
+    "servedMd5": "45d7a8dee09b7bd7619c52e7ed343afb",
+    "localMd5": "79845d582aaaa439253c5b3869a27d5b",
+    "identical": false,
+    "markers": {
+     "@view-transition": true,
+     "product-recommendations:not([hidden]):empty": true,
+     "--sticky-cart-offset": true
+    }
+   },
+   "theme.js": {
+    "servedBytes": 124270,
+    "localBytes": 197631,
+    "servedMd5": "ab7c3739e25a950858fa120b9ec66573",
+    "localMd5": "7c3d4ff72ce5b7a560c114fced513022",
+    "identical": false,
+    "markers": {
+     "rootMargin: '0px 0px 300px 0px'": false,
+     "overlappingMutations": true,
+     "class RecentlyViewed": true,
+     "updateOptionAvailability": true
+    }
+   },
+   "product-zoom.js": {
+    "servedBytes": 9241,
+    "localBytes": 12522,
+    "servedMd5": "d068cbb9e43a4154f5a3b25fba76bfae",
+    "localMd5": "6b7bff3b152bc1c409626ef7df3ab36d",
+    "identical": false,
+    "markers": {
+     "disconnectedCallback": true
+    }
+   }
+  },
+  "pdpTransfer": [
+   {
+    "f": "base.css",
+    "transferKb": 0,
+    "encodedKb": 21.4,
+    "decodedKb": 149.9,
+    "blocking": "blocking"
+   },
+   {
+    "f": "theme.js",
+    "transferKb": 0,
+    "encodedKb": 23.8,
+    "decodedKb": 121.4,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "product-zoom.js",
+    "transferKb": 3.5,
+    "encodedKb": 3.2,
+    "decodedKb": 9,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "base.css",
+    "transferKb": 0,
+    "encodedKb": 21.4,
+    "decodedKb": 149.9,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "theme.js",
+    "transferKb": 0,
+    "encodedKb": 23.8,
+    "decodedKb": 121.4,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "product-zoom.js",
+    "transferKb": 0,
+    "encodedKb": 3.2,
+    "decodedKb": 9,
+    "blocking": "non-blocking"
+   }
+  ],
+  "homeWeight": {
+   "requests": 223,
+   "totalKb": 521.6,
+   "by": {
+    "early-hints": 0,
+    "script": 5.7,
+    "img": 324.4,
+    "beacon": 3,
+    "fetch": 1,
+    "css": 0,
+    "iframe": 0.8,
+    "other": 0,
+    "link": 186.7
+   },
+   "ttfb": 88,
+   "dcl": 330,
+   "load": 441,
+   "htmlKb": 25.4,
+   "domNodes": 885,
+   "themeScripts": [
+    "theme.js:defer",
+    "load_feature-1bd60354.js:defer",
+    "origin_trials-318ab40a.js:async",
+    "shop_events_listener-4e26a9ce.js:async",
+    "webmcp-c6b62ece.js:async:module"
+   ],
+   "inlineScriptsInBody": 0
+  },
+  "catalog": {
+   "products": 24,
+   "multiVariant": 0,
+   "onSale": [],
+   "soldOutProducts": [],
+   "productsWithSoldOutVariant": 0,
+   "multiImage": 0,
+   "noImage": 0,
+   "vendors": [
+    "LINEA NOVE"
+   ],
+   "types": [
+    "Dresses",
+    "Knitwear",
+    "Accessories",
+    "Trousers",
+    "Coats",
+    "Jackets",
+    "Skirts",
+    "Shirts",
+    "Bags",
+    "Waistcoats"
+   ],
+   "maxTitleChars": 23,
+   "optionNames": [
+    "Title"
+   ],
+   "collections": [
+    "frontpage:1",
+    "new-forms:11",
+    "permanent-collection:14",
+    "tailoring:5"
+   ],
+   "distinctImageFiles": 24,
+   "imageFiles": [
+    "bias-cut-slip-dress-01.jpg",
+    "cashmere-rib-crew-01.jpg",
+    "cashmere-scarf-01.jpg",
+    "cigarette-trouser-01.jpg",
+    "cocoon-cardigan-coat-01.jpg",
+    "column-knit-dress-01.jpg",
+    "cropped-tailored-jacket-01.jpg",
+    "doppio-trench-01.jpg",
+    "fine-merino-turtleneck-01.jpg",
+    "hand-framed-cotton-polo-01.jpg",
+    "leather-belt-01.jpg",
+    "nove-blazer-01.jpg",
+    "oversized-alpaca-knit-01.jpg",
+    "pleated-midi-skirt-01.jpg",
+    "pleated-wide-trouser-01.jpg",
+    "poplin-column-shirt-01.jpg",
+    "quilted-silk-liner-01.jpg",
+    "serra-coat-01.jpg",
+    "silk-charmeuse-blouse-01.jpg",
+    "silk-twill-square-01.jpg",
+    "striped-cotton-shirt-01.jpg",
+    "structured-tote-01.jpg",
+    "wool-waistcoat-01.jpg",
+    "wrap-wool-skirt-01.jpg"
+   ]
+  },
+  "nav": {
+   "header": [
+    "Home→/",
+    "Catalog→/collections/all",
+    "Contact→/pages/contact"
+   ],
+   "megaMenus": 0,
+   "footerLinks": [
+    "Sartorial Atelier→/",
+    "Search→/search",
+    "Powered by Shopify→https://www.shopify.com?utm_campaign=pow"
+   ],
+   "localizationForms": 0,
+   "cartNote": false
+  }
+ },
+ "edition": {
+  "theme": {
+   "id": 188655599784,
+   "name": "Edition",
+   "role": "main",
+   "schema": "Sartorial 1.0.0"
+  },
+  "assets": {
+   "base.css": {
+    "servedBytes": 153498,
+    "localBytes": 218549,
+    "servedMd5": "93eeb6d041048a2b39c0ec0617e0e8d0",
+    "localMd5": "79845d582aaaa439253c5b3869a27d5b",
+    "identical": false,
+    "markers": {
+     "@view-transition": true,
+     "product-recommendations:not([hidden]):empty": true,
+     "--sticky-cart-offset": true
+    }
+   },
+   "theme.js": {
+    "servedBytes": 124270,
+    "localBytes": 197631,
+    "servedMd5": "bc8fbbda407434329cc6ee7770e568ff",
+    "localMd5": "7c3d4ff72ce5b7a560c114fced513022",
+    "identical": false,
+    "markers": {
+     "rootMargin: '0px 0px 300px 0px'": false,
+     "overlappingMutations": true,
+     "class RecentlyViewed": true,
+     "updateOptionAvailability": true
+    }
+   },
+   "product-zoom.js": {
+    "servedBytes": 9241,
+    "localBytes": 12522,
+    "servedMd5": "c3d33d205e3c1362fafe5cc49f80db75",
+    "localMd5": "6b7bff3b152bc1c409626ef7df3ab36d",
+    "identical": false,
+    "markers": {
+     "disconnectedCallback": true
+    }
+   }
+  },
+  "pdpTransfer": [
+   {
+    "f": "base.css",
+    "transferKb": 0,
+    "encodedKb": 21.4,
+    "decodedKb": 149.9,
+    "blocking": "blocking"
+   },
+   {
+    "f": "theme.js",
+    "transferKb": 0,
+    "encodedKb": 23.8,
+    "decodedKb": 121.4,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "product-zoom.js",
+    "transferKb": 3.5,
+    "encodedKb": 3.2,
+    "decodedKb": 9,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "base.css",
+    "transferKb": 0,
+    "encodedKb": 21.4,
+    "decodedKb": 149.9,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "theme.js",
+    "transferKb": 0,
+    "encodedKb": 23.8,
+    "decodedKb": 121.4,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "product-zoom.js",
+    "transferKb": 0,
+    "encodedKb": 3.2,
+    "decodedKb": 9,
+    "blocking": "non-blocking"
+   }
+  ],
+  "homeWeight": {
+   "requests": 164,
+   "totalKb": 600,
+   "by": {
+    "early-hints": 0,
+    "script": 4.2,
+    "img": 386,
+    "beacon": 3,
+    "fetch": 1,
+    "css": 0,
+    "iframe": 0.8,
+    "other": 0,
+    "link": 205
+   },
+   "ttfb": 87,
+   "dcl": 318,
+   "load": 434,
+   "htmlKb": 28.9,
+   "domNodes": 806,
+   "themeScripts": [
+    "theme.js:defer",
+    "load_feature-1bd60354.js:defer",
+    "origin_trials-318ab40a.js:async",
+    "shop_events_listener-4e26a9ce.js:async",
+    "webmcp-c6b62ece.js:async:module"
+   ],
+   "inlineScriptsInBody": 0
+  },
+  "catalog": {
+   "products": 13,
+   "multiVariant": 13,
+   "onSale": [],
+   "soldOutProducts": [],
+   "productsWithSoldOutVariant": 0,
+   "multiImage": 0,
+   "noImage": 0,
+   "vendors": [
+    "Sartorial Edition"
+   ],
+   "types": [
+    "Small Leather Goods",
+    "Desk Objects",
+    "Bags"
+   ],
+   "maxTitleChars": 27,
+   "optionNames": [
+    "Finish",
+    "Size"
+   ],
+   "collections": [
+    "daily-objects:8",
+    "desk-study:6",
+    "frontpage:1",
+    "leather-goods:10"
+   ],
+   "distinctImageFiles": 13,
+   "imageFiles": [
+    "photo-1583485088034-697b5bc54ccd.jpg",
+    "photo-1584727638096-042c45049ebe.jpg",
+    "photo-1544717305-2782549b5136.jpg",
+    "photo-1581291518857-4e27b48ff24e.jpg",
+    "photo-1582533561751-ef6f6ab93a2e.jpg",
+    "photo-1563013544-824ae1b704d3.jpg",
+    "photo-1627123424574-724758594e93.jpg",
+    "photo-1553062407-98eeb64c6a62.jpg",
+    "photo-1544816155-12df9643f363.jpg",
+    "photo-1622560480605-d83c853bc5c3.jpg",
+    "photo-1548036328-c9fa89d128fa.jpg",
+    "photo-1590874103328-eac38a683ce7.jpg",
+    "structured-tote-01.jpg"
+   ]
+  },
+  "nav": {
+   "header": [
+    "Home→/",
+    "Catalog→/collections/all",
+    "Contact→/pages/contact"
+   ],
+   "megaMenus": 0,
+   "footerLinks": [
+    "Sartorial Edition→/",
+    "Search→/search",
+    "Powered by Shopify→https://www.shopify.com?utm_campaign=pow"
+   ],
+   "localizationForms": 0,
+   "cartNote": false
+  }
+ },
+ "archive": {
+  "theme": {
+   "id": 191153275192,
+   "name": "Archive",
+   "role": "main",
+   "schema": "Sartorial 1.0.0"
+  },
+  "assets": {
+   "base.css": {
+    "servedBytes": 153498,
+    "localBytes": 218549,
+    "servedMd5": "149b8cb2fdc850aff0c14810e0b065e7",
+    "localMd5": "79845d582aaaa439253c5b3869a27d5b",
+    "identical": false,
+    "markers": {
+     "@view-transition": true,
+     "product-recommendations:not([hidden]):empty": true,
+     "--sticky-cart-offset": true
+    }
+   },
+   "theme.js": {
+    "servedBytes": 124270,
+    "localBytes": 197631,
+    "servedMd5": "5f459146d6ffe937e56e438105eedaf6",
+    "localMd5": "7c3d4ff72ce5b7a560c114fced513022",
+    "identical": false,
+    "markers": {
+     "rootMargin: '0px 0px 300px 0px'": false,
+     "overlappingMutations": true,
+     "class RecentlyViewed": true,
+     "updateOptionAvailability": true
+    }
+   },
+   "product-zoom.js": {
+    "servedBytes": 9241,
+    "localBytes": 12522,
+    "servedMd5": "28bf93a4d46db93748ca03897a3680de",
+    "localMd5": "6b7bff3b152bc1c409626ef7df3ab36d",
+    "identical": false,
+    "markers": {
+     "disconnectedCallback": true
+    }
+   }
+  },
+  "pdpTransfer": [
+   {
+    "f": "base.css",
+    "transferKb": 0,
+    "encodedKb": 21.4,
+    "decodedKb": 149.9,
+    "blocking": "blocking"
+   },
+   {
+    "f": "theme.js",
+    "transferKb": 0,
+    "encodedKb": 23.8,
+    "decodedKb": 121.4,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "product-zoom.js",
+    "transferKb": 3.5,
+    "encodedKb": 3.2,
+    "decodedKb": 9,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "base.css",
+    "transferKb": 0,
+    "encodedKb": 21.4,
+    "decodedKb": 149.9,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "theme.js",
+    "transferKb": 0,
+    "encodedKb": 23.8,
+    "decodedKb": 121.4,
+    "blocking": "non-blocking"
+   },
+   {
+    "f": "product-zoom.js",
+    "transferKb": 0,
+    "encodedKb": 3.2,
+    "decodedKb": 9,
+    "blocking": "non-blocking"
+   }
+  ],
+  "homeWeight": {
+   "requests": 213,
+   "totalKb": 613.4,
+   "by": {
+    "early-hints": 0,
+    "script": 5.7,
+    "img": 393.8,
+    "beacon": 2.7,
+    "fetch": 1,
+    "css": 0,
+    "iframe": 0.8,
+    "other": 0,
+    "link": 209.4
+   },
+   "ttfb": 81,
+   "dcl": 309,
+   "load": 354,
+   "htmlKb": 24.1,
+   "domNodes": 736,
+   "themeScripts": [
+    "theme.js:defer",
+    "load_feature-1bd60354.js:defer",
+    "origin_trials-318ab40a.js:async",
+    "shop_events_listener-4e26a9ce.js:async",
+    "webmcp-c6b62ece.js:async:module"
+   ],
+   "inlineScriptsInBody": 0
+  },
+  "catalog": {
+   "products": 12,
+   "multiVariant": 0,
+   "onSale": [],
+   "soldOutProducts": [],
+   "productsWithSoldOutVariant": 0,
+   "multiImage": 0,
+   "noImage": 0,
+   "vendors": [
+    "Sartorial Archive"
+   ],
+   "types": [
+    "Outerwear Archive",
+    "Evening Archive",
+    "Accessories Archive",
+    "Tailoring Archive"
+   ],
+   "maxTitleChars": 38,
+   "optionNames": [
+    "Condition",
+    "Size"
+   ],
+   "collections": [
+    "frontpage:1",
+    "permanent-archive:12",
+    "restored-pieces:3"
+   ],
+   "distinctImageFiles": 12,
+   "imageFiles": [
+    "doppio-trench-01.jpg",
+    "bias-cut-slip-dress-01.jpg",
+    "silk-twill-square-01.jpg",
+    "cropped-tailored-jacket-01.jpg",
+    "cocoon-cardigan-coat-01.jpg",
+    "structured-tote-01.jpg",
+    "serra-coat-01.jpg",
+    "pleated-wide-trouser-01.jpg",
+    "silk-charmeuse-blouse-01.jpg",
+    "wrap-wool-skirt-01.jpg",
+    "nove-blazer-01.jpg",
+    "wool-waistcoat-01.jpg"
+   ]
+  },
+  "nav": {
+   "header": [
+    "Home→/",
+    "Catalog→/collections/all",
+    "Contact→/pages/contact"
+   ],
+   "megaMenus": 0,
+   "footerLinks": [
+    "Sartorial Archive→/",
+    "Search→/search",
+    "Powered by Shopify→https://www.shopify.com?utm_campaign=pow"
+   ],
+   "localizationForms": 0,
+   "cartNote": false
+  }
+ }
+}

@@ -1,0 +1,120 @@
+
+## atelier @375: home stops=43 reverse=43 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=387 y=7461 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=432 y=7461 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×5 → hero×2 → marquee×1 → collections×8 → lookbook×4 → featured_product×4 → capsule×7 → manifesto×1 → newsletter×2 → footer×5 → ?×2
+   PDP stops(<=90)=34 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: exp false→true→false | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=4 | Esc→trigger=true (button.icon-button.site-header__menu-button) stillVisible=false bgInertAfter=false
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: exp false→true→false | visible=true focusInside=true(Close) modal=null labelled=true bg=[main:live,footer:live,footer:inert,footer:inert,footer:live] | escapes=0 stops=2 | Esc→trigger=true (button.lookbook-hotspot__trigger) stillVisible=false bgInertAfter=false
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=3909 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. Serra Coat"
+   console: 13 warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th || warning:The resource https://shop.app/pay/assets/sprite.svg was preloaded using link preload but not used within a few seconds f || warning:[.WebGL-0x22c010b7000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this
+
+## atelier @1440: home stops=45 reverse=45 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=1452 y=7118 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=1497 y=7118 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×7 → hero×2 → marquee×1 → collections×8 → lookbook×4 → featured_product×4 → capsule×7 → manifesto×1 → newsletter×2 → footer×5 → ?×2
+   PDP stops(<=90)=35 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: SKIP (trigger no visible/no existe)
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: exp false→true→false | visible=true focusInside=true(Close) modal=null labelled=true bg=[main:live,footer:live,footer:inert,footer:inert,footer:live] | escapes=0 stops=2 | Esc→trigger=true (button.lookbook-hotspot__trigger) stillVisible=false bgInertAfter=false
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=3934 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. Serra Coat"
+   console: 15 warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th || warning:The resource https://shop.app/pay/assets/sprite.svg was preloaded using link preload but not used within a few seconds f || warning:[.WebGL-0x238c011ba400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+
+## edition @375: home stops=49 reverse=49 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=387 y=8606 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=432 y=8606 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×5 → hero×2 → discovery×6 → collections×8 → featured_product×6 → capsule×10 → manifesto×1 → newsletter×2 → footer×5 → ?×2
+   PDP stops(<=90)=35 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: exp false→true→false | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=4 | Esc→trigger=true (button.icon-button.site-header__menu-button) stillVisible=false bgInertAfter=false
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: SKIP (sección no presente en este preset)
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=3081 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard"
+   console: 12 warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th || warning:The resource https://shop.app/pay/assets/sprite.svg was preloaded using link preload but not used within a few seconds f || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th
+
+## edition @1440: home stops=51 reverse=51 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=1452 y=7126 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=1497 y=7126 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×7 → hero×2 → discovery×6 → collections×8 → featured_product×6 → capsule×10 → manifesto×1 → newsletter×2 → footer×5 → ?×2
+   PDP stops(<=90)=37 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: SKIP (trigger no visible/no existe)
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: SKIP (sección no presente en este preset)
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=3788 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard"
+   console: 12 warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th || warning:The resource https://shop.app/pay/assets/sprite.svg was preloaded using link preload but not used within a few seconds f || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th
+
+## archive @375: home stops=37 reverse=37 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=387 y=6438 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=432 y=6438 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×5 → hero×2 → manifesto×1 → marquee×1 → collections×8 → lookbook×3 → featured_product×6 → newsletter×2 → footer×5 → ?×2
+   PDP stops(<=90)=35 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: exp false→true→false | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=4 | Esc→trigger=true (button.icon-button.site-header__menu-button) stillVisible=false bgInertAfter=false
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: exp false→true→false | visible=true focusInside=true(Close) modal=null labelled=true bg=[main:live,footer:live,footer:inert,footer:live] | escapes=0 stops=2 | Esc→trigger=true (button.lookbook-hotspot__trigger) stillVisible=false bgInertAfter=false
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=3955 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. 1990 Pinstripe Double-Breasted Jacket - Restored / FR 40 / US 8"
+   console: 12 warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th || warning:The resource https://shop.app/pay/assets/sprite.svg was preloaded using link preload but not used within a few seconds f || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th
+
+## archive @1440: home stops=39 reverse=39 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=1452 y=5980 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=1497 y=5980 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×7 → hero×2 → manifesto×1 → marquee×1 → collections×8 → lookbook×3 → featured_product×6 → newsletter×2 → footer×5 → ?×2
+   PDP stops(<=90)=37 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: SKIP (trigger no visible/no existe)
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: exp false→true→false | visible=true focusInside=true(Close) modal=null labelled=true bg=[main:live,footer:live,footer:inert,footer:live] | escapes=0 stops=2 | Esc→trigger=true (button.lookbook-hotspot__trigger) stillVisible=false bgInertAfter=false
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=4176 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. 1990 Pinstripe Double-Breasted Jacket - Restored / FR 40 / US 8"
+   console: 12 warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th || warning:The resource https://shop.app/pay/assets/sprite.svg was preloaded using link preload but not used within a few seconds f || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th

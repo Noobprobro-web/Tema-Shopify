@@ -569,6 +569,7 @@
       this.updatePurchaseOptions(this.currentVariant);
       this.updateForms(this.currentVariant);
       this.updatePrice(this.currentVariant);
+      this.updateQuantityRules(this.currentVariant);
     }
 
     getVariantData() {
@@ -951,11 +952,14 @@
       quantityInput.step = variant.quantity_increment;
       quantityInput.value = Math.max(Number(quantityInput.value), Number(variant.quantity_min));
 
-      if (variant.quantity_max === null) {
+      const hasInventoryLimit = Boolean(variant.inventory_management) && variant.inventory_policy === 'deny' && variant.inventory_quantity > 0;
+      const effectiveMax = variant.quantity_max !== null ? variant.quantity_max : (hasInventoryLimit ? variant.inventory_quantity : null);
+
+      if (effectiveMax === null) {
         quantityInput.removeAttribute('max');
       } else {
-        quantityInput.max = variant.quantity_max;
-        quantityInput.value = Math.min(Number(quantityInput.value), Number(variant.quantity_max));
+        quantityInput.max = effectiveMax;
+        quantityInput.value = Math.min(Number(quantityInput.value), Number(effectiveMax));
       }
 
       const after = [
@@ -1702,7 +1706,7 @@
             this.intersectionObserver.disconnect();
             this.load();
           },
-          { rootMargin: '0px 0px 300px 0px' },
+          { rootMargin: '0px 0px 200% 0px' },
         );
         this.intersectionObserver.observe(this);
       } else {
@@ -2206,6 +2210,11 @@
       this.listen(document, 'submit', (event) => this.handleAddSubmit(event));
       this.listen(this, 'click', (event) => this.handleDrawerClick(event));
       this.listen(this, 'change', (event) => this.handleDrawerChange(event));
+      this.listen(this, 'keydown', (event) => {
+        if (event.key !== 'Enter' || !event.target.matches?.('[data-cart-quantity]')) return;
+        event.preventDefault();
+        event.target.dispatchEvent(new Event('change', { bubbles: true }));
+      });
       this.listen(this, 'input', (event) => {
         if (event.target.matches('textarea[name="note"]')) event.target.dataset.dirty = 'true';
       });
@@ -4879,6 +4888,16 @@
       if (message.isConnected) message.focus();
     });
   };
+
+  // La regla @view-transition de base.css solo tiene sentido entre paginas del tema.
+  // Hacia el checkout, que no participa, el navegador aborta la transicion y deja un
+  // InvalidStateError sin capturar en la consola del destino.
+  window.addEventListener('pageswap', (event) => {
+    if (!event.viewTransition) return;
+    const url = event.activation?.entry?.url;
+    const path = url ? new URL(url).pathname : '';
+    if (!url || /^\/(checkouts?|cart\/c)\//.test(path)) event.viewTransition.skipTransition();
+  });
 
   initScrollReveal();
   initHeaderScrollState();

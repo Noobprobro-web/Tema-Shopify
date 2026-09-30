@@ -1,0 +1,64 @@
+  [429] https://sartorial-edition.myshopify.com/products/structured-tote → espera 60 s (intento 1)
+  [429] https://sartorial-edition.myshopify.com/products/structured-tote → espera 60 s (intento 1)
+  [429] https://sartorial-edition.myshopify.com/products/structured-tote → espera 60 s (intento 1)
+[
+ {
+  "store": "edition",
+  "mode": "original",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [
+   {
+    "at": "/checkouts/<token>",
+    "name": "InvalidStateError",
+    "msg": "Transition was aborted because of invalid state. ViewTransition opt-in disabled",
+    "stack": []
+   }
+  ],
+  "storefrontToStorefront": {
+   "landed": "/collections/daily-objects",
+   "errors": 0
+  }
+ },
+ {
+  "store": "edition",
+  "mode": "sin-@view-transition",
+  "patchedRules": 1,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: none; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/daily-objects",
+   "errors": 0
+  }
+ },
+ {
+  "store": "edition",
+  "mode": "original-2",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [
+   {
+    "at": "/checkouts/<token>",
+    "name": "InvalidStateError",
+    "msg": "Transition was aborted because of invalid state. ViewTransition opt-in disabled",
+    "stack": []
+   }
+  ],
+  "storefrontToStorefront": {
+   "landed": "/collections/daily-objects",
+   "errors": 0
+  }
+ }
+]
