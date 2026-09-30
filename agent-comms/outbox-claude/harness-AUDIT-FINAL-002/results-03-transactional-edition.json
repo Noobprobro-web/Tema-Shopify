@@ -1,0 +1,1505 @@
+{
+ "edition": {
+  "pdp": {
+   "structured-tote": {
+    "json": {
+     "options": [
+      {
+       "name": "Finish",
+       "values": [
+        "Black box calf",
+        "Saddle tan",
+        "Deep olive"
+       ]
+      },
+      {
+       "name": "Size",
+       "values": [
+        "Standard",
+        "Compact"
+       ]
+      }
+     ],
+     "variants": [
+      {
+       "id": "67582163845288",
+       "title": "Black box calf / Standard",
+       "price": 68000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Black box calf",
+        "Standard"
+       ]
+      },
+      {
+       "id": "67582163878056",
+       "title": "Black box calf / Compact",
+       "price": 58000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Black box calf",
+        "Compact"
+       ]
+      },
+      {
+       "id": "67582163910824",
+       "title": "Saddle tan / Standard",
+       "price": 68000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Saddle tan",
+        "Standard"
+       ]
+      },
+      {
+       "id": "67582163943592",
+       "title": "Saddle tan / Compact",
+       "price": 58000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Saddle tan",
+        "Compact"
+       ]
+      },
+      {
+       "id": "67582163976360",
+       "title": "Deep olive / Standard",
+       "price": 68000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Deep olive",
+        "Standard"
+       ]
+      },
+      {
+       "id": "67582164009128",
+       "title": "Deep olive / Compact",
+       "price": 58000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Deep olive",
+        "Compact"
+       ]
+      }
+     ]
+    },
+    "initial": {
+     "url": "",
+     "idInput": "67582163845288",
+     "checked": [
+      "Black box calf",
+      "Standard"
+     ],
+     "selectedLabels": [
+      "Black box calf",
+      "Standard"
+     ],
+     "unavailable": [],
+     "priceVisible": "$680.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$680.00",
+      "variant": "Black box calf / Standard",
+      "total": ""
+     },
+     "liveStatus": ""
+    },
+    "changes": [
+     {
+      "clicked": "Saddle tan",
+      "ms": 86,
+      "reqs": [
+       "/products/structured-tote?variant=67582163910824&section_id=template--2782197910"
+      ],
+      "state": {
+       "url": "?variant=67582163910824",
+       "idInput": "67582163910824",
+       "checked": [
+        "Saddle tan",
+        "Standard"
+       ],
+       "selectedLabels": [
+        "Saddle tan",
+        "Standard"
+       ],
+       "unavailable": [],
+       "priceVisible": "$680.00",
+       "badges": [],
+       "inventory": {
+        "state": "in_stock",
+        "msg": "In stock, ready to ship",
+        "visible": true
+       },
+       "atc": {
+        "text": "Add to cart",
+        "disabled": false,
+        "ariaDisabled": null
+       },
+       "buyNow": {
+        "disabled": false,
+        "visible": true
+       },
+       "qty": "1",
+       "lineTotal": "Regular price",
+       "sticky": {
+        "price": "$680.00",
+        "variant": "Saddle tan / Standard",
+        "total": ""
+       },
+       "liveStatus": "Saddle tan / Standard: Variant available."
+      },
+      "expect": {
+       "title": "Saddle tan / Standard",
+       "price": 68000,
+       "available": true
+      }
+     },
+     {
+      "clicked": "Deep olive",
+      "ms": 51,
+      "reqs": [
+       "/products/structured-tote?variant=67582163976360&section_id=template--2782197910"
+      ],
+      "state": {
+       "url": "?variant=67582163976360",
+       "idInput": "67582163976360",
+       "checked": [
+        "Deep olive",
+        "Standard"
+       ],
+       "selectedLabels": [
+        "Deep olive",
+        "Standard"
+       ],
+       "unavailable": [],
+       "priceVisible": "$680.00",
+       "badges": [],
+       "inventory": {
+        "state": "in_stock",
+        "msg": "In stock, ready to ship",
+        "visible": true
+       },
+       "atc": {
+        "text": "Add to cart",
+        "disabled": false,
+        "ariaDisabled": null
+       },
+       "buyNow": {
+        "disabled": false,
+        "visible": true
+       },
+       "qty": "1",
+       "lineTotal": "Regular price",
+       "sticky": {
+        "price": "$680.00",
+        "variant": "Deep olive / Standard",
+        "total": ""
+       },
+       "liveStatus": "Deep olive / Standard: Variant available."
+      },
+      "expect": {
+       "title": "Deep olive / Standard",
+       "price": 68000,
+       "available": true
+      }
+     },
+     {
+      "clicked": "Compact",
+      "ms": 55,
+      "reqs": [
+       "/products/structured-tote?variant=67582164009128&section_id=template--2782197910"
+      ],
+      "state": {
+       "url": "?variant=67582164009128",
+       "idInput": "67582164009128",
+       "checked": [
+        "Deep olive",
+        "Compact"
+       ],
+       "selectedLabels": [
+        "Deep olive",
+        "Compact"
+       ],
+       "unavailable": [],
+       "priceVisible": "$580.00",
+       "badges": [],
+       "inventory": {
+        "state": "in_stock",
+        "msg": "In stock, ready to ship",
+        "visible": true
+       },
+       "atc": {
+        "text": "Add to cart",
+        "disabled": false,
+        "ariaDisabled": null
+       },
+       "buyNow": {
+        "disabled": false,
+        "visible": true
+       },
+       "qty": "1",
+       "lineTotal": "Regular price",
+       "sticky": {
+        "price": "$580.00",
+        "variant": "Deep olive / Compact",
+        "total": ""
+       },
+       "liveStatus": "Deep olive / Compact: Variant available."
+      },
+      "expect": {
+       "title": "Deep olive / Compact",
+       "price": 58000,
+       "available": true
+      }
+     }
+    ],
+    "arrowKey": {
+     "url": "?variant=67582163910824",
+     "idInput": "67582163910824",
+     "checked": [
+      "Saddle tan",
+      "Standard"
+     ],
+     "selectedLabels": [
+      "Saddle tan",
+      "Standard"
+     ],
+     "unavailable": [],
+     "priceVisible": "$680.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$680.00",
+      "variant": "Saddle tan / Standard",
+      "total": ""
+     },
+     "liveStatus": "Saddle tan / Standard: Variant available."
+    },
+    "arrowFocus": "Saddle tan",
+    "quantity": {
+     "start": "1 / Regular price",
+     "plus2": "3 / Total for 3 Regular price $2,040.00",
+     "incDisabled": false,
+     "minus1": "2",
+     "zero": "0",
+     "negative": "-3",
+     "attrs": {
+      "min": "1",
+      "max": "",
+      "step": "1",
+      "type": "number",
+      "inputmode": "numeric",
+      "label": "Quantity"
+     }
+    }
+   },
+   "leather-desk-mat": {
+    "json": {
+     "options": [
+      {
+       "name": "Finish",
+       "values": [
+        "Black",
+        "Dark umber"
+       ]
+      },
+      {
+       "name": "Size",
+       "values": [
+        "Large",
+        "Compact"
+       ]
+      }
+     ],
+     "variants": [
+      {
+       "id": "67582164762792",
+       "title": "Black / Large",
+       "price": 31000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Black",
+        "Large"
+       ]
+      },
+      {
+       "id": "67582164795560",
+       "title": "Black / Compact",
+       "price": 26000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Black",
+        "Compact"
+       ]
+      },
+      {
+       "id": "67582164828328",
+       "title": "Dark umber / Large",
+       "price": 31000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Dark umber",
+        "Large"
+       ]
+      },
+      {
+       "id": "67582164861096",
+       "title": "Dark umber / Compact",
+       "price": 26000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Dark umber",
+        "Compact"
+       ]
+      }
+     ]
+    },
+    "initial": {
+     "url": "",
+     "idInput": "67582164762792",
+     "checked": [
+      "Black",
+      "Large"
+     ],
+     "selectedLabels": [
+      "Black",
+      "Large"
+     ],
+     "unavailable": [],
+     "priceVisible": "$310.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$310.00",
+      "variant": "Black / Large",
+      "total": ""
+     },
+     "liveStatus": ""
+    },
+    "changes": [
+     {
+      "clicked": "Dark umber",
+      "ms": 73,
+      "reqs": [
+       "/products/leather-desk-mat?variant=67582164828328&section_id=template--278219791"
+      ],
+      "state": {
+       "url": "?variant=67582164828328",
+       "idInput": "67582164828328",
+       "checked": [
+        "Dark umber",
+        "Large"
+       ],
+       "selectedLabels": [
+        "Dark umber",
+        "Large"
+       ],
+       "unavailable": [],
+       "priceVisible": "$310.00",
+       "badges": [],
+       "inventory": {
+        "state": "in_stock",
+        "msg": "In stock, ready to ship",
+        "visible": true
+       },
+       "atc": {
+        "text": "Add to cart",
+        "disabled": false,
+        "ariaDisabled": null
+       },
+       "buyNow": {
+        "disabled": false,
+        "visible": true
+       },
+       "qty": "1",
+       "lineTotal": "Regular price",
+       "sticky": {
+        "price": "$310.00",
+        "variant": "Dark umber / Large",
+        "total": ""
+       },
+       "liveStatus": "Dark umber / Large: Variant available."
+      },
+      "expect": {
+       "title": "Dark umber / Large",
+       "price": 31000,
+       "available": true
+      }
+     },
+     {
+      "clicked": "Compact",
+      "ms": 50,
+      "reqs": [
+       "/products/leather-desk-mat?variant=67582164861096&section_id=template--278219791"
+      ],
+      "state": {
+       "url": "?variant=67582164861096",
+       "idInput": "67582164861096",
+       "checked": [
+        "Dark umber",
+        "Compact"
+       ],
+       "selectedLabels": [
+        "Dark umber",
+        "Compact"
+       ],
+       "unavailable": [],
+       "priceVisible": "$260.00",
+       "badges": [],
+       "inventory": {
+        "state": "in_stock",
+        "msg": "In stock, ready to ship",
+        "visible": true
+       },
+       "atc": {
+        "text": "Add to cart",
+        "disabled": false,
+        "ariaDisabled": null
+       },
+       "buyNow": {
+        "disabled": false,
+        "visible": true
+       },
+       "qty": "1",
+       "lineTotal": "Regular price",
+       "sticky": {
+        "price": "$260.00",
+        "variant": "Dark umber / Compact",
+        "total": ""
+       },
+       "liveStatus": "Dark umber / Compact: Variant available."
+      },
+      "expect": {
+       "title": "Dark umber / Compact",
+       "price": 26000,
+       "available": true
+      }
+     }
+    ],
+    "arrowKey": {
+     "url": "?variant=67582164828328",
+     "idInput": "67582164828328",
+     "checked": [
+      "Dark umber",
+      "Large"
+     ],
+     "selectedLabels": [
+      "Dark umber",
+      "Large"
+     ],
+     "unavailable": [],
+     "priceVisible": "$310.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$310.00",
+      "variant": "Dark umber / Large",
+      "total": ""
+     },
+     "liveStatus": "Dark umber / Large: Variant available."
+    },
+    "arrowFocus": "Dark umber",
+    "quantity": {
+     "start": "1 / Regular price",
+     "plus2": "3 / Total for 3 Regular price $930.00",
+     "incDisabled": false,
+     "minus1": "2",
+     "zero": "0",
+     "negative": "-3",
+     "attrs": {
+      "min": "1",
+      "max": "",
+      "step": "1",
+      "type": "number",
+      "inputmode": "numeric",
+      "label": "Quantity"
+     }
+    }
+   },
+   "milled-brass-paperweight": {
+    "json": {
+     "options": [
+      {
+       "name": "Finish",
+       "values": [
+        "Natural brass",
+        "Dark patina"
+       ]
+      }
+     ],
+     "variants": [
+      {
+       "id": "67582165024936",
+       "title": "Natural brass",
+       "price": 11000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Natural brass"
+       ]
+      },
+      {
+       "id": "67582165057704",
+       "title": "Dark patina",
+       "price": 11000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Dark patina"
+       ]
+      }
+     ]
+    },
+    "initial": {
+     "url": "",
+     "idInput": "67582165024936",
+     "checked": [
+      "Natural brass"
+     ],
+     "selectedLabels": [
+      "Natural brass"
+     ],
+     "unavailable": [],
+     "priceVisible": "$110.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$110.00",
+      "variant": "Natural brass",
+      "total": ""
+     },
+     "liveStatus": ""
+    },
+    "changes": [
+     {
+      "clicked": "Dark patina",
+      "ms": 73,
+      "reqs": [
+       "/products/milled-brass-paperweight?variant=67582165057704&section_id=template--2"
+      ],
+      "state": {
+       "url": "?variant=67582165057704",
+       "idInput": "67582165057704",
+       "checked": [
+        "Dark patina"
+       ],
+       "selectedLabels": [
+        "Dark patina"
+       ],
+       "unavailable": [],
+       "priceVisible": "$110.00",
+       "badges": [],
+       "inventory": {
+        "state": "in_stock",
+        "msg": "In stock, ready to ship",
+        "visible": true
+       },
+       "atc": {
+        "text": "Add to cart",
+        "disabled": false,
+        "ariaDisabled": null
+       },
+       "buyNow": {
+        "disabled": false,
+        "visible": true
+       },
+       "qty": "1",
+       "lineTotal": "Regular price",
+       "sticky": {
+        "price": "$110.00",
+        "variant": "Dark patina",
+        "total": ""
+       },
+       "liveStatus": "Dark patina: Variant available."
+      },
+      "expect": {
+       "title": "Dark patina",
+       "price": 11000,
+       "available": true
+      }
+     }
+    ],
+    "arrowKey": {
+     "url": "?variant=67582165057704",
+     "idInput": "67582165057704",
+     "checked": [
+      "Dark patina"
+     ],
+     "selectedLabels": [
+      "Dark patina"
+     ],
+     "unavailable": [],
+     "priceVisible": "$110.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$110.00",
+      "variant": "Dark patina",
+      "total": ""
+     },
+     "liveStatus": "Dark patina: Variant available."
+    },
+    "arrowFocus": "Dark patina",
+    "quantity": {
+     "start": "1 / Regular price",
+     "plus2": "3 / Total for 3 Regular price $330.00",
+     "incDisabled": false,
+     "minus1": "2",
+     "zero": "0",
+     "negative": "-3",
+     "attrs": {
+      "min": "1",
+      "max": "",
+      "step": "1",
+      "type": "number",
+      "inputmode": "numeric",
+      "label": "Quantity"
+     }
+    }
+   },
+   "leather-document-folio": {
+    "json": {
+     "options": [
+      {
+       "name": "Finish",
+       "values": [
+        "Black box calf",
+        "Saddle tan"
+       ]
+      }
+     ],
+     "variants": [
+      {
+       "id": "67582164238504",
+       "title": "Black box calf",
+       "price": 37000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Black box calf"
+       ]
+      },
+      {
+       "id": "67582164271272",
+       "title": "Saddle tan",
+       "price": 37000,
+       "compare": null,
+       "available": true,
+       "opts": [
+        "Saddle tan"
+       ]
+      }
+     ]
+    },
+    "initial": {
+     "url": "",
+     "idInput": "67582164238504",
+     "checked": [
+      "Black box calf"
+     ],
+     "selectedLabels": [
+      "Black box calf"
+     ],
+     "unavailable": [],
+     "priceVisible": "$370.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$370.00",
+      "variant": "Black box calf",
+      "total": ""
+     },
+     "liveStatus": ""
+    },
+    "changes": [
+     {
+      "clicked": "Saddle tan",
+      "ms": 74,
+      "reqs": [
+       "/products/leather-document-folio?variant=67582164271272&section_id=template--278"
+      ],
+      "state": {
+       "url": "?variant=67582164271272",
+       "idInput": "67582164271272",
+       "checked": [
+        "Saddle tan"
+       ],
+       "selectedLabels": [
+        "Saddle tan"
+       ],
+       "unavailable": [],
+       "priceVisible": "$370.00",
+       "badges": [],
+       "inventory": {
+        "state": "in_stock",
+        "msg": "In stock, ready to ship",
+        "visible": true
+       },
+       "atc": {
+        "text": "Add to cart",
+        "disabled": false,
+        "ariaDisabled": null
+       },
+       "buyNow": {
+        "disabled": false,
+        "visible": true
+       },
+       "qty": "1",
+       "lineTotal": "Regular price",
+       "sticky": {
+        "price": "$370.00",
+        "variant": "Saddle tan",
+        "total": ""
+       },
+       "liveStatus": "Saddle tan: Variant available."
+      },
+      "expect": {
+       "title": "Saddle tan",
+       "price": 37000,
+       "available": true
+      }
+     }
+    ],
+    "arrowKey": {
+     "url": "?variant=67582164271272",
+     "idInput": "67582164271272",
+     "checked": [
+      "Saddle tan"
+     ],
+     "selectedLabels": [
+      "Saddle tan"
+     ],
+     "unavailable": [],
+     "priceVisible": "$370.00",
+     "badges": [],
+     "inventory": {
+      "state": "in_stock",
+      "msg": "In stock, ready to ship",
+      "visible": true
+     },
+     "atc": {
+      "text": "Add to cart",
+      "disabled": false,
+      "ariaDisabled": null
+     },
+     "buyNow": {
+      "disabled": false,
+      "visible": true
+     },
+     "qty": "1",
+     "lineTotal": "Regular price",
+     "sticky": {
+      "price": "$370.00",
+      "variant": "Saddle tan",
+      "total": ""
+     },
+     "liveStatus": "Saddle tan: Variant available."
+    },
+    "arrowFocus": "Saddle tan",
+    "quantity": {
+     "start": "1 / Regular price",
+     "plus2": "3 / Total for 3 Regular price $1,110.00",
+     "incDisabled": false,
+     "minus1": "2",
+     "zero": "0",
+     "negative": "-3",
+     "attrs": {
+      "min": "1",
+      "max": "",
+      "step": "1",
+      "type": "number",
+      "inputmode": "numeric",
+      "label": "Quantity"
+     }
+    }
+   }
+  },
+  "steps": [
+   {
+    "label": "B1 add simple (structured-tote)",
+    "open": true,
+    "api": {
+     "count": 1,
+     "total": 68000,
+     "note": "",
+     "items": [
+      {
+       "h": "structured-tote",
+       "v": "Black box calf / Standard",
+       "q": 1,
+       "line": 68000
+      }
+     ]
+    },
+    "dom": {
+     "items": [
+      {
+       "title": "Structured Tote in Calfskin",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      }
+     ],
+     "countLabel": "1 item",
+     "subtotal": "$680.00 USD",
+     "headerBadge": "1",
+     "headerBadgeHidden": false,
+     "headerLabel": "Cart, 1 item",
+     "status": {
+      "hidden": false,
+      "txt": "Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard"
+     },
+     "error": {
+      "hidden": true,
+      "txt": ""
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": null,
+     "checkoutBtn": true,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.icon-button|Close",
+    "focusInPanel": true
+   },
+   {
+    "label": "B2 qty +1",
+    "open": true,
+    "api": {
+     "count": 2,
+     "total": 136000,
+     "note": "",
+     "items": [
+      {
+       "h": "structured-tote",
+       "v": "Black box calf / Standard",
+       "q": 2,
+       "line": 136000
+      }
+     ]
+    },
+    "dom": {
+     "items": [
+      {
+       "title": "Structured Tote in Calfskin",
+       "qty": "2",
+       "decDisabled": false,
+       "incDisabled": false
+      }
+     ],
+     "countLabel": "2 items",
+     "subtotal": "$1,360.00 USD",
+     "headerBadge": "2",
+     "headerBadgeHidden": false,
+     "headerLabel": "Cart, 2 items",
+     "status": {
+      "hidden": true,
+      "txt": ""
+     },
+     "error": {
+      "hidden": true,
+      "txt": ""
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": null,
+     "checkoutBtn": true,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.quantity-stepper__button|Increase quantity for Structured Tote in",
+    "focusInPanel": true
+   },
+   {
+    "label": "B3 ráfaga 4×+ (concurrencia)",
+    "open": true,
+    "api": {
+     "count": 6,
+     "total": 408000,
+     "note": "",
+     "items": [
+      {
+       "h": "structured-tote",
+       "v": "Black box calf / Standard",
+       "q": 6,
+       "line": 408000
+      }
+     ]
+    },
+    "dom": {
+     "items": [
+      {
+       "title": "Structured Tote in Calfskin",
+       "qty": "6",
+       "decDisabled": false,
+       "incDisabled": false
+      }
+     ],
+     "countLabel": "6 items",
+     "subtotal": "$4,080.00 USD",
+     "headerBadge": "6",
+     "headerBadgeHidden": false,
+     "headerLabel": "Cart, 6 items",
+     "status": {
+      "hidden": true,
+      "txt": ""
+     },
+     "error": {
+      "hidden": true,
+      "txt": ""
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": null,
+     "checkoutBtn": true,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.quantity-stepper__button|Increase quantity for Structured Tote in",
+    "focusInPanel": true
+   },
+   {
+    "label": "B4 qty tecleada = 2",
+    "open": true,
+    "api": {
+     "count": 2,
+     "total": 136000,
+     "note": "",
+     "items": [
+      {
+       "h": "structured-tote",
+       "v": "Black box calf / Standard",
+       "q": 2,
+       "line": 136000
+      }
+     ]
+    },
+    "dom": {
+     "items": [
+      {
+       "title": "Structured Tote in Calfskin",
+       "qty": "2",
+       "decDisabled": false,
+       "incDisabled": false
+      }
+     ],
+     "countLabel": "2 items",
+     "subtotal": "$1,360.00 USD",
+     "headerBadge": "2",
+     "headerBadgeHidden": false,
+     "headerLabel": "Cart, 2 items",
+     "status": {
+      "hidden": true,
+      "txt": ""
+     },
+     "error": {
+      "hidden": true,
+      "txt": ""
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": null,
+     "checkoutBtn": true,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.quantity-stepper__button|Increase quantity for Structured Tote in",
+    "focusInPanel": true
+   },
+   {
+    "label": "B5 qty tecleada = 999",
+    "open": true,
+    "api": {
+     "count": 25,
+     "total": 1700000,
+     "note": "",
+     "items": [
+      {
+       "h": "structured-tote",
+       "v": "Black box calf / Standard",
+       "q": 25,
+       "line": 1700000
+      }
+     ]
+    },
+    "dom": {
+     "items": [
+      {
+       "title": "Structured Tote in Calfskin",
+       "qty": "25",
+       "decDisabled": false,
+       "incDisabled": false
+      }
+     ],
+     "countLabel": "25 items",
+     "subtotal": "$17,000.00 USD",
+     "headerBadge": "25",
+     "headerBadgeHidden": false,
+     "headerLabel": "Cart, 25 items",
+     "status": {
+      "hidden": true,
+      "txt": ""
+     },
+     "error": {
+      "hidden": false,
+      "txt": "Only 25 items were added to your cart due to availability."
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": null,
+     "checkoutBtn": true,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.quantity-stepper__button|Increase quantity for Structured Tote in",
+    "focusInPanel": true
+   },
+   {
+    "label": "B6 nota: textarea ausente en el drawer (settings.show_cart_note=false en esta tienda)"
+   },
+   {
+    "label": "B7 remove → vacío",
+    "open": true,
+    "api": {
+     "count": 0,
+     "total": 0,
+     "note": "",
+     "items": []
+    },
+    "dom": {
+     "items": [],
+     "countLabel": "0 items",
+     "subtotal": null,
+     "headerBadge": "0",
+     "headerBadgeHidden": true,
+     "headerLabel": "Cart, 0 items",
+     "status": {
+      "hidden": true,
+      "txt": ""
+     },
+     "error": {
+      "hidden": true,
+      "txt": ""
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": "Your cart is currently empty.",
+     "checkoutBtn": false,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.icon-button|Close",
+    "focusInPanel": true
+   },
+   {
+    "label": "C1 bundle completo",
+    "open": true,
+    "api": {
+     "count": 3,
+     "total": 62000,
+     "note": "",
+     "items": [
+      {
+       "h": "folded-valet-tray",
+       "v": "Black",
+       "q": 1,
+       "line": 15500
+      },
+      {
+       "h": "four-slot-cardholder",
+       "v": "Black box calf",
+       "q": 1,
+       "line": 9500
+      },
+      {
+       "h": "leather-document-folio",
+       "v": "Black box calf",
+       "q": 1,
+       "line": 37000
+      }
+     ]
+    },
+    "dom": {
+     "items": [
+      {
+       "title": "Folded Valet Tray",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      },
+      {
+       "title": "Four-Slot Cardholder",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      },
+      {
+       "title": "Leather Document Folio",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      }
+     ],
+     "countLabel": "3 items",
+     "subtotal": "$620.00 USD",
+     "headerBadge": "3",
+     "headerBadgeHidden": false,
+     "headerLabel": "Cart, 3 items",
+     "status": {
+      "hidden": false,
+      "txt": "The selected look was added to your cart."
+     },
+     "error": {
+      "hidden": true,
+      "txt": ""
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": null,
+     "checkoutBtn": true,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.icon-button|Close",
+    "focusInPanel": true,
+    "pre": {
+     "btn": "Add 3 pieces to bag | $620.00",
+     "checks": [
+      "true",
+      "true",
+      "true"
+     ],
+     "summary": "Capsule total3 of 3 items selected $620.00",
+     "labelBox": [
+      "44x44",
+      "44x44",
+      "44x44"
+     ]
+    },
+    "unchecked": {
+     "btn": "Add 2 pieces to bag | $250.00",
+     "summary": "Capsule total2 of 3 items selected $250.00"
+    },
+    "bundleMsg": {
+     "status": "The selected look was added to your cart.",
+     "error": ""
+    }
+   },
+   {
+    "label": "D1 featured product → add",
+    "open": true,
+    "api": {
+     "count": 4,
+     "total": 130000,
+     "note": "",
+     "items": [
+      {
+       "h": "structured-tote",
+       "v": "Saddle tan / Standard",
+       "q": 1,
+       "line": 68000
+      },
+      {
+       "h": "folded-valet-tray",
+       "v": "Black",
+       "q": 1,
+       "line": 15500
+      },
+      {
+       "h": "four-slot-cardholder",
+       "v": "Black box calf",
+       "q": 1,
+       "line": 9500
+      },
+      {
+       "h": "leather-document-folio",
+       "v": "Black box calf",
+       "q": 1,
+       "line": 37000
+      }
+     ]
+    },
+    "dom": {
+     "items": [
+      {
+       "title": "Structured Tote in Calfskin",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      },
+      {
+       "title": "Folded Valet Tray",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      },
+      {
+       "title": "Four-Slot Cardholder",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      },
+      {
+       "title": "Leather Document Folio",
+       "qty": "1",
+       "decDisabled": true,
+       "incDisabled": false
+      }
+     ],
+     "countLabel": "4 items",
+     "subtotal": "$1,300.00 USD",
+     "headerBadge": "4",
+     "headerBadgeHidden": false,
+     "headerLabel": "Cart, 4 items",
+     "status": {
+      "hidden": false,
+      "txt": "Item added to your cart. Structured Tote in Calfskin - Saddle tan / Standard"
+     },
+     "error": {
+      "hidden": true,
+      "txt": ""
+     },
+     "rewards": null,
+     "noteField": false,
+     "empty": null,
+     "checkoutBtn": true,
+     "dynamicCheckout": false,
+     "crossSell": 0
+    },
+    "focus": "button.icon-button|Close",
+    "focusInPanel": true,
+    "variantChange": {
+     "value": "Saddle tan",
+     "pre": {
+      "id": "67582163845288",
+      "price": "Regular price$680.00 Unit price / Sale Sold out",
+      "url": ""
+     },
+     "post": {
+      "id": "67582163910824",
+      "price": "Regular price$680.00 Unit price / Sale Sold out",
+      "url": "",
+      "inv": "In stock, ready to ship"
+     }
+    }
+   }
+  ],
+  "cartPage": {
+   "h1": "Your cart",
+   "items": 4,
+   "note": false,
+   "checkout": true,
+   "dynamic": false,
+   "subtotal": "$1,300.00 USD"
+  },
+  "checkout": {
+   "url": "https://sartorial-edition.myshopify.com/checkouts/<token>/en-us?_r=<redactado>",
+   "title": "Checkout - Sartorial Edition",
+   "h": [
+    "Sartorial Edition",
+    "Sartorial Edition",
+    "Sartorial Edition Checkout",
+    "Contact"
+   ]
+  },
+  "buyNow": {
+   "url": "https://sartorial-edition.myshopify.com/checkouts/cn/<token>/en-us?_r=<redactado>",
+   "title": "Checkout - Sartorial Edition"
+  },
+  "enterInQty": {
+   "navigated": true,
+   "url": "/cart",
+   "title": "Your Shopping Cart – Sartorial Edition",
+   "cartCount": 3,
+   "implicitSubmitButton": null
+  },
+  "implicitSubmit": "checkout:Checkout",
+  "console": [
+   {
+    "type": "error",
+    "text": "Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked.\n",
+    "url": "https://sartorial-edition.myshopify.com/"
+   },
+   {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 403 ()",
+    "url": "https://sartorial-edition.myshopify.com/"
+   },
+   {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 429 ()",
+    "url": "https://sartorial-edition.myshopify.com/products/structured-tote"
+   },
+   {
+    "type": "error",
+    "text": "%c%d font-size:0;color:transparent NaN",
+    "url": "https://sartorial-edition.myshopify.com/products/structured-tote"
+   },
+   {
+    "type": "error",
+    "text": "%c%d font-size:0;color:transparent NaN",
+    "url": "https://sartorial-edition.myshopify.com/products/structured-tote"
+   },
+   {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 422 ()",
+    "url": "https://sartorial-edition.myshopify.com/products/structured-tote"
+   },
+   {
+    "type": "pageerror",
+    "text": "Transition was aborted because of invalid state. ViewTransition opt-in disabled",
+    "url": "https://sartorial-edition.myshopify.com/checkouts/cn/<token>/en-us?_r=<redactado>"
+   },
+   {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 401 ()",
+    "url": "https://sartorial-edition.myshopify.com/checkouts/cn/<token>/en-us?_r=<redactado>"
+   },
+   {
+    "type": "pageerror",
+    "text": "Transition was aborted because of invalid state. ViewTransition opt-in disabled",
+    "url": "https://sartorial-edition.myshopify.com/checkouts/cn/<token>/en-us?_r=<redactado>"
+   },
+   {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 401 ()",
+    "url": "https://sartorial-edition.myshopify.com/checkouts/cn/<token>/en-us?_r=<redactado>"
+   }
+  ],
+  "warnings": [
+   "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does no",
+   "The resource https://shop.app/pay/assets/sprite.svg was preloaded using link preload but not used within a few",
+   "No available adapters.",
+   "%c%d font-size:0;color:transparent NaN",
+   "[.WebGL-0x528c02170400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadP",
+   "OTS parsing error: Size of decompressed WOFF 2.0 is less than compressed size",
+   "The resource https://sartorial-edition.myshopify.com/cdn/shopifycloud/portable-wallets/latest/accelerated-chec",
+   "The resource https://sartorial-edition.myshopify.com/cdn/shop/t/2/assets/base.css?v=90132706687903187801790721"
+  ],
+  "failed": [
+   "403 GET https://shop.app/pay/hop?analytics_trace_id=<redactado>&target_or",
+   "429 GET /products/structured-tote",
+   "401 GET https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/pat/a4344f440dc2fa3f/1790",
+   "422 POST /cart/change.js",
+   "401 GET /private_access_tokens?id=<redactado>&checkout_type=c1",
+   "401 GET /private_access_tokens?id=<redactado>&checkout_type=c1"
+  ]
+ }
+}

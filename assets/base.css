@@ -3051,8 +3051,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 .hero-editorial--align-center .hero-editorial__actions,
 .hero-editorial--align-right .hero-editorial__actions {
   justify-content: inherit;
-}
-
+}
+
+
+
 /* AUDIT-PRESETS-001. Titular y subtitulo tienen max-width: con texto centrado o a la derecha,
    su caja tambien se centra o se alinea a la derecha. Sin esto, en Archive (align-center) el
    subtitulo queda 141 px a la izquierda del eje a 1280 px. */
@@ -3787,8 +3789,10 @@ marquee-banner {
   .hero-editorial__heading {
     font-size: calc(4.5rem * var(--font-heading-scale));
     line-height: 1.06;
-  }
-
+  }
+
+
+
   /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
      columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
      Los heroes alineados a la izquierda (Sartorial, Couture, Edition) no cambian. */
@@ -4262,6 +4266,11 @@ complete-the-look {
 .lookbook-hotspot__trigger[aria-expanded='true'] {
   background: var(--color-foreground);
   color: var(--color-background);
+}
+
+.lookbook-hotspot__trigger:focus-visible {
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--color-background);
 }
 
 .lookbook-popover {
@@ -6934,6 +6943,13 @@ copy-text {
   .marquee-banner__group {
     width: 100%;
     flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .marquee-banner__item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
   }
 
   .marquee-banner__group[aria-hidden='true'],
@@ -8007,7 +8023,8 @@ html {
 }
 
 .product-gallery__zoom-trigger:focus-visible {
-  outline-offset: -3px;
+  outline-offset: -5px;
+  box-shadow: inset 0 0 0 7px var(--color-background);
 }
 
 .product-gallery__zoom-icon {

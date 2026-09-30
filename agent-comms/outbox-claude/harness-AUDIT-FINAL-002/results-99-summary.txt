@@ -1,0 +1,96 @@
+
+================ ATELIER ================
+[01] filas válidas=30 (por viewport: 375:10 768:10 1440:10)
+     overflow máx (carga/final) = 0/0 px; html/body overflow-x = visible/visible
+     infractores sin recorte (todos .visually-hidden): p.visually-hidden,div.visually-hidden
+     CLS de carga (sin scroll) rango = 0–0.0015; páginas con CLS carga > 0.1 = 0
+     PDP CLS tras scroll sintético (500px/120ms): rango = 0.0836–0.7556; > 0.1 en 11/12; fuentes = div#shopify-section-sections__footer.shopify-section.shopify-section-group-footer-group,section.section.recently-viewed__content
+     no-PDP CLS total máx = 0.0014
+     home@375: LCP=img.hero-editorial__image fp=high ld=eager t=348ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"100vw","wh":true}] | eager=2/21 high=[atelier-hero.jpg,serra-coat-01.jpg] eagerBajoPliegue=[serra-coat-01.jpg@2874]
+     home@768: LCP=img.hero-editorial__image fp=high ld=eager t=368ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"100vw","wh":true}] | eager=2/21 high=[atelier-hero.jpg,serra-coat-01.jpg] eagerBajoPliegue=[serra-coat-01.jpg@3913]
+     home@1440: LCP=img.hero-editorial__image fp=high ld=eager t=316ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"100vw","wh":true}] | eager=2/21 high=[atelier-hero.jpg,serra-coat-01.jpg] eagerBajoPliegue=[serra-coat-01.jpg@3395]
+     LCP con loading=lazy: 375:/collections, 768:/collections/all, 768:/collections, 768:/search, 768:/pages/this-does-not-exist, 1440:/collections/all, 1440:/collections, 1440:/pages/this-does-not-exist
+     imágenes sin width/height=0 sin alt=0 sin srcset=0
+     hosts=sartorial-atelier.myshopify.com, cdn.shopify.com, error-analytics-sessions-production.shopifysvc.com, otlp-http-production.shopifysvc.com, monorail-edge.shopifysvc.com, shop.app | externos no Shopify=0 | scripts bloqueantes=0 | hojas=base.css,accelerated-checkout.css | font-display=swap
+     consola: pageerror=0 error=Failed to load resource: the server responded with a status of 404 () | peticiones >=400: 0
+[02a] @375 home: 43 paradas (41 del tema), inverso=43, sin indicador (tema)=0, tapadas=0, contraste mín. del anillo sobre fondo sólido=13.95; PDP 34 paradas; trampas: mobile-menu=ok/foco↩/true→false predictive-search=ok/foco↩/true→false cart-drawer-empty=ok/foco↩/-→- lookbook-popover=ok/foco↩/true→false pdp-zoom=ok/foco↩/-→- size-guide=n/a cart-drawer-filled=ok/foco↩/-→-; ATC→drawer foco dentro=true, Esc→ATC=true, live="Item added to your cart. Serra Coat"
+[02a] @1440 home: 45 paradas (43 del tema), inverso=45, sin indicador (tema)=0, tapadas=0, contraste mín. del anillo sobre fondo sólido=13.95; PDP 35 paradas; trampas: mobile-menu=n/a predictive-search=ok/foco↩/true→false cart-drawer-empty=ok/foco↩/-→- lookbook-popover=ok/foco↩/true→false pdp-zoom=ok/foco↩/-→- size-guide=n/a cart-drawer-filled=ok/foco↩/-→-; ATC→drawer foco dentro=true, Esc→ATC=true, live="Item added to your cart. Serra Coat"
+[02b] axe: 21 estados; con violaciones=0; reglas={}; incomplete={"aria-valid-attr-value":4,"color-contrast":3}
+[02c] texto sobre medio: 15 muestras; FAIL=0; peor píxel mín=5.24; p5 mín=5.51; secciones=hero,manifesto
+[02e] .hero-editorial__button: n=4 anillo p50 12.22–14.58, % píxeles <3:1 0–0, outline=2px solid rgb(248, 244, 235) off=3px
+[02e] .lookbook-hotspot__trigger: n=8 anillo p50 1.77–4.48, % píxeles <3:1 37–81, outline=2px solid rgb(29, 27, 24) off=3px
+[02e] .product-gallery__zoom-trigger: n=2 anillo p50 8.85–14.06, % píxeles <3:1 0–0, outline=2px solid rgb(29, 27, 24) off=-3px
+[04] original (parcheado=0): 375/lectura=0 375/moderado=0 375/rapido=0.3568 1440/lectura=0 1440/moderado=0.0175 1440/rapido=0.3915
+[04] parche-rootMargin-200% (parcheado=0): 375/lectura=0.0017 375/moderado=0.0004 375/rapido=0.3568 1440/lectura=0.001 1440/moderado=0.0175 1440/rapido=0.001
+[05] inyecciones=98; con desbordamiento/recorte/solape=0; reflow 320: /products=0 /collections=0 /=4
+
+================ EDITION ================
+[01] filas válidas=30 (por viewport: 375:10 768:10 1440:10)
+     overflow máx (carga/final) = 0/0 px; html/body overflow-x = visible/visible
+     infractores sin recorte (todos .visually-hidden): p.visually-hidden,div.visually-hidden
+     CLS de carga (sin scroll) rango = 0–0.0132; páginas con CLS carga > 0.1 = 0
+     PDP CLS tras scroll sintético (500px/120ms): rango = 0.0004–0.5202; > 0.1 en 9/12; fuentes = div#shopify-section-sections__footer.shopify-section.shopify-section-group-footer-group,section.section.recently-viewed__content
+     no-PDP CLS total máx = 0.0132
+     home@375: LCP=h1.hero-editorial__heading fp=null ld=null t=328ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"(min-width: 62rem) 50vw, 100vw","wh":true}] | eager=2/17 high=[edition-hero.jpg,structured-tote-01.jpg] eagerBajoPliegue=[structured-tote-01.jpg@3985]
+     home@768: LCP=img.hero-editorial__image fp=high ld=eager t=300ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"(min-width: 62rem) 50vw, 100vw","wh":true}] | eager=2/17 high=[edition-hero.jpg,structured-tote-01.jpg] eagerBajoPliegue=[structured-tote-01.jpg@5811]
+     home@1440: LCP=img.hero-editorial__image fp=high ld=eager t=376ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"(min-width: 62rem) 50vw, 100vw","wh":true}] | eager=2/17 high=[edition-hero.jpg,structured-tote-01.jpg] eagerBajoPliegue=[structured-tote-01.jpg@3439]
+     LCP con loading=lazy: 375:/collections, 768:/collections/all, 768:/collections, 768:/search, 768:/pages/this-does-not-exist, 1440:/collections/all, 1440:/collections, 1440:/pages/this-does-not-exist
+     imágenes sin width/height=0 sin alt=0 sin srcset=0
+     hosts=sartorial-edition.myshopify.com, cdn.shopify.com, error-analytics-sessions-production.shopifysvc.com, otlp-http-production.shopifysvc.com, monorail-edge.shopifysvc.com, shop.app | externos no Shopify=0 | scripts bloqueantes=0 | hojas=base.css,accelerated-checkout.css | font-display=swap
+     consola: pageerror=0 error=Failed to load resource: the server responded with a status of 404 () | peticiones >=400: 0
+[02a] @375 home: 49 paradas (47 del tema), inverso=49, sin indicador (tema)=0, tapadas=0, contraste mín. del anillo sobre fondo sólido=11.14; PDP 35 paradas; trampas: mobile-menu=ok/foco↩/true→false predictive-search=ok/foco↩/true→false cart-drawer-empty=ok/foco↩/-→- lookbook-popover=n/a pdp-zoom=ok/foco↩/-→- size-guide=n/a cart-drawer-filled=ok/foco↩/-→-; ATC→drawer foco dentro=true, Esc→ATC=true, live="Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard"
+[02a] @1440 home: 51 paradas (49 del tema), inverso=51, sin indicador (tema)=0, tapadas=0, contraste mín. del anillo sobre fondo sólido=11.14; PDP 37 paradas; trampas: mobile-menu=n/a predictive-search=ok/foco↩/true→false cart-drawer-empty=ok/foco↩/-→- lookbook-popover=n/a pdp-zoom=ok/foco↩/-→- size-guide=n/a cart-drawer-filled=ok/foco↩/-→-; ATC→drawer foco dentro=true, Esc→ATC=true, live="Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard"
+[02b] axe: 21 estados; con violaciones=0; reglas={}; incomplete={"color-contrast":4,"aria-valid-attr-value":8}
+[02c] texto sobre medio: 3 muestras; FAIL=0; peor píxel mín=16.87; p5 mín=16.87; secciones=manifesto
+[02e] .hero-editorial__button: n=4 anillo p50 18.88–18.88, % píxeles <3:1 0–0, outline=2px solid rgb(17, 17, 17) off=3px
+[02e] .product-gallery__zoom-trigger: n=2 anillo p50 12.87–17.02, % píxeles <3:1 0–0, outline=2px solid rgb(17, 17, 17) off=-3px
+[02e] .bento-card--featured: n=2 anillo p50 1.29–1.33, % píxeles <3:1 80–86, outline=2px solid rgb(17, 17, 17) off=3px
+[04] original (parcheado=0): 375/lectura=0.0795 375/moderado=0.0195 375/rapido=0 375/rapido#2=0.8291 375/rapido#3=0.8291 1440/lectura=0 1440/moderado=0 1440/rapido=0 1440/rapido#2=0.3834 1440/rapido#3=0
+[04] parche-rootMargin-200% (parcheado=1): 375/lectura=0.0011 375/moderado=0.0006 375/rapido=0.0006 375/rapido#2=0.0006 375/rapido#3=0.0006 1440/lectura=0.0017 1440/moderado=0.0017 1440/rapido=0.0017 1440/rapido#2=0.0018 1440/rapido#3=0.0018
+[04] parche-carga-inmediata (parcheado=1,): 375/lectura=0.0011 375/moderado=0.0011 375/rapido=ERR 375/rapido#2=0.0011 375/rapido#3=0.0011 1440/lectura=0.0016 1440/moderado=0.0018 1440/rapido=0.0018 1440/rapido#2=0.0018 1440/rapido#3=0.0018
+[05] inyecciones=110; con desbordamiento/recorte/solape=0; reflow 320: /products=0 /collections=0 /=0
+
+================ ARCHIVE ================
+[01] filas válidas=27 (por viewport: 375:9 768:9 1440:9)
+     overflow máx (carga/final) = 0/0 px; html/body overflow-x = visible/visible
+     infractores sin recorte (todos .visually-hidden): p.visually-hidden,div.visually-hidden
+     CLS de carga (sin scroll) rango = 0–0.0311; páginas con CLS carga > 0.1 = 0
+     PDP CLS tras scroll sintético (500px/120ms): rango = 0.1271–0.4168; > 0.1 en 9/9; fuentes = div#shopify-section-sections__footer.shopify-section.shopify-section-group-footer-group,section.section.recently-viewed__content
+     no-PDP CLS total máx = 0.0311
+     home@375: LCP=img.hero-editorial__image fp=high ld=eager t=356ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"100vw","wh":true}] | eager=2/13 high=[archive-hero.jpg,nove-blazer-01.jpg] eagerBajoPliegue=[nove-blazer-01.jpg@4077]
+     home@768: LCP=img.hero-editorial__image fp=high ld=eager t=332ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"100vw","wh":true}] | eager=2/13 high=[archive-hero.jpg,nove-blazer-01.jpg] eagerBajoPliegue=[nove-blazer-01.jpg@5154]
+     home@1440: LCP=img.hero-editorial__image fp=high ld=eager t=324ms | hero=[{"ld":"eager","fp":"high","srcset":true,"sizes":"100vw","wh":true}] | eager=2/13 high=[archive-hero.jpg,nove-blazer-01.jpg] eagerBajoPliegue=[nove-blazer-01.jpg@4125]
+     LCP con loading=lazy: 375:/collections, 768:/collections/all, 768:/collections, 768:/pages/this-does-not-exist, 1440:/collections/all, 1440:/collections, 1440:/pages/this-does-not-exist
+     imágenes sin width/height=0 sin alt=0 sin srcset=0
+     hosts=sartorial-archive.myshopify.com, cdn.shopify.com, error-analytics-sessions-production.shopifysvc.com, otlp-http-production.shopifysvc.com, monorail-edge.shopifysvc.com, shop.app | externos no Shopify=0 | scripts bloqueantes=0 | hojas=base.css,accelerated-checkout.css | font-display=swap
+     consola: pageerror=0 error=Failed to load resource: the server responded with a status of 404 () | peticiones >=400: 0
+[02a] @375 home: 37 paradas (35 del tema), inverso=37, sin indicador (tema)=0, tapadas=0, contraste mín. del anillo sobre fondo sólido=7.58; PDP 35 paradas; trampas: mobile-menu=ok/foco↩/true→false predictive-search=ok/foco↩/true→false cart-drawer-empty=ok/foco↩/-→- lookbook-popover=ok/foco↩/true→false pdp-zoom=ok/foco↩/-→- size-guide=n/a cart-drawer-filled=ok/foco↩/-→-; ATC→drawer foco dentro=true, Esc→ATC=true, live="Item added to your cart. 1990 Pinstripe Double-Breasted Jacket - Restored / FR 40 / US 8"
+[02a] @1440 home: 39 paradas (37 del tema), inverso=39, sin indicador (tema)=0, tapadas=0, contraste mín. del anillo sobre fondo sólido=7.58; PDP 37 paradas; trampas: mobile-menu=n/a predictive-search=ok/foco↩/true→false cart-drawer-empty=ok/foco↩/-→- lookbook-popover=ok/foco↩/true→false pdp-zoom=ok/foco↩/-→- size-guide=n/a cart-drawer-filled=ok/foco↩/-→-; ATC→drawer foco dentro=true, Esc→ATC=true, live="Item added to your cart. 1990 Pinstripe Double-Breasted Jacket - Restored / FR 40 / US 8"
+[02b] axe: 21 estados; con violaciones=0; reglas={}; incomplete={"aria-valid-attr-value":4,"color-contrast":5}
+[02c] texto sobre medio: 15 muestras; FAIL=0; peor píxel mín=4.74; p5 mín=5.74; secciones=hero,manifesto
+[02e] .hero-editorial__button: n=4 anillo p50 12.17–13.49, % píxeles <3:1 0–0, outline=2px solid rgb(239, 230, 217) off=3px
+[02e] .lookbook-hotspot__trigger: n=6 anillo p50 1.25–1.97, % píxeles <3:1 67–100, outline=2px solid rgb(46, 36, 28) off=3px
+[02e] .product-gallery__zoom-trigger: n=2 anillo p50 1.16–11.17, % píxeles <3:1 39–95, outline=2px solid rgb(46, 36, 28) off=-3px
+[04] original (parcheado=0): 375/lectura=0 375/moderado=0 375/rapido=0.7676 1440/lectura=0 1440/moderado=0 1440/rapido=0.3708
+[04] parche-rootMargin-200% (parcheado=0): 375/lectura=0.0024 375/moderado=0.0024 375/rapido=0.0024 1440/lectura=0.0021 1440/moderado=0.0021 1440/rapido=0.3708
+[05] inyecciones=110; con desbordamiento/recorte/solape=0; reflow 320: /products=0 /collections=0 /=36
+
+[08] Lighthouse
+  atelier  home       mobile  perf=55 a11y=100 LCP=4663 TBT=1124 CLS=0 
+  atelier  home       desktop perf=91 a11y=100 LCP=1662 TBT=4 CLS=0.0425 
+  atelier  collection mobile  perf=57 a11y=100 LCP=5482 TBT=1008 CLS=0 
+  atelier  collection desktop perf=83 a11y=100 LCP=2608 TBT=97 CLS=0.0015 
+  atelier  product    mobile  perf=76 a11y=100 LCP=3386 TBT=617 CLS=0 
+  atelier  product    desktop perf=96 a11y=100 LCP=1061 TBT=32 CLS=0.0012 
+  edition  home       mobile  perf=82 a11y=100 LCP=2503 TBT=521 CLS=0 
+  edition  home       desktop perf=99 a11y=100 LCP=893 TBT=51 CLS=0.0136 
+  edition  collection mobile  perf=76 a11y=100 LCP=4468 TBT=347 CLS=0 
+  edition  collection desktop perf=94 a11y=100 LCP=1514 TBT=44 CLS=0.0011 
+  edition  product    mobile  perf=83 a11y=100 LCP=1860 TBT=627 CLS=0 
+  edition  product    desktop perf=99 a11y=100 LCP=697 TBT=30 CLS=0.002 
+  archive  home       mobile  perf=63 a11y=100 LCP=4338 TBT=842 CLS=0 
+  archive  home       desktop perf=99 a11y=100 LCP=851 TBT=22 CLS=0.0323 
+  archive  collection mobile  perf=79 a11y=100 LCP=3687 TBT=413 CLS=0 
+  archive  collection desktop perf=99 a11y=100 LCP=910 TBT=20 CLS=0.0013 
+  archive  product    mobile  perf=71 a11y=100 LCP=3304 TBT=822 CLS=0 
+  archive  product    desktop perf=91 a11y=100 LCP=1456 TBT=47 CLS=0.0081 
