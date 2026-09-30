@@ -54,6 +54,12 @@
   assign selected_total_money = selected_total | money
 -%}
 
+{%- comment -%}
+  COMP-001 (S-02). Sin productos no hay nada que comprar: en la tienda la seccion no se
+  pinta, y el comprador no ve la instruccion del editor ni un total de 0. En el editor
+  se mantiene entera, con el aviso, para que el comerciante sepa como configurarla.
+{%- endcomment -%}
+{%- if rendered_item_count > 0 or request.design_mode -%}
 <complete-the-look
   class="complete-the-look"
   data-cart-add-url="{{ routes.cart_add_url }}.js"
@@ -335,6 +341,7 @@
     </div>
   </section>
 </complete-the-look>
+{%- endif -%}
 
 {% schema %}
 {

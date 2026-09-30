@@ -1,0 +1,419 @@
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign bundle_image = section.settings.image_desktop | default: section.settings.image_mobile
+  assign default_image_alt = 'sections.complete_the_look.image_alt' | t
+  assign heading_image_alt = section.settings.heading | strip_html
+  assign bundle_alt = section.settings.image_alt | default: heading_image_alt | default: default_image_alt
+  assign rendered_item_count = 0
+  assign selected_item_count = 0
+  assign selected_total = 0
+
+  for block in section.blocks
+    assign bundle_product = block.settings.product
+    if bundle_product == blank
+      continue
+    endif
+
+    assign rendered_item_count = rendered_item_count | plus: 1
+    assign bundle_variant = bundle_product.selected_or_first_available_variant
+    assign bundle_variant_count = bundle_product.variants_count
+    assign bundle_is_high_variant = false
+    if bundle_variant_count == blank
+      assign bundle_variant_count = bundle_product.variants.size
+      if bundle_variant_count >= 250
+        assign bundle_is_high_variant = true
+      endif
+    elsif bundle_variant_count > 250
+      assign bundle_is_high_variant = true
+    endif
+
+    assign bundle_can_add = false
+    if bundle_is_high_variant == false and bundle_product.requires_selling_plan == false
+      if bundle_variant.available and bundle_variant.requires_selling_plan == false
+        assign bundle_can_add = true
+      else
+        for candidate_variant in bundle_product.variants
+          if candidate_variant.available and candidate_variant.requires_selling_plan == false
+            assign bundle_variant = candidate_variant
+            assign bundle_can_add = true
+            break
+          endif
+        endfor
+      endif
+    endif
+
+    if bundle_can_add
+      assign variant_quantity = bundle_variant.quantity_rule.min | default: 1
+      assign selected_item_count = selected_item_count | plus: 1
+      assign selected_line_total = bundle_variant.price | times: variant_quantity
+      assign selected_total = selected_total | plus: selected_line_total
+    endif
+  endfor
+
+  assign selected_total_money = selected_total | money
+-%}
+
+<complete-the-look
+  class="complete-the-look"
+  data-cart-add-url="{{ routes.cart_add_url }}.js"
+  data-cart-url="{{ routes.cart_url }}"
+  data-money-format="{{ shop.money_format | strip_html | escape }}"
+  data-selected-one-template="{{ 'sections.complete_the_look.selected_count.one' | t: count: '__count__', total: '__total__' | escape_once }}"
+  data-selected-many-template="{{ 'sections.complete_the_look.selected_count.other' | t: count: '__count__', total: '__total__' | escape_once }}"
+  data-add-one-template="{{ 'sections.complete_the_look.add_selected.one' | t: count: '__count__', total: '__total__' | escape_once }}"
+  data-add-many-template="{{ 'sections.complete_the_look.add_selected.other' | t: count: '__count__', total: '__total__' | escape_once }}"
+  data-empty-label="{{ 'sections.complete_the_look.select_items' | t | escape }}"
+  data-error-message="{{ 'sections.complete_the_look.error' | t | escape }}"
+  data-added-message="{{ 'sections.complete_the_look.added' | t | escape }}"
+>
+  <section
+    class="section complete-the-look__section color-{{ section_scheme }}"
+    {% if section.settings.heading != blank %}
+      aria-labelledby="CompleteLookTitle-{{ section.id }}"
+    {% else %}
+      aria-label="{{ 'sections.complete_the_look.region_label' | t }}"
+    {% endif %}
+  >
+    <div class="complete-the-look__inner">
+      <header class="complete-the-look__header">
+        <div class="flow">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 id="CompleteLookTitle-{{ section.id }}" class="complete-the-look__heading">
+              {{- section.settings.heading -}}
+            </h2>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.description != blank -%}
+          <div class="complete-the-look__description rte">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </header>
+
+      <div class="complete-the-look__layout">
+        <div>
+          <div class="complete-the-look__media">
+            {%- if bundle_image != blank -%}
+              <picture>
+                {%- if section.settings.image_mobile != blank -%}
+                  <source
+                    media="(max-width: 47.99rem)"
+                    srcset="
+                      {{ section.settings.image_mobile | image_url: width: 390 }} 390w,
+                      {{ section.settings.image_mobile | image_url: width: 550 }} 550w,
+                      {{ section.settings.image_mobile | image_url: width: 750 }} 750w
+                    "
+                    sizes="100vw"
+                  >
+                {%- endif -%}
+                {% render 'responsive-image',
+                  image: bundle_image,
+                  sizes: '(min-width: 94rem) 688px, (min-width: 62rem) calc(50vw - 64px), 100vw',
+                  widths: '550, 750, 960, 1200, 1600',
+                  image_class: 'complete-the-look__image',
+                  alt: bundle_alt
+                %}
+              </picture>
+            {%- else -%}
+              <div class="complete-the-look__placeholder" aria-hidden="true">
+                {{- 'lifestyle-1' | placeholder_svg_tag: 'homepage-placeholder' -}}
+              </div>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.caption != blank -%}
+            <p class="complete-the-look__caption">{{ section.settings.caption | escape }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="complete-the-look__commerce">
+          {%- if rendered_item_count > 0 -%}
+            <ul class="complete-the-look__items unstyled-list">
+              {%- for block in section.blocks -%}
+                {%- assign bundle_product = block.settings.product -%}
+                {%- if bundle_product == blank -%}
+                  {%- continue -%}
+                {%- endif -%}
+                {%- liquid
+                  assign bundle_variant = bundle_product.selected_or_first_available_variant
+                  assign bundle_variant_count = bundle_product.variants_count
+                  assign bundle_is_high_variant = false
+                  if bundle_variant_count == blank
+                    assign bundle_variant_count = bundle_product.variants.size
+                    if bundle_variant_count >= 250
+                      assign bundle_is_high_variant = true
+                    endif
+                  elsif bundle_variant_count > 250
+                    assign bundle_is_high_variant = true
+                  endif
+
+                  assign bundle_can_add = false
+                  if bundle_is_high_variant == false and bundle_product.requires_selling_plan == false
+                    if bundle_variant.available and bundle_variant.requires_selling_plan == false
+                      assign bundle_can_add = true
+                    else
+                      for candidate_variant in bundle_product.variants
+                        if candidate_variant.available and candidate_variant.requires_selling_plan == false
+                          assign bundle_variant = candidate_variant
+                          assign bundle_can_add = true
+                          break
+                        endif
+                      endfor
+                    endif
+                  endif
+                  assign variant_quantity = bundle_variant.quantity_rule.min | default: 1
+                  assign checkbox_id = 'BundleSelect-' | append: section.id | append: '-' | append: block.id
+                  assign variant_select_id = 'BundleVariant-' | append: section.id | append: '-' | append: block.id
+                -%}
+                <li
+                  class="complete-the-look__item"
+                  data-bundle-item
+                  {% if bundle_is_high_variant %}data-product-page-fallback{% endif %}
+                  {{ block.shopify_attributes }}
+                >
+                  <label class="complete-the-look__check" for="{{ checkbox_id }}">
+                    <input
+                      id="{{ checkbox_id }}"
+                      type="checkbox"
+                      data-bundle-select
+                      {% if bundle_can_add %}checked{% else %}disabled{% endif %}
+                    >
+                    <span class="visually-hidden">
+                      {{- 'sections.complete_the_look.select_product' | t: product: bundle_product.title | escape_once -}}
+                    </span>
+                  </label>
+
+                  <a class="complete-the-look__item-media" href="{{ bundle_product.url }}" tabindex="-1" aria-hidden="true">
+                    {%- if bundle_product.featured_media.preview_image != blank -%}
+                      {% render 'responsive-image',
+                        image: bundle_product.featured_media.preview_image,
+                        sizes: '(min-width: 62rem) 132px, 72px',
+                        widths: '72, 132, 264',
+                        image_class: 'complete-the-look__item-image',
+                        alt: bundle_product.title
+                      %}
+                    {%- else -%}
+                      <span class="complete-the-look__item-placeholder" aria-hidden="true"></span>
+                    {%- endif -%}
+                  </a>
+
+                  <div class="complete-the-look__item-details">
+                    <h3 class="complete-the-look__item-title">
+                      <a href="{{ bundle_product.url }}">{{ bundle_product.title | escape }}</a>
+                    </h3>
+
+                    {%- if bundle_is_high_variant -%}
+                      <a class="complete-the-look__product-options-link" href="{{ bundle_product.url }}">
+                        {{- 'sections.complete_the_look.view_on_product_page' | t -}}
+                      </a>
+                    {%- elsif bundle_product.has_only_default_variant -%}
+                      <input
+                        type="hidden"
+                        value="{{ bundle_variant.id }}"
+                        data-bundle-variant
+                        data-price="{{ bundle_variant.price }}"
+                        data-quantity="{{ variant_quantity }}"
+                        data-price-formatted="{{ bundle_variant.price | money | escape }}"
+                        data-compare-formatted="{% if bundle_variant.compare_at_price > bundle_variant.price %}{{ bundle_variant.compare_at_price | money | escape }}{% endif %}"
+                        {% unless bundle_can_add %}disabled{% endunless %}
+                      >
+                    {%- else -%}
+                      <label class="visually-hidden" for="{{ variant_select_id }}">
+                        {{- 'sections.complete_the_look.choose_variant' | t: product: bundle_product.title | escape_once -}}
+                      </label>
+                      <select
+                        id="{{ variant_select_id }}"
+                        class="complete-the-look__variant"
+                        data-bundle-variant
+                        {% unless bundle_can_add %}disabled{% endunless %}
+                      >
+                        {%- for variant in bundle_product.variants -%}
+                          {%- liquid
+                            assign option_quantity = variant.quantity_rule.min | default: 1
+                            assign option_requires_plan = false
+                            if bundle_product.requires_selling_plan or variant.requires_selling_plan
+                              assign option_requires_plan = true
+                            endif
+                          -%}
+                          <option
+                            value="{{ variant.id }}"
+                            data-price="{{ variant.price }}"
+                            data-quantity="{{ option_quantity }}"
+                            data-price-formatted="{{ variant.price | money | escape }}"
+                            data-compare-formatted="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
+                            {% if variant.id == bundle_variant.id %}selected{% endif %}
+                            {% if option_requires_plan or variant.available == false %}disabled{% endif %}
+                          >
+                            {{- variant.title | escape -}}
+                            {%- if option_requires_plan -%}
+                              &nbsp;- {{ 'sections.complete_the_look.requires_plan_option' | t }}
+                            {%- elsif variant.available == false -%}
+                              &nbsp;- {{ 'products.product.sold_out' | t }}
+                            {%- endif -%}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    {%- endif -%}
+
+                    {%- if bundle_can_add == false and bundle_is_high_variant == false -%}
+                      <p class="complete-the-look__unavailable">
+                        {%- if bundle_product.requires_selling_plan or bundle_variant.requires_selling_plan -%}
+                          {{- 'sections.complete_the_look.selling_plan_required' | t -}}
+                        {%- else -%}
+                          {{- 'products.product.sold_out' | t -}}
+                        {%- endif -%}
+                      </p>
+                    {%- endif -%}
+                  </div>
+
+                  {% render 'price',
+                    variant: bundle_variant,
+                    show_badges: false,
+                    show_unit_price: false,
+                    price_class: 'complete-the-look__item-price'
+                  %}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- else -%}
+            <p class="complete-the-look__empty">{{ 'sections.complete_the_look.empty' | t }}</p>
+          {%- endif -%}
+
+          <div class="complete-the-look__summary">
+            <div class="complete-the-look__summary-heading" aria-live="polite" aria-atomic="true">
+              <div>
+                <p class="eyebrow">{{ 'sections.complete_the_look.total_label' | t }}</p>
+                {%- comment -%}
+                  4F-002. El sustantivo concuerda con el total, no con lo seleccionado:
+                  "1 of 3 items selected", "1 of 1 item selected". Antes se elegia la forma
+                  por la seleccion y salia "1 of 3 item selected" (GPT-AUDIT-002, UX-12).
+                {%- endcomment -%}
+                <p data-bundle-count>
+                  {%- if rendered_item_count == 1 -%}
+                    {{- 'sections.complete_the_look.selected_count.one' | t: count: selected_item_count, total: rendered_item_count -}}
+                  {%- else -%}
+                    {{- 'sections.complete_the_look.selected_count.other' | t: count: selected_item_count, total: rendered_item_count -}}
+                  {%- endif -%}
+                </p>
+              </div>
+              <strong class="complete-the-look__total" data-bundle-total>{{ selected_total_money }}</strong>
+            </div>
+
+            <button
+              class="button button--full complete-the-look__submit"
+              type="button"
+              data-complete-look-submit
+              aria-describedby="BundleStatus-{{ section.id }} BundleError-{{ section.id }}"
+              {% if selected_item_count == 0 %}disabled{% endif %}
+            >
+              <span data-complete-look-label>
+                {%- if selected_item_count == 0 -%}
+                  {{- 'sections.complete_the_look.select_items' | t -}}
+                {%- elsif selected_item_count == 1 -%}
+                  {{- 'sections.complete_the_look.add_selected.one' | t: count: selected_item_count, total: selected_total_money -}}
+                {%- else -%}
+                  {{- 'sections.complete_the_look.add_selected.other' | t: count: selected_item_count, total: selected_total_money -}}
+                {%- endif -%}
+              </span>
+              <span class="button__spinner" data-loading-icon hidden>
+                {% render 'icon', name: 'spinner', size: 18 %}
+              </span>
+            </button>
+
+            <noscript>
+              <p class="complete-the-look__noscript">
+                {{- 'sections.complete_the_look.no_javascript' | t -}}
+              </p>
+            </noscript>
+
+            <p id="BundleStatus-{{ section.id }}" class="form-message" role="status" aria-live="polite" data-bundle-status hidden></p>
+            <p id="BundleError-{{ section.id }}" class="form-message" role="alert" data-bundle-error hidden></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</complete-the-look>
+
+{% schema %}
+{
+  "name": "t:sections.complete_the_look.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "t:sections.all.image_desktop.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "t:sections.all.image_mobile.label"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "t:sections.all.image_alt.label"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label",
+      "default": "Shoppable capsule / Look 03"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.all.heading.label",
+      "default": "Complete the look"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.all.description.label",
+      "default": "<p>Build the full composition or remove individual pieces before adding it to your bag.</p>"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "t:sections.all.caption.label",
+      "default": "Soft architecture study photographed in natural atelier light."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle_product",
+      "name": "t:sections.complete_the_look.blocks.bundle_product.name",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.complete_the_look.blocks.bundle_product.settings.product.label",
+          "info": "t:sections.complete_the_look.blocks.bundle_product.settings.product.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.complete_the_look.presets.name",
+      "blocks": [
+        { "type": "bundle_product" },
+        { "type": "bundle_product" },
+        { "type": "bundle_product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

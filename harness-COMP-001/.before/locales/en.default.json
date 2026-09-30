@@ -1,0 +1,606 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "opens_in_new_window": "Opens in a new window"
+    },
+    "navigation": {
+      "home": "Home",
+      "menu": "Menu",
+      "primary": "Primary navigation",
+      "secondary": "Secondary",
+      "footer": "Footer navigation",
+      "view_all": "View all {{ title }}"
+    },
+    "search": {
+      "label": "Search"
+    },
+    "pagination": {
+      "page": "Page {{ number }}",
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "social": {
+      "follow_us": "Follow us",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "pinterest": "Pinterest",
+      "tiktok": "TikTok",
+      "youtube": "YouTube"
+    },
+    "localization": {
+      "currency": "Currency",
+      "current_language": "Current language: {{ language }}",
+      "language": "Language",
+      "update": "Update preferences"
+    }
+  },
+  "sections": {
+    "header": {
+      "cart": "Cart",
+      "cart_count": {
+        "one": "Cart, {{ count }} item",
+        "other": "Cart, {{ count }} items"
+      },
+      "mega_menu": {
+        "featured": "Featured"
+      }
+    },
+    "footer": {
+      "copyright": "© {{ year }} {{ shop }}",
+      "payment_methods": "Accepted payment methods"
+    },
+    "cart": {
+      "title": "Your cart",
+      "item_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      },
+      "empty": "Your cart is currently empty.",
+      "continue_shopping": "Continue shopping",
+      "quantity": "Quantity",
+      "decrease_quantity": "Decrease quantity for {{ title }}",
+      "increase_quantity": "Increase quantity for {{ title }}",
+      "remove": "Remove",
+      "remove_item": "Remove {{ title }}",
+      "discount": "Discount",
+      "subtotal": "Subtotal",
+      "taxes_included": "Taxes included.",
+      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout.",
+      "update": "Update cart",
+      "checkout": "Checkout",
+      "note": "Order note",
+      "note_placeholder": "Add a note to your order",
+      "view_cart": "View cart",
+      "error": "We could not update your cart. Please try again.",
+      "added": "Item added to your cart.",
+      "add_failed": "This item could not be added to your cart.",
+      "shipping_remaining": "Add {{ amount }} for free shipping",
+      "shipping_unlocked_gift_remaining": "Free shipping unlocked. Add {{ amount }} for a gift",
+      "rewards_unlocked": "Free shipping and gift unlocked",
+      "rewards_progress": "Cart rewards progress",
+      "shipping_milestone": "Shipping at {{ amount }}",
+      "gift_milestone": "Gift at {{ amount }}",
+      "complimentary_additions": "Complimentary additions",
+      "curated_for_order": "Curated for this order",
+      "add_complementary": "Add",
+      "add_complementary_product": "Add {{ product }} to your cart",
+      "already_added": "Added",
+      "already_added_product": "{{ product }} is already in your cart"
+    },
+    "announcement_bar": {
+      "region_label": "Store announcements",
+      "previous": "Previous announcement",
+      "next": "Next announcement",
+      "pause": "Pause announcements",
+      "play": "Play announcements"
+    },
+    "lookbook": {
+      "region_label": "Interactive editorial lookbook",
+      "image_alt": "Editorial composition with shoppable products",
+      "open_product": "Open details for {{ product }}",
+      "featured_piece": "Featured piece",
+      "view_product": "View product",
+      "products_label": "Products featured in this look"
+    },
+    "complete_the_look": {
+      "region_label": "Complete the look",
+      "image_alt": "Editorial view of the complete look",
+      "selected_count": {
+        "one": "{{ count }} of {{ total }} item selected",
+        "other": "{{ count }} of {{ total }} items selected"
+      },
+      "add_selected": {
+        "one": "Add {{ count }} piece to bag | {{ total }}",
+        "other": "Add {{ count }} pieces to bag | {{ total }}"
+      },
+      "select_items": "Select at least one piece",
+      "select_product": "Select {{ product }}",
+      "choose_variant": "Choose an option for {{ product }}",
+      "selling_plan_required": "Available from the product page with a purchase plan.",
+      "requires_plan_option": "Plan required on product page",
+      "view_on_product_page": "View options on product page",
+      "total_label": "Capsule total",
+      "empty": "Choose two to four products in the theme editor to build this look.",
+      "no_javascript": "Open each product to choose options and purchase it separately.",
+      "added": "The selected look was added to your cart.",
+      "error": "We could not add this look. Review the selected options and try again."
+    },
+    "featured_product": {
+      "region_label": "Featured product",
+      "onboarding_title": "Featured luxury product",
+      "onboarding_price": "$480.00"
+    },
+    "recently_viewed": {
+      "heading": "Recently viewed"
+    },
+    "main_product": {
+      "blocks": {
+        "inventory_status": {
+          "low_stock": "Low stock: [count] left",
+          "low_stock_generic": "Low stock",
+          "in_stock": "In stock, ready to ship",
+          "preorder": "Available for pre-order",
+          "sold_out": "Sold out",
+          "unavailable": "This option is unavailable"
+        },
+        "shipping_lead_time": {
+          "delivery_fallback": "Delivery times and costs confirmed at checkout"
+        },
+        "trust_badges": {
+          "returns_fallback": "Returns subject to our store policy"
+        }
+      }
+    },
+    "homepage": {
+      "hero": {
+        "region_label": "Featured editorial campaign"
+      },
+      "curated": {
+        "region_label": "Curated collections",
+        "tabs_label": "Choose a curated collection",
+        "tab_fallback": "Collection {{ number }}",
+        "spotlight": "Spotlight selection",
+        "open_spotlight": "Open {{ title }}",
+        "view_collection": "View all {{ title }}"
+      },
+      "manifesto": {
+        "region_label": "Our craft and materials",
+        "material_image_alt": "Close-up study of an atelier material"
+      },
+      "bento": {
+        "region_label": "Discover collections, stories and products",
+        "explore": "Explore {{ title }}"
+      },
+      "marquee": {
+        "region_label": "Editorial highlights",
+        "pause": "Pause editorial highlights",
+        "play": "Play editorial highlights"
+      }
+    }
+  },
+  "contact": {
+    "atelier": {
+      "hours": "Studio hours",
+      "showroom": "Showroom"
+    },
+    "form": {
+      "eyebrow": "Write to the atelier",
+      "title": "Your inquiry",
+      "success": "Thank you. The atelier will reply as soon as possible.",
+      "error_heading": "Please review the following fields:",
+      "name": "Name",
+      "email": "Email",
+      "reason": "Reason for inquiry",
+      "reason_placeholder": "Choose a reason",
+      "reason_order": "Order and delivery",
+      "reason_materials": "Materials and care",
+      "reason_appointment": "Private appointment",
+      "reason_press": "Press and trade",
+      "reason_other": "Other",
+      "message": "Message",
+      "message_help": "Include an order number when relevant. Maximum 1000 characters.",
+      "consent": "I agree that my details may be used to answer this inquiry.",
+      "consent_value": "Accepted",
+      "required_note": "All fields are required.",
+      "submit": "Send inquiry"
+    },
+    "faq": {
+      "eyebrow": "Frequently asked questions",
+      "title": "Before you write"
+    },
+    "services": {
+      "title": "Direct studio contacts",
+      "response": "Response standard: two business days"
+    }
+  },
+  "faq": {
+    "search": {
+      "label": "Search the questions",
+      "placeholder": "Shipping, sizing, returns",
+      "results": "Matches: {{ count }}",
+      "empty": "No question matches that search. Try a shorter word, or write to the atelier."
+    }
+  },
+  "documentation": {
+    "contents": "On this page",
+    "copy": "Copy",
+    "copied": "Copied",
+    "callout": {
+      "info": "Note",
+      "tip": "Tip",
+      "warning": "Important"
+    }
+  },
+  "support": {
+    "form": {
+      "eyebrow": "Open a ticket",
+      "title": "Support request",
+      "success": "Thank you. Your request is with the studio and will be answered in the order received.",
+      "error_heading": "Please review the following fields:",
+      "name": "Name",
+      "email": "Email",
+      "store_url": "Shopify store URL",
+      "store_url_placeholder": "your-store.myshopify.com",
+      "store_url_help": "Optional. It lets us look at the same store you are describing.",
+      "category": "What is this about?",
+      "category_placeholder": "Choose a category",
+      "category_presets": "Preset setup",
+      "category_sections": "Section customization",
+      "category_issue": "Report an issue",
+      "category_commercial": "Commercial enquiry",
+      "message": "Description",
+      "message_help": "Include the page address and the steps you took. Maximum 2000 characters.",
+      "required_note": "Name, email, category and description are required.",
+      "submit": "Send request"
+    },
+    "faq": {
+      "title": "Before you write"
+    },
+    "channels": {
+      "title": "Other ways to reach the studio"
+    }
+  },
+  "policy": {
+    "contents": "On this page",
+    "updated": "Last updated {{ date }}"
+  },
+  "blogs": {
+    "blog": {
+      "categories_label": "Journal categories",
+      "all_stories": "All stories",
+      "editorial": "Editorial",
+      "read_article": "Read {{ title }}",
+      "read_essay": "Read the essay",
+      "latest": "Latest essays",
+      "article_count": {
+        "one": "{{ count }} essay",
+        "other": "{{ count }} essays"
+      },
+      "empty": "No essays have been published yet."
+    },
+    "article": {
+      "reading_time": {
+        "one": "{{ count }} min read",
+        "other": "{{ count }} min read"
+      },
+      "by_author": "Words by {{ author }}",
+      "featured_objects": "Objects featured in this story",
+      "navigation": "More journal stories",
+      "previous": "Previous story",
+      "next": "Next story"
+    },
+    "comments": {
+      "eyebrow": "Conversation",
+      "count": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      },
+      "none": "Be the first to leave a comment.",
+      "pagination": "Comment pagination",
+      "form_title": "Leave a comment",
+      "success": "Your comment was published.",
+      "success_moderated": "Your comment was received and will appear after review.",
+      "error_heading": "Please review the following fields:",
+      "name": "Name",
+      "email": "Email",
+      "message": "Comment",
+      "submit": "Post comment"
+    }
+  },
+  "search": {
+    "header": {
+      "eyebrow": "Search the atelier",
+      "title": "Search",
+      "results_for": "Results for \"{{ terms }}\""
+    },
+    "tabs": {
+      "label": "Search result types",
+      "all": "All",
+      "products": "Products",
+      "articles": "Journal",
+      "pages": "Pages"
+    },
+    "form": {
+      "label": "Search",
+      "placeholder": "Search products, materials and stories",
+      "submit": "Search"
+    },
+    "results": {
+      "count": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      },
+      "article": "Journal",
+      "page": "Page",
+      "view_page": "View page",
+      "none_title": "No results for \"{{ terms }}\"",
+      "none_text": "Try a broader material or object type, or browse the current collection.",
+      "browse": "Explore all products"
+    },
+    "prompt": {
+      "title": "Find an object or story",
+      "text": "Search by material, category or title."
+    }
+  },
+  "not_found": {
+    "eyebrow": "Error / Archive index",
+    "title": "Object not found in the atelier.",
+    "message": "The requested page is not in our current series. It may have moved into the archive.",
+    "search_label": "Search the atelier",
+    "search_placeholder": "Search products and stories",
+    "search_submit": "Search",
+    "return_to_collection": "Return to collection",
+    "recommendations": "Popular pieces / Continue exploring"
+  },
+  "password": {
+    "image_alt": "Editorial preview of the next collection",
+    "opening_label": "Opening note",
+    "newsletter": {
+      "email": "Email address",
+      "submit": "Request early access",
+      "privacy": "Private notes only. Unsubscribe at any time.",
+      "success": "Thank you. Your early access request was received.",
+      "error_heading": "Please check your email address:"
+    },
+    "access": {
+      "open": "Enter with password",
+      "eyebrow": "Private access",
+      "title": "Enter the atelier",
+      "instructions": "Use the password provided by the atelier.",
+      "label": "Store password",
+      "submit": "Enter store",
+      "error": "The password was not accepted. Please try again."
+    }
+  },
+  "list_collections": {
+    "title": "Collections",
+    "view_collection": "View {{ title }}",
+    "product_count": {
+      "one": "{{ count }} piece",
+      "other": "{{ count }} pieces"
+    },
+    "empty": "No collections are available yet."
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "choose_options": "Choose options",
+      "quick_add": "Quick add",
+      "select_size": "Select size",
+      "color_swatch": "{{ option }}: {{ value }}",
+      "more_swatches": "+{{ count }} more",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "sale": "Sale",
+      "quantity": "Quantity",
+      "decrease_quantity": "Decrease quantity for {{ product }}",
+      "increase_quantity": "Increase quantity for {{ product }}",
+      "line_total": "Total for {{ quantity }}",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "price_from": "From",
+      "unit_price": "Unit price",
+      "taxes_included": "Taxes included.",
+      "media_gallery": "Product media gallery",
+      "media_thumbnails": "Product media thumbnails",
+      "view_media": "View product media {{ number }}",
+      "media_zoom": {
+        "title": "Image zoom",
+        "open": "Zoom image {{ index }} of {{ total }}",
+        "close": "Close zoom",
+        "zoom_in": "Zoom in",
+        "zoom_out": "Zoom out",
+        "reset": "Reset zoom",
+        "previous": "Previous image",
+        "next": "Next image",
+        "status": "Image {{ index }} of {{ total }}, zoom {{ zoom }}%",
+        "image_index": "Image {{ index }} of {{ total }}"
+      },
+      "view_in_space": "View in your space",
+      "option_unavailable": "Option unavailable",
+      "variant_available": "Variant available.",
+      "variant_sold_out": "Variant sold out.",
+      "size_guide": "Size Guide and Measurements",
+      "model_fit": "Model fit",
+      "measurement_units": "Measurement units",
+      "centimeters": "CM",
+      "inches": "INCHES",
+      "sticky_add_to_cart": "Add {{ product }} to cart",
+      "sticky_add_quantity_to_cart": "Add {{ product }} to cart, quantity {{ quantity }}",
+      "sticky_quantity_price": "{{ quantity }} × {{ price }}",
+      "sticky_total": "Total {{ total }}",
+      "purchase_options": {
+        "legend": "Purchase options",
+        "one_time": "One-time purchase",
+        "subscribe": "Subscribe and save",
+        "delivery_schedule": "Delivery schedule",
+        "per_delivery": "{{ price }} per delivery",
+        "unavailable": "This purchase option is unavailable",
+        "plan_required": "This option requires a subscription plan that is not available right now."
+      },
+      "pickup": {
+        "eyebrow": "Local pickup",
+        "available_at_html": "Pickup available at <strong>{{ location_name }}</strong>",
+        "unavailable_at_html": "Pickup currently unavailable at <strong>{{ location_name }}</strong>",
+        "available": "Pickup available",
+        "unavailable": "Pickup currently unavailable",
+        "view_store_info": "View store information",
+        "check_other_stores": "Check availability at other stores",
+        "hours": "Pickup hours",
+        "update_error": "Pickup availability could not be updated."
+      },
+      "recipient": {
+        "checkbox": "I want to send this as a gift",
+        "expanded": "Gift card recipient fields expanded",
+        "collapsed": "Gift card recipient fields collapsed",
+        "error_heading": "Please review the recipient details:",
+        "email": "Recipient email",
+        "email_optional": "Recipient email (optional without JavaScript)",
+        "name": "Recipient name (optional)",
+        "message": "Message (optional)",
+        "characters_remaining": {
+          "one": "{{ count }} character remaining",
+          "other": "{{ count }} characters remaining"
+        },
+        "send_on": "Send on (optional)"
+      }
+    },
+    "recommendations": {
+      "related_heading": "You may also consider",
+      "complementary_heading": "Complete the composition"
+    }
+  },
+  "collections": {
+    "general": {
+      "collection": "Collection",
+      "products_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      },
+      "no_products": "No products match your selection.",
+      "empty": "This collection is empty.",
+      "browse_all": "Browse all products"
+    },
+    "filters": {
+      "title": "Filter and sort",
+      "active_count": {
+        "one": "{{ count }} active filter",
+        "other": "{{ count }} active filters"
+      },
+      "from": "From",
+      "to": "To",
+      "sort_by": "Sort by",
+      "apply": "Apply",
+      "clear_all": "Clear all",
+      "active_filters": "Active filters",
+      "remove_filter": "Remove filter {{ filter }}:",
+      "swatch_color": "{{ filter }}: {{ value }}"
+    },
+    "pagination": {
+      "label": "Collection pagination",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "grid": {
+      "label": "Choose product grid density",
+      "title": "Grid",
+      "one_column": "Show one product per row",
+      "two_columns": "Show two products per row",
+      "four_columns": "Show four products per row"
+    },
+    "merchandising": {
+      "promotion": "Editorial collection feature"
+    }
+  },
+  "templates": {
+    "home": {
+      "title": "{{ shop }}",
+      "message": "A flexible editorial storefront is taking shape."
+    },
+    "product": {
+      "title": "Product"
+    },
+    "collection": {
+      "title": "Collection"
+    },
+    "list_collections": {
+      "title": "Collections"
+    },
+    "cart": {
+      "title": "Cart",
+      "empty": "Your cart is currently empty."
+    },
+    "search": {
+      "title": "Search",
+      "results_for": "Search results for “{{ terms }}”",
+      "prompt": "Use search to explore the catalog."
+    },
+    "not_found": {
+      "title": "Page not found",
+      "message": "The page you requested could not be found.",
+      "link": "Return home"
+    },
+    "page": {
+      "title": "Page"
+    },
+    "blog": {
+      "title": "Journal"
+    },
+    "article": {
+      "title": "Article"
+    },
+    "password": {
+      "title": "Opening soon",
+      "message": "This shop is preparing its next chapter.",
+      "password_label": "Store password",
+      "submit": "Enter store"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Your {{ value }} gift card for {{ shop }}",
+      "gift_card": "Gift card",
+      "remaining_html": "{{ balance }} remaining",
+      "expired": "Expired",
+      "disabled": "This gift card is no longer active.",
+      "expires_on": "Expires {{ expires_on }}",
+      "use_at_checkout": "Use this code at checkout",
+      "shop_link": "Continue shopping",
+      "print": "Print gift card",
+      "add_to_apple_wallet": "Add to Apple Wallet",
+      "qr_code_alt": "QR code for this gift card"
+    }
+  },
+  "newsletter": {
+    "eyebrow": "Private correspondence",
+    "heading": "Notes from the atelier",
+    "copy": "New objects, material studies and private previews, sent with restraint.",
+    "email_label": "Email address",
+    "email_placeholder": "name@example.com",
+    "submit": "Subscribe",
+    "success": "Thank you. Your first note will arrive soon.",
+    "error_heading": "Please check your email address:"
+  },
+  "predictive_search": {
+    "search_label": "Search",
+    "placeholder": "Search products, materials and stories",
+    "dialog_label": "Search the atelier",
+    "results_label": "Search suggestions",
+    "loading": "Searching",
+    "no_results": "No suggestions yet. Press enter to search the full catalog.",
+    "clear": "Clear search",
+    "in_stock": "In stock",
+    "products": "Products",
+    "collections": "Collections",
+    "articles": "Journal",
+    "pages": "Pages",
+    "view_all": "View all results for \"{{ terms }}\"",
+    "results_count": {
+      "one": "1 suggestion available",
+      "other": "{{ count }} suggestions available"
+    }
+  }
+}

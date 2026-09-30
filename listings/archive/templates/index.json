@@ -6,10 +6,10 @@
         "layout_mode": "cinematic",
         "split_ratio": "60_40",
         "layout_split": "image_first",
-        "height_desktop": 75,
+        "height_desktop": 80,
         "height_mobile": 75,
         "media_type": "image",
-        "image_desktop": "shopify://shop_images/hero-campaign-01.jpg",
+        "image_desktop": "shopify://shop_images/archive-hero.jpg",
         "enable_video_mobile": false,
         "overlay_style": "scrim",
         "overlay_opacity": 60,
@@ -22,29 +22,29 @@
         "heading": "Objects with a remembered life",
         "subheading": "<p>A collection shaped by provenance, handwork and time.</p>",
         "button_primary_label": "Enter the catalogue",
-        "button_primary_url": "/collections/all",
-        "button_secondary_label": "Explore lookbook",
-        "button_secondary_url": "/collections",
+        "button_primary_url": "/collections/permanent-archive",
+        "button_secondary_label": "Restored selection",
+        "button_secondary_url": "/collections/restored-pieces",
         "color_scheme": "scheme-2"
       }
     },
     "manifesto": {
       "type": "brand-manifesto",
       "blocks": {
-        "founded": { "type": "detail", "settings": { "label": "Founded", "value": "A continuing workshop tradition" } },
-        "origin": { "type": "detail", "settings": { "label": "Origin", "value": "Made near the material source" } },
-        "maker": { "type": "detail", "settings": { "label": "Maker", "value": "Named with every object" } },
-        "record": { "type": "detail", "settings": { "label": "Record", "value": "Numbered and documented" } }
+        "founded": { "type": "detail", "settings": { "label": "Founded", "value": "A continuing workshop tradition since 1987" } },
+        "origin": { "type": "detail", "settings": { "label": "Origin", "value": "Acquired from private estates in Paris & Antwerp" } },
+        "maker": { "type": "detail", "settings": { "label": "Maker", "value": "Named and catalogued with every object" } },
+        "record": { "type": "detail", "settings": { "label": "Record", "value": "Numbered museum-grade accession certificate" } }
       },
       "block_order": ["founded", "origin", "maker", "record"],
       "settings": {
         "eyebrow": "INDEX II / PROVENANCE",
         "quote": "What endures carries the record of how it was made.",
-        "body": "<p>The catalogue follows material from source to workshop and object.</p>",
-        "button_label": "Read our process",
-        "button_url": "/collections/all",
-        "media_label": "PLATE IV / HAND AND TOOL",
-        "image": "shopify://shop_images/manifesto-01.jpg",
+        "body": "<p>The catalogue follows each garment from runway provenance to workshop restoration and permanent archive entry.</p>",
+        "button_label": "Read archive notes",
+        "button_url": "/collections/permanent-archive",
+        "media_label": "PLATE IV / ACCESSION 1957.34.1",
+        "image": "shopify://shop_images/archive-manifesto.jpg",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
@@ -52,21 +52,22 @@
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "year": { "type": "item", "settings": { "text": "ESTABLISHED 1987 / CONTINUING WORKSHOP" } },
-        "place": { "type": "item", "settings": { "text": "MADE BETWEEN FIELD AND ATELIER" } },
-        "record": { "type": "item", "settings": { "text": "EACH OBJECT NUMBERED AND RECORDED" } }
+        "year": { "type": "item", "settings": { "text": "PIECE NO. 01/12 RESTORED" } },
+        "place": { "type": "item", "settings": { "text": "RUNWAY 1989–1999 PERMANENT ARCHIVE" } },
+        "record": { "type": "item", "settings": { "text": "MUSEUM GRADE CONSERVATION" } },
+        "viewing": { "type": "item", "settings": { "text": "PRIVATE APPOINTMENTS IN KYOTO & PARIS" } }
       },
-      "block_order": ["year", "place", "record"],
+      "block_order": ["year", "place", "record", "viewing"],
       "settings": {
-        "speed": 46,
+        "speed": 44,
         "color_scheme": "scheme-4"
       }
     },
     "collections": {
       "type": "curated-showcase",
       "blocks": {
-        "current": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Current catalogue" } },
-        "archive": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Archive selection" } }
+        "current": { "type": "collection_tab", "settings": { "collection": "permanent-archive", "tab_label": "Current catalogue" } },
+        "archive": { "type": "collection_tab", "settings": { "collection": "restored-pieces", "tab_label": "Archive selection" } }
       },
       "block_order": ["current", "archive"],
       "settings": {
@@ -80,44 +81,50 @@
     "lookbook": {
       "type": "lookbook",
       "blocks": {
-        "marker1": { "type": "hotspot", "settings": { "horizontal_position": 30, "vertical_position": 38, "horizontal_position_mobile": 32, "vertical_position_mobile": 35, "popover_position": "right" } },
-        "marker2": { "type": "hotspot", "settings": { "horizontal_position": 55, "vertical_position": 66, "horizontal_position_mobile": 54, "vertical_position_mobile": 65, "popover_position": "top" } },
-        "marker3": { "type": "hotspot", "settings": { "horizontal_position": 76, "vertical_position": 42, "horizontal_position_mobile": 72, "vertical_position_mobile": 45, "popover_position": "left" } }
+        "marker1": { "type": "hotspot", "settings": { "product": "1994-cashmere-cocoon-coat", "horizontal_position": 24, "vertical_position": 42, "horizontal_position_mobile": 26, "vertical_position_mobile": 40, "popover_position": "right" } },
+        "marker2": { "type": "hotspot", "settings": { "product": "1999-technical-cotton-trench", "horizontal_position": 46, "vertical_position": 62, "horizontal_position_mobile": 48, "vertical_position_mobile": 60, "popover_position": "top" } },
+        "marker3": { "type": "hotspot", "settings": { "product": "1998-bias-cut-silk-slip", "horizontal_position": 78, "vertical_position": 50, "horizontal_position_mobile": 76, "vertical_position_mobile": 48, "popover_position": "left" } }
       },
       "block_order": ["marker1", "marker2", "marker3"],
       "settings": {
-        "eyebrow": "PLATE V / ARCHIVE STUDY",
-        "heading": "Three objects from the record",
-        "description": "<p>Open each marker to trace the object back to its catalogue entry.</p>",
-        "caption": "Warm light, worn surfaces and the evidence of use.",
-        "image_desktop": "shopify://shop_images/lookbook-scene-01.jpg",
-        "color_scheme": "scheme-5"
+        "eyebrow": "PLATE V / CONSERVATION STUDY",
+        "heading": "Three objects from the archive record",
+        "description": "<p>Each piece is examined under raking light, stabilized by our conservationist, and released in small curated entries.</p>",
+        "caption": "Garment study room photographed under raking light.",
+        "image_desktop": "shopify://shop_images/archive-lookbook.jpg",
+        "color_scheme": "scheme-1"
       }
     },
-    "discovery": {
-      "type": "bento-discovery",
+    "featured_product": {
+      "type": "featured-product",
       "blocks": {
-        "story1": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[I] FIELD NOTE", "heading": "Where the fibre begins", "body": "<p>A record of material, place and season.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } },
-        "story2": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[II] WORKSHOP NOTE", "heading": "The mark of the tool", "body": "<p>Hands, edges and the small variations that make an object singular.</p>" } },
-        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[III] CATALOGUE", "heading": "The permanent collection", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } }
+        "title": { "type": "title" },
+        "price": { "type": "price" },
+        "variant_picker": { "type": "variant_picker" },
+        "quantity": { "type": "quantity_selector" },
+        "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
+        "description": { "type": "description" },
+        "inventory": { "type": "inventory_status", "settings": { "threshold": 2, "show_count": true } },
+        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Climate-controlled archival transport | Insured courier", "icon": "truck" } }
       },
-      "block_order": ["story1", "story2", "collection"],
+      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
       "settings": {
-        "eyebrow": "INDEX VI / STORIES AND OBJECTS",
-        "heading": "Read the catalogue by provenance",
-        "subheading": "<p>Documents, makers and enduring forms.</p>",
-        "color_scheme": "scheme-1"
+        "product": "1990-pinstripe-double-breasted-jacket",
+        "color_scheme": "scheme-3",
+        "secondary_background": false,
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-4",
         "eyebrow": "CATALOGUE NOTICES",
         "heading": "New entries in the archive",
         "text": "<p>Occasional notices of restored objects, new records and workshop visits.</p>"
       }
     }
   },
-  "order": ["hero", "manifesto", "marquee", "collections", "lookbook", "discovery", "newsletter"]
+  "order": ["hero", "manifesto", "marquee", "collections", "lookbook", "featured_product", "newsletter"]
 }

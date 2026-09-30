@@ -9,7 +9,7 @@
         "height_desktop": 75,
         "height_mobile": 65,
         "media_type": "image",
-        "image_desktop": "shopify://shop_images/capsule-look-01.jpg",
+        "image_desktop": "shopify://shop_images/edition-hero.jpg",
         "overlay_style": "none",
         "overlay_opacity": 0,
         "content_position_x": "start",
@@ -21,89 +21,141 @@
         "heading": "Useful forms, precisely considered",
         "subheading": "<p>A quiet system for objects that speak for themselves.</p>",
         "button_primary_label": "Browse all objects",
-        "button_primary_url": "/collections/all",
+        "button_primary_url": "/collections/daily-objects",
         "button_secondary_label": "Browse collections",
-        "button_secondary_url": "/collections",
-        "color_scheme": "scheme-1"
-      }
-    },
-    "collections": {
-      "type": "curated-showcase",
-      "blocks": {
-        "daily": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Daily objects" } },
-        "workspace": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Workspace" } },
-        "limited": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Limited studies" } }
-      },
-      "block_order": ["daily", "workspace", "limited"],
-      "settings": {
-        "eyebrow": "CATALOGUE / 02",
-        "heading": "Selected objects",
-        "show_secondary_image": false,
-        "show_vendor": false,
+        "button_secondary_url": "/collections/leather-goods",
         "color_scheme": "scheme-1"
       }
     },
     "discovery": {
       "type": "bento-discovery",
       "blocks": {
-        "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
-        "product1": { "type": "card_product", "settings": { "product": "fine-merino-turtleneck" } },
-        "product2": { "type": "card_product", "settings": { "product": "cigarette-trouser" } },
-        "story": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } }
+        "collection": {
+          "type": "card_featured",
+          "settings": {
+            "collection": "desk-and-study",
+            "eyebrow": "[01] SYSTEM",
+            "heading": "Objects for the desk",
+            "link": "/collections/desk-and-study",
+            "image": "shopify://shop_images/edition-bento-desk.jpg"
+          }
+        },
+        "product1": {
+          "type": "card_product",
+          "settings": {
+            "product": "leather-desk-mat"
+          }
+        },
+        "product2": {
+          "type": "card_product",
+          "settings": {
+            "product": "milled-brass-paperweight"
+          }
+        },
+        "story": {
+          "type": "card_editorial",
+          "settings": {
+            "link_label": "Explore the story",
+            "link": "/collections/leather-goods",
+            "eyebrow": "[04] PROCESS",
+            "heading": "Measured by use",
+            "body": "<p>Materials and dimensions reduced to what the object needs.</p>",
+            "image": "shopify://shop_images/edition-bento-craft.jpg"
+          }
+        }
       },
       "block_order": ["collection", "product1", "product2", "story"],
       "settings": {
-        "eyebrow": "GRID STUDY / 03",
+        "eyebrow": "GRID STUDY / 02",
         "heading": "Collection, product, process",
         "subheading": "<p>A denser view of the working collection.</p>",
         "color_scheme": "scheme-3"
       }
     },
-    "set": {
+    "collections": {
+      "type": "curated-showcase",
+      "blocks": {
+        "daily": { "type": "collection_tab", "settings": { "collection": "daily-objects", "tab_label": "Daily objects" } },
+        "workspace": { "type": "collection_tab", "settings": { "collection": "desk-and-study", "tab_label": "Workspace" } },
+        "limited": { "type": "collection_tab", "settings": { "collection": "leather-goods", "tab_label": "Limited studies" } }
+      },
+      "block_order": ["daily", "workspace", "limited"],
+      "settings": {
+        "eyebrow": "CATALOGUE / 03",
+        "heading": "Selected objects",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "blocks": {
+        "title": { "type": "title" },
+        "price": { "type": "price" },
+        "variant_picker": { "type": "variant_picker" },
+        "quantity": { "type": "quantity_selector" },
+        "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
+        "description": { "type": "description" },
+        "inventory": { "type": "inventory_status", "settings": { "threshold": 5, "show_count": true } },
+        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Worldwide express courier | Dispatch in 24 hours", "icon": "truck" } }
+      },
+      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
+      "settings": {
+        "product": "structured-tote",
+        "color_scheme": "scheme-1",
+        "secondary_background": true,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "capsule": {
       "type": "complete-the-look",
       "blocks": {
-        "object1": { "type": "bundle_product", "settings": { "product": "structured-tote" } },
-        "object2": { "type": "bundle_product", "settings": { "product": "leather-belt" } },
-        "object3": { "type": "bundle_product", "settings": { "product": "cashmere-scarf" } }
+        "piece1": { "type": "bundle_product", "settings": { "product": "leather-document-folio" } },
+        "piece2": { "type": "bundle_product", "settings": { "product": "four-slot-cardholder" } },
+        "piece3": { "type": "bundle_product", "settings": { "product": "folded-valet-tray" } }
       },
-      "block_order": ["object1", "object2", "object3"],
+      "block_order": ["piece1", "piece2", "piece3"],
       "settings": {
-        "eyebrow": "DESK SET / 04",
-        "heading": "Build the working set",
-        "description": "<p>Select the objects you need and add them together.</p>",
+        "eyebrow": "SET STUDY / 05",
+        "heading": "The Daily Objects Set",
+        "description": "<p>A modular set for daily carry and desk study.</p>",
         "caption": "A modular arrangement for daily work.",
-        "image_desktop": "shopify://shop_images/lookbook-scene-01.jpg",
+        "image_desktop": "shopify://shop_images/edition-bento-desk.jpg",
         "color_scheme": "scheme-1"
       }
     },
     "manifesto": {
       "type": "brand-manifesto",
       "blocks": {
-        "measure": { "type": "detail", "settings": { "label": "Measure", "value": "Proportion follows use" } },
-        "material": { "type": "detail", "settings": { "label": "Material", "value": "Chosen for tactility and endurance" } }
+        "material": { "type": "detail", "settings": { "label": "Material", "value": "Full-grain calfskin, vegetable tanned in Tuscany" } },
+        "hardware": { "type": "detail", "settings": { "label": "Hardware", "value": "Machined from solid brass rod, unplated" } },
+        "tolerance": { "type": "detail", "settings": { "label": "Tolerance", "value": "0.5mm edge painting and saddle stitching" } },
+        "longevity": { "type": "detail", "settings": { "label": "Longevity", "value": "Designed to gather character and patina" } }
       },
-      "block_order": ["measure", "material"],
+      "block_order": ["material", "hardware", "tolerance", "longevity"],
       "settings": {
-        "eyebrow": "METHOD / 05",
-        "quote": "Remove until only the useful form remains.",
-        "body": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
-        "button_label": "Read our process",
-        "button_url": "/collections/all",
-        "media_label": "",
-        "image": "shopify://shop_images/manifesto-01.jpg",
+        "eyebrow": "SPECIFICATIONS / 06",
+        "quote": "Form follows material discipline.",
+        "body": "<p>Every component is specified for durability, utility and honest tactile feedback.</p>",
+        "button_label": "Inspect collection",
+        "button_url": "/collections/daily-objects",
+        "media_label": "TECHNICAL REPORT / 01",
+        "image": "shopify://shop_images/edition-bento-craft.jpg",
         "use_surface_background": false,
-        "color_scheme": "scheme-4"
+        "color_scheme": "scheme-3"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-4",
         "eyebrow": "EDITION NOTES",
         "heading": "New studies, occasionally",
-        "text": "<p>Product releases, material tests and measured updates.</p>"
+        "text": "<p>Product releases, material studies and measured updates.</p>"
       }
     }
   },
-  "order": ["hero", "collections", "discovery", "set", "manifesto", "newsletter"]
+  "order": ["hero", "discovery", "collections", "featured_product", "capsule", "manifesto", "newsletter"]
 }

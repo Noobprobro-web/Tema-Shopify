@@ -1,0 +1,39 @@
+diff --git a/listings/edition/templates/product.json b/listings/edition/templates/product.json
+index b7d3b24..96caac2 100644
+--- a/listings/edition/templates/product.json
++++ b/listings/edition/templates/product.json
+@@ -65,7 +65,7 @@
+           "type": "collapsible_tab",
+           "settings": {
+             "heading": "Shipping & complimentary returns",
+-            "content": "<p>Pieces held in the atelier leave within three business days, with tracking. Shipping is complimentary on orders over $150.</p><p>Returns are complimentary within fourteen days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
++            "content": "<p>Pieces in stock leave within three business days, with tracking. Shipping is complimentary on orders over $150.</p><p>Returns are complimentary within fourteen days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
+           }
+         }
+       },
+diff --git a/listings/archive/templates/product.json b/listings/archive/templates/product.json
+index b7d3b24..96caac2 100644
+--- a/listings/archive/templates/product.json
++++ b/listings/archive/templates/product.json
+@@ -65,7 +65,7 @@
+           "type": "collapsible_tab",
+           "settings": {
+             "heading": "Shipping & complimentary returns",
+-            "content": "<p>Pieces held in the atelier leave within three business days, with tracking. Shipping is complimentary on orders over $150.</p><p>Returns are complimentary within fourteen days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
++            "content": "<p>Pieces in stock leave within three business days, with tracking. Shipping is complimentary on orders over $150.</p><p>Returns are complimentary within fourteen days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
+           }
+         }
+       },
+diff --git a/locales/en.default.schema.json b/locales/en.default.schema.json
+index 65565a4..f684634 100644
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -1300,7 +1300,7 @@
+           }
+         },
+         "atelier_gallery": {
+-          "name": "Atelier gallery",
++          "name": "Gallery",
+           "settings": {
+             "image_1": {
+               "label": "First image"
