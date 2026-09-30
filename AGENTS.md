@@ -5,12 +5,10 @@ Este proyecto usa multiples agentes de IA. Desde el handoff de `GEMINI-003`, Gem
 ## Autoridad vigente
 
 1. **Usuario (Johandry / Ruiz Digital):** dueño del proyecto, prioridades de negocio, aprobaciones grandes y cambios de alcance.
-2. **Gemini Flash 3.8 High:** cerebro/orquestador; define arquitectura, criterios de aceptacion, orden de trabajo, delegacion y decision tecnica operativa.
-3. **Claude (Opus 5.5 Extra):** implementador principal de Liquid, JSON, CSS, JS, schemas y correcciones técnicas complejas con máxima profundidad de razonamiento. Mantiene además su rol de auditoría senior UX/UI y disciplina técnica.
+2. **Claude (Opus 5.5 Extra):** LÍDER TÉCNICO Y ESTRATÉGICO TEMPORAL (Delegación expresa de Johandry, `CLAUDE-HANDOFF-LEAD-001`). Asume el mando para definir opciones, priorizar la resolución de bloqueantes finales de Theme Store y coordinar la entrega.
+3. **Gemini Flash 3.8 High:** arquitecto consultor y soporte analítico; asiste en verificaciones, compuertas y operaciones que Claude requiera.
 4. **GPT-6 Sol Max:** auditor senior de producto, UX, estrategia comercial, segunda opinión y detección de riesgos en Theme Store con capacidad máxima de análisis.
 5. **GPT-5.5 / modelos ligeros:** tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
-
-Si un agente ejecutor aparece como Codex, actua como implementador/revisor operativo y no sustituye la autoridad vigente de Gemini. Las decisiones que afecten producto o alcance mas alla de lo aprobado vuelven al usuario.
 
 ## Reglas de colaboracion
 

@@ -2,21 +2,21 @@
 
 ```text
 Ruta estable: agent-comms/BOARD.md
-Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
-Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra
-Última actualización: 2026-09-30
-Estado general: CERTIFICACIÓN COMPLETADA Y LISTO PARA SUBMISSION A SHOPIFY THEME STORE ($380 USD Tier).
-Frentes completados y certificados:
-  1) Seguridad (X-01): Bases de datos locales de Chrome y scripts eliminados permanentemente del disco.
-  2) Accesibilidad y Rendimiento: Parches P-01 a P-09 aplicados, probados y desplegados a las 3 tiendas demo oficiales (#188743188704, #188655599784, #191153275192) y a Couture (#165809488115).
-  3) Catálogos de Tiendas Demo:
-     - Edition: Eliminado logo de Gucci y fotos cruzadas en daily-objects (comprobado en vivo en CDN).
-     - Atelier: Traducidas 24 descripciones al inglés fluido y agregadas variantes de talla (34-42 / XS-XL) en 87 variantes (comprobado en vivo).
-  4) Bloqueadores Comerciales Shopify Resueltos:
-     - Pasarela de prueba (Bogus gateway) activada en las 3 tiendas demo (pedidos de prueba funcionales).
-     - URLs de Documentación y Soporte operativas con HTTP 200 en las tiendas demo (config/settings_schema.json actualizado, Fila 107 en cumplido).
-  5) Quality Gates: Suite npm run gates:static 100% verde (Theme Check con 0 ofensas en 398 archivos, 0 contratos JS rotos, 0 claves huérfanas/sin resolver, Ledger verificado).
-  6) Paquete de Envío: Sartorial-1.0.0.zip generado y listo para subir al Partner Dashboard.
+Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
+Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
+Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
+Última actualización: 2026-09-30T19:20:00-04:00
+Estado general: MANDO DELEGADO A CLAUDE (CLAUDE-HANDOFF-LEAD-001). CÓDIGO 100% EN PARIDAD Y COMPUERTAS EN VERDE.
+Frentes de Código y Despliegue Recién Sincronizados (Commit ea3e3dc):
+  1) Paridad Repositorio vs Demos (B-02): 5 archivos Liquid de carga rápida integrados en git, empaquetados en Sartorial-1.0.0.zip y desplegados.
+  2) Regresión de Inventario (B-03): Corregida en assets/theme.js. El tope solo aplica a stock strictly low (<= threshold), sin limitar variantes de 25 unidades a 6. LiquidComplexity <= 120.
+  3) Mejoras L-01..L-03 aplicadas: Steppers sincronizados al arranque, Enter en drawer sin doble POST, total de línea validado.
+  4) Quality Gates: npm run gates:static 100% verde (0 ofensas en 429 archivos en Theme Check).
+Bloqueantes en manos de Claude para liderar con Johandry:
+  - B-01 (P0): Documentación y soporte públicos sin contraseña (HTMLs listos en docs/merchant/, vía GitHub Pages o hosting).
+  - B-04 (P0): Fotografías de Edition (curación de 10 imágenes en CSV).
+  - M-01 / R4 (P1): Colección desk-and-study en Edition y políticas desde plantilla en las 3 tiendas.
+  - Pagos de prueba: Registrar 1 pedido Bogus por tienda.
 ```
 
 ---
