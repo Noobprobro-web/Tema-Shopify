@@ -1,0 +1,388 @@
+[
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "home",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 3,
+    "nodes": [
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(1) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"1. Open details for 1994 Double-Faced Cashmere Cocoon Coat",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--28149271691576__lookbook-marker1\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(2) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"2. Open details for 1999 Technical Cotton Trench\" aria-con",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--28149271691576__lookbook-marker2\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(3) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"3. Open details for 1998 Bias-Cut Silk Evening Slip\" aria-",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--28149271691576__lookbook-marker3\""
+     }
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 6,
+    "nodes": [
+     {
+      "target": ".hero-editorial__intro > .eyebrow",
+      "html": "<p class=\"eyebrow\">CATALOGUE I / THE HOUSE</p>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": "#HeroEditorialTitle-template--28149271691576__hero",
+      "html": "<h1 id=\"HeroEditorialTitle-template--28149271691576__hero\" class=\"hero-editorial__heading\">Objects with a remembered life</h1>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": ".hero-editorial__subheading > p",
+      "html": "<p>A collection shaped by provenance, handwork and time.</p>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": ".button--secondary.hero-editorial__button[href$=\"restored-pieces\"] > span",
+      "html": "<span>Restored selection</span>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": "#CuratedTab-template--28149271691576__collections-current > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "home+menu-abierto",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "home+busqueda-predictiva",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 1,
+    "nodes": [
+     {
+      "target": "#PredictiveSearchInput-sections--28149271232824__header",
+      "html": "<input id=\"PredictiveSearchInput-sections--28149271232824__header\" class=\"predictive-search__input\" type=\"text\" inputmode=\"search\" name=\"q\" ",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"predictive-search-results-sections--28149271232824__header\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "collection",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "pdp",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "pdp+zoom",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 2,
+    "nodes": [
+     {
+      "target": "h1",
+      "html": "<h1 class=\"product-main__title\" data-long-title=\"0\">1990 Pinstripe Double-Breasted Jacket</h1>",
+      "why": "Element's background color could not be determined because it is overlapped by another element",
+      "data": {
+       "msgKey": "bgOverlap"
+      }
+     },
+     {
+      "target": ".product-zoom__counter",
+      "html": "<p class=\"product-zoom__counter\" aria-hidden=\"true\" data-zoom-counter=\"\">1 / 1</p>",
+      "why": "Element's background color could not be determined because it is overlapped by another element",
+      "data": {
+       "msgKey": "bgOverlap"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "pdp+carrito-drawer-lleno",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 2,
+    "nodes": [
+     {
+      "target": "p[data-cart-status=\"\"]",
+      "html": "<p class=\"cart-drawer__message\" role=\"status\" aria-live=\"polite\" data-cart-status=\"\">Item added to your cart. 1990 Pinstripe Double-Breasted",
+      "why": "Element's background color could not be determined because it partially overlaps other elements",
+      "data": {
+       "msgKey": "elmPartiallyObscuring"
+      }
+     },
+     {
+      "target": ".cart-drawer-item__title > a",
+      "html": "<a href=\"/products/1990-pinstripe-double-breasted-jacket?variant=53057500053816\">1990 Pinstripe Double-Breasted Jacket</a>",
+      "why": "Element's background color could not be determined because it partially overlaps other elements",
+      "data": {
+       "msgKey": "elmPartiallyObscuring"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "cart-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "cart-vacio",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "search",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "375",
+  "label": "404",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "home",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 3,
+    "nodes": [
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(1) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"1. Open details for 1994 Double-Faced Cashmere Cocoon Coat",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--28149271691576__lookbook-marker1\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(2) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"2. Open details for 1999 Technical Cotton Trench\" aria-con",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--28149271691576__lookbook-marker2\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(3) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"3. Open details for 1998 Bias-Cut Silk Evening Slip\" aria-",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--28149271691576__lookbook-marker3\""
+     }
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 6,
+    "nodes": [
+     {
+      "target": ".hero-editorial__intro > .eyebrow",
+      "html": "<p class=\"eyebrow\">CATALOGUE I / THE HOUSE</p>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": "#HeroEditorialTitle-template--28149271691576__hero",
+      "html": "<h1 id=\"HeroEditorialTitle-template--28149271691576__hero\" class=\"hero-editorial__heading\">Objects with a remembered life</h1>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": ".hero-editorial__subheading > p",
+      "html": "<p>A collection shaped by provenance, handwork and time.</p>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": ".button--secondary.hero-editorial__button[href$=\"restored-pieces\"] > span",
+      "html": "<span>Restored selection</span>",
+      "why": "Element's background color could not be determined because element contains an image node",
+      "data": {
+       "msgKey": "imgNode"
+      }
+     },
+     {
+      "target": "#CuratedTab-template--28149271691576__collections-current > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "home+busqueda-predictiva",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 1,
+    "nodes": [
+     {
+      "target": "#PredictiveSearchInput-sections--28149271232824__header",
+      "html": "<input id=\"PredictiveSearchInput-sections--28149271232824__header\" class=\"predictive-search__input\" type=\"text\" inputmode=\"search\" name=\"q\" ",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"predictive-search-results-sections--28149271232824__header\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "collection",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "pdp",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "pdp+zoom",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "pdp+carrito-drawer-lleno",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 1,
+    "nodes": [
+     {
+      "target": "p[data-cart-status=\"\"]",
+      "html": "<p class=\"cart-drawer__message\" role=\"status\" aria-live=\"polite\" data-cart-status=\"\">Item added to your cart. 1990 Pinstripe Double-Breasted",
+      "why": "Element's background color could not be determined because it partially overlaps other elements",
+      "data": {
+       "msgKey": "elmPartiallyObscuring"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "cart-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "cart-vacio",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "search",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "archive",
+  "vp": "1440",
+  "label": "404",
+  "violations": [],
+  "incomplete": []
+ }
+]

@@ -901,10 +901,20 @@
       const compare = this.lineTotal.querySelector('[data-line-total-compare]');
       const compareValue = this.lineTotal.querySelector('[data-line-total-compare-value]');
       const priceSource = this.currentAllocation || this.currentVariant;
-      const quantity = Number.parseInt(this.quantityInput.value, 10);
+      let quantity = Number.parseInt(this.quantityInput.value, 10);
+      const maxAttr = this.quantityInput.getAttribute('max');
+      if (maxAttr !== null && maxAttr !== '' && Number.isFinite(Number(maxAttr))) {
+        const maxVal = Number(maxAttr);
+        if (quantity > maxVal) {
+          quantity = maxVal;
+          this.quantityInput.value = String(maxVal);
+        }
+      }
       const unitCents = Number(priceSource?.price_cents);
 
-      const showTotal = priceSource?.price_cents != null
+      const isFieldValid = !this.quantityInput.checkValidity || this.quantityInput.checkValidity();
+      const showTotal = isFieldValid
+        && priceSource?.price_cents != null
         && priceSource.price_cents !== ''
         && Number.isFinite(quantity)
         && quantity > 1
@@ -952,8 +962,15 @@
       quantityInput.step = variant.quantity_increment;
       quantityInput.value = Math.max(Number(quantityInput.value), Number(variant.quantity_min));
 
-      const hasInventoryLimit = Boolean(variant.inventory_management) && variant.inventory_policy === 'deny' && variant.inventory_quantity > 0;
-      const effectiveMax = variant.quantity_max !== null ? variant.quantity_max : (hasInventoryLimit ? variant.inventory_quantity : null);
+      let effectiveMax = variant.quantity_max ?? null;
+      if (effectiveMax === null && variant.inventory_management && variant.inventory_policy === 'deny') {
+        const inventoryEl = this.querySelector('product-inventory') || this.closest('section')?.querySelector('product-inventory');
+        const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 1;
+        const qty = Number(variant.inventory_quantity);
+        if (Number.isFinite(qty) && qty > 0 && qty <= threshold) {
+          effectiveMax = qty;
+        }
+      }
 
       if (effectiveMax === null) {
         quantityInput.removeAttribute('max');
@@ -2213,7 +2230,7 @@
       this.listen(this, 'keydown', (event) => {
         if (event.key !== 'Enter' || !event.target.matches?.('[data-cart-quantity]')) return;
         event.preventDefault();
-        event.target.dispatchEvent(new Event('change', { bubbles: true }));
+        event.target.blur();
       });
       this.listen(this, 'input', (event) => {
         if (event.target.matches('textarea[name="note"]')) event.target.dataset.dirty = 'true';
@@ -4863,10 +4880,21 @@
     // emitido por updateQuantityRules).
     ['input', 'change'].forEach((type) => {
       document.addEventListener(type, (event) => {
+        const input = event.target.closest?.('[data-quantity-input]');
+        if (input && type === 'change') {
+          const { min, max } = readQuantityRules(input);
+          const current = Number(input.value);
+          if (Number.isFinite(current)) {
+            if (current > max) input.value = String(max);
+            else if (current < min) input.value = String(min);
+          }
+        }
         const stepper = event.target.closest?.('[data-quantity-stepper]');
         if (stepper) syncQuantityStepper(stepper);
       });
     });
+
+    document.querySelectorAll('[data-quantity-stepper]').forEach(syncQuantityStepper);
   };
 
   // ---------------------------------------------------------------------------

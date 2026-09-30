@@ -363,9 +363,16 @@
                   {%- unless promotion_rendered -%}
                     {%- assign grid_product = collection.products[product_cursor] -%}
                     {%- if grid_product != blank -%}
+                      {%- liquid
+                        assign is_eager_card = false
+                        if paginate.current_page == 1 and product_cursor < 4
+                          assign is_eager_card = true
+                        endif
+                      -%}
                       <li class="product-grid__item">
                         {% render 'product-card',
                           card_product: grid_product,
+                          eager_image: is_eager_card,
                           show_secondary_image: section.settings.show_secondary_image,
                           show_vendor: section.settings.show_vendor,
                           show_quick_add: section.settings.show_quick_add

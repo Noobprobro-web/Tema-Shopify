@@ -488,13 +488,7 @@
                 "featured_media_id": {% if variant.featured_media %}{{ variant.featured_media.id | json }}{% else %}null{% endif %},
                 "quantity_min": {{ variant.quantity_rule.min | default: 1 | json }},
                 "quantity_increment": {{ variant.quantity_rule.increment | default: 1 | json }},
-                {%- liquid
-                  assign v_quantity_max = variant.quantity_rule.max
-                  if v_quantity_max == blank and variant.inventory_management != blank and variant.inventory_policy == 'deny' and variant.inventory_quantity > 0
-                    assign v_quantity_max = variant.inventory_quantity
-                  endif
-                -%}
-                "quantity_max": {% if v_quantity_max != blank %}{{ v_quantity_max | json }}{% else %}null{% endif %},
+                "quantity_max": {% if variant.quantity_rule.max != blank %}{{ variant.quantity_rule.max | json }}{% else %}null{% endif %},
                 "requires_selling_plan": {{ variant.requires_selling_plan | json }},
                 "selling_plan_allocations": [
                   {%- for allocation in variant.selling_plan_allocations -%}

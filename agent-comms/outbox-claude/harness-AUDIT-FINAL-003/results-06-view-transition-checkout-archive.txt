@@ -1,0 +1,47 @@
+[
+ {
+  "store": "archive",
+  "mode": "desplegado",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/permanent-archive",
+   "errors": 0
+  }
+ },
+ {
+  "store": "archive",
+  "mode": "desplegado-2",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/permanent-archive",
+   "errors": 0
+  }
+ },
+ {
+  "store": "archive",
+  "mode": "desplegado-3",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/permanent-archive",
+   "errors": 0
+  }
+ }
+]

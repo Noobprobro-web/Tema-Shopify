@@ -1,0 +1,40 @@
+
+## edition @375: home stops=50 reverse=50 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=387 y=8775 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=432 y=8775 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×5 → hero×2 → discovery×6 → collections×8 → featured_product×6 → capsule×10 → manifesto×1 → newsletter×2 → footer×6 → ?×2
+   PDP stops(<=90)=36 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: exp false→true→false | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=4 | Esc→trigger=true (button.icon-button.site-header__menu-button) stillVisible=false bgInertAfter=false
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: SKIP (sección no presente en este preset)
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=4187 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard"
+   console: 16 error:Framing 'https://shop.app/' violates the following Content Security Policy directive: "frame-ancestors 'self' https://sh || error:Failed to load resource: the server responded with a status of 403 () || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th
+
+## edition @1440: home stops=52 reverse=52 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=1452 y=7227 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=1497 y=7227 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×7 → hero×2 → discovery×6 → collections×8 → featured_product×6 → capsule×10 → manifesto×1 → newsletter×2 → footer×6 → ?×2
+   PDP stops(<=90)=38 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: SKIP (trigger no visible/no existe)
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: SKIP (sección no presente en este preset)
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=4006 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard"
+   console: 17 error:Framing 'https://shop.app/' violates the following Content Security Policy directive: "frame-ancestors 'self' https://sh || error:Failed to load resource: the server responded with a status of 403 () || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th

@@ -1,0 +1,484 @@
+[
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "home",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "#CuratedTab-template--27821979041960__collections-daily > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": "#CuratedTab-template--27821979041960__collections-workspace > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": "#CuratedTab-template--27821979041960__collections-limited > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[03]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": "#CuratedTab-template--27821979041960__collections-limited > span:nth-child(2)",
+      "html": "<span>Limited studies</span>",
+      "why": "Element's background color could not be determined because it's partially obscured by another element",
+      "data": {
+       "msgKey": "elmPartiallyObscured"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "home+menu-abierto",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "home+busqueda-predictiva",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 1,
+    "nodes": [
+     {
+      "target": "#PredictiveSearchInput-sections--27821978550440__header",
+      "html": "<input id=\"PredictiveSearchInput-sections--27821978550440__header\" class=\"predictive-search__input\" type=\"text\" inputmode=\"search\" name=\"q\" ",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"predictive-search-results-sections--27821978550440__header\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "collection",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 11,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-product-url=\"/products/compact-crossbody\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394976923816\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753284776\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394976891048\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/folded-valet-tray\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394977284264\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/four-slot-cardholder\"] > .product-card__content > .product-c",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394977185960\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753350312\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394976989352\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "pdp",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753677992\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977448104\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753514152\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977218728\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753481384\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977185960\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753448616\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977120424\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "pdp+zoom",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753677992\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977448104\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753514152\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977218728\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753481384\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977185960\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753448616\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977120424\""
+     }
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 2,
+    "nodes": [
+     {
+      "target": ".product-zoom__counter",
+      "html": "<p class=\"product-zoom__counter\" aria-hidden=\"true\" data-zoom-counter=\"\">1 / 1</p>",
+      "why": "Element's background color could not be determined because it is overlapped by another element",
+      "data": {
+       "msgKey": "bgOverlap"
+      }
+     },
+     {
+      "target": ".sticky-cart-bar__variant",
+      "html": "<span class=\"sticky-cart-bar__variant\" data-sticky-variant=\"\">Black box calf / Standard</span>",
+      "why": "Element's background color could not be determined because it partially overlaps other elements",
+      "data": {
+       "msgKey": "elmPartiallyObscuring"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "pdp+carrito-drawer-lleno",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 2,
+    "nodes": [
+     {
+      "target": "p[data-cart-status=\"\"]",
+      "html": "<p class=\"cart-drawer__message\" role=\"status\" aria-live=\"polite\" data-cart-status=\"\">Item added to your cart. Structured Tote in Calfskin - ",
+      "why": "Element's background color could not be determined because it partially overlaps other elements",
+      "data": {
+       "msgKey": "elmPartiallyObscuring"
+      }
+     },
+     {
+      "target": ".cart-drawer-item__title > a",
+      "html": "<a href=\"/products/structured-tote?variant=67582163845288\">Structured Tote in Calfskin</a>",
+      "why": "Element's background color could not be determined because it partially overlaps other elements",
+      "data": {
+       "msgKey": "elmPartiallyObscuring"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "cart-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "cart-vacio",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "search",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "375",
+  "label": "404",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "home",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 3,
+    "nodes": [
+     {
+      "target": "#CuratedTab-template--27821979041960__collections-daily > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": "#CuratedTab-template--27821979041960__collections-workspace > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": "#CuratedTab-template--27821979041960__collections-limited > span[aria-hidden=\"true\"]",
+      "html": "<span aria-hidden=\"true\">[03]</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "home+busqueda-predictiva",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 1,
+    "nodes": [
+     {
+      "target": "#PredictiveSearchInput-sections--27821978550440__header",
+      "html": "<input id=\"PredictiveSearchInput-sections--27821978550440__header\" class=\"predictive-search__input\" type=\"text\" inputmode=\"search\" name=\"q\" ",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"predictive-search-results-sections--27821978550440__header\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "collection",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 11,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-product-url=\"/products/compact-crossbody\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394976923816\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753284776\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394976891048\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/folded-valet-tray\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394977284264\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/four-slot-cardholder\"] > .product-card__content > .product-c",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394977185960\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753350312\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821978943656__main-15394976989352\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "pdp",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753677992\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977448104\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753514152\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977218728\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753481384\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977185960\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753448616\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977120424\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "pdp+zoom",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753677992\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977448104\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753514152\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977218728\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753481384\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977185960\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"46209753448616\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27821979107496__recommendations-15394977120424\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "pdp+carrito-drawer-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "cart-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "cart-vacio",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "search",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "edition",
+  "vp": "1440",
+  "label": "404",
+  "violations": [],
+  "incomplete": []
+ }
+]

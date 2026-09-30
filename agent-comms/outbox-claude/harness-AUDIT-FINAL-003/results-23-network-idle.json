@@ -1,0 +1,76 @@
+{
+ "atelier": {
+  "status": 200,
+  "loadMs": 2557,
+  "requestsAfterLoad": 110,
+  "top": [
+   [
+    "otlp-http-production.shopifysvc.com/v1/metrics [fetch, page]",
+    6
+   ],
+   [
+    "sartorial-atelier.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch [fetch, page]",
+    2
+   ],
+   [
+    "monorail-edge.shopifysvc.com/v1/produce [fetch, page]",
+    2
+   ],
+   [
+    "sartorial-atelier.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/polyfills.QSVzdYsv.js [other, page]",
+    1
+   ],
+   [
+    "otlp-http-production.shopifysvc.com/v1/logs [fetch, page]",
+    1
+   ],
+   [
+    "cdn.shopify.com/shop-assets/static_uploads/shoplift/GTStandard-MRegular.woff2 [font, page]",
+    1
+   ],
+   [
+    "cdn.shopify.com/shopifycloud/shop-js/modules/v2/translations/chunk.en_CgHvn3cK.esm.js [script, page]",
+    1
+   ],
+   [
+    "sartorial-atelier.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/app.D1P6yWfp.js [other, page]",
+    1
+   ],
+   [
+    "sartorial-atelier.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/esnext-vendor.BDPAaZdq.js [other, page]",
+    1
+   ],
+   [
+    "cdn.shopify.com/shopifycloud/shop-js/modules/v2/translations/chunk.en_DBo0A4JP.esm.js [script, page]",
+    1
+   ],
+   [
+    "otlp-http-production.shopifysvc.com/v1/metrics [ping, page]",
+    1
+   ],
+   [
+    "sartorial-atelier.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/context-browser.Dp9ku7jw.js [other, page]",
+    1
+   ],
+   [
+    "sartorial-atelier.myshopify.com/services/login_with_shop/authorize [document, iframe:about:blank]",
+    1
+   ],
+   [
+    "sartorial-atelier.myshopify.com/services/login_with_shop/authorize [document, page]",
+    1
+   ],
+   [
+    "cdn.shopify.com/shop-assets/static_uploads/shoplift/GTStandard-MMedium.woff2 [font, page]",
+    1
+   ]
+  ],
+  "lastRequestAtMs": 17085,
+  "frames": [
+   "https://sartorial-atelier.myshopify.com/",
+   "https://sartorial-atelier.myshopify.com/web-pixels@5982071ew7ea472e3p69b68784m2150dfea/cus",
+   "chrome-error://chromewebdata/",
+   "https://shop.app/accounts/pre_auth"
+  ]
+ }
+}

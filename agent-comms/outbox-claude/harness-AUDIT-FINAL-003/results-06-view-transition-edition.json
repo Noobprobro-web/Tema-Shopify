@@ -1,0 +1,47 @@
+[
+ {
+  "store": "edition",
+  "mode": "desplegado",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/daily-objects",
+   "errors": 0
+  }
+ },
+ {
+  "store": "edition",
+  "mode": "desplegado-2",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/daily-objects",
+   "errors": 0
+  }
+ },
+ {
+  "store": "edition",
+  "mode": "desplegado-3",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/daily-objects",
+   "errors": 0
+  }
+ }
+]

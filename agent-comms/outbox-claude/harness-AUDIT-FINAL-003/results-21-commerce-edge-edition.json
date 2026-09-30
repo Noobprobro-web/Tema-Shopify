@@ -1,0 +1,801 @@
+{
+ "edition": {
+  "pdp": {
+   "structured-tote": {
+    "variantJson": [
+     {
+      "id": "67582163845288",
+      "title": "Black box calf / Standard",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582163878056",
+      "title": "Black box calf / Compact",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582163910824",
+      "title": "Saddle tan / Standard",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582163943592",
+      "title": "Saddle tan / Compact",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582163976360",
+      "title": "Deep olive / Standard",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582164009128",
+      "title": "Deep olive / Compact",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     }
+    ],
+    "js": {
+     "options": [
+      "Finish:Black box calf/Saddle tan/Deep olive",
+      "Size:Standard/Compact"
+     ],
+     "variants": [
+      {
+       "id": "67582163845288",
+       "title": "Black box calf / Standard",
+       "sku": "EDT-STRUCTURED-1",
+       "price": 68000,
+       "available": true
+      },
+      {
+       "id": "67582163878056",
+       "title": "Black box calf / Compact",
+       "sku": "EDT-STRUCTURED-2",
+       "price": 58000,
+       "available": true
+      },
+      {
+       "id": "67582163910824",
+       "title": "Saddle tan / Standard",
+       "sku": "EDT-STRUCTURED-3",
+       "price": 68000,
+       "available": true
+      },
+      {
+       "id": "67582163943592",
+       "title": "Saddle tan / Compact",
+       "sku": "EDT-STRUCTURED-4",
+       "price": 58000,
+       "available": true
+      },
+      {
+       "id": "67582163976360",
+       "title": "Deep olive / Standard",
+       "sku": "EDT-STRUCTURED-5",
+       "price": 68000,
+       "available": true
+      },
+      {
+       "id": "67582164009128",
+       "title": "Deep olive / Compact",
+       "sku": "EDT-STRUCTURED-6",
+       "price": 58000,
+       "available": true
+      }
+     ]
+    },
+    "skuShown": null,
+    "initial": {
+     "value": "1",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Regular price"
+    },
+    "afterPlus": {
+     "clicks": 5,
+     "value": "6",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": true,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 6 Regular price $4,080.00"
+    },
+    "typed10": {
+     "value": "10",
+     "min": "1",
+     "max": "6",
+     "valid": false,
+     "validation": "Value must be less than or equal to 6.",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 10 Regular price $6,800.00"
+    },
+    "realStockProbe": {
+     "status": 422,
+     "description": "Only 25 items were added to your cart due to availability.",
+     "inCart": 25
+    },
+    "changes": [
+     {
+      "value": "Saddle tan",
+      "disabled": false,
+      "url": "?variant=67582163910824",
+      "id": "67582163910824",
+      "price": "$680.00",
+      "atc": "Add to cart",
+      "live": "Saddle tan / Standard: Variant available.",
+      "selected": "Saddle tan / Standard",
+      "max": "6",
+      "expected": "Saddle tan / Standard $680.00 sku=EDT-STRUCTURED-3"
+     },
+     {
+      "value": "Deep olive",
+      "disabled": false,
+      "url": "?variant=67582163976360",
+      "id": "67582163976360",
+      "price": "$680.00",
+      "atc": "Add to cart",
+      "live": "Deep olive / Standard: Variant available.",
+      "selected": "Deep olive / Standard",
+      "max": "6",
+      "expected": "Deep olive / Standard $680.00 sku=EDT-STRUCTURED-5"
+     },
+     {
+      "value": "Compact",
+      "disabled": false,
+      "url": "?variant=67582164009128",
+      "id": "67582164009128",
+      "price": "$580.00",
+      "atc": "Add to cart",
+      "live": "Deep olive / Compact: Variant available.",
+      "selected": "Deep olive / Compact",
+      "max": "6",
+      "expected": "Deep olive / Compact $580.00 sku=EDT-STRUCTURED-6"
+     }
+    ],
+    "add2": {
+     "qtyField": {
+      "value": "2",
+      "min": "1",
+      "max": "6",
+      "valid": true,
+      "validation": "",
+      "incDisabled": false,
+      "inventory": "in_stock:In stock, ready to ship",
+      "lineTotal": "Total for 2 Regular price $1,360.00"
+     },
+     "addRequests": [
+      "add.js"
+     ],
+     "cart": {
+      "api": {
+       "count": 2,
+       "total": 136000,
+       "lines": [
+        "structured-tote[Black box calf / Standard]×2"
+       ]
+      },
+      "dom": {
+       "lines": [
+        "2"
+       ],
+       "subtotal": "$1,360.00 USD",
+       "badge": "2",
+       "status": "Item added to your cart. Structured Tote in Calfskin - Black box calf / Standard",
+       "error": null
+      }
+     }
+    }
+   },
+   "leather-desk-mat": {
+    "variantJson": [
+     {
+      "id": "67582164762792",
+      "title": "Black / Large",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582164795560",
+      "title": "Black / Compact",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582164828328",
+      "title": "Dark umber / Large",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582164861096",
+      "title": "Dark umber / Compact",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     }
+    ],
+    "js": {
+     "options": [
+      "Finish:Black/Dark umber",
+      "Size:Large/Compact"
+     ],
+     "variants": [
+      {
+       "id": "67582164762792",
+       "title": "Black / Large",
+       "sku": "EDT-LEATHER-DE-1",
+       "price": 31000,
+       "available": true
+      },
+      {
+       "id": "67582164795560",
+       "title": "Black / Compact",
+       "sku": "EDT-LEATHER-DE-2",
+       "price": 26000,
+       "available": true
+      },
+      {
+       "id": "67582164828328",
+       "title": "Dark umber / Large",
+       "sku": "EDT-LEATHER-DE-3",
+       "price": 31000,
+       "available": true
+      },
+      {
+       "id": "67582164861096",
+       "title": "Dark umber / Compact",
+       "sku": "EDT-LEATHER-DE-4",
+       "price": 26000,
+       "available": true
+      }
+     ]
+    },
+    "skuShown": null,
+    "initial": {
+     "value": "1",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Regular price"
+    },
+    "afterPlus": {
+     "clicks": 5,
+     "value": "6",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": true,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 6 Regular price $1,860.00"
+    },
+    "typed10": {
+     "value": "10",
+     "min": "1",
+     "max": "6",
+     "valid": false,
+     "validation": "Value must be less than or equal to 6.",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 10 Regular price $3,100.00"
+    },
+    "realStockProbe": {
+     "status": 422,
+     "description": "Only 25 items were added to your cart due to availability.",
+     "inCart": 25
+    },
+    "changes": [
+     {
+      "value": "Dark umber",
+      "disabled": false,
+      "url": "?variant=67582164828328",
+      "id": "67582164828328",
+      "price": "$310.00",
+      "atc": "Add to cart",
+      "live": "Dark umber / Large: Variant available.",
+      "selected": "Dark umber / Large",
+      "max": "6",
+      "expected": "Dark umber / Large $310.00 sku=EDT-LEATHER-DE-3"
+     },
+     {
+      "value": "Compact",
+      "disabled": false,
+      "url": "?variant=67582164861096",
+      "id": "67582164861096",
+      "price": "$260.00",
+      "atc": "Add to cart",
+      "live": "Dark umber / Compact: Variant available.",
+      "selected": "Dark umber / Compact",
+      "max": "6",
+      "expected": "Dark umber / Compact $260.00 sku=EDT-LEATHER-DE-4"
+     }
+    ],
+    "add2": {
+     "qtyField": {
+      "value": "2",
+      "min": "1",
+      "max": "6",
+      "valid": true,
+      "validation": "",
+      "incDisabled": false,
+      "inventory": "in_stock:In stock, ready to ship",
+      "lineTotal": "Total for 2 Regular price $620.00"
+     },
+     "addRequests": [
+      "add.js"
+     ],
+     "cart": {
+      "api": {
+       "count": 2,
+       "total": 62000,
+       "lines": [
+        "leather-desk-mat[Black / Large]×2"
+       ]
+      },
+      "dom": {
+       "lines": [
+        "2"
+       ],
+       "subtotal": "$620.00 USD",
+       "badge": "2",
+       "status": "Item added to your cart. Leather Desk Mat - Black / Large",
+       "error": null
+      }
+     }
+    }
+   },
+   "milled-brass-paperweight": {
+    "variantJson": [
+     {
+      "id": "67582165024936",
+      "title": "Natural brass",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582165057704",
+      "title": "Dark patina",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     }
+    ],
+    "js": {
+     "options": [
+      "Finish:Natural brass/Dark patina"
+     ],
+     "variants": [
+      {
+       "id": "67582165024936",
+       "title": "Natural brass",
+       "sku": "EDT-MILLED-BRA-1",
+       "price": 11000,
+       "available": true
+      },
+      {
+       "id": "67582165057704",
+       "title": "Dark patina",
+       "sku": "EDT-MILLED-BRA-2",
+       "price": 11000,
+       "available": true
+      }
+     ]
+    },
+    "skuShown": null,
+    "initial": {
+     "value": "1",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Regular price"
+    },
+    "afterPlus": {
+     "clicks": 5,
+     "value": "6",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": true,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 6 Regular price $660.00"
+    },
+    "typed10": {
+     "value": "10",
+     "min": "1",
+     "max": "6",
+     "valid": false,
+     "validation": "Value must be less than or equal to 6.",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 10 Regular price $1,100.00"
+    },
+    "realStockProbe": {
+     "status": 422,
+     "description": "Only 25 items were added to your cart due to availability.",
+     "inCart": 25
+    },
+    "changes": [
+     {
+      "value": "Dark patina",
+      "disabled": false,
+      "url": "?variant=67582165057704",
+      "id": "67582165057704",
+      "price": "$110.00",
+      "atc": "Add to cart",
+      "live": "Dark patina: Variant available.",
+      "selected": "Dark patina",
+      "max": "6",
+      "expected": "Dark patina $110.00 sku=EDT-MILLED-BRA-2"
+     }
+    ],
+    "add2": {
+     "qtyField": {
+      "value": "2",
+      "min": "1",
+      "max": "6",
+      "valid": true,
+      "validation": "",
+      "incDisabled": false,
+      "inventory": "in_stock:In stock, ready to ship",
+      "lineTotal": "Total for 2 Regular price $220.00"
+     },
+     "addRequests": [
+      "add.js"
+     ],
+     "cart": {
+      "api": {
+       "count": 2,
+       "total": 22000,
+       "lines": [
+        "milled-brass-paperweight[Natural brass]×2"
+       ]
+      },
+      "dom": {
+       "lines": [
+        "2"
+       ],
+       "subtotal": "$220.00 USD",
+       "badge": "2",
+       "status": "Item added to your cart. Milled Brass Paperweight - Natural brass",
+       "error": null
+      }
+     }
+    }
+   },
+   "leather-document-folio": {
+    "variantJson": [
+     {
+      "id": "67582164238504",
+      "title": "Black box calf",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     },
+     {
+      "id": "67582164271272",
+      "title": "Saddle tan",
+      "available": true,
+      "inventory_management": "shopify",
+      "inventory_policy": "deny",
+      "inventory_quantity": 6,
+      "quantity_max": null
+     }
+    ],
+    "js": {
+     "options": [
+      "Finish:Black box calf/Saddle tan"
+     ],
+     "variants": [
+      {
+       "id": "67582164238504",
+       "title": "Black box calf",
+       "sku": "EDT-LEATHER-DO-1",
+       "price": 37000,
+       "available": true
+      },
+      {
+       "id": "67582164271272",
+       "title": "Saddle tan",
+       "sku": "EDT-LEATHER-DO-2",
+       "price": 37000,
+       "available": true
+      }
+     ]
+    },
+    "skuShown": null,
+    "initial": {
+     "value": "1",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Regular price"
+    },
+    "afterPlus": {
+     "clicks": 5,
+     "value": "6",
+     "min": "1",
+     "max": "6",
+     "valid": true,
+     "validation": "",
+     "incDisabled": true,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 6 Regular price $2,220.00"
+    },
+    "typed10": {
+     "value": "10",
+     "min": "1",
+     "max": "6",
+     "valid": false,
+     "validation": "Value must be less than or equal to 6.",
+     "incDisabled": false,
+     "inventory": "in_stock:In stock, ready to ship",
+     "lineTotal": "Total for 10 Regular price $3,700.00"
+    },
+    "realStockProbe": {
+     "status": 422,
+     "description": "Only 25 items were added to your cart due to availability.",
+     "inCart": 25
+    },
+    "changes": [
+     {
+      "value": "Saddle tan",
+      "disabled": false,
+      "url": "?variant=67582164271272",
+      "id": "67582164271272",
+      "price": "$370.00",
+      "atc": "Add to cart",
+      "live": "Saddle tan: Variant available.",
+      "selected": "Saddle tan",
+      "max": "6",
+      "expected": "Saddle tan $370.00 sku=EDT-LEATHER-DO-2"
+     }
+    ],
+    "add2": {
+     "qtyField": {
+      "value": "2",
+      "min": "1",
+      "max": "6",
+      "valid": true,
+      "validation": "",
+      "incDisabled": false,
+      "inventory": "in_stock:In stock, ready to ship",
+      "lineTotal": "Total for 2 Regular price $740.00"
+     },
+     "addRequests": [
+      "add.js"
+     ],
+     "cart": {
+      "api": {
+       "count": 2,
+       "total": 74000,
+       "lines": [
+        "leather-document-folio[Black box calf]×2"
+       ]
+      },
+      "dom": {
+       "lines": [
+        "2"
+       ],
+       "subtotal": "$740.00 USD",
+       "badge": "2",
+       "status": "Item added to your cart. Leather Document Folio - Black box calf",
+       "error": null
+      }
+     }
+    }
+   }
+  },
+  "featuredJson": [
+   {
+    "id": "67582163845288",
+    "title": "Black box calf / Standard",
+    "available": true,
+    "inventory_management": "shopify",
+    "inventory_policy": "deny",
+    "inventory_quantity": 6,
+    "quantity_max": 25
+   },
+   {
+    "id": "67582163878056",
+    "title": "Black box calf / Compact",
+    "available": true,
+    "inventory_management": "shopify",
+    "inventory_policy": "deny",
+    "inventory_quantity": 6,
+    "quantity_max": 25
+   },
+   {
+    "id": "67582163910824",
+    "title": "Saddle tan / Standard",
+    "available": true,
+    "inventory_management": "shopify",
+    "inventory_policy": "deny",
+    "inventory_quantity": 6,
+    "quantity_max": 25
+   },
+   {
+    "id": "67582163943592",
+    "title": "Saddle tan / Compact",
+    "available": true,
+    "inventory_management": "shopify",
+    "inventory_policy": "deny",
+    "inventory_quantity": 6,
+    "quantity_max": 25
+   },
+   {
+    "id": "67582163976360",
+    "title": "Deep olive / Standard",
+    "available": true,
+    "inventory_management": "shopify",
+    "inventory_policy": "deny",
+    "inventory_quantity": 6,
+    "quantity_max": 25
+   },
+   {
+    "id": "67582164009128",
+    "title": "Deep olive / Compact",
+    "available": true,
+    "inventory_management": "shopify",
+    "inventory_policy": "deny",
+    "inventory_quantity": 6,
+    "quantity_max": 25
+   }
+  ],
+  "featuredQty": {
+   "max": "25",
+   "value": "1"
+  },
+  "bundlePre": {
+   "btn": "Add 3 pieces to bag | $620.00",
+   "items": [
+    {
+     "title": "Leather Document Folio",
+     "checked": true,
+     "select": "Black box calf/Saddle tan",
+     "fallback": false
+    },
+    {
+     "title": "Four-Slot Cardholder",
+     "checked": true,
+     "select": "Black box calf/Oxblood/Saddle tan",
+     "fallback": false
+    },
+    {
+     "title": "Folded Valet Tray",
+     "checked": true,
+     "select": "Black/Saddle tan/Deep olive",
+     "fallback": false
+    }
+   ]
+  },
+  "bundle": {
+   "api": {
+    "count": 3,
+    "total": 62000,
+    "lines": [
+     "folded-valet-tray[Black]×1",
+     "four-slot-cardholder[Black box calf]×1",
+     "leather-document-folio[Black box calf]×1"
+    ]
+   },
+   "dom": {
+    "lines": [
+     "1",
+     "1",
+     "1"
+    ],
+    "subtotal": "$620.00 USD",
+    "badge": "3",
+    "status": "The selected look was added to your cart.",
+    "error": null
+   }
+  },
+  "quickBuy": [
+   {
+    "mode": "picker",
+    "title": "Compact Crossbody",
+    "opened": {
+     "panelVisible": true,
+     "expanded": "true",
+     "focusInPanel": true,
+     "values": [
+      "Black grained calf",
+      "Stone",
+      "Deep olive"
+     ]
+    },
+    "chosen": "Black grained calf",
+    "cart": {
+     "api": {
+      "count": 1,
+      "total": 42500,
+      "lines": [
+       "compact-crossbody[Black grained calf]×1"
+      ]
+     },
+     "dom": {
+      "lines": [
+       "1"
+      ],
+      "subtotal": "$425.00 USD",
+      "badge": "1",
+      "status": "Item added to your cart. Compact Crossbody - Black grained calf",
+      "error": null
+     }
+    },
+    "focus": "a.|Compact Crossbody"
+   }
+  ],
+  "quickBuyModes": {
+   "picker": 11,
+   "options": 2
+  },
+  "console": [
+   "error: Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' ",
+   "error: Failed to load resource: the server responded with a status of 403 ()",
+   "error: Failed to load resource: the server responded with a status of 422 ()",
+   "error: Failed to load resource: the server responded with a status of 422 ()",
+   "error: Failed to load resource: the server responded with a status of 422 ()",
+   "error: Failed to load resource: the server responded with a status of 422 ()"
+  ]
+ }
+}

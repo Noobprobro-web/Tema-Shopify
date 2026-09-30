@@ -1,0 +1,47 @@
+[
+ {
+  "store": "atelier",
+  "mode": "desplegado",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/new-forms",
+   "errors": 0
+  }
+ },
+ {
+  "store": "atelier",
+  "mode": "desplegado-2",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/new-forms",
+   "errors": 0
+  }
+ },
+ {
+  "store": "atelier",
+  "mode": "desplegado-3",
+  "patchedRules": 0,
+  "storefrontViewTransitionRules": [
+   "@view-transition { navigation: auto; }"
+  ],
+  "checkoutViewTransitionRules": [],
+  "landed": "/checkouts/<token>",
+  "pageerrors": [],
+  "storefrontToStorefront": {
+   "landed": "/collections/new-forms",
+   "errors": 0
+  }
+ }
+]

@@ -1,0 +1,40 @@
+
+## archive @375: home stops=38 reverse=38 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=387 y=6607 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=432 y=6607 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×5 → hero×2 → manifesto×1 → marquee×1 → collections×8 → lookbook×3 → featured_product×6 → newsletter×2 → footer×6 → ?×2
+   PDP stops(<=90)=36 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: exp false→true→false | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=4 | Esc→trigger=true (button.icon-button.site-header__menu-button) stillVisible=false bgInertAfter=false
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: exp false→true→false | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:live,footer:live,footer:inert,footer:live] | escapes=0 stops=2 | Esc→trigger=true (button.lookbook-hotspot__trigger) stillVisible=false bgInertAfter=false
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=4971 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. 1990 Pinstripe Double-Breasted Jacket - Restored / FR 40 / US 8"
+   console: 14 error:Framing 'https://shop.app/' violates the following Content Security Policy directive: "frame-ancestors 'self' https://sh || error:Failed to load resource: the server responded with a status of 403 () || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th
+
+## archive @1440: home stops=40 reverse=40 sinIndicador=2 fueraDeVista=2 tapado>=50%=0 contrasteFoco<3=0 endsAtBody=true
+   SIN-INDICADOR a.privacy | Privacy | 3px none rgb(255, 255, 255) off=0px
+   SIN-INDICADOR a.terms | Terms | 3px none rgb(255, 255, 255) off=0px
+   FUERA-VISTA a.privacy | Privacy x=1452 y=6081 w=33 h=11
+   FUERA-VISTA a.terms | Terms x=1497 y=6081 w=27 h=11
+   orden: ?×1 → announcement_bar×1 → header×7 → hero×2 → manifesto×1 → marquee×1 → collections×8 → lookbook×3 → featured_product×6 → newsletter×2 → footer×6 → ?×2
+   PDP stops(<=90)=38 sinIndicador=2 fueraDeVista=2 tapado=0
+     PDP-FLAG a.privacy | Privacy inView=false cov=0% outline=false <= null
+     PDP-FLAG a.terms | Terms inView=false cov=0% outline=false <= null
+   TRAP mobile-menu: SKIP (trigger no visible/no existe)
+   TRAP predictive-search: exp false→true→false | visible=true focusInside=true() modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=3 | Esc→trigger=true (button.icon-button.predictive-search__trigger) stillVisible=false bgInertAfter=false
+   TRAP cart-drawer-empty: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert] | escapes=0 stops=2 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   TRAP lookbook-popover: exp false→true→false | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:live,footer:live,footer:inert,footer:live] | escapes=0 stops=2 | Esc→trigger=true (button.lookbook-hotspot__trigger) stillVisible=false bgInertAfter=false
+   TRAP pdp-zoom: exp null→null→null | visible=true focusInside=true(Close zoom) modal=null labelled=true bg=[main:live,footer:live] | escapes=0 stops=3 | Esc→trigger=true (button.product-gallery__zoom-trigger) stillVisible=false bgInertAfter=false
+   TRAP size-guide: SKIP (trigger no visible/no existe)
+   TRAP cart-drawer-filled: exp null→null→null | visible=true focusInside=true(Close) modal=true labelled=true bg=[main:inert,footer:inert,footer:inert,footer:inert,footer:live] | escapes=0 stops=7 | Esc→trigger=true (a.icon-button.site-header__cart) stillVisible=false bgInertAfter=false
+   ATC: drawerOpen=true focusInside=true active=button.icon-button(Close) cartLabel="Cart, 1 item" Esc→ATC=true (button.button.button--full.product-form__submit)
+     LIVE t=4140 live=polite role=status hidden=false inert=false ahAnc=false [cart-drawer__message] "Item added to your cart. 1990 Pinstripe Double-Breasted Jacket - Restored / FR 40 / US 8"
+   console: 16 error:Framing 'https://shop.app/' violates the following Content Security Policy directive: "frame-ancestors 'self' https://sh || error:Failed to load resource: the server responded with a status of 403 () || warning:Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match th
