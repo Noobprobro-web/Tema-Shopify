@@ -1,0 +1,606 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Saltar al contenido",
+      "close": "Cerrar",
+      "opens_in_new_window": "Se abre en una ventana nueva"
+    },
+    "navigation": {
+      "home": "Inicio",
+      "menu": "Menú",
+      "primary": "Navegación principal",
+      "secondary": "Navegación secundaria",
+      "footer": "Navegación del pie de página",
+      "view_all": "Ver todo en {{ title }}"
+    },
+    "search": {
+      "label": "Buscar"
+    },
+    "pagination": {
+      "page": "Página {{ number }}",
+      "label": "Paginación",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "social": {
+      "follow_us": "Síguenos",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "pinterest": "Pinterest",
+      "tiktok": "TikTok",
+      "youtube": "YouTube"
+    },
+    "localization": {
+      "currency": "Moneda",
+      "current_language": "Idioma actual: {{ language }}",
+      "language": "Idioma",
+      "update": "Actualizar preferencias"
+    }
+  },
+  "sections": {
+    "header": {
+      "cart": "Carrito",
+      "cart_count": {
+        "one": "Carrito, {{ count }} artículo",
+        "other": "Carrito, {{ count }} artículos"
+      },
+      "mega_menu": {
+        "featured": "Destacados"
+      }
+    },
+    "footer": {
+      "copyright": "© {{ year }} {{ shop }}",
+      "payment_methods": "Métodos de pago aceptados"
+    },
+    "cart": {
+      "title": "Tu carrito",
+      "item_count": {
+        "one": "{{ count }} artículo",
+        "other": "{{ count }} artículos"
+      },
+      "empty": "Tu carrito está vacío.",
+      "continue_shopping": "Seguir comprando",
+      "quantity": "Cantidad",
+      "decrease_quantity": "Reducir la cantidad de {{ title }}",
+      "increase_quantity": "Aumentar la cantidad de {{ title }}",
+      "remove": "Eliminar",
+      "remove_item": "Eliminar {{ title }}",
+      "discount": "Descuento",
+      "subtotal": "Subtotal",
+      "taxes_included": "Impuestos incluidos.",
+      "taxes_and_shipping_at_checkout": "Los impuestos y el envío se calculan al finalizar la compra.",
+      "update": "Actualizar carrito",
+      "checkout": "Finalizar compra",
+      "note": "Nota del pedido",
+      "note_placeholder": "Añade una nota a tu pedido",
+      "view_cart": "Ver carrito",
+      "error": "No pudimos actualizar tu carrito. Inténtalo de nuevo.",
+      "added": "Artículo añadido a tu carrito.",
+      "add_failed": "No se pudo añadir este artículo al carrito.",
+      "shipping_remaining": "Añade {{ amount }} para el envío gratuito",
+      "shipping_unlocked_gift_remaining": "Envío gratuito desbloqueado. Añade {{ amount }} para recibir un obsequio",
+      "rewards_unlocked": "Envío gratuito y obsequio desbloqueados",
+      "rewards_progress": "Progreso de las ventajas del carrito",
+      "shipping_milestone": "Envío desde {{ amount }}",
+      "gift_milestone": "Obsequio desde {{ amount }}",
+      "complimentary_additions": "Complementos para tu pedido",
+      "curated_for_order": "Seleccionado para este pedido",
+      "add_complementary": "Añadir",
+      "add_complementary_product": "Añadir {{ product }} a tu carrito",
+      "already_added": "Añadido",
+      "already_added_product": "{{ product }} ya está en tu carrito"
+    },
+    "announcement_bar": {
+      "region_label": "Avisos de la tienda",
+      "previous": "Aviso anterior",
+      "next": "Aviso siguiente",
+      "pause": "Pausar los avisos",
+      "play": "Reproducir los avisos"
+    },
+    "lookbook": {
+      "region_label": "Lookbook editorial interactivo",
+      "image_alt": "Composición editorial con prendas disponibles para comprar",
+      "open_product": "Ver detalles de {{ product }}",
+      "featured_piece": "Pieza destacada",
+      "view_product": "Ver producto",
+      "products_label": "Piezas presentes en este look"
+    },
+    "complete_the_look": {
+      "region_label": "Completa el look",
+      "image_alt": "Vista editorial del look completo",
+      "selected_count": {
+        "one": "{{ count }} de {{ total }} pieza seleccionada",
+        "other": "{{ count }} de {{ total }} piezas seleccionadas"
+      },
+      "add_selected": {
+        "one": "Añadir {{ count }} pieza | {{ total }}",
+        "other": "Añadir {{ count }} piezas | {{ total }}"
+      },
+      "select_items": "Selecciona al menos una pieza",
+      "select_product": "Seleccionar {{ product }}",
+      "choose_variant": "Elige una opción para {{ product }}",
+      "selling_plan_required": "Disponible desde la página del producto con un plan de compra.",
+      "requires_plan_option": "Requiere plan en la página del producto",
+      "view_on_product_page": "Ver opciones en la página del producto",
+      "total_label": "Total de la cápsula",
+      "empty": "Elige de dos a cuatro productos en el editor de temas para componer este look.",
+      "no_javascript": "Abre cada producto para elegir sus opciones y comprarlo por separado.",
+      "added": "El look seleccionado se añadió a tu carrito.",
+      "error": "No pudimos añadir este look. Revisa las opciones seleccionadas e inténtalo de nuevo."
+    },
+    "featured_product": {
+      "region_label": "Producto destacado",
+      "onboarding_title": "Producto de lujo destacado",
+      "onboarding_price": "$480.00"
+    },
+    "recently_viewed": {
+      "heading": "Vistos recientemente"
+    },
+    "main_product": {
+      "blocks": {
+        "inventory_status": {
+          "low_stock": "Pocas existencias: [count] disponibles",
+          "low_stock_generic": "Pocas existencias",
+          "in_stock": "En existencias, listo para enviar",
+          "preorder": "Disponible bajo pedido",
+          "sold_out": "Agotado",
+          "unavailable": "Esta opción no está disponible"
+        },
+        "shipping_lead_time": {
+          "delivery_fallback": "Plazos y costes de entrega confirmados al pagar"
+        },
+        "trust_badges": {
+          "returns_fallback": "Devoluciones sujetas a la política de la tienda"
+        }
+      }
+    },
+    "homepage": {
+      "hero": {
+        "region_label": "Campaña editorial destacada"
+      },
+      "curated": {
+        "region_label": "Colecciones seleccionadas",
+        "tabs_label": "Elige una colección",
+        "tab_fallback": "Colección {{ number }}",
+        "spotlight": "Selección destacada",
+        "open_spotlight": "Abrir {{ title }}",
+        "view_collection": "Ver todo en {{ title }}"
+      },
+      "manifesto": {
+        "region_label": "Nuestro oficio y nuestros materiales",
+        "material_image_alt": "Estudio en detalle de un material del atelier"
+      },
+      "bento": {
+        "region_label": "Descubre colecciones, historias y productos",
+        "explore": "Explorar {{ title }}"
+      },
+      "marquee": {
+        "region_label": "Destacados editoriales",
+        "pause": "Pausar los destacados editoriales",
+        "play": "Reproducir los destacados editoriales"
+      }
+    }
+  },
+  "contact": {
+    "atelier": {
+      "hours": "Horario del estudio",
+      "showroom": "Showroom"
+    },
+    "form": {
+      "eyebrow": "Escribe al atelier",
+      "title": "Tu consulta",
+      "success": "Gracias. El atelier te responderá lo antes posible.",
+      "error_heading": "Revisa los siguientes campos:",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "reason": "Motivo de la consulta",
+      "reason_placeholder": "Elige un motivo",
+      "reason_order": "Pedido y entrega",
+      "reason_materials": "Materiales y cuidados",
+      "reason_appointment": "Cita privada",
+      "reason_press": "Prensa y profesionales",
+      "reason_other": "Otro",
+      "message": "Mensaje",
+      "message_help": "Incluye el número de pedido si procede. Máximo 1000 caracteres.",
+      "consent": "Acepto que mis datos se utilicen para responder a esta consulta.",
+      "consent_value": "Aceptado",
+      "required_note": "Todos los campos son obligatorios.",
+      "submit": "Enviar consulta"
+    },
+    "faq": {
+      "eyebrow": "Preguntas frecuentes",
+      "title": "Antes de escribirnos"
+    },
+    "services": {
+      "title": "Contactos directos del estudio",
+      "response": "Plazo de respuesta: dos días hábiles"
+    }
+  },
+  "faq": {
+    "search": {
+      "label": "Buscar en las preguntas",
+      "placeholder": "Envíos, tallas, devoluciones",
+      "results": "Coincidencias: {{ count }}",
+      "empty": "Ninguna pregunta coincide con esa búsqueda. Prueba con una palabra más corta o escribe al atelier."
+    }
+  },
+  "documentation": {
+    "contents": "En esta página",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "callout": {
+      "info": "Nota",
+      "tip": "Consejo",
+      "warning": "Importante"
+    }
+  },
+  "support": {
+    "form": {
+      "eyebrow": "Abrir una solicitud",
+      "title": "Solicitud de soporte",
+      "success": "Gracias. Tu solicitud ya está en el estudio y se atenderá por orden de llegada.",
+      "error_heading": "Revisa los siguientes campos:",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "store_url": "URL de la tienda Shopify",
+      "store_url_placeholder": "tu-tienda.myshopify.com",
+      "store_url_help": "Opcional. Nos permite ver la misma tienda que describes.",
+      "category": "¿Sobre qué es tu consulta?",
+      "category_placeholder": "Elige una categoría",
+      "category_presets": "Configuración de estilos del tema",
+      "category_sections": "Personalización de secciones",
+      "category_issue": "Informar de un problema",
+      "category_commercial": "Consulta comercial",
+      "message": "Descripción",
+      "message_help": "Incluye la dirección de la página y los pasos que seguiste. Máximo 2000 caracteres.",
+      "required_note": "Nombre, correo electrónico, categoría y descripción son obligatorios.",
+      "submit": "Enviar solicitud"
+    },
+    "faq": {
+      "title": "Antes de escribirnos"
+    },
+    "channels": {
+      "title": "Otras formas de contactar con el estudio"
+    }
+  },
+  "policy": {
+    "contents": "En esta página",
+    "updated": "Última actualización: {{ date }}"
+  },
+  "blogs": {
+    "blog": {
+      "categories_label": "Categorías del diario",
+      "all_stories": "Todas las historias",
+      "editorial": "Editorial",
+      "read_article": "Leer {{ title }}",
+      "read_essay": "Leer el ensayo",
+      "latest": "Ensayos recientes",
+      "article_count": {
+        "one": "{{ count }} ensayo",
+        "other": "{{ count }} ensayos"
+      },
+      "empty": "Aún no se ha publicado ningún ensayo."
+    },
+    "article": {
+      "reading_time": {
+        "one": "{{ count }} min de lectura",
+        "other": "{{ count }} min de lectura"
+      },
+      "by_author": "Texto de {{ author }}",
+      "featured_objects": "Objetos presentes en esta historia",
+      "navigation": "Más historias del diario",
+      "previous": "Historia anterior",
+      "next": "Historia siguiente"
+    },
+    "comments": {
+      "eyebrow": "Conversación",
+      "count": {
+        "one": "{{ count }} comentario",
+        "other": "{{ count }} comentarios"
+      },
+      "none": "Deja el primer comentario.",
+      "pagination": "Paginación de los comentarios",
+      "form_title": "Deja un comentario",
+      "success": "Tu comentario se ha publicado.",
+      "success_moderated": "Hemos recibido tu comentario. Aparecerá tras su revisión.",
+      "error_heading": "Revisa los siguientes campos:",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "message": "Comentario",
+      "submit": "Publicar comentario"
+    }
+  },
+  "search": {
+    "header": {
+      "eyebrow": "Buscar en el atelier",
+      "title": "Buscar",
+      "results_for": "Resultados para «{{ terms }}»"
+    },
+    "tabs": {
+      "label": "Tipos de resultado",
+      "all": "Todo",
+      "products": "Productos",
+      "articles": "Diario",
+      "pages": "Páginas"
+    },
+    "form": {
+      "label": "Buscar",
+      "placeholder": "Busca productos, materiales e historias",
+      "submit": "Buscar"
+    },
+    "results": {
+      "count": {
+        "one": "{{ count }} resultado",
+        "other": "{{ count }} resultados"
+      },
+      "article": "Diario",
+      "page": "Página",
+      "view_page": "Ver página",
+      "none_title": "Sin resultados para «{{ terms }}»",
+      "none_text": "Prueba con un material o un tipo de objeto más amplio, o explora la colección actual.",
+      "browse": "Explorar todos los productos"
+    },
+    "prompt": {
+      "title": "Encuentra un objeto o una historia",
+      "text": "Busca por material, categoría o nombre."
+    }
+  },
+  "not_found": {
+    "eyebrow": "Error / Índice del archivo",
+    "title": "Este objeto no se encuentra en el atelier.",
+    "message": "La página que buscas no forma parte de la serie actual. Es posible que haya pasado al archivo.",
+    "search_label": "Buscar en el atelier",
+    "search_placeholder": "Busca productos e historias",
+    "search_submit": "Buscar",
+    "return_to_collection": "Volver a la colección",
+    "recommendations": "Piezas destacadas / Sigue explorando"
+  },
+  "password": {
+    "image_alt": "Avance editorial de la próxima colección",
+    "opening_label": "Nota de apertura",
+    "newsletter": {
+      "email": "Correo electrónico",
+      "submit": "Solicitar acceso anticipado",
+      "privacy": "Solo notas privadas. Puedes darte de baja cuando quieras.",
+      "success": "Gracias. Hemos recibido tu solicitud de acceso anticipado.",
+      "error_heading": "Revisa tu correo electrónico:"
+    },
+    "access": {
+      "open": "Entrar con contraseña",
+      "eyebrow": "Acceso privado",
+      "title": "Entra al atelier",
+      "instructions": "Usa la contraseña que te facilitó el atelier.",
+      "label": "Contraseña de la tienda",
+      "submit": "Entrar en la tienda",
+      "error": "La contraseña no es correcta. Inténtalo de nuevo."
+    }
+  },
+  "list_collections": {
+    "title": "Colecciones",
+    "view_collection": "Ver {{ title }}",
+    "product_count": {
+      "one": "{{ count }} pieza",
+      "other": "{{ count }} piezas"
+    },
+    "empty": "Todavía no hay colecciones disponibles."
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Añadir al carrito",
+      "choose_options": "Elegir opciones",
+      "quick_add": "Añadir rápido",
+      "select_size": "Seleccionar talla",
+      "color_swatch": "{{ option }}: {{ value }}",
+      "more_swatches": "+{{ count }} más",
+      "sold_out": "Agotado",
+      "unavailable": "No disponible",
+      "sale": "Oferta",
+      "quantity": "Cantidad",
+      "decrease_quantity": "Reducir la cantidad de {{ product }}",
+      "increase_quantity": "Aumentar la cantidad de {{ product }}",
+      "line_total": "Total por {{ quantity }} unidades",
+      "regular_price": "Precio habitual",
+      "sale_price": "Precio de oferta",
+      "price_from": "Desde",
+      "unit_price": "Precio unitario",
+      "taxes_included": "Impuestos incluidos.",
+      "media_gallery": "Galería de imágenes del producto",
+      "media_thumbnails": "Miniaturas del producto",
+      "view_media": "Ver imagen {{ number }} del producto",
+      "media_zoom": {
+        "title": "Zoom de imagen",
+        "open": "Ampliar imagen {{ index }} de {{ total }}",
+        "close": "Cerrar zoom",
+        "zoom_in": "Acercar",
+        "zoom_out": "Alejar",
+        "reset": "Restablecer zoom",
+        "previous": "Imagen anterior",
+        "next": "Imagen siguiente",
+        "status": "Imagen {{ index }} de {{ total }}, zoom {{ zoom }} %",
+        "image_index": "Imagen {{ index }} de {{ total }}"
+      },
+      "view_in_space": "Ver en tu espacio",
+      "option_unavailable": "Opción no disponible",
+      "variant_available": "Variante disponible.",
+      "variant_sold_out": "Variante agotada.",
+      "size_guide": "Guía de tallas y medidas",
+      "model_fit": "Talla de referencia",
+      "measurement_units": "Unidades de medida",
+      "centimeters": "CM",
+      "inches": "PULGADAS",
+      "sticky_add_to_cart": "Añadir {{ product }} al carrito",
+      "sticky_add_quantity_to_cart": "Añadir {{ product }} al carrito, cantidad {{ quantity }}",
+      "sticky_quantity_price": "{{ quantity }} × {{ price }}",
+      "sticky_total": "Total {{ total }}",
+      "purchase_options": {
+        "legend": "Opciones de compra",
+        "one_time": "Compra única",
+        "subscribe": "Suscríbete y ahorra",
+        "delivery_schedule": "Frecuencia de entrega",
+        "per_delivery": "{{ price }} por entrega",
+        "unavailable": "Esta opción de compra no está disponible",
+        "plan_required": "Esta opción requiere un plan de suscripción que ahora no está disponible."
+      },
+      "pickup": {
+        "eyebrow": "Recogida en tienda",
+        "available_at_html": "Recogida disponible en <strong>{{ location_name }}</strong>",
+        "unavailable_at_html": "Recogida no disponible por ahora en <strong>{{ location_name }}</strong>",
+        "available": "Recogida disponible",
+        "unavailable": "Recogida no disponible por ahora",
+        "view_store_info": "Ver información de la tienda",
+        "check_other_stores": "Consultar la disponibilidad en otras tiendas",
+        "hours": "Horario de recogida",
+        "update_error": "No se pudo actualizar la disponibilidad de recogida."
+      },
+      "recipient": {
+        "checkbox": "Quiero enviar esta tarjeta como regalo",
+        "expanded": "Campos del destinatario de la tarjeta regalo desplegados",
+        "collapsed": "Campos del destinatario de la tarjeta regalo contraídos",
+        "error_heading": "Revisa los datos del destinatario:",
+        "email": "Correo electrónico del destinatario",
+        "email_optional": "Correo electrónico del destinatario (opcional sin JavaScript)",
+        "name": "Nombre del destinatario (opcional)",
+        "message": "Mensaje (opcional)",
+        "characters_remaining": {
+          "one": "Queda {{ count }} carácter",
+          "other": "Quedan {{ count }} caracteres"
+        },
+        "send_on": "Fecha de envío (opcional)"
+      }
+    },
+    "recommendations": {
+      "related_heading": "También te puede interesar",
+      "complementary_heading": "Completa la composición"
+    }
+  },
+  "collections": {
+    "general": {
+      "collection": "Colección",
+      "products_count": {
+        "one": "{{ count }} producto",
+        "other": "{{ count }} productos"
+      },
+      "no_products": "Ningún producto coincide con tu selección.",
+      "empty": "Esta colección está vacía.",
+      "browse_all": "Ver todos los productos"
+    },
+    "filters": {
+      "title": "Filtrar y ordenar",
+      "active_count": {
+        "one": "{{ count }} filtro activo",
+        "other": "{{ count }} filtros activos"
+      },
+      "from": "Desde",
+      "to": "Hasta",
+      "sort_by": "Ordenar por",
+      "apply": "Aplicar",
+      "clear_all": "Borrar todo",
+      "active_filters": "Filtros activos",
+      "remove_filter": "Quitar filtro {{ filter }}:",
+      "swatch_color": "{{ filter }}: {{ value }}"
+    },
+    "pagination": {
+      "label": "Paginación de la colección",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "grid": {
+      "label": "Elige la densidad de la cuadrícula",
+      "title": "Cuadrícula",
+      "one_column": "Mostrar un producto por fila",
+      "two_columns": "Mostrar dos productos por fila",
+      "four_columns": "Mostrar cuatro productos por fila"
+    },
+    "merchandising": {
+      "promotion": "Destacado editorial de la colección"
+    }
+  },
+  "templates": {
+    "home": {
+      "title": "{{ shop }}",
+      "message": "Una tienda editorial y flexible está tomando forma."
+    },
+    "product": {
+      "title": "Producto"
+    },
+    "collection": {
+      "title": "Colección"
+    },
+    "list_collections": {
+      "title": "Colecciones"
+    },
+    "cart": {
+      "title": "Carrito",
+      "empty": "Tu carrito está vacío."
+    },
+    "search": {
+      "title": "Buscar",
+      "results_for": "Resultados de búsqueda para «{{ terms }}»",
+      "prompt": "Usa el buscador para explorar el catálogo."
+    },
+    "not_found": {
+      "title": "Página no encontrada",
+      "message": "No encontramos la página que buscas.",
+      "link": "Volver al inicio"
+    },
+    "page": {
+      "title": "Página"
+    },
+    "blog": {
+      "title": "Diario"
+    },
+    "article": {
+      "title": "Artículo"
+    },
+    "password": {
+      "title": "Próxima apertura",
+      "message": "Esta tienda prepara su próximo capítulo.",
+      "password_label": "Contraseña de la tienda",
+      "submit": "Entrar en la tienda"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Tu tarjeta regalo de {{ value }} para {{ shop }}",
+      "gift_card": "Tarjeta regalo",
+      "remaining_html": "Saldo disponible: {{ balance }}",
+      "expired": "Caducada",
+      "disabled": "Esta tarjeta regalo ya no está activa.",
+      "expires_on": "Caduca el {{ expires_on }}",
+      "use_at_checkout": "Usa este código al finalizar la compra",
+      "shop_link": "Seguir comprando",
+      "print": "Imprimir tarjeta regalo",
+      "add_to_apple_wallet": "Añadir a Apple Wallet",
+      "qr_code_alt": "Código QR de esta tarjeta regalo"
+    }
+  },
+  "newsletter": {
+    "eyebrow": "Correspondencia privada",
+    "heading": "Notas del atelier",
+    "copy": "Nuevos objetos, estudios de materiales y avances privados, enviados con mesura.",
+    "email_label": "Correo electrónico",
+    "email_placeholder": "nombre@ejemplo.com",
+    "submit": "Suscribirse",
+    "success": "Gracias. Tu primera nota llegará pronto.",
+    "error_heading": "Revisa tu correo electrónico:"
+  },
+  "predictive_search": {
+    "search_label": "Buscar",
+    "placeholder": "Busca productos, materiales e historias",
+    "dialog_label": "Buscar en el atelier",
+    "results_label": "Sugerencias de búsqueda",
+    "loading": "Buscando",
+    "no_results": "Aún no hay sugerencias. Pulsa Enter para buscar en todo el catálogo.",
+    "clear": "Borrar la búsqueda",
+    "in_stock": "Disponible",
+    "products": "Productos",
+    "collections": "Colecciones",
+    "articles": "Diario",
+    "pages": "Páginas",
+    "view_all": "Ver todos los resultados para «{{ terms }}»",
+    "results_count": {
+      "one": "1 sugerencia disponible",
+      "other": "{{ count }} sugerencias disponibles"
+    }
+  }
+}

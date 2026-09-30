@@ -1,0 +1,56 @@
+diff --git a/listings/edition/templates/index.json b/listings/edition/templates/index.json
+index 2fa573a..4584ba4 100644
+--- a/listings/edition/templates/index.json
++++ b/listings/edition/templates/index.json
+@@ -30,9 +30,9 @@
+     "collections": {
+       "type": "curated-showcase",
+       "blocks": {
+-        "daily": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Daily objects" } },
+-        "workspace": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Workspace" } },
+-        "limited": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Limited studies" } }
++        "daily": { "type": "collection_tab", "settings": { "collection": "daily-objects", "tab_label": "Daily objects" } },
++        "workspace": { "type": "collection_tab", "settings": { "collection": "desk-and-study", "tab_label": "Workspace" } },
++        "limited": { "type": "collection_tab", "settings": { "collection": "leather-goods", "tab_label": "Limited studies" } }
+       },
+       "block_order": ["daily", "workspace", "limited"],
+       "settings": {
+@@ -47,8 +47,8 @@
+       "type": "bento-discovery",
+       "blocks": {
+         "collection": { "type": "card_featured", "settings": { "collection": "all", "eyebrow": "[01] SYSTEM", "heading": "Objects for the desk", "link": "/collections/all", "image": "shopify://shop_images/bento-featured-01.jpg" } },
+-        "product1": { "type": "card_product", "settings": { "product": "fine-merino-turtleneck" } },
+-        "product2": { "type": "card_product", "settings": { "product": "cigarette-trouser" } },
++        "product1": { "type": "card_product", "settings": { "product": "leather-desk-mat" } },
++        "product2": { "type": "card_product", "settings": { "product": "milled-brass-paperweight" } },
+         "story": { "type": "card_editorial", "settings": { "link_label": "Explore the story", "link": "/collections/all", "eyebrow": "[04] PROCESS", "heading": "Measured by use", "body": "<p>Materials and dimensions reduced to what the object needs.</p>", "image": "shopify://shop_images/bento-editorial-01.jpg" } }
+       },
+       "block_order": ["collection", "product1", "product2", "story"],
+@@ -62,9 +62,9 @@
+     "set": {
+       "type": "complete-the-look",
+       "blocks": {
+-        "object1": { "type": "bundle_product", "settings": { "product": "structured-tote" } },
+-        "object2": { "type": "bundle_product", "settings": { "product": "leather-belt" } },
+-        "object3": { "type": "bundle_product", "settings": { "product": "cashmere-scarf" } }
++        "object1": { "type": "bundle_product", "settings": { "product": "leather-document-folio" } },
++        "object2": { "type": "bundle_product", "settings": { "product": "four-slot-cardholder" } },
++        "object3": { "type": "bundle_product", "settings": { "product": "folded-valet-tray" } }
+       },
+       "block_order": ["object1", "object2", "object3"],
+       "settings": {
+diff --git a/listings/archive/templates/index.json b/listings/archive/templates/index.json
+index 9bc4d6b..f7e18a2 100644
+--- a/listings/archive/templates/index.json
++++ b/listings/archive/templates/index.json
+@@ -65,8 +65,8 @@
+     "collections": {
+       "type": "curated-showcase",
+       "blocks": {
+-        "current": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Current catalogue" } },
+-        "archive": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Archive selection" } }
++        "current": { "type": "collection_tab", "settings": { "collection": "permanent-archive", "tab_label": "Current catalogue" } },
++        "archive": { "type": "collection_tab", "settings": { "collection": "restored-pieces", "tab_label": "Archive selection" } }
+       },
+       "block_order": ["current", "archive"],
+       "settings": {

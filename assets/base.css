@@ -672,14 +672,22 @@ blockquote {
   height: auto;
 }
 
+/* COMP-001 (S-04). Una sola linea con elipsis dejaba "Sartorial Ateli…" a 390 px. El
+   nombre pasa a una segunda linea y solo recurre a la elipsis si tampoco cabe en dos; el
+   min-height de 4.75rem de la cabecera absorbe las dos lineas sin crecer. overflow-wrap
+   normal evita que una palabra se parta: si es mas larga que la columna, termina en "…". */
 .site-header__brand-text {
+  display: -webkit-box;
   overflow: hidden;
   font-family: var(--font-heading-family);
   font-size: clamp(1.15rem, 4vw, 1.6rem);
   letter-spacing: 0.04em;
-  line-height: 1;
+  line-height: 1.1;
+  text-align: center;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .site-header__actions {
@@ -831,12 +839,23 @@ blockquote {
 }
 
 .site-footer__brand {
+  /* COMP-001 (S-03). Sin el minimo, la columna crece hasta la palabra mas larga del
+     titulo (break-word no la cuenta como divisible) y da scroll horizontal en movil. */
+  min-width: 0;
   max-width: 34rem;
 }
 
+/* COMP-001 (S-03). Con el tamano de .h2 (75,6 px) en una columna de 304 px, el
+   overflow-wrap: anywhere del body partia "Sartorial" en "Sartori / al". A esta escala el
+   nombre corta entre palabras. break-word y no normal: una sola palabra mas ancha que la
+   columna se parte como ultimo recurso; con normal se salia y daba 311 px de scroll
+   horizontal a 360. El multiplicador mantiene vivo el ajuste "Heading scale". */
 .site-footer__title {
+  font-size: calc(clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem) * var(--font-heading-scale));
   color: currentColor;
   text-decoration: none;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .site-footer__menu,
@@ -8410,6 +8429,8 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
 
   .site-header__brand-text {
     font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+    /* COMP-001 (S-04). La marca movil va alineada a la izquierda; la segunda linea tambien. */
+    text-align: start;
   }
 
   /* 5A-003. La cabecera movil es fija: sin tope, un logo vertical a 140 px de ancho la

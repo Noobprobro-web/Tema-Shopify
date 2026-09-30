@@ -4,10 +4,14 @@
 Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (Cerebro y Arquitecto Líder)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra
-Última actualización: 2026-09-26
-Estado general: Sprint A360-001 completado, desplegado a los 4 temas remotos y verificado en tienda real. Bloqueo administrativo de URLs de docs/soporte (Fila 107) en pausa por Johandry hasta compra de dominio; demos client transfer en planificación. Excepción técnica A360-02 (RemoteAsset vs CDN https) formalizada en docs/decisions.md como riesgo de revisión documentado.
-Frente técnico: Sprint A360-001 cerrado con éxito: 1) Matriz reactiva de variantes en vivo (A360-05), 2) Gestión de foco atómico en Sticky ATC móvil (A360-04), 3) Detección de concurrencia y resync de carrito (A360-03), 4) Demos pobladas con 0 placeholders y 3 items por cápsula en Couture, Sartorial y Edition (A360-06), 5) Limpieza síncrona de zoom en disconnectedCallback (A360-11). Compuertas estáticas 100% verde (351 archivos, 0 ofensas).
-Próximo hito: Commit y sincronización con origin/master -> Ejecución de Suite Oficial Lighthouse en páginas clave (Home, Colección, PDP).
+Última actualización: 2026-09-29
+Estado general: Sprint COMP-001 COMPLETADO Y CERTIFICADO EN TIENDA REAL. Las 3 tiendas demo oficiales están 100% operativas, con catálogos, colecciones y fotografía editorial real en todas las secciones (Hero, Lookbook, Bento, Featured Product, Cápsula y Manifiesto).
+Frente técnico completado:
+  1) Claude entregó CLAUDE-REPORT-COMP-001 (Ola 1: S-02 a S-05; Ola 2: parches A/B listos).
+  2) GPT entregó GPT-REPORT-014 (Matriz completa de 25 productos, 6 colecciones y copy bilingüe para Edition y Archive).
+  3) Gemini desplegó y sincronizó los 3 temas en vivo (#188743188704, #188655599784, #191153275192) con templates ultra-diferenciados por preset.
+  4) 9 imágenes editoriales de campaña generadas y enlazadas vía CDN de Shopify sin ningún placeholder SVG restante.
+  5) Suite npm run gates:static pasa 100% verde (352 archivos inspeccionados con 0 ofensas de Theme Check; Sartorial-1.0.0.zip empaquetado).
 ```
 
 ---
@@ -112,10 +116,10 @@ Próximo hito: Commit y sincronización con origin/master -> Ejecución de Suite
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Supervisión general. 3 tiendas demo creadas y en vivo; personalización y catálogo temático por estilo. | 🟢 Cumplido | Tiendas demo activas |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | 3 tiendas demo creadas y temas desplegados/publicados vía CLI. Preparación de importación de catálogos temáticos. | 🟢 Cumplido | Demos en vivo |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal | Sprint A360-001 completado. Standby para ajustes finos de plantillas en demos o scripts de fixtures. | 🟢 Cumplido | CLAUDE-REPORT-A360-001.md |
-| **GPT-6 Sol Max / Astra** | Auditor Senior de Producto | Auditoría 360° completada. Standby para revisión de las 3 demos y estrategia comercial. | ⚪ En reposo | N/A |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Subida y postulación final de Sartorial en Shopify Partner Dashboard. | 🟢 Activo | Submission en Theme Store |
+| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Síntesis de auditoría 360 multi-agente, verificación de gates y cierre de BOARD.md. | 🟢 Completado | Coordinación final |
+| **Claude (Opus 5.5 Extra)** | Implementador Principal | Entregó `CLAUDE-REPORT-AUDIT-FINAL-002`. Certificación técnica (axe 0 violaciones, 0 overflow, ATC OK). | 🟢 Completado | Standby |
+| **GPT-6 Sol Max / Astra** | Auditor Senior de Producto | Entregó `GPT-AUDIT-014`. Certificación comercial y de merchandising (Veredicto: APTO TIER $380 USD). | 🟢 Completado | Standby |
 
 ---
 
@@ -125,9 +129,9 @@ Próximo hito: Commit y sincronización con origin/master -> Ejecución de Suite
 
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
-| `cumplido` | **53** | 93.0% | Requisitos oficiales verificados exhaustivamente en código y tienda real. |
+| `cumplido` | **54** | 94.7% | Requisitos oficiales verificados exhaustivamente en código y tienda real (Fila 108 cerrada con 3 demos pobladas). |
 | `código completo` | **2** | 3.5% | Filas 35 (Punto Focal) y 72 (Medios 3D): código 100% implementado, pendientes fixtures en admin para test en vivo (Opción A). |
-| `no verificado` | **2** | 3.5% | Dependencias comerciales del comerciante: publicación de docs/soporte (107) y fotos demo (108). |
+| `no verificado` | **1** | 1.8% | Dependencia comercial del comerciante: publicación de docs/soporte en ruizdigital.com (Fila 107). |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
 | **TOTAL** | **57** | **100%** | Cobertura total de especificación Shopify Theme Store v1.0.0. |
 
