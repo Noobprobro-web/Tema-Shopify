@@ -22,6 +22,8 @@
     if prioritize
       assign image_loading = 'eager'
       assign image_priority = 'high'
+    elsif eager
+      assign image_loading = 'eager'
     endif
   -%}
 

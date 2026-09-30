@@ -38,9 +38,16 @@
         </h2>
         <ul class="main-404__product-grid unstyled-list">
           {%- for recommended_product in recommendation_collection.products limit: section.settings.products_to_show -%}
+            {%- liquid
+              assign is_eager_404_card = false
+              if forloop.index <= 4
+                assign is_eager_404_card = true
+              endif
+            -%}
             <li>
               {% render 'product-card',
                 card_product: recommended_product,
+                eager_image: is_eager_404_card,
                 show_secondary_image: true,
                 show_vendor: false,
                 show_quick_add: false

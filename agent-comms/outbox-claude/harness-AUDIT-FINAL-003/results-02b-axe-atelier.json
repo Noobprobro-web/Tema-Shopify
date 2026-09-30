@@ -1,0 +1,531 @@
+[
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "home",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(1) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"1. Open details for Nove Blazer\" aria-controls=\"LookbookPo",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker1\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(2) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"2. Open details for Pleated Wide Trouser\" aria-controls=\"L",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker2\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(3) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"3. Open details for Silk Charmeuse Blouse\" aria-controls=\"",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker3\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(4) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"4. Open details for Cashmere Scarf\" aria-controls=\"Lookboo",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker4\""
+     }
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 9,
+    "nodes": [
+     {
+      "target": ".hero-editorial__intro > .eyebrow",
+      "html": "<p class=\"eyebrow\">THE EDIT / SARTORIAL 01</p>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": "#HeroEditorialTitle-template--27849548824800__hero",
+      "html": "<h1 id=\"HeroEditorialTitle-template--27849548824800__hero\" class=\"hero-editorial__heading\">Form in quiet movement</h1>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": ".hero-editorial__subheading > p",
+      "html": "<p>Sculptural layers and tactile materials, made in small series.</p>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": ".hero-editorial__button.button[href$=\"new-forms\"] > span",
+      "html": "<span>Discover the collection</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": ".button--secondary.hero-editorial__button.button > span",
+      "html": "<span>Explore lookbook</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "home+menu-abierto",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "home+busqueda-predictiva",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 1,
+    "nodes": [
+     {
+      "target": "#PredictiveSearchInput-sections--27849548726496__header",
+      "html": "<input id=\"PredictiveSearchInput-sections--27849548726496__header\" class=\"predictive-search__input\" type=\"text\" inputmode=\"search\" name=\"q\" ",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"predictive-search-results-sections--27849548726496__header\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "collection",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 24,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-product-url=\"/products/bias-cut-slip-dress\"] > .product-card__content > .product-ca",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927773920\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cashmere-rib-crew\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927675616\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cashmere-scarf\"] > .product-card__content > .product-card__a",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927610080\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cigarette-trouser\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927544544\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cocoon-cardigan-coat\"] > .product-card__content > .product-c",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927479008\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "pdp",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239997664\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926037216\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239506144\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926430432\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239440608\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926364896\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239801056\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926168288\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "pdp+zoom",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239997664\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926037216\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239506144\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926430432\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239440608\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926364896\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239801056\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926168288\""
+     }
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 1,
+    "nodes": [
+     {
+      "target": ".product-zoom__counter",
+      "html": "<p class=\"product-zoom__counter\" aria-hidden=\"true\" data-zoom-counter=\"\">1 / 1</p>",
+      "why": "Element's background color could not be determined because it is overlapped by another element",
+      "data": {
+       "msgKey": "bgOverlap"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "pdp+carrito-drawer-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "cart-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "cart-vacio",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "search",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "375",
+  "label": "404",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "home",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(1) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"1. Open details for Nove Blazer\" aria-controls=\"LookbookPo",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker1\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(2) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"2. Open details for Pleated Wide Trouser\" aria-controls=\"L",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker2\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(3) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"3. Open details for Silk Charmeuse Blouse\" aria-controls=\"",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker3\""
+     },
+     {
+      "target": ".lookbook-hotspot[data-lookbook-hotspot=\"\"]:nth-child(4) > .lookbook-hotspot__trigger[data-lookbook-trigger=\"\"",
+      "html": "<button class=\"lookbook-hotspot__trigger\" type=\"button\" role=\"button\" aria-label=\"4. Open details for Cashmere Scarf\" aria-controls=\"Lookboo",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"LookbookPopover-template--27849548824800__lookbook-marker4\""
+     }
+    ]
+   },
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "n": 8,
+    "nodes": [
+     {
+      "target": ".hero-editorial__intro > .eyebrow",
+      "html": "<p class=\"eyebrow\">THE EDIT / SARTORIAL 01</p>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": "#HeroEditorialTitle-template--27849548824800__hero",
+      "html": "<h1 id=\"HeroEditorialTitle-template--27849548824800__hero\" class=\"hero-editorial__heading\">Form in quiet movement</h1>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": ".hero-editorial__subheading > p",
+      "html": "<p>Sculptural layers and tactile materials, made in small series.</p>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": ".hero-editorial__button.button[href$=\"new-forms\"] > span",
+      "html": "<span>Discover the collection</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     },
+     {
+      "target": ".button--secondary.hero-editorial__button.button > span",
+      "html": "<span>Explore lookbook</span>",
+      "why": "Element's background color could not be determined due to a pseudo element",
+      "data": {
+       "msgKey": "pseudoContent"
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "home+busqueda-predictiva",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 1,
+    "nodes": [
+     {
+      "target": "#PredictiveSearchInput-sections--27849548726496__header",
+      "html": "<input id=\"PredictiveSearchInput-sections--27849548726496__header\" class=\"predictive-search__input\" type=\"text\" inputmode=\"search\" name=\"q\" ",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"predictive-search-results-sections--27849548726496__header\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "collection",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 24,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-product-url=\"/products/bias-cut-slip-dress\"] > .product-card__content > .product-ca",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927773920\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cashmere-rib-crew\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927675616\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cashmere-scarf\"] > .product-card__content > .product-card__a",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927610080\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cigarette-trouser\"] > .product-card__content > .product-card",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927544544\""
+     },
+     {
+      "target": "product-card-variants[data-product-url=\"/products/cocoon-cardigan-coat\"] > .product-card__content > .product-c",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548759264__main-15406927479008\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "pdp",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239997664\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926037216\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239506144\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926430432\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239440608\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926364896\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239801056\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926168288\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "pdp+zoom",
+  "violations": [],
+  "incomplete": [
+   {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "n": 4,
+    "nodes": [
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239997664\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926037216\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239506144\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926430432\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239440608\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926364896\""
+     },
+     {
+      "target": "product-card-variants[data-featured-media-id=\"45995239801056\"] > .product-card__content > .product-card__actio",
+      "html": "<button class=\"button button--full quick-buy__trigger\" type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-controls=\"QuickBuy-te",
+      "why": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"QuickBuy-template--27849548792032__recommendations-15406926168288\""
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "pdp+carrito-drawer-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "cart-lleno",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "cart-vacio",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "search",
+  "violations": [],
+  "incomplete": []
+ },
+ {
+  "store": "atelier",
+  "vp": "1440",
+  "label": "404",
+  "violations": [],
+  "incomplete": []
+ }
+]

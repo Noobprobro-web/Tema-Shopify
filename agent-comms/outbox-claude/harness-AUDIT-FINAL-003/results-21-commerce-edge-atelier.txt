@@ -1,0 +1,51 @@
+
+## atelier
+ PDP nove-blazer: opciones=["Size:34/36/38/40/42"] variantes=5 skuVisible=null
+   JSON variante[0]: {"id":"67663229452512","title":"34","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":null}
+   inicial {"value":"1","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Regular price"}
+   + ×5 → value=6 max=6 incOff=true total="Total for 6 Regular price $6,900.00"
+   teclear 10 → value=10 valid=false "Value must be less than or equal to 6."
+   stock vendible real (pedir 50 por API): status=422 "Only 25 items were added to your cart due to availability." en carrito=25
+   → 36: url=?variant=67663229485280 id=67663229485280 (36 $1,150.00 sku=ATL-NOVE-BLAZE-36) precio="$1,150.00" atc="Add to cart" max=6 sel="36" live="36: Variant available."
+   → 38: url=?variant=67663229518048 id=67663229518048 (38 $1,150.00 sku=ATL-NOVE-BLAZE-38) precio="$1,150.00" atc="Add to cart" max=6 sel="38" live="38: Variant available."
+   → 40: url=?variant=67663229550816 id=67663229550816 (40 $1,150.00 sku=ATL-NOVE-BLAZE-40) precio="$1,150.00" atc="Add to cart" max=6 sel="40" live="40: Variant available."
+   → 42: url=?variant=67663229583584 id=67663229583584 (42 $1,150.00 sku=ATL-NOVE-BLAZE-42) precio="$1,150.00" atc="Add to cart" max=6 sel="42" live="42: Variant available."
+   añadir con cantidad 2: campo={"value":"2","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Total for 2 Regular price $2,300.00"} peticiones=1 carrito={"api":{"count":2,"total":230000,"lines":["nove-blazer[34]×2"]},"dom":{"lines":["2"],"subtotal":"$2,300.00 USD","badge":"2","status":"Item added to your cart. Nove Blazer - 34","error":null}}
+ PDP pleated-wide-trouser: opciones=["Size:34/36/38/40/42"] variantes=5 skuVisible=null
+   JSON variante[0]: {"id":"67663229124832","title":"34","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":null}
+   inicial {"value":"1","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Regular price"}
+   + ×5 → value=6 max=6 incOff=true total="Total for 6 Regular price $3,480.00"
+   teclear 10 → value=10 valid=false "Value must be less than or equal to 6."
+   stock vendible real (pedir 50 por API): status=422 "Only 25 items were added to your cart due to availability." en carrito=25
+   → 36: url=?variant=67663229157600 id=67663229157600 (36 $580.00 sku=ATL-PLEATED-WI-36) precio="$580.00" atc="Add to cart" max=6 sel="36" live="36: Variant available."
+   → 38: url=?variant=67663229190368 id=67663229190368 (38 $580.00 sku=ATL-PLEATED-WI-38) precio="$580.00" atc="Add to cart" max=6 sel="38" live="38: Variant available."
+   → 40: url=?variant=67663229223136 id=67663229223136 (40 $580.00 sku=ATL-PLEATED-WI-40) precio="$580.00" atc="Add to cart" max=6 sel="40" live="40: Variant available."
+   → 42: url=?variant=67663229255904 id=67663229255904 (42 $580.00 sku=ATL-PLEATED-WI-42) precio="$580.00" atc="Add to cart" max=6 sel="42" live="42: Variant available."
+   añadir con cantidad 2: campo={"value":"2","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Total for 2 Regular price $1,160.00"} peticiones=1 carrito={"api":{"count":2,"total":116000,"lines":["pleated-wide-trouser[34]×2"]},"dom":{"lines":["2"],"subtotal":"$1,160.00 USD","badge":"2","status":"Item added to your cart. Pleated Wide Trouser - 34","error":null}}
+ PDP serra-coat: opciones=["Size:36/38/40/42"] variantes=4 skuVisible=null
+   JSON variante[0]: {"id":"67663228535008","title":"36","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":null}
+   inicial {"value":"1","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Regular price"}
+   + ×5 → value=6 max=6 incOff=true total="Total for 6 Regular price $11,340.00"
+   teclear 10 → value=10 valid=false "Value must be less than or equal to 6."
+   stock vendible real (pedir 50 por API): status=422 "Only 25 items were added to your cart due to availability." en carrito=25
+   → 38: url=?variant=67663228567776 id=67663228567776 (38 $1,890.00 sku=ATL-SERRA-COAT-38) precio="$1,890.00" atc="Add to cart" max=6 sel="38" live="38: Variant available."
+   → 40: url=?variant=67663228600544 id=67663228600544 (40 $1,890.00 sku=ATL-SERRA-COAT-40) precio="$1,890.00" atc="Add to cart" max=6 sel="40" live="40: Variant available."
+   → 42: url=?variant=67663228633312 id=67663228633312 (42 $1,890.00 sku=ATL-SERRA-COAT-42) precio="$1,890.00" atc="Add to cart" max=6 sel="42" live="42: Variant available."
+   añadir con cantidad 2: campo={"value":"2","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Total for 2 Regular price $3,780.00"} peticiones=1 carrito={"api":{"count":2,"total":378000,"lines":["serra-coat[36]×2"]},"dom":{"lines":["2"],"subtotal":"$3,780.00 USD","badge":"2","status":"Item added to your cart. Serra Coat - 36","error":null}}
+ PDP silk-charmeuse-blouse: opciones=["Size:34/36/38/40/42"] variantes=5 skuVisible=null
+   JSON variante[0]: {"id":"67663231254752","title":"34","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":null}
+   inicial {"value":"1","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Regular price"}
+   + ×5 → value=6 max=6 incOff=true total="Total for 6 Regular price $3,120.00"
+   teclear 10 → value=10 valid=false "Value must be less than or equal to 6."
+   stock vendible real (pedir 50 por API): status=422 "Only 25 items were added to your cart due to availability." en carrito=25
+   → 36: url=?variant=67663231287520 id=67663231287520 (36 $520.00 sku=ATL-SILK-CHARM-36) precio="$520.00" atc="Add to cart" max=6 sel="36" live="36: Variant available."
+   → 38: url=?variant=67663231320288 id=67663231320288 (38 $520.00 sku=ATL-SILK-CHARM-38) precio="$520.00" atc="Add to cart" max=6 sel="38" live="38: Variant available."
+   → 40: url=?variant=67663231353056 id=67663231353056 (40 $520.00 sku=ATL-SILK-CHARM-40) precio="$520.00" atc="Add to cart" max=6 sel="40" live="40: Variant available."
+   → 42: url=?variant=67663231385824 id=67663231385824 (42 $520.00 sku=ATL-SILK-CHARM-42) precio="$520.00" atc="Add to cart" max=6 sel="42" live="42: Variant available."
+   añadir con cantidad 2: campo={"value":"2","min":"1","max":"6","valid":true,"validation":"","incDisabled":false,"inventory":"in_stock:In stock, ready to ship","lineTotal":"Total for 2 Regular price $1,040.00"} peticiones=1 carrito={"api":{"count":2,"total":104000,"lines":["silk-charmeuse-blouse[34]×2"]},"dom":{"lines":["2"],"subtotal":"$1,040.00 USD","badge":"2","status":"Item added to your cart. Silk Charmeuse Blouse - 34","error":null}}
+ featured JSON: [{"id":"67663228535008","title":"36","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":25},{"id":"67663228567776","title":"38","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":25},{"id":"67663228600544","title":"40","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":25},{"id":"67663228633312","title":"42","available":true,"inventory_management":"shopify","inventory_policy":"deny","inventory_quantity":6,"quantity_max":25}] featured qty: {"max":"25","value":"1"}
+ bundle pre: {"btn":"Add 3 pieces to bag | $2,250.00","items":[{"title":"Nove Blazer","checked":true,"select":"34/36/38/40/42","fallback":false},{"title":"Silk Charmeuse Blouse","checked":true,"select":"34/36/38/40/42","fallback":false},{"title":"Pleated Wide Trouser","checked":true,"select":"34/36/38/40/42","fallback":false}]}
+ bundle: {"api":{"count":3,"total":225000,"lines":["pleated-wide-trouser[34]×1","silk-charmeuse-blouse[34]×1","nove-blazer[34]×1"]},"dom":{"lines":["1","1","1"],"subtotal":"$2,250.00 USD","badge":"3","status":"The selected look was added to your cart.","error":null}}
+ quick buy modos: {"picker":24}
+  quick buy [picker] "Bias-Cut Slip Dress": {"panelVisible":true,"expanded":"true","focusInPanel":true,"values":["34","36","38","40"]} elegido=34 carrito={"api":{"count":1,"total":68000,"lines":["bias-cut-slip-dress[34]×1"]},"dom":{"lines":["1"],"subtotal":"$680.00 USD","badge":"1","status":"Item added to your cart. Bias-Cut Slip Dress - 34","error":null}} foco=a.|Bias-Cut Slip Dress
+ consola: ["error: Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' ","error: Failed to load resource: the server responded with a status of 403 ()","error: Failed to load resource: the server responded with a status of 422 ()","error: Failed to load resource: the server responded with a status of 422 ()","error: Failed to load resource: the server responded with a status of 422 ()","error: Failed to load resource: the server responded with a status of 422 ()"]
