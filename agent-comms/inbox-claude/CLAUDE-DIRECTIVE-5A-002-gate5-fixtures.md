@@ -44,7 +44,7 @@ Crea una colección oculta (desvinculada de los menús de navegación) denominad
 
 ## 3. Pruebas Obligatorias de Compuerta 5 en Tienda Real
 
-Ejecuta las pruebas empíricas directamente contra la tienda real (`https://tema-qkqpke0j.myshopify.com` usando la contraseña `1234`):
+Ejecuta las pruebas empíricas directamente contra la tienda real (`https://tema-qkqpke0j.myshopify.com` usando la contraseña `<redactado>`):
 
 ### 3.1 Ergonomía y Touch Targets (Hitbox >= 44×44px)
 - Medir a **1280px (desktop)** y a **390px (móvil, viewport 390×844)**:

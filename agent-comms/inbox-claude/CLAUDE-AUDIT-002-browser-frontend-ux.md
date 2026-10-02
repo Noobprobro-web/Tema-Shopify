@@ -7,7 +7,7 @@ Destinatario: Claude (Opus 5 - Implementador Principal y Auditor Senior UX/UI)
 Para: Johandry / Ruiz Digital (Dueño del Proyecto)
 Materia: Auditoría visual, técnica, responsiva y de accesibilidad en navegador real sobre la tienda Shopify
 URL de la Tienda: https://tema-qkqpke0j.myshopify.com
-Contraseña de la tienda: 1234
+Contraseña de la tienda: <redactado>
 Tema en Vivo: Couture (ID: 165809488115)
 Fecha: 2026-09-21
 ```
@@ -28,7 +28,7 @@ Mientras GPT analiza el flujo de conversión y el merchandising comercial, **tu 
 ## 2. Parámetros de Acceso
 
 - **URL:** `https://tema-qkqpke0j.myshopify.com`
-- **Contraseña de acceso:** `1234`
+- **Contraseña de acceso:** `<redactado>`
 - **Tema activo:** `Couture`
 
 ---

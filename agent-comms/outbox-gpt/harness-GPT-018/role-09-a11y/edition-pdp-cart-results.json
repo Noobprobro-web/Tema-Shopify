@@ -1,0 +1,380 @@
+{
+  "store": "edition",
+  "flows": [
+    {
+      "mode": "full",
+      "product": "structured-tote",
+      "variant": {
+        "stage": "variant-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Saddle tan",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "variantBefore": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Black box calf",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "variantAfter": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Saddle tan",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        }
+      },
+      "addFocus": {
+        "stage": "add-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "submit",
+          "role": "BUTTON",
+          "name": "ADD TO CART",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "addTabsFromOption": 4
+      },
+      "afterAdd": {
+        "stage": "after-add",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin"
+            },
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard"
+            }
+          ],
+          "textTail": "hand-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nSaddle tan / Standard: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nFour-Slot Cardholder\nRegular price\n$95.00\nQUICK ADD\nLeather Document Folio\nRegular price\n$370.00\nQUICK ADD\nSingle Pen Sleeve\nRegular price\n$85.00\nQUICK ADD\nLeather Key Loop\nRegular price\n$65.00\nQUICK ADD\nSartorial Edition\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Edition\nPowered by Shopify\n\n1 ITEM\n\nYour cart\n\nStructured Tote in Calfskin\nFinish\nSaddle tan\nSize\nStandard\n$680.00\nQuantity\nSubtotal\n$680.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "addResponse": {
+          "status": 200,
+          "url": "https://sartorial-edition.myshopify.com/cart/add.js"
+        }
+      },
+      "qtyFocus": {
+        "stage": "quantity-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "tabsAfterAdd": 3
+      },
+      "afterQty": {
+        "stage": "after-quantity",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin"
+            },
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard"
+            }
+          ],
+          "textTail": "-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nSaddle tan / Standard: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nFour-Slot Cardholder\nRegular price\n$95.00\nQUICK ADD\nLeather Document Folio\nRegular price\n$370.00\nQUICK ADD\nSingle Pen Sleeve\nRegular price\n$85.00\nQUICK ADD\nLeather Key Loop\nRegular price\n$65.00\nQUICK ADD\nSartorial Edition\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Edition\nPowered by Shopify\n\n2 ITEMS\n\nYour cart\nStructured Tote in Calfskin\nFinish\nSaddle tan\nSize\nStandard\n$1,360.00\nQuantity\nSubtotal\n$1,360.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "changeResponse": {
+          "status": 200,
+          "url": "https://sartorial-edition.myshopify.com/cart/change.js"
+        }
+      },
+      "quantityOutcome": null,
+      "removeFocus": {
+        "stage": "remove-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Remove Structured Tote in Calfskin - Saddle tan / Standard",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "tabsAfterQuantity": 4
+      },
+      "afterRemove": {
+        "stage": "after-remove",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin"
+            }
+          ],
+          "textTail": "ntary returns within 30 days\n\nFull-grain calfskin forms a clean body with a reinforced base, lined interior and hand-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nSaddle tan / Standard: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nFour-Slot Cardholder\nRegular price\n$95.00\nQUICK ADD\nLeather Document Folio\nRegular price\n$370.00\nQUICK ADD\nSingle Pen Sleeve\nRegular price\n$85.00\nQUICK ADD\nLeather Key Loop\nRegular price\n$65.00\nQUICK ADD\nSartorial Edition\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Edition\nPowered by Shopify\n\n0 ITEMS\n\nYour cart\n\nYour cart is currently empty.\n\nCONTINUE SHOPPING"
+        },
+        "removeResponse": {
+          "status": 200,
+          "url": "https://sartorial-edition.myshopify.com/cart/change.js"
+        }
+      }
+    },
+    {
+      "mode": "reduced",
+      "product": "structured-tote",
+      "variant": {
+        "stage": "variant-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Saddle tan",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "variantBefore": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Black box calf",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 3px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "variantAfter": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Saddle tan",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 3px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        }
+      },
+      "addFocus": {
+        "stage": "add-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "submit",
+          "role": "BUTTON",
+          "name": "ADD TO CART",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "addTabsFromOption": 4
+      },
+      "afterAdd": {
+        "stage": "after-add",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin"
+            },
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard"
+            }
+          ],
+          "textTail": "hand-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nSaddle tan / Standard: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nFour-Slot Cardholder\nRegular price\n$95.00\nQUICK ADD\nLeather Document Folio\nRegular price\n$370.00\nQUICK ADD\nSingle Pen Sleeve\nRegular price\n$85.00\nQUICK ADD\nLeather Key Loop\nRegular price\n$65.00\nQUICK ADD\nSartorial Edition\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Edition\nPowered by Shopify\n\n1 ITEM\n\nYour cart\n\nStructured Tote in Calfskin\nFinish\nSaddle tan\nSize\nStandard\n$680.00\nQuantity\nSubtotal\n$680.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "addResponse": {
+          "status": 200,
+          "url": "https://sartorial-edition.myshopify.com/cart/add.js"
+        }
+      },
+      "qtyFocus": {
+        "stage": "quantity-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "tabsAfterAdd": 3
+      },
+      "afterQty": {
+        "stage": "after-quantity",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin"
+            },
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin - Saddle tan / Standard"
+            }
+          ],
+          "textTail": "-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nSaddle tan / Standard: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nFour-Slot Cardholder\nRegular price\n$95.00\nQUICK ADD\nLeather Document Folio\nRegular price\n$370.00\nQUICK ADD\nSingle Pen Sleeve\nRegular price\n$85.00\nQUICK ADD\nLeather Key Loop\nRegular price\n$65.00\nQUICK ADD\nSartorial Edition\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Edition\nPowered by Shopify\n\n2 ITEMS\n\nYour cart\nStructured Tote in Calfskin\nFinish\nSaddle tan\nSize\nStandard\n$1,360.00\nQuantity\nSubtotal\n$1,360.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "changeResponse": {
+          "status": 200,
+          "url": "https://sartorial-edition.myshopify.com/cart/change.js"
+        }
+      },
+      "quantityOutcome": null,
+      "removeFocus": {
+        "stage": "remove-focused",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Remove Structured Tote in Calfskin - Saddle tan / Standard",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "tabsAfterQuantity": 4
+      },
+      "afterRemove": {
+        "stage": "after-remove",
+        "url": "https://sartorial-edition.myshopify.com/products/structured-tote?variant=67582163910824",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(17, 17, 17)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Structured Tote in Calfskin",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Structured Tote in Calfskin"
+            }
+          ],
+          "textTail": "ntary returns within 30 days\n\nFull-grain calfskin forms a clean body with a reinforced base, lined interior and hand-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nSaddle tan / Standard: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nFour-Slot Cardholder\nRegular price\n$95.00\nQUICK ADD\nLeather Document Folio\nRegular price\n$370.00\nQUICK ADD\nSingle Pen Sleeve\nRegular price\n$85.00\nQUICK ADD\nLeather Key Loop\nRegular price\n$65.00\nQUICK ADD\nSartorial Edition\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Edition\nPowered by Shopify\n\n0 ITEMS\n\nYour cart\n\nYour cart is currently empty.\n\nCONTINUE SHOPPING"
+        },
+        "removeResponse": {
+          "status": 200,
+          "url": "https://sartorial-edition.myshopify.com/cart/change.js"
+        }
+      }
+    }
+  ],
+  "pageErrors": []
+}

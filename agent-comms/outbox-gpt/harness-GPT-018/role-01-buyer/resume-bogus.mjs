@@ -1,0 +1,5 @@
+import fs from 'node:fs';import {chromium} from 'playwright';import {unlock,STORES} from '../../../outbox-claude/harness-AUDIT-FINAL-002/lib.mjs';
+const out='agent-comms/outbox-gpt/harness-GPT-018/role-01-buyer',key=process.argv[2];const data=JSON.parse(fs.readFileSync(`${out}/${key}-payment-stage.json`));const browser=await chromium.launch({headless:true,channel:'chrome'});const ctx=await browser.newContext({viewport:{width:1440,height:1000}});await unlock(ctx,STORES[key].url);const page=await ctx.newPage();await page.goto(data.url,{waitUntil:'domcontentloaded'});
+await page.getByRole('button',{name:'Test Payment Gateway',exact:true}).waitFor({timeout:30000});
+const frames=[];for(const f of page.frames()){frames.push({url:f.url(),inputs:await f.locator('input').evaluateAll(es=>es.map(e=>({type:e.type,name:e.name,label:e.getAttribute('aria-label'),placeholder:e.placeholder}))).catch(()=>[])});}
+fs.writeFileSync(`${out}/${key}-secure-fields.json`,JSON.stringify({text:await page.locator('body').innerText(),frames},null,2));await page.screenshot({path:`${out}/${key}-bogus-ready.png`,fullPage:true});await browser.close();

@@ -19,13 +19,20 @@
   >
     <div class="marquee-banner__inner">
       <div class="marquee-banner__viewport">
-        <div class="marquee-banner__track" style="--marquee-duration: {{ section.settings.speed }}s;">
+        <div class="marquee-banner__track" style="--marquee-duration: {{ section.settings.speed }}s; --marquee-groups: 3;">
           <div class="marquee-banner__group">
             {%- for block in section.blocks -%}
               {%- if block.settings.text != blank -%}
                 <span class="marquee-banner__item" {{ block.shopify_attributes }}>
                   {{- block.settings.text | escape -}}
                 </span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="marquee-banner__group" aria-hidden="true">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.text != blank -%}
+                <span class="marquee-banner__item">{{ block.settings.text | escape }}</span>
               {%- endif -%}
             {%- endfor -%}
           </div>

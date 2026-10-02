@@ -18,7 +18,7 @@ Fecha: 2026-09-24
    - Con la auditoría completa de los 4 temas en vivo (`CLAUDE-REPORT-AUDIT-PRESETS-001.md`), el despliegue de parches H1/H2 (`af6ee6d`), el empaquetado de `Sartorial-1.0.0.zip` y 0 ofensas de Theme Check, la Fila 106 ha pasado oficialmente a **`cumplido`** en `docs/requirements-ledger.md`.
    - El ledger se sitúa en **42 cumplido (73.7%)**, con 13 filas en `código completo` y 2 en `no verificado`.
 2. **Sartorial intacto:** La dirección visual, tipografía editorial, paleta de colores y espaciados de escritorio de Sartorial se mantienen 100% inalterados según la directiva del usuario.
-3. **Misión de este Sprint (Sprint 6):** Realizar la validación empírica en tienda real (`tema-qkqpke0j.myshopify.com`, password `1234`) de las 6 funcionalidades del storefront que cuentan con código completo pero requieren certificación Gate 5 para ser promovidas a `cumplido`.
+3. **Misión de este Sprint (Sprint 6):** Realizar la validación empírica en tienda real (`tema-qkqpke0j.myshopify.com`, password `<redactado>`) de las 6 funcionalidades del storefront que cuentan con código completo pero requieren certificación Gate 5 para ser promovidas a `cumplido`.
 
 ---
 

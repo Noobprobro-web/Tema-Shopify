@@ -1,0 +1,282 @@
+{
+  "store": "archive",
+  "flows": [
+    {
+      "mode": "full",
+      "product": "1999-technical-cotton-trench",
+      "variant": {
+        "stage": "variant-focused",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Restored",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "variantBefore": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Restored",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "variantAfter": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Restored",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        }
+      },
+      "addFocus": {
+        "stage": "add-focused",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "submit",
+          "role": "BUTTON",
+          "name": "ADD TO CART",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "addTabsFromOption": 3
+      },
+      "afterAdd": {
+        "stage": "after-add",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for 1999 Technical Cotton Trench",
+              "disabled": true,
+              "accessibleName": "Increase quantity for 1999 Technical Cotton Trench"
+            },
+            {
+              "name": "Increase quantity for 1999 Technical Cotton Trench - Restored / FR 40 / US 8",
+              "disabled": true,
+              "accessibleName": "Increase quantity for 1999 Technical Cotton Trench - Restored / FR 40 / US 8"
+            }
+          ],
+          "textTail": "orm flap, waist belt and concealed front fastening. Restored under Record AR-1999-01. Single historical piece, 1 of 1.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nCONTINUE THE STUDY\n\nYou may also consider\n1998 Bias-Cut Silk Evening Slip\nRegular price\n$1,450.00\nADD TO CART\n1997 Printed Silk Square\nRegular price\n$450.00\nADD TO CART\n1996 Satin Evening Jacket\nRegular price\n$2,100.00\nADD TO CART\n1995 Asymmetric Wool Cape\nRegular price\n$1,850.00\nADD TO CART\nSartorial Archive\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Archive\nPowered by Shopify\n\n1 ITEM\n\nYour cart\n\n1999 Technical Cotton Trench\nCondition\nRestored\nSize\nFR 40 / US 8\n$1,690.00\nQuantity\nSubtotal\n$1,690.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "addResponse": {
+          "status": 200,
+          "url": "https://sartorial-archive.myshopify.com/cart/add.js"
+        }
+      },
+      "qtyFocus": null,
+      "afterQty": null,
+      "quantityOutcome": "No enabled increase control reached by Tab.",
+      "removeFocus": {
+        "stage": "remove-focused",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Remove 1999 Technical Cotton Trench - Restored / FR 40 / US 8",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "tabsAfterQuantity": 75
+      },
+      "afterRemove": {
+        "stage": "after-remove",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for 1999 Technical Cotton Trench",
+              "disabled": true,
+              "accessibleName": "Increase quantity for 1999 Technical Cotton Trench"
+            }
+          ],
+          "textTail": " NOW\n\nDelivery times and costs confirmed at checkout\n\nReturns subject to our store policy\n\nTechnical cotton trench with storm flap, waist belt and concealed front fastening. Restored under Record AR-1999-01. Single historical piece, 1 of 1.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nCONTINUE THE STUDY\n\nYou may also consider\n1998 Bias-Cut Silk Evening Slip\nRegular price\n$1,450.00\nADD TO CART\n1997 Printed Silk Square\nRegular price\n$450.00\nADD TO CART\n1996 Satin Evening Jacket\nRegular price\n$2,100.00\nADD TO CART\n1995 Asymmetric Wool Cape\nRegular price\n$1,850.00\nADD TO CART\nSartorial Archive\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Archive\nPowered by Shopify\n\n0 ITEMS\n\nYour cart\n\nYour cart is currently empty.\n\nCONTINUE SHOPPING"
+        },
+        "removeResponse": {
+          "status": 200,
+          "url": "https://sartorial-archive.myshopify.com/cart/change.js"
+        }
+      }
+    },
+    {
+      "mode": "reduced",
+      "product": "1999-technical-cotton-trench",
+      "variant": {
+        "stage": "variant-focused",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Restored",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "variantBefore": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Restored",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 3px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "variantAfter": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "Restored",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 3px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        }
+      },
+      "addFocus": {
+        "stage": "add-focused",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "submit",
+          "role": "BUTTON",
+          "name": "ADD TO CART",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "addTabsFromOption": 3
+      },
+      "afterAdd": {
+        "stage": "after-add",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for 1999 Technical Cotton Trench",
+              "disabled": true,
+              "accessibleName": "Increase quantity for 1999 Technical Cotton Trench"
+            },
+            {
+              "name": "Increase quantity for 1999 Technical Cotton Trench - Restored / FR 40 / US 8",
+              "disabled": true,
+              "accessibleName": "Increase quantity for 1999 Technical Cotton Trench - Restored / FR 40 / US 8"
+            }
+          ],
+          "textTail": "orm flap, waist belt and concealed front fastening. Restored under Record AR-1999-01. Single historical piece, 1 of 1.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nCONTINUE THE STUDY\n\nYou may also consider\n1998 Bias-Cut Silk Evening Slip\nRegular price\n$1,450.00\nADD TO CART\n1997 Printed Silk Square\nRegular price\n$450.00\nADD TO CART\n1996 Satin Evening Jacket\nRegular price\n$2,100.00\nADD TO CART\n1995 Asymmetric Wool Cape\nRegular price\n$1,850.00\nADD TO CART\nSartorial Archive\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Archive\nPowered by Shopify\n\n1 ITEM\n\nYour cart\n\n1999 Technical Cotton Trench\nCondition\nRestored\nSize\nFR 40 / US 8\n$1,690.00\nQuantity\nSubtotal\n$1,690.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "addResponse": {
+          "status": 200,
+          "url": "https://sartorial-archive.myshopify.com/cart/add.js"
+        }
+      },
+      "qtyFocus": null,
+      "afterQty": null,
+      "quantityOutcome": "No enabled increase control reached by Tab.",
+      "removeFocus": {
+        "stage": "remove-focused",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Remove 1999 Technical Cotton Trench - Restored / FR 40 / US 8",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "tabsAfterQuantity": 75
+      },
+      "afterRemove": {
+        "stage": "after-remove",
+        "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(46, 36, 28)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for 1999 Technical Cotton Trench",
+              "disabled": true,
+              "accessibleName": "Increase quantity for 1999 Technical Cotton Trench"
+            }
+          ],
+          "textTail": " NOW\n\nDelivery times and costs confirmed at checkout\n\nReturns subject to our store policy\n\nTechnical cotton trench with storm flap, waist belt and concealed front fastening. Restored under Record AR-1999-01. Single historical piece, 1 of 1.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\nCONTINUE THE STUDY\n\nYou may also consider\n1998 Bias-Cut Silk Evening Slip\nRegular price\n$1,450.00\nADD TO CART\n1997 Printed Silk Square\nRegular price\n$450.00\nADD TO CART\n1996 Satin Evening Jacket\nRegular price\n$2,100.00\nADD TO CART\n1995 Asymmetric Wool Cape\nRegular price\n$1,850.00\nADD TO CART\nSartorial Archive\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Archive\nPowered by Shopify\n\n0 ITEMS\n\nYour cart\n\nYour cart is currently empty.\n\nCONTINUE SHOPPING"
+        },
+        "removeResponse": {
+          "status": 200,
+          "url": "https://sartorial-archive.myshopify.com/cart/change.js"
+        }
+      }
+    }
+  ],
+  "pageErrors": []
+}

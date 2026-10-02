@@ -1,0 +1,5 @@
+Validación independiente (PowerShell): `powershell -NoProfile -ExecutionPolicy Bypass -File agent-comms/outbox-gpt/harness-GPT-018/role-04-art/validate-manifest.ps1`
+Salida literal: {"manifestPairs":33,"uniqueAssetPaths":33,"uniqueVariantIds":38,"catalogVariantIds":38,"variantSetDiff":0,"mappingErrors":0,"physicalDimensionErrors":0}
+edition-current.jpg 1376x768 bytes=156622
+archive-current.jpg 1376x768 bytes=162551
+La inspección visual propia cubrió solo muestras: tote negro/tan/olive y wallet Saddle tan, zip pouch Saddle tan, compact crossbody Stone frente a sus fuentes. No se afirma inspección visual individual de los 33 activos. La relación con acabado/ID se validó por manifest contra JSON de catálogo; no se instaló ni subió en Shopify Admin. En los heroes actuales se distingue texto BAUHAUS en Edition y STOCKMAN Paris en Archive.

@@ -10,7 +10,7 @@ Estado: SOLICITUD DE AUDITORÍA ADVERSARIAL EN TIENDA REAL (Sprint 5B)
 URL de Evaluación (PDP): https://tema-qkqpke0j.myshopify.com/products/qa5a-f04-colour-size
 URL de Evaluación (PDP Serra Coat): https://tema-qkqpke0j.myshopify.com/products/serra-coat
 URL en Español: https://tema-qkqpke0j.myshopify.com/es/products/qa5a-f04-colour-size
-Contraseña de acceso: 1234
+Contraseña de acceso: <redactado>
 Tema evaluado: Couture (#165809488115 - MAIN LIVE)
 Commit desplegado: a946c3b ("feat(pdp): complete Sprint 5B native accessible zoom and media optimizations")
 ```

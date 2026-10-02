@@ -7,7 +7,7 @@ Destinatario: GPT-5.6 Sol Max (Auditor Senior de Producto, UX y Viabilidad Comer
 Para: Johandry / Ruiz Digital (Dueño del Proyecto)
 Materia: Auditoría visual, interactiva y comercial en navegador real sobre la tienda Shopify
 URL de la Tienda: https://tema-qkqpke0j.myshopify.com
-Contraseña de la tienda: 1234
+Contraseña de la tienda: <redactado>
 Tema en Vivo: Couture (ID: 165809488115)
 Fecha: 2026-09-20
 ```
@@ -30,7 +30,7 @@ CERO halagos vacíos. Tu valor está en la lucidez crítica, en identificar pros
 ## 2. Parámetros de Acceso a la Tienda
 
 - **Dominio:** `https://tema-qkqpke0j.myshopify.com`
-- **Contraseña de storefront:** `1234`
+- **Contraseña de storefront:** `<redactado>`
 - **Tema activo inspeccionado:** `Couture` (preset editorial de sastrería de alta gama).
 
 ---

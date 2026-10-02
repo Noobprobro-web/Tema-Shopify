@@ -1,0 +1,380 @@
+{
+  "store": "atelier",
+  "flows": [
+    {
+      "mode": "full",
+      "product": "serra-coat",
+      "variant": {
+        "stage": "variant-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "38",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "variantBefore": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "36",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "variantAfter": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "38",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        }
+      },
+      "addFocus": {
+        "stage": "add-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "submit",
+          "role": "BUTTON",
+          "name": "ADD TO CART",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "addTabsFromOption": 3
+      },
+      "afterAdd": {
+        "stage": "after-add",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Serra Coat",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat"
+            },
+            {
+              "name": "Increase quantity for Serra Coat - 38",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat - 38"
+            }
+          ],
+          "textTail": "tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\n38: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nNove Blazer\nRegular price\n$1,150.00\nQUICK ADD\nWrap Wool Skirt\nRegular price\n$540.00\nQUICK ADD\nSilk Charmeuse Blouse\nRegular price\n$520.00\nQUICK ADD\nSilk Twill Square\nRegular price\n$280.00\nADD TO CART\nSartorial Atelier\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Atelier\nPowered by Shopify\n\n1 ITEM\n\nYour cart\n\nSerra Coat\nSize\n38\n$1,890.00\nQuantity\nSubtotal\n$1,890.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "addResponse": {
+          "status": 200,
+          "url": "https://sartorial-atelier.myshopify.com/cart/add.js"
+        }
+      },
+      "qtyFocus": {
+        "stage": "quantity-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Serra Coat - 38",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "tabsAfterAdd": 3
+      },
+      "afterQty": {
+        "stage": "after-quantity",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Serra Coat - 38",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Serra Coat",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat"
+            },
+            {
+              "name": "Increase quantity for Serra Coat - 38",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat - 38"
+            }
+          ],
+          "textTail": "tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\n38: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nNove Blazer\nRegular price\n$1,150.00\nQUICK ADD\nWrap Wool Skirt\nRegular price\n$540.00\nQUICK ADD\nSilk Charmeuse Blouse\nRegular price\n$520.00\nQUICK ADD\nSilk Twill Square\nRegular price\n$280.00\nADD TO CART\nSartorial Atelier\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Atelier\nPowered by Shopify\n\n2 ITEMS\n\nYour cart\nSerra Coat\nSize\n38\n$3,780.00\nQuantity\nSubtotal\n$3,780.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "changeResponse": {
+          "status": 200,
+          "url": "https://sartorial-atelier.myshopify.com/cart/change.js"
+        }
+      },
+      "quantityOutcome": null,
+      "removeFocus": {
+        "stage": "remove-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Remove Serra Coat - 38",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "tabsAfterQuantity": 4
+      },
+      "afterRemove": {
+        "stage": "after-remove",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Serra Coat",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat"
+            }
+          ],
+          "textTail": "t to our store policy\n\nDouble-faced wool and cashmere, woven in Biella and tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\n38: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nNove Blazer\nRegular price\n$1,150.00\nQUICK ADD\nWrap Wool Skirt\nRegular price\n$540.00\nQUICK ADD\nSilk Charmeuse Blouse\nRegular price\n$520.00\nQUICK ADD\nSilk Twill Square\nRegular price\n$280.00\nADD TO CART\nSartorial Atelier\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Atelier\nPowered by Shopify\n\n0 ITEMS\n\nYour cart\n\nYour cart is currently empty.\n\nCONTINUE SHOPPING"
+        },
+        "removeResponse": {
+          "status": 200,
+          "url": "https://sartorial-atelier.myshopify.com/cart/change.js"
+        }
+      }
+    },
+    {
+      "mode": "reduced",
+      "product": "serra-coat",
+      "variant": {
+        "stage": "variant-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "38",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "variantBefore": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "36",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 3px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "variantAfter": {
+          "tag": "INPUT",
+          "inputType": "radio",
+          "role": "INPUT",
+          "name": "38",
+          "checked": true,
+          "disabled": false,
+          "outline": "solid 3px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        }
+      },
+      "addFocus": {
+        "stage": "add-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "submit",
+          "role": "BUTTON",
+          "name": "ADD TO CART",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "addTabsFromOption": 3
+      },
+      "afterAdd": {
+        "stage": "after-add",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Serra Coat",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat"
+            },
+            {
+              "name": "Increase quantity for Serra Coat - 38",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat - 38"
+            }
+          ],
+          "textTail": "tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\n38: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nNove Blazer\nRegular price\n$1,150.00\nQUICK ADD\nWrap Wool Skirt\nRegular price\n$540.00\nQUICK ADD\nSilk Charmeuse Blouse\nRegular price\n$520.00\nQUICK ADD\nSilk Twill Square\nRegular price\n$280.00\nADD TO CART\nSartorial Atelier\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Atelier\nPowered by Shopify\n\n1 ITEM\n\nYour cart\n\nSerra Coat\nSize\n38\n$1,890.00\nQuantity\nSubtotal\n$1,890.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "addResponse": {
+          "status": 200,
+          "url": "https://sartorial-atelier.myshopify.com/cart/add.js"
+        }
+      },
+      "qtyFocus": {
+        "stage": "quantity-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Serra Coat - 38",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "tabsAfterAdd": 3
+      },
+      "afterQty": {
+        "stage": "after-quantity",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Increase quantity for Serra Coat - 38",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Serra Coat",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat"
+            },
+            {
+              "name": "Increase quantity for Serra Coat - 38",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat - 38"
+            }
+          ],
+          "textTail": "tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\n38: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nNove Blazer\nRegular price\n$1,150.00\nQUICK ADD\nWrap Wool Skirt\nRegular price\n$540.00\nQUICK ADD\nSilk Charmeuse Blouse\nRegular price\n$520.00\nQUICK ADD\nSilk Twill Square\nRegular price\n$280.00\nADD TO CART\nSartorial Atelier\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Atelier\nPowered by Shopify\n\n2 ITEMS\n\nYour cart\nSerra Coat\nSize\n38\n$3,780.00\nQuantity\nSubtotal\n$3,780.00 USD\n\nTaxes and shipping calculated at checkout.\n\nCHECKOUT\nView cart"
+        },
+        "changeResponse": {
+          "status": 200,
+          "url": "https://sartorial-atelier.myshopify.com/cart/change.js"
+        }
+      },
+      "quantityOutcome": null,
+      "removeFocus": {
+        "stage": "remove-focused",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Remove Serra Coat - 38",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "tabsAfterQuantity": 4
+      },
+      "afterRemove": {
+        "stage": "after-remove",
+        "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?variant=67663228567776",
+        "focus": {
+          "tag": "BUTTON",
+          "inputType": "button",
+          "role": "BUTTON",
+          "name": "Close",
+          "checked": null,
+          "disabled": false,
+          "outline": "solid 2px rgb(29, 27, 24)",
+          "boxShadow": "none"
+        },
+        "cart": {
+          "dialogs": [
+            "CartDrawerTitle"
+          ],
+          "quantityControls": [
+            {
+              "name": "Increase quantity for Serra Coat",
+              "disabled": false,
+              "accessibleName": "Increase quantity for Serra Coat"
+            }
+          ],
+          "textTail": "t to our store policy\n\nDouble-faced wool and cashmere, woven in Biella and tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n\nCOMPOSITION & CARE\nSHIPPING & COMPLIMENTARY RETURNS\n\n38: Variant available.\n\nCONTINUE THE STUDY\n\nYou may also consider\nNove Blazer\nRegular price\n$1,150.00\nQUICK ADD\nWrap Wool Skirt\nRegular price\n$540.00\nQUICK ADD\nSilk Charmeuse Blouse\nRegular price\n$520.00\nQUICK ADD\nSilk Twill Square\nRegular price\n$280.00\nADD TO CART\nSartorial Atelier\n\nPRIVATE CORRESPONDENCE\n\nNotes from the studio\n\nNew objects, material studies and private previews, sent with restraint.\n\nEmail address\nSUBSCRIBE\nSearch\nRefund policy\nShipping policy\nPrivacy policy\nTerms of service\nContact information\nYour Privacy Choices\nAccepted payment methods\n© 2026 Sartorial Atelier\nPowered by Shopify\n\n0 ITEMS\n\nYour cart\n\nYour cart is currently empty.\n\nCONTINUE SHOPPING"
+        },
+        "removeResponse": {
+          "status": 200,
+          "url": "https://sartorial-atelier.myshopify.com/cart/change.js"
+        }
+      }
+    }
+  ],
+  "pageErrors": []
+}

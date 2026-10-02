@@ -1,0 +1,22 @@
+ID: GPT-018-ROLE04-ART-001
+Estado: Entregado para revisión comercial; activos preparados, pendientes de validación visual y derechos por Johandry antes de publicación.
+Decisión requerida: Johandry confirma derechos sobre las imágenes CDN, fidelidad de los acabados propuestos y posterior carga/asociación en Admin.
+Resumen en 5 líneas:
+- Se prepararon 33 pares únicos producto-acabado de Edition en 13 productos, asociados a 38 IDs de variantes (incluidas tallas con el mismo acabado).
+- De ellos, 12 reutilizan la foto fuente de acabado visible coincidente, 18 son recolores IA del producto exacto y 3 del Structured Tote eran activos preexistentes conservados.
+- Los 33 archivos finales son 2000×2500; 18 originales generados 1122×1402 se conservan junto a sus ampliaciones, y las fuentes de catálogo están preservadas en el harness.
+- Se conservaron tres nuevos heroes de 3200×1800, derivados ampliados de originales IA de 1672×941; los heroes activos observados de Edition/Archive miden 1376×768 y muestran “BAUHAUS”/“STOCKMAN Paris”.
+- La verificación no acredita derechos de las fuentes CDN ni fidelidad física del color; no se modificaron tiendas ni archivos del tema.
+Archivos tocados: `demo-assets/PROVENANCE.md`; `demo-assets/{atelier,edition,archive}/PROVENANCE.md`; activos dentro de `demo-assets/{atelier,edition,archive}/` (heroes) y `demo-assets/edition/` (33 acabados, originales preservados); `harness-GPT-018/role-04-art/` (manifiestos, instrucciones Admin, prompts, fuentes, medidas y capturas actuales); `harness-GPT-018/adversarial/role09-external-review.md`.
+Desviaciones (Nivel 1 o Nivel 2): No aplica a código; la ampliación solicitada fue autorizada expresamente por el usuario. Los conceptos iniciales sin referencia de producto se guardaron solo en `concept-only/` y no forman parte de `demo-assets/`.
+Hallazgos extra fuera de alcance (con parche listo): Ninguno. No se creó parche de tema porque el rol cubre contenido/imagen.
+Verificación (comando, resultado y qué demuestra/qué no): El chequeo registrado del manifiesto devolvió `pairs=33 ids=38 missing=0 non_2000x2500=0 ai_edits_native_records=18`; demuestra que los archivos listados existen, que el mapeo contiene 38 IDs y que los derivados tienen las dimensiones objetivo, no su exactitud física/color ni derechos. `Get-Content .../edition-variant-asset-manifest.json` y `admin-association-instructions.md` documentan asociación por ID; `Get-Content demo-assets/PROVENANCE.md -Tail 45` documenta fuentes, límites y dimensiones. GET directo de las fuentes CDN actuales: Edition y Archive, 1376×768; copias verificables en `hero-current/edition-current.jpg` y `archive-current.jpg`, donde se leen respectivamente “BAUHAUS” y “STOCKMAN Paris”. Revisión visual de las referencias y ediciones: originales en `sources/`, salidas en `demo-assets/edition/`. No demuestra licencia ni aprobación del comerciante.
+Lista de afirmaciones falsables numeradas:
+1. `edition-variant-asset-manifest.json` contiene 33 pares y 38 IDs agregados; contrastar todas las filas con el catálogo y `admin-association-instructions.md`.
+2. El mismo manifiesto declara 12 fotos fuente reutilizadas, 18 recolores IA y 3 activos previos del tote; los archivos pueden comprobarse en `demo-assets/edition/` y sus fuentes en `sources/`.
+3. Las 18 salidas de recolor conservan originales 1122×1402 y derivados 2000×2500; la ampliación no añade detalle nativo. Medidas por archivo en `edition-generated-dimensions.json`.
+4. Cada acabado IA es una propuesta visual del acabado indicado a partir de la foto del producto exacto; no certifica color real, material, manufactura ni fidelidad absoluta. Requiere cotejo de Johandry con muestras reales.
+5. Las fotos CDN reutilizadas y las de referencia tienen derechos/titularidad no verificados; no autorizan por sí solas publicación ni envío a Theme Store.
+6. Los heroes propuestos son derivados 3200×1800 de originales 1672×941, no imágenes nativas de 3200 px; dimensiones en `dimensions.json`.
+7. Las imágenes actuales inspeccionadas de Edition/Archive miden 1376×768 y contienen texto/marca visible “BAUHAUS”/“STOCKMAN Paris”; los originales descargados y URLs/versiones se registran en `hero-current/` y `demo-assets/PROVENANCE.md`.
+8. La revisión adversarial separada de Rol 9 confirma las interacciones de teclado documentadas en los JSON de resultados, pero deja lector real/NVDA, semántica anunciada y supresión de movimiento como no verificados; ver `../adversarial/role09-external-review.md`.

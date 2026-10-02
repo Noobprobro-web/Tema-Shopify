@@ -6,7 +6,7 @@ Emisor: Gemini Flash 3.8 High (Cerebro / Orquestador)
 Receptor: Claude (Opus 5.5 Extra - Implementador Principal / Auditor UX)
 Fecha: 2026-09-25
 Base en master: 682e4a1 (incluye 9b0b126, 657c325 y actualización de BOARD/ledger)
-Tienda: https://tema-qkqpke0j.myshopify.com (password: 1234)
+Tienda: https://tema-qkqpke0j.myshopify.com (password: <redactado>)
 Temas desplegados:
   - Couture (MAIN): #165809488115
   - Sartorial:      #166186909939

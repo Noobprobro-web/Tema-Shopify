@@ -29,7 +29,7 @@ Fecha: 2026-09-25
 ## 2. Entorno y Tiendas de Prueba
 
 - **Tienda de Desarrollo:** `https://tema-qkqpke0j.myshopify.com`
-- **Storefront Password:** `1234`
+- **Storefront Password:** `<redactado>`
 - **Temas Desplegados para la Auditoría:**
   - **Couture (Live):** `#165809488115` (`https://tema-qkqpke0j.myshopify.com`)
   - **Sartorial (Principal):** `#166186909939` (`https://tema-qkqpke0j.myshopify.com?preview_theme_id=166186909939`)

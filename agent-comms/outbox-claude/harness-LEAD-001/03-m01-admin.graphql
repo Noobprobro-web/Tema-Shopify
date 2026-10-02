@@ -1,0 +1,61 @@
+# LEAD-001 · M-01/R4 — operaciones Admin GraphQL (se ejecutan con el conector Shopify, una tienda cada vez).
+# Orden: 0 → 1 → 2 → 3 (solo Edition) y 4 → 5 (las tres tiendas). Validadas con shopify-dev validate (Admin 2026-07): 7/7 OK.
+# Nota 2026-07: collectionCreate(input:/ruleSet) está obsoleto; se usa collection: + sources (condición productTag).
+
+# 0. Confirmar la tienda y localizar la publicación Online Store.
+query ShopAndPublications {
+  shop { name myshopifyDomain }
+  publications(first: 10) { nodes { id catalog { title } } }
+}
+
+# 1. (Edition) ¿Existe ya la colección?
+query DeskAndStudy {
+  collectionByIdentifier(identifier: { handle: "desk-and-study" }) { id title productsCount { count } }
+}
+
+# 2. (Edition) Crear la colección inteligente por etiqueta. Reúne los 6 productos de GPT-REPORT-014:75.
+mutation CreateDeskAndStudy {
+  collectionCreate(collection: {
+    title: "Desk & Study"
+    handle: "desk-and-study"
+    descriptionHtml: "<p>Leather and brass objects for a quiet, considered workspace.</p>"
+    sources: [{ source: { title: "Tagged desk-and-study", inclusion: { matchType: ALL, conditions: [{ productTag: { relation: TAGGED_WITH, values: ["desk-and-study"], matchType: ANY } }] } } }]
+    sortOrder: MANUAL
+  }) {
+    collection { id handle productsCount { count } }
+    userErrors { field message }
+  }
+}
+
+# 3. (Edition) Publicarla en Online Store (id de la publicación obtenido en 0).
+mutation PublishCollection($id: ID!, $publicationId: ID!) {
+  publishablePublish(id: $id, input: [{ publicationId: $publicationId }]) {
+    userErrors { field message }
+  }
+}
+
+# 4. (Las tres) Leer el menú del pie actual.
+query FooterMenu {
+  menus(first: 20) { nodes { id handle title items { title type url resourceId items { title url } } } }
+}
+
+# 5. (Las tres) Reescribir el menú del pie: conserva los ítems existentes válidos y añade
+#    colecciones principales, políticas y enlaces de documentación/soporte. `items` se construye
+#    a partir de la lectura de 4 (menuUpdate reemplaza la lista completa).
+mutation UpdateFooter($id: ID!, $title: String!, $handle: String!, $items: [MenuItemUpdateInput!]!) {
+  menuUpdate(id: $id, title: $title, handle: $handle, items: $items) {
+    menu { id items { title url } }
+    userErrors { field message }
+  }
+}
+# Ítems objetivo (type HTTP con URL relativa o SHOP_POLICY con resourceId del policy):
+#   Edition : Daily objects /collections/daily-objects · Leather goods /collections/leather-goods · Desk & Study /collections/desk-and-study
+#   Archive : Permanent archive /collections/permanent-archive · Restored pieces /collections/restored-pieces
+#   Atelier : conservar los actuales
+#   Todas   : Search /search · Privacy /policies/privacy-policy · Refunds /policies/refund-policy
+#             Shipping /policies/shipping-policy · Terms /policies/terms-of-service · Contact /policies/contact-information
+
+# 6. (Las tres) Pedido Bogus de Johandry.
+query TestOrders {
+  orders(first: 5, sortKey: CREATED_AT, reverse: true) { nodes { name createdAt test displayFinancialStatus } }
+}

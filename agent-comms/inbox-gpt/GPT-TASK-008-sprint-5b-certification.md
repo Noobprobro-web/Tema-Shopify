@@ -9,7 +9,7 @@ Fecha: 2026-09-23
 Estado: SOLICITUD DE RE-VERIFICACIÓN Y CERTIFICACIÓN FINAL (Sprint 5B)
 URL de Evaluación (PDP): https://tema-qkqpke0j.myshopify.com/products/qa5a-f04-colour-size
 URL en Español: https://tema-qkqpke0j.myshopify.com/es/products/qa5a-f04-colour-size
-Contraseña de acceso: 1234
+Contraseña de acceso: <redactado>
 Tema evaluado: Couture (#165809488115 - MAIN LIVE)
 Commit desplegado: 505e801 ("fix(pdp): resolve F01 modal focus retention on reset and button state transitions")
 ```

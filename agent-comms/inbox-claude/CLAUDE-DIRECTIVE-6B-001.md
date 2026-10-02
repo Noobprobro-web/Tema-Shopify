@@ -36,7 +36,7 @@ Fecha: 2026-09-24
 
 - **Tienda Principal (Couture):** `#165809488115` (`https://tema-qkqpke0j.myshopify.com`)
 - **Preset Favorito (Sartorial):** `#166186909939` (`https://tema-qkqpke0j.myshopify.com?preview_theme_id=166186909939`)
-- **Password Storefront:** `1234`
+- **Password Storefront:** `<redactado>`
 - **Resoluciones obligatorias de auditoría:**
   - Desktop: 1280x800
   - Mobile: 375x812 y 360x780

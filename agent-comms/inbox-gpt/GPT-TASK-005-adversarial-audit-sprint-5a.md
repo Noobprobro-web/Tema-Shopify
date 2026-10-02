@@ -9,7 +9,7 @@ Fecha: 2026-09-22
 Estado: SOLICITUD DE AUDITORÍA ADVERSARIAL EN TIENDA REAL (Sprint 5A)
 URL de Evaluación: https://tema-qkqpke0j.myshopify.com/collections/qa-sprint-5a
 URL en Español: https://tema-qkqpke0j.myshopify.com/es/collections/qa-sprint-5a
-Contraseña de acceso: 1234
+Contraseña de acceso: <redactado>
 Tema evaluado: Couture (#165809488115 - MAIN)
 ```
 

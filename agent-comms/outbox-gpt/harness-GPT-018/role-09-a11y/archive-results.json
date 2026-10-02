@@ -1,0 +1,1042 @@
+{
+  "store": "archive",
+  "checks": [
+    {
+      "stage": "home-full",
+      "url": "https://sartorial-archive.myshopify.com/",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Archive\n\nCATALOGUE I / THE H",
+        "id": "",
+        "outline": "rgb(46, 36, 28) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 6226.828125,
+          "top": 0,
+          "right": 1440,
+          "bottom": 6226.828125,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 44000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "first-tab",
+      "url": "https://sartorial-archive.myshopify.com/",
+      "active": {
+        "tag": "A",
+        "role": null,
+        "name": "Skip to content",
+        "id": "",
+        "outline": "rgb(46, 36, 28) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "width": 136.328125,
+          "height": 53.59375,
+          "top": 16,
+          "right": 152.328125,
+          "bottom": 69.59375,
+          "left": 16
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 44000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "search-open",
+      "url": "https://sartorial-archive.myshopify.com/",
+      "active": {
+        "tag": "INPUT",
+        "role": "combobox",
+        "name": "q",
+        "id": "PredictiveSearchInput-sections--28149271232824__header",
+        "outline": "rgb(46, 36, 28) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 738,
+          "y": 102.203125,
+          "width": 584.65625,
+          "height": 49.59375,
+          "top": 102.203125,
+          "right": 1322.65625,
+          "bottom": 151.796875,
+          "left": 738
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": true
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 44000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      },
+      "mainSnapshot": "- main:\n  - region \"Objects with a remembered life\":\n    - img \"Objects with a remembered life\"\n    - paragraph: CATALOGUE I / THE HOUSE\n    - heading \"Objects with a remembered life\" [level=1]\n    - paragraph: A collection shaped by provenance, handwork and time.\n    - link \"Enter the catalogue\":\n      - /url: /collections/permanent-archive\n    - link \"Restored selection\":\n      - /url: /collections/restored-pieces\n  - region \"Our craft and materials\":\n    - paragraph: INDEX II / PROVENANCE\n    - blockquote:\n      - heading \"What endures carries the record of how it was made.\" [level=2]\n    - paragraph: The catalogue follows each garment from runway provenance to workshop restoration and permanent archive entry.\n    - link \"Read archive notes\":\n      - /url: /collections/permanent-archive\n    - img \"Close-up study of a material\"\n    - paragraph: PLATE IV / ACCESSION 1957.34.1\n    - term: Founded\n    - definition: A continuing workshop tradition since 1987\n    - term: Origin\n    - definition: Acquired from private estates in Paris & Antwerp\n    - term: Maker\n    - definition: Named and catalogued with every object\n    - term: Record\n    - definition: Numbered museum-grade accession certificate\n  - region \"Editorial highlights\":\n    - text: PIECE NO. 01/12 RESTORED RUNWAY 1989–1999 PERMANENT ARCHIVE MUSEUM GRADE CONSERVATION PRIVATE APPOINTMENTS IN MILAN & PARIS\n    - button \"Pause editorial highlights\"\n  - region \"Entries from the permanent record\":\n    - paragraph: CATALOGUE III / OBJECTS\n    - heading \"Entries from the permanent record\" [level=2]\n    - tablist \"Choose a curated collection\":\n      - tab \"Current catalogue\" [selected]\n      - tab \"Archive selection\"\n    - tabpanel \"Current catalogue\":\n      - article:\n        - link \"Open 1990 Pinstripe Double-Breasted Jacket\":\n          - /url: /products/1990-pinstripe-double-breasted-jacket\n          - img \"Navy double-breasted pinstripe wool jacket on a linen dress form in an archive gallery\"\n        - paragraph: Spotlight selection\n        - heading \"1990 Pinstripe Double-Breasted Jacket\" [level=3]:\n          - link \"1990 Pinstripe Double-Breasted Jacket\":\n            - /url: /products/1990-pinstripe-double-breasted-jacket\n        - text: Regular price $1,500.00 Sold out\n      - article:\n        - link \"1999 Technical Cotton Trench\":\n          - /url: /products/1999-technical-cotton-trench\n          - img \"1999 Technical Cotton Trench\"\n        - paragraph: Sartorial Archive\n        - heading \"1999 Technical Cotton Trench\" [level=3]:\n          - link \"1999 Technical Cotton Trench\":\n            - /url: /products/1999-technical-cotton-trench\n        - text: Regular price $1,690.00\n      - article:\n        - link \"1998 Bias-Cut Silk Evening Slip\":\n          - /url: /products/1998-bias-cut-silk-slip\n          - img \"1998 Bias-Cut Silk Evening Slip\"\n        - paragraph: Sartorial Archive\n        - heading \"1998 Bias-Cut Silk Evening Slip\" [level=3]:\n          - link \"1998 Bias-Cut Silk Evening Slip\":\n            - /url: /products/1998-bias-cut-silk-slip\n        - text: Regular price $1,450.00\n      - link \"View all Current catalogue\":\n        - /url: /collections/permanent-archive\n  - region \"Three objects from the archive record\":\n    - paragraph: PLATE V / CONSERVATION STUDY\n    - heading \"Three objects from the archive record\" [level=2]\n    - paragraph: Each piece is examined under raking light, stabilized by our conservationist, and released in small curated entries.\n    - img \"Three objects from the archive record\"\n    - button \"1. Open details for 1994 Double-Faced Cashmere Cocoon Coat\"\n    - button \"2. Open details for 1999 Technical Cotton Trench\"\n    - button \"3. Open details for 1998 Bias-Cut Silk Evening Slip\"\n    - paragraph: Garment study room photographed under raking light.\n  - region \"1990 Pinstripe Double-Breasted Jacket\":\n    - region \"Product media gallery\":\n      - figure:\n        - img \"Navy double-breasted pinstripe wool jacket on a linen dress form in an archive gallery\"\n    - heading \"1990 Pinstripe Double-Breasted Jacket\" [level=2]\n    - text: Regular price $1,500.00 Sold out\n    - 'radiogroup \"Condition: Restored\"':\n      - text: \"Condition: Restored\"\n      - radio \"Restored Option unavailable\" [checked] [disabled]\n      - text: Restored Option unavailable\n    - 'radiogroup \"Size: FR 40 / US 8\"':\n      - text: \"Size: FR 40 / US 8\"\n      - radio \"FR 40 / US 8 Option unavailable\" [checked] [disabled]\n      - text: FR 40 / US 8 Option unavailable\n    - text: Quantity\n    - button \"Decrease quantity for 1990 Pinstripe Double-Breasted Jacket\" [disabled]\n    - spinbutton \"Quantity\": \"1\"\n    - button \"Increase quantity for 1990 Pinstripe Double-Breasted Jacket\" [disabled]\n    - button \"Sold out\" [disabled]\n    - status: Sold out\n    - paragraph: Climate-controlled archival transport | Insured courier\n    - paragraph: Narrow chalk stripes run across a structured wool jacket with a peaked lapel and six-button front. Masterfully conserved under Record AR-1990-01. Single historical piece, 1 of 1.\n    - paragraph\n  - region \"New entries in the archive\":\n    - paragraph: CATALOGUE NOTICES\n    - heading \"New entries in the archive\" [level=2]\n    - paragraph: Occasional notices of restored objects, new records and workshop visits.\n    - text: Email address\n    - textbox \"Email address\":\n      - /placeholder: name@example.com\n    - button \"Subscribe\""
+    },
+    {
+      "stage": "search-escape",
+      "url": "https://sartorial-archive.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Search",
+        "id": "",
+        "outline": "rgb(46, 36, 28) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 1238,
+          "y": 61,
+          "width": 44,
+          "height": 44,
+          "top": 61,
+          "right": 1282,
+          "bottom": 105,
+          "left": 1238
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 44000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "pdp-full",
+      "url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Archive\n\nSARTORIAL ARCHIVE\n\n",
+        "id": "",
+        "outline": "rgb(46, 36, 28) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 2737.0625,
+          "top": 0,
+          "right": 1440,
+          "bottom": 2737.0625,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "pdp-main",
+      "mainSnapshot": "- main:\n  - region \"Product media gallery\":\n    - figure:\n      - img \"Navy double-breasted pinstripe wool jacket on a linen dress form in an archive gallery\"\n      - button \"Zoom image 1 of 1\"\n  - paragraph: Sartorial Archive\n  - heading \"1990 Pinstripe Double-Breasted Jacket\" [level=1]\n  - text: Regular price $1,500.00 Sold out\n  - 'radiogroup \"Condition: Restored\"':\n    - text: \"Condition: Restored\"\n    - radio \"Restored Option unavailable\" [checked] [disabled]\n    - text: Restored Option unavailable\n  - 'radiogroup \"Size: FR 40 / US 8\"':\n    - text: \"Size: FR 40 / US 8\"\n    - radio \"FR 40 / US 8 Option unavailable\" [checked] [disabled]\n    - text: FR 40 / US 8 Option unavailable\n  - text: Quantity\n  - button \"Decrease quantity for 1990 Pinstripe Double-Breasted Jacket\" [disabled]\n  - spinbutton \"Quantity\": \"1\"\n  - button \"Increase quantity for 1990 Pinstripe Double-Breasted Jacket\" [disabled]\n  - status: Sold out\n  - button \"Sold out\" [disabled]\n  - paragraph: Delivery times and costs confirmed at checkout\n  - paragraph: Returns subject to our store policy\n  - paragraph: Narrow chalk stripes run across a structured wool jacket with a peaked lapel and six-button front. Masterfully conserved under Record AR-1990-01. Single historical piece, 1 of 1.\n  - group: Composition & care\n  - group: Shipping & complimentary returns\n  - paragraph\n  - region \"You may also consider\":\n    - paragraph: Continue the study\n    - heading \"You may also consider\" [level=2]\n    - list:\n      - listitem:\n        - article:\n          - link \"1999 Technical Cotton Trench\":\n            - /url: /products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556404024&pr_ref_pid=10930556043576&pr_seq=uniform\n            - img \"1999 Technical Cotton Trench\"\n          - heading \"1999 Technical Cotton Trench\" [level=3]:\n            - link \"1999 Technical Cotton Trench\":\n              - /url: /products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556404024&pr_ref_pid=10930556043576&pr_seq=uniform\n          - text: Regular price $1,690.00\n          - button \"Add to cart\"\n      - listitem:\n        - article:\n          - link \"1998 Bias-Cut Silk Evening Slip\":\n            - /url: /products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556338488&pr_ref_pid=10930556043576&pr_seq=uniform\n            - img \"1998 Bias-Cut Silk Evening Slip\"\n          - heading \"1998 Bias-Cut Silk Evening Slip\" [level=3]:\n            - link \"1998 Bias-Cut Silk Evening Slip\":\n              - /url: /products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556338488&pr_ref_pid=10930556043576&pr_seq=uniform\n          - text: Regular price $1,450.00\n          - button \"Add to cart\"\n      - listitem:\n        - article:\n          - link \"1997 Printed Silk Square\":\n            - /url: /products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556305720&pr_ref_pid=10930556043576&pr_seq=uniform\n            - img \"1997 Printed Silk Square\"\n          - heading \"1997 Printed Silk Square\" [level=3]:\n            - link \"1997 Printed Silk Square\":\n              - /url: /products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556305720&pr_ref_pid=10930556043576&pr_seq=uniform\n          - text: Regular price $450.00\n          - button \"Add to cart\"\n      - listitem:\n        - article:\n          - link \"1996 Satin Evening Jacket\":\n            - /url: /products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556272952&pr_ref_pid=10930556043576&pr_seq=uniform\n            - img \"1996 Satin Evening Jacket\"\n          - heading \"1996 Satin Evening Jacket\" [level=3]:\n            - link \"1996 Satin Evening Jacket\":\n              - /url: /products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=84c2bda30&pr_rec_pid=10930556272952&pr_ref_pid=10930556043576&pr_seq=uniform\n          - text: Regular price $2,100.00\n          - button \"Add to cart\""
+    },
+    {
+      "stage": "cart-full",
+      "url": "https://sartorial-archive.myshopify.com/cart",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Archive\nYour cart\n\nYour cart",
+        "id": "",
+        "outline": "rgb(46, 36, 28) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1180.515625,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1180.515625,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "cart-main",
+      "mainSnapshot": "- main:\n  - heading \"Your cart\" [level=1]\n  - paragraph: Your cart is currently empty.\n  - link \"Continue shopping\":\n    - /url: /collections/all"
+    },
+    {
+      "stage": "menu-mobile-open",
+      "url": "https://sartorial-archive.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Close",
+        "id": "",
+        "outline": "rgb(46, 36, 28) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 286,
+          "y": 15.5,
+          "width": 44,
+          "height": 44,
+          "top": 15.5,
+          "right": 330,
+          "bottom": 59.5,
+          "left": 286
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": true
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 44000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "menu-mobile-tab-walk",
+      "focusWalk": [
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Contact",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 184.75,
+            "width": 310,
+            "height": 46.375,
+            "top": 184.75,
+            "right": 330,
+            "bottom": 231.125,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Close",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 286,
+            "y": 15.5,
+            "width": 44,
+            "height": 44,
+            "top": 15.5,
+            "right": 330,
+            "bottom": 59.5,
+            "left": 286
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Contact",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 184.75,
+            "width": 310,
+            "height": 46.375,
+            "top": 184.75,
+            "right": 330,
+            "bottom": 231.125,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Close",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 286,
+            "y": 15.5,
+            "width": 44,
+            "height": 44,
+            "top": 15.5,
+            "right": 330,
+            "bottom": 59.5,
+            "left": 286
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(46, 36, 28) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        }
+      ]
+    },
+    {
+      "stage": "menu-mobile-escape",
+      "url": "https://sartorial-archive.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Menu",
+        "id": "",
+        "outline": "rgb(46, 36, 28) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 20,
+          "y": 61,
+          "width": 44,
+          "height": 44,
+          "top": 61,
+          "right": 64,
+          "bottom": 105,
+          "left": 20
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 44000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "home-reduced-motion",
+      "url": "https://sartorial-archive.myshopify.com/",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nMenu\nSartorial Archive\n\nCATALOGUE I / THE HOUSE\n\nObjects wi",
+        "id": "",
+        "outline": "rgb(46, 36, 28) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 7218.8125,
+          "top": 0,
+          "right": 390,
+          "bottom": 7218.8125,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--28149271691576__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "reduce",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}",
+          "reducedMotion": "true"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 0.01
+          }
+        ]
+      }
+    },
+    {
+      "stage": "image-alt",
+      "images": [
+        {
+          "alt": "Objects with a remembered life",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/archive-hero.jpg?v=1790727322&width=1200",
+          "loaded": true
+        },
+        {
+          "alt": "Close-up study of a material",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/archive-manifesto.jpg?v=1790727324&width=750",
+          "loaded": true
+        },
+        {
+          "alt": "Navy double-breasted pinstripe wool jacket on a linen dress form in an archive gallery",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/1990-pinstripe-double-breasted-jacket-01.jpg?v=1790822817&width=960",
+          "loaded": true
+        },
+        {
+          "alt": "1999 Technical Cotton Trench",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/1999-technical-cotton-trench-01.jpg?v=1790825400&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "1998 Bias-Cut Silk Evening Slip",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/1998-bias-cut-silk-slip-01.jpg?v=1790825371&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Navy double-breasted pinstripe wool jacket on a linen dress form in an archive gallery",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/1990-pinstripe-double-breasted-jacket-01.jpg?v=1790822817&width=960",
+          "loaded": true
+        },
+        {
+          "alt": "1999 Technical Cotton Trench",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/1999-technical-cotton-trench-01.jpg?v=1790825400&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "1995 Asymmetric Wool Cape",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Three objects from the archive record",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "1994 Double-Faced Cashmere Cocoon Coat",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "1999 Technical Cotton Trench",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "1998 Bias-Cut Silk Evening Slip",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Navy double-breasted pinstripe wool jacket on a linen dress form in an archive gallery",
+          "currentSrc": "https://sartorial-archive.myshopify.com/cdn/shop/files/1990-pinstripe-double-breasted-jacket-01.jpg?v=1790822817&width=960",
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "pageErrors": []
+}
