@@ -19,8 +19,9 @@ export const STORES = {
   },
 };
 
-// Storefront password comes from the directive; overridable, never a secret token.
-export const STORE_PASSWORD = process.env.STOREFRONT_PASSWORD || ***ROTATED_STOREFRONT_CREDENTIAL***;
+// La contraseña del storefront llega SIEMPRE por entorno: nunca se versiona en el repositorio.
+export const STORE_PASSWORD = process.env.STOREFRONT_PASSWORD;
+if (!STORE_PASSWORD) throw new Error('STOREFRONT_PASSWORD no está definida: expórtala antes de ejecutar este arnés.');
 
 // Las cookies de sesión del storefront se guardan FUERA del repositorio (nunca en git):
 // reutilizarlas evita un login por contexto, que dispara el limitador de intentos de Shopify.

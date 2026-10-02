@@ -31,6 +31,10 @@
   --page-gutter-mobile: 16px;
   --page-gutter-desktop: 32px;
   --container-max-width: 1440px;
+  /* LEAD-001. Ancho de contenido unico: la misma formula que .container, gobernada por los
+     ajustes Ancho de pagina y Margen de pagina. Las secciones editoriales usaban 1440px con
+     32px (16px en movil) y su borde izquierdo no coincidia con el del header ni el footer. */
+  --content-width: min(100% - (var(--page-gutter) * 2), var(--page-width));
   --section-spacing: 72px;
   --button-radius: 0;
   --radius-input: 0px;
@@ -59,6 +63,25 @@
      90ms entre hermanos hace legible la secuencia de una rejilla al hacer scroll. */
   --reveal-shift: 24px;
   --reveal-stagger: 90ms;
+  /* Modo Full (motor CSS scroll-driven nativo, bloque B8). El movimiento lee estos tokens
+     en vez de fijar sus propios valores: mas recorrido y mas tiempo para que la entrada se
+     lea como gesto editorial, con la misma curva expo-out del resto del tema. */
+  --motion-expressive: 1200ms;
+  --reveal-shift-expressive: 64px;
+  --reveal-stagger-expressive: 100ms;
+  --parallax-shift: 16%;
+  /* Modo Full (MOTION-002): coreografia scroll-driven, bloque B8. Las distancias en vh son
+     scroll recorrido. theme.js lee --scroll-enter-inset (%), --scroll-reveal-distance (vh) y
+     --scroll-reveal-stagger (vh) para colocar sus lineas de observacion: unidades fijas. */
+  --scroll-enter-inset: 6%;
+  --scroll-reveal-distance: 32vh;
+  --scroll-reveal-stagger: 4vh;
+  --scroll-line-stagger: 5vh;
+  --scroll-unveil-distance: 40vh;
+  --scroll-unveil-settle: 52vh;
+  --unveil-scale: 1.18;
+  --parallax-scale: 1.06;
+  --marquee-drift: 16vw;
   --space-3xs: 2px;
   --space-2xs: 4px;
   --space-xs: 8px;
@@ -2889,9 +2912,9 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .hero-editorial__inner {
   display: grid;
-  width: min(100%, var(--container-max-width));
+  width: var(--content-width);
   margin-inline: auto;
-  padding: var(--space-xl) var(--page-gutter-mobile);
+  padding: var(--space-xl) 0;
   grid-template-areas: 'content' 'media';
   gap: var(--space-lg);
 }
@@ -3077,7 +3100,7 @@ curated-showcase {
 }
 
 .curated-showcase__inner {
-  width: min(100% - (var(--page-gutter-mobile) * 2), var(--container-max-width));
+  width: var(--content-width);
   margin-inline: auto;
 }
 
@@ -3306,7 +3329,7 @@ curated-showcase {
 
 .brand-manifesto__inner {
   display: grid;
-  width: min(100% - (var(--page-gutter-mobile) * 2), var(--container-max-width));
+  width: var(--content-width);
   margin-inline: auto;
   gap: var(--space-2xl);
 }
@@ -3448,7 +3471,7 @@ curated-showcase {
 }
 
 .bento-discovery__inner {
-  width: min(100% - (var(--page-gutter-mobile) * 2), var(--container-max-width));
+  width: var(--content-width);
   margin-inline: auto;
 }
 
@@ -3715,7 +3738,11 @@ marquee-banner {
 .marquee-banner:hover .marquee-banner__track,
 .marquee-banner:focus-within .marquee-banner__track,
 .marquee-banner[data-paused] .marquee-banner__track {
-  animation-play-state: paused;
+  /* Dos valores para las dos animaciones que el modo full monta sobre el track (B8.2e): se
+     detiene la banda y el desplazamiento ligado al scroll sigue. Pausar el segundo lo
+     congelaria en el punto de scroll de la pausa y al reanudar saltaria de golpe al valor
+     que le toca. Donde solo hay una animacion el segundo valor sobra sin efecto. */
+  animation-play-state: paused, running;
 }
 
 .marquee-banner__toggle:hover,
@@ -3741,7 +3768,7 @@ marquee-banner {
 
 @media (min-width: 62rem) {
   .hero-editorial--split .hero-editorial__inner {
-    padding: var(--page-gutter-desktop);
+    padding: var(--page-gutter-desktop) 0;
     grid-template-columns: minmax(0, 3fr) minmax(24rem, 2fr);
     grid-template-areas: 'media content';
     gap: var(--space-lg) var(--space-3xl);
@@ -3795,7 +3822,7 @@ marquee-banner {
 
   /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
      columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
-     Los heroes alineados a la izquierda (Sartorial, Couture, Edition) no cambian. */
+     Los heroes alineados a la izquierda (Sartorial, Couture, Imprint) no cambian. */
   .hero-editorial--align-center .hero-editorial__heading {
     font-size: min(calc(4.5rem * var(--font-heading-scale)), 6.2vw);
   }
@@ -3813,7 +3840,7 @@ marquee-banner {
   .curated-showcase__inner,
   .brand-manifesto__inner,
   .bento-discovery__inner {
-    width: min(100% - (var(--page-gutter-desktop) * 2), var(--container-max-width));
+    width: var(--content-width);
   }
 
   .curated-showcase__header {
@@ -3953,8 +3980,11 @@ marquee-banner {
     transform: translateX(0);
   }
 
+  /* Un grupo exacto, sean los que sean los que monte el Liquid: el ciclo cierra justo sobre
+     la copia siguiente y la banda no da un salto. El fallback 2 permite que esta hoja y el
+     Liquid se despliegen en cualquier orden, sin un ciclo roto en el intervalo. */
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-100% / var(--marquee-groups, 2)));
   }
 }
 
@@ -4160,7 +4190,7 @@ complete-the-look {
 
 .lookbook__inner,
 .complete-the-look__inner {
-  width: min(100% - (var(--page-gutter-mobile) * 2), var(--container-max-width));
+  width: var(--content-width);
   margin-inline: auto;
 }
 
@@ -4793,7 +4823,7 @@ complete-the-look {
 
   .lookbook__inner,
   .complete-the-look__inner {
-    width: min(100% - (var(--page-gutter-desktop) * 2), var(--container-max-width));
+    width: var(--content-width);
   }
 
   .lookbook__heading,
@@ -4980,13 +5010,16 @@ product-recommendations:not([hidden]):empty {
   flex-wrap: wrap;
   align-items: baseline;
   gap: var(--space-xs);
+  min-height: 1.5rem;
   margin-block: var(--space-xs) 0;
   color: var(--color-foreground-muted);
   font-size: 0.875rem;
 }
 
+/* LEAD-001. El hueco se reserva siempre: con display: none, el total aparecia al pasar de 1 a 2
+   y empujaba ~31px hacia abajo el boton de compra justo cuando el comprador iba a pulsarlo. */
 .product-form__line-total[data-empty] {
-  display: none;
+  visibility: hidden;
 }
 
 .product-form__line-total [data-line-total-compare] {
@@ -5475,6 +5508,12 @@ copy-text {
 .main-contact__layout {
   display: grid;
   gap: var(--space-3xl);
+}
+
+/* LEAD-001. Los h2 de las columnas (formulario y FAQ) heredaban la escala de portada y
+   quedaban mas grandes que el h1 de la pagina. Son subtitulos de bloque: escala de seccion. */
+.main-contact__layout h2 {
+  font-size: calc(clamp(1.5rem, 2.5vw, 2rem) * var(--font-heading-scale));
 }
 
 .contact-form,
@@ -6400,6 +6439,12 @@ copy-text {
 .mobile-nav__localization {
   padding: var(--space-md) var(--page-gutter);
   border-block-start: 1px solid var(--color-border-hairline);
+}
+
+/* LEAD-001. Sin idiomas ni monedas que elegir, el snippet no pinta nada y quedaba solo la
+   linea divisoria flotando al pie del cajon. */
+.mobile-nav__localization:not(:has(*)) {
+  display: none;
 }
 
 .localization-form--header {
@@ -7523,6 +7568,68 @@ copy-text {
   margin-block-start: var(--space-xs);
 }
 
+/* LEAD-001. Politicas que genera Shopify en /policies/* (reembolso, envio, privacidad,
+   terminos, contacto). No pasan por main-policy.liquid: su marcado es fijo
+   (.shopify-policy__container > __title > h1 + __body > .rte) y Shopify inyecta despues de
+   base.css su propio CSS (65ch, titulo centrado). Sin esto heredaban el h1 de portada (7rem,
+   partido a mitad de palabra) sin aire arriba ni abajo. .site-main sube la especificidad
+   para ganar a ese CSS inyectado; medida, escala y ritmo son los de las paginas legales del
+   tema (.main-policy__*). */
+.site-main .shopify-policy__container {
+  width: min(100% - (var(--page-gutter) * 2), 46rem);
+  max-width: none;
+  margin-inline: auto;
+  padding: var(--space-3xl) 0 var(--space-4xl);
+}
+
+.site-main .shopify-policy__title {
+  margin-block-end: var(--space-2xl);
+  padding-block-end: var(--space-lg);
+  border-block-end: var(--border-width) solid var(--color-border-hairline);
+  text-align: start;
+}
+
+.site-main .shopify-policy__title h1 {
+  font-size: calc(clamp(2.25rem, 5vw, 3.5rem) * var(--font-heading-scale));
+  overflow-wrap: normal;
+  hyphens: manual;
+}
+
+.site-main .shopify-policy__body {
+  max-width: 70ch;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.site-main .shopify-policy__body .rte > * + * {
+  margin-block-start: var(--space-lg);
+}
+
+.site-main .shopify-policy__body h2 {
+  margin-block-start: var(--space-2xl);
+  font-size: calc(clamp(1.375rem, 2.5vw, 1.75rem) * var(--font-heading-scale));
+}
+
+.site-main .shopify-policy__body h3 {
+  margin-block-start: var(--space-xl);
+  font-size: 1.1875rem;
+}
+
+.site-main .shopify-policy__body h2 + *,
+.site-main .shopify-policy__body h3 + * {
+  margin-block-start: var(--space-sm);
+}
+
+.site-main .shopify-policy__body li + li {
+  margin-block-start: var(--space-xs);
+}
+
+@media (max-width: 47.99rem) {
+  .site-main .shopify-policy__container {
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+}
+
 @media (min-width: 62rem) {
   .main-documentation__layout,
   .main-policy__layout {
@@ -8597,6 +8704,299 @@ html[data-animations='full'] cart-drawer[data-open] .cart-drawer-item {
   }
 }
 
+/* =========================================================================
+   B8 (MOTION-002). Coreografia scroll-driven nativa, en sustitucion del motor GSAP.
+   La progresion ya no la calcula JavaScript cuadro a cuadro: la calcula el compositor
+   contra la posicion del elemento dentro de su scroller, asi que el movimiento sigue al
+   dedo y no a un reloj. theme.js solo marca los objetivos y publica --reveal-index.
+
+   Posicion en la cascada (invariante, ver la cabecera del sistema de movimiento): B8 va
+   DESPUES de B2 y ANTES de las dos llaves de apagado. Lo primero deja que el modo full
+   sobre-escriba el estado oculto; lo segundo deja que las llaves lo apaguen todo.
+   ========================================================================= */
+
+/* B8.0. Comun a los dos motores. Si un elemento pendiente recibe el foco por teclado se
+   asienta de golpe: el visitante ya esta en el, y cruzar 1200ms de fundido con el anillo
+   de foco dentro se lee como un fallo de pintado y no como una entrada. Especificidad
+   (0,5,1): gana a B2 y a B8.1 sea cual sea el orden en que acaben en el archivo. */
+html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-within {
+  transition: none;
+}
+
+/* B8.1. Respaldo donde no hay timelines de scroll. El modo full no se queda en la entrada
+   de base: reusa el estado oculto y la transicion de B2 y solo les sube distancia,
+   duracion y escalonado a los tokens expresivos. Sin mascara tipografica: una mascara que
+   no progresa con el scroll no tendria nada que animar. */
+@supports not (animation-timeline: view()) {
+  html[data-animations='full'][data-reveal-ready] [data-reveal]:not([data-revealed]) {
+    transform: translateY(var(--reveal-shift-expressive));
+  }
+
+  html[data-animations='full'][data-reveal-ready] [data-reveal][data-revealed] {
+    transition-duration: var(--motion-expressive);
+    transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger-expressive));
+  }
+}
+
+/* B8.2. El motor. Dos pruebas y no una: hubo versiones que aceptaban view() pero no la
+   sintaxis de dos valores de animation-range, y ahi los rangos se quedaban sin resolver y
+   la coreografia entera no arrancaba. La consulta de movimiento reducido envuelve el
+   bloque en vez de confiar solo en la llave 2: asi los timelines ni se crean. */
+@supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* a) Bloques. Cada objetivo mide contra si mismo y entra mientras cruza su rango de
+       entrada, de modo que la animacion es scroll y no tiempo. El escalonado tambien pasa a
+       ser recorrido: --reveal-index (0..7, el tope lo fija theme.js) corre el inicio y el
+       final la MISMA distancia, asi todos recorren lo mismo y el hermano siguiente arranca
+       mas abajo. La transicion de B2 se retira aqui: dos origenes gobernando opacity y
+       transform a la vez dan un resultado que depende del orden de pintado. */
+    html[data-animations='full'][data-reveal-ready] [data-reveal=''] {
+      view-timeline-name: --reveal;
+      view-timeline-inset: 0 var(--scroll-enter-inset);
+      animation: scroll-rise auto var(--ease-enter) both;
+      animation-timeline: --reveal;
+      animation-range-start: entry calc(var(--reveal-index, 0) * var(--scroll-reveal-stagger));
+      animation-range-end: entry calc(var(--scroll-reveal-distance) + var(--reveal-index, 0) * var(--scroll-reveal-stagger));
+      transition: none;
+    }
+
+    /* b) Tipografia con mascara. En los siete encabezados editoriales el contenedor solo
+       funde y son sus lineas las que suben, recortadas por el borde del contenedor: el gesto
+       de una portada de moda. El clip-path es FIJO, nunca animado, porque animarlo cuesta un
+       repintado por cuadro. La holgura lateral de 1rem deja salir las italicas y el anillo de
+       foco, que recortados serian un fallo de WCAG 2.4.13.
+
+       El borde superior queda ABIERTO (-100%) y solo se recorta el inferior (0): las lineas
+       suben desde abajo, asi que el borde de abajo es el unico que el gesto necesita. No se
+       vuelva a inset(0 -1rem): .brand-manifesto__quote-mark es absoluto y cuelga 1.5rem por
+       encima de su blockquote, y en escritorio sin eyebrow su borde superior coincide
+       EXACTAMENTE con el del contenedor (padding-block-start: var(--space-lg) = 1.5rem,
+       medido 0 px de margen). Cualquier ajuste de --space-lg o de esa cota lo decapitaba
+       durante toda la entrada. */
+    html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+      .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+      .brand-manifesto__statement, .main-about__quote)[data-reveal=''] {
+      clip-path: inset(-100% -1rem 0);
+      animation-name: scroll-fade;
+      animation-range-start: entry 0;
+      animation-range-end: entry var(--scroll-reveal-distance);
+    }
+
+    /* Las lineas consumen el timeline --reveal del PADRE, que ya lo declara la regla a).
+       Dos ramas porque el marcado varia: unos encabezados envuelven sus lineas en .flow o en
+       un div de rejilla y otros las cuelgan directamente del contenedor. */
+    html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+      .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+      .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :not(.flow, div),
+    html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+      .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+      .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :is(.flow, div) > * {
+      animation: scroll-line-rise auto var(--ease-enter) both;
+      animation-timeline: --reveal;
+      animation-range-start: entry 0;
+      animation-range-end: entry var(--scroll-reveal-distance);
+    }
+
+    /* Escalonado por linea: tambien recorrido, no tiempo. El final se desplaza lo mismo que
+       el inicio, asi las tres lineas recorren identica distancia y la ultima no se comprime.
+       A partir de la tercera todas comparten el segundo escalon: un encabezado con cinco
+       lineas no debe acabar de entrar medio pliegue despues que la primera. */
+    html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+      .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+      .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :not(.flow, div):nth-child(2),
+    html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+      .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+      .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :is(.flow, div) > :nth-child(2) {
+      animation-range-start: entry var(--scroll-line-stagger);
+      animation-range-end: entry calc(var(--scroll-reveal-distance) + var(--scroll-line-stagger));
+    }
+
+    html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+      .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+      .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :not(.flow, div):nth-child(n+3),
+    html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+      .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+      .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :is(.flow, div) > :nth-child(n+3) {
+      animation-range-start: entry calc(2 * var(--scroll-line-stagger));
+      animation-range-end: entry calc(var(--scroll-reveal-distance) + 2 * var(--scroll-line-stagger));
+    }
+
+    /* .curated-showcase__tabs es un carril con overflow-x: auto, y la regla que prohibe
+       desbordar un solo eje lo deja con overflow-y: auto tambien. Mover sus botones 64px
+       convierte el carril en scrollable mientras dura la entrada: scrollHeight pasa de 52 a
+       116 px, asoma una barra vertical y los botones se van fuera del recorte. Es el unico
+       objetivo de linea que vive dentro de un contenedor de scroll. El carril no es
+       tipografia sino un control: entra fundiendose con su encabezado y no se mueve.
+       [role='tablist'] sube la especificidad a (0,6,1) y gana a la regla de lineas sin
+       depender del orden en el archivo. */
+    html[data-animations='full'][data-reveal-ready] .curated-showcase__header[data-reveal='']
+      > .curated-showcase__tabs[role='tablist'] > * {
+      animation-name: none;
+    }
+
+    /* c) Unveil. Las cuatro masas fotograficas no suben: se descubren de abajo arriba.
+       Especificidad (0,4,1) frente a (0,3,1) del generico, asi que basta sobre-escribir el
+       nombre y el rango y se heredan duracion, curva y fill-mode de la regla a). El recorte
+       lo contiene el overflow: hidden que ya tenian las cuatro. */
+    html[data-animations='full'][data-reveal-ready] :is(.brand-manifesto__media, .complete-the-look__media,
+      .lookbook__media, .main-about__gallery-item)[data-reveal=''] {
+      animation-name: scroll-unveil;
+      animation-range-start: entry 0;
+      animation-range-end: entry var(--scroll-unveil-distance);
+    }
+
+    /* La foto se asienta mientras el recorte la descubre: dos escalas que terminan juntas.
+       .lookbook__media queda FUERA a proposito, porque lleva los hotspots encima en
+       coordenadas porcentuales y escalar el fondo los dejaria senalando al sitio equivocado
+       durante toda la entrada. svg cubre el placeholder_svg_tag del estado "falta el asset".
+       El rango se mide sobre el timeline --reveal del CONTENEDOR y no sobre un view() propio:
+       el contenedor tiene overflow: hidden, asi que un view() del hijo mediria contra ese
+       recorte y nunca contra el scroller de la pagina. */
+    html[data-animations='full'][data-reveal-ready] :is(.brand-manifesto__media, .complete-the-look__media,
+      .main-about__gallery-item)[data-reveal=''] :is(img, svg, video) {
+      animation: scroll-unveil-settle auto var(--ease-enter) both;
+      animation-timeline: --reveal;
+      animation-range-start: entry 0;
+      animation-range-end: entry var(--scroll-unveil-settle);
+    }
+
+    /* d) Hero. El unico movimiento ligado al scroll que vive sobre el pliegue. Lineal a
+       proposito: un parallax es scroll, y meterle una curva de entrada lo desacopla del dedo.
+       Sin opacidad en ningun fotograma: ese medio es el LCP y no se oculta ni un cuadro.
+
+       El rango arranca en exit 0% y NO restando --header-offset: la cabecera pegada ya esta
+       descontada, porque el timeline no mide contra el viewport sino contra la region optima
+       de visionado, y html lleva scroll-padding-block-start: var(--header-offset). Restarla
+       otra vez adelanta el inicio por debajo del scroll 0 y el progreso nace en 0,124 con una
+       cabecera de 77 px: 9,7 px de --color-surface asomando por el borde superior del medio
+       antes de que nadie toque la rueda, y justo en el elemento LCP. Con exit 0% el progreso
+       nace en 0 y avanza ya en el primer pixel de scroll, que es lo que se buscaba. */
+    html[data-animations='full'] .hero-editorial__media {
+      view-timeline-name: --hero-media;
+    }
+
+    html[data-animations='full'] .hero-editorial__media :is(.hero-editorial__image, .hero-editorial__video) {
+      animation: hero-parallax auto linear both;
+      animation-timeline: --hero-media;
+      animation-range-start: exit 0%;
+      animation-range-end: exit 100%;
+    }
+
+    /* e) Banda editorial. Dos animaciones sobre el mismo track y compuestas, no una que
+       sustituya a la otra: el bucle infinito sigue siendo tiempo (es un desfile, no un
+       indicador de progreso) y encima se le suma un desplazamiento ligado al scroll que da
+       profundidad al cruzar la seccion. animation-composition: add en la segunda hace que
+       los dos translateX se sumen en vez de ganar el ultimo declarado.
+
+       El timeline se declara en el __viewport y NO en el __track: el track vive dentro del
+       overflow: hidden del viewport, asi que un view() suyo mediria contra ese recorte.
+
+       var(--marquee-duration, 32s) es el MISMO token y el mismo fallback que usa la regla
+       base de .marquee-banner__track, no un numero duplicado: animation-duration necesita un
+       valor por animacion de la lista y aqui solo se repite la referencia. */
+    html[data-animations='full'] .marquee-banner__viewport {
+      view-timeline-name: --marquee;
+    }
+
+    html[data-animations='full'] .marquee-banner__track {
+      animation-name: editorial-marquee, marquee-drift;
+      animation-duration: var(--marquee-duration, 32s), auto;
+      animation-timing-function: linear, linear;
+      animation-iteration-count: infinite, 1;
+      animation-fill-mode: none, both;
+      animation-composition: replace, add;
+      animation-timeline: auto, --marquee;
+      animation-range: normal, cover 0% cover 100%;
+    }
+  }
+}
+
+/* B8.3. Los fotogramas del motor. Ninguno lleva duracion propia: la pone animation-range.
+
+   scroll-fade y scroll-unveil declaran opacity y transform aunque no los cambien, y eso es
+   DELIBERADO: no son relleno, no se limpien. Una propiedad solo queda gobernada por el
+   origen "animacion" si aparece en los fotogramas. Sin esas declaraciones, un contenedor
+   que entra por scroll-unveil seguiria cogiendo el opacity: 0 y el translateY del estado
+   oculto de B2 y se quedaria invisible hasta que el JS lo marcara: exactamente el parpadeo
+   que este motor viene a quitar. */
+@keyframes scroll-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-shift-expressive));
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scroll-fade {
+  from {
+    opacity: 0;
+    transform: none;
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scroll-line-rise {
+  from {
+    transform: translateY(var(--reveal-shift-expressive));
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes scroll-unveil {
+  from {
+    clip-path: inset(100% 0 0 0);
+    opacity: 1;
+    transform: none;
+  }
+
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scroll-unveil-settle {
+  from {
+    transform: scale(var(--unveil-scale));
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes hero-parallax {
+  from {
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    transform: translateY(var(--parallax-shift)) scale(var(--parallax-scale));
+  }
+}
+
+@keyframes marquee-drift {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-1 * var(--marquee-drift)));
+  }
+}
+
 /* ---------- Llave 1: el comerciante apaga el movimiento ---------- */
 html[data-animations='none'] *,
 html[data-animations='none'] *::before,
@@ -8611,6 +9011,9 @@ html[data-animations='none'] *::after {
 html[data-animations='none'] [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
+  /* MOTION-002: la mascara tipografica de B8.2b recorta por el borde del contenedor. Sin
+     anularla aqui, apagar el movimiento dejaria las lineas recortadas en su sitio inicial. */
+  clip-path: none !important;
 }
 
 /* ---------- Llave 2: el visitante pidio reducir movimiento. Gana siempre ---------- */
@@ -8628,10 +9031,25 @@ html[data-animations='none'] [data-reveal] {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+    /* MOTION-002: ver la nota de la llave 1. La mascara tambien se anula aqui. */
+    clip-path: none !important;
   }
 
   @view-transition {
     navigation: none;
+  }
+}
+
+/* ---------- Llave 3: papel. No hay scroll que recorrer ---------- */
+/* MOTION-002. Las dos llaves de arriba no cubren este caso: el motor es scroll, y al
+   imprimir no hay scroll que recorrer, asi que todo lo pendiente de revelar se queda en
+   progreso 0 y hoy sale en blanco. Esto lo asienta en papel sin tocar la pantalla. */
+@media print {
+  html[data-reveal-ready] [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
   }
 }
 
@@ -8898,6 +9316,20 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     min-height: var(--tap-target-min, 44px);
     align-content: start;
     gap: var(--space-1);
+  }
+
+  /* Sin foto la tarjeta se queda en dos lineas sueltas pegadas al borde y el panel se lee
+     como texto plano. Mismo recurso que .bento-card--editorial-text: la variante reclama la
+     caja que ocupaba el medio y la convierte en una placa tipografica centrada. La cota es
+     el mismo 15rem de la columna (placa cuadrada, proporcion deliberada) y el fondo es el
+     mismo --color-surface que ya usa el hueco de la foto, asi que una fila mixta se lee como
+     pareja. Sin bordes, iconos ni degradados: solo tipografia y aire. */
+  .mega-menu__promo-card--editorial-text {
+    height: 100%;
+    min-height: 15rem;
+    padding: var(--space-4);
+    align-content: center;
+    background: var(--color-surface);
   }
 
   /* Retrato 4:5 fijo: la foto ocupa su hueco antes de llegar y no mueve el texto. */

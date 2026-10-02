@@ -1,0 +1,1141 @@
+{
+  "store": "atelier",
+  "checks": [
+    {
+      "stage": "home-full",
+      "url": "https://sartorial-atelier.myshopify.com/",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Atelier\n\nTHE EDIT / SARTORIA",
+        "id": "",
+        "outline": "rgb(29, 27, 24) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 7298.234375,
+          "top": 0,
+          "right": 1440,
+          "bottom": 7298.234375,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker4",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 38000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "first-tab",
+      "url": "https://sartorial-atelier.myshopify.com/",
+      "active": {
+        "tag": "A",
+        "role": null,
+        "name": "Skip to content",
+        "id": "",
+        "outline": "rgb(29, 27, 24) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "width": 136.328125,
+          "height": 53.59375,
+          "top": 16,
+          "right": 152.328125,
+          "bottom": 69.59375,
+          "left": 16
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker4",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 38000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "search-open",
+      "url": "https://sartorial-atelier.myshopify.com/",
+      "active": {
+        "tag": "INPUT",
+        "role": "combobox",
+        "name": "q",
+        "id": "PredictiveSearchInput-sections--27849548726496__header",
+        "outline": "rgb(29, 27, 24) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 738,
+          "y": 102.203125,
+          "width": 584.65625,
+          "height": 49.59375,
+          "top": 102.203125,
+          "right": 1322.65625,
+          "bottom": 151.796875,
+          "left": 738
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": true
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker4",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 38000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      },
+      "mainSnapshot": "- main:\n  - region \"Form in quiet movement\":\n    - img \"Form in quiet movement\"\n    - paragraph: THE EDIT / SARTORIAL 01\n    - heading \"Form in quiet movement\" [level=1]\n    - paragraph: Sculptural layers and tactile materials, made in small series.\n    - link \"Discover the collection\":\n      - /url: /collections/new-forms\n    - link \"Explore lookbook\":\n      - /url: /collections/permanent-collection\n  - region \"Editorial highlights\":\n    - text: NATURAL FIBRES / TRACEABLE ORIGIN MADE IN SMALL SERIES CUT AND FINISHED BY HAND DESIGNED TO GATHER CHARACTER\n    - button \"Pause editorial highlights\"\n  - region \"Selected forms for the season\":\n    - paragraph: CURATED EDIT / 02\n    - heading \"Selected forms for the season\" [level=2]\n    - tablist \"Choose a curated collection\":\n      - tab \"New forms\" [selected]\n      - tab \"Permanent collection\"\n      - tab \"Tailoring\"\n    - tabpanel \"New forms\":\n      - article:\n        - link \"Open Cashmere Rib Crew\":\n          - /url: /products/cashmere-rib-crew\n          - img \"Cashmere Rib Crew\"\n        - paragraph: Spotlight selection\n        - heading \"Cashmere Rib Crew\" [level=3]:\n          - link \"Cashmere Rib Crew\":\n            - /url: /products/cashmere-rib-crew\n        - text: Regular price $820.00\n      - article:\n        - link \"Fine Merino Turtleneck\":\n          - /url: /products/fine-merino-turtleneck\n          - img \"Fine Merino Turtleneck\"\n        - heading \"Fine Merino Turtleneck\" [level=3]:\n          - link \"Fine Merino Turtleneck\":\n            - /url: /products/fine-merino-turtleneck\n        - text: Regular price $380.00\n      - article:\n        - link \"Column Knit Dress\":\n          - /url: /products/column-knit-dress\n          - img \"Column Knit Dress\"\n        - heading \"Column Knit Dress\" [level=3]:\n          - link \"Column Knit Dress\":\n            - /url: /products/column-knit-dress\n        - text: Regular price $720.00\n      - link \"View all New forms\":\n        - /url: /collections/new-forms\n  - region \"Objects in quiet conversation\":\n    - paragraph: CAMPAIGN STUDY / LOOK 01\n    - heading \"Objects in quiet conversation\" [level=2]\n    - paragraph: Move through the composition and discover each piece.\n    - img \"Objects in quiet conversation\"\n    - button \"1. Open details for Nove Blazer\"\n    - button \"2. Open details for Pleated Wide Trouser\"\n    - button \"3. Open details for Silk Charmeuse Blouse\"\n    - button \"4. Open details for Cashmere Scarf\"\n    - paragraph: A study in proportion, texture and daily movement.\n  - region \"Serra Coat\":\n    - region \"Product media gallery\":\n      - figure:\n        - img \"Serra Coat\"\n    - heading \"Serra Coat\" [level=2]\n    - text: Regular price $1,890.00\n    - 'radiogroup \"Size: 36\"':\n      - text: \"Size: 36\"\n      - radio \"36\" [checked]\n      - text: \"36\"\n      - radio \"38\"\n      - text: \"38\"\n      - radio \"40\"\n      - text: \"40\"\n      - radio \"42\"\n      - text: \"42\"\n    - text: Quantity\n    - button \"Decrease quantity for Serra Coat\" [disabled]\n    - spinbutton \"Quantity\": \"1\"\n    - button \"Increase quantity for Serra Coat\"\n    - button \"Add to cart\"\n    - button \"Buy it now\"\n    - status: In stock, ready to ship\n    - paragraph: Complimentary express courier | Dispatched within 24 hours\n    - paragraph: Double-faced wool and cashmere, woven in Biella and tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n    - paragraph\n  - region \"Complete the look\":\n    - paragraph: SHOPPABLE CAPSULE / LOOK 03\n    - heading \"Complete the look\" [level=2]\n    - paragraph: Choose each piece, select its size and add the full composition at once.\n    - img \"Complete the look\"\n    - paragraph: Soft architecture photographed in natural atelier light.\n    - list:\n      - listitem:\n        - checkbox \"Select Nove Blazer\" [checked]\n        - text: Select Nove Blazer\n        - heading \"Nove Blazer\" [level=3]:\n          - link \"Nove Blazer\":\n            - /url: /products/nove-blazer\n        - text: Choose an option for Nove Blazer\n        - combobox \"Choose an option for Nove Blazer\":\n          - option \"34\" [selected]\n          - option \"36\"\n          - option \"38\"\n          - option \"40\"\n          - option \"42\"\n        - text: Regular price $1,150.00\n      - listitem:\n        - checkbox \"Select Silk Charmeuse Blouse\" [checked]\n        - text: Select Silk Charmeuse Blouse\n        - heading \"Silk Charmeuse Blouse\" [level=3]:\n          - link \"Silk Charmeuse Blouse\":\n            - /url: /products/silk-charmeuse-blouse\n        - text: Choose an option for Silk Charmeuse Blouse\n        - combobox \"Choose an option for Silk Charmeuse Blouse\":\n          - option \"34\" [selected]\n          - option \"36\"\n          - option \"38\"\n          - option \"40\"\n          - option \"42\"\n        - text: Regular price $520.00\n      - listitem:\n        - checkbox \"Select Pleated Wide Trouser\" [checked]\n        - text: Select Pleated Wide Trouser\n        - heading \"Pleated Wide Trouser\" [level=3]:\n          - link \"Pleated Wide Trouser\":\n            - /url: /products/pleated-wide-trouser\n        - text: Choose an option for Pleated Wide Trouser\n        - combobox \"Choose an option for Pleated Wide Trouser\":\n          - option \"34\" [selected]\n          - option \"36\"\n          - option \"38\"\n          - option \"40\"\n          - option \"42\"\n        - text: Regular price $580.00\n    - paragraph: Capsule total\n    - paragraph: 3 of 3 items selected\n    - strong: $2,250.00\n    - button \"Add 3 pieces to bag | $2,250.00\"\n  - region \"Our craft and materials\":\n    - paragraph: THE HAND AND THE MATERIAL / 03\n    - blockquote:\n      - heading \"Objects gain meaning through the hands that make them.\" [level=2]\n    - paragraph: Every edge and finish records a decision made by an artisan.\n    - link \"Explore tailoring\":\n      - /url: /collections/tailoring\n    - img \"Close-up study of a material\"\n    - paragraph: MACRO STUDY / MATERIAL 07\n    - term: Materials\n    - definition: Traceable natural fibres from Biella & Como\n    - term: Origin\n    - definition: Handcrafted in Northern Italy\n    - term: Finish\n    - definition: Hand-rolled lapels and pick-stitching\n    - term: Series\n    - definition: Numbered editions of 25 pieces\n  - region \"Notes from the atelier\":\n    - paragraph: PRIVATE CORRESPONDENCE\n    - heading \"Notes from the atelier\" [level=2]\n    - paragraph: New objects, material studies and private previews, sent with restraint.\n    - text: Email address\n    - textbox \"Email address\":\n      - /placeholder: name@example.com\n    - button \"Subscribe\""
+    },
+    {
+      "stage": "search-escape",
+      "url": "https://sartorial-atelier.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Search",
+        "id": "",
+        "outline": "rgb(29, 27, 24) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 1238,
+          "y": 61,
+          "width": 44,
+          "height": 44,
+          "top": 61,
+          "right": 1282,
+          "bottom": 105,
+          "left": 1238
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker4",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 38000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "pdp-full",
+      "url": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Atelier\n\nSARTORIAL ATELIER\n\n",
+        "id": "",
+        "outline": "rgb(29, 27, 24) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1936.671875,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1936.671875,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "pdp-main",
+      "mainSnapshot": "- main:\n  - region \"Product media gallery\":\n    - figure:\n      - img \"Serra Coat\"\n      - button \"Zoom image 1 of 1\"\n  - paragraph: Sartorial Atelier\n  - heading \"Serra Coat\" [level=1]\n  - text: Regular price $1,890.00\n  - 'radiogroup \"Size: 36\"':\n    - text: \"Size: 36\"\n    - radio \"36\" [checked]\n    - text: \"36\"\n    - radio \"38\"\n    - text: \"38\"\n    - radio \"40\"\n    - text: \"40\"\n    - radio \"42\"\n    - text: \"42\"\n  - text: Quantity\n  - button \"Decrease quantity for Serra Coat\" [disabled]\n  - spinbutton \"Quantity\": \"1\"\n  - button \"Increase quantity for Serra Coat\"\n  - status: In stock, ready to ship\n  - button \"Add to cart\"\n  - button \"Buy it now\"\n  - paragraph: Delivery times and costs confirmed at checkout\n  - paragraph: Returns subject to our store policy\n  - paragraph: Double-faced wool and cashmere, woven in Biella and tailored without lining for an effortless drape from the shoulder. Raglan sleeves and an unpleated waist let the volume shape itself in motion. Double-breasted closure with matching self-belt.\n  - group: Composition & care\n  - group: Shipping & complimentary returns\n  - paragraph"
+    },
+    {
+      "stage": "cart-full",
+      "url": "https://sartorial-atelier.myshopify.com/cart",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Atelier\nYour cart\n\nYour cart",
+        "id": "",
+        "outline": "rgb(29, 27, 24) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1177.15625,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1177.15625,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "cart-main",
+      "mainSnapshot": "- main:\n  - heading \"Your cart\" [level=1]\n  - paragraph: Your cart is currently empty.\n  - link \"Continue shopping\":\n    - /url: /collections/all"
+    },
+    {
+      "stage": "menu-mobile-open",
+      "url": "https://sartorial-atelier.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Close",
+        "id": "",
+        "outline": "rgb(29, 27, 24) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 286,
+          "y": 15.5,
+          "width": 44,
+          "height": 44,
+          "top": 15.5,
+          "right": 330,
+          "bottom": 59.5,
+          "left": 286
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": true
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker4",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 38000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "menu-mobile-tab-walk",
+      "focusWalk": [
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Contact",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 184.75,
+            "width": 310,
+            "height": 46.375,
+            "top": 184.75,
+            "right": 330,
+            "bottom": 231.125,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Close",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 286,
+            "y": 15.5,
+            "width": 44,
+            "height": 44,
+            "top": 15.5,
+            "right": 330,
+            "bottom": 59.5,
+            "left": 286
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Contact",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 184.75,
+            "width": 310,
+            "height": 46.375,
+            "top": 184.75,
+            "right": 330,
+            "bottom": 231.125,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Close",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 286,
+            "y": 15.5,
+            "width": 44,
+            "height": 44,
+            "top": 15.5,
+            "right": 330,
+            "bottom": 59.5,
+            "left": 286
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(29, 27, 24) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        }
+      ]
+    },
+    {
+      "stage": "menu-mobile-escape",
+      "url": "https://sartorial-atelier.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Menu",
+        "id": "",
+        "outline": "rgb(29, 27, 24) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 20,
+          "y": 61,
+          "width": 44,
+          "height": 44,
+          "top": 61,
+          "right": 64,
+          "bottom": 105,
+          "left": 20
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker4",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 38000
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          },
+          {
+            "state": "running",
+            "duration": 2400
+          }
+        ]
+      }
+    },
+    {
+      "stage": "home-reduced-motion",
+      "url": "https://sartorial-atelier.myshopify.com/",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nMenu\nSartorial Atelier\n\nTHE EDIT / SARTORIAL 01\n\nForm in qu",
+        "id": "",
+        "outline": "rgb(29, 27, 24) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 8466.328125,
+          "top": 0,
+          "right": 390,
+          "bottom": 8466.328125,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker1",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker2",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker3",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "LookbookPopoverTitle-template--27849548824800__lookbook-marker4",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "reduce",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}",
+          "reducedMotion": "true"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 0.01
+          }
+        ]
+      }
+    },
+    {
+      "stage": "image-alt",
+      "images": [
+        {
+          "alt": "Form in quiet movement",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/atelier-hero.jpg?v=1790727306&width=1200",
+          "loaded": true
+        },
+        {
+          "alt": "Cashmere Rib Crew",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/cashmere-rib-crew-01_9e01bccd-4dac-4ab8-be66-84447197c7ae.jpg?v=1790793979&width=750",
+          "loaded": true
+        },
+        {
+          "alt": "Fine Merino Turtleneck",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/fine-merino-turtleneck-01_aa3b58f5-cf51-4ec7-860e-1a390224c5e5.jpg?v=1790793970&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Column Knit Dress",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/column-knit-dress-01.jpg?v=1790793974&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Nove Blazer",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/nove-blazer-01.jpg?v=1790793967&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Wrap Wool Skirt",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/wrap-wool-skirt-01_18ac665f-8eda-4411-a19a-ec34526b4d48.jpg?v=1790793988&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Silk Charmeuse Blouse",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-01.jpg?v=1790793984&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Nove Blazer",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/nove-blazer-01.jpg?v=1790793967&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Cigarette Trouser",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Cropped Tailored Jacket",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Objects in quiet conversation",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Nove Blazer",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Pleated Wide Trouser",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Silk Charmeuse Blouse",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Cashmere Scarf",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Serra Coat",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/serra-coat-01_807c666c-9957-4669-9bd9-8a05bd5703c7.jpg?v=1790793959&width=960",
+          "loaded": true
+        },
+        {
+          "alt": "Complete the look",
+          "currentSrc": "https://sartorial-atelier.myshopify.com/cdn/shop/files/atelier-hero.jpg?v=1790727306&width=1200",
+          "loaded": true
+        },
+        {
+          "alt": "Nove Blazer",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Silk Charmeuse Blouse",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Pleated Wide Trouser",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Close-up study of a material",
+          "currentSrc": "",
+          "loaded": false
+        }
+      ]
+    }
+  ],
+  "pageErrors": []
+}

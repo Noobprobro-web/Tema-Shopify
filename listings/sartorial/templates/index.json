@@ -9,7 +9,7 @@
         "height_desktop": 80,
         "height_mobile": 70,
         "media_type": "image",
-        "image_desktop": "shopify://shop_images/atelier-hero.jpg",
+        "image_desktop": "",
         "overlay_style": "gradient_content",
         "overlay_opacity": 40,
         "content_position_x": "start",
@@ -71,7 +71,7 @@
         "heading": "Objects in quiet conversation",
         "description": "<p>Move through the composition and discover each piece.</p>",
         "caption": "A study in proportion, texture and daily movement.",
-        "image_desktop": "shopify://shop_images/atelier-lookbook.jpg",
+        "image_desktop": "",
         "color_scheme": "scheme-1"
       }
     },
@@ -85,7 +85,7 @@
         "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
         "description": { "type": "description" },
         "inventory": { "type": "inventory_status", "settings": { "threshold": 5, "show_count": true } },
-        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Complimentary express courier | Dispatched within 24 hours", "icon": "truck" } }
+        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Complimentary express courier | Dispatched within 2 business days", "icon": "truck" } }
       },
       "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
       "settings": {
@@ -109,7 +109,7 @@
         "heading": "Complete the look",
         "description": "<p>Choose each piece, select its size and add the full composition at once.</p>",
         "caption": "Soft architecture photographed in natural atelier light.",
-        "image_desktop": "shopify://shop_images/atelier-hero.jpg",
+        "image_desktop": "",
         "color_scheme": "scheme-1"
       }
     },
@@ -129,7 +129,7 @@
         "button_label": "Explore tailoring",
         "button_url": "/collections/tailoring",
         "media_label": "MACRO STUDY / MATERIAL 07",
-        "image": "shopify://shop_images/atelier-manifesto.jpg",
+        "image": "",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }

@@ -109,8 +109,8 @@ Los requisitos de las tiendas demo dicen: *"The powered_by_link link can't be al
 
 ### CR-04 (P2, higiene): cookies de sesión en la historia de git
 
-- `harness-AUDIT-360-001/storefront-cookies.txt` está en el commit d2827db: cookies `_shopify_essential`, `_shopify_analytics` y otras de la tienda.
-- Todavía no se ha subido: `origin/master` sigue en 2f42c4f.
+- `harness-AUDIT-360-001/storefront-cookies.txt` estaba en el commit d2827db: cookies `_shopify_essential`, `_shopify_analytics` y otras de la tienda. Ese commit ya no existe en el repositorio y el archivo salió del índice, pero el mismo juego de cookies viajó también en `harness-AUDIT-360-001/lh-headers.json`, dentro del commit ff3dca1.
+- **Corrección (MOTION-002 / T4, 2026-10-02).** La frase original de esta línea decía: "Todavía no se ha subido: `origin/master` sigue en 2f42c4f". Es falsa. Verificado con `git merge-base --is-ancestor ff3dca1 origin/master`, que sale con código 0: ff3dca1 **es** ancestro de `origin/master` (hoy 60599ab), de modo que las cookies de sesión sí llegaron a GitHub. La conclusión de no reescribir la historia sigue en pie, pero por otras razones y no por esta: el repositorio es privado, tiene un solo colaborador y son cookies de sesión rotables. La premisa de "no publicado" era incorrecta, y la única mitigación real es rotar la contraseña del storefront en las tiendas demo (acción humana 1 de `CLAUDE-REPORT-MOTION-002.md`). **Esta corrección deja sin efecto el punto siguiente de esta misma lista:** sacar el archivo de la historia antes del push ya no es posible, porque el push ocurrió.
 - Antes del push hay que sacarlo de la historia (por ejemplo con `git reset --soft 2f42c4f` y un commit nuevo sin ese archivo) y añadirlo a `.gitignore`.
 - Aparte de esto, `scratch/test-ps-axe-live.mjs`, que ya está subido, contiene la contraseña del storefront. Si el repo es público, conviene cambiarla.
 

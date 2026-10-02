@@ -18,20 +18,20 @@ Las 3 tiendas demo oficiales de desarrollo han sido completamente desplegadas y 
    * Catálogo: 24 productos de alta sastrería contemporánea.
    * Colecciones activas: `new-forms`, `permanent-collection`, `tailoring`.
    * Cápsula *"Complete the look"*: Activa, con 3 prendas seleccionadas (\$2,250.00 bundle total).
-   * Contraseña de storefront: `1234`.
+   * Contraseña de storefront: `<redactado>`.
 
 2. **Sartorial Edition:** [`https://sartorial-edition.myshopify.com`](https://sartorial-edition.myshopify.com)
    * Catálogo: 13 objetos de diseño, accesorios de piel y piezas de escritorio.
    * Colecciones activas: `daily-objects`, `desk-and-study`, `leather-goods`.
    * Vitrina Bento Discovery: Activa con *Leather Desk Mat* y *Milled Brass Paperweight*.
    * Cápsula de compra rápida: Activa (\$620.00 bundle total).
-   * Contraseña de storefront: `1234`.
+   * Contraseña de storefront: `<redactado>`.
 
 3. **Sartorial Archive:** [`https://sartorial-archive.myshopify.com`](https://sartorial-archive.myshopify.com)
    * Catálogo: 12 piezas históricas 1-de-1 (pasarela 1989-1999 y prendas restauradas).
    * Colecciones activas: `permanent-archive`, `restored-pieces`.
    * Cápsula: Oculta limpiamente en storefront por regla S-02 (evita estado degenerado).
-   * Contraseña de storefront: `1234`.
+   * Contraseña de storefront: `<redactado>`.
 
 ---
 

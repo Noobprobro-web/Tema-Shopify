@@ -12,7 +12,7 @@
       --muted: #78716C;
       --border: #E7E5E4;
       --accent: #0F172A;
-      --font-heading: "Playfair Display", Georgia, serif;
+      --font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
       --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -113,9 +113,9 @@
       padding: 1.5rem;
       border-radius: 4px;
     }
-    .card h4 {
+    .card .card-title {
       font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+      margin: 0 0 0.5rem;
       font-family: var(--font-heading);
     }
     .badge {
@@ -191,22 +191,22 @@
 
     <section id="presets" class="doc-section">
       <h2 class="section-title">2. Theme Presets (Styles)</h2>
-      <p>Sartorial includes three distinct aesthetic presets tailored for luxury fashion, fine jewellery, and design ateliers:</p>
+      <p>Sartorial includes three distinct aesthetic presets tailored for luxury fashion, design objects, and archival curation:</p>
       <div class="card-grid">
         <div class="card">
           <span class="badge">Default</span>
-          <h4>Sartorial</h4>
+          <h3 class="card-title">Sartorial</h3>
           <p>Warm editorial elegance designed for luxury apparel, tailoring, and bespoke fashion houses. Features alabaster backgrounds, rich contrast, and sophisticated serif typography.</p>
         </div>
         <div class="card">
           <span class="badge">Preset</span>
-          <h4>Edition</h4>
-          <p>Crisp, modern architectural minimalism. High-contrast typography, sharp lines, and gallery-focused whitespace for contemporary fashion and accessories.</p>
+          <h3 class="card-title">Imprint</h3>
+          <p>Crisp, modern architectural minimalism. High-contrast typography, sharp lines, and gallery-focused whitespace for leather goods, design objects, and contemporary accessories.</p>
         </div>
         <div class="card">
           <span class="badge">Preset</span>
-          <h4>Archive</h4>
-          <p>Rich, heritage luxury with deeper warm tones and dramatic composition. Ideal for vintage curation, leather goods, watches, and legacy brands.</p>
+          <h3 class="card-title">Archive</h3>
+          <p>Rich, heritage luxury with deeper warm tones and dramatic composition. Ideal for vintage and archival apparel, one-of-a-kind pieces, and heritage brands.</p>
         </div>
       </div>
       <p>To switch presets, open <strong>Theme settings</strong> (gear icon) &gt; click the preset dropdown at the top &gt; select your desired preset.</p>
@@ -214,16 +214,17 @@
 
     <section id="color-schemes" class="doc-section">
       <h2 class="section-title">3. Color Schemes & Typography</h2>
-      <p>Sartorial provides up to 15 configurable color schemes that maintain strict WCAG 2.2 AA accessibility ratios (4.5:1 for text, 3:1 for interface boundaries).</p>
+      <p>Sartorial ships with five ready-made color schemes, and you can add your own. The default schemes meet WCAG 2.2 AA contrast ratios (4.5:1 for text, 3:1 for interface boundaries); check contrast again when you change scheme colors.</p>
       <ul>
         <li><strong>Color Schemes:</strong> Configure background, foreground text, buttons, borders, and shadows in <strong>Theme settings &gt; Colors</strong>. Each section can have its own independent color scheme.</li>
         <li><strong>Typography:</strong> Customize body and heading fonts, scale multipliers, and font weights in <strong>Theme settings &gt; Typography</strong>. Native system font fallbacks are automatically handled.</li>
+        <li><strong>Motion:</strong> Choose <strong>None</strong>, <strong>Subtle</strong> or <strong>Full</strong> in <strong>Theme settings &gt; Animations</strong>. Subtle adds scroll reveals, hover transitions and page transitions. Full ties the motion to the scroll position, so each gesture advances and rewinds with the page until it settles: blocks rise as you scroll, headlines climb line by line from behind a mask, editorial images unveil, the hero drifts in parallax and the scrolling text surges as it crosses the screen. All of it runs on native CSS scroll-driven animations, so no animation library is loaded in any mode. Browsers without scroll-driven animation support get the same reveals as Subtle, with a longer and deeper movement. Visitors who ask their device to reduce motion always see the static theme.</li>
       </ul>
     </section>
 
     <section id="sections" class="doc-section">
       <h2 class="section-title">4. Signature Sections</h2>
-      <p>Sartorial comes with 26 modular Online Store 2.0 sections with zero code dependencies:</p>
+      <p>Sartorial comes with 33 Online Store 2.0 sections and no third-party code dependencies. Highlights:</p>
       <ul>
         <li><strong>Hero Editorial:</strong> Full-viewport and split editorial banners with support for responsive desktop/mobile imagery, focal point controls, and subtitle alignments.</li>
         <li><strong>Complete the Look:</strong> Shoppable bundle merchandising tool allowing customers to add complementary products and accessories directly to cart with multi-variant selectors.</li>
@@ -250,7 +251,7 @@
       <p>Sartorial features an accessible, high-converting AJAX slide-out cart drawer:</p>
       <ul>
         <li>Supports Free Shipping Progress Bar with automatic threshold calculation.</li>
-        <li>Cart notes, terms and conditions checkbox, and dynamic discount display.</li>
+        <li>Optional cart notes and automatic display of line-level discounts.</li>
         <li>Accelerated checkout buttons (Shop Pay, Apple Pay, Google Pay, PayPal).</li>
       </ul>
     </section>

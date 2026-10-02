@@ -1,0 +1,110 @@
+# ---------------------------------------------------------------------------
+# .theme-check.yml — preset y alcance de Theme Check para el tema Sartorial.
+# Creado en MOTION-002 / T6. Sintaxis tomada de `shopify theme check --init`
+# (Shopify CLI 4.8.0), no inventada: las dos unicas claves que este archivo usa,
+# `extends` e `ignore`, son las que genera la propia herramienta.
+#
+# POR QUE EXISTE
+#   1. ALCANCE. Sin este archivo, `shopify theme check` toma la raiz del
+#      repositorio como raiz del tema y rastrea los 787 archivos del espacio de
+#      trabajo completo: 2.487 ofensas y 9 errores, y NI UNA del tema real. Las
+#      2.487 salen de copias congeladas de las tiendas en vivo bajo
+#      `scratch/audit-live-pull/` (medido con `theme check -o json`), y los 9
+#      errores son `MissingAsset` de `scratch/audit-live-pull/full-*/layout/
+#      theme.liquid`, que todavia enlaza los tres scripts de GSAP que MOTION-002
+#      retiro. Con el alcance acotado: 88 archivos, 0 ofensas.
+#   2. REPRODUCIBILIDAD. Sin `extends`, el conjunto de checks activos lo decide
+#      la version de Shopify CLI instalada, asi que un bump de dependencia podia
+#      tumbar la compuerta 5 sin que cambiase una sola linea del tema. Aqui el
+#      preset queda fijado por escrito.
+#
+# NINGUN CHECK INDIVIDUAL ESTA DESACTIVADO.
+#   Las 0 ofensas se consiguen acotando el alcance al tema, no apagando
+#   comprobaciones. Se usa el preset recomendado COMPLETO, el mismo que Shopify
+#   publica como estandar de Theme Store. Comprobado con
+#   `shopify theme check --print`: el preset resultante es identico, linea por
+#   linea, al predeterminado del CLI 4.8.0 (`diff` vacio), de modo que fijarlo
+#   no relaja nada hoy; solo lo inmuniza contra un cambio de version. Se descarto
+#   `theme-check:all` a proposito: anade `AssetSizeCSS` y `AssetSizeJavaScript`
+#   con umbrales de 100 KB y 10 KB que ningun requisito de Theme Store exige, y
+#   un umbral que no es requisito no deberia poder bloquear la compuerta.
+extends: theme-check:recommended
+
+# ---------------------------------------------------------------------------
+# ALCANCE DEL TEMA
+#
+# "El tema" son las carpetas de `THEME_DIRS` en `scripts/theme-check-sanity.mjs`
+# (assets, config, layout, locales, sections, snippets, templates, blocks) MAS
+# `listings/`. `listings/` no esta en `THEME_DIRS` porque esa constante existe
+# para armar un tema minimo valido que mutar en el sandbox de la compuerta de
+# cordura, no para definir el entregable; y `listings/` SI viaja dentro de
+# `Sartorial-1.0.0.zip` (16 entradas verificadas en el paquete), asi que se
+# revisa. Hoy aporta 0 ofensas: mantenerlo dentro no cuesta nada y no deja un
+# hueco ciego en archivos que se envian a Shopify.
+#
+# Las rutas de abajo son el complemento: todo lo que hay en la raiz y no es el
+# tema. Cada patron lleva su motivo. Los patrones son relativos a la raiz del
+# repositorio y admiten comodin (comprobado: `harness-*/**` baja los archivos
+# inspeccionados de 787 a 370).
+ignore:
+  # Dependencias de npm. Es el unico patron que trae el archivo por defecto.
+  - node_modules/**
+
+  # Control de versiones, CI y configuracion de editores y agentes. Nada de esto
+  # se empaqueta ni se publica como tema.
+  - .git/**
+  - .github/**
+  - .vscode/**
+  - .claude/**
+  - .codex/**
+  - .agents/**
+  - .playwright-mcp/**
+
+  # Espacio de trabajo desechable, ignorado por git. Contiene
+  # `audit-live-pull/full-{atelier,edition,archive}/`: tres copias congeladas de
+  # los temas en vivo, cada una un tema completo. De aqui salen las 2.487
+  # ofensas y los 9 errores del rastreo sin alcance. Son fotografias de
+  # auditoria, no codigo del tema: no se corrigen, se excluyen.
+  - scratch/**
+
+  # Protocolo entre agentes: informes, directivas y arneses de verificacion
+  # (.mjs y .json de resultados). Incluye `en.default.schema.propuesta.json`,
+  # una propuesta de locale que Theme Check leeria como archivo de tema.
+  - agent-comms/**
+
+  # Arneses de sprint en la raiz (harness-4D-001 ... harness-COMP-001): fixtures
+  # y crudos de medicion. 417 archivos inspeccionados de mas, 0 del tema.
+  - harness-*/**
+
+  # Documentacion del proyecto y del comerciante, informes de compuertas y
+  # tokens de diseno exportados. `docs/merchant/*.html` se publica aparte en
+  # GitHub Pages, fuera del paquete del tema.
+  - docs/**
+
+  # Compuertas y utilidades de automatizacion (.mjs de Node). No son Liquid ni
+  # viajan en el paquete.
+  - scripts/**
+
+  # Playwright: especificaciones y artefactos de corrida.
+  - tests/**
+  - test-results/**
+
+  # Material de origen de las tiendas demo (fotografia, CSV de catalogo). Se
+  # sube a los CDN de las tiendas, nunca al tema.
+  - demo-assets/**
+
+  # Cuarentena y volcados historicos. Pendientes de borrado manual.
+  - _to_delete/**
+  - "Claude outputs/**"
+
+# NOTA SOBRE `.tmp/` — DELIBERADAMENTE NO EXCLUIDO.
+#   `scripts/theme-check-sanity.mjs` copia el tema a `.tmp/theme-check-sanity-<pid>/`,
+#   le inyecta tres errores y exige que Theme Check los REPORTE. Si `.tmp/**`
+#   estuviera en esta lista, esas mutaciones quedarian invisibles, la compuerta
+#   de cordura veria "0 ofensas" y concluiria que Theme Check no detecta nada:
+#   fallaria por una razon falsa. Hoy `.tmp/` aporta 0 archivos inspeccionados
+#   (comprobado: anadir `.tmp/**` deja el conteo igual en 88), asi que dejarlo
+#   dentro no cuesta ninguna ofensa. Contrapartida conocida: un sandbox que
+#   sobreviva a una corrida interrumpida (o un `--keep`) mete una segunda copia
+#   del tema en el rastreo. Si aparecen ofensas duplicadas y sin sentido, borrar
+#   `.tmp/theme-check-sanity-*` antes de culpar al tema.

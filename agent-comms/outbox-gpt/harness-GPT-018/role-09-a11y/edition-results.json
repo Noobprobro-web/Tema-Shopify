@@ -1,0 +1,876 @@
+{
+  "store": "edition",
+  "checks": [
+    {
+      "stage": "home-full",
+      "url": "https://sartorial-edition.myshopify.com/",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Edition\n\nOBJECT STUDY / 01\n\n",
+        "id": "",
+        "outline": "rgb(17, 17, 17) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 7410.46875,
+          "top": 0,
+          "right": 1440,
+          "bottom": 7410.46875,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "first-tab",
+      "url": "https://sartorial-edition.myshopify.com/",
+      "active": {
+        "tag": "A",
+        "role": null,
+        "name": "Skip to content",
+        "id": "",
+        "outline": "rgb(17, 17, 17) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 16,
+          "y": 16,
+          "width": 136.328125,
+          "height": 53.59375,
+          "top": 16,
+          "right": 152.328125,
+          "bottom": 69.59375,
+          "left": 16
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "search-open",
+      "url": "https://sartorial-edition.myshopify.com/",
+      "active": {
+        "tag": "INPUT",
+        "role": "combobox",
+        "name": "q",
+        "id": "PredictiveSearchInput-sections--27821978550440__header",
+        "outline": "rgb(17, 17, 17) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 738,
+          "y": 102.203125,
+          "width": 584.65625,
+          "height": 49.59375,
+          "top": 102.203125,
+          "right": 1322.65625,
+          "bottom": 151.796875,
+          "left": 738
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": true
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          }
+        ]
+      },
+      "mainSnapshot": "- main:\n  - region \"Useful forms, precisely considered\":\n    - img \"Useful forms, precisely considered\"\n    - paragraph: OBJECT STUDY / 01\n    - heading \"Useful forms, precisely considered\" [level=1]\n    - paragraph: A quiet system for objects that speak for themselves.\n    - link \"Browse all objects\":\n      - /url: /collections/daily-objects\n    - link \"Browse collections\":\n      - /url: /collections/leather-goods\n  - region \"Collection, product, process\":\n    - paragraph: GRID STUDY / 02\n    - heading \"Collection, product, process\" [level=2]\n    - paragraph: A denser view of the working collection.\n    - link \"Explore Objects for the desk\":\n      - /url: /collections/desk-and-study\n      - img \"Objects for the desk\"\n      - text: \"[01] SYSTEM Objects for the desk\"\n    - article:\n      - link \"Leather Desk Mat\":\n        - /url: /products/leather-desk-mat\n        - img \"Leather Desk Mat\"\n      - heading \"Leather Desk Mat\" [level=3]:\n        - link \"Leather Desk Mat\":\n          - /url: /products/leather-desk-mat\n      - text: From $260.00\n    - article:\n      - link \"Milled Brass Paperweight\":\n        - /url: /products/milled-brass-paperweight\n        - img \"Milled Brass Paperweight\"\n      - heading \"Milled Brass Paperweight\" [level=3]:\n        - link \"Milled Brass Paperweight\":\n          - /url: /products/milled-brass-paperweight\n      - text: Regular price $110.00\n    - link \"Explore Measured by use\":\n      - /url: /collections/leather-goods\n      - img \"Measured by use\"\n      - text: \"[04] PROCESS Measured by use\"\n      - paragraph: Materials and dimensions reduced to what the object needs.\n      - text: Explore the story\n  - region \"Selected objects\":\n    - paragraph: CATALOGUE / 03\n    - heading \"Selected objects\" [level=2]\n    - tablist \"Choose a curated collection\":\n      - tab \"Daily objects\" [selected]\n      - tab \"Workspace\"\n      - tab \"Limited studies\"\n    - tabpanel \"Daily objects\":\n      - article:\n        - link \"Open Milled Brass Paperweight\":\n          - /url: /products/milled-brass-paperweight\n          - img \"Brushed natural brass disc paperweight on a blank white sheet\"\n        - paragraph: Spotlight selection\n        - heading \"Milled Brass Paperweight\" [level=3]:\n          - link \"Milled Brass Paperweight\":\n            - /url: /products/milled-brass-paperweight\n        - text: Regular price $110.00\n      - article:\n        - link \"Folded Valet Tray\":\n          - /url: /products/folded-valet-tray\n          - img \"Folded Valet Tray\"\n        - heading \"Folded Valet Tray\" [level=3]:\n          - link \"Folded Valet Tray\":\n            - /url: /products/folded-valet-tray\n        - text: Regular price $155.00\n      - article:\n        - link \"Four-Slot Cardholder\":\n          - /url: /products/four-slot-cardholder\n          - img \"Four-Slot Cardholder\"\n        - heading \"Four-Slot Cardholder\" [level=3]:\n          - link \"Four-Slot Cardholder\":\n            - /url: /products/four-slot-cardholder\n        - text: Regular price $95.00\n      - link \"View all Daily objects\":\n        - /url: /collections/daily-objects\n  - region \"Structured Tote in Calfskin\":\n    - region \"Product media gallery\":\n      - figure:\n        - img \"Structured black calfskin tote with short handles on pale concrete\"\n    - heading \"Structured Tote in Calfskin\" [level=2]\n    - text: Regular price $680.00\n    - 'radiogroup \"Finish: Black box calf\"':\n      - text: \"Finish: Black box calf\"\n      - radio \"Black box calf\" [checked]\n      - text: Black box calf\n      - radio \"Saddle tan\"\n      - text: Saddle tan\n      - radio \"Deep olive\"\n      - text: Deep olive\n    - 'radiogroup \"Size: Standard\"':\n      - text: \"Size: Standard\"\n      - radio \"Standard\" [checked]\n      - text: Standard\n      - radio \"Compact\"\n      - text: Compact\n    - text: Quantity\n    - button \"Decrease quantity for Structured Tote in Calfskin\" [disabled]\n    - spinbutton \"Quantity\": \"1\"\n    - button \"Increase quantity for Structured Tote in Calfskin\"\n    - button \"Add to cart\"\n    - button \"Buy it now\"\n    - status: In stock, ready to ship\n    - paragraph: Worldwide express courier | Dispatch in 24 hours\n    - paragraph: Full-grain calfskin forms a clean body with a reinforced base, lined interior and hand-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n    - paragraph\n  - region \"The Daily Objects Set\":\n    - paragraph: SET STUDY / 05\n    - heading \"The Daily Objects Set\" [level=2]\n    - paragraph: A modular set for daily carry and desk study.\n    - img \"The Daily Objects Set\"\n    - paragraph: A modular arrangement for daily work.\n    - list:\n      - listitem:\n        - checkbox \"Select Leather Document Folio\" [checked]\n        - text: Select Leather Document Folio\n        - heading \"Leather Document Folio\" [level=3]:\n          - link \"Leather Document Folio\":\n            - /url: /products/leather-document-folio\n        - text: Choose an option for Leather Document Folio\n        - combobox \"Choose an option for Leather Document Folio\":\n          - option \"Black box calf\" [selected]\n          - option \"Saddle tan\"\n        - text: Regular price $370.00\n      - listitem:\n        - checkbox \"Select Four-Slot Cardholder\" [checked]\n        - text: Select Four-Slot Cardholder\n        - heading \"Four-Slot Cardholder\" [level=3]:\n          - link \"Four-Slot Cardholder\":\n            - /url: /products/four-slot-cardholder\n        - text: Choose an option for Four-Slot Cardholder\n        - combobox \"Choose an option for Four-Slot Cardholder\":\n          - option \"Black box calf\" [selected]\n          - option \"Oxblood\"\n          - option \"Saddle tan\"\n        - text: Regular price $95.00\n      - listitem:\n        - checkbox \"Select Folded Valet Tray\" [checked]\n        - text: Select Folded Valet Tray\n        - heading \"Folded Valet Tray\" [level=3]:\n          - link \"Folded Valet Tray\":\n            - /url: /products/folded-valet-tray\n        - text: Choose an option for Folded Valet Tray\n        - combobox \"Choose an option for Folded Valet Tray\":\n          - option \"Black\" [selected]\n          - option \"Saddle tan\"\n          - option \"Deep olive\"\n        - text: Regular price $155.00\n    - paragraph: Capsule total\n    - paragraph: 3 of 3 items selected\n    - strong: $620.00\n    - button \"Add 3 pieces to bag | $620.00\"\n  - region \"Our craft and materials\":\n    - paragraph: SPECIFICATIONS / 06\n    - blockquote:\n      - heading \"Form follows material discipline.\" [level=2]\n    - paragraph: Every component is specified for durability, utility and honest tactile feedback.\n    - link \"Inspect collection\":\n      - /url: /collections/daily-objects\n    - img \"Close-up study of a material\"\n    - paragraph: TECHNICAL REPORT / 01\n    - term: Material\n    - definition: Full-grain calfskin, vegetable tanned in Tuscany\n    - term: Hardware\n    - definition: Machined from solid brass rod, unplated\n    - term: Tolerance\n    - definition: 0.5mm edge painting and saddle stitching\n    - term: Longevity\n    - definition: Designed to gather character and patina\n  - region \"New studies, occasionally\":\n    - paragraph: EDITION NOTES\n    - heading \"New studies, occasionally\" [level=2]\n    - paragraph: Product releases, material studies and measured updates.\n    - text: Email address\n    - textbox \"Email address\":\n      - /placeholder: name@example.com\n    - button \"Subscribe\""
+    },
+    {
+      "stage": "search-escape",
+      "url": "https://sartorial-edition.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Search",
+        "id": "",
+        "outline": "rgb(17, 17, 17) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 1238,
+          "y": 61,
+          "width": 44,
+          "height": 44,
+          "top": 61,
+          "right": 1282,
+          "bottom": 105,
+          "left": 1238
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 680
+          },
+          {
+            "state": "finished",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "pdp-full",
+      "url": "https://sartorial-edition.myshopify.com/products/structured-tote",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Edition\n\nSARTORIAL EDITION\n\n",
+        "id": "",
+        "outline": "rgb(17, 17, 17) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 2673.40625,
+          "top": 0,
+          "right": 1440,
+          "bottom": 2673.40625,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "pdp-main",
+      "mainSnapshot": "- main:\n  - region \"Product media gallery\":\n    - figure:\n      - img \"Structured black calfskin tote with short handles on pale concrete\"\n      - button \"Zoom image 1 of 1\"\n  - paragraph: Sartorial Edition\n  - heading \"Structured Tote in Calfskin\" [level=1]\n  - text: Regular price $680.00\n  - 'radiogroup \"Finish: Black box calf\"':\n    - text: \"Finish: Black box calf\"\n    - radio \"Black box calf\" [checked]\n    - text: Black box calf\n    - radio \"Saddle tan\"\n    - text: Saddle tan\n    - radio \"Deep olive\"\n    - text: Deep olive\n  - 'radiogroup \"Size: Standard\"':\n    - text: \"Size: Standard\"\n    - radio \"Standard\" [checked]\n    - text: Standard\n    - radio \"Compact\"\n    - text: Compact\n  - text: Quantity\n  - button \"Decrease quantity for Structured Tote in Calfskin\" [disabled]\n  - spinbutton \"Quantity\": \"1\"\n  - button \"Increase quantity for Structured Tote in Calfskin\"\n  - status: In stock, ready to ship\n  - button \"Add to cart\"\n  - button \"Buy it now\"\n  - paragraph: Worldwide express courier | Dispatch in 24 hours\n  - paragraph: Complimentary returns within 30 days\n  - paragraph: Full-grain calfskin forms a clean body with a reinforced base, lined interior and hand-finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size.\n  - group: Composition & care\n  - group: Shipping & complimentary returns\n  - paragraph\n  - region \"You may also consider\":\n    - paragraph: Continue the study\n    - heading \"You may also consider\" [level=2]\n    - list:\n      - listitem:\n        - article:\n          - link \"Four-Slot Cardholder\":\n            - /url: /products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394977185960&pr_ref_pid=15394976858280&pr_seq=uniform\n            - img \"Four-Slot Cardholder\"\n          - heading \"Four-Slot Cardholder\" [level=3]:\n            - link \"Four-Slot Cardholder\":\n              - /url: /products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394977185960&pr_ref_pid=15394976858280&pr_seq=uniform\n          - text: Regular price $95.00\n          - button \"Quick add\"\n      - listitem:\n        - article:\n          - link \"Leather Document Folio\":\n            - /url: /products/leather-document-folio?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394976989352&pr_ref_pid=15394976858280&pr_seq=uniform\n            - img \"Leather Document Folio\"\n          - heading \"Leather Document Folio\" [level=3]:\n            - link \"Leather Document Folio\":\n              - /url: /products/leather-document-folio?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394976989352&pr_ref_pid=15394976858280&pr_seq=uniform\n          - text: Regular price $370.00\n          - button \"Quick add\"\n      - listitem:\n        - article:\n          - link \"Single Pen Sleeve\":\n            - /url: /products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394977448104&pr_ref_pid=15394976858280&pr_seq=uniform\n            - img \"Single Pen Sleeve\"\n          - heading \"Single Pen Sleeve\" [level=3]:\n            - link \"Single Pen Sleeve\":\n              - /url: /products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394977448104&pr_ref_pid=15394976858280&pr_seq=uniform\n          - text: Regular price $85.00\n          - button \"Quick add\"\n      - listitem:\n        - article:\n          - link \"Leather Key Loop\":\n            - /url: /products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394977218728&pr_ref_pid=15394976858280&pr_seq=uniform\n            - img \"Leather Key Loop\"\n          - heading \"Leather Key Loop\" [level=3]:\n            - link \"Leather Key Loop\":\n              - /url: /products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=ec26802eb&pr_rec_pid=15394977218728&pr_ref_pid=15394976858280&pr_seq=uniform\n          - text: Regular price $65.00\n          - button \"Quick add\""
+    },
+    {
+      "stage": "cart-full",
+      "url": "https://sartorial-edition.myshopify.com/cart",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nHOME\nCATALOG\nCONTACT\nSartorial Edition\nYour cart\n\nYour cart",
+        "id": "",
+        "outline": "rgb(17, 17, 17) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1141.78125,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1141.78125,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "cart-main",
+      "mainSnapshot": "- main:\n  - heading \"Your cart\" [level=1]\n  - paragraph: Your cart is currently empty.\n  - link \"Continue shopping\":\n    - /url: /collections/all"
+    },
+    {
+      "stage": "menu-mobile-open",
+      "url": "https://sartorial-edition.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Close",
+        "id": "",
+        "outline": "rgb(17, 17, 17) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 286,
+          "y": 15.5,
+          "width": 44,
+          "height": 44,
+          "top": 15.5,
+          "right": 330,
+          "bottom": 59.5,
+          "left": 286
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": true
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "menu-mobile-tab-walk",
+      "focusWalk": [
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Contact",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 184.75,
+            "width": 310,
+            "height": 46.375,
+            "top": 184.75,
+            "right": 330,
+            "bottom": 231.125,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Close",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 286,
+            "y": 15.5,
+            "width": 44,
+            "height": 44,
+            "top": 15.5,
+            "right": 330,
+            "bottom": 59.5,
+            "left": 286
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Contact",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 184.75,
+            "width": 310,
+            "height": 46.375,
+            "top": 184.75,
+            "right": 330,
+            "bottom": 231.125,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Close",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 286,
+            "y": 15.5,
+            "width": 44,
+            "height": 44,
+            "top": 15.5,
+            "right": 330,
+            "bottom": 59.5,
+            "left": 286
+          }
+        },
+        {
+          "tag": "A",
+          "role": null,
+          "name": "Home",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 92,
+            "width": 310,
+            "height": 46.375,
+            "top": 92,
+            "right": 330,
+            "bottom": 138.375,
+            "left": 20
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "role": null,
+          "name": "Catalog",
+          "id": "",
+          "outline": "rgb(17, 17, 17) solid 2px",
+          "outlineStyle": "solid",
+          "outlineWidth": "2px",
+          "boxShadow": "none",
+          "rect": {
+            "x": 20,
+            "y": 138.375,
+            "width": 310,
+            "height": 46.375,
+            "top": 138.375,
+            "right": 330,
+            "bottom": 184.75,
+            "left": 20
+          }
+        }
+      ]
+    },
+    {
+      "stage": "menu-mobile-escape",
+      "url": "https://sartorial-edition.myshopify.com/",
+      "active": {
+        "tag": "BUTTON",
+        "role": null,
+        "name": "Menu",
+        "id": "",
+        "outline": "rgb(17, 17, 17) solid 2px",
+        "outlineStyle": "solid",
+        "outlineWidth": "2px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 20,
+          "y": 61,
+          "width": 44,
+          "height": 44,
+          "top": 61,
+          "right": 64,
+          "bottom": 105,
+          "left": 20
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "no-preference",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}"
+        },
+        "animations": [
+          {
+            "state": "running",
+            "duration": 680
+          },
+          {
+            "state": "running",
+            "duration": 680
+          }
+        ]
+      }
+    },
+    {
+      "stage": "home-reduced-motion",
+      "url": "https://sartorial-edition.myshopify.com/",
+      "active": {
+        "tag": "BODY",
+        "role": null,
+        "name": "Skip to content\n\nCOMPLIMENTARY SHIPPING ON ORDERS OVER $150\n\nMenu\nSartorial Edition\n\nOBJECT STUDY / 01\n\nUseful forms, pr",
+        "id": "",
+        "outline": "rgb(17, 17, 17) none 3px",
+        "outlineStyle": "none",
+        "outlineWidth": "3px",
+        "boxShadow": "none",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 9225.46875,
+          "top": 0,
+          "right": 390,
+          "bottom": 9225.46875,
+          "left": 0
+        }
+      },
+      "headingCount": 1,
+      "language": "en",
+      "emptyNameButtons": 0,
+      "dialogs": [
+        {
+          "name": "Menu",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "Search our collection",
+          "modal": "true",
+          "visible": false
+        },
+        {
+          "name": "CartDrawerTitle",
+          "modal": "true",
+          "visible": false
+        }
+      ],
+      "motion": {
+        "preference": "reduce",
+        "rootData": {
+          "animations": "full",
+          "motionEngine": "gsap",
+          "moneyFormat": "${{amount}}",
+          "reducedMotion": "true"
+        },
+        "animations": [
+          {
+            "state": "finished",
+            "duration": 0.01
+          }
+        ]
+      }
+    },
+    {
+      "stage": "image-alt",
+      "images": [
+        {
+          "alt": "Useful forms, precisely considered",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/edition-hero.jpg?v=1790727321&width=750",
+          "loaded": true
+        },
+        {
+          "alt": "Objects for the desk",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/edition-bento-desk.jpg?v=1790727322&width=750",
+          "loaded": true
+        },
+        {
+          "alt": "Leather Desk Mat",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/leather-desk-mat-01.jpg?v=1790822914&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Milled Brass Paperweight",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/milled-brass-paperweight-01.jpg?v=1790822737&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Measured by use",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/edition-bento-craft.jpg?v=1790727322&width=750",
+          "loaded": true
+        },
+        {
+          "alt": "Brushed natural brass disc paperweight on a blank white sheet",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/milled-brass-paperweight-01.jpg?v=1790822737&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Folded Valet Tray",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Four-Slot Cardholder",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/four-slot-cardholder-01.jpg?v=1790822880&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Flat black leather document folio with pen loop on pale concrete",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/leather-document-folio-01.jpg?v=1790822949&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Padded Laptop Sleeve",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Leather Desk Mat",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/leather-desk-mat-01.jpg?v=1790822914&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Flat black calfskin cardholder with four stitched slots",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/four-slot-cardholder-01.jpg?v=1790822880&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Leather Document Folio",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/leather-document-folio-01.jpg?v=1790822949&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Single Pen Sleeve",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/single-pen-sleeve-01.jpg?v=1790823045&width=480",
+          "loaded": true
+        },
+        {
+          "alt": "Structured black calfskin tote with short handles on pale concrete",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/structured-tote-01_dd8c1807-8749-445a-9e7a-bdf20ed4ac0d.jpg?v=1790823104&width=960",
+          "loaded": true
+        },
+        {
+          "alt": "The Daily Objects Set",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/edition-bento-desk.jpg?v=1790727322&width=750",
+          "loaded": true
+        },
+        {
+          "alt": "Leather Document Folio",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Four-Slot Cardholder",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Folded Valet Tray",
+          "currentSrc": "",
+          "loaded": false
+        },
+        {
+          "alt": "Close-up study of a material",
+          "currentSrc": "https://sartorial-edition.myshopify.com/cdn/shop/files/edition-bento-craft.jpg?v=1790727322&width=750",
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "pageErrors": []
+}

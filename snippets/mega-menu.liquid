@@ -168,9 +168,9 @@
                 {%- endcapture -%}
                 <li class="mega-menu__promo">
                   {%- if localized_card_link != blank -%}
-                    <a class="mega-menu__promo-card" href="{{ localized_card_link | escape }}">{{ card_inner }}</a>
+                    <a class="mega-menu__promo-card{% if card_image == blank %} mega-menu__promo-card--editorial-text{% endif %}" href="{{ localized_card_link | escape }}">{{ card_inner }}</a>
                   {%- else -%}
-                    <div class="mega-menu__promo-card">{{ card_inner }}</div>
+                    <div class="mega-menu__promo-card{% if card_image == blank %} mega-menu__promo-card--editorial-text{% endif %}">{{ card_inner }}</div>
                   {%- endif -%}
                 </li>
               {%- endif -%}

@@ -10,7 +10,7 @@ Estado: SOLICITUD DE AUDITORÍA ADVERSARIAL EN TIENDA VIVA (Gate 5)
 URL Principal: https://tema-qkqpke0j.myshopify.com
 URL PDP Demo: https://tema-qkqpke0j.myshopify.com/products/qa5a-f04-colour-size
 URL en Español: https://tema-qkqpke0j.myshopify.com/es/products/qa5a-f04-colour-size
-Contraseña de acceso: 1234
+Contraseña de acceso: <redactado>
 Tema evaluado: Couture (#165809488115 - MAIN LIVE)
 Commit desplegado: 3789671 ("feat: integrate Sprint 5C editorial mega menu, recently viewed, and PDP trust layers")
 ```

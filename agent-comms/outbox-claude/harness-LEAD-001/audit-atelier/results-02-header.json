@@ -1,0 +1,254 @@
+{
+  "res": {
+    "headerHTML": "<div id=\"shopify-section-sections--27849548726496__header\" class=\"shopify-section shopify-section-group-header-group section-header\"><header class=\"site-header color-scheme-1\" data-section-id=\"sections--27849548726496__header\">\n  <div class=\"container site-header__inner\">\n    <theme-drawer class=\"site-header__mobile-menu\">\n      <button class=\"icon-button site-header__menu-button\" type=\"button\" aria-expanded=\"false\" aria-controls=\"MobileMenu-sections--27849548726496__header\" data-drawer-trigger=\"\">\n        <svg class=\"icon icon--menu\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\">\n      <path d=\"M3 7h18M3 12h18M3 17h18\"></path>\n    </svg>\n        <span>Menu</span>\n      </button>\n\n      <div class=\"drawer-overlay\" data-drawer-overlay=\"\" hidden=\"\">\n        <div id=\"MobileMenu-sections--27849548726496__header\" class=\"drawer-panel color-scheme-1\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Menu\" aria-hidden=\"true\" tabindex=\"-1\" data-drawer-panel=\"\" inert=\"\">\n          <div class=\"drawer-panel__header\">\n            <span class=\"h3\">Menu</span>\n            <button class=\"icon-button\" type=\"button\" aria-label=\"Close\" data-drawer-close=\"\">\n              <svg class=\"icon icon--close\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\">\n      <path d=\"m5 5 14 14M19 5 5 19\"></path>\n    </svg>\n            </button>\n          </div>\n\n           <nav aria-label=\"Primary navigation\">\n            <ul class=\"mobile-nav unstyled-list\" role=\"list\"><li><a class=\"mobile-nav__link\" href=\"/\">Home</a></li><li><a class=\"mobile-nav__link\" href=\"/collections/all\">Catalog</a></li><li><a class=\"mobile-nav__link\" href=\"/pages/contact\">Contact</a></li></ul>\n           </nav><div class=\"mobile-nav__localization\">\n            \n          </div>\n         </div>\n      </div>\n    </theme-drawer>\n\n    <nav class=\"site-header__desktop-nav\" aria-label=\"Primary navigation\">\n      <ul class=\"desktop-nav unstyled-list\" role=\"list\"><li><a class=\"desktop-nav__link\" href=\"/\">Home</a></li><li><a class=\"desktop-nav__link\" href=\"/collections/all\">Catalog</a></li><li><a class=\"desktop-nav__link\" href=\"/pages/contact\">Contact</a></li></ul>\n    </nav><a class=\"site-header__brand\" href=\"/\" aria-label=\"Sartorial Atelier\"><span class=\"site-header__brand-text\">Sartorial Atelier</span></a>\n\n     <div class=\"site-header__actions\"><predictive-search class=\"predictive-search js-only\" data-predictive-search-url=\"/search/suggest\" data-search-url=\"/search\" data-money-format=\"${{amount}}\" data-loading-text=\"Searching\" data-no-results-text=\"No suggestions yet. Press enter to search the full catalog.\" data-products-heading=\"Products\" data-collections-heading=\"Collections\" data-articles-heading=\"Journal\" data-pages-heading=\"Pages\" data-sold-out-text=\"Sold out\" data-in-stock-text=\"In stock\" data-regular-price-text=\"Regular price\" data-sale-price-text=\"Sale price\" data-view-all-template=\"View all results for &quot;[terms]&quot;\" data-results-count-one=\"1 suggestion available\" data-results-count-other=\"[count] suggestions available\">\n  <button class=\"icon-button predictive-search__trigger\" type=\"button\" aria-label=\"Search\" aria-expanded=\"false\" aria-controls=\"PredictiveSearchPanel-sections--27849548726496__header\" data-predictive-search-open=\"\">\n    <svg class=\"icon icon--search\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\">\n      <circle cx=\"11\" cy=\"11\" r=\"6.5\"></circle>\n      <path d=\"m16 16 4 4\"></path>\n    </svg>\n  </button>\n\n  <div class=\"predictive-search__overlay\" data-predictive-search-overlay=\"\" hidden=\"\">\n    <div id=\"PredictiveSearchPanel-sections--27849548726496__header\" class=\"predictive-search__panel color-scheme-1\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Search our collection\" aria-hidden=\"true\" tabindex=\"-1\" data-predictive-search-panel=\"\" inert=\"\">\n      <div class=\"predictive-search__header\">\n        <p class=\"eyebrow\">Search our collection</p>\n        <button class=\"icon-button\" type=\"button\" aria-label=\"Close\" data-predictive-search-close=\"\">\n          <svg class=\"icon icon--close\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\">\n      <path d=\"m5 5 14 14M19 5 5 19\"></path>\n    </svg>\n        </button>\n      </div>\n\n      <form class=\"predictive-search__form\" action=\"/search\" method=\"get\" role=\"search\" data-predictive-search-form=\"\">\n        <label class=\"visually-hidden\" for=\"PredictiveSearchInput-sections--27849548726496__header\">Search</label>\n        <div class=\"predictive-search__input-row\">\n          <span class=\"predictive-search__input-icon\" aria-hidden=\"true\">\n            <svg class=\"icon icon--search\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\">\n      <circle cx=\"11\" cy=\"11\" r=\"6.5\"></circle>\n      <path d=\"",
+    "gutters": {
+      "sec": [
+        {
+          "id": "announcement_bar",
+          "firstEl": "P.announcement-bar__item",
+          "left": 0,
+          "innerCls": "announcement-bar__inner",
+          "innerLeft": 0
+        },
+        {
+          "id": "header",
+          "firstEl": "A.mobile-nav__link",
+          "left": 0,
+          "innerCls": "container site-header__inner",
+          "innerLeft": 70
+        },
+        {
+          "id": "hero",
+          "firstEl": "IMG.hero-editorial__image",
+          "left": 0,
+          "innerCls": "hero-editorial__inner",
+          "innerLeft": 0
+        },
+        {
+          "id": "marquee",
+          "firstEl": null,
+          "left": null,
+          "innerCls": "marquee-banner__inner",
+          "innerLeft": 0
+        },
+        {
+          "id": "collections",
+          "firstEl": "P.eyebrow",
+          "left": 32,
+          "innerCls": "curated-showcase__inner",
+          "innerLeft": 32
+        },
+        {
+          "id": "lookbook",
+          "firstEl": "P.eyebrow",
+          "left": 32,
+          "innerCls": "lookbook__inner",
+          "innerLeft": 32
+        },
+        {
+          "id": "featured_product",
+          "firstEl": "IMG.product-gallery__image",
+          "left": 71,
+          "innerCls": "container featured-product__layout",
+          "innerLeft": 70
+        },
+        {
+          "id": "capsule",
+          "firstEl": "P.eyebrow",
+          "left": 32,
+          "innerCls": "complete-the-look__inner",
+          "innerLeft": 32
+        },
+        {
+          "id": "manifesto",
+          "firstEl": "P.eyebrow",
+          "left": 32,
+          "innerCls": "brand-manifesto__inner",
+          "innerLeft": 32
+        },
+        {
+          "id": "newsletter",
+          "firstEl": "P.eyebrow",
+          "left": 70,
+          "innerCls": "container newsletter-section__inner",
+          "innerLeft": 70
+        },
+        {
+          "id": "footer",
+          "firstEl": "A.site-footer__title h2",
+          "left": 70,
+          "innerCls": "container site-footer__grid",
+          "innerLeft": 70
+        },
+        {
+          "id": "shopify-section-cart-drawer",
+          "firstEl": "P.eyebrow",
+          "left": 0,
+          "innerCls": null,
+          "innerLeft": null
+        }
+      ],
+      "logo": {
+        "sel": "header a[href=\"/\"]:not(nav a)",
+        "left": 608,
+        "right": 608,
+        "w": 224
+      },
+      "nav": {
+        "sel": "header nav a",
+        "left": 0,
+        "right": 1440,
+        "w": 0
+      },
+      "cart": {
+        "sel": "header a[href=\"/cart\"]",
+        "left": 1326,
+        "right": 70,
+        "w": 44
+      }
+    },
+    "afterHover": {
+      "details": [
+        false
+      ],
+      "expanded": [
+        "BUTTON:false:Menu",
+        "BUTTON:false:",
+        "INPUT:false:"
+      ],
+      "visibleMenus": []
+    },
+    "afterClickUrl": "https://sartorial-atelier.myshopify.com/collections/all",
+    "mobileToggles": [
+      {
+        "t": "BUTTON",
+        "cls": "icon-button site-header__menu-button",
+        "label": null,
+        "vis": true,
+        "text": "Menu"
+      },
+      {
+        "t": "BUTTON",
+        "cls": "icon-button",
+        "label": "Close",
+        "vis": false,
+        "text": ""
+      },
+      {
+        "t": "BUTTON",
+        "cls": "icon-button predictive-search__trigger",
+        "label": "Search",
+        "vis": true,
+        "text": ""
+      },
+      {
+        "t": "BUTTON",
+        "cls": "icon-button",
+        "label": "Close",
+        "vis": false,
+        "text": ""
+      },
+      {
+        "t": "BUTTON",
+        "cls": "predictive-search__clear",
+        "label": "Clear search",
+        "vis": false,
+        "text": ""
+      },
+      {
+        "t": "BUTTON",
+        "cls": "button predictive-search__submit",
+        "label": null,
+        "vis": false,
+        "text": "Search"
+      },
+      {
+        "t": "SUMMARY",
+        "cls": "icon-button",
+        "label": "Search",
+        "vis": false,
+        "text": ""
+      },
+      {
+        "t": "BUTTON",
+        "cls": "button",
+        "label": null,
+        "vis": false,
+        "text": "Search"
+      },
+      {
+        "t": "BUTTON",
+        "cls": "curated-showcase__tab",
+        "label": null,
+        "vis": true,
+        "text": "[01]\n                New forms"
+      },
+      {
+        "t": "BUTTON",
+        "cls": "curated-showcase__tab",
+        "label": null,
+        "vis": true,
+        "text": "[02]\n                Permanent"
+      },
+      {
+        "t": "BUTTON",
+        "cls": "curated-showcase__tab",
+        "label": null,
+        "vis": true,
+        "text": "[03]\n                Tailoring"
+      },
+      {
+        "t": "BUTTON",
+        "cls": "icon-button",
+        "label": "Close",
+        "vis": false,
+        "text": ""
+      }
+    ],
+    "drawer": {
+      "scrollW": 390,
+      "bodyOverflow": "hidden",
+      "links": [
+        "Home",
+        "Catalog",
+        "Contact",
+        "Sartorial Atelier",
+        "0",
+        "Discover the collection",
+        "Explore lookbook"
+      ]
+    }
+  },
+  "errs": [
+    {
+      "type": "error",
+      "text": "Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked.\n",
+      "url": "https://sartorial-atelier.myshopify.com/"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 403 ()",
+      "url": "https://sartorial-atelier.myshopify.com/"
+    },
+    {
+      "type": "warning",
+      "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match the recipient window's origin ('https://shop.app').",
+      "url": "https://sartorial-atelier.myshopify.com/"
+    },
+    {
+      "type": "error",
+      "text": "Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked.\n",
+      "url": "https://sartorial-atelier.myshopify.com/"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 403 ()",
+      "url": "https://sartorial-atelier.myshopify.com/"
+    },
+    {
+      "type": "warning",
+      "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://pay.shopify.com') does not match the recipient window's origin ('https://shop.app').",
+      "url": "https://sartorial-atelier.myshopify.com/"
+    }
+  ]
+}

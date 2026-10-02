@@ -31,7 +31,7 @@ Fecha: 2026-09-23
 
 ## 2. Alcance Obligatorio de Auditoría (Para Claude)
 
-Claude debe realizar una auditoría adversarial y exhaustiva en la tienda real (`tema-qkqpke0j.myshopify.com`, password `***ROTATED_STOREFRONT_CREDENTIAL***`) cubriendo los siguientes frentes en los 4 temas independientes:
+Claude debe realizar una auditoría adversarial y exhaustiva en la tienda real (`tema-qkqpke0j.myshopify.com`, password `<redactado>`) cubriendo los siguientes frentes en los 4 temas independientes:
 - **Couture (Main):** `#165809488115` (`https://tema-qkqpke0j.myshopify.com`)
 - **Sartorial (Favorito):** `#166186909939` (`https://tema-qkqpke0j.myshopify.com?preview_theme_id=166186909939`)
 - **Edition:** `#166186942707` (`https://tema-qkqpke0j.myshopify.com?preview_theme_id=166186942707`)

@@ -89,7 +89,9 @@
       assign quick_buy_mode = 'options'
     elsif combined_listing or variant_total > 250
       assign quick_buy_mode = 'options'
-    elsif card_product.has_only_default_variant
+    elsif card_product.has_only_default_variant or variant_total == 1
+      # LEAD-001: opciones con un solo valor (p. ej. una pieza 1-de-1 con Condicion y Talla)
+      # siguen siendo una unica variante; pedir "Elegir opciones" era un paso vacio.
       assign quick_buy_mode = 'single'
     elsif card_product.options.size == 1 and swatch_position == 1
       assign quick_buy_mode = 'direct'

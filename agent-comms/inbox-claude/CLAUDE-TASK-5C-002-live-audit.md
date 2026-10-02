@@ -9,7 +9,7 @@ Fecha: 2026-09-23
 Estado: SOLICITUD DE AUDITORÍA TÉCNICA Y REVISIÓN VISUAL DE PRESETS
 URL Principal: https://tema-qkqpke0j.myshopify.com
 URL PDP Demo: https://tema-qkqpke0j.myshopify.com/products/qa5a-f04-colour-size
-Contraseña: 1234
+Contraseña: <redactado>
 Tema evaluado: Couture (#165809488115 - MAIN LIVE)
 Commit desplegado: d5a7d62
 ```

@@ -25,3 +25,21 @@ CLAUDE.md
 scratch/
 *.code-workspace
 .codex/
+
+# Secretos y artefactos de sesión: las credenciales viven en el entorno
+# (STOREFRONT_PASSWORD), nunca en el repositorio. Los .env, los volcados
+# locales y las cookies de login se quedan en disco y fuera del índice.
+.env
+.env.*
+*.local.json
+*.cookies.json
+# Volcados temporales de agentes (cabeceras, cookies de sesion, HAR). Todos
+# arrastran el header Cookie de una sesion real del storefront: se quedan en
+# disco y nunca entran al indice. harness-AUDIT-360-001/lh-headers.json salio
+# del indice con 'git rm --cached', asi que *headers.json ya no enmascara nada.
+temp-*.json
+temp-*.txt
+*.har
+*headers.json
+*cookies.json
+raw-lighthouse-*.json

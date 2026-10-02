@@ -913,7 +913,9 @@
       const unitCents = Number(priceSource?.price_cents);
 
       const isFieldValid = !this.quantityInput.checkValidity || this.quantityInput.checkValidity();
+      // Una variante agotada no se puede comprar: anunciar lo que costarian 3 confunde.
       const showTotal = isFieldValid
+        && this.currentVariant?.available !== false
         && priceSource?.price_cents != null
         && priceSource.price_cents !== ''
         && Number.isFinite(quantity)
@@ -970,6 +972,12 @@
         if (Number.isFinite(qty) && qty > 0 && qty <= threshold) {
           effectiveMax = qty;
         }
+      }
+
+      // Agotada: la cantidad se queda en el minimo y el + se apaga (syncQuantityStepper lee
+      // max). Sin esto el stepper seguia subiendo en una pieza que no se puede comprar.
+      if (variant.available === false) {
+        effectiveMax = Number(variant.quantity_min) || 1;
       }
 
       if (effectiveMax === null) {
@@ -3630,7 +3638,6 @@
       this.items = Array.from(this.querySelectorAll('details'));
 
       this.items.forEach((item) => {
-        this.syncItem(item);
         this.listen(item, 'toggle', () => this.handleToggle(item));
       });
       this.listen(this, 'shopify:block:select', (event) => {
@@ -3647,11 +3654,6 @@
           if (item !== activeItem) item.open = false;
         });
       }
-      this.items.forEach((item) => this.syncItem(item));
-    }
-
-    syncItem(item) {
-      item.querySelector('summary')?.setAttribute('aria-expanded', String(item.open));
     }
   }
 
@@ -4648,6 +4650,13 @@
   // no pidio reducir movimiento. Sin JS, con JS roto o en cualquiera de esos tres casos,
   // la tienda se lee entera y no queda un solo elemento escondido.
   //
+  // MOTION-002. Este codigo NO sabe que motor anima, y no debe saberlo. Solo reparte
+  // coreografia: marca con data-reveal="" lo que todavia tiene que entrar, publica su
+  // --reveal-index, pone data-revealed al cruzar la linea de entrada y cierra con
+  // data-reveal="done" cuando el gesto termino. Si anima la animacion CSS scroll-driven
+  // o la transicion del fallback lo decide la cascada de base.css, y solo ella: duplicar
+  // esa decision en dos lenguajes es exactamente lo que esta migracion elimino.
+  //
   // El hero editorial no entra nunca: es el LCP, y animarlo cuesta la puntuacion de
   // rendimiento que la revision de Theme Store mira primero.
   // ---------------------------------------------------------------------------
@@ -4671,7 +4680,10 @@
     '.complete-the-look__media',
     '.curated-showcase__spotlight',
     '.lookbook__media',
-    '.newsletter-section .newsletter__inner',
+    // MOTION-002/T2. Antes decia '.newsletter-section .newsletter__inner', una clase que no
+    // existe en ninguna seccion ni snippet del tema: el envoltorio real de newsletter.liquid
+    // es .newsletter-section__inner. El selector muerto dejaba la seccion sin entrada.
+    '.newsletter-section__inner',
     // 4E-002. Historia de marca. Entra el TEXTO del panel, nunca su imagen: en esa pagina
     // la fotografia del primer bloque es el LCP, y esconderla aunque sea medio segundo es
     // exactamente lo que la regla de oro de 4D-001 prohibe.
@@ -4685,6 +4697,15 @@
   // en terminar de entrar y el escalonado dejaria de leerse como ritmo.
   const REVEAL_STAGGER_CAP = 7;
 
+  // Suelo de la linea de asentamiento, en % del viewport. Si los tokens alargan el recorrido
+  // mas alla de lo que cabe (distancia + 7 escalones >= 94), la linea cae a 0 o menos: el
+  // rootMargin del observador de asentamiento llega a -100%, su caja raiz colapsa y no
+  // dispara nunca, asi que nada se asentaria y cada elemento se desharia al volver a subir.
+  // 10% deja una banda de 70-100 px: la cruza hasta el objetivo mas bajo en un fling a 60
+  // fps y queda lejos del colapso. Un recorrido que no cabe se corta ahi, y la transicion
+  // de B2 lo termina en fundido: el peor caso es un cierre suave, no un elemento perdido.
+  const SETTLE_LINE_MIN = 10;
+
   const initScrollReveal = () => {
     const root = document.documentElement;
     if (!('IntersectionObserver' in window)) return;
@@ -4693,28 +4714,111 @@
 
     root.dataset.revealReady = 'true';
 
-    const observer = new IntersectionObserver((entries) => {
+    // Las dos lineas de observacion salen de los tokens de base.css, que son su unica
+    // fuente: aqui no se repite ni un numero de diseno. La de asentamiento cae donde
+    // termina el rango mas largo que puede recorrer un elemento (distancia + tope de
+    // escalonado), asi que asentar nunca corta un gesto en curso. Con los valores por
+    // defecto: 100 - 6 - (32 + 7 x 4) = 34.
+    const tokens = getComputedStyle(root);
+    const token = (name, fallback) => {
+      const value = parseFloat(tokens.getPropertyValue(name));
+      return Number.isFinite(value) ? value : fallback;
+    };
+    const enterInset = token('--scroll-enter-inset', 6);
+    const revealRange = token('--scroll-reveal-distance', 32)
+      + REVEAL_STAGGER_CAP * token('--scroll-reveal-stagger', 4);
+    const settleLine = Math.max(SETTLE_LINE_MIN, 100 - enterInset - revealRange);
+
+    const pending = () => document.querySelectorAll('[data-reveal=""]');
+
+    // Asentar es cerrar: el elemento queda fijo, visible, y sale de los dos observadores.
+    // Se mueve opacity, nunca visibility, para no alterar el arbol de accesibilidad ni el
+    // orden de tabulacion mientras el gesto corre.
+    const settle = (node) => {
+      node.dataset.reveal = 'done';
+      node.setAttribute('data-revealed', '');
+      enter.unobserve(node);
+      settler.unobserve(node);
+    };
+
+    // Fin de recorrido: no queda scroll por delante. Lo cumplen la pagina que no scrollea
+    // (plantilla corta, vista previa del editor, estado vacio) y el visitante que toco el
+    // final. Ahi ningun scroll vendra a revelar nada: el timeline de vista esta inactivo (o
+    // ya no avanza) y el respaldo necesita que el elemento cruce la linea.
+    //
+    // Se mide contra offsetHeight (alto de LAYOUT de <html>) y no contra scrollHeight: el
+    // estado oculto desplaza cada pendiente hacia abajo con translateY, y cuando el pendiente
+    // es lo ultimo de la pagina ese desplazamiento desborda el documento y fabrica hasta
+    // 64 px de scroll que no existian (medido: 732 px de layout, 785 de scrollHeight). Con
+    // scrollHeight la pagina corta pareceria scrollear por culpa del elemento que se intenta
+    // rescatar y no se asentaria nunca. En una pagina con pie, ambas medidas coinciden.
+    // Tres lecturas numericas; el DOM solo se consulta cuando es verdad.
+    const atEnd = () => window.innerHeight + window.scrollY >= root.offsetHeight - 2;
+    const settlePending = () => {
+      if (!atEnd()) return;
+      pending().forEach((node) => settle(node));
+    };
+
+    // Linea de entrada. Decora SOLO lo que no se ve todavia: lo que queda por debajo del
+    // pliegue, o lo que no tiene caja (un panel de pestana con display: none, que entrara
+    // cuando el visitante lo abra). Lo visible se suelta sin tocarlo, asi que no se oculta
+    // ni un fotograma. Lo ya decorado recibe data-revealed en cuanto entra.
+    const enter = new IntersectionObserver((entries) => {
+      // Una lectura por lote y ANTES de escribir atributos: el observador acaba de medir,
+      // asi que el layout esta limpio y offsetHeight no fuerza nada. En una pagina que no
+      // scrollea la franja de entrada ES la vista: lo que caiga ahi se suelta sin decorar,
+      // como lo visible. Decorarlo y asentarlo despues ya seria tarde: data-reveal="" no se
+      // cumple sin scroll, y el opacity: 0 de B2 dejaria el elemento invisible en pantalla.
+      const ended = atEnd();
+
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.setAttribute('data-revealed', '');
-        observer.unobserve(entry.target);
+        const node = entry.target;
+
+        if (entry.isIntersecting) {
+          if (node.dataset.reveal === '') node.setAttribute('data-revealed', '');
+          enter.unobserve(node);
+          return;
+        }
+
+        if (node.hasAttribute('data-reveal')) return;
+
+        const box = entry.boundingClientRect;
+        const below = box.top >= (entry.rootBounds ? entry.rootBounds.bottom : window.innerHeight);
+        const unlaid = box.width === 0 && box.height === 0;
+        if ((!below && !unlaid) || ended) {
+          enter.unobserve(node);
+          return;
+        }
+
+        node.setAttribute('data-reveal', '');
+        settler.observe(node);
       });
     }, {
-      // -6%: el elemento arranca cuando de verdad entra en el campo visual, sin
-      // anticiparse desde fuera del pliegue. 0.05: basta un asomo para disparar, asi que
-      // un elemento alto no espera a estar medio visible.
-      rootMargin: '0px 0px -6% 0px',
+      // El inset del token: el elemento arranca cuando de verdad entra en el campo visual,
+      // sin anticiparse desde fuera del pliegue. 0.05: basta un asomo para disparar, asi
+      // que un elemento alto no espera a estar medio visible.
+      rootMargin: `0px 0px -${enterInset}% 0px`,
       threshold: 0.05,
     });
 
+    // Linea de asentamiento: la coreografia termino y el elemento queda fijo. Una sola vez.
+    const settler = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.target.dataset.reveal === '') settle(entry.target);
+      });
+    }, {
+      rootMargin: `0px 0px -${100 - settleLine}% 0px`,
+      threshold: 0,
+    });
+
     const register = (scope) => {
-      const nodes = Array.from(scope.querySelectorAll(REVEAL_TARGETS));
       const seen = new Map();
 
-      nodes.forEach((node) => {
+      scope.querySelectorAll(REVEAL_TARGETS).forEach((node) => {
         // Ojo: este guardia hace que un data-reveal escrito a mano en el Liquid NO llegue
         // nunca al observador, y el CSS lo dejaria oculto para siempre. Los objetivos se
-        // declaran arriba, en REVEAL_TARGETS, no en las secciones.
+        // declaran arriba, en REVEAL_TARGETS, no en las secciones. El hero editorial queda
+        // fuera del reveal generico: tiene su propia entrada, sin atributos.
         if (node.hasAttribute('data-reveal') || node.closest('.hero-editorial')) return;
 
         // El indice se cuenta entre hermanos, para que cada rejilla escalone por su cuenta
@@ -4724,14 +4828,66 @@
         seen.set(parent, index + 1);
 
         node.style.setProperty('--reveal-index', String(Math.min(index, REVEAL_STAGGER_CAP)));
-        node.setAttribute('data-reveal', '');
-        observer.observe(node);
+        enter.observe(node);
       });
     };
 
+    // WCAG 2.4.7 y 2.4.11: el foco no puede aterrizar en algo a medio revelar. Se asienta
+    // el contenedor del foco y tambien lo que lo tape, porque los disparadores de hotspot
+    // del lookbook son HERMANOS de .lookbook__media, no hijos: sin la prueba de cajas
+    // solapadas un hotspot enfocado flotaria sobre una foto todavia recortada.
+    document.addEventListener('focusin', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const rect = target.getBoundingClientRect();
+
+      pending().forEach((node) => {
+        if (node.contains(target)) {
+          settle(node);
+          return;
+        }
+
+        // Lo que CONTIENE al foco se descarta: el skip link enfoca <main>, y asentar su
+        // contenedor revelaria la pagina entera de golpe.
+        if (target.contains(node)) return;
+
+        const box = node.getBoundingClientRect();
+        const overlaps = box.top < rect.bottom
+          && box.bottom > rect.top
+          && box.left < rect.right
+          && box.right > rect.left;
+        if (overlaps) settle(node);
+      });
+    });
+
+    // Guardia de fin de pagina. En una pagina corta el rango puede no completarse nunca y
+    // el elemento se quedaria a medio camino: al tocar el final se asienta lo pendiente.
+    window.addEventListener('scroll', settlePending, { passive: true });
+
+    // La misma guardia cuando cambia la geometria, porque el scroll no llega si la pagina
+    // dejo de scrollear: el editor de temas conmuta el viewport, el movil rota, el editor
+    // quita una seccion. Se observa <html> y no window: su caja sigue al viewport cuando
+    // la pagina es corta (min-height: 100% en base.css) y al contenido cuando es larga,
+    // asi que una sola observacion cubre los dos lados que deciden si hay recorrido. El
+    // callback corre tras el layout, de modo que offsetHeight no fuerza nada. Lo que se
+    // asienta aqui venia oculto bajo el pliegue: aparece en fundido, nunca parpadea.
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(settlePending).observe(root);
+    } else {
+      window.addEventListener('resize', settlePending, { passive: true });
+    }
+
     register(document);
-    // El editor de temas reemplaza secciones enteras: lo que entra tambien debe entrar.
+    // El editor de temas reemplaza secciones enteras: lo que entra tambien debe entrar, y
+    // lo que sale deja de observarse para no retener nodos ya descartados.
     document.addEventListener('shopify:section:load', (event) => register(event.target));
+    document.addEventListener('shopify:section:unload', (event) => {
+      event.target.querySelectorAll('[data-reveal]').forEach((node) => {
+        enter.unobserve(node);
+        settler.unobserve(node);
+      });
+    });
   };
 
   // ---------------------------------------------------------------------------

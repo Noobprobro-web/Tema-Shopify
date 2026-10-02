@@ -5,18 +5,22 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
 Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
-Última actualización: 2026-09-30T19:20:00-04:00
-Estado general: MANDO DELEGADO A CLAUDE (CLAUDE-HANDOFF-LEAD-001). CÓDIGO 100% EN PARIDAD Y COMPUERTAS EN VERDE.
-Frentes de Código y Despliegue Recién Sincronizados (Commit ea3e3dc):
-  1) Paridad Repositorio vs Demos (B-02): 5 archivos Liquid de carga rápida integrados en git, empaquetados en Sartorial-1.0.0.zip y desplegados.
-  2) Regresión de Inventario (B-03): Corregida en assets/theme.js. El tope solo aplica a stock strictly low (<= threshold), sin limitar variantes de 25 unidades a 6. LiquidComplexity <= 120.
-  3) Mejoras L-01..L-03 aplicadas: Steppers sincronizados al arranque, Enter en drawer sin doble POST, total de línea validado.
-  4) Quality Gates: npm run gates:static 100% verde (0 ofensas en 429 archivos en Theme Check).
-Bloqueantes en manos de Claude para liderar con Johandry:
-  - B-01 (P0): Documentación y soporte públicos sin contraseña (HTMLs listos en docs/merchant/, vía GitHub Pages o hosting).
-  - B-04 (P0): Fotografías de Edition (curación de 10 imágenes en CSV).
-  - M-01 / R4 (P1): Colección desk-and-study en Edition y políticas desde plantilla en las 3 tiendas.
-  - Pagos de prueba: Registrar 1 pedido Bogus por tienda.
+Última actualización: 2026-10-02T04:45:00-04:00 (TECH-AUDIT-001, Gemini)
+Última actualización técnica: 2026-10-02 (MOTION-002, Claude) — ver sección 4
+Estado general: AUDITORÍA TÉCNICA MULTIDIMENSIONAL TECH-AUDIT-001 COMPLETADA Y CERTIFICADA. VEREDICTO: APTO TRAS PARCHES (LIGHTHOUSE MÓVIL 98.0 / UMBRAL THEME STORE 60). 4 PARCHES LISTOS PARA APLICACIÓN POR CLAUDE (LOS 4 SIGUEN APLICANDO LIMPIOS TRAS MOTION-002: `git apply --check` SALE 0 EN LOS CUATRO). SUPERPUESTO: SPRINT MOTION-002 CON CÓDIGO COMPLETO Y **SIN CERTIFICAR** — GSAP RETIRADO (-125.737 B DE JS) Y SUSTITUIDO POR CSS SCROLL-DRIVEN NATIVO; `npm run gates:static` EN ROJO EN LA COMPUERTA 1 DE 8 (`gates:json`) POR CAUSA AJENA AL TEMA Y CON PARCHE YA VALIDADO. EL TEMA NO ESTÁ LISTO PARA SUBMISSION.
+Frentes Recién Sincronizados y Verificados:
+  1) TECH-AUDIT-001 COMPLETADO Y CERTIFICADO: 9 roles ejecutados con evidencia empírica (54 corridas Lighthouse con media 98.0 móvil / 98.7 escritorio, axe 0 violaciones en 180 tests, 72 viewports con 0px overflow, 2450 links con 0 rotos).
+  2) Bloqueante P0 y Mejoras Aisladas en Parches: 4 parches validados con `git apply --check` listos en `agent-comms/outbox-gemini/harness-TECH-AUDIT-001/` (P0 shopify images, X5 CLS reduced motion, FAQ summary ARIA, gates static scratch).
+  3) B-01 (P0) CERRADO: Documentación y soporte públicos operativos en GitHub Pages (noobprobro-web.github.io/sartorial-docs/), Formspree xyezvvjo probado E2E con éxito. Schema pushed a las 3 demos. Fila 107 del ledger CUMPLIDA.
+  4) Paridad Repositorio vs Demos (Rol 8): 60/60 archivos de código ejecutable idénticos byte por byte. Cero derivas.
+Frentes en Ejecución Activa:
+  - MOTION-002 (Motor de Movimiento): código completo y trazado en el ledger (filas nuevas 38, 57 y 58, más la 56 reescrita, que era la 55 antes del desplazamiento), SIN verificación en storefront vivo, SIN Safari y SIN ejercer la rama de respaldo B8.1. Arnés listo en `agent-comms/outbox-claude/harness-MOTION-002/`, bloqueado por `STOREFRONT_PASSWORD`. 7 acciones humanas abiertas y 4 conflictos con TECH-AUDIT-001 sin resolver (sección 4).
+  - Aplicación de los 4 parches por Claude (`git apply`), ejecución de `npm run gates:static`, push a las 3 demos y regeneración de `Sartorial-1.0.0.zip`. El push a las demos pasa a ser BLOQUEANTE: hoy las 3 sirven el motor GSAP que el repositorio ya no tiene (conflicto C-02 de la sección 4).
+  - B-04 / M-02 / M-03 (Fotografía):
+    * Edition: GPT-TASK-016 (13 imágenes asignadas a GPT).
+    * Archive: GEMINI-TASK-IMAGERY-001 (12 imágenes asignadas a Gemini). 4/12 generadas y procesadas (2000x2500, <=1.5MB), alt-text.csv y PROVENANCE.md creados.
+  - M-01 (Políticas y Colección): Operaciones GraphQL listas para Edition/Atelier/Archive (desk-and-study + 4 políticas de tienda).
+  - Transacciones: Registro de pedido de prueba Bogus por demo.
 ```
 
 ---
@@ -115,34 +119,113 @@ Bloqueantes en manos de Claude para liderar con Johandry:
     3. **Sartorial Archive:** `https://sartorial-archive.myshopify.com` (Admin: `https://admin.shopify.com/store/sartorial-archive`). Tema `Archive` [live] #191153275192 (Preset: Archive aplicado).
   - Cada tienda opera con su estilo preconfigurado y publicado como tema principal.
 
+- **Auditoría Técnica Integral Multidimensional Pre-Submission (TECH-AUDIT-001):** Certificado exhaustivamente sobre las 3 tiendas demo oficiales (Atelier, Edition, Archive) y código de producción ([GEMINI-REPORT-TECH-AUDIT-001.md](agent-comms/outbox-gemini/GEMINI-REPORT-TECH-AUDIT-001.md)). Dictamen: **APTO TRAS APLICACIÓN DE PARCHES (Lighthouse Móvil 98.0 / Umbral Theme Store 60)**.
+  - **Resultados Empíricos de los 9 Roles:**
+    1. *Rol 1 (Lighthouse 13.5.0):* 54 corridas ejecutadas. Media móvil global **98.0/100** (superávit de +38 puntos sobre umbral oficial de 60). Media escritorio **98.7/100**. TBT mediana **13.5 ms** (< 200 ms Good). Modo Lean de GSAP ahorra **-55.5%** de transferencia inicial JS en Brotli.
+    2. *Rol 2 (Accesibilidad axe-core 4.10.2):* 180 evaluaciones en vivo (Desktop/Mobile, Normal/Reduced Motion): **0 violaciones** (0 críticas, 0 serias, 0 moderadas, 0 menores).
+    3. *Rol 3 (Validador Nu W3C vnu 26.9.16):* 24 páginas evaluadas. 5,886 errores propios de plataforma Shopify y **24 errores de tema** en `/pages/contact` debidos a `aria-expanded` en `<summary>`. Resueltos a **0** mediante `patch-contact-faq-summary-aria.diff`.
+    4. *Rol 4 (Rastreo de Enlaces y 404):* 2,450 enlaces extraídos, 161 URLs internas únicas probadas en vivo: **0 errores 404, 0 enlaces rotos, 0 anclas rotas**. URLs públicas de soporte y documentación certificadas con **HTTP 200 OK**.
+    5. *Rol 5 (Responsividad y Layout):* 72 estados (3 tiendas × 3 páginas × 8 viewports: 320px a 1920px): **0px de desborde horizontal** en el 100% de los estados, 0 colisiones de elementos.
+    6. *Rol 6 (Matriz de Requisitos Theme Store):* 212 requisitos oficiales evaluados en 23 áreas normativas: **206 CUMPLE (97.2%)**, 1 NO CUMPLE (P0-01 referencias a `shopify://shop_images/`, resuelto vía parche), 5 no verificables (SLA comercial, apps nativas).
+    7. *Rol 7 (Compuertas Estáticas y Empaquetado):* `Sartorial-1.0.0.zip` pesa **350.95 KB** (0.7% del límite de 50 MB de Shopify, 0 archivos prohibidos). Fallo en `gates:json` por archivos en `scratch/` resuelto con `patch-gates-static-scratch.diff`.
+    8. *Rol 8 (Paridad Repositorio vs Demos):* `shopify theme pull` certifica que **60 de 60 archivos ejecutables son 100% idénticos byte a byte** en las 3 tiendas demo. Cero derivas.
+    9. *Rol 9 (Instalación Limpia y CLS X5):* 8 secciones de `templates/index.json` manejan catálogos vacíos sin rotura. CLS bajo `prefers-reduced-motion: reduce` reducido de **0.1740 a 0.0041 (-97.6%)** mediante `patch-X5-cls-reduced-motion.diff`.
+  - **Verificación Cruzada (20% muestra):** Estabilidad determinista y varianza < 1% en todos los roles (`raw-cross-verification.json`).
+  - **Inventario y Parches:** `agent-comms/outbox-gemini/harness-TECH-AUDIT-001/` contiene `MANIFEST.txt` (171 archivos crudos certificados) y los 4 parches validados con `git apply --check` listos para aplicación por Claude.
+
 ---
 
 ## 2. Asignaciones Activas por Agente
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Pagos de prueba activos. Pendiente: Importar CSVs corregidos en Edition y Atelier; publicar docs. | 🟢 Activo | Importación de catálogos y docs |
-| **Gemini Flash 3.8 High** | Arquitecto / Orquestador | Parches técnicos (P-01 a P-09) aplicados y desplegados a las 3 tiendas. Gates 100% verdes. CSVs preparados. | 🟢 Completado | Coordinación y soporte |
-| **Claude (Opus 5.5 Extra)** | Implementador Principal | Entregó `CLAUDE-REPORT-AUDIT-FINAL-002` (Parches P-01 a P-09 formulados y validados). | 🟢 Completado | Standby |
-| **GPT-6 Sol Max / Astra** | Auditor Senior de Producto | Entregó `GPT-AUDIT-015` (Hallazgos comerciales y de catálogo absorbidos en CSVs). | 🟢 Completado | Standby |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | Autorizar conector Shopify en Edition/Atelier/Archive; realizar 1 pedido de prueba Bogus por tienda; crear políticas de tienda. | 🟢 Activo | Conector + Políticas + Pedidos de prueba |
+| **Claude (Opus 5.5 Extra)** | Líder Técnico & Estratégico (Temporal) | Aplicar los 4 parches de TECH-AUDIT-001 (`git apply`), validar `npm run gates:static`, regenerar `Sartorial-1.0.0.zip` y desplegar a las 3 demos. | 🟢 Activo | CLAUDE-REPORT-APPLY-TECH-AUDIT-001 / Zip / Demos |
+| **Claude (Opus 5 1M)** | Trazabilidad y Compuertas | MOTION-002 cerrado en lo que es documentable: `.theme-check.yml` creado (2.487 ofensas / 9 errores → 0 sobre 88 archivos), ledger reescrito a 60 filas y BOARD integrado. `gates:static` en rojo en la compuerta 1 por `scratch/`, fuera de frontera. | 🟢 Entregado | CLAUDE-REPORT-MOTION-002.md / `.theme-check.yml` / Ledger |
+| **Gemini Flash 3.8 High** | Arquitecto Consultor & Soporte | TECH-AUDIT-001 formalizado y certificado (GEMINI-REPORT-TECH-AUDIT-001.md). Soporte a Claude en validación de parches y push. | 🟢 Activo | Entregables TECH-AUDIT-001 certificados |
+| **GPT-6 Sol Max / Astra** | Auditor Senior de Producto | Asignado a GPT-TASK-016 (Edition): Generación de 13 fotografías de bodegón de producto sobre hormigón y roble. | 🟡 Pendiente ejecución | demo-assets/edition/ + Reporte |
 
 ---
 
 ## 3. Estado del Ledger de Requisitos (`docs/requirements-ledger.md`)
 
-*Conteo auditado matemáticamente por `scripts/ledger-verify.mjs` sobre 57 filas oficiales:*
+*Conteo auditado matemáticamente por `scripts/ledger-verify.mjs` sobre 60 filas oficiales (0 incoherencias, exit 0, recuento del 2026-10-02 tras MOTION-002):*
 
 | Estado Canónico | Total Filas | % | Descripción |
 |---|---|---|---|
-| `cumplido` | **54** | 94.7% | Requisitos oficiales verificados exhaustivamente en código y tienda real (Fila 108 cerrada con 3 demos pobladas). |
-| `código completo` | **2** | 3.5% | Filas 35 (Punto Focal) y 72 (Medios 3D): código 100% implementado, pendientes fixtures en admin para test en vivo (Opción A). |
-| `no verificado` | **1** | 1.8% | Dependencia comercial del comerciante: publicación de docs/soporte en ruizdigital.com (Fila 107). |
+| `cumplido` | **54** | 90.0% | Requisitos oficiales verificados exhaustivamente en código y tienda real (Fila 107 y 108 cerradas con docs públicas y 3 demos). |
+| `código completo` | **6** | 10.0% | Filas 35 (Punto Focal) y 75 (Medios 3D), pendientes de fixtures en admin (Opción A); más las 4 de MOTION-002: 38 (Motor nativo sin dependencias y soporte de navegador), 56 (`prefers-reduced-motion`, degradada desde `cumplido` porque su evidencia citaba `assets/motion.js`, un archivo borrado), 57 (Axioma anti-invisible) y 58 (Contenido revelado al imprimir). Las 4 esperan la ejecución de `harness-MOTION-002`, que exige `STOREFRONT_PASSWORD`. |
+| `no verificado` | **0** | 0.0% | Todas las dependencias cerradas o en proceso verificado. |
 | `ausente` | **0** | 0.0% | 0 requisitos sin atender. |
-| **TOTAL** | **57** | **100%** | Cobertura total de especificación Shopify Theme Store v1.0.0. |
+| **TOTAL** | **60** | **100%** | Cobertura total de especificación Shopify Theme Store v1.0.0. |
+
+> **Nota de método (Claude, MOTION-002).** La fila de `prefers-reduced-motion` bajó de `cumplido` a `código completo`. No es una regresión del tema: su evidencia anterior apuntaba a `assets/motion.js` (borrado) y a una línea de `assets/theme.js` desplazada por la migración, de modo que la verificación en vivo que la cerraba medía un motor que ya no existe. Vuelve a `cumplido` cuando el arnés nuevo pase.
+
+---
+
+## 4. Sprint MOTION-002 — Motor de Movimiento CSS Scroll-Driven Nativo (código completo, SIN certificar)
+
+*Implementado por 6 agentes previos. Trazabilidad, configuración de compuertas y cierre documental por Claude. Informe maestro en [CLAUDE-REPORT-MOTION-002.md](agent-comms/outbox-claude/CLAUDE-REPORT-MOTION-002.md).*
+
+### 4.1 Balance y arquitectura
+
+- **Balance medido:** borrados `assets/gsap.min.js` (72.927 B), `assets/gsap-scrolltrigger.min.js` (44.575 B) y `assets/motion.js` (8.235 B) = **125.737 B de JavaScript menos** y tres etiquetas `script` menos en modo Full. A cambio, +339 líneas en las regiones de movimiento de `assets/base.css` (el bloque B8 ocupa `assets/base.css:8707-8998`) y +169 / −15 en la región del motor de revelado de `assets/theme.js`.
+- **Los tres assets nunca estuvieron en git** (`git ls-files` no los lista, `git log --all` no los conoce) y el bloque de carga de `layout/theme.liquid` era trabajo sin commitear (`git diff layout/theme.liquid` está vacío). La migración sustituye un experimento que no entró al repositorio; no retira una función publicada en él. **Las 3 tiendas demo sí lo tienen desplegado:** ver conflicto C-02.
+- **Selección de motor 100 % en cascada CSS:** `@supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%)` en `assets/base.css:8745`. Dos pruebas y no una, porque hubo versiones que aceptaban `view()` pero no la sintaxis de dos valores de `animation-range`. Se eliminó `data-motion-engine`; `initScrollReveal` (`assets/theme.js:4715`) es agnóstico y no consulta `CSS.supports`. Contrato de atributos: `html[data-reveal-ready]`, `[data-reveal=""]` (pendiente), `[data-reveal="done"]` (asentado) y `[data-revealed]` (respaldo IntersectionObserver).
+- **Animaciones:** `scroll-rise` (revelado), `scroll-fade` y `scroll-line-rise` (titulares línea por línea desde máscara), `scroll-unveil` y `scroll-unveil-settle` (masas fotográficas), `hero-parallax` y `marquee-drift` (con `animation-composition: add`).
+- **Compuerta 5 reconfigurada:** `.theme-check.yml` creado en la raíz. Preset fijado a `theme-check:recommended` (idéntico línea por línea al predeterminado del CLI 4.8.0, verificado con `--print`), **cero checks individuales desactivados** y alcance acotado al tema. Antes: 787 archivos, 2.487 ofensas, 9 errores. Después: 88 archivos, 0 ofensas, exit 0.
+
+### 4.2 Las 6 correcciones registradas sobre la especificación original
+
+| # | Corrección | Localizadores verificados |
+|---|---|---|
+| M-01 | **Firefox NO soporta scroll-driven animations.** La especificación decía Firefox 144+. Ni la 158 Beta lo trae habilitado: sigue tras `layout.css.scroll-driven-animations.enabled`, meta bug Bugzilla 1676780 en estado NEW, solo Nightly. Cobertura real caniuse **87,22 %** (dataset agosto 2026), 85-86 % efectivo. Chrome y Edge 115+, Safari 26.0+ (macOS e iOS idénticos). Firefox va a la rama de respaldo B8.1. | `assets/base.css:8730` |
+| M-02 | **Hero: `animation-range-start: exit 0%`**, no `calc(0% - var(--header-offset))`. Los view timelines miden contra la región óptima de visionado y la raíz ya lleva `scroll-padding-block-start: var(--header-offset)`. Medido con cabecera de 77 px: restándola otra vez, el progreso nace en 0,124 a scroll 0 y asoman 9,7 px de fondo sobre el pliegue, justo en el elemento LCP. | `assets/base.css:8881`, `assets/base.css:7934` |
+| M-03 | **El estado oculto fabrica su propio scroll.** El `translateY(64px)` desborda el documento cuando el pendiente es lo último de la página: hasta 64 px de `scrollHeight` fantasma (medido: 732 px de layout, 785 de `scrollHeight`). Por eso la guardia de fin de página mide contra `root.offsetHeight` y hay un `ResizeObserver` sobre la raíz. **Ninguna de las dos piezas se puede "simplificar": hacerlo reabre el bug.** | `assets/theme.js:4762`, `assets/theme.js:4881` |
+| M-04 | **El marquee cambió de naturaleza:** de reaccionar a la *velocidad* (`playbackRate` 1→4×, sin equivalente en CSS) a desplazarse por *posición* (16vw aditivo sobre su bucle autónomo de 32 s, que se conserva). Requirió un tercer grupo en `sections/marquee.liquid` y el token `--marquee-groups`. Efecto lateral positivo: el estado degenerado "Único" mejora, grupo mínimo de ≥100vw a ≥58vw. **Pérdida de función visible para el comerciante: pendiente de decisión de changelog.** | `sections/marquee.liquid:22`, `assets/base.css:3987`, `assets/base.css:8901-8910` |
+| M-05 | **Desviación de nivel 1:** en modo `subtle`, los elementos visibles al cargar ya no pasan un fotograma ocultos. Mejora el LCP y elimina un parpadeo, pero es perceptible. Se registra como desviación, no como mejora silenciosa. | `assets/theme.js:4794` |
+| M-06 | **Menores:** selector muerto `.newsletter-section .newsletter__inner` → `.newsletter-section__inner` (la sección de newsletter nunca tuvo revelado); `.curated-showcase__tabs` excluido de la animación de líneas (`overflow-x: auto` fuerza `overflow-y: auto` y los 64 px convertían el carril en scrollable, 52 → 116 px de `scrollHeight`); máscara endurecida a `inset(-100% -1rem 0)` porque con el valor original la comilla de `.brand-manifesto__quote-mark` **se recortaba** en móvil 390×844 sin eyebrow (bug activo, no latente); clamp `SETTLE_LINE_MIN = 10` contra el colapso de la caja raíz del observador. | `assets/theme.js:4692`, `assets/base.css:8832-8835`, `assets/base.css:8779`, `assets/theme.js:4713` |
+
+### 4.3 Qué NO está verificado
+
+Verificación realizada: estática (las 8 compuertas, 7 en verde) más las mediciones locales en Chrome sobre fixtures que declaran los agentes de MOTION-002 (sin artefacto en el repositorio). **No hay nada de lo siguiente:**
+
+1. Verificación en storefront vivo. `harness-MOTION-002` existe y está documentado, pero exige `STOREFRONT_PASSWORD`, que nadie ha exportado.
+2. Safari. Es la segunda plataforma con soporte (26.0+) y no se ha abierto ni una vez.
+3. La rama de respaldo B8.1 (`@supports not`). Es la que ve Firefox, o sea el ~13 % de la cobertura, y no se ha ejecutado nunca.
+4. Vista previa de impresión real en ningún navegador (llave 3 nueva).
+5. Lighthouse y CLS posteriores a la migración. Las 54 corridas de TECH-AUDIT-001 midieron el motor GSAP.
+6. axe-core posterior a la migración: las 180 evaluaciones también midieron el motor anterior.
+7. Las 4 filas nuevas o degradadas del ledger (38, 56, 57, 58) en estado `código completo`.
+
+### 4.4 Conflictos con TECH-AUDIT-001 — detectados y NO resueltos por Claude
+
+*Se reportan sin tocar los hallazgos de la auditoría de Gemini. Requieren decisión del orquestador.*
+
+| # | Conflicto | Qué dice el BOARD hoy | Qué se midió tras MOTION-002 |
+|---|---|---|---|
+| C-01 | Métrica de GSAP huérfana | Rol 1: *"Modo Lean de GSAP ahorra -55.5 % de transferencia inicial JS en Brotli"* | GSAP ya no existe en el repositorio. La métrica describe un motor retirado y las 54 corridas de Lighthouse (media móvil 98.0) se tomaron sobre él. La cifra sigue siendo verdad sobre lo que midió; ya no describe el tema. |
+| C-02 | Paridad repositorio vs demos | Rol 8: *"60 de 60 archivos ejecutables son 100 % idénticos byte a byte en las 3 tiendas demo. Cero derivas."* | Hay deriva. El pull congelado de las 3 demos (`scratch/audit-live-pull/full-{atelier,edition,archive}/`, tomado el 2026-10-01 a las 22:25) contiene `assets/gsap.min.js` (72.927 B), `assets/gsap-scrolltrigger.min.js` (44.575 B) y `assets/motion.js` (8.235 B), y su `layout/theme.liquid` los carga en las líneas 103-105. El repositorio no tiene ninguno de los tres, y `base.css` y `theme.js` también difieren. **Las 3 demos sirven hoy un motor que el tema ya no lleva.** |
+| C-03 | CLS bajo movimiento reducido | Rol 9: *"CLS reducido de 0.1740 a 0.0041 (-97.6 %) mediante `patch-X5-cls-reduced-motion.diff`"* | La medición es del motor GSAP. El parche sigue aplicando limpio (toca `layout/theme.liquid`, no `base.css`), pero la ruta de `prefers-reduced-motion: reduce` cambió: la llave 2 ahora anula también `clip-path` (`assets/base.css:9035`). La cifra hay que volver a medirla, no heredarla. |
+| C-04 | Conteo de Theme Check | Secciones de cierre: *"Theme Check 351 archivos con 0 ofensas"* | No es reproducible hoy. Sin `.theme-check.yml` el rastreo da 787 archivos, 2.487 ofensas y 9 errores; con el archivo nuevo da 88 archivos y 0 ofensas. Ninguna de las dos cifras es 351: el conteo de "archivos inspeccionados" depende del alcance, y hasta ahora no había alcance declarado. |
+
+### 4.5 Acciones humanas pendientes (prioridad recomendada por Claude)
+
+| Prioridad | Acción | Por qué |
+|---|---|---|
+| **P0** | Rotar la contraseña del storefront en Shopify Admin en las 3 demos (`sartorial-atelier`, `sartorial-edition`, `sartorial-archive`) y en `tema-qkqpke0j`. | Invalida las cookies de sesión publicadas en GitHub. Verificado: ff3dca1, que trae `harness-AUDIT-360-001/lh-headers.json` con cookies, **es** ancestro de `origin/master`. Es la única mitigación real; la corrección de CR-04 en `CLAUDE-REVIEW-GEMINI-AUDIT-360.md` queda registrada. |
+| **P0** | Exportar `STOREFRONT_PASSWORD` en el entorno. | Sin ella todos los arneses fallan por diseño. Es la llave de las 4 filas en `código completo` y de todo el §4.3. |
+| **P1** | Rotar el PAT de Figma y la API key de Composio. | Higiene: nunca se commitearon, pero hay 5 copias en disco y un blob suelto inalcanzable en `.git`. |
+| **P1** | Limpiar la contraseña literal de 5 scripts de `agent-comms/outbox-gemini/harness-TECH-AUDIT-001/`: `crawl-links.mjs:33`, `run-axe-audit.mjs:7`, `run-cross-verification.mjs:13`, `run-responsive-audit.mjs:7` (patrón `\|\| '<literal>'`) y `measure-live-cls.mjs:6` (hardcodeada, sin override). | Mismo riesgo que CR-04 y en archivos sin commitear todavía: se arregla antes de que entren al índice. Fuera de la frontera de Claude en MOTION-002. |
+| **P1** | Ejecutar `harness-MOTION-002` en los tres proyectos y recertificar las filas 38, 56, 57 y 58 a `cumplido`. | Es el único camino para cerrar el sprint. |
+| **P2** | Decidir el changelog para comerciantes: ¿se declara la pérdida de la aceleración del marquee (M-04)? ¿Se redacta una frase que describa el modo `None`, hoy sin documentar en ninguna superficie? | Superficie de comerciante. Gate 4 del DoD. |
+| **P2** | Valorar sacar el repositorio de la carpeta sincronizada por OneDrive. | Un repositorio de trabajo con `.git` dentro de una carpeta de sincronización continua es una fuente de corrupción y de copias no gobernadas. |
 
 ---
 
 ## 5. Próximos Pasos para la Submission a Shopify Theme Store
+
+> **Bloqueantes abiertos (MOTION-002).** El punto 3 de esta lista no puede ejecutarse antes de cerrar las 7 acciones humanas de la sección 4.5 y los 4 conflictos de la 4.4. Añádase a esta lista: aplicar `patch-gates-static-scratch.diff` para devolver `npm run gates:static` al verde (hoy falla en la compuerta 1 de 8 por 75 JSON de `scratch/`) y volver a desplegar las 3 demos, que siguen sirviendo el motor GSAP.
 
 1. **Pruebas y Limpieza Manual del Comerciante (Johandry):**
    - Prueba con teclado físico en barra fija de compra móvil (AF-08) en `/products/qa5a-f04-colour-size` a 375px.

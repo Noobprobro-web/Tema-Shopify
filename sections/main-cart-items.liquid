@@ -118,6 +118,12 @@
                   assign quantity_min = item.variant.quantity_rule.min | default: 1
                   assign quantity_step = item.variant.quantity_rule.increment | default: 1
                   assign quantity_max = item.variant.quantity_rule.max
+                  # LEAD-001: con stock controlado y sin venta en negativo, el + se apaga cuando la
+                  # linea ya tiene todo lo vendible (p. ej. una pieza 1-de-1). Solo revela lo que el
+                  # propio error de Shopify diria al pulsar; misma regla en cart-drawer y main-cart-items.
+                  if quantity_max == blank and item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny' and item.variant.inventory_quantity <= item.quantity
+                    assign quantity_max = item.quantity
+                  endif
                 -%}
                 <label for="CartQuantity-{{ forloop.index }}">{{ 'sections.cart.quantity' | t }}</label>
                 {%- comment -%}
