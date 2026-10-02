@@ -7012,7 +7012,8 @@ copy-text {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    /* 0s y no 0.01ms: ver la nota de la llave 2 del sistema de movimiento (CLS). */
+    transition-duration: 0s !important;
   }
 }
 
@@ -9003,7 +9004,8 @@ html[data-animations='none'] *::before,
 html[data-animations='none'] *::after {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
+  /* 0s y no 0.01ms: ver la nota de la llave 2 (CLS). */
+  transition-duration: 0s !important;
   transition-delay: 0ms !important;
   scroll-behavior: auto !important;
 }
@@ -9023,7 +9025,16 @@ html[data-animations='none'] [data-reveal] {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    /* MOTION-002 (CLS en reduce). Las transiciones van a 0s, no a 0.01ms: con
+       transition-property en su valor inicial (all), una duracion de 0.01ms convierte
+       CUALQUIER cambio de estilo calculado en una transicion de un fotograma que pinta
+       primero el valor viejo. Al cargar la fuente web, el max-width en ch del titular
+       (11ch pasa de 416 a 594 px con Libre Baskerville) se pintaba un fotograma con los
+       glifos nuevos y el ancho viejo: el titular se iba a 4 lineas, el bloque crecia 160 px
+       y el velo del hero (inset -50%, el doble del bloque) lo amplificaba: CLS 0.18 en Atelier,
+       limite 0.1. Con 0s no hay transicion y el cambio es atomico. Ningun script del tema
+       escucha transitionend, asi que 0.01ms no servia para nada. */
+    transition-duration: 0s !important;
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
