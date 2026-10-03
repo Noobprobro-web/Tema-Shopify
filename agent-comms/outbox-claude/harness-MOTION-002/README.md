@@ -10,6 +10,7 @@ nuevo, 100% nativo.
 | `01-motion-check.mjs` | El arnés completo. Playwright, ESM, sin dependencias nuevas. |
 | `results-01-motion-check.json` | Salida (se sobreescribe en cada ejecución). |
 | `evidence/*.png` | Capturas a mitad de gesto. Se sobreescriben por nombre. |
+| `evidence/print-<proyecto>-<ruta>.pdf` | PDF de Chromium de la prueba de impresion (G11). |
 
 El inventario de tiendas y el desbloqueo del storefront (reintentos 429, reutilización
 de cookies fuera del repositorio) **no se duplican**: se importan de
@@ -50,6 +51,7 @@ ninguna combinación de soporte / JS / modo.
 | M6 | CLS durante el scroll (`PerformanceObserver`, `layout-shift`, sin `hadRecentInput`) | `< 0.1` |
 | M7 | 40 tabulaciones; el elemento enfocado y sus ancestros sin `opacity < 0.05` ni `clip-path: inset(100%` ni `visibility: hidden` (WCAG 2.4.7 / 2.4.11) | 0 focos invisibles |
 | M8 | Capturas a mitad de gesto, con el **progreso real** de la animación scroll-driven anotado junto al PNG | ≥1 captura con progreso en (0,3 – 0,7) |
+| M9 | Impresión sin scroll (solo proyectos Chromium): la página carga en pantalla, **no** se hace scroll, `page.emulateMedia({ media: 'print' })` y se inspecciona cada `[data-reveal]` y sus hijos animados (los que tienen `getAnimations()` o son líneas/medio de B8). Luego `page.pdf()` en `evidence/`. | 0 elementos con `opacity < 1`, `visibility: hidden`, `clip-path` que recorte la caja o `transform` distinto de la identidad (G11, fallo duro) |
 
 ### Escenarios
 
@@ -123,6 +125,8 @@ npx playwright install firefox
 | `MOTION_ROUTES` | `/,/collections/all,/products/<handle>,/pages/about` | Lista separada por comas. |
 | `MOTION_SHORT_ROUTE` | la colección de 1 producto que encuentre, si no `/pages/contact` | Ruta para la guardia de fin de página. |
 | `MOTION_PROJECTS` | los tres | Proyectos a ejecutar, separados por comas. |
+| `MOTION_PRINT` | `1` | `0` desactiva la prueba de impresión (G11). |
+| `MOTION_PRINT_ONLY` | sin valor | `1` corre solo G0 y G11 sobre `MOTION_ROUTES` (sin recorrido, teclado ni degenerados). Útil para no castigar el limitador de la tienda. |
 | `MOTION_FORCE_MODE` | `full` | Valor que se escribe en `html[data-animations]` antes de que pinte la página. `MOTION_FORCE_MODE=''` desactiva el forzado y se usa el ajuste publicado. El valor nativo se registra en cada fila de todos modos. |
 | `AUDIT_STATE_DIR`, `AUDIT_MIN_GAP_MS` | ver `lib.mjs` | Heredadas del patrón compartido: carpeta de cookies (fuera del repositorio) y ritmo entre navegaciones. |
 
@@ -134,7 +138,7 @@ en el temporal del sistema, nunca en git.
 
 ## 5. Cómo se interpreta el veredicto
 
-`results-01-motion-check.json` lleva `verdict` y una tabla `gates` (G0–G10). El
+`results-01-motion-check.json` lleva `verdict` y una tabla `gates` (G0–G11). El
 veredicto se **recalcula** a partir de lo medido; el JSON guarda la medición cruda, no
 el juicio.
 
@@ -189,3 +193,27 @@ venir de "no se pudo medir". Ejemplos implementados:
 - El recorrido completo es lento a propósito: el patrón compartido espacia cada
   navegación 2,5 s (`AUDIT_MIN_GAP_MS`) para no provocar un 429 de Cloudflare. Los tres
   proyectos con las 4 rutas, más degenerados y ruta corta, tardan varios minutos.
+
+---
+
+## 7. G11: contenido revelado al imprimir
+
+Fila del ledger "Contenido Revelado al Imprimir". La llave 3 de B8 (`@media print` en
+`assets/base.css`) promete que todo `html[data-reveal-ready] [data-reveal]` sale en papel
+con `opacity: 1`, `transform: none`, `clip-path: none` y `animation: none`.
+
+- Corre en `chromium-full` y `chromium-reduce` (Firefox no tiene `page.pdf()`), sobre
+  `MOTION_ROUTES`. Las filas van en `projects[].printRows`.
+- Control anti-vacío: en `full` al menos una ruta debe tener `[data-reveal=""]` al cargar
+  sin scroll (`printExercised`); si no, G11 es `NO_MEDIBLE`. También exige `scrollY = 0`,
+  `matchMedia('print')` verdadero y el PDF escrito.
+- Se mira tambien a los **hijos** animados porque la llave 3 solo neutraliza el propio
+  `[data-reveal]`: las líneas (`scroll-line-rise`) y el medio del unveil
+  (`scroll-unveil-settle`) consumen el timeline `--reveal` del padre y no heredan su
+  `animation: none`.
+
+```bash
+MOTION_PRINT_ONLY=1 MOTION_ROUTES='/,/collections/all,/products/serra-coat' \
+  MOTION_STORE=atelier MOTION_PROJECTS=chromium-full,chromium-reduce \
+  node agent-comms/outbox-claude/harness-MOTION-002/01-motion-check.mjs
+```

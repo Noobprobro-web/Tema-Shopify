@@ -119,6 +119,22 @@ const ROUTES = (process.env.MOTION_ROUTES || DEFAULT_ROUTES.join(',')).split(','
 // igualmente en cada fila para que quede a la vista.
 const FORCE_MODE = process.env.MOTION_FORCE_MODE === '' ? null : (process.env.MOTION_FORCE_MODE || 'full');
 
+// G11. Impresion. Se ejecuta en los proyectos Chromium (los unicos con page.pdf()).
+// MOTION_PRINT=0 la desactiva; MOTION_PRINT_ONLY=1 corre SOLO G0 y G11 (sin recorrido,
+// sin teclado, sin degenerados): sirve para medir la llave de papel sin castigar el
+// limitador de la tienda con todo lo demas.
+const PRINT_ONLY = process.env.MOTION_PRINT_ONLY === '1';
+const PRINT_CHECK = PRINT_ONLY || process.env.MOTION_PRINT !== '0';
+// Hijos animados de B8 que NO llevan [data-reveal] propio: las lineas de los siete
+// encabezados con mascara (b) y el medio del unveil (c). Mismo marcado que base.css.
+const PRINT_HEADERS = '.lookbook__header, .curated-showcase__header, .complete-the-look__header, '
+  + '.bento-discovery__header, .product-recommendations__header, .brand-manifesto__statement, .main-about__quote';
+const PRINT_CHILD_SELECTOR = [
+  `:is(${PRINT_HEADERS})[data-reveal] > *`,
+  `:is(${PRINT_HEADERS})[data-reveal] > :is(.flow, div) > *`,
+  ':is(.brand-manifesto__media, .complete-the-look__media, .lookbook__media, .main-about__gallery-item)[data-reveal] :is(img, svg, video)',
+].join(', ');
+
 // -----------------------------------------------------------------------------
 // 1. Proyectos Playwright. Tres perfiles; `MOTION_PROJECTS` o argv[2] seleccionan.
 //    - chromium-full:  motor nativo (@supports si). Rama principal.
@@ -135,6 +151,7 @@ const ALL_PROJECTS = [
     context: { reducedMotion: 'no-preference' },
     scenario: 'full',
     forceMode: FORCE_MODE,
+    printCheck: true,
   },
   {
     name: 'chromium-reduce',
@@ -144,6 +161,7 @@ const ALL_PROJECTS = [
     context: { reducedMotion: 'reduce' },
     scenario: 'reduce',
     forceMode: FORCE_MODE,
+    printCheck: true,
   },
   {
     name: 'firefox-no-scroll-driven',
@@ -416,6 +434,101 @@ const COUNT_COLLECTION = async (handle) => {
   }
 };
 
+// Impresion (G11). Corre con la pagina ya en media print y SIN haber hecho scroll: es
+// el caso real de alguien que abre la pagina y pulsa Imprimir. Mira cada [data-reveal]
+// y sus hijos animados (los que tienen animaciones o son lineas/medio de B8) y anota
+// por que quedarian fuera del papel: opacidad < 1, visibility hidden, clip-path que
+// recorta caja o transform distinto de la identidad. Los nodos sin caja (display: none,
+// p. ej. un cajon cerrado) no se pintan en papel ni en pantalla: se cuentan aparte.
+const READ_PRINT = (childSelector) => {
+  const root = document.documentElement;
+  const describe = (node) => node.localName
+    + (node.id ? `#${node.id}` : '')
+    + (typeof node.className === 'string' && node.className.trim() ? '.' + node.className.trim().split(/\s+/).slice(0, 2).join('.') : '');
+  const toPx = (value, ref) => (String(value).endsWith('%') ? (parseFloat(value) * ref) / 100 : parseFloat(value));
+  // Fraccion de la caja que recorta un inset(); null si la forma no es inset().
+  const clipFraction = (clip, rect) => {
+    if (!clip || clip === 'none') return 0;
+    const m = clip.match(/^inset\(([^)]*?)(?:\s+round[^)]*)?\)$/);
+    if (!m) return null;
+    const v = m[1].trim().split(/\s+/);
+    const [t, r, b, l] = [v[0], v[1] ?? v[0], v[2] ?? v[0], v[3] ?? v[1] ?? v[0]];
+    const h = rect.height || 1;
+    const w = rect.width || 1;
+    const vert = (Math.max(0, toPx(t, h)) + Math.max(0, toPx(b, h))) / h;
+    const horiz = (Math.max(0, toPx(l, w)) + Math.max(0, toPx(r, w))) / w;
+    return Number(Math.max(vert, horiz).toFixed(3));
+  };
+  const readTransform = (value) => {
+    if (!value || value === 'none') return null;
+    try {
+      const mx = new DOMMatrixReadOnly(value);
+      const tx = mx.m41; const ty = mx.m42; const sx = Math.hypot(mx.a, mx.b); const sy = Math.hypot(mx.c, mx.d);
+      const off = Math.abs(tx) > 0.5 || Math.abs(ty) > 0.5 || Math.abs(sx - 1) > 0.005 || Math.abs(sy - 1) > 0.005;
+      return off ? { tx: Number(tx.toFixed(1)), ty: Number(ty.toFixed(1)), sx: Number(sx.toFixed(3)), sy: Number(sy.toFixed(3)) } : null;
+    } catch (error) {
+      return { raw: value };
+    }
+  };
+
+  const reveal = Array.from(document.querySelectorAll('[data-reveal]'));
+  const targets = new Map();
+  reveal.forEach((node) => targets.set(node, 'reveal'));
+  reveal.forEach((node) => node.querySelectorAll('*').forEach((child) => {
+    if (targets.has(child)) return;
+    const animated = child.getAnimations ? child.getAnimations().length > 0 : false;
+    if (animated || child.matches(childSelector)) targets.set(child, 'hijo');
+  }));
+
+  const hidden = [];
+  let inspected = 0;
+  let notRendered = 0;
+  for (const [node, role] of targets) {
+    if (!node.getClientRects().length) { notRendered += 1; continue; }
+    inspected += 1;
+    const style = getComputedStyle(node);
+    const rect = node.getBoundingClientRect();
+    const opacity = parseFloat(style.opacity);
+    const clip = clipFraction(style.clipPath, rect);
+    const transform = readTransform(style.transform);
+    const reasons = [];
+    if (opacity < 0.999) reasons.push(`opacity ${opacity}`);
+    if (style.visibility === 'hidden') reasons.push('visibility hidden');
+    if (clip === null) reasons.push(`clip-path no evaluable ${style.clipPath}`);
+    else if (clip > 0.01) reasons.push(`clip-path ${style.clipPath} (recorta ${Math.round(clip * 100)}%)`);
+    if (transform) reasons.push(`transform ${style.transform}`);
+    if (!reasons.length) continue;
+    const anims = node.getAnimations ? node.getAnimations() : [];
+    hidden.push({
+      sel: describe(node),
+      role,
+      reveal: node.closest('[data-reveal]') ? node.closest('[data-reveal]').getAttribute('data-reveal') : null,
+      revealHost: role === 'hijo' ? describe(node.closest('[data-reveal]')) : null,
+      reasons,
+      transform,
+      animations: anims.map((a) => ({
+        name: a.animationName || a.transitionProperty || 'anonima',
+        playState: a.playState,
+        timeline: a.timeline ? a.timeline.constructor.name : 'null',
+        progress: a.effect && a.effect.getComputedTiming ? a.effect.getComputedTiming().progress : null,
+      })),
+    });
+  }
+
+  return {
+    media: { print: matchMedia('print').matches, screen: matchMedia('screen').matches },
+    scrollY: Math.round(window.scrollY),
+    revealReady: root.hasAttribute('data-reveal-ready'),
+    mode: root.getAttribute('data-animations'),
+    decorated: reveal.length,
+    pending: document.querySelectorAll('[data-reveal=""]').length,
+    targets: targets.size,
+    inspected,
+    notRendered,
+    hidden,
+  };
+};
+
 // -----------------------------------------------------------------------------
 // 3. Utilidades de Node.
 // -----------------------------------------------------------------------------
@@ -630,6 +743,84 @@ async function measureRoute(context, project, route, options = {}) {
     await page.close().catch(() => {});
   }
 
+  return row;
+}
+
+// G11. Impresion sin scroll. La pagina carga en pantalla (como la abre una persona),
+// NO se hace scroll, se cambia a media print y se lee. Luego page.pdf() deja la prueba
+// en papel. Juicio en la propia funcion: es una fila de otra naturaleza que las de M1-M8.
+async function measurePrint(context, project, route) {
+  const slug = slugify(route);
+  const row = {
+    project: project.name,
+    scenario: project.scenario,
+    route,
+    kind: 'print',
+    status: null,
+    measured: false,
+    noMeasureReason: null,
+    failures: [],
+    warnings: [],
+    errors: [],
+  };
+  const page = await context.newPage();
+  page.on('pageerror', (e) => row.errors.push(String(e.message).slice(0, 200)));
+  try {
+    const response = await page.goto(BASE + route, { waitUntil: 'load' });
+    row.status = response ? response.status() : null;
+    await page.waitForTimeout(1500);
+    const state = await page.evaluate(READ_STATE);
+    row.loaded = state.loaded;
+    row.support = state.support;
+    row.mode = { ...state.mode, forced: project.forceMode || null };
+    row.screenAtLoad = state.engine;
+    if (!row.status || row.status >= 400 || !state.loaded.hasMain || state.loaded.bodyChildren === 0) {
+      row.noMeasureReason = `La ruta no rindio contenido util (HTTP ${row.status}).`;
+      return row;
+    }
+    if (!state.loaded.themeJsRan) {
+      row.noMeasureReason = 'theme.js no llego a correr: sin motor no hay nada pendiente que probar en papel.';
+      return row;
+    }
+
+    await page.emulateMedia({ media: 'print' });
+    await page.waitForTimeout(400);
+    const print = await page.evaluate(READ_PRINT, PRINT_CHILD_SELECTOR);
+    row.print = print;
+    if (!print.media.print) {
+      row.noMeasureReason = 'emulateMedia no aplico: matchMedia(print) sigue en false.';
+      return row;
+    }
+    if (print.scrollY !== 0) {
+      row.noMeasureReason = `La pagina no esta en scroll 0 (scrollY=${print.scrollY}): no es el caso "imprimir sin recorrer".`;
+      return row;
+    }
+
+    const file = path.join(evidence, `print-${project.name}-${slug}.pdf`);
+    await page.pdf({ path: file, format: 'A4', printBackground: true });
+    row.pdf = { file: path.relative(here, file), bytes: fs.statSync(file).size };
+    // Segunda lectura tras generar el PDF: confirma que el estado no dependia del
+    // momento de la lectura.
+    row.printAfterPdf = await page.evaluate(READ_PRINT, PRINT_CHILD_SELECTOR);
+    row.measured = true;
+
+    const hidden = [...print.hidden, ...row.printAfterPdf.hidden.filter((h) => !print.hidden.some((x) => x.sel === h.sel))];
+    hidden.forEach((h) => row.failures.push(`Oculto en papel: ${h.sel}${h.revealHost ? ` (dentro de ${h.revealHost})` : ''} [${h.role}, data-reveal="${h.reveal}"] :: ${h.reasons.join('; ')}`));
+    // Control anti-vacio: en full con motor listo tiene que haber algo pendiente al cargar
+    // sin scroll; si no, "0 ocultos" no probaria la llave de papel.
+    row.printExercised = print.revealReady && state.engine.pending > 0;
+    if (project.scenario === 'full' && !row.printExercised) {
+      row.warnings.push(`Nada pendiente al cargar sin scroll (pend=${state.engine.pending}, ready=${print.revealReady}): la llave de papel no se ejercita en esta ruta.`);
+    }
+    if (project.scenario === 'reduce') {
+      row.warnings.push(`reduce: ready=${print.revealReady}, decorados=${print.decorated}. La llave 2 ya lo deja todo visible; la fila prueba que el papel no lo rompe.`);
+    }
+  } catch (error) {
+    row.noMeasureReason = `Excepcion durante la medicion de impresion: ${String(error && error.message ? error.message : error).slice(0, 300)}`;
+  } finally {
+    await page.close().catch(() => {});
+  }
+  row.verdict = row.measured ? (row.failures.length ? 'FALLA' : 'PASA') : 'NO_MEDIBLE';
   return row;
 }
 
@@ -922,7 +1113,7 @@ let degenerateResolved = null;
 const preferNonReduce = PROJECTS.some((p) => p.scenario !== 'reduce');
 
 for (const project of PROJECTS) {
-  const record = { name: project.name, browser: project.browser, scenario: project.scenario, launched: false, skipped: null, browserVersion: null, rows: [] };
+  const record = { name: project.name, browser: project.browser, scenario: project.scenario, launched: false, skipped: null, browserVersion: null, rows: [], printRows: [] };
   results.projects.push(record);
 
   let browser = null;
@@ -944,7 +1135,7 @@ for (const project of PROJECTS) {
     if (project.forceMode) await context.addInitScript(INIT_MODE, project.forceMode);
     if (!localTarget) await lib.unlock(context, BASE);
 
-    for (const route of ROUTES) {
+    for (const route of (PRINT_ONLY ? [] : ROUTES)) {
       const row = judge(await measureRoute(context, project, route), project);
       record.rows.push(row);
       (row.traverse ? row.traverse.names : []).forEach((n) => observedKeyframes.add(n));
@@ -973,7 +1164,24 @@ for (const project of PROJECTS) {
     // decora nada, asi que "0 pendientes" seria cierto y vacio a la vez, y G8/G9 darian
     // verde sin haber probado la coreografia. Si solo se pidio reduce, se mide igual y
     // las puertas lo degradan a NO_MEDIBLE.
-    if (!degenerateResolved && (!preferNonReduce || project.scenario !== 'reduce')) {
+    if (PRINT_CHECK && project.printCheck) {
+      for (const route of ROUTES) {
+        const row = await measurePrint(context, project, route);
+        record.printRows.push(row);
+        const p = row.print || {};
+        console.log(
+          `[${project.name}] PRINT ${route.padEnd(24)} ${String(row.verdict).padEnd(11)} http=${row.status} `
+          + `modo=${p.mode ?? '-'} ready=${p.revealReady ?? '-'} pendPantalla=${row.screenAtLoad ? row.screenAtLoad.pending : '-'} `
+          + `objetivos=${p.inspected ?? '-'}/${p.targets ?? '-'} sinCaja=${p.notRendered ?? '-'} ocultos=${p.hidden ? p.hidden.length : '-'} `
+          + `pdf=${row.pdf ? row.pdf.file + ' (' + row.pdf.bytes + ' B)' : '-'}`,
+        );
+        row.failures.forEach((f) => console.log(`    FALLA  ${f}`));
+        row.warnings.forEach((w) => console.log(`    aviso  ${w}`));
+        if (row.noMeasureReason) console.log(`    n/m    ${row.noMeasureReason}`);
+      }
+    }
+
+    if (!PRINT_ONLY && !degenerateResolved && (!preferNonReduce || project.scenario !== 'reduce')) {
       const probe = await context.newPage();
       try {
         await probe.goto(BASE + '/', { waitUntil: 'load' });
@@ -1051,6 +1259,9 @@ const notMeasured = judgeable.filter((r) => r.verdict === 'NO_MEDIBLE');
 // Se cuenta por `failures`, NO por `verdict`: cualquier degradacion posterior a
 // NO_MEDIBLE no puede enterrar un fallo duro ya detectado.
 const failed = judgeable.filter((r) => (r.failures || []).length > 0);
+const printRows = results.projects.flatMap((p) => p.printRows || []);
+failed.push(...printRows.filter((r) => r.failures.length));
+notMeasured.push(...printRows.filter((r) => r.verdict === 'NO_MEDIBLE'));
 
 const gate = (id, nombre, estado, detalle) => results.gates.push({ id, nombre, estado, detalle });
 
@@ -1058,6 +1269,7 @@ gate('G0', 'Todos los proyectos arrancaron y terminaron',
   notLaunched.length ? 'NO_MEDIBLE' : 'PASA',
   notLaunched.length ? notLaunched.map((p) => `${p.name}: ${p.skipped}`).join(' | ') : `${results.projects.length} proyecto(s) completados.`);
 
+if (!PRINT_ONLY) {
 const axiomRows = judgeable.filter((r) => r.measured);
 const axiomBreaches = axiomRows.filter((r) => (r.afterScroll ? r.afterScroll.pending : (r.engine ? r.engine.pending : 0)) > 0
   || ((r.hiddenAfterScroll || r.hidden || []).length > 0));
@@ -1130,6 +1342,20 @@ const capturas = allRows.flatMap((r) => r.midGesture || []);
 gate('G10', 'Capturas a mitad de gesto',
   capturas.length === 0 ? 'NO_MEDIBLE' : (capturas.some((s) => s.midGesture) ? 'PASA' : 'NO_MEDIBLE'),
   `${capturas.length} PNG en evidence/, ${capturas.filter((s) => s.midGesture).length} con el gesto verificado a medio recorrido.`);
+}
+
+if (PRINT_CHECK) {
+  const printMeasured = printRows.filter((r) => r.measured);
+  const printFull = printMeasured.filter((r) => r.scenario === 'full');
+  const exercised = printFull.filter((r) => r.printExercised);
+  gate('G11', 'Contenido revelado al imprimir (media print sin scroll + PDF)',
+    printMeasured.length === 0 ? 'NO_MEDIBLE'
+      : (printMeasured.some((r) => r.failures.length) ? 'FALLA'
+        : (printRows.some((r) => r.verdict === 'NO_MEDIBLE') || (printFull.length && !exercised.length) || printMeasured.some((r) => !r.pdf) ? 'NO_MEDIBLE' : 'PASA')),
+    printMeasured.length === 0
+      ? 'Ninguna fila de impresion se midio (solo corre en proyectos Chromium).'
+      : printRows.map((r) => `${r.project} ${r.route}: pend=${r.screenAtLoad ? r.screenAtLoad.pending : 'n/d'} ocultos=${r.print ? r.print.hidden.length : 'n/d'} pdf=${r.pdf ? 'si' : 'no'}`).join(' | '));
+}
 
 results.summary = {
   rowsTotal: judgeable.length,
