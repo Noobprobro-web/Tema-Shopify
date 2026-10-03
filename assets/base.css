@@ -9056,10 +9056,31 @@ html[data-animations='none'] [data-reveal] {
    imprimir no hay scroll que recorrer, asi que todo lo pendiente de revelar se queda en
    progreso 0 y hoy sale en blanco. Esto lo asienta en papel sin tocar la pantalla. */
 @media print {
-  html[data-reveal-ready] [data-reveal] {
+  /* Los hijos que B8 anima llevan su propia animation con animation-timeline: no heredan el
+     animation: none del contenedor y en papel se quedan en el fotograma 0 (lineas 64 px
+     abajo y fuera del clip-path, fotos a scale(1.18) bajo el overflow: hidden). Se listan
+     los mismos objetivos que B8.2 y no un * global, para no pisar estilos de impresion
+     ajenos. Hero y banda se asientan tambien: en papel no hay scroll ni tiempo que recorrer. */
+  html[data-reveal-ready] [data-reveal],
+  html[data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+    .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+    .brand-manifesto__statement, .main-about__quote)[data-reveal] > *,
+  html[data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
+    .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
+    .brand-manifesto__statement, .main-about__quote)[data-reveal] > :is(.flow, div) > *,
+  html[data-reveal-ready] :is(.brand-manifesto__media, .complete-the-look__media,
+    .lookbook__media, .main-about__gallery-item)[data-reveal] :is(img, svg, video) {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
+    animation: none !important;
+  }
+
+  /* Sin opacity: el video del hero nace en 0 y solo se muestra con data-video-active; en
+     papel manda el poster. */
+  html[data-animations='full'] .hero-editorial__media :is(.hero-editorial__image, .hero-editorial__video),
+  html[data-animations='full'] .marquee-banner__track {
+    transform: none !important;
     animation: none !important;
   }
 }
