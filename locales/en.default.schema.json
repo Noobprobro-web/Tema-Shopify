@@ -792,18 +792,31 @@
         },
         "free_shipping_threshold": {
           "label": "Free shipping amount",
-          "info": "In your store currency. You also need a free shipping rate for this amount in Settings, Shipping and delivery. Without it the message promises something checkout will not honor."
+          "info": "Match your actual shipping rates and eligible markets in Settings > Shipping and delivery. This amount does not create a shipping rate, make express shipping free, or guarantee eligibility at checkout."
         },
         "atelier_gift_threshold": {
           "label": "Gift amount",
-          "info": "In your store currency. You also need an automatic discount for this amount in Discounts."
+          "info": "Match an actual gift offer and its eligibility conditions. Configure any required products and discounts in Shopify. This amount does not add a gift or create a discount."
+        },
+        "show_complementary_products": {
+          "label": "Show complementary products",
+          "info": "Shows up to two eligible products when the cart has items. Products already in the cart are excluded. Choose products below to use this feature without an app."
         },
         "cross_sell_heading": {
-          "label": "Suggested products heading"
+          "label": "Complementary products heading",
+          "default": "Complementary products"
+        },
+        "use_product_metafield": {
+          "label": "Use product-specific selections",
+          "info": "In Settings > Custom data > Products, define custom.complementary_products as a list of product references, then choose products on each product page in the admin. Eligible selections for the main product in the cart take priority over the sources below."
+        },
+        "use_search_discovery": {
+          "label": "Use Shopify complementary recommendations",
+          "info": "Optional. Uses complementary products configured in Shopify Search and Discovery after eligible product-specific selections. Products selected below are used when results are unavailable. No app installation is required for manual selections."
         },
         "cross_sell_collection": {
           "label": "Collection to suggest from",
-          "info": "Used when no suggested products are chosen below."
+          "info": "Fills remaining spaces after eligible product-specific selections, Shopify recommendations, and products selected below. Only available products outside the cart are shown."
         }
       },
       "blocks": {
@@ -811,7 +824,7 @@
           "name": "Suggested product",
           "settings": {
             "product": {
-              "info": "Products with options are added in their first available option, so single-variant products work best here."
+              "info": "Products without customer-selectable options can be added directly. Other products require an option selection or a visit to the product page. Duplicate products and products already in the cart are excluded."
             }
           }
         }
@@ -830,6 +843,9 @@
           },
           "options__3": {
             "label": "Large image with thumbnails"
+          },
+          "options__4": {
+            "label": "Split screen"
           }
         },
         "enable_media_zoom": {
@@ -951,6 +967,74 @@
             "page": {
               "label": "Page",
               "info": "Its content appears after the text above. Use it to share one policy across many products."
+            }
+          }
+        },
+        "technical_specs": {
+          "name": "Technical specifications",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "material": {
+              "label": "Material composition",
+              "info": "Displays fabric composition or material blend."
+            },
+            "gsm": {
+              "label": "Fabric weight (GSM)",
+              "info": "Enter a documented fabric mass per square meter. This is not the garment or shipping weight."
+            },
+            "hardware": {
+              "label": "Hardware and trims",
+              "info": "Add the actual manufacturer, series and finish for this product. Leave unknown details blank."
+            },
+            "origin": {
+              "label": "Origin and craftsmanship",
+              "info": "Use documented product data. Fabric origin and manufacturing location can differ."
+            }
+          }
+        },
+        "provenance": {
+          "name": "Archival provenance",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "circa_year": {
+              "label": "Circa year",
+              "info": "Era or estimated year of production. Leave blank if unconfirmed."
+            },
+            "show_unique_piece": {
+              "label": "Show unique piece label",
+              "info": "Requires documented uniqueness and a reviewed single physical item. Size variants, untracked inventory or overselling make the item ineligible."
+            },
+            "condition_grade": {
+              "label": "Condition grade",
+              "info": "Select a grade only after inspection. Disclose damage, repairs and use restrictions separately.",
+              "options": {
+                "not_assessed": {
+                  "label": "Not assessed"
+                },
+                "grade_1": {
+                  "label": "Grade I · Minimal visible wear"
+                },
+                "grade_2": {
+                  "label": "Grade II · Light wear"
+                },
+                "grade_3": {
+                  "label": "Grade III · Visible wear"
+                },
+                "grade_4": {
+                  "label": "Grade IV · Significant wear"
+                },
+                "grade_5": {
+                  "label": "Grade V · Fragile / study piece"
+                }
+              }
+            },
+            "provenance_notes": {
+              "label": "Provenance notes",
+              "info": "Historical context, collection season or archival record notes."
             }
           }
         }

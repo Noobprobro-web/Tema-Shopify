@@ -1,0 +1,93 @@
+================================================================================
+           INFORME DE AUDITORÍA DE PARIDAD: LIVE STORES VS REPOSITORIO          
+              Rol 8 - Auditor de Paridad Live vs Repo (TECH-AUDIT-001)           
+================================================================================
+Fecha de Auditoría: 2026-10-02 02:35:34 UTC
+Herramienta de Extracción: shopify theme pull (Shopify CLI 4.8.3, Solo Lectura)
+Directorio de Descarga: scratch/audit-live-pull/ (full-atelier, full-edition, full-archive)
+Directorio de Salida: agent-comms/outbox-gemini/harness-TECH-AUDIT-001/
+
+--------------------------------------------------------------------------------
+1. RESUMEN EJECUTIVO Y DICTAMEN DE PARIDAD
+--------------------------------------------------------------------------------
+DICTAMEN: 100% PARIDAD TÉCNICA Y DE CÓDIGO FUENTE (CERO REGRESIONES / CERO DERIVA)
+
+Hallazgos Principales:
+• CÓDIGO EJECUTABLE (Liquid, JS, CSS, Assets, Schemas):
+  - 60 de 60 archivos de código ejecutable son 100% IDÉNTICOS byte por byte en las 3 tiendas.
+  - 0 diferencias en assets/base.css, assets/theme.js, assets/motion.js, gsap.
+  - 0 diferencias en las 33 secciones Liquid (incluyendo featured-product, cart-drawer, etc.).
+  - 0 diferencias en los 18 snippets Liquid (incluyendo product-card, responsive-image, etc.).
+  - 0 diferencias en layout/theme.liquid y templates/gift_card.liquid.
+  - 0 diferencias en config/settings_schema.json.
+
+• ARTEFACTO HUÉRFANO DE PLATAFORMA (layout/password.liquid):
+  - Presente en las 3 tiendas remotas (48 bytes: `{{ content_for_header }}{{ content_for_layout }}`).
+  - Clasificación: P3 (Cosmético / Entorno dev). Es el archivo huérfano conocido AF-12
+    generado automáticamente por Shopify al activar contraseña en tiendas de desarrollo.
+  - NO está en el repositorio local y NO se incluye en el ZIP de entrega final.
+
+• CONFIGURACIÓN DE TEMA (config/settings_data.json):
+  - Las definiciones de presets ('Sartorial', 'Edition', 'Archive') son 100% IDÉNTICAS al repositorio.
+  - La clave 'current' en vivo apunta como string al preset correspondiente:
+    * Atelier: "current": "Sartorial"
+    * Edition: "current": "Edition"
+    * Archive: "current": "Archive"
+  - Clasificación: Esperado / Intencional por arquitectura de presets Shopify.
+
+• PERSONALIZACIÓN EDITORIAL DE DEMO (sections/header-group.json):
+  - El bloque de promoción del Mega Menú contiene los enlaces e imágenes propios de cada demo:
+    * Atelier: atelier-lookbook.jpg / /collections/new-forms
+    * Edition: edition-bento-desk.jpg / /collections/desk-and-study
+    * Archive: archive-lookbook.jpg / /collections/permanent-archive
+  - Clasificación: Esperado / Intencional de demo.
+
+• SERIALIZACIÓN Y FORMATEO DE SHOPIFY ADMIN (JSONs):
+  - Shopify inyecta un encabezado de 12 líneas `/* IMPORTANT: The contents of this file... */`
+    en todos los archivos JSON (locales, plantillas y secciones).
+  - En templates/index.json, Shopify expande 'settings: {}' vacíos en bloques.
+  - Una vez normalizados dichos artefactos, 21 de los 23 archivos JSON son 100% IDÉNTICOS
+    semánticamente al repositorio (o al respectivo listing/preset/templates/).
+
+--------------------------------------------------------------------------------
+2. MATRIZ DETALLADA POR TIENDA
+--------------------------------------------------------------------------------
+Tienda     | Theme ID      | Total Live | Idénticos Byte  | Diff Contenido  | Diff Cosmético  | Huérfano
+-----------------------------------------------------------------------------------------------
+Atelier    | #188743188704 | 84         | 60              | 2               | 21              | layout/password.liquid
+Edition    | #188655599784 | 84         | 60              | 2               | 21              | layout/password.liquid
+Archive    | #191153275192 | 84         | 60              | 2               | 21              | layout/password.liquid
+
+Detalle de archivos con diferencias:
+• Atelier (#188743188704):
+  - Contenido/Config (2): config/settings_data.json, sections/header-group.json
+  - Huérfano Live (1): layout/password.liquid
+  - Cosmético Shopify Header/Formatting (21): 21 plantillas/locales JSON
+• Edition (#188655599784):
+  - Contenido/Config (2): config/settings_data.json, sections/header-group.json
+  - Huérfano Live (1): layout/password.liquid
+  - Cosmético Shopify Header/Formatting (21): 21 plantillas/locales JSON
+• Archive (#191153275192):
+  - Contenido/Config (2): config/settings_data.json, sections/header-group.json
+  - Huérfano Live (1): layout/password.liquid
+  - Cosmético Shopify Header/Formatting (21): 21 plantillas/locales JSON
+
+--------------------------------------------------------------------------------
+3. CLASIFICACIÓN DE SEVERIDAD DE LAS DIFERENCIAS DETECTADAS
+--------------------------------------------------------------------------------
+• P0 / CRÍTICO: 0 (CERO). No existe ninguna deriva funcional, ni de seguridad, ni de inventario.
+• P1 / ALTO:    0 (CERO). Ninguna regresión en templates, snippets o assets.
+• P2 / MEDIO:   0 (CERO). Todas las plantillas y esquemas coinciden con el repositorio.
+• P3 / BAJO:    1 (password.liquid - AF-12). Artefacto de 48 bytes sin impacto en Theme Store.
+• INFORMATIVO:  2 (header-group.json promos y settings_data.json preset pointers). Correctos por diseño.
+
+--------------------------------------------------------------------------------
+4. ARCHIVOS CRUDOS GENERADOS Y TAMAÑOS EXACTOS
+--------------------------------------------------------------------------------
+• raw-parity-atelier.diff: 38,747 bytes
+• raw-parity-edition.diff: 35,785 bytes
+• raw-parity-archive.diff: 36,934 bytes
+
+================================================================================
+                                FIN DEL REPORTE                                 
+================================================================================

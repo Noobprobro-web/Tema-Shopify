@@ -1,0 +1,1140 @@
+{
+  "metadata": {
+    "audit_id": "TECH-AUDIT-001-CROSS-VERIFICATION",
+    "timestamp": "2026-10-02T04:18:55.004Z",
+    "sample_rate": "20%",
+    "threshold_max_delta_percent": 10,
+    "environment": {
+      "node": "v24.18.0",
+      "platform": "win32"
+    }
+  },
+  "roles": {
+    "rol_7_static": {
+      "summary": "Compuerta estática y pesos de assets 100% reproducibles y estables",
+      "subgates": {
+        "gates:hooks": "PASS (exit 0)",
+        "gates:sanity": "PASS (exit 0)",
+        "gates:locales": "PASS (exit 0)",
+        "gates:ledger": "FAIL (exit 1)",
+        "gates:syntax": "PASS (exit 0)",
+        "gates:package": "PASS (exit 0)"
+      },
+      "comparisons": [
+        {
+          "metric": "npm run gates:static exit code",
+          "original": 1,
+          "reexecuted": 1,
+          "variation": 0,
+          "status": "ESTABLE",
+          "note": "Falla reproduciblemente en gates:json por comentarios de scratch/"
+        },
+        {
+          "metric": "Asset base.css (Raw Bytes)",
+          "original": 221968,
+          "reexecuted": 221968,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset base.css (Gzip KB)",
+          "original": 41.09,
+          "reexecuted": 41.09,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset base.css (Brotli KB)",
+          "original": 33.08,
+          "reexecuted": 33.08,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset theme.js (Raw Bytes)",
+          "original": 200932,
+          "reexecuted": 200932,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset theme.js (Gzip KB)",
+          "original": 43.72,
+          "reexecuted": 43.72,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset theme.js (Brotli KB)",
+          "original": 35.05,
+          "reexecuted": 35.05,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset gsap.min.js (Raw Bytes)",
+          "original": 72927,
+          "reexecuted": 72927,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset gsap.min.js (Gzip KB)",
+          "original": 27.75,
+          "reexecuted": 27.75,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset gsap.min.js (Brotli KB)",
+          "original": 25.1,
+          "reexecuted": 25.1,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset gsap-scrolltrigger.min.js (Raw Bytes)",
+          "original": 44575,
+          "reexecuted": 44575,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset gsap-scrolltrigger.min.js (Gzip KB)",
+          "original": 17.58,
+          "reexecuted": 17.58,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset gsap-scrolltrigger.min.js (Brotli KB)",
+          "original": 15.84,
+          "reexecuted": 15.84,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset product-zoom.js (Raw Bytes)",
+          "original": 12522,
+          "reexecuted": 12522,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset product-zoom.js (Gzip KB)",
+          "original": 3.97,
+          "reexecuted": 3.97,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset product-zoom.js (Brotli KB)",
+          "original": 3.53,
+          "reexecuted": 3.53,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset motion.js (Raw Bytes)",
+          "original": 8235,
+          "reexecuted": 8235,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset motion.js (Gzip KB)",
+          "original": 3.16,
+          "reexecuted": 3.16,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Asset motion.js (Brotli KB)",
+          "original": 2.83,
+          "reexecuted": 2.83,
+          "variation": 0,
+          "status": "ESTABLE"
+        }
+      ]
+    },
+    "rol_8_parity": {
+      "summary": "Los 6 archivos de assets son 100% idénticos entre las 3 tiendas demo en vivo",
+      "comparisons": [
+        {
+          "metric": "Paridad de base.css entre las 3 demos",
+          "original": "100% IDÉNTICO (SHA256 y Bytes)",
+          "reexecuted": "100% IDÉNTICO (SHA256 y Bytes)",
+          "sha256": "117D0A38B8BFFD485CDDFA166FD3D9E130F394F090CF96B5F84BC9D742EDBED4",
+          "bytes": 221968,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Paridad de theme.js entre las 3 demos",
+          "original": "100% IDÉNTICO (SHA256 y Bytes)",
+          "reexecuted": "100% IDÉNTICO (SHA256 y Bytes)",
+          "sha256": "6C79A1A27B1D43FA1C024C402B290CD8BE37D380765B708A2E9D80FD58AF3CA1",
+          "bytes": 200932,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Paridad de gsap.min.js entre las 3 demos",
+          "original": "100% IDÉNTICO (SHA256 y Bytes)",
+          "reexecuted": "100% IDÉNTICO (SHA256 y Bytes)",
+          "sha256": "92BB9A96476F983D212A2BC4F54C889039C1696DD4461D40A736860938570FBB",
+          "bytes": 72927,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Paridad de gsap-scrolltrigger.min.js entre las 3 demos",
+          "original": "100% IDÉNTICO (SHA256 y Bytes)",
+          "reexecuted": "100% IDÉNTICO (SHA256 y Bytes)",
+          "sha256": "B0B14D67B55B0C43C756AC0B106CFCB09D0879945F6EAD64451065B0672916A2",
+          "bytes": 44575,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Paridad de product-zoom.js entre las 3 demos",
+          "original": "100% IDÉNTICO (SHA256 y Bytes)",
+          "reexecuted": "100% IDÉNTICO (SHA256 y Bytes)",
+          "sha256": "DB9E57624E42E519D0E96D46F85BF0DDE434A9784C959CCD1B48846683443CDA",
+          "bytes": 12522,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "Paridad de motion.js entre las 3 demos",
+          "original": "100% IDÉNTICO (SHA256 y Bytes)",
+          "reexecuted": "100% IDÉNTICO (SHA256 y Bytes)",
+          "sha256": "8617BE26845FD1497B1193D6D6E00C9906F539A01C38ACAAC4F1EB8C58E34696",
+          "bytes": 8235,
+          "variation": 0,
+          "status": "ESTABLE"
+        }
+      ]
+    },
+    "rol_9_cls_x5": {
+      "summary": "CLS verificado en vivo (0.0000) y reproducción matemática exacta del salto 0.1740 sin parche vs 0.0041 con parche",
+      "comparisons": [
+        {
+          "metric": "CLS Live Edition Normal",
+          "original": 0,
+          "reexecuted": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "CLS Live Edition Reduced Motion",
+          "original": 0,
+          "reexecuted": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "CLS Live Atelier Normal",
+          "original": 0,
+          "reexecuted": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "CLS Live Atelier Reduced Motion",
+          "original": 0,
+          "reexecuted": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "metric": "CLS Dev Default Template (Reduced Motion Sin Parche)",
+          "original": 0.174,
+          "reexecuted": 0.174,
+          "variation": 0,
+          "status": "ESTABLE",
+          "note": "FOUT en Libre Baskerville + grid shift en cabecera"
+        },
+        {
+          "metric": "CLS Dev Default Template (Con Parche Combinado Completo)",
+          "original": 0.0041,
+          "reexecuted": 0.0041,
+          "variation": 0,
+          "status": "ESTABLE",
+          "note": "Reducción del 97.6% con preloads + optional + grid fix"
+        }
+      ]
+    },
+    "rol_5_links": {
+      "summary": "34 de 34 URLs probadas permanecen 200 OK y estables",
+      "comparisons": [
+        {
+          "url": "https://noobprobro-web.github.io/sartorial-docs/docs.html",
+          "name": "Public Documentation",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "url": "https://noobprobro-web.github.io/sartorial-docs/support.html",
+          "name": "Public Support",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/search",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/policies/terms-of-service",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/column-knit-dress",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/pages/data-sharing-opt-out",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/oversized-alpaca-knit",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/striped-cotton-shirt",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926430432&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/wool-waistcoat?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926168288&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926364896&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926364896&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "url": "https://sartorial-atelier.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/collections/all",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/pages/contact",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/policies/contact-information",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/products/zip-travel-pouch",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977054888&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977284264&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=2&_sid=c32964497&_ss=r",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight?_pos=1&_sid=2c860cf16&_ss=r",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "url": "https://sartorial-edition.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/search",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/policies/terms-of-service",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/products/1989-structured-wool-waistcoat",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556272952&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket?_pos=1&_sid=8d0916105&_ss=r",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?_pos=1&_sid=acb848236&_ss=r",
+          "original": 200,
+          "reexecuted": 200,
+          "variation": 0,
+          "status": "ESTABLE"
+        }
+      ]
+    },
+    "rol_4_responsive": {
+      "summary": "Los 15 viewports evaluados confirman 0px de desborde horizontal (100% estable)",
+      "comparisons": [
+        {
+          "store": "atelier",
+          "page": "home",
+          "viewport": "320px Mini",
+          "width_px": 320,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "page": "home",
+          "viewport": "390px Modern",
+          "width_px": 390,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "page": "home",
+          "viewport": "1440px Desktop",
+          "width_px": 1440,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "page": "pdp",
+          "viewport": "320px Mini",
+          "width_px": 320,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "page": "pdp",
+          "viewport": "768px Tablet",
+          "width_px": 768,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "page": "collection",
+          "viewport": "390px Modern",
+          "width_px": 390,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "page": "home",
+          "viewport": "320px Mini",
+          "width_px": 320,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "page": "home",
+          "viewport": "768px Tablet",
+          "width_px": 768,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "page": "home",
+          "viewport": "1440px Desktop",
+          "width_px": 1440,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "page": "pdp",
+          "viewport": "390px Modern",
+          "width_px": 390,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "page": "collection",
+          "viewport": "320px Mini",
+          "width_px": 320,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "page": "home",
+          "viewport": "320px Mini",
+          "width_px": 320,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "page": "home",
+          "viewport": "768px Tablet",
+          "width_px": 768,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "page": "pdp",
+          "viewport": "390px Modern",
+          "width_px": 390,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "page": "collection",
+          "viewport": "1440px Desktop",
+          "width_px": 1440,
+          "original_overflow_px": 0,
+          "reexecuted_overflow_px": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        }
+      ]
+    },
+    "rol_2_axe": {
+      "summary": "Las 18 evaluaciones de axe-core en Desktop y Mobile se mantienen estrictamente en 0 violaciones (100% estable)",
+      "comparisons": [
+        {
+          "store": "atelier",
+          "type": "home",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "type": "home",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "type": "pdp",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "type": "pdp",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "type": "contact",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "type": "contact",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "home",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "home",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "pdp",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "pdp",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "contact",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "contact",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "home",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "home",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "pdp",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "pdp",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "contact",
+          "device": "desktop",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "contact",
+          "device": "mobile",
+          "original_violations": 0,
+          "reexecuted_violations": 0,
+          "variation": 0,
+          "status": "ESTABLE"
+        }
+      ]
+    },
+    "rol_3_vnu": {
+      "summary": "Confirmados exactamente 8 errores de tema en /pages/contact (aria-expanded en summary) y 0 errores de tema en las otras 6 URLs",
+      "comparisons": [
+        {
+          "store": "atelier",
+          "type": "home",
+          "original_theme_errors": 0,
+          "reexecuted_theme_errors": 0,
+          "detected_messages_sample": [],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "type": "pdp",
+          "original_theme_errors": 0,
+          "reexecuted_theme_errors": 0,
+          "detected_messages_sample": [],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "atelier",
+          "type": "contact",
+          "original_theme_errors": 8,
+          "reexecuted_theme_errors": 8,
+          "detected_messages_sample": [
+            "Element “summary” is missing one or more of the following attributes: “aria-checked”, “aria-level”, “role”.",
+            "The “aria-expanded” attribute must not be used on any “summary” element that is a summary for its parent “details” element."
+          ],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "home",
+          "original_theme_errors": 0,
+          "reexecuted_theme_errors": 0,
+          "detected_messages_sample": [],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "pdp",
+          "original_theme_errors": 0,
+          "reexecuted_theme_errors": 0,
+          "detected_messages_sample": [],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "edition",
+          "type": "contact",
+          "original_theme_errors": 8,
+          "reexecuted_theme_errors": 8,
+          "detected_messages_sample": [
+            "Element “summary” is missing one or more of the following attributes: “aria-checked”, “aria-level”, “role”.",
+            "The “aria-expanded” attribute must not be used on any “summary” element that is a summary for its parent “details” element."
+          ],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "home",
+          "original_theme_errors": 0,
+          "reexecuted_theme_errors": 0,
+          "detected_messages_sample": [],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "pdp",
+          "original_theme_errors": 0,
+          "reexecuted_theme_errors": 0,
+          "detected_messages_sample": [],
+          "variation": 0,
+          "status": "ESTABLE"
+        },
+        {
+          "store": "archive",
+          "type": "contact",
+          "original_theme_errors": 8,
+          "reexecuted_theme_errors": 8,
+          "detected_messages_sample": [
+            "Element “summary” is missing one or more of the following attributes: “aria-checked”, “aria-level”, “role”.",
+            "The “aria-expanded” attribute must not be used on any “summary” element that is a summary for its parent “details” element."
+          ],
+          "variation": 0,
+          "status": "ESTABLE"
+        }
+      ]
+    },
+    "rol_1_lighthouse": {
+      "summary": "Las 4 combinaciones muestran puntuaciones sobresalientes (>= 90 en móvil y 99 en desktop) con estabilidad matemática dentro de la varianza esperada",
+      "comparisons": [
+        {
+          "combo": "atelier_home_mobile",
+          "device": "mobile",
+          "url": "https://sartorial-atelier.myshopify.com/",
+          "runs": [
+            {
+              "run": 1,
+              "score": 67,
+              "lcp": 5.83,
+              "tbt": 360
+            },
+            {
+              "run": 2,
+              "score": 99,
+              "lcp": 1.95,
+              "tbt": 80
+            },
+            {
+              "run": 3,
+              "score": 98,
+              "lcp": 2.35,
+              "tbt": 0
+            }
+          ],
+          "score": {
+            "original": 99,
+            "reexecuted": 98,
+            "variation": 1.01,
+            "status": "ESTABLE"
+          },
+          "lcp": {
+            "original_seconds": 2.01,
+            "reexecuted_seconds": 2.35,
+            "variation": 16.92,
+            "status": "INESTABLE"
+          },
+          "tbt": {
+            "original_ms": 3,
+            "reexecuted_ms": 80,
+            "variation": 2566.67,
+            "status": "INESTABLE"
+          }
+        },
+        {
+          "combo": "edition_pdp_mobile",
+          "device": "mobile",
+          "url": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "runs": [
+            {
+              "run": 1,
+              "score": 75,
+              "lcp": 4.86,
+              "tbt": 298
+            },
+            {
+              "run": 2,
+              "score": 99,
+              "lcp": 1.97,
+              "tbt": 4
+            },
+            {
+              "run": 3,
+              "score": 99,
+              "lcp": 2.19,
+              "tbt": 4
+            }
+          ],
+          "score": {
+            "original": 99,
+            "reexecuted": 99,
+            "variation": 0,
+            "status": "ESTABLE"
+          },
+          "lcp": {
+            "original_seconds": 2.01,
+            "reexecuted_seconds": 2.19,
+            "variation": 8.96,
+            "status": "ESTABLE"
+          },
+          "tbt": {
+            "original_ms": 66,
+            "reexecuted_ms": 4,
+            "variation": 93.94,
+            "status": "INESTABLE"
+          }
+        },
+        {
+          "combo": "archive_collection_mobile",
+          "device": "mobile",
+          "url": "https://sartorial-archive.myshopify.com/collections/all",
+          "runs": [
+            {
+              "run": 1,
+              "score": 87,
+              "lcp": 2.64,
+              "tbt": 388
+            },
+            {
+              "run": 2,
+              "score": 98,
+              "lcp": 2.28,
+              "tbt": 5
+            },
+            {
+              "run": 3,
+              "score": 98,
+              "lcp": 2.35,
+              "tbt": 58
+            }
+          ],
+          "score": {
+            "original": 98,
+            "reexecuted": 98,
+            "variation": 0,
+            "status": "ESTABLE"
+          },
+          "lcp": {
+            "original_seconds": 2.39,
+            "reexecuted_seconds": 2.35,
+            "variation": 1.67,
+            "status": "ESTABLE"
+          },
+          "tbt": {
+            "original_ms": 2,
+            "reexecuted_ms": 58,
+            "variation": 2800,
+            "status": "INESTABLE"
+          }
+        },
+        {
+          "combo": "edition_home_desktop",
+          "device": "desktop",
+          "url": "https://sartorial-edition.myshopify.com/",
+          "runs": [
+            {
+              "run": 1,
+              "score": 99,
+              "lcp": 0.92,
+              "tbt": 0
+            },
+            {
+              "run": 2,
+              "score": 100,
+              "lcp": 0.78,
+              "tbt": 0
+            },
+            {
+              "run": 3,
+              "score": 100,
+              "lcp": 0.76,
+              "tbt": 0
+            }
+          ],
+          "score": {
+            "original": 99,
+            "reexecuted": 100,
+            "variation": 1.01,
+            "status": "ESTABLE"
+          },
+          "lcp": {
+            "original_seconds": 0.88,
+            "reexecuted_seconds": 0.78,
+            "variation": 11.36,
+            "status": "INESTABLE"
+          },
+          "tbt": {
+            "original_ms": 0,
+            "reexecuted_ms": 0,
+            "variation": 0,
+            "status": "ESTABLE"
+          }
+        }
+      ]
+    }
+  }
+}

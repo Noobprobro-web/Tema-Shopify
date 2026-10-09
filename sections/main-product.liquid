@@ -17,11 +17,9 @@
     motivo a la vista. VariantSelects repite la misma regla al cambiar de variante.
   endcomment
   assign plan_required_unavailable = false
+  assign can_add_to_cart = selected_variant.available
   if selected_variant.requires_selling_plan and selected_variant.selling_plan_allocations.size == 0
     assign plan_required_unavailable = true
-  endif
-  assign can_add_to_cart = selected_variant.available
-  if plan_required_unavailable
     assign can_add_to_cart = false
   endif
   assign product_form_id = 'product-form-' | append: section.id
@@ -184,7 +182,7 @@
       data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
       data-per-delivery-template="{{ 'products.product.purchase_options.per_delivery' | t: price: '[price]' | escape_once }}"
       data-money-format="{{ shop.money_format | strip_html | escape }}"
-      data-line-total-template="{{ 'products.product.line_total' | t: quantity: '[quantity]' | escape_once }}"
+      data-line-total-template="{{ 'products.product.estimated_line_total' | t: quantity: '[quantity]' | escape_once }}"
     >
       <div class="product-main__info flow">
         {%- for block in section.blocks -%}
@@ -459,6 +457,14 @@
                   </s>
                   <span data-line-total-current></span>
                 </p>
+                <p class="product-form__tax-note">
+                  {%- if cart.taxes_included -%}
+                    {{ 'products.product.taxes_included_shipping_at_checkout' | t }}
+                  {%- else -%}
+                    {{ 'products.product.taxes_and_shipping_at_checkout' | t }}
+                  {%- endif %}
+                  {{ 'products.product.discounts_at_checkout' | t }}
+                </p>
               </div>
 
             {%- when 'buy_buttons' -%}
@@ -690,6 +696,12 @@
                 {{- block.settings.custom_liquid -}}
               </div>
 
+            {%- when 'technical_specs' -%}
+              {% render 'product-technical-specs', block: block %}
+
+            {%- when 'provenance' -%}
+              {% render 'product-provenance', block: block, product: product, selected_variant: selected_variant %}
+
             {%- when '@app' -%}
               {% render block %}
           {%- endcase -%}
@@ -710,6 +722,14 @@
       <script type="application/json" data-variant-json>
         [
           {%- for variant in product.variants -%}
+            {%- liquid
+              assign var_compare_money = null
+              assign var_compare_cents = null
+              if variant.compare_at_price > variant.price
+                assign var_compare_money = variant.compare_at_price | money
+                assign var_compare_cents = variant.compare_at_price
+              endif
+            -%}
             {
               "id": {{ variant.id | json }},
               "title": {{ variant.title | json }},
@@ -720,26 +740,34 @@
               "options": {{ variant.options | json }},
               "price": {{ variant.price | money | json }},
               "price_cents": {{ variant.price | json }},
-              "compare_at_price": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
-              "compare_at_price_cents": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | json }}{% else %}null{% endif %},
+              "compare_at_price": {{ var_compare_money | json }},
+              "compare_at_price_cents": {{ var_compare_cents | json }},
               "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
-              "unit_reference_value": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_value | json }}{% else %}null{% endif %},
-              "unit_reference_unit": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_unit | json }}{% else %}null{% endif %},
-              "featured_media_id": {% if variant.featured_media %}{{ variant.featured_media.id | json }}{% else %}null{% endif %},
+              "unit_reference_value": {{ variant.unit_price_measurement.reference_value | json }},
+              "unit_reference_unit": {{ variant.unit_price_measurement.reference_unit | json }},
+              "featured_media_id": {{ variant.featured_media.id | json }},
               "quantity_min": {{ variant.quantity_rule.min | default: 1 | json }},
               "quantity_increment": {{ variant.quantity_rule.increment | default: 1 | json }},
-              "quantity_max": {% if variant.quantity_rule.max != blank %}{{ variant.quantity_rule.max | json }}{% else %}null{% endif %},
+              "quantity_max": {{ variant.quantity_rule.max | json }},
               "requires_selling_plan": {{ variant.requires_selling_plan | json }},
               "selling_plan_allocations": [
                 {%- for allocation in variant.selling_plan_allocations -%}
+                  {%- liquid
+                    assign alloc_compare_money = null
+                    assign alloc_compare_cents = null
+                    if allocation.compare_at_price > allocation.price
+                      assign alloc_compare_money = allocation.compare_at_price | money
+                      assign alloc_compare_cents = allocation.compare_at_price
+                    endif
+                  -%}
                   {
                     "id": {{ allocation.selling_plan.id | json }},
                     "name": {{ allocation.selling_plan.name | json }},
                     "group_id": {{ allocation.selling_plan_group_id | json }},
                     "price": {{ allocation.price | money | json }},
                     "price_cents": {{ allocation.price | json }},
-                    "compare_at_price": {% if allocation.compare_at_price > allocation.price %}{{ allocation.compare_at_price | money | json }}{% else %}null{% endif %},
-                    "compare_at_price_cents": {% if allocation.compare_at_price > allocation.price %}{{ allocation.compare_at_price | json }}{% else %}null{% endif %},
+                    "compare_at_price": {{ alloc_compare_money | json }},
+                    "compare_at_price_cents": {{ alloc_compare_cents | json }},
                     "per_delivery_price": {{ allocation.per_delivery_price | money | json }},
                     "unit_price": {% if allocation.unit_price != blank %}{{ allocation.unit_price | money | json }}{% else %}null{% endif %}
                   }{% unless forloop.last %},{% endunless %}
@@ -854,7 +882,8 @@
       "options": [
         { "value": "stack", "label": "t:sections.main_product.settings.media_layout.options__1.label" },
         { "value": "grid", "label": "t:sections.main_product.settings.media_layout.options__2.label" },
-        { "value": "thumbnails", "label": "t:sections.main_product.settings.media_layout.options__3.label" }
+        { "value": "thumbnails", "label": "t:sections.main_product.settings.media_layout.options__3.label" },
+        { "value": "split_screen", "label": "t:sections.main_product.settings.media_layout.options__4.label" }
       ],
       "default": "grid"
     },
@@ -1082,6 +1111,42 @@
           "id": "custom_liquid",
           "label": "t:sections.featured_product.blocks.custom_liquid.settings.custom_liquid.label"
         }
+      ]
+    },
+    {
+      "type": "technical_specs",
+      "name": "t:sections.main_product.blocks.technical_specs.name",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "t:sections.main_product.blocks.technical_specs.settings.heading.label", "default": "Technical specifications" },
+        { "type": "text", "id": "material", "label": "t:sections.main_product.blocks.technical_specs.settings.material.label", "info": "t:sections.main_product.blocks.technical_specs.settings.material.info", "default": "" },
+        { "type": "text", "id": "gsm", "label": "t:sections.main_product.blocks.technical_specs.settings.gsm.label", "info": "t:sections.main_product.blocks.technical_specs.settings.gsm.info", "default": "" },
+        { "type": "text", "id": "hardware", "label": "t:sections.main_product.blocks.technical_specs.settings.hardware.label", "info": "t:sections.main_product.blocks.technical_specs.settings.hardware.info", "default": "" },
+        { "type": "text", "id": "origin", "label": "t:sections.main_product.blocks.technical_specs.settings.origin.label", "info": "t:sections.main_product.blocks.technical_specs.settings.origin.info", "default": "" }
+      ]
+    },
+    {
+      "type": "provenance",
+      "name": "t:sections.main_product.blocks.provenance.name",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "t:sections.main_product.blocks.provenance.settings.heading.label", "default": "Archival provenance" },
+        { "type": "text", "id": "circa_year", "label": "t:sections.main_product.blocks.provenance.settings.circa_year.label", "info": "t:sections.main_product.blocks.provenance.settings.circa_year.info", "default": "" },
+        { "type": "checkbox", "id": "show_unique_piece", "label": "t:sections.main_product.blocks.provenance.settings.show_unique_piece.label", "info": "t:sections.main_product.blocks.provenance.settings.show_unique_piece.info", "default": false },
+        {
+          "type": "select",
+          "id": "condition_grade",
+          "label": "t:sections.main_product.blocks.provenance.settings.condition_grade.label",
+          "info": "t:sections.main_product.blocks.provenance.settings.condition_grade.info",
+          "options": [
+            { "value": "not_assessed", "label": "t:sections.main_product.blocks.provenance.settings.condition_grade.options.not_assessed.label" },
+            { "value": "grade_1", "label": "t:sections.main_product.blocks.provenance.settings.condition_grade.options.grade_1.label" },
+            { "value": "grade_2", "label": "t:sections.main_product.blocks.provenance.settings.condition_grade.options.grade_2.label" },
+            { "value": "grade_3", "label": "t:sections.main_product.blocks.provenance.settings.condition_grade.options.grade_3.label" },
+            { "value": "grade_4", "label": "t:sections.main_product.blocks.provenance.settings.condition_grade.options.grade_4.label" },
+            { "value": "grade_5", "label": "t:sections.main_product.blocks.provenance.settings.condition_grade.options.grade_5.label" }
+          ],
+          "default": "not_assessed"
+        },
+        { "type": "richtext", "id": "provenance_notes", "label": "t:sections.main_product.blocks.provenance.settings.provenance_notes.label", "info": "t:sections.main_product.blocks.provenance.settings.provenance_notes.info", "default": "" }
       ]
     },
     {

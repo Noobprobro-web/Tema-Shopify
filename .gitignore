@@ -33,6 +33,7 @@ scratch/
 .env.*
 *.local.json
 *.cookies.json
+.claude/
 # Volcados temporales de agentes (cabeceras, cookies de sesion, HAR). Todos
 # arrastran el header Cookie de una sesion real del storefront: se quedan en
 # disco y nunca entran al indice. harness-AUDIT-360-001/lh-headers.json salio

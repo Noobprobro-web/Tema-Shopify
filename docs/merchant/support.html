@@ -40,6 +40,7 @@
       font-family: var(--font-heading);
       font-size: 2.8rem;
       font-weight: 400;
+      overflow-wrap: anywhere;
       letter-spacing: -0.02em;
       margin-bottom: 0.75rem;
     }
@@ -250,7 +251,7 @@
       <div class="support-card">
         <h2>Frequently Asked Questions</h2>
         <div class="faq-item">
-          <h3 class="faq-question">How do I switch between Sartorial, Imprint, and Archive presets?</h3>
+          <h3 class="faq-question">How do I switch between Sartorial, Edition, and Archive presets?</h3>
           <p>Go to your Shopify Admin &gt; Online Store &gt; Themes &gt; Customize. Open the Theme Settings panel (gear icon on the left sidebar) and select your desired preset from the preset selector at the top.</p>
         </div>
         <div class="faq-item">
@@ -285,10 +286,14 @@
 
       form.addEventListener('submit', function (event) {
         event.preventDefault();
+        if (button.disabled) return;
+        var controller = window.AbortController ? new AbortController() : null;
+        var timeout = controller ? setTimeout(function () { controller.abort(); }, 30000) : null;
         button.disabled = true;
         show('pending', 'Sending your request…');
         fetch(form.action, {
           method: 'POST',
+          signal: controller ? controller.signal : undefined,
           body: new FormData(form),
           headers: { Accept: 'application/json' }
         }).then(function (response) {
@@ -298,6 +303,7 @@
         }).catch(function () {
           show('error', 'Your request could not be sent. Please try again, or email us directly using the address at the bottom of this page.');
         }).then(function () {
+          if (timeout !== null) clearTimeout(timeout);
           button.disabled = false;
         });
       });

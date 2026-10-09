@@ -83,12 +83,22 @@
       "rewards_progress": "Progreso de las ventajas del carrito",
       "shipping_milestone": "Envío desde {{ amount }}",
       "gift_milestone": "Obsequio desde {{ amount }}",
-      "complimentary_additions": "Complementos para tu pedido",
+      "complimentary_additions": "Productos complementarios",
       "curated_for_order": "Seleccionado para este pedido",
       "add_complementary": "Añadir",
       "add_complementary_product": "Añadir {{ product }} a tu carrito",
-      "already_added": "Añadido",
-      "already_added_product": "{{ product }} ya está en tu carrito"
+      "choose_options": "Elegir opciones",
+      "choose_options_product": "Elegir opciones para {{ product }}",
+      "select_option": "Seleccionar {{ option }}",
+      "view_product": "Ver producto",
+      "view_product_for": "Ver producto: {{ product }}",
+      "options_unavailable": "Esta combinación no está disponible.",
+      "adding": "Añadiendo…",
+      "cancel_options": "Cancelar",
+      "update_unconfirmed": "No pudimos confirmar la actualización.",
+      "check_cart": "Comprobar carrito",
+      "saving_note": "Guardando la nota del pedido…",
+      "note_save_unconfirmed": "No pudimos confirmar si la nota del pedido se guardó."
     },
     "announcement_bar": {
       "region_label": "Avisos de la tienda",
@@ -398,12 +408,31 @@
       "quantity": "Cantidad",
       "decrease_quantity": "Reducir la cantidad de {{ product }}",
       "increase_quantity": "Aumentar la cantidad de {{ product }}",
-      "line_total": "Total por {{ quantity }} unidades",
       "regular_price": "Precio habitual",
       "sale_price": "Precio de oferta",
       "price_from": "Desde",
       "unit_price": "Precio unitario",
       "taxes_included": "Impuestos incluidos.",
+      "estimated_line_total": "Subtotal estimado del artículo para {{ quantity }} unidades:",
+      "taxes_included_shipping_at_checkout": "Impuestos incluidos. Envío calculado al pagar.",
+      "taxes_and_shipping_at_checkout": "Impuestos y envío calculados al pagar.",
+      "discounts_at_checkout": "Los descuentos y el importe final se confirman al pagar.",
+      "technical_specs": {
+        "material": "Composición del material",
+        "gsm": "Gramaje (GSM)",
+        "hardware": "Herrajes y avíos",
+        "origin": "Origen y confección"
+      },
+      "provenance": {
+        "single_piece": "Pieza de archivo única",
+        "circa": "Circa {{ year }}",
+        "condition": "Estado",
+        "grade_1": "Grado I · Desgaste visible mínimo",
+        "grade_2": "Grado II · Desgaste leve",
+        "grade_3": "Grado III · Desgaste visible",
+        "grade_4": "Grado IV · Desgaste significativo",
+        "grade_5": "Grado V · Frágil / pieza de estudio"
+      },
       "media_gallery": "Galería de imágenes del producto",
       "media_thumbnails": "Miniaturas del producto",
       "view_media": "Ver imagen {{ number }} del producto",
@@ -509,7 +538,8 @@
       "title": "Cuadrícula",
       "one_column": "Mostrar un producto por fila",
       "two_columns": "Mostrar dos productos por fila",
-      "four_columns": "Mostrar cuatro productos por fila"
+      "four_columns": "Mostrar cuatro productos por fila",
+      "list_view": "Mostrar productos en lista"
     },
     "merchandising": {
       "promotion": "Destacado editorial de la colección"

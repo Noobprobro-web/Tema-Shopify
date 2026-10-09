@@ -40,6 +40,7 @@
       font-family: var(--font-heading);
       font-size: 2.8rem;
       font-weight: 400;
+      overflow-wrap: anywhere;
       letter-spacing: -0.02em;
       margin-bottom: 0.75rem;
     }
@@ -67,7 +68,7 @@
     nav.toc ul {
       list-style: none;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
       gap: 0.75rem;
     }
     nav.toc a {
@@ -103,7 +104,7 @@
     li { margin-bottom: 0.4rem; }
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
       gap: 1.5rem;
       margin: 1.5rem 0;
     }
@@ -200,7 +201,7 @@
         </div>
         <div class="card">
           <span class="badge">Preset</span>
-          <h3 class="card-title">Imprint</h3>
+          <h3 class="card-title">Edition</h3>
           <p>Crisp, modern architectural minimalism. High-contrast typography, sharp lines, and gallery-focused whitespace for leather goods, design objects, and contemporary accessories.</p>
         </div>
         <div class="card">
@@ -218,7 +219,7 @@
       <ul>
         <li><strong>Color Schemes:</strong> Configure background, foreground text, buttons, borders, and shadows in <strong>Theme settings &gt; Colors</strong>. Each section can have its own independent color scheme.</li>
         <li><strong>Typography:</strong> Customize body and heading fonts, scale multipliers, and font weights in <strong>Theme settings &gt; Typography</strong>. Native system font fallbacks are automatically handled.</li>
-        <li><strong>Motion:</strong> Choose <strong>None</strong>, <strong>Subtle</strong> or <strong>Full</strong> in <strong>Theme settings &gt; Animations</strong>. Subtle adds scroll reveals, hover transitions and page transitions. Full ties the motion to the scroll position, so each gesture advances and rewinds with the page until it settles: blocks rise as you scroll, headlines climb line by line from behind a mask, editorial images unveil, the hero drifts in parallax and the scrolling text surges as it crosses the screen. All of it runs on native CSS scroll-driven animations, so no animation library is loaded in any mode. Browsers without scroll-driven animation support get the same reveals as Subtle, with a longer and deeper movement. Visitors who ask their device to reduce motion always see the static theme.</li>
+        <li><strong>Motion:</strong> Choose <strong>None</strong>, <strong>Subtle</strong> or <strong>Full</strong> in <strong>Theme settings &gt; Animations</strong>. None disables decorative reveal and page motion. Subtle adds scroll reveals, hover transitions and page transitions. Full adds scroll-linked image unveils, headline reveals, hero parallax and scrolling text drift on supported desktop and mobile browsers. These effects use native CSS; no animation library is loaded in any mode. Browsers without scroll-driven animation support use transition-based reveals. Visitors who ask their device to reduce motion see static decorative content.</li>
       </ul>
     </section>
 

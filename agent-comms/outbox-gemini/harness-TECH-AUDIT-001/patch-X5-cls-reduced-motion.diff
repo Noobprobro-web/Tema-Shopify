@@ -1,0 +1,88 @@
+diff --git a/layout/theme.liquid b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-theme.liquid
+index 7f7590f..27cc985 100644
+--- a/layout/theme.liquid
++++ b/layout/theme.liquid
+@@ -51,6 +51,13 @@
+       assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+     -%}
+ 
++    {%- unless settings.type_heading_font.system? -%}
++      <link rel="preload" as="font" href="{{ settings.type_heading_font | font_url: 'woff2' }}" type="font/woff2" crossorigin>
++    {%- endunless -%}
++    {%- unless settings.type_body_font.system? -%}
++      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url: 'woff2' }}" type="font/woff2" crossorigin>
++    {%- endunless -%}
++
+     {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+ 
+     {% style %}
+@@ -58,10 +65,10 @@
+       {{ body_font_bold | font_face: font_display: 'swap' }}
+       {{ body_font_italic | font_face: font_display: 'swap' }}
+       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+-      {{ settings.type_heading_font | font_face: font_display: 'swap' }}
+-      {{ heading_font_bold | font_face: font_display: 'swap' }}
+-      {{ heading_font_italic | font_face: font_display: 'swap' }}
+-      {{ heading_font_bold_italic | font_face: font_display: 'swap' }}
++      {{ settings.type_heading_font | font_face: font_display: 'optional' }}
++      {{ heading_font_bold | font_face: font_display: 'optional' }}
++      {{ heading_font_italic | font_face: font_display: 'optional' }}
++      {{ heading_font_bold_italic | font_face: font_display: 'optional' }}
+ 
+       :root {
+         --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+diff --git a/assets/base.css b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-base.css
+index 607e3a7..52b67fc 100644
+--- a/assets/base.css
++++ b/assets/base.css
+@@ -4068,10 +4068,14 @@ marquee-banner {
+ 
+ @media (min-width: 62rem) {
+   .site-header__inner {
+-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
++    grid-template-columns: 1fr auto 1fr;
+     gap: var(--space-4);
+   }
+ 
++  .site-header__brand {
++    justify-self: center;
++  }
++
+   .site-header__mobile-menu {
+     display: none;
+   }
+@@ -7976,29 +7980,13 @@ html {
+ .hero-editorial--cinematic.hero-editorial--overlay-gradient_content .hero-editorial__content {
+   position: relative;
+   isolation: isolate;
+-}
+-
+-/* Un velo radial del doble de alto y de ancho que el bloque de texto, centrado en el. Con
+-   el tramo opaco hasta el 72 % del radio, las cuatro esquinas del bloque (a 70.7 %) quedan
+-   dentro de la zona opaca y el difuminado ocurre entero fuera del texto: se lee como luz
+-   que cae, no como una caja gris. */
+-.hero-editorial--cinematic.hero-editorial--overlay-gradient_content .hero-editorial__content::before {
+-  position: absolute;
+-  z-index: -1;
+-  inset: -50%;
+-  /* Caida escalonada (curva de salida suave): con dos paradas el borde del velo se leia
+-     como un arco sobre el techo de la foto. */
+   background: radial-gradient(
+-    closest-side,
+-    rgb(0 0 0 / var(--hero-scrim-alpha)) 72%,
+-    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.84)) 77%,
+-    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.6)) 82%,
+-    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.36)) 88%,
+-    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.14)) 94%,
+-    rgb(0 0 0 / 0) 100%
++    ellipse at bottom left,
++    rgb(0 0 0 / var(--hero-scrim-alpha)) 40%,
++    rgb(0 0 0 / calc(var(--hero-scrim-alpha) * 0.7)) 70%,
++    transparent 100%
+   );
+-  content: '';
+-  pointer-events: none;
++  padding: var(--space-md);
+ }
+ 
+ /* ---------- T4. Galeria de producto sin huecos ---------- */

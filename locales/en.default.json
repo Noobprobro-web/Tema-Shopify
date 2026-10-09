@@ -83,12 +83,22 @@
       "rewards_progress": "Cart rewards progress",
       "shipping_milestone": "Shipping at {{ amount }}",
       "gift_milestone": "Gift at {{ amount }}",
-      "complimentary_additions": "Complimentary additions",
+      "complimentary_additions": "Complementary products",
       "curated_for_order": "Curated for this order",
       "add_complementary": "Add",
       "add_complementary_product": "Add {{ product }} to your cart",
-      "already_added": "Added",
-      "already_added_product": "{{ product }} is already in your cart"
+      "choose_options": "Choose options",
+      "choose_options_product": "Choose options for {{ product }}",
+      "select_option": "Select {{ option }}",
+      "view_product": "View product",
+      "view_product_for": "View product: {{ product }}",
+      "options_unavailable": "This combination is unavailable.",
+      "adding": "Adding…",
+      "cancel_options": "Cancel",
+      "update_unconfirmed": "We could not confirm the update.",
+      "check_cart": "Check cart",
+      "saving_note": "Saving your cart note…",
+      "note_save_unconfirmed": "We could not confirm that your cart note was saved."
     },
     "announcement_bar": {
       "region_label": "Store announcements",
@@ -398,12 +408,31 @@
       "quantity": "Quantity",
       "decrease_quantity": "Decrease quantity for {{ product }}",
       "increase_quantity": "Increase quantity for {{ product }}",
-      "line_total": "Total for {{ quantity }}",
       "regular_price": "Regular price",
       "sale_price": "Sale price",
       "price_from": "From",
       "unit_price": "Unit price",
       "taxes_included": "Taxes included.",
+      "estimated_line_total": "Estimated item subtotal for {{ quantity }} units:",
+      "taxes_included_shipping_at_checkout": "Taxes included. Shipping calculated at checkout.",
+      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout.",
+      "discounts_at_checkout": "Discounts and the final amount are confirmed at checkout.",
+      "technical_specs": {
+        "material": "Material composition",
+        "gsm": "Fabric weight (GSM)",
+        "hardware": "Hardware and trims",
+        "origin": "Origin and craftsmanship"
+      },
+      "provenance": {
+        "single_piece": "Single archival piece",
+        "circa": "Circa {{ year }}",
+        "condition": "Condition",
+        "grade_1": "Grade I · Minimal visible wear",
+        "grade_2": "Grade II · Light wear",
+        "grade_3": "Grade III · Visible wear",
+        "grade_4": "Grade IV · Significant wear",
+        "grade_5": "Grade V · Fragile / study piece"
+      },
       "media_gallery": "Product media gallery",
       "media_thumbnails": "Product media thumbnails",
       "view_media": "View product media {{ number }}",
@@ -509,7 +538,8 @@
       "title": "Grid",
       "one_column": "Show one product per row",
       "two_columns": "Show two products per row",
-      "four_columns": "Show four products per row"
+      "four_columns": "Show four products per row",
+      "list_view": "Show products as a list"
     },
     "merchandising": {
       "promotion": "Editorial collection feature"

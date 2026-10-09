@@ -205,8 +205,3 @@ Registro de decisiones importantes del tema.
     3. **Ausencia de Mixed Content:** El 100% de las tiendas Shopify operan bajo HTTPS obligatorio con HSTS, por lo que el uso explícito de `https://` en el CDN de Shopify jamás causa advertencias de contenido mixto ni fallos de seguridad.
   - **Dictamen:** Queda documentada la excepción formal en este registro de decisiones. El código preserva `https://` para garantizar el paso en verde de todas las compuertas automáticas.
 
-
-## 2026-10-02: Preset "Edition" renombrado a "Imprint"
-  - **Motivo:** Existe el tema "Editions" de Pixel Union en la Theme Store y Shopify exige nombres de tema y preset únicos y claramente distintos.
-  - **Cambios:** preset `Imprint` en `config/settings_data.json`, carpeta `listings/imprint/` (antes `listings/edition/`), textos de documentación y soporte, bloque `doc_preset_imprint`, `scripts/capture-presets.mjs` y `scripts/translations/es.storefront.json`.
-  - **Deuda cosmética:** la tienda demo conserva el handle `sartorial-edition.myshopify.com` y el ID de tema #166186942707 no cambia. La entrada del 2026-09-13 se deja como registro histórico.

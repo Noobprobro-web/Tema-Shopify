@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sartorial Theme Documentation | Ruiz Digital</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --surface: #FFFFFF;
+      --text: #1C1917;
+      --muted: #78716C;
+      --border: #E7E5E4;
+      --accent: #0F172A;
+      --font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      padding: 0 1.5rem;
+    }
+    header {
+      max-width: 960px;
+      margin: 3rem auto 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      font-weight: 400;
+      overflow-wrap: anywhere;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .lead {
+      font-size: 1.15rem;
+      color: var(--muted);
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto 5rem;
+    }
+    nav.toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-bottom: 3rem;
+    }
+    nav.toc h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    nav.toc ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: 0.75rem;
+    }
+    nav.toc a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav.toc a:hover {
+      text-decoration: underline;
+    }
+    section.doc-section {
+      margin-bottom: 3.5rem;
+    }
+    h2.section-title {
+      font-family: var(--font-heading);
+      font-size: 1.85rem;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+    p, ul, ol {
+      margin-bottom: 1rem;
+      color: #292524;
+    }
+    ul, ol {
+      padding-left: 1.5rem;
+    }
+    li { margin-bottom: 0.4rem; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 4px;
+    }
+    .card .card-title {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+      font-family: var(--font-heading);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: #F5F5F4;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      margin-bottom: 0.75rem;
+    }
+    code {
+      background: #F5F5F4;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+      font-family: monospace;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="eyebrow">Ruiz Digital &bull; Shopify Theme Store</p>
+    <h1>Sartorial Theme Documentation</h1>
+    <p class="lead">Complete merchant guide, section setup, presets, and customization reference for Sartorial 1.0.0.</p>
+  </header>
+
+  <main>
+    <nav class="toc" aria-label="Table of Contents">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#quick-start">1. Quick Start & Installation</a></li>
+        <li><a href="#presets">2. Theme Presets (Styles)</a></li>
+        <li><a href="#color-schemes">3. Color Schemes & Typography</a></li>
+        <li><a href="#sections">4. Signature Sections</a></li>
+        <li><a href="#pdp">5. Product Detail Page & Media</a></li>
+        <li><a href="#cart">6. Sticky Cart Drawer</a></li>
+        <li><a href="#search-filters">7. Predictive Search & Filters</a></li>
+        <li><a href="#support">8. Merchant Support & Updates</a></li>
+      </ul>
+    </nav>
+
+    <section id="quick-start" class="doc-section">
+      <h2 class="section-title">1. Quick Start & Installation</h2>
+      <p>Sartorial is built from the ground up for Online Store 2.0, offering blazing-fast native vanilla JavaScript architecture without third-party framework overhead.</p>
+      <ol>
+        <li>Download the <code>Sartorial-1.0.0.zip</code> file from your Shopify account or Theme Store purchase.</li>
+        <li>In your Shopify Admin, navigate to <strong>Online Store &gt; Themes</strong>.</li>
+        <li>In the <strong>Theme library</strong> section, click <strong>Add theme &gt; Upload zip file</strong>.</li>
+        <li>Select <code>Sartorial-1.0.0.zip</code> and click <strong>Upload</strong>.</li>
+        <li>Click <strong>Customize</strong> to open the theme editor.</li>
+      </ol>
+    </section>
+
+    <section id="presets" class="doc-section">
+      <h2 class="section-title">2. Theme Presets (Styles)</h2>
+      <p>Sartorial includes three distinct aesthetic presets tailored for luxury fashion, design objects, and archival curation:</p>
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge">Default</span>
+          <h3 class="card-title">Sartorial</h3>
+          <p>Warm editorial elegance designed for luxury apparel, tailoring, and bespoke fashion houses. Features alabaster backgrounds, rich contrast, and sophisticated serif typography.</p>
+        </div>
+        <div class="card">
+          <span class="badge">Preset</span>
+          <h3 class="card-title">Edition</h3>
+          <p>Crisp, modern architectural minimalism. High-contrast typography, sharp lines, and gallery-focused whitespace for leather goods, design objects, and contemporary accessories.</p>
+        </div>
+        <div class="card">
+          <span class="badge">Preset</span>
+          <h3 class="card-title">Archive</h3>
+          <p>Rich, heritage luxury with deeper warm tones and dramatic composition. Ideal for vintage and archival apparel, one-of-a-kind pieces, and heritage brands.</p>
+        </div>
+      </div>
+      <p>To switch presets, open <strong>Theme settings</strong> (gear icon) &gt; click the preset dropdown at the top &gt; select your desired preset.</p>
+    </section>
+
+    <section id="color-schemes" class="doc-section">
+      <h2 class="section-title">3. Color Schemes & Typography</h2>
+      <p>Sartorial ships with five ready-made color schemes, and you can add your own. The default schemes meet WCAG 2.2 AA contrast ratios (4.5:1 for text, 3:1 for interface boundaries); check contrast again when you change scheme colors.</p>
+      <ul>
+        <li><strong>Color Schemes:</strong> Configure background, foreground text, buttons, borders, and shadows in <strong>Theme settings &gt; Colors</strong>. Each section can have its own independent color scheme.</li>
+        <li><strong>Typography:</strong> Customize body and heading fonts, scale multipliers, and font weights in <strong>Theme settings &gt; Typography</strong>. Native system font fallbacks are automatically handled.</li>
+        <li><strong>Motion:</strong> Choose <strong>None</strong>, <strong>Subtle</strong> or <strong>Full</strong> in <strong>Theme settings &gt; Animations</strong>. None disables decorative reveal and page motion. Subtle adds scroll reveals, hover transitions and page transitions. Full adds scroll-linked image unveils, headline reveals, hero parallax and scrolling text drift on supported desktop and mobile browsers. These effects use native CSS; no animation library is loaded in any mode. Browsers without scroll-driven animation support use transition-based reveals. Visitors who ask their device to reduce motion see static decorative content.</li>
+      </ul>
+    </section>
+
+    <section id="sections" class="doc-section">
+      <h2 class="section-title">4. Signature Sections</h2>
+      <p>Sartorial comes with 33 Online Store 2.0 sections and no third-party code dependencies. Highlights:</p>
+      <ul>
+        <li><strong>Hero Editorial:</strong> Full-viewport and split editorial banners with support for responsive desktop/mobile imagery, focal point controls, and subtitle alignments.</li>
+        <li><strong>Complete the Look:</strong> Shoppable bundle merchandising tool allowing customers to add complementary products and accessories directly to cart with multi-variant selectors.</li>
+        <li><strong>Lookbook:</strong> Interactive hotspots over high-resolution imagery displaying product popovers with real-time stock and prices.</li>
+        <li><strong>Curated Showcase:</strong> Tabbed collection showcases with smooth CSS transitions and keyboard accessibility.</li>
+        <li><strong>Featured Product:</strong> Standalone product showcase with variant pickers, gallery controls, and native accelerated checkout.</li>
+      </ul>
+    </section>
+
+    <section id="pdp" class="doc-section">
+      <h2 class="section-title">5. Product Detail Page & Media</h2>
+      <p>The product template provides full support for rich shopping experiences:</p>
+      <ul>
+        <li><strong>3D Models & Augmented Reality:</strong> Native support for <code>.glb</code>/<code>.gltf</code> 3D models with Shopify XR &ldquo;View in your space&rdquo; integration on iOS and Android.</li>
+        <li><strong>Color Swatches:</strong> Native Shopify category swatches supporting both solid hex colors and swatch images.</li>
+        <li><strong>Live Line Total:</strong> Real-time price multiplier that dynamically recalculates total cost as customers adjust quantity, preserving original unit price.</li>
+        <li><strong>Gift Card Recipient:</strong> Native recipient form fields (name, email, message, send date) for digital gift cards.</li>
+        <li><strong>Pickup Availability:</strong> Real-time local store inventory and pickup status lookup.</li>
+      </ul>
+    </section>
+
+    <section id="cart" class="doc-section">
+      <h2 class="section-title">6. Sticky Cart Drawer</h2>
+      <p>Sartorial features an accessible, high-converting AJAX slide-out cart drawer:</p>
+      <ul>
+        <li>Supports Free Shipping Progress Bar with automatic threshold calculation.</li>
+        <li>Optional cart notes and automatic display of line-level discounts.</li>
+        <li>Accelerated checkout buttons (Shop Pay, Apple Pay, Google Pay, PayPal).</li>
+      </ul>
+    </section>
+
+    <section id="search-filters" class="doc-section">
+      <h2 class="section-title">7. Predictive Search & Filters</h2>
+      <p>Fast, debounced predictive search powered by Shopify&rsquo;s Predictive Search API:</p>
+      <ul>
+        <li>Returns instant results for Products, Collections, Pages, and Journal Articles.</li>
+        <li>Faceted filtering on collection and search pages with European comma decimal normalizers and live region screen reader announcements.</li>
+      </ul>
+    </section>
+
+    <section id="support" class="doc-section">
+      <h2 class="section-title">8. Merchant Support & Updates</h2>
+      <p>Need assistance configuring your store? Visit our <a href="./support.html">Theme Support Portal</a> to submit a ticket, report an issue, or read our FAQ.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Ruiz Digital. All rights reserved.</p>
+    <p><a href="./support.html">Get Support</a> &bull; <a href="#quick-start">Back to top</a></p>
+  </footer>
+
+</body>
+</html>
+

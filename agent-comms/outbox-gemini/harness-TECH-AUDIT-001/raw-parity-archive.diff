@@ -1,0 +1,1021 @@
+# ==============================================================================
+# RAW PARITY DIFF: ARCHIVE (Live #191153275192 vs Repository)
+# Store: sartorial-archive.myshopify.com
+# Theme Name: Archive | Role: live | ID: #191153275192
+# Timestamp: 2026-10-02T02:35:34.879176+00:00
+# Preset source: listings/archive/ (where template overrides exist)
+# ==============================================================================
+
+diff --git a/layout/password.liquid b/layout/password.liquid
+new file mode 100644 (remote live orphan)
+--- /dev/null
++++ b/layout/password.liquid
++{{ content_for_header }}{{ content_for_layout }}
+
+diff --git a/config/settings_data.json b/config/settings_data.json
+--- a/config/settings_data.json
++++ b/config/settings_data.json
+@@ -1,82 +1,14 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+-  "current": {
+-    "logo_width": 140,
+-    "default_color_scheme": "scheme-1",
+-    "type_heading_font": "libre_baskerville_n4",
+-    "heading_scale": 105,
+-    "type_body_font": "assistant_n4",
+-    "body_scale": 100,
+-    "page_width": 1300,
+-    "page_gutter": 20,
+-    "section_spacing": 72,
+-    "button_radius": 0,
+-    "show_cart_count": true,
+-    "animations": "full",
+-    "color_schemes": {
+-      "scheme-1": {
+-        "settings": {
+-          "background": "#F7F3EA",
+-          "background_gradient": "",
+-          "text": "#1D1B18",
+-          "button": "#1D1B18",
+-          "button_label": "#FFFFFF",
+-          "secondary_button_label": "#1D1B18",
+-          "border": "#8F8574",
+-          "shadow": "#1D1B18"
+-        }
+-      },
+-      "scheme-2": {
+-        "settings": {
+-          "background": "#1D1B18",
+-          "background_gradient": "",
+-          "text": "#F8F4EB",
+-          "button": "#D8A85D",
+-          "button_label": "#1D1B18",
+-          "secondary_button_label": "#F8F4EB",
+-          "border": "#7A7061",
+-          "shadow": "#000000"
+-        }
+-      },
+-      "scheme-3": {
+-        "settings": {
+-          "background": "#EDE7DA",
+-          "background_gradient": "",
+-          "text": "#1D1B18",
+-          "button": "#1D1B18",
+-          "button_label": "#FFFFFF",
+-          "secondary_button_label": "#1D1B18",
+-          "border": "#8A8070",
+-          "shadow": "#1D1B18"
+-        }
+-      },
+-      "scheme-4": {
+-        "settings": {
+-          "background": "#D8A85D",
+-          "background_gradient": "",
+-          "text": "#1D1B18",
+-          "button": "#1D1B18",
+-          "button_label": "#F7F3EA",
+-          "secondary_button_label": "#1D1B18",
+-          "border": "#6E5325",
+-          "shadow": "#1D1B18"
+-        }
+-      },
+-      "scheme-5": {
+-        "settings": {
+-          "background": "#FBF9F4",
+-          "background_gradient": "",
+-          "text": "#2A2621",
+-          "button": "#1D1B18",
+-          "button_label": "#FFFFFF",
+-          "secondary_button_label": "#2A2621",
+-          "border": "#9A8F7C",
+-          "shadow": "#1D1B18"
+-        }
+-      }
+-    },
+-    "cart_type": "drawer",
+-    "show_cart_note": false
+-  },
++  "current": "Archive",
+   "presets": {
+     "Sartorial": {
+       "logo_width": 140,
+@@ -90,14 +22,69 @@
+       "section_spacing": 72,
+       "button_radius": 0,
+       "show_cart_count": true,
+-    "animations": "full",
+       "color_schemes": {
+-        "scheme-1": { "settings": { "background": "#F7F3EA", "background_gradient": "", "text": "#1D1B18", "button": "#1D1B18", "button_label": "#FFFFFF", "secondary_button_label": "#1D1B18", "border": "#8F8574", "shadow": "#1D1B18" } },
+-        "scheme-2": { "settings": { "background": "#1D1B18", "background_gradient": "", "text": "#F8F4EB", "button": "#D8A85D", "button_label": "#1D1B18", "secondary_button_label": "#F8F4EB", "border": "#7A7061", "shadow": "#000000" } },
+-        "scheme-3": { "settings": { "background": "#EDE7DA", "background_gradient": "", "text": "#1D1B18", "button": "#1D1B18", "button_label": "#FFFFFF", "secondary_button_label": "#1D1B18", "border": "#8A8070", "shadow": "#1D1B18" } },
+-        "scheme-4": { "settings": { "background": "#D8A85D", "background_gradient": "", "text": "#1D1B18", "button": "#1D1B18", "button_label": "#F7F3EA", "secondary_button_label": "#1D1B18", "border": "#6E5325", "shadow": "#1D1B18" } },
+-        "scheme-5": { "settings": { "background": "#FBF9F4", "background_gradient": "", "text": "#2A2621", "button": "#1D1B18", "button_label": "#FFFFFF", "secondary_button_label": "#2A2621", "border": "#9A8F7C", "shadow": "#1D1B18" } }
+-      }
++        "scheme-1": {
++          "settings": {
++            "background": "#F7F3EA",
++            "background_gradient": "",
++            "text": "#1D1B18",
++            "button": "#1D1B18",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#1D1B18",
++            "border": "#8F8574",
++            "shadow": "#1D1B18"
++          }
++        },
++        "scheme-2": {
++          "settings": {
++            "background": "#1D1B18",
++            "background_gradient": "",
++            "text": "#F8F4EB",
++            "button": "#D8A85D",
++            "button_label": "#1D1B18",
++            "secondary_button_label": "#F8F4EB",
++            "border": "#7A7061",
++            "shadow": "#000000"
++          }
++        },
++        "scheme-3": {
++          "settings": {
++            "background": "#EDE7DA",
++            "background_gradient": "",
++            "text": "#1D1B18",
++            "button": "#1D1B18",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#1D1B18",
++            "border": "#8A8070",
++            "shadow": "#1D1B18"
++          }
++        },
++        "scheme-4": {
++          "settings": {
++            "background": "#D8A85D",
++            "background_gradient": "",
++            "text": "#1D1B18",
++            "button": "#1D1B18",
++            "button_label": "#F7F3EA",
++            "secondary_button_label": "#1D1B18",
++            "border": "#6E5325",
++            "shadow": "#1D1B18"
++          }
++        },
++        "scheme-5": {
++          "settings": {
++            "background": "#FBF9F4",
++            "background_gradient": "",
++            "text": "#2A2621",
++            "button": "#1D1B18",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#2A2621",
++            "border": "#9A8F7C",
++            "shadow": "#1D1B18"
++          }
++        }
++      },
++      "animations": "full"
+     },
+     "Edition": {
+       "logo_width": 140,
+@@ -111,14 +98,69 @@
+       "section_spacing": 56,
+       "button_radius": 0,
+       "show_cart_count": true,
+-    "animations": "full",
+       "color_schemes": {
+-        "scheme-1": { "settings": { "background": "#FFFFFF", "background_gradient": "", "text": "#111111", "button": "#111111", "button_label": "#FFFFFF", "secondary_button_label": "#111111", "border": "#949494", "shadow": "#111111" } },
+-        "scheme-2": { "settings": { "background": "#111111", "background_gradient": "", "text": "#FAFAFA", "button": "#FAFAFA", "button_label": "#111111", "secondary_button_label": "#FAFAFA", "border": "#666666", "shadow": "#000000" } },
+-        "scheme-3": { "settings": { "background": "#F2F2F2", "background_gradient": "", "text": "#111111", "button": "#111111", "button_label": "#FFFFFF", "secondary_button_label": "#111111", "border": "#8C8C8C", "shadow": "#111111" } },
+-        "scheme-4": { "settings": { "background": "#2E3440", "background_gradient": "", "text": "#F0F2F5", "button": "#F0F2F5", "button_label": "#2E3440", "secondary_button_label": "#F0F2F5", "border": "#79808C", "shadow": "#000000" } },
+-        "scheme-5": { "settings": { "background": "#FAFAFA", "background_gradient": "", "text": "#1A1A1A", "button": "#111111", "button_label": "#FFFFFF", "secondary_button_label": "#1A1A1A", "border": "#919191", "shadow": "#111111" } }
+-      }
++        "scheme-1": {
++          "settings": {
++            "background": "#FFFFFF",
++            "background_gradient": "",
++            "text": "#111111",
++            "button": "#111111",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#111111",
++            "border": "#949494",
++            "shadow": "#111111"
++          }
++        },
++        "scheme-2": {
++          "settings": {
++            "background": "#111111",
++            "background_gradient": "",
++            "text": "#FAFAFA",
++            "button": "#FAFAFA",
++            "button_label": "#111111",
++            "secondary_button_label": "#FAFAFA",
++            "border": "#666666",
++            "shadow": "#000000"
++          }
++        },
++        "scheme-3": {
++          "settings": {
++            "background": "#F2F2F2",
++            "background_gradient": "",
++            "text": "#111111",
++            "button": "#111111",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#111111",
++            "border": "#8C8C8C",
++            "shadow": "#111111"
++          }
++        },
++        "scheme-4": {
++          "settings": {
++            "background": "#2E3440",
++            "background_gradient": "",
++            "text": "#F0F2F5",
++            "button": "#F0F2F5",
++            "button_label": "#2E3440",
++            "secondary_button_label": "#F0F2F5",
++            "border": "#79808C",
++            "shadow": "#000000"
++          }
++        },
++        "scheme-5": {
++          "settings": {
++            "background": "#FAFAFA",
++            "background_gradient": "",
++            "text": "#1A1A1A",
++            "button": "#111111",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#1A1A1A",
++            "border": "#919191",
++            "shadow": "#111111"
++          }
++        }
++      },
++      "animations": "full"
+     },
+     "Archive": {
+       "logo_width": 140,
+@@ -132,14 +174,69 @@
+       "section_spacing": 72,
+       "button_radius": 0,
+       "show_cart_count": true,
+-    "animations": "full",
+       "color_schemes": {
+-        "scheme-1": { "settings": { "background": "#EFE6D9", "background_gradient": "", "text": "#2E241C", "button": "#8A5A3B", "button_label": "#FFF8F0", "secondary_button_label": "#2E241C", "border": "#8A7860", "shadow": "#2E241C" } },
+-        "scheme-2": { "settings": { "background": "#2F3327", "background_gradient": "", "text": "#EFE6D9", "button": "#B5885C", "button_label": "#241F19", "secondary_button_label": "#EFE6D9", "border": "#838972", "shadow": "#1A1D16" } },
+-        "scheme-3": { "settings": { "background": "#E4D8C6", "background_gradient": "", "text": "#2E241C", "button": "#8A5A3B", "button_label": "#FFF8F0", "secondary_button_label": "#2E241C", "border": "#7E6A54", "shadow": "#2E241C" } },
+-        "scheme-4": { "settings": { "background": "#6E482F", "background_gradient": "", "text": "#FFF8F0", "button": "#FFF8F0", "button_label": "#6E482F", "secondary_button_label": "#FFF8F0", "border": "#D8BFA6", "shadow": "#2E241C" } },
+-        "scheme-5": { "settings": { "background": "#F5EFE5", "background_gradient": "", "text": "#2E241C", "button": "#8A5A3B", "button_label": "#FFF8F0", "secondary_button_label": "#2E241C", "border": "#8D7C64", "shadow": "#2E241C" } }
+-      }
++        "scheme-1": {
++          "settings": {
++            "background": "#EFE6D9",
++            "background_gradient": "",
++            "text": "#2E241C",
++            "button": "#8A5A3B",
++            "button_label": "#FFF8F0",
++            "secondary_button_label": "#2E241C",
++            "border": "#8A7860",
++            "shadow": "#2E241C"
++          }
++        },
++        "scheme-2": {
++          "settings": {
++            "background": "#2F3327",
++            "background_gradient": "",
++            "text": "#EFE6D9",
++            "button": "#B5885C",
++            "button_label": "#241F19",
++            "secondary_button_label": "#EFE6D9",
++            "border": "#838972",
++            "shadow": "#1A1D16"
++          }
++        },
++        "scheme-3": {
++          "settings": {
++            "background": "#E4D8C6",
++            "background_gradient": "",
++            "text": "#2E241C",
++            "button": "#8A5A3B",
++            "button_label": "#FFF8F0",
++            "secondary_button_label": "#2E241C",
++            "border": "#7E6A54",
++            "shadow": "#2E241C"
++          }
++        },
++        "scheme-4": {
++          "settings": {
++            "background": "#6E482F",
++            "background_gradient": "",
++            "text": "#FFF8F0",
++            "button": "#FFF8F0",
++            "button_label": "#6E482F",
++            "secondary_button_label": "#FFF8F0",
++            "border": "#D8BFA6",
++            "shadow": "#2E241C"
++          }
++        },
++        "scheme-5": {
++          "settings": {
++            "background": "#F5EFE5",
++            "background_gradient": "",
++            "text": "#2E241C",
++            "button": "#8A5A3B",
++            "button_label": "#FFF8F0",
++            "secondary_button_label": "#2E241C",
++            "border": "#8D7C64",
++            "shadow": "#2E241C"
++          }
++        }
++      },
++      "animations": "full"
+     }
+   }
+ }
+
+diff --git a/locales/en.default.json b/locales/en.default.json
+--- a/locales/en.default.json
++++ b/locales/en.default.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin language editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "general": {
+     "accessibility": {
+
+diff --git a/locales/en.default.schema.json b/locales/en.default.schema.json
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin language editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "settings_schema": {
+     "animations": {
+
+diff --git a/locales/es.json b/locales/es.json
+--- a/locales/es.json
++++ b/locales/es.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin language editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "general": {
+     "accessibility": {
+
+diff --git a/sections/footer-group.json b/sections/footer-group.json
+--- a/sections/footer-group.json
++++ b/sections/footer-group.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "type": "footer",
+   "name": "t:sections.footer_group.name",
+
+diff --git a/sections/header-group.json b/sections/header-group.json
+--- a/sections/header-group.json
++++ b/sections/header-group.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "type": "header",
+   "name": "t:sections.header_group.name",
+@@ -29,14 +38,14 @@
+           "type": "mega_menu_promo",
+           "settings": {
+             "menu_item": "Catalog",
+-            "image_1": "shopify://shop_images/manifesto-01.jpg",
+-            "heading_1": "New Arrivals",
+-            "subheading_1": "Explore the autumn edit",
+-            "link_1": "/collections/all",
+-            "image_2": "shopify://shop_images/capsule-look-01.jpg",
+-            "heading_2": "Capsule Wardrobe",
+-            "subheading_2": "Pieces made in small series",
+-            "link_2": "/collections/all"
++            "image_1": "shopify://shop_images/archive-lookbook.jpg",
++            "heading_1": "Permanent Archive",
++            "subheading_1": "Documented pieces, 1989 to 1999",
++            "link_1": "/collections/permanent-archive",
++            "image_2": "shopify://shop_images/archive-manifesto.jpg",
++            "heading_2": "Restored Pieces",
++            "subheading_2": "Conserved and returned to wear",
++            "link_2": "/collections/restored-pieces"
+           }
+         }
+       },
+
+diff --git a/templates/404.json b/templates/404.json
+--- a/templates/404.json
++++ b/templates/404.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/article.json b/templates/article.json
+--- a/templates/article.json
++++ b/templates/article.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/blog.json b/templates/blog.json
+--- a/templates/blog.json
++++ b/templates/blog.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/cart.json b/templates/cart.json
+--- a/templates/cart.json
++++ b/templates/cart.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/listings/archive/templates/collection.json b/templates/collection.json
+--- a/listings/archive/templates/collection.json
++++ b/templates/collection.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/listings/archive/templates/index.json b/templates/index.json
+--- a/listings/archive/templates/index.json
++++ b/templates/index.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "hero": {
+@@ -9,8 +18,8 @@
+         "height_desktop": 80,
+         "height_mobile": 75,
+         "media_type": "image",
++        "enable_video_mobile": false,
+         "image_desktop": "shopify://shop_images/archive-hero.jpg",
+-        "enable_video_mobile": false,
+         "overlay_style": "scrim",
+         "overlay_opacity": 60,
+         "content_position_x": "center",
+@@ -31,20 +40,49 @@
+     "manifesto": {
+       "type": "brand-manifesto",
+       "blocks": {
+-        "founded": { "type": "detail", "settings": { "label": "Founded", "value": "A continuing workshop tradition since 1987" } },
+-        "origin": { "type": "detail", "settings": { "label": "Origin", "value": "Acquired from private estates in Paris & Antwerp" } },
+-        "maker": { "type": "detail", "settings": { "label": "Maker", "value": "Named and catalogued with every object" } },
+-        "record": { "type": "detail", "settings": { "label": "Record", "value": "Numbered museum-grade accession certificate" } }
+-      },
+-      "block_order": ["founded", "origin", "maker", "record"],
++        "founded": {
++          "type": "detail",
++          "settings": {
++            "label": "Founded",
++            "value": "A continuing workshop tradition since 1987"
++          }
++        },
++        "origin": {
++          "type": "detail",
++          "settings": {
++            "label": "Origin",
++            "value": "Acquired from private estates in Paris & Antwerp"
++          }
++        },
++        "maker": {
++          "type": "detail",
++          "settings": {
++            "label": "Maker",
++            "value": "Named and catalogued with every object"
++          }
++        },
++        "record": {
++          "type": "detail",
++          "settings": {
++            "label": "Record",
++            "value": "Numbered museum-grade accession certificate"
++          }
++        }
++      },
++      "block_order": [
++        "founded",
++        "origin",
++        "maker",
++        "record"
++      ],
+       "settings": {
+         "eyebrow": "INDEX II / PROVENANCE",
+         "quote": "What endures carries the record of how it was made.",
+         "body": "<p>The catalogue follows each garment from runway provenance to workshop restoration and permanent archive entry.</p>",
+         "button_label": "Read archive notes",
+         "button_url": "/collections/permanent-archive",
++        "image": "shopify://shop_images/archive-manifesto.jpg",
+         "media_label": "PLATE IV / ACCESSION 1957.34.1",
+-        "image": "shopify://shop_images/archive-manifesto.jpg",
+         "use_surface_background": true,
+         "color_scheme": "scheme-3"
+       }
+@@ -52,12 +90,37 @@
+     "marquee": {
+       "type": "marquee",
+       "blocks": {
+-        "year": { "type": "item", "settings": { "text": "PIECE NO. 01/12 RESTORED" } },
+-        "place": { "type": "item", "settings": { "text": "RUNWAY 1989–1999 PERMANENT ARCHIVE" } },
+-        "record": { "type": "item", "settings": { "text": "MUSEUM GRADE CONSERVATION" } },
+-        "viewing": { "type": "item", "settings": { "text": "PRIVATE APPOINTMENTS IN MILAN & PARIS" } }
+-      },
+-      "block_order": ["year", "place", "record", "viewing"],
++        "year": {
++          "type": "item",
++          "settings": {
++            "text": "PIECE NO. 01/12 RESTORED"
++          }
++        },
++        "place": {
++          "type": "item",
++          "settings": {
++            "text": "RUNWAY 1989–1999 PERMANENT ARCHIVE"
++          }
++        },
++        "record": {
++          "type": "item",
++          "settings": {
++            "text": "MUSEUM GRADE CONSERVATION"
++          }
++        },
++        "viewing": {
++          "type": "item",
++          "settings": {
++            "text": "PRIVATE APPOINTMENTS IN MILAN & PARIS"
++          }
++        }
++      },
++      "block_order": [
++        "year",
++        "place",
++        "record",
++        "viewing"
++      ],
+       "settings": {
+         "speed": 44,
+         "color_scheme": "scheme-4"
+@@ -66,10 +129,25 @@
+     "collections": {
+       "type": "curated-showcase",
+       "blocks": {
+-        "current": { "type": "collection_tab", "settings": { "collection": "permanent-archive", "tab_label": "Current catalogue" } },
+-        "archive": { "type": "collection_tab", "settings": { "collection": "restored-pieces", "tab_label": "Archive selection" } }
+-      },
+-      "block_order": ["current", "archive"],
++        "current": {
++          "type": "collection_tab",
++          "settings": {
++            "collection": "permanent-archive",
++            "tab_label": "Current catalogue"
++          }
++        },
++        "archive": {
++          "type": "collection_tab",
++          "settings": {
++            "collection": "restored-pieces",
++            "tab_label": "Archive selection"
++          }
++        }
++      },
++      "block_order": [
++        "current",
++        "archive"
++      ],
+       "settings": {
+         "eyebrow": "CATALOGUE III / OBJECTS",
+         "heading": "Entries from the permanent record",
+@@ -81,33 +159,108 @@
+     "lookbook": {
+       "type": "lookbook",
+       "blocks": {
+-        "marker1": { "type": "hotspot", "settings": { "product": "1994-cashmere-cocoon-coat", "horizontal_position": 24, "vertical_position": 42, "horizontal_position_mobile": 26, "vertical_position_mobile": 40, "popover_position": "right" } },
+-        "marker2": { "type": "hotspot", "settings": { "product": "1999-technical-cotton-trench", "horizontal_position": 46, "vertical_position": 62, "horizontal_position_mobile": 48, "vertical_position_mobile": 60, "popover_position": "top" } },
+-        "marker3": { "type": "hotspot", "settings": { "product": "1998-bias-cut-silk-slip", "horizontal_position": 78, "vertical_position": 50, "horizontal_position_mobile": 76, "vertical_position_mobile": 48, "popover_position": "left" } }
+-      },
+-      "block_order": ["marker1", "marker2", "marker3"],
+-      "settings": {
++        "marker1": {
++          "type": "hotspot",
++          "settings": {
++            "product": "1994-cashmere-cocoon-coat",
++            "horizontal_position": 24,
++            "vertical_position": 42,
++            "horizontal_position_mobile": 26,
++            "vertical_position_mobile": 40,
++            "popover_position": "right"
++          }
++        },
++        "marker2": {
++          "type": "hotspot",
++          "settings": {
++            "product": "1999-technical-cotton-trench",
++            "horizontal_position": 46,
++            "vertical_position": 62,
++            "horizontal_position_mobile": 48,
++            "vertical_position_mobile": 60,
++            "popover_position": "top"
++          }
++        },
++        "marker3": {
++          "type": "hotspot",
++          "settings": {
++            "product": "1998-bias-cut-silk-slip",
++            "horizontal_position": 78,
++            "vertical_position": 50,
++            "horizontal_position_mobile": 76,
++            "vertical_position_mobile": 48,
++            "popover_position": "left"
++          }
++        }
++      },
++      "block_order": [
++        "marker1",
++        "marker2",
++        "marker3"
++      ],
++      "settings": {
++        "image_desktop": "shopify://shop_images/archive-lookbook.jpg",
+         "eyebrow": "PLATE V / CONSERVATION STUDY",
+         "heading": "Three objects from the archive record",
+         "description": "<p>Each piece is examined under raking light, stabilized by our conservationist, and released in small curated entries.</p>",
+         "caption": "Garment study room photographed under raking light.",
+-        "image_desktop": "shopify://shop_images/archive-lookbook.jpg",
+         "color_scheme": "scheme-1"
+       }
+     },
+     "featured_product": {
+       "type": "featured-product",
+       "blocks": {
+-        "title": { "type": "title" },
+-        "price": { "type": "price" },
+-        "variant_picker": { "type": "variant_picker" },
+-        "quantity": { "type": "quantity_selector" },
+-        "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
+-        "description": { "type": "description" },
+-        "inventory": { "type": "inventory_status", "settings": { "threshold": 2, "show_count": true } },
+-        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Climate-controlled archival transport | Insured courier", "icon": "truck" } }
+-      },
+-      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
++        "title": {
++          "type": "title",
++          "settings": {}
++        },
++        "price": {
++          "type": "price",
++          "settings": {}
++        },
++        "variant_picker": {
++          "type": "variant_picker",
++          "settings": {}
++        },
++        "quantity": {
++          "type": "quantity_selector",
++          "settings": {}
++        },
++        "buy_buttons": {
++          "type": "buy_buttons",
++          "settings": {
++            "show_dynamic_checkout": true
++          }
++        },
++        "description": {
++          "type": "description",
++          "settings": {}
++        },
++        "inventory": {
++          "type": "inventory_status",
++          "settings": {
++            "threshold": 2,
++            "show_count": true
++          }
++        },
++        "shipping": {
++          "type": "shipping_lead_time",
++          "settings": {
++            "delivery_text": "Climate-controlled archival transport | Insured courier",
++            "icon": "truck"
++          }
++        }
++      },
++      "block_order": [
++        "title",
++        "price",
++        "variant_picker",
++        "quantity",
++        "buy_buttons",
++        "inventory",
++        "shipping",
++        "description"
++      ],
+       "settings": {
+         "product": "1990-pinstripe-double-breasted-jacket",
+         "color_scheme": "scheme-3",
+@@ -126,5 +279,13 @@
+       }
+     }
+   },
+-  "order": ["hero", "manifesto", "marquee", "collections", "lookbook", "featured_product", "newsletter"]
++  "order": [
++    "hero",
++    "manifesto",
++    "marquee",
++    "collections",
++    "lookbook",
++    "featured_product",
++    "newsletter"
++  ]
+ }
+
+diff --git a/templates/list-collections.json b/templates/list-collections.json
+--- a/templates/list-collections.json
++++ b/templates/list-collections.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.about.json b/templates/page.about.json
+--- a/templates/page.about.json
++++ b/templates/page.about.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.contact.json b/templates/page.contact.json
+--- a/templates/page.contact.json
++++ b/templates/page.contact.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.documentation.json b/templates/page.documentation.json
+--- a/templates/page.documentation.json
++++ b/templates/page.documentation.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.faq.json b/templates/page.faq.json
+--- a/templates/page.faq.json
++++ b/templates/page.faq.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.json b/templates/page.json
+--- a/templates/page.json
++++ b/templates/page.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.policy.json b/templates/page.policy.json
+--- a/templates/page.policy.json
++++ b/templates/page.policy.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.support.json b/templates/page.support.json
+--- a/templates/page.support.json
++++ b/templates/page.support.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/password.json b/templates/password.json
+--- a/templates/password.json
++++ b/templates/password.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/listings/archive/templates/product.json b/templates/product.json
+--- a/listings/archive/templates/product.json
++++ b/templates/product.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/search.json b/templates/search.json
+--- a/templates/search.json
++++ b/templates/search.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+

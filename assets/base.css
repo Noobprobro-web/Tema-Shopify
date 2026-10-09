@@ -2837,10 +2837,9 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 }
 
 .cart-cross-sell__title {
-  overflow: hidden;
+  /* Fase 2 (GPT-021): un titulo largo se parte en lineas; nunca se recorta. */
   font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .cart-cross-sell__price {
@@ -2867,6 +2866,259 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 .cart-cross-sell__button .button__spinner {
   margin-inline-start: var(--space-2xs);
 }
+
+/* ---------- Fase 2 (GPT-021). Recomendaciones del cajon: opciones inline ---------- */
+/* El panel de opciones ocupa todo el ancho de la tarjeta y crece dentro de
+   .cart-drawer__scroll: nunca empuja el pie. Chips de 44 x 44 CSS px como minimo con el
+   radio nativo encima (opacidad 0, enfocable); el anillo de foco y la seleccion se pintan
+   en el chip. "No disponible" combina borde discontinuo, tachado y texto oculto. */
+.cart-cross-sell-slot {
+  min-width: 0;
+}
+
+/* La lista es un <ul role="list">: sin sangria ni vinetas del navegador. */
+.cart-cross-sell__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cart-cross-sell__list > li {
+  min-width: 0;
+}
+
+.cart-cross-sell__price {
+  overflow-wrap: anywhere;
+}
+
+.cart-cross-sell__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--color-surface-subtle);
+}
+
+.cart-cross-sell__button[aria-expanded='true'] {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.cart-cross-sell__link {
+  min-height: var(--tap-target-min);
+  max-width: 100%;
+  padding: var(--space-2xs) var(--space-xs);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.cart-cross-sell__options {
+  display: grid;
+  min-width: 0;
+  grid-column: 1 / -1;
+  gap: var(--space-sm);
+  padding-block-start: var(--space-sm);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.cart-cross-sell__fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.cart-cross-sell__legend {
+  max-width: 100%;
+  margin-block-end: var(--space-2xs);
+  padding: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.cart-cross-sell__chips {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+.cart-cross-sell__chip {
+  position: relative;
+  display: inline-flex;
+  min-width: var(--tap-target-min);
+  max-width: 100%;
+  min-height: var(--tap-target-min);
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width) solid var(--color-control-border);
+  border-radius: var(--button-radius);
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  cursor: pointer;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.cart-cross-sell__radio {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  appearance: none;
+  cursor: pointer;
+}
+
+.cart-cross-sell__chip-label {
+  min-width: 0;
+}
+
+@media (hover: hover) {
+  .cart-cross-sell__chip:hover {
+    border-color: var(--color-foreground);
+  }
+}
+
+.cart-cross-sell__chip[data-unavailable] {
+  border-style: dashed;
+}
+
+.cart-cross-sell__chip[data-unavailable] .cart-cross-sell__chip-label {
+  text-decoration: line-through;
+}
+
+.cart-cross-sell__chip:has(.cart-cross-sell__radio:checked) {
+  border-color: var(--color-foreground);
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.cart-cross-sell__chip:has(.cart-cross-sell__radio:focus-visible) {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+/* Sin :has() (navegadores anteriores a 2023) el chip no puede pintarse desde el radio: la
+   etiqueta hermana (el input la precede) marca seleccion y foco. */
+@supports not selector(:has(*)) {
+  .cart-cross-sell__radio:checked + .cart-cross-sell__chip-label {
+    font-weight: 700;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+  }
+
+  .cart-cross-sell__chip[data-unavailable] .cart-cross-sell__radio:checked + .cart-cross-sell__chip-label {
+    text-decoration-line: underline line-through;
+  }
+
+  .cart-cross-sell__radio:focus-visible + .cart-cross-sell__chip-label {
+    outline: var(--focus-width) solid var(--color-foreground);
+    outline-offset: 2px;
+  }
+}
+
+/* Colores forzados (alto contraste): el sistema anula fondos y bordes del tema, asi que la
+   seleccion se pinta con Highlight y el foco con CanvasText. Cada selector va en su propia
+   regla: un navegador sin :has() descartaria la lista entera. */
+@media (forced-colors: active) {
+  .cart-cross-sell__chip:has(.cart-cross-sell__radio:checked) {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+    forced-color-adjust: none;
+  }
+
+  .cart-cross-sell__radio:checked + .cart-cross-sell__chip-label {
+    background: Highlight;
+    color: HighlightText;
+    forced-color-adjust: none;
+  }
+
+  .cart-cross-sell__chip:has(.cart-cross-sell__radio:focus-visible) {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+
+  @supports not selector(:has(*)) {
+    .cart-cross-sell__radio:focus-visible + .cart-cross-sell__chip-label {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+  }
+}
+
+.cart-cross-sell__options-status {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.cart-cross-sell__options-actions {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.cart-cross-sell__cancel {
+  display: inline-flex;
+  min-width: var(--tap-target-min);
+  min-height: var(--tap-target-min);
+  padding: 0 var(--space-xs);
+  border: 0;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-foreground);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.cart-drawer__uncertain {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: 0 var(--page-gutter) var(--space-2);
+  background: var(--color-background);
+}
+
+.cart-drawer__check {
+  max-width: 100%;
+}
+
+/* Cajon estrecho (menos de 30rem: el panel ocupa todo el ancho): la accion baja bajo el
+   titulo para que titulo, precio y boton no se disputen una sola fila a 320 px. */
+@media (max-width: 29.99rem) {
+  .cart-cross-sell__item {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .cart-cross-sell__media {
+    grid-row: span 2;
+  }
+
+  .cart-cross-sell__item > .cart-cross-sell__button,
+  .cart-cross-sell__item > .cart-cross-sell__link {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+/* ---------- Fin Fase 2 (GPT-021) ---------- */
 
 .cart-drawer__footer {
   --flow-space: var(--space-3);
@@ -3822,7 +4074,7 @@ marquee-banner {
 
   /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
      columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
-     Los heroes alineados a la izquierda (Sartorial, Couture, Imprint) no cambian. */
+     Los heroes alineados a la izquierda (Sartorial, Couture, Edition) no cambian. */
   .hero-editorial--align-center .hero-editorial__heading {
     font-size: min(calc(4.5rem * var(--font-heading-scale)), 6.2vw);
   }
@@ -4722,6 +4974,44 @@ complete-the-look {
   grid-column: 1 / -1;
 }
 
+/* v1.1.0 PLP list view. Solo se activa con data-grid-columns="list" desde el conmutador. */
+.collection-grid-switcher__icon--list {
+  grid-auto-flow: row;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+
+.product-grid[data-grid-columns='list'] {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5) 0;
+}
+
+.product-grid[data-grid-columns='list'] .product-card {
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0 var(--space-3);
+  align-items: start;
+}
+
+.product-grid[data-grid-columns='list'] .product-card__media {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.product-grid[data-grid-columns='list'] .product-card__content {
+  min-width: 0;
+  align-content: start;
+}
+
+.product-grid[data-grid-columns='list'] .product-card__title {
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 990px) {
+  .product-grid[data-grid-columns='list'] .product-card {
+    grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+    gap: 0 var(--space-5);
+  }
+}
+
 .product-grid__item--promotion {
   min-width: 0;
 }
@@ -5020,6 +5310,13 @@ product-recommendations:not([hidden]):empty {
    y empujaba ~31px hacia abajo el boton de compra justo cuando el comprador iba a pulsarlo. */
 .product-form__line-total[data-empty] {
   visibility: hidden;
+}
+
+.product-form__tax-note {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-foreground-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
 }
 
 .product-form__line-total [data-line-total-compare] {
@@ -9404,5 +9701,68 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   /* El mismo gesto que la foto de la tarjeta de producto. */
   html[data-animations='full'] a.mega-menu__promo-card:hover .mega-menu__promo-image {
     transform: scale(1.025);
+  }
+}
+
+/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Edition) y procedencia (Archive). */
+.product-technical-specs,
+.product-provenance {
+  display: grid;
+  gap: var(--space-2);
+  margin-block: var(--space-4) 0;
+}
+
+.product-technical-specs__heading,
+.product-provenance__heading {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.product-technical-specs__list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.product-technical-specs__row {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  gap: var(--space-2);
+  font-size: 0.875rem;
+}
+
+.product-technical-specs__row dt {
+  color: var(--color-foreground-muted);
+}
+
+.product-technical-specs__row dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.product-provenance__badge,
+.product-provenance__year,
+.product-provenance__grade {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.product-provenance__grade span {
+  color: var(--color-foreground-muted);
+  margin-inline-end: var(--space-xs);
+}
+
+@media (min-width: 62rem) {
+  .product-main__layout--split_screen {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--space-5);
+  }
+
+  .product-main__layout--split_screen .product-main__details {
+    position: sticky;
+    top: calc(var(--header-offset, 0px) + var(--space-4));
   }
 }

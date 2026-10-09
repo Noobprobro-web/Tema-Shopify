@@ -6,12 +6,12 @@
     "Cada entrada guarda el texto inglés de origen y su traducción. El script solo registra una traducción si el SHA-256 del inglés coincide con el digest vivo de Shopify, así un texto inglés editado nunca recibe una traducción vieja.",
     "Las URL tipadas se traducen con el prefijo /es para que la navegación no salga del idioma.",
     "pending_deploy marca ajustes que hoy salen del valor por defecto del esquema: no existen en la plantilla en vivo hasta que la plantilla los declare y se despliegue.",
-    "No se traducen anclas, nombres de archivo, imágenes, handles ni los nombres propios de los estilos (Sartorial, Imprint, Archive).",
-    "by_text: textos que solo existen en las plantillas de los presets (Sartorial, Imprint, Archive), cuyo index.json usa otros ids de sección. El script los encuentra por el digest del inglés."
+    "No se traducen anclas, nombres de archivo, imágenes, handles ni los nombres propios de los estilos (Sartorial, Edition, Archive).",
+    "by_text: textos que solo existen en las plantillas de los presets (Sartorial, Edition, Archive), cuyo index.json usa otros ids de sección. El script los encuentra por el digest del inglés."
   ],
   "keep_source": [
     "Sartorial",
-    "Imprint",
+    "Edition",
     "Archive"
   ],
   "theme": {
@@ -412,11 +412,11 @@
         "en": "<p>Warm editorial elegance for tailoring and bespoke fashion. Alabaster grounds, rich contrast and a serif voice.</p>",
         "es": "<p>Elegancia editorial cálida para sastrería y moda a medida. Fondos alabastro, contraste intenso y una voz con serifa.</p>"
       },
-      "main.doc_preset_imprint.badge": {
+      "main.doc_preset_edition.badge": {
         "en": "Preset",
         "es": "Estilo"
       },
-      "main.doc_preset_imprint.description": {
+      "main.doc_preset_edition.description": {
         "en": "<p>Crisp architectural minimalism. High contrast type, sharp rules and gallery whitespace for contemporary fashion and accessories.</p>",
         "es": "<p>Minimalismo arquitectónico y nítido. Tipografía de alto contraste, filetes precisos y el espacio en blanco de una galería, para moda y accesorios contemporáneos.</p>"
       },
@@ -630,8 +630,8 @@
         "es": "<ul><li>Código personalizado, funciones a medida y Liquid personalizado.</li><li>Aplicaciones de terceros y conflictos causados por scripts externos.</li><li>Asesoría de negocio, consultoría de marketing y auditorías SEO.</li></ul>"
       },
       "main.faq_presets.question": {
-        "en": "How do I switch between the Sartorial, Imprint and Archive presets?",
-        "es": "¿Cómo cambio entre los estilos Sartorial, Imprint y Archive?"
+        "en": "How do I switch between the Sartorial, Edition and Archive presets?",
+        "es": "¿Cómo cambio entre los estilos Sartorial, Edition y Archive?"
       },
       "main.faq_presets.answer": {
         "en": "<p>Open your theme in the editor, go to theme settings and choose a preset at the top of the panel. Presets change settings only, so your section content stays where it is.</p>",
@@ -883,152 +883,152 @@
     {
       "en": "OBJECT STUDY / 01",
       "es": "ESTUDIO DE OBJETO / 01",
-      "where": "Imprint index.json hero.eyebrow"
+      "where": "Edition index.json hero.eyebrow"
     },
     {
       "en": "Useful forms, precisely considered",
       "es": "Formas útiles, pensadas con precisión",
-      "where": "Imprint index.json hero.heading"
+      "where": "Edition index.json hero.heading"
     },
     {
       "en": "<p>A quiet system for objects that speak for themselves.</p>",
       "es": "<p>Un sistema sereno para objetos que hablan por sí mismos.</p>",
-      "where": "Imprint index.json hero.subheading"
+      "where": "Edition index.json hero.subheading"
     },
     {
       "en": "Browse all objects",
       "es": "Ver todos los objetos",
-      "where": "Imprint index.json hero.button_primary_label"
+      "where": "Edition index.json hero.button_primary_label"
     },
     {
       "en": "CATALOGUE / 02",
       "es": "CATÁLOGO / 02",
-      "where": "Imprint index.json collections.eyebrow"
+      "where": "Edition index.json collections.eyebrow"
     },
     {
       "en": "Selected objects",
       "es": "Objetos seleccionados",
-      "where": "Imprint index.json collections.heading"
+      "where": "Edition index.json collections.heading"
     },
     {
       "en": "Daily objects",
       "es": "Objetos cotidianos",
-      "where": "Imprint index.json collections.daily.tab_label"
+      "where": "Edition index.json collections.daily.tab_label"
     },
     {
       "en": "Workspace",
       "es": "Espacio de trabajo",
-      "where": "Imprint index.json collections.workspace.tab_label"
+      "where": "Edition index.json collections.workspace.tab_label"
     },
     {
       "en": "Limited studies",
       "es": "Estudios limitados",
-      "where": "Imprint index.json collections.limited.tab_label"
+      "where": "Edition index.json collections.limited.tab_label"
     },
     {
       "en": "GRID STUDY / 03",
       "es": "ESTUDIO EN RETÍCULA / 03",
-      "where": "Imprint index.json discovery.eyebrow"
+      "where": "Edition index.json discovery.eyebrow"
     },
     {
       "en": "Collection, product, process",
       "es": "Colección, producto, proceso",
-      "where": "Imprint index.json discovery.heading"
+      "where": "Edition index.json discovery.heading"
     },
     {
       "en": "<p>A denser view of the working collection.</p>",
       "es": "<p>Una vista más densa de la colección en curso.</p>",
-      "where": "Imprint index.json discovery.subheading"
+      "where": "Edition index.json discovery.subheading"
     },
     {
       "en": "[01] SYSTEM",
       "es": "[01] SISTEMA",
-      "where": "Imprint index.json discovery.collection.eyebrow"
+      "where": "Edition index.json discovery.collection.eyebrow"
     },
     {
       "en": "Objects for the desk",
       "es": "Objetos para el escritorio",
-      "where": "Imprint index.json discovery.collection.heading"
+      "where": "Edition index.json discovery.collection.heading"
     },
     {
       "en": "[04] PROCESS",
       "es": "[04] PROCESO",
-      "where": "Imprint index.json discovery.story.eyebrow"
+      "where": "Edition index.json discovery.story.eyebrow"
     },
     {
       "en": "Measured by use",
       "es": "Medido por el uso",
-      "where": "Imprint index.json discovery.story.heading"
+      "where": "Edition index.json discovery.story.heading"
     },
     {
       "en": "<p>Materials and dimensions reduced to what the object needs.</p>",
       "es": "<p>Materiales y medidas reducidos a lo que el objeto necesita.</p>",
-      "where": "Imprint index.json discovery.story.body"
+      "where": "Edition index.json discovery.story.body"
     },
     {
       "en": "DESK SET / 04",
       "es": "CONJUNTO DE ESCRITORIO / 04",
-      "where": "Imprint index.json set.eyebrow"
+      "where": "Edition index.json set.eyebrow"
     },
     {
       "en": "Build the working set",
       "es": "Arma tu conjunto de trabajo",
-      "where": "Imprint index.json set.heading"
+      "where": "Edition index.json set.heading"
     },
     {
       "en": "<p>Select the objects you need and add them together.</p>",
       "es": "<p>Elige los objetos que necesitas y añádelos juntos.</p>",
-      "where": "Imprint index.json set.description"
+      "where": "Edition index.json set.description"
     },
     {
       "en": "A modular arrangement for daily work.",
       "es": "Una disposición modular para el trabajo diario.",
-      "where": "Imprint index.json set.caption"
+      "where": "Edition index.json set.caption"
     },
     {
       "en": "METHOD / 05",
       "es": "MÉTODO / 05",
-      "where": "Imprint index.json manifesto.eyebrow"
+      "where": "Edition index.json manifesto.eyebrow"
     },
     {
       "en": "Remove until only the useful form remains.",
       "es": "Quitar hasta que solo quede la forma útil.",
-      "where": "Imprint index.json manifesto.quote"
+      "where": "Edition index.json manifesto.quote"
     },
     {
       "en": "<p>Every object begins with use, then finds its exact material and dimension.</p>",
       "es": "<p>Cada objeto empieza por el uso y después encuentra su material y su medida exactos.</p>",
-      "where": "Imprint index.json manifesto.body"
+      "where": "Edition index.json manifesto.body"
     },
     {
       "en": "Measure",
       "es": "Medida",
-      "where": "Imprint index.json manifesto.measure.label"
+      "where": "Edition index.json manifesto.measure.label"
     },
     {
       "en": "Proportion follows use",
       "es": "La proporción sigue al uso",
-      "where": "Imprint index.json manifesto.measure.value"
+      "where": "Edition index.json manifesto.measure.value"
     },
     {
       "en": "Chosen for tactility and endurance",
       "es": "Elegido por su tacto y su resistencia",
-      "where": "Imprint index.json manifesto.material.value"
+      "where": "Edition index.json manifesto.material.value"
     },
     {
-      "en": "IMPRINT NOTES",
-      "es": "NOTAS DE IMPRINT",
-      "where": "Imprint index.json newsletter.eyebrow"
+      "en": "EDITION NOTES",
+      "es": "NOTAS DE EDITION",
+      "where": "Edition index.json newsletter.eyebrow"
     },
     {
       "en": "New studies, occasionally",
       "es": "Nuevos estudios, de vez en cuando",
-      "where": "Imprint index.json newsletter.heading"
+      "where": "Edition index.json newsletter.heading"
     },
     {
       "en": "<p>Product releases, material tests and measured updates.</p>",
       "es": "<p>Lanzamientos de producto, pruebas de materiales y novedades con mesura.</p>",
-      "where": "Imprint index.json newsletter.text"
+      "where": "Edition index.json newsletter.text"
     },
     {
       "en": "CATALOGUE I / THE HOUSE",
@@ -1238,7 +1238,7 @@
     {
       "en": "Browse collections",
       "es": "Ver colecciones",
-      "where": "Imprint index.json hero.button_secondary_label"
+      "where": "Edition index.json hero.button_secondary_label"
     },
     {
       "en": "/collections",

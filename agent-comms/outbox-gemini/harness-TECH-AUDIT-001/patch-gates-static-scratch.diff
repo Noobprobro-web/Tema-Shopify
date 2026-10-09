@@ -1,0 +1,13 @@
+diff --git a/scripts/json-validate.mjs b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-json-validate.mjs
+index 633b82c..86ae0fa 100644
+--- a/scripts/json-validate.mjs
++++ b/scripts/json-validate.mjs
+@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
+ import process from 'node:process';
+ 
+ const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+-const SKIP = new Set(['node_modules', '.git', '.tmp', 'test-results', 'playwright-report', 'dist']);
++const SKIP = new Set(['node_modules', '.git', '.tmp', 'test-results', 'playwright-report', 'dist', 'scratch']);
+ 
+ async function walk(dir, out = []) {
+   let entries;

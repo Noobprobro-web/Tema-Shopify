@@ -1,0 +1,4017 @@
+{
+  "audit_id": "TECH-AUDIT-001-ROLE-05",
+  "timestamp": "2026-10-02T02:50:32.059Z",
+  "configuration": {
+    "min_gap_ms": 2500,
+    "stores_audited": [
+      "atelier",
+      "edition",
+      "archive"
+    ],
+    "public_urls": {
+      "documentation": "https://noobprobro-web.github.io/sartorial-docs/docs.html",
+      "support": "https://noobprobro-web.github.io/sartorial-docs/support.html"
+    }
+  },
+  "public_urls": {
+    "documentation": {
+      "requested_url": "https://noobprobro-web.github.io/sartorial-docs/docs.html",
+      "final_url": "https://noobprobro-web.github.io/sartorial-docs/docs.html",
+      "status": 200,
+      "status_text": "",
+      "latency_ms": 619.75,
+      "ok": true,
+      "title": "Sartorial Theme Documentation | Ruiz Digital",
+      "headings_sample": [
+        {
+          "tag": "H1",
+          "text": "Sartorial Theme Documentation",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "Table of Contents",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "1. Quick Start & Installation",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "2. Theme Presets (Styles)",
+          "id": null
+        },
+        {
+          "tag": "H3",
+          "text": "Sartorial",
+          "id": null
+        },
+        {
+          "tag": "H3",
+          "text": "Edition",
+          "id": null
+        },
+        {
+          "tag": "H3",
+          "text": "Archive",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "3. Color Schemes & Typography",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "4. Signature Sections",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "5. Product Detail Page & Media",
+          "id": null
+        }
+      ],
+      "total_links_found": 11,
+      "broken_anchors_in_doc": [],
+      "error": null
+    },
+    "support": {
+      "requested_url": "https://noobprobro-web.github.io/sartorial-docs/support.html",
+      "final_url": "https://noobprobro-web.github.io/sartorial-docs/support.html",
+      "status": 200,
+      "status_text": "",
+      "latency_ms": 2034.84,
+      "ok": true,
+      "title": "Sartorial Theme Support | Ruiz Digital",
+      "headings_sample": [
+        {
+          "tag": "H1",
+          "text": "Sartorial Theme Support",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "Submit a Support Request",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "Support Scope & Policy",
+          "id": null
+        },
+        {
+          "tag": "H2",
+          "text": "Frequently Asked Questions",
+          "id": null
+        },
+        {
+          "tag": "H3",
+          "text": "How do I switch between Sartorial, Edition, and Archive presets?",
+          "id": null
+        },
+        {
+          "tag": "H3",
+          "text": "How do 3D models and AR work in Sartorial?",
+          "id": null
+        },
+        {
+          "tag": "H3",
+          "text": "How do I configure color swatches for product variants?",
+          "id": null
+        }
+      ],
+      "total_links_found": 3,
+      "broken_anchors_in_doc": [],
+      "error": null
+    }
+  },
+  "stores": {
+    "atelier": {
+      "summary": {
+        "store_name": "Sartorial Atelier",
+        "store_url": "https://sartorial-atelier.myshopify.com",
+        "total_links_found": 916,
+        "unique_resolved_urls_count": 84,
+        "unique_internal_urls_tested": 64,
+        "total_anchors_tested": 17,
+        "status_200_count": 64,
+        "redirects_count": 0,
+        "broken_links_count": 0,
+        "broken_anchors_count": 0
+      },
+      "broken_links": [],
+      "broken_anchors": [],
+      "redirects": [],
+      "in_page_anchors": [
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/collections/all",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/collections/tailoring",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/products/pleated-wide-trouser",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/cart",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/search",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/pages/contact",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/policies/privacy-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/policies/refund-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/policies/shipping-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/policies/terms-of-service",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/policies/contact-information",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        }
+      ],
+      "cross_page_anchors": [],
+      "urls_tested": {
+        "https://sartorial-atelier.myshopify.com/": {
+          "url": "https://sartorial-atelier.myshopify.com/",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/",
+          "redirected": false,
+          "latency_ms": 3866.77,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/collections/all": {
+          "url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "redirected": false,
+          "latency_ms": 1814.95,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/collections/new-forms": {
+          "url": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "redirected": false,
+          "latency_ms": 2482.89,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/collections/permanent-collection": {
+          "url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "redirected": false,
+          "latency_ms": 2568.2,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/collections/tailoring": {
+          "url": "https://sartorial-atelier.myshopify.com/collections/tailoring",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/collections/tailoring",
+          "redirected": false,
+          "latency_ms": 2376.65,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/serra-coat": {
+          "url": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "redirected": false,
+          "latency_ms": 2505.38,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/nove-blazer": {
+          "url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "redirected": false,
+          "latency_ms": 2462.32,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/pleated-wide-trouser": {
+          "url": "https://sartorial-atelier.myshopify.com/products/pleated-wide-trouser",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/pleated-wide-trouser",
+          "redirected": false,
+          "latency_ms": 2517.83,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse",
+          "redirected": false,
+          "latency_ms": 2457.08,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/cart": {
+          "url": "https://sartorial-atelier.myshopify.com/cart",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/cart",
+          "redirected": false,
+          "latency_ms": 2458.49,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/search": {
+          "url": "https://sartorial-atelier.myshopify.com/search",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/search",
+          "redirected": false,
+          "latency_ms": 2579.54,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/pages/contact": {
+          "url": "https://sartorial-atelier.myshopify.com/pages/contact",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/pages/contact",
+          "redirected": false,
+          "latency_ms": 2500.64,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/policies/privacy-policy": {
+          "url": "https://sartorial-atelier.myshopify.com/policies/privacy-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/policies/privacy-policy",
+          "redirected": false,
+          "latency_ms": 2385.5,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/policies/refund-policy": {
+          "url": "https://sartorial-atelier.myshopify.com/policies/refund-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/policies/refund-policy",
+          "redirected": false,
+          "latency_ms": 2521.23,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/policies/shipping-policy": {
+          "url": "https://sartorial-atelier.myshopify.com/policies/shipping-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/policies/shipping-policy",
+          "redirected": false,
+          "latency_ms": 2768.51,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/policies/terms-of-service": {
+          "url": "https://sartorial-atelier.myshopify.com/policies/terms-of-service",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/policies/terms-of-service",
+          "redirected": false,
+          "latency_ms": 2228.39,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/policies/contact-information": {
+          "url": "https://sartorial-atelier.myshopify.com/policies/contact-information",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-atelier.myshopify.com/policies/contact-information",
+          "redirected": false,
+          "latency_ms": 2634.03,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/doppio-trench": {
+          "url": "https://sartorial-atelier.myshopify.com/products/doppio-trench",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/doppio-trench",
+          "redirected": false,
+          "latency_ms": 378.9,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/cashmere-rib-crew": {
+          "url": "https://sartorial-atelier.myshopify.com/products/cashmere-rib-crew",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/cashmere-rib-crew",
+          "redirected": false,
+          "latency_ms": 334.42,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/fine-merino-turtleneck": {
+          "url": "https://sartorial-atelier.myshopify.com/products/fine-merino-turtleneck",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/fine-merino-turtleneck",
+          "redirected": false,
+          "latency_ms": 270.04,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/column-knit-dress": {
+          "url": "https://sartorial-atelier.myshopify.com/products/column-knit-dress",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/column-knit-dress",
+          "redirected": false,
+          "latency_ms": 330.06,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt",
+          "redirected": false,
+          "latency_ms": 491.7,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/cigarette-trouser": {
+          "url": "https://sartorial-atelier.myshopify.com/products/cigarette-trouser",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/cigarette-trouser",
+          "redirected": false,
+          "latency_ms": 345.56,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/cropped-tailored-jacket": {
+          "url": "https://sartorial-atelier.myshopify.com/products/cropped-tailored-jacket",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/cropped-tailored-jacket",
+          "redirected": false,
+          "latency_ms": 344.11,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/cashmere-scarf": {
+          "url": "https://sartorial-atelier.myshopify.com/products/cashmere-scarf",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/cashmere-scarf",
+          "redirected": false,
+          "latency_ms": 350.51,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/pages/data-sharing-opt-out": {
+          "url": "https://sartorial-atelier.myshopify.com/pages/data-sharing-opt-out",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/pages/data-sharing-opt-out",
+          "redirected": false,
+          "latency_ms": 329.18,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/bias-cut-slip-dress": {
+          "url": "https://sartorial-atelier.myshopify.com/products/bias-cut-slip-dress",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/bias-cut-slip-dress",
+          "redirected": false,
+          "latency_ms": 373.56,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/cocoon-cardigan-coat": {
+          "url": "https://sartorial-atelier.myshopify.com/products/cocoon-cardigan-coat",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/cocoon-cardigan-coat",
+          "redirected": false,
+          "latency_ms": 337.09,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/hand-framed-cotton-polo": {
+          "url": "https://sartorial-atelier.myshopify.com/products/hand-framed-cotton-polo",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/hand-framed-cotton-polo",
+          "redirected": false,
+          "latency_ms": 345.86,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/leather-belt": {
+          "url": "https://sartorial-atelier.myshopify.com/products/leather-belt",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/leather-belt",
+          "redirected": false,
+          "latency_ms": 351.06,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/oversized-alpaca-knit": {
+          "url": "https://sartorial-atelier.myshopify.com/products/oversized-alpaca-knit",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/oversized-alpaca-knit",
+          "redirected": false,
+          "latency_ms": 347.37,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/pleated-midi-skirt": {
+          "url": "https://sartorial-atelier.myshopify.com/products/pleated-midi-skirt",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/pleated-midi-skirt",
+          "redirected": false,
+          "latency_ms": 333.24,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/poplin-column-shirt": {
+          "url": "https://sartorial-atelier.myshopify.com/products/poplin-column-shirt",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/poplin-column-shirt",
+          "redirected": false,
+          "latency_ms": 863.81,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/quilted-silk-liner": {
+          "url": "https://sartorial-atelier.myshopify.com/products/quilted-silk-liner",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/quilted-silk-liner",
+          "redirected": false,
+          "latency_ms": 458.05,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-twill-square": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square",
+          "redirected": false,
+          "latency_ms": 336.67,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/striped-cotton-shirt": {
+          "url": "https://sartorial-atelier.myshopify.com/products/striped-cotton-shirt",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/striped-cotton-shirt",
+          "redirected": false,
+          "latency_ms": 348.25,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/structured-tote": {
+          "url": "https://sartorial-atelier.myshopify.com/products/structured-tote",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/structured-tote",
+          "redirected": false,
+          "latency_ms": 431.12,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wool-waistcoat": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wool-waistcoat",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wool-waistcoat",
+          "redirected": false,
+          "latency_ms": 404.17,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926921952&pr_ref_pid=15406926495968&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926921952&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926921952&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 398.75,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926037216&pr_ref_pid=15406926495968&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926037216&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926037216&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 396.21,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926430432&pr_ref_pid=15406926495968&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926430432&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926430432&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 395.66,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926364896&pr_ref_pid=15406926495968&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926364896&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=6ad755ef1&pr_rec_pid=15406926364896&pr_ref_pid=15406926495968&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 366.06,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926037216&pr_ref_pid=15406926921952&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926037216&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926037216&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 362.2,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926430432&pr_ref_pid=15406926921952&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926430432&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926430432&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 360.19,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926364896&pr_ref_pid=15406926921952&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926364896&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926364896&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 369.31,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wool-waistcoat?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926168288&pr_ref_pid=15406926921952&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wool-waistcoat?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926168288&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wool-waistcoat?pr_prod_strat=collection_fallback&pr_rec_id=cbab1a811&pr_rec_pid=15406926168288&pr_ref_pid=15406926921952&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 322,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=1&_sid=6dda83887&_ss=r": {
+          "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=1&_sid=6dda83887&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=1&_sid=6dda83887&_ss=r",
+          "redirected": false,
+          "latency_ms": 296.21,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926921952&pr_ref_pid=15406926725344&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926921952&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926921952&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 404.7,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926037216&pr_ref_pid=15406926725344&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926037216&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926037216&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 311.3,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926430432&pr_ref_pid=15406926725344&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926430432&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926430432&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 291.43,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926364896&pr_ref_pid=15406926725344&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926364896&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=4c157dfcb&pr_rec_pid=15406926364896&pr_ref_pid=15406926725344&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 342.28,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/nove-blazer?_pos=1&_sid=ccb664df7&_ss=r": {
+          "url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?_pos=1&_sid=ccb664df7&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?_pos=1&_sid=ccb664df7&_ss=r",
+          "redirected": false,
+          "latency_ms": 357.09,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=2&_sid=ccb664df7&_ss=r": {
+          "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=2&_sid=ccb664df7&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=2&_sid=ccb664df7&_ss=r",
+          "redirected": false,
+          "latency_ms": 467.76,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926921952&pr_ref_pid=15406926430432&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926921952&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926921952&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 346.77,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926037216&pr_ref_pid=15406926430432&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926037216&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926037216&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 286.5,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926364896&pr_ref_pid=15406926430432&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926364896&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/silk-twill-square?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926364896&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 293.65,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/wool-waistcoat?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926168288&pr_ref_pid=15406926430432&pr_seq=uniform": {
+          "url": "https://sartorial-atelier.myshopify.com/products/wool-waistcoat?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926168288&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/wool-waistcoat?pr_prod_strat=collection_fallback&pr_rec_id=0139947e8&pr_rec_pid=15406926168288&pr_ref_pid=15406926430432&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 394.76,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/pleated-wide-trouser?_pos=2&_sid=86c645c0e&_ss=r": {
+          "url": "https://sartorial-atelier.myshopify.com/products/pleated-wide-trouser?_pos=2&_sid=86c645c0e&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/pleated-wide-trouser?_pos=2&_sid=86c645c0e&_ss=r",
+          "redirected": false,
+          "latency_ms": 355.88,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/nove-blazer?_pos=1&_sid=86c645c0e&_ss=r": {
+          "url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?_pos=1&_sid=86c645c0e&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer?_pos=1&_sid=86c645c0e&_ss=r",
+          "redirected": false,
+          "latency_ms": 355.19,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=3&_sid=86c645c0e&_ss=r": {
+          "url": "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=3&_sid=86c645c0e&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/products/serra-coat?_pos=3&_sid=86c645c0e&_ss=r",
+          "redirected": false,
+          "latency_ms": 445.85,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-atelier.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 347.02,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-atelier.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 424.68,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-atelier.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 345.03,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-atelier.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-atelier.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-atelier.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 378.69,
+          "verified_via": "context_request_get",
+          "error": null
+        }
+      },
+      "all_links_sample": [
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "#MainContent",
+          "text": "Skip to content",
+          "location": "body",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/#MainContent",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/",
+          "hash": "MainContent",
+          "is_internal": true,
+          "is_anchor_only": true
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Complimentary shipping on orders over $150",
+          "location": "body",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Home",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Explore Catalog",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Collections",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/new-forms",
+          "text": "New Forms",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-collection",
+          "text": "Permanent Collection",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/tailoring",
+          "text": "Tailoring",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/tailoring",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/tailoring",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Signature pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/nove-blazer",
+          "text": "Nove Blazer",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/serra-coat",
+          "text": "Serra Coat",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/doppio-trench",
+          "text": "Doppio Trench",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/doppio-trench",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/doppio-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/pages/contact",
+          "text": "Contact",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/pages/contact",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/pages/contact",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Home",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Explore Catalog",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Collections",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/new-forms",
+          "text": "New Forms",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-collection",
+          "text": "Permanent Collection",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/tailoring",
+          "text": "Tailoring",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/tailoring",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/tailoring",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Signature pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/nove-blazer",
+          "text": "Nove Blazer",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/serra-coat",
+          "text": "Serra Coat",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/serra-coat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/doppio-trench",
+          "text": "Doppio Trench",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/doppio-trench",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/doppio-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/new-forms",
+          "text": "New FormsThe season, cut close to the body",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-collection",
+          "text": "Permanent CollectionPieces made to stay",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/pages/contact",
+          "text": "Contact",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/pages/contact",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/pages/contact",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Sartorial Atelier",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/cart",
+          "text": "0",
+          "location": "header",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/cart",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/cart",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/new-forms",
+          "text": "Discover the collection",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-collection",
+          "text": "Explore lookbook",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/cashmere-rib-crew",
+          "text": "Open Cashmere Rib Crew",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/cashmere-rib-crew",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/cashmere-rib-crew",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/cashmere-rib-crew",
+          "text": "Cashmere Rib Crew",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/cashmere-rib-crew",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/cashmere-rib-crew",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/fine-merino-turtleneck",
+          "text": "Fine Merino Turtleneck",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/fine-merino-turtleneck",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/fine-merino-turtleneck",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/fine-merino-turtleneck",
+          "text": "Fine Merino Turtleneck",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/fine-merino-turtleneck",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/fine-merino-turtleneck",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/column-knit-dress",
+          "text": "Column Knit Dress",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/column-knit-dress",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/column-knit-dress",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/column-knit-dress",
+          "text": "Column Knit Dress",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/column-knit-dress",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/column-knit-dress",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/new-forms",
+          "text": "View all New forms",
+          "location": "footer",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/new-forms",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/nove-blazer",
+          "text": "Open Nove Blazer",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/nove-blazer",
+          "text": "Nove Blazer",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/wrap-wool-skirt",
+          "text": "Wrap Wool Skirt",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/wrap-wool-skirt",
+          "text": "Wrap Wool Skirt",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/wrap-wool-skirt",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/silk-charmeuse-blouse",
+          "text": "Silk Charmeuse Blouse",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/silk-charmeuse-blouse",
+          "text": "Silk Charmeuse Blouse",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/silk-charmeuse-blouse",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-collection",
+          "text": "View all Permanent collection",
+          "location": "footer",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/collections/permanent-collection",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/nove-blazer",
+          "text": "Open Nove Blazer",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/nove-blazer",
+          "text": "Nove Blazer",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/nove-blazer",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/cigarette-trouser",
+          "text": "Cigarette Trouser",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/cigarette-trouser",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/cigarette-trouser",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/cigarette-trouser",
+          "text": "Cigarette Trouser",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/cigarette-trouser",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/cigarette-trouser",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/cropped-tailored-jacket",
+          "text": "Cropped Tailored Jacket",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/cropped-tailored-jacket",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/cropped-tailored-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-atelier.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/cropped-tailored-jacket",
+          "text": "Cropped Tailored Jacket",
+          "location": "main",
+          "resolved_url": "https://sartorial-atelier.myshopify.com/products/cropped-tailored-jacket",
+          "url_without_hash": "https://sartorial-atelier.myshopify.com/products/cropped-tailored-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        }
+      ]
+    },
+    "edition": {
+      "summary": {
+        "store_name": "Sartorial Edition",
+        "store_url": "https://sartorial-edition.myshopify.com",
+        "total_links_found": 873,
+        "unique_resolved_urls_count": 73,
+        "unique_internal_urls_tested": 53,
+        "total_anchors_tested": 17,
+        "status_200_count": 53,
+        "redirects_count": 0,
+        "broken_links_count": 0,
+        "broken_anchors_count": 0
+      },
+      "broken_links": [],
+      "broken_anchors": [],
+      "redirects": [],
+      "in_page_anchors": [
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/collections/all",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/products/leather-document-folio",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/cart",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/search",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/pages/contact",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/policies/privacy-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/policies/refund-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/policies/shipping-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/policies/terms-of-service",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/policies/contact-information",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        }
+      ],
+      "cross_page_anchors": [],
+      "urls_tested": {
+        "https://sartorial-edition.myshopify.com/": {
+          "url": "https://sartorial-edition.myshopify.com/",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/",
+          "redirected": false,
+          "latency_ms": 4042.09,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/collections/all": {
+          "url": "https://sartorial-edition.myshopify.com/collections/all",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "redirected": false,
+          "latency_ms": 1643.28,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/collections/daily-objects": {
+          "url": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "redirected": false,
+          "latency_ms": 2449.68,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/collections/desk-and-study": {
+          "url": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "redirected": false,
+          "latency_ms": 2429.6,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/collections/leather-goods": {
+          "url": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "redirected": false,
+          "latency_ms": 2638.84,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/structured-tote": {
+          "url": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "redirected": false,
+          "latency_ms": 2300.39,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-desk-mat": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "redirected": false,
+          "latency_ms": 2509.77,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight": {
+          "url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "redirected": false,
+          "latency_ms": 2486.69,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-document-folio": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-document-folio",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-document-folio",
+          "redirected": false,
+          "latency_ms": 2552.21,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/cart": {
+          "url": "https://sartorial-edition.myshopify.com/cart",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/cart",
+          "redirected": false,
+          "latency_ms": 2365.5,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/search": {
+          "url": "https://sartorial-edition.myshopify.com/search",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/search",
+          "redirected": false,
+          "latency_ms": 2527.07,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/pages/contact": {
+          "url": "https://sartorial-edition.myshopify.com/pages/contact",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/pages/contact",
+          "redirected": false,
+          "latency_ms": 2474.97,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/policies/privacy-policy": {
+          "url": "https://sartorial-edition.myshopify.com/policies/privacy-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/policies/privacy-policy",
+          "redirected": false,
+          "latency_ms": 2567.45,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/policies/refund-policy": {
+          "url": "https://sartorial-edition.myshopify.com/policies/refund-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/policies/refund-policy",
+          "redirected": false,
+          "latency_ms": 2442.28,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/policies/shipping-policy": {
+          "url": "https://sartorial-edition.myshopify.com/policies/shipping-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/policies/shipping-policy",
+          "redirected": false,
+          "latency_ms": 2587.43,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/policies/terms-of-service": {
+          "url": "https://sartorial-edition.myshopify.com/policies/terms-of-service",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/policies/terms-of-service",
+          "redirected": false,
+          "latency_ms": 2423.6,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/policies/contact-information": {
+          "url": "https://sartorial-edition.myshopify.com/policies/contact-information",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-edition.myshopify.com/policies/contact-information",
+          "redirected": false,
+          "latency_ms": 2497.23,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/east-west-shoulder-bag": {
+          "url": "https://sartorial-edition.myshopify.com/products/east-west-shoulder-bag",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/east-west-shoulder-bag",
+          "redirected": false,
+          "latency_ms": 370.24,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/folded-valet-tray": {
+          "url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray",
+          "redirected": false,
+          "latency_ms": 400.72,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/four-slot-cardholder": {
+          "url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder",
+          "redirected": false,
+          "latency_ms": 383.37,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve": {
+          "url": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve",
+          "redirected": false,
+          "latency_ms": 338.37,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/single-pen-sleeve": {
+          "url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve",
+          "redirected": false,
+          "latency_ms": 374.52,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/pages/data-sharing-opt-out": {
+          "url": "https://sartorial-edition.myshopify.com/pages/data-sharing-opt-out",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/pages/data-sharing-opt-out",
+          "redirected": false,
+          "latency_ms": 383.72,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/compact-crossbody": {
+          "url": "https://sartorial-edition.myshopify.com/products/compact-crossbody",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/compact-crossbody",
+          "redirected": false,
+          "latency_ms": 418.81,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-key-loop": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-key-loop",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-key-loop",
+          "redirected": false,
+          "latency_ms": 473.51,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet": {
+          "url": "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet",
+          "redirected": false,
+          "latency_ms": 370.74,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/zip-travel-pouch": {
+          "url": "https://sartorial-edition.myshopify.com/products/zip-travel-pouch",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/zip-travel-pouch",
+          "redirected": false,
+          "latency_ms": 419.45,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977185960&pr_ref_pid=15394976858280&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977185960&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977185960&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 458.3,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-document-folio?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394976989352&pr_ref_pid=15394976858280&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-document-folio?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394976989352&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-document-folio?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394976989352&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 418.21,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977448104&pr_ref_pid=15394976858280&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977448104&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977448104&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 389.66,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977218728&pr_ref_pid=15394976858280&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977218728&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=879aac121&pr_rec_pid=15394977218728&pr_ref_pid=15394976858280&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 405.06,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977054888&pr_ref_pid=15394977251496&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977054888&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977054888&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 386.98,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977448104&pr_ref_pid=15394977251496&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977448104&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977448104&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 444.73,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/folded-valet-tray?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977284264&pr_ref_pid=15394977251496&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977284264&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977284264&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 416.43,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977382568&pr_ref_pid=15394977251496&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977382568&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight?pr_prod_strat=collection_fallback&pr_rec_id=b0131ebee&pr_rec_pid=15394977382568&pr_ref_pid=15394977251496&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 373.35,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=1&_sid=ff2b52241&_ss=r": {
+          "url": "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=1&_sid=ff2b52241&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=1&_sid=ff2b52241&_ss=r",
+          "redirected": false,
+          "latency_ms": 319.8,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/folded-valet-tray?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977284264&pr_ref_pid=15394977382568&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977284264&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977284264&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 366.88,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977185960&pr_ref_pid=15394977382568&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977185960&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977185960&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 350.45,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977218728&pr_ref_pid=15394977382568&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977218728&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977218728&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 361.31,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977120424&pr_ref_pid=15394977382568&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977120424&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet?pr_prod_strat=collection_fallback&pr_rec_id=0ef8b64f3&pr_rec_pid=15394977120424&pr_ref_pid=15394977382568&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 369.62,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-desk-mat?_pos=1&_sid=c32964497&_ss=r": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat?_pos=1&_sid=c32964497&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat?_pos=1&_sid=c32964497&_ss=r",
+          "redirected": false,
+          "latency_ms": 440.23,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=2&_sid=c32964497&_ss=r": {
+          "url": "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=2&_sid=c32964497&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=2&_sid=c32964497&_ss=r",
+          "redirected": false,
+          "latency_ms": 438.64,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977185960&pr_ref_pid=15394976989352&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977185960&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977185960&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 363.03,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977448104&pr_ref_pid=15394976989352&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977448104&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/single-pen-sleeve?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977448104&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 346.75,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977218728&pr_ref_pid=15394976989352&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977218728&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-key-loop?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977218728&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 499.47,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977120424&pr_ref_pid=15394976989352&pr_seq=uniform": {
+          "url": "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977120424&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/slim-bifold-wallet?pr_prod_strat=collection_fallback&pr_rec_id=f29e77312&pr_rec_pid=15394977120424&pr_ref_pid=15394976989352&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 373.04,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight?_pos=1&_sid=2c860cf16&_ss=r": {
+          "url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight?_pos=1&_sid=2c860cf16&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight?_pos=1&_sid=2c860cf16&_ss=r",
+          "redirected": false,
+          "latency_ms": 311.46,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/leather-desk-mat?_pos=2&_sid=2c860cf16&_ss=r": {
+          "url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat?_pos=2&_sid=2c860cf16&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat?_pos=2&_sid=2c860cf16&_ss=r",
+          "redirected": false,
+          "latency_ms": 381.58,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=3&_sid=2c860cf16&_ss=r": {
+          "url": "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=3&_sid=2c860cf16&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/products/structured-tote?_pos=3&_sid=2c860cf16&_ss=r",
+          "redirected": false,
+          "latency_ms": 415.73,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-edition.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 362.53,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-edition.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 359.13,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-edition.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 337.22,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-edition.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-edition.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-edition.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 342.15,
+          "verified_via": "context_request_get",
+          "error": null
+        }
+      },
+      "all_links_sample": [
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "#MainContent",
+          "text": "Skip to content",
+          "location": "body",
+          "resolved_url": "https://sartorial-edition.myshopify.com/#MainContent",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/",
+          "hash": "MainContent",
+          "is_internal": true,
+          "is_anchor_only": true
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Complimentary shipping on orders over $150",
+          "location": "body",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Home",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Explore Catalog",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Collections",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/daily-objects",
+          "text": "Daily Objects",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/leather-goods",
+          "text": "Leather Goods",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/desk-and-study",
+          "text": "Desk & Study",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Signature pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/structured-tote",
+          "text": "Structured Tote in Calfskin",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/east-west-shoulder-bag",
+          "text": "East-West Shoulder Bag",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/east-west-shoulder-bag",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/east-west-shoulder-bag",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-desk-mat",
+          "text": "Leather Desk Mat",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/pages/contact",
+          "text": "Contact",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/pages/contact",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/pages/contact",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Home",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Explore Catalog",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Collections",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/daily-objects",
+          "text": "Daily Objects",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/leather-goods",
+          "text": "Leather Goods",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/desk-and-study",
+          "text": "Desk & Study",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Signature pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/structured-tote",
+          "text": "Structured Tote in Calfskin",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/structured-tote",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/east-west-shoulder-bag",
+          "text": "East-West Shoulder Bag",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/east-west-shoulder-bag",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/east-west-shoulder-bag",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-desk-mat",
+          "text": "Leather Desk Mat",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/desk-and-study",
+          "text": "Desk & StudyObjects for a considered workspace",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/leather-goods",
+          "text": "Leather GoodsCalfskin, cut and finished by hand",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/pages/contact",
+          "text": "Contact",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/pages/contact",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/pages/contact",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Sartorial Edition",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/cart",
+          "text": "0",
+          "location": "header",
+          "resolved_url": "https://sartorial-edition.myshopify.com/cart",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/cart",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/daily-objects",
+          "text": "Browse all objects",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/leather-goods",
+          "text": "Browse collections",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/desk-and-study",
+          "text": "[01] SYSTEMObjects for the desk",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-desk-mat",
+          "text": "Leather Desk Mat",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-desk-mat",
+          "text": "Leather Desk Mat",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/milled-brass-paperweight",
+          "text": "Milled Brass Paperweight",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/milled-brass-paperweight",
+          "text": "Milled Brass Paperweight",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/leather-goods",
+          "text": "[04] PROCESSMeasured by useMaterials and dimensions reduced to what the object needs.\n              ",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/leather-goods",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/milled-brass-paperweight",
+          "text": "Open Milled Brass Paperweight",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/milled-brass-paperweight",
+          "text": "Milled Brass Paperweight",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/milled-brass-paperweight",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/folded-valet-tray",
+          "text": "Folded Valet Tray",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/folded-valet-tray",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/folded-valet-tray",
+          "text": "Folded Valet Tray",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/folded-valet-tray",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/folded-valet-tray",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/four-slot-cardholder",
+          "text": "Four-Slot Cardholder",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/four-slot-cardholder",
+          "text": "Four-Slot Cardholder",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/four-slot-cardholder",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/daily-objects",
+          "text": "View all Daily objects",
+          "location": "footer",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/daily-objects",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-document-folio",
+          "text": "Open Leather Document Folio",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-document-folio",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-document-folio",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-document-folio",
+          "text": "Leather Document Folio",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-document-folio",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-document-folio",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/padded-laptop-sleeve",
+          "text": "Padded Laptop Sleeve",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/padded-laptop-sleeve",
+          "text": "Padded Laptop Sleeve",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/padded-laptop-sleeve",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-desk-mat",
+          "text": "Leather Desk Mat",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/leather-desk-mat",
+          "text": "Leather Desk Mat",
+          "location": "main",
+          "resolved_url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/products/leather-desk-mat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-edition.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/desk-and-study",
+          "text": "View all Workspace",
+          "location": "footer",
+          "resolved_url": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "url_without_hash": "https://sartorial-edition.myshopify.com/collections/desk-and-study",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        }
+      ]
+    },
+    "archive": {
+      "summary": {
+        "store_name": "Sartorial Archive",
+        "store_url": "https://sartorial-archive.myshopify.com",
+        "total_links_found": 661,
+        "unique_resolved_urls_count": 62,
+        "unique_internal_urls_tested": 44,
+        "total_anchors_tested": 15,
+        "status_200_count": 44,
+        "redirects_count": 0,
+        "broken_links_count": 0,
+        "broken_anchors_count": 0
+      },
+      "broken_links": [],
+      "broken_anchors": [],
+      "redirects": [],
+      "in_page_anchors": [
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/collections/all",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/cart",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/search",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/pages/contact",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/policies/privacy-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/policies/refund-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/policies/shipping-policy",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/policies/terms-of-service",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/policies/contact-information",
+          "anchor": "#MainContent",
+          "target_id": "MainContent",
+          "found": true,
+          "target_tag": "MAIN",
+          "link_text": "Skip to content"
+        }
+      ],
+      "cross_page_anchors": [],
+      "urls_tested": {
+        "https://sartorial-archive.myshopify.com/": {
+          "url": "https://sartorial-archive.myshopify.com/",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/",
+          "redirected": false,
+          "latency_ms": 3815.72,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/collections/all": {
+          "url": "https://sartorial-archive.myshopify.com/collections/all",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "redirected": false,
+          "latency_ms": 1832.51,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/collections/permanent-archive": {
+          "url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "redirected": false,
+          "latency_ms": 2532.75,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/collections/restored-pieces": {
+          "url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "redirected": false,
+          "latency_ms": 2447.78,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket": {
+          "url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "redirected": false,
+          "latency_ms": 2574.81,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench": {
+          "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "redirected": false,
+          "latency_ms": 2369.11,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip": {
+          "url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "redirected": false,
+          "latency_ms": 2643.26,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/cart": {
+          "url": "https://sartorial-archive.myshopify.com/cart",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/cart",
+          "redirected": false,
+          "latency_ms": 2272.66,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/search": {
+          "url": "https://sartorial-archive.myshopify.com/search",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/search",
+          "redirected": false,
+          "latency_ms": 2597.51,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/pages/contact": {
+          "url": "https://sartorial-archive.myshopify.com/pages/contact",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/pages/contact",
+          "redirected": false,
+          "latency_ms": 2448.83,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/policies/privacy-policy": {
+          "url": "https://sartorial-archive.myshopify.com/policies/privacy-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/policies/privacy-policy",
+          "redirected": false,
+          "latency_ms": 2509.26,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/policies/refund-policy": {
+          "url": "https://sartorial-archive.myshopify.com/policies/refund-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/policies/refund-policy",
+          "redirected": false,
+          "latency_ms": 2464.29,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/policies/shipping-policy": {
+          "url": "https://sartorial-archive.myshopify.com/policies/shipping-policy",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/policies/shipping-policy",
+          "redirected": false,
+          "latency_ms": 2532.43,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/policies/terms-of-service": {
+          "url": "https://sartorial-archive.myshopify.com/policies/terms-of-service",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/policies/terms-of-service",
+          "redirected": false,
+          "latency_ms": 2491.35,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/policies/contact-information": {
+          "url": "https://sartorial-archive.myshopify.com/policies/contact-information",
+          "status": 200,
+          "status_text": "",
+          "final_url": "https://sartorial-archive.myshopify.com/policies/contact-information",
+          "redirected": false,
+          "latency_ms": 2471.15,
+          "verified_via": "seed_page_navigation",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat": {
+          "url": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "redirected": false,
+          "latency_ms": 377.42,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape": {
+          "url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape",
+          "redirected": false,
+          "latency_ms": 410.07,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/pages/data-sharing-opt-out": {
+          "url": "https://sartorial-archive.myshopify.com/pages/data-sharing-opt-out",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/pages/data-sharing-opt-out",
+          "redirected": false,
+          "latency_ms": 327.25,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1989-structured-wool-waistcoat": {
+          "url": "https://sartorial-archive.myshopify.com/products/1989-structured-wool-waistcoat",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1989-structured-wool-waistcoat",
+          "redirected": false,
+          "latency_ms": 441.81,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1991-leather-column-skirt": {
+          "url": "https://sartorial-archive.myshopify.com/products/1991-leather-column-skirt",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1991-leather-column-skirt",
+          "redirected": false,
+          "latency_ms": 402.79,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1992-silk-twill-blouse": {
+          "url": "https://sartorial-archive.myshopify.com/products/1992-silk-twill-blouse",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1992-silk-twill-blouse",
+          "redirected": false,
+          "latency_ms": 351.42,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1993-wool-tuxedo-trouser": {
+          "url": "https://sartorial-archive.myshopify.com/products/1993-wool-tuxedo-trouser",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1993-wool-tuxedo-trouser",
+          "redirected": false,
+          "latency_ms": 422.04,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1994-leather-document-portfolio": {
+          "url": "https://sartorial-archive.myshopify.com/products/1994-leather-document-portfolio",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1994-leather-document-portfolio",
+          "redirected": false,
+          "latency_ms": 368.22,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket": {
+          "url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket",
+          "redirected": false,
+          "latency_ms": 350.02,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square": {
+          "url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square",
+          "redirected": false,
+          "latency_ms": 466.98,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556404024&pr_ref_pid=10930556043576&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556404024&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556404024&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 374.85,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556338488&pr_ref_pid=10930556043576&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556338488&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556338488&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 429.68,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556305720&pr_ref_pid=10930556043576&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556305720&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556305720&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 392.73,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556272952&pr_ref_pid=10930556043576&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556272952&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=b122af672&pr_rec_pid=10930556272952&pr_ref_pid=10930556043576&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 389.5,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556338488&pr_ref_pid=10930556404024&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556338488&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556338488&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 362.24,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556305720&pr_ref_pid=10930556404024&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556305720&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556305720&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 407.15,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556272952&pr_ref_pid=10930556404024&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556272952&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556272952&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 376.29,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556240184&pr_ref_pid=10930556404024&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556240184&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape?pr_prod_strat=collection_fallback&pr_rec_id=58ffc1f5e&pr_rec_pid=10930556240184&pr_ref_pid=10930556404024&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 370.29,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket?_pos=1&_sid=8d0916105&_ss=r": {
+          "url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket?_pos=1&_sid=8d0916105&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket?_pos=1&_sid=8d0916105&_ss=r",
+          "redirected": false,
+          "latency_ms": 426.66,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556404024&pr_ref_pid=10930556338488&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556404024&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556404024&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 412.12,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556305720&pr_ref_pid=10930556338488&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556305720&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556305720&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 376.72,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556272952&pr_ref_pid=10930556338488&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556272952&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1996-satin-evening-jacket?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556272952&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 415.46,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556240184&pr_ref_pid=10930556338488&pr_seq=uniform": {
+          "url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556240184&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape?pr_prod_strat=collection_fallback&pr_rec_id=0b6e4aaba&pr_rec_pid=10930556240184&pr_ref_pid=10930556338488&pr_seq=uniform",
+          "redirected": false,
+          "latency_ms": 369.01,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?_pos=1&_sid=acb848236&_ss=r": {
+          "url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?_pos=1&_sid=acb848236&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench?_pos=1&_sid=acb848236&_ss=r",
+          "redirected": false,
+          "latency_ms": 340.13,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket?_pos=2&_sid=acb848236&_ss=r": {
+          "url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket?_pos=2&_sid=acb848236&_ss=r",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket?_pos=2&_sid=acb848236&_ss=r",
+          "redirected": false,
+          "latency_ms": 477.01,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-archive.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/search?q=&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 405.74,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-archive.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/search?q=&type=product&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 355.43,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-archive.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/search?q=&type=article&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 396.26,
+          "verified_via": "context_request_get",
+          "error": null
+        },
+        "https://sartorial-archive.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last": {
+          "url": "https://sartorial-archive.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last",
+          "status": 200,
+          "status_text": "OK",
+          "final_url": "https://sartorial-archive.myshopify.com/search?q=&type=page&options%5Bprefix%5D=last",
+          "redirected": false,
+          "latency_ms": 330.8,
+          "verified_via": "context_request_get",
+          "error": null
+        }
+      },
+      "all_links_sample": [
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "#MainContent",
+          "text": "Skip to content",
+          "location": "body",
+          "resolved_url": "https://sartorial-archive.myshopify.com/#MainContent",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/",
+          "hash": "MainContent",
+          "is_internal": true,
+          "is_anchor_only": true
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Complimentary shipping on orders over $150",
+          "location": "body",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Home",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Explore Catalog",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Collections",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-archive",
+          "text": "Permanent Archive",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/restored-pieces",
+          "text": "Restored Pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Signature pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1990-pinstripe-double-breasted-jacket",
+          "text": "1990 Pinstripe Double-Breasted Jacket",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1994-cashmere-cocoon-coat",
+          "text": "1994 Double-Faced Cashmere Cocoon Coat",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1999-technical-cotton-trench",
+          "text": "1999 Technical Cotton Trench",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/pages/contact",
+          "text": "Contact",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/pages/contact",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/pages/contact",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Home",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Explore Catalog",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Collections",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-archive",
+          "text": "Permanent Archive",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/restored-pieces",
+          "text": "Restored Pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/all",
+          "text": "Signature pieces",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/all",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/all",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1990-pinstripe-double-breasted-jacket",
+          "text": "1990 Pinstripe Double-Breasted Jacket",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1994-cashmere-cocoon-coat",
+          "text": "1994 Double-Faced Cashmere Cocoon Coat",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1999-technical-cotton-trench",
+          "text": "1999 Technical Cotton Trench",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-archive",
+          "text": "Permanent ArchiveDocumented pieces, 1989 to 1999",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/restored-pieces",
+          "text": "Restored PiecesConserved and returned to wear",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/pages/contact",
+          "text": "Contact",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/pages/contact",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/pages/contact",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Sartorial Archive",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/cart",
+          "text": "0",
+          "location": "header",
+          "resolved_url": "https://sartorial-archive.myshopify.com/cart",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/cart",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-archive",
+          "text": "Enter the catalogue",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/restored-pieces",
+          "text": "Restored selection",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-archive",
+          "text": "Read archive notes",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1990-pinstripe-double-breasted-jacket",
+          "text": "Open 1990 Pinstripe Double-Breasted Jacket",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1990-pinstripe-double-breasted-jacket",
+          "text": "1990 Pinstripe Double-Breasted Jacket",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1999-technical-cotton-trench",
+          "text": "1999 Technical Cotton Trench",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1999-technical-cotton-trench",
+          "text": "1999 Technical Cotton Trench",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1998-bias-cut-silk-slip",
+          "text": "1998 Bias-Cut Silk Evening Slip",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1998-bias-cut-silk-slip",
+          "text": "1998 Bias-Cut Silk Evening Slip",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/permanent-archive",
+          "text": "View all Current catalogue",
+          "location": "footer",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/permanent-archive",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1990-pinstripe-double-breasted-jacket",
+          "text": "Open 1990 Pinstripe Double-Breasted Jacket",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1990-pinstripe-double-breasted-jacket",
+          "text": "1990 Pinstripe Double-Breasted Jacket",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1999-technical-cotton-trench",
+          "text": "1999 Technical Cotton Trench",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1999-technical-cotton-trench",
+          "text": "1999 Technical Cotton Trench",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1995-asymmetric-wool-cape",
+          "text": "1995 Asymmetric Wool Cape",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1995-asymmetric-wool-cape",
+          "text": "1995 Asymmetric Wool Cape",
+          "location": "main",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1995-asymmetric-wool-cape",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/collections/restored-pieces",
+          "text": "View all Archive selection",
+          "location": "footer",
+          "resolved_url": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/collections/restored-pieces",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1994-cashmere-cocoon-coat",
+          "text": "View product",
+          "location": "drawer/dialog",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1994-cashmere-cocoon-coat",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1999-technical-cotton-trench",
+          "text": "View product",
+          "location": "drawer/dialog",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1999-technical-cotton-trench",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/products/1998-bias-cut-silk-slip",
+          "text": "View product",
+          "location": "drawer/dialog",
+          "resolved_url": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/products/1998-bias-cut-silk-slip",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/",
+          "text": "Sartorial Archive",
+          "location": "footer",
+          "resolved_url": "https://sartorial-archive.myshopify.com/",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/search",
+          "text": "Search",
+          "location": "footer",
+          "resolved_url": "https://sartorial-archive.myshopify.com/search",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/search",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/policies/refund-policy",
+          "text": "Refund policy",
+          "location": "footer",
+          "resolved_url": "https://sartorial-archive.myshopify.com/policies/refund-policy",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/policies/refund-policy",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        },
+        {
+          "source_page": "https://sartorial-archive.myshopify.com/",
+          "source_type": "home",
+          "href_raw": "/policies/shipping-policy",
+          "text": "Shipping policy",
+          "location": "footer",
+          "resolved_url": "https://sartorial-archive.myshopify.com/policies/shipping-policy",
+          "url_without_hash": "https://sartorial-archive.myshopify.com/policies/shipping-policy",
+          "hash": null,
+          "is_internal": true,
+          "is_anchor_only": false
+        }
+      ]
+    }
+  },
+  "overall_summary": {
+    "total_stores_audited": 3,
+    "total_links_extracted": 2450,
+    "total_unique_internal_urls_verified": 161,
+    "total_broken_links_found": 0,
+    "total_broken_anchors_found": 0,
+    "total_redirects_found": 0,
+    "public_documentation_status": 200,
+    "public_support_status": 200
+  }
+}
