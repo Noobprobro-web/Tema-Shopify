@@ -67,6 +67,16 @@
             "heading": "Shipping & complimentary returns",
             "content": "<p>Pieces in stock leave within two business days, with tracking.</p><p>Returns are complimentary within thirty days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
           }
+        },
+        "technical_specs": {
+          "type": "technical_specs",
+          "settings": {
+            "heading": "Technical specifications",
+            "material": "Organic cotton, heavy loopback",
+            "gsm": "480 GSM",
+            "hardware": "Raccagni matte black zippers",
+            "origin": "Crafted in Northern Italy"
+          }
         }
       },
       "block_order": [
@@ -80,6 +90,7 @@
         "shipping_lead_time",
         "trust_badges",
         "description",
+        "technical_specs",
         "composition_care",
         "shipping_returns"
       ],

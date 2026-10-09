@@ -1,0 +1,252 @@
+{
+  "measured_at": "2026-10-02T02:33:08.640Z",
+  "individual_assets": {
+    "base.css": {
+      "type": "css",
+      "raw_bytes": 221968,
+      "raw_kb": 216.77,
+      "gzip_bytes": 42072,
+      "gzip_kb": 41.09,
+      "brotli_bytes": 33871,
+      "brotli_kb": 33.08
+    },
+    "gsap-scrolltrigger.min.js": {
+      "type": "js",
+      "raw_bytes": 44575,
+      "raw_kb": 43.53,
+      "gzip_bytes": 18003,
+      "gzip_kb": 17.58,
+      "brotli_bytes": 16225,
+      "brotli_kb": 15.84
+    },
+    "gsap.min.js": {
+      "type": "js",
+      "raw_bytes": 72927,
+      "raw_kb": 71.22,
+      "gzip_bytes": 28420,
+      "gzip_kb": 27.75,
+      "brotli_bytes": 25706,
+      "brotli_kb": 25.1
+    },
+    "motion.js": {
+      "type": "js",
+      "raw_bytes": 8235,
+      "raw_kb": 8.04,
+      "gzip_bytes": 3236,
+      "gzip_kb": 3.16,
+      "brotli_bytes": 2901,
+      "brotli_kb": 2.83
+    },
+    "product-zoom.js": {
+      "type": "js",
+      "raw_bytes": 12522,
+      "raw_kb": 12.23,
+      "gzip_bytes": 4064,
+      "gzip_kb": 3.97,
+      "brotli_bytes": 3619,
+      "brotli_kb": 3.53
+    },
+    "theme.js": {
+      "type": "js",
+      "raw_bytes": 200932,
+      "raw_kb": 196.22,
+      "gzip_bytes": 44765,
+      "gzip_kb": 43.72,
+      "brotli_bytes": 35895,
+      "brotli_kb": 35.05
+    }
+  },
+  "templates_breakdown": {
+    "home_default_animations_full": {
+      "css": {
+        "files": [
+          "base.css"
+        ],
+        "raw_bytes": 221968,
+        "gzip_bytes": 42072,
+        "brotli_bytes": 33871,
+        "raw_kb": 216.77,
+        "gzip_kb": 41.09,
+        "brotli_kb": 33.08
+      },
+      "js": {
+        "files": [
+          "theme.js",
+          "gsap.min.js",
+          "gsap-scrolltrigger.min.js",
+          "motion.js"
+        ],
+        "raw_bytes": 326669,
+        "gzip_bytes": 94424,
+        "brotli_bytes": 80727,
+        "raw_kb": 319.01,
+        "gzip_kb": 92.21,
+        "brotli_kb": 78.83
+      },
+      "total_raw_bytes": 548637,
+      "total_raw_kb": 535.78,
+      "total_gzip_bytes": 136496,
+      "total_gzip_kb": 133.3,
+      "total_brotli_bytes": 114598,
+      "total_brotli_kb": 111.91
+    },
+    "home_lean_animations_subtle_or_none": {
+      "css": {
+        "files": [
+          "base.css"
+        ],
+        "raw_bytes": 221968,
+        "gzip_bytes": 42072,
+        "brotli_bytes": 33871,
+        "raw_kb": 216.77,
+        "gzip_kb": 41.09,
+        "brotli_kb": 33.08
+      },
+      "js": {
+        "files": [
+          "theme.js"
+        ],
+        "raw_bytes": 200932,
+        "gzip_bytes": 44765,
+        "brotli_bytes": 35895,
+        "raw_kb": 196.22,
+        "gzip_kb": 43.72,
+        "brotli_kb": 35.05
+      },
+      "total_raw_bytes": 422900,
+      "total_raw_kb": 412.99,
+      "total_gzip_bytes": 86837,
+      "total_gzip_kb": 84.8,
+      "total_brotli_bytes": 69766,
+      "total_brotli_kb": 68.13
+    },
+    "collection_default_animations_full": {
+      "css": {
+        "files": [
+          "base.css"
+        ],
+        "raw_bytes": 221968,
+        "gzip_bytes": 42072,
+        "brotli_bytes": 33871,
+        "raw_kb": 216.77,
+        "gzip_kb": 41.09,
+        "brotli_kb": 33.08
+      },
+      "js": {
+        "files": [
+          "theme.js",
+          "gsap.min.js",
+          "gsap-scrolltrigger.min.js",
+          "motion.js"
+        ],
+        "raw_bytes": 326669,
+        "gzip_bytes": 94424,
+        "brotli_bytes": 80727,
+        "raw_kb": 319.01,
+        "gzip_kb": 92.21,
+        "brotli_kb": 78.83
+      },
+      "total_raw_bytes": 548637,
+      "total_raw_kb": 535.78,
+      "total_gzip_bytes": 136496,
+      "total_gzip_kb": 133.3,
+      "total_brotli_bytes": 114598,
+      "total_brotli_kb": 111.91
+    },
+    "collection_lean_animations_subtle_or_none": {
+      "css": {
+        "files": [
+          "base.css"
+        ],
+        "raw_bytes": 221968,
+        "gzip_bytes": 42072,
+        "brotli_bytes": 33871,
+        "raw_kb": 216.77,
+        "gzip_kb": 41.09,
+        "brotli_kb": 33.08
+      },
+      "js": {
+        "files": [
+          "theme.js"
+        ],
+        "raw_bytes": 200932,
+        "gzip_bytes": 44765,
+        "brotli_bytes": 35895,
+        "raw_kb": 196.22,
+        "gzip_kb": 43.72,
+        "brotli_kb": 35.05
+      },
+      "total_raw_bytes": 422900,
+      "total_raw_kb": 412.99,
+      "total_gzip_bytes": 86837,
+      "total_gzip_kb": 84.8,
+      "total_brotli_bytes": 69766,
+      "total_brotli_kb": 68.13
+    },
+    "product_default_animations_full": {
+      "css": {
+        "files": [
+          "base.css"
+        ],
+        "raw_bytes": 221968,
+        "gzip_bytes": 42072,
+        "brotli_bytes": 33871,
+        "raw_kb": 216.77,
+        "gzip_kb": 41.09,
+        "brotli_kb": 33.08
+      },
+      "js": {
+        "files": [
+          "theme.js",
+          "gsap.min.js",
+          "gsap-scrolltrigger.min.js",
+          "motion.js",
+          "product-zoom.js"
+        ],
+        "raw_bytes": 339191,
+        "gzip_bytes": 98488,
+        "brotli_bytes": 84346,
+        "raw_kb": 331.24,
+        "gzip_kb": 96.18,
+        "brotli_kb": 82.37
+      },
+      "total_raw_bytes": 561159,
+      "total_raw_kb": 548.01,
+      "total_gzip_bytes": 140560,
+      "total_gzip_kb": 137.27,
+      "total_brotli_bytes": 118217,
+      "total_brotli_kb": 115.45
+    },
+    "product_lean_animations_subtle_or_none": {
+      "css": {
+        "files": [
+          "base.css"
+        ],
+        "raw_bytes": 221968,
+        "gzip_bytes": 42072,
+        "brotli_bytes": 33871,
+        "raw_kb": 216.77,
+        "gzip_kb": 41.09,
+        "brotli_kb": 33.08
+      },
+      "js": {
+        "files": [
+          "theme.js",
+          "product-zoom.js"
+        ],
+        "raw_bytes": 213454,
+        "gzip_bytes": 48829,
+        "brotli_bytes": 39514,
+        "raw_kb": 208.45,
+        "gzip_kb": 47.68,
+        "brotli_kb": 38.59
+      },
+      "total_raw_bytes": 435422,
+      "total_raw_kb": 425.22,
+      "total_gzip_bytes": 90901,
+      "total_gzip_kb": 88.77,
+      "total_brotli_bytes": 73385,
+      "total_brotli_kb": 71.67
+    }
+  }
+}

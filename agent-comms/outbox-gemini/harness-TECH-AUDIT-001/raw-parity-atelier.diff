@@ -1,0 +1,1077 @@
+# ==============================================================================
+# RAW PARITY DIFF: ATELIER (Live #188743188704 vs Repository)
+# Store: sartorial-atelier.myshopify.com
+# Theme Name: Sartorial | Role: live | ID: #188743188704
+# Timestamp: 2026-10-02T02:35:34.730388+00:00
+# Preset source: listings/sartorial/ (where template overrides exist)
+# ==============================================================================
+
+diff --git a/layout/password.liquid b/layout/password.liquid
+new file mode 100644 (remote live orphan)
+--- /dev/null
++++ b/layout/password.liquid
++{{ content_for_header }}{{ content_for_layout }}
+
+diff --git a/config/settings_data.json b/config/settings_data.json
+--- a/config/settings_data.json
++++ b/config/settings_data.json
+@@ -1,82 +1,14 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+-  "current": {
+-    "logo_width": 140,
+-    "default_color_scheme": "scheme-1",
+-    "type_heading_font": "libre_baskerville_n4",
+-    "heading_scale": 105,
+-    "type_body_font": "assistant_n4",
+-    "body_scale": 100,
+-    "page_width": 1300,
+-    "page_gutter": 20,
+-    "section_spacing": 72,
+-    "button_radius": 0,
+-    "show_cart_count": true,
+-    "animations": "full",
+-    "color_schemes": {
+-      "scheme-1": {
+-        "settings": {
+-          "background": "#F7F3EA",
+-          "background_gradient": "",
+-          "text": "#1D1B18",
+-          "button": "#1D1B18",
+-          "button_label": "#FFFFFF",
+-          "secondary_button_label": "#1D1B18",
+-          "border": "#8F8574",
+-          "shadow": "#1D1B18"
+-        }
+-      },
+-      "scheme-2": {
+-        "settings": {
+-          "background": "#1D1B18",
+-          "background_gradient": "",
+-          "text": "#F8F4EB",
+-          "button": "#D8A85D",
+-          "button_label": "#1D1B18",
+-          "secondary_button_label": "#F8F4EB",
+-          "border": "#7A7061",
+-          "shadow": "#000000"
+-        }
+-      },
+-      "scheme-3": {
+-        "settings": {
+-          "background": "#EDE7DA",
+-          "background_gradient": "",
+-          "text": "#1D1B18",
+-          "button": "#1D1B18",
+-          "button_label": "#FFFFFF",
+-          "secondary_button_label": "#1D1B18",
+-          "border": "#8A8070",
+-          "shadow": "#1D1B18"
+-        }
+-      },
+-      "scheme-4": {
+-        "settings": {
+-          "background": "#D8A85D",
+-          "background_gradient": "",
+-          "text": "#1D1B18",
+-          "button": "#1D1B18",
+-          "button_label": "#F7F3EA",
+-          "secondary_button_label": "#1D1B18",
+-          "border": "#6E5325",
+-          "shadow": "#1D1B18"
+-        }
+-      },
+-      "scheme-5": {
+-        "settings": {
+-          "background": "#FBF9F4",
+-          "background_gradient": "",
+-          "text": "#2A2621",
+-          "button": "#1D1B18",
+-          "button_label": "#FFFFFF",
+-          "secondary_button_label": "#2A2621",
+-          "border": "#9A8F7C",
+-          "shadow": "#1D1B18"
+-        }
+-      }
+-    },
+-    "cart_type": "drawer",
+-    "show_cart_note": false
+-  },
++  "current": "Sartorial",
+   "presets": {
+     "Sartorial": {
+       "logo_width": 140,
+@@ -90,14 +22,69 @@
+       "section_spacing": 72,
+       "button_radius": 0,
+       "show_cart_count": true,
+-    "animations": "full",
+       "color_schemes": {
+-        "scheme-1": { "settings": { "background": "#F7F3EA", "background_gradient": "", "text": "#1D1B18", "button": "#1D1B18", "button_label": "#FFFFFF", "secondary_button_label": "#1D1B18", "border": "#8F8574", "shadow": "#1D1B18" } },
+-        "scheme-2": { "settings": { "background": "#1D1B18", "background_gradient": "", "text": "#F8F4EB", "button": "#D8A85D", "button_label": "#1D1B18", "secondary_button_label": "#F8F4EB", "border": "#7A7061", "shadow": "#000000" } },
+-        "scheme-3": { "settings": { "background": "#EDE7DA", "background_gradient": "", "text": "#1D1B18", "button": "#1D1B18", "button_label": "#FFFFFF", "secondary_button_label": "#1D1B18", "border": "#8A8070", "shadow": "#1D1B18" } },
+-        "scheme-4": { "settings": { "background": "#D8A85D", "background_gradient": "", "text": "#1D1B18", "button": "#1D1B18", "button_label": "#F7F3EA", "secondary_button_label": "#1D1B18", "border": "#6E5325", "shadow": "#1D1B18" } },
+-        "scheme-5": { "settings": { "background": "#FBF9F4", "background_gradient": "", "text": "#2A2621", "button": "#1D1B18", "button_label": "#FFFFFF", "secondary_button_label": "#2A2621", "border": "#9A8F7C", "shadow": "#1D1B18" } }
+-      }
++        "scheme-1": {
++          "settings": {
++            "background": "#F7F3EA",
++            "background_gradient": "",
++            "text": "#1D1B18",
++            "button": "#1D1B18",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#1D1B18",
++            "border": "#8F8574",
++            "shadow": "#1D1B18"
++          }
++        },
++        "scheme-2": {
++          "settings": {
++            "background": "#1D1B18",
++            "background_gradient": "",
++            "text": "#F8F4EB",
++            "button": "#D8A85D",
++            "button_label": "#1D1B18",
++            "secondary_button_label": "#F8F4EB",
++            "border": "#7A7061",
++            "shadow": "#000000"
++          }
++        },
++        "scheme-3": {
++          "settings": {
++            "background": "#EDE7DA",
++            "background_gradient": "",
++            "text": "#1D1B18",
++            "button": "#1D1B18",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#1D1B18",
++            "border": "#8A8070",
++            "shadow": "#1D1B18"
++          }
++        },
++        "scheme-4": {
++          "settings": {
++            "background": "#D8A85D",
++            "background_gradient": "",
++            "text": "#1D1B18",
++            "button": "#1D1B18",
++            "button_label": "#F7F3EA",
++            "secondary_button_label": "#1D1B18",
++            "border": "#6E5325",
++            "shadow": "#1D1B18"
++          }
++        },
++        "scheme-5": {
++          "settings": {
++            "background": "#FBF9F4",
++            "background_gradient": "",
++            "text": "#2A2621",
++            "button": "#1D1B18",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#2A2621",
++            "border": "#9A8F7C",
++            "shadow": "#1D1B18"
++          }
++        }
++      },
++      "animations": "full"
+     },
+     "Edition": {
+       "logo_width": 140,
+@@ -111,14 +98,69 @@
+       "section_spacing": 56,
+       "button_radius": 0,
+       "show_cart_count": true,
+-    "animations": "full",
+       "color_schemes": {
+-        "scheme-1": { "settings": { "background": "#FFFFFF", "background_gradient": "", "text": "#111111", "button": "#111111", "button_label": "#FFFFFF", "secondary_button_label": "#111111", "border": "#949494", "shadow": "#111111" } },
+-        "scheme-2": { "settings": { "background": "#111111", "background_gradient": "", "text": "#FAFAFA", "button": "#FAFAFA", "button_label": "#111111", "secondary_button_label": "#FAFAFA", "border": "#666666", "shadow": "#000000" } },
+-        "scheme-3": { "settings": { "background": "#F2F2F2", "background_gradient": "", "text": "#111111", "button": "#111111", "button_label": "#FFFFFF", "secondary_button_label": "#111111", "border": "#8C8C8C", "shadow": "#111111" } },
+-        "scheme-4": { "settings": { "background": "#2E3440", "background_gradient": "", "text": "#F0F2F5", "button": "#F0F2F5", "button_label": "#2E3440", "secondary_button_label": "#F0F2F5", "border": "#79808C", "shadow": "#000000" } },
+-        "scheme-5": { "settings": { "background": "#FAFAFA", "background_gradient": "", "text": "#1A1A1A", "button": "#111111", "button_label": "#FFFFFF", "secondary_button_label": "#1A1A1A", "border": "#919191", "shadow": "#111111" } }
+-      }
++        "scheme-1": {
++          "settings": {
++            "background": "#FFFFFF",
++            "background_gradient": "",
++            "text": "#111111",
++            "button": "#111111",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#111111",
++            "border": "#949494",
++            "shadow": "#111111"
++          }
++        },
++        "scheme-2": {
++          "settings": {
++            "background": "#111111",
++            "background_gradient": "",
++            "text": "#FAFAFA",
++            "button": "#FAFAFA",
++            "button_label": "#111111",
++            "secondary_button_label": "#FAFAFA",
++            "border": "#666666",
++            "shadow": "#000000"
++          }
++        },
++        "scheme-3": {
++          "settings": {
++            "background": "#F2F2F2",
++            "background_gradient": "",
++            "text": "#111111",
++            "button": "#111111",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#111111",
++            "border": "#8C8C8C",
++            "shadow": "#111111"
++          }
++        },
++        "scheme-4": {
++          "settings": {
++            "background": "#2E3440",
++            "background_gradient": "",
++            "text": "#F0F2F5",
++            "button": "#F0F2F5",
++            "button_label": "#2E3440",
++            "secondary_button_label": "#F0F2F5",
++            "border": "#79808C",
++            "shadow": "#000000"
++          }
++        },
++        "scheme-5": {
++          "settings": {
++            "background": "#FAFAFA",
++            "background_gradient": "",
++            "text": "#1A1A1A",
++            "button": "#111111",
++            "button_label": "#FFFFFF",
++            "secondary_button_label": "#1A1A1A",
++            "border": "#919191",
++            "shadow": "#111111"
++          }
++        }
++      },
++      "animations": "full"
+     },
+     "Archive": {
+       "logo_width": 140,
+@@ -132,14 +174,69 @@
+       "section_spacing": 72,
+       "button_radius": 0,
+       "show_cart_count": true,
+-    "animations": "full",
+       "color_schemes": {
+-        "scheme-1": { "settings": { "background": "#EFE6D9", "background_gradient": "", "text": "#2E241C", "button": "#8A5A3B", "button_label": "#FFF8F0", "secondary_button_label": "#2E241C", "border": "#8A7860", "shadow": "#2E241C" } },
+-        "scheme-2": { "settings": { "background": "#2F3327", "background_gradient": "", "text": "#EFE6D9", "button": "#B5885C", "button_label": "#241F19", "secondary_button_label": "#EFE6D9", "border": "#838972", "shadow": "#1A1D16" } },
+-        "scheme-3": { "settings": { "background": "#E4D8C6", "background_gradient": "", "text": "#2E241C", "button": "#8A5A3B", "button_label": "#FFF8F0", "secondary_button_label": "#2E241C", "border": "#7E6A54", "shadow": "#2E241C" } },
+-        "scheme-4": { "settings": { "background": "#6E482F", "background_gradient": "", "text": "#FFF8F0", "button": "#FFF8F0", "button_label": "#6E482F", "secondary_button_label": "#FFF8F0", "border": "#D8BFA6", "shadow": "#2E241C" } },
+-        "scheme-5": { "settings": { "background": "#F5EFE5", "background_gradient": "", "text": "#2E241C", "button": "#8A5A3B", "button_label": "#FFF8F0", "secondary_button_label": "#2E241C", "border": "#8D7C64", "shadow": "#2E241C" } }
+-      }
++        "scheme-1": {
++          "settings": {
++            "background": "#EFE6D9",
++            "background_gradient": "",
++            "text": "#2E241C",
++            "button": "#8A5A3B",
++            "button_label": "#FFF8F0",
++            "secondary_button_label": "#2E241C",
++            "border": "#8A7860",
++            "shadow": "#2E241C"
++          }
++        },
++        "scheme-2": {
++          "settings": {
++            "background": "#2F3327",
++            "background_gradient": "",
++            "text": "#EFE6D9",
++            "button": "#B5885C",
++            "button_label": "#241F19",
++            "secondary_button_label": "#EFE6D9",
++            "border": "#838972",
++            "shadow": "#1A1D16"
++          }
++        },
++        "scheme-3": {
++          "settings": {
++            "background": "#E4D8C6",
++            "background_gradient": "",
++            "text": "#2E241C",
++            "button": "#8A5A3B",
++            "button_label": "#FFF8F0",
++            "secondary_button_label": "#2E241C",
++            "border": "#7E6A54",
++            "shadow": "#2E241C"
++          }
++        },
++        "scheme-4": {
++          "settings": {
++            "background": "#6E482F",
++            "background_gradient": "",
++            "text": "#FFF8F0",
++            "button": "#FFF8F0",
++            "button_label": "#6E482F",
++            "secondary_button_label": "#FFF8F0",
++            "border": "#D8BFA6",
++            "shadow": "#2E241C"
++          }
++        },
++        "scheme-5": {
++          "settings": {
++            "background": "#F5EFE5",
++            "background_gradient": "",
++            "text": "#2E241C",
++            "button": "#8A5A3B",
++            "button_label": "#FFF8F0",
++            "secondary_button_label": "#2E241C",
++            "border": "#8D7C64",
++            "shadow": "#2E241C"
++          }
++        }
++      },
++      "animations": "full"
+     }
+   }
+ }
+
+diff --git a/locales/en.default.json b/locales/en.default.json
+--- a/locales/en.default.json
++++ b/locales/en.default.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin language editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "general": {
+     "accessibility": {
+
+diff --git a/locales/en.default.schema.json b/locales/en.default.schema.json
+--- a/locales/en.default.schema.json
++++ b/locales/en.default.schema.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin language editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "settings_schema": {
+     "animations": {
+
+diff --git a/locales/es.json b/locales/es.json
+--- a/locales/es.json
++++ b/locales/es.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin language editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "general": {
+     "accessibility": {
+
+diff --git a/sections/footer-group.json b/sections/footer-group.json
+--- a/sections/footer-group.json
++++ b/sections/footer-group.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "type": "footer",
+   "name": "t:sections.footer_group.name",
+
+diff --git a/sections/header-group.json b/sections/header-group.json
+--- a/sections/header-group.json
++++ b/sections/header-group.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "type": "header",
+   "name": "t:sections.header_group.name",
+@@ -29,14 +38,14 @@
+           "type": "mega_menu_promo",
+           "settings": {
+             "menu_item": "Catalog",
+-            "image_1": "shopify://shop_images/manifesto-01.jpg",
+-            "heading_1": "New Arrivals",
+-            "subheading_1": "Explore the autumn edit",
+-            "link_1": "/collections/all",
+-            "image_2": "shopify://shop_images/capsule-look-01.jpg",
+-            "heading_2": "Capsule Wardrobe",
+-            "subheading_2": "Pieces made in small series",
+-            "link_2": "/collections/all"
++            "image_1": "shopify://shop_images/atelier-lookbook.jpg",
++            "heading_1": "New Forms",
++            "subheading_1": "The season, cut close to the body",
++            "link_1": "/collections/new-forms",
++            "image_2": "shopify://shop_images/atelier-manifesto.jpg",
++            "heading_2": "Permanent Collection",
++            "subheading_2": "Pieces made to stay",
++            "link_2": "/collections/permanent-collection"
+           }
+         }
+       },
+
+diff --git a/templates/404.json b/templates/404.json
+--- a/templates/404.json
++++ b/templates/404.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/article.json b/templates/article.json
+--- a/templates/article.json
++++ b/templates/article.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/blog.json b/templates/blog.json
+--- a/templates/blog.json
++++ b/templates/blog.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/cart.json b/templates/cart.json
+--- a/templates/cart.json
++++ b/templates/cart.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/listings/sartorial/templates/collection.json b/templates/collection.json
+--- a/listings/sartorial/templates/collection.json
++++ b/templates/collection.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/listings/sartorial/templates/index.json b/templates/index.json
+--- a/listings/sartorial/templates/index.json
++++ b/templates/index.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "hero": {
+@@ -30,12 +39,37 @@
+     "marquee": {
+       "type": "marquee",
+       "blocks": {
+-        "origin": { "type": "item", "settings": { "text": "NATURAL FIBRES / TRACEABLE ORIGIN" } },
+-        "series": { "type": "item", "settings": { "text": "MADE IN SMALL SERIES" } },
+-        "hand": { "type": "item", "settings": { "text": "CUT AND FINISHED BY HAND" } },
+-        "character": { "type": "item", "settings": { "text": "DESIGNED TO GATHER CHARACTER" } }
+-      },
+-      "block_order": ["origin", "series", "hand", "character"],
++        "origin": {
++          "type": "item",
++          "settings": {
++            "text": "NATURAL FIBRES / TRACEABLE ORIGIN"
++          }
++        },
++        "series": {
++          "type": "item",
++          "settings": {
++            "text": "MADE IN SMALL SERIES"
++          }
++        },
++        "hand": {
++          "type": "item",
++          "settings": {
++            "text": "CUT AND FINISHED BY HAND"
++          }
++        },
++        "character": {
++          "type": "item",
++          "settings": {
++            "text": "DESIGNED TO GATHER CHARACTER"
++          }
++        }
++      },
++      "block_order": [
++        "origin",
++        "series",
++        "hand",
++        "character"
++      ],
+       "settings": {
+         "speed": 38,
+         "color_scheme": "scheme-2"
+@@ -44,11 +78,33 @@
+     "collections": {
+       "type": "curated-showcase",
+       "blocks": {
+-        "new": { "type": "collection_tab", "settings": { "collection": "new-forms", "tab_label": "New forms" } },
+-        "permanent": { "type": "collection_tab", "settings": { "collection": "permanent-collection", "tab_label": "Permanent collection" } },
+-        "objects": { "type": "collection_tab", "settings": { "collection": "tailoring", "tab_label": "Tailoring" } }
+-      },
+-      "block_order": ["new", "permanent", "objects"],
++        "new": {
++          "type": "collection_tab",
++          "settings": {
++            "collection": "new-forms",
++            "tab_label": "New forms"
++          }
++        },
++        "permanent": {
++          "type": "collection_tab",
++          "settings": {
++            "collection": "permanent-collection",
++            "tab_label": "Permanent collection"
++          }
++        },
++        "objects": {
++          "type": "collection_tab",
++          "settings": {
++            "collection": "tailoring",
++            "tab_label": "Tailoring"
++          }
++        }
++      },
++      "block_order": [
++        "new",
++        "permanent",
++        "objects"
++      ],
+       "settings": {
+         "eyebrow": "CURATED EDIT / 02",
+         "heading": "Selected forms for the season",
+@@ -60,34 +116,120 @@
+     "lookbook": {
+       "type": "lookbook",
+       "blocks": {
+-        "marker1": { "type": "hotspot", "settings": { "product": "nove-blazer", "horizontal_position": 26, "vertical_position": 34, "horizontal_position_mobile": 28, "vertical_position_mobile": 30, "popover_position": "right" } },
+-        "marker2": { "type": "hotspot", "settings": { "product": "pleated-wide-trouser", "horizontal_position": 48, "vertical_position": 66, "horizontal_position_mobile": 46, "vertical_position_mobile": 64, "popover_position": "top" } },
+-        "marker3": { "type": "hotspot", "settings": { "product": "silk-charmeuse-blouse", "horizontal_position": 69, "vertical_position": 38, "horizontal_position_mobile": 68, "vertical_position_mobile": 42, "popover_position": "left" } },
+-        "marker4": { "type": "hotspot", "settings": { "product": "cashmere-scarf", "horizontal_position": 82, "vertical_position": 72, "horizontal_position_mobile": 78, "vertical_position_mobile": 74, "popover_position": "left" } }
+-      },
+-      "block_order": ["marker1", "marker2", "marker3", "marker4"],
+-      "settings": {
++        "marker1": {
++          "type": "hotspot",
++          "settings": {
++            "product": "nove-blazer",
++            "horizontal_position": 26,
++            "vertical_position": 34,
++            "horizontal_position_mobile": 28,
++            "vertical_position_mobile": 30,
++            "popover_position": "right"
++          }
++        },
++        "marker2": {
++          "type": "hotspot",
++          "settings": {
++            "product": "pleated-wide-trouser",
++            "horizontal_position": 48,
++            "vertical_position": 66,
++            "horizontal_position_mobile": 46,
++            "vertical_position_mobile": 64,
++            "popover_position": "top"
++          }
++        },
++        "marker3": {
++          "type": "hotspot",
++          "settings": {
++            "product": "silk-charmeuse-blouse",
++            "horizontal_position": 69,
++            "vertical_position": 38,
++            "horizontal_position_mobile": 68,
++            "vertical_position_mobile": 42,
++            "popover_position": "left"
++          }
++        },
++        "marker4": {
++          "type": "hotspot",
++          "settings": {
++            "product": "cashmere-scarf",
++            "horizontal_position": 82,
++            "vertical_position": 72,
++            "horizontal_position_mobile": 78,
++            "vertical_position_mobile": 74,
++            "popover_position": "left"
++          }
++        }
++      },
++      "block_order": [
++        "marker1",
++        "marker2",
++        "marker3",
++        "marker4"
++      ],
++      "settings": {
++        "image_desktop": "shopify://shop_images/atelier-lookbook.jpg",
+         "eyebrow": "CAMPAIGN STUDY / LOOK 01",
+         "heading": "Objects in quiet conversation",
+         "description": "<p>Move through the composition and discover each piece.</p>",
+         "caption": "A study in proportion, texture and daily movement.",
+-        "image_desktop": "shopify://shop_images/atelier-lookbook.jpg",
+         "color_scheme": "scheme-1"
+       }
+     },
+     "featured_product": {
+       "type": "featured-product",
+       "blocks": {
+-        "title": { "type": "title" },
+-        "price": { "type": "price" },
+-        "variant_picker": { "type": "variant_picker" },
+-        "quantity": { "type": "quantity_selector" },
+-        "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
+-        "description": { "type": "description" },
+-        "inventory": { "type": "inventory_status", "settings": { "threshold": 5, "show_count": true } },
+-        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Complimentary express courier | Dispatched within 24 hours", "icon": "truck" } }
+-      },
+-      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
++        "title": {
++          "type": "title",
++          "settings": {}
++        },
++        "price": {
++          "type": "price",
++          "settings": {}
++        },
++        "variant_picker": {
++          "type": "variant_picker",
++          "settings": {}
++        },
++        "quantity": {
++          "type": "quantity_selector",
++          "settings": {}
++        },
++        "buy_buttons": {
++          "type": "buy_buttons",
++          "settings": {
++            "show_dynamic_checkout": true
++          }
++        },
++        "description": {
++          "type": "description",
++          "settings": {}
++        },
++        "inventory": {
++          "type": "inventory_status",
++          "settings": {
++            "threshold": 5,
++            "show_count": true
++          }
++        },
++        "shipping": {
++          "type": "shipping_lead_time",
++          "settings": {
++            "delivery_text": "Complimentary express courier | Dispatched within 24 hours",
++            "icon": "truck"
++          }
++        }
++      },
++      "block_order": [
++        "title",
++        "price",
++        "variant_picker",
++        "quantity",
++        "buy_buttons",
++        "inventory",
++        "shipping",
++        "description"
++      ],
+       "settings": {
+         "product": "serra-coat",
+         "color_scheme": "scheme-3",
+@@ -99,37 +241,85 @@
+     "capsule": {
+       "type": "complete-the-look",
+       "blocks": {
+-        "piece1": { "type": "bundle_product", "settings": { "product": "nove-blazer" } },
+-        "piece2": { "type": "bundle_product", "settings": { "product": "silk-charmeuse-blouse" } },
+-        "piece3": { "type": "bundle_product", "settings": { "product": "pleated-wide-trouser" } }
+-      },
+-      "block_order": ["piece1", "piece2", "piece3"],
+-      "settings": {
++        "piece1": {
++          "type": "bundle_product",
++          "settings": {
++            "product": "nove-blazer"
++          }
++        },
++        "piece2": {
++          "type": "bundle_product",
++          "settings": {
++            "product": "silk-charmeuse-blouse"
++          }
++        },
++        "piece3": {
++          "type": "bundle_product",
++          "settings": {
++            "product": "pleated-wide-trouser"
++          }
++        }
++      },
++      "block_order": [
++        "piece1",
++        "piece2",
++        "piece3"
++      ],
++      "settings": {
++        "image_desktop": "shopify://shop_images/atelier-hero.jpg",
+         "eyebrow": "SHOPPABLE CAPSULE / LOOK 03",
+         "heading": "Complete the look",
+         "description": "<p>Choose each piece, select its size and add the full composition at once.</p>",
+         "caption": "Soft architecture photographed in natural atelier light.",
+-        "image_desktop": "shopify://shop_images/atelier-hero.jpg",
+         "color_scheme": "scheme-1"
+       }
+     },
+     "manifesto": {
+       "type": "brand-manifesto",
+       "blocks": {
+-        "material": { "type": "detail", "settings": { "label": "Materials", "value": "Traceable natural fibres from Biella & Como" } },
+-        "origin": { "type": "detail", "settings": { "label": "Origin", "value": "Handcrafted in Northern Italy" } },
+-        "finish": { "type": "detail", "settings": { "label": "Finish", "value": "Hand-rolled lapels and pick-stitching" } },
+-        "series": { "type": "detail", "settings": { "label": "Series", "value": "Numbered editions of 25 pieces" } }
+-      },
+-      "block_order": ["material", "origin", "finish", "series"],
++        "material": {
++          "type": "detail",
++          "settings": {
++            "label": "Materials",
++            "value": "Traceable natural fibres from Biella & Como"
++          }
++        },
++        "origin": {
++          "type": "detail",
++          "settings": {
++            "label": "Origin",
++            "value": "Handcrafted in Northern Italy"
++          }
++        },
++        "finish": {
++          "type": "detail",
++          "settings": {
++            "label": "Finish",
++            "value": "Hand-rolled lapels and pick-stitching"
++          }
++        },
++        "series": {
++          "type": "detail",
++          "settings": {
++            "label": "Series",
++            "value": "Numbered editions of 25 pieces"
++          }
++        }
++      },
++      "block_order": [
++        "material",
++        "origin",
++        "finish",
++        "series"
++      ],
+       "settings": {
+         "eyebrow": "THE HAND AND THE MATERIAL / 03",
+         "quote": "Objects gain meaning through the hands that make them.",
+         "body": "<p>Every edge and finish records a decision made by an artisan.</p>",
+         "button_label": "Explore tailoring",
+         "button_url": "/collections/tailoring",
++        "image": "shopify://shop_images/atelier-manifesto.jpg",
+         "media_label": "MACRO STUDY / MATERIAL 07",
+-        "image": "shopify://shop_images/atelier-manifesto.jpg",
+         "use_surface_background": true,
+         "color_scheme": "scheme-3"
+       }
+@@ -144,5 +334,14 @@
+       }
+     }
+   },
+-  "order": ["hero", "marquee", "collections", "lookbook", "featured_product", "capsule", "manifesto", "newsletter"]
++  "order": [
++    "hero",
++    "marquee",
++    "collections",
++    "lookbook",
++    "featured_product",
++    "capsule",
++    "manifesto",
++    "newsletter"
++  ]
+ }
+
+diff --git a/templates/list-collections.json b/templates/list-collections.json
+--- a/templates/list-collections.json
++++ b/templates/list-collections.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.about.json b/templates/page.about.json
+--- a/templates/page.about.json
++++ b/templates/page.about.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.contact.json b/templates/page.contact.json
+--- a/templates/page.contact.json
++++ b/templates/page.contact.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.documentation.json b/templates/page.documentation.json
+--- a/templates/page.documentation.json
++++ b/templates/page.documentation.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.faq.json b/templates/page.faq.json
+--- a/templates/page.faq.json
++++ b/templates/page.faq.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.json b/templates/page.json
+--- a/templates/page.json
++++ b/templates/page.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.policy.json b/templates/page.policy.json
+--- a/templates/page.policy.json
++++ b/templates/page.policy.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/page.support.json b/templates/page.support.json
+--- a/templates/page.support.json
++++ b/templates/page.support.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/password.json b/templates/password.json
+--- a/templates/password.json
++++ b/templates/password.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/listings/sartorial/templates/product.json b/templates/product.json
+--- a/listings/sartorial/templates/product.json
++++ b/templates/product.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+
+diff --git a/templates/search.json b/templates/search.json
+--- a/templates/search.json
++++ b/templates/search.json
+@@ -1,3 +1,12 @@
++/*
++ * ------------------------------------------------------------
++ * IMPORTANT: The contents of this file are auto-generated.
++ *
++ * This file may be updated by the Shopify admin theme editor
++ * or related systems. Please exercise caution as any changes
++ * made to this file may be overwritten.
++ * ------------------------------------------------------------
++ */
+ {
+   "sections": {
+     "main": {
+

@@ -1,0 +1,293 @@
+{%- comment -%}
+  Productos complementarios del cajon del carrito (V1.1.0, fase 2).
+
+  Accepts:
+  - section: la seccion cart-drawer (ajustes y bloques)
+  - cart: el carrito
+
+  Global: recommendations (solo trae productos cuando la seccion se pinta desde la ruta
+  de recomendaciones con intent=complementary).
+
+  Una sola pasada por cuatro fuentes en orden estricto: metafield del producto ancla,
+  recomendaciones complementarias de Shopify, bloques del editor y coleccion. Cada fuente
+  solo rellena los huecos que quedan, hasta 2 productos unicos, disponibles y fuera del
+  carrito. El marcado de la tarjeta existe una sola vez, dentro del bucle de candidatos.
+  Sin candidatos no se pinta nada: ni encabezado ni contenedor.
+{%- endcomment -%}
+{%- if section.settings.show_complementary_products and cart.item_count > 0 -%}
+  {%- liquid
+    assign default_cross_sell_heading = 'sections.cart.complimentary_additions' | t
+    assign cross_sell_heading = section.settings.cross_sell_heading | default: default_cross_sell_heading
+
+    # Ancla: la linea de mayor precio unitario original (antes de descuentos). Empate entre
+    # productos: product_id menor; mismo producto: variant_id menor. Las tarjetas regalo y los
+    # precios <= 0 no pueden ser ancla, pero si cuentan como productos ya en el carrito.
+    assign in_cart_ids = ','
+    assign anchor_item = nil
+    assign anchor_price = 0
+    for item in cart.items
+      assign in_cart_ids = in_cart_ids | append: item.product_id | append: ','
+      if item.gift_card or item.original_price <= 0
+        continue
+      endif
+      if item.original_price > anchor_price
+        assign anchor_item = item
+        assign anchor_price = item.original_price
+      elsif item.original_price == anchor_price
+        if item.product_id < anchor_item.product_id
+          assign anchor_item = item
+        elsif item.product_id == anchor_item.product_id and item.variant_id < anchor_item.variant_id
+          assign anchor_item = item
+        endif
+      endif
+    endfor
+    assign anchor_product = anchor_item.product
+
+    assign seen_ids = ','
+    assign cross_sell_count = 0
+  -%}
+
+  {%- capture add_button_content -%}
+    <span data-cross-sell-label>{{ 'sections.cart.add_complementary' | t }}</span>
+    <span class="visually-hidden" data-cross-sell-adding hidden>{{ 'sections.cart.adding' | t }}</span>
+    <span class="button__spinner" data-loading-icon hidden>
+      {% render 'icon', name: 'spinner', size: 16 %}
+    </span>
+  {%- endcapture -%}
+
+  {%- capture cross_sell_cards -%}
+    {%- for source in (1..4) -%}
+      {%- liquid
+        if cross_sell_count >= 2
+          break
+        endif
+        assign pool = nil
+        assign budget = 0
+        case source
+          when 1
+            if section.settings.use_product_metafield and anchor_product
+              assign pool = anchor_product.metafields.custom.complementary_products.value
+              assign budget = 10
+            endif
+          when 2
+            if section.settings.use_search_discovery and anchor_product and recommendations.performed?
+              assign pool = recommendations.products
+              assign budget = 10
+            endif
+          when 3
+            assign pool = section.blocks
+            assign budget = section.blocks.size
+          when 4
+            assign pool = section.settings.cross_sell_collection.products
+            assign budget = 50
+        endcase
+      -%}
+      {%- for entry in pool limit: budget -%}
+        {%- liquid
+          if cross_sell_count >= 2
+            break
+          endif
+          assign candidate = entry
+          assign card_attributes = ''
+          if source == 3
+            assign candidate = entry.settings.product
+            assign card_attributes = entry.shopify_attributes
+          endif
+          if candidate == blank or candidate.available != true
+            continue
+          endif
+          assign candidate_token = ',' | append: candidate.id | append: ','
+          if in_cart_ids contains candidate_token or seen_ids contains candidate_token
+            continue
+          endif
+          assign seen_ids = seen_ids | append: candidate.id | append: ','
+          assign cross_sell_count = cross_sell_count | plus: 1
+
+          # Flujo: direct (variante unica que admite 1 unidad), options (hasta 2 opciones,
+          # elegidas en la propia tarjeta) o link (todo lo demas va a la ficha del producto).
+          assign card_variant = candidate.selected_or_first_available_variant
+          assign variant_min = card_variant.quantity_rule.min | default: 1
+          assign variant_increment = card_variant.quantity_rule.increment | default: 1
+          assign card_flow = 'link'
+          unless candidate.gift_card? or candidate.requires_selling_plan or candidate.selling_plan_groups.size > 0 or candidate.options.size > 2 or candidate.variants.size > 100
+            if candidate.has_only_default_variant == false
+              assign card_flow = 'options'
+            elsif card_variant.available and variant_min <= 1 and variant_increment == 1
+              assign card_flow = 'direct'
+            endif
+          endunless
+        -%}
+        <li>
+          <article
+            class="cart-cross-sell__item"
+            data-cross-sell-item
+            data-product-id="{{ candidate.id }}"
+            data-flow="{{ card_flow }}"
+            data-cross-sell-focus="{{ card_variant.id }}"
+            tabindex="-1"
+            {{ card_attributes }}
+          >
+            <a class="cart-cross-sell__media" href="{{ candidate.url }}" tabindex="-1" aria-hidden="true">
+              {%- if candidate.featured_image != blank -%}
+                {% render 'responsive-image',
+                  image: candidate.featured_image,
+                  sizes: '64px',
+                  widths: '64, 128',
+                  image_class: 'cart-cross-sell__image',
+                  alt: candidate.featured_image.alt
+                %}
+              {%- else -%}
+                <span class="cart-cross-sell__placeholder"></span>
+              {%- endif -%}
+            </a>
+            <div class="cart-cross-sell__details">
+              <p class="cart-cross-sell__title">
+                <a href="{{ candidate.url }}">{{ candidate.title | escape }}</a>
+              </p>
+              <p class="cart-cross-sell__price" data-cross-sell-price>{% if candidate.price_varies %}{{ 'products.product.price_from' | t }} {% endif %}{{ candidate.price | money }}</p>
+            </div>
+
+            {%- if card_flow == 'direct' -%}
+              <button
+                type="button"
+                class="cart-cross-sell__button"
+                data-cross-sell-add
+                data-variant-id="{{ card_variant.id }}"
+                aria-label="{{ 'sections.cart.add_complementary_product' | t: product: candidate.title | escape }}"
+              >
+                {{- add_button_content -}}
+              </button>
+            {%- elsif card_flow == 'options' -%}
+              <button
+                type="button"
+                class="cart-cross-sell__button"
+                data-cross-sell-expand
+                aria-expanded="false"
+                aria-controls="CrossSellOptions-{{ section.id }}-{{ candidate.id }}"
+                aria-label="{{ 'sections.cart.choose_options_product' | t: product: candidate.title | escape }}"
+              >
+                {{- 'sections.cart.choose_options' | t -}}
+              </button>
+              <div
+                class="cart-cross-sell__options"
+                id="CrossSellOptions-{{ section.id }}-{{ candidate.id }}"
+                data-cross-sell-options
+                hidden
+              >
+                {%- comment -%}
+                  Los radios pertenecen al formulario vacio CartCrossSellOptions (fuera del
+                  formulario del carrito), asi nunca viajan al checkout. Ninguno llega marcado:
+                  el comprador elige de forma explicita.
+                {%- endcomment -%}
+                {%- for option in candidate.options_with_values -%}
+                  {%- assign option_position = forloop.index -%}
+                  <fieldset class="cart-cross-sell__fieldset" data-option-position="{{ option_position }}">
+                    <legend class="cart-cross-sell__legend">
+                      {{- 'sections.cart.select_option' | t: option: option.name | escape -}}
+                    </legend>
+                    <div class="cart-cross-sell__chips">
+                      {%- for value in option.values -%}
+                        <label class="cart-cross-sell__chip">
+                          <input
+                            type="radio"
+                            class="cart-cross-sell__radio"
+                            name="CrossSell-{{ section.id }}-{{ candidate.id }}-{{ option_position }}"
+                            value="{{ value | escape }}"
+                            form="CartCrossSellOptions-{{ section.id }}"
+                            data-cross-sell-option
+                          >
+                          <span class="cart-cross-sell__chip-label">{{ value | escape }}</span>
+                          <span class="visually-hidden" data-chip-unavailable hidden>
+                            {{- 'products.product.unavailable' | t -}}
+                          </span>
+                        </label>
+                      {%- endfor -%}
+                    </div>
+                  </fieldset>
+                {%- endfor -%}
+                <p
+                  class="cart-cross-sell__options-status"
+                  id="CrossSellStatus-{{ section.id }}-{{ candidate.id }}"
+                  data-cross-sell-options-status
+                  hidden
+                >
+                  {{- 'sections.cart.options_unavailable' | t -}}
+                </p>
+                <div class="cart-cross-sell__options-actions">
+                  <button
+                    type="button"
+                    class="cart-cross-sell__button"
+                    data-cross-sell-add
+                    data-variant-id=""
+                    disabled
+                    aria-label="{{ 'sections.cart.add_complementary_product' | t: product: candidate.title | escape }}"
+                  >
+                    {{- add_button_content -}}
+                  </button>
+                  <button type="button" class="cart-cross-sell__cancel" data-cross-sell-cancel>
+                    {{- 'sections.cart.cancel_options' | t -}}
+                  </button>
+                </div>
+                <script type="application/json" data-cross-sell-variants>
+                  [
+                    {%- assign json_separator = '' -%}
+                    {%- for option_variant in candidate.variants -%}
+                      {{- json_separator -}}
+                      {"id":{{ option_variant.id | json }},"available":{{ option_variant.available | json }},"price":{{ option_variant.price | json }},"options":{{ option_variant.options | json }},"image":
+                      {%- if option_variant.featured_image != blank -%}
+                        {{- option_variant.featured_image | image_url: width: 240 | json -}}
+                      {%- else -%}
+                        null
+                      {%- endif -%}
+                      ,"min":{{ option_variant.quantity_rule.min | default: 1 | json }},"max":{{ option_variant.quantity_rule.max | json }},"increment":{{ option_variant.quantity_rule.increment | default: 1 | json }} }
+                      {%- assign json_separator = ',' -%}
+                    {%- endfor -%}
+                  ]
+                </script>
+              </div>
+            {%- else -%}
+              <a
+                class="button button--secondary cart-cross-sell__link"
+                href="{{ candidate.url }}"
+                data-cross-sell-view
+                aria-label="{{ 'sections.cart.view_product_for' | t: product: candidate.title | escape }}"
+              >
+                {{- 'sections.cart.view_product' | t -}}
+              </a>
+            {%- endif -%}
+          </article>
+        </li>
+      {%- endfor -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- liquid
+    # Fuente 2 sin resolver todavia: el JavaScript pide la ruta de recomendaciones para el
+    # ancla y sustituye este contenedor. Mientras tanto se ve lo que dieron las demas fuentes.
+    assign fetch_pending = false
+    if section.settings.use_search_discovery and anchor_product and recommendations.performed? != true and cross_sell_count < 2
+      assign fetch_pending = true
+    endif
+  -%}
+
+  {%- if cross_sell_count > 0 or fetch_pending -%}
+    <div
+      class="cart-cross-sell-slot"
+      data-cart-cross-sell-slot
+      data-anchor-product-id="{{ anchor_product.id }}"
+      {% if fetch_pending %}data-recommendations-pending{% endif %}
+    >
+      {%- if cross_sell_count > 0 -%}
+        <section class="cart-cross-sell" aria-labelledby="CartCrossSellHeading-{{ section.id }}" data-cart-cross-sell>
+          <p class="eyebrow">{{ 'sections.cart.curated_for_order' | t }}</p>
+          <h3 id="CartCrossSellHeading-{{ section.id }}" class="cart-cross-sell__heading">
+            {{- cross_sell_heading | escape -}}
+          </h3>
+          <ul class="cart-cross-sell__list" role="list">
+            {{- cross_sell_cards -}}
+          </ul>
+        </section>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

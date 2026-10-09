@@ -912,6 +912,7 @@
       }
       const unitCents = Number(priceSource?.price_cents);
 
+      const minQty = Number.parseInt(this.quantityInput.min, 10) || 1;
       const isFieldValid = !this.quantityInput.checkValidity || this.quantityInput.checkValidity();
       // Una variante agotada no se puede comprar: anunciar lo que costarian 3 confunde.
       const showTotal = isFieldValid
@@ -919,7 +920,7 @@
         && priceSource?.price_cents != null
         && priceSource.price_cents !== ''
         && Number.isFinite(quantity)
-        && quantity > 1
+        && (quantity > 1 || minQty > 1)
         && Number.isFinite(unitCents);
 
       if (!showTotal) {
@@ -2212,6 +2213,13 @@
     }
   }
 
+  // Phase 2 (GPT-021). Cart drawer deadlines. The recommendations read is a complement:
+  // when it is late, the cards the server already rendered stay. The cross-sell add and
+  // the note save are never retried: a missed deadline leaves their result uncertain.
+  const CART_RECOMMENDATIONS_TIMEOUT = 2000;
+  const CART_CROSS_SELL_ADD_TIMEOUT = 10000;
+  const CART_NOTE_SAVE_TIMEOUT = 3000;
+
   class CartDrawer extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -2227,6 +2235,19 @@
       this.renderedRevision = 0;
       this.syncAfterMutation = false;
       this.overlappingMutations = false;
+      this.reconcileAfterMutation = false;
+      // Phase 2. While the shopper works an inline option panel, late syncs and
+      // recommendation responses must not touch the DOM; a skipped sync runs on release.
+      this.interactionFrozen = false;
+      this.skippedSync = false;
+      this.recommendationGeneration = 0;
+      this.recommendationKey = null;
+      this.recommendationCache = new Map();
+      this.recommendationWatch = null;
+      this.crossSellVariantCache = new WeakMap();
+      this.crossSellOriginals = new WeakMap();
+      this.noteVersion = 0;
+      this.noteSavePending = false;
 
       if (!this.overlay || !this.panel) return;
 
@@ -2236,12 +2257,26 @@
       this.listen(this, 'click', (event) => this.handleDrawerClick(event));
       this.listen(this, 'change', (event) => this.handleDrawerChange(event));
       this.listen(this, 'keydown', (event) => {
-        if (event.key !== 'Enter' || !event.target.matches?.('[data-cart-quantity]')) return;
+        if (event.key !== 'Enter') return;
+        // Enter on an option radio would implicitly submit the empty options form and
+        // reload the page. Space still selects natively; no key adds to the cart here.
+        if (event.target.matches?.('[data-cross-sell-option]')) {
+          event.preventDefault();
+          return;
+        }
+        if (!event.target.matches?.('[data-cart-quantity]')) return;
         event.preventDefault();
         event.target.blur();
       });
+      this.listen(this, 'submit', (event) => {
+        if (event.target.id === `CartCrossSellOptions-${this.dataset.sectionId}`) event.preventDefault();
+      });
+      this.listen(this, 'focusin', (event) => this.freezeFromOptions(event));
+      this.listen(this, 'pointerdown', (event) => this.freezeFromOptions(event));
       this.listen(this, 'input', (event) => {
-        if (event.target.matches('textarea[name="note"]')) event.target.dataset.dirty = 'true';
+        if (!event.target.matches('textarea[name="note"]')) return;
+        event.target.dataset.dirty = 'true';
+        this.noteVersion += 1;
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
         if (event.target === this.overlay) this.close(true);
@@ -2256,6 +2291,7 @@
     disconnectedCallback() {
       this.requestController?.abort();
       this.crossSellController?.abort();
+      this.recommendationWatch?.controller.abort();
       this.close(false);
       super.disconnectedCallback();
     }
@@ -2305,12 +2341,38 @@
         return;
       }
 
+      if (event.target.closest('[data-cart-check]')) {
+        this.checkCart();
+        return;
+      }
+
+      const expandButton = event.target.closest('[data-cross-sell-expand]');
+      if (expandButton) {
+        this.expandCrossSell(expandButton);
+        return;
+      }
+
+      const cancelButton = event.target.closest('[data-cross-sell-cancel]');
+      if (cancelButton) {
+        this.cancelCrossSell(cancelButton);
+        return;
+      }
+
+      // The card's own title and image links also leave the drawer: same note save.
+      const viewLink = event.target.closest(
+        '[data-cross-sell-view], [data-cross-sell-item] .cart-cross-sell__title a, [data-cross-sell-item] a.cart-cross-sell__media',
+      );
+      if (viewLink) {
+        this.handleCrossSellView(event, viewLink);
+        return;
+      }
+
       const crossSellButton = event.target.closest('[data-cross-sell-add]');
       if (crossSellButton) {
         this.addCrossSell(crossSellButton).catch((error) => {
           if (error.name === 'AbortError') return;
           this.showError(error.message);
-          if (crossSellButton.isConnected) crossSellButton.focus();
+          if (crossSellButton.isConnected && !crossSellButton.disabled) crossSellButton.focus();
         });
         return;
       }
@@ -2325,6 +2387,14 @@
     }
 
     handleDrawerChange(event) {
+      // Option radios are not quantities: a change only recomputes its own card.
+      const option = event.target.closest('[data-cross-sell-option]');
+      if (option) {
+        this.interactionFrozen = true;
+        this.updateCrossSellState(option.closest('[data-cross-sell-item]'));
+        return;
+      }
+
       const quantityInput = event.target.closest('[data-cart-quantity]');
       if (!quantityInput) return;
 
@@ -2384,6 +2454,9 @@
       this.setClosedState();
       syncDialogScrollLocks();
       this.restoreBackgroundInert();
+      // Closing ends any option interaction; the next open re-renders fresh HTML.
+      this.collapseCrossSells();
+      this.releaseInteraction();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
         this.returnFocusTarget.focus();
@@ -2509,56 +2582,510 @@
       }) || null;
     }
 
+    // Phase 2 (GPT-021). The add is never retried and its outcome is classified:
+    // - confirmed failure: an HTTP error with a JSON body (422 and the like). The cart did
+    //   not change, so the selection stays and focus lands on a usable control.
+    // - uncertain: network error, deadline, abort, a body that is not JSON (an HTML 429 or
+    //   5xx page) or a 200 that does not list the variant. The POST may have been applied:
+    //   the shopper is told, Check cart is offered and endMutation() reconciles with fresh
+    //   HTML even while a panel holds interactionFrozen.
+    // - success: the option interaction ends and the response is rendered.
     async addCrossSell(button) {
       const variantId = Number(button.dataset.variantId);
       if (!variantId || button.disabled) return;
 
+      const item = button.closest('[data-cross-sell-item]');
+      const inPanel = Boolean(button.closest('[data-cross-sell-options]'));
       const revision = this.beginMutation();
       this.clearMessages();
       this.setCrossSellBusy(button, true);
       this.setDrawerBusy(true);
-      this.crossSellController?.abort();
-      this.crossSellController = new AbortController();
+      // The button has an aria-label and turns disabled, so its hidden "Adding" text is
+      // never read. The status region announces it; the outcome message replaces it.
+      const addingText = button.querySelector('[data-cross-sell-adding]')?.textContent.trim();
+      if (addingText) this.showStatus(addingText);
+      // Its own controller: crossSellController belongs to the recommendations read and
+      // beginMutation() aborts it, which must never cut an add short.
+      const controller = new AbortController();
+      const deadline = window.setTimeout(() => controller.abort(), CART_CROSS_SELL_ADD_TIMEOUT);
+      let outcome = 'uncertain';
+      let failureMessage = '';
 
       try {
-        const response = await fetchCommerce(this.dataset.cartAddUrl, {
+        let response = null;
+        let result = null;
+        try {
+          response = await fetch(this.dataset.cartAddUrl, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({
+              items: [{ id: variantId, quantity: 1 }],
+              sections: this.renderSectionIds(),
+              sections_url: `${window.location.pathname}${window.location.search}`,
+            }),
+            signal: controller.signal,
+          });
+          result = await response.json();
+        } catch {
+          result = null;
+        }
+        window.clearTimeout(deadline);
+
+        if (response && result !== null && typeof result === 'object') {
+          if (!response.ok) {
+            outcome = 'failure';
+            failureMessage = result.description || result.message || this.dataset.errorMessage;
+          } else if (this.responseHasVariant(result, String(variantId))) {
+            outcome = 'success';
+          }
+        }
+
+        if (outcome === 'success') {
+          this.interactionFrozen = false;
+          this.skippedSync = false;
+          // The JSON already confirms the add. A render that fails or is overtaken only
+          // leaves the drawer stale, and endMutation() then fetches fresh HTML.
+          await this.renderCartResponse(result, revision).catch(() => {});
+          this.showStatus(this.dataset.addedMessage);
+
+          const focusTarget = Array.from(this.querySelectorAll('[data-cross-sell-focus]')).find(
+            (element) => Number(element.dataset.crossSellFocus) === variantId,
+          );
+          // La recomendacion ya anadida deja de mostrarse; el foco pasa a su linea del carrito.
+          (focusTarget || this.findLineFor({ variant_id: variantId }))?.focus({ preventScroll: true });
+        }
+      } finally {
+        window.clearTimeout(deadline);
+        this.setDrawerBusy(false);
+        this.setCrossSellBusy(button, false);
+        // The busy restore re-enabled the panel button blindly; the selection decides.
+        if (inPanel && button.isConnected) this.updateCrossSellState(item);
+        if (outcome === 'uncertain') this.reconcileAfterMutation = true;
+        this.endMutation();
+      }
+
+      if (outcome !== 'success') {
+        // The "Adding" announcement is over; the error region takes its place.
+        const status = this.querySelector('[data-cart-status]');
+        if (status) {
+          status.hidden = true;
+          status.textContent = '';
+        }
+      }
+      if (outcome === 'failure') {
+        this.showError(failureMessage);
+        this.focusCrossSellControl(item, button);
+      } else if (outcome === 'uncertain') {
+        this.showError(this.dataset.updateUnconfirmedMessage || this.dataset.errorMessage);
+        const uncertain = this.querySelector('[data-cart-uncertain]');
+        if (uncertain) uncertain.hidden = false;
+        const checkButton = uncertain?.querySelector('[data-cart-check]');
+        if (checkButton && this.isOpen) checkButton.focus();
+      }
+    }
+
+    // After a confirmed failure the selection stays: focus goes to the chosen option, the
+    // add button or Cancel, whichever is usable, never to a disabled control.
+    focusCrossSellControl(item, button) {
+      if (!this.isOpen) return;
+      const panel = button.closest('[data-cross-sell-options]');
+      const candidates = panel
+        ? [panel.querySelector('[data-cross-sell-option]:checked'), button, panel.querySelector('[data-cross-sell-cancel]')]
+        : [button, item?.querySelector('.cart-cross-sell__title a')];
+      const target = candidates.find((element) => element?.isConnected && !element.disabled && !element.closest('[hidden]'));
+      (target || this.querySelector('[data-cart-drawer-close]'))?.focus();
+    }
+
+    freezeFromOptions(event) {
+      if (event.target.closest?.('[data-cross-sell-options]')) this.interactionFrozen = true;
+    }
+
+    // Ends an option interaction. A sync skipped while frozen runs now, unless a mutation
+    // is pending (its render or endMutation() brings fresh HTML) or the drawer is closed
+    // (open() always syncs).
+    releaseInteraction() {
+      this.interactionFrozen = false;
+      if (!this.skippedSync) {
+        this.loadRecommendations();
+        return;
+      }
+      this.skippedSync = false;
+      if (this.isConnected && this.isOpen && !this.pendingMutations) this.syncCart().catch(() => {});
+    }
+
+    // Check cart, offered after an unconfirmed update: any option interaction ends and a
+    // fresh read replaces the drawer body.
+    checkCart() {
+      // The button is about to hide; focus moves first so it does not fall to <body>.
+      this.querySelector('[data-cart-drawer-close]')?.focus();
+      this.clearMessages();
+      this.collapseCrossSells();
+      this.interactionFrozen = false;
+      this.skippedSync = false;
+      this.syncCart().catch((error) => {
+        if (error.name === 'AbortError') return;
+        this.showError(this.dataset.updateUnconfirmedMessage || this.dataset.errorMessage);
+        const uncertain = this.querySelector('[data-cart-uncertain]');
+        if (uncertain) uncertain.hidden = false;
+      });
+    }
+
+    // One expanded card at a time. Another card collapses but keeps its selection; focus
+    // stays on Choose options and the next Tab enters the panel.
+    expandCrossSell(button) {
+      const item = button.closest('[data-cross-sell-item]');
+      const panel = item?.querySelector('[data-cross-sell-options]');
+      if (!panel) return;
+      // A second press closes the panel like a disclosure. Unlike Cancel it keeps the
+      // selection; the interaction still ends, since no panel is left open.
+      if (button.getAttribute('aria-expanded') === 'true') {
+        panel.hidden = true;
+        button.setAttribute('aria-expanded', 'false');
+        this.releaseInteraction();
+        return;
+      }
+      this.collapseCrossSells(item);
+      panel.hidden = false;
+      button.setAttribute('aria-expanded', 'true');
+      this.interactionFrozen = true;
+      this.updateCrossSellState(item);
+    }
+
+    cancelCrossSell(control) {
+      const item = control.closest('[data-cross-sell-item]');
+      if (!item) return;
+      const expandButton = item.querySelector('[data-cross-sell-expand]');
+      // Focus leaves the panel before it hides, and before the release: a skipped sync may
+      // re-render at once, and renderSection() maps this button to the same card.
+      expandButton?.focus();
+      const panel = item.querySelector('[data-cross-sell-options]');
+      if (panel) panel.hidden = true;
+      expandButton?.setAttribute('aria-expanded', 'false');
+      this.resetCrossSell(item);
+      this.releaseInteraction();
+    }
+
+    collapseCrossSells(exceptItem = null) {
+      this.querySelectorAll('[data-cross-sell-item]').forEach((item) => {
+        if (item === exceptItem) return;
+        const panel = item.querySelector('[data-cross-sell-options]');
+        if (panel) panel.hidden = true;
+        item.querySelector('[data-cross-sell-expand]')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    resetCrossSell(item) {
+      item.querySelectorAll('[data-cross-sell-option]').forEach((radio) => {
+        radio.checked = false;
+      });
+      this.updateCrossSellState(item);
+    }
+
+    crossSellVariants(panel) {
+      if (this.crossSellVariantCache.has(panel)) return this.crossSellVariantCache.get(panel);
+      let variants = [];
+      try {
+        const parsed = JSON.parse(panel.querySelector('[data-cross-sell-variants]')?.textContent || '[]');
+        if (Array.isArray(parsed)) {
+          variants = parsed.filter((variant) => variant && typeof variant === 'object' && Array.isArray(variant.options));
+        }
+      } catch {
+        variants = [];
+      }
+      this.crossSellVariantCache.set(panel, variants);
+      return variants;
+    }
+
+    // Quantity 1 must be valid on its own: available, min <= 1, increment 1, max empty or >= 1.
+    isCrossSellPurchasable(variant) {
+      if (!variant || variant.available !== true || !variant.id) return false;
+      const min = variant.min == null ? 1 : Number(variant.min);
+      const increment = variant.increment == null ? 1 : Number(variant.increment);
+      const max = variant.max == null ? null : Number(variant.max);
+      return min <= 1 && increment === 1 && (max === null || max >= 1);
+    }
+
+    // Recomputes one card from its variant JSON. A chip with no purchasable match given the
+    // other selected options is marked unavailable (attribute plus hidden text). Add is
+    // enabled only for a complete, existing, purchasable combination, which also sets the
+    // variant price and image; a complete invalid combination shows the status instead.
+    updateCrossSellState(item) {
+      const panel = item?.querySelector('[data-cross-sell-options]');
+      if (!panel) return;
+
+      const variants = this.crossSellVariants(panel);
+      const fieldsets = Array.from(panel.querySelectorAll('[data-option-position]'));
+      const positions = fieldsets.map((fieldset) => Number(fieldset.dataset.optionPosition) - 1);
+      const selected = fieldsets.map((fieldset) => fieldset.querySelector('[data-cross-sell-option]:checked')?.value ?? null);
+      const fits = (variant, skip) => positions.every((position, index) => (
+        index === skip || selected[index] === null || variant.options[position] === selected[index]
+      ));
+
+      fieldsets.forEach((fieldset, index) => {
+        fieldset.querySelectorAll('[data-cross-sell-option]').forEach((radio) => {
+          const purchasable = variants.some((variant) => this.isCrossSellPurchasable(variant)
+            && variant.options[positions[index]] === radio.value
+            && fits(variant, index));
+          const chip = radio.closest('label');
+          chip?.toggleAttribute('data-unavailable', !purchasable);
+          const unavailableText = chip?.querySelector('[data-chip-unavailable]');
+          if (unavailableText) unavailableText.hidden = purchasable;
+        });
+      });
+
+      const complete = fieldsets.length > 0 && selected.every((value) => value !== null);
+      const variant = complete ? variants.find((candidate) => fits(candidate, -1)) : null;
+      const valid = Boolean(variant) && this.isCrossSellPurchasable(variant);
+      const addButton = panel.querySelector('[data-cross-sell-add]');
+      const status = panel.querySelector('[data-cross-sell-options-status]');
+
+      if (addButton) {
+        addButton.dataset.variantId = valid ? String(variant.id) : '';
+        // While a busy state holds the button, the value it restores is what changes.
+        if (addButton.dataset.wasDisabled !== undefined) addButton.dataset.wasDisabled = String(!valid);
+        else addButton.disabled = !valid;
+      }
+      if (status) {
+        const wasHidden = status.hidden;
+        status.hidden = !complete || valid;
+        // WCAG 4.1.3. The status appears without a focus change, so the drawer's live region
+        // announces it once, when the selection turns complete and invalid.
+        if (wasHidden && !status.hidden) this.showStatus(status.textContent.trim());
+        if (addButton && status.id) {
+          if (status.hidden) addButton.removeAttribute('aria-describedby');
+          else addButton.setAttribute('aria-describedby', status.id);
+        }
+      }
+      this.showCrossSellVariant(item, valid ? variant : null);
+    }
+
+    // Price and thumbnail follow the chosen variant; without one they return to what the
+    // server rendered ("From" price, product image).
+    showCrossSellVariant(item, variant) {
+      const price = item.querySelector('[data-cross-sell-price]');
+      const image = item.querySelector('.cart-cross-sell__media img');
+      if (!this.crossSellOriginals.has(item)) {
+        this.crossSellOriginals.set(item, {
+          price: price?.textContent ?? '',
+          src: image?.getAttribute('src') ?? null,
+          srcset: image?.getAttribute('srcset') ?? null,
+        });
+      }
+      const original = this.crossSellOriginals.get(item);
+      const formatted = variant ? formatMoney(variant.price) : '';
+      if (price) price.textContent = formatted || original.price;
+      if (!image) return;
+
+      if (variant && typeof variant.image === 'string' && variant.image) {
+        image.removeAttribute('srcset');
+        image.setAttribute('src', variant.image);
+        return;
+      }
+      if (original.src !== null && image.getAttribute('src') !== original.src) image.setAttribute('src', original.src);
+      if (original.srcset !== null && image.getAttribute('srcset') !== original.srcset) {
+        image.setAttribute('srcset', original.srcset);
+      }
+    }
+
+    // A re-render replaced the card that held focus. Land on the same control of the same
+    // product when it is still offered (a control inside a panel maps to Choose options),
+    // else on the card itself; null lets the caller fall back to the close button.
+    crossSellFocusAfterRender(active, nextContent) {
+      const item = active?.closest?.('[data-cross-sell-item]');
+      if (!item) return null;
+      const nextItem = Array.from(nextContent.querySelectorAll('[data-cross-sell-item]'))
+        .find((candidate) => candidate.dataset.productId === item.dataset.productId);
+      if (!nextItem) return null;
+
+      let control = null;
+      if (active.closest('[data-cross-sell-options]')) {
+        control = nextItem.querySelector('[data-cross-sell-expand]');
+      } else {
+        const selector = ['[data-cross-sell-expand]', '[data-cross-sell-view]', '[data-cross-sell-add]']
+          .find((candidate) => active.matches(candidate));
+        control = selector ? nextItem.querySelector(selector) : null;
+      }
+      return control && !control.disabled && !control.closest('[hidden]') ? control : nextItem;
+    }
+
+    // View product with an unsaved note: save it first, and leave only once the server has
+    // the exact draft. Modified clicks and new-tab links keep their native behaviour.
+    handleCrossSellView(event, link) {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      if (link.target === '_blank' || link.hasAttribute('download')) return;
+      const note = this.querySelector('textarea[name="note"][data-dirty="true"]');
+      if (!note && !this.noteSavePending) return;
+
+      event.preventDefault();
+      if (this.noteSavePending) return;
+      this.saveNoteAndNavigate(link.href, note).catch(() => {});
+    }
+
+    // GPT-021 note protocol. The draft counts as saved only when the server echoes the exact
+    // text sent and no keystroke arrived meanwhile (noteVersion). Otherwise it stays dirty,
+    // the drawer reconciles (renderSection keeps the dirty draft) and the shopper stays.
+    // The note text is never stored locally or logged.
+    async saveNoteAndNavigate(href, textarea) {
+      this.noteSavePending = true;
+      const sentVersion = this.noteVersion;
+      const sentNote = textarea.value;
+      const controller = new AbortController();
+      const deadline = window.setTimeout(() => controller.abort(), CART_NOTE_SAVE_TIMEOUT);
+      let confirmed = false;
+      this.clearMessages();
+      this.showStatus(this.dataset.savingNoteMessage);
+
+      try {
+        const response = await fetch(this.dataset.cartUpdateUrl, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
           },
-          body: JSON.stringify({
-            items: [{ id: variantId, quantity: 1 }],
-            sections: this.renderSectionIds(),
-            sections_url: `${window.location.pathname}${window.location.search}`,
-          }),
-          signal: this.crossSellController.signal,
-        }, this.dataset.errorMessage);
-        // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
-        // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
-        // failure is turned into the localized message instead. A deliberate abort keeps
-        // its own name, because callers use it to stay silent.
-        const result = await response.json().catch((error) => {
-          if (error.name === 'AbortError') throw error;
-          throw new Error(this.dataset.errorMessage);
+          body: JSON.stringify({ note: sentNote }),
+          keepalive: true,
+          signal: controller.signal,
         });
-
-        if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
-
-        await this.renderCartResponse(result, revision);
-        this.showStatus(this.dataset.addedMessage);
-
-        const focusTarget = Array.from(this.querySelectorAll('[data-cross-sell-focus]')).find(
-          (element) => Number(element.dataset.crossSellFocus) === variantId,
-        );
-        // La recomendacion ya anadida deja de mostrarse; el foco pasa a su linea del carrito.
-        (focusTarget || this.findLineFor({ variant_id: variantId }))?.focus({ preventScroll: true });
+        const result = await response.json();
+        confirmed = response.ok && result !== null && typeof result === 'object' && (result.note ?? '') === sentNote;
+      } catch {
+        confirmed = false;
       } finally {
-        this.setDrawerBusy(false);
-        this.setCrossSellBusy(button, false);
-        this.endMutation();
+        window.clearTimeout(deadline);
+        this.noteSavePending = false;
       }
+
+      if (confirmed && this.noteVersion === sentVersion) {
+        const current = this.querySelector('textarea[name="note"]');
+        if (current && current.value === sentNote) delete current.dataset.dirty;
+        window.location.assign(href);
+        return;
+      }
+
+      this.clearMessages();
+      this.showError(this.dataset.noteUnconfirmedMessage || this.dataset.errorMessage);
+      if (this.isConnected) this.syncCart().catch(() => {});
+    }
+
+    // Source 2 (Search and Discovery). The server marks the slot as pending when native
+    // complementary products were not resolved in its render. One GET per cart state
+    // and anchor, cached and never retried for the same key; when it fails, the fallback
+    // cards the server already rendered stay. Reads wait until no mutation is pending.
+    loadRecommendations() {
+      if (!this.isConnected || this.pendingMutations || !this.dataset.recommendationsUrl) return;
+      const slot = this.querySelector('[data-cart-cross-sell-slot][data-recommendations-pending]');
+      const anchor = slot?.dataset.anchorProductId || '';
+      if (!/^\d+$/.test(anchor)) return;
+      const key = this.recommendationsKey(slot);
+      if (this.recommendationCache.has(key)) {
+        this.applyRecommendations(key, this.recommendationCache.get(key));
+        return;
+      }
+      if (this.recommendationKey === key) return;
+      this.fetchRecommendations(key, anchor).catch(() => {});
+    }
+
+    async fetchRecommendations(key, anchor) {
+      this.crossSellController?.abort();
+      const controller = new AbortController();
+      this.crossSellController = controller;
+      this.recommendationKey = key;
+      const generation = this.recommendationGeneration;
+      let timedOut = false;
+      const deadline = window.setTimeout(() => {
+        timedOut = true;
+        controller.abort();
+      }, CART_RECOMMENDATIONS_TIMEOUT);
+      let html = '';
+
+      try {
+        const url = new URL(this.dataset.recommendationsUrl, window.location.origin);
+        url.searchParams.set('product_id', anchor);
+        url.searchParams.set('intent', 'complementary');
+        url.searchParams.set('section_id', this.dataset.sectionId);
+        const response = await fetch(url, {
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          signal: controller.signal,
+        });
+        if (response.ok) {
+          const nextSlot = new DOMParser()
+            .parseFromString(await response.text(), 'text/html')
+            .querySelector('[data-cart-cross-sell-slot]');
+          // A slot still pending, or built for another anchor, adds nothing to what is shown.
+          if (nextSlot && !nextSlot.hasAttribute('data-recommendations-pending')
+            && nextSlot.dataset.anchorProductId === anchor) {
+            html = nextSlot.outerHTML;
+          }
+        }
+      } catch (error) {
+        // An abort that is not the deadline comes from beginMutation() or a disconnect:
+        // that key is dead and nothing is cached for it.
+        if (error.name === 'AbortError' && !timedOut) return;
+      } finally {
+        window.clearTimeout(deadline);
+        if (this.crossSellController === controller) this.crossSellController = null;
+        if (this.recommendationKey === key) this.recommendationKey = null;
+      }
+
+      if (generation !== this.recommendationGeneration) return;
+      // Bounded: one entry per revision and anchor is enough to reopen without a new GET.
+      if (this.recommendationCache.size >= 8) {
+        this.recommendationCache.delete(this.recommendationCache.keys().next().value);
+      }
+      this.recommendationCache.set(key, html);
+      this.applyRecommendations(key, html);
+    }
+
+    // Applies only when idle: same revision and anchor, no option interaction, no pending
+    // mutation and focus outside the slot. Only the slot is replaced, never the drawer body
+    // or footer.
+    applyRecommendations(key, html) {
+      if (!html || !this.isConnected || this.interactionFrozen || this.pendingMutations) return;
+      const slot = this.querySelector('[data-cart-cross-sell-slot][data-recommendations-pending]');
+      if (!slot || this.recommendationsKey(slot) !== key) return;
+      if (slot.contains(document.activeElement)) {
+        this.watchRecommendationsFocus(slot);
+        return;
+      }
+      this.recommendationWatch?.controller.abort();
+      this.recommendationWatch = null;
+      const nextSlot = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-cart-cross-sell-slot]');
+      if (nextSlot) slot.replaceWith(nextSlot);
+    }
+
+    // Revision in this tab plus the cart lines as rendered (key and server quantity), so a
+    // change made in another tab also invalidates the cache, plus the anchor.
+    recommendationsKey(slot) {
+      const lines = Array.from(this.querySelectorAll('[data-cart-item-key]')).map((line) => (
+        `${line.dataset.cartItemKey}x${line.querySelector('[data-cart-quantity]')?.defaultValue ?? ''}`
+      ));
+      return `${this.syncRevision}|${lines.join(',')}|${slot.dataset.anchorProductId || ''}`;
+    }
+
+    // Focus inside the slot blocks the swap. When focus leaves the slot, the cached result
+    // gets another chance on the next tick; loadRecommendations() re-checks key, freeze and
+    // pending mutations. One listener per slot, removed when it fires or on disconnect.
+    watchRecommendationsFocus(slot) {
+      if (this.recommendationWatch?.slot === slot) return;
+      this.recommendationWatch?.controller.abort();
+      const controller = new AbortController();
+      const watch = { slot, controller };
+      this.recommendationWatch = watch;
+      slot.addEventListener('focusout', (event) => {
+        if (event.relatedTarget instanceof Node && slot.contains(event.relatedTarget)) return;
+        controller.abort();
+        if (this.recommendationWatch === watch) this.recommendationWatch = null;
+        window.setTimeout(() => {
+          if (this.isConnected) this.loadRecommendations();
+        }, 0);
+      }, { signal: controller.signal });
     }
 
     async changeLine(line, quantity) {
@@ -2608,6 +3135,9 @@
       this.pendingMutations += 1;
       this.syncRevision += 1;
       this.requestController?.abort();
+      // A mutation also invalidates any recommendations read started for the old cart.
+      this.crossSellController?.abort();
+      this.recommendationGeneration += 1;
       return this.syncRevision;
     }
 
@@ -2617,23 +3147,42 @@
       this.syncAfterMutation = false;
       const overlapped = this.overlappingMutations;
       this.overlappingMutations = false;
+      // Phase 2. An uncertain cross-sell add is reconciled even while an option panel holds
+      // interactionFrozen; any other sync waits for the freeze to end.
+      const reconcile = this.reconcileAfterMutation;
+      this.reconcileAfterMutation = false;
       // A lone mutation that rendered already brought back server-fresh HTML. Overlapping
       // ones may have been applied out of order, and an unrendered latest revision (failed,
       // aborted or overtaken) is stale too: both earn one fresh read.
-      if (!overlapped && this.renderedRevision === this.syncRevision) return;
-      if (this.isConnected && this.isOpen) this.syncCart().catch(() => {});
+      if (!overlapped && this.renderedRevision === this.syncRevision) {
+        this.loadRecommendations();
+        return;
+      }
+      if (this.isConnected && this.isOpen) this.syncCart({ reconcile }).catch(() => {});
     }
 
     // Always re-renders on open. Comparing item_count alone missed same-count changes:
     // a line swapped for another in a second tab, a price change, or edited properties.
-    async syncCart() {
+    async syncCart({ reconcile = false } = {}) {
       if (this.pendingMutations) {
         this.syncAfterMutation = true;
+        return;
+      }
+      // Phase 2. While an option panel is in use a sync must not replace it: the skip is
+      // remembered and releaseInteraction() runs it. A reconciling sync goes through.
+      if (this.interactionFrozen && !reconcile) {
+        this.skippedSync = true;
         return;
       }
       const revision = this.syncRevision;
       const sectionHtml = await this.requestSection();
       if (!this.isConnected || revision !== this.syncRevision || this.pendingMutations) return;
+      if (this.interactionFrozen && !reconcile) {
+        this.skippedSync = true;
+        return;
+      }
+      this.skippedSync = false;
+      if (reconcile) this.interactionFrozen = false;
       this.renderSection(sectionHtml);
       // Si el carrito cambio en otra pestana, la pagina /cart de fondo tambien esta vieja.
       this.renderCartPage(null, revision).catch(() => {});
@@ -2664,6 +3213,9 @@
       let sectionHtml = result.sections?.[this.dataset.sectionId];
       if (!sectionHtml) sectionHtml = await this.requestSection();
       if (revision !== this.syncRevision) return;
+      // A reconciled mutation render ends any option interaction: it replaces the panel.
+      this.interactionFrozen = false;
+      this.skippedSync = false;
       this.renderSection(sectionHtml);
       await this.renderCartPage(result.sections, revision);
     }
@@ -2737,6 +3289,9 @@
       // cantidad de una linea al fondo de la lista devolveria la pista arriba del todo.
       const previousScroll = currentContent.querySelector('[data-cart-scroll]')?.scrollTop || 0;
 
+      this.recommendationWatch?.controller.abort();
+      this.recommendationWatch = null;
+
       currentContent.replaceWith(nextContent);
 
       const nextScroll = nextContent.querySelector('[data-cart-scroll]');
@@ -2751,7 +3306,7 @@
         const target = restored && !restored.disabled
           ? restored
           : restored?.closest('[data-quantity-stepper]')?.querySelector('[data-quantity-button]:not([disabled])');
-        (target || this.querySelector('[data-cart-drawer-close]'))?.focus();
+        (target || this.crossSellFocusAfterRender(active, nextContent) || this.querySelector('[data-cart-drawer-close]'))?.focus();
       }
       this.dataset.itemCount = nextDrawer.dataset.itemCount;
       this.dataset.cartCountLabel = nextDrawer.dataset.cartCountLabel;
@@ -2766,6 +3321,7 @@
       this.renderedRevision = this.syncRevision;
 
       this.updateHeaderCount();
+      this.loadRecommendations();
     }
 
     updateHeaderCount() {
@@ -2810,7 +3366,7 @@
 
     setDrawerBusy(busy) {
       this.panel.setAttribute('aria-busy', String(busy));
-      this.querySelectorAll('[data-cart-quantity], [data-cart-remove], [data-cross-sell-add]').forEach((control) => {
+      this.querySelectorAll('[data-cart-quantity], [data-cart-remove], [data-cross-sell-add], [data-cross-sell-expand], [data-cross-sell-cancel]').forEach((control) => {
         if (busy) {
           if (control.dataset.wasDisabled === undefined) {
             control.dataset.wasDisabled = String(control.disabled);
@@ -2833,6 +3389,8 @@
       button.setAttribute('aria-busy', String(busy));
       const spinner = button.querySelector('[data-loading-icon]');
       if (spinner) spinner.hidden = !busy;
+      const adding = button.querySelector('[data-cross-sell-adding]');
+      if (adding) adding.hidden = !busy;
       if (!busy) delete button.dataset.wasDisabled;
     }
 
@@ -2846,6 +3404,9 @@
         message.hidden = true;
         message.textContent = '';
       });
+      // The uncertain notice belongs to the error it explains, so it clears with it.
+      const uncertain = this.querySelector('[data-cart-uncertain]');
+      if (uncertain) uncertain.hidden = true;
     }
 
     showError(message, form = null) {
@@ -2996,7 +3557,7 @@
         storedValue = null;
       }
 
-      const gridView = ['2', '4'].includes(storedValue)
+      const gridView = ['2', '4', 'list'].includes(storedValue)
         ? storedValue
         : this.dataset.defaultGridColumns;
       this.setGridView(gridView, false);
@@ -3004,7 +3565,7 @@
 
     setGridView(value, persist) {
       const gridView = String(value);
-      if (!['2', '4'].includes(gridView)) return;
+      if (!['2', '4', 'list'].includes(gridView)) return;
 
       const productList = this.querySelector('[data-product-list]');
       if (!productList) return;

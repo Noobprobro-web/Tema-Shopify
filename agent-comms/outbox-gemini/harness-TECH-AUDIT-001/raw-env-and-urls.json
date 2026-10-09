@@ -1,0 +1,184 @@
+{
+  "audit_metadata": {
+    "id": "TECH-AUDIT-001",
+    "timestamp": "2026-10-02T02:35:00Z",
+    "auditor": "Gemini Flash 3.8 High (Auditor de Entorno y Harness)",
+    "target": "Demostraciones oficiales de Sartorial (Atelier, Edition, Archive)",
+    "storefront_password": "<redactado: password de storefront, exportar via STOREFRONT_PASSWORD>"
+  },
+  "environment": {
+    "tools": [
+      {
+        "name": "Node.js",
+        "command": "node -v",
+        "status": "INSTALLED",
+        "version": "v24.18.0",
+        "path": "C:\\Program Files\\nodejs\\node.exe",
+        "available_in_path": true
+      },
+      {
+        "name": "npm",
+        "command": "npm -v",
+        "status": "INSTALLED",
+        "version": "11.16.0",
+        "path": "C:\\Program Files\\nodejs\\npm.ps1",
+        "available_in_path": true
+      },
+      {
+        "name": "Python",
+        "command": "python --version",
+        "status": "INSTALLED",
+        "version": "Python 3.14.6",
+        "path": "C:\\Python314\\python.exe",
+        "available_in_path": true
+      },
+      {
+        "name": "Shopify CLI",
+        "command": "shopify version",
+        "status": "INSTALLED",
+        "version": "4.8.3",
+        "path": "C:\\Users\\Johan\\AppData\\Roaming\\npm\\shopify.ps1",
+        "available_in_path": true
+      },
+      {
+        "name": "Java (JRE)",
+        "command": "java -version",
+        "status": "INSTALLED",
+        "version": "1.8.0_503 (Oracle Java 8 SE Runtime Environment build 25.503-b01)",
+        "path": "C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\java8path\\java.exe",
+        "available_in_path": true,
+        "notes": "Java 8 instalado. Nota: vnu.jar reciente requiere Java 11+"
+      },
+      {
+        "name": "Playwright",
+        "command": "node -e \"console.log(require('playwright/package.json').version)\"",
+        "status": "INSTALLED",
+        "version": "1.63.0",
+        "path": "node_modules/playwright",
+        "available_in_path": false,
+        "notes": "Instalado localmente en node_modules. El proyecto declara @playwright/test ^1.55.0"
+      },
+      {
+        "name": "Puppeteer",
+        "command": "node -e \"console.log(require('puppeteer/package.json').version)\"",
+        "status": "MISSING",
+        "version": null,
+        "path": null,
+        "available_in_path": false,
+        "notes": "No instalado en el proyecto ni globalmente"
+      },
+      {
+        "name": "Lighthouse CLI",
+        "command": "lighthouse --version",
+        "status": "MISSING_GLOBAL",
+        "version": null,
+        "path": null,
+        "available_in_path": false,
+        "notes": "No instalado como binario global en PATH. Ejecutable bajo demanda mediante npx -y lighthouse@13"
+      },
+      {
+        "name": "vnu (Nu Html Checker)",
+        "command": "vnu --version",
+        "status": "MISSING_GLOBAL",
+        "version": null,
+        "path": null,
+        "available_in_path": false,
+        "notes": "No instalado en PATH ni presente en CWD como vnu-jar. Java disponible es 1.8.0_503"
+      }
+    ]
+  },
+  "harness_review": {
+    "source_file": "agent-comms/outbox-claude/harness-AUDIT-FINAL-002/lib.mjs",
+    "pacing_mechanism": {
+      "min_gap_ms": 2500,
+      "env_override": "AUDIT_MIN_GAP_MS",
+      "implementation": "Intercepta page.goto en el BrowserContext; sincroniza solicitudes asegurando una pausa minima de 2500ms contra lastNavigation",
+      "rate_limiting_429": "Si la respuesta arroja HTTP 429 en dominios myshopify.com, entra en bucle de reintento de hasta 8 intentos con espera de 60 segundos por intento"
+    },
+    "unlock_mechanism": {
+      "password": "<redactado: password de storefront, exportar via STOREFRONT_PASSWORD>",
+      "env_override": "STOREFRONT_PASSWORD",
+      "state_cache_directory": "%TEMP%\\sartorial-audit-final-002",
+      "cache_file_pattern": "<store-hostname>.cookies.json",
+      "flow": [
+        "1. Verifica si existen cookies previas en STATE_DIR e inyecta mediante context.addCookies()",
+        "2. Navega a /cart (domcontentloaded); si no redirige a /password, la sesion esta desbloqueada de inmediato sin POST adicional",
+        "3. Si redirige a /password, localiza input[type=\"password\"], ingresa '<redactado: password de storefront, exportar via STOREFRONT_PASSWORD>', envia formulario con Enter y espera red inactiva",
+        "4. Si desbloqueo es exitoso, persiste cookies en archivo json en %TEMP% para reutilizacion inmediata",
+        "5. Ante fallos de desbloqueo, aplica backoff progresivo de 30s * (attempt + 1) hasta un maximo de 4 intentos"
+      ],
+      "concurrency_policy": "1 navegador por tienda serializado para prevenir 429 de Cloudflare y colision de cookies"
+    }
+  },
+  "stores_inventory": {
+    "atelier": {
+      "store_handle": "sartorial-atelier",
+      "domain": "sartorial-atelier.myshopify.com",
+      "base_url": "https://sartorial-atelier.myshopify.com",
+      "preset": "Sartorial Atelier",
+      "urls": [
+        { "id": 1, "type": "home", "path": "/", "url": "https://sartorial-atelier.myshopify.com/", "description": "Portada principal con hero editorial, showcase y bento" },
+        { "id": 2, "type": "collection_all", "path": "/collections/all", "url": "https://sartorial-atelier.myshopify.com/collections/all", "description": "Catalogo completo de productos con facetas y ordenamiento" },
+        { "id": 3, "type": "collection_featured", "path": "/collections/permanent-collection", "url": "https://sartorial-atelier.myshopify.com/collections/permanent-collection", "description": "Coleccion insignia Permanent Collection" },
+        { "id": 4, "type": "pdp_primary", "path": "/products/serra-coat", "url": "https://sartorial-atelier.myshopify.com/products/serra-coat", "description": "PDP prenda insignia con galeria multimedia y selector de variantes" },
+        { "id": 5, "type": "pdp_secondary", "path": "/products/nove-blazer", "url": "https://sartorial-atelier.myshopify.com/products/nove-blazer", "description": "PDP secundaria Nove Blazer con opciones de talla y stock reactivo" },
+        { "id": 6, "type": "cart", "path": "/cart", "url": "https://sartorial-atelier.myshopify.com/cart", "description": "Pagina completa de carrito con calculo de lineas, notas y checkout" },
+        { "id": 7, "type": "search", "path": "/search?q=coat", "url": "https://sartorial-atelier.myshopify.com/search?q=coat", "description": "Pagina de resultados de busqueda con query predictiva" },
+        { "id": 8, "type": "not_found_404", "path": "/products/does-not-exist", "url": "https://sartorial-atelier.myshopify.com/products/does-not-exist", "description": "Pagina 404 de recurso inexistente con buscador de recuperacion" },
+        { "id": 9, "type": "policy_privacy", "path": "/policies/privacy-policy", "url": "https://sartorial-atelier.myshopify.com/policies/privacy-policy", "description": "Politica de privacidad oficial servida por Shopify" },
+        { "id": 10, "type": "policy_refund", "path": "/policies/refund-policy", "url": "https://sartorial-atelier.myshopify.com/policies/refund-policy", "description": "Politica de reembolso y devoluciones a 30 dias" },
+        { "id": 11, "type": "policy_terms", "path": "/policies/terms-of-service", "url": "https://sartorial-atelier.myshopify.com/policies/terms-of-service", "description": "Terminos del servicio y condiciones de contratacion" },
+        { "id": 12, "type": "policy_shipping", "path": "/policies/shipping-policy", "url": "https://sartorial-atelier.myshopify.com/policies/shipping-policy", "description": "Politica de procesamiento y tiempos de envio" },
+        { "id": 13, "type": "policy_contact", "path": "/policies/contact-information", "url": "https://sartorial-atelier.myshopify.com/policies/contact-information", "description": "Informacion legal y de contacto reglamentaria" },
+        { "id": 14, "type": "page_contact", "path": "/pages/contact", "url": "https://sartorial-atelier.myshopify.com/pages/contact", "description": "Pagina de contacto con formulario de atencion al cliente" },
+        { "id": 15, "type": "menu_open", "path": "/#menu-open", "url": "https://sartorial-atelier.myshopify.com/#menu-open", "description": "Estado interactivo de navegacion (mega menu / drawer movil abierto)" }
+      ]
+    },
+    "edition": {
+      "store_handle": "sartorial-edition",
+      "domain": "sartorial-edition.myshopify.com",
+      "base_url": "https://sartorial-edition.myshopify.com",
+      "preset": "Sartorial Edition",
+      "urls": [
+        { "id": 1, "type": "home", "path": "/", "url": "https://sartorial-edition.myshopify.com/", "description": "Portada minimalista Edition enfocada en objetos de diseno" },
+        { "id": 2, "type": "collection_all", "path": "/collections/all", "url": "https://sartorial-edition.myshopify.com/collections/all", "description": "Catalogo completo de objetos y accesorios" },
+        { "id": 3, "type": "collection_featured", "path": "/collections/desk-and-study", "url": "https://sartorial-edition.myshopify.com/collections/desk-and-study", "description": "Coleccion tematica Desk & Study con cuadricula bento" },
+        { "id": 4, "type": "pdp_primary", "path": "/products/structured-tote", "url": "https://sartorial-edition.myshopify.com/products/structured-tote", "description": "PDP Structured Tote con variantes de cuero y acabado" },
+        { "id": 5, "type": "pdp_secondary", "path": "/products/leather-desk-mat", "url": "https://sartorial-edition.myshopify.com/products/leather-desk-mat", "description": "PDP Leather Desk Mat con swatches y zoom de textura" },
+        { "id": 6, "type": "cart", "path": "/cart", "url": "https://sartorial-edition.myshopify.com/cart", "description": "Pagina de carrito con resumen de pedido y calculo de envio" },
+        { "id": 7, "type": "search", "path": "/search?q=leather", "url": "https://sartorial-edition.myshopify.com/search?q=leather", "description": "Resultados de busqueda filtrados por termino relevante" },
+        { "id": 8, "type": "not_found_404", "path": "/products/does-not-exist", "url": "https://sartorial-edition.myshopify.com/products/does-not-exist", "description": "Pagina 404 de error con navegacion de retorno" },
+        { "id": 9, "type": "policy_privacy", "path": "/policies/privacy-policy", "url": "https://sartorial-edition.myshopify.com/policies/privacy-policy", "description": "Politica de privacidad oficial servida por Shopify" },
+        { "id": 10, "type": "policy_refund", "path": "/policies/refund-policy", "url": "https://sartorial-edition.myshopify.com/policies/refund-policy", "description": "Politica de reembolso y devolucion de objetos" },
+        { "id": 11, "type": "policy_terms", "path": "/policies/terms-of-service", "url": "https://sartorial-edition.myshopify.com/policies/terms-of-service", "description": "Terminos y condiciones del servicio comercial" },
+        { "id": 12, "type": "policy_shipping", "path": "/policies/shipping-policy", "url": "https://sartorial-edition.myshopify.com/policies/shipping-policy", "description": "Politica de envios internacionales y tarifas" },
+        { "id": 13, "type": "policy_contact", "path": "/policies/contact-information", "url": "https://sartorial-edition.myshopify.com/policies/contact-information", "description": "Informacion legal y comercial de la tienda" },
+        { "id": 14, "type": "page_contact", "path": "/pages/contact", "url": "https://sartorial-edition.myshopify.com/pages/contact", "description": "Pagina de atencion y formulario de consultas" },
+        { "id": 15, "type": "menu_open", "path": "/#menu-open", "url": "https://sartorial-edition.myshopify.com/#menu-open", "description": "Estado interactivo con mega menu / drawer abierto" }
+      ]
+    },
+    "archive": {
+      "store_handle": "sartorial-archive",
+      "domain": "sartorial-archive.myshopify.com",
+      "base_url": "https://sartorial-archive.myshopify.com",
+      "preset": "Sartorial Archive",
+      "urls": [
+        { "id": 1, "type": "home", "path": "/", "url": "https://sartorial-archive.myshopify.com/", "description": "Portada Archive con estetica vintage y archivo historico" },
+        { "id": 2, "type": "collection_all", "path": "/collections/all", "url": "https://sartorial-archive.myshopify.com/collections/all", "description": "Catalogo completo del archivo vintage" },
+        { "id": 3, "type": "collection_featured", "path": "/collections/permanent-archive", "url": "https://sartorial-archive.myshopify.com/collections/permanent-archive", "description": "Coleccion Permanent Archive de piezas unicas" },
+        { "id": 4, "type": "pdp_primary", "path": "/products/1990-pinstripe-double-breasted-jacket", "url": "https://sartorial-archive.myshopify.com/products/1990-pinstripe-double-breasted-jacket", "description": "PDP pieza 1-de-1 Pinstripe Jacket con stock unitario" },
+        { "id": 5, "type": "pdp_secondary", "path": "/products/1997-printed-silk-square", "url": "https://sartorial-archive.myshopify.com/products/1997-printed-silk-square", "description": "PDP Printed Silk Square con tratamiento de archivo" },
+        { "id": 6, "type": "cart", "path": "/cart", "url": "https://sartorial-archive.myshopify.com/cart", "description": "Pagina de carrito con validacion de limites unitarios" },
+        { "id": 7, "type": "search", "path": "/search?q=silk", "url": "https://sartorial-archive.myshopify.com/search?q=silk", "description": "Busqueda de piezas textiles de seda" },
+        { "id": 8, "type": "not_found_404", "path": "/products/does-not-exist", "url": "https://sartorial-archive.myshopify.com/products/does-not-exist", "description": "Pagina 404 para URLs no encontradas" },
+        { "id": 9, "type": "policy_privacy", "path": "/policies/privacy-policy", "url": "https://sartorial-archive.myshopify.com/policies/privacy-policy", "description": "Politica de privacidad y proteccion de datos" },
+        { "id": 10, "type": "policy_refund", "path": "/policies/refund-policy", "url": "https://sartorial-archive.myshopify.com/policies/refund-policy", "description": "Politica de devoluciones y terminos de venta de archivo" },
+        { "id": 11, "type": "policy_terms", "path": "/policies/terms-of-service", "url": "https://sartorial-archive.myshopify.com/policies/terms-of-service", "description": "Terminos de uso y condiciones de venta vintage" },
+        { "id": 12, "type": "policy_shipping", "path": "/policies/shipping-policy", "url": "https://sartorial-archive.myshopify.com/policies/shipping-policy", "description": "Politica de manipulacion y envios asegurados" },
+        { "id": 13, "type": "policy_contact", "path": "/policies/contact-information", "url": "https://sartorial-archive.myshopify.com/policies/contact-information", "description": "Informacion de contacto legal y fiscal" },
+        { "id": 14, "type": "page_contact", "path": "/pages/contact", "url": "https://sartorial-archive.myshopify.com/pages/contact", "description": "Pagina de consultas sobre piezas de archivo" },
+        { "id": 15, "type": "menu_open", "path": "/#menu-open", "url": "https://sartorial-archive.myshopify.com/#menu-open", "description": "Estado interactivo con mega menu / drawer de navegacion abierto" }
+      ]
+    }
+  }
+}

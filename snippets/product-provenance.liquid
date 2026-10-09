@@ -1,0 +1,49 @@
+{%- comment -%}
+  Renders product provenance block for vintage/archive pieces.
+  Accepts:
+  - block: {Object} Block object with settings and shopify_attributes.
+  - product: {Object} Product Liquid object.
+  - selected_variant: {Object} Selected or first available variant.
+
+  Usage:
+  {% render 'product-provenance', block: block, product: product, selected_variant: selected_variant %}
+{%- endcomment -%}
+
+{%- liquid
+  assign unique_piece = false
+  if block.settings.show_unique_piece and product.variants.size == 1 and selected_variant.inventory_management != blank and selected_variant.inventory_policy == 'deny'
+    assign unique_piece = true
+  endif
+  assign show_grade = false
+  if block.settings.condition_grade != blank and block.settings.condition_grade != 'not_assessed'
+    assign show_grade = true
+  endif
+-%}
+{%- if unique_piece or show_grade or block.settings.circa_year != blank or block.settings.provenance_notes != blank -%}
+  <div class="product-provenance" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank -%}
+      <h3 class="product-provenance__heading">{{ block.settings.heading | escape }}</h3>
+    {%- endif -%}
+    {%- if unique_piece -%}
+      <p class="product-provenance__badge">{{ 'products.product.provenance.single_piece' | t }}</p>
+    {%- endif -%}
+    {%- if block.settings.circa_year != blank -%}
+      <p class="product-provenance__year">{{ 'products.product.provenance.circa' | t: year: block.settings.circa_year | escape }}</p>
+    {%- endif -%}
+    {%- if show_grade -%}
+      <p class="product-provenance__grade">
+        <span>{{ 'products.product.provenance.condition' | t }}</span>
+        {%- case block.settings.condition_grade -%}
+          {%- when 'grade_1' -%}{{ 'products.product.provenance.grade_1' | t }}
+          {%- when 'grade_2' -%}{{ 'products.product.provenance.grade_2' | t }}
+          {%- when 'grade_3' -%}{{ 'products.product.provenance.grade_3' | t }}
+          {%- when 'grade_4' -%}{{ 'products.product.provenance.grade_4' | t }}
+          {%- when 'grade_5' -%}{{ 'products.product.provenance.grade_5' | t }}
+        {%- endcase -%}
+      </p>
+    {%- endif -%}
+    {%- if block.settings.provenance_notes != blank -%}
+      <div class="product-provenance__notes rte">{{- block.settings.provenance_notes -}}</div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

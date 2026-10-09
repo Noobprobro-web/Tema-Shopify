@@ -67,6 +67,16 @@
             "heading": "Shipping & complimentary returns",
             "content": "<p>Pieces in stock leave within two business days, with tracking.</p><p>Returns are complimentary within thirty days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
           }
+        },
+        "provenance": {
+          "type": "provenance",
+          "settings": {
+            "heading": "Archival provenance",
+            "circa_year": "1998",
+            "show_unique_piece": true,
+            "condition_grade": "grade_2",
+            "provenance_notes": "<p>Archival record for this demonstration piece.</p>"
+          }
         }
       },
       "block_order": [
@@ -80,6 +90,7 @@
         "shipping_lead_time",
         "trust_badges",
         "description",
+        "provenance",
         "composition_care",
         "shipping_returns"
       ],

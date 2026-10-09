@@ -1,0 +1,42 @@
+{%- comment -%}
+  Renders product technical specifications block.
+  Accepts:
+  - block: {Object} Block object with settings and shopify_attributes.
+
+  Usage:
+  {% render 'product-technical-specs', block: block %}
+{%- endcomment -%}
+
+{%- if block.settings.material != blank or block.settings.gsm != blank or block.settings.hardware != blank or block.settings.origin != blank -%}
+  <div class="product-technical-specs" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank -%}
+      <h3 class="product-technical-specs__heading">{{ block.settings.heading | escape }}</h3>
+    {%- endif -%}
+    <dl class="product-technical-specs__list">
+      {%- if block.settings.material != blank -%}
+        <div class="product-technical-specs__row">
+          <dt>{{ 'products.product.technical_specs.material' | t }}</dt>
+          <dd>{{ block.settings.material | escape }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.gsm != blank -%}
+        <div class="product-technical-specs__row">
+          <dt>{{ 'products.product.technical_specs.gsm' | t }}</dt>
+          <dd>{{ block.settings.gsm | escape }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.hardware != blank -%}
+        <div class="product-technical-specs__row">
+          <dt>{{ 'products.product.technical_specs.hardware' | t }}</dt>
+          <dd>{{ block.settings.hardware | escape }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if block.settings.origin != blank -%}
+        <div class="product-technical-specs__row">
+          <dt>{{ 'products.product.technical_specs.origin' | t }}</dt>
+          <dd>{{ block.settings.origin | escape }}</dd>
+        </div>
+      {%- endif -%}
+    </dl>
+  </div>
+{%- endif -%}

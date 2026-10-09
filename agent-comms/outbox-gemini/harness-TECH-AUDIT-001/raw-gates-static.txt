@@ -1,0 +1,264 @@
+======================================================================
+AUDITORIA ESTATICA: EJECUCION DE COMPUERTAS
+======================================================================
+
+=== 1. EJECUCION TOP-LEVEL: npm run gates:static ===
+
+
+> shopify-theme-project@0.1.0 gates:static
+> npm run gates:json && npm run gates:hooks && npm run gates:sanity && npm run gates:locales && npm run gates:ledger && npm run gates:theme-check && npm run gates:syntax && npm run gates:package
+
+
+> shopify-theme-project@0.1.0 gates:json
+> node scripts/json-validate.mjs
+
+----------------------------------------------------------------------
+JSON VALIDATE
+----------------------------------------------------------------------
+Archivos .json comprobados: 447
+  de ellos en /listings/:    11  <- fuera del alcance de Theme Check
+Fallos de parseo:           12
+  scratch/audit-live-pull/full-atelier/config/settings_data.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/locales/en.default.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/locales/en.default.schema.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/locales/es.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/sections/footer-group.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/archive/config/settings_data.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/archive/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/atelier/config/settings_data.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/atelier/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/edition/config/settings_data.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/edition/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+
+ALCANCE: comprueba que el JSON parsee. No comprueba que el schema
+sea semanticamente valido para Shopify: eso lo cubre Theme Check
+en las carpetas de tema, y nadie en /listings/.
+
+
+
+[RESULTADO] npm run gates:static FALLO CON CODIGO DE SALIDA: 1
+
+
+======================================================================
+=== 2. EJECUCION INDIVIDUAL DE SUB-COMPUERTAS
+======================================================================
+
+
+----------------------------------------------------------------------
+--- SUB-COMPUERTA: npm run gates:json
+----------------------------------------------------------------------
+
+
+> shopify-theme-project@0.1.0 gates:json
+> node scripts/json-validate.mjs
+
+----------------------------------------------------------------------
+JSON VALIDATE
+----------------------------------------------------------------------
+Archivos .json comprobados: 447
+  de ellos en /listings/:    11  <- fuera del alcance de Theme Check
+Fallos de parseo:           12
+  scratch/audit-live-pull/full-atelier/config/settings_data.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/locales/en.default.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/locales/en.default.schema.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/locales/es.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/sections/footer-group.json: Unexpected token '/', "/*
+ * ----"... is not valid JSON
+  scratch/audit-live-pull/full-atelier/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/archive/config/settings_data.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/archive/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/atelier/config/settings_data.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/atelier/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/edition/config/settings_data.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+  scratch/store-push/edition/sections/header-group.json: Unexpected token '/', "/*
+ * ---"... is not valid JSON
+
+ALCANCE: comprueba que el JSON parsee. No comprueba que el schema
+sea semanticamente valido para Shopify: eso lo cubre Theme Check
+en las carpetas de tema, y nadie en /listings/.
+
+
+[RESULTADO] npm run gates:json -> FALLO (1)
+
+
+----------------------------------------------------------------------
+--- SUB-COMPUERTA: npm run gates:hooks
+----------------------------------------------------------------------
+
+
+> shopify-theme-project@0.1.0 gates:hooks
+> node scripts/dataset-hooks.mjs
+
+--------------------------------------------------------------------------
+DATASET HOOKS  (contrato JS <-> Liquid, por componente)
+--------------------------------------------------------------------------
+JS leido:                           assets/gsap-scrolltrigger.min.js, assets/gsap.min.js, assets/motion.js, assets/product-zoom.js, assets/theme.js
+Componentes con data-* de contrato: 22
+Exentas por escritura en runtime:   cartAddPending, cartCountLabel, comparePrice, currentPrice, dirty, gridColumns, itemCount, pending, quickBuyMode, reducedMotion, revealReady, sourcesLoaded, stockState, variantId, wasDisabled
+  <theme-disclosure>            1 claves  2 montaje(s)
+  <product-gallery>             1 claves  1 montaje(s)
+  <variant-selects>            11 claves  2 montaje(s)
+  <product-inventory>           4 claves  1 montaje(s)
+  <recently-viewed>             7 claves  1 montaje(s)
+  <sticky-cart-bar>             5 claves  1 montaje(s)
+  <size-guide-modal>            1 claves  1 montaje(s)
+  <gift-card-recipient>         3 claves  1 montaje(s)
+  <pickup-availability>         3 claves  1 montaje(s)
+  <product-recommendations>     1 claves  1 montaje(s)
+  <product-card-variants>       5 claves  1 montaje(s)
+  <cart-drawer>                 7 claves  1 montaje(s)
+  <facet-filters-form>          2 claves  2 montaje(s)
+  <editorial-hero>              1 claves  1 montaje(s)
+  <complete-the-look>          10 claves  1 montaje(s)
+  <marquee-banner>              2 claves  1 montaje(s)
+  <announcement-bar>            2 claves  1 montaje(s)
+  <anchor-nav>                  3 claves  2 montaje(s)
+  <copy-text>                   2 claves  1 montaje(s)
+  <faq-filter>                  1 claves  1 montaje(s)
+  <predictive-search>          16 claves  1 montaje(s)
+  <product-zoom>                1 claves  1 montaje(s)
+
+Contratos rotos: 0
+
+ALCANCE: comprueba que el Liquid que monta el componente emita el atributo.
+No comprueba que esté dentro de la etiqueta de apertura ni que su valor
+sea válido en runtime.
+
+[RESULTADO] npm run gates:hooks -> EXITOSO (0)
+
+
+----------------------------------------------------------------------
+--- SUB-COMPUERTA: npm run gates:sanity
+----------------------------------------------------------------------
+
+
+> shopify-theme-project@0.1.0 gates:sanity
+> node scripts/theme-check-sanity.mjs
+
+[theme-check-sanity] sandbox en .tmp\theme-check-sanity-42100 con 7 carpetas de tema
+[theme-check-sanity] detectado LiquidHTMLSyntaxError (etiqueta Liquid sin cerrar) en sections/main-page.liquid
+[theme-check-sanity] detectado TranslationKeyExists (clave de traduccion inexistente) en sections/main-blog.liquid
+[theme-check-sanity] detectado ValidSchemaTranslations (clave t: de schema inexistente) en sections/main-placeholder.liquid
+
+[theme-check-sanity] OK. Las 3 clases se detectaron por separado y el sandbox restaurado volvio a 0 ofensas.
+[theme-check-sanity] ALCANCE DE ESTA PRUEBA: demuestra que esos tres checks estan activos y que disparan sobre archivos de tema. No demuestra cobertura exhaustiva de todas las referencias de traduccion. Para eso corre scripts/locale-key-inventory.mjs.
+
+[RESULTADO] npm run gates:sanity -> EXITOSO (0)
+
+
+----------------------------------------------------------------------
+--- SUB-COMPUERTA: npm run gates:locales
+----------------------------------------------------------------------
+
+
+> shopify-theme-project@0.1.0 gates:locales
+> node scripts/locale-key-inventory.mjs
+
+--------------------------------------------------------------------------
+INVENTARIO DE CLAVES DE TRADUCCION
+--------------------------------------------------------------------------
+Archivos escaneados:            83 (incluye /listings, fuera de Theme Check)
+Referencias estaticas | t:      396 claves distintas
+Referencias de schema t::       452 claves distintas
+Claves en en.default.json:        406 hojas
+Claves en en.default.schema.json: 452 hojas
+
+Sin resolver en storefront:     0
+Sin resolver en schema:         0
+Construidas en runtime:         0  <- no verificables por ningun linter
+Huerfanas en storefront:        0
+Huerfanas en schema:            0
+
+--------------------------------------------------------------------------
+OK: todas las referencias estaticas resuelven contra los locales.
+
+[RESULTADO] npm run gates:locales -> EXITOSO (0)
+
+
+----------------------------------------------------------------------
+--- SUB-COMPUERTA: npm run gates:ledger
+----------------------------------------------------------------------
+
+
+> shopify-theme-project@0.1.0 gates:ledger
+> node scripts/ledger-verify.mjs
+
+----------------------------------------------------------------------
+LEDGER VERIFY
+----------------------------------------------------------------------
+Filas de requisito: 57
+   55  cumplido
+    2  código completo
+    0  no verificado
+    0  ausente
+
+Incoherencias: 0 
+
+----------------------------------------------------------------------
+ALCANCE: esta compuerta comprueba vocabulario, estructura, aritmética y
+localizadores. NO comprueba que una evidencia pruebe su requisito, y
+nunca marca una fila como cumplida. Eso sigue siendo juicio humano.
+
+[RESULTADO] npm run gates:ledger -> EXITOSO (0)
+
+
+----------------------------------------------------------------------
+--- SUB-COMPUERTA: npm run gates:syntax
+----------------------------------------------------------------------
+
+
+> shopify-theme-project@0.1.0 gates:syntax
+> node --check assets/theme.js && node --check assets/product-zoom.js
+
+
+[RESULTADO] npm run gates:syntax -> EXITOSO (0)
+
+
+----------------------------------------------------------------------
+--- SUB-COMPUERTA: npm run gates:package
+----------------------------------------------------------------------
+
+
+> shopify-theme-project@0.1.0 gates:package
+> shopify theme package
+
+
+[RESULTADO] npm run gates:package -> EXITOSO (0)
+
+
+======================================================================
+=== 3. ANALISIS DIRECTO DE SHOPIFY THEME CHECK
+======================================================================
+
+Nota: Theme Check sobre el root incluye carpetas externas como scratch/.
+A continuacion la salida directa de shopify theme check:
+
+
+[RESULTADO] npx shopify theme check -> 0 ofensas
+
+
+=== FIN DE EJECUCION DE COMPUERTAS ESTATICAS ===
+

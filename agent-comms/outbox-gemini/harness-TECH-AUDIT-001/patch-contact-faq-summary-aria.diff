@@ -1,0 +1,24 @@
+diff --git a/assets/theme.js b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-theme.js
+index af47891..2f3957e 100644
+--- a/assets/theme.js
++++ b/assets/theme.js
+@@ -3638,7 +3638,6 @@
+       this.items = Array.from(this.querySelectorAll('details'));
+ 
+       this.items.forEach((item) => {
+-        this.syncItem(item);
+         this.listen(item, 'toggle', () => this.handleToggle(item));
+       });
+       this.listen(this, 'shopify:block:select', (event) => {
+@@ -3655,11 +3654,6 @@
+           if (item !== activeItem) item.open = false;
+         });
+       }
+-      this.items.forEach((item) => this.syncItem(item));
+-    }
+-
+-    syncItem(item) {
+-      item.querySelector('summary')?.setAttribute('aria-expanded', String(item.open));
+     }
+   }
+ 

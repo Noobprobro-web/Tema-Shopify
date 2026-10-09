@@ -1,0 +1,74 @@
+diff --git a/docs.html b/docs.html
+index 6a476d2..17c47a8 100644
+--- a/docs.html
++++ b/docs.html
+@@ -40,6 +40,7 @@
+       font-family: var(--font-heading);
+       font-size: 2.8rem;
+       font-weight: 400;
++      overflow-wrap: anywhere;
+       letter-spacing: -0.02em;
+       margin-bottom: 0.75rem;
+     }
+@@ -67,7 +68,7 @@
+     nav.toc ul {
+       list-style: none;
+       display: grid;
+-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
++      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+       gap: 0.75rem;
+     }
+     nav.toc a {
+@@ -103,7 +104,7 @@
+     li { margin-bottom: 0.4rem; }
+     .card-grid {
+       display: grid;
+-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
++      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+       gap: 1.5rem;
+       margin: 1.5rem 0;
+     }
+@@ -218,7 +219,7 @@
+       <ul>
+         <li><strong>Color Schemes:</strong> Configure background, foreground text, buttons, borders, and shadows in <strong>Theme settings &gt; Colors</strong>. Each section can have its own independent color scheme.</li>
+         <li><strong>Typography:</strong> Customize body and heading fonts, scale multipliers, and font weights in <strong>Theme settings &gt; Typography</strong>. Native system font fallbacks are automatically handled.</li>
+-        <li><strong>Motion:</strong> Choose <strong>None</strong>, <strong>Subtle</strong> or <strong>Full</strong> in <strong>Theme settings &gt; Animations</strong>. Subtle adds scroll reveals, hover transitions and page transitions. Full adds expressive scroll motion: image unveils, hero parallax and a marquee that reacts to scrolling. Full mode loads GSAP and ScrollTrigger (included in the theme, used under the GSAP Standard License); None and Subtle load no extra script. Visitors who ask their device to reduce motion always see the static theme.</li>
++        <li><strong>Motion:</strong> Choose <strong>None</strong>, <strong>Subtle</strong> or <strong>Full</strong> in <strong>Theme settings &gt; Animations</strong>. None disables decorative reveal and page motion. Subtle adds scroll reveals, hover transitions and page transitions. Full adds scroll-linked image unveils, headline reveals, hero parallax and scrolling text drift on supported desktop and mobile browsers. These effects use native CSS; no animation library is loaded in any mode. Browsers without scroll-driven animation support use transition-based reveals. Visitors who ask their device to reduce motion see static decorative content.</li>
+       </ul>
+     </section>
+ 
+diff --git a/support.html b/support.html
+index de28ea8..cd02808 100644
+--- a/support.html
++++ b/support.html
+@@ -40,6 +40,7 @@
+       font-family: var(--font-heading);
+       font-size: 2.8rem;
+       font-weight: 400;
++      overflow-wrap: anywhere;
+       letter-spacing: -0.02em;
+       margin-bottom: 0.75rem;
+     }
+@@ -285,10 +286,14 @@
+ 
+       form.addEventListener('submit', function (event) {
+         event.preventDefault();
++        if (button.disabled) return;
++        var controller = window.AbortController ? new AbortController() : null;
++        var timeout = controller ? setTimeout(function () { controller.abort(); }, 30000) : null;
+         button.disabled = true;
+         show('pending', 'Sending your request…');
+         fetch(form.action, {
+           method: 'POST',
++          signal: controller ? controller.signal : undefined,
+           body: new FormData(form),
+           headers: { Accept: 'application/json' }
+         }).then(function (response) {
+@@ -298,6 +303,7 @@
+         }).catch(function () {
+           show('error', 'Your request could not be sent. Please try again, or email us directly using the address at the bottom of this page.');
+         }).then(function () {
++          if (timeout !== null) clearTimeout(timeout);
+           button.disabled = false;
+         });
+       });

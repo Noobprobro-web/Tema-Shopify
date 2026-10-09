@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sartorial Theme Support | Ruiz Digital</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --surface: #FFFFFF;
+      --text: #1C1917;
+      --muted: #78716C;
+      --border: #E7E5E4;
+      --accent: #0F172A;
+      --font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      padding: 0 1.5rem;
+    }
+    header {
+      max-width: 840px;
+      margin: 3rem auto 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 2.8rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .lead {
+      font-size: 1.15rem;
+      color: var(--muted);
+    }
+    main {
+      max-width: 840px;
+      margin: 0 auto 5rem;
+    }
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+    .support-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      border-radius: 4px;
+    }
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    p, ul {
+      margin-bottom: 1rem;
+      color: #292524;
+    }
+    ul { padding-left: 1.5rem; }
+    li { margin-bottom: 0.4rem; }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      background: var(--bg);
+      color: var(--text);
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+    button.btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #FFFFFF;
+      padding: 0.9rem 2rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button.btn:hover {
+      opacity: 0.9;
+    }
+    .badge-sla {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      background: #EFF6FF;
+      color: #1E40AF;
+      border: 1px solid #DBEAFE;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 0;
+    }
+    .faq-question {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer a { color: var(--text); text-decoration: none; }
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    .form-status { margin-top: 1rem; font-weight: 500; }
+    .form-status:empty { display: none; }
+    .form-status[data-state="success"] { color: #166534; }
+    .form-status[data-state="error"] { color: #991B1B; }
+    button.btn[disabled] { opacity: 0.6; cursor: progress; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="eyebrow">Ruiz Digital &bull; Theme Support Portal</p>
+    <h1>Sartorial Theme Support</h1>
+    <p class="lead">Dedicated assistance for merchants using the Sartorial Shopify Theme.</p>
+  </header>
+
+  <main>
+    <div class="support-grid">
+      <div class="support-card">
+        <span class="badge-sla">&bull; Typical Response Time: Under 24 Business Hours</span>
+        <h2>Submit a Support Request</h2>
+        <p>Before submitting, please make sure you are running the latest version of Sartorial and consult the <a href="./docs.html">Theme Documentation</a>.</p>
+
+        <form action="https://formspree.io/f/xyezvvjo" method="POST" data-support-form>
+          <input type="hidden" name="_subject" value="Sartorial theme support request">
+          <div class="visually-hidden" aria-hidden="true">
+            <label for="company_website">Leave this field empty</label>
+            <input type="text" id="company_website" name="_gotcha" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Jane Doe">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your Email Address</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="jane@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="store_url">Shopify Store URL (myshopify.com or custom domain)</label>
+            <input type="text" id="store_url" name="store_url" required placeholder="your-store.myshopify.com">
+          </div>
+
+          <div class="form-group">
+            <label for="category">Request Category</label>
+            <select id="category" name="category">
+              <option value="setup">Theme Setup / Preset Configuration</option>
+              <option value="bug">Potential Bug / Layout Issue</option>
+              <option value="feature">Feature Question</option>
+              <option value="other">Other Inquiry</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Detailed Description</label>
+            <textarea id="message" name="message" required placeholder="Please describe what you are trying to accomplish, the page URL, and any relevant steps to reproduce the issue..."></textarea>
+          </div>
+
+          <button type="submit" class="btn">Send Support Ticket</button>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="support-card">
+        <h2>Support Scope &amp; Policy</h2>
+        <p>Our support team is committed to helping you make the most of Sartorial:</p>
+        <ul>
+          <li><strong>Included in Theme Support:</strong>
+            <ul>
+              <li>Assistance with theme settings, sections, and preset configurations.</li>
+              <li>Fixing bugs or unexpected theme behavior directly caused by theme code.</li>
+              <li>Providing theme updates and bug fix releases.</li>
+            </ul>
+          </li>
+          <li><strong>Not Included in Theme Support:</strong>
+            <ul>
+              <li>Custom code modifications, bespoke feature development, or custom Liquid scripts.</li>
+              <li>Troubleshooting third-party apps or conflicts caused by external JavaScript.</li>
+              <li>General business advice, marketing consultation, or SEO audits.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="support-card">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3 class="faq-question">How do I switch between Sartorial, Edition, and Archive presets?</h3>
+          <p>Go to your Shopify Admin &gt; Online Store &gt; Themes &gt; Customize. Open the Theme Settings panel (gear icon on the left sidebar) and select your desired preset from the preset selector at the top.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">How do 3D models and AR work in Sartorial?</h3>
+          <p>Simply upload your <code>.glb</code> or <code>.gltf</code> 3D model files directly to your Product Media gallery in the Shopify Admin. Sartorial automatically initializes the Shopify XR viewer on mobile devices.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">How do I configure color swatches for product variants?</h3>
+          <p>Sartorial natively reads Shopify Category Swatches. Ensure your product options are categorized as "Color" in the Shopify Admin, and define your colors or swatch images directly in the Shopify Variant settings.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Ruiz Digital. All rights reserved.</p>
+    <p><a href="./docs.html">Theme Documentation</a> &bull; Direct contact: <a href="mailto:support@ruizdigital.com">support@ruizdigital.com</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      var form = document.querySelector('[data-support-form]');
+      if (!form || !window.fetch || !window.FormData) return;
+      var status = form.querySelector('[data-form-status]');
+      var button = form.querySelector('button[type="submit"]');
+
+      function show(state, message) {
+        status.setAttribute('data-state', state);
+        status.setAttribute('role', state === 'error' ? 'alert' : 'status');
+        status.textContent = message;
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        button.disabled = true;
+        show('pending', 'Sending your request…');
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        }).then(function (response) {
+          if (!response.ok) throw new Error('Request failed');
+          form.reset();
+          show('success', 'Thank you. Your request has been received and we will reply by email within 24 business hours.');
+        }).catch(function () {
+          show('error', 'Your request could not be sent. Please try again, or email us directly using the address at the bottom of this page.');
+        }).then(function () {
+          button.disabled = false;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
+

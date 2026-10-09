@@ -1,0 +1,138 @@
+diff --git a/sections/header-group.json b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-sections_header-group.json
+index 93dc5e3..8616cbb 100644
+--- a/sections/header-group.json
++++ b/sections/header-group.json
+@@ -29,11 +29,11 @@
+           "type": "mega_menu_promo",
+           "settings": {
+             "menu_item": "Catalog",
+-            "image_1": "shopify://shop_images/manifesto-01.jpg",
++            "image_1": "",
+             "heading_1": "New Arrivals",
+             "subheading_1": "Explore the autumn edit",
+             "link_1": "/collections/all",
+-            "image_2": "shopify://shop_images/capsule-look-01.jpg",
++            "image_2": "",
+             "heading_2": "Capsule Wardrobe",
+             "subheading_2": "Pieces made in small series",
+             "link_2": "/collections/all"
+diff --git a/listings/archive/templates/index.json b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-listings_archive_templates_index.json
+index 4c00e4f..aafddc2 100644
+--- a/listings/archive/templates/index.json
++++ b/listings/archive/templates/index.json
+@@ -9,7 +9,7 @@
+         "height_desktop": 80,
+         "height_mobile": 75,
+         "media_type": "image",
+-        "image_desktop": "shopify://shop_images/archive-hero.jpg",
++        "image_desktop": "",
+         "enable_video_mobile": false,
+         "overlay_style": "scrim",
+         "overlay_opacity": 60,
+@@ -44,7 +44,7 @@
+         "button_label": "Read archive notes",
+         "button_url": "/collections/permanent-archive",
+         "media_label": "PLATE IV / ACCESSION 1957.34.1",
+-        "image": "shopify://shop_images/archive-manifesto.jpg",
++        "image": "",
+         "use_surface_background": true,
+         "color_scheme": "scheme-3"
+       }
+@@ -91,7 +91,7 @@
+         "heading": "Three objects from the archive record",
+         "description": "<p>Each piece is examined under raking light, stabilized by our conservationist, and released in small curated entries.</p>",
+         "caption": "Garment study room photographed under raking light.",
+-        "image_desktop": "shopify://shop_images/archive-lookbook.jpg",
++        "image_desktop": "",
+         "color_scheme": "scheme-1"
+       }
+     },
+diff --git a/listings/edition/templates/index.json b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-listings_edition_templates_index.json
+index 957f89a..a70bf38 100644
+--- a/listings/edition/templates/index.json
++++ b/listings/edition/templates/index.json
+@@ -9,7 +9,7 @@
+         "height_desktop": 75,
+         "height_mobile": 65,
+         "media_type": "image",
+-        "image_desktop": "shopify://shop_images/edition-hero.jpg",
++        "image_desktop": "",
+         "overlay_style": "none",
+         "overlay_opacity": 0,
+         "content_position_x": "start",
+@@ -37,7 +37,7 @@
+             "eyebrow": "[01] SYSTEM",
+             "heading": "Objects for the desk",
+             "link": "/collections/desk-and-study",
+-            "image": "shopify://shop_images/edition-bento-desk.jpg"
++            "image": ""
+           }
+         },
+         "product1": {
+@@ -60,7 +60,7 @@
+             "eyebrow": "[04] PROCESS",
+             "heading": "Measured by use",
+             "body": "<p>Materials and dimensions reduced to what the object needs.</p>",
+-            "image": "shopify://shop_images/edition-bento-craft.jpg"
++            "image": ""
+           }
+         }
+       },
+@@ -122,7 +122,7 @@
+         "heading": "The Daily Objects Set",
+         "description": "<p>A modular set for daily carry and desk study.</p>",
+         "caption": "A modular arrangement for daily work.",
+-        "image_desktop": "shopify://shop_images/edition-bento-desk.jpg",
++        "image_desktop": "",
+         "color_scheme": "scheme-1"
+       }
+     },
+@@ -142,7 +142,7 @@
+         "button_label": "Inspect collection",
+         "button_url": "/collections/daily-objects",
+         "media_label": "TECHNICAL REPORT / 01",
+-        "image": "shopify://shop_images/edition-bento-craft.jpg",
++        "image": "",
+         "use_surface_background": false,
+         "color_scheme": "scheme-3"
+       }
+diff --git a/listings/sartorial/templates/index.json b/agent-comms/outbox-gemini/harness-TECH-AUDIT-001/tmp-listings_sartorial_templates_index.json
+index 9964f92..2783a4e 100644
+--- a/listings/sartorial/templates/index.json
++++ b/listings/sartorial/templates/index.json
+@@ -9,7 +9,7 @@
+         "height_desktop": 80,
+         "height_mobile": 70,
+         "media_type": "image",
+-        "image_desktop": "shopify://shop_images/atelier-hero.jpg",
++        "image_desktop": "",
+         "overlay_style": "gradient_content",
+         "overlay_opacity": 40,
+         "content_position_x": "start",
+@@ -71,7 +71,7 @@
+         "heading": "Objects in quiet conversation",
+         "description": "<p>Move through the composition and discover each piece.</p>",
+         "caption": "A study in proportion, texture and daily movement.",
+-        "image_desktop": "shopify://shop_images/atelier-lookbook.jpg",
++        "image_desktop": "",
+         "color_scheme": "scheme-1"
+       }
+     },
+@@ -109,7 +109,7 @@
+         "heading": "Complete the look",
+         "description": "<p>Choose each piece, select its size and add the full composition at once.</p>",
+         "caption": "Soft architecture photographed in natural atelier light.",
+-        "image_desktop": "shopify://shop_images/atelier-hero.jpg",
++        "image_desktop": "",
+         "color_scheme": "scheme-1"
+       }
+     },
+@@ -129,7 +129,7 @@
+         "button_label": "Explore tailoring",
+         "button_url": "/collections/tailoring",
+         "media_label": "MACRO STUDY / MATERIAL 07",
+-        "image": "shopify://shop_images/atelier-manifesto.jpg",
++        "image": "",
+         "use_surface_background": true,
+         "color_scheme": "scheme-3"
+       }
