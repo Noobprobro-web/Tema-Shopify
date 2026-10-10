@@ -6,7 +6,7 @@
         "layout_mode": "split",
         "split_ratio": "50_50",
         "layout_split": "image_first",
-        "height_desktop": 75,
+        "height_desktop": 80,
         "height_mobile": 65,
         "media_type": "image",
         "image_desktop": "",
@@ -15,16 +15,30 @@
         "content_position_x": "start",
         "content_position_y": "end",
         "text_alignment": "left",
-        "content_width": 34,
+        "content_width": 38,
         "heading_tag": "h1",
-        "eyebrow": "OBJECT STUDY / 01",
-        "heading": "Useful forms, precisely considered",
-        "subheading": "<p>A quiet system for objects that speak for themselves.</p>",
-        "button_primary_label": "Browse all objects",
+        "eyebrow": "TECHNICAL STUDIO / SPECIFICATION 01",
+        "heading": "Engineered utility, precise discipline",
+        "subheading": "<p>Modular gear, aerospace hardware, and weatherproof membrane systems calibrated for daily EDC telemetry.</p>",
+        "button_primary_label": "Inspect system inventory",
         "button_primary_url": "/collections/daily-objects",
-        "button_secondary_label": "Browse collections",
-        "button_secondary_url": "/collections/leather-goods",
+        "button_secondary_label": "View technical specs",
+        "button_secondary_url": "/collections/desk-and-study",
         "color_scheme": "scheme-1"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "cordura": { "type": "item", "settings": { "text": "500D CORDURA® BALLISTIC NYLON" } },
+        "ykk": { "type": "item", "settings": { "text": "YKK® AQUAGUARD® WEATHERPROOF CLOSURES" } },
+        "hardware": { "type": "item", "settings": { "text": "MIL-SPEC ANODIZED HARDWARE / GRADE 5 TITANIUM" } },
+        "molle": { "type": "item", "settings": { "text": "LASER-CUT MOLLE COMPATIBLE TELEMETRY" } }
+      },
+      "block_order": ["cordura", "ykk", "hardware", "molle"],
+      "settings": {
+        "speed": 40,
+        "color_scheme": "scheme-2"
       }
     },
     "discovery": {
@@ -34,8 +48,8 @@
           "type": "card_featured",
           "settings": {
             "collection": "desk-and-study",
-            "eyebrow": "[01] SYSTEM",
-            "heading": "Objects for the desk",
+            "eyebrow": "[01] MEMBRANE TELEMETRY",
+            "heading": "Aerospace grade EDC systems",
             "link": "/collections/desk-and-study",
             "image": ""
           }
@@ -55,11 +69,11 @@
         "story": {
           "type": "card_editorial",
           "settings": {
-            "link_label": "Explore the story",
+            "link_label": "Inspect blueprint",
             "link": "/collections/leather-goods",
-            "eyebrow": "[04] PROCESS",
-            "heading": "Measured by use",
-            "body": "<p>Materials and dimensions reduced to what the object needs.</p>",
+            "eyebrow": "[04] BLUEPRINT ANALYSIS",
+            "heading": "Calibrated for extreme endurance",
+            "body": "<p>Stress-tested 500D CORDURA nylon, weatherproof YKK AquaGuard closures, and laser-machined anodized hardware.</p>",
             "image": ""
           }
         }
@@ -81,8 +95,8 @@
       },
       "block_order": ["daily", "workspace", "limited"],
       "settings": {
-        "eyebrow": "CATALOGUE / 03",
-        "heading": "Selected objects",
+        "eyebrow": "SYSTEM INVENTORY / 03",
+        "heading": "Studio Modular Systems",
         "show_secondary_image": false,
         "show_vendor": false,
         "color_scheme": "scheme-1"
@@ -96,11 +110,21 @@
         "variant_picker": { "type": "variant_picker" },
         "quantity": { "type": "quantity_selector" },
         "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
+        "technical_specs": {
+          "type": "technical_specs",
+          "settings": {
+            "heading": "Technical specifications",
+            "material": "500D Ballistic CORDURA® & Ripstop",
+            "gsm": "480 GSM Loopback",
+            "hardware": "Matte Black YKK® AquaGuard®",
+            "origin": "Engineered in Milan Tech Studio"
+          }
+        },
         "description": { "type": "description" },
         "inventory": { "type": "inventory_status", "settings": { "threshold": 5, "show_count": true } },
         "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Worldwide express courier | Dispatch in 2 business days", "icon": "truck" } }
       },
-      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
+      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "technical_specs", "inventory", "shipping", "description"],
       "settings": {
         "product": "structured-tote",
         "color_scheme": "scheme-1",
@@ -118,9 +142,9 @@
       },
       "block_order": ["piece1", "piece2", "piece3"],
       "settings": {
-        "eyebrow": "SET STUDY / 05",
-        "heading": "The Daily Objects Set",
-        "description": "<p>A modular set for daily carry and desk study.</p>",
+        "eyebrow": "EDC MODULAR CAPSULE / 05",
+        "heading": "The Complete Utility Rig",
+        "description": "<p>A modular rig for daily carry, field telemetry and technical desk deployment.</p>",
         "caption": "A modular arrangement for daily work.",
         "image_desktop": "",
         "color_scheme": "scheme-1"
@@ -129,16 +153,16 @@
     "manifesto": {
       "type": "brand-manifesto",
       "blocks": {
-        "material": { "type": "detail", "settings": { "label": "Material", "value": "Full-grain calfskin, vegetable tanned in Tuscany" } },
-        "hardware": { "type": "detail", "settings": { "label": "Hardware", "value": "Machined from solid brass rod, unplated" } },
-        "tolerance": { "type": "detail", "settings": { "label": "Tolerance", "value": "0.5mm edge painting and saddle stitching" } },
-        "longevity": { "type": "detail", "settings": { "label": "Longevity", "value": "Designed to gather character and patina" } }
+        "spec1": { "type": "detail", "settings": { "label": "Membrane", "value": "3-Layer DWR laminated waterproof shell" } },
+        "spec2": { "type": "detail", "settings": { "label": "Hardware", "value": "CNC-machined anodized 6061 aluminium & titanium" } },
+        "spec3": { "type": "detail", "settings": { "label": "Tolerance", "value": "0.2mm laser cut edge bonding with bar-tack reinforcement" } },
+        "spec4": { "type": "detail", "settings": { "label": "Field Test", "value": "Certified IPX-6 water resistance rating" } }
       },
-      "block_order": ["material", "hardware", "tolerance", "longevity"],
+      "block_order": ["spec1", "spec2", "spec3", "spec4"],
       "settings": {
-        "eyebrow": "SPECIFICATIONS / 06",
-        "quote": "Form follows material discipline.",
-        "body": "<p>Every component is specified for durability, utility and honest tactile feedback.</p>",
+        "eyebrow": "STUDIO PRINCIPLES / 06",
+        "quote": "Form follows engineering tolerance.",
+        "body": "<p>No decorative ornamentation. Every seam, bar-tack, and zipper is stress-tested to military technical thresholds.</p>",
         "button_label": "Inspect collection",
         "button_url": "/collections/daily-objects",
         "media_label": "TECHNICAL REPORT / 01",
@@ -151,11 +175,11 @@
       "type": "newsletter",
       "settings": {
         "color_scheme": "scheme-4",
-        "eyebrow": "IMPRINT NOTES",
-        "heading": "New studies, occasionally",
-        "text": "<p>Product releases, material studies and measured updates.</p>"
+        "eyebrow": "TECHNICAL DISPATCH",
+        "heading": "Engineering telemetry & field updates",
+        "text": "<p>Specification releases, telemetry logs, and component testing documentation.</p>"
       }
     }
   },
-  "order": ["hero", "discovery", "collections", "featured_product", "capsule", "manifesto", "newsletter"]
+  "order": ["hero", "marquee", "discovery", "collections", "featured_product", "capsule", "manifesto", "newsletter"]
 }

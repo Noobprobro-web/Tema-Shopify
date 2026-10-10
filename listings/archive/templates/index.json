@@ -6,13 +6,13 @@
         "layout_mode": "cinematic",
         "split_ratio": "60_40",
         "layout_split": "image_first",
-        "height_desktop": 80,
+        "height_desktop": 85,
         "height_mobile": 75,
         "media_type": "image",
         "image_desktop": "",
         "enable_video_mobile": false,
         "overlay_style": "scrim",
-        "overlay_opacity": 60,
+        "overlay_opacity": 70,
         "content_position_x": "center",
         "content_position_y": "center",
         "text_alignment": "center",
@@ -20,7 +20,7 @@
         "heading_tag": "h1",
         "eyebrow": "CATALOGUE I / THE HOUSE",
         "heading": "Objects with a remembered life",
-        "subheading": "<p>A collection shaped by provenance, handwork and time.</p>",
+        "subheading": "<p>A museum vault accession shaped by runway provenance, hand conservation, and historical time.</p>",
         "button_primary_label": "Enter the catalogue",
         "button_primary_url": "/collections/permanent-archive",
         "button_secondary_label": "Restored selection",
@@ -31,19 +31,19 @@
     "manifesto": {
       "type": "brand-manifesto",
       "blocks": {
-        "founded": { "type": "detail", "settings": { "label": "Founded", "value": "A continuing workshop tradition since 1987" } },
-        "origin": { "type": "detail", "settings": { "label": "Origin", "value": "Acquired from private estates in Paris & Antwerp" } },
-        "maker": { "type": "detail", "settings": { "label": "Maker", "value": "Named and catalogued with every object" } },
-        "record": { "type": "detail", "settings": { "label": "Record", "value": "Numbered museum-grade accession certificate" } }
+        "grade1": { "type": "detail", "settings": { "label": "Grade I / Mint", "value": "Unworn museum archive accession, original tags intact" } },
+        "grade2": { "type": "detail", "settings": { "label": "Grade II / Near Mint", "value": "Runway exhibition only, microscopic surface patina" } },
+        "grade3": { "type": "detail", "settings": { "label": "Grade III / Excellent", "value": "Stabilized by master conservator, zero structural flaws" } },
+        "grade4": { "type": "detail", "settings": { "label": "Grade IV-V / Authentic", "value": "Historic patina, numbered museum registration certificate" } }
       },
-      "block_order": ["founded", "origin", "maker", "record"],
+      "block_order": ["grade1", "grade2", "grade3", "grade4"],
       "settings": {
-        "eyebrow": "INDEX II / PROVENANCE",
-        "quote": "What endures carries the record of how it was made.",
-        "body": "<p>The catalogue follows each garment from runway provenance to workshop restoration and permanent archive entry.</p>",
-        "button_label": "Read archive notes",
+        "eyebrow": "CURATORIAL PROTOCOL / CONSERVATION 02",
+        "quote": "What endures carries the indelible record of its creation.",
+        "body": "<p>Every archive specimen is examined under raking light, stabilized in our conservation laboratory, and assigned one of the five rigorous archival grades (Grade 1 Mint to Grade 5 Character).</p>",
+        "button_label": "Read curatorial notes",
         "button_url": "/collections/permanent-archive",
-        "media_label": "PLATE IV / ACCESSION 1957.34.1",
+        "media_label": "PLATE II / CONSERVATION LAB",
         "image": "",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
@@ -52,12 +52,12 @@
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "year": { "type": "item", "settings": { "text": "PIECE NO. 01/12 RESTORED" } },
-        "place": { "type": "item", "settings": { "text": "RUNWAY 1989–1999 PERMANENT ARCHIVE" } },
-        "record": { "type": "item", "settings": { "text": "MUSEUM GRADE CONSERVATION" } },
-        "viewing": { "type": "item", "settings": { "text": "PRIVATE APPOINTMENTS IN MILAN & PARIS" } }
+        "circa": { "type": "item", "settings": { "text": "CIRCA 1989–1999 THE PERMANENT ARCHIVE" } },
+        "conservation": { "type": "item", "settings": { "text": "MUSEUM GRADE DEACIDIFIED CONSERVATION" } },
+        "accession": { "type": "item", "settings": { "text": "CERTIFIED 1-OF-1 ACCESSION REGISTRATION" } },
+        "provenance": { "type": "item", "settings": { "text": "PARIS & ANTWERP HISTORICAL RUNWAY PROVENANCE" } }
       },
-      "block_order": ["year", "place", "record", "viewing"],
+      "block_order": ["circa", "conservation", "accession", "provenance"],
       "settings": {
         "speed": 44,
         "color_scheme": "scheme-4"
@@ -66,13 +66,14 @@
     "collections": {
       "type": "curated-showcase",
       "blocks": {
-        "current": { "type": "collection_tab", "settings": { "collection": "permanent-archive", "tab_label": "Current catalogue" } },
-        "archive": { "type": "collection_tab", "settings": { "collection": "restored-pieces", "tab_label": "Archive selection" } }
+        "decade80": { "type": "collection_tab", "settings": { "collection": "permanent-archive", "tab_label": "1980s Deconstruction" } },
+        "decade90": { "type": "collection_tab", "settings": { "collection": "restored-pieces", "tab_label": "1990s Minimalist Vault" } },
+        "decade00": { "type": "collection_tab", "settings": { "collection": "permanent-archive", "tab_label": "2000s Master Tailoring" } }
       },
-      "block_order": ["current", "archive"],
+      "block_order": ["decade80", "decade90", "decade00"],
       "settings": {
-        "eyebrow": "CATALOGUE III / OBJECTS",
-        "heading": "Entries from the permanent record",
+        "eyebrow": "INDEX III / THE VAULT BY DECADES",
+        "heading": "Historical Archive Entries",
         "show_secondary_image": false,
         "show_vendor": true,
         "color_scheme": "scheme-1"
@@ -103,11 +104,21 @@
         "variant_picker": { "type": "variant_picker" },
         "quantity": { "type": "quantity_selector" },
         "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
+        "provenance": {
+          "type": "provenance",
+          "settings": {
+            "heading": "Archival provenance",
+            "circa_year": "1992",
+            "show_unique_piece": true,
+            "condition_grade": "grade_1",
+            "provenance_notes": "<p>Accession record no. 1992-048. Acquired from private Antwerp runway archive. Museum-grade deacidified preservation.</p>"
+          }
+        },
         "description": { "type": "description" },
         "inventory": { "type": "inventory_status", "settings": { "threshold": 2, "show_count": true } },
         "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Climate-controlled archival transport | Insured courier", "icon": "truck" } }
       },
-      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
+      "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "provenance", "inventory", "shipping", "description"],
       "settings": {
         "product": "1990-pinstripe-double-breasted-jacket",
         "color_scheme": "scheme-3",
@@ -120,8 +131,8 @@
       "type": "newsletter",
       "settings": {
         "color_scheme": "scheme-4",
-        "eyebrow": "CATALOGUE NOTICES",
-        "heading": "New entries in the archive",
+        "eyebrow": "ARCHIVAL GAZETTE",
+        "heading": "New vault accession notices",
         "text": "<p>Occasional notices of restored objects, new records and workshop visits.</p>"
       }
     }
