@@ -218,6 +218,27 @@
           }
         ],
         "default": "subtle"
+      },
+      {
+        "type": "select",
+        "id": "motion_style",
+        "label": "t:settings_schema.animations.settings.motion_style.label",
+        "info": "t:settings_schema.animations.settings.motion_style.info",
+        "options": [
+          {
+            "value": "atelier",
+            "label": "t:settings_schema.animations.settings.motion_style.options.atelier"
+          },
+          {
+            "value": "technical",
+            "label": "t:settings_schema.animations.settings.motion_style.options.technical"
+          },
+          {
+            "value": "heritage",
+            "label": "t:settings_schema.animations.settings.motion_style.options.heritage"
+          }
+        ],
+        "default": "atelier"
       }
     ]
   },

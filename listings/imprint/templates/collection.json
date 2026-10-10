@@ -2,13 +2,28 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "blocks": {
+        "technical_tile": {
+          "type": "promotion_tile",
+          "settings": {
+            "position_in_grid": 4,
+            "eyebrow": "TECHNICAL SPEC / 01",
+            "heading": "Engineered for high telemetry",
+            "text": "<p>Toggle between compact 4-column matrix and detailed 2-column inspection view.</p>",
+            "link_label": "View specifications",
+            "link_url": "/collections/daily-objects",
+            "color_scheme": "scheme-4"
+          }
+        }
+      },
+      "block_order": ["technical_tile"],
       "settings": {
         "color_scheme": "scheme-1",
         "products_per_page": 32,
         "show_collection_image": false,
         "default_grid_columns": "4",
         "show_secondary_image": false,
-        "show_vendor": false,
+        "show_vendor": true,
         "show_quick_add": true
       }
     }

@@ -1848,6 +1848,7 @@ body[data-sticky-cart-visible] {
   overflow: hidden;
   aspect-ratio: 4 / 5;
   background: color-mix(in srgb, var(--color-foreground) 5%, var(--color-background));
+  transition: transform var(--motion-base) var(--ease-move), outline var(--motion-fast) var(--ease-enter);
 }
 
 .product-card__image {
@@ -8874,6 +8875,133 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
 }
 
 /* =========================================================================
+   FAMILIAS FISICAS DE MOVIMIENTO (motion_style)
+   - Atelier (Sartorial / Alta costura): expo-out fluido, elevacion sutil.
+   - Technical (Imprint / Estudio tecnico): respuesta instantanea, sharp, grafito.
+   - Heritage (Archive / Museo y boveda): inercia ceremonial, patina de laton y cursivas.
+   ========================================================================= */
+
+html[data-motion-style='atelier'],
+:root {
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-fast: 160ms;
+  --motion-base: 680ms;
+  --motion-slow: 1000ms;
+  --motion-expressive: 1200ms;
+  --reveal-shift: 24px;
+  --reveal-shift-expressive: 64px;
+  --unveil-scale: 1.18;
+  --parallax-scale: 1.06;
+}
+
+html[data-motion-style='technical'] {
+  --ease-exit: cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-enter: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-move: cubic-bezier(0.25, 1, 0.5, 1);
+  --motion-fast: 90ms;
+  --motion-base: 340ms;
+  --motion-slow: 540ms;
+  --motion-expressive: 640ms;
+  --reveal-shift: 14px;
+  --reveal-shift-expressive: 32px;
+  --unveil-scale: 1.06;
+  --parallax-scale: 1.03;
+}
+
+html[data-motion-style='heritage'] {
+  --ease-exit: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-enter: cubic-bezier(0.22, 0.8, 0.25, 1);
+  --ease-move: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --motion-fast: 220ms;
+  --motion-base: 880ms;
+  --motion-slow: 1250ms;
+  --motion-expressive: 1500ms;
+  --reveal-shift: 32px;
+  --reveal-shift-expressive: 76px;
+  --unveil-scale: 1.25;
+  --parallax-scale: 1.08;
+}
+
+/* Microinteracciones de hover y foco diferenciadas */
+@media (prefers-reduced-motion: no-preference) {
+  /* Atelier: elevacion sutil en boton y tarjeta */
+  html[data-motion-style='atelier'] .button:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  html[data-motion-style='atelier'] .product-card:hover .product-card__media {
+    transform: translateY(-2px);
+  }
+
+  html[data-motion-style='atelier'] .button:focus-visible,
+  html[data-motion-style='atelier'] input:focus-visible,
+  html[data-motion-style='atelier'] select:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 3px;
+  }
+
+  /* Technical: inversion rapida con bordes grafito, respuesta tactil instantanea */
+  html[data-motion-style='technical'] .button {
+    transition: background-color var(--motion-fast) var(--ease-enter),
+      color var(--motion-fast) var(--ease-enter),
+      border-color var(--motion-fast) var(--ease-enter);
+  }
+
+  html[data-motion-style='technical'] .button:hover:not([disabled]) {
+    border-color: #2b2b2b;
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+    transform: none;
+    box-shadow: 0 0 0 1px #2b2b2b;
+  }
+
+  html[data-motion-style='technical'] .product-card:hover .product-card__media {
+    outline: 1px solid #333333;
+    outline-offset: -1px;
+    transform: none;
+  }
+
+  html[data-motion-style='technical'] .product-card__title a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  html[data-motion-style='technical'] .button:focus-visible,
+  html[data-motion-style='technical'] input:focus-visible,
+  html[data-motion-style='technical'] select:focus-visible {
+    outline: 2px solid #2b2b2b;
+    outline-offset: 2px;
+  }
+
+  /* Heritage: patina de laton envejecido y cursivas solemnes */
+  html[data-motion-style='heritage'] .button:hover:not([disabled]) {
+    border-color: #b5885c;
+    color: #b5885c;
+    background: transparent;
+    transform: none;
+  }
+
+  html[data-motion-style='heritage'] .product-card:hover .product-card__title a {
+    color: #b5885c;
+    font-style: italic;
+  }
+
+  html[data-motion-style='heritage'] .site-header__link:hover {
+    color: #b5885c;
+  }
+
+  html[data-motion-style='heritage'] .button:focus-visible,
+  html[data-motion-style='heritage'] input:focus-visible,
+  html[data-motion-style='heritage'] select:focus-visible {
+    outline: 2px solid #b5885c;
+    outline-offset: 3px;
+  }
+}
+
+/* =========================================================================
    SISTEMA DE MOVIMIENTO (Sprint 4C-002)
    Todo lo de aqui abajo esta gobernado por html[data-animations] y por
    prefers-reduced-motion. Las dos llaves de apagado viven al final del bloque.
@@ -9341,6 +9469,12 @@ html[data-animations='none'] [data-reveal] {
     transform: none !important;
     /* MOTION-002: ver la nota de la llave 1. La mascara tambien se anula aqui. */
     clip-path: none !important;
+  }
+
+  html[data-motion-style] .button:hover,
+  html[data-motion-style] .product-card:hover .product-card__media {
+    transform: none !important;
+    box-shadow: none !important;
   }
 
   @view-transition {

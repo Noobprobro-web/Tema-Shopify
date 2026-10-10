@@ -3,10 +3,10 @@
     "hero": {
       "type": "hero-editorial",
       "settings": {
-        "layout_mode": "cinematic",
-        "split_ratio": "60_40",
+        "layout_mode": "split",
+        "split_ratio": "65_35",
         "layout_split": "image_first",
-        "height_desktop": 80,
+        "height_desktop": 85,
         "height_mobile": 70,
         "media_type": "image",
         "image_desktop": "",
@@ -17,27 +17,27 @@
         "text_alignment": "left",
         "content_width": 42,
         "heading_tag": "h1",
-        "eyebrow": "THE EDIT / SARTORIAL 01",
-        "heading": "Form in quiet movement",
-        "subheading": "<p>Sculptural layers and tactile materials, made in small series.</p>",
+        "eyebrow": "HAUTE COUTURE / ATELIER SARTORIAL",
+        "heading": "The Master Tailor's Cut",
+        "subheading": "<p>Sculptural bespoke architecture, hand-finished canvassing, and pure silk faille cut in limited editions.</p>",
         "button_primary_label": "Discover the collection",
-        "button_primary_url": "/collections/new-forms",
-        "button_secondary_label": "Explore lookbook",
-        "button_secondary_url": "/collections/permanent-collection",
+        "button_primary_url": "/collections/all",
+        "button_secondary_label": "Explore runway lookbook",
+        "button_secondary_url": "/collections/tailoring",
         "color_scheme": "scheme-2"
       }
     },
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "origin": { "type": "item", "settings": { "text": "NATURAL FIBRES / TRACEABLE ORIGIN" } },
-        "series": { "type": "item", "settings": { "text": "MADE IN SMALL SERIES" } },
-        "hand": { "type": "item", "settings": { "text": "CUT AND FINISHED BY HAND" } },
-        "character": { "type": "item", "settings": { "text": "DESIGNED TO GATHER CHARACTER" } }
+        "silk": { "type": "item", "settings": { "text": "PURE MULBERRY SILK & BIELLESE WOOL" } },
+        "canvas": { "type": "item", "settings": { "text": "FULL FLOATING HORSEHAIR CANVAS" } },
+        "lapel": { "type": "item", "settings": { "text": "HAND-ROLLED LAPELS & PICK-STITCHING" } },
+        "editions": { "type": "item", "settings": { "text": "INDIVIDUALLY NUMBERED ATELIER EDITIONS" } }
       },
-      "block_order": ["origin", "series", "hand", "character"],
+      "block_order": ["silk", "canvas", "lapel", "editions"],
       "settings": {
-        "speed": 38,
+        "speed": 36,
         "color_scheme": "scheme-2"
       }
     },
@@ -46,12 +46,12 @@
       "blocks": {
         "new": { "type": "collection_tab", "settings": { "collection": "new-forms", "tab_label": "New forms" } },
         "permanent": { "type": "collection_tab", "settings": { "collection": "permanent-collection", "tab_label": "Permanent collection" } },
-        "objects": { "type": "collection_tab", "settings": { "collection": "tailoring", "tab_label": "Tailoring" } }
+        "tailoring": { "type": "collection_tab", "settings": { "collection": "tailoring", "tab_label": "Tailoring salon" } }
       },
-      "block_order": ["new", "permanent", "objects"],
+      "block_order": ["new", "permanent", "tailoring"],
       "settings": {
-        "eyebrow": "CURATED EDIT / 02",
-        "heading": "Selected forms for the season",
+        "eyebrow": "ATELIER EDITIONS / 02",
+        "heading": "Selected Haute Couture Silhouettes",
         "show_secondary_image": true,
         "show_vendor": false,
         "color_scheme": "scheme-1"
@@ -67,10 +67,10 @@
       },
       "block_order": ["marker1", "marker2", "marker3", "marker4"],
       "settings": {
-        "eyebrow": "CAMPAIGN STUDY / LOOK 01",
-        "heading": "Objects in quiet conversation",
-        "description": "<p>Move through the composition and discover each piece.</p>",
-        "caption": "A study in proportion, texture and daily movement.",
+        "eyebrow": "RUNWAY PRESENTATION / SALON 01",
+        "heading": "Silhouettes in Haute Couture Motion",
+        "description": "<p>Observe the architectural drape, proportion and movement from the runway presentation.</p>",
+        "caption": "Haute couture silhouettes photographed in natural salon light.",
         "image_desktop": "",
         "color_scheme": "scheme-1"
       }
@@ -85,7 +85,7 @@
         "buy_buttons": { "type": "buy_buttons", "settings": { "show_dynamic_checkout": true } },
         "description": { "type": "description" },
         "inventory": { "type": "inventory_status", "settings": { "threshold": 5, "show_count": true } },
-        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Complimentary express courier | Dispatched within 2 business days", "icon": "truck" } }
+        "shipping": { "type": "shipping_lead_time", "settings": { "delivery_text": "Bespoke courier & private salon fitting | Dispatched within 2 business days", "icon": "truck" } }
       },
       "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
       "settings": {
@@ -105,10 +105,10 @@
       },
       "block_order": ["piece1", "piece2", "piece3"],
       "settings": {
-        "eyebrow": "SHOPPABLE CAPSULE / LOOK 03",
-        "heading": "Complete the look",
-        "description": "<p>Choose each piece, select its size and add the full composition at once.</p>",
-        "caption": "Soft architecture photographed in natural atelier light.",
+        "eyebrow": "SALON ENSEMBLE / LOOK 03",
+        "heading": "Complete the Haute Couture Ensemble",
+        "description": "<p>Select the full tailored composition: the double-breasted jacket, the silk blouse, and the pleated trouser.</p>",
+        "caption": "Bespoke tailoring composition photographed in salon light.",
         "image_desktop": "",
         "color_scheme": "scheme-1"
       }
@@ -116,19 +116,19 @@
     "manifesto": {
       "type": "brand-manifesto",
       "blocks": {
-        "material": { "type": "detail", "settings": { "label": "Materials", "value": "Traceable natural fibres from Biella & Como" } },
-        "origin": { "type": "detail", "settings": { "label": "Origin", "value": "Handcrafted in Northern Italy" } },
-        "finish": { "type": "detail", "settings": { "label": "Finish", "value": "Hand-rolled lapels and pick-stitching" } },
-        "series": { "type": "detail", "settings": { "label": "Series", "value": "Numbered editions of 25 pieces" } }
+        "material": { "type": "detail", "settings": { "label": "Fabrics", "value": "Super 160s Tasmanian Wool & Silk Faille" } },
+        "craft": { "type": "detail", "settings": { "label": "Structure", "value": "Hand-stitched full floating horsehair canvas" } },
+        "origin": { "type": "detail", "settings": { "label": "Provenance", "value": "Milanese Sartoria & Biella Weavers" } },
+        "production": { "type": "detail", "settings": { "label": "Cadence", "value": "Limited series of 20 bespoke executions" } }
       },
-      "block_order": ["material", "origin", "finish", "series"],
+      "block_order": ["material", "craft", "origin", "production"],
       "settings": {
-        "eyebrow": "THE HAND AND THE MATERIAL / 03",
-        "quote": "Objects gain meaning through the hands that make them.",
-        "body": "<p>Every edge and finish records a decision made by an artisan.</p>",
+        "eyebrow": "THE MASTER TAILOR'S MANIFESTO / 03",
+        "quote": "True bespoke luxury lives in the invisible mastery of the cut.",
+        "body": "<p>Every lapel is rolled by hand, every horsehair canvas floating freely. We reject industrial shortcuts in pursuit of permanent elegance.</p>",
         "button_label": "Explore tailoring",
         "button_url": "/collections/tailoring",
-        "media_label": "MACRO STUDY / MATERIAL 07",
+        "media_label": "ATELIER ARCHIVE / STUDY 07",
         "image": "",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
@@ -138,9 +138,9 @@
       "type": "newsletter",
       "settings": {
         "color_scheme": "scheme-3",
-        "eyebrow": "PRIVATE CORRESPONDENCE",
-        "heading": "Notes from the atelier",
-        "text": "<p>New objects, material studies and private previews, sent with restraint.</p>"
+        "eyebrow": "PRIVATE SALON CORRESPONDENCE",
+        "heading": "The Master Tailor's Gazette",
+        "text": "<p>Private salon invitations, fabric allocation releases, and bespoke commission openings.</p>"
       }
     }
   },
