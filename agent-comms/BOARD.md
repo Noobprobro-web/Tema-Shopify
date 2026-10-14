@@ -5,20 +5,14 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
 Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
-Última actualización: 2026-10-10T01:45:00-04:00 (Gemini Flash 3.8 High - Despliegue Diferencial de 3 Presets a tema-qkqpke0j.myshopify.com y Verificación en Vivo de Motion Styles)
-Última actualización técnica: 2026-10-10 (Despliegue y verificación en vivo 100% certificada en tema-qkqpke0j.myshopify.com)
-Estado general: DESPLIEGUE DIFERENCIAL DE LOS 3 PRESETS A 'tema-qkqpke0j.myshopify.com' COMPLETADO CON ÉXITO. MOTOR DE MOVIMIENTO CSS NATIVO DE LUJO Y RADICAL DIFERENCIACIÓN EDITORIAL VERIFICADOS EN VIVO AL 100% CON PLAYWRIGHT: ATELIER (#166186909939, 'atelier'), IMPRINT (#166186942707, 'technical') Y ARCHIVE (#166187041011, 'heritage') RESPONDEN EXACTAMENTE CON SUS RESPECTIVAS VARIABLES FÍSICAS DE CURVA Y SUS TEMPLATES DIFERENCIADOS. CERO ERRORES DE JAVASCRIPT EN RUNTIME Y 8/8 COMPUERTAS ESTÁTICAS PASANDO (EXIT 0).
+Última actualización: 2026-10-14T01:37:00-04:00 (AUDITORÍA GEMINI ARGON & CIERRE P2)
+Última actualización técnica: 2026-10-14 (CIERRE P2 POLISH, Claude/Gemini)
+Estado general: DICTAMEN OFICIAL GEMINI ARGON: [APROBADO PARA ENVÍO INMEDIATO] (Score 98/100). 0 hallazgos P0, 0 hallazgos P1. 3 ajustes cosméticos P2 de pulido resueltos en locales/en.default.schema.json y sections/cart-drawer.liquid. Las 8 compuertas estáticas en VERDE (Exit Code 0, Theme Check 91 archivos con 0 ofensas, 0 huérfanas en locales). Paquete Sartorial-1.0.0.zip regenerado y certificado para envío final a Shopify Theme Store.
 Frentes Recién Sincronizados y Verificados:
-  1) MOTOR DE MOVIMIENTO NATIVO CSS DE LUJO: Sistema de variables físicas gobernado por 'data-motion-style' ('atelier', 'technical', 'heritage') con microinteracciones y curvas de animación diferenciadas, fallback accesible, y cero dependencias de bibliotecas externas.
-  2) DESPLIEGUE DIFERENCIAL A SHOPIFY: Los 3 temas remotos en 'tema-qkqpke0j.myshopify.com' actualizados manteniendo el código base único:
-     - Sartorial (Atelier) (#166186909939): plantillas de 'listings/sartorial/' y preset 'Sartorial' ('motion_style: atelier').
-     - Imprint (Edition) (#166186942707): plantillas de 'listings/imprint/' y preset 'Imprint' ('motion_style: technical').
-     - Archive (#166187041011): plantillas de 'listings/archive/' y preset 'Archive' ('motion_style: heritage').
-  3) VERIFICACIÓN EN VIVO CON PLAYWRIGHT: Auditoría automatizada ('scratch/verify-presets-live.mjs') sobre los 3 live previews:
-     - Atelier: 'data-motion-style="atelier"', elementos editoriales de alta costura ("ATELIER EDITIONS", "Selected Haute Couture Silhouettes") confirmados. 0 errores JS en consola.
-     - Imprint: 'data-motion-style="technical"', elementos de estudio técnico ("TECHNICAL STUDIO", "Engineered utility") confirmados. 0 errores JS en consola.
-     - Archive: 'data-motion-style="heritage"', elementos históricos ("CATALOGUE I", "Objects with a remembered life") confirmados. 0 errores JS en consola.
-  4) SUITE DE COMPUERTAS ESTÁTICAS (8/8): 'npm run gates:static' verificado en verde (Exit 0, Theme Check 91 archivos con 0 ofensas, locales 0 huérfanas, paquete 'Sartorial-1.0.0.zip' sincronizado).
+  1) DICTAMEN DEFINITIVO GEMINI ARGON: [APROBADO PARA ENVÍO INMEDIATO] - Score 98/100, 0 bloqueantes P0/P1.
+  2) AJUSTES P2 CERRADOS: Limpieza de nota técnica interna en pickup_hours_note, unificación ortográfica US English (colour -> color), y default de cross_sell_heading gobernado por Liquid.
+  3) DESPLIEGUE DIFERENCIAL Y MOTION STYLES VERIFICADOS: Los 3 temas remotos en 'tema-qkqpke0j.myshopify.com' actualizados con motion styles dedicados ('atelier', 'technical', 'heritage').
+  4) COMPUERTAS ESTÁTICAS 8/8 EN VERDE: Exit Code 0 en `npm run gates:static`. Paquete 'Sartorial-1.0.0.zip' listo para Submit theme.
 Frentes en Ejecución Activa:
   - Preparación del paquete de release final y checklist de pre-submission comercial para Shopify Theme Store.
 ```
@@ -132,6 +126,13 @@ Frentes en Ejecución Activa:
     9. *Rol 9 (Instalación Limpia y CLS X5):* 8 secciones de `templates/index.json` manejan catálogos vacíos sin rotura. CLS bajo `prefers-reduced-motion: reduce` reducido de **0.1740 a 0.0041 (-97.6%)** mediante `patch-X5-cls-reduced-motion.diff`.
   - **Verificación Cruzada (20% muestra):** Estabilidad determinista y varianza < 1% en todos los roles (`raw-cross-verification.json`).
   - **Inventario y Parches:** `agent-comms/outbox-gemini/harness-TECH-AUDIT-001/` contiene `MANIFEST.txt` (171 archivos crudos certificados) y los 4 parches validados con `git apply --check` listos para aplicación por Claude.
+- **Auditoría Definitiva Pre-Submission Gemini Argon:** Dictamen oficial: **`[APROBADO PARA ENVÍO INMEDIATO]`** (Score: **98 / 100**).
+  - **Matriz de Severidad:** 0 hallazgos P0, 0 hallazgos P1, 3 recomendaciones de pulido cosmético P2.
+  - **Resolución y Cierre de los 3 Puntos P2:**
+    1. *P2-01 (Limpieza de comentario técnico):* En `locales/en.default.schema.json` (`sections.main_product.settings.pickup_hours_note.info`), sustituida la nota de desarrollo `"Shown with every pickup location on every product. Consider moving this to Theme settings, Product pages."` por `"Shown with every pickup location on every product."`.
+    2. *P2-02 (Unificación US English):* Homogeneizada ortografía británica a US English en `locales/en.default.schema.json` para `sections.main_support.settings.card_color_scheme.label` (`"Support policy card color scheme"`) y `sections.main_faq.settings.cta_color_scheme.label` (`"Closing card color scheme"`).
+    3. *P2-03 (Fallback de heading en Liquid):* En `sections/cart-drawer.liquid`, removida la propiedad `"default": "Complimentary Additions"` del schema para `cross_sell_heading`, garantizando que el texto respete la clave de localización en runtime a través del fallback nativo en Liquid (`cross_sell_heading = section.settings.cross_sell_heading | default: default_cross_sell_heading`).
+  - **Certificación de Compuertas Estáticas:** Validación limpia de las 8 compuertas mediante `npm run gates:static` (Exit Code 0: Theme Check con 0 ofensas en 88 archivos, 0 claves huérfanas en storefront y schema, contratos y sintaxis intactos). Archivo de producción `Sartorial-1.0.0.zip` regenerado y verificado.
 
 - **Sincronización y Publicación de Documentación Pública y Soporte (Fila 107 / GPT-DOCS-001 a 003):**
   - **Repositorio Público:** Publicado en `https://github.com/Noobprobro-web/sartorial-docs` en commit `6194f34d0d6fe087c85e01af44bf9753976caff0`. GitHub Pages en estado `built`.
