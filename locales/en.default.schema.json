@@ -242,6 +242,17 @@
         "options__3": {
           "label": "Four per row"
         }
+      },
+      "localization": {
+        "content": "Country and language selectors"
+      },
+      "enable_country_selector": {
+        "label": "Show country/region selector",
+        "info": "Lets customers switch currency. Appears only when the store sells to two or more countries or regions in Shopify Markets."
+      },
+      "enable_language_selector": {
+        "label": "Show language selector",
+        "info": "Appears only when the store has two or more published languages."
       }
     },
     "header": {
@@ -300,7 +311,8 @@
             },
             "link_2": {
               "label": "Link"
-            }
+            },
+            "link_info": "Choose a store page or paste the full HTTPS address. Without a link, the card still shows but cannot be clicked."
           }
         }
       }
@@ -825,6 +837,16 @@
         "cross_sell_collection": {
           "label": "Collection to suggest from",
           "info": "Fills remaining spaces after eligible product-specific selections, Shopify recommendations, and products selected below. Only available products outside the cart are shown."
+        },
+        "cross_sell_price_band": {
+          "label": "Prefer suggestions in a price range",
+          "info": "Applies to Shopify recommendations and the collection. Suggestions priced within the range below, as a share of the most expensive item in the cart, are shown first. Others still fill remaining spaces. Product-specific selections and products selected below are not filtered."
+        },
+        "price_band_min": {
+          "label": "Minimum price share"
+        },
+        "price_band_max": {
+          "label": "Maximum price share"
         }
       },
       "blocks": {

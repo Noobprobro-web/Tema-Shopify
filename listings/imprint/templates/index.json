@@ -9,7 +9,6 @@
         "height_desktop": 80,
         "height_mobile": 65,
         "media_type": "image",
-        "image_desktop": "",
         "overlay_style": "none",
         "overlay_opacity": 0,
         "content_position_x": "start",
@@ -30,12 +29,12 @@
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "cordura": { "type": "item", "settings": { "text": "500D CORDURA® BALLISTIC NYLON" } },
-        "ykk": { "type": "item", "settings": { "text": "YKK® AQUAGUARD® WEATHERPROOF CLOSURES" } },
+        "ballistic_nylon": { "type": "item", "settings": { "text": "500D TECHNICAL BALLISTIC NYLON" } },
+        "closures": { "type": "item", "settings": { "text": "WEATHERPROOF TECHNICAL CLOSURES" } },
         "hardware": { "type": "item", "settings": { "text": "MIL-SPEC ANODIZED HARDWARE / GRADE 5 TITANIUM" } },
         "molle": { "type": "item", "settings": { "text": "LASER-CUT MOLLE COMPATIBLE TELEMETRY" } }
       },
-      "block_order": ["cordura", "ykk", "hardware", "molle"],
+      "block_order": ["ballistic_nylon", "closures", "hardware", "molle"],
       "settings": {
         "speed": 40,
         "color_scheme": "scheme-2"
@@ -50,8 +49,7 @@
             "collection": "desk-and-study",
             "eyebrow": "[01] MEMBRANE TELEMETRY",
             "heading": "Aerospace grade EDC systems",
-            "link": "/collections/desk-and-study",
-            "image": ""
+            "link": "/collections/desk-and-study"
           }
         },
         "product1": {
@@ -73,8 +71,7 @@
             "link": "/collections/leather-goods",
             "eyebrow": "[04] BLUEPRINT ANALYSIS",
             "heading": "Calibrated for extreme endurance",
-            "body": "<p>Stress-tested 500D CORDURA nylon, weatherproof YKK AquaGuard closures, and laser-machined anodized hardware.</p>",
-            "image": ""
+            "body": "<p>Stress-tested 500D ballistic nylon, weatherproof technical closures, and laser-machined anodized hardware.</p>"
           }
         }
       },
@@ -114,9 +111,9 @@
           "type": "technical_specs",
           "settings": {
             "heading": "Technical specifications",
-            "material": "500D Ballistic CORDURA® & Ripstop",
+            "material": "500D Ballistic Nylon & Technical Ripstop",
             "gsm": "480 GSM Loopback",
-            "hardware": "Matte Black YKK® AquaGuard®",
+            "hardware": "Matte Black Weatherproof Closures",
             "origin": "Engineered in Milan Tech Studio"
           }
         },
@@ -146,7 +143,6 @@
         "heading": "The Complete Utility Rig",
         "description": "<p>A modular rig for daily carry, field telemetry and technical desk deployment.</p>",
         "caption": "A modular arrangement for daily work.",
-        "image_desktop": "",
         "color_scheme": "scheme-1"
       }
     },
@@ -166,7 +162,6 @@
         "button_label": "Inspect collection",
         "button_url": "/collections/daily-objects",
         "media_label": "TECHNICAL REPORT / 01",
-        "image": "",
         "use_surface_background": false,
         "color_scheme": "scheme-3"
       }

@@ -1,0 +1,21 @@
+diff --git a/listings/archive/templates/product.json b/listings/archive/templates/product.json
+index 607871b..27ce9d1 100644
+--- a/listings/archive/templates/product.json
++++ b/listings/archive/templates/product.json
+@@ -71,11 +71,11 @@
+         "provenance": {
+           "type": "provenance",
+           "settings": {
+-            "heading": "Archival provenance & authenticity",
+-            "circa_year": "1994",
+-            "show_unique_piece": true,
+-            "condition_grade": "grade_1",
+-            "provenance_notes": "<p>Registered museum accession no. 1994-012. Acquired from private Antwerp runway archive. Authenticated by master conservator with full deacidified preservation report.</p>"
++            "heading": "Archival provenance",
++            "circa_year": "{{ product.metafields.custom.circa_year.value }}",
++            "show_unique_piece": false,
++            "condition_grade": "not_assessed",
++            "provenance_notes": "{{ product.metafields.custom.provenance_notes | metafield_tag }}"
+           }
+         }
+       },

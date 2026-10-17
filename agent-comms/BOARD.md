@@ -5,16 +5,17 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
 Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
-Última actualización: 2026-10-14T01:37:00-04:00 (AUDITORÍA GEMINI ARGON & CIERRE P2)
-Última actualización técnica: 2026-10-14 (CIERRE P2 POLISH, Claude/Gemini)
-Estado general: DICTAMEN OFICIAL GEMINI ARGON: [APROBADO PARA ENVÍO INMEDIATO] (Score 98/100). 0 hallazgos P0, 0 hallazgos P1. 3 ajustes cosméticos P2 de pulido resueltos en locales/en.default.schema.json y sections/cart-drawer.liquid. Las 8 compuertas estáticas en VERDE (Exit Code 0, Theme Check 91 archivos con 0 ofensas, 0 huérfanas en locales). Paquete Sartorial-1.0.0.zip regenerado y certificado para envío final a Shopify Theme Store.
+Última actualización: 2026-10-16T20:15:00-04:00 (INTEGRACIÓN REMEDIACIÓN MAESTRA CLAUDE-MASTER-REMEDIATION-001)
+Última actualización técnica: 2026-10-16 (INTEGRACIÓN CRUZADA, Gemini/Claude)
+Estado general: REMEDIACIÓN MAESTRA INTEGRADA Y RATIFICADA (Commit atómico y sincronización con origin/master). Las 6 decisiones técnicas oficiales ratificadas por Gemini como líder técnico (localización Nivel 2, banda de precio 15-35%, descarte de scroll inercial, retiro de marquee-drift, neutralización de Archive e Imprint, TEC-01 con congelación de botones en cart). Las 8 compuertas estáticas en VERDE (Exit Code 0, Theme Check 91 archivos con 0 ofensas, LiquidComplexity <= 116, 0 claves huérfanas). Paquete Sartorial-1.0.0.zip regenerado y certificado. Listo para verificación en vivo Gate 5.
 Frentes Recién Sincronizados y Verificados:
-  1) DICTAMEN DEFINITIVO GEMINI ARGON: [APROBADO PARA ENVÍO INMEDIATO] - Score 98/100, 0 bloqueantes P0/P1.
-  2) AJUSTES P2 CERRADOS: Limpieza de nota técnica interna en pickup_hours_note, unificación ortográfica US English (colour -> color), y default de cross_sell_heading gobernado por Liquid.
-  3) DESPLIEGUE DIFERENCIAL Y MOTION STYLES VERIFICADOS: Los 3 temas remotos en 'tema-qkqpke0j.myshopify.com' actualizados con motion styles dedicados ('atelier', 'technical', 'heritage').
-  4) COMPUERTAS ESTÁTICAS 8/8 EN VERDE: Exit Code 0 en `npm run gates:static`. Paquete 'Sartorial-1.0.0.zip' listo para Submit theme.
+  1) APLICACIÓN Y RATIFICACIÓN DE PARCHES MAESTROS: Integrados limpiamente 19 archivos de 'CLAUDE-MASTER-REMEDIATION-001.diff' y 'CLAUDE-MASTER-REMEDIATION-001-extra-archive.diff' sobre commit HEAD 3e2a732.
+  2) CORRECCIÓN DE BUGS CRÍTICOS Y P1S: Hover de producto corregido (no desaparece imagen primaria cuando no hay secundaria), retirada definitiva de 'marquee-drift' (fin de sacudida doble), selectores de idioma/moneda condicionales en header y footer, TEC-01 (congelación de botones +/- y mutaciones por key), TEC-02 (anuncio accesible de eliminación de línea y retorno de foco contextual), TEC-03 (tabindex -1 en mensajes de éxito/error de formularios), TEC-04 (botón accesible de pausa de video en hero WCAG 2.2.2).
+  3) NEUTRALIZACIÓN DE PRESETS: Metadatos de Archive migrados a metafields dinámicos; preset Imprint neutralizado sustituyendo marcas de terceros (CORDURA, YKK) por descriptores técnicos de alta gama.
+  4) TEST DE CARRITO ACTUALIZADO: Test de clics rápidos adaptado a TEC-01 para verificar que controles congelados previenen peticiones fuera de orden.
+  5) COMPUERTAS ESTÁTICAS 8/8 EN VERDE: Exit Code 0 en `npm run gates:static`, Theme Check con 0 ofensas en 91 archivos, `Sartorial-1.0.0.zip` (343 KB) regenerado.
 Frentes en Ejecución Activa:
-  - Preparación del paquete de release final y checklist de pre-submission comercial para Shopify Theme Store.
+  - Verificación en vivo en desarrollo 'tema-qkqpke0j.myshopify.com' (Gate 5) y entrega final.
 ```
 
 ---
@@ -436,3 +437,63 @@ Compuertas Estáticas: 8/8 EN VERDE ('npm run gates:static' EXIT 0, Theme Check 
    - Atributo `data-motion-style="heritage"`: **CONFIRMADO**.
    - Elementos visuales y textos editoriales: `"CATALOGUE I"` y `"Objects with a remembered life"` renderizados en el DOM.
    - Consola y errores: **0 errores JS, 0 page errors**.
+
+---
+
+## 10. Integración de la Remediación Maestra y Ratificación de Decisiones Técnicas (CLAUDE-MASTER-REMEDIATION-001)
+
+```text
+Fecha: 2026-10-16
+Entrega de Claude: agent-comms/outbox-claude/CLAUDE-MASTER-REMEDIATION-001.md
+Parches Integrados:
+  - CLAUDE-MASTER-REMEDIATION-001.diff (19 archivos, +527/-118)
+  - CLAUDE-MASTER-REMEDIATION-001-extra-archive.diff (listings/archive/templates/product.json)
+Compuertas Estáticas: 8/8 EN VERDE (Exit Code 0 en `npm run gates:static`)
+Theme Check: 91 archivos inspeccionados con 0 ofensas
+Locales: 428 claves storefront, 500 de schema; 0 huérfanas, 0 sin resolver
+Empaquetado: Sartorial-1.0.0.zip regenerado (343 KB)
+Estado: APROBADO Y CONSOLIDADO EN REPOSITORIO — LISTO PARA VERIFICACIÓN EN VIVO (GATE 5)
+```
+
+### 10.1 Las 6 Decisiones Oficiales de Gemini (Líder Técnico) Ratificadas
+
+1. **Ratificación de los 7 ajustes de schema (Nivel 2):**
+   - **4 de localización:** Inclusión de selectores de país/moneda e idioma en `sections/header.liquid` y `sections/footer.liquid` (settings `enable_country_selector` y `enable_language_selector`), activos por defecto y renderizados condicionalmente en `snippets/localization-selectors.liquid` únicamente si la tienda tiene múltiples mercados o idiomas configurados, con aviso formativo en el editor (`editor_notice`).
+   - **3 de filtro de precio en cross-sell:** Incorporación de filtro opcional de rango de precio 15–35% (`cross_sell_price_band`, `price_band_min`, `price_band_max`) en `sections/cart-drawer.liquid`, apagado por defecto para máxima flexibilidad del comerciante.
+2. **Retiro definitivo de `marquee-drift` en `base.css`:**
+   - Erradicación de la animación aditiva ligada al scroll en `.marquee-banner__track`. Se erradica por completo la sacudida visual y doble movimiento conflictivo reportado por Johandry; la banda editorial funciona con suavidad uniforme en todos los modos vía `@keyframes editorial-marquee`.
+3. **Descarte de librería de scroll inercial (Lenis / Smooth Scroll):**
+   - Rechazo técnico fundamentado para salvaguardar Core Web Vitals (TBT/INP), prevenir scroll-jacking penalizado en revisiones de Shopify Theme Store, y proteger la navegación por teclado, foco programático y `scroll-padding` nativo.
+4. **Normalización y Neutralización de Presets (Archive e Imprint):**
+   - Parche de Archive aplicado: metadatos de autenticidad y procedencia convertidos en metafields dinámicos neutros (`{{ product.metafields.custom.circa_year.value }}`), con condición `"not_assessed"` por defecto.
+   - Preset Imprint neutralizado: erradicadas marcas registradas de terceros (`CORDURA®`, `YKK® AquaGuard®`) y reemplazadas por terminología técnica descriptiva de alta gama (`500D TECHNICAL BALLISTIC NYLON`, `WEATHERPROOF TECHNICAL CLOSURES`, `Anodized Alloy Hardware`), garantizando cero riesgos de propiedad intelectual durante la revisión de Theme Store.
+5. **Sincronización del Test de Carrito con TEC-01:**
+   - Actualización del harness de estrés (`harness-4E-002/stress.spec.mjs`) para verificar que durante una mutación en vuelo, los controles (`[data-quantity-button]` y campos de cantidad) quedan congelados (`setDrawerBusy(true)` con retención de `wasDisabled`), descartando clics espurios y garantizando idempotencia estricta en `/cart/change.js`.
+6. **Preparación de Gate 5 para Verificación en Vivo:**
+   - Código congelado, compuertas estáticas en verde y artefacto empaquetado. Listo para desplegar y verificar en la tienda de desarrollo `tema-qkqpke0j.myshopify.com` con lectores de pantalla y perfiles de red throttled.
+
+### 10.2 Verificación de Correcciones en el Código
+
+| Módulo / Corrección | Archivo Afectado | Verificación Técnica Realizada |
+|---|---|---|
+| **Hover de Producto sin Secundaria** | `snippets/product-card.liquid`, `assets/base.css:1872` | `.product-card__media[data-has-secondary]:hover .product-card__image--primary` solo oculta la imagen primaria si existe el atributo `data-has-secondary`. Si el producto tiene una sola imagen, la foto permanece visible y hace zoom suave. Corregido. |
+| **Marquesina sin Doble Animación** | `assets/base.css:9388` | Retirada de `marquee-drift`. Track unificado con `editorial-marquee`. Pausa en hover y foco operativas. Corregido. |
+| **Localización Header / Footer** | `sections/header.liquid`, `sections/footer.liquid`, `snippets/localization-selectors.liquid` | Formulario nativo con enlaces contextuales, aviso para comerciantes en diseño, y claves schema 100% traducidas en `en.default.schema.json` y `es.json`. Corregido. |
+| **TEC-01: Freeze & Key en Carrito** | `sections/cart-drawer.liquid`, `sections/main-cart-items.liquid`, `assets/theme.js:3108,3466` | Envío de `id: item.key` a `/cart/change.js`. Deshabilitación reentrante de botones durante mutación y restauración de `wasDisabled`. Corregido. |
+| **TEC-02: Anuncio Accesible y Foco al Quitar** | `sections/cart-drawer.liquid`, `locales/*.json`, `assets/theme.js:3178,3193` | Región viva `[data-cart-status]` anuncia `item_removed`. Foco salta a fila siguiente, previa, mensaje de carrito vacío o título (nunca al botón Cerrar). Corregido. |
+| **TEC-03: Tabindex en Formularios** | `sections/newsletter.liquid:53,58`, `sections/footer.liquid:77,82` | `tabindex="-1"` agregado en `.form-message--success` y `.form-message--error`. `initFormMessageFocus` transfiere foco programático sin errores. Corregido. |
+| **TEC-04: Botón Pausa de Video Hero** | `sections/hero-editorial.liquid:117`, `assets/base.css:4005`, `assets/theme.js` | Botón accesible toggle play/pause en video hero, con etiquetas accesibles dinámicas y soporte WCAG 2.2.2. Corregido. |
+| **Preset Archive** | `listings/archive/templates/product.json` | Claims estáticos de procedencia sustituidos por metafields dinámicos. Corregido. |
+| **Preset Imprint** | `listings/imprint/templates/index.json`, `listings/imprint/templates/product.json` | Erradicación de marcas registradas CORDURA/YKK por términos descriptivos neutrales. Corregido. |
+
+### 10.3 Estado de Compuertas Estáticas
+
+- `npm run gates:json`: **EXIT 0** (534 archivos comprobados, 0 fallos, 0 shop_images)
+- `npm run gates:hooks`: **EXIT 0** (22 contratos JS <-> Liquid analizados, 0 rotos)
+- `npm run gates:sanity`: **EXIT 0** (Sandbox temporal detectó y restauró las 3 clases de error sintético)
+- `npm run gates:locales`: **EXIT 0** (428 claves storefront, 500 de schema, 0 sin resolver, 0 huérfanas)
+- `npm run gates:ledger`: **EXIT 0** (60 filas, 54 cumplido, 6 código completo, 0 inconsistencias)
+- `npm run gates:theme-check`: **EXIT 0** (91 archivos de tema inspeccionados, 0 ofensas encontradas)
+- `npm run gates:syntax`: **EXIT 0** (Node syntax check en theme.js y product-zoom.js limpio)
+- `npm run gates:package`: **EXIT 0** (Generado `Sartorial-1.0.0.zip` de 343 KB)
+

@@ -34,7 +34,9 @@
       "currency": "Moneda",
       "current_language": "Idioma actual: {{ language }}",
       "language": "Idioma",
-      "update": "Actualizar preferencias"
+      "update": "Actualizar preferencias",
+      "editor_notice_language": "Solo en el editor de temas: el selector de idioma está oculto porque la tienda tiene un único idioma publicado. Publica otro idioma para mostrarlo.",
+      "editor_notice_country": "Solo en el editor de temas: el selector de moneda está oculto porque la tienda vende a un único país o región. Añade un mercado en Shopify Markets para mostrarlo."
     }
   },
   "sections": {
@@ -65,6 +67,7 @@
       "increase_quantity": "Aumentar la cantidad de {{ title }}",
       "remove": "Eliminar",
       "remove_item": "Eliminar {{ title }}",
+      "item_removed": "Se eliminó {{ title }} de tu carrito.",
       "discount": "Descuento",
       "subtotal": "Subtotal",
       "taxes_included": "Impuestos incluidos.",
@@ -166,7 +169,9 @@
     },
     "homepage": {
       "hero": {
-        "region_label": "Campaña editorial destacada"
+        "region_label": "Campaña editorial destacada",
+        "pause_video": "Pausar el video de fondo",
+        "play_video": "Reproducir el video de fondo"
       },
       "curated": {
         "region_label": "Colecciones seleccionadas",
@@ -431,7 +436,8 @@
         "grade_2": "Grado II · Desgaste leve",
         "grade_3": "Grado III · Desgaste visible",
         "grade_4": "Grado IV · Desgaste significativo",
-        "grade_5": "Grado V · Frágil / pieza de estudio"
+        "grade_5": "Grado V · Frágil / pieza de estudio",
+        "editor_empty": "Añade un año aproximado, un grado de estado o notas de procedencia para mostrar este bloque. Hasta entonces no aparece en la tienda."
       },
       "media_gallery": "Galería de imágenes del producto",
       "media_thumbnails": "Miniaturas del producto",

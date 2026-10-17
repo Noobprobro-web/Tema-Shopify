@@ -8,6 +8,20 @@
   endif
 -%}
 
+{%- comment -%}
+  Selectores de idioma y moneda al pie, alcanzables en cualquier ancho. Solo se pintan con
+  2 o mas valores; en el editor, sin mercados o idiomas, queda el aviso para el comerciante.
+{%- endcomment -%}
+{%- capture footer_localization -%}
+  {%- render 'localization-selectors',
+    context: 'footer',
+    enable_country: section.settings.enable_country_selector,
+    enable_language: section.settings.enable_language_selector,
+    editor_notice: true
+  -%}
+{%- endcapture -%}
+{%- assign footer_localization = footer_localization | strip -%}
+
 <footer class="site-footer color-{{ color_scheme_id }}" data-section-id="{{ section.id }}">
   <div class="container site-footer__grid">
     <div class="site-footer__brand flow">
@@ -60,12 +74,12 @@
           </div>
 
           {%- if form.posted_successfully? -%}
-            <p class="form-message form-message--success" role="status">
+            <p class="form-message form-message--success" role="status" tabindex="-1">
               {{- 'newsletter.success' | t -}}
             </p>
           {%- endif -%}
           {%- if form.errors -%}
-            <div id="FooterNewsletterError" class="form-message form-message--error" role="alert">
+            <div id="FooterNewsletterError" class="form-message form-message--error" role="alert" tabindex="-1">
               <p>{{ 'newsletter.error_heading' | t }}</p>
               {{ form.errors | default_errors }}
             </div>
@@ -108,16 +122,21 @@
     {%- endif -%}
   </div>
 
-  {%- if shop.enabled_payment_types.size > 0 -%}
+  {%- if footer_localization != blank or shop.enabled_payment_types.size > 0 -%}
     <div class="container site-footer__utilities">
-      <div class="site-footer__payments">
-        <span class="visually-hidden">{{ 'sections.footer.payment_methods' | t }}</span>
-        <ul class="site-footer__payment-list unstyled-list" role="list">
-          {%- for type in shop.enabled_payment_types -%}
-            <li class="site-footer__payment-item">{{ type | payment_type_svg_tag }}</li>
-          {%- endfor -%}
-        </ul>
-      </div>
+      {%- if footer_localization != blank -%}
+        <div class="site-footer__localization">{{ footer_localization }}</div>
+      {%- endif -%}
+      {%- if shop.enabled_payment_types.size > 0 -%}
+        <div class="site-footer__payments">
+          <span class="visually-hidden">{{ 'sections.footer.payment_methods' | t }}</span>
+          <ul class="site-footer__payment-list unstyled-list" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li class="site-footer__payment-item">{{ type | payment_type_svg_tag }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
     </div>
   {%- endif -%}
 
@@ -181,6 +200,24 @@
       "type": "textarea",
       "id": "newsletter_text",
       "label": "t:sections.footer.settings.newsletter_text.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.localization.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "label": "t:sections.all.enable_country_selector.label",
+      "info": "t:sections.all.enable_country_selector.info",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "label": "t:sections.all.enable_language_selector.label",
+      "info": "t:sections.all.enable_language_selector.info",
+      "default": true
     }
   ]
 }

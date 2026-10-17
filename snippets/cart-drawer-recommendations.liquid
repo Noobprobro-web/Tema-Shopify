@@ -13,6 +13,12 @@
   solo rellena los huecos que quedan, hasta 2 productos unicos, disponibles y fuera del
   carrito. El marcado de la tarjeta existe una sola vez, dentro del bucle de candidatos.
   Sin candidatos no se pinta nada: ni encabezado ni contenedor.
+
+  Banda de precio (opcional, cross_sell_price_band): las fuentes automaticas (2 y 4) solo
+  aceptan productos cuyo precio quede entre price_band_min y price_band_max por ciento del
+  precio unitario del ancla. Las pasadas 5 y 6 repiten esas dos fuentes sin filtro, asi que
+  la banda solo reordena: nunca deja la lista mas corta que sin ella. El metafield (1) y los
+  bloques (3) son eleccion explicita del comerciante y no se filtran.
 {%- endcomment -%}
 {%- if section.settings.show_complementary_products and cart.item_count > 0 -%}
   {%- liquid
@@ -43,6 +49,11 @@
     endfor
     assign anchor_product = anchor_item.product
 
+    assign price_band = false
+    if section.settings.cross_sell_price_band and anchor_price > 0
+      assign price_band = true
+    endif
+
     assign seen_ids = ','
     assign cross_sell_count = 0
   -%}
@@ -56,7 +67,7 @@
   {%- endcapture -%}
 
   {%- capture cross_sell_cards -%}
-    {%- for source in (1..4) -%}
+    {%- for source in (1..6) -%}
       {%- liquid
         if cross_sell_count >= 2
           break
@@ -80,6 +91,16 @@
           when 4
             assign pool = section.settings.cross_sell_collection.products
             assign budget = 50
+          when 5
+            if price_band and section.settings.use_search_discovery and anchor_product and recommendations.performed?
+              assign pool = recommendations.products
+              assign budget = 10
+            endif
+          when 6
+            if price_band
+              assign pool = section.settings.cross_sell_collection.products
+              assign budget = 50
+            endif
         endcase
       -%}
       {%- for entry in pool limit: budget -%}
@@ -99,6 +120,14 @@
           assign candidate_token = ',' | append: candidate.id | append: ','
           if in_cart_ids contains candidate_token or seen_ids contains candidate_token
             continue
+          endif
+          if price_band
+            if source == 2 or source == 4
+              assign price_ratio = candidate.price | times: 100 | divided_by: anchor_price
+              if price_ratio < section.settings.price_band_min or price_ratio > section.settings.price_band_max
+                continue
+              endif
+            endif
           endif
           assign seen_ids = seen_ids | append: candidate.id | append: ','
           assign cross_sell_count = cross_sell_count | plus: 1

@@ -1,7 +1,14 @@
 {%- comment -%}
   Renders Shopify's native localization form with an ultra-clean, minimal language toggle.
   Accepts:
-  - context: 'header', 'header-mobile', etc.
+  - context: 'header', 'header-mobile', 'footer', etc.
+  - enable_language: false hides the language toggle. Default: shown.
+  - enable_country: false hides the currency selector. Default: shown.
+  - editor_notice: true lets this instance show the theme editor notice.
+
+  Un selector con un solo valor seria un control muerto: aunque el ajuste este activo,
+  cada uno se pinta solo con 2 o mas idiomas o paises. En el editor, la instancia con
+  editor_notice explica al comerciante por que no aparece.
 {%- endcomment -%}
 
 {%- liquid
@@ -9,13 +16,30 @@
   assign localization_form_id = 'LocalizationForm-' | append: localization_context
   assign show_language_selector = false
   assign show_country_selector = false
+  assign language_needs_setup = false
+  assign country_needs_setup = false
 
-  if localization.available_languages.size > 1
-    assign show_language_selector = true
-  endif
+  unless enable_language == false
+    if localization.available_languages.size > 1
+      assign show_language_selector = true
+    else
+      assign language_needs_setup = true
+    endif
+  endunless
 
-  if localization.available_countries.size > 1
-    assign show_country_selector = true
+  unless enable_country == false
+    if localization.available_countries.size > 1
+      assign show_country_selector = true
+    else
+      assign country_needs_setup = true
+    endif
+  endunless
+
+  assign show_editor_notice = false
+  if editor_notice and request.design_mode
+    if language_needs_setup or country_needs_setup
+      assign show_editor_notice = true
+    endif
   endif
 -%}
 
@@ -80,4 +104,15 @@
       {%- endif -%}
     {%- endform -%}
   </localization-form>
+{%- endif -%}
+
+{%- if show_editor_notice -%}
+  <div class="localization-form__notice">
+    {%- if language_needs_setup -%}
+      <p>{{ 'general.localization.editor_notice_language' | t }}</p>
+    {%- endif -%}
+    {%- if country_needs_setup -%}
+      <p>{{ 'general.localization.editor_notice_country' | t }}</p>
+    {%- endif -%}
+  </div>
 {%- endif -%}

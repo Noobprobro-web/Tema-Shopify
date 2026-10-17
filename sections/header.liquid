@@ -121,7 +121,7 @@
           {%- endif -%}
 
           <div class="mobile-nav__localization">
-            {% render 'localization-selectors', context: 'header-mobile' %}
+            {% render 'localization-selectors', context: 'header-mobile', enable_country: section.settings.enable_country_selector, enable_language: section.settings.enable_language_selector %}
           </div>
          </div>
       </div>
@@ -185,7 +185,7 @@
 
       {% render 'predictive-search', section: section %}
 
-      {% render 'localization-selectors', context: 'header' %}
+      {% render 'localization-selectors', context: 'header', enable_country: section.settings.enable_country_selector, enable_language: section.settings.enable_language_selector %}
 
       {%- if shop.customer_accounts_enabled -%}
         <shopify-account class="site-header__account" menu="{{ section.settings.customer_account_menu }}"></shopify-account>
@@ -240,6 +240,24 @@
       "id": "customer_account_menu",
       "label": "t:sections.header.settings.customer_account_menu.label",
       "default": "customer-account-main-menu"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.localization.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "label": "t:sections.all.enable_country_selector.label",
+      "info": "t:sections.all.enable_country_selector.info",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "label": "t:sections.all.enable_language_selector.label",
+      "info": "t:sections.all.enable_language_selector.info",
+      "default": true
     }
   ],
   "blocks": [
@@ -277,7 +295,8 @@
         {
           "type": "url",
           "id": "link_1",
-          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_1.label"
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_1.label",
+          "info": "t:sections.header.blocks.mega_menu_promo.settings.link_info"
         },
         {
           "type": "header",
@@ -302,7 +321,8 @@
         {
           "type": "url",
           "id": "link_2",
-          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_2.label"
+          "label": "t:sections.header.blocks.mega_menu_promo.settings.link_2.label",
+          "info": "t:sections.header.blocks.mega_menu_promo.settings.link_info"
         }
       ]
     }
