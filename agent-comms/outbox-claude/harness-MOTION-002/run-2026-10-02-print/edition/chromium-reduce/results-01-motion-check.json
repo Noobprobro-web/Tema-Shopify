@@ -1,0 +1,335 @@
+{
+  "harness": "MOTION-002",
+  "task": "T5",
+  "script": "01-motion-check.mjs",
+  "timestamp": "2026-10-02T18:08:53.277Z",
+  "base": "https://sartorial-edition.myshopify.com",
+  "store": "edition",
+  "config": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "routes": [
+      "/",
+      "/collections/all",
+      "/products/structured-tote"
+    ],
+    "shortRoute": null,
+    "forceMode": "full",
+    "clsMax": 0.1,
+    "tabPresses": 40,
+    "projects": [
+      "chromium-reduce"
+    ],
+    "localTarget": false,
+    "notes": []
+  },
+  "contract": {
+    "attributes": [
+      "data-reveal=\"\"",
+      "data-reveal=\"done\"",
+      "data-revealed",
+      "html[data-reveal-ready]",
+      "html[data-animations]"
+    ],
+    "expectedKeyframes": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ]
+  },
+  "projects": [
+    {
+      "name": "chromium-reduce",
+      "browser": "chromium",
+      "scenario": "reduce",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [],
+      "printRows": [
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "reduce: ready=false, decorados=0. La llave 2 ya lo deja todo visible; la fila prueba que el papel no lo rompe."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "Sartorial Edition",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 7279,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-reduce-home.pdf",
+            "bytes": 4225971
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/collections/all",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "reduce: ready=false, decorados=0. La llave 2 ya lo deja todo visible; la fila prueba que el papel no lo rompe."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "Products – Sartorial Edition",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 2850,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-reduce-collections-all.pdf",
+            "bytes": 2938431
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/products/structured-tote",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "reduce: ready=false, decorados=0. La llave 2 ya lo deja todo visible; la fila prueba que el papel no lo rompe."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "Structured Tote in Calfskin – Sartorial Edition",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 2617,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-reduce-products-structured-tote.pdf",
+            "bytes": 2076014
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        }
+      ]
+    }
+  ],
+  "degenerate": {
+    "resolved": null,
+    "rows": []
+  },
+  "shortRoute": null,
+  "keyframes": {
+    "expected": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "observed": [],
+    "notObserved": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "allObservedNames": []
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "nombre": "Todos los proyectos arrancaron y terminaron",
+      "estado": "PASA",
+      "detalle": "1 proyecto(s) completados."
+    },
+    {
+      "id": "G11",
+      "nombre": "Contenido revelado al imprimir (media print sin scroll + PDF)",
+      "estado": "PASA",
+      "detalle": "chromium-reduce /: pend=0 ocultos=0 pdf=si | chromium-reduce /collections/all: pend=0 ocultos=0 pdf=si | chromium-reduce /products/structured-tote: pend=0 ocultos=0 pdf=si"
+    }
+  ],
+  "summary": {
+    "rowsTotal": 0,
+    "rowsMeasured": 0,
+    "rowsFailed": 0,
+    "rowsNotMeasured": 0,
+    "projectsIncomplete": [],
+    "hardFailures": [],
+    "notMeasuredReasons": []
+  },
+  "verdict": "APTO"
+}

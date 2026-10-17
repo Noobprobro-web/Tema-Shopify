@@ -1,0 +1,331 @@
+{
+  "harness": "MOTION-002",
+  "task": "T5",
+  "script": "01-motion-check.mjs",
+  "timestamp": "2026-10-02T18:14:21.471Z",
+  "base": "https://sartorial-edition.myshopify.com",
+  "store": "edition",
+  "config": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "routes": [
+      "/",
+      "/collections/all",
+      "/products/structured-tote"
+    ],
+    "shortRoute": null,
+    "forceMode": "full",
+    "clsMax": 0.1,
+    "tabPresses": 40,
+    "projects": [
+      "chromium-full"
+    ],
+    "localTarget": false,
+    "notes": []
+  },
+  "contract": {
+    "attributes": [
+      "data-reveal=\"\"",
+      "data-reveal=\"done\"",
+      "data-revealed",
+      "html[data-reveal-ready]",
+      "html[data-animations]"
+    ],
+    "expectedKeyframes": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ]
+  },
+  "projects": [
+    {
+      "name": "chromium-full",
+      "browser": "chromium",
+      "scenario": "full",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [],
+      "printRows": [
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [],
+          "loaded": {
+            "title": "Sartorial Edition",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 7279,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": true,
+            "pending": 21,
+            "settled": 0,
+            "decorated": 21,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 21,
+            "pending": 21,
+            "targets": 45,
+            "inspected": 43,
+            "notRendered": 2,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-full-home.pdf",
+            "bytes": 4226081
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 21,
+            "pending": 21,
+            "targets": 45,
+            "inspected": 43,
+            "notRendered": 2,
+            "hidden": []
+          },
+          "printExercised": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/collections/all",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [],
+          "loaded": {
+            "title": "Products – Sartorial Edition",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 2850,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": true,
+            "pending": 5,
+            "settled": 0,
+            "decorated": 5,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 5,
+            "pending": 5,
+            "targets": 5,
+            "inspected": 5,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-full-collections-all.pdf",
+            "bytes": 2938436
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 5,
+            "pending": 5,
+            "targets": 5,
+            "inspected": 5,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/products/structured-tote",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "Nada pendiente al cargar sin scroll (pend=0, ready=true): la llave de papel no se ejercita en esta ruta."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "Structured Tote in Calfskin – Sartorial Edition",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 2617,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-full-products-structured-tote.pdf",
+            "bytes": 2076023
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        }
+      ]
+    }
+  ],
+  "degenerate": {
+    "resolved": null,
+    "rows": []
+  },
+  "shortRoute": null,
+  "keyframes": {
+    "expected": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "observed": [],
+    "notObserved": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "allObservedNames": []
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "nombre": "Todos los proyectos arrancaron y terminaron",
+      "estado": "PASA",
+      "detalle": "1 proyecto(s) completados."
+    },
+    {
+      "id": "G11",
+      "nombre": "Contenido revelado al imprimir (media print sin scroll + PDF)",
+      "estado": "PASA",
+      "detalle": "chromium-full /: pend=21 ocultos=0 pdf=si | chromium-full /collections/all: pend=5 ocultos=0 pdf=si | chromium-full /products/structured-tote: pend=0 ocultos=0 pdf=si"
+    }
+  ],
+  "summary": {
+    "rowsTotal": 0,
+    "rowsMeasured": 0,
+    "rowsFailed": 0,
+    "rowsNotMeasured": 0,
+    "projectsIncomplete": [],
+    "hardFailures": [],
+    "notMeasuredReasons": []
+  },
+  "verdict": "APTO"
+}

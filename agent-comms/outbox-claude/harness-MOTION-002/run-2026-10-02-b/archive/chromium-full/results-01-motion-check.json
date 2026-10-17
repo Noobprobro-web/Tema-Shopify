@@ -1,0 +1,935 @@
+{
+  "harness": "MOTION-002",
+  "task": "T5",
+  "script": "01-motion-check.mjs",
+  "timestamp": "2026-10-02T17:37:05.367Z",
+  "base": "https://sartorial-archive.myshopify.com",
+  "store": "archive",
+  "config": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "routes": [
+      "/",
+      "/collections/all",
+      "/products/1990-pinstripe-double-breasted-jacket",
+      "/pages/about"
+    ],
+    "shortRoute": null,
+    "forceMode": "full",
+    "clsMax": 0.1,
+    "tabPresses": 40,
+    "projects": [
+      "chromium-full"
+    ],
+    "localTarget": false,
+    "notes": []
+  },
+  "contract": {
+    "attributes": [
+      "data-reveal=\"\"",
+      "data-reveal=\"done\"",
+      "data-revealed",
+      "html[data-reveal-ready]",
+      "html[data-animations]"
+    ],
+    "expectedKeyframes": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ]
+  },
+  "projects": [
+    {
+      "name": "chromium-full",
+      "browser": "chromium",
+      "scenario": "full",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [
+            "Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked.\n",
+            "Failed to load resource: the server responded with a status of 403 ()"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 12,
+            "settled": 0,
+            "decorated": 12,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 29,
+            "scrollDriven": 23,
+            "timelineKinds": [
+              "DocumentTimeline",
+              "ViewTimeline"
+            ],
+            "scrollDrivenNames": [
+              "hero-parallax",
+              "marquee-drift",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ],
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "hero-parallax",
+              "lookbook-hotspot-pulse",
+              "marquee-drift",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 13,
+            "srcs": [
+              "https://sartorial-archive.myshopify.com/cdn/s/trekkie.storefront.2f6d7d7ede7d24234881a9cd5f47e679642fa1f6.min.js",
+              "https://sartorial-archive.myshopify.com/cdn/shop/t/2/assets/theme.js?v=8110917819722666451790950052",
+              "https://sartorial-archive.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-1bd60354.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-318ab40a.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "https://sartorial-archive.myshopify.com/cdn/wpm/b5982071ew7ea472e3p69b68784m2150dfeam.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-4e26a9ce.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.9.4.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-c6b62ece.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 6171,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 5271
+          },
+          "probes": 3,
+          "midGesture": [
+            {
+              "file": "evidence/chromium-full-home-mid-01.png",
+              "target": "div.brand-manifesto__statement",
+              "progress": 0.392,
+              "opacity": 0.936,
+              "clipPath": "inset(-100% -16px 0px)",
+              "animations": [
+                "scroll-fade"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-home-mid-02.png",
+              "target": "div.brand-manifesto__detail",
+              "progress": 0.534,
+              "opacity": 0.979,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-home-mid-03.png",
+              "target": "header.curated-showcase__header",
+              "progress": 0.596,
+              "opacity": 0.988,
+              "clipPath": "inset(-100% -16px 0px)",
+              "animations": [
+                "scroll-fade"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            }
+          ],
+          "traverse": {
+            "maxScrollDriven": 14,
+            "maxTotal": 20,
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "hero-parallax",
+              "lookbook-hotspot-pulse",
+              "marquee-drift",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil"
+            ],
+            "iterations": 14
+          },
+          "afterScroll": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 12,
+            "decorated": 12,
+            "revealedMark": 12
+          },
+          "animationsAfterScroll": {
+            "total": 8,
+            "scrollDriven": 2,
+            "timelineKinds": [
+              "DocumentTimeline",
+              "ViewTimeline"
+            ],
+            "scrollDrivenNames": [
+              "hero-parallax",
+              "marquee-drift"
+            ],
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "hero-parallax",
+              "lookbook-hotspot-pulse",
+              "marquee-drift"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 14,
+          "cls": {
+            "supported": true,
+            "value": 0.0011,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 39,
+            "distinctFocusables": 19,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "m3Applicable": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/collections/all",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 11,
+            "settled": 0,
+            "decorated": 11,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 12,
+            "scrollDriven": 11,
+            "timelineKinds": [
+              "DocumentTimeline",
+              "ViewTimeline"
+            ],
+            "scrollDrivenNames": [
+              "scroll-rise"
+            ],
+            "names": [
+              "announcement-reveal",
+              "scroll-rise"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 12,
+            "srcs": [
+              "https://sartorial-archive.myshopify.com/cdn/s/trekkie.storefront.2f6d7d7ede7d24234881a9cd5f47e679642fa1f6.min.js",
+              "https://sartorial-archive.myshopify.com/cdn/shop/t/2/assets/theme.js?v=8110917819722666451790950052",
+              "https://sartorial-archive.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-1bd60354.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-318ab40a.js",
+              "https://sartorial-archive.myshopify.com/cdn/wpm/b5982071ew7ea472e3p69b68784m2150dfeam.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-4e26a9ce.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.9.4.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-c6b62ece.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Products – Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 6630,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 5730
+          },
+          "probes": 3,
+          "midGesture": [
+            {
+              "file": "evidence/chromium-full-collections-all-mid-01.png",
+              "target": "li.product-grid__item",
+              "progress": 0.409,
+              "opacity": 0.944,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-collections-all-mid-02.png",
+              "target": "li.product-grid__item",
+              "progress": 0.345,
+              "opacity": 0.911,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-collections-all-mid-03.png",
+              "target": "li.product-grid__item",
+              "progress": 0.399,
+              "opacity": 0.939,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            }
+          ],
+          "traverse": {
+            "maxScrollDriven": 5,
+            "maxTotal": 6,
+            "names": [
+              "announcement-reveal",
+              "scroll-rise"
+            ],
+            "iterations": 9
+          },
+          "afterScroll": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 11,
+            "decorated": 11,
+            "revealedMark": 11
+          },
+          "animationsAfterScroll": {
+            "total": 1,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 5,
+          "cls": {
+            "supported": true,
+            "value": 0.0015,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 15,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "m3Applicable": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/products/1990-pinstripe-double-breasted-jacket",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "Sin objetivos pendientes bajo el pliegue: no hay gesto que capturar en esta ruta.",
+            "M3: La ruta no decoro ni un objetivo ([data-reveal] = 0 antes y despues del recorrido): no hay coreografia scroll-driven que exigir. Revisa si la tienda tiene esas secciones configuradas."
+          ],
+          "errors": [],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 2,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal",
+              "gallery-media-in"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 14,
+            "srcs": [
+              "https://sartorial-archive.myshopify.com/cdn/s/trekkie.storefront.2f6d7d7ede7d24234881a9cd5f47e679642fa1f6.min.js",
+              "https://sartorial-archive.myshopify.com/cdn/shop/t/2/assets/theme.js?v=8110917819722666451790950052",
+              "https://sartorial-archive.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-1bd60354.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-318ab40a.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "https://sartorial-archive.myshopify.com/cdn/wpm/b5982071ew7ea472e3p69b68784m2150dfeam.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-4e26a9ce.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.9.4.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-c6b62ece.js",
+              "https://sartorial-archive.myshopify.com/cdn/shop/t/2/assets/product-zoom.js?v=140592985200177993951790696774",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "1990 Pinstripe Double-Breasted Jacket – Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 2681,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 1781
+          },
+          "probes": 0,
+          "midGesture": [],
+          "traverse": {
+            "maxScrollDriven": 0,
+            "maxTotal": 4,
+            "names": [
+              "announcement-reveal",
+              "gallery-media-in"
+            ],
+            "iterations": 6
+          },
+          "afterScroll": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAfterScroll": {
+            "total": 2,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal",
+              "gallery-media-in"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 0,
+          "cls": {
+            "supported": true,
+            "value": 0.0006,
+            "entries": 2
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 39,
+            "distinctFocusables": 18,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "m3Applicable": false,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/pages/about",
+          "status": 404,
+          "measured": false,
+          "noMeasureReason": "La ruta no rindio contenido util (HTTP 404, main=true, hijos de body=9): las metricas de esta fila no son concluyentes.",
+          "failures": [],
+          "warnings": [],
+          "errors": [
+            "Failed to load resource: the server responded with a status of 404 ()"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 1,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 12,
+            "srcs": [
+              "https://sartorial-archive.myshopify.com/cdn/s/trekkie.storefront.2f6d7d7ede7d24234881a9cd5f47e679642fa1f6.min.js",
+              "https://sartorial-archive.myshopify.com/cdn/shop/t/2/assets/theme.js?v=8110917819722666451790950052",
+              "https://sartorial-archive.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-1bd60354.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-318ab40a.js",
+              "https://sartorial-archive.myshopify.com/cdn/wpm/b5982071ew7ea472e3p69b68784m2150dfeam.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-4e26a9ce.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.9.4.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-archive.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-c6b62ece.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "404 Not Found – Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 1419,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 519
+          },
+          "verdict": "NO_MEDIBLE"
+        }
+      ]
+    }
+  ],
+  "degenerate": {
+    "resolved": {
+      "catalog": {
+        "collections": [
+          {
+            "handle": "permanent-archive",
+            "title": "Permanent Archive",
+            "count": 12,
+            "probed": false
+          },
+          {
+            "handle": "restored-pieces",
+            "title": "Restored Pieces",
+            "count": 3,
+            "probed": false
+          }
+        ],
+        "products": 12
+      },
+      "states": [
+        {
+          "estado": "vacio",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ninguna coleccion publica de esta tienda tiene 0 productos."
+        },
+        {
+          "estado": "unico",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ninguna coleccion publica de esta tienda tiene exactamente 1 producto."
+        },
+        {
+          "estado": "masivo",
+          "ruta": "/collections/all",
+          "alcanzable": true,
+          "motivo": "/collections/all con 12 productos en catalogo. products_per_page es ajuste de seccion (max 48): 50 por pagina no es alcanzable desde la URL; se mide la rejilla rendida tal cual."
+        },
+        {
+          "estado": "muy-largo",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ningun producto de esta tienda tiene un titulo de 120+ caracteres."
+        },
+        {
+          "estado": "falta-imagen",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ningun producto de esta tienda esta sin imagenes. El placeholder de las secciones del homepage depende de ajustes de seccion y no se puede provocar desde la URL: se detecta por DOM si aparece."
+        },
+        {
+          "estado": "unica-imagen-galeria",
+          "ruta": "/products/1999-technical-cotton-trench",
+          "alcanzable": true,
+          "motivo": "Producto \"1999-technical-cotton-trench\" con 1 sola imagen de galeria."
+        }
+      ]
+    },
+    "rows": [
+      {
+        "estado": "vacio",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ninguna coleccion publica de esta tienda tiene 0 productos.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ninguna coleccion publica de esta tienda tiene 0 productos."
+      },
+      {
+        "estado": "unico",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ninguna coleccion publica de esta tienda tiene exactamente 1 producto.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ninguna coleccion publica de esta tienda tiene exactamente 1 producto."
+      },
+      {
+        "estado": "masivo",
+        "ruta": "/collections/all",
+        "alcanzable": true,
+        "motivo": "/collections/all con 12 productos en catalogo. products_per_page es ajuste de seccion (max 48): 50 por pagina no es alcanzable desde la URL; se mide la rejilla rendida tal cual.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 11,
+          "decorated": 11,
+          "revealedMark": 11
+        },
+        "hidden": [],
+        "scrollDrivenMax": 11,
+        "grid": {
+          "cards": 13,
+          "emptyState": false,
+          "placeholderSvgInReveal": 11,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 38,
+          "galleryItems": 0
+        },
+        "scrollable": 5730,
+        "verdict": "PASA"
+      },
+      {
+        "estado": "muy-largo",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ningun producto de esta tienda tiene un titulo de 120+ caracteres.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ningun producto de esta tienda tiene un titulo de 120+ caracteres."
+      },
+      {
+        "estado": "falta-imagen",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ningun producto de esta tienda esta sin imagenes. El placeholder de las secciones del homepage depende de ajustes de seccion y no se puede provocar desde la URL: se detecta por DOM si aparece.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ningun producto de esta tienda esta sin imagenes. El placeholder de las secciones del homepage depende de ajustes de seccion y no se puede provocar desde la URL: se detecta por DOM si aparece."
+      },
+      {
+        "estado": "unica-imagen-galeria",
+        "ruta": "/products/1999-technical-cotton-trench",
+        "alcanzable": true,
+        "motivo": "Producto \"1999-technical-cotton-trench\" con 1 sola imagen de galeria.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 0,
+          "decorated": 0,
+          "revealedMark": 0
+        },
+        "hidden": [],
+        "scrollDrivenMax": 0,
+        "grid": {
+          "cards": 0,
+          "emptyState": false,
+          "placeholderSvgInReveal": 0,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 37,
+          "galleryItems": 1
+        },
+        "scrollable": 2622,
+        "verdict": "PASA"
+      }
+    ],
+    "measuredBy": "chromium-full",
+    "scenario": "full"
+  },
+  "shortRoute": {
+    "estado": "ruta-corta",
+    "ruta": "/pages/contact",
+    "alcanzable": true,
+    "motivo": "Guardia de fin de pagina: rango de entrada que puede no completarse nunca.",
+    "measured": true,
+    "noMeasureReason": "La ruta tiene 1092 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE.",
+    "failures": [],
+    "status": 200,
+    "themeJsRan": true,
+    "engine": {
+      "revealReady": true,
+      "pending": 0,
+      "settled": 0,
+      "decorated": 0,
+      "revealedMark": 0
+    },
+    "hidden": [],
+    "scrollDrivenMax": 0,
+    "grid": {
+      "cards": 0,
+      "emptyState": false,
+      "placeholderSvgInReveal": 0,
+      "placeholderUnveiled": [],
+      "marqueeItemsPerGroup": null,
+      "longestHeading": 21,
+      "galleryItems": 0
+    },
+    "scrollable": 1092,
+    "verdict": "NO_MEDIBLE",
+    "warnings": [
+      "La ruta tiene 1092 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    ],
+    "measuredBy": "chromium-full",
+    "scenario": "full"
+  },
+  "keyframes": {
+    "expected": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "observed": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "notObserved": [],
+    "allObservedNames": [
+      "announcement-reveal",
+      "editorial-marquee",
+      "gallery-media-in",
+      "hero-content-settle",
+      "hero-parallax",
+      "lookbook-hotspot-pulse",
+      "marquee-drift",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle"
+    ]
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "nombre": "Todos los proyectos arrancaron y terminaron",
+      "estado": "PASA",
+      "detalle": "1 proyecto(s) completados."
+    },
+    {
+      "id": "G1",
+      "nombre": "Axioma anti-invisible: 0 pendientes y 0 ocultos tras recorrer",
+      "estado": "PASA",
+      "detalle": "6 fila(s) medidas sin un solo elemento oculto."
+    },
+    {
+      "id": "G2",
+      "nombre": "Motor nativo: animaciones scroll-driven > 0 en modo full con soporte",
+      "estado": "PASA",
+      "detalle": "2 fila(s): /=14, /collections/all=5."
+    },
+    {
+      "id": "G3",
+      "nombre": "prefers-reduced-motion: reduce apaga el motor por completo",
+      "estado": "NO_MEDIBLE",
+      "detalle": "El escenario reduce no se midio."
+    },
+    {
+      "id": "G4",
+      "nombre": "Rama @supports not: el respaldo IntersectionObserver revela",
+      "estado": "NO_MEDIBLE",
+      "detalle": "El proyecto de Firefox no corrio."
+    },
+    {
+      "id": "G5",
+      "nombre": "GSAP erradicado (window.gsap/ScrollTrigger y scripts del tema)",
+      "estado": "PASA",
+      "detalle": "3 fila(s) sin gsap ni ScrollTrigger y sin script del tema con \"gsap\"/\"motion\"."
+    },
+    {
+      "id": "G6",
+      "nombre": "CLS durante el scroll < 0.1",
+      "estado": "PASA",
+      "detalle": "maximo 0.0015 en 3 fila(s)."
+    },
+    {
+      "id": "G7",
+      "nombre": "40 tabulaciones sin foco invisible (WCAG 2.4.7 / 2.4.11)",
+      "estado": "PASA",
+      "detalle": "3 recorrido(s), 52 destinos distintos, 0 invisibles."
+    },
+    {
+      "id": "G8",
+      "nombre": "Guardia de fin de pagina en ruta corta",
+      "estado": "NO_MEDIBLE",
+      "detalle": "/pages/contact: scroll=1092px, pendientes=0. La ruta tiene 1092 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    },
+    {
+      "id": "G9",
+      "nombre": "Estados degenerados (Gate 2 del proyecto)",
+      "estado": "PASA",
+      "detalle": "vacio=NO_ALCANZABLE, unico=NO_ALCANZABLE, masivo=PASA, muy-largo=NO_ALCANZABLE, falta-imagen=NO_ALCANZABLE, unica-imagen-galeria=PASA"
+    },
+    {
+      "id": "G10",
+      "nombre": "Capturas a mitad de gesto",
+      "estado": "PASA",
+      "detalle": "6 PNG en evidence/, 6 con el gesto verificado a medio recorrido."
+    }
+  ],
+  "summary": {
+    "rowsTotal": 7,
+    "rowsMeasured": 6,
+    "rowsFailed": 0,
+    "rowsNotMeasured": 2,
+    "projectsIncomplete": [],
+    "hardFailures": [],
+    "notMeasuredReasons": [
+      "chromium-full /pages/about :: La ruta no rindio contenido util (HTTP 404, main=true, hijos de body=9): las metricas de esta fila no son concluyentes.",
+      "ruta-corta /pages/contact :: La ruta tiene 1092 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    ]
+  },
+  "verdict": "INCOMPLETO"
+}

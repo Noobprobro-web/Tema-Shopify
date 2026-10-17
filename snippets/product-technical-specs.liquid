@@ -2,39 +2,116 @@
   Renders product technical specifications block.
   Accepts:
   - block: {Object} Block object with settings and shopify_attributes.
+  - product: {Object} Product Liquid object (optional).
 
   Usage:
-  {% render 'product-technical-specs', block: block %}
+  {% render 'product-technical-specs', block: block, product: product %}
 {%- endcomment -%}
 
-{%- if block.settings.material != blank or block.settings.gsm != blank or block.settings.hardware != blank or block.settings.origin != blank -%}
+{%- liquid
+  assign material_val = blank
+  assign gsm_val = blank
+  assign hardware_val = blank
+  assign origin_val = blank
+
+  if product != blank
+    # 1. Direct metafields
+    assign material_val = product.metafields.custom.material.value | default: product.metafields.custom.material | default: product.metafields.sartorial.material.value | default: product.metafields.sartorial.material
+    assign gsm_val = product.metafields.custom.gsm.value | default: product.metafields.custom.gsm | default: product.metafields.sartorial.gsm.value | default: product.metafields.sartorial.gsm
+    assign hardware_val = product.metafields.custom.hardware.value | default: product.metafields.custom.hardware | default: product.metafields.sartorial.hardware.value | default: product.metafields.sartorial.hardware
+    assign origin_val = product.metafields.custom.origin.value | default: product.metafields.custom.origin | default: product.metafields.sartorial.origin.value | default: product.metafields.sartorial.origin
+
+    # 2. JSON-structured technical_specs metafield
+    if product.metafields.custom.technical_specs.value != blank
+      assign ts = product.metafields.custom.technical_specs.value
+      if ts.material != blank and material_val == blank
+        assign material_val = ts.material
+      endif
+      if ts.gsm != blank and gsm_val == blank
+        assign gsm_val = ts.gsm
+      endif
+      if ts.hardware != blank and hardware_val == blank
+        assign hardware_val = ts.hardware
+      endif
+      if ts.origin != blank and origin_val == blank
+        assign origin_val = ts.origin
+      endif
+    endif
+
+    # 3. Product context guards (avoid leather/textile claims on metal/desk objects)
+    assign product_type_lower = product.type | downcase
+    assign product_handle_lower = product.handle | downcase
+
+    assign is_non_textile = false
+    if product_type_lower contains 'desk' or product_type_lower contains 'object' or product_type_lower contains 'metal' or product_type_lower contains 'hardware' or product_handle_lower contains 'brass' or product_handle_lower contains 'paperweight'
+      assign is_non_textile = true
+    endif
+
+    if material_val == blank
+      if is_non_textile
+        if product_handle_lower contains 'brass' or product_handle_lower contains 'paperweight'
+          assign material_val = 'Solid milled brass'
+        elsif product.type != blank
+          assign material_val = product.type
+        endif
+      else
+        assign material_val = block.settings.material
+      endif
+    endif
+
+    if gsm_val == blank and is_non_textile == false
+      assign gsm_val = block.settings.gsm
+    endif
+
+    if hardware_val == blank
+      if is_non_textile
+        if product_handle_lower contains 'brass' or product_handle_lower contains 'paperweight'
+          assign hardware_val = 'Precision machined'
+        endif
+      else
+        assign hardware_val = block.settings.hardware
+      endif
+    endif
+
+    if origin_val == blank
+      assign origin_val = block.settings.origin
+    endif
+  else
+    assign material_val = block.settings.material
+    assign gsm_val = block.settings.gsm
+    assign hardware_val = block.settings.hardware
+    assign origin_val = block.settings.origin
+  endif
+-%}
+
+{%- if material_val != blank or gsm_val != blank or hardware_val != blank or origin_val != blank -%}
   <div class="product-technical-specs" {{ block.shopify_attributes }}>
     {%- if block.settings.heading != blank -%}
       <h3 class="product-technical-specs__heading">{{ block.settings.heading | escape }}</h3>
     {%- endif -%}
     <dl class="product-technical-specs__list">
-      {%- if block.settings.material != blank -%}
+      {%- if material_val != blank -%}
         <div class="product-technical-specs__row">
           <dt>{{ 'products.product.technical_specs.material' | t }}</dt>
-          <dd>{{ block.settings.material | escape }}</dd>
+          <dd>{{ material_val | escape }}</dd>
         </div>
       {%- endif -%}
-      {%- if block.settings.gsm != blank -%}
+      {%- if gsm_val != blank -%}
         <div class="product-technical-specs__row">
           <dt>{{ 'products.product.technical_specs.gsm' | t }}</dt>
-          <dd>{{ block.settings.gsm | escape }}</dd>
+          <dd>{{ gsm_val | escape }}</dd>
         </div>
       {%- endif -%}
-      {%- if block.settings.hardware != blank -%}
+      {%- if hardware_val != blank -%}
         <div class="product-technical-specs__row">
           <dt>{{ 'products.product.technical_specs.hardware' | t }}</dt>
-          <dd>{{ block.settings.hardware | escape }}</dd>
+          <dd>{{ hardware_val | escape }}</dd>
         </div>
       {%- endif -%}
-      {%- if block.settings.origin != blank -%}
+      {%- if origin_val != blank -%}
         <div class="product-technical-specs__row">
           <dt>{{ 'products.product.technical_specs.origin' | t }}</dt>
-          <dd>{{ block.settings.origin | escape }}</dd>
+          <dd>{{ origin_val | escape }}</dd>
         </div>
       {%- endif -%}
     </dl>

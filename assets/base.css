@@ -369,6 +369,15 @@ blockquote {
   padding-inline-start: 1.5em;
 }
 
+.card__heading,
+.product-card__title,
+.promo-card,
+.button,
+.link {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
 .button {
   display: inline-flex;
   min-height: var(--tap-target-min);
@@ -6425,6 +6434,45 @@ copy-text {
   margin-block-start: var(--space-lg);
 }
 
+.password-header {
+  padding: var(--space-md) var(--page-gutter-mobile);
+  border-block-end: 1px solid var(--color-border-hairline);
+  background: var(--gradient-background, var(--color-background));
+  color: var(--color-foreground);
+}
+
+@media (min-width: 62rem) {
+  .password-header {
+    padding-inline: var(--page-gutter-desktop);
+  }
+}
+
+.password-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-header__logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.password-header__logo {
+  max-width: 240px;
+  height: auto;
+  object-fit: contain;
+}
+
+.password-header__heading {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: 1.5rem;
+  letter-spacing: var(--letter-spacing-heading, normal);
+}
+
 .main-password {
   position: relative;
   display: grid;
@@ -9603,26 +9651,37 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 .product-trust {
   display: flex;
   min-width: 0;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-2);
-  margin: 0;
+  margin-block-start: var(--space-3);
+  margin-block-end: 0;
   color: var(--color-foreground);
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
+.product-trust + .product-trust {
+  margin-block-start: var(--space-2);
+}
+
 .product-trust__icon {
   display: inline-flex;
   flex: 0 0 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  min-height: 1.25rem;
   align-items: center;
   justify-content: center;
-  min-height: 1.5rem;
+}
+
+.product-trust__icon svg {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .product-trust__icon:empty { display: none; }
 
-/* .product-trust anula el margen de flujo: sin esto la nota de envio queda pegada (0 px) al
-   boton de pago dinamico o al de compra (6A-001). */
 .product-form + .product-trust {
   margin-block-start: var(--space-3);
 }

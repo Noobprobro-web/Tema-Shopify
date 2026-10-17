@@ -3569,7 +3569,9 @@
         const form = event.target.closest('[data-facet-form]');
         if (!form) return;
         event.preventDefault();
-        this.renderForm(form, true);
+        const submitter = event.submitter || document.activeElement;
+        const fallback = submitter?.id ? `#${CSS.escape(submitter.id)}` : 'button[type="submit"]';
+        this.renderForm(form, true, fallback);
       });
 
       this.listen(this, 'change', (event) => {
@@ -3604,7 +3606,7 @@
       super.disconnectedCallback();
     }
 
-    renderForm(form, pushState) {
+    renderForm(form, pushState, focusFallback = 'button[type="submit"]') {
       const url = new URL(form.action, window.location.origin);
       const parameters = new URLSearchParams(new FormData(form));
 
@@ -3613,7 +3615,7 @@
       });
 
       url.search = parameters.toString();
-      this.renderUrl(url, pushState);
+      this.renderUrl(url, pushState, focusFallback);
     }
 
     // focusFallback: selector que recibe el foco cuando el elemento enfocado no sobrevive al
@@ -3625,7 +3627,9 @@
       navigationUrl.searchParams.delete('section_id');
       const requestUrl = new URL(navigationUrl);
       requestUrl.searchParams.set('section_id', this.dataset.sectionId);
-      const focusedId = document.activeElement?.id;
+      const activeEl = document.activeElement;
+      const focusedId = activeEl?.id;
+      const focusedName = activeEl?.name;
 
       this.requestController?.abort();
       this.requestController = new AbortController();
@@ -3650,9 +3654,14 @@
 
         if (focusedId && document.getElementById(focusedId)) {
           requestAnimationFrame(() => document.getElementById(focusedId)?.focus());
-        } else if (focusFallback) {
+        } else if (focusedName && this.querySelector(`[name="${CSS.escape(focusedName)}"]`)) {
+          requestAnimationFrame(() => this.querySelector(`[name="${CSS.escape(focusedName)}"]`)?.focus());
+        } else if (focusFallback && this.querySelector(focusFallback)) {
           const fallbackTarget = this.querySelector(focusFallback);
-          if (fallbackTarget) requestAnimationFrame(() => fallbackTarget.focus());
+          requestAnimationFrame(() => fallbackTarget?.focus());
+        } else {
+          const defaultTarget = this.querySelector('button[type="submit"], [data-facet-sort], summary.facet__summary, [data-results-status]');
+          if (defaultTarget) requestAnimationFrame(() => defaultTarget?.focus());
         }
       } catch (error) {
         if (error.name === 'AbortError') return;

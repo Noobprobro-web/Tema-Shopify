@@ -1,0 +1,335 @@
+{
+  "harness": "MOTION-002",
+  "task": "T5",
+  "script": "01-motion-check.mjs",
+  "timestamp": "2026-10-03T01:33:26.683Z",
+  "base": "https://sartorial-archive.myshopify.com",
+  "store": "archive",
+  "config": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "routes": [
+      "/",
+      "/collections/all",
+      "/products/1990-pinstripe-double-breasted-jacket"
+    ],
+    "shortRoute": null,
+    "forceMode": "full",
+    "clsMax": 0.1,
+    "tabPresses": 40,
+    "projects": [
+      "chromium-reduce"
+    ],
+    "localTarget": false,
+    "notes": []
+  },
+  "contract": {
+    "attributes": [
+      "data-reveal=\"\"",
+      "data-reveal=\"done\"",
+      "data-revealed",
+      "html[data-reveal-ready]",
+      "html[data-animations]"
+    ],
+    "expectedKeyframes": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ]
+  },
+  "projects": [
+    {
+      "name": "chromium-reduce",
+      "browser": "chromium",
+      "scenario": "reduce",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [],
+      "printRows": [
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "reduce: ready=false, decorados=0. La llave 2 ya lo deja todo visible; la fila prueba que el papel no lo rompe."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 6227,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-reduce-home.pdf",
+            "bytes": 5804369
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/collections/all",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "reduce: ready=false, decorados=0. La llave 2 ya lo deja todo visible; la fila prueba que el papel no lo rompe."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "Products – Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 6686,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-reduce-collections-all.pdf",
+            "bytes": 4497953
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/products/1990-pinstripe-double-breasted-jacket",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "reduce: ready=false, decorados=0. La llave 2 ya lo deja todo visible; la fila prueba que el papel no lo rompe."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "1990 Pinstripe Double-Breasted Jacket – Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 2737,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-reduce-products-1990-pinstripe-double-breasted-jacket.pdf",
+            "bytes": 2614006
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": false,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        }
+      ]
+    }
+  ],
+  "degenerate": {
+    "resolved": null,
+    "rows": []
+  },
+  "shortRoute": null,
+  "keyframes": {
+    "expected": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "observed": [],
+    "notObserved": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "allObservedNames": []
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "nombre": "Todos los proyectos arrancaron y terminaron",
+      "estado": "PASA",
+      "detalle": "1 proyecto(s) completados."
+    },
+    {
+      "id": "G11",
+      "nombre": "Contenido revelado al imprimir (media print sin scroll + PDF)",
+      "estado": "PASA",
+      "detalle": "chromium-reduce /: pend=0 ocultos=0 pdf=si | chromium-reduce /collections/all: pend=0 ocultos=0 pdf=si | chromium-reduce /products/1990-pinstripe-double-breasted-jacket: pend=0 ocultos=0 pdf=si"
+    }
+  ],
+  "summary": {
+    "rowsTotal": 0,
+    "rowsMeasured": 0,
+    "rowsFailed": 0,
+    "rowsNotMeasured": 0,
+    "projectsIncomplete": [],
+    "hardFailures": [],
+    "notMeasuredReasons": []
+  },
+  "verdict": "APTO"
+}
