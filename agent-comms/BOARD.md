@@ -5,21 +5,18 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
 Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
-Última actualización: 2026-10-16T20:25:00-04:00 (DESPLIEGUE MASIVO Y DIFERENCIAL A TODAS LAS TIENDAS: TEMA PRINCIPAL Y 3 DEMOS DEDICADAS)
-Última actualización técnica: 2026-10-16 (Despliegue y verificación en vivo 100% certificada en 6 temas)
-Estado general: DESPLIEGUE MASIVO DE LA REMEDIACIÓN MAESTRA COMPLETADO CON ÉXITO EN TODAS LAS TIENDAS. Código base único, plantillas diferenciadas y presets de movimiento ('atelier', 'technical', 'heritage') desplegados y verificados al 100% tanto en la tienda de desarrollo 'tema-qkqpke0j.myshopify.com' como en las tres tiendas demo dedicadas ('sartorial-atelier', 'sartorial-edition', 'sartorial-archive'). Corrección del hover bug, retiro de marquee-drift, congelación de controles TEC-01 y metadatos dinámicos activos en producción.
+Última actualización: 2026-10-16T22:30:00-04:00 (RESOLUCIÓN DE BLOQUEANTES RESIDUALES: FOCUS LEAK DEL CARRITO, ARMONIZACIÓN ARCHIVE/IMPRINT, ENUM DE ICONOS Y SELECTOR DE PAÍSES)
+Última actualización técnica: 2026-10-16 (Compuertas 8/8 en verde, 0 ofensas, 0 huérfanas, ZIP Sartorial-1.0.0 regenerado)
+Estado general: RESOLUCIÓN INTEGRAL DE BLOQUEANTES RESIDUALES COMPLETADA. Cierre definitivo de los hallazgos señalados por Claude y GPT: 1) Focus leak de CartDrawer eliminado al cerrar con descarte atómico de pendingRemoval y limpieza de mensajes; 2) Neutralización de claims absolutos en Archive y reconciliación de fecha (1990); 3) Neutralización de claims en Imprint ('MIL-SPEC', 'IPX-6', 'Milan') y desglose fiel de componentes; 4) Corrección de enum de icono inválido 'return' -> 'shield' en todos los product.json; 5) Selector de países con nombre completo del país y moneda conforme a Shopify Markets; 6) Repositorio depurado sin bundles de texto duplicado.
 Frentes Recién Sincronizados y Verificados:
-  1) DESPLIEGUE MASIVO DIFERENCIAL (6 TEMAS): Ejecutado vía arnés modular 'scratch/deploy-presets.mjs':
-     - Sartorial / Atelier: desplegado a 'tema-qkqpke0j.myshopify.com' (#166186909939) y 'sartorial-atelier.myshopify.com' (#188743188704, live) con templates de 'listings/sartorial/' y preset Sartorial ('motion_style: atelier').
-     - Imprint (Edition): desplegado a 'tema-qkqpke0j.myshopify.com' (#166186942707) y 'sartorial-edition.myshopify.com' (#188655599784, live) con templates de 'listings/imprint/' y preset Imprint ('motion_style: technical').
-     - Archive: desplegado a 'tema-qkqpke0j.myshopify.com' (#166187041011) y 'sartorial-archive.myshopify.com' (#191153275192, live) con templates de 'listings/archive/' y preset Archive ('motion_style: heritage').
-  2) VERIFICACIÓN EN VIVO CON PLAYWRIGHT: Auditoría automatizada ('scratch/verify-dev-previews.mjs') sobre los 3 live previews:
-     - Atelier: HTTP 200, 'data-motion-style="atelier"', elementos editoriales de alta costura, hover bug resuelto (regla con '[data-has-secondary]').
-     - Imprint: HTTP 200, 'data-motion-style="technical"', elementos de estudio técnico, hover bug resuelto.
-     - Archive: HTTP 200, 'data-motion-style="heritage"', elementos históricos de museo, hover bug resuelto.
-  3) COMPUERTAS ESTÁTICAS (8/8) Y LIMPIEZA GIT: `npm run gates:static` verificado en verde (Exit 0, Theme Check 91 archivos con 0 ofensas). Árbol de trabajo Git 100% limpio y restaurado a master.
+  1) RESOLUCIÓN DE FOCUS LEAK EN CARRITO (assets/theme.js): pendingRemoval se descarta inmediatamente al cerrar ('close()'), se limpian mensajes residuales y se descarta en renderSection cuando la línea ya no existe en el DOM nuevo.
+  2) NEUTRALIZACIÓN EDITORIAL DE ARCHIVE: sustituidos '1-of-1', 'museum-grade' y 'certified' por 'Archival garments' y 'Curated period selections'; chaqueta portada reconciliada a 1990.
+  3) SANEAMIENTO DE IMPRINT: eliminadas referencias militares y ratings especulativos; desglose exacto de exterior de becerro y forro técnico.
+  4) ICONOS VÁLIDOS: corregido 'icon: shield' en templates/product.json y los 3 listings.
+  5) LOCALIZACIÓN NATIVA COMPLETA: selector de país renderiza '{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})' con labels accesibles.
+  6) COMPUERTAS ESTÁTICAS 8/8 EXIT 0: Theme Check 91 archivos 0 ofensas, Liquid complejidad <= 120, 0 huérfanas en locales, Sartorial-1.0.0.zip regenerado.
 Frentes en Ejecución Activa:
-  - Certificación final y entrega de release para Shopify Theme Store.
+  - Redespliegue y validación final para submission en Shopify Theme Store.
 ```
 
 ---

@@ -2312,6 +2312,7 @@
       this.panel.inert = true;
       this.panel.setAttribute('aria-hidden', 'true');
       this.removeAttribute('data-open');
+      this.pendingRemoval = null;
     }
 
     handleDocumentClick(event) {
@@ -2463,6 +2464,8 @@
     close(restoreFocus = false) {
       if (!this.overlay || !this.panel) return;
 
+      this.pendingRemoval = null;
+      this.clearMessages();
       this.releaseFocusTrap?.();
       this.releaseFocusTrap = null;
       this.setClosedState();
@@ -3151,11 +3154,11 @@
 
         applied = true;
         await this.renderCartResponse(result, revision);
-        if (removal) this.announceRemoval(removal, this.renderedRevision === revision);
+        if (removal && this.isOpen) this.announceRemoval(removal, this.renderedRevision === revision);
       } finally {
-        // Si la eliminacion fallo, nadie consumira su destino de foco. Si se aplico pero su
-        // respuesta quedo adelantada, el destino espera al render que la refleje.
-        if (!applied && this.pendingRemoval === removal) this.pendingRemoval = null;
+        // Si la eliminacion fallo o el cajon se cerro, nadie consumira su destino de foco.
+        // Si se aplico pero su respuesta quedo adelantada, el destino espera al render que la refleje.
+        if ((!applied || !this.isOpen) && this.pendingRemoval === removal) this.pendingRemoval = null;
         this.setDrawerBusy(false);
         this.endMutation();
       }
@@ -3176,6 +3179,7 @@
     // TEC-02. La region persistente [data-cart-status] anuncia la linea quitada y el
     // recuento nuevo. El texto sale de una clave de locale con [title] como marcador.
     announceRemoval(removal, rendered) {
+      if (!this.isOpen) return;
       const template = this.dataset.removedTemplate || '';
       if (!template) return;
       // El recuento solo es fiable si fue esta respuesta la que se pinto.
@@ -3196,6 +3200,7 @@
       const rows = Array.from(nextContent.querySelectorAll('[data-cart-item-key]'));
       if (rows.some((row) => row.dataset.cartItemKey === removal.key)) return null;
       this.pendingRemoval = null;
+      if (!this.isOpen) return null;
       const usable = (element) => element && !element.disabled && !element.closest('[hidden]');
       for (const key of [removal.nextKey, removal.previousKey]) {
         const row = key ? rows.find((candidate) => candidate.dataset.cartItemKey === key) : null;
@@ -3384,6 +3389,12 @@
         ? this.busyFocus
         : active;
       const removalTarget = restoreFocus ? this.removalFocusTarget(nextContent) : null;
+      if (!restoreFocus && this.pendingRemoval) {
+        const rows = Array.from(nextContent.querySelectorAll('[data-cart-item-key]'));
+        if (!rows.some((row) => row.dataset.cartItemKey === this.pendingRemoval.key)) {
+          this.pendingRemoval = null;
+        }
+      }
 
       if (removalTarget) {
         removalTarget.focus();

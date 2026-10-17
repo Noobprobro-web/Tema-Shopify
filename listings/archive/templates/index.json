@@ -19,7 +19,7 @@
         "heading_tag": "h1",
         "eyebrow": "CATALOGUE I / THE HOUSE",
         "heading": "Objects with a remembered life",
-        "subheading": "<p>A museum vault accession shaped by runway provenance, hand conservation, and historical time.</p>",
+        "subheading": "<p>Archival garments shaped by runway provenance, documented conservation, and historical time.</p>",
         "button_primary_label": "Enter the catalogue",
         "button_primary_url": "/collections/permanent-archive",
         "button_secondary_label": "Restored selection",
@@ -30,10 +30,10 @@
     "manifesto": {
       "type": "brand-manifesto",
       "blocks": {
-        "grade1": { "type": "detail", "settings": { "label": "Grade I / Mint", "value": "Unworn museum archive accession, original tags intact" } },
+        "grade1": { "type": "detail", "settings": { "label": "Grade I / Mint", "value": "Archival garment in unworn condition, original details intact" } },
         "grade2": { "type": "detail", "settings": { "label": "Grade II / Near Mint", "value": "Runway exhibition only, microscopic surface patina" } },
         "grade3": { "type": "detail", "settings": { "label": "Grade III / Excellent", "value": "Stabilized by master conservator, zero structural flaws" } },
-        "grade4": { "type": "detail", "settings": { "label": "Grade IV-V / Authentic", "value": "Historic patina, numbered museum registration certificate" } }
+        "grade4": { "type": "detail", "settings": { "label": "Grade IV-V / Authentic", "value": "Documented vintage patina, curated period accession" } }
       },
       "block_order": ["grade1", "grade2", "grade3", "grade4"],
       "settings": {
@@ -51,8 +51,8 @@
       "type": "marquee",
       "blocks": {
         "circa": { "type": "item", "settings": { "text": "CIRCA 1989–1999 THE PERMANENT ARCHIVE" } },
-        "conservation": { "type": "item", "settings": { "text": "MUSEUM GRADE DEACIDIFIED CONSERVATION" } },
-        "accession": { "type": "item", "settings": { "text": "CERTIFIED 1-OF-1 ACCESSION REGISTRATION" } },
+        "conservation": { "type": "item", "settings": { "text": "CURATED ARCHIVAL GARMENTS & CONSERVATION" } },
+        "accession": { "type": "item", "settings": { "text": "CURATED PERIOD SELECTIONS & ACCESSIONS" } },
         "provenance": { "type": "item", "settings": { "text": "PARIS & ANTWERP HISTORICAL RUNWAY PROVENANCE" } }
       },
       "block_order": ["circa", "conservation", "accession", "provenance"],
@@ -105,10 +105,10 @@
           "type": "provenance",
           "settings": {
             "heading": "Archival provenance",
-            "circa_year": "1992",
-            "show_unique_piece": true,
+            "circa_year": "1990",
+            "show_unique_piece": false,
             "condition_grade": "grade_1",
-            "provenance_notes": "<p>Accession record no. 1992-048. Acquired from private Antwerp runway archive. Museum-grade deacidified preservation.</p>"
+            "provenance_notes": "<p>Accession record no. 1990-048. Acquired from private runway archive. Curated period selection.</p>"
           }
         },
         "description": { "type": "description" },
