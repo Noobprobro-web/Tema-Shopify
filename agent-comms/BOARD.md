@@ -164,11 +164,11 @@ Frentes en Ejecución Activa:
 
 | Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
 |---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | Confirmación de pedidos de prueba Bogus completada (#1001 en cada demo). Pendiente para el final: 1) Activar/revisar cuota de Formspree y enviar ticket de prueba. 2) Revisión visual en navegador. 3) Borrar manual de `layout/password.liquid` residual en admin. | 🟢 Activo | Revisión Formspree y Admin |
-| **Claude (Opus 5.5 Extra)** | Líder Técnico & Implementador Principal | Ejecutando **`CLAUDE-TASK-V1.1.0-PHASE2`**: implementación técnica modular de recomendaciones en Cart Drawer (`snippets/cart-drawer-recommendations.liquid` autorizado Nivel 2), selector táctil inline de opciones (>=44px), flujo 1-click para variante default, prevención de race conditions (`interactionFrozen`, un solo GET condicional), preservación de `cart.note`, actualización de schema y paridad bilingüe en locales (`en.default.json` y `es.json`). | 🟡 En curso | Implementación técnica Fase 2 / `CLAUDE-REPORT-V1.1.0-PHASE2.md` |
+| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Retirar protección con contraseña en las tiendas demo (`sartorial-atelier`, `sartorial-edition`, `sartorial-archive` y `tema-qkqpke0j`) vía Online Store > Preferences > Restrict store access, o proporcionar la clave a Claude/GPT para inspección de navegador. 2) Activar/revisar cuota de Formspree y ticket de prueba. | 🟢 Activo | Retiro de contraseña demo / Clave storefront |
+| **Claude (Opus 5.5 Extra)** | Líder Técnico & Implementador Principal | Auditoría visual de Storefront en tiendas demo vía extensión de navegador. Repositorio en GitHub sincronizado en commit `e4157d0` con `layout/password.liquid` oficial integrado y 100% compuertas estáticas en verde. Introducir contraseña en navegador para inspeccionar Home, PLP, PDP y Cart Drawer en los 3 presets. | 🟢 Listo para auditoría | Informe de auditoría visual en navegador / `outbox-claude` |
 | **Claude (Opus 5 1M)** | Trazabilidad y Compuertas | MOTION-002 documentado; `.theme-check.yml` creado; ledger en 60 filas; compuertas estáticas validadas. | 🟢 Entregado | CLAUDE-REPORT-MOTION-002.md / `.theme-check.yml` / Ledger |
-| **GPT-6 Sol Max / Luna** | Auditor Senior de Producto & UX | Dictamen maestro **`GPT-REPORT-021-CART-DRAWER-RECOMMENDATIONS.md`** completado, validado y aprobado formalmente: curaduría de lujo, matriz de interacción táctil A+B+C, cascada de 4 fuentes, contrato de concurrencia y mitigación de riesgos Theme Store (§8, §14, §15, §20). | 🟢 Entregado y Aprobado | GPT-REPORT-021-CART-DRAWER-RECOMMENDATIONS.md |
-| **Gemini Flash 3.8 High** | Arquitecto Consultor & Soporte | Emisión y gobernanza de `CLAUDE-TASK-V1.1.0-PHASE2`, autorización arquitectónica Nivel 2 (`GEMINI-AUTH-V1.1.0-SNIPPET-CART-RECOMMENDATIONS-001`), control de LiquidComplexity preventivo, suite de compuertas estáticas al 100% (Exit 0, 0 ofensas) y actualización de BOARD.md. | 🟢 Activo | Supervisión de Fase 2 / BOARD.md |
+| **GPT-6 Sol Max / Luna** | Auditor Senior de Producto & UX | Auditoría de experiencia y consistencia comercial en tiendas demo bajo el commit oficial `e4157d0` y layout de contraseña minimalista. | 🟢 Activo | Dictamen de consistencia comercial |
+| **Gemini Flash 3.8 High** | Arquitecto Consultor & Soporte | Sincronización de GitHub a `e4157d0`, creación de `layout/password.liquid`, vinculación en `templates/password.json`, certificación de compuertas estáticas al 100% y actualización de `BOARD.md`. | 🟢 Activo | Supervisión, compuertas y BOARD.md |
 
 ---
 
@@ -542,5 +542,43 @@ Compuertas Estáticas: 8/8 EN VERDE (Exit Code 0, Theme Check 91 archivos con 0 
    - **Diferenciación Editorial:** Detectado `"CATALOGUE"` y piezas históricas de museo.
    - **Hover Bug:** **RESUELTO**. Regla con selector de seguridad `[data-has-secondary]` verificada en vivo.
    - **Tarjetas Renderizadas:** 6 tarjetas visibles en homepage.
+
+---
+
+## 12. Sincronización GitHub, Auditoría de Tiendas Demo y Layout de Contraseña (`e4157d0`)
+
+```text
+Estado del Repositorio Remoto: SINCRONIZADO AL 100% EN GITHUB (origin/master @ e4157d0)
+Fecha y Hora: 2026-10-16T23:08:00-04:00
+Compuertas Estáticas: 8/8 EN VERDE (Exit Code 0, Theme Check 92 archivos con 0 ofensas)
+Paquete de Producción: Sartorial-1.0.0.zip (actualizado y empaquetado)
+```
+
+### 12.1 Hallazgos de la Inspección de Tiendas Demo (Extensión de Navegador Claude)
+1. **Protección por Contraseña Activa en Tiendas Demo:**
+   - Todas las tiendas demo (`sartorial-atelier`, `sartorial-edition`, `sartorial-archive` y `tema-qkqpke0j`) tienen habilitada la protección por contraseña nativa de Shopify (`/password`).
+   - Ningún auditor ni revisor oficial de la Shopify Theme Store podrá ver el tema hasta que se desactive la contraseña en Shopify Admin (`Online Store > Preferences > Restrict store access`) o se ingrese la clave storefront correspondiente en la sesión de navegación.
+2. **Copias Múltiples de Sartorial en Tienda de Desarrollo (`tema-qkqpke0j`):**
+   - Se detectaron 4 instancias de Sartorial en la tienda de desarrollo, incluyendo una versión t/3 obsoleta. Las 3 tiendas demo oficiales dedicadas (`sartorial-atelier`, `sartorial-edition`, `sartorial-archive`) permanecen como los entornos canónicos de revisión para cada preset.
+3. **Ausencia Previa de Layout de Contraseña (`layout/password.liquid`):**
+   - Al no existir `layout/password.liquid`, la plantilla de contraseña (`templates/password.json`) heredaba el layout predeterminado `layout/theme.liquid`, inyectando la cabecera completa, navegación, búsqueda y cajón del carrito.
+
+### 12.2 Remedición Técnica y Conformidad con Shopify Theme Store
+1. **Creación de `layout/password.liquid`:**
+   - Se implementó un layout minimalista dedicado, semántico y libre de elementos comerciales estándar (sin cabecera, navegación de catálogo, footer ni cajón de carrito).
+   - Mantiene compatibilidad total con los tokens de diseño, tipografía (`settings.type_heading_font`, `settings.type_body_font`), esquemas de color dinámicos (`settings.color_schemes`), meta tags SEO/Sociales y carga diferida de `assets/theme.js` para el componente `<password-modal>`.
+2. **Vinculación Explícita en `templates/password.json`:**
+   - Se añadió `"layout": "password"` al template JSON para garantizar resolución determinista sin depender de heurísticas de fallback.
+3. **Validación de Compuertas Estáticas:**
+   - `npm run gates:static` ejecutado con éxito total (**Exit Code 0**):
+     - `gates:json`: 529 archivos JSON válidos, 0 errores.
+     - `gates:hooks`: 22 contratos de atributos `data-*` validados, 0 roturas.
+     - `gates:locales`: 87 archivos inspeccionados, 0 claves huérfanas, 0 sin resolver.
+     - `gates:theme-check`: **92 archivos inspeccionados con 0 ofensas**.
+     - `gates:syntax`: `theme.js` y `product-zoom.js` sintácticamente válidos.
+     - `gates:package`: `Sartorial-1.0.0.zip` generado con éxito.
+4. **Sincronización Total con GitHub:**
+   - Commit `e4157d0` empujado a `origin/master`, alineando el repositorio remoto con el árbol local de desarrollo.
+
 
 
