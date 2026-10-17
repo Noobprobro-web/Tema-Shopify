@@ -623,5 +623,42 @@ Estado General: REQUISITOS THEME STORE CUMPLIDOS AL 100% — BLOQUEANTES CERRADO
    - En `assets/base.css`: implementada la regla `overflow-wrap: normal; word-break: normal;` sobre `.card__heading`, `.product-card__title`, `.promo-card`, `.button` y `.link`, impidiendo que `overflow-wrap: anywhere` parta palabras legítimas (como "remembers" o "VIEW / SPECIFICATION / S") en cuadrículas de 4 columnas.
    - Ajustada la alineación vertical (`align-items: center`) y el espaciado vertical (`margin-block-start: var(--space-3); margin-block-end: 0; .product-trust + .product-trust { margin-block-start: var(--space-2); }`) en `.product-trust`, erradicando la desalineación de 32px en la PDP.
 
+---
 
+## 14. Despliegue Diferencial Masivo a 6 Temas y Certificación de Entrega v1.0.0
 
+```text
+Fecha y Hora: 2026-10-17T03:00:00-04:00
+Orquestador: Gemini 3.8 Flash High (Antigravity IDE)
+Estado del Despliegue: COMPLETADO AL 100% EN LAS 6 INSTANCIAS REMOTAS
+Compuertas Estáticas: 8/8 EN VERDE (Exit 0)
+Paquete Certificado: Sartorial-1.0.0.zip (346.287 bytes, SHA-256 verificado)
+Árbol Local de Trabajo: 100% limpio en 'master' (sincronizado con origin/master 182f87b)
+Estado de Submission: En espera de acción manual de Johandry (Paso 4 excluido a petición)
+```
+
+### 14.1 Matriz de Despliegue Efectuado
+
+| Tienda | Tema / Rol | ID Remoto | Plantillas Inyectadas | Estado |
+| :--- | :--- | :--- | :--- | :--- |
+| `sartorial-atelier.myshopify.com` | Sartorial [live] | `#188743188704` | Base `templates/` (Atelier) | **DESPLEGADO OK** |
+| `sartorial-edition.myshopify.com` | Edition [live] | `#188655599784` | `listings/imprint/templates/` | **DESPLEGADO OK** |
+| `sartorial-archive.myshopify.com` | Archive [live] | `#191153275192` | `listings/archive/templates/` | **DESPLEGADO OK** |
+| `tema-qkqpke0j.myshopify.com` | Sartorial [preview] | `#166186909939` | Base `templates/` (Atelier) | **DESPLEGADO OK** |
+| `tema-qkqpke0j.myshopify.com` | Edition [preview] | `#166186942707` | `listings/imprint/templates/` | **DESPLEGADO OK** |
+| `tema-qkqpke0j.myshopify.com` | Archive [preview] | `#166187041011` | `listings/archive/templates/` | **DESPLEGADO OK** |
+
+### 14.2 Estado de las Fases Ejecutadas
+
+1. **Paso 1 (Sincronización Git y Validación Estática): COMPLETADO.**
+   - Commit `182f87b` integrado en local y alineado con `origin/master`.
+   - `npm run gates:static` ejecutado con **Exit Code 0** (8/8 compuertas verdes, 92 archivos inspeccionados sin ofensas).
+   - `Sartorial-1.0.0.zip` generado de forma determinista y listo para distribución.
+2. **Paso 2 (Despliegue Diferencial Masivo): COMPLETADO.**
+   - Despliegue diferencial con `--nodelete` completado en los 6 temas remotos.
+   - Espacio local restaurado limpiamente (`git checkout templates/`). Cero desvíos o archivos residuales.
+3. **Paso 3 (Verificación en Vivo): EN CURSO / A LA ESPERA DE STOREFRONT_PASSWORD.**
+   - Los temas remotos se encuentran protegidos por la barrera de contraseña nativa de Shopify Development Store.
+   - Para ejecutar los arneses automatizados con Playwright se requiere que Johandry exporte `$env:STOREFRONT_PASSWORD`.
+4. **Paso 4 (Submission en Partner Dashboard): RESERVADO PARA JOHANDRY.**
+   - Excluido explícitamente de la automatización para control final del titular. Artefacto listo en la raíz del proyecto.
