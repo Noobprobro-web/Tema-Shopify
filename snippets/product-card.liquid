@@ -23,6 +23,10 @@
 {%- liquid
   assign card_image = card_product.featured_media.preview_image
   assign secondary_image = card_product.images[1]
+  assign card_has_secondary = false
+  if show_secondary_image and secondary_image != blank and card_image != blank
+    assign card_has_secondary = true
+  endif
   assign card_sizes = '(min-width: 990px) 25vw, 50vw'
   assign card_key = section.id | append: '-' | append: card_product.id
   if card_id_suffix != blank
@@ -131,6 +135,7 @@
       href="{{ card_product.url }}"
       aria-label="{{ card_product.title | escape }}"
       data-card-link
+      {% if card_has_secondary %}data-has-secondary{% endif %}
     >
       {%- if card_image != blank -%}
         {% render 'responsive-image',
@@ -141,7 +146,7 @@
           alt: card_product.title
         %}
 
-        {%- if show_secondary_image and secondary_image != blank -%}
+        {%- if card_has_secondary -%}
           {% render 'responsive-image',
             image: secondary_image,
             sizes: card_sizes,

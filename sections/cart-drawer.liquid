@@ -42,6 +42,7 @@
   data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape_once }}"
   data-error-message="{{ 'sections.cart.error' | t | escape }}"
   data-added-message="{{ 'sections.cart.added' | t | escape }}"
+  data-removed-template="{{ 'sections.cart.item_removed' | t: title: '[title]' | escape_once }}"
   data-add-failed-message="{{ 'sections.cart.add_failed' | t | escape_once }}"
   data-cart-update-url="{{ routes.cart_update_url }}.js"
   data-recommendations-url="{{ routes.product_recommendations_url }}"
@@ -63,7 +64,7 @@
       <header class="cart-drawer__header">
         <div>
           <p class="eyebrow" data-cart-drawer-count>{{ 'sections.cart.item_count' | t: count: cart.item_count }}</p>
-          <h2 id="CartDrawerTitle" class="cart-drawer__title">{{ 'sections.cart.title' | t }}</h2>
+          <h2 id="CartDrawerTitle" class="cart-drawer__title" tabindex="-1">{{ 'sections.cart.title' | t }}</h2>
         </div>
         <button
           class="icon-button"
@@ -130,7 +131,7 @@
 
         {%- if cart.empty? -%}
           <div class="cart-drawer__empty flow">
-            <p>{{ 'sections.cart.empty' | t }}</p>
+            <p tabindex="-1" data-cart-empty-message>{{ 'sections.cart.empty' | t }}</p>
             <a class="button" href="{{ routes.all_products_collection_url }}">
               {{- 'sections.cart.continue_shopping' | t -}}
             </a>
@@ -155,7 +156,8 @@
                 <div
                   class="cart-drawer-item"
                   role="listitem"
-                  data-cart-item-key="{{ item.key }}"
+                  data-cart-item-key="{{ item.key | escape }}"
+                  data-cart-item-title="{{ item.title | escape }}"
                   style="--item-index: {{ forloop.index0 }};"
                 >
                   <a class="cart-drawer-item__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
@@ -278,7 +280,6 @@
                         required
                         data-quantity-input
                         data-cart-quantity
-                        data-line="{{ forloop.index }}"
                       >
                       <button
                         id="DrawerQuantityPlus-{{ forloop.index }}"
@@ -300,7 +301,6 @@
                     type="button"
                     aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}"
                     data-cart-remove
-                    data-line="{{ forloop.index }}"
                   >
                     {% render 'icon', name: 'close', size: 18 %}
                   </button>
@@ -436,6 +436,33 @@
       "id": "cross_sell_collection",
       "label": "t:sections.cart_drawer.settings.cross_sell_collection.label",
       "info": "t:sections.cart_drawer.settings.cross_sell_collection.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "cross_sell_price_band",
+      "label": "t:sections.cart_drawer.settings.cross_sell_price_band.label",
+      "info": "t:sections.cart_drawer.settings.cross_sell_price_band.info",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "price_band_min",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.cart_drawer.settings.price_band_min.label",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "price_band_max",
+      "min": 5,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.cart_drawer.settings.price_band_max.label",
+      "default": 35
     }
   ],
   "blocks": [

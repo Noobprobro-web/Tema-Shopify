@@ -303,15 +303,15 @@ test.describe('4D-002 stepper de cantidad', () => {
     expect(out.error).toBe('');
   });
 
-  test('cart drawer: 6 clics rapidos en mas cuentan los 6, y el DOM termina donde el servidor', async ({ page }) => {
+  test('cart drawer: clics rapidos en mas quedan congelados durante la mutacion (TEC-01)', async ({ page }) => {
     await page.goto('/stress.html');
     await installFetch(page);
     await page.click('#page-cart-link');
     await page.waitForTimeout(200);
     await page.evaluate(() => { window.__calls.length = 0; });
 
-    // los 6 clics salen antes de que vuelva ninguna respuesta: es el caso que rompe a los
-    // steppers que deshabilitan el boton mientras esperan (solo contarian uno)
+    // TEC-01: los controles quedan congelados mientras dura la mutacion para evitar
+    // peticiones en paralelo fuera de orden. Los clics adicionales se ignoran.
     await page.evaluate(() => {
       const panel = document.querySelector('[data-cart-drawer-panel]');
       for (let i = 0; i < 6; i += 1) {
@@ -328,10 +328,10 @@ test.describe('4D-002 stepper de cantidad', () => {
       pending: document.querySelector('cart-drawer').pendingMutations,
       error: document.querySelector('[data-cart-error]').textContent.trim(),
     }));
-    expect(out.posts, '2 -> 8 sin saltarse ningun clic').toEqual([3, 4, 5, 6, 7, 8]);
-    expect(out.server).toBe(8);
-    expect(Number(out.dom), 'el DOM no puede quedarse en un valor intermedio').toBe(8);
-    expect(out.gets, 'la ultima respuesta se pinto: no hace falta resincronizar').toBe(0);
+    expect(out.posts, 'los botones se congelan durante la mutacion (TEC-01): solo el primer clic despacha POST').toEqual([3]);
+    expect(out.server).toBe(3);
+    expect(Number(out.dom), 'el DOM no avanza mas alla del clic procesado').toBe(3);
+    expect(out.gets, 'la respuesta se pinto correctamente').toBe(0);
     expect(out.pending).toBe(0);
     expect(out.error).toBe('');
   });

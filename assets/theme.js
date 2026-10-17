@@ -1162,6 +1162,7 @@
         selected.forEach((card) => {
           if (this.dataset.showSecondaryImage !== 'true') {
             card.querySelectorAll('.product-card__image--secondary').forEach((image) => image.remove());
+            card.querySelectorAll('[data-has-secondary]').forEach((media) => media.removeAttribute('data-has-secondary'));
           }
           if (this.dataset.showVendor !== 'true') {
             card.querySelectorAll('.product-card__vendor').forEach((vendor) => vendor.remove());
@@ -2231,6 +2232,12 @@
       this.requestController = null;
       this.crossSellController = null;
       this.pendingMutations = 0;
+      // TEC-01. Profundidad de setDrawerBusy y control que tenia el foco al entrar en busy:
+      // deshabilitarlo lo desenfoca, y el re-render o la liberacion lo necesitan para volver.
+      this.drawerBusyDepth = 0;
+      this.busyFocus = null;
+      // TEC-02. Destino de foco de una eliminacion en curso (clave quitada y sus vecinas).
+      this.pendingRemoval = null;
       this.syncRevision = 0;
       this.renderedRevision = 0;
       this.syncAfterMutation = false;
@@ -2379,8 +2386,10 @@
 
       const removeButton = event.target.closest('[data-cart-remove]');
       if (!removeButton) return;
+      const removeKey = removeButton.closest('[data-cart-item-key]')?.dataset.cartItemKey;
+      if (!removeKey) return;
 
-      this.changeLine(Number(removeButton.dataset.line), 0).catch((error) => {
+      this.changeLine(removeKey, 0).catch((error) => {
         if (error.name === 'AbortError') return;
         this.showError(error.message);
       });
@@ -2396,7 +2405,8 @@
       }
 
       const quantityInput = event.target.closest('[data-cart-quantity]');
-      if (!quantityInput) return;
+      // TEC-01. Un campo retenido por una mutacion en vuelo no puede lanzar otra.
+      if (!quantityInput || quantityInput.disabled) return;
 
       // An empty or malformed field used to fall through parseInt('') || 0 and silently
       // delete the line. Let the browser report it instead, and keep 0 as the one value
@@ -2406,8 +2416,12 @@
         return;
       }
 
+      // TEC-01. La linea se identifica por su clave, no por su posicion: un indice cambia
+      // en cuanto otra linea desaparece y el POST modificaria un producto distinto.
+      const lineKey = quantityInput.closest('[data-cart-item-key]')?.dataset.cartItemKey;
+      if (!lineKey) return;
       const quantity = Number(quantityInput.value);
-      this.changeLine(Number(quantityInput.dataset.line), quantity).catch((error) => {
+      this.changeLine(lineKey, quantity).catch((error) => {
         // beginMutation() aborts an in-flight section read, so a superseded request must
         // stay silent instead of showing the browser's own English abort text.
         if (error.name === 'AbortError') return;
@@ -3088,8 +3102,24 @@
       }, { signal: controller.signal });
     }
 
-    async changeLine(line, quantity) {
+    // TEC-01. /cart/change.js recibe la clave de la linea (id: item.key), estable aunque
+    // cambie el orden. TEC-02. Con cantidad 0 la eliminacion se anuncia en la region viva y
+    // el foco pasa a la linea siguiente, la anterior, el aviso de carrito vacio o el titulo.
+    async changeLine(key, quantity) {
+      const lineRows = Array.from(this.querySelectorAll('[data-cart-item-key]'));
+      const lineIndex = lineRows.findIndex((row) => row.dataset.cartItemKey === key);
+      const removedRow = lineIndex === -1 ? null : lineRows[lineIndex];
       const revision = this.beginMutation();
+      const removal = quantity === 0 && removedRow
+        ? {
+          key,
+          title: removedRow.dataset.cartItemTitle || '',
+          nextKey: lineRows[lineIndex + 1]?.dataset.cartItemKey || null,
+          previousKey: lineRows[lineIndex - 1]?.dataset.cartItemKey || null,
+        }
+        : null;
+      if (removal) this.pendingRemoval = removal;
+      let applied = false;
       this.clearMessages();
       this.setDrawerBusy(true);
 
@@ -3102,7 +3132,7 @@
             'X-Requested-With': 'XMLHttpRequest',
           },
           body: JSON.stringify({
-            line,
+            id: key,
             quantity,
             sections: this.renderSectionIds(),
             sections_url: `${window.location.pathname}${window.location.search}`,
@@ -3119,11 +3149,62 @@
 
         if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
 
+        applied = true;
         await this.renderCartResponse(result, revision);
+        if (removal) this.announceRemoval(removal, this.renderedRevision === revision);
       } finally {
+        // Si la eliminacion fallo, nadie consumira su destino de foco. Si se aplico pero su
+        // respuesta quedo adelantada, el destino espera al render que la refleje.
+        if (!applied && this.pendingRemoval === removal) this.pendingRemoval = null;
         this.setDrawerBusy(false);
         this.endMutation();
       }
+    }
+
+    // TEC-01. El mismo control (campo, mas, menos o quitar) de la misma linea, por su clave.
+    lineControlAfterRender(control, nextContent) {
+      const key = control?.closest?.('[data-cart-item-key]')?.dataset.cartItemKey;
+      if (!key) return null;
+      const row = Array.from(nextContent.querySelectorAll('[data-cart-item-key]'))
+        .find((candidate) => candidate.dataset.cartItemKey === key);
+      if (!row) return null;
+      const selector = ['[data-cart-quantity]', '[data-cart-remove]'].find((candidate) => control.matches(candidate))
+        || (control.dataset.quantityButton ? `[data-quantity-button="${control.dataset.quantityButton}"]` : null);
+      return selector ? row.querySelector(selector) : null;
+    }
+
+    // TEC-02. La region persistente [data-cart-status] anuncia la linea quitada y el
+    // recuento nuevo. El texto sale de una clave de locale con [title] como marcador.
+    announceRemoval(removal, rendered) {
+      const template = this.dataset.removedTemplate || '';
+      if (!template) return;
+      // El recuento solo es fiable si fue esta respuesta la que se pinto.
+      const count = rendered
+        ? this.querySelector('[data-cart-drawer-count]')?.textContent.trim() || ''
+        : '';
+      const message = template.replace('[title]', removal.title).trim();
+      this.showStatus([message, count].filter(Boolean).join(' '));
+    }
+
+    // TEC-02. Destino del foco tras quitar una linea, buscado en el contenido recien pintado:
+    // la linea siguiente, si no la anterior, si no el aviso de carrito vacio y, en ultimo
+    // caso, el titulo del cajon (los dos con tabindex="-1"). Nunca el boton Cerrar.
+    // Solo actua cuando el HTML nuevo ya no trae la linea quitada, y se consume al usarse.
+    removalFocusTarget(nextContent) {
+      const removal = this.pendingRemoval;
+      if (!removal) return null;
+      const rows = Array.from(nextContent.querySelectorAll('[data-cart-item-key]'));
+      if (rows.some((row) => row.dataset.cartItemKey === removal.key)) return null;
+      this.pendingRemoval = null;
+      const usable = (element) => element && !element.disabled && !element.closest('[hidden]');
+      for (const key of [removal.nextKey, removal.previousKey]) {
+        const row = key ? rows.find((candidate) => candidate.dataset.cartItemKey === key) : null;
+        if (!row) continue;
+        const control = [row.querySelector('.cart-drawer-item__title a[href]'), row.querySelector('[data-cart-remove]')]
+          .find(usable);
+        if (control) return control;
+      }
+      return nextContent.querySelector('[data-cart-empty-message]') || this.querySelector('#CartDrawerTitle');
     }
 
     // Returns the revision this mutation belongs to. Callers hand it back to
@@ -3297,8 +3378,20 @@
       const nextScroll = nextContent.querySelector('[data-cart-scroll]');
       if (nextScroll && previousScroll) nextScroll.scrollTop = previousScroll;
 
-      if (restoreFocus) {
-        const restored = active?.id ? nextContent.querySelector(`#${CSS.escape(active.id)}`) : null;
+      // TEC-01. El control pulsado se deshabilita mientras dura la mutacion y el navegador
+      // manda el foco al body; el que tenia el foco al entrar en busy es el que se restaura.
+      const focusSource = active === document.body && this.busyFocus && currentContent.contains(this.busyFocus)
+        ? this.busyFocus
+        : active;
+      const removalTarget = restoreFocus ? this.removalFocusTarget(nextContent) : null;
+
+      if (removalTarget) {
+        removalTarget.focus();
+      } else if (restoreFocus) {
+        // Los ids de las lineas son posicionales: se busca primero el mismo control dentro de
+        // la misma linea (por su clave) y el id queda como respaldo.
+        const restored = this.lineControlAfterRender(focusSource, nextContent)
+          || (focusSource?.id ? nextContent.querySelector(`#${CSS.escape(focusSource.id)}`) : null);
         // El control puede volver deshabilitado desde el servidor: el boton mas se apaga
         // cuando la linea toca el tope de inventario, que el cliente no conoce. Un focus()
         // sobre un control deshabilitado no hace nada y el foco caeria al body, asi que se
@@ -3306,7 +3399,7 @@
         const target = restored && !restored.disabled
           ? restored
           : restored?.closest('[data-quantity-stepper]')?.querySelector('[data-quantity-button]:not([disabled])');
-        (target || this.crossSellFocusAfterRender(active, nextContent) || this.querySelector('[data-cart-drawer-close]'))?.focus();
+        (target || this.crossSellFocusAfterRender(focusSource, nextContent) || this.querySelector('[data-cart-drawer-close]'))?.focus();
       }
       this.dataset.itemCount = nextDrawer.dataset.itemCount;
       this.dataset.cartCountLabel = nextDrawer.dataset.cartCountLabel;
@@ -3364,9 +3457,23 @@
       if (!busy) delete button.dataset.wasDisabled;
     }
 
+    // TEC-01. Los +/- y el campo de cantidad quedan inactivos mientras dura la mutacion: un
+    // segundo clic ya no lanza un POST en paralelo que Shopify podria aplicar en otro orden.
+    // Al liberar, cada control recupera su estado previo (wasDisabled) y no se fuerza a
+    // activo, asi el disabled de los extremos que puso el servidor no se pierde. Si la
+    // respuesta ya repinto las lineas, los controles nuevos llegan con el estado del
+    // servidor y no tienen nada que restaurar. Es reentrante: solo la ultima salida libera.
     setDrawerBusy(busy) {
+      this.drawerBusyDepth = Math.max(0, this.drawerBusyDepth + (busy ? 1 : -1));
+      if (!busy && this.drawerBusyDepth > 0) return;
+
       this.panel.setAttribute('aria-busy', String(busy));
-      this.querySelectorAll('[data-cart-quantity], [data-cart-remove], [data-cross-sell-add], [data-cross-sell-expand], [data-cross-sell-cancel]').forEach((control) => {
+      if (busy) {
+        // Una mutacion anidada tambien deshabilita los controles que pinto la anterior.
+        const active = document.activeElement;
+        if (active && active !== document.body && this.panel.contains(active)) this.busyFocus = active;
+      }
+      this.querySelectorAll('[data-cart-quantity], [data-quantity-button], [data-cart-remove], [data-cross-sell-add], [data-cross-sell-expand], [data-cross-sell-cancel]').forEach((control) => {
         if (busy) {
           if (control.dataset.wasDisabled === undefined) {
             control.dataset.wasDisabled = String(control.disabled);
@@ -3379,6 +3486,18 @@
         control.disabled = control.dataset.wasDisabled === 'true';
         delete control.dataset.wasDisabled;
       });
+      if (busy) return;
+
+      // Sin re-render (error o respuesta adelantada) el control sigue en el DOM pero perdio
+      // el foco al deshabilitarse: vuelve a el, o a su hermano utilizable del stepper.
+      const previousFocus = this.busyFocus;
+      this.busyFocus = null;
+      const current = document.activeElement;
+      if (!this.isOpen || !previousFocus?.isConnected || (current && current !== document.body)) return;
+      const target = previousFocus.disabled
+        ? previousFocus.closest('[data-quantity-stepper]')?.querySelector('[data-quantity-button]:not([disabled])')
+        : previousFocus;
+      target?.focus();
     }
 
     setCrossSellBusy(button, busy) {
@@ -3584,18 +3703,46 @@
     }
   }
 
+  // TEC-04 (WCAG 2.2.2). El video solo arranca solo si el visitante no pidio reducir
+  // movimiento y el comerciante no apago las animaciones (data-animations="none"). En los dos
+  // casos se queda el poster y el boton permite reproducirlo a mano. userChoice guarda la
+  // ultima orden explicita ('play' o 'pause'), que manda sobre el arranque automatico.
   class EditorialHero extends ThemeElement {
     connectedCallback() {
       this.startListening();
       this.video = this.querySelector('[data-editorial-hero-video]');
       if (!this.video) return;
 
+      this.toggle = this.querySelector('[data-hero-video-toggle]');
+      this.userChoice = null;
       this.mobileQuery = window.matchMedia('(max-width: 47.99rem)');
       this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.listen(this.mobileQuery, 'change', () => this.syncPlayback());
       this.listen(this.reducedMotionQuery, 'change', () => this.syncPlayback());
       this.listen(document, 'visibilitychange', () => this.syncPlayback());
+      this.listen(this.video, 'play', () => this.syncToggle());
+      this.listen(this.video, 'pause', () => this.syncToggle());
+      if (this.toggle) {
+        this.listen(this.toggle, 'click', () => {
+          this.userChoice = this.video.paused ? 'play' : 'pause';
+          this.syncPlayback();
+        });
+      }
+      this.syncToggle();
       this.syncPlayback();
+    }
+
+    get autoplayAllowed() {
+      return !this.reducedMotionQuery.matches
+        && document.documentElement.dataset.animations !== 'none';
+    }
+
+    syncToggle() {
+      if (!this.toggle) return;
+      const playing = !this.video.paused;
+      const label = playing ? this.dataset.pauseLabel : this.dataset.playLabel;
+      this.toggle.toggleAttribute('data-playing', playing);
+      if (label) this.toggle.setAttribute('aria-label', label);
     }
 
     disconnectedCallback() {
@@ -3619,13 +3766,19 @@
 
       const mobilePlaybackAllowed = !this.mobileQuery.matches
         || this.dataset.enableVideoMobile === 'true';
+      const wantsPlay = this.userChoice === 'play'
+        || (this.userChoice === null && this.autoplayAllowed);
       const shouldPlay = mobilePlaybackAllowed
-        && !this.reducedMotionQuery.matches
+        && wantsPlay
         && document.visibilityState !== 'hidden';
+
+      // Sin video posible en este ancho no hay nada que controlar.
+      if (this.toggle) this.toggle.hidden = !mobilePlaybackAllowed;
 
       if (!shouldPlay) {
         this.video.pause();
-        this.removeAttribute('data-video-active');
+        // Pausado conserva el fotograma ya visto; sin video en este ancho vuelve el poster.
+        if (!mobilePlaybackAllowed) this.removeAttribute('data-video-active');
         return;
       }
 
@@ -5557,7 +5710,15 @@
 
     stepper.querySelectorAll('[data-quantity-button]').forEach((button) => {
       const direction = button.dataset.quantityButton === 'increase' ? 1 : -1;
-      button.disabled = nextQuantity(input, direction) === value;
+      const atLimit = nextQuantity(input, direction) === value;
+      // TEC-01. Mientras el cajon retiene el boton por una mutacion (wasDisabled), el limite
+      // se guarda para cuando lo libere y el boton sigue inactivo: el 'change' que lanza la
+      // propia mutacion no puede reactivarlo a mitad de vuelo.
+      if (button.dataset.wasDisabled !== undefined) {
+        button.dataset.wasDisabled = String(atLimit);
+        return;
+      }
+      button.disabled = atLimit;
     });
   };
 

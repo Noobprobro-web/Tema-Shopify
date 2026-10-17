@@ -1,5 +1,7 @@
 {%- comment -%}
   Renders product provenance block for vintage/archive pieces.
+  Each row renders only when its setting has a value; with no rows the block renders
+  nothing in the storefront and a notice in the theme editor.
   Accepts:
   - block: {Object} Block object with settings and shopify_attributes.
   - product: {Object} Product Liquid object.
@@ -45,5 +47,13 @@
     {%- if block.settings.provenance_notes != blank -%}
       <div class="product-provenance__notes rte">{{- block.settings.provenance_notes -}}</div>
     {%- endif -%}
+  </div>
+{%- elsif request.design_mode -%}
+  {%- comment -%}
+    Sin datos documentados no se afirma nada en la tienda. Solo en el editor queda un aviso
+    seleccionable para que el comerciante sepa que el bloque existe y que le falta.
+  {%- endcomment -%}
+  <div class="product-provenance" {{ block.shopify_attributes }}>
+    <p class="product-provenance__notes">{{ 'products.product.provenance.editor_empty' | t }}</p>
   </div>
 {%- endif -%}

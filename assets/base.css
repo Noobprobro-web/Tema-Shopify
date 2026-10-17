@@ -81,7 +81,6 @@
   --scroll-unveil-settle: 52vh;
   --unveil-scale: 1.18;
   --parallax-scale: 1.06;
-  --marquee-drift: 16vw;
   --space-3xs: 2px;
   --space-2xs: 4px;
   --space-xs: 8px;
@@ -1869,8 +1868,12 @@ body[data-sticky-cart-visible] {
   transition: opacity var(--motion-base) var(--ease-exit), transform var(--motion-slow) var(--ease-move);
 }
 
-.product-card__media:hover .product-card__image--primary,
-.product-card__media:focus-visible .product-card__image--primary {
+/* La primaria solo se retira si hay una secundaria que la sustituya. La marca
+   data-has-secondary la pone snippets/product-card.liquid (y recently-viewed la retira si
+   quita la secundaria), asi que no depende de :has(). Sin ella, la foto se queda y solo se
+   acerca: un hueco con el fondo de .product-card__media no es un estado de hover. */
+.product-card__media[data-has-secondary]:hover .product-card__image--primary,
+.product-card__media[data-has-secondary]:focus-visible .product-card__image--primary {
   opacity: 0;
   transition: opacity var(--motion-base) var(--ease-exit), transform var(--motion-slow) var(--ease-move);
 }
@@ -1881,9 +1884,18 @@ body[data-sticky-cart-visible] {
   transition: opacity var(--motion-base) var(--ease-enter), transform var(--motion-slow) var(--ease-move);
 }
 
-.product-card__media:hover .product-card__image,
-.product-card__media:focus-visible .product-card__image {
-  transform: scale(1.025);
+/* El acercamiento es movimiento: solo con no-preference y fuera de "none". Con
+   secundaria se conserva el 1.025 del cruce; sin ella, 1.02 sobre la primaria. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-animations='none']) .product-card__media:hover .product-card__image,
+  html:not([data-animations='none']) .product-card__media:focus-visible .product-card__image {
+    transform: scale(1.02);
+  }
+
+  html:not([data-animations='none']) .product-card__media[data-has-secondary]:hover .product-card__image,
+  html:not([data-animations='none']) .product-card__media[data-has-secondary]:focus-visible .product-card__image {
+    transform: scale(1.025);
+  }
 }
 
 .product-card__media-placeholder {
@@ -3243,6 +3255,48 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   opacity: 1;
 }
 
+/* TEC-04 (WCAG 2.2.2). Control del video de fondo: 44x44 (--tap-target-min), por encima del
+   velo (.hero-editorial__overlay, z-index 2) y del bloque de texto (z-index 3), en la esquina
+   superior final del medio. En cinematic el texto se superpone al medio y a 375 px mide 18rem:
+   centrado o al final, y con un titular largo, alcanzaria esa esquina. Por eso, solo cuando
+   hay video (hero-editorial--has-video, puesta desde Liquid), el bloque de texto reserva arriba
+   la altura del control y nunca lo pisa. El anillo de foco es el global (:focus-visible) con
+   un halo del fondo del esquema debajo, para que se lea tambien sobre un fotograma oscuro. */
+.hero-editorial__video-toggle {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  width: var(--tap-target-min);
+  height: var(--tap-target-min);
+  padding: 0;
+  border: var(--border-width) solid var(--color-border-hairline);
+  border-radius: var(--button-radius);
+  inset-block-start: var(--space-md);
+  inset-inline-end: var(--space-md);
+  place-items: center;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  cursor: pointer;
+}
+
+.hero-editorial--cinematic.hero-editorial--has-video .hero-editorial__content {
+  margin-block-start: calc(var(--space-md) + var(--tap-target-min) + var(--space-sm));
+}
+
+.hero-editorial__video-toggle:hover {
+  background: var(--color-surface);
+}
+
+.hero-editorial__video-toggle:focus-visible {
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--color-background);
+}
+
+.hero-editorial__video-toggle[data-playing] .hero-editorial__play-icon,
+.hero-editorial__video-toggle:not([data-playing]) .hero-editorial__pause-icon {
+  display: none;
+}
+
 .hero-editorial__overlay {
   position: absolute;
   z-index: 2;
@@ -3949,7 +4003,9 @@ marquee-banner {
 }
 
 .marquee-banner__pause-icon,
-.marquee-banner__play-icon {
+.marquee-banner__play-icon,
+.hero-editorial__pause-icon,
+.hero-editorial__play-icon {
   position: relative;
   display: block;
   width: 1rem;
@@ -3958,7 +4014,9 @@ marquee-banner {
 }
 
 .marquee-banner__pause-icon::before,
-.marquee-banner__pause-icon::after {
+.marquee-banner__pause-icon::after,
+.hero-editorial__pause-icon::before,
+.hero-editorial__pause-icon::after {
   position: absolute;
   width: 2px;
   height: 0.75rem;
@@ -3967,15 +4025,18 @@ marquee-banner {
   content: '';
 }
 
-.marquee-banner__pause-icon::before {
+.marquee-banner__pause-icon::before,
+.hero-editorial__pause-icon::before {
   inset-inline-start: 0.25rem;
 }
 
-.marquee-banner__pause-icon::after {
+.marquee-banner__pause-icon::after,
+.hero-editorial__pause-icon::after {
   inset-inline-end: 0.25rem;
 }
 
-.marquee-banner__play-icon::before {
+.marquee-banner__play-icon::before,
+.hero-editorial__play-icon::before {
   position: absolute;
   inset: 0.125rem 0.1875rem;
   border-block: 0.375rem solid transparent;
@@ -3991,11 +4052,8 @@ marquee-banner {
 .marquee-banner:hover .marquee-banner__track,
 .marquee-banner:focus-within .marquee-banner__track,
 .marquee-banner[data-paused] .marquee-banner__track {
-  /* Dos valores para las dos animaciones que el modo full monta sobre el track (B8.2e): se
-     detiene la banda y el desplazamiento ligado al scroll sigue. Pausar el segundo lo
-     congelaria en el punto de scroll de la pausa y al reanudar saltaria de golpe al valor
-     que le toca. Donde solo hay una animacion el segundo valor sobra sin efecto. */
-  animation-play-state: paused, running;
+  /* El track lleva una sola animacion de tiempo (editorial-marquee) en todos los modos. */
+  animation-play-state: paused;
 }
 
 .marquee-banner__toggle:hover,
@@ -6883,6 +6941,25 @@ copy-text {
   appearance: auto;
 }
 
+/* Solo en el editor de temas: explica por que el pie no muestra selectores cuando la tienda
+   tiene un solo idioma o un solo mercado. El comprador nunca lo ve. */
+.localization-form__notice {
+  max-width: 34rem;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px dashed var(--color-border);
+  color: var(--color-foreground-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.localization-form__notice p {
+  margin: 0;
+}
+
+.localization-form__notice p + p {
+  margin-block-start: var(--space-xs);
+}
+
 .site-footer__newsletter {
   max-width: 34rem;
 }
@@ -9308,32 +9385,10 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       animation-range-end: exit 100%;
     }
 
-    /* e) Banda editorial. Dos animaciones sobre el mismo track y compuestas, no una que
-       sustituya a la otra: el bucle infinito sigue siendo tiempo (es un desfile, no un
-       indicador de progreso) y encima se le suma un desplazamiento ligado al scroll que da
-       profundidad al cruzar la seccion. animation-composition: add en la segunda hace que
-       los dos translateX se sumen en vez de ganar el ultimo declarado.
-
-       El timeline se declara en el __viewport y NO en el __track: el track vive dentro del
-       overflow: hidden del viewport, asi que un view() suyo mediria contra ese recorte.
-
-       var(--marquee-duration, 32s) es el MISMO token y el mismo fallback que usa la regla
-       base de .marquee-banner__track, no un numero duplicado: animation-duration necesita un
-       valor por animacion de la lista y aqui solo se repite la referencia. */
-    html[data-animations='full'] .marquee-banner__viewport {
-      view-timeline-name: --marquee;
-    }
-
-    html[data-animations='full'] .marquee-banner__track {
-      animation-name: editorial-marquee, marquee-drift;
-      animation-duration: var(--marquee-duration, 32s), auto;
-      animation-timing-function: linear, linear;
-      animation-iteration-count: infinite, 1;
-      animation-fill-mode: none, both;
-      animation-composition: replace, add;
-      animation-timeline: auto, --marquee;
-      animation-range: normal, cover 0% cover 100%;
-    }
+    /* e) Banda editorial: sin capa ligada al scroll. El modo full ya no suma marquee-drift
+       (translateX aditivo sobre el bucle): dos movimientos horizontales simultaneos sobre
+       el mismo texto dificultaban la lectura y el bucle pausado seguia moviendose con el
+       scroll. La banda usa en todos los modos la regla base de .marquee-banner__track. */
   }
 }
 
@@ -9410,16 +9465,6 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
 
   to {
     transform: translateY(var(--parallax-shift)) scale(var(--parallax-scale));
-  }
-}
-
-@keyframes marquee-drift {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(calc(-1 * var(--marquee-drift)));
   }
 }
 

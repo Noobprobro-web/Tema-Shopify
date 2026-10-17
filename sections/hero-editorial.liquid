@@ -58,9 +58,11 @@
 <editorial-hero
   class="editorial-hero"
   data-enable-video-mobile="{{ section.settings.enable_video_mobile }}"
+  data-pause-label="{{ 'sections.homepage.hero.pause_video' | t | escape }}"
+  data-play-label="{{ 'sections.homepage.hero.play_video' | t | escape }}"
 >
   <section
-    class="section hero-editorial hero-editorial--{{ layout_mode }} hero-editorial--{{ section.settings.layout_split }} hero-editorial--split-{{ section.settings.split_ratio }} hero-editorial--x-{{ section.settings.content_position_x }} hero-editorial--y-{{ section.settings.content_position_y }} hero-editorial--align-{{ section.settings.text_alignment }} hero-editorial--overlay-{{ section.settings.overlay_style }} color-{{ section_scheme }}"
+    class="section hero-editorial hero-editorial--{{ layout_mode }} hero-editorial--{{ section.settings.layout_split }} hero-editorial--split-{{ section.settings.split_ratio }} hero-editorial--x-{{ section.settings.content_position_x }} hero-editorial--y-{{ section.settings.content_position_y }} hero-editorial--align-{{ section.settings.text_alignment }} hero-editorial--overlay-{{ section.settings.overlay_style }}{% if uses_video %} hero-editorial--has-video{% endif %} color-{{ section_scheme }}"
     style="--hero-height-desktop: {{ section.settings.height_desktop }}svh; --hero-height-mobile: {{ section.settings.height_mobile }}svh; --hero-content-width: {{ section.settings.content_width }}%; --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
     {% if section.settings.heading != blank %}
       aria-labelledby="HeroEditorialTitle-{{ section.id }}"
@@ -107,6 +109,21 @@
               <source data-src="{{ source.url | escape }}" type="{{ source.mime_type | escape }}">
             {%- endfor -%}
           </video>
+          {%- comment -%}
+            TEC-04 (WCAG 2.2.2). Oculto hasta que EditorialHero confirma que hay video que
+            controlar; sin JS el video no carga fuentes y no hace falta. La etiqueta la cambia
+            el JS (pausar / reproducir) con data-pause-label y data-play-label.
+          {%- endcomment -%}
+          <button
+            class="hero-editorial__video-toggle"
+            type="button"
+            aria-label="{{ 'sections.homepage.hero.play_video' | t | escape }}"
+            data-hero-video-toggle
+            hidden
+          >
+            <span class="hero-editorial__pause-icon" aria-hidden="true"></span>
+            <span class="hero-editorial__play-icon" aria-hidden="true"></span>
+          </button>
         {%- elsif hero_image != blank -%}
           <picture>
             {%- if section.settings.image_mobile != blank -%}

@@ -34,7 +34,9 @@
       "currency": "Currency",
       "current_language": "Current language: {{ language }}",
       "language": "Language",
-      "update": "Update preferences"
+      "update": "Update preferences",
+      "editor_notice_language": "Theme editor only: the language selector is hidden because the store has one published language. Publish another language to show it.",
+      "editor_notice_country": "Theme editor only: the currency selector is hidden because the store sells to one country or region. Add a market in Shopify Markets to show it."
     }
   },
   "sections": {
@@ -65,6 +67,7 @@
       "increase_quantity": "Increase quantity for {{ title }}",
       "remove": "Remove",
       "remove_item": "Remove {{ title }}",
+      "item_removed": "Removed {{ title }} from your cart.",
       "discount": "Discount",
       "subtotal": "Subtotal",
       "taxes_included": "Taxes included.",
@@ -166,7 +169,9 @@
     },
     "homepage": {
       "hero": {
-        "region_label": "Featured editorial campaign"
+        "region_label": "Featured editorial campaign",
+        "pause_video": "Pause background video",
+        "play_video": "Play background video"
       },
       "curated": {
         "region_label": "Curated collections",
@@ -431,7 +436,8 @@
         "grade_2": "Grade II · Light wear",
         "grade_3": "Grade III · Visible wear",
         "grade_4": "Grade IV · Significant wear",
-        "grade_5": "Grade V · Fragile / study piece"
+        "grade_5": "Grade V · Fragile / study piece",
+        "editor_empty": "Add a circa year, condition grade or provenance notes to show this block. It stays hidden in the store until then."
       },
       "media_gallery": "Product media gallery",
       "media_thumbnails": "Product media thumbnails",

@@ -50,12 +50,12 @@
       </div>
 
       {%- if form.posted_successfully? -%}
-        <p class="form-message form-message--success" role="status">
+        <p class="form-message form-message--success" role="status" tabindex="-1">
           {{- 'newsletter.success' | t -}}
         </p>
       {%- endif -%}
       {%- if form.errors -%}
-        <div id="NewsletterError-{{ section.id }}" class="form-message form-message--error" role="alert">
+        <div id="NewsletterError-{{ section.id }}" class="form-message form-message--error" role="alert" tabindex="-1">
           <p>{{ 'newsletter.error_heading' | t }}</p>
           {{ form.errors | default_errors }}
         </div>
