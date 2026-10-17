@@ -72,10 +72,10 @@
           "type": "provenance",
           "settings": {
             "heading": "Archival provenance",
-            "circa_year": "{{ product.metafields.custom.circa_year.value }}",
+            "circa_year": "",
             "show_unique_piece": false,
             "condition_grade": "not_assessed",
-            "provenance_notes": "{{ product.metafields.custom.provenance_notes | metafield_tag }}"
+            "provenance_notes": ""
           }
         }
       },
