@@ -1,0 +1,651 @@
+{
+  "harness": "MOTION-002",
+  "task": "T5",
+  "script": "01-motion-check.mjs",
+  "timestamp": "2026-10-03T01:33:54.204Z",
+  "base": "https://sartorial-atelier.myshopify.com",
+  "store": "atelier",
+  "config": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "routes": [
+      "/"
+    ],
+    "shortRoute": null,
+    "forceMode": "full",
+    "clsMax": 0.1,
+    "tabPresses": 40,
+    "projects": [
+      "chromium-full"
+    ],
+    "localTarget": false,
+    "notes": []
+  },
+  "contract": {
+    "attributes": [
+      "data-reveal=\"\"",
+      "data-reveal=\"done\"",
+      "data-revealed",
+      "html[data-reveal-ready]",
+      "html[data-animations]"
+    ],
+    "expectedKeyframes": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ]
+  },
+  "projects": [
+    {
+      "name": "chromium-full",
+      "browser": "chromium",
+      "scenario": "full",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 18,
+            "settled": 0,
+            "decorated": 18,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 39,
+            "scrollDriven": 32,
+            "timelineKinds": [
+              "DocumentTimeline",
+              "ViewTimeline"
+            ],
+            "scrollDrivenNames": [
+              "hero-parallax",
+              "marquee-drift",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ],
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "hero-parallax",
+              "lookbook-hotspot-pulse",
+              "marquee-drift",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 13,
+            "srcs": [
+              "https://sartorial-atelier.myshopify.com/cdn/s/trekkie.storefront.2f6d7d7ede7d24234881a9cd5f47e679642fa1f6.min.js",
+              "https://sartorial-atelier.myshopify.com/cdn/shop/t/2/assets/theme.js?v=8110917819722666451790950008",
+              "https://sartorial-atelier.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-atelier.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-1bd60354.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-318ab40a.js",
+              "https://sartorial-atelier.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "https://sartorial-atelier.myshopify.com/cdn/wpm/b5982071ew7ea472e3p69b68784m2150dfeam.js",
+              "https://sartorial-atelier.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-4e26a9ce.js",
+              "https://sartorial-atelier.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.9.4.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-atelier.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-c6b62ece.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Sartorial Atelier",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 7298,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 6398
+          },
+          "probes": 3,
+          "midGesture": [
+            {
+              "file": "evidence/chromium-full-home-mid-01.png",
+              "target": "header.curated-showcase__header",
+              "progress": 0.531,
+              "opacity": 0.978,
+              "clipPath": "inset(-100% -16px 0px)",
+              "animations": [
+                "scroll-fade"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-home-mid-02.png",
+              "target": "div.complete-the-look__media",
+              "progress": 0.349,
+              "opacity": 1,
+              "clipPath": "inset(8.69481% 0px 0px)",
+              "animations": [
+                "scroll-unveil"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-home-mid-03.png",
+              "target": "div.brand-manifesto__media",
+              "progress": 0.35,
+              "opacity": 1,
+              "clipPath": "inset(8.64133% 0px 0px)",
+              "animations": [
+                "scroll-unveil"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            }
+          ],
+          "traverse": {
+            "maxScrollDriven": 25,
+            "maxTotal": 32,
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "hero-parallax",
+              "lookbook-hotspot-pulse",
+              "marquee-drift",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ],
+            "iterations": 5
+          },
+          "afterScroll": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 18,
+            "decorated": 18,
+            "revealedMark": 18
+          },
+          "animationsAfterScroll": {
+            "total": 9,
+            "scrollDriven": 2,
+            "timelineKinds": [
+              "DocumentTimeline",
+              "ViewTimeline"
+            ],
+            "scrollDrivenNames": [
+              "hero-parallax",
+              "marquee-drift"
+            ],
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "hero-parallax",
+              "lookbook-hotspot-pulse",
+              "marquee-drift"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 25,
+          "cls": {
+            "supported": true,
+            "value": 0.0014,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 22,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "m3Applicable": true,
+          "verdict": "PASA"
+        }
+      ],
+      "printRows": [
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [],
+          "loaded": {
+            "title": "Sartorial Atelier",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 7298,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": true,
+            "pending": 18,
+            "settled": 0,
+            "decorated": 18,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 18,
+            "pending": 18,
+            "targets": 43,
+            "inspected": 41,
+            "notRendered": 2,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-full-home.pdf",
+            "bytes": 6016676
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 18,
+            "pending": 18,
+            "targets": 43,
+            "inspected": 41,
+            "notRendered": 2,
+            "hidden": []
+          },
+          "printExercised": true,
+          "verdict": "PASA"
+        }
+      ]
+    }
+  ],
+  "degenerate": {
+    "resolved": {
+      "catalog": {
+        "collections": [
+          {
+            "handle": "new-forms",
+            "title": "New Forms",
+            "count": 8,
+            "probed": false
+          },
+          {
+            "handle": "permanent-collection",
+            "title": "Permanent Collection",
+            "count": 17,
+            "probed": false
+          },
+          {
+            "handle": "tailoring",
+            "title": "Tailoring",
+            "count": 5,
+            "probed": false
+          }
+        ],
+        "products": 24
+      },
+      "states": [
+        {
+          "estado": "vacio",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ninguna coleccion publica de esta tienda tiene 0 productos."
+        },
+        {
+          "estado": "unico",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ninguna coleccion publica de esta tienda tiene exactamente 1 producto."
+        },
+        {
+          "estado": "masivo",
+          "ruta": "/collections/all",
+          "alcanzable": true,
+          "motivo": "/collections/all con 24 productos en catalogo. products_per_page es ajuste de seccion (max 48): 50 por pagina no es alcanzable desde la URL; se mide la rejilla rendida tal cual."
+        },
+        {
+          "estado": "muy-largo",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ningun producto de esta tienda tiene un titulo de 120+ caracteres."
+        },
+        {
+          "estado": "falta-imagen",
+          "ruta": null,
+          "alcanzable": false,
+          "motivo": "Ningun producto de esta tienda esta sin imagenes. El placeholder de las secciones del homepage depende de ajustes de seccion y no se puede provocar desde la URL: se detecta por DOM si aparece."
+        },
+        {
+          "estado": "unica-imagen-galeria",
+          "ruta": "/products/bias-cut-slip-dress",
+          "alcanzable": true,
+          "motivo": "Producto \"bias-cut-slip-dress\" con 1 sola imagen de galeria."
+        }
+      ]
+    },
+    "rows": [
+      {
+        "estado": "vacio",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ninguna coleccion publica de esta tienda tiene 0 productos.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ninguna coleccion publica de esta tienda tiene 0 productos."
+      },
+      {
+        "estado": "unico",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ninguna coleccion publica de esta tienda tiene exactamente 1 producto.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ninguna coleccion publica de esta tienda tiene exactamente 1 producto."
+      },
+      {
+        "estado": "masivo",
+        "ruta": "/collections/all",
+        "alcanzable": true,
+        "motivo": "/collections/all con 24 productos en catalogo. products_per_page es ajuste de seccion (max 48): 50 por pagina no es alcanzable desde la URL; se mide la rejilla rendida tal cual.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 23,
+          "decorated": 23,
+          "revealedMark": 23
+        },
+        "hidden": [],
+        "scrollDrivenMax": 23,
+        "grid": {
+          "cards": 25,
+          "emptyState": false,
+          "placeholderSvgInReveal": 98,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 39,
+          "galleryItems": 0
+        },
+        "scrollable": 10193,
+        "verdict": "PASA"
+      },
+      {
+        "estado": "muy-largo",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ningun producto de esta tienda tiene un titulo de 120+ caracteres.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ningun producto de esta tienda tiene un titulo de 120+ caracteres."
+      },
+      {
+        "estado": "falta-imagen",
+        "ruta": null,
+        "alcanzable": false,
+        "motivo": "Ningun producto de esta tienda esta sin imagenes. El placeholder de las secciones del homepage depende de ajustes de seccion y no se puede provocar desde la URL: se detecta por DOM si aparece.",
+        "measured": false,
+        "verdict": "NO_ALCANZABLE",
+        "noMeasureReason": "Ningun producto de esta tienda esta sin imagenes. El placeholder de las secciones del homepage depende de ajustes de seccion y no se puede provocar desde la URL: se detecta por DOM si aparece."
+      },
+      {
+        "estado": "unica-imagen-galeria",
+        "ruta": "/products/bias-cut-slip-dress",
+        "alcanzable": true,
+        "motivo": "Producto \"bias-cut-slip-dress\" con 1 sola imagen de galeria.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 0,
+          "decorated": 0,
+          "revealedMark": 0
+        },
+        "hidden": [],
+        "scrollDrivenMax": 0,
+        "grid": {
+          "cards": 0,
+          "emptyState": false,
+          "placeholderSvgInReveal": 0,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 21,
+          "galleryItems": 1
+        },
+        "scrollable": 1874,
+        "verdict": "PASA"
+      }
+    ],
+    "measuredBy": "chromium-full",
+    "scenario": "full"
+  },
+  "shortRoute": {
+    "estado": "ruta-corta",
+    "ruta": "/pages/contact",
+    "alcanzable": true,
+    "motivo": "Guardia de fin de pagina: rango de entrada que puede no completarse nunca.",
+    "measured": true,
+    "noMeasureReason": "La ruta tiene 1143 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE.",
+    "failures": [],
+    "status": 200,
+    "themeJsRan": true,
+    "engine": {
+      "revealReady": true,
+      "pending": 0,
+      "settled": 0,
+      "decorated": 0,
+      "revealedMark": 0
+    },
+    "hidden": [],
+    "scrollDrivenMax": 0,
+    "grid": {
+      "cards": 0,
+      "emptyState": false,
+      "placeholderSvgInReveal": 0,
+      "placeholderUnveiled": [],
+      "marqueeItemsPerGroup": null,
+      "longestHeading": 21,
+      "galleryItems": 0
+    },
+    "scrollable": 1143,
+    "verdict": "NO_MEDIBLE",
+    "warnings": [
+      "La ruta tiene 1143 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    ],
+    "measuredBy": "chromium-full",
+    "scenario": "full"
+  },
+  "keyframes": {
+    "expected": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "observed": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "notObserved": [],
+    "allObservedNames": [
+      "announcement-reveal",
+      "editorial-marquee",
+      "hero-content-settle",
+      "hero-parallax",
+      "lookbook-hotspot-pulse",
+      "marquee-drift",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle"
+    ]
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "nombre": "Todos los proyectos arrancaron y terminaron",
+      "estado": "PASA",
+      "detalle": "1 proyecto(s) completados."
+    },
+    {
+      "id": "G1",
+      "nombre": "Axioma anti-invisible: 0 pendientes y 0 ocultos tras recorrer",
+      "estado": "PASA",
+      "detalle": "4 fila(s) medidas sin un solo elemento oculto."
+    },
+    {
+      "id": "G2",
+      "nombre": "Motor nativo: animaciones scroll-driven > 0 en modo full con soporte",
+      "estado": "PASA",
+      "detalle": "1 fila(s): /=25."
+    },
+    {
+      "id": "G3",
+      "nombre": "prefers-reduced-motion: reduce apaga el motor por completo",
+      "estado": "NO_MEDIBLE",
+      "detalle": "El escenario reduce no se midio."
+    },
+    {
+      "id": "G4",
+      "nombre": "Rama @supports not: el respaldo IntersectionObserver revela",
+      "estado": "NO_MEDIBLE",
+      "detalle": "El proyecto de Firefox no corrio."
+    },
+    {
+      "id": "G5",
+      "nombre": "GSAP erradicado (window.gsap/ScrollTrigger y scripts del tema)",
+      "estado": "PASA",
+      "detalle": "1 fila(s) sin gsap ni ScrollTrigger y sin script del tema con \"gsap\"/\"motion\"."
+    },
+    {
+      "id": "G6",
+      "nombre": "CLS durante el scroll < 0.1",
+      "estado": "PASA",
+      "detalle": "maximo 0.0014 en 1 fila(s)."
+    },
+    {
+      "id": "G7",
+      "nombre": "40 tabulaciones sin foco invisible (WCAG 2.4.7 / 2.4.11)",
+      "estado": "PASA",
+      "detalle": "1 recorrido(s), 22 destinos distintos, 0 invisibles."
+    },
+    {
+      "id": "G8",
+      "nombre": "Guardia de fin de pagina en ruta corta",
+      "estado": "NO_MEDIBLE",
+      "detalle": "/pages/contact: scroll=1143px, pendientes=0. La ruta tiene 1143 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    },
+    {
+      "id": "G9",
+      "nombre": "Estados degenerados (Gate 2 del proyecto)",
+      "estado": "PASA",
+      "detalle": "vacio=NO_ALCANZABLE, unico=NO_ALCANZABLE, masivo=PASA, muy-largo=NO_ALCANZABLE, falta-imagen=NO_ALCANZABLE, unica-imagen-galeria=PASA"
+    },
+    {
+      "id": "G10",
+      "nombre": "Capturas a mitad de gesto",
+      "estado": "PASA",
+      "detalle": "3 PNG en evidence/, 3 con el gesto verificado a medio recorrido."
+    },
+    {
+      "id": "G11",
+      "nombre": "Contenido revelado al imprimir (media print sin scroll + PDF)",
+      "estado": "PASA",
+      "detalle": "chromium-full /: pend=18 ocultos=0 pdf=si"
+    }
+  ],
+  "summary": {
+    "rowsTotal": 4,
+    "rowsMeasured": 4,
+    "rowsFailed": 0,
+    "rowsNotMeasured": 1,
+    "projectsIncomplete": [],
+    "hardFailures": [],
+    "notMeasuredReasons": [
+      "ruta-corta /pages/contact :: La ruta tiene 1143 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    ]
+  },
+  "verdict": "INCOMPLETO"
+}

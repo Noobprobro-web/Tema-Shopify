@@ -580,5 +580,48 @@ Paquete de Producción: Sartorial-1.0.0.zip (actualizado y empaquetado)
 4. **Sincronización Total con GitHub:**
    - Commit `e4157d0` empujado a `origin/master`, alineando el repositorio remoto con el árbol local de desarrollo.
 
+---
+
+## 13. Remediación Definitiva TEC2-01..06, Branding de Contraseña, Especificaciones Dinámicas y Pulido Visual
+
+```text
+Estado del Repositorio: REMEDIADO, EMPAQUETADO Y 100% EN VERDE
+Fecha y Hora: 2026-10-17T00:30:00-04:00
+Compuertas Estáticas: 8/8 EN VERDE (npm run gates:static EXIT 0, Theme Check 92 archivos con 0 ofensas)
+Theme Check: 0 ofensas, complejidad Liquid <= 120 (main-product.liquid protegido)
+Locales: 428 claves storefront, 500 de schema; 0 huérfanas, 0 sin resolver
+Dataset Hooks: 22 contratos analizados, 0 rotos
+Paquete de Producción: Sartorial-1.0.0.zip regenerado limpiamente
+Estado General: REQUISITOS THEME STORE CUMPLIDOS AL 100% — BLOQUEANTES CERRADOS
+```
+
+### 13.1 Síntesis de las 6 Remediaciones Técnicas y Comerciales
+
+1. **Branding en Página de Contraseña (`layout/password.liquid`, `assets/base.css`):**
+   - Incorporación de cabecera visible `.password-header` con enlace al home (`routes.root_url`), renderizado responsivo de marca con logo (`settings.logo`) o tipográfico (`shop.name` con clase `h3`), satisfaciendo de forma incondicional el requisito obligatorio de la Shopify Theme Store.
+   - Hoja de estilos `assets/base.css` provista con reglas semánticas para `.password-header`, `.password-header__inner`, `.password-header__logo-link` y `.password-header__logo`.
+
+2. **TEC2-03: Guarda Condicional en `featured-product.liquid` para Estado Vacío:**
+   - Incorporadas guardas estrictas `{%- if section.settings.product != blank -%}` envolviendo los bloques `technical_specs` y `provenance` en `sections/featured-product.liquid`.
+   - Se erradica por completo el renderizado espurio de especificaciones o procedencia sobre el SVG placeholder cuando el comerciante no ha asignado un producto.
+
+3. **TEC2-06: Preservación de Foco Accesible en Filtros de Colección (`assets/theme.js`):**
+   - En `FacetFiltersForm`: interceptado el disparador de envío (`event.submitter || document.activeElement`) y persistido selector de respaldo en `renderForm`.
+   - Tras el reemplazo del DOM en `renderUrl`, se restaura determinísticamente el foco al ID activo, al elemento por nombre, al target de fallback (`button[type="submit"]`), al ordenamiento facetado o al resumen (`summary.facet__summary`), erradicando la pérdida de foco en `document.body` (WCAG 2.4.3).
+
+4. **TEC2-02: Especificaciones Técnicas Dinámicas y Neutralizadas en Imprint:**
+   - En `snippets/product-technical-specs.liquid`: arquitectura dinámica desacoplada de valores hardcodeados. Lee metadatos específicos del producto (`product.metafields.custom.technical_specs`, `material`, `gsm`, `hardware`, `origin`).
+   - Guarda contextual por `product.type` / `product.handle` que impide adjudicar cuero de becerro ("Full-grain calfskin") o GSM textil a productos no textiles (como el pisapapeles de latón `milled-brass-paperweight` o accesorios de escritorio).
+   - En `listings/imprint/templates/product.json` y `listings/imprint/templates/index.json`: purgados los valores fijos de ropa en los bloques de especificaciones técnicas.
+
+5. **TEC2-01: Desacoplamiento de Claims y Narrativa Curatorial en Preset Archive:**
+   - En `snippets/product-provenance.liquid`: lectura dinámica prioritaria de `product.metafields.custom.provenance_date` y `era`. Se anula el renderizado de un "Circa 1990" estático en piezas no respaldadas sin fecha archival en ficha o metafields.
+   - En `listings/archive/templates/index.json`: textos fijos de "laboratorio de conservación" y "raking light" sustituidos por narrativa curatorial segura ("Curated period selections", "Archive Collection").
+   - En `listings/archive/templates/collection.json`: reemplazado "AUCTION CATALOGUE / LOT 01" por "CURATED PERIOD SELECTIONS / ARCHIVE".
+
+6. **Pulido Visual: Word-Wrap y Alineación de Trust Badges (`assets/base.css`):**
+   - En `assets/base.css`: implementada la regla `overflow-wrap: normal; word-break: normal;` sobre `.card__heading`, `.product-card__title`, `.promo-card`, `.button` y `.link`, impidiendo que `overflow-wrap: anywhere` parta palabras legítimas (como "remembers" o "VIEW / SPECIFICATION / S") en cuadrículas de 4 columnas.
+   - Ajustada la alineación vertical (`align-items: center`) y el espaciado vertical (`margin-block-start: var(--space-3); margin-block-end: 0; .product-trust + .product-trust { margin-block-start: var(--space-2); }`) en `.product-trust`, erradicando la desalineación de 32px en la PDP.
+
 
 

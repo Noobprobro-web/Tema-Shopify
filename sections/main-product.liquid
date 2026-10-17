@@ -697,7 +697,7 @@
               </div>
 
             {%- when 'technical_specs' -%}
-              {% render 'product-technical-specs', block: block %}
+              {% render 'product-technical-specs', block: block, product: product %}
 
             {%- when 'provenance' -%}
               {% render 'product-provenance', block: block, product: product, selected_variant: selected_variant %}

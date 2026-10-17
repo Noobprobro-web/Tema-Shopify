@@ -1,0 +1,815 @@
+{
+  "harness": "MOTION-002",
+  "task": "T5",
+  "script": "01-motion-check.mjs",
+  "timestamp": "2026-10-02T18:09:28.600Z",
+  "base": "https://sartorial-archive.myshopify.com",
+  "store": "archive",
+  "config": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "routes": [
+      "/",
+      "/collections/all",
+      "/products/1990-pinstripe-double-breasted-jacket"
+    ],
+    "shortRoute": null,
+    "forceMode": "full",
+    "clsMax": 0.1,
+    "tabPresses": 40,
+    "projects": [
+      "chromium-full"
+    ],
+    "localTarget": false,
+    "notes": []
+  },
+  "contract": {
+    "attributes": [
+      "data-reveal=\"\"",
+      "data-reveal=\"done\"",
+      "data-revealed",
+      "html[data-reveal-ready]",
+      "html[data-animations]"
+    ],
+    "expectedKeyframes": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ]
+  },
+  "projects": [
+    {
+      "name": "chromium-full",
+      "browser": "chromium",
+      "scenario": "full",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [],
+      "printRows": [
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [
+            "Oculto en papel: p.eyebrow (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: blockquote.brand-manifesto__quote (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: p (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: a.button.button--secondary (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: img.brand-manifesto__image (dentro de div.brand-manifesto__media) [hijo, data-reveal=\"\"] :: transform matrix(1.18, 0, 0, 1.18, 0, 0)",
+            "Oculto en papel: p.eyebrow (dentro de header.curated-showcase__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: h2#CuratedShowcaseTitle-template--28149271691576__collections.curated-showcase__heading (dentro de header.curated-showcase__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: p.eyebrow (dentro de header.lookbook__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: h2#LookbookTitle-template--28149271691576__lookbook.lookbook__heading (dentro de header.lookbook__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+            "Oculto en papel: p (dentro de header.lookbook__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)"
+          ],
+          "warnings": [],
+          "errors": [],
+          "loaded": {
+            "title": "Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 6171,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": true,
+            "pending": 12,
+            "settled": 0,
+            "decorated": 12,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 12,
+            "pending": 12,
+            "targets": 30,
+            "inspected": 29,
+            "notRendered": 1,
+            "hidden": [
+              {
+                "sel": "p.eyebrow",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "blockquote.brand-manifesto__quote",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "a.button.button--secondary",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "img.brand-manifesto__image",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__media",
+                "reasons": [
+                  "transform matrix(1.18, 0, 0, 1.18, 0, 0)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 0,
+                  "sx": 1.18,
+                  "sy": 1.18
+                },
+                "animations": [
+                  {
+                    "name": "scroll-unveil-settle",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p.eyebrow",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.curated-showcase__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "h2#CuratedShowcaseTitle-template--28149271691576__collections.curated-showcase__heading",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.curated-showcase__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p.eyebrow",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.lookbook__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "h2#LookbookTitle-template--28149271691576__lookbook.lookbook__heading",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.lookbook__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.lookbook__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-full-home.pdf",
+            "bytes": 5808088
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 12,
+            "pending": 12,
+            "targets": 30,
+            "inspected": 29,
+            "notRendered": 1,
+            "hidden": [
+              {
+                "sel": "p.eyebrow",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "blockquote.brand-manifesto__quote",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "a.button.button--secondary",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__statement",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "img.brand-manifesto__image",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "div.brand-manifesto__media",
+                "reasons": [
+                  "transform matrix(1.18, 0, 0, 1.18, 0, 0)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 0,
+                  "sx": 1.18,
+                  "sy": 1.18
+                },
+                "animations": [
+                  {
+                    "name": "scroll-unveil-settle",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p.eyebrow",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.curated-showcase__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "h2#CuratedShowcaseTitle-template--28149271691576__collections.curated-showcase__heading",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.curated-showcase__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p.eyebrow",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.lookbook__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "h2#LookbookTitle-template--28149271691576__lookbook.lookbook__heading",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.lookbook__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              },
+              {
+                "sel": "p",
+                "role": "hijo",
+                "reveal": "",
+                "revealHost": "header.lookbook__header",
+                "reasons": [
+                  "transform matrix(1, 0, 0, 1, 0, 64)"
+                ],
+                "transform": {
+                  "tx": 0,
+                  "ty": 64,
+                  "sx": 1,
+                  "sy": 1
+                },
+                "animations": [
+                  {
+                    "name": "scroll-line-rise",
+                    "playState": "running",
+                    "timeline": "ViewTimeline",
+                    "progress": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "printExercised": true,
+          "verdict": "FALLA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/collections/all",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [],
+          "loaded": {
+            "title": "Products – Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 6630,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": true,
+            "pending": 11,
+            "settled": 0,
+            "decorated": 11,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 11,
+            "pending": 11,
+            "targets": 11,
+            "inspected": 11,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-full-collections-all.pdf",
+            "bytes": 4497608
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 11,
+            "pending": 11,
+            "targets": 11,
+            "inspected": 11,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/products/1990-pinstripe-double-breasted-jacket",
+          "kind": "print",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "Nada pendiente al cargar sin scroll (pend=0, ready=true): la llave de papel no se ejercita en esta ruta."
+          ],
+          "errors": [],
+          "loaded": {
+            "title": "1990 Pinstripe Double-Breasted Jacket – Sartorial Archive",
+            "hasMain": true,
+            "bodyChildren": 9,
+            "docHeight": 2681,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true
+          },
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "screenAtLoad": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "print": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "pdf": {
+            "file": "evidence/print-chromium-full-products-1990-pinstripe-double-breasted-jacket.pdf",
+            "bytes": 2613662
+          },
+          "printAfterPdf": {
+            "media": {
+              "print": true,
+              "screen": false
+            },
+            "scrollY": 0,
+            "revealReady": true,
+            "mode": "full",
+            "decorated": 0,
+            "pending": 0,
+            "targets": 0,
+            "inspected": 0,
+            "notRendered": 0,
+            "hidden": []
+          },
+          "printExercised": false,
+          "verdict": "PASA"
+        }
+      ]
+    }
+  ],
+  "degenerate": {
+    "resolved": null,
+    "rows": []
+  },
+  "shortRoute": null,
+  "keyframes": {
+    "expected": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "observed": [],
+    "notObserved": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "allObservedNames": []
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "nombre": "Todos los proyectos arrancaron y terminaron",
+      "estado": "PASA",
+      "detalle": "1 proyecto(s) completados."
+    },
+    {
+      "id": "G11",
+      "nombre": "Contenido revelado al imprimir (media print sin scroll + PDF)",
+      "estado": "FALLA",
+      "detalle": "chromium-full /: pend=12 ocultos=10 pdf=si | chromium-full /collections/all: pend=11 ocultos=0 pdf=si | chromium-full /products/1990-pinstripe-double-breasted-jacket: pend=0 ocultos=0 pdf=si"
+    }
+  ],
+  "summary": {
+    "rowsTotal": 0,
+    "rowsMeasured": 0,
+    "rowsFailed": 1,
+    "rowsNotMeasured": 0,
+    "projectsIncomplete": [],
+    "hardFailures": [
+      "chromium-full / :: Oculto en papel: p.eyebrow (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: blockquote.brand-manifesto__quote (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: p (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: a.button.button--secondary (dentro de div.brand-manifesto__statement) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: img.brand-manifesto__image (dentro de div.brand-manifesto__media) [hijo, data-reveal=\"\"] :: transform matrix(1.18, 0, 0, 1.18, 0, 0)",
+      "chromium-full / :: Oculto en papel: p.eyebrow (dentro de header.curated-showcase__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: h2#CuratedShowcaseTitle-template--28149271691576__collections.curated-showcase__heading (dentro de header.curated-showcase__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: p.eyebrow (dentro de header.lookbook__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: h2#LookbookTitle-template--28149271691576__lookbook.lookbook__heading (dentro de header.lookbook__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)",
+      "chromium-full / :: Oculto en papel: p (dentro de header.lookbook__header) [hijo, data-reveal=\"\"] :: transform matrix(1, 0, 0, 1, 0, 64)"
+    ],
+    "notMeasuredReasons": []
+  },
+  "verdict": "NO_APTO"
+}

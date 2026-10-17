@@ -37,12 +37,12 @@
       },
       "block_order": ["grade1", "grade2", "grade3", "grade4"],
       "settings": {
-        "eyebrow": "CURATORIAL PROTOCOL / CONSERVATION 02",
+        "eyebrow": "CURATORIAL PROTOCOL / ARCHIVE 02",
         "quote": "What endures carries the indelible record of its creation.",
-        "body": "<p>Every archive specimen is examined under raking light, stabilized in our conservation laboratory, and assigned one of the five rigorous archival grades (Grade 1 Mint to Grade 5 Character).</p>",
+        "body": "<p>Every archive specimen is documented according to transparent curatorial standards, preserving its historical integrity and provenance.</p>",
         "button_label": "Read curatorial notes",
         "button_url": "/collections/permanent-archive",
-        "media_label": "PLATE II / CONSERVATION LAB",
+        "media_label": "PLATE II / ARCHIVE COLLECTION",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
@@ -86,10 +86,10 @@
       },
       "block_order": ["marker1", "marker2", "marker3"],
       "settings": {
-        "eyebrow": "PLATE V / CONSERVATION STUDY",
+        "eyebrow": "PLATE V / CURATED SELECTIONS",
         "heading": "Three objects from the archive record",
-        "description": "<p>Each piece is examined under raking light, stabilized by our conservationist, and released in small curated entries.</p>",
-        "caption": "Garment study room photographed under raking light.",
+        "description": "<p>Each piece is carefully inspected and presented as part of our curated period selections.</p>",
+        "caption": "Garment study room with curated archival selections.",
         "color_scheme": "scheme-1"
       }
     },
@@ -105,10 +105,10 @@
           "type": "provenance",
           "settings": {
             "heading": "Archival provenance",
-            "circa_year": "1990",
+            "circa_year": "",
             "show_unique_piece": false,
-            "condition_grade": "grade_1",
-            "provenance_notes": "<p>Accession record no. 1990-048. Acquired from private runway archive. Curated period selection.</p>"
+            "condition_grade": "not_assessed",
+            "provenance_notes": "<p>Curated period selection with documented archival provenance.</p>"
           }
         },
         "description": { "type": "description" },

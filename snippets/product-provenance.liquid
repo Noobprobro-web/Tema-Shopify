@@ -1,27 +1,50 @@
 {%- comment -%}
   Renders product provenance block for vintage/archive pieces.
-  Each row renders only when its setting has a value; with no rows the block renders
-  nothing in the storefront and a notice in the theme editor.
+  Each row renders only when backed by verified product data or explicit settings.
+  Without verified data, nothing renders in the storefront.
   Accepts:
   - block: {Object} Block object with settings and shopify_attributes.
   - product: {Object} Product Liquid object.
-  - selected_variant: {Object} Selected or first available variant.
+  - selected_variant: {Object} Selected or first available variant (optional).
 
   Usage:
   {% render 'product-provenance', block: block, product: product, selected_variant: selected_variant %}
 {%- endcomment -%}
 
 {%- liquid
+  assign current_variant = selected_variant | default: product.selected_or_first_available_variant
   assign unique_piece = false
-  if block.settings.show_unique_piece and product.variants.size == 1 and selected_variant.inventory_management != blank and selected_variant.inventory_policy == 'deny'
+  if block.settings.show_unique_piece and product.variants.size == 1 and current_variant.inventory_management != blank and current_variant.inventory_policy == 'deny'
     assign unique_piece = true
   endif
+
+  # Provenance year: read from product metafields first (provenance_date, era, circa_year)
+  assign provenance_year = product.metafields.custom.provenance_date.value | default: product.metafields.custom.provenance_date | default: product.metafields.custom.era.value | default: product.metafields.custom.era | default: product.metafields.custom.circa_year.value | default: product.metafields.custom.circa_year
+
+  # If no product metafield exists: only use block.settings.circa_year if it is a verified archival product (has year in title/tags or archive type), preventing fixed 'Circa 1990' on generic products
+  if provenance_year == blank and block.settings.circa_year != blank
+    assign setting_year_clean = block.settings.circa_year | strip
+    unless setting_year_clean contains '{{' or setting_year_clean == blank
+      assign p_title_lower = product.title | downcase
+      assign p_type_lower = product.type | downcase
+      if p_title_lower contains '19' or p_title_lower contains '20' or p_title_lower contains 'archive' or p_title_lower contains 'vintage' or p_type_lower contains 'archive' or p_type_lower contains 'vintage'
+        assign provenance_year = setting_year_clean
+      endif
+    endunless
+  endif
+
+  # Condition grade: read from metafield if present, fallback to block setting if assessed
+  assign condition_grade_val = product.metafields.custom.condition_grade.value | default: product.metafields.custom.condition_grade | default: block.settings.condition_grade
   assign show_grade = false
-  if block.settings.condition_grade != blank and block.settings.condition_grade != 'not_assessed'
+  if condition_grade_val != blank and condition_grade_val != 'not_assessed'
     assign show_grade = true
   endif
+
+  # Provenance notes
+  assign provenance_notes_val = product.metafields.custom.provenance_notes.value | default: product.metafields.custom.provenance_notes | default: block.settings.provenance_notes
 -%}
-{%- if unique_piece or show_grade or block.settings.circa_year != blank or block.settings.provenance_notes != blank -%}
+
+{%- if unique_piece or show_grade or provenance_year != blank or provenance_notes_val != blank -%}
   <div class="product-provenance" {{ block.shopify_attributes }}>
     {%- if block.settings.heading != blank -%}
       <h3 class="product-provenance__heading">{{ block.settings.heading | escape }}</h3>
@@ -29,13 +52,13 @@
     {%- if unique_piece -%}
       <p class="product-provenance__badge">{{ 'products.product.provenance.single_piece' | t }}</p>
     {%- endif -%}
-    {%- if block.settings.circa_year != blank -%}
-      <p class="product-provenance__year">{{ 'products.product.provenance.circa' | t: year: block.settings.circa_year | escape }}</p>
+    {%- if provenance_year != blank -%}
+      <p class="product-provenance__year">{{ 'products.product.provenance.circa' | t: year: provenance_year | escape }}</p>
     {%- endif -%}
     {%- if show_grade -%}
       <p class="product-provenance__grade">
         <span>{{ 'products.product.provenance.condition' | t }}</span>
-        {%- case block.settings.condition_grade -%}
+        {%- case condition_grade_val -%}
           {%- when 'grade_1' -%}{{ 'products.product.provenance.grade_1' | t }}
           {%- when 'grade_2' -%}{{ 'products.product.provenance.grade_2' | t }}
           {%- when 'grade_3' -%}{{ 'products.product.provenance.grade_3' | t }}
@@ -44,15 +67,11 @@
         {%- endcase -%}
       </p>
     {%- endif -%}
-    {%- if block.settings.provenance_notes != blank -%}
-      <div class="product-provenance__notes rte">{{- block.settings.provenance_notes -}}</div>
+    {%- if provenance_notes_val != blank -%}
+      <div class="product-provenance__notes rte">{{- provenance_notes_val -}}</div>
     {%- endif -%}
   </div>
 {%- elsif request.design_mode -%}
-  {%- comment -%}
-    Sin datos documentados no se afirma nada en la tienda. Solo en el editor queda un aviso
-    seleccionable para que el comerciante sepa que el bloque existe y que le falta.
-  {%- endcomment -%}
   <div class="product-provenance" {{ block.shopify_attributes }}>
     <p class="product-provenance__notes">{{ 'products.product.provenance.editor_empty' | t }}</p>
   </div>
