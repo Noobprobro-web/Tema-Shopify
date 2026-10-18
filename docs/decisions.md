@@ -205,3 +205,12 @@ Registro de decisiones importantes del tema.
     3. **Ausencia de Mixed Content:** El 100% de las tiendas Shopify operan bajo HTTPS obligatorio con HSTS, por lo que el uso explícito de `https://` en el CDN de Shopify jamás causa advertencias de contenido mixto ni fallos de seguridad.
   - **Dictamen:** Queda documentada la excepción formal en este registro de decisiones. El código preserva `https://` para garantizar el paso en verde de todas las compuertas automáticas.
 
+
+## 2026-10-18: Referencia única Contour para plan de mejoras de Sartorial (Johandry)
+
+- Por instrucción expresa de Johandry, la ampliación de GPT-AUDIT-COMPARATIVA-001 toma únicamente Contour (`SebastianDev017/atelier`) como referencia externa. La comparación anterior de tres temas queda como histórico, fuera del plan activo.
+- Se mantiene Sartorial, su línea editorial de moda y los presets vigentes Sartorial/Imprint/Archive. La referencia aporta prácticas a evaluar; no supone adoptar su código, identidad, dependencias o decisiones sin contraste.
+- Johandry recuerda «falta de personalización o algo así» entre los motivos de rechazo del referente y no dispone del reporte completo. Se registra como pista no confirmada: el plan investiga configuración efectiva del comerciante y diferenciación/originalidad por separado.
+- Se solicita y se documenta planificación multiagente. Tres subagentes Codex aportan técnica, producto y QA, con revisión independiente; no se simulan aprobaciones de Claude o Gemini.
+- El plan es `docs/contour-reference-plan.md` (GPT-PLAN-CONTOUR-001). Claude conserva el liderazgo técnico temporal, Gemini la arquitectura consultora/directivas, GPT la auditoría y Johandry la autoridad comercial. BOARD.md conserva su escritor exclusivo.
+- Esta decisión autoriza el enfoque y la documentación solicitados; no registra como implementados los paquetes ni modifica estados del ledger. Las directivas concretas conservarán las cinco compuertas y el alcance por archivo.
