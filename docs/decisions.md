@@ -205,6 +205,23 @@ Registro de decisiones importantes del tema.
     3. **Ausencia de Mixed Content:** El 100% de las tiendas Shopify operan bajo HTTPS obligatorio con HSTS, por lo que el uso explícito de `https://` en el CDN de Shopify jamás causa advertencias de contenido mixto ni fallos de seguridad.
   - **Dictamen:** Queda documentada la excepción formal en este registro de decisiones. El código preserva `https://` para garantizar el paso en verde de todas las compuertas automáticas.
 
+## 2026-10-02: Certificación de Sprints 6A, 6B y 6C (Storefront, Facetas, Accesibilidad y Punto Focal)
+
+- **Decisión conjunta (Johandry, Gemini Flash 3.8 High, Claude Opus 5.5 Extra, GPT-6 Sol Max):**
+  - **Sprint 6A:** Certificación de conmutador bilingüe EN/ES en desktop y drawer móvil, búsqueda predictiva con debounce accesible (axe 0 violaciones), selector de país/moneda Shopify Markets, 6 iconos de pago oficiales en footer y soporte nativo de checkout acelerado.
+  - **Sprint 6B:** Píldoras de filtros activos (`snippets/facets-active-filters.liquid`) con eliminación AJAX instantánea, contrastes no-texto WCAG 2.2 AA (>= 3:1 en bordes de inputs y chips), live regions para adición a carrito y cambio de variantes, y modal accesible `<product-zoom>` con retorno atómico de foco.
+  - **Sprint 6C:** Liquid calcula `--hero-focal-point` desde `presentation.focal_point` nativo sin deformación, velo de contraste de texto garantizado >= 5.49:1 en hero editorial, y carga condicional estricta de `shopify-xr.js` en PDP sin bloat.
+  - **Presets:** Auditoría integral multi-preset certificada. Adopción formal de la denominación `Imprint` en `config/settings_data.json` y `listings/imprint/`.
+
+## 2026-10-17: Remediación Definitiva TEC2, Branding en /password y Despliegue Masivo a 6 Temas
+
+- **Decisión de cierre de bloqueantes Theme Store (Johandry y Gemini 3.8 Flash High):**
+  - **Branding en /password:** Inclusión de cabecera `.password-header` con logo y enlace a home en `layout/password.liquid`, cumpliendo incondicionalmente el requisito mandatorio de Shopify Theme Store.
+  - **Guarda de Estado Vacío (TEC2-03):** Guarda estricta `{% if section.settings.product != blank %}` envolviendo especificaciones y procedencia en `sections/featured-product.liquid`.
+  - **Preservación de Foco en Filtros (TEC2-06):** Restauración determinista de foco tras renderizado AJAX en `FacetFiltersForm` (`assets/theme.js`), erradicando pérdida de foco en `document.body` (WCAG 2.4.3).
+  - **Especificaciones Dinámicas en Imprint (TEC2-02):** Desacoplamiento de valores fijos en `snippets/product-technical-specs.liquid`; lectura vía metafields y anulación de claims de cuero o GSM en productos no textiles (como el pisapapeles de latón).
+  - **Neutralización Curatorial en Archive (TEC2-01):** Erradicación de claims absolutos ("AUCTION CATALOGUE / LOT 01", "1-of-1", "museum-grade"); adopción de narrativa curatorial segura ("Curated period selections", "Archive Collection").
+  - **Despliegue Diferencial Masivo:** Despliegue exitoso con `shopify theme push --nodelete` a las 3 tiendas demo (`sartorial-atelier`, `sartorial-edition`, `sartorial-archive`) y los 3 temas en desarrollo en `tema-qkqpke0j.myshopify.com`.
 
 ## 2026-10-18: Referencia única Contour para plan de mejoras de Sartorial (Johandry)
 
@@ -214,3 +231,38 @@ Registro de decisiones importantes del tema.
 - Se solicita y se documenta planificación multiagente. Tres subagentes Codex aportan técnica, producto y QA, con revisión independiente; no se simulan aprobaciones de Claude o Gemini.
 - El plan es `docs/contour-reference-plan.md` (GPT-PLAN-CONTOUR-001). Claude conserva el liderazgo técnico temporal, Gemini la arquitectura consultora/directivas, GPT la auditoría y Johandry la autoridad comercial. BOARD.md conserva su escritor exclusivo.
 - Esta decisión autoriza el enfoque y la documentación solicitados; no registra como implementados los paquetes ni modifica estados del ledger. Las directivas concretas conservarán las cinco compuertas y el alcance por archivo.
+
+## 2026-10-18: Referencia Única Contour, Descarte de Cucuyo y Plan Maestro Unificado (CEREBRO-PLAN-001)
+
+- **Decisión estratégica y arquitectónica (Johandry, Claude en claude.ai, Gemini en Antigravity):**
+  - **Cucuyo descartado:** Evaluado frente a los requisitos de Theme Store; resulta ser un tema a medida que solo cumple 3 de 24 funciones analizadas. Se descarta como referencia técnica o comercial.
+  - **Contour 4.1.0 como Única Referencia:** Contour ha pasado varias rondas de corrección técnica frente a Shopify. Se adopta exclusivamente como referencia de patrones arquitectónicos y directrices de Theme Store (su licencia comercial prohíbe terminantemente copiar código, paleta de colores, tipografías o copy).
+  - **Descarte de la Limpieza Estructural de Gemini:** Se rechaza la propuesta de aplicar `git rm` masivo a `agent-comms/`, `scripts/` o `tests/`, y el uso de `.shopifyignore` agresivo, ya que rompería 5 compuertas y el flujo de CI sin reducir el peso del paquete final (la CLI de Shopify empaqueta por lista blanca). En su lugar, se adopta empaquetado reproducible con lista blanca y manifest (`scripts/package-theme.mjs`), `.gitattributes` y migración ordenada de arneses a `tools/harness/` en Sprint 7D.
+  - **Modelo de Orquestación y Autoridad Vigente:**
+    1. **Johandry:** Dueño y autoridad final sobre alcance, decisiones de negocio, versiones, despliegue a producción y rotación de credenciales.
+    2. **Claude en claude.ai (Cerebro):** Mantiene el plan maestro (`agent-comms/inbox-gemini/CEREBRO-PLAN-001.md`); planifica, redacta directivas completas y órdenes cortas; revisa entregas mediante `git fetch`. No escribe en el repo ni recibe secretos.
+    3. **Gemini en Antigravity (Arquitecto y Orquestador en el repo):** Único escritor de `agent-comms/BOARD.md`; archiva directivas en `agent-comms/inbox-*/`; crea ramas y worktrees; commitea, abre PRs, mergea y pushea; despliega con `shopify theme push --nodelete`; escribe `docs/decisions.md`, `AGENTS.md`, `RULES.md`; verifica adversarialmente el trabajo de Claude Code; ejecuta pruebas en el editor con navegador real.
+    4. **Claude Code (Implementador Frontend):** Implementa exactamente la lista cerrada de archivos de su directiva en su worktree (`../ts-claude`), corre compuertas estáticas y entrega reporte en `agent-comms/outbox-claude/` sin commit ni push.
+    5. **Codex / GPT (Auditor Senior de Producto y Comercio):** Audita sobre SHA fijo y en tienda de desarrollo; mide Lighthouse y accesibilidad; escribe solo en `agent-comms/outbox-gpt/`; verifica adversarialmente lo ajeno con independencia.
+  - **Seguridad y Confidencialidad (Aplazamiento a PREFLIGHT-001):**
+    - Por decisión de Johandry (2026-10-18 18:40), la rotación de contraseñas de storefront y el paso del repositorio a privado se aplazan a PREFLIGHT-001 (pasos P1 a P4: P1 rotación, P2 git filter-repo, P3 conexión del repo al cerebro, P4 repo privado), antes del GO/NO-GO y del envío oficial.
+    - Para la operación actual, Johandry exporta `STOREFRONT_PASSWORD` (la vigente) exclusivamente como variable de entorno en las consolas de Antigravity, Claude Code y Codex. Prohibición estricta de incluir contraseñas, cookies, tokens o secretos en chats, código o documentos.
+    - Revocación y regeneración del PAT de Figma y la API key de Composio recomendada y no bloqueante.
+  - **CI en GitHub Actions:** Corrección urgente de `node-version: 20` a `node-version-file: .nvmrc` (Node 22.12.0) en `.github/workflows/ci.yml`, resolviendo el fallo sistemático que mantenía la CI rota en 25 ejecuciones consecutivas.
+  - **Ruta Crítica hacia Sartorial 1.1.0:**
+    - **Bloque A (12,5 a 16 días hábiles si Lighthouse móvil >= 70; 22,5 a 27 días si requiere modularidad JS/CSS):**
+      - `F0`: Decisiones D-01 a D-07, inventario de herramientas, matriz de personalización, línea base Lighthouse y verificación 3D.
+      - `7A` (Saneamiento) y `7B` (CI y paquete reproducible) en paralelo.
+      - `7C`: Extensibilidad (`@app` en 7 superficies, migas, 3D idempotente y ajustes de personalización).
+      - `PREFLIGHT-001`: Validación de 18 criterios exhaustivos (PF-01 a PF-18), rotación de credenciales (P1), saneamiento de historial con git filter-repo en ventana exclusiva (P2), conexión del repo al cerebro (P3) y privatización del repo en GitHub (P4) para ratificar el GO hacia el envío de `Sartorial-1.1.0.zip` en el Partner Dashboard (3,5 a 5 días).
+    - **Bloque B (Justificación del Tier - Versiones 1.2.0 a 1.10.0 post-envío):**
+      - `7D` (Reorganización de arneses a `tools/harness/` y repositorio de evidencias externo), `8A` (Piloto de módulo lookbook con ahorro medido), `8B`/`8C` (Partición de JS y CSS si 8A demuestra ahorro), `9A` (Quick view), `9B` (Popup y waitlist), `9C` (Prensa, fit guide y video fachada), `10A` (Secciones exclusivas por preset), `10B` (Layout propio por preset y demos) y `11A` (`es.schema.json`).
+
+## 2026-10-18: Decisiones Técnicas y Arquitectónicas Complementarias
+
+- **MOTION-002: Retiro Definitivo de GSAP:** Sustitución completa de la librería externa GSAP y plugins derivados por un motor nativo ligero basado en CSS `@supports (animation-timeline: view())` y Web Animations API / IntersectionObserver en JS. Cero dependencias externas de animación; garantía de `prefers-reduced-motion` estricto (Axioma anti-invisible y contenido revelado al imprimir sin layouts rotos).
+- **Rechazo de Lenis y Smooth Scrolling Artificial:** Se descarta formalmente el uso de Lenis o cualquier librería de scroll virtual/suave (scroll-jacking) para evitar penalizaciones de rendimiento, problemas con accesibilidad WCAG y fallos de admisión en la Shopify Theme Store.
+- **Eliminación de Marquee-Drift:** Eliminación de cualquier comportamiento de drift o desincronización en elementos de texto en movimiento (`marquee`), garantizando renderizado CSS puro y pausado automático bajo preferencias de movimiento reducido.
+- **URLs Canónicas de Documentación y Soporte en GitHub Pages:** Fijación de URLs canónicas estables en GitHub Pages (`https://noobprobro-web.github.io/sartorial-docs/docs.html` y `/support.html`) vinculadas en `config/settings_schema.json` (`theme_info`), satisfaciendo los requisitos mandatorios de documentación y soporte de Theme Store con HTTP 200 verificado sin cookies.
+- **Nomenclatura Unificada por Sprints:** Adopción obligatoria de la numeración estándar por Sprint (F0, 7A, 7B, 7C, 7D, 8A, 8B, 8C, 9A, 9B, 9C, 10A, 10B, 10C, 11A, 11B y PREFLIGHT-001..004) como convención única para ramas Git, prefijos de tareas y seguimiento en el tablero `BOARD.md`.
+- **Rotación de Credenciales y Repositorio Privado al Final (Johandry 2026-10-18 18:40):** Formalización de que las operaciones de rotación de credenciales en tiendas demo, purga profunda del historial mediante `git filter-repo` y conversión del repositorio a privado se ejecutarán de forma agrupada en el paquete PREFLIGHT-001 bajo ventana autorizada, operando temporalmente mediante la exportación segura de `STOREFRONT_PASSWORD` en variables de entorno.

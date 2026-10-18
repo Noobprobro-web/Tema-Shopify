@@ -2,21 +2,23 @@
 
 ```text
 Ruta estable: agent-comms/BOARD.md
-Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
-Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
-Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
-Última actualización: 2026-10-16T22:30:00-04:00 (RESOLUCIÓN DE BLOQUEANTES RESIDUALES: FOCUS LEAK DEL CARRITO, ARMONIZACIÓN ARCHIVE/IMPRINT, ENUM DE ICONOS Y SELECTOR DE PAÍSES)
-Última actualización técnica: 2026-10-16 (Compuertas 8/8 en verde, 0 ofensas, 0 huérfanas, ZIP Sartorial-1.0.0 regenerado)
-Estado general: RESOLUCIÓN INTEGRAL DE BLOQUEANTES RESIDUALES COMPLETADA. Cierre definitivo de los hallazgos señalados por Claude y GPT: 1) Focus leak de CartDrawer eliminado al cerrar con descarte atómico de pendingRemoval y limpieza de mensajes; 2) Neutralización de claims absolutos en Archive y reconciliación de fecha (1990); 3) Neutralización de claims en Imprint ('MIL-SPEC', 'IPX-6', 'Milan') y desglose fiel de componentes; 4) Corrección de enum de icono inválido 'return' -> 'shield' en todos los product.json; 5) Selector de países con nombre completo del país y moneda conforme a Shopify Markets; 6) Repositorio depurado sin bundles de texto duplicado.
-Frentes Recién Sincronizados y Verificados:
-  1) RESOLUCIÓN DE FOCUS LEAK EN CARRITO (assets/theme.js): pendingRemoval se descarta inmediatamente al cerrar ('close()'), se limpian mensajes residuales y se descarta en renderSection cuando la línea ya no existe en el DOM nuevo.
-  2) NEUTRALIZACIÓN EDITORIAL DE ARCHIVE: sustituidos '1-of-1', 'museum-grade' y 'certified' por 'Archival garments' y 'Curated period selections'; chaqueta portada reconciliada a 1990.
-  3) SANEAMIENTO DE IMPRINT: eliminadas referencias militares y ratings especulativos; desglose exacto de exterior de becerro y forro técnico.
-  4) ICONOS VÁLIDOS: corregido 'icon: shield' en templates/product.json y los 3 listings.
-  5) LOCALIZACIÓN NATIVA COMPLETA: selector de país renderiza '{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})' con labels accesibles.
-  6) COMPUERTAS ESTÁTICAS 8/8 EXIT 0: Theme Check 91 archivos 0 ofensas, Liquid complejidad <= 120, 0 huérfanas en locales, Sartorial-1.0.0.zip regenerado.
+Único escritor autorizado: Gemini en Antigravity (Arquitecto y Orquestador en el repo)
+Modelo de Orquestación Vigente: CEREBRO-PLAN-001 (agent-comms/inbox-gemini/CEREBRO-PLAN-001.md)
+  - Johandry (Ruiz Digital): Dueño del proyecto y autoridad final (decisiones, alcance, secretos)
+  - Claude en claude.ai: Cerebro (planifica, redacta directivas, revisa entregas vía git fetch)
+  - Gemini en Antigravity: Arquitecto y orquestador en repo (BOARD.md, git, PRs, compuertas, deploy)
+  - Claude Code: Fuerza de implementación frontend en worktree aislado (sin commit ni push)
+  - Codex / GPT: Auditor senior independiente de producto, UX, comercio y verificación adversarial
+Última actualización: 2026-10-19T08:45:00-04:00 (CORRECCIÓN Y SANEAMIENTO F0 - PLAN UNIFICADO SARTORIAL 1.1.0)
+Última actualización técnica: 2026-10-18 (Compuertas 8/8 estáticas en verde, despliegue a 6 instancias certificado)
+Estado general: ARRANQUE DE FASE 0 (PLAN UNIFICADO SARTORIAL 1.1.0).
+Frentes Prioritarios P0:
+  1) SEGURIDAD: Repo público; rotación de storefront y repo privado aplazados a PREFLIGHT-001 P1-P4 (decisión Johandry 2026-10-18 18:40); exportar STOREFRONT_PASSWORD vigente solo como variable de entorno.
+  2) CI GITHUB ACTIONS: Corrección de Node 20 a Node 22.12.0 (.nvmrc) para resolver 25 ejecuciones en rojo.
+  3) FASE 0: Inventario de herramientas/consumidores, línea base Lighthouse (9 URLs x 2 x 3), matriz de personalización y reproducción 3D.
+  4) RUTA CRÍTICA 1.1.0: F0 -> 7A y 7B en paralelo -> 7C -> PREFLIGHT-001 (12,5 a 16 días hábiles si móvil >= 70; 22,5 a 27 si requiere modularidad).
 Frentes en Ejecución Activa:
-  - Redespliegue y validación final para submission en Shopify Theme Store.
+  - Rama sprint/F0 abierta desde master; emisión de tareas iniciales de F0 para Claude Code y Codex.
 ```
 
 ---
@@ -363,7 +365,7 @@ Para blindar el repositorio contra bloqueos técnicos, Gemini Flash 3.8 High con
      ```
    - Aborta el controller activo y limpia la referencia del slot de recomendaciones antes del reemplazo DOM, blindando contra retención en memoria de nodos desconectados.
 4. **Saneamiento de Seguridad y Convergencia de Repositorio:**
-   - **Seguridad Harness:** Eliminado el fallback `***ROTATED_STOREFRONT_CREDENTIAL***` en los 5 scripts de `agent-comms/outbox-gemini/harness-TECH-AUDIT-001/` (`crawl-links.mjs`, `measure-live-cls.mjs`, `run-axe-audit.mjs`, `run-cross-verification.mjs`, `run-responsive-audit.mjs`), implementando comprobación estricta fail-closed de `process.env.STOREFRONT_PASSWORD`.
+   - **Seguridad Harness:** Eliminado el fallback hardcodeado en los 5 scripts de `agent-comms/outbox-gemini/harness-TECH-AUDIT-001/` (`crawl-links.mjs`, `measure-live-cls.mjs`, `run-axe-audit.mjs`, `run-cross-verification.mjs`, `run-responsive-audit.mjs`), implementando comprobación estricta fail-closed de `process.env.STOREFRONT_PASSWORD`.
    - **Purga de URIs Temporales:** Eliminadas 22 referencias `shopify://` en `.tmp/`.
    - **Preset Canónico Imprint:** `listings/imprint/` consolidado como preset canónico con templates `collection.json`, `index.json` (con `"eyebrow": "IMPRINT NOTES"`) y `product.json` (con bloque `technical_specs` de Fase 1). Directorio `listings/edition/` eliminado. `config/settings_data.json` actualizado a `"Imprint"`. `scripts/capture-presets.mjs` y `scripts/json-validate.mjs` alineados.
    - **Paquete de Producción:** `Sartorial-1.0.0.zip` empaquetado y certificado con `listings/archive/`, `listings/imprint/` y `listings/sartorial/`.
@@ -592,7 +594,7 @@ Theme Check: 0 ofensas, complejidad Liquid <= 120 (main-product.liquid protegido
 Locales: 428 claves storefront, 500 de schema; 0 huérfanas, 0 sin resolver
 Dataset Hooks: 22 contratos analizados, 0 rotos
 Paquete de Producción: Sartorial-1.0.0.zip regenerado limpiamente
-Estado General: REQUISITOS THEME STORE CUMPLIDOS AL 100% — BLOQUEANTES CERRADOS
+Estado General: REMEDIACIÓN TEC2 INTEGRADA — APERTURA DEL CICLO 1.1.0 Y FASE 0
 ```
 
 ### 13.1 Síntesis de las 6 Remediaciones Técnicas y Comerciales
@@ -662,3 +664,92 @@ Estado de Submission: En espera de acción manual de Johandry (Paso 4 excluido a
    - Para ejecutar los arneses automatizados con Playwright se requiere que Johandry exporte `$env:STOREFRONT_PASSWORD`.
 4. **Paso 4 (Submission en Partner Dashboard): RESERVADO PARA JOHANDRY.**
    - Excluido explícitamente de la automatización para control final del titular. Artefacto listo en la raíz del proyecto.
+
+---
+
+## 15. Plan Maestro Unificado, Fase 0 y Hoja de Ruta Sartorial 1.1.0
+
+```text
+Fecha y Hora: 2026-10-18T18:45:00-04:00
+Documento Maestro: agent-comms/inbox-gemini/CEREBRO-PLAN-001.md (versión viva mantenida por el cerebro en claude.ai) / CLAUDE-BRIEF-ANTIGRAVITY-001
+Orquestador en Repo: Gemini en Antigravity
+Cerebro: Claude en claude.ai
+Implementador Frontend: Claude Code (worktree ts-claude)
+Auditor Senior de Producto & Comercio: Codex / GPT (worktree ts-codex)
+Rama Activa: sprint/F0
+Estado: FASE 0 EN EJECUCIÓN (Primera Ola de Tareas Emitidas)
+```
+
+### 15.1 Diagnóstico de Hallazgos Críticos P0
+
+1. **Seguridad y Repo Público:**
+   - El repositorio expone contraseñas de storefront, cookies y 24 snapshots HTML con `accessToken`.
+   - **Acción aplazada a PREFLIGHT-001 P1-P4 (decisión de Johandry 2026-10-18 18:40):** Rotar la contraseña del storefront de las 4 tiendas (valor solo por `STOREFRONT_PASSWORD`), purgar historial con `filter-repo`, conectar repo al cerebro y privatizar repositorio en GitHub. Para Fase 0: Johandry exporta la contraseña vigente vía `STOREFRONT_PASSWORD` exclusivamente como variable de entorno en las consolas.
+2. **CI de GitHub Actions Rota desde el Origen:**
+   - El workflow `ci.yml` fija `node-version: 20`, mientras que `@shopify/cli` 4.8.0 exige `engines.node >= 22.12.0`, provocando `SyntaxError: 'node:module' does not provide an export named 'enableCompileCache'` en 25 ejecuciones consecutivas (#81 a #105).
+   - **Solución P0 (F0-001):** Parchear `ci.yml` para usar `node-version-file: .nvmrc` (Node 22.12.0).
+
+---
+
+### 15.2 Tabla de Correspondencia de Nomenclatura (Vieja / Borradores vs Plan Unificado)
+
+A partir del Sprint 7 y especialmente del Bloque B, los borradores originales de Claude (`directivas-borrador-contour.md`) y el plan de GPT (`docs/contour-reference-plan.md`) usaban códigos dispares. Esta tabla oficial fija la correspondencia única y vinculante:
+
+| Plan Unificado (ID Oficial) | Borrador Claude (`directivas-borrador-contour`) | Plan GPT (`contour-reference-plan`) | Objetivo y Alcance Técnico | Bloque / Versión |
+| :--- | :--- | :--- | :--- | :--- |
+| **F0** | Fase 0 | CONTOUR-00 | Decisiones D-01 a D-07, inventario, línea base Lighthouse, matriz de personalización, reproducción 3D, parche CI | Bloque A (1.0.0) |
+| **7A** | `CLAUDE-DIRECTIVE-7A-001` | CONTOUR-01B | Saneamiento: sin secretos, sin lógica demo en snippets (`specs`/`provenance`), retiro de `page.documentation`/`support`, docs veraces | Bloque A (1.0.1) |
+| **7B** | `CLAUDE-DIRECTIVE-7B-001` | CONTOUR-01A, 06 | CI verde (Node 22), `package-theme.mjs` con manifest SHA-256, gates nuevas, `.gitattributes`, `.shopifyignore`, fixture compare-at | Bloque A (1.0.2) |
+| **7C** | `CLAUDE-DIRECTIVE-7C-001` | CONTOUR-02 parc., 04 | `@app` en 7 superficies, migas sin JS, `ThemeCore` (inert/motion), 3D idempotente en editor, 2-3 ajustes de matriz | Bloque A (1.1.0 Cand.) |
+| **PREFLIGHT-001** | `CLAUDE-DIRECTIVE-PREFLIGHT-001` | CONTOUR-02, 06 | Preflight formal de 18 ítems (PF-01 a PF-18), rotación de storefront/secretos (P1), `git filter-repo` (P2), conexión del repo al cerebro (P3), repo privado (P4), validación en tienda real, ratificación de GO para submission | Bloque A (**1.1.0 Envío**) |
+| **7D** | Estructura Repo §3 | CONTOUR-00, H6 | Repo ligero: migración de `harness-*` a `tools/harness/`, repo de evidencias externo | Bloque B (Mantenimiento) |
+| **8A** | Nuevo (sin borrador) | CONTOUR-03 | Piloto de modularidad: `lookbook.js` y `lookbook.css` propios con `gates:budget` y ahorro medido (origen plan-mejoras/revisión cruzada) | Bloque B (1.2.0) |
+| **8B** | `CLAUDE-DIRECTIVE-8A-001` | CONTOUR-03 ext. | Partición de `theme.js` en núcleo (<= 10 KB gz) y 15 módulos IIFE (solo si 8A demuestra ahorro) | Bloque B (1.3.0) |
+| **8C** | `CLAUDE-DIRECTIVE-8B-001` | CONTOUR-03 ext. | Partición de `base.css` en hojas por sección y movimiento (nunca en paralelo con 8B) | Bloque B (1.4.0) |
+| **PREFLIGHT-002** | `CLAUDE-DIRECTIVE-PREFLIGHT-002` | CONTOUR-06 | Preflight de actualización de monolitos JS/CSS | Bloque B (1.4.0 Envío) |
+| **9A** | `CLAUDE-DIRECTIVE-9A-001` | (Nueva de tier) | Quick view accesible con `<dialog>` y Section Rendering API | Bloque B (1.5.0) |
+| **9B** | `CLAUDE-DIRECTIVE-9B-001` | (Nueva de tier) | Modal popup de newsletter y lista de espera por talla | Bloque B (1.6.0) |
+| **9C** | `CLAUDE-DIRECTIVE-9C-001` | CONTOUR-05 | Secciones de prensa (`press-quotes`), comparador de ajuste (`fit-comparison`) y video de campaña con fachada | Bloque B (1.7.0) |
+| **PREFLIGHT-003** | `CLAUDE-DIRECTIVE-PREFLIGHT-003` | CONTOUR-06 | Preflight de funciones comerciales de tier | Bloque B (1.7.0 Envío) |
+| **10A** | `CLAUDE-DIRECTIVE-10A-001` | CONTOUR-04, 05 | 2 secciones por preset (`atelier-process`, `look-index`, `provenance-ledger`), `fabric_specs` y metafields | Bloque B (1.8.0) |
+| **10B** | `CLAUDE-DIRECTIVE-10C-001` (era 10C) | CONTOUR-04, 06 | Presets con layout propio, `listing.json`, capturas oficiales y actualización de demos | Bloque B (1.9.0) |
+| **11A** | `CLAUDE-DIRECTIVE-11A-001` (ES) | CONTOUR-04 (ES) | `locales/es.schema.json` con gate de paridad de schema y consolidación de etiquetas en `sections.all` | Bloque B (1.10.0) |
+| **PREFLIGHT-004** | `CLAUDE-DIRECTIVE-PREFLIGHT-004` | CONTOUR-06 | Preflight de presets e idioma | Bloque B (1.10.0 Envío) |
+| **10C** | `CLAUDE-DIRECTIVE-10B-001` (era 10B) | CONTOUR-00 opc. | Theme blocks (`@theme`), opcional con caso de uso de comerciante documentado | Opcional |
+| **11B** | `CLAUDE-DIRECTIVE-11A-001` (fr/de/it)| Opcional | Internacionalización a francés, alemán e italiano (solo con revisor nativo profesional) | Opcional (1.11.0) |
+
+---
+
+### 15.3 Ruta Crítica hacia Sartorial 1.1.0 (Theme Store Submission)
+
+```text
+[F0: Decisiones, Línea Base, CI] (2-3 d)
+                  │
+        ┌─────────┴─────────┐
+        ▼                   ▼
+[7A: Saneamiento]   [7B: CI & Empaquetado] (3-4 d en paralelo)
+        └─────────┬─────────┘
+                  ▼
+[7C: Extensibilidad & Editor (@app x7, Migas, 3D)] (3-4 d)
+                  ▼
+[PREFLIGHT-001: Rotación, filter-repo, repo privado, 18 Pruebas en Tienda Real & Auditoría] (3,5 a 5 d)
+                  │
+         ¿Lighthouse Móvil >= 70?
+             ├── SÍ ──> [SUBMISSION OFICIAL: Sartorial-1.1.0.zip] (12,5 a 16 días hábiles totales)
+             └── NO ──> [Inserción 8A y 8B: Modularidad JS/CSS] (22,5 a 27 días hábiles totales)
+```
+
+---
+
+### 15.4 Tabla de Archivos en Vuelo (Control de Concurrencia)
+
+Para evitar colisiones entre paquetes paralelos o trabajo desfasado:
+
+| Paquete | Rama Git | Agente Activo | Archivos Permitidos (Lista Cerrada) | Estado |
+| :--- | :--- | :--- | :--- | :--- |
+| **F0-001 (CI)** | `sprint/F0` | Claude Code | `.github/workflows/ci.yml` | **EMITIDA** |
+| **F0-002 (Prep 7B)** | `sprint/7B` | Claude Code | `scripts/package-theme.mjs`, `scripts/secrets-scan.mjs`, `.gitattributes`, `.shopifyignore` (nuevos) | **EMITIDA** |
+| **F0-003 (Audit)** | `origin/sprint/F0` | Claude Code | `agent-comms/reviews/CLAUDE-review-GEMINI-F0-001.md` (verificación adversarial de GEMINI-TASK-F0-001, sin ci.yml) | **PENDIENTE PUSH F0-001** |
+| **GPT-F0-001** | *N/A (Read-only)* | Codex | `agent-comms/outbox-gpt/GPT-REPORT-F0-001-linea-base.md` | **EMITIDA** |
+| **GPT-F0-002** | `master @ 19190b1` | Codex | `agent-comms/outbox-gpt/GPT-REPORT-F0-002-matriz-personalizacion.md` | **EMITIDA** |
+| **GEMINI-F0-001**| `sprint/F0` | Gemini | `AGENTS.md`, `agent-comms/BOARD.md`, `agent-comms/README.md`, `agent-comms/inbox-gemini/CEREBRO-PLAN-001.md`, `agent-comms/inbox-gemini/CLAUDE-BRIEF-ANTIGRAVITY-001.md`, `agent-comms/inbox-claude/CLAUDE-TASK-F0-001..003.md`, `agent-comms/inbox-gpt/GPT-TASK-F0-001..002.md`, `agent-comms/outbox-claude/CLAUDE-REVIEW-CRUZADA-001.md`, `agent-comms/outbox-claude/comparativa-temas.md`, `agent-comms/outbox-claude/directivas-borrador-contour.md`, `agent-comms/outbox-claude/estructura-repo.md`, `agent-comms/outbox-claude/plan-mejoras-contour.md`, `agent-comms/outbox-gemini/GEMINI-REPORT-F0-001-arranque.md`, `agent-comms/reviews/CEREBRO-REVIEW-F0-001.md`, `docs/decisions.md`, `docs/inventario-herramientas.md` | **EN CURSO** |

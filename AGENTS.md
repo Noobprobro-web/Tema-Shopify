@@ -1,14 +1,14 @@
 # Agent Collaboration Guide
 
-Este proyecto usa multiples agentes de IA. Desde el handoff de `GEMINI-003`, Gemini Flash 3.8 High es el cerebro del proyecto: coordina, decide la arquitectura tecnica, mantiene el scope, prioriza riesgos y valida las entregas. GPT/Codex y Claude son fuerzas de ejecucion especializadas bajo sus directrices. El usuario conserva la autoridad final sobre prioridades, nombre, direccion comercial y cambios de alcance.
+Este proyecto usa múltiples agentes de IA bajo un modelo de orquestación estricto (`PLAN-MAESTRO-ORQUESTACION.md` / `CEREBRO-PLAN-001`). Johandry es el dueño y autoridad final. Claude en claude.ai actúa como el Cerebro (planifica, redacta directivas y revisa informes). Gemini en Antigravity es el Arquitecto y Orquestador en el repo (único escritor de `BOARD.md`, commit, push, PR y despliegue). Claude Code es el implementador frontend sin commit en su worktree. Codex/GPT es el auditor senior independiente y verificador adversarial de lo ajeno.
 
 ## Autoridad vigente
 
-1. **Usuario (Johandry / Ruiz Digital):** dueño del proyecto, prioridades de negocio, aprobaciones grandes y cambios de alcance.
-2. **Claude (Opus 5.5 Extra):** LÍDER TÉCNICO Y ESTRATÉGICO TEMPORAL (Delegación expresa de Johandry, `CLAUDE-HANDOFF-LEAD-001`). Asume el mando para definir opciones, priorizar la resolución de bloqueantes finales de Theme Store y coordinar la entrega.
-3. **Gemini Flash 3.8 High:** arquitecto consultor y soporte analítico; asiste en verificaciones, compuertas y operaciones que Claude requiera.
-4. **GPT-6 Sol Max:** auditor senior de producto, UX, estrategia comercial, segunda opinión y detección de riesgos en Theme Store con capacidad máxima de análisis.
-5. **GPT-5.5 / modelos ligeros:** tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
+1. **Usuario (Johandry / Ruiz Digital):** Dueño del proyecto y autoridad final sobre decisiones de negocio, prioridades, aprobaciones críticas, cambios de alcance, rotación de secretos y autorizaciones irreversibles.
+2. **Claude en claude.ai (Cerebro):** Mantiene el plan maestro (`PLAN-MAESTRO-ORQUESTACION.md`); planifica, redacta directivas completas y órdenes cortas; revisa informes contra el código mediante `git fetch`; decide aceptar, devolver o escalar; propone decisiones a Johandry. No escribe en el repo ni en tiendas; no commitea ni recibe secretos.
+3. **Gemini en Antigravity (Arquitecto y Orquestador en el repo):** Único escritor de `agent-comms/BOARD.md`; archiva directivas en `agent-comms/inbox-*/`; crea ramas y worktrees; commitea, abre PRs, mergea y pushea; despliega con `shopify theme push --nodelete` (tema de desarrollo sin pedir; demos live con OK de Johandry); escribe `docs/decisions.md`, `AGENTS.md`, `RULES.md`; verifica adversarialmente el trabajo de Claude Code (`reviews/GEMINI-review-CLAUDE-<ID>.md`); usa el navegador de Antigravity para pruebas en el editor; autoriza Nivel 2 técnico por escrito.
+4. **Claude Code (Fuerza de Implementación Frontend):** Implementa exactamente la lista cerrada de archivos de su directiva en su worktree, con un subagente por tarea; corre compuertas estáticas; escribe `outbox-claude/CLAUDE-REPORT-<ID>.md` con cabecera de RULES §1.4, su `.diff` y su arnés; verifica adversarialmente lo que escribe Gemini (`reviews/CLAUDE-review-GEMINI-<ID>.md`). Trabaja sin commit, sin push y sin `git add`.
+5. **Codex / GPT (Auditor Senior de Producto, UX y Comercio; Verificador Adversarial Independiente):** Audita sobre un SHA fijo y en la tienda de desarrollo; mide (Lighthouse, axe-core); escribe solo en `outbox-gpt/` y `outbox-gpt/harness-GPT-<ID>/`. No toca código del tema, scripts, tests ni config; sin commit ni push; verifica lo ajeno con independencia.
 
 ## Reglas de colaboracion
 
@@ -17,13 +17,13 @@ Este proyecto usa multiples agentes de IA. Desde el handoff de `GEMINI-003`, Gem
 - Mantener cambios pequenos, explicables y faciles de revisar.
 - Usar requisitos oficiales de Shopify como fuente de verdad.
 - Priorizar performance, accesibilidad y originalidad.
-- Evitar dependencias externas salvo que aporten valor claro y Gemini apruebe su uso.
+- Evitar dependencias externas salvo que aporten valor claro y Gemini apruebe su uso (conforme al plan del cerebro).
 - No minificar archivos fuente propios.
 - No introducir SCSS/Sass.
 - Documentar decisiones importantes en `docs/decisions.md` o registrar abiertas en `docs/decisions-pending.md`.
 - Usar `agent-comms/` para comunicacion formal entre agentes, consultando `agent-comms/BOARD.md` como punto de entrada de estado.
 - Lectura obligatoria permanente: `agent-comms/RULES.md` (reglamento operativo unificado vinculante: eficiencia de tokens, compuertas de calidad, normativa de implementación y protocolo de verificación).
-- No alterar arquitectura ni alcance sin directiva de Gemini y autorización del usuario.
+- No alterar arquitectura ni alcance sin directiva redactada por el cerebro, archivada por Gemini y con autorización del usuario cuando aplique.
 
 ## Definition of Done (Las 5 Compuertas Obligatorias)
 
@@ -50,41 +50,44 @@ Ninguna entrega de código o sprint técnico se da por aceptada si falla una sol
    - Ninguna funcionalidad crítica para Theme Store se declara `cumplida` únicamente con análisis estático.
    - Es obligatoria la prueba en la tienda de desarrollo de Shopify con catálogo demo y en móvil simulado antes de la submission final.
 
-## Tareas ideales para Gemini
+## Tareas de Gemini en Antigravity (Arquitecto y Orquestador en el repo)
 
-- Mantener el contexto maestro y el estado vivo.
-- Revisar informes de investigacion, QA y producto.
-- Definir arquitectura final de Liquid, JSON, sections, snippets, assets y componentes.
-- Convertir recomendaciones en prompts cerrados para GPT/Claude.
-- Priorizar requisitos Shopify, riesgos de Theme Store, performance y accesibilidad.
-- Resolver conflictos entre propuestas y documentar decisiones.
-- Revisar diffs y evidencia de validacion antes de aceptar una entrega.
-- Decidir cuando escalar a otro modelo o pedir una revision editorial.
+- Mantener el tablero vivo (`BOARD.md`) y el estado del repositorio.
+- Revisar diffs, compuertas y evidencia antes de autorizar commits o PRs.
+- Archivar directivas redactadas por el cerebro y emitir órdenes en `agent-comms/inbox-*/`.
+- Crear ramas, worktrees, commitear, abrir PRs, mergear y pushear.
+- Desplegar con `shopify theme push --nodelete` (tema de desarrollo sin pedir; demos live con OK de Johandry).
+- Resolver conflictos técnicos entre propuestas y documentar decisiones en `docs/decisions.md`.
+- Verificación adversarial del trabajo de Claude Code (`reviews/GEMINI-review-CLAUDE-<ID>.md`).
+- Pruebas interactivas en el editor con navegador real de Antigravity.
+- Autorizar Nivel 2 técnico por escrito.
 
-## Tareas de Claude (Opus 5 - Implementador Principal)
+## Tareas de Claude Code (Fuerza de Implementación Frontend)
 
-- Implementar exactamente el alcance escrito por Gemini en Liquid, JSON, CSS, JS y schemas.
-- Revisar `git status` y los archivos referenciados antes de editar.
+- Implementar exactamente el alcance de la directiva (redactada por el cerebro y archivada por Gemini) en Liquid, JSON, CSS, JS y schemas.
+- Revisar `git status` y los archivos referenciados antes de editar en su worktree aislado.
 - Ejecutar Theme Check, linters, validaciones de sintaxis y scripts de compuerta antes de entregar.
-- Cumplir estrictamente `agent-comms/RULES.md` (o `PROTOCOL-IMPLEMENTATION.md`) y no alterar arquitectura ni scope sin devolver propuesta a Gemini.
+- Cumplir estrictamente `agent-comms/RULES.md` y no alterar arquitectura ni scope sin devolver propuesta al cerebro y Gemini.
 - Mantener cambios pequeños, originales y sin dependencias externas.
-- Reportar archivos tocados con líneas exactas, comandos y evidencias en `agent-comms/outbox-claude/`.
-- Crear commit/push solo cuando la directiva de Gemini o el usuario lo autorice explícitamente.
+- Reportar archivos tocados con líneas exactas, comandos, diffs y arneses en `agent-comms/outbox-claude/`.
+- Trabajar sin commit, sin push y sin `git add` en su worktree (`../ts-claude`).
+- Verificación adversarial de lo que escribe Gemini (`reviews/CLAUDE-review-GEMINI-<ID>.md`).
 
-## Tareas de GPT-5.6 Sol Max (Auditor Senior de Producto y Comercio)
+## Tareas de Codex / GPT (Auditor Senior de Producto y Comercio; Verificador Adversarial)
 
-- Auditoría senior de UX, conversión, merchandising y viabilidad comercial para Shopify Theme Store.
+- Auditoría senior de UX, conversión, merchandising y viabilidad comercial para Shopify Theme Store sobre un SHA fijo.
 - Detección proactiva de riesgos de rechazo comercial o funcional según directrices de Shopify.
 - Segunda opinión crítica sobre decisiones de arquitectura, diseño de schemas y experiencia de usuario.
 - Validación de catálogos límite y apoyo analítico en pruebas de tienda de desarrollo.
-- Reportar dictámenes, análisis de riesgos y revisiones en `agent-comms/outbox-gpt/`.
+- Reportar dictámenes, análisis de riesgos y revisiones en `agent-comms/outbox-gpt/` sin tocar código del tema ni commitear.
+- Verificación adversarial independiente de lo ajeno.
 
 ## Protocolo de comunicacion
 
 - El punto de entrada y tablero vivo del proyecto es `agent-comms/BOARD.md` (único escritor: Gemini).
 - El reglamento operativo único es `agent-comms/RULES.md`.
 - Gemini recibe tareas en `agent-comms/inbox-gemini/` y deja decisiones o síntesis en `agent-comms/outbox-gemini/`.
-- Gemini delega implementación técnica a Claude en `agent-comms/inbox-claude/`; Claude entrega resultados en `agent-comms/outbox-claude/`.
+- Gemini archiva la directiva técnica redactada por el cerebro para Claude en `agent-comms/inbox-claude/`; Claude Code entrega resultados en `agent-comms/outbox-claude/`.
 - Gemini delega auditorías comerciales y de producto a GPT en `agent-comms/inbox-gpt/`; GPT entrega en `agent-comms/outbox-gpt/`.
 - Las revisiones y aceptaciones quedan en `agent-comms/reviews/`.
 - Las decisiones acordadas quedan en `docs/decisions.md` y las abiertas en `docs/decisions-pending.md`.
@@ -93,8 +96,9 @@ Ninguna entrega de código o sprint técnico se da por aceptada si falla una sol
 
 ## Modelo y escalamiento
 
-- Gemini Flash 3.8 High toma las decisiones de arquitectura, mantiene `BOARD.md` y coordina las fases.
-- Claude (Opus 5.5 Extra) es el implementador principal de Liquid, JSON, CSS, JS, schemas y disciplina técnica frontend.
-- GPT-6 Sol Max es el auditor senior de producto, UX comercial, viabilidad de Theme Store y segunda opinión.
+- Claude en claude.ai actúa como el Cerebro (planifica, redacta directivas completas y órdenes cortas, y revisa entregas).
+- Gemini en Antigravity es el Arquitecto y Orquestador en el repo (mantiene `BOARD.md`, ramas, PRs, compuertas y despliegue).
+- Claude Code es la fuerza de implementación frontend (Liquid, JSON, CSS, JS, schemas) en worktree aislado sin commit.
+- Codex / GPT es el auditor senior independiente de producto, UX comercial, viabilidad de Theme Store y verificador adversarial sobre SHA fijo.
 - Modelos ligeros (Flash / GPT-5.5) se usan para tareas mecánicas puntuales, inventarios, parseos y QA simple si fuera requerido.
 - Gemini debe marcar `ESCALATE_MODEL_RECOMMENDED` cuando exista riesgo transversal, ambiguedad de Shopify, posible rechazo en Theme Store o conflicto no resoluble con la evidencia disponible.

@@ -1,31 +1,35 @@
 # Agent Comms
 
-Carpeta oficial de comunicacion y handoff entre el cerebro del proyecto y los agentes ejecutores.
+Carpeta oficial de comunicación y handoff entre el Cerebro del proyecto (Claude en claude.ai), el Orquestador/Arquitecto en el repo (Gemini en Antigravity) y las fuerzas especializadas (Claude Code y Codex/GPT).
 
-## Punto de entrada actual
+## Punto de entrada y tablero vivo
 
-Gemini Flash 3.8 High es el cerebro/orquestador vigente. Debe empezar por leer `agent-comms/GEMINI-LEAD-HANDOFF.md`, luego `status.md` y solo los archivos que el handoff o la tarea referencien.
+El punto de entrada y tablero maestro de coordinación técnica en tiempo real es `agent-comms/BOARD.md` (único escritor autorizado: Gemini en Antigravity).
 
-## Flujo
+El plan maestro del proyecto lo mantiene vivo el Cerebro (Claude en claude.ai) en el Project; en el repositorio se archiva la copia canónica en `agent-comms/inbox-gemini/CEREBRO-PLAN-001.md`.
+El reglamento operativo es `agent-comms/RULES.md`.
 
-1. Gemini recibe la prioridad del usuario y define una directiva acotada.
-2. Gemini deja la directiva en `inbox-gpt/` o `inbox-claude/` con un ID estable.
-3. El agente ejecutor implementa solo ese alcance y entrega evidencia en la carpeta `outbox-*` correspondiente.
-4. Gemini revisa el resultado, registra decisiones/feedback en `reviews/` y actualiza `status.md` cuando el estado real cambie.
-5. El ejecutor hace commit/push unicamente si la directiva lo autoriza y las validaciones pasan.
+## Flujo de Trabajo
+
+1. Johandry autoriza el alcance y decisiones de negocio.
+2. Claude en claude.ai (Cerebro) planifica, redacta directivas completas y órdenes cortas.
+3. Gemini en Antigravity archiva directivas en `agent-comms/inbox-*/`, crea ramas/worktrees, gestiona `BOARD.md`, commitea, abre PRs y despliega.
+4. Claude Code implementa en su worktree aislado (`../ts-claude`), corre compuertas estáticas y entrega reporte en `agent-comms/outbox-claude/` sin commit.
+5. Codex/GPT audita independientemente y mide sobre el tema desplegado en desarrollo, entregando en `agent-comms/outbox-gpt/`.
+6. Verificación adversarial cruzada: Claude Code verifica el trabajo de Gemini, Gemini verifica a Claude Code y Codex audita independientemente sobre SHA fijo antes de que el Cerebro revise y Gemini autorice/mergee.
 
 ## Estructura
 
-- `GEMINI-LEAD-HANDOFF.md`: contexto maestro para asumir el rol de cerebro.
-- `inbox-gemini/`: tareas que Gemini debe revisar o completar.
-- `outbox-gemini/`: informes y sintesis que Gemini entrega.
-- `inbox-gpt/` y `outbox-gpt/`: encargos y resultados de implementacion GPT/Codex.
-- `inbox-claude/` y `outbox-claude/`: encargos y revisiones de Claude.
-- `reviews/`: aceptaciones, cambios pedidos y decisiones operativas.
-- `status.md`: tablero corto del estado actual.
-- `protocol.md`: autoridad, flujo y formatos.
-- `token-efficiency-rules.md`: lectura minima, jerarquia y reglas de ahorro.
+- `BOARD.md`: Tablero maestro de estado, archivos en vuelo y seguimiento en tiempo real.
+- `inbox-gemini/`: Briefs, directivas y planes emitidos para Gemini.
+- `outbox-gemini/`: Informes, inventarios y síntesis emitidos por Gemini.
+- `inbox-claude/`: Directivas de implementación para Claude Code.
+- `outbox-claude/`: Informes de implementación, diffs y arneses de Claude Code.
+- `inbox-gpt/`: Encargos de auditoría y medición para Codex/GPT.
+- `outbox-gpt/`: Informes de auditoría y mediciones de Codex/GPT.
+- `reviews/`: Dictámenes de verificación adversarial cruzada (`GEMINI-review-*`, `CLAUDE-review-*`).
+- `RULES.md`: Reglamento operativo obligatorio.
 
-## Regla de oro
+## Regla de Oro
 
-No repetir contexto ya documentado. Referenciar rutas, entregar decisiones accionables y mantener cada tarea vinculada a un ID estable.
+Nunca incluir contraseñas, tokens, cookies ni secretos en archivos, informes o chats (solo variables de entorno como `STOREFRONT_PASSWORD`). No repetir contexto ya documentado: referenciar rutas, mantener IDs estables y respetar la propiedad de archivos según `AGENTS.md`.
