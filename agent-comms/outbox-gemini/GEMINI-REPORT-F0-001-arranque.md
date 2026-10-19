@@ -65,7 +65,7 @@ En cumplimiento estricto del mandato de Johandry y las directrices de `PLAN-MAES
 PARTE F0-001
 Herramienta: Antigravity
 Estado: listo
-Rama y SHA: sprint/F0 (enmienda correctora de 57b9ebf con Refs: GEMINI-TASK-F0-001)
+Rama y SHA: sprint/F0 @ 25dc885e938a0e5dcbcf410162a270888173509d (25dc885)
 Archivos en el paquete: 19 archivos versionados (AGENTS.md, agent-comms/BOARD.md, agent-comms/README.md, agent-comms/inbox-gemini/CEREBRO-PLAN-001.md, agent-comms/inbox-gemini/CLAUDE-BRIEF-ANTIGRAVITY-001.md, agent-comms/inbox-claude/CLAUDE-TASK-F0-001..003.md, agent-comms/inbox-gpt/GPT-TASK-F0-001..002.md, agent-comms/outbox-claude/CLAUDE-REVIEW-CRUZADA-001.md, agent-comms/outbox-claude/comparativa-temas.md, agent-comms/outbox-claude/directivas-borrador-contour.md, agent-comms/outbox-claude/estructura-repo.md, agent-comms/outbox-claude/plan-mejoras-contour.md, agent-comms/outbox-gemini/GEMINI-REPORT-F0-001-arranque.md, agent-comms/reviews/CEREBRO-REVIEW-F0-001.md, docs/decisions.md, docs/inventario-herramientas.md; 4 duplicados eliminados).
 Compuertas: gates:static 8/8 en verde (0 ofensas Theme Check).
 Informe: agent-comms/outbox-gemini/GEMINI-REPORT-F0-001-arranque.md

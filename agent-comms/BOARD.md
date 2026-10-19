@@ -9,7 +9,7 @@ Modelo de Orquestación Vigente: CEREBRO-PLAN-001 (agent-comms/inbox-gemini/CERE
   - Gemini en Antigravity: Arquitecto y orquestador en repo (BOARD.md, git, PRs, compuertas, deploy)
   - Claude Code: Fuerza de implementación frontend en worktree aislado (sin commit ni push)
   - Codex / GPT: Auditor senior independiente de producto, UX, comercio y verificación adversarial
-Última actualización: 2026-10-19T08:45:00-04:00 (CORRECCIÓN Y SANEAMIENTO F0 - PLAN UNIFICADO SARTORIAL 1.1.0)
+Última actualización: 2026-10-19T09:55:00-04:00 (hora de Caracas) — Registrada autorización de Johandry de amend y force push F0
 Última actualización técnica: 2026-10-18 (Compuertas 8/8 estáticas en verde, despliegue a 6 instancias certificado)
 Estado general: ARRANQUE DE FASE 0 (PLAN UNIFICADO SARTORIAL 1.1.0).
 Frentes Prioritarios P0:
@@ -679,6 +679,11 @@ Auditor Senior de Producto & Comercio: Codex / GPT (worktree ts-codex)
 Rama Activa: sprint/F0
 Estado: FASE 0 EN EJECUCIÓN (Primera Ola de Tareas Emitidas)
 ```
+
+### 15.0 Decisión de Gobernanza del 2026-10-19 (Autorización Johandry / Hora de Caracas)
+
+- **Autorización de Amend y Force Push en `sprint/F0` (Johandry, 2026-10-19 08:56 VET / Hora de Caracas):**
+  Johandry autorizó explícitamente en el chat la ejecución del `commit --amend` y el posterior force push de la rama `sprint/F0` (SHA saneado: `25dc885e938a0e5dcbcf410162a270888173509d`), tras verificar el saneamiento total de contraseñas literales en `BOARD.md` (:687 y :368), la purga de copias duplicadas y el paso del 100% de compuertas estáticas en verde (8/8).
 
 ### 15.1 Diagnóstico de Hallazgos Críticos P0
 
