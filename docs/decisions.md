@@ -214,3 +214,18 @@ Registro de decisiones importantes del tema.
 - Se solicita y se documenta planificación multiagente. Tres subagentes Codex aportan técnica, producto y QA, con revisión independiente; no se simulan aprobaciones de Claude o Gemini.
 - El plan es `docs/contour-reference-plan.md` (GPT-PLAN-CONTOUR-001). Claude conserva el liderazgo técnico temporal, Gemini la arquitectura consultora/directivas, GPT la auditoría y Johandry la autoridad comercial. BOARD.md conserva su escritor exclusivo.
 - Esta decisión autoriza el enfoque y la documentación solicitados; no registra como implementados los paquetes ni modifica estados del ledger. Las directivas concretas conservarán las cinco compuertas y el alcance por archivo.
+
+
+## 2026-10-22: Saneamiento de Seguridad, Rotación y Reescritura Forense de Historial (D1, D2, D10)
+
+- **Autorización:** Autorizado formalmente por Johandry (dueño del proyecto) con aprobación expresa por escrito en chat.
+- **Decisión D1 (Rotación de Contraseñas de Storefront):**
+  - Rotación manual y completa de las contraseñas de storefront en las cuatro tiendas demo asociadas (`tema-qkqpke0j.myshopify.com` y tiendas asociadas a los presets Sartorial, Imprint y Archive), invalidando permanentemente todas las credenciales de storefront empleadas en etapas previas de desarrollo y pruebas.
+- **Decisión D2 (Erradicación de Credenciales Hardcodeadas en Favor de Variables de Entorno):**
+  - Política de tolerancia cero contra credenciales y tokens en el código fuente. Se elimina todo fallback hardcodeado en scripts de automatización, verificación y pruebas (`scripts/`, `scratch/`, harnesses de auditoría).
+  - La autenticación en navegadores headless exige estrictamente `process.env.STOREFRONT_PASSWORD`, operando en modalidad *fail-closed* con salida de error controlada y sin imprimir secretos en pantalla o logs.
+- **Decisión D10 (Reescritura de Historial Git con `git-filter-repo` en Todas las Ramas y Tags):**
+  - Respaldo mirror bare íntegro y validado creado previamente en `C:\Users\Johan\backups\tema-shopify-backup-original.git` (159 commits).
+  - Ejecución de `git-filter-repo` v2.47.0 mediante 10 reglas contextuales precisas (`filter-repo-rules.txt`): 1 sustitución literal para token único y 9 reglas regex contextuales para proteger números genéricos e inocentes en archivos del tema (`tests/vendor/axe.min.js`, reportes JSON, coordenadas SVG y configuración).
+  - Verificación exhaustiva: conteo final de credenciales en ramas reescritas (`master`, `sprint/7B`, `sprint/F0`, `fix/argon-recently-viewed-edition`) y tags es estrictamente cero (0).
+  - Publicación mediante force push a `origin` en todas las ramas y tags, sincronización del árbol local de trabajo y emisión de avisos de resincronización obligatoria para Claude y GPT.

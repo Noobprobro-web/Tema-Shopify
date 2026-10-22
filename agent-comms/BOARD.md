@@ -5,7 +5,7 @@ Ruta estable: agent-comms/BOARD.md
 Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
 Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
 Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
-Última actualización: 2026-10-22T16:15:00Z (CIERRE DEFINITIVO DE AJUSTES AUDITORÍA GOOGLE AI STUDIO 96/100 -> 100%)
+Última actualización: 2026-10-22T20:35:00Z (CIERRE DEFINITIVO DE AJUSTES AUDITORÍA GOOGLE AI STUDIO 96/100 -> 100%)
 Última actualización técnica: 2026-10-22 (Compuertas 8/8 en verde, 0 ofensas, 0 huérfanas, ZIP Sartorial-1.0.0 sin listings/)
 Estado general: AUDITORÍA GOOGLE AI STUDIO 96/100 [APROBADO PARA SUBMISSION] — CIERRE DEFINITIVO DE OBSERVACIONES P0, P1 Y P2. Paquete de producción Sartorial-1.0.0.zip regenerado con estricta contención de las 7 carpetas Shopify OS 2.0 (excluyendo listings/), recientemente-viewed.liquid vinculado a settings dinámicos, páginas de documentación y soporte armonizadas a 'Imprint', y paridad total de variantes JSON en featured-product.liquid.
 Frentes Recién Sincronizados y Verificados:
@@ -709,3 +709,22 @@ Estado General: REQUISITOS THEME STORE CUMPLIDOS AL 100% — SUBMISSION READY
      - `gates:syntax`: `assets/theme.js` y `assets/product-zoom.js` sintaxis validada por Node.
      - `gates:package`: `Sartorial-1.0.0.zip` regenerado sin listings/.
  (fix(submission): exclude listings from zip, bind recently-viewed settings, harmonize Imprint docs)
+
+
+### 15.2 Saneamiento de Seguridad Integral, Rotación y Reescritura Forense de Historial Git (D1, D2, D10)
+
+- **Fecha y Hora:** 2026-10-22T20:30:00Z
+- **Autorización:** Johandry (dueño del proyecto) autorizó formalmente con confirmación expresa por escrito en chat.
+- **Acciones Ejecutadas:**
+  1. **D1: Rotación de Contraseñas de Storefront:**
+     - Rotación manual y definitiva de las contraseñas de storefront en todas las tiendas de desarrollo/demo asociadas (`tema-qkqpke0j.myshopify.com` y las tiendas demo de los presets Sartorial, Imprint y Archive), invalidando permanentemente cualquier credencial previa.
+  2. **D2: Erradicación de Fallbacks Hardcodeados:**
+     - Eliminado todo fallback hardcodeado en scripts de automatización (`scripts/`, `scratch/`, harnesses de auditoría y tests).
+     - Todos los scripts consumen obligatoriamente `process.env.STOREFRONT_PASSWORD` operando en modalidad estricta *fail-closed*.
+  3. **D10: Reescritura Forense y Contextual de Historial con `git-filter-repo`:**
+     - Respaldo bare mirror completo y verificado creado en `C:\Users\Johan\backups\tema-shopify-backup-original.git` (159 commits).
+     - Ejecución de `git-filter-repo` v2.47.0 mediante 10 reglas contextuales (`filter-repo-rules.txt`): 1 sustitución literal para token único y 9 reglas regex contextuales para proteger números genéricos e inocentes en archivos del tema (`tests/vendor/axe.min.js`, reportes JSON, coordenadas SVG y configuración).
+     - Verificación exhaustiva: conteo final de credenciales en ramas reescritas (`master`, `sprint/7B`, `sprint/F0`, `fix/argon-recently-viewed-edition`) y tags es estrictamente cero (0).
+     - Publicación exitosa con `git push --force --all origin` y `git push --force --tags origin`.
+     - Árbol local de trabajo resincronizado y limpiado.
+  4. **Notificación a Agentes:** Emitidos avisos formales en `agent-comms/inbox-claude/CLAUDE-NOTICE-HISTORY-REWRITE.md` y `agent-comms/inbox-gpt/GPT-NOTICE-HISTORY-REWRITE.md` para instruir la resincronización de sus copias locales.
