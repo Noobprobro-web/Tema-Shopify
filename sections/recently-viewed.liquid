@@ -36,9 +36,9 @@
               <li data-recently-viewed-card data-product-id="{{ result.id }}">
                 {% render 'product-card',
                   card_product: result,
-                  show_secondary_image: true,
-                  show_vendor: true,
-                  show_quick_add: true
+                  show_secondary_image: section.settings.show_secondary_image,
+                  show_vendor: section.settings.show_vendor,
+                  show_quick_add: section.settings.show_quick_add
                 %}
               </li>
             {%- endif -%}
