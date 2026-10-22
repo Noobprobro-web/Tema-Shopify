@@ -482,6 +482,14 @@
         <script type="application/json" data-variant-json>
           [
             {%- for variant in featured_product.variants -%}
+              {%- liquid
+                assign var_compare_money = null
+                assign var_compare_cents = null
+                if variant.compare_at_price > variant.price
+                  assign var_compare_money = variant.compare_at_price | money
+                  assign var_compare_cents = variant.compare_at_price
+                endif
+              -%}
               {
                 "id": {{ variant.id | json }},
                 "title": {{ variant.title | json }},
@@ -491,7 +499,9 @@
                 "inventory_policy": {{ variant.inventory_policy | json }},
                 "options": {{ variant.options | json }},
                 "price": {{ variant.price | money | json }},
-                "compare_at_price": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+                "price_cents": {{ variant.price | json }},
+                "compare_at_price": {{ var_compare_money | json }},
+                "compare_at_price_cents": {{ var_compare_cents | json }},
                 "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
                 "unit_reference_value": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_value | json }}{% else %}null{% endif %},
                 "unit_reference_unit": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_unit | json }}{% else %}null{% endif %},
