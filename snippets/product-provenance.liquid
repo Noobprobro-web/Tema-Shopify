@@ -12,6 +12,11 @@
 {%- endcomment -%}
 
 {%- liquid
+  assign heading_tag = 'h2'
+  if section.settings.product != blank
+    assign heading_tag = 'h3'
+  endif
+
   assign current_variant = selected_variant | default: product.selected_or_first_available_variant
   assign unique_piece = false
   if block.settings.show_unique_piece and product.variants.size == 1 and current_variant.inventory_management != blank and current_variant.inventory_policy == 'deny'
@@ -47,7 +52,7 @@
 {%- if unique_piece or show_grade or provenance_year != blank or provenance_notes_val != blank -%}
   <div class="product-provenance" {{ block.shopify_attributes }}>
     {%- if block.settings.heading != blank -%}
-      <h3 class="product-provenance__heading">{{ block.settings.heading | escape }}</h3>
+      <{{ heading_tag }} class="product-provenance__heading">{{ block.settings.heading | escape }}</{{ heading_tag }}>
     {%- endif -%}
     {%- if unique_piece -%}
       <p class="product-provenance__badge">{{ 'products.product.provenance.single_piece' | t }}</p>
