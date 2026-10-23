@@ -3,6 +3,7 @@
   Accepts:
   - block: {Object} Block object with settings and shopify_attributes.
   - product: {Object} Product Liquid object (optional).
+  - heading_tag: {String} Heading level for the parent context (optional, defaults to h3).
 
   Usage:
   {% render 'product-technical-specs', block: block, product: product %}
@@ -87,7 +88,7 @@
 {%- if material_val != blank or gsm_val != blank or hardware_val != blank or origin_val != blank -%}
   <div class="product-technical-specs" {{ block.shopify_attributes }}>
     {%- if block.settings.heading != blank -%}
-      <h3 class="product-technical-specs__heading">{{ block.settings.heading | escape }}</h3>
+      <{{ heading_tag | default: 'h3' }} class="product-technical-specs__heading">{{ block.settings.heading | escape }}</{{ heading_tag | default: 'h3' }}>
     {%- endif -%}
     <dl class="product-technical-specs__list">
       {%- if material_val != blank -%}
