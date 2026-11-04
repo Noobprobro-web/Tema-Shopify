@@ -570,6 +570,7 @@
 
       if (this.variantData.length === 0) return;
 
+      this.takeOverNativeControls();
       this.moneyFormat = this.dataset.moneyFormat || '';
       this.quantityInput = this.querySelector('[data-quantity-input]');
       this.lineTotal = this.querySelector('[data-line-total]');
@@ -623,6 +624,19 @@
       const variantId = this.querySelector('[data-variant-id]')?.value;
       return this.variantData.find((variant) => String(variant.id) === String(variantId))
         || this.variantData[0];
+    }
+
+    // A-01/B-02: con JS, los selects nativos de variante y plan (sin JS) dejan de enviar
+    // valores: se desactivan y pierden el name para que form.elements.namedItem('id') y
+    // ('selling_plan') sigan siendo un unico control. El hidden de variante se activa.
+    takeOverNativeControls() {
+      this.querySelectorAll('input[data-variant-id]').forEach((input) => {
+        input.disabled = false;
+      });
+      this.querySelectorAll('[data-no-js-control]').forEach((control) => {
+        control.disabled = true;
+        control.removeAttribute('name');
+      });
     }
 
     cachePurchaseOptionElements() {

@@ -26,10 +26,10 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - `docs/decisions.md` con D19 a D24.
 - A-02: retiro de 14 fuentes automáticas y heurísticas H1–H8 (Nivel 2 autorizado por el revisor R-D según D11); estado «código completo»; ACEPTADO en `CLAUDE-REVIEW-A-02-001`.
 - A-03: foco visible por `motion_style` (technical y heritage usan `var(--color-foreground)`); código completo; ACEPTADO en `CLAUDE-REVIEW-A-03-001`; ledger filas 48/49 (1.4.11 y 2.4.7) a `código completo`.
+- A-01/B-02: código completo; ACEPTADO en `CLAUDE-REVIEW-A-01-B-02-001`; snippet `variant-no-js-select` autorizado por Johandry (D25, `CLAUDE-DECISION-A-01-B-02-001`); ledger filas 69 y 71 a `código completo`.
 
 ## En curso
 
-- A-01/B-02: directiva aprobada con cambios por su R-D; implementación a continuación.
 - C-08: en R-D.
 - Siguiente: resto del Lote A sin tienda en rama `lote-a` (R-D de cada tarea antes de implementar).
 
@@ -38,6 +38,9 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 Plan de ejecución sin tienda (D22, D23):
 
 - Pruebas en tienda R-A 1–8 de A-02 (esperan credenciales).
+- Prueba en tienda de B-02 (esperan credenciales) y de A-01 (fixture C-R0-4 y credenciales).
+- Residuo PD-2 de A-01/B-02: parámetros `purchase-option-*`.
+- Aviso: C-08 sobre esta base sube la LiquidComplexity de `sections/main-product.liquid` a 122 (>120).
 - Prueba R-A de A-03 en previews de Imprint y Archive (esperan credenciales).
 - H-1 de A-03 (texto de hover de heritage por debajo de 4.5:1, P2, fuera del plan): corregirlo requiere decisión de Johandry. H-2 a H-4 son P3.
 - Aviso del retiro de metafields en C-04-R (dependencia abierta de A-02).

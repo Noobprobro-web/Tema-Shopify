@@ -23,6 +23,18 @@
     assign can_add_to_cart = false
   endif
   assign product_form_id = 'product-form-' | append: section.id
+
+  comment
+    B-02. Sin JS (o con theme.js caido) el selector visual de variantes no puede cambiar el id
+    del formulario, asi que se emite un select nativo de variantes (snippet variant-no-js-select) y el
+    hidden nace desactivado. VariantSelects toma el control al conectarse. Solo si el producto
+    tiene variantes reales y el comerciante mantiene el bloque variant_picker.
+  endcomment
+  assign render_variant_no_js = false
+  assign variant_picker_blocks = section.blocks | where: 'type', 'variant_picker'
+  if product.has_only_default_variant == false and variant_picker_blocks.size > 0
+    assign render_variant_no_js = true
+  endif
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_models = product.media | where: 'media_type', 'model'
@@ -214,7 +226,7 @@
 
             {%- when 'variant_picker' -%}
               {%- unless product.has_only_default_variant -%}
-                <div class="variant-picker flow" {{ block.shopify_attributes }}>
+                <div class="variant-picker flow js-only" {{ block.shopify_attributes }}>
                   {%- for option in product.options_with_values -%}
                     <fieldset class="variant-picker__group" role="radiogroup">
                       <legend class="variant-picker__legend">
@@ -474,7 +486,11 @@
                   class: 'product-form__form',
                   data-cart-add-form: ''
                 -%}
-                  <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id>
+                  <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id{% if render_variant_no_js %} disabled{% endif %}>
+
+                  {%- if render_variant_no_js -%}
+                    {% render 'variant-no-js-select', product: product, selected_variant: selected_variant, section: section, id_prefix: 'ProductVariantNoJs' %}
+                  {%- endif -%}
 
                   <div class="product-form__payment-terms">
                     {{- form | payment_terms -}}
@@ -574,7 +590,7 @@
                         <label for="SellingPlanNoJs-{{ section.id }}">
                           {{- 'products.product.purchase_options.legend' | t -}}
                         </label>
-                        <select id="SellingPlanNoJs-{{ section.id }}" name="selling_plan">
+                        <select id="SellingPlanNoJs-{{ section.id }}" name="selling_plan" autocomplete="off" data-no-js-control>
                           {%- unless selected_variant.requires_selling_plan -%}
                             <option value=""{% unless subscription_selected %} selected{% endunless %}>
                               {{- 'products.product.purchase_options.one_time' | t -}}
