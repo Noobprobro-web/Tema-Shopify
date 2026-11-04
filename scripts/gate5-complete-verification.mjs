@@ -42,6 +42,12 @@ function validateConfiguration() {
   }
 }
 
+const LOCKED_PATH = /(^|\/)(password|challenge)\/?$/;
+const ACCESS_DENIED = 'GATE5_ACCESS: storefront password was not accepted.';
+function assertUnlocked(page) {
+  if (LOCKED_PATH.test(new URL(page.url()).pathname)) throw new Error(ACCESS_DENIED);
+}
+
 async function verifyGate5() {
   validateConfiguration();
   const { chromium } = await import('playwright');
@@ -51,6 +57,14 @@ async function verifyGate5() {
   console.log('='.repeat(75));
 
   const browser = await chromium.launch({ headless: true });
+  try {
+    return await runChecks(browser);
+  } finally {
+    await browser.close().catch(() => {});
+  }
+}
+
+async function runChecks(browser) {
   const context = await browser.newContext({
     viewport: { width: 1280, height: 900 }
   });
@@ -78,18 +92,32 @@ async function verifyGate5() {
   console.log('\n[1/4] Autenticación Storefront (/password)...');
   await page.goto(`${BASE_URL}/password?preview_theme_id=${THEME_ID}`, { waitUntil: 'domcontentloaded' });
   const pwdInput = page.locator('input[type="password"]');
-  if (await pwdInput.count() > 0) {
+  const wasPrompted = await pwdInput.count() > 0;
+  if (wasPrompted) {
+    // Sartorial hides the password field in a modal until [data-password-open] is clicked.
+    if (!(await pwdInput.first().isVisible())) {
+      const opener = page.locator('[data-password-open], details:has(input[type="password"]) > summary').first();
+      if (await opener.count() > 0) {
+        await opener.click();
+        await pwdInput.first().waitFor({ state: 'visible' });
+      }
+    }
     await pwdInput.fill(STORE_PASSWORD);
     await Promise.all([
       page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
       page.keyboard.press('Enter')
     ]);
   }
-  console.log('  ✓ Acceso al storefront concedido');
+  assertUnlocked(page);
+  if (await pwdInput.count() > 0) throw new Error(ACCESS_DENIED);
+  console.log(wasPrompted
+    ? '  ✓ Acceso al storefront concedido'
+    : '  ✓ La tienda no solicitó contraseña; acceso sin bloqueo');
 
   // 2. PLP: Grid / List view switch
   console.log('\n[2/4] Verificación PLP (Main Collection): Grid/List Switcher...');
   await page.goto(`${BASE_URL}${COLLECTION_PATH}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
+  assertUnlocked(page);
 
   const switcher = page.locator('.collection-grid-switcher');
   const hasSwitcher = await switcher.count() > 0;
@@ -124,6 +152,7 @@ async function verifyGate5() {
   // 3. PDP: Main Product & Luxury Blocks & Subtotal
   console.log('\n[3/4] Verificación PDP (Main Product): Bloques de Lujo y Subtotal Reactivo...');
   await page.goto(`${BASE_URL}${PRODUCT_PATH}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
+  assertUnlocked(page);
 
   // Test reactive line subtotal
   const qtyInput = page.locator('input[data-quantity-input]').first();
@@ -332,6 +361,6 @@ async function verifyGate5() {
 verifyGate5().then(ok => {
   if (!ok) process.exit(1);
 }).catch(err => {
-  console.error(err.message?.startsWith('GATE5_CONFIG: ') ? err.message : 'Gate 5 verification failed.');
+  console.error(/^GATE5_(CONFIG|ACCESS): /.test(err.message) ? err.message : 'Gate 5 verification failed.');
   process.exit(1);
 });
