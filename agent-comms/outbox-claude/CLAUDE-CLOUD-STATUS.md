@@ -27,11 +27,11 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - A-02: retiro de 14 fuentes automáticas y heurísticas H1–H8 (Nivel 2 autorizado por el revisor R-D según D11); estado «código completo»; ACEPTADO en `CLAUDE-REVIEW-A-02-001`.
 - A-03: foco visible por `motion_style` (technical y heritage usan `var(--color-foreground)`); código completo; ACEPTADO en `CLAUDE-REVIEW-A-03-001`; ledger filas 48/49 (1.4.11 y 2.4.7) a `código completo`.
 - A-01/B-02: código completo; ACEPTADO en `CLAUDE-REVIEW-A-01-B-02-001`; snippet `variant-no-js-select` autorizado por Johandry (D25, `CLAUDE-DECISION-A-01-B-02-001`); ledger filas 69 y 71 a `código completo`.
+- C-08 (106 hallazgos; fases a y b): código completo; Nivel 2 autorizado por Johandry en D26 (`CLAUDE-DECISION-C-08-001`); ACEPTADO en `CLAUDE-REVIEW-C-08-001`.
 
 ## En curso
 
-- C-08: en R-D.
-- Siguiente: resto del Lote A sin tienda en rama `lote-a` (R-D de cada tarea antes de implementar).
+- Revisión del Lote A (R-A, estática); las partes de tienda esperan credenciales.
 
 ## Pendiente
 
@@ -45,6 +45,10 @@ Plan de ejecución sin tienda (D22, D23):
 - H-1 de A-03 (texto de hover de heritage por debajo de 4.5:1, P2, fuera del plan): corregirlo requiere decisión de Johandry. H-2 a H-4 son P3.
 - Aviso del retiro de metafields en C-04-R (dependencia abierta de A-02).
 - P3 de la revisión de A-02: H-3, texto «Shown as entered», a pulir en Lote C.
+- Fila 88 del ledger: pasar a `código completo` cuando R-A acepte C-08b.
+- P2-1 de la revisión de C-08: 58 entradas obsoletas en `scripts/translations/es.storefront.json`; revisar `/es` en cada demo tras subir el candidato (para R-A y D-01-L).
+- P3-5 de la revisión de C-08: `<dl>` vacío en contacto; revisar en tienda.
+- Extras §7.3 de C-08: CSS `.main-contact__response-note` sin uso y texto instructivo en `templates/page.about.json:11`.
 
 - Lote 0: empaquetador y ZIP canónico; `BOARD.md`; revisión de cierre parcial `CLAUDE-REVIEW-LOTE-0-CIERRE-001` (subagente Opus nuevo, contexto limpio), limitada a las cuatro condiciones de D19, C-R0-1 a C-R0-4 (correspondencia con R-0 §7: C-R0-1 = a, C-R0-2 = b, C-R0-3 = d, C-R0-4 = c):
   - C-R0-1: ficha `GEMINI-FICHA-LOTE-0-BASE-001.md` (ya en el clon).

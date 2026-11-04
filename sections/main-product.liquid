@@ -672,37 +672,24 @@
             {%- when 'inventory_status' -%}
               {% render 'product-inventory', product: product, variant: selected_variant, block: block %}
 
-            {%- when 'shipping_lead_time' -%}
-              {%- liquid
-                assign delivery_fallback = 'sections.main_product.blocks.shipping_lead_time.delivery_fallback' | t
-                assign delivery_text = block.settings.delivery_text | default: delivery_fallback
-              -%}
+            {%- when 'shipping_lead_time', 'trust_badges' -%}
+              {%- assign trust_text = block.settings.delivery_text | default: block.settings.returns_text | strip -%}
+              {%- if trust_text != blank -%}
               <p class="product-trust" {{ block.shopify_attributes }}>
                 <span class="product-trust__icon" aria-hidden="true">
                   {%- if block.settings.icon == 'clock' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                   {%- elsif block.settings.icon == 'truck' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v11H2zM14 9h4l4 4v4h-8z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
-                  {%- endif -%}
-                </span>
-                <span>{{ delivery_text | escape }}</span>
-              </p>
-
-            {%- when 'trust_badges' -%}
-              {%- liquid
-                assign returns_fallback = 'sections.main_product.blocks.trust_badges.returns_fallback' | t
-                assign returns_text = block.settings.returns_text | default: returns_fallback
-              -%}
-              <p class="product-trust" {{ block.shopify_attributes }}>
-                <span class="product-trust__icon" aria-hidden="true">
-                  {%- if block.settings.icon == 'ruler' -%}
+                  {%- elsif block.settings.icon == 'ruler' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 2 7 7L9 22l-7-7L15 2Z"/><path d="m11 6 2 2m-5 1 2 2m-5 1 2 2m4-9 2 2"/></svg>
                   {%- elsif block.settings.icon == 'shield' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
                   {%- endif -%}
                 </span>
-                <span>{{ returns_text | escape }}</span>
+                <span>{{ trust_text | escape }}</span>
               </p>
+              {%- endif -%}
 
             {%- when 'collapsible_tab' -%}
               {% render 'product-accordion', block: block %}

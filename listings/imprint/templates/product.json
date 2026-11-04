@@ -39,14 +39,14 @@
         "shipping_lead_time": {
           "type": "shipping_lead_time",
           "settings": {
-            "delivery_text": "Worldwide express courier | Dispatch in 2 business days",
+            "delivery_text": "",
             "icon": "truck"
           }
         },
         "trust_badges": {
           "type": "trust_badges",
           "settings": {
-            "returns_text": "Complimentary returns within 30 days",
+            "returns_text": "",
             "icon": "shield"
           }
         },
@@ -57,15 +57,8 @@
         "composition_care": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Composition & care",
-            "content": "<p>Refer to the product description for material details and follow the care instructions supplied with your item.</p><p>Care requirements vary by material and finish. If instructions are missing, contact us before cleaning or applying any product.</p>"
-          }
-        },
-        "shipping_returns": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Shipping & complimentary returns",
-            "content": "<p>Pieces in stock leave within two business days, with tracking.</p><p>Returns are complimentary within thirty days of delivery for unworn pieces with their tags in place. Made-to-order work is final sale.</p>"
+            "heading": "Care",
+            "content": "<p>Care depends on the material and finish of each piece. If you are unsure how to care for it, contact us before cleaning it.</p>"
           }
         },
         "technical_specs": {
@@ -91,8 +84,7 @@
         "shipping_lead_time",
         "trust_badges",
         "description",
-        "composition_care",
-        "shipping_returns"
+        "composition_care"
       ],
       "settings": {
         "color_scheme": "scheme-1",
