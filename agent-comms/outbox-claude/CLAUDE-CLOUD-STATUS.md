@@ -8,7 +8,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## Rama actual
 
-`lote-a` (creada desde eb7cca7)
+`lote-a` (desde eb7cca7; siguiente: `lote-b`)
 
 ## Hecho
 
@@ -28,10 +28,11 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - A-03: foco visible por `motion_style` (technical y heritage usan `var(--color-foreground)`); código completo; ACEPTADO en `CLAUDE-REVIEW-A-03-001`; ledger filas 48/49 (1.4.11 y 2.4.7) a `código completo`.
 - A-01/B-02: código completo; ACEPTADO en `CLAUDE-REVIEW-A-01-B-02-001`; snippet `variant-no-js-select` autorizado por Johandry (D25, `CLAUDE-DECISION-A-01-B-02-001`); ledger filas 69 y 71 a `código completo`.
 - C-08 (106 hallazgos; fases a y b): código completo; Nivel 2 autorizado por Johandry en D26 (`CLAUDE-DECISION-C-08-001`); ACEPTADO en `CLAUDE-REVIEW-C-08-001`.
+- R-A estática (`CLAUDE-REVIEW-LOTE-A-RA-001`): ACEPTADO CON CAMBIOS; CR-1 (fila 84) y CR-2 (fila 88 a «código completo») aplicados; `ledger-verify` exit 0 (49 cumplido / 11 código completo). ZIP de `lote-a`: 94 archivos, SHA-256 `8f666379…d5f6`, huella `2afbc7a8…c4f5`.
 
 ## En curso
 
-- Revisión del Lote A (R-A, estática); las partes de tienda esperan credenciales.
+- Lote B (directivas), rama `lote-b` (por crear) desde `lote-a`.
 
 ## Pendiente
 
@@ -40,13 +41,13 @@ Plan de ejecución sin tienda (D22, D23):
 - Pruebas en tienda R-A 1–8 de A-02 (esperan credenciales).
 - Prueba en tienda de B-02 (esperan credenciales) y de A-01 (fixture C-R0-4 y credenciales).
 - Residuo PD-2 de A-01/B-02: parámetros `purchase-option-*`.
-- Aviso: C-08 sobre esta base sube la LiquidComplexity de `sections/main-product.liquid` a 122 (>120).
 - Prueba R-A de A-03 en previews de Imprint y Archive (esperan credenciales).
-- H-1 de A-03 (texto de hover de heritage por debajo de 4.5:1, P2, fuera del plan): corregirlo requiere decisión de Johandry. H-2 a H-4 son P3.
+- H-1 de A-03 (texto de hover de heritage por debajo de 4.5:1, P2, fuera del plan): corregirlo requiere decisión de Johandry (junto con la fila 47). H-2 a H-4 son P3.
 - Aviso del retiro de metafields en C-04-R (dependencia abierta de A-02).
 - P3 de la revisión de A-02: H-3, texto «Shown as entered», a pulir en Lote C.
-- Fila 88 del ledger: pasar a `código completo` cuando R-A acepte C-08b.
-- P2-1 de la revisión de C-08: 58 entradas obsoletas en `scripts/translations/es.storefront.json`; revisar `/es` en cada demo tras subir el candidato (para R-A y D-01-L).
+- Parte de tienda de R-A (lista por dependencia en la R-A §6; esperan credenciales).
+- P3: localizadores de línea desplazados en el ledger (+14 en `assets/theme.js`, +12 en `sections/main-product.liquid`); corregir en una pasada posterior.
+- P2-1 de la revisión de C-08: 58 entradas obsoletas en `scripts/translations/es.storefront.json`; revisar `/es` en cada demo tras subir el candidato (para R-A y D-01-L). Escribir en las demos queda fuera de D13: decide Johandry.
 - P3-5 de la revisión de C-08: `<dl>` vacío en contacto; revisar en tienda.
 - Extras §7.3 de C-08: CSS `.main-contact__response-note` sin uso y texto instructivo en `templates/page.about.json:11`.
 

@@ -241,3 +241,10 @@ Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-LOTE-0-CIERRE-00
 - **D22:** sin credenciales, solo trabajo que no necesita tienda; Lote A en la rama `lote-a`.
 - **D23:** D-01, D-01-N y D-01-L son entregables en el repo con parada para importación por Johandry; C-02 la crea Johandry; C-04-R es borrador pendiente de su aprobación; C-04-P retira las plantillas de documentación del paquete sin borrarlas del repo.
 - **D24:** `agent-comms/BOARD.md` lo escribe Claude como único escritor, con revisión de un subagente Opus de contexto limpio. Modifica `AGENTS.md:84` y `AGENTS.md:96` sin editarlos.
+
+## 2026-11-04: Autorizaciones de Nivel 2 del Lote A (D25 y D26, Johandry)
+
+Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-A-01-B-02-001.md` (D25) y `agent-comms/outbox-claude/CLAUDE-DECISION-C-08-001.md` (D26). La numeración es la del registro de decisiones de Claude, distinta de la D1/D2/D10 de octubre.
+
+- **D25:** Johandry autoriza, como Nivel 2, el archivo nuevo `snippets/variant-no-js-select.liquid` de A-01/B-02, que no estaba en la lista cerrada de la R-D. La autorización cubre solo ese snippet. Sin él, `sections/main-product.liquid` pasaría de 120 a 128 en LiquidComplexity; con él queda en 120.
+- **D26:** Johandry autoriza los tres cambios de Nivel 2 de C-08b tal como los propone `CLAUDE-REVIEW-C-08-RD-001`: (1) los bloques de entrega y devoluciones de la PDP vacíos se ocultan; (2) 24 valores por defecto del schema pasan a textos neutros; (3) se quita la opción «Private appointment» del formulario de contacto. Solo esos tres cambios; D26 no amplía D11 a otras tareas.

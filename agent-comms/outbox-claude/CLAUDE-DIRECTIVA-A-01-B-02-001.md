@@ -2,7 +2,7 @@ ID: CLAUDE-DIRECTIVA-A-01-B-02-001
 Fecha: 2026-11-04
 Autor: Claude (Opus), redactor de directivas. No implementa.
 Destinatario: implementador Sonnet sin contexto previo (ejecuta). También el revisor Opus de contexto limpio (R-D de esta directiva y revisión de la tarea, D11) y el coordinador Claude (rama, commit y push, D12/D16).
-Estado: Borrador para R-D. No autoriza editar el tema hasta que exista el dictamen R-D favorable descrito en §0.
+Estado: Aprobada con cambios por CLAUDE-REVIEW-A-01-B-02-RD-001; donde difieran, manda la R-D.
 Decisión requerida: R-D independiente de esta directiva por el revisor Opus de contexto limpio (D11 de `CLAUDE-DECISION-AUTONOMIA-001.md`). El R-D debe además decidir PD-1 a PD-6 de §9.1. Solo PD-4, y PD-1 si el revisor lo considera fuera del plan, podrían exigir consulta a Johandry (§9.2, D10).
 Resumen en 5 líneas:
 1. A-01 y B-02 tienen la misma causa: los formularios de compra de la ficha de producto (PDP) y del producto destacado dependen de JavaScript para `id`, y siempre envían el control sin JS de `selling_plan`, aunque esté oculto.

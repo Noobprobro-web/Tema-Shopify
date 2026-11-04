@@ -2,11 +2,11 @@
 
 ```text
 Ruta estable: agent-comms/BOARD.md
-Última actualización: 2026-11-04 (reconciliación del bloqueo B3 del plan V4.1; base HEAD 8e1646e)
+Última actualización: 2026-11-04 (estado del Lote A tras la R-A estática; base HEAD fe736f7)
 Escritor único: Claude (D24 de CLAUDE-DECISION-LOTE-0-002.md, decisión de Johandry del 2026-11-04).
 Revisión de este archivo: subagente Opus de contexto limpio (D24, D11).
 Cambio de regla: D24 modifica AGENTS.md:84 y :96 (RULES.md no fija escritor); AGENTS.md no se editó.
-Rama: lote0/base-09f8342 (ancestro 09f8342, comprobado con git merge-base --is-ancestor)
+Rama: lote-a (desde eb7cca7; último commit de código fe736f7; más el commit documental de la R-A)
 Lectura obligatoria para: Johandry, Claude, Antigravity (Gemini), GPT
 Estado general: Lote 0 con R-0 "aceptado condicional"; sin credenciales de tienda en este entorno; trabajo sin tienda en curso (D22).
 ```
@@ -60,8 +60,8 @@ Plan: `agent-comms/outbox-gpt/GPT-PLAN-IMPLEMENTACION-SARTORIAL-001-v4.1.md`. Or
 | Lote | Estado a 2026-11-04 | Fuente |
 |---|---|---|
 | 0 | 0-05-P3 cerrada (`bd779a0`, `fbdf462`). R-0 `GEMINI-REVIEW-LOTE-0-R0-002`: ACEPTADO CONDICIONAL; no se repite (D19). Cierre del Lote 0 pendiente de las condiciones de abajo, que verificará un subagente Opus nuevo como `CLAUDE-REVIEW-LOTE-0-CIERRE-001` (D19) | GEMINI-REVIEW-LOTE-0-R0-002.md §1, §7; D19 |
-| A | Sin empezar en tienda. Código sin tienda en la rama `lote-a`, creada desde la cabeza de `lote0/base-09f8342` e integrando el Lote 0 con merge sin force; la rama aún no existe a 8e1646e. Tareas: A-02, C-08, B-02, A-01 (código), A-03 (código). Las pruebas de tienda quedan como "código completo" hasta la sesión con credenciales (D22) | CLAUDE-DECISION-LOTE-0-002.md D22; CLAUDE-CLOUD-STATUS.md |
-| B | Código sin tienda, en la rama `lote-b` partiendo de `lote-a` (D12). Sin empezar | CLAUDE-CLOUD-STATUS.md |
+| A | Rama `lote-a` desde `eb7cca7`. A-02 (`a6a9074`), A-03 (`c81cbcb`), A-01/B-02 (`64862d1`) y C-08 (`fe736f7`): todas en "código completo" con revisión aceptada. R-A estática (`CLAUDE-REVIEW-LOTE-A-RA-001`): ACEPTADO CON CAMBIOS; CR-1 (fila 84) y CR-2 (fila 88 a "código completo") aplicados; `ledger-verify` exit 0 (49 cumplido / 11 código completo). ZIP de `lote-a`: 94 archivos, SHA-256 `8f666379137325873e09f5fce321b66149112bff015e8f20027e35dc9350d5f6`, huella `2afbc7a849583f0bf0adfbc0312219dd1c000bb4e87f2d775e9996efeb78c4f5`. La parte de tienda de R-A sigue pendiente (lista por dependencia en la R-A §6). Hallazgos abiertos: H-1 de A-03 (P2, fuera del plan; decide Johandry; contradice la fila 47 del ledger, hoy `cumplido`); P2-1 de C-08 (traducciones `/es`; escribir en las demos queda fuera de D13, decide Johandry); aviso de retiro de metafields en C-04-R; residuo PD-2 de A-01/B-02 | CLAUDE-REVIEW-LOTE-A-RA-001.md; D25; D26 |
+| B | Código sin tienda, en la rama `lote-b` partiendo de `lote-a` (D12). Siguiente: directivas del Lote B; sin empezar | CLAUDE-CLOUD-STATUS.md |
 | C | Lo que no necesita tienda, en `lote-c`. C-02 depende de la tienda limpia que crea Johandry; C-04-R es borrador de versión y notas de release para que Johandry apruebe al final; C-04-P retira `templates/page.documentation.json` y `templates/page.support.json` del paquete y las conserva en el repo (D23). Sin empezar | D23 |
 | D | Entregables en el repo (CSV de importación, menús, lista de fotos, idioma) para D-01, D-01-N y D-01-L, y parada para que Johandry los importe (D23). Rama `lote-d`; al terminar, PR hacia `master` sin fusionar y nombre de revisión R-Demo (D12; CLAUDE-CLOUD-STATUS.md). Sin empezar | D23, D12 |
 
@@ -83,7 +83,7 @@ Otros pendientes del Lote 0 (no son condición de cierre por D19):
 
 ## 0.4 Bloqueos y esperas actuales
 
-1. Credenciales ausentes en el entorno (`SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD`, `SHOPIFY_FLAG_STORE`; solo se comprueban nombres): llegan en una sesión nueva (D22). Bloquean las previews de Imprint y Archive (C-R0-3), B2, A-03 (medición), R-A, R-B, R-Demo y Lighthouse. Red a `*.myshopify.com` sin verificar.
+1. Credenciales ausentes en el entorno (`SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD`, `SHOPIFY_FLAG_STORE`; solo se comprueban nombres): llegan en una sesión nueva (D22). Bloquean las previews de Imprint y Archive (C-R0-3), B2, A-03 (medición), la parte de tienda de R-A, R-B, R-Demo y Lighthouse. Red a `*.myshopify.com` sin verificar.
 2. Fixture de suscripción (A-01): lo crea Johandry (D15).
 3. Previews de Imprint y Archive: dependen del punto 1 (D13: solo temas no publicados en `tema-qkqpke0j`).
 4. Importación de los entregables D-01, D-01-N y D-01-L, tienda limpia C-02 y aprobación final de C-04-R: Johandry (D23).
@@ -94,7 +94,7 @@ Resueltos: bloqueos 1, 2, 4 y 5 de CLAUDE-CLOUD-STATUS.md (D20, D21, D23, D24); 
 
 | Agente | Tarea | Estado |
 |---|---|---|
-| Claude | Empaquetador ACEPTADO (D21); gate5 §7e ACEPTADO; reconciliación de BOARD ACEPTADA (CLAUDE-REVIEW-LOTE-0-BOARD-001); luego Lote A sin tienda | En curso, con otras instancias de Claude coordinadas por la sesión principal (D2) |
+| Claude | Empaquetador ACEPTADO (D21); gate5 §7e ACEPTADO; reconciliación de BOARD ACEPTADA (CLAUDE-REVIEW-LOTE-0-BOARD-001); luego Lote A sin tienda: código y R-A estática aceptados; ahora directivas del Lote B | En curso, con otras instancias de Claude coordinadas por la sesión principal (D2) |
 | Subagente Opus de contexto limpio | Revisión de este BOARD (D24) y `CLAUDE-REVIEW-LOTE-0-CIERRE-001` (D19) | Pendiente |
 | Antigravity | Revisión final antes del envío (D18) | Pendiente, tras el Lote D |
 | Johandry | Credenciales en sesión nueva, fixture, importaciones D, aprobación de C-04-R, envío | Pendiente |
@@ -103,11 +103,12 @@ Resueltos: bloqueos 1, 2, 4 y 5 de CLAUDE-CLOUD-STATUS.md (D20, D21, D23, D24); 
 
 - Plan: `agent-comms/outbox-gpt/GPT-PLAN-IMPLEMENTACION-SARTORIAL-001-v4.1.md`
 - Estado vivo: `agent-comms/outbox-claude/CLAUDE-CLOUD-STATUS.md`
-- Decisiones: `CLAUDE-DECISION-0-05-P3-001.md` (D1-D5), `CLAUDE-DECISION-0-05-P3-002.md` (D6-D8), `CLAUDE-DECISION-AUTONOMIA-001.md` (D9-D18), `CLAUDE-DECISION-LOTE-0-CIERRE-001.md` (D19), `CLAUDE-DECISION-LOTE-0-002.md` (D20-D24), todas en `agent-comms/outbox-claude/`
+- Decisiones: `CLAUDE-DECISION-0-05-P3-001.md` (D1-D5), `CLAUDE-DECISION-0-05-P3-002.md` (D6-D8), `CLAUDE-DECISION-AUTONOMIA-001.md` (D9-D18), `CLAUDE-DECISION-LOTE-0-CIERRE-001.md` (D19), `CLAUDE-DECISION-LOTE-0-002.md` (D20-D24), `CLAUDE-DECISION-A-01-B-02-001.md` (D25), `CLAUDE-DECISION-C-08-001.md` (D26), todas en `agent-comms/outbox-claude/`
 - R-0: `agent-comms/outbox-gemini/GEMINI-REVIEW-LOTE-0-R0-002.md`; revisión previa: `agent-comms/outbox-claude/CLAUDE-REVIEW-LOTE-0-R0-001.md`
 - Ficha: `agent-comms/outbox-gemini/GEMINI-FICHA-LOTE-0-BASE-001.md`
 - Reglamento: `agent-comms/RULES.md`; gobierno: `AGENTS.md`
-- Informe de esta reconciliación: `agent-comms/outbox-claude/CLAUDE-REPORT-LOTE-0-BOARD-001.md`
+- Revisión R-A estática: `agent-comms/outbox-claude/CLAUDE-REVIEW-LOTE-A-RA-001.md`
+- Informe de la reconciliación anterior: `agent-comms/outbox-claude/CLAUDE-REPORT-LOTE-0-BOARD-001.md`
 
 ---
 

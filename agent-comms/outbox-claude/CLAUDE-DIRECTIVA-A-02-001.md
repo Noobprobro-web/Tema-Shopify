@@ -2,7 +2,7 @@ ID: CLAUDE-DIRECTIVA-A-02-001
 Fecha: 2026-11-04
 Autor: Claude (Opus), redactor de directivas. No implementa.
 Destinatario: implementador Sonnet sin contexto previo (ejecuta), revisor Opus de contexto limpio (R-D y revisión de la tarea, D11), coordinador Claude (rama, commit y push, D12/D16).
-Estado: Borrador para R-D. No autoriza editar el tema hasta que exista el dictamen R-D favorable descrito en §0.
+Estado: Aprobada con cambios por CLAUDE-REVIEW-A-02-RD-001; donde difieran, manda la R-D.
 Decisión requerida: R-D independiente de esta directiva y autorización técnica de Nivel 2 de A-02, ambas por el revisor Opus de contexto limpio (D11 de `CLAUDE-DECISION-AUTONOMIA-001.md`). El R-D debe además decidir los puntos PD-1 a PD-5 de §9. Ninguno exige a Johandry (ver §9.2).
 Resumen en 5 líneas:
 1. A-02 retira del código las 14 fuentes automáticas de datos de producto (10 claves `custom.*` y 4 alias `sartorial.*`) y las heurísticas de título, handle, `product.type` e `is_non_textile` de dos snippets, sin lectores sustitutos ni metafields nuevos.
