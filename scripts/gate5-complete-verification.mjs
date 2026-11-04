@@ -1,12 +1,52 @@
-import { chromium } from 'playwright';
+// Match these inputs to the approved candidate sheet before live use.
+// Live evidence also requires independent review of this harness.
+const BASE_URL = process.env.STOREFRONT_ORIGIN;
+const THEME_ID = process.env.STOREFRONT_THEME_ID;
+const STORE_PASSWORD = process.env.STOREFRONT_PASSWORD;
+const COLLECTION_PATH = process.env.STOREFRONT_COLLECTION_PATH;
+const PRODUCT_PATH = process.env.STOREFRONT_PRODUCT_PATH;
 
-const BASE_URL = 'https://tema-qkqpke0j.myshopify.com';
-const THEME_ID = '166186909939';
-const STORE_PASSWORD = process.env.STOREFRONT_PASSWORD || ***ROTATED_STOREFRONT_CREDENTIAL***;
+function validateConfiguration() {
+  const fail = message => { throw new Error(`GATE5_CONFIG: ${message}`); };
+  if (!STORE_PASSWORD?.trim()) {
+    fail('STOREFRONT_PASSWORD is required.');
+  }
+  if (!BASE_URL?.trim()) {
+    fail('STOREFRONT_ORIGIN is required.');
+  }
+  let origin;
+  try {
+    origin = new URL(BASE_URL);
+  } catch {
+    fail('STOREFRONT_ORIGIN must be an HTTPS origin without credentials, path, query or fragment.');
+  }
+  if (origin.protocol !== 'https:' || origin.username || origin.password ||
+      origin.pathname !== '/' || origin.search || origin.hash || origin.origin !== BASE_URL) {
+    fail('STOREFRONT_ORIGIN must be an HTTPS origin without credentials, path, query or fragment.');
+  }
+  if (!THEME_ID?.trim()) {
+    fail('STOREFRONT_THEME_ID is required.');
+  }
+  if (!/^[1-9][0-9]*$/.test(THEME_ID)) {
+    fail('STOREFRONT_THEME_ID must be a positive decimal ID.');
+  }
+  for (const [name, value, prefix] of [
+    ['STOREFRONT_COLLECTION_PATH', COLLECTION_PATH, '/collections/'],
+    ['STOREFRONT_PRODUCT_PATH', PRODUCT_PATH, '/products/']
+  ]) {
+    if (!value?.trim()) fail(`${name} is required.`);
+    if (!value.startsWith(prefix) || value.length === prefix.length ||
+        /[\\?#\s%]/u.test(value) || new URL(value, BASE_URL).pathname !== value) {
+      fail(`${name} must be a canonical ${prefix} path without query or fragment.`);
+    }
+  }
+}
 
 async function verifyGate5() {
+  validateConfiguration();
+  const { chromium } = await import('playwright');
   console.log('='.repeat(75));
-  console.log('COMPROBACIÓN INTEGRAL GATE 5: TIENDA REAL tema-qkqpke0j.myshopify.com');
+  console.log(`COMPROBACIÓN INTEGRAL GATE 5: ${BASE_URL}`);
   console.log(`Theme ID: ${THEME_ID} (Sartorial)`);
   console.log('='.repeat(75));
 
@@ -49,7 +89,7 @@ async function verifyGate5() {
 
   // 2. PLP: Grid / List view switch
   console.log('\n[2/4] Verificación PLP (Main Collection): Grid/List Switcher...');
-  await page.goto(`${BASE_URL}/collections/all?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}${COLLECTION_PATH}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
 
   const switcher = page.locator('.collection-grid-switcher');
   const hasSwitcher = await switcher.count() > 0;
@@ -83,7 +123,7 @@ async function verifyGate5() {
 
   // 3. PDP: Main Product & Luxury Blocks & Subtotal
   console.log('\n[3/4] Verificación PDP (Main Product): Bloques de Lujo y Subtotal Reactivo...');
-  await page.goto(`${BASE_URL}/products/cashmere-rib-crew?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}${PRODUCT_PATH}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
 
   // Test reactive line subtotal
   const qtyInput = page.locator('input[data-quantity-input]').first();
@@ -291,4 +331,7 @@ async function verifyGate5() {
 
 verifyGate5().then(ok => {
   if (!ok) process.exit(1);
+}).catch(err => {
+  console.error(err.message?.startsWith('GATE5_CONFIG: ') ? err.message : 'Gate 5 verification failed.');
+  process.exit(1);
 });

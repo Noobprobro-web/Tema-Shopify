@@ -441,6 +441,14 @@
 
     syncCarouselMode() {
       const active = this.carouselQuery.matches;
+      const pagerHasFocus = Boolean(
+        this.pager && (this.pager === document.activeElement || this.pager.contains(document.activeElement)),
+      );
+      const trackHasFocus = Boolean(
+        this.track && (this.track === document.activeElement || (this.track.contains(document.activeElement) && !pagerHasFocus)),
+      );
+      const slideIndex = Math.max(0, this.currentSlide >= 0 ? this.currentSlide : 0);
+
       this.pager.hidden = !active;
 
       // Una pista desplazable tiene que poder recibir el foco para que el teclado la mueva
@@ -449,12 +457,29 @@
       if (active) {
         this.track.tabIndex = 0;
         this.track.setAttribute('aria-label', this.getAttribute('aria-label') || '');
+        this.syncSlide(false);
       } else {
         this.track.removeAttribute('tabindex');
         this.track.removeAttribute('aria-label');
+        if (this.currentSlide < 0) this.applySlide(0, false);
       }
 
-      this.syncSlide(false);
+      // Si el paginador o la pista tenian el foco y se ocultan en escritorio, transferir
+      // el foco a un elemento interactivo y visible de la diapositiva actual (ej. zoom)
+      // o a la propia diapositiva con tabindex="0" para no expulsar el foco al body.
+      if (!active && (pagerHasFocus || trackHasFocus)) {
+        const targetSlide = (this.slides && this.slides[slideIndex]) || this.slides?.[0];
+        if (targetSlide) {
+          const interactive = targetSlide.querySelector(
+            'button:not([disabled]), [tabindex="0"], a[href], video, [data-gallery-zoom-trigger]',
+          );
+          const fallback = interactive || targetSlide;
+          if (fallback === targetSlide && !fallback.hasAttribute('tabindex')) {
+            fallback.setAttribute('tabindex', '0');
+          }
+          fallback.focus?.();
+        }
+      }
     }
 
     slideIndexFromScroll() {
@@ -477,10 +502,21 @@
       });
 
       if (this.counter) this.counter.textContent = String(index + 1);
+      const focusedStep = this.steps.find(
+        (step) => step === document.activeElement || step.contains(document.activeElement),
+      );
       this.steps.forEach((step) => {
         const direction = Number(step.dataset.galleryStep);
         step.disabled = direction < 0 ? index === 0 : index === this.slides.length - 1;
       });
+      // Si el boton recien pulsado toca el limite y se deshabilita, el foco caeria al
+      // body desorientando a tecnologias asistivas: se pasa al boton opuesto disponible
+      // o a la pista del carrusel.
+      if (focusedStep && focusedStep.disabled) {
+        const fallback = this.steps.find((step) => !step.disabled)
+          || (this.track && this.track.tabIndex >= 0 ? this.track : null);
+        fallback?.focus();
+      }
 
       if (announce && this.carouselStatus) {
         const template = this.pager.dataset.viewMediaTemplate || '';
