@@ -9099,10 +9099,13 @@ html[data-motion-style='heritage'] {
     text-underline-offset: 3px;
   }
 
+  /* Foco: el color del anillo sale del esquema (--color-foreground), igual que la regla base
+     :focus-visible. Un gris o un laton fijos bajan de 3:1 en esquemas oscuros o calidos (A-03).
+     Cada estilo solo cambia el outline-offset. */
   html[data-motion-style='technical'] .button:focus-visible,
   html[data-motion-style='technical'] input:focus-visible,
   html[data-motion-style='technical'] select:focus-visible {
-    outline: 2px solid #2b2b2b;
+    outline: var(--focus-width) solid var(--color-foreground);
     outline-offset: 2px;
   }
 
@@ -9126,7 +9129,7 @@ html[data-motion-style='heritage'] {
   html[data-motion-style='heritage'] .button:focus-visible,
   html[data-motion-style='heritage'] input:focus-visible,
   html[data-motion-style='heritage'] select:focus-visible {
-    outline: 2px solid #b5885c;
+    outline: var(--focus-width) solid var(--color-foreground);
     outline-offset: 3px;
   }
 }
