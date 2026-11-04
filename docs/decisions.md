@@ -229,3 +229,15 @@ Registro de decisiones importantes del tema.
   - Ejecución de `git-filter-repo` v2.47.0 mediante 10 reglas contextuales precisas (`filter-repo-rules.txt`): 1 sustitución literal para token único y 9 reglas regex contextuales para proteger números genéricos e inocentes en archivos del tema (`tests/vendor/axe.min.js`, reportes JSON, coordenadas SVG y configuración).
   - Verificación exhaustiva: conteo final de credenciales en ramas reescritas (`master`, `sprint/7B`, `sprint/F0`, `fix/argon-recently-viewed-edition`) y tags es estrictamente cero (0).
   - Publicación mediante force push a `origin` en todas las ramas y tags, sincronización del árbol local de trabajo y emisión de avisos de resincronización obligatoria para Claude y GPT.
+
+
+## 2026-11-04: Cierre del Lote 0, empaquetado canónico y BOARD (D19 a D24, Johandry)
+
+Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-LOTE-0-CIERRE-001.md` (D19) y `agent-comms/outbox-claude/CLAUDE-DECISION-LOTE-0-002.md` (D20 a D24). D1 a D18 están en `CLAUDE-DECISION-0-05-P3-001.md`, `CLAUDE-DECISION-0-05-P3-002.md` y `CLAUDE-DECISION-AUTONOMIA-001.md`; D19 a D24, en los dos citados. Esa numeración es distinta de la D1/D2/D10 de octubre de arriba.
+
+- **D19:** la R-0 vigente es `GEMINI-REVIEW-LOTE-0-R0-002` (aceptado condicional, no se repite). El cierre del Lote 0 lo verifica un subagente Opus nuevo (`CLAUDE-REVIEW-LOTE-0-CIERRE-001`) sobre las condiciones C-R0-1 a C-R0-4.
+- **D20:** se usan la R-0, la ficha y el script de Antigravity subidos en `1c7aec0`.
+- **D21:** Johandry ordenó publicar en `scripts/` un empaquetador determinista, generar el ZIP dos veces y fijar ese SHA-256 como canónico; `79ff3961…` queda como referencia histórica no reproducible. Implementado en `scripts/package-theme-zip.mjs`; hash fijado `f001627e…e585` tras doble generación y revisión CLAUDE-REVIEW-LOTE-0-ZIP-001 (ACEPTADO). `agent-comms/outbox-gemini/package-reproducible-zip.py` es la referencia de método de D20; su hash difiere (fecha y nivel de compresión).
+- **D22:** sin credenciales, solo trabajo que no necesita tienda; Lote A en la rama `lote-a`.
+- **D23:** D-01, D-01-N y D-01-L son entregables en el repo con parada para importación por Johandry; C-02 la crea Johandry; C-04-R es borrador pendiente de su aprobación; C-04-P retira las plantillas de documentación del paquete sin borrarlas del repo.
+- **D24:** `agent-comms/BOARD.md` lo escribe Claude como único escritor, con revisión de un subagente Opus de contexto limpio. Modifica `AGENTS.md:84` y `AGENTS.md:96` sin editarlos.

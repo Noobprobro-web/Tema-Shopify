@@ -18,24 +18,28 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - D19 registrada (`CLAUDE-DECISION-LOTE-0-CIERRE-001.md`): R-0 vigente `GEMINI-REVIEW-LOTE-0-R0-002` (no se repite) y cierre del Lote 0 por `CLAUDE-REVIEW-LOTE-0-CIERRE-001`.
 - Reconocimiento del plan V4.1 (`agent-comms/outbox-gpt/GPT-PLAN-IMPLEMENTACION-SARTORIAL-001-v4.1.md`).
 - Punto 6b confirmado: Theme Check (CLI 4.8.0, offline) imprime "92 files inspected with no offenses found": inspecciona los 90 `.liquid`/`.json` del paquete más `package.json` y `package-lock.json` de la raíz. Los 3 de 93 no inspeccionados son `assets/base.css`, `assets/product-zoom.js` y `assets/theme.js` (glob `**/*.{liquid,json}` en `node_modules/@shopify/cli/dist/chunk-F3NYCSXT.js:253`). Paquete: assets 3, config 2, layout 2, locales 3, sections 35, snippets 21, templates 18, listings 9.
-- Pull fast-forward a `1c7aec0` (Noobprobro-web): añade en `agent-comms/outbox-gemini/` la R-0 `GEMINI-REVIEW-LOTE-0-R0-002.md` (aceptado condicional; condiciones: ficha, ZIP regenerable, fixture de suscripción, previews Imprint/Archive, y corregir `scripts/gate5-complete-verification.mjs:88` antes de usarlo como evidencia de tienda), la ficha `GEMINI-FICHA-LOTE-0-BASE-001.md` (SHA `fbdf462`, 93 archivos, manifest SHA-256, política LF) y `package-reproducible-zip.py`. Ese script, ejecutado aquí, da 289834 bytes y SHA-256 `3629d9d4…fc44e`, no `79ff3961…`.
+- Pull fast-forward a `1c7aec0` (Noobprobro-web): añade en `agent-comms/outbox-gemini/` la R-0 `GEMINI-REVIEW-LOTE-0-R0-002.md` (aceptado condicional; 4 condiciones de cierre (C-R0-1..4): ficha, ZIP regenerable, fixture de suscripción, previews Imprint/Archive; más el hallazgo §7e: corregir `scripts/gate5-complete-verification.mjs:88` antes de usarlo como evidencia de tienda), la ficha `GEMINI-FICHA-LOTE-0-BASE-001.md` (SHA `fbdf462`, 93 archivos, manifest SHA-256, política LF) y `package-reproducible-zip.py`. Ese script, ejecutado aquí, da 289834 bytes y SHA-256 `3629d9d4…fc44e`, no `79ff3961…`.
 - D20 a D24 registradas (`CLAUDE-DECISION-LOTE-0-002.md`): D20 pull y uso de R-0, ficha y método; D21 empaquetador determinista propio y hash canónico (`79ff3961` es referencia histórica no reproducible); D22 trabajo sin tienda y rama `lote-a`; D23 D-01/D-01-N/D-01-L, C-02, C-04-R y C-04-P; D24 `BOARD.md` con Claude como escritor único.
+- Empaquetador determinista `scripts/package-theme-zip.mjs` (D21): C-R0-2 cumplida; SHA-256 canónico `f001627e44022b5731e8fe04413def41aa3b2e4331b193cc8be184582e2ce585`, huella de contenido `02bd3bc8d99c8c7ee1be8a87358139144bccbd0986d15525a43b49506ec9df34`; ACEPTADO (CLAUDE-REVIEW-LOTE-0-ZIP-001).
+- gate5 R-0 §7e corregido y ACEPTADO (CLAUDE-REVIEW-0-05-P3-002).
+- `BOARD.md` reconciliado (B3 resuelto en lo documental) y ACEPTADO (CLAUDE-REVIEW-LOTE-0-BOARD-001).
+- `docs/decisions.md` con D19 a D24.
 
 ## En curso
 
-- Empaquetador determinista en `scripts/` (D21): fecha de committer UTC del último commit que toca las rutas empaquetadas, blobs de git en LF, orden alfabético, permisos y compresión fijos; generar el ZIP dos veces y fijar el SHA-256 canónico.
-- Reconciliación de `BOARD.md` (D24): Claude como escritor único, revisión por subagente Opus de contexto limpio.
+- Siguiente: Lote A sin tienda en rama `lote-a` (R-D de cada tarea antes de implementar).
 
 ## Pendiente
 
 Plan de ejecución sin tienda (D22, D23):
 
-- Lote 0: empaquetador y ZIP canónico; `BOARD.md`; revisión de cierre parcial `CLAUDE-REVIEW-LOTE-0-CIERRE-001` (subagente Opus nuevo, contexto limpio), limitada a las condiciones de la R-0 `GEMINI-REVIEW-LOTE-0-R0-002`:
+- Lote 0: empaquetador y ZIP canónico; `BOARD.md`; revisión de cierre parcial `CLAUDE-REVIEW-LOTE-0-CIERRE-001` (subagente Opus nuevo, contexto limpio), limitada a las cuatro condiciones de D19, C-R0-1 a C-R0-4 (correspondencia con R-0 §7: C-R0-1 = a, C-R0-2 = b, C-R0-3 = d, C-R0-4 = c):
   - C-R0-1: ficha `GEMINI-FICHA-LOTE-0-BASE-001.md` (ya en el clon).
   - C-R0-2: ZIP regenerable desde el empaquetador versionado; hash canónico nuevo según D21.
   - C-R0-3: previews de Imprint y Archive como temas no publicados (espera credenciales).
   - C-R0-4: fixture de suscripción (lo crea Johandry; si no existe, cerrar con «pendiente de Johandry»).
-  - Hallazgo de la R-0: corregir `scripts/gate5-complete-verification.mjs:88` antes de usarlo como evidencia de tienda.
+- Lote 0: cierre pendiente de C-R0-3 (previews, esperan credenciales) y C-R0-4 (fixture, Johandry); C-R0-1 (ficha) y C-R0-2 (ZIP) cumplidas.
+- P3 opcionales de gate5 para antes de la primera ejecución en tienda: (1) quitar el `browser.close()` duplicado dentro de `runChecks`; (2) limitar con tiempo máximo la espera de `browser.close()` en el `finally`; (3) rechazar en la validación rutas de colección/producto cuyo último tramo sea `password` o `challenge`.
 - Lote A en la rama `lote-a` (desde la cabeza de `lote0/base-09f8342`; integrar con merge sin force lo que llegue al Lote 0): A-02, C-08, B-02, A-01 (código), A-03 (código). Pruebas de tienda como «código completo» hasta la sesión con credenciales.
 - Lote B: código sin tienda.
 - Lote C: lo que no necesita tienda, incluidos C-04-P (excluir `templates/page.documentation.json` y `templates/page.support.json` del ZIP sin borrarlas del repo) y C-04-R (borrador de versión y release notes para que Johandry apruebe al final).

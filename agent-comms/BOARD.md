@@ -1,24 +1,119 @@
-# BOARD.md: Tablero Maestro de Coordinación y Estado en Tiempo Real
+# BOARD.md: Tablero Maestro de Coordinación y Estado
 
 ```text
 Ruta estable: agent-comms/BOARD.md
-Único escritor autorizado: Gemini Flash 3.8 High (coordinación con Claude en mando técnico)
-Líder Técnico & Estratégico Vigente: Claude (Opus 5.5 Extra) — Delegación expresa de Johandry (CLAUDE-HANDOFF-LEAD-001)
-Lectura obligatoria para: Johandry, Claude (Opus 5.5 Extra), GPT-6 Sol Max / Astra, Gemini
-Última actualización: 2026-10-22T20:35:00Z (CIERRE DEFINITIVO DE AJUSTES AUDITORÍA GOOGLE AI STUDIO 96/100 -> 100%)
-Última actualización técnica: 2026-10-22 (Compuertas 8/8 en verde, 0 ofensas, 0 huérfanas, ZIP Sartorial-1.0.0 sin listings/)
-Estado general: AUDITORÍA GOOGLE AI STUDIO 96/100 [APROBADO PARA SUBMISSION] — CIERRE DEFINITIVO DE OBSERVACIONES P0, P1 Y P2. Paquete de producción Sartorial-1.0.0.zip regenerado con estricta contención de las 7 carpetas Shopify OS 2.0 (excluyendo listings/), recientemente-viewed.liquid vinculado a settings dinámicos, páginas de documentación y soporte armonizadas a 'Imprint', y paridad total de variantes JSON en featured-product.liquid.
-Frentes Recién Sincronizados y Verificados:
-  1) P0 (EMPAQUETADO DISTRIBUIBLE): .shopifyignore y scripts/package.mjs aíslan la carpeta listings/ durante gates:package. El archivo Sartorial-1.0.0.zip contiene exclusivamente las 7 carpetas OS 2.0 (assets, config, layout, locales, sections, snippets, templates), previniendo rechazos en el uploader de Shopify.
-  2) P1 (RECENTLY-VIEWED DINÁMICO): En sections/recently-viewed.liquid, vinculadas show_secondary_image, show_vendor y show_quick_add a section.settings.*.
-  3) P2 (ARMONIZACIÓN IMPRINT): En templates/page.documentation.json (doc_preset_imprint, título 'Imprint') y templates/page.support.json ('Sartorial, Imprint and Archive') armonizados para consistencia integral de marca.
-  4) P2 (PARIDAD VARIANTES JSON): En sections/featured-product.liquid, añadidos price_cents y compare_at_price_cents a data-variant-json para paridad exacta con main-product.liquid.
-  5) COMPUERTAS ESTÁTICAS 8/8 EXIT 0: Theme Check 92 archivos con 0 ofensas, 0 huérfanas en locales, 529 JSON válidos, 22 contratos hooks sin roturas.
-Frentes en Ejecución Activa:
-  - Carga final del paquete Sartorial-1.0.0.zip en Shopify Theme Store Partner Dashboard.
+Última actualización: 2026-11-04 (reconciliación del bloqueo B3 del plan V4.1; base HEAD 8e1646e)
+Escritor único: Claude (D24 de CLAUDE-DECISION-LOTE-0-002.md, decisión de Johandry del 2026-11-04).
+Revisión de este archivo: subagente Opus de contexto limpio (D24, D11).
+Cambio de regla: D24 modifica AGENTS.md:84 y :96 (RULES.md no fija escritor); AGENTS.md no se editó.
+Rama: lote0/base-09f8342 (ancestro 09f8342, comprobado con git merge-base --is-ancestor)
+Lectura obligatoria para: Johandry, Claude, Antigravity (Gemini), GPT
+Estado general: Lote 0 con R-0 "aceptado condicional"; sin credenciales de tienda en este entorno; trabajo sin tienda en curso (D22).
 ```
 
+Alcance de este archivo: las secciones 0.1 a 0.6 son el estado vigente y se reescriben en cada actualización. Las secciones 1 a 15 son registro histórico hasta 2026-10-22 y no describen el estado actual; donde contradicen a la sección 0, manda la sección 0 (ver 0.3 y la nota 15.3).
+
 ---
+
+## 0.1 Autoridad vigente
+
+Fuente de cada punto entre paréntesis (`agent-comms/outbox-claude/`).
+
+| Rol | Vigente hoy | Fuente |
+|---|---|---|
+| Johandry / Ruiz Digital | Dueño: prioridades, aprobaciones, cambios de alcance, aceptación a posteriori de ediciones, importación de entregables D, fixture de suscripción (D15), aprobación final de C-04-R, envío a la Theme Store | `AGENTS.md`; D1, D6; D15; D18, D23 (CLAUDE-DECISION-LOTE-0-002.md) |
+| Claude | Único escritor del worktree (D2) y de `BOARD.md` (D24); ejecuta el plan V4.1 en orden y sin pedir aprobación entre lotes (D9) | CLAUDE-DECISION-0-05-P3-001.md (D2); CLAUDE-DECISION-AUTONOMIA-001.md (D9); CLAUDE-DECISION-LOTE-0-002.md (D24) |
+| Revisión independiente | La hace un agente distinto de Claude (D3); por tarea de código y por lote, un subagente Opus nuevo de contexto limpio que no escribió ese código (D11). D11, D19 y D24, posteriores, fijan como revisor un subagente Opus nuevo que no escribió lo revisado; la R-0 y la revisión final siguen en Antigravity (D8, D18) | D3; D8; D11; D18; D19; D24 |
+| Antigravity (Gemini) | R-0 del Lote 0 (D8, D19); ficha y método de empaquetado (D20); revisión final antes del envío (D18). Ya no escribe `BOARD.md` (D24) | D8; D19; D20; D18 |
+| GPT | Plan V4.1 y auditoría de producto (`AGENTS.md`); ya no es escritor del worktree (D2) | `AGENTS.md`; D2 |
+| Modo autónomo | D9 a D18: orden del plan, paradas (D10), revisión Opus (D11), git (D12), tiendas (D13), estado vivo y commit por tarea (D16), reglas del plan (D17), cierre (D18) | CLAUDE-DECISION-AUTONOMIA-001.md |
+
+Paradas obligatorias (D10): hallazgo P0 o P1 nuevo; cambio fuera del plan o de lo registrado; un gate que falla dos veces seguidas; escritura en tiendas distinta de subir temas no publicados; cualquier duda sobre credenciales.
+
+Prohibiciones vigentes: no abrir `.secrets`; sin escrituras en tiendas salvo subir temas no publicados a `tema-qkqpke0j` (D13), y ninguna mientras no haya credenciales (D22); sin ejecutar gate5 contra tiendas (D5; además, R-0 §7e); sin force y sin tocar `master` (D12); el literal de contraseña cuenta 0 en lo que se publica, sin imprimirlo (D4, D12); no usar `b45e913` ni `c4dca23` ni publicar refs locales anteriores a la reescritura (nota de D4).
+
+## 0.2 Base
+
+- Rama de trabajo: `lote0/base-09f8342`; base `09f8342` (ancestro comprobado: `git merge-base --is-ancestor 09f8342 HEAD` sale 0). `origin/master` sigue en `09f8342` (CLAUDE-DECISION-LOTE-0-002.md, afirmación 10).
+- Commits del Lote 0 sobre la base: `91f6e9f` (tres arreglos, copy aprobado, 0-05-P3 parcial), `790354c` (documentos del plan), `bd779a0` (pruebas P1-P7 y registro D1-D5), `fbdf462` (D6-D8), `ba97b5e` (D9-D18), `6d92ab2` (D19), `121d50f` (estado vivo), `1c7aec0` (R-0, ficha y script de Antigravity), `8e1646e` (D20-D24).
+- Paquete de tema: 93 archivos (assets 3, config 2, layout 2, locales 3, sections 35, snippets 21, templates 18, listings 9) (CLAUDE-CLOUD-STATUS.md, punto 6b; GEMINI-FICHA-LOTE-0-BASE-001.md §3).
+- El ZIP incluye `listings/`: el commit `88b7334` ("revert(submission): restore listings/ in theme package") revirtió la exclusión de `a34bd19`.
+- Política de fin de línea: blobs de git en LF (GEMINI-FICHA-LOTE-0-BASE-001.md §2).
+- Hash del ZIP: `79ff3961e2d589a25c7b1c6a01aef01d668ffd58f7caafac544fa08df9dbfe0f` es referencia histórica no reproducible (D21). El hash canónico es `f001627e44022b5731e8fe04413def41aa3b2e4331b193cc8be184582e2ce585`, del empaquetador `scripts/package-theme-zip.mjs` (generado dos veces; ACEPTADO en CLAUDE-REVIEW-LOTE-0-ZIP-001). El `package-reproducible-zip.py` de Antigravity ejecutado en este entorno dio 289834 bytes y SHA-256 `3629d9d4…fc44e`, no `79ff3961…` (CLAUDE-DECISION-LOTE-0-002.md, afirmación 6).
+
+### Reconciliación de la línea 16 con la §15.2 (bloqueo B3, V4.1:146,166,374)
+
+- Qué decía la línea 16 (BOARD de `09f8342`, idéntico al de `HEAD` antes de esta edición: `git diff 09f8342 HEAD -- agent-comms/BOARD.md` vacío): "COMPUERTAS ESTÁTICAS 8/8 EXIT 0: Theme Check 92 archivos con 0 ofensas, 0 huérfanas en locales, 529 JSON válidos, 22 contratos hooks sin roturas". La revisión CLAUDE-REVIEW-LOTE-0-R0-001.md (fila 6d y bloqueo B3) y el plan V4.1 piden reconciliarla con la §15.2 del BOARD de `09f8342`.
+- Qué dice la fuente: la §15.2 es del mismo `agent-comms/BOARD.md` (en `09f8342`, líneas 714-730). Trata el saneamiento de seguridad del 2026-10-22T20:30:00Z (§15.2-D1 rotación de contraseñas de storefront, §15.2-D2 fallbacks hardcodeados eliminados, §15.2-D10 reescritura de historial con git-filter-repo; numeración de octubre, distinta del registro D1-D24). No contiene conteos de Theme Check: los 92 archivos figuran en la cabecera de la §15 (líneas 673-674) y en la §15.1 punto 5 (línea 708).
+- Cómo queda: las cifras de la línea 16 son de 2026-10-22, anteriores a la reescritura de historial de la §15.2 (línea 16 introducida en `a34bd19`, 2026-10-22T16:18Z, con cabecera y §15 a 16:15Z; la §15.2 la añadió `fc849d5` a las 20:43Z, que solo cambió la hora de la cabecera a 20:35Z). Se reconcilian así:
+  - Theme Check: 92 reportados = 90 archivos de tema `.liquid`/`.json` inspeccionados + `package.json` y `package-lock.json` de la raíz. De los 93 archivos del paquete, 3 no se inspeccionan: `assets/base.css`, `assets/product-zoom.js` y `assets/theme.js` (el glob `**/*.{liquid,json}` no los cubre). Confirmado con Shopify CLI 4.8.0, offline: "92 files inspected with no offenses found" (CLAUDE-CLOUD-STATUS.md, punto 6b). La ficha cuenta 90 sobre el ZIP extraído, sin `package*.json` (GEMINI-FICHA-LOTE-0-BASE-001.md, §1 punto 3). Esos tres archivos son justamente los de los tres arreglos del Lote 0, por lo que Theme Check no los cubre; la sintaxis de los dos `.js` la cubre la compuerta vigente de `package.json` (`scripts.gates:syntax`: `node --check assets/theme.js && node --check assets/product-zoom.js`; no ejecutada aquí); `assets/base.css` no tiene compuerta de sintaxis.
+  - "Sartorial-1.0.0.zip sin listings/" (cabecera de la §15, línea 677): obsoleto, ver el commit `88b7334` y la ficha (9 archivos de `listings/` en el paquete).
+  - 8/8 compuertas, 529 JSON, 22 hooks, 0 huérfanas: declaraciones del 2026-10-22 que esta reconciliación no volvió a medir. Se conservan como históricas, no como estado actual.
+  - Línea 16 antigua: sustituida por este apartado. Las secciones 1 a 15 siguen como registro.
+  - Contenido de la §15.2: §15.2-D1 (rotación de octubre) sustituida por la rotación repetida M2 (decidida 2026-10-31; GPT-DECISION-CMP-01-M2-001.md:34-36), verificada por Johandry el 2026-11-02 en las cuatro tiendas (CLAUDE-HANDOFF-CLOUD-001.md:28; R-0 C7). §15.2-D2 (fallbacks eliminados) era inexacta en `09f8342`: la línea 5 de los dos gate5 conservaba `||` con un marcador sin comillas (CMP-02); se corrigió en 0-05-P3 (`91f6e9f`/`bd779a0`, R-0 C1). §15.2-D10 (cero credenciales en ramas reescritas) no se sostiene: el literal sigue en la historia publicada `09f8342` (CLAUDE-REPORT-0-05-P3-001.md:19); la mitigación es M2.
+  - B3: resuelto en lo documental; ACEPTADO (CLAUDE-REVIEW-LOTE-0-BOARD-001).
+
+## 0.3 Estado del plan V4.1 por lote
+
+Plan: `agent-comms/outbox-gpt/GPT-PLAN-IMPLEMENTACION-SARTORIAL-001-v4.1.md`. Orden y ramas: D9, D12; nomenclatura de revisiones en CLAUDE-CLOUD-STATUS.md.
+
+| Lote | Estado a 2026-11-04 | Fuente |
+|---|---|---|
+| 0 | 0-05-P3 cerrada (`bd779a0`, `fbdf462`). R-0 `GEMINI-REVIEW-LOTE-0-R0-002`: ACEPTADO CONDICIONAL; no se repite (D19). Cierre del Lote 0 pendiente de las condiciones de abajo, que verificará un subagente Opus nuevo como `CLAUDE-REVIEW-LOTE-0-CIERRE-001` (D19) | GEMINI-REVIEW-LOTE-0-R0-002.md §1, §7; D19 |
+| A | Sin empezar en tienda. Código sin tienda en la rama `lote-a`, creada desde la cabeza de `lote0/base-09f8342` e integrando el Lote 0 con merge sin force; la rama aún no existe a 8e1646e. Tareas: A-02, C-08, B-02, A-01 (código), A-03 (código). Las pruebas de tienda quedan como "código completo" hasta la sesión con credenciales (D22) | CLAUDE-DECISION-LOTE-0-002.md D22; CLAUDE-CLOUD-STATUS.md |
+| B | Código sin tienda, en la rama `lote-b` partiendo de `lote-a` (D12). Sin empezar | CLAUDE-CLOUD-STATUS.md |
+| C | Lo que no necesita tienda, en `lote-c`. C-02 depende de la tienda limpia que crea Johandry; C-04-R es borrador de versión y notas de release para que Johandry apruebe al final; C-04-P retira `templates/page.documentation.json` y `templates/page.support.json` del paquete y las conserva en el repo (D23). Sin empezar | D23 |
+| D | Entregables en el repo (CSV de importación, menús, lista de fotos, idioma) para D-01, D-01-N y D-01-L, y parada para que Johandry los importe (D23). Rama `lote-d`; al terminar, PR hacia `master` sin fusionar y nombre de revisión R-Demo (D12; CLAUDE-CLOUD-STATUS.md). Sin empezar | D23, D12 |
+
+Condiciones de cierre (D19: C-R0-1 a C-R0-4; la columna R-0 §7 da la letra de GEMINI-REVIEW-LOTE-0-R0-002.md):
+
+| Condición | R-0 §7 | Estado | Fuente |
+|---|---|---|---|
+| C-R0-1 Ficha | a | Entregada: `GEMINI-FICHA-LOTE-0-BASE-001.md` (commit `1c7aec0`) | D19(b); D20 |
+| C-R0-2 ZIP regenerable | b | Cumplida. Empaquetador `scripts/package-theme-zip.mjs`; SHA-256 canónico `f001627e44022b5731e8fe04413def41aa3b2e4331b193cc8be184582e2ce585` y huella de contenido `02bd3bc8d99c8c7ee1be8a87358139144bccbd0986d15525a43b49506ec9df34`; cumplida; empaquetador ACEPTADO (CLAUDE-REVIEW-LOTE-0-ZIP-001). Política de `listings/`: incluido en el paquete (`88b7334`; 0.2). Reemplaza el hash `79ff3961…` que D19(b) citaba | D21; CLAUDE-REVIEW-LOTE-0-ZIP-001.md |
+| C-R0-3 Previews Imprint y Archive como temas no publicados | d | Esperan credenciales | D13, D22 |
+| C-R0-4 Fixture de suscripción | c | Pendiente de Johandry; si no existe, el Lote 0 se cierra con "pendiente de Johandry" y solo A-01 queda en espera. A 2026-11-02 sin planes ni app de suscripción | D15, D19(c); CLAUDE-CLOUD-STATUS.md bloqueo 6 |
+
+Otros pendientes del Lote 0 (no son condición de cierre por D19):
+
+| Pendiente | Estado | Fuente |
+|---|---|---|
+| Hallazgo R-0 §7e (gate5) | `scripts/gate5-complete-verification.mjs:88` imprimía "Acceso al storefront concedido" sin comprobar que `input[type="password"]` desapareció. Corregido en ambos gate5 (`assertUnlocked`, apertura del modal de contraseña, `try/finally`); ACEPTADO en CLAUDE-REVIEW-0-05-P3-002 tras re-verificación. El arnés sigue NO apto como evidencia de tienda hasta ejecutarlo en la tienda de desarrollo (pendiente: confirmar cookie `storefront_digest`, redirección de `/password` y apertura real del modal) | GEMINI-REVIEW-LOTE-0-R0-002.md §7e |
+| B3 (este archivo) | Resuelto en lo documental; ACEPTADO (CLAUDE-REVIEW-LOTE-0-BOARD-001) | CLAUDE-REVIEW-LOTE-0-R0-001.md, tabla de bloqueos |
+
+## 0.4 Bloqueos y esperas actuales
+
+1. Credenciales ausentes en el entorno (`SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD`, `SHOPIFY_FLAG_STORE`; solo se comprueban nombres): llegan en una sesión nueva (D22). Bloquean las previews de Imprint y Archive (C-R0-3), B2, A-03 (medición), R-A, R-B, R-Demo y Lighthouse. Red a `*.myshopify.com` sin verificar.
+2. Fixture de suscripción (A-01): lo crea Johandry (D15).
+3. Previews de Imprint y Archive: dependen del punto 1 (D13: solo temas no publicados en `tema-qkqpke0j`).
+4. Importación de los entregables D-01, D-01-N y D-01-L, tienda limpia C-02 y aprobación final de C-04-R: Johandry (D23).
+
+Resueltos: bloqueos 1, 2, 4 y 5 de CLAUDE-CLOUD-STATUS.md (D20, D21, D23, D24); B3 de CLAUDE-REVIEW-LOTE-0-R0-001 (esta edición).
+
+## 0.5 Asignaciones activas
+
+| Agente | Tarea | Estado |
+|---|---|---|
+| Claude | Empaquetador ACEPTADO (D21); gate5 §7e ACEPTADO; reconciliación de BOARD ACEPTADA (CLAUDE-REVIEW-LOTE-0-BOARD-001); luego Lote A sin tienda | En curso, con otras instancias de Claude coordinadas por la sesión principal (D2) |
+| Subagente Opus de contexto limpio | Revisión de este BOARD (D24) y `CLAUDE-REVIEW-LOTE-0-CIERRE-001` (D19) | Pendiente |
+| Antigravity | Revisión final antes del envío (D18) | Pendiente, tras el Lote D |
+| Johandry | Credenciales en sesión nueva, fixture, importaciones D, aprobación de C-04-R, envío | Pendiente |
+
+## 0.6 Punteros
+
+- Plan: `agent-comms/outbox-gpt/GPT-PLAN-IMPLEMENTACION-SARTORIAL-001-v4.1.md`
+- Estado vivo: `agent-comms/outbox-claude/CLAUDE-CLOUD-STATUS.md`
+- Decisiones: `CLAUDE-DECISION-0-05-P3-001.md` (D1-D5), `CLAUDE-DECISION-0-05-P3-002.md` (D6-D8), `CLAUDE-DECISION-AUTONOMIA-001.md` (D9-D18), `CLAUDE-DECISION-LOTE-0-CIERRE-001.md` (D19), `CLAUDE-DECISION-LOTE-0-002.md` (D20-D24), todas en `agent-comms/outbox-claude/`
+- R-0: `agent-comms/outbox-gemini/GEMINI-REVIEW-LOTE-0-R0-002.md`; revisión previa: `agent-comms/outbox-claude/CLAUDE-REVIEW-LOTE-0-R0-001.md`
+- Ficha: `agent-comms/outbox-gemini/GEMINI-FICHA-LOTE-0-BASE-001.md`
+- Reglamento: `agent-comms/RULES.md`; gobierno: `AGENTS.md`
+- Informe de esta reconciliación: `agent-comms/outbox-claude/CLAUDE-REPORT-LOTE-0-BOARD-001.md`
+
+---
+
+# Registro histórico (hasta 2026-10-22)
+
+Las secciones 1 a 15 conservan lo registrado por Gemini y Claude antes del Lote 0. Solo se añadieron notas de vigencia; la tabla de la sección 2 se retiró (ver `git show 09f8342:agent-comms/BOARD.md`, líneas 162-172). Quedan obsoletos, entre otros: el escritor único "Gemini" y el liderazgo temporal de la cabecera antigua; la tabla de asignaciones de la sección 2 (sustituida por la 0.5); la sección 5 y el paso 4 de la sección 14.2 (el envío lo hace Johandry tras la revisión final de Antigravity, D18); y las menciones a `Sartorial-1.0.0.zip` "sin listings/" (ver 0.2).
 
 ## 1. Sprints Cerrados y Certificados
 
@@ -159,15 +254,9 @@ Frentes en Ejecución Activa:
 
 ---
 
-## 2. Asignaciones Activas por Agente
+## 2. Asignaciones Activas por Agente (histórico, 2026-10)
 
-| Agente | Rol Actual | Tarea en Curso | Estado | Entregable Esperado |
-|---|---|---|---|---|
-| **Johandry / Ruiz Digital** | Dueño / Negocio | 1) Retirar protección con contraseña en las tiendas demo (`sartorial-atelier`, `sartorial-edition`, `sartorial-archive` y `tema-qkqpke0j`) vía Online Store > Preferences > Restrict store access, o proporcionar la clave a Claude/GPT para inspección de navegador. 2) Activar/revisar cuota de Formspree y ticket de prueba. | 🟢 Activo | Retiro de contraseña demo / Clave storefront |
-| **Claude (Opus 5.5 Extra)** | Líder Técnico & Implementador Principal | Auditoría visual de Storefront en tiendas demo vía extensión de navegador. Repositorio en GitHub sincronizado en commit `e4157d0` con `layout/password.liquid` oficial integrado y 100% compuertas estáticas en verde. Introducir contraseña en navegador para inspeccionar Home, PLP, PDP y Cart Drawer en los 3 presets. | 🟢 Listo para auditoría | Informe de auditoría visual en navegador / `outbox-claude` |
-| **Claude (Opus 5 1M)** | Trazabilidad y Compuertas | MOTION-002 documentado; `.theme-check.yml` creado; ledger en 60 filas; compuertas estáticas validadas. | 🟢 Entregado | CLAUDE-REPORT-MOTION-002.md / `.theme-check.yml` / Ledger |
-| **GPT-6 Sol Max / Luna** | Auditor Senior de Producto & UX | Auditoría de experiencia y consistencia comercial en tiendas demo bajo el commit oficial `e4157d0` y layout de contraseña minimalista. | 🟢 Activo | Dictamen de consistencia comercial |
-| **Gemini Flash 3.8 High** | Arquitecto Consultor & Soporte | Sincronización de GitHub a `e4157d0`, creación de `layout/password.liquid`, vinculación en `templates/password.json`, certificación de compuertas estáticas al 100% y actualización de `BOARD.md`. | 🟢 Activo | Supervisión, compuertas y BOARD.md |
+Tabla sustituida por la sección 0.5. Contenía tareas de octubre (retirar la contraseña de las demos, auditoría visual en navegador sobre `e4157d0`) que ya no son vigentes.
 
 ---
 
@@ -246,6 +335,8 @@ Verificación realizada: estática (las 8 compuertas, 7 en verde) más las medic
 | **P2** | Valorar sacar el repositorio de la carpeta sincronizada por OneDrive. | Un repositorio de trabajo con `.git` dentro de una carpeta de sincronización continua es una fuente de corrupción y de copias no gobernadas. |
 
 ---
+
+> Nota 2026-11-04: histórico. El envío a la Theme Store lo hace Johandry tras la revisión final de Antigravity (D18); el estado vigente está en 0.3.
 
 ## 5. Próximos Pasos para la Submission a Shopify Theme Store
 
@@ -728,3 +819,9 @@ Estado General: REQUISITOS THEME STORE CUMPLIDOS AL 100% — SUBMISSION READY
      - Publicación exitosa con `git push --force --all origin` y `git push --force --tags origin`.
      - Árbol local de trabajo resincronizado y limpiado.
   4. **Notificación a Agentes:** Emitidos avisos formales en `agent-comms/inbox-claude/CLAUDE-NOTICE-HISTORY-REWRITE.md` y `agent-comms/inbox-gpt/GPT-NOTICE-HISTORY-REWRITE.md` para instruir la resincronización de sus copias locales.
+
+### 15.3 Reconciliación 2026-11-04 (bloqueo B3)
+
+La línea 16 de la cabecera antigua y la cabecera de esta sección 15 se reconcilian en 0.2 de este tablero: Theme Check 92 reportados = 90 archivos de tema `.liquid`/`.json` + `package.json` + `package-lock.json`; 3 de los 93 archivos del paquete no se inspeccionan (`assets/base.css`, `assets/product-zoom.js`, `assets/theme.js`); confirmado con CLI 4.8.0 offline ("92 files inspected with no offenses found", CLAUDE-CLOUD-STATUS.md). La afirmación "ZIP sin `listings/`" de esta sección quedó obsoleta por el commit `88b7334`. Las demás cifras de 2026-10-22 no se remidieron.
+
+Contenido de la §15.2: §15.2-D1 (rotación de octubre) sustituida por la rotación repetida M2 (decidida 2026-10-31; GPT-DECISION-CMP-01-M2-001.md:34-36), verificada por Johandry el 2026-11-02 en las cuatro tiendas (CLAUDE-HANDOFF-CLOUD-001.md:28; R-0 C7). §15.2-D2 (fallbacks eliminados) era inexacta en `09f8342`: la línea 5 de los dos gate5 conservaba `||` con un marcador sin comillas (CMP-02); se corrigió en 0-05-P3 (`91f6e9f`/`bd779a0`, R-0 C1). §15.2-D10 (cero credenciales en ramas reescritas) no se sostiene: el literal sigue en la historia publicada `09f8342` (CLAUDE-REPORT-0-05-P3-001.md:19); la mitigación es M2. B3: resuelto en lo documental, sujeto a revisión.
