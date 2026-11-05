@@ -39,6 +39,9 @@ function validateConfiguration() {
         /[\\?#\s%]/u.test(value) || new URL(value, BASE_URL).pathname !== value) {
       fail(`${name} must be a canonical ${prefix} path without query or fragment.`);
     }
+    if (/^(password|challenge)$/i.test(value.split('/').filter(Boolean).pop())) {
+      fail(`${name} must not end in password or challenge.`);
+    }
   }
 }
 
@@ -60,7 +63,22 @@ async function verifyGate5() {
   try {
     return await runChecks(browser);
   } finally {
-    await browser.close().catch(() => {});
+    await closeBrowserWithTimeout(browser, BROWSER_CLOSE_TIMEOUT_MS);
+  }
+}
+
+const BROWSER_CLOSE_TIMEOUT_MS = 30000;
+async function closeBrowserWithTimeout(browser, ms) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`GATE5_CLOSE: browser did not close within ${ms / 1000}s.`)), ms);
+  });
+  try {
+    await Promise.race([browser.close(), timeout]);
+  } catch (err) {
+    console.error(/^GATE5_CLOSE: /.test(err.message) ? err.message : 'GATE5_CLOSE: browser close failed.');
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -342,8 +360,6 @@ async function runChecks(browser) {
   }
   console.log('='.repeat(75));
 
-  await browser.close();
-
   const success = (
     hasSwitcher &&
     pdpAudit.specsAttached &&
@@ -361,6 +377,6 @@ async function runChecks(browser) {
 verifyGate5().then(ok => {
   if (!ok) process.exit(1);
 }).catch(err => {
-  console.error(/^GATE5_(CONFIG|ACCESS): /.test(err.message) ? err.message : 'Gate 5 verification failed.');
+  console.error(/^GATE5_(CONFIG|ACCESS|CLOSE): /.test(err.message) ? err.message : 'Gate 5 verification failed.');
   process.exit(1);
 });

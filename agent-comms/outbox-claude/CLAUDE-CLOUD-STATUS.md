@@ -114,3 +114,4 @@ Espera credenciales o a Johandry:
 5. En una sesión nueva: `npm ci` (`node_modules` está en `.gitignore`); comprobar solo nombres de `SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD` y `SHOPIFY_FLAG_STORE`. La compuerta del literal se deriva en memoria comparando los blobs `09f8342` y HEAD de los documentos CMP-01 en la posición del marcador `[REDACTED_STOREFRONT_PASSWORD]`, sin imprimirlo. Criterio: 0 líneas con literal fuera de `tests/vendor/axe.min.js` y 0 en el rango publicado.
 
 - D28 registrada en `agent-comms/outbox-claude/CLAUDE-DECISION-SESION-003.md`.
+- P3 de gate5 aplicados en `scripts/gate5-complete-verification.mjs`: (1) `browser.close()` duplicado eliminado de `runChecks` (cierre único en el `finally`, línea 66); (2) cierre con tope de 30 s mediante `Promise.race` (líneas 69-84, `GATE5_CLOSE`); (3) rechazo de rutas de colección/producto con último tramo `password` o `challenge` (líneas 42-44). Solo `node --check`; sin ejecución en tienda.
