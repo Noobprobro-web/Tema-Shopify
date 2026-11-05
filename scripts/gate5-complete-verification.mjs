@@ -115,8 +115,17 @@ class Gate5DiagnosticError extends Error {
   }
 }
 
-function safeFailureReason(error) {
+function safeFailureReason(error, checkName = activeCheckName) {
   if (error instanceof Gate5DiagnosticError) return error.reason;
+  if (checkName === 'playwright_import' &&
+      (error?.code === 'MODULE_NOT_FOUND' || error?.code === 'ERR_MODULE_NOT_FOUND')) {
+    return 'MODULE_NOT_FOUND';
+  }
+  if (checkName === 'browser_launch' &&
+      (error?.code === 'ENOENT' || (typeof error?.message === 'string' &&
+        /Executable doesn't exist|browserType\.launch: Executable|\bENOENT\b/u.test(error.message)))) {
+    return 'BROWSER_NOT_INSTALLED';
+  }
   if (error?.name === 'TimeoutError') return 'PLAYWRIGHT_TIMEOUT';
   if (error?.name === 'ReferenceError') return 'REFERENCE_ERROR';
   if (error?.name === 'TypeError') return 'TYPE_ERROR';
@@ -130,6 +139,8 @@ function safeFailureReason(error) {
     if (error.message.startsWith('GATE5_CART_NOT_EMPTY:')) return 'CART_CLEANUP_FAILED';
     if (error.message.startsWith('GATE5_CLOSE:')) return 'BROWSER_SHUTDOWN_FAILED';
   }
+  if (checkName === 'playwright_import') return 'PLAYWRIGHT_IMPORT_FAILED';
+  if (checkName === 'browser_launch') return 'BROWSER_LAUNCH_FAILED';
   if (error?.name === 'Error') return 'UNCLASSIFIED_ERROR';
   return 'UNEXPECTED_ERROR';
 }
@@ -156,10 +167,14 @@ async function recordCheck(name, operation, successResult = 'passed', { allowWhe
     await persistBestEffort();
     return value;
   } catch (error) {
-    const reason = safeFailureReason(error);
+    const reason = safeFailureReason(error, name);
     entry.result = 'failed';
     entry.reason = reason;
-    report.failures.push({ check: name, reason });
+    report.failures.push({
+      check: name,
+      reason,
+      ...(name === 'configuration' && entry.details ? entry.details : {})
+    });
     await persistBestEffort();
     throw new Gate5DiagnosticError(name, reason);
   }
@@ -172,41 +187,48 @@ function markUnrunChecks(reason = 'NOT_RUN_AFTER_EARLIER_FAILURE') {
 }
 
 function validateConfiguration() {
-  const fail = message => { throw new Error(`GATE5_CONFIG: ${message}`); };
+  // Only fixed names and conditions below enter the diagnostic JSON; never input values.
+  // recordCheck preserves this reason in checks/failures and the global failureReason.
+  const fail = (variable, condition) => {
+    checkEntry('configuration').details = { variable, condition };
+    throw new Gate5DiagnosticError('configuration', `CONFIGURATION_${variable}_${condition}`);
+  };
   if (!SHOPIFY_CLI_THEME_TOKEN_PRESENT) {
-    fail('SHOPIFY_CLI_THEME_TOKEN is required by the approved session policy.');
+    fail('SHOPIFY_CLI_THEME_TOKEN', 'REQUIRED');
   }
   if (!STORE_PASSWORD?.trim()) {
-    fail('STOREFRONT_PASSWORD is required.');
+    fail('STOREFRONT_PASSWORD', 'REQUIRED');
   }
   if (!BASE_URL?.trim()) {
-    fail('STOREFRONT_ORIGIN is required.');
+    fail('STOREFRONT_ORIGIN', 'REQUIRED');
   }
   let origin;
   try {
     origin = new URL(BASE_URL);
   } catch {
-    fail('STOREFRONT_ORIGIN must be an HTTPS origin without credentials, path, query or fragment.');
+    fail('STOREFRONT_ORIGIN', 'VALID_HTTPS_ORIGIN_REQUIRED');
   }
   if (origin.protocol !== 'https:' || origin.username || origin.password ||
-      origin.pathname !== '/' || origin.search || origin.hash || origin.origin !== BASE_URL ||
-      BASE_URL !== TARGET_ORIGIN) {
-    fail('STOREFRONT_ORIGIN does not match the authorized Shopify store.');
+      origin.pathname !== '/' || origin.search || origin.hash || origin.origin !== BASE_URL) {
+    fail('STOREFRONT_ORIGIN', 'VALID_HTTPS_ORIGIN_REQUIRED');
+  }
+  if (BASE_URL !== TARGET_ORIGIN) {
+    fail('STOREFRONT_ORIGIN', 'AUTHORIZED_STORE_REQUIRED');
   }
   if (THEME_ID !== TARGET_THEME_ID) {
-    fail('STOREFRONT_THEME_ID does not match the authorized unpublished preview.');
+    fail('STOREFRONT_THEME_ID', 'AUTHORIZED_PREVIEW_REQUIRED');
   }
   for (const [name, value, prefix] of [
     ['STOREFRONT_COLLECTION_PATH', COLLECTION_PATH, '/collections/'],
     ['STOREFRONT_PRODUCT_PATH', PRODUCT_PATH, '/products/']
   ]) {
-    if (!value?.trim()) fail(`${name} is required.`);
+    if (!value?.trim()) fail(name, 'REQUIRED');
     if (!value.startsWith(prefix) || value.length === prefix.length ||
         /[\\?#\s%]/u.test(value) || new URL(value, BASE_URL).pathname !== value) {
-      fail(`${name} must be a canonical ${prefix} path without query or fragment.`);
+      fail(name, 'CANONICAL_PATH_REQUIRED');
     }
     if (/^(password|challenge)$/i.test(value.split('/').filter(Boolean).pop())) {
-      fail(`${name} must not end in password or challenge.`);
+      fail(name, 'PASSWORD_OR_CHALLENGE_SUFFIX_FORBIDDEN');
     }
   }
 }
@@ -361,7 +383,7 @@ async function runChecks(browser) {
   } catch (error) {
     const checkName = error instanceof Gate5DiagnosticError ? error.checkName : activeCheckName;
     const entry = checkEntry(checkName);
-    const reason = safeFailureReason(error);
+    const reason = safeFailureReason(error, checkName);
     if (entry && entry.result !== 'failed') {
       entry.result = 'failed';
       entry.reason = reason;
@@ -383,7 +405,7 @@ async function runChecks(browser) {
           report.cart.noteEmptyVerified = cleanupResult.noteEmpty;
           cleanupCheck.result = 'passed';
         } catch (cleanupError) {
-          const reason = safeFailureReason(cleanupError);
+          const reason = safeFailureReason(cleanupError, 'cart_cleanup');
           cleanupCheck.result = 'failed';
           cleanupCheck.reason = reason;
           report.failures.push({ check: 'cart_cleanup', reason });
@@ -823,7 +845,7 @@ async function runGateWithDiagnosticReport() {
     }));
   } catch (error) {
     const checkName = error instanceof Gate5DiagnosticError ? error.checkName : activeCheckName;
-    const reason = safeFailureReason(error);
+    const reason = safeFailureReason(error, checkName);
     const entry = checkEntry(checkName);
     if (entry && entry.result !== 'failed') {
       entry.result = 'failed';
@@ -851,7 +873,7 @@ async function runGateWithDiagnosticReport() {
     diagnosticCheck.reason = report.run.diagnosticWriteFailed ? 'DIAGNOSTIC_REPORT_WRITE_FAILED' : null;
     if (report.run.diagnosticWriteFailed) {
       report.run.result = 'failed';
-      report.run.failureReason = 'DIAGNOSTIC_REPORT_WRITE_FAILED';
+      report.run.failureReason ??= 'DIAGNOSTIC_REPORT_WRITE_FAILED';
       report.Estado = 'failed';
       process.exitCode = 1;
     }
@@ -870,7 +892,7 @@ async function runGateWithDiagnosticReport() {
         diagnosticCheck.result = 'failed';
         diagnosticCheck.reason = 'DIAGNOSTIC_REPORT_WRITE_FAILED';
         report.run.result = 'failed';
-        report.run.failureReason = 'DIAGNOSTIC_REPORT_WRITE_FAILED';
+        report.run.failureReason ??= 'DIAGNOSTIC_REPORT_WRITE_FAILED';
         report.Estado = 'failed';
         process.exitCode = 1;
       }

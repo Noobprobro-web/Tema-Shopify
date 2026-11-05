@@ -8,10 +8,11 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## Rama actual
 
-Checkout detached en `C:\dev\TS-lote-d`; historial basado en `origin/lote-d` `9fc1394`, con publicación a `origin/lote-d`.
+Worktree activo en `C:\Users\Johan\Documents\Drive\Tema Shopify\.worktrees\lote-d`; rama `lote-d`, HEAD `3c9f701`.
 
 ## Hecho
 
+- Preparación anterior de dependencias en `C:\dev\TS-lote-d`, según la verificación del coordinador: allí `npm ci` terminó con exit 0; `package.json` y `package-lock.json` quedaron sin cambios; `require.resolve('playwright')` resolvió dentro de ese worktree; `npx playwright install chromium` terminó con exit 0. Allí se verificó Playwright Chromium en el contexto elevado elegido para Gate 5, pero no en el sandbox normal; cualquier ejecución autorizada de Gate 5 debe usar ese mismo contexto elevado. La repetición de `npm ci` en la ruta actual `C:\Users\Johan\Documents\Drive\Tema Shopify\.worktrees\lote-d` sigue pendiente y no tiene resultado registrado. La preparación anterior no acredita el entorno de la ruta actual, una ejecución de Gate 5 ni acceso a tienda. La clasificación diagnóstica distingue `MODULE_NOT_FOUND` en `playwright_import` y `BROWSER_NOT_INSTALLED` en `browser_launch`, con fallos genéricos seguros específicos por comprobación.
 - 0-05-P3 cerrada en `bd779a0`.
 - Decisiones D1 a D8 registradas en `fbdf462`.
 - Registro de autonomía D9 a D18 (`CLAUDE-DECISION-AUTONOMIA-001.md`) en `ba97b5e`.
@@ -37,7 +38,7 @@ Checkout detached en `C:\dev\TS-lote-d`; historial basado en `origin/lote-d` `9f
 
 ## En curso
 
-- Worktree migrado a `C:\dev\TS-lote-d` desde `origin/lote-d` en `9fc1394`; `git status` funciona con permisos elevados. D28, la instrumentación JSON de Gate 5 y el estado actualizado quedaron en `origin/lote-d` en los commits `47bea25` y `5f6e875`, revisados independientemente. No hubo push de tema Shopify ni publicación. Johandry autoriza un único intento diagnóstico después de revisión, pero no se ejecutará ni se generará JSON de corrida mientras falte `SHOPIFY_CLI_THEME_TOKEN`.
+- Worktree activo trasladado a `C:\Users\Johan\Documents\Drive\Tema Shopify\.worktrees\lote-d`, dentro del proyecto; rama `lote-d`, HEAD `3c9f701`. La preparación local documentada corresponde a la ejecución anterior; la repetición de `npm ci` en la nueva ruta sigue pendiente y no tiene resultado registrado. D28, la instrumentación JSON de Gate 5 y el estado actualizado quedaron en `origin/lote-d` en los commits `47bea25` y `5f6e875`, revisados independientemente. No hubo push de tema Shopify ni publicación. Johandry autoriza un único intento diagnóstico después de revisión, pero no se ejecutará ni se generará JSON de corrida mientras falte `SHOPIFY_CLI_THEME_TOKEN`.
 
 ## Pendiente
 
@@ -94,6 +95,19 @@ Espera credenciales o a Johandry:
 6. Fixture de suscripción (A-01): lo crea Johandry; estado a 2026-11-02 sin planes ni app de suscripción.
 
 ## Reglas vigentes
+
+Configuración requerida por Gate 5 (seis variables; los valores secretos se pasan solo al futuro proceso de ejecución y no se guardan en archivos; el theme ID validado puede figurar en el JSON):
+
+| Variable | Secreta | Uso |
+|---|---|---|
+| `SHOPIFY_CLI_THEME_TOKEN` | Sí | Token de Shopify CLI requerido por la política de sesión. |
+| `STOREFRONT_PASSWORD` | Sí | Contraseña de acceso al storefront. |
+| `STOREFRONT_ORIGIN` | No | Origin HTTPS autorizado. |
+| `STOREFRONT_THEME_ID` | No | Identificador de la preview autorizada. |
+| `STOREFRONT_COLLECTION_PATH` | No | Ruta canónica de colección. |
+| `STOREFRONT_PRODUCT_PATH` | No | Ruta canónica de producto. |
+
+El diagnóstico de configuración registra solo el nombre exacto de la variable y la condición fija fallida en el código de motivo; no registra valores ni mensajes crudos. Ya existe un intento diagnóstico fallido de configuración. La prohibición anterior de repetir queda sustituida por la nueva decisión explícita de Johandry del 2026-11-05: autoriza un único intento adicional después de preparar el entorno y obtener revisión independiente. Si ese intento falla, no repetir; cualquier intento posterior requiere nueva autorización explícita de Johandry.
 
 - No abrir, listar ni buscar en `.secrets`.
 - Ninguna credencial en archivos ni en logs; el literal de contraseña cuenta 0 fuera de `tests/vendor/axe.min.js` antes de cada push, sin imprimirlo.
