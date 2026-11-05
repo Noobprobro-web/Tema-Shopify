@@ -33,26 +33,27 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - B-05 (lote-b): el nombre accesible del selector de idioma empieza por el código visible (WCAG 2.5.3); ACEPTADO en `CLAUDE-REVIEW-B-05-001`; código completo; ledger fila 83 a `código completo`.
 - B-03 (lote-b): el alta al carrito con respuesta perdida no duplica líneas; ACEPTADO en `CLAUDE-REVIEW-B-03-001`; código completo; ledger: fila nueva a `código completo`.
 - B-04 (lote-b): View cart guarda la nota del carrito antes de navegar; ACEPTADO en `CLAUDE-REVIEW-B-04-001`; código completo.
+- R-B estática (`CLAUDE-REVIEW-LOTE-B-RB-001`, revisor independiente de contexto limpio, D11): ACEPTADO CON CAMBIOS; sin P0/P1/P2; 3 P3 nuevos (P3-1 localizador de la fila 84 del ledger, corregido como CR-1; P3-2 contador de D6 no estable en el harness de B-03 en modo fix; P3-3 el harness de B-05 exige ruta absoluta del repo). Theme Check 93 sin ofensas (LiquidComplexity 120/110), gates estáticos exit 0, harness A-01/B-02 56/56, A-03, B-01, B-03, B-04 y B-05 en verde; sonda cruzada X1-X4b 0 fallos. `ledger-verify` exit 0 (47 cumplido / 14 código completo). ZIP de `lote-b`: 94 archivos, SHA-256 `eecf2f225b1dc7a3719d8efe7d65b212c9808ffe9522d5bbae76746d93b6d96c`, huella `c20015b4b29eed0c7dd2352ede0e94dedc41b19e9fbff8b718aaf35588a0cc02`. Literal: 0 fuera de `tests/vendor/axe.min.js`, 0 en `git diff 1fee9e2..HEAD`, 0 en el ZIP. `BOARD.md` actualizado (D24).
 
 ## En curso
 
-- Ninguna: sesión detenida por D27 (`CLAUDE-DECISION-SESION-002.md`). Siguiente: R-B y pasos de tienda según `CLAUDE-HANDOFF-CLOUD-002.md`.
+- Ninguna. R-B estática cerrada. Siguiente: pasos 3 a 6 de `CLAUDE-HANDOFF-CLOUD-002.md` §7 (P3 de gate5, previews no publicadas, pruebas de tienda de R-A y R-B, cierre del Lote 0).
 
 ## Pendiente
 
 Plan de ejecución sin tienda (D22, D23):
 
 - Prueba en tienda de B-01 (R-B).
-- Prueba en tienda de B-03 (R-B) y PD-8: autorización de Johandry para mutar el carrito (`/cart/add.js`, `/cart/change.js`, `/cart/clear.js`) en previews no publicados.
+- Prueba en tienda de B-03 (R-B): PD-8 autorizada acotada en D28 (solo previews no publicados, solo el carrito de la sesión de prueba, vaciarlo al terminar, nunca pagar).
 - Prueba en tienda de B-04 (C-4: foco en Safari al fallar el guardado de la nota).
 - Prueba en tienda de B-05 (axe en preview con la regla forzada, R-B).
-- P3-1..P3-3 de `CLAUDE-REVIEW-B-05-001` (harness H-5, H-3/H-10, rótulos de la corrida en rojo): pendientes menores para R-B.
-- PD-3 de B-04 (ampliar el guardado de nota a los enlaces de línea del cajón): fuera del plan; preguntar a Johandry en el informe final (pregunta a Johandry).
+- P3-1..P3-3 de `CLAUDE-REVIEW-B-05-001` (harness H-5, H-3/H-10, rótulos de la corrida en rojo): siguen como P3 menores (R-B no los cambia). P3-2 y P3-3 de `CLAUDE-REVIEW-LOTE-B-RB-001` (harness de B-03 y B-05): anotados, sin tocar harness aceptados.
+- PD-3 de B-04: NO se amplía (D28); limitación conocida.
 - Pruebas en tienda R-A 1–8 de A-02 (esperan credenciales).
 - Prueba en tienda de B-02 (esperan credenciales) y de A-01 (fixture C-R0-4 y credenciales).
 - Residuo PD-2 de A-01/B-02: parámetros `purchase-option-*`.
 - Prueba R-A de A-03 en previews de Imprint y Archive (esperan credenciales).
-- H-1 de A-03 (texto de hover de heritage por debajo de 4.5:1, P2, fuera del plan): corregirlo requiere decisión de Johandry (junto con la fila 47). H-2 a H-4 son P3.
+- H-1 de A-03 (texto de hover de heritage por debajo de 4.5:1, P2, fuera del plan): D28: se corrige como tarea nueva del Lote C (directiva, R-D, implementación y revisión), junto con la fila 47. H-2 a H-4 son P3.
 - Aviso del retiro de metafields en C-04-R (dependencia abierta de A-02).
 - P3 de la revisión de A-02: H-3, texto «Shown as entered», a pulir en Lote C.
 - Parte de tienda de R-A (lista por dependencia en la R-A §6; esperan credenciales).
@@ -87,7 +88,7 @@ Espera credenciales o a Johandry:
 
 1. Resuelto (D20): `GEMINI-REVIEW-LOTE-0-R0-002`, `GEMINI-FICHA-LOTE-0-BASE-001.md` y `package-reproducible-zip.py` están en el clon desde `1c7aec0`.
 2. Resuelto (D21): el SHA-256 `79ff3961…` queda como referencia histórica no reproducible; el hash canónico será el del empaquetador propio, generado dos veces.
-3. Credenciales ausentes en el entorno: `SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD`, `SHOPIFY_FLAG_STORE`. Llegan en una sesión nueva (D22); se configuran en los ajustes del entorno (Network secrets o variables); red a `*.myshopify.com` sin verificar. Bloquea previews Imprint/Archive (C-R0-3), B2, A-03, R-A, R-B, R-Demo, Lighthouse.
+3. Resuelto en lo que toca al entorno: las tres variables (`SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD`, `SHOPIFY_FLAG_STORE`) están presentes (solo nombres comprobados) y la conectividad a `*.myshopify.com` está confirmada. Falta ejecutar con ellas las previews Imprint/Archive (C-R0-3), B2, A-03, la parte de tienda de R-A y R-B, R-Demo y Lighthouse.
 4. Resuelto en D23: D-01, D-01-N y D-01-L son entregables en el repo con parada para importación por Johandry; C-02 la crea Johandry; C-04-R es borrador pendiente de su aprobación; C-04-P excluye las plantillas de documentación del ZIP sin borrarlas.
 5. Resuelto (D24): `BOARD.md` lo escribe Claude como único escritor y lo revisa un subagente Opus.
 6. Fixture de suscripción (A-01): lo crea Johandry; estado a 2026-11-02 sin planes ni app de suscripción.
