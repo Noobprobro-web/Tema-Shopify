@@ -1,0 +1,320 @@
+== C-3 fidelidad del Liquid real (grep -F) ==
+  NO  0/1  aria-label="{{ language_code_label | escape }}, {{ 'general.localizati
+  [FALLA] fidelidad aria-label="{{ language_code_label | esc
+  NO  0/1  {%- assign language_code_label = language.iso_code | upcase -%}
+  [FALLA] fidelidad {%- assign language_code_label = languag
+  NO  0/2  {{- language_code_label -}}
+  [FALLA] fidelidad {{- language_code_label -}}
+  NO  0/4  language_code_label
+  [FALLA] fidelidad language_code_label
+  ok  2/2  aria-label=
+  ok  1/1  name="language_code"
+== C-4 / H-10 bloque de pais sobre el Liquid ==
+  sha256 bloque pais base=e14fabc04e86ed6c fix=e14fabc04e86ed6c IGUAL
+  hunk -51,0 +52,2 (bloque idioma base 49-74, fix 49-74) dentro
+  hunk -56,1 +58,1 (bloque idioma base 49-74, fix 49-74) dentro
+  hunk -64,1 +66,1 (bloque idioma base 49-74, fix 49-74) dentro
+  hunk -66,1 +68,1 (bloque idioma base 49-74, fix 49-74) dentro
+  hunks=4 fuera_del_bloque_idioma=0
+H-10b bloques de pais renderizados (base vs fix): 18 distintos: 0
+== Casos (JS real con theme.js / sin JS), H-1 palabra, H-3 regla forzada, H-4 etiquetas, H-5 teclado ==
+base en2 390 js=true | palabra ok=0 falla=2 | regla v=0 inc=0 pass=2 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - 'button "Update preferences: Español"': ES / - text: Country/region / - combobox "Country/region": / - option "United States (USD $)" [selected] / - option "Spain (EUR €)"
+base en2 390 js=false | palabra ok=0 falla=2 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+base en2 1280 js=true | palabra ok=0 falla=3 | regla v=0 inc=0 pass=3 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+base en2 1280 js=false | palabra ok=0 falla=3 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+base es2 390 js=true | palabra ok=0 falla=2 | regla v=0 inc=0 pass=2 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    grupo footer: - group "Idioma": / - 'button "Actualizar preferencias: English"': EN / - text: "Idioma actual: Español" / - text: País/región / - combobox "País/región": / - option "United States (USD $)" [selected] / - option "Spain (EUR €)"
+base es2 390 js=false | palabra ok=0 falla=2 | sin-js | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+base es2 1280 js=true | palabra ok=0 falla=3 | regla v=0 inc=0 pass=3 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+base es2 1280 js=false | palabra ok=0 falla=3 | sin-js | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+base en5 390 js=true | palabra ok=0 falla=8 | regla v=2 inc=0 pass=6 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - 'button "Update preferences: Español"': ES / - 'button "Update preferences: Français"': FR / - 'button "Update preferences: Deutsch"': DE / - 'button "Update preferences: Português (brasil)"': PT-BR
+base en5 390 js=false | palabra ok=0 falla=8 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+base en5 1280 js=true | palabra ok=0 falla=12 | regla v=3 inc=0 pass=9 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header:FR=>"Update preferences: Français" [FALLA palabra]
+    header:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+base en5 1280 js=false | palabra ok=0 falla=12 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header:FR=>"Update preferences: Français" [FALLA palabra]
+    header:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+base rtl 390 js=true | palabra ok=0 falla=4 | regla v=4 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - 'button "Update preferences: العربية"': AR / - 'button "Update preferences: 中文 (台灣)"': ZH-TW / - text: Country/region / - combobox "Country/region": / - option "United States (USD $)" [selected] / -
+base rtl 390 js=false | palabra ok=0 falla=4 | sin-js | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+base rtl 1280 js=true | palabra ok=0 falla=6 | regla v=6 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header:AR=>"Update preferences: العربية" [FALLA palabra]
+    header:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+base rtl 1280 js=false | palabra ok=0 falla=6 | sin-js | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header:AR=>"Update preferences: العربية" [FALLA palabra]
+    header:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+base empty 390 js=true | palabra ok=0 falla=2 | regla v=2 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - button "Update preferences:": IT / - text: Country/region / - combobox "Country/region": / - option "United States (USD $)" [selected] / - option "Spain (EUR €)"
+base empty 390 js=false | palabra ok=0 falla=2 | sin-js | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+base empty 1280 js=true | palabra ok=0 falla=3 | regla v=3 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header:IT=>"Update preferences:" [FALLA palabra]
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+base empty 1280 js=false | palabra ok=0 falla=3 | sin-js | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header:IT=>"Update preferences:" [FALLA palabra]
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+base one 390 js=true | palabra ok=0 falla=0 | regla v=0 inc=0 pass=0 inap=1 | tags v=0 reglaEnTags=false | sin boton | errores_no_ViewTransition=0
+base one 390 js=false | palabra ok=0 falla=0 | sin-js | sin boton | errores_no_ViewTransition=0
+base one 1280 js=true | palabra ok=0 falla=0 | regla v=0 inc=0 pass=0 inap=1 | tags v=0 reglaEnTags=false | sin boton | errores_no_ViewTransition=0
+base one 1280 js=false | palabra ok=0 falla=0 | sin-js | sin boton | errores_no_ViewTransition=0
+  [FALLA] H-2 en2 header-mobile: "Update preferences: Español" != "ES, Update preferences: Español"
+  [FALLA] H-2 en2 footer: "Update preferences: Español" != "ES, Update preferences: Español"
+fix en2 390 js=true | palabra ok=0 falla=2 | regla v=0 inc=0 pass=2 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - 'button "Update preferences: Español"': ES / - text: Country/region / - combobox "Country/region": / - option "United States (USD $)" [selected] / - option "Spain (EUR €)"
+  [FALLA] H-1 en2 390 js=true: 2 botones sin la palabra
+  [FALLA] H-2 en2 header-mobile: "Update preferences: Español" != "ES, Update preferences: Español"
+  [FALLA] H-2 en2 footer: "Update preferences: Español" != "ES, Update preferences: Español"
+fix en2 390 js=false | palabra ok=0 falla=2 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+  [FALLA] H-1 en2 390 js=false: 2 botones sin la palabra
+  [FALLA] H-2 en2 header: "Update preferences: Español" != "ES, Update preferences: Español"
+  [FALLA] H-2 en2 header-mobile: "Update preferences: Español" != "ES, Update preferences: Español"
+  [FALLA] H-2 en2 footer: "Update preferences: Español" != "ES, Update preferences: Español"
+fix en2 1280 js=true | palabra ok=0 falla=3 | regla v=0 inc=0 pass=3 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+  [FALLA] H-1 en2 1280 js=true: 3 botones sin la palabra
+  [FALLA] H-2 en2 header: "Update preferences: Español" != "ES, Update preferences: Español"
+  [FALLA] H-2 en2 header-mobile: "Update preferences: Español" != "ES, Update preferences: Español"
+  [FALLA] H-2 en2 footer: "Update preferences: Español" != "ES, Update preferences: Español"
+fix en2 1280 js=false | palabra ok=0 falla=3 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+  [FALLA] H-1 en2 1280 js=false: 3 botones sin la palabra
+  [FALLA] H-2 es2 header-mobile: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+  [FALLA] H-2 es2 footer: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+fix es2 390 js=true | palabra ok=0 falla=2 | regla v=0 inc=0 pass=2 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    grupo footer: - group "Idioma": / - 'button "Actualizar preferencias: English"': EN / - text: "Idioma actual: Español" / - text: País/región / - combobox "País/región": / - option "United States (USD $)" [selected] / - option "Spain (EUR €)"
+  [FALLA] H-1 es2 390 js=true: 2 botones sin la palabra
+  [FALLA] H-2 es2 header-mobile: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+  [FALLA] H-2 es2 footer: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+fix es2 390 js=false | palabra ok=0 falla=2 | sin-js | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+  [FALLA] H-1 es2 390 js=false: 2 botones sin la palabra
+  [FALLA] H-2 es2 header: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+  [FALLA] H-2 es2 header-mobile: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+  [FALLA] H-2 es2 footer: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+fix es2 1280 js=true | palabra ok=0 falla=3 | regla v=0 inc=0 pass=3 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+  [FALLA] H-1 es2 1280 js=true: 3 botones sin la palabra
+  [FALLA] H-2 es2 header: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+  [FALLA] H-2 es2 header-mobile: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+  [FALLA] H-2 es2 footer: "Actualizar preferencias: English" != "EN, Actualizar preferencias: English"
+fix es2 1280 js=false | palabra ok=0 falla=3 | sin-js | tab=true focusVisible=true post=language_code=en&country_code=US | errores_no_ViewTransition=0
+    header:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    header-mobile:EN=>"Actualizar preferencias: English" [FALLA palabra]
+    footer:EN=>"Actualizar preferencias: English" [FALLA palabra]
+  [FALLA] H-1 es2 1280 js=false: 3 botones sin la palabra
+  [FALLA] H-3 en5 390: {"v":2,"inc":0,"pass":6,"inap":0,"tags":"0","inTags":false}
+fix en5 390 js=true | palabra ok=0 falla=8 | regla v=2 inc=0 pass=6 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - 'button "Update preferences: Español"': ES / - 'button "Update preferences: Français"': FR / - 'button "Update preferences: Deutsch"': DE / - 'button "Update preferences: Português (brasil)"': PT-BR
+  [FALLA] H-1 en5 390 js=true: 8 botones sin la palabra
+fix en5 390 js=false | palabra ok=0 falla=8 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+  [FALLA] H-1 en5 390 js=false: 8 botones sin la palabra
+  [FALLA] H-3 en5 1280: {"v":3,"inc":0,"pass":9,"inap":0,"tags":"0","inTags":false}
+fix en5 1280 js=true | palabra ok=0 falla=12 | regla v=3 inc=0 pass=9 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header:FR=>"Update preferences: Français" [FALLA palabra]
+    header:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+  [FALLA] H-1 en5 1280 js=true: 12 botones sin la palabra
+fix en5 1280 js=false | palabra ok=0 falla=12 | sin-js | tab=true focusVisible=true post=language_code=es&country_code=US | errores_no_ViewTransition=0
+    header:ES=>"Update preferences: Español" [FALLA palabra]
+    header:FR=>"Update preferences: Français" [FALLA palabra]
+    header:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    header-mobile:ES=>"Update preferences: Español" [FALLA palabra]
+    header-mobile:FR=>"Update preferences: Français" [FALLA palabra]
+    header-mobile:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    header-mobile:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+    footer:ES=>"Update preferences: Español" [FALLA palabra]
+    footer:FR=>"Update preferences: Français" [FALLA palabra]
+    footer:DE=>"Update preferences: Deutsch" [FALLA palabra]
+    footer:PT-BR=>"Update preferences: Português (brasil)" [FALLA palabra]
+  [FALLA] H-1 en5 1280 js=false: 12 botones sin la palabra
+  [FALLA] H-3 rtl 390: {"v":4,"inc":0,"pass":0,"inap":0,"tags":"0","inTags":false}
+  [FALLA] H-3 sin passes rtl 390
+fix rtl 390 js=true | palabra ok=0 falla=4 | regla v=4 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - 'button "Update preferences: العربية"': AR / - 'button "Update preferences: 中文 (台灣)"': ZH-TW / - text: Country/region / - combobox "Country/region": / - option "United States (USD $)" [selected] / -
+  [FALLA] H-1 rtl 390 js=true: 4 botones sin la palabra
+fix rtl 390 js=false | palabra ok=0 falla=4 | sin-js | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+  [FALLA] H-1 rtl 390 js=false: 4 botones sin la palabra
+  [FALLA] H-3 rtl 1280: {"v":6,"inc":0,"pass":0,"inap":0,"tags":"0","inTags":false}
+  [FALLA] H-3 sin passes rtl 1280
+fix rtl 1280 js=true | palabra ok=0 falla=6 | regla v=6 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header:AR=>"Update preferences: العربية" [FALLA palabra]
+    header:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+  [FALLA] H-1 rtl 1280 js=true: 6 botones sin la palabra
+fix rtl 1280 js=false | palabra ok=0 falla=6 | sin-js | tab=true focusVisible=true post=language_code=ar&country_code=US | errores_no_ViewTransition=0
+    header:AR=>"Update preferences: العربية" [FALLA palabra]
+    header:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    header-mobile:AR=>"Update preferences: العربية" [FALLA palabra]
+    header-mobile:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+    footer:AR=>"Update preferences: العربية" [FALLA palabra]
+    footer:ZH-TW=>"Update preferences: 中文 (台灣)" [FALLA palabra]
+  [FALLA] H-1 rtl 1280 js=false: 6 botones sin la palabra
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-3 empty 390: {"v":2,"inc":0,"pass":0,"inap":0,"tags":"0","inTags":false}
+  [FALLA] H-3 sin passes empty 390
+fix empty 390 js=true | palabra ok=0 falla=2 | regla v=2 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+    grupo footer: - group "Language": / - text: "Current language: English" / - button "Update preferences:": IT / - text: Country/region / - combobox "Country/region": / - option "United States (USD $)" [selected] / - option "Spain (EUR €)"
+  [FALLA] H-1 empty 390 js=true: 2 botones sin la palabra
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-8d nombre no empieza por el codigo
+fix empty 390 js=false | palabra ok=0 falla=2 | sin-js | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+  [FALLA] H-1 empty 390 js=false: 2 botones sin la palabra
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-3 empty 1280: {"v":3,"inc":0,"pass":0,"inap":0,"tags":"0","inTags":false}
+  [FALLA] H-3 sin passes empty 1280
+fix empty 1280 js=true | palabra ok=0 falla=3 | regla v=3 inc=0 pass=0 inap=0 | tags v=0 reglaEnTags=false | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header:IT=>"Update preferences:" [FALLA palabra]
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+  [FALLA] H-1 empty 1280 js=true: 3 botones sin la palabra
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-8d nombre no empieza por el codigo
+  [FALLA] H-8d nombre no empieza por el codigo
+fix empty 1280 js=false | palabra ok=0 falla=3 | sin-js | tab=true focusVisible=true post=language_code=it&country_code=US | errores_no_ViewTransition=0
+    header:IT=>"Update preferences:" [FALLA palabra]
+    header-mobile:IT=>"Update preferences:" [FALLA palabra]
+    footer:IT=>"Update preferences:" [FALLA palabra]
+  [FALLA] H-1 empty 1280 js=false: 3 botones sin la palabra
+fix one 390 js=true | palabra ok=0 falla=0 | regla v=0 inc=0 pass=0 inap=1 | tags v=0 reglaEnTags=false | sin boton | errores_no_ViewTransition=0
+fix one 390 js=false | palabra ok=0 falla=0 | sin-js | sin boton | errores_no_ViewTransition=0
+fix one 1280 js=true | palabra ok=0 falla=0 | regla v=0 inc=0 pass=0 inap=1 | tags v=0 reglaEnTags=false | sin boton | errores_no_ViewTransition=0
+fix one 1280 js=false | palabra ok=0 falla=0 | sin-js | sin boton | errores_no_ViewTransition=0
+H-9 (solo prueba que el texto visible y la caja del boton no cambian) cajas comparadas=90 distintas=0
+RESULTADO: 64 FALLO(S) en la variante fix
