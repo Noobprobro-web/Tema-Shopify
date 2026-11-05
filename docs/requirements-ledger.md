@@ -1,7 +1,7 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO CALCULADO: 60 filas | 47 cumplido | 13 código completo | 0 no verificado | 0 ausente
+CONTEO CALCULADO: 61 filas | 47 cumplido | 14 código completo | 0 no verificado | 0 ausente
 Desglose recalculado por scripts/ledger-verify.mjs el 2026-11-05.
 Última sincronización: 2026-09-14 (Consolidación a 4 estados canónicos y verificación matemática automática)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements
@@ -64,6 +64,7 @@ Regla RULES.md: El código escrito NO cierra una fila que exige medición o prue
 | Requisito | Fuente | Estado | Evidencia | Dueño | Sprint |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Checkout Acelerado (`additional_checkout_buttons`)** | Official Requirements: Cart & PDP | `cumplido` | PDP `sections/main-product.liquid:632-633` (`form \| payment_button`); cajón `sections/cart-drawer.liquid:361-365`; carrito `sections/main-cart-items.liquid:219-223`. Certificado en tienda real (`CLAUDE-REPORT-6A-001 §5.1` y harness live Playwright): botón dinámico "Buy it now" activo, reactivo a variantes agotadas (oculto en F02/F03/F04 Camel/S, visible en Camel/L), tipografía unbranded homologada con `.button` (14px uppercase, `pdp-buy-buttons.diff`) y márgenes accesibles; soporte nativo de `additional_checkout_buttons` en drawer y carrito. | Claude / Gemini | Sprint 6A |
+| **Alta al carrito con respuesta perdida sin duplicar líneas** | Official Requirements: Cart | `código completo` | `assets/theme.js` (`CartDrawer.addItem`, `cartBaseline`, `showUnconfirmedAdd`, `CompleteTheLook.addSelectedItems`). B-03 (lote-b); pendiente prueba en tienda (R-B) con autorización de Johandry para mutar el carrito (PD-8). | Claude | B-03 |
 | **Shop Pay Installments (`form \| payment_terms`)** | Official Requirements: PDP | `cumplido` | `sections/main-product.liquid:174` dentro del formulario de producto nativo. | GPT | Sprint 3B.5 |
 | **Precio Unitario (UE Legal)** | Official Requirements: Pricing | `cumplido` | `snippets/price.liquid:30-43` (`variant.unit_price_measurement`). | GPT | Sprint 2B |
 | **Selector de Variantes y Swatches Nativos** | Official Requirements: Product | `código completo` | `sections/main-product.liquid:102-127` soportando `swatch.image` y `swatch.color`. Extensión 5A a tarjetas certificada en tienda real (`/collections/qa-sprint-5a` con 8 fixtures F01-F06, F10, F11): swatches `radiogroup` con `swatch.color`/`swatch.image` (sin swatch nativo, etiqueta de texto; regla SW-01 de GPT cumplida) y compra rápida por talla en `snippets/product-card.liquid:21-110,150-279,290-443,449-500`, Web Components reactivos en `assets/theme.js:1528-1940`, targets >= 44x44px sin desbordamiento, 0 violaciones axe-core en vivo, transacciones reales en EN y ES (`CLAUDE-REPORT-5A-002`, `GEMINI-review-CLAUDE-5A-002`). A-01/B-02 (lote-a): select nativo sin JS, control único de `id`; pendiente prueba en tienda (solo credenciales). | GPT / Claude | Sprint 3B.5 / 5A |

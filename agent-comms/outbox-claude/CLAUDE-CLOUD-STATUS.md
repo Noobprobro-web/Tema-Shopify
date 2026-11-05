@@ -31,17 +31,18 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - R-A estática (`CLAUDE-REVIEW-LOTE-A-RA-001`): ACEPTADO CON CAMBIOS; CR-1 (fila 84) y CR-2 (fila 88 a «código completo») aplicados; `ledger-verify` exit 0 (49 cumplido / 11 código completo). ZIP de `lote-a`: 94 archivos, SHA-256 `8f666379…d5f6`, huella `2afbc7a8…c4f5`.
 - B-01 (lote-b): el menu movil se cierra al cruzar el corte de escritorio; ACEPTADO en `CLAUDE-REVIEW-B-01-001`; ledger fila 50 a `código completo`.
 - B-05 (lote-b): el nombre accesible del selector de idioma empieza por el código visible (WCAG 2.5.3); ACEPTADO en `CLAUDE-REVIEW-B-05-001`; código completo; ledger fila 83 a `código completo`.
+- B-03 (lote-b): el alta al carrito con respuesta perdida no duplica líneas; ACEPTADO en `CLAUDE-REVIEW-B-03-001`; código completo; ledger: fila nueva a `código completo`.
 
 ## En curso
 
-- B-03 directiva.
-- B-04 tras B-03 (directiva aprobada con cambios).
+- B-04 implementación (directiva aprobada con cambios).
 
 ## Pendiente
 
 Plan de ejecución sin tienda (D22, D23):
 
 - Prueba en tienda de B-01 (R-B).
+- Prueba en tienda de B-03 (R-B) y PD-8: autorización de Johandry para mutar el carrito (`/cart/add.js`, `/cart/change.js`, `/cart/clear.js`) en previews no publicados.
 - Prueba en tienda de B-05 (axe en preview con la regla forzada, R-B).
 - P3-1..P3-3 de `CLAUDE-REVIEW-B-05-001` (harness H-5, H-3/H-10, rótulos de la corrida en rojo): pendientes menores para R-B.
 - PD-3 de B-04 (ampliar el guardado de nota a los enlaces de línea del cajón): fuera del plan; preguntar a Johandry en el informe final.
