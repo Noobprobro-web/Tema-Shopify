@@ -363,7 +363,7 @@
                   {{ content_for_additional_checkout_buttons }}
                 </div>
               {%- endif -%}
-              <a class="cart-drawer__view-cart" href="{{ routes.cart_url }}">
+              <a id="CartDrawerViewCart" class="cart-drawer__view-cart" href="{{ routes.cart_url }}" data-cart-view-cart>
                 {{- 'sections.cart.view_cart' | t -}}
               </a>
             </footer>

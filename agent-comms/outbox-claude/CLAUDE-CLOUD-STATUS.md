@@ -32,10 +32,11 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - B-01 (lote-b): el menu movil se cierra al cruzar el corte de escritorio; ACEPTADO en `CLAUDE-REVIEW-B-01-001`; ledger fila 50 a `código completo`.
 - B-05 (lote-b): el nombre accesible del selector de idioma empieza por el código visible (WCAG 2.5.3); ACEPTADO en `CLAUDE-REVIEW-B-05-001`; código completo; ledger fila 83 a `código completo`.
 - B-03 (lote-b): el alta al carrito con respuesta perdida no duplica líneas; ACEPTADO en `CLAUDE-REVIEW-B-03-001`; código completo; ledger: fila nueva a `código completo`.
+- B-04 (lote-b): View cart guarda la nota del carrito antes de navegar; ACEPTADO en `CLAUDE-REVIEW-B-04-001`; código completo.
 
 ## En curso
 
-- B-04 implementación (directiva aprobada con cambios).
+- R-B (revisión del Lote B, estática).
 
 ## Pendiente
 
@@ -43,9 +44,10 @@ Plan de ejecución sin tienda (D22, D23):
 
 - Prueba en tienda de B-01 (R-B).
 - Prueba en tienda de B-03 (R-B) y PD-8: autorización de Johandry para mutar el carrito (`/cart/add.js`, `/cart/change.js`, `/cart/clear.js`) en previews no publicados.
+- Prueba en tienda de B-04 (C-4: foco en Safari al fallar el guardado de la nota).
 - Prueba en tienda de B-05 (axe en preview con la regla forzada, R-B).
 - P3-1..P3-3 de `CLAUDE-REVIEW-B-05-001` (harness H-5, H-3/H-10, rótulos de la corrida en rojo): pendientes menores para R-B.
-- PD-3 de B-04 (ampliar el guardado de nota a los enlaces de línea del cajón): fuera del plan; preguntar a Johandry en el informe final.
+- PD-3 de B-04 (ampliar el guardado de nota a los enlaces de línea del cajón): fuera del plan; preguntar a Johandry en el informe final (pregunta a Johandry).
 - Pruebas en tienda R-A 1–8 de A-02 (esperan credenciales).
 - Prueba en tienda de B-02 (esperan credenciales) y de A-01 (fixture C-R0-4 y credenciales).
 - Residuo PD-2 de A-01/B-02: parámetros `purchase-option-*`.

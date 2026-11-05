@@ -2524,6 +2524,14 @@
         return;
       }
 
+      // B-04. View cart leaves the drawer too: same guarded note save as the card links.
+      // Checkout is not routed here; the cart form posts the note natively.
+      const viewCartLink = event.target.closest('[data-cart-view-cart]');
+      if (viewCartLink) {
+        this.handleCrossSellView(event, viewCartLink);
+        return;
+      }
+
       const crossSellButton = event.target.closest('[data-cross-sell-add]');
       if (crossSellButton) {
         this.addCrossSell(crossSellButton).catch((error) => {
@@ -3137,8 +3145,9 @@
       return control && !control.disabled && !control.closest('[hidden]') ? control : nextItem;
     }
 
-    // View product with an unsaved note: save it first, and leave only once the server has
-    // the exact draft. Modified clicks and new-tab links keep their native behaviour.
+    // A drawer link that leaves the drawer (View product, the card links, View cart) with an
+    // unsaved note: save it first, and leave only once the server has the exact draft.
+    // Modified clicks and new-tab links keep their native behaviour.
     handleCrossSellView(event, link) {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
         return;
