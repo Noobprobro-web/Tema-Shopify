@@ -248,3 +248,21 @@ Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-A-01-B-02-001.md
 
 - **D25:** Johandry autoriza, como Nivel 2, el archivo nuevo `snippets/variant-no-js-select.liquid` de A-01/B-02, que no estaba en la lista cerrada de la R-D. La autorización cubre solo ese snippet. Sin él, `sections/main-product.liquid` pasaría de 120 a 128 en LiquidComplexity; con él queda en 120.
 - **D26:** Johandry autoriza los tres cambios de Nivel 2 de C-08b tal como los propone `CLAUDE-REVIEW-C-08-RD-001`: (1) los bloques de entrega y devoluciones de la PDP vacíos se ocultan; (2) 24 valores por defecto del schema pasan a textos neutros; (3) se quita la opción «Private appointment» del formulario de contacto. Solo esos tres cambios; D26 no amplía D11 a otras tareas.
+
+## 2026-11-05: Protocolo de sesión y validación Gate 5 (D28, Johandry)
+
+- Fuente: `agent-comms/outbox-claude/CLAUDE-DECISION-SESION-003.md`.
+- Añadir H-1 al Lote C con directiva, revisión de directiva, implementación y revisión independiente.
+- Mantener PD-3 de B-04 como limitación; no ampliar el alcance.
+- Autorizar PD-8 únicamente en previews no publicadas de `tema-qkqpke0j`, usando solo el carrito de la sesión de prueba; vaciarlo antes de cerrar y no modificar productos, apps o configuración.
+- Mantener pendiente de Johandry el fixture C-R0-4; permitir el cierre del Lote 0 dejando ese fixture expresamente pendiente.
+- En Gate 5, verificar acceso por comportamiento y aplicar únicamente la lista exhaustiva de filtros de ruido de consola de D28, dentro de sus límites. Dejar caducar el carrito de la sesión anterior sin tocarlo; limpiar el carrito de la nueva sesión de prueba en esa misma sesión antes de cerrarla. Si queda cualquier artículo o nota o no se logra limpiar, fallar con `GATE5_CART_NOT_EMPTY`.
+- Nunca llegar a pagar. La autorización de prueba no permite escribir productos, apps ni configuración.
+
+## 2026-11-05: Migración de worktree y autorización diagnóstica de Gate 5 (Johandry)
+
+- Diagnosticar y reparar el registro de worktrees desde el repo principal; respaldar por separado D28, `CLAUDE-CLOUD-STATUS.md` y la corrección de Gate 5, crear `C:\dev\TS-lote-d` desde `origin/lote-d` en `9fc1394`, aplicar los tres cambios, verificar que `git status` funciona y publicar solo en `lote-d` sin force. Retirar el worktree de Drive después de comprobar el nuevo.
+- Antes de la siguiente ejecución de Gate 5, producir en `agent-comms/outbox-gpt/` un JSON único por corrida con nombre de cada comprobación, resultado y motivo seguro de fallo; no almacenar credenciales, cookies ni mensajes crudos. Informar si el carrito quedó vacío; si no se puede verificar, registrar estado desconocido.
+- Johandry autoriza exactamente un intento diagnóstico adicional en la preview Sartorial `190232297715`, solo tras revisión independiente del cambio. Si falla, no repetir y entregar su JSON.
+- Antes de cualquier prueba de tienda, comprobar solo la presencia de `SHOPIFY_CLI_THEME_TOKEN` y `STOREFRONT_PASSWORD`; si falta cualquiera, detenerse sin abrir navegador ni iniciar solicitudes a la tienda.
+- Si Gate 5 pasa, continuar paso 5 de R-A/R-B y previews; luego cerrar el Lote 0 con revisión independiente y avanzar al Lote C. Se mantienen las reglas previas de una tienda, ramas `lote-*`, sin force, sin `master` ni merge del PR, sin metafields, sin copiar código de Sebas y con revisión distinta del escritor.

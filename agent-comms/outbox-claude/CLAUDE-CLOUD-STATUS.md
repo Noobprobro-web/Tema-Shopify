@@ -8,7 +8,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## Rama actual
 
-`lote-b`
+`HEAD` separado en `9fc1394`; destino: `origin/lote-d` (`C:\dev\TS-lote-d`).
 
 ## Hecho
 
@@ -19,7 +19,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - Reconocimiento del plan V4.1 (`agent-comms/outbox-gpt/GPT-PLAN-IMPLEMENTACION-SARTORIAL-001-v4.1.md`).
 - Punto 6b confirmado: Theme Check (CLI 4.8.0, offline) imprime "92 files inspected with no offenses found": inspecciona los 90 `.liquid`/`.json` del paquete más `package.json` y `package-lock.json` de la raíz. Los 3 de 93 no inspeccionados son `assets/base.css`, `assets/product-zoom.js` y `assets/theme.js` (glob `**/*.{liquid,json}` en `node_modules/@shopify/cli/dist/chunk-F3NYCSXT.js:253`). Paquete: assets 3, config 2, layout 2, locales 3, sections 35, snippets 21, templates 18, listings 9.
 - Pull fast-forward a `1c7aec0` (Noobprobro-web): añade en `agent-comms/outbox-gemini/` la R-0 `GEMINI-REVIEW-LOTE-0-R0-002.md` (aceptado condicional; 4 condiciones de cierre (C-R0-1..4): ficha, ZIP regenerable, fixture de suscripción, previews Imprint/Archive; más el hallazgo §7e: corregir `scripts/gate5-complete-verification.mjs:88` antes de usarlo como evidencia de tienda), la ficha `GEMINI-FICHA-LOTE-0-BASE-001.md` (SHA `fbdf462`, 93 archivos, manifest SHA-256, política LF) y `package-reproducible-zip.py`. Ese script, ejecutado aquí, da 289834 bytes y SHA-256 `3629d9d4…fc44e`, no `79ff3961…`.
-- D20 a D24 registradas (`CLAUDE-DECISION-LOTE-0-002.md`): D20 pull y uso de R-0, ficha y método; D21 empaquetador determinista propio y hash canónico (`79ff3961` es referencia histórica no reproducible); D22 trabajo sin tienda y rama `lote-a`; D23 D-01/D-01-N/D-01-L, C-02, C-04-R y C-04-P; D24 `BOARD.md` con Claude como escritor único.
+- D20 a D24 registradas (`CLAUDE-DECISION-LOTE-0-002.md`): D20 pull y uso de R-0, ficha y método; D21 empaquetador determinista propio y hash canónico (`79ff3961` es referencia histórica no reproducible); D22 trabajo sin tienda y rama `lote-a`; D23 D-01/D-01-N/D-01-L, C-02, C-04-R y C-04-P; D24 `BOARD.md` con Claude como escritor único (antecedente histórico; reemplazado por instrucción de Johandry del 2026-11-05).
 - Empaquetador determinista `scripts/package-theme-zip.mjs` (D21): C-R0-2 cumplida; SHA-256 canónico `f001627e44022b5731e8fe04413def41aa3b2e4331b193cc8be184582e2ce585`, huella de contenido `02bd3bc8d99c8c7ee1be8a87358139144bccbd0986d15525a43b49506ec9df34`; ACEPTADO (CLAUDE-REVIEW-LOTE-0-ZIP-001).
 - gate5 R-0 §7e corregido y ACEPTADO (CLAUDE-REVIEW-0-05-P3-002).
 - `BOARD.md` reconciliado (B3 resuelto en lo documental) y ACEPTADO (CLAUDE-REVIEW-LOTE-0-BOARD-001).
@@ -37,7 +37,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## En curso
 
-- Ninguna. R-B estática cerrada. Siguiente: pasos 3 a 6 de `CLAUDE-HANDOFF-CLOUD-002.md` §7 (P3 de gate5, previews no publicadas, pruebas de tienda de R-A y R-B, cierre del Lote 0).
+- Worktree migrado a `C:\dev\TS-lote-d`, HEAD `9fc1394`; `git status` funciona con permisos elevados y los tres cambios respaldados están aplicados. La instrumentación de Gate 5 con JSON seguro por corrida quedó aceptada en revisión independiente estática. Johandry autoriza un único intento diagnóstico después de revisión, pero no se ejecutará ni se generará JSON de corrida mientras falte `SHOPIFY_CLI_THEME_TOKEN`.
 
 ## Pendiente
 
@@ -67,8 +67,8 @@ Plan de ejecución sin tienda (D22, D23):
   - C-R0-2: ZIP regenerable desde el empaquetador versionado; hash canónico nuevo según D21.
   - C-R0-3: previews de Imprint y Archive como temas no publicados (espera credenciales).
   - C-R0-4: fixture de suscripción (lo crea Johandry; si no existe, cerrar con «pendiente de Johandry»).
-- Lote 0: cierre pendiente de C-R0-3 (previews, esperan credenciales) y C-R0-4 (fixture, Johandry); C-R0-1 (ficha) y C-R0-2 (ZIP) cumplidas.
-- P3 opcionales de gate5 para antes de la primera ejecución en tienda: (1) quitar el `browser.close()` duplicado dentro de `runChecks`; (2) limitar con tiempo máximo la espera de `browser.close()` en el `finally`; (3) rechazar en la validación rutas de colección/producto cuyo último tramo sea `password` o `challenge`.
+- Lote 0: cierre pendiente de C-R0-3 (previews reportadas como subidas; estado actual no verificado) y C-R0-4 (fixture, Johandry); C-R0-1 (ficha) y C-R0-2 (ZIP) cumplidas.
+- Gate 5: los tres P3 de preparación y la corrección mínima están aplicados y revisados. Johandry autorizó un intento diagnóstico adicional, condicionado a JSON por corrida, revisión independiente y presencia de ambas variables; hoy falta `SHOPIFY_CLI_THEME_TOKEN`. Si ese intento falla, no repetir.
 - Lote A en la rama `lote-a` (desde la cabeza de `lote0/base-09f8342`; integrar con merge sin force lo que llegue al Lote 0): A-02, C-08, B-02, A-01 (código), A-03 (código). Pruebas de tienda como «código completo» hasta la sesión con credenciales.
 - Lote B: código sin tienda.
 - Lote C: lo que no necesita tienda, incluidos C-04-P (excluir `templates/page.documentation.json` y `templates/page.support.json` del ZIP sin borrarlas del repo) y C-04-R (borrador de versión y release notes para que Johandry apruebe al final).
@@ -88,9 +88,9 @@ Espera credenciales o a Johandry:
 
 1. Resuelto (D20): `GEMINI-REVIEW-LOTE-0-R0-002`, `GEMINI-FICHA-LOTE-0-BASE-001.md` y `package-reproducible-zip.py` están en el clon desde `1c7aec0`.
 2. Resuelto (D21): el SHA-256 `79ff3961…` queda como referencia histórica no reproducible; el hash canónico será el del empaquetador propio, generado dos veces.
-3. Resuelto en lo que toca al entorno: las tres variables (`SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD`, `SHOPIFY_FLAG_STORE`) están presentes (solo nombres comprobados) y la conectividad a `*.myshopify.com` está confirmada. Falta ejecutar con ellas las previews Imprint/Archive (C-R0-3), B2, A-03, la parte de tienda de R-A y R-B, R-Demo y Lighthouse.
+3. Histórico: un estado anterior registró `SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD` y `SHOPIFY_FLAG_STORE` como presentes y conectividad a `*.myshopify.com`. En el entorno de esta ejecución, `STOREFRONT_PASSWORD` está presente y `SHOPIFY_CLI_THEME_TOKEN` falta; no se verificó conectividad actual. Las pruebas de tienda de R-A/R-B y otras previews siguen pendientes.
 4. Resuelto en D23: D-01, D-01-N y D-01-L son entregables en el repo con parada para importación por Johandry; C-02 la crea Johandry; C-04-R es borrador pendiente de su aprobación; C-04-P excluye las plantillas de documentación del ZIP sin borrarlas.
-5. Resuelto (D24): `BOARD.md` lo escribe Claude como único escritor y lo revisa un subagente Opus.
+5. D24 (histórico) reemplazada por instrucción de Johandry del 2026-11-05: Codex es el único escritor del proyecto; Claude deja de escribir. Cada cambio requiere revisión de un agente distinto del escritor.
 6. Fixture de suscripción (A-01): lo crea Johandry; estado a 2026-11-02 sin planes ni app de suscripción.
 
 ## Reglas vigentes
@@ -120,9 +120,18 @@ Espera credenciales o a Johandry:
 
 - Primera ejecucion en tienda 2026-11-05: ver `agent-comms/outbox-claude/CLAUDE-STORE-RUN-001.md`. Resumen: rechazo de rutas password/challenge OK; redireccion de /password OK; `storefront_digest` NO aparece (el acceso va en `_shopify_essential`); modal de contrasena no verificable en preview (/password sirve el tema publicado); gate5 pasos 1-4 verdes pero global FALLO solo por ruido de consola del sandbox (ERR_TUNNEL_CONNECTION_FAILED, barra de previews); Lighthouse movil perf 62-80 / a11y 97 y axe 1 violacion (iframe de la barra de previews) en las 3 previews; teclado sin fallos.
 
-- Segunda ejecucion en tienda 2026-11-05: ver `agent-comms/outbox-claude/CLAUDE-STORE-RUN-002.md`. gate5 FALLA por `ReferenceError: browser is not defined` (scripts/gate5-complete-verification.mjs:203, tras la refactorizacion); no llego al carrito (nada que vaciar); /password y /products.json se comportan segun lo esperado. Pendiente arreglar el script y repetir.
+- Segunda ejecucion en tienda 2026-11-05: ver `agent-comms/outbox-claude/CLAUDE-STORE-RUN-002.md`. gate5 FALLA por `ReferenceError: browser is not defined` (scripts/gate5-complete-verification.mjs:203, tras la refactorizacion); no llego al carrito (nada que vaciar); /password y /products.json se comportan segun lo esperado. Corregido y aceptado en revisión independiente.
+- Repetición Gate 5 posterior a la corrección, preview ID 190232297715: terminó con exit 1 y `Gate 5 verification failed.`. El catch final descartó el detalle de excepciones no etiquetadas; no hubo log/stack ni informe nuevo. El JSON existente es de 2026-09-14 y localhost, no evidencia de esa corrida. No consta si se tocó el carrito ni si se realizó o verificó su limpieza. La instrucción posterior de Johandry autoriza un solo intento diagnóstico más tras revisión.
+- `SHOPIFY_CLI_THEME_TOKEN` no está en el entorno local actual; por eso no se verificó en vivo el estado de las previews ni se ejecutó ningún push. La salida observada no mostró valores de credenciales.
 
 - Directiva y R-D de H-1 (Lote C, D28) lista: ver `agent-comms/outbox-claude/CLAUDE-DIRECTIVA-H1-LOTE-C-001.md`. Cambio propuesto Nivel 1: `#b5885c` -> `var(--color-foreground)` en `assets/base.css:9114,9115,9121,9126`; contraste Archive de 2.25-4.09:1 a >= 7.58:1. Pendiente implementacion.
 - H-1 (Lote C) implementada: `#b5885c` -> `var(--color-foreground)` en `assets/base.css:9114,9115,9121,9126`; 0 coincidencias de hex; contraste minimo 7.58:1 en 15 esquemas (estatico). Fila 47 del ledger queda `código completo`; pendiente prueba en tienda (R-A).
 - Revision independiente de H-1 (Lote C): ACEPTADO, ver `agent-comms/outbox-claude/CLAUDE-REVIEW-H1-LOTE-C-001.md`. Diff solo en `assets/base.css:9114,9115,9121,9126`; contraste minimo 7.58:1 recalculado; Theme Check 0 ofensas; fila 47 sigue en `código completo` hasta R-A en tienda.
 - Lote D (rama `lote-d` desde `lote-c`): entregables de D-01, D-01-N y D-01-L en `docs/demo-import/` (CSV de productos por preset, colecciones, fotos, menus, idioma y tallas) y `scripts/demo-import.mjs` (check OK, 0 errores); ver `agent-comms/outbox-claude/CLAUDE-LOTE-D-ENTREGABLES-001.md`. PARADA para importacion por Johandry (D23); sin escritura en tienda.
+# Registro de autoridad y progreso (2026-11-05)
+
+- Desde 2026-11-05, Codex es el único escritor del proyecto; Claude deja de escribir. Cada cambio requiere revisión de un agente distinto del escritor.
+- D28 quedó registrada en `docs/decisions.md`; su fuente es `CLAUDE-DECISION-SESION-003.md`.
+- Lote 0: corrección mínima e instrumentación JSON de Gate 5 aceptadas en revisión independiente estática; `node --check` y `git diff --check` pasaron. No se ejecutó Gate ni se generó JSON de corrida: falta `SHOPIFY_CLI_THEME_TOKEN`. Si Gate 5 pasa en el único intento autorizado, seguir R-A/R-B, cierre con revisor distinto y luego Lote C; C-R0-4 permanece pendiente de Johandry.
+- Lote C y los entregables del Lote D quedan sujetos a revisión independiente; las dependencias que requieran decisiones, fixture o entorno de Johandry permanecen pendientes.
+- Migración Git: los tres archivos quedaron respaldados en `C:\dev\TS-lote-d-migration-backup-20261105` y aplicados en `C:\dev\TS-lote-d`, HEAD `9fc1394`; `git status` funciona con permisos elevados. `git worktree repair` desde el repo principal informó una entrada `.git` incorrecta para `C:\Users\Johan\.codex\worktrees\2482\Tema Shopify`; no se atribuye a la reparación de `TS-lote-d`. El worktree `C:\Users\Johan\Documents\Drive\TS-lote-d` ya se retiró tras verificar el nuevo. El checkout permanece detached: `git switch lote-d` se abortó porque varios archivos ignorados/no rastreados serían sobrescritos, y no se movieron. El commit y push explícito de `HEAD` a `lote-d` quedan pendientes de la revisión documental independiente y la compuerta del literal.
