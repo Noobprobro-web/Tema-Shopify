@@ -4,7 +4,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## Última actualización
 
-2026-11-04
+2026-11-05
 
 ## Rama actual
 
@@ -36,7 +36,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## En curso
 
-- R-B (revisión del Lote B, estática).
+- Ninguna: sesión detenida por D27 (`CLAUDE-DECISION-SESION-002.md`). Siguiente: R-B y pasos de tienda según `CLAUDE-HANDOFF-CLOUD-002.md`.
 
 ## Pendiente
 
@@ -105,6 +105,7 @@ Espera credenciales o a Johandry:
 
 ## Cómo retomar
 
+0. Leer primero `agent-comms/outbox-claude/CLAUDE-HANDOFF-CLOUD-002.md`.
 1. Leer este archivo.
 2. Leer `agent-comms/outbox-claude/CLAUDE-DECISION-AUTONOMIA-001.md`.
 3. Comprobar `git log -1` en la rama actual y `git status --porcelain`.
