@@ -45,6 +45,31 @@ function validateConfiguration() {
   }
 }
 
+// Console-noise filter (D28-I1). ONLY these two cases are ignored; anything else fails the gate:
+//  (1) net::ERR_TUNNEL_CONNECTION_FAILED whose resource host is NOT the store host
+//      and NOT cdn.shopify.com (theme assets host). Unknown/unparseable URL is NOT ignored.
+//  (2) Errors from the Shopify preview bar (iframe #PBarNextFrame and its resources): the message
+//      mentions PBarNextFrame, the resource host is bugsnag.com (notify./sessions.), or the
+//      resource path is a Shopify preview-bar asset (/shopifycloud/ with "preview" in the path).
+const THEME_ASSET_HOSTS = ['cdn.shopify.com'];
+function isIgnorableProxyNoise(text, resourceUrl, storeHost) {
+  let host = '';
+  let path = '';
+  try {
+    const u = new URL(resourceUrl);
+    host = u.hostname.toLowerCase();
+    path = u.pathname.toLowerCase();
+  } catch { /* no usable URL */ }
+  if (text.includes('ERR_TUNNEL_CONNECTION_FAILED') && host &&
+      host !== storeHost && !THEME_ASSET_HOSTS.includes(host)) {
+    return true;
+  }
+  if (text.includes('PBarNextFrame')) return true;
+  if (host === 'bugsnag.com' || host.endsWith('.bugsnag.com')) return true;
+  if (path.includes('/shopifycloud/') && path.includes('preview')) return true;
+  return false;
+}
+
 const LOCKED_PATH = /(^|\/)(password|challenge)\/?$/;
 const ACCESS_DENIED = 'GATE5_ACCESS: storefront password was not accepted.';
 function assertUnlocked(page) {
@@ -82,22 +107,52 @@ async function closeBrowserWithTimeout(browser, ms) {
   }
 }
 
+const CART_NOT_EMPTY = 'GATE5_CART_NOT_EMPTY: cart could not be emptied before closing the session.';
+// Empties the cart inside the same browser session and verifies item_count is 0 and no note remains.
+async function clearCartInSession(page) {
+  const result = await page.evaluate(async () => {
+    await fetch('/cart/clear.js', { method: 'POST' });
+    await fetch('/cart/update.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ note: '' })
+    });
+    const cart = await (await fetch('/cart.js')).json();
+    return { count: cart.item_count, note: cart.note || '' };
+  });
+  if (result.count !== 0 || result.note !== '') throw new Error(CART_NOT_EMPTY);
+}
+
 async function runChecks(browser) {
   const context = await browser.newContext({
     viewport: { width: 1280, height: 900 }
   });
+  const session = { cartTouched: false };
+  try {
+    return await runChecksInContext(context, session);
+  } finally {
+    try {
+      if (session.cartTouched) await clearCartInSession(session.page);
+    } finally {
+      await context.close();
+    }
+  }
+}
+
+async function runChecksInContext(context, session) {
 
   const consoleErrors = [];
   const themeJsErrors = [];
   const pageErrors = [];
 
   const page = await context.newPage();
+  session.page = page;
   page.on('console', msg => {
     if (msg.type() === 'error') {
       const text = msg.text();
       consoleErrors.push(text);
-      // Filter out known Shopify platform frame/preview bar network issues
-      if (!text.includes('shop.app') && !text.includes('status of 403') && !text.includes('status of 404')) {
+      // Only the proxy-noise cases listed at isIgnorableProxyNoise are filtered.
+      if (!isIgnorableProxyNoise(text, msg.location().url, new URL(BASE_URL).hostname.toLowerCase())) {
         themeJsErrors.push(text);
       }
     }
@@ -108,6 +163,16 @@ async function runChecks(browser) {
 
   // 1. Desbloqueo Storefront
   console.log('\n[1/4] Autenticación Storefront (/password)...');
+  // Behavioural access check (no cookie names): anonymous /products.json must redirect to /password.
+  const anonContext = await browser.newContext();
+  let anonLocked;
+  try {
+    const anonPage = await anonContext.newPage();
+    await anonPage.goto(`${BASE_URL}/products.json`, { waitUntil: 'domcontentloaded' });
+    anonLocked = LOCKED_PATH.test(new URL(anonPage.url()).pathname);
+  } finally {
+    await anonContext.close();
+  }
   await page.goto(`${BASE_URL}/password?preview_theme_id=${THEME_ID}`, { waitUntil: 'domcontentloaded' });
   const pwdInput = page.locator('input[type="password"]');
   const wasPrompted = await pwdInput.count() > 0;
@@ -128,6 +193,13 @@ async function runChecks(browser) {
   }
   assertUnlocked(page);
   if (await pwdInput.count() > 0) throw new Error(ACCESS_DENIED);
+  if (wasPrompted && !anonLocked) throw new Error('GATE5_ACCESS: anonymous /products.json did not redirect to /password.');
+  for (const path of ['/', '/products.json']) {
+    const res = await page.request.get(`${BASE_URL}${path}`);
+    if (res.status() !== 200 || LOCKED_PATH.test(new URL(res.url()).pathname)) {
+      throw new Error(ACCESS_DENIED);
+    }
+  }
   console.log(wasPrompted
     ? '  ✓ Acceso al storefront concedido'
     : '  ✓ La tienda no solicitó contraseña; acceso sin bloqueo');
@@ -227,6 +299,7 @@ async function runChecks(browser) {
   console.log('\n[4/4] Verificación Cart Drawer: Recomendaciones, Chips de 44px y Transacciones...');
 
   // Añadir un producto al carrito vía /cart/add.js
+  session.cartTouched = true;
   const addRes = await page.evaluate(async () => {
     const varJson = JSON.parse(document.querySelector('[data-variant-json]').textContent);
     const vId = varJson[0].id;
@@ -377,6 +450,6 @@ async function runChecks(browser) {
 verifyGate5().then(ok => {
   if (!ok) process.exit(1);
 }).catch(err => {
-  console.error(/^GATE5_(CONFIG|ACCESS|CLOSE): /.test(err.message) ? err.message : 'Gate 5 verification failed.');
+  console.error(/^GATE5_(CONFIG|ACCESS|CLOSE|CART_NOT_EMPTY): /.test(err.message) ? err.message : 'Gate 5 verification failed.');
   process.exit(1);
 });
