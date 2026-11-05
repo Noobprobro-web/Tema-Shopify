@@ -111,3 +111,5 @@ Espera credenciales o a Johandry:
 3. Comprobar `git log -1` en la rama actual y `git status --porcelain`.
 4. Continuar con la tarea de la sección «En curso».
 5. En una sesión nueva: `npm ci` (`node_modules` está en `.gitignore`); comprobar solo nombres de `SHOPIFY_CLI_THEME_TOKEN`, `STOREFRONT_PASSWORD` y `SHOPIFY_FLAG_STORE`. La compuerta del literal se deriva en memoria comparando los blobs `09f8342` y HEAD de los documentos CMP-01 en la posición del marcador `[REDACTED_STOREFRONT_PASSWORD]`, sin imprimirlo. Criterio: 0 líneas con literal fuera de `tests/vendor/axe.min.js` y 0 en el rango publicado.
+
+- D28 registrada en `agent-comms/outbox-claude/CLAUDE-DECISION-SESION-003.md`.
