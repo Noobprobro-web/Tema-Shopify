@@ -8,7 +8,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## Rama actual
 
-`lote-a` (desde eb7cca7; siguiente: `lote-b`)
+`lote-b`
 
 ## Hecho
 
@@ -29,15 +29,20 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 - A-01/B-02: código completo; ACEPTADO en `CLAUDE-REVIEW-A-01-B-02-001`; snippet `variant-no-js-select` autorizado por Johandry (D25, `CLAUDE-DECISION-A-01-B-02-001`); ledger filas 69 y 71 a `código completo`.
 - C-08 (106 hallazgos; fases a y b): código completo; Nivel 2 autorizado por Johandry en D26 (`CLAUDE-DECISION-C-08-001`); ACEPTADO en `CLAUDE-REVIEW-C-08-001`.
 - R-A estática (`CLAUDE-REVIEW-LOTE-A-RA-001`): ACEPTADO CON CAMBIOS; CR-1 (fila 84) y CR-2 (fila 88 a «código completo») aplicados; `ledger-verify` exit 0 (49 cumplido / 11 código completo). ZIP de `lote-a`: 94 archivos, SHA-256 `8f666379…d5f6`, huella `2afbc7a8…c4f5`.
+- B-01 (lote-b): el menu movil se cierra al cruzar el corte de escritorio; ACEPTADO en `CLAUDE-REVIEW-B-01-001`; ledger fila 50 a `código completo`.
 
 ## En curso
 
-- Lote B (directivas), rama `lote-b` (por crear) desde `lote-a`.
+- B-05 en revisión de código.
+- B-03 en directiva.
+- B-04 directiva aprobada con cambios (implementación tras B-03).
 
 ## Pendiente
 
 Plan de ejecución sin tienda (D22, D23):
 
+- Prueba en tienda de B-01 (R-B).
+- PD-3 de B-04 (ampliar el guardado de nota a los enlaces de línea del cajón): fuera del plan; preguntar a Johandry en el informe final.
 - Pruebas en tienda R-A 1–8 de A-02 (esperan credenciales).
 - Prueba en tienda de B-02 (esperan credenciales) y de A-01 (fixture C-R0-4 y credenciales).
 - Residuo PD-2 de A-01/B-02: parámetros `purchase-option-*`.

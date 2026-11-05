@@ -296,6 +296,10 @@
         event.preventDefault();
         this.setOpen(false, true);
       });
+      // B-01 (TT-104). El corte movil/escritorio vive solo en el CSS (base.css oculta
+      // .site-header__mobile-menu en escritorio). Si el cajon abierto deja de pintarse por un
+      // cambio de ancho o un giro, se cierra aqui y devuelve scroll, inert y foco sin Escape.
+      this.listen(window, 'resize', () => this.closeIfHidden(), { passive: true });
     }
 
     disconnectedCallback() {
@@ -305,6 +309,21 @@
 
     get isOpen() {
       return this.trigger?.getAttribute('aria-expanded') === 'true';
+    }
+
+    // Cerrar sin restoreFocus: el disparador ya no se ve y focus() sobre el no haria nada.
+    // Si el foco estaba en el cajon (o cayo a BODY al ocultarse), pasa al primer control
+    // visible que sigue al cajon en su seccion: en escritorio, la navegacion principal.
+    closeIfHidden() {
+      if (!this.isOpen || this.trigger.getClientRects().length > 0) return;
+      const active = document.activeElement;
+      const focusWasInside = !active || active === document.body || this.contains(active);
+      this.setOpen(false);
+      if (!focusWasInside) return;
+      const scope = this.closest('[data-section-id]') || document.body;
+      const target = getFocusableElements(scope).find((element) => !this.contains(element)
+        && (this.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING));
+      target?.focus({ preventScroll: true });
     }
 
     setOpen(open, restoreFocus = false) {
