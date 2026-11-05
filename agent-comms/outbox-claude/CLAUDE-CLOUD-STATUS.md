@@ -8,7 +8,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## Rama actual
 
-`HEAD` separado en `47bea25` (base `origin/lote-d` `9fc1394`); destino: `lote-d` (`C:\dev\TS-lote-d`).
+Checkout detached en `C:\dev\TS-lote-d`; historial basado en `origin/lote-d` `9fc1394`, con publicación a `origin/lote-d`.
 
 ## Hecho
 
@@ -37,7 +37,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## En curso
 
-- Worktree migrado a `C:\dev\TS-lote-d` desde `origin/lote-d` en `9fc1394`; `git status` funciona con permisos elevados. D28 y la instrumentación JSON de Gate 5 quedaron en el commit local `47bea25`, revisado independientemente; el push espera la compuerta del literal. Johandry autoriza un único intento diagnóstico después de revisión, pero no se ejecutará ni se generará JSON de corrida mientras falte `SHOPIFY_CLI_THEME_TOKEN`.
+- Worktree migrado a `C:\dev\TS-lote-d` desde `origin/lote-d` en `9fc1394`; `git status` funciona con permisos elevados. D28, la instrumentación JSON de Gate 5 y el estado actualizado quedaron en `origin/lote-d` en los commits `47bea25` y `5f6e875`, revisados independientemente. No hubo push de tema Shopify ni publicación. Johandry autoriza un único intento diagnóstico después de revisión, pero no se ejecutará ni se generará JSON de corrida mientras falte `SHOPIFY_CLI_THEME_TOKEN`.
 
 ## Pendiente
 
@@ -122,7 +122,7 @@ Espera credenciales o a Johandry:
 
 - Segunda ejecucion en tienda 2026-11-05: ver `agent-comms/outbox-claude/CLAUDE-STORE-RUN-002.md`. gate5 FALLA por `ReferenceError: browser is not defined` (scripts/gate5-complete-verification.mjs:203, tras la refactorizacion); no llego al carrito (nada que vaciar); /password y /products.json se comportan segun lo esperado. Corregido y aceptado en revisión independiente.
 - Repetición Gate 5 posterior a la corrección, preview ID 190232297715: terminó con exit 1 y `Gate 5 verification failed.`. El catch final descartó el detalle de excepciones no etiquetadas; no hubo log/stack ni informe nuevo. El JSON existente es de 2026-09-14 y localhost, no evidencia de esa corrida. No consta si se tocó el carrito ni si se realizó o verificó su limpieza. La instrucción posterior de Johandry autoriza un solo intento diagnóstico más tras revisión.
-- `SHOPIFY_CLI_THEME_TOKEN` no está en el entorno local actual; por eso no se verificó en vivo el estado de las previews ni se ejecutó ningún push. La salida observada no mostró valores de credenciales.
+- `SHOPIFY_CLI_THEME_TOKEN` no está en el entorno local actual; por eso no se verificó en vivo el estado de las previews ni se ejecutó ningún push de tema Shopify. El push Git a `origin/lote-d` sí se completó. La salida observada no mostró valores de credenciales.
 
 - Directiva y R-D de H-1 (Lote C, D28) lista: ver `agent-comms/outbox-claude/CLAUDE-DIRECTIVA-H1-LOTE-C-001.md`. Cambio propuesto Nivel 1: `#b5885c` -> `var(--color-foreground)` en `assets/base.css:9114,9115,9121,9126`; contraste Archive de 2.25-4.09:1 a >= 7.58:1. Pendiente implementacion.
 - H-1 (Lote C) implementada: `#b5885c` -> `var(--color-foreground)` en `assets/base.css:9114,9115,9121,9126`; 0 coincidencias de hex; contraste minimo 7.58:1 en 15 esquemas (estatico). Fila 47 del ledger queda `código completo`; pendiente prueba en tienda (R-A).
@@ -134,4 +134,4 @@ Espera credenciales o a Johandry:
 - D28 quedó registrada en `docs/decisions.md`; su fuente es `CLAUDE-DECISION-SESION-003.md`.
 - Lote 0: corrección mínima e instrumentación JSON de Gate 5 aceptadas en revisión independiente estática; `node --check` y `git diff --check` pasaron. No se ejecutó Gate ni se generó JSON de corrida: falta `SHOPIFY_CLI_THEME_TOKEN`. Si Gate 5 pasa en el único intento autorizado, seguir R-A/R-B, cierre con revisor distinto y luego Lote C; C-R0-4 permanece pendiente de Johandry.
 - Lote C y los entregables del Lote D quedan sujetos a revisión independiente; las dependencias que requieran decisiones, fixture o entorno de Johandry permanecen pendientes.
-- Migración Git: los tres archivos quedaron respaldados en `C:\dev\TS-lote-d-migration-backup-20261105` y aplicados en `C:\dev\TS-lote-d`. `git worktree repair` desde el repo principal informó una entrada `.git` incorrecta para `C:\Users\Johan\.codex\worktrees\2482\Tema Shopify`; no se atribuye a la reparación de `TS-lote-d`. El worktree `C:\Users\Johan\Documents\Drive\TS-lote-d` ya se retiró tras verificar el nuevo. El checkout permanece detached: `git switch lote-d` se abortó porque varios archivos ignorados/no rastreados serían sobrescritos, y no se movieron. El commit local `47bea25` parte de `9fc1394`; el push no forzado a `lote-d` queda pendiente de la compuerta del literal.
+- Migración Git: los tres archivos quedaron respaldados en `C:\dev\TS-lote-d-migration-backup-20261105` y aplicados en `C:\dev\TS-lote-d`. `git worktree repair` desde el repo principal informó una entrada `.git` incorrecta para `C:\Users\Johan\.codex\worktrees\2482\Tema Shopify`; no se atribuye a la reparación de `TS-lote-d`. El worktree `C:\Users\Johan\Documents\Drive\TS-lote-d` ya se retiró tras verificar el nuevo. El checkout permanece detached: `git switch lote-d` se abortó porque varios archivos ignorados/no rastreados serían sobrescritos, y no se movieron. Los commits `47bea25` (D28 e instrumentación) y `5f6e875` (estado) se publicaron sin force a `origin/lote-d`; `git ls-remote` confirmó `5f6e875`. Antes del push, el literal de `STOREFRONT_PASSWORD` dio 0 coincidencias fuera de `tests/vendor/axe.min.js` en 2.357 archivos, con 0 errores de lectura.
