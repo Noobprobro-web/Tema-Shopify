@@ -51,6 +51,13 @@ function validateConfiguration() {
 //  (2) Errors from the Shopify preview bar (iframe #PBarNextFrame and its resources): the message
 //      mentions PBarNextFrame, the resource host is bugsnag.com (notify./sessions.), or the
 //      resource path is a Shopify preview-bar asset (/shopifycloud/ with "preview" in the path).
+// Limitations (documented, filter intentionally NOT widened):
+//  - Store-host comparison uses the configured BASE_URL hostname. A redirect to another primary
+//    domain is not covered: its resources would count as a third-party host and be filtered
+//    for ERR_TUNNEL_CONNECTION_FAILED.
+//  - Playwright console messages expose only the resource URL (msg.location()), not the frame.
+//    So the bugsnag and /shopifycloud/...preview checks cannot be restricted to the preview-bar
+//    iframe; they match by host/path alone, wherever the message comes from.
 const THEME_ASSET_HOSTS = ['cdn.shopify.com'];
 function isIgnorableProxyNoise(text, resourceUrl, storeHost) {
   let host = '';
@@ -108,18 +115,36 @@ async function closeBrowserWithTimeout(browser, ms) {
 }
 
 const CART_NOT_EMPTY = 'GATE5_CART_NOT_EMPTY: cart could not be emptied before closing the session.';
+const CART_CLEAR_TIMEOUT_MS = 20000;
 // Empties the cart inside the same browser session and verifies item_count is 0 and no note remains.
+// Any failure (including timeout or an evaluate error) is labelled GATE5_CART_NOT_EMPTY.
 async function clearCartInSession(page) {
-  const result = await page.evaluate(async () => {
-    await fetch('/cart/clear.js', { method: 'POST' });
-    await fetch('/cart/update.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ note: '' })
-    });
-    const cart = await (await fetch('/cart.js')).json();
-    return { count: cart.item_count, note: cart.note || '' };
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`timed out after ${CART_CLEAR_TIMEOUT_MS / 1000}s`)), CART_CLEAR_TIMEOUT_MS);
   });
+  let result;
+  try {
+    result = await Promise.race([
+      page.evaluate(async (ms) => {
+        const signal = () => AbortSignal.timeout(ms);
+        await fetch('/cart/clear.js', { method: 'POST', signal: signal() });
+        await fetch('/cart/update.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ note: '' }),
+          signal: signal()
+        });
+        const cart = await (await fetch('/cart.js', { signal: signal() })).json();
+        return { count: cart.item_count, note: cart.note || '' };
+      }, CART_CLEAR_TIMEOUT_MS),
+      timeout
+    ]);
+  } catch (err) {
+    throw new Error(`${CART_NOT_EMPTY} (${err.message})`);
+  } finally {
+    clearTimeout(timer);
+  }
   if (result.count !== 0 || result.note !== '') throw new Error(CART_NOT_EMPTY);
 }
 
@@ -128,11 +153,22 @@ async function runChecks(browser) {
     viewport: { width: 1280, height: 900 }
   });
   const session = { cartTouched: false };
+  let originalError;
   try {
     return await runChecksInContext(context, session);
+  } catch (err) {
+    originalError = err;
+    throw err;
   } finally {
     try {
       if (session.cartTouched) await clearCartInSession(session.page);
+    } catch (cleanupErr) {
+      if (originalError) {
+        // Do not silently replace the check failure: log it and keep both in the message.
+        console.error(`Original check error: ${originalError.message}`);
+        throw new Error(`${cleanupErr.message} | Original check error: ${originalError.message}`);
+      }
+      throw cleanupErr;
     } finally {
       await context.close();
     }

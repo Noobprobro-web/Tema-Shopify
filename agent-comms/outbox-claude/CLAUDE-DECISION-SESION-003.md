@@ -35,7 +35,9 @@ En la primera ejecucion de gate5 se anadio 1 unidad y una nota al carrito de la 
 
 ### Cambios de gate5 asociados (aprobados)
 
-- **Cookie:** se retira la exigencia del nombre `storefront_digest`. Se valida por comportamiento: sin contrasena, `/products.json` redirige a `/password`; con contrasena, `/` y `/products.json` dan 200.
+- **Cookie:** el script NO comprobaba `storefront_digest`; el cambio es la validacion por comportamiento: sin contrasena, `/products.json` redirige a `/password`; con contrasena, `/` y `/products.json` dan 200.
 - **Filtro de ruido del proxy** (lista exacta; todo lo demas sigue haciendo fallar la compuerta; sustituye al filtro anterior de `shop.app`/403/404):
   1. `ERR_TUNNEL_CONNECTION_FAILED` cuyo host de recurso NO es el host de la tienda ni `cdn.shopify.com` (host de assets del tema). Si la URL del recurso falta o no se puede analizar, NO se filtra.
   2. Errores de la barra de previews de Shopify (iframe `#PBarNextFrame` y sus recursos): mensaje con `PBarNextFrame`, recurso en `bugsnag.com`/`*.bugsnag.com`, o ruta de recurso con `/shopifycloud/` y `preview`.
+  - Limitaciones documentadas (filtro no ampliado): (a) la comparacion de host usa el dominio configurado de la tienda; una redireccion a otro dominio principal no esta cubierta. (b) La consola de Playwright solo expone la URL del recurso, no el iframe de origen, por lo que bugsnag y `/shopifycloud/...preview` no pueden acotarse al iframe de la barra de previews y se filtran por host/ruta.
+- **Limpieza del carrito:** cualquier fallo (incluido error de evaluate o tiempo maximo de 20 s) se etiqueta `GATE5_CART_NOT_EMPTY`; si ya habia un error de la comprobacion, ambos quedan en el mensaje.
