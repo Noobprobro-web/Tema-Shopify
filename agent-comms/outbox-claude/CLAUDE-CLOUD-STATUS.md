@@ -115,3 +115,5 @@ Espera credenciales o a Johandry:
 
 - D28 registrada en `agent-comms/outbox-claude/CLAUDE-DECISION-SESION-003.md`.
 - P3 de gate5 aplicados en `scripts/gate5-complete-verification.mjs`: (1) `browser.close()` duplicado eliminado de `runChecks` (cierre único en el `finally`, línea 66); (2) cierre con tope de 30 s mediante `Promise.race` (líneas 69-84, `GATE5_CLOSE`); (3) rechazo de rutas de colección/producto con último tramo `password` o `challenge` (líneas 42-44). Solo `node --check`; sin ejecución en tienda.
+
+- Previews no publicadas subidas 2026-11-05 (--unpublished, --listing): "Preview sartorial 2026-11-05" ID 190232297715; "Preview imprint 2026-11-05" ID 190232330483; "Preview archive 2026-11-05" ID 190232363251; estado: no publicado.
