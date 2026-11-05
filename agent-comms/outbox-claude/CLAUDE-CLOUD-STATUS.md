@@ -8,7 +8,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## Rama actual
 
-`HEAD` separado en `9fc1394`; destino: `origin/lote-d` (`C:\dev\TS-lote-d`).
+`HEAD` separado en `47bea25` (base `origin/lote-d` `9fc1394`); destino: `lote-d` (`C:\dev\TS-lote-d`).
 
 ## Hecho
 
@@ -37,7 +37,7 @@ Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea despu
 
 ## En curso
 
-- Worktree migrado a `C:\dev\TS-lote-d`, HEAD `9fc1394`; `git status` funciona con permisos elevados y los tres cambios respaldados están aplicados. La instrumentación de Gate 5 con JSON seguro por corrida quedó aceptada en revisión independiente estática. Johandry autoriza un único intento diagnóstico después de revisión, pero no se ejecutará ni se generará JSON de corrida mientras falte `SHOPIFY_CLI_THEME_TOKEN`.
+- Worktree migrado a `C:\dev\TS-lote-d` desde `origin/lote-d` en `9fc1394`; `git status` funciona con permisos elevados. D28 y la instrumentación JSON de Gate 5 quedaron en el commit local `47bea25`, revisado independientemente; el push espera la compuerta del literal. Johandry autoriza un único intento diagnóstico después de revisión, pero no se ejecutará ni se generará JSON de corrida mientras falte `SHOPIFY_CLI_THEME_TOKEN`.
 
 ## Pendiente
 
@@ -134,4 +134,4 @@ Espera credenciales o a Johandry:
 - D28 quedó registrada en `docs/decisions.md`; su fuente es `CLAUDE-DECISION-SESION-003.md`.
 - Lote 0: corrección mínima e instrumentación JSON de Gate 5 aceptadas en revisión independiente estática; `node --check` y `git diff --check` pasaron. No se ejecutó Gate ni se generó JSON de corrida: falta `SHOPIFY_CLI_THEME_TOKEN`. Si Gate 5 pasa en el único intento autorizado, seguir R-A/R-B, cierre con revisor distinto y luego Lote C; C-R0-4 permanece pendiente de Johandry.
 - Lote C y los entregables del Lote D quedan sujetos a revisión independiente; las dependencias que requieran decisiones, fixture o entorno de Johandry permanecen pendientes.
-- Migración Git: los tres archivos quedaron respaldados en `C:\dev\TS-lote-d-migration-backup-20261105` y aplicados en `C:\dev\TS-lote-d`, HEAD `9fc1394`; `git status` funciona con permisos elevados. `git worktree repair` desde el repo principal informó una entrada `.git` incorrecta para `C:\Users\Johan\.codex\worktrees\2482\Tema Shopify`; no se atribuye a la reparación de `TS-lote-d`. El worktree `C:\Users\Johan\Documents\Drive\TS-lote-d` ya se retiró tras verificar el nuevo. El checkout permanece detached: `git switch lote-d` se abortó porque varios archivos ignorados/no rastreados serían sobrescritos, y no se movieron. El commit y push explícito de `HEAD` a `lote-d` quedan pendientes de la revisión documental independiente y la compuerta del literal.
+- Migración Git: los tres archivos quedaron respaldados en `C:\dev\TS-lote-d-migration-backup-20261105` y aplicados en `C:\dev\TS-lote-d`. `git worktree repair` desde el repo principal informó una entrada `.git` incorrecta para `C:\Users\Johan\.codex\worktrees\2482\Tema Shopify`; no se atribuye a la reparación de `TS-lote-d`. El worktree `C:\Users\Johan\Documents\Drive\TS-lote-d` ya se retiró tras verificar el nuevo. El checkout permanece detached: `git switch lote-d` se abortó porque varios archivos ignorados/no rastreados serían sobrescritos, y no se movieron. El commit local `47bea25` parte de `9fc1394`; el push no forzado a `lote-d` queda pendiente de la compuerta del literal.
