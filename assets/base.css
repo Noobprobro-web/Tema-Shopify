@@ -9111,19 +9111,19 @@ html[data-motion-style='heritage'] {
 
   /* Heritage: patina de laton envejecido y cursivas solemnes */
   html[data-motion-style='heritage'] .button:hover:not([disabled]) {
-    border-color: #b5885c;
-    color: #b5885c;
+    border-color: var(--color-foreground);
+    color: var(--color-foreground);
     background: transparent;
     transform: none;
   }
 
   html[data-motion-style='heritage'] .product-card:hover .product-card__title a {
-    color: #b5885c;
+    color: var(--color-foreground);
     font-style: italic;
   }
 
   html[data-motion-style='heritage'] .site-header__link:hover {
-    color: #b5885c;
+    color: var(--color-foreground);
   }
 
   html[data-motion-style='heritage'] .button:focus-visible,
