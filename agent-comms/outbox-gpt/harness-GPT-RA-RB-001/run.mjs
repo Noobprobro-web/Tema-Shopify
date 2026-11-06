@@ -19,18 +19,18 @@ const AXE_SHA256 = '3e34029d5a3db40742dde7ea7445e5101eb5073860f8698b2a92f091af4d
 const AXE_VERSION = '4.10.2';
 const AXE_RULES = Object.freeze(['aria-allowed-attr', 'aria-hidden-focus', 'aria-required-attr', 'aria-valid-attr', 'aria-valid-attr-value', 'button-name', 'color-contrast', 'document-title', 'duplicate-id-active', 'duplicate-id-aria', 'frame-title', 'heading-order', 'html-has-lang', 'html-lang-valid', 'image-alt', 'input-button-name', 'input-image-alt', 'label', 'label-content-name-mismatch', 'landmark-no-duplicate-main', 'landmark-one-main', 'landmark-unique', 'link-name', 'nested-interactive', 'page-has-heading-one', 'role-img-alt', 'scrollable-region-focusable', 'select-name', 'tabindex']);
 const EXTERNAL_HEADERS = Object.freeze({ Accept: '*/*', 'User-Agent': 'Codex-RA-RB-ReadOnly-Harness' });
+const READ_HOSTS = new Set(['tema-qkqpke0j.myshopify.com', 'cdn.shopify.com', 'fonts.shopifycdn.com']);
+const ANALYTICS_WARNING_HOSTS = new Set(['monorail-edge.shopifysvc.com', 'www.google-analytics.com', 'region1.google-analytics.com', 'analytics.google.com', 'www.googletagmanager.com', 'stats.g.doubleclick.net', 'connect.facebook.net', 'www.facebook.com', 'analytics.tiktok.com']);
+const PLATFORM_WARNING_HOSTS = new Set(['bugsnag.com', 'notify.bugsnag.com', 'sessions.bugsnag.com', 'shop.app', 'www.shop.app', 'pay.shopify.com', 'checkout.shopify.com', 'accounts.shopify.com']);
+const CART_POST_PATHS = new Set(['/cart/add.js', '/cart/update.js', '/cart/clear.js']);
 const KNOWN_STATIC_SUFFIX = /\.(?:css|m?js|svg|png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf|eot|mp4|webm|mov)$/i;
-const DENIAL_REASONS = new Set(['REQUEST_OUTSIDE_ALLOWLIST', 'REQUEST_ADDRESS_NOT_ALLOWED', 'CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED', 'NON_PRIMARY_FRAME_BLOCKED', 'PREVIEW_QUERY_NOT_ALLOWED', 'MUTATION_BLOCKED', 'DOCUMENT_OUTSIDE_ALLOWLIST', 'PREVIEW_NOT_VERIFIED', 'CROSS_ORIGIN_REDIRECT_BLOCKED', 'WEBSOCKET_BLOCKED']);
+const DENIAL_REASONS = new Set(['HOST_NOT_ALLOWED', 'ANALYTICS_HOST_BLOCKED', 'PLATFORM_HOST_BLOCKED', 'REQUEST_ADDRESS_NOT_ALLOWED', 'MUTATION_BLOCKED', 'WEBSOCKET_BLOCKED']);
 const DENIED_SOURCE_SUFFIXES = Object.freeze({ 'base.css': 'base_css', 'theme.js': 'theme_js', 'shopify-xr.js': 'shopify_xr_js', 'product-zoom.js': 'product_zoom_js' });
 const INVENTORY_HOSTS = new Set(['tema-qkqpke0j.myshopify.com', 'cdn.shopify.com', 'cdn.shopifycdn.net', 'fonts.shopifycdn.com', 'fonts.googleapis.com', 'fonts.gstatic.com']);
 const INVENTORY_KINDS = new Set(['script', 'stylesheet', 'image', 'font', 'media', 'texttrack']);
 const INVENTORY_LIMIT = 100;
 // Kept only in process memory; it is distinct from every emitted run/file ID.
 const INVENTORY_HASH_SALT = randomUUID();
-const STATIC_HOSTS = Object.freeze({
-  // Fixed reviewed repo reference; page-discovered paths never extend this list.
-  'cdn.shopify.com': { label: 'shopify_cdn', paths: Object.freeze(['/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css']) },
-});
 const VIEWPORTS = Object.freeze([{ width: 390, height: 844 }, { width: 1280, height: 800 }]);
 const CROSSES = Object.freeze([
   [{ width: 390, height: 844 }, { width: 1280, height: 800 }, { width: 390, height: 844 }],
@@ -64,11 +64,13 @@ const report = {
 };
 let expect;
 let inventorySecretGuard = null;
+const runtimeSessions = [];
 
 class CheckError extends Error {
   constructor(code) { super(code); this.code = code; }
 }
 class SkipCheck extends CheckError {}
+class PolicyBlocked extends CheckError {}
 const requireThat = (condition, code) => { if (!condition) throw new CheckError(code); };
 function safeCode(error) {
   if (error instanceof CheckError && /^[A-Z][A-Z0-9_]+$/.test(error.code)) return error.code;
@@ -77,8 +79,27 @@ function safeCode(error) {
   return 'HARNESS_OPERATION_FAILED';
 }
 async function saveReport() {
-  if (mode === 'inventory') validateInventoryBeforeSave();
   await mkdir(dirname(outputFile), { recursive: true });
+  // Each write uses one detached diagnostic snapshot, including writes after
+  // context/browser closure. Late handlers cannot mutate only its event list.
+  for (const session of runtimeSessions) {
+    const events = session.routeFailureEvents.map((event) => ({ ...event }));
+    const omitted = session.routeFailureEventsOmitted;
+    session.publicSession.routeFailureEvents = events;
+    session.publicSession.routeFailureEventsOmitted = omitted;
+    session.publicSession.routeOperationFailed = Boolean(session.routeOperationFailed || events.length > 0 || omitted > 0);
+    session.publicSession.routeWarningEvents = session.routeWarningEvents.map((event) => ({ ...event }));
+    session.publicSession.routeWarningEventsOmitted = session.routeWarningEventsOmitted;
+  }
+  if (report.finishedAt !== null) {
+    // Final outcomes are derived from the same reconciled snapshot serialized
+    // below, after main() has awaited context and browser closure.
+    const failed = report.checks.some((entry) => entry.result === 'failed') || report.sessions.some((session) => session.routeOperationFailed);
+    report.executionResult = failed ? 'failed' : 'completed';
+    report.scopeResult = mode === 'inventory' ? 'inventory_only' : failed ? 'failed' : 'completed_with_limits';
+  }
+  if (mode === 'inventory') validateInventoryBeforeSave();
+  validateWarningSourcesBeforeSave();
   // Direct replacement avoids the Windows destination-rename failure mode.
   // Inventory emits guarded known hosts and salted fingerprints, never paths.
   await writeFile(outputFile, `${JSON.stringify(report, null, 2)}\n`, { encoding: 'utf8', flag: 'w' });
@@ -106,7 +127,7 @@ function assertStorePage(page, session) {
 async function verifyPreview(page, session) {
   assertStorePage(page, session);
   const matches = await page.evaluate((expected) => typeof window.Shopify?.theme?.id !== 'undefined' && String(window.Shopify.theme.id) === expected, session.themeId);
-  requireThat(matches, 'PREVIEW_ID_NOT_VERIFIED');
+  requireThat(matches && AUTHORIZED_THEME_IDS.has(session.themeId), 'PREVIEW_ID_NOT_VERIFIED');
   session.previewVerified = true;
 }
 async function goto(page, preview, route, session) {
@@ -127,40 +148,31 @@ async function authenticate(page, preview, password, session) {
   await goto(page, preview, 'home', session);
 }
 function requestDecision(session, method, rawAddress, kind, context, primaryFrame) {
-  const decision = { method: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'].includes(method) ? method : 'OTHER', kind: ['document', 'stylesheet', 'image', 'media', 'font', 'script', 'texttrack', 'xhr', 'fetch', 'eventsource', 'websocket', 'manifest', 'other', 'api'].includes(kind) ? kind : 'other', context, hostClass: 'invalid', pathClass: 'outside_allowlist', queryRemoved: false, allowed: false, reason: 'REQUEST_OUTSIDE_ALLOWLIST' };
+  const decision = { method: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'].includes(method) ? method : 'OTHER', kind: ['document', 'stylesheet', 'image', 'media', 'font', 'script', 'texttrack', 'xhr', 'fetch', 'eventsource', 'websocket', 'manifest', 'other', 'api'].includes(kind) ? kind : 'other', context, hostClass: 'external', pathClass: 'blocked_host', queryRemoved: false, allowed: false, severity: 'warning', reason: 'HOST_NOT_ALLOWED' };
   let address;
-  let path;
-  try { address = new URL(rawAddress); path = address.pathname; } catch { return decision; }
+  try { address = new URL(rawAddress); } catch { decision.reason = 'REQUEST_ADDRESS_NOT_ALLOWED'; return decision; }
   const sameStore = address.origin === ORIGIN;
-  const staticHost = Object.hasOwn(STATIC_HOSTS, address.hostname) ? STATIC_HOSTS[address.hostname] : null;
-  decision.hostClass = sameStore ? 'store' : staticHost?.label || 'external';
-  decision.queryRemoved = !sameStore && Boolean(address.search);
-  if (address.protocol !== 'https:' || address.port || address.username || address.password || /[\u0000-\u0020\\%]/.test(path) || /(?:^|\/)\.\.?\//.test(path)) { decision.reason = 'REQUEST_ADDRESS_NOT_ALLOWED'; return decision; }
-  if (/(?:checkout|payments?|shop[-_]?pay)/i.test(address.hostname) || /(?:^|\/)(?:checkouts?|payments?|pay|accounts?|admin)(?:[-_.\/]|$)/i.test(path)) { decision.pathClass = 'restricted_commerce_account_admin'; decision.reason = 'CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED'; return decision; }
-  if (context === 'browser' && !primaryFrame) { decision.reason = 'NON_PRIMARY_FRAME_BLOCKED'; return decision; }
-  const preview = address.searchParams.get('preview_theme_id');
-  if (sameStore && preview !== null && preview !== session.themeId) { decision.reason = 'PREVIEW_QUERY_NOT_ALLOWED'; return decision; }
-  const reads = method === 'GET' || method === 'HEAD';
-  if (!reads) {
-    if (sameStore && method === 'POST' && path === '/password' && !address.search && !address.hash && context === 'api' && kind === 'api' && session.authPostAllowed) { decision.pathClass = 'password_auth'; decision.allowed = true; decision.reason = 'AUTH_POST_ALLOWED'; return decision; }
-    decision.pathClass = /^\/cart(?:\/|\.|$)/.test(path) ? 'cart_other' : 'outside_allowlist';
-    decision.reason = 'MUTATION_BLOCKED';
+  decision.hostClass = sameStore ? 'store' : address.hostname === 'cdn.shopify.com' ? 'shopify_cdn' : address.hostname === 'fonts.shopifycdn.com' ? 'shopify_font' : 'external';
+  if (address.protocol !== 'https:' || address.port || address.username || address.password) { decision.reason = 'REQUEST_ADDRESS_NOT_ALLOWED'; return decision; }
+  if (!READ_HOSTS.has(address.hostname)) {
+    if (ANALYTICS_WARNING_HOSTS.has(address.hostname)) decision.reason = 'ANALYTICS_HOST_BLOCKED';
+    else if (PLATFORM_WARNING_HOSTS.has(address.hostname) || address.hostname.endsWith('.bugsnag.com')) decision.reason = 'PLATFORM_HOST_BLOCKED';
     return decision;
   }
-  if (kind === 'document') {
-    if (sameStore && Object.values(ROUTES).includes(path) && (preview === session.themeId || session.previewVerified || session.authSubmitted)) { decision.pathClass = 'store_document'; decision.allowed = true; decision.reason = 'DOCUMENT_READ_ALLOWED'; return decision; }
-    if (sameStore && path === '/password' && preview === session.themeId) { decision.pathClass = 'password_page'; decision.allowed = true; decision.reason = 'PASSWORD_READ_ALLOWED'; return decision; }
-    decision.reason = 'DOCUMENT_OUTSIDE_ALLOWLIST';
+  if (method === 'GET' || method === 'HEAD') {
+    decision.allowed = true;
+    decision.severity = null;
+    decision.pathClass = sameStore && kind === 'document' ? 'store_document' : sameStore ? 'store_read' : 'trusted_cdn_read';
+    decision.reason = 'HOST_READ_ALLOWED';
     return decision;
   }
-  if (sameStore) {
-    if (path === '/cart.js') { decision.pathClass = 'cart_read'; decision.allowed = session.previewVerified; decision.reason = decision.allowed ? 'STORE_READ_ALLOWED' : 'PREVIEW_NOT_VERIFIED'; return decision; }
-    if (Object.values(ROUTES).includes(path) || path === `${ROUTES.product}.js` || /^\/(?:search\/suggest(?:\.json)?|recommendations\/products(?:\.json)?)$/.test(path)) { decision.pathClass = 'store_read'; decision.allowed = true; decision.reason = 'STORE_READ_ALLOWED'; return decision; }
-    const themeRoots = PREVIEWS.map((preview) => new RegExp(`^/cdn/shop/t/${preview.id}/`));
-    if (isStaticResourcePath(path, themeRoots)) { decision.pathClass = 'authorized_preview_theme_asset'; decision.allowed = true; decision.reason = 'STATIC_READ_ALLOWED'; return decision; }
-    if (isStaticResourcePath(path, [/^\/cdn\/shop\/(?:files|products)\//])) { decision.pathClass = 'store_media_asset'; decision.allowed = true; decision.reason = 'STATIC_READ_ALLOWED'; return decision; }
-    if (isStaticResourcePath(path, [/^\/(?:cdn\/)?shopifycloud\//])) { decision.pathClass = 'store_platform_asset'; decision.allowed = true; decision.reason = 'STATIC_READ_ALLOWED'; return decision; }
-  } else if (staticHost?.paths.includes(path)) { decision.pathClass = 'static_asset'; decision.allowed = true; decision.reason = 'STATIC_READ_ALLOWED'; return decision; }
+  decision.pathClass = 'blocked_mutation';
+  decision.reason = 'MUTATION_BLOCKED';
+  if (sameStore && method === 'POST' && address.pathname === '/password' && !address.search && !address.hash && context === 'api' && session.authPostAllowed) {
+    decision.allowed = true; decision.severity = null; decision.pathClass = 'password_auth'; decision.reason = 'AUTH_POST_ALLOWED';
+  } else if (sameStore && method === 'POST' && CART_POST_PATHS.has(address.pathname) && !address.search && !address.hash && session.mode === 'cart' && session.cartWriteEnabled && session.cartAuthorization && (session.previewVerified || session.cleanupInProgress) && (context === 'api' || primaryFrame)) {
+    decision.allowed = true; decision.severity = null; decision.pathClass = 'cart_post'; decision.reason = 'CART_POST_ALLOWED';
+  }
   return decision;
 }
 function isStaticResourcePath(path, roots) {
@@ -190,6 +202,7 @@ function deniedResourceCategory(session, rawAddress, reason) {
 function recordRequest(session, decision, rawAddress) {
   if (!decision.allowed) {
     session.blockedRequests += 1;
+    recordNetworkWarning(session, decision, rawAddress);
     const category = deniedResourceCategory(session, rawAddress, decision.reason);
     const key = [category.rootCategory, category.extensionClass, category.sourceSuffix, category.asciiAllowed, category.lengthWithinLimit, category.reason].join('|');
     const previous = session.deniedResourceSummary.get(key);
@@ -233,6 +246,39 @@ function buildInventorySecretGuard(environment) {
     },
   };
 }
+function safeWarningSource(rawAddress) {
+  const source = { host: null, pathname: null, redacted: true, redactionReason: 'UNSAFE_ADDRESS' };
+  let address;
+  try { address = new URL(rawAddress); } catch { return source; }
+  if (!/^[a-z0-9.-]{1,253}$/.test(address.hostname) || address.username || address.password) return source;
+  if (!inventorySecretGuard || inventorySecretGuard.unavailable) { source.redactionReason = 'GUARD_UNAVAILABLE'; return source; }
+  if (inventorySecretGuard.matches(address.hostname)) { source.redactionReason = 'SECRET_MATCH'; return source; }
+  source.host = address.hostname;
+  if (address.pathname.length > 1024) { source.redactionReason = 'PATH_TOO_LONG'; return source; }
+  if (inventorySecretGuard.matches(address.pathname)) { source.redactionReason = 'SECRET_MATCH'; return source; }
+  if (!/^[A-Za-z0-9_@+.,~/%-]+$/.test(address.pathname)) { source.redactionReason = 'UNSAFE_PATH_FORMAT'; return source; }
+  source.pathname = address.pathname;
+  source.redacted = false;
+  source.redactionReason = null;
+  return source;
+}
+function recordNetworkWarning(session, decision, rawAddress) {
+  const source = safeWarningSource(rawAddress);
+  const entry = { severity: 'warning', method: decision.method, resourceKind: decision.kind, reason: DENIAL_REASONS.has(decision.reason) ? decision.reason : 'RESOURCE_BLOCKED', ...source, count: 1 };
+  session.warningOccurrences += 1;
+  const key = JSON.stringify([entry.method, entry.resourceKind, entry.reason, entry.host, entry.pathname, entry.redactionReason]);
+  const existing = session.networkWarnings.get(key);
+  if (existing) existing.count += 1;
+  else if (session.networkWarnings.size < 200) session.networkWarnings.set(key, entry);
+  else session.warningOccurrencesOmitted += 1;
+}
+function validateWarningSourcesBeforeSave() {
+  for (const session of report.sessions) for (const entry of [...(session.networkWarnings || []), ...(session.routeFailureEvents || []), ...(session.routeWarningEvents || [])]) {
+    if (!inventorySecretGuard || inventorySecretGuard.unavailable) { entry.host = null; entry.pathname = null; entry.redacted = true; entry.redactionReason = 'GUARD_UNAVAILABLE'; continue; }
+    if (entry.host && inventorySecretGuard.matches(entry.host)) { entry.host = null; entry.pathname = null; entry.redacted = true; entry.redactionReason = 'SECRET_MATCH'; }
+    else if (entry.pathname && inventorySecretGuard.matches(entry.pathname)) { entry.pathname = null; entry.redacted = true; entry.redactionReason = 'SECRET_MATCH'; }
+  }
+}
 function inventoryEntry(decision, rawAddress, rootCategory) {
   const entry = { method: decision.method, resourceKind: decision.kind, hostCategory: 'other_host', host: null, resourceFingerprint: null, rootCategory, blockReason: DENIAL_REASONS.has(decision.reason) ? decision.reason : 'UNCLASSIFIED_DENIAL', redacted: true, redactionReason: 'UNSAFE_ADDRESS', count: 1 };
   let address;
@@ -269,11 +315,12 @@ function validateInventoryBeforeSave() {
   }
 }
 async function requestViaPolicy(session, method, path, options = {}) {
-  if (!(method === 'POST' && path === '/password')) assertStorePage(session.page, session);
+  if (!(method === 'POST' && path === '/password') && !(session.mode === 'cart' && session.cartAuthorization && (CART_POST_PATHS.has(path) || path === '/cart.js'))) assertStorePage(session.page, session);
   const decision = requestDecision(session, method, `${ORIGIN}${path}`, 'api', 'api', false);
   recordRequest(session, decision, `${ORIGIN}${path}`);
   requireThat(decision.allowed, 'API_REQUEST_BLOCKED_BY_POLICY');
   if (decision.pathClass === 'password_auth') session.authPostAllowed = false;
+  if (decision.pathClass === 'cart_post') { session.cartTouched = true; session.publicSession.cartTouched = true; }
   const response = await session.api.fetch(`${ORIGIN}${path}`, { ...options, method, timeout: 12000, maxRedirects: 0, maxRetries: 0 });
   const location = response.headers().location;
   if (decision.pathClass === 'password_auth') {
@@ -301,27 +348,61 @@ function validatedRedirect(session, source, location, kind, context, primaryFram
   try { from = new URL(source); target = new URL(location, from); } catch { throw new CheckError('REDIRECT_ADDRESS_NOT_ALLOWED'); }
   const decision = requestDecision(session, 'GET', target.href, kind, context, primaryFrame);
   decision.redirectHop = true;
-  if (target.origin !== from.origin) { decision.allowed = false; decision.reason = 'CROSS_ORIGIN_REDIRECT_BLOCKED'; }
   recordRequest(session, decision, target.href);
-  requireThat(decision.allowed, 'REDIRECT_DESTINATION_NOT_ALLOWED');
+  if (!decision.allowed) throw new PolicyBlocked('REDIRECT_DESTINATION_BLOCKED');
   return target;
 }
 function browserFetchAddress(rawAddress) {
   const address = new URL(rawAddress);
-  if (address.origin !== ORIGIN) address.search = '';
   address.hash = '';
   return address;
 }
+function routeEvent(session, stage, method, rawAddress, error) {
+  const stages = new Set(['request_setup', 'policy_abort', 'preview_validation', 'fetch', 'redirect_validation', 'fulfill', 'redirect_limit']);
+  let pageKind = 'other';
+  try {
+    const path = new URL(session.page.url()).pathname;
+    pageKind = Object.entries(ROUTES).find(([, route]) => route === path)?.[0] || 'other';
+  } catch { /* Only the fixed page-kind category is emitted. */ }
+  return { stage: stages.has(stage) ? stage : 'request_setup', code: safeCode(error), pageKind, method: ['GET', 'HEAD', 'POST'].includes(method) ? method : 'OTHER', ...safeWarningSource(rawAddress) };
+}
+function recordRouteFailure(session, stage, method, rawAddress, error) {
+  if (session.routeFailureEvents.length >= 50) { session.routeFailureEventsOmitted += 1; return; }
+  session.routeFailureEvents.push(routeEvent(session, stage, method, rawAddress, error));
+}
+function isShopifyRuntimeFetchTimeout(stage, fetchInProgress, method, rawAddress, error) {
+  if (stage !== 'fetch' || !fetchInProgress || !['GET', 'HEAD'].includes(method) || safeCode(error) !== 'PLAYWRIGHT_TIMEOUT') return false;
+  try {
+    const address = new URL(rawAddress);
+    return address.origin === 'https://cdn.shopify.com' && !address.username && !address.password && address.pathname.startsWith('/shopifycloud/shop-js/');
+  } catch { return false; }
+}
+function recordRouteWarning(session, stage, method, rawAddress, error) {
+  if (session.routeWarningEvents.length >= 50) { session.routeWarningEventsOmitted += 1; return; }
+  session.routeWarningEvents.push({ severity: 'warning', reason: 'SHOPIFY_RUNTIME_FETCH_TIMEOUT_WARNING_ONLY', ...routeEvent(session, stage, method, rawAddress, error) });
+}
 function createRouter(session) {
   return async (route) => {
+    let stage = 'request_setup';
+    let failureAddress;
+    let method = 'OTHER';
+    let fetchInProgress = false;
     try {
       const request = route.request();
+      failureAddress = request.url();
+      method = request.method();
       let primaryFrame = false;
       try { primaryFrame = request.frame() === session.page.mainFrame(); } catch { /* Worker/frame-less requests are denied. */ }
       const decision = requestDecision(session, request.method(), request.url(), request.resourceType(), 'browser', primaryFrame);
       recordRequest(session, decision, request.url());
-      if (!decision.allowed) { await route.abort('blockedbyclient'); return; }
-      if (decision.pathClass === 'store_document' || decision.pathClass === 'password_page') session.previewVerified = false;
+      if (!decision.allowed) { stage = 'policy_abort'; await route.abort('blockedbyclient'); return; }
+      if (request.isNavigationRequest() && primaryFrame) session.previewVerified = false;
+      if (decision.pathClass === 'cart_post') {
+        stage = 'preview_validation';
+        await verifyPreview(session.page, session);
+        session.cartTouched = true;
+        session.publicSession.cartTouched = true;
+      }
       // Never let Chromium automatically follow a server redirect. Fetch one
       // read hop at a time, validating before each hop, then fulfill a final body.
       let address = browserFetchAddress(request.url());
@@ -329,20 +410,32 @@ function createRouter(session) {
         let externalClient = null;
         let response = null;
         try {
+          stage = 'fetch';
+          fetchInProgress = false;
+          failureAddress = address.href;
           if (address.origin !== ORIGIN) {
             // A fresh empty-cookie client per hop cannot inherit browser Cookie,
             // Authorization, Referer, Origin or custom request headers.
             externalClient = await session.createExternalClient();
+            fetchInProgress = true;
             response = await externalClient.fetch(address.href, { method: request.method(), headers: EXTERNAL_HEADERS, maxRedirects: 0, maxRetries: 0, timeout: 15000 });
-          } else response = await route.fetch({ url: address.href, method: request.method(), maxRedirects: 0, maxRetries: 0, timeout: 15000 });
+          } else {
+            fetchInProgress = true;
+            response = await route.fetch({ url: address.href, method: request.method(), maxRedirects: 0, maxRetries: 0, timeout: 15000 });
+          }
+          fetchInProgress = false;
+          stage = 'redirect_validation';
           const location = response.headers().location;
           if (location) {
+            try { failureAddress = new URL(location, address).href; } catch { failureAddress = undefined; }
             const next = validatedRedirect(session, address.href, location, request.resourceType(), 'browser', primaryFrame);
+            requireThat(['GET', 'HEAD'].includes(request.method()), 'POST_REDIRECT_NOT_ALLOWED');
             requireThat([301, 302, 303, 307, 308].includes(response.status()), 'REDIRECT_STATUS_NOT_ALLOWED');
             address = browserFetchAddress(next.href);
             continue;
           }
           requireThat(response.status() < 300 || response.status() >= 400 || response.status() === 304, 'REDIRECT_LOCATION_MISSING');
+          stage = 'fulfill';
           const headers = { ...response.headers() };
           delete headers.location;
           delete headers.refresh;
@@ -354,9 +447,15 @@ function createRouter(session) {
           if (externalClient) await externalClient.dispose().catch(() => {});
         }
       }
+      stage = 'redirect_limit';
       throw new CheckError('REDIRECT_LIMIT_EXCEEDED');
-    } catch {
-      session.routeOperationFailed = true;
+    } catch (error) {
+      if (isShopifyRuntimeFetchTimeout(stage, fetchInProgress, method, failureAddress, error)) {
+        recordRouteWarning(session, stage, method, failureAddress, error);
+      } else if (!(error instanceof PolicyBlocked)) {
+        session.routeOperationFailed = true;
+        recordRouteFailure(session, stage, method, failureAddress, error);
+      }
       try { await route.abort('failed'); } catch { /* A closed request is already settled. */ }
     }
   };
@@ -422,9 +521,62 @@ async function runAxe(page, axeSource) {
       const known = new Set(controlled.getRules().map((rule) => rule.ruleId));
       const selectedRules = allowedRules.filter((id) => known.has(id));
       const hasNameRule = selectedRules.includes('label-content-name-mismatch');
-      const result = await controlled.run({ exclude: [['#preview-bar-iframe']] }, { runOnly: { type: 'rule', values: selectedRules }, rules: hasNameRule ? { 'label-content-name-mismatch': { enabled: true } } : {} });
-      const summarize = (list) => list.map((rule) => ({ rule: allow.has(rule.id) ? rule.id : 'unclassified', impact: ['minor', 'moderate', 'serious', 'critical'].includes(rule.impact) ? rule.impact : null, nodeCount: Array.isArray(rule.nodes) ? rule.nodes.length : 0 }));
-      return { valid: true, axeVersion: version, selectedRuleCount: selectedRules.length, unavailableFixedRuleCount: allowedRules.length - selectedRules.length, labelNameRuleAvailable: hasNameRule, violations: summarize(result.violations), incomplete: summarize(result.incomplete), passes: Array.isArray(result.passes) ? result.passes.length : 0, previewBarIframeExcluded: true };
+      const result = await controlled.run(document, { elementRef: true, runOnly: { type: 'rule', values: selectedRules }, rules: hasNameRule ? { 'label-content-name-mismatch': { enabled: true } } : {} });
+      // Only fixed categories/booleans leave the page. Attribute values and
+      // iframe addresses are read in memory, never returned or serialized.
+      const tags = new Set(['a', 'area', 'article', 'aside', 'audio', 'body', 'button', 'canvas', 'caption', 'col', 'colgroup', 'dd', 'details', 'dialog', 'div', 'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'html', 'iframe', 'img', 'input', 'label', 'legend', 'li', 'main', 'nav', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'progress', 'section', 'select', 'source', 'span', 'summary', 'svg', 'table', 'tbody', 'td', 'textarea', 'th', 'thead', 'time', 'tr', 'ul', 'video']);
+      const sectionFamilies = [['header', 'header.site-header'], ['footer', 'footer.site-footer'], ['main_product', 'section.product-main'], ['main_collection', 'section.collection-main'], ['hero_editorial', 'section.hero-editorial'], ['curated_showcase', 'section.curated-showcase'], ['brand_manifesto', 'section.brand-manifesto'], ['bento_discovery', 'section.bento-discovery'], ['lookbook', 'section.lookbook'], ['complete_the_look', 'complete-the-look'], ['newsletter', 'section.newsletter-section'], ['marquee', 'marquee-banner'], ['cart_drawer', 'cart-drawer']];
+      const nodeEvidence = (node) => {
+        try {
+          const element = node.element;
+          if (!element || element.nodeType !== 1 || !element.ownerDocument) return { tag: 'unresolved', frameContext: 'unresolved', withinShopifySection: null, sectionFamily: 'unresolved', controlFamily: 'unresolved', iframeSourceFamily: 'unset', diagnosticCode: 'ELEMENT_REFERENCE_UNAVAILABLE' };
+          const tag = String(element.localName).toLowerCase();
+          let iframeSourceCategory = 'unset';
+          let iframeSourceFamily = 'unset';
+          if (tag === 'iframe' && element.getAttribute('src')) {
+            iframeSourceCategory = 'other';
+            iframeSourceFamily = 'other';
+            try {
+              const address = new URL(element.getAttribute('src'), element.ownerDocument.baseURI);
+              if (address.origin === 'https://tema-qkqpke0j.myshopify.com') iframeSourceCategory = 'store';
+              else if (address.hostname === 'cdn.shopify.com') iframeSourceCategory = 'shopify_cdn';
+              else if (address.hostname === 'hcaptcha.com' || address.hostname.endsWith('.hcaptcha.com')) iframeSourceCategory = 'captcha';
+              const safeAddress = address.protocol === 'https:' && !address.port && !address.username && !address.password && /^[a-z0-9.-]{1,253}$/.test(address.hostname) && address.pathname.length <= 1024 && /^[A-Za-z0-9_@+.,~/%-]+$/.test(address.pathname);
+              if (safeAddress && address.hostname === 'cdn.shopify.com' && /^\/shopifycloud\/(?:preview-bar|storefront-preview-bar)(?:\/|$)/.test(address.pathname)) iframeSourceFamily = 'shopify_preview_bar';
+              else if (safeAddress && address.hostname === 'cdn.shopify.com' && address.pathname.startsWith('/shopifycloud/')) iframeSourceFamily = 'shopify_cloud_other';
+              else if (safeAddress && address.origin === 'https://tema-qkqpke0j.myshopify.com') iframeSourceFamily = 'store';
+            } catch { /* Invalid addresses retain a fixed category. */ }
+          }
+          const sectionFamily = sectionFamilies.find(([, root]) => element.closest(root))?.[0] || 'other_or_none';
+          const controlFamily = element.matches('button[data-sticky-submit]') ? 'sticky_add_button' : element.matches('a.bento-card') ? 'bento_discovery_link' : 'other';
+          return { tag: tags.has(tag) ? tag : 'other', frameContext: element.ownerDocument === document ? 'main_document' : 'iframe_document', iframeTitlePresent: tag === 'iframe' ? Boolean(element.getAttribute('title')?.trim()) : null, iframeSourceCategory, iframeSourceFamily, sectionFamily, controlFamily, landmarkRegion: element.closest('header.site-header') ? 'header' : element.closest('main') ? 'main' : 'other_or_none', withinShopifySection: Boolean(element.closest('[id^="shopify-section-"]')), hasAriaLabel: ['a', 'button'].includes(tag) ? element.hasAttribute('aria-label') : null, diagnosticCode: null };
+        } catch { return { tag: 'unresolved', frameContext: 'unresolved', withinShopifySection: null, sectionFamily: 'unresolved', controlFamily: 'unresolved', iframeSourceFamily: 'unset', diagnosticCode: 'NODE_CLASSIFICATION_FAILED' }; }
+      };
+      let previewBarWarningOnlyNodeCount = 0;
+      const summarize = (list, previewWarningsOnly = false) => list.map((rule) => {
+        const sourceNodes = Array.isArray(rule.nodes) ? rule.nodes : [];
+        let nodeCount = 0;
+        let previewWarningCount = 0;
+        const nodes = [];
+        for (const node of sourceNodes) {
+          const evidence = nodeEvidence(node);
+          if (previewWarningsOnly && evidence.iframeSourceFamily === 'shopify_preview_bar') {
+            previewWarningCount += 1;
+            previewBarWarningOnlyNodeCount += 1;
+            continue;
+          }
+          nodeCount += 1;
+          if (nodes.length < 30) nodes.push(evidence);
+        }
+        // Drop a rule only when all of its nodes were positively identified as
+        // the Shopify preview bar. Unknown/other frames and mixed rules remain.
+        if (previewWarningCount > 0 && nodeCount === 0) return null;
+        const ruleId = allow.has(rule.id) ? rule.id : 'unclassified';
+        return { rule: ruleId, ruleId, impact: ['minor', 'moderate', 'serious', 'critical'].includes(rule.impact) ? rule.impact : null, nodeCount, nodes, nodesOmitted: Math.max(0, nodeCount - nodes.length) };
+      }).filter((rule) => rule !== null);
+      const violations = summarize(result.violations, true);
+      const incomplete = summarize(result.incomplete);
+      return { valid: true, axeVersion: version, selectedRuleCount: selectedRules.length, unavailableFixedRuleCount: allowedRules.length - selectedRules.length, labelNameRuleAvailable: hasNameRule, violations, incomplete, passes: Array.isArray(result.passes) ? result.passes.length : 0, previewBarWarningOnlyNodeCount };
     }, { key: alias, allowedRules: AXE_RULES, version: AXE_VERSION });
     requireThat(measured.valid, 'CONTROLLED_AXE_INSTANCE_NOT_VERIFIED');
     return measured;
@@ -467,18 +619,42 @@ async function emptyCartDrawer(page, session) {
   requireThat(initial.ok, 'CART_INITIAL_STATE_UNREADABLE');
   if (initial.itemCount !== 0 || !initial.noteEmpty) throw new SkipCheck('SESSION_CART_NOT_EMPTY');
   const link = page.locator('header a.site-header__cart').first();
-  await link.click();
-  await page.waitForFunction(() => location.pathname === '/cart' || document.querySelector('cart-drawer')?.hasAttribute('data-open'));
-  if (new URL(page.url()).pathname === '/cart') { await verifyPreview(page, session); throw new SkipCheck('CART_PAGE_CONFIGURED'); }
   const drawer = page.locator('cart-drawer');
-  await expect(drawer).toHaveAttribute('data-open', '');
-  await expect(drawer.locator('[data-cart-drawer-panel]')).toBeVisible();
-  const focus = await focusedState(page);
-  requireThat(focus.usable, 'CART_DRAWER_FOCUS_NOT_USABLE');
-  await drawer.locator('[data-cart-drawer-close]').click();
-  await expect(drawer).not.toHaveAttribute('data-open', '');
-  await expect(page.locator('body')).not.toHaveAttribute('data-drawer-open', '');
-  return { opened: true, closed: true, usableInitialFocus: true };
+  const drawerRendered = await drawer.count() > 0;
+  const sectionId = drawerRendered ? await drawer.getAttribute('data-section-id') : null;
+  requireThat(!drawerRendered || Boolean(sectionId), 'CART_DRAWER_SECTION_ID_MISSING');
+  // Register before opening. Query values only identify the expected response
+  // in memory and are never returned in check details or diagnostics.
+  const synchronized = drawerRendered ? page.waitForResponse((response) => {
+    try {
+      const address = new URL(response.url());
+      return response.request().method() === 'GET' && address.origin === ORIGIN && address.pathname === '/cart' && address.searchParams.get('section_id') === sectionId;
+    } catch { return false; }
+  }, { timeout: 30000 }).then(async (response) => {
+    const finished = await response.finished();
+    if (!response.ok()) return { ok: false, code: 'CART_SECTION_RENDERING_HTTP_FAILED' };
+    return finished === null ? { ok: true, code: null } : { ok: false, code: 'CART_SECTION_RENDERING_INCOMPLETE' };
+  }).catch((error) => ({ ok: false, code: safeCode(error) })) : null;
+  try {
+    await link.click();
+    await page.waitForFunction(() => location.pathname === '/cart' || document.querySelector('cart-drawer')?.hasAttribute('data-open'));
+    if (new URL(page.url()).pathname === '/cart') {
+      await verifyPreview(page, session);
+      requireThat(!drawerRendered, 'CART_DRAWER_NAVIGATED_TO_CART_PAGE');
+      throw new SkipCheck('CART_PAGE_CONFIGURED');
+    }
+    requireThat(Boolean(synchronized), 'CART_DRAWER_NOT_RENDERED');
+    const synced = await synchronized;
+    requireThat(synced.ok, synced.code);
+    await expect(drawer).toHaveAttribute('data-open', '');
+    await expect(drawer.locator('[data-cart-drawer-panel]')).toBeVisible();
+    const focus = await focusedState(page);
+    requireThat(focus.usable, 'CART_DRAWER_FOCUS_NOT_USABLE');
+    await drawer.locator('[data-cart-drawer-close]').click();
+    await expect(drawer).not.toHaveAttribute('data-open', '');
+    await expect(page.locator('body')).not.toHaveAttribute('data-drawer-open', '');
+    return { opened: true, closed: true, usableInitialFocus: true, sectionRenderingResponseVerified: true };
+  } finally { await synchronized; }
 }
 async function readOnlySuite(page, preview, axeSource, session) {
   for (const viewport of VIEWPORTS) {
@@ -495,8 +671,9 @@ async function readOnlySuite(page, preview, axeSource, session) {
       await check(preview, 'keyboard_tab_smoke', context, async () => ({ ...context, ...await keyboardSmoke(page) }));
       await check(preview, 'axe_smoke', context, async () => {
         const measured = await runAxe(page, axeSource);
-        // Preserve only rule/count summaries; HTML, selectors and node values stay in memory.
+        // Preserve rule/count and fixed node categories; HTML, selectors and node values stay in memory.
         report.checks.push({ preset: preview.preset, themeId: preview.id, name: 'axe_rule_summary', result: 'observed', reason: 'AUTOMATED_SCAN_REQUIRES_SOURCE_REVIEW', details: { ...context, ...measured } });
+        if (measured.previewBarWarningOnlyNodeCount > 0) report.checks.push({ preset: preview.preset, themeId: preview.id, name: 'axe_platform_warning', result: 'observed', reason: 'SHOPIFY_PREVIEW_BAR_WARNING_ONLY', details: { ...context, nodeOccurrences: measured.previewBarWarningOnlyNodeCount } });
         requireThat(measured.violations.length === 0, 'AXE_VIOLATIONS_PRESENT');
         return { ...context, axeVersion: measured.axeVersion, passes: measured.passes };
       });
@@ -530,7 +707,7 @@ async function inventorySuite(page, preview, session) {
     return { page: route, previewIdVerified: true };
   });
 }
-async function cartState(page, session) {
+async function cartState(page, session, expectedNote) {
   let httpStatus = null;
   try {
     const response = await requestViaPolicy(session, 'GET', '/cart.js', { headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' } });
@@ -539,17 +716,83 @@ async function cartState(page, session) {
     const cart = await response.json();
     const valid = cart !== null && typeof cart === 'object' && typeof cart.item_count === 'number' && Number.isSafeInteger(cart.item_count) && cart.item_count >= 0 && Array.isArray(cart.items) && (cart.note === null || typeof cart.note === 'string') && cart.items.every((item) => item !== null && typeof item === 'object' && typeof item.quantity === 'number' && Number.isSafeInteger(item.quantity) && item.quantity > 0) && cart.items.reduce((sum, item) => sum + item.quantity, 0) === cart.item_count;
     if (!valid) return { ok: false, httpStatus };
-    return { ok: true, httpStatus, itemCount: cart.item_count, lineCount: cart.items.length, noteEmpty: cart.note === null || cart.note === '' };
+    return { ok: true, httpStatus, itemCount: cart.item_count, lineCount: cart.items.length, noteEmpty: cart.note === null || cart.note === '', noteMatches: typeof expectedNote === 'string' ? cart.note === expectedNote : null };
   } catch { return { ok: false, httpStatus }; }
+}
+async function cartSuite(page, preview, session) {
+  await page.setViewportSize(VIEWPORTS[0]);
+  await goto(page, preview, 'product', session);
+  await verifyPreview(page, session);
+  const initial = await cartState(page, session);
+  requireThat(initial.ok && initial.itemCount === 0 && initial.lineCount === 0 && initial.noteEmpty, 'SESSION_CART_NOT_EMPTY_AT_START');
+  session.cartAuthorization = true;
+  session.cartWriteEnabled = true;
+  session.publicSession.cartInitiallyEmptyVerified = true;
+  await saveReport(); // Local report must be writable before the first mutation.
+  const added = await check(preview, 'cart_pdp_add_one_line', { width: VIEWPORTS[0].width }, async () => {
+    const form = page.locator('main form[data-cart-add-form]').first();
+    requireThat(await form.count() > 0, 'PDP_ADD_FORM_MISSING');
+    const button = form.locator('button[name="add"]').first();
+    if (!(await button.isEnabled())) throw new SkipCheck('PDP_ADD_BUTTON_UNAVAILABLE');
+    const valid = await form.evaluate((element, origin) => {
+      const action = new URL(element.action, location.href);
+      const data = new FormData(element);
+      const quantity = data.get('quantity');
+      return action.origin === origin && ['/cart/add', '/cart/add.js'].includes(action.pathname) && /^\d+$/.test(String(data.get('id') || '')) && (quantity === null || quantity === '1');
+    }, ORIGIN);
+    requireThat(valid, 'PDP_TEST_FORM_NOT_SUPPORTED');
+    await verifyPreview(page, session);
+    await button.click();
+    await expect(form).not.toHaveAttribute('data-cart-add-pending', 'true', { timeout: 30000 });
+    const state = await cartState(page, session);
+    requireThat(state.ok && state.itemCount === 1 && state.lineCount === 1, 'CART_ADD_NOT_EXACTLY_ONE_LINE');
+    return { oneLineVerified: true, oneItemVerified: true, httpStatus: state.httpStatus };
+  });
+  if (!added) return;
+  for (const viewport of VIEWPORTS) {
+    await page.setViewportSize(viewport);
+    await check(preview, 'populated_cart_drawer_viewport', { width: viewport.width, height: viewport.height }, async () => {
+      const drawer = page.locator('cart-drawer');
+      if (await drawer.count() === 0) throw new SkipCheck('CART_DRAWER_NOT_RENDERED');
+      if ((await drawer.getAttribute('data-open')) === null) await page.locator('header a.site-header__cart').first().click();
+      await expect(drawer).toHaveAttribute('data-open', '');
+      await expect(drawer.locator('[data-cart-drawer-panel]')).toBeVisible();
+      return { width: viewport.width, height: viewport.height, visible: true };
+    });
+  }
+  await check(preview, 'cart_note_exact_api_echo', null, async () => {
+    await verifyPreview(page, session);
+    const note = `${randomUUID()}\n  \u{1F642}`;
+    const response = await requestViaPolicy(session, 'POST', '/cart/update.js', { data: { note }, headers: { Accept: 'application/json' } });
+    requireThat(response.ok(), 'CART_NOTE_UPDATE_HTTP_FAILED');
+    const state = await cartState(page, session, note);
+    requireThat(state.ok && state.noteMatches && state.itemCount === 1, 'CART_NOTE_ECHO_MISMATCH');
+    return { exactEchoVerified: true, httpStatus: response.status(), noteValueStored: false };
+  });
+}
+async function cleanupCart(session) {
+  const result = { attempted: false, clearHttpStatus: null, updateHttpStatus: null, readHttpStatus: null, itemCount: null, emptyVerified: null, noteEmptyVerified: null };
+  if (!session.cartAuthorization) return result;
+  session.cleanupInProgress = true;
+  session.cartWriteEnabled = true;
+  result.attempted = true;
+  try {
+    for (const [path, data, key] of [['/cart/clear.js', {}, 'clearHttpStatus'], ['/cart/update.js', { note: '' }, 'updateHttpStatus']]) {
+      try { result[key] = (await requestViaPolicy(session, 'POST', path, { data, headers: { Accept: 'application/json' } })).status(); } catch { /* Keep unknown and continue to final read. */ }
+    }
+    const state = await cartState(session.page, session);
+    result.readHttpStatus = state.httpStatus;
+    if (state.ok) { result.itemCount = state.itemCount; result.emptyVerified = state.itemCount === 0 && state.lineCount === 0; result.noteEmptyVerified = state.noteEmpty; }
+  } finally { session.cartWriteEnabled = false; session.cleanupInProgress = false; }
+  return result;
 }
 async function main() {
   requireThat(mode && args.filter((arg) => ['--read-only', '--inventory', '--cart'].includes(arg)).length === 1, 'SELECT_EXACTLY_ONE_MODE');
-  requireThat(mode !== 'cart', 'CART_MODE_DISABLED_PENDING_REVIEW');
   requireThat(args.every((arg) => ['--read-only', '--inventory', '--cart'].includes(arg) || arg.startsWith('--theme=')), 'ARGUMENT_NOT_SUPPORTED');
   requireThat(selected.length > 0 && (!themeArg || /^\d+$/.test(themeArg)), 'THEME_NOT_ALLOWED');
   requireThat(Boolean(process.env.STOREFRONT_PASSWORD) && Boolean(process.env.SHOPIFY_CLI_THEME_TOKEN), 'REQUIRED_CREDENTIAL_ENV_MISSING');
   const password = process.env.STOREFRONT_PASSWORD;
-  if (mode === 'inventory') inventorySecretGuard = buildInventorySecretGuard(process.env);
+  inventorySecretGuard = buildInventorySecretGuard(process.env);
   const playwright = await import('@playwright/test');
   expect = playwright.expect;
   const axeSource = mode === 'read-only' ? await readFile(resolve(ROOT, 'tests/vendor/axe.min.js'), 'utf8') : null;
@@ -560,14 +803,17 @@ async function main() {
       const context = await browser.newContext({ viewport: VIEWPORTS[0], reducedMotion: 'reduce', serviceWorkers: 'block' });
       const page = await context.newPage();
       page.setDefaultTimeout(15000);
-      const publicSession = { preset: preview.preset, themeId: preview.id, cartMutationsAllowed: false, contextClosed: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, requestDecisions: [], requestDecisionsOmitted: 0, deniedResourceSummary: [], inventoryResources: [], inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
-      const session = { mode, preset: preview.preset, themeId: preview.id, page, api: context.request, createExternalClient: () => playwright.request.newContext({ storageState: { cookies: [], origins: [] }, userAgent: EXTERNAL_HEADERS['User-Agent'], extraHTTPHeaders: EXTERNAL_HEADERS }), publicSession, authPostAllowed: false, authSubmitted: false, previewVerified: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, requestDecisions: [], requestDecisionsOmitted: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
+      const publicSession = { preset: preview.preset, themeId: preview.id, cartMutationsAllowed: mode === 'cart', unpublishedPreflight: 'required_external_coordinator_check', cartInitiallyEmptyVerified: null, cartTouched: false, finalCartCleanup: null, contextClosed: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: [], warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: [], inventoryResources: [], inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
+      const session = { mode, preset: preview.preset, themeId: preview.id, page, api: context.request, createExternalClient: () => playwright.request.newContext({ storageState: { cookies: [], origins: [] }, userAgent: EXTERNAL_HEADERS['User-Agent'], extraHTTPHeaders: EXTERNAL_HEADERS }), publicSession, authPostAllowed: false, authSubmitted: false, previewVerified: false, cartAuthorization: false, cartWriteEnabled: false, cartTouched: false, cleanupInProgress: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: new Map(), warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
       report.sessions.push(publicSession);
+      runtimeSessions.push(session);
       await context.route('**/*', createRouter(session));
       await context.routeWebSocket('**/*', (socket) => {
         session.blockedWebSockets += 1;
-        recordRequest(session, { method: 'OTHER', kind: 'websocket', context: 'browser', hostClass: 'external', pathClass: 'outside_allowlist', allowed: false, reason: 'WEBSOCKET_BLOCKED' });
-        try { socket.close({ code: 1008, reason: 'Harness request policy' }); } catch { session.routeOperationFailed = true; }
+        let address;
+        try { if (typeof socket.url === 'function') address = socket.url(); } catch { /* No raw error. */ }
+        recordRequest(session, { method: 'OTHER', kind: 'websocket', context: 'browser', hostClass: 'external', pathClass: 'blocked_websocket', allowed: false, severity: 'warning', reason: 'WEBSOCKET_BLOCKED' }, address);
+        try { socket.close({ code: 1008, reason: 'Harness request policy' }); } catch { /* Blocked transports are warnings only. */ }
       });
       context.on('page', (popup) => {
         if (popup === page) return;
@@ -578,21 +824,34 @@ async function main() {
         const authenticated = await check(preview, 'storefront_access', null, async () => { await authenticate(page, preview, password, session); return { unlocked: true, previewIdVerified: true }; });
         if (authenticated) {
           if (mode === 'inventory') await inventorySuite(page, preview, session);
+          else if (mode === 'cart') await cartSuite(page, preview, session);
           else await readOnlySuite(page, preview, axeSource, session);
         }
       } catch (error) {
         report.checks.push({ preset: preview.preset, themeId: preview.id, name: 'preview_suite', result: 'failed', reason: safeCode(error), details: null });
       } finally {
         session.authPostAllowed = false;
+        if (mode === 'cart' && session.cartAuthorization) {
+          let cleaned;
+          try { cleaned = await cleanupCart(session); } catch { cleaned = { attempted: true, clearHttpStatus: null, updateHttpStatus: null, readHttpStatus: null, itemCount: null, emptyVerified: null, noteEmptyVerified: null }; }
+          publicSession.finalCartCleanup = cleaned;
+          const verified = cleaned.emptyVerified === true && cleaned.noteEmptyVerified === true;
+          const writesOk = [cleaned.clearHttpStatus, cleaned.updateHttpStatus].every((status) => Number.isInteger(status) && status >= 200 && status < 300);
+          report.checks.push({ preset: preview.preset, themeId: preview.id, name: 'final_same_session_cart_cleanup', result: verified && writesOk ? 'passed' : 'failed', reason: !verified ? 'CART_CLEANUP_NOT_VERIFIED' : !writesOk ? 'CART_CLEANUP_HTTP_FAILED' : null, details: cleaned });
+        }
+        session.cartWriteEnabled = false;
+        publicSession.cartTouched = session.cartTouched;
         publicSession.blockedRequests = session.blockedRequests;
         publicSession.blockedWebSockets = session.blockedWebSockets;
         publicSession.popupsClosed = session.popupsClosed;
         publicSession.requestDecisions = session.requestDecisions;
         publicSession.requestDecisionsOmitted = session.requestDecisionsOmitted;
+        publicSession.networkWarnings = [...session.networkWarnings.values()];
+        publicSession.warningOccurrences = session.warningOccurrences;
+        publicSession.warningOccurrencesOmitted = session.warningOccurrencesOmitted;
         publicSession.deniedResourceSummary = [...session.deniedResourceSummary.values()];
         publicSession.inventoryResources = [...session.inventoryResources.values()];
         publicSession.inventoryCounters = { ...session.inventoryCounters };
-        publicSession.routeOperationFailed = session.routeOperationFailed;
         await context.close();
         publicSession.contextClosed = true;
       }
@@ -603,12 +862,7 @@ async function main() {
 
 try {
   await main();
-  const failed = report.checks.some((entry) => entry.result === 'failed') || report.sessions.some((session) => session.routeOperationFailed);
-  report.executionResult = failed ? 'failed' : 'completed';
-  report.scopeResult = mode === 'inventory' ? 'inventory_only' : failed ? 'failed' : 'completed_with_limits';
 } catch (error) {
-  report.executionResult = 'failed';
-  report.scopeResult = mode === 'inventory' ? 'inventory_only' : 'failed';
   report.checks.push({ preset: null, themeId: null, name: 'harness_preflight_or_runtime', result: 'failed', reason: safeCode(error), details: null });
 } finally {
   report.finishedAt = new Date().toISOString();

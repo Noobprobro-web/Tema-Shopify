@@ -38,12 +38,18 @@
               assign card_image = block.settings.image | default: card_collection.image
               assign card_url = block.settings.link | default: card_collection.url | default: routes.all_products_collection_url
               assign card_alt = block.settings.image_alt | default: card_title
+              assign card_effective_alt = ''
+              if card_image != blank
+                assign card_effective_alt = card_alt | default: card_image.alt
+              endif
             -%}
             <div class="bento-discovery__item bento-discovery__item--featured" {{ block.shopify_attributes }}>
               <a
                 class="bento-card bento-card--featured"
                 href="{{ card_url }}"
-                aria-label="{{ 'sections.homepage.bento.explore' | t: title: card_title | escape_once }}"
+                {% if block.settings.eyebrow == blank and card_title == blank and card_effective_alt == blank %}
+                  aria-label="{{ 'sections.bento_discovery.explore_generic' | t | escape }}"
+                {% endif %}
               >
                 <span class="bento-card__media">
                   {%- if card_image != blank -%}
@@ -76,13 +82,20 @@
             {%- liquid
               assign editorial_title = block.settings.heading
               assign editorial_alt = block.settings.image_alt | default: editorial_title
+              assign editorial_body_text = block.settings.body | strip_html | strip
+              assign editorial_effective_alt = ''
+              if block.settings.image != blank
+                assign editorial_effective_alt = editorial_alt | default: block.settings.image.alt
+              endif
             -%}
             <div class="bento-discovery__item bento-discovery__item--editorial" {{ block.shopify_attributes }}>
               {%- if block.settings.link != blank -%}
                 <a
                   class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}"
                   href="{{ block.settings.link }}"
-                  aria-label="{{ 'sections.homepage.bento.explore' | t: title: editorial_title | escape_once }}"
+                  {% if block.settings.eyebrow == blank and editorial_title == blank and editorial_body_text == blank and block.settings.link_label == blank and editorial_effective_alt == blank %}
+                    aria-label="{{ 'sections.bento_discovery.explore_generic' | t | escape }}"
+                  {% endif %}
                 >
               {%- else -%}
                 <div class="bento-card bento-card--editorial{% if block.settings.image == blank %} bento-card--editorial-text{% endif %}">

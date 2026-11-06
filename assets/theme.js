@@ -1276,7 +1276,7 @@
       this.quantityInput = quantityField instanceof HTMLInputElement ? quantityField : null;
       this.lineTotal = this.closest('[data-section-id]')?.querySelector('[data-line-total]') || null;
       this.unitPrice = this.priceOutput?.textContent.trim() || '';
-      this.defaultAriaLabel = this.submitButton.getAttribute('aria-label') || '';
+      this.productTitle = this.querySelector('.sticky-cart-bar__title')?.textContent.trim() || '';
 
       if (this.quantityInput) {
         this.listen(this.quantityInput, 'input', () => this.renderQuantity());
@@ -1400,10 +1400,22 @@
           : '';
       }
 
-      const ariaLabel = multiple && this.dataset.quantityLabelTemplate
-        ? this.dataset.quantityLabelTemplate.replace('[quantity]', String(quantity))
-        : this.defaultAriaLabel;
-      if (ariaLabel) this.submitButton.setAttribute('aria-label', ariaLabel);
+      this.syncAccessibleName();
+    }
+
+    syncAccessibleName() {
+      const action = this.label?.textContent.trim();
+      if (!action) {
+        this.submitButton.removeAttribute('aria-label');
+        return;
+      }
+      const quantity = Number.parseInt(this.quantityInput?.value || '', 10);
+      const template = Number.isFinite(quantity) && quantity > 1 && this.dataset.quantityLabelTemplate
+        ? this.dataset.quantityLabelTemplate
+        : this.dataset.actionLabelTemplate;
+      const values = { action, product: this.productTitle, quantity: String(quantity) };
+      const name = template ? template.replace(/\[(action|product|quantity)\]/g, (_, token) => values[token]) : action;
+      this.submitButton.setAttribute('aria-label', name);
     }
 
     syncButtonState() {
@@ -1415,6 +1427,7 @@
       this.submitButton.setAttribute('aria-busy', String(busy));
       if (this.label && primaryLabel) this.label.textContent = primaryLabel.textContent.trim();
       if (this.spinner) this.spinner.hidden = !busy;
+      this.syncAccessibleName();
     }
   }
 

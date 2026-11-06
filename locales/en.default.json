@@ -161,6 +161,9 @@
         }
       }
     },
+    "bento_discovery": {
+      "explore_generic": "Explore"
+    },
     "homepage": {
       "hero": {
         "region_label": "Featured editorial campaign",
@@ -455,8 +458,8 @@
       "measurement_units": "Measurement units",
       "centimeters": "CM",
       "inches": "INCHES",
-      "sticky_add_to_cart": "Add {{ product }} to cart",
-      "sticky_add_quantity_to_cart": "Add {{ product }} to cart, quantity {{ quantity }}",
+      "sticky_add_to_cart": "{{ action }}: {{ product }}",
+      "sticky_add_quantity_to_cart": "{{ action }}: {{ product }}, quantity {{ quantity }}",
       "sticky_quantity_price": "{{ quantity }} × {{ price }}",
       "sticky_total": "Total {{ total }}",
       "purchase_options": {

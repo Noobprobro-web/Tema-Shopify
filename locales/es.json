@@ -161,6 +161,9 @@
         }
       }
     },
+    "bento_discovery": {
+      "explore_generic": "Explorar"
+    },
     "homepage": {
       "hero": {
         "region_label": "Campaña editorial destacada",
@@ -455,8 +458,8 @@
       "measurement_units": "Unidades de medida",
       "centimeters": "CM",
       "inches": "PULGADAS",
-      "sticky_add_to_cart": "Añadir {{ product }} al carrito",
-      "sticky_add_quantity_to_cart": "Añadir {{ product }} al carrito, cantidad {{ quantity }}",
+      "sticky_add_to_cart": "{{ action }}: {{ product }}",
+      "sticky_add_quantity_to_cart": "{{ action }}: {{ product }}, cantidad {{ quantity }}",
       "sticky_quantity_price": "{{ quantity }} × {{ price }}",
       "sticky_total": "Total {{ total }}",
       "purchase_options": {

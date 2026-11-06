@@ -794,6 +794,12 @@
   {%- if section.settings.enable_sticky_cart -%}
     {%- liquid
       assign sticky_media = selected_variant.featured_media.preview_image | default: product.featured_media.preview_image
+      assign sticky_action = 'products.product.add_to_cart' | t
+      if selected_variant.available == false
+        assign sticky_action = 'products.product.sold_out' | t
+      elsif plan_required_unavailable
+        assign sticky_action = 'products.product.purchase_options.unavailable' | t
+      endif
     -%}
     <sticky-cart-bar
       class="sticky-cart-bar color-{{ section_scheme }}"
@@ -801,7 +807,8 @@
       data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
       data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape_once }}"
       data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape_once }}"
-      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape_once }}"
+      data-action-label-template="{{ 'products.product.sticky_add_to_cart' | t: action: '[action]', product: '[product]' | escape_once }}"
+      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: action: '[action]', product: '[product]', quantity: '[quantity]' | escape_once }}"
       {% if product.has_only_default_variant %}data-single-variant{% endif %}
       aria-hidden="true"
       inert
@@ -846,18 +853,12 @@
         <button
           class="button sticky-cart-bar__submit"
           type="button"
-          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape_once }}"
+          aria-label="{{ 'products.product.sticky_add_to_cart' | t: action: sticky_action, product: product.title | escape_once }}"
           data-sticky-submit
           {% unless can_add_to_cart %}disabled{% endunless %}
         >
           <span data-sticky-label>
-            {%- if selected_variant.available == false -%}
-              {{- 'products.product.sold_out' | t -}}
-            {%- elsif plan_required_unavailable -%}
-              {{- 'products.product.purchase_options.unavailable' | t -}}
-            {%- else -%}
-              {{- 'products.product.add_to_cart' | t -}}
-            {%- endif -%}
+            {{- sticky_action | escape -}}
           </span>
           <span class="button__spinner" data-loading-icon hidden>
             {% render 'icon', name: 'spinner', size: 18 %}
