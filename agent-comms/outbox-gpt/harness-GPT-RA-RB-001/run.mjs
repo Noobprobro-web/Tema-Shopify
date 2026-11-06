@@ -2,6 +2,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
+import { setTimeout as delay } from 'node:timers/promises';
 
 // Fresh runner written for the permitted previews. No storageState, trace, HAR,
 // screenshots, raw exceptions, response bodies, DOM text or form values are saved.
@@ -23,6 +24,8 @@ const READ_HOSTS = new Set(['tema-qkqpke0j.myshopify.com', 'cdn.shopify.com', 'f
 const ANALYTICS_WARNING_HOSTS = new Set(['monorail-edge.shopifysvc.com', 'www.google-analytics.com', 'region1.google-analytics.com', 'analytics.google.com', 'www.googletagmanager.com', 'stats.g.doubleclick.net', 'connect.facebook.net', 'www.facebook.com', 'analytics.tiktok.com']);
 const PLATFORM_WARNING_HOSTS = new Set(['bugsnag.com', 'notify.bugsnag.com', 'sessions.bugsnag.com', 'shop.app', 'www.shop.app', 'pay.shopify.com', 'checkout.shopify.com', 'accounts.shopify.com']);
 const CART_POST_PATHS = new Set(['/cart/add.js', '/cart/update.js', '/cart/clear.js']);
+const MAX_429_RETRIES = 3;
+const CART_REQUEST_INTERVAL_MS = 1000;
 const KNOWN_STATIC_SUFFIX = /\.(?:css|m?js|svg|png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf|eot|mp4|webm|mov)$/i;
 const DENIAL_REASONS = new Set(['HOST_NOT_ALLOWED', 'ANALYTICS_HOST_BLOCKED', 'PLATFORM_HOST_BLOCKED', 'REQUEST_ADDRESS_NOT_ALLOWED', 'MUTATION_BLOCKED', 'WEBSOCKET_BLOCKED']);
 const DENIED_SOURCE_SUFFIXES = Object.freeze({ 'base.css': 'base_css', 'theme.js': 'theme_js', 'shopify-xr.js': 'shopify_xr_js', 'product-zoom.js': 'product_zoom_js' });
@@ -61,10 +64,15 @@ const report = {
   ],
   checks: [],
   sessions: [],
+  interventionRequired: false,
+  historicalIncidents: [{ code: 'ARCHIVE_ORPHANED_CART_20261106', preset: 'archive', themeId: '190232363251', initiallyEmptyVerified: true, finalCartState: 'unknown', contextClosed: true, disposition: 'LEAVE_TO_EXPIRE', blocksLote0: false, sourceReport: 'RA-RB-cart-20261106T112804500Z-605bdcd0-07ef-43aa-a9f5-6e0d5038b634.json' }],
 };
 let expect;
 let inventorySecretGuard = null;
 const runtimeSessions = [];
+const hostRetryNotBefore = new Map();
+let cartRequestQueue = Promise.resolve();
+let lastCartRequestStartedAt = 0;
 
 class CheckError extends Error {
   constructor(code) { super(code); this.code = code; }
@@ -72,6 +80,80 @@ class CheckError extends Error {
 class SkipCheck extends CheckError {}
 class PolicyBlocked extends CheckError {}
 const requireThat = (condition, code) => { if (!condition) throw new CheckError(code); };
+function isCartAddress(rawAddress) {
+  try { const address = new URL(rawAddress); return address.origin === ORIGIN && /^\/cart(?:\.js|\/|$)/.test(address.pathname); } catch { return false; }
+}
+async function waitUntil(timestamp) {
+  while (Date.now() < timestamp) await delay(Math.min(timestamp - Date.now(), 30000));
+}
+function retryAfterDelayMs(value, retryIndex) {
+  let serverDelay = 0;
+  if (typeof value === 'string' && /^\s*\d+\s*$/.test(value)) {
+    const seconds = Number(value.trim());
+    requireThat(Number.isSafeInteger(seconds) && seconds <= Math.floor(Number.MAX_SAFE_INTEGER / 1000), 'RETRY_AFTER_UNREPRESENTABLE');
+    serverDelay = seconds * 1000;
+  } else if (typeof value === 'string') {
+    const date = Date.parse(value);
+    if (Number.isFinite(date)) serverDelay = Math.max(0, date - Date.now());
+  }
+  return Math.max(1000 * (2 ** retryIndex), serverDelay);
+}
+async function fetchAttempt(session, method, rawAddress, retryIndex, operation) {
+  const address = new URL(rawAddress);
+  const perform = async () => {
+    while ((hostRetryNotBefore.get(address.hostname) || 0) > Date.now()) await waitUntil(hostRetryNotBefore.get(address.hostname));
+    if (isCartAddress(rawAddress)) {
+      await waitUntil(lastCartRequestStartedAt + CART_REQUEST_INTERVAL_MS);
+      while ((hostRetryNotBefore.get(address.hostname) || 0) > Date.now()) await waitUntil(hostRetryNotBefore.get(address.hostname));
+      lastCartRequestStartedAt = Date.now();
+    }
+    if (method === 'POST' && address.origin === ORIGIN && address.pathname === '/cart/add.js') requireThat(session.cartWriteEnabled && !session.cleanupInProgress && !session.cartStopRequested, 'CART_ADD_STOPPED_FOR_CLEANUP');
+    const response = await operation();
+    if (response.status() === 429) {
+      const waitMs = retryAfterDelayMs(response.headers()['retry-after'], retryIndex);
+      hostRetryNotBefore.set(address.hostname, Math.max(hostRetryNotBefore.get(address.hostname) || 0, Date.now() + waitMs));
+      if (session.rateLimitEvents.length < 100) session.rateLimitEvents.push({ method: ['GET', 'HEAD', 'POST'].includes(method) ? method : 'OTHER', phase: session.cleanupInProgress ? 'cleanup' : 'workflow', httpStatus: 429, attempt: retryIndex + 1, retriesRemaining: Math.max(0, MAX_429_RETRIES - retryIndex), delayMs: waitMs, ...safeWarningSource(rawAddress) });
+      else session.rateLimitEventsOmitted += 1;
+    }
+    return response;
+  };
+  if (!isCartAddress(rawAddress)) return perform();
+  const previous = cartRequestQueue;
+  let release;
+  cartRequestQueue = new Promise((resolveQueue) => { release = resolveQueue; });
+  await previous;
+  try { return await perform(); } finally { release(); }
+}
+async function fetchWith429Retries(session, method, rawAddress, operation) {
+  const address = new URL(rawAddress);
+  const isAdd = method === 'POST' && address.origin === ORIGIN && address.pathname === '/cart/add.js';
+  for (let retryIndex = 0; retryIndex <= MAX_429_RETRIES; retryIndex += 1) {
+    if (isAdd) requireThat(session.cartWriteEnabled && !session.cleanupInProgress && !session.cartStopRequested, 'CART_ADD_STOPPED_FOR_CLEANUP');
+    const response = await fetchAttempt(session, method, rawAddress, retryIndex, operation);
+    if (response.status() !== 429) return response;
+    if (isAdd) {
+      // Reconcile in this same session before replaying a non-idempotent add.
+      // The expected variant/plan and cart body remain in process memory only.
+      const state = await cartState(session.page, session);
+      if (state.ok && state.expectedLinePresent) {
+        session.cartAddReconciled = true;
+        return response; // Preserve Shopify's real HTTP response; never fake one.
+      }
+      if (!state.ok || state.itemCount !== 0 || state.lineCount !== 0 || !state.noteEmpty || !session.expectedCartLine) {
+        session.cartStopRequested = true;
+        await response.dispose().catch(() => {});
+        throw new CheckError('CART_ADD_RECONCILIATION_UNCERTAIN');
+      }
+    }
+    if (retryIndex === MAX_429_RETRIES) {
+      session.routeOperationFailed = true;
+      recordRouteFailure(session, 'fetch', method, rawAddress, new CheckError('HTTP_429_RETRIES_EXHAUSTED'));
+      return response;
+    }
+    await response.dispose().catch(() => {});
+  }
+  throw new CheckError('RATE_LIMIT_RETRY_STATE_INVALID');
+}
 function safeCode(error) {
   if (error instanceof CheckError && /^[A-Z][A-Z0-9_]+$/.test(error.code)) return error.code;
   if (error?.name === 'TimeoutError') return 'PLAYWRIGHT_TIMEOUT';
@@ -90,6 +172,8 @@ async function saveReport() {
     session.publicSession.routeOperationFailed = Boolean(session.routeOperationFailed || events.length > 0 || omitted > 0);
     session.publicSession.routeWarningEvents = session.routeWarningEvents.map((event) => ({ ...event }));
     session.publicSession.routeWarningEventsOmitted = session.routeWarningEventsOmitted;
+    session.publicSession.rateLimitEvents = session.rateLimitEvents.map((event) => ({ ...event }));
+    session.publicSession.rateLimitEventsOmitted = session.rateLimitEventsOmitted;
   }
   if (report.finishedAt !== null) {
     // Final outcomes are derived from the same reconciled snapshot serialized
@@ -138,8 +222,8 @@ async function goto(page, preview, route, session) {
   await verifyPreview(page, session);
 }
 async function authenticate(page, preview, password, session) {
-  // A single API POST stores any session cookie in this BrowserContext only.
-  // maxRedirects/maxRetries are zero: the password is never replayed to a hop.
+  // One authentication operation, with manual retries only after HTTP 429.
+  // Transport retries/redirects remain zero; no secret is replayed to a hop.
   session.authPostAllowed = true;
   const response = await requestViaPolicy(session, 'POST', '/password', { form: { form_type: 'storefront_password', utf8: '\u2713', password } });
   requireThat([302, 303].includes(response.status()), 'AUTH_RESPONSE_NOT_ACCEPTED');
@@ -170,7 +254,7 @@ function requestDecision(session, method, rawAddress, kind, context, primaryFram
   decision.reason = 'MUTATION_BLOCKED';
   if (sameStore && method === 'POST' && address.pathname === '/password' && !address.search && !address.hash && context === 'api' && session.authPostAllowed) {
     decision.allowed = true; decision.severity = null; decision.pathClass = 'password_auth'; decision.reason = 'AUTH_POST_ALLOWED';
-  } else if (sameStore && method === 'POST' && CART_POST_PATHS.has(address.pathname) && !address.search && !address.hash && session.mode === 'cart' && session.cartWriteEnabled && session.cartAuthorization && (session.previewVerified || session.cleanupInProgress) && (context === 'api' || primaryFrame)) {
+  } else if (sameStore && method === 'POST' && CART_POST_PATHS.has(address.pathname) && !address.search && !address.hash && session.mode === 'cart' && session.cartWriteEnabled && session.cartAuthorization && (!session.cleanupInProgress || address.pathname !== '/cart/add.js') && (session.previewVerified || session.cleanupInProgress) && (context === 'api' || primaryFrame)) {
     decision.allowed = true; decision.severity = null; decision.pathClass = 'cart_post'; decision.reason = 'CART_POST_ALLOWED';
   }
   return decision;
@@ -273,7 +357,7 @@ function recordNetworkWarning(session, decision, rawAddress) {
   else session.warningOccurrencesOmitted += 1;
 }
 function validateWarningSourcesBeforeSave() {
-  for (const session of report.sessions) for (const entry of [...(session.networkWarnings || []), ...(session.routeFailureEvents || []), ...(session.routeWarningEvents || [])]) {
+  for (const session of report.sessions) for (const entry of [...(session.networkWarnings || []), ...(session.routeFailureEvents || []), ...(session.routeWarningEvents || []), ...(session.rateLimitEvents || [])]) {
     if (!inventorySecretGuard || inventorySecretGuard.unavailable) { entry.host = null; entry.pathname = null; entry.redacted = true; entry.redactionReason = 'GUARD_UNAVAILABLE'; continue; }
     if (entry.host && inventorySecretGuard.matches(entry.host)) { entry.host = null; entry.pathname = null; entry.redacted = true; entry.redactionReason = 'SECRET_MATCH'; }
     else if (entry.pathname && inventorySecretGuard.matches(entry.pathname)) { entry.pathname = null; entry.redacted = true; entry.redactionReason = 'SECRET_MATCH'; }
@@ -321,7 +405,7 @@ async function requestViaPolicy(session, method, path, options = {}) {
   requireThat(decision.allowed, 'API_REQUEST_BLOCKED_BY_POLICY');
   if (decision.pathClass === 'password_auth') session.authPostAllowed = false;
   if (decision.pathClass === 'cart_post') { session.cartTouched = true; session.publicSession.cartTouched = true; }
-  const response = await session.api.fetch(`${ORIGIN}${path}`, { ...options, method, timeout: 12000, maxRedirects: 0, maxRetries: 0 });
+  const response = await fetchWith429Retries(session, method, `${ORIGIN}${path}`, () => session.api.fetch(`${ORIGIN}${path}`, { ...options, method, timeout: 12000, maxRedirects: 0, maxRetries: 0 }));
   const location = response.headers().location;
   if (decision.pathClass === 'password_auth') {
     requireThat([302, 303].includes(response.status()), 'AUTH_RESPONSE_NOT_ACCEPTED');
@@ -387,10 +471,13 @@ function createRouter(session) {
     let failureAddress;
     let method = 'OTHER';
     let fetchInProgress = false;
+    let cartAddRequest = false;
     try {
       const request = route.request();
       failureAddress = request.url();
       method = request.method();
+      try { const address = new URL(failureAddress); cartAddRequest = method === 'POST' && address.origin === ORIGIN && address.pathname === '/cart/add.js'; } catch { /* The policy below rejects invalid addresses. */ }
+      if (cartAddRequest) session.cartAddInFlight = true;
       let primaryFrame = false;
       try { primaryFrame = request.frame() === session.page.mainFrame(); } catch { /* Worker/frame-less requests are denied. */ }
       const decision = requestDecision(session, request.method(), request.url(), request.resourceType(), 'browser', primaryFrame);
@@ -418,10 +505,10 @@ function createRouter(session) {
             // Authorization, Referer, Origin or custom request headers.
             externalClient = await session.createExternalClient();
             fetchInProgress = true;
-            response = await externalClient.fetch(address.href, { method: request.method(), headers: EXTERNAL_HEADERS, maxRedirects: 0, maxRetries: 0, timeout: 15000 });
+            response = await fetchWith429Retries(session, request.method(), address.href, () => externalClient.fetch(address.href, { method: request.method(), headers: EXTERNAL_HEADERS, maxRedirects: 0, maxRetries: 0, timeout: 15000 }));
           } else {
             fetchInProgress = true;
-            response = await route.fetch({ url: address.href, method: request.method(), maxRedirects: 0, maxRetries: 0, timeout: 15000 });
+            response = await fetchWith429Retries(session, request.method(), address.href, () => route.fetch({ url: address.href, method: request.method(), maxRedirects: 0, maxRetries: 0, timeout: 15000 }));
           }
           fetchInProgress = false;
           stage = 'redirect_validation';
@@ -457,6 +544,8 @@ function createRouter(session) {
         recordRouteFailure(session, stage, method, failureAddress, error);
       }
       try { await route.abort('failed'); } catch { /* A closed request is already settled. */ }
+    } finally {
+      if (cartAddRequest) { session.cartAddInFlight = false; session.resolveCartAddCompletion?.(); }
     }
   };
 }
@@ -716,7 +805,9 @@ async function cartState(page, session, expectedNote) {
     const cart = await response.json();
     const valid = cart !== null && typeof cart === 'object' && typeof cart.item_count === 'number' && Number.isSafeInteger(cart.item_count) && cart.item_count >= 0 && Array.isArray(cart.items) && (cart.note === null || typeof cart.note === 'string') && cart.items.every((item) => item !== null && typeof item === 'object' && typeof item.quantity === 'number' && Number.isSafeInteger(item.quantity) && item.quantity > 0) && cart.items.reduce((sum, item) => sum + item.quantity, 0) === cart.item_count;
     if (!valid) return { ok: false, httpStatus };
-    return { ok: true, httpStatus, itemCount: cart.item_count, lineCount: cart.items.length, noteEmpty: cart.note === null || cart.note === '', noteMatches: typeof expectedNote === 'string' ? cart.note === expectedNote : null };
+    const expected = session.expectedCartLine;
+    const expectedLinePresent = expected ? cart.item_count === 1 && cart.items.length === 1 && cart.items[0].quantity === 1 && String(cart.items[0].variant_id) === expected.variantId && (expected.sellingPlanId === null ? !cart.items[0].selling_plan_allocation : String(cart.items[0].selling_plan_allocation?.selling_plan?.id) === expected.sellingPlanId) : null;
+    return { ok: true, httpStatus, itemCount: cart.item_count, lineCount: cart.items.length, noteEmpty: cart.note === null || cart.note === '', noteMatches: typeof expectedNote === 'string' ? cart.note === expectedNote : null, expectedLinePresent };
   } catch { return { ok: false, httpStatus }; }
 }
 async function cartSuite(page, preview, session) {
@@ -734,19 +825,29 @@ async function cartSuite(page, preview, session) {
     requireThat(await form.count() > 0, 'PDP_ADD_FORM_MISSING');
     const button = form.locator('button[name="add"]').first();
     if (!(await button.isEnabled())) throw new SkipCheck('PDP_ADD_BUTTON_UNAVAILABLE');
-    const valid = await form.evaluate((element, origin) => {
+    const expected = await form.evaluate((element, origin) => {
       const action = new URL(element.action, location.href);
       const data = new FormData(element);
       const quantity = data.get('quantity');
-      return action.origin === origin && ['/cart/add', '/cart/add.js'].includes(action.pathname) && /^\d+$/.test(String(data.get('id') || '')) && (quantity === null || quantity === '1');
+      const variantId = String(data.get('id') || '');
+      const sellingPlanId = String(data.get('selling_plan') || '') || null;
+      return { valid: action.origin === origin && ['/cart/add', '/cart/add.js'].includes(action.pathname) && /^\d+$/.test(variantId) && (sellingPlanId === null || /^\d+$/.test(sellingPlanId)) && (quantity === null || quantity === '1'), variantId, sellingPlanId };
     }, ORIGIN);
-    requireThat(valid, 'PDP_TEST_FORM_NOT_SUPPORTED');
+    requireThat(expected.valid, 'PDP_TEST_FORM_NOT_SUPPORTED');
+    session.expectedCartLine = { variantId: expected.variantId, sellingPlanId: expected.sellingPlanId };
     await verifyPreview(page, session);
+    session.cartAddCompletion = new Promise((resolveAdd) => { session.resolveCartAddCompletion = resolveAdd; });
+    const requested = page.waitForRequest((request) => {
+      try { const address = new URL(request.url()); return request.method() === 'POST' && address.origin === ORIGIN && address.pathname === '/cart/add.js'; } catch { return false; }
+    }, { timeout: 15000 }).then(() => true).catch(() => false);
     await button.click();
+    requireThat(await requested, 'PDP_ADD_REQUEST_NOT_OBSERVED');
+    await session.cartAddCompletion;
+    requireThat(!session.cartStopRequested, 'CART_ADD_RECONCILIATION_UNCERTAIN');
     await expect(form).not.toHaveAttribute('data-cart-add-pending', 'true', { timeout: 30000 });
     const state = await cartState(page, session);
-    requireThat(state.ok && state.itemCount === 1 && state.lineCount === 1, 'CART_ADD_NOT_EXACTLY_ONE_LINE');
-    return { oneLineVerified: true, oneItemVerified: true, httpStatus: state.httpStatus };
+    requireThat(state.ok && state.expectedLinePresent, 'CART_ADD_NOT_EXACTLY_ONE_LINE');
+    return { oneLineVerified: true, oneItemVerified: true, httpStatus: state.httpStatus, reconciledAfter429: session.cartAddReconciled };
   });
   if (!added) return;
   for (const viewport of VIEWPORTS) {
@@ -774,6 +875,8 @@ async function cleanupCart(session) {
   const result = { attempted: false, clearHttpStatus: null, updateHttpStatus: null, readHttpStatus: null, itemCount: null, emptyVerified: null, noteEmptyVerified: null };
   if (!session.cartAuthorization) return result;
   session.cleanupInProgress = true;
+  session.cartWriteEnabled = false;
+  if (session.cartAddInFlight) await session.cartAddCompletion;
   session.cartWriteEnabled = true;
   result.attempted = true;
   try {
@@ -785,6 +888,68 @@ async function cleanupCart(session) {
     if (state.ok) { result.itemCount = state.itemCount; result.emptyVerified = state.itemCount === 0 && state.lineCount === 0; result.noteEmptyVerified = state.noteEmpty; }
   } finally { session.cartWriteEnabled = false; session.cleanupInProgress = false; }
   return result;
+}
+function cleanupVerified(cleaned) {
+  return cleaned?.emptyVerified === true && cleaned?.noteEmptyVerified === true;
+}
+async function holdForManualCleanup(session, browser) {
+  session.interventionOccurred = true;
+  report.interventionRequired = true;
+  report.executionResult = 'awaiting_intervention';
+  report.scopeResult = 'awaiting_intervention';
+  const incident = session.publicSession.cleanupIncident ||= { code: 'CART_CLEANUP_UNVERIFIED', status: 'awaiting_intervention', initiallyEmptyVerified: session.publicSession.cartInitiallyEmptyVerified === true, manualCleanupAttempts: 0, contextPreserved: !session.page.isClosed(), browserPreserved: browser.isConnected(), emptyVerified: false, noteEmptyVerified: false };
+  const persist = async () => {
+    incident.contextPreserved = !session.page.isClosed();
+    incident.browserPreserved = browser.isConnected();
+    try { await saveReport(); } catch { console.log('incident_write=FAILED_CONTEXT_HELD'); }
+  };
+  await persist();
+  console.log(`intervention_required=CART_CLEANUP_UNVERIFIED report=${basename(outputFile)} manual_command=retry-cleanup`);
+  // No expiration, automatic retry or context/browser closure while unverified.
+  // Input is a fixed operator command; arbitrary input is discarded, never echoed.
+  let input = '';
+  let busy = false;
+  const keepAlive = setInterval(() => {}, 30000);
+  return new Promise((resolveIntervention) => {
+    const onInput = (chunk) => {
+      if (chunk.length > 128 || input.length + chunk.length > 128) { input = ''; return; }
+      input += chunk;
+      let newline;
+      while ((newline = input.indexOf('\n')) !== -1) {
+        const command = input.slice(0, newline).trim();
+        input = input.slice(newline + 1);
+        if (command !== 'retry-cleanup' || busy) continue;
+        busy = true;
+        void (async () => {
+          incident.manualCleanupAttempts += 1;
+          try {
+            const cleaned = await cleanupCart(session);
+            session.publicSession.finalCartCleanup = cleaned;
+            incident.emptyVerified = cleaned.emptyVerified === true;
+            incident.noteEmptyVerified = cleaned.noteEmptyVerified === true;
+            if (cleanupVerified(cleaned)) {
+              incident.status = 'recovered_by_operator';
+              report.interventionRequired = false;
+              report.checks.push({ preset: session.preset, themeId: session.themeId, name: 'manual_same_session_cart_cleanup', result: 'passed', reason: null, details: cleaned });
+              await persist();
+              process.stdin.off('data', onInput);
+              process.stdin.pause();
+              clearInterval(keepAlive);
+              resolveIntervention(cleaned);
+              return;
+            }
+            incident.status = 'awaiting_intervention';
+          } catch { incident.status = 'awaiting_intervention'; }
+          await persist();
+          console.log('intervention_required=CART_CLEANUP_UNVERIFIED context_held=true');
+          busy = false;
+        })();
+      }
+    };
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', onInput);
+    process.stdin.resume();
+  });
 }
 async function main() {
   requireThat(mode && args.filter((arg) => ['--read-only', '--inventory', '--cart'].includes(arg)).length === 1, 'SELECT_EXACTLY_ONE_MODE');
@@ -803,8 +968,8 @@ async function main() {
       const context = await browser.newContext({ viewport: VIEWPORTS[0], reducedMotion: 'reduce', serviceWorkers: 'block' });
       const page = await context.newPage();
       page.setDefaultTimeout(15000);
-      const publicSession = { preset: preview.preset, themeId: preview.id, cartMutationsAllowed: mode === 'cart', unpublishedPreflight: 'required_external_coordinator_check', cartInitiallyEmptyVerified: null, cartTouched: false, finalCartCleanup: null, contextClosed: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: [], warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: [], inventoryResources: [], inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
-      const session = { mode, preset: preview.preset, themeId: preview.id, page, api: context.request, createExternalClient: () => playwright.request.newContext({ storageState: { cookies: [], origins: [] }, userAgent: EXTERNAL_HEADERS['User-Agent'], extraHTTPHeaders: EXTERNAL_HEADERS }), publicSession, authPostAllowed: false, authSubmitted: false, previewVerified: false, cartAuthorization: false, cartWriteEnabled: false, cartTouched: false, cleanupInProgress: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: new Map(), warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
+      const publicSession = { preset: preview.preset, themeId: preview.id, cartMutationsAllowed: mode === 'cart', unpublishedPreflight: 'required_external_coordinator_check', cartInitiallyEmptyVerified: null, cartTouched: false, finalCartCleanup: null, contextClosed: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, rateLimitEvents: [], rateLimitEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: [], warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: [], inventoryResources: [], inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
+      const session = { mode, preset: preview.preset, themeId: preview.id, page, context, api: context.request, createExternalClient: () => playwright.request.newContext({ storageState: { cookies: [], origins: [] }, userAgent: EXTERNAL_HEADERS['User-Agent'], extraHTTPHeaders: EXTERNAL_HEADERS }), publicSession, authPostAllowed: false, authSubmitted: false, previewVerified: false, cartAuthorization: false, cartWriteEnabled: false, cartTouched: false, cleanupInProgress: false, expectedCartLine: null, cartAddReconciled: false, cartStopRequested: false, cartAddInFlight: false, cartAddCompletion: Promise.resolve(), resolveCartAddCompletion: null, interventionOccurred: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, rateLimitEvents: [], rateLimitEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: new Map(), warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
       report.sessions.push(publicSession);
       runtimeSessions.push(session);
       await context.route('**/*', createRouter(session));
@@ -838,6 +1003,7 @@ async function main() {
           const verified = cleaned.emptyVerified === true && cleaned.noteEmptyVerified === true;
           const writesOk = [cleaned.clearHttpStatus, cleaned.updateHttpStatus].every((status) => Number.isInteger(status) && status >= 200 && status < 300);
           report.checks.push({ preset: preview.preset, themeId: preview.id, name: 'final_same_session_cart_cleanup', result: verified && writesOk ? 'passed' : 'failed', reason: !verified ? 'CART_CLEANUP_NOT_VERIFIED' : !writesOk ? 'CART_CLEANUP_HTTP_FAILED' : null, details: cleaned });
+          if (session.cartTouched && !verified) publicSession.finalCartCleanup = await holdForManualCleanup(session, browser);
         }
         session.cartWriteEnabled = false;
         publicSession.cartTouched = session.cartTouched;
@@ -852,12 +1018,24 @@ async function main() {
         publicSession.deniedResourceSummary = [...session.deniedResourceSummary.values()];
         publicSession.inventoryResources = [...session.inventoryResources.values()];
         publicSession.inventoryCounters = { ...session.inventoryCounters };
+        requireThat(!session.cartTouched || cleanupVerified(publicSession.finalCartCleanup), 'CART_CONTEXT_MUST_REMAIN_OPEN');
         await context.close();
         publicSession.contextClosed = true;
       }
       await saveReport();
+      if (session.interventionOccurred) break;
     }
-  } finally { await browser.close(); }
+  } finally {
+    // Last guard also covers an unexpected exception on the ordinary exit path.
+    for (const session of runtimeSessions) {
+      if (session.cartTouched && !session.publicSession.contextClosed && !cleanupVerified(session.publicSession.finalCartCleanup)) {
+        session.publicSession.finalCartCleanup = await holdForManualCleanup(session, browser);
+        await session.context.close();
+        session.publicSession.contextClosed = true;
+      }
+    }
+    await browser.close();
+  }
 }
 
 try {
