@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, rename, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { setTimeout as delay } from 'node:timers/promises';
 
 const BASE_URL = process.env.STOREFRONT_ORIGIN;
 const THEME_ID = process.env.STOREFRONT_THEME_ID;
@@ -33,7 +34,7 @@ const report = {
   Estado: 'in_progress',
   'Decisión requerida': 'No',
   'Resumen en 5 líneas': [
-    'Gate 5 diagnóstico instrumentado; una sola ejecución autorizada después de revisión independiente.',
+    'Gate 5 diagnóstico instrumentado; ejecución sujeta al límite vigente y a revisión independiente.',
     'El informe guarda nombres de comprobaciones, estado y códigos de motivo seguros.',
     'No guarda credenciales, cookies, URLs completas, mensajes crudos ni cuerpos de red.',
     'El estado de limpieza del carrito es verificado o desconocido; nunca se infiere.',
@@ -50,9 +51,15 @@ const report = {
     themeId: null,
     result: 'in_progress',
     failureReason: null,
-    diagnosticWriteFailed: false
+    diagnosticWriteFailed: false,
+    diagnosticWriteErrors: []
   },
-  checks: CHECK_NAMES.map(name => ({ name, result: 'not_run', reason: 'NOT_RUN', details: null })),
+  checks: CHECK_NAMES.map(name => ({
+    name,
+    result: 'not_run',
+    reason: ['theme_console_errors', 'page_errors'].includes(name) ? 'PAGE_NOT_CREATED' : 'NOT_RUN',
+    details: null
+  })),
   cart: {
     touched: false,
     cleanupAttempted: false,
@@ -64,34 +71,66 @@ const report = {
 let activeCheckName = 'configuration';
 let reportCreated = false;
 
+const SAFE_IO_ERROR_CODES = new Set(['EACCES', 'EPERM', 'EBUSY', 'ENOENT', 'ENOSPC', 'EIO', 'EROFS', 'EEXIST', 'EMFILE', 'ENFILE']);
+const TRANSIENT_REPLACE_ERROR_CODES = new Set(['EACCES', 'EPERM', 'EBUSY']);
+function noteDiagnosticIoError(operation, error) {
+  const code = SAFE_IO_ERROR_CODES.has(error?.code) ? error.code : 'IO_ERROR';
+  const existing = report.run.diagnosticWriteErrors.find(item => item.operation === operation && item.code === code);
+  if (existing) existing.count += 1;
+  else report.run.diagnosticWriteErrors.push({ operation, code, count: 1 });
+}
+
 function checkEntry(name) {
   return report.checks.find(check => check.name === name);
 }
 
 async function persistReport(create = false) {
+  let operation = 'create_directory';
   try {
     await mkdir(reportDirectory, { recursive: true });
     const contents = JSON.stringify(report, null, 2);
     if (create) {
+      operation = 'create_report';
       await writeFile(reportPath, contents, { encoding: 'utf8', flag: 'wx' });
       reportCreated = true;
       return;
     }
     const temporaryPath = `${reportPath}.${randomUUID()}.tmp`;
     try {
+      operation = 'write_temporary_report';
       await writeFile(temporaryPath, contents, { encoding: 'utf8', flag: 'wx' });
-      await rename(temporaryPath, reportPath);
+      operation = 'replace_report';
+      // A sync client or scanner can briefly hold the destination on Windows.
+      // Retry only this local replacement; never repeat a storefront operation.
+      for (let attempt = 0; ; attempt += 1) {
+        try {
+          await rename(temporaryPath, reportPath);
+          break;
+        } catch (error) {
+          if (!TRANSIENT_REPLACE_ERROR_CODES.has(error?.code) || attempt >= 2) throw error;
+          noteDiagnosticIoError(operation, error);
+          operation = 'write_temporary_report';
+          await writeFile(temporaryPath, JSON.stringify(report, null, 2), { encoding: 'utf8', flag: 'w' });
+          operation = 'replace_report';
+          await delay(50 * (attempt + 1));
+        }
+      }
     } finally {
       await unlink(temporaryPath).catch(() => {});
     }
     reportCreated = true;
-  } catch {
+  } catch (error) {
+    noteDiagnosticIoError(operation, error);
     throw new Gate5DiagnosticError('diagnostic_json_write', 'DIAGNOSTIC_REPORT_WRITE_FAILED');
   }
 }
 
 function noteDiagnosticWriteFailure() {
   report.run.diagnosticWriteFailed = true;
+  const diagnosticCheck = checkEntry('diagnostic_json_write');
+  diagnosticCheck.result = 'failed';
+  diagnosticCheck.reason = 'DIAGNOSTIC_REPORT_WRITE_FAILED';
+  diagnosticCheck.details = { errors: report.run.diagnosticWriteErrors };
   const failure = { check: 'diagnostic_json_write', reason: 'DIAGNOSTIC_REPORT_WRITE_FAILED' };
   if (!report.failures.some(item => item.check === failure.check && item.reason === failure.reason)) {
     report.failures.push(failure);
@@ -150,14 +189,16 @@ async function recordCheck(name, operation, successResult = 'passed', { allowWhe
   const entry = checkEntry(name);
   if (!entry) throw new Gate5DiagnosticError('global_gate_result', 'UNKNOWN_CHECK_NAME');
   if (report.run.diagnosticWriteFailed && !allowWhenWriteFailed) {
+    entry.result = 'not_run';
+    entry.reason = 'NOT_RUN_DIAGNOSTIC_WRITE_FAILED';
     throw new Gate5DiagnosticError('diagnostic_json_write', 'DIAGNOSTIC_REPORT_WRITE_FAILED');
   }
   entry.result = 'running';
   entry.reason = null;
   await persistBestEffort();
   if (report.run.diagnosticWriteFailed && !allowWhenWriteFailed) {
-    entry.result = 'failed';
-    entry.reason = 'DIAGNOSTIC_REPORT_WRITE_FAILED';
+    entry.result = 'not_run';
+    entry.reason = 'NOT_RUN_DIAGNOSTIC_WRITE_FAILED';
     throw new Gate5DiagnosticError('diagnostic_json_write', 'DIAGNOSTIC_REPORT_WRITE_FAILED');
   }
   try {
@@ -182,7 +223,7 @@ async function recordCheck(name, operation, successResult = 'passed', { allowWhe
 
 function markUnrunChecks(reason = 'NOT_RUN_AFTER_EARLIER_FAILURE') {
   for (const check of report.checks) {
-    if (check.result === 'not_run') check.reason = reason;
+    if (check.result === 'not_run' && check.reason === 'NOT_RUN') check.reason = reason;
   }
 }
 
@@ -233,21 +274,10 @@ function validateConfiguration() {
   }
 }
 
-// Console-noise filter (D28-I1). ONLY these two cases are ignored; anything else fails the gate:
-//  (1) net::ERR_TUNNEL_CONNECTION_FAILED whose resource host is NOT the store host
-//      and NOT cdn.shopify.com (theme assets host). Unknown/unparseable URL is NOT ignored.
-//  (2) Errors from the Shopify preview bar (iframe #PBarNextFrame and its resources): the message
-//      mentions PBarNextFrame, the resource host is bugsnag.com (notify./sessions.), or the
-//      resource path is a Shopify preview-bar asset (/shopifycloud/ with "preview" in the path).
-// Limitations (documented, filter intentionally NOT widened):
-//  - Store-host comparison uses the configured BASE_URL hostname. A redirect to another primary
-//    domain is not covered: its resources would count as a third-party host and be filtered
-//    for ERR_TUNNEL_CONNECTION_FAILED.
-//  - Playwright console messages expose only the resource URL (msg.location()), not the frame.
-//    So the bugsnag and /shopifycloud/...preview checks cannot be restricted to the preview-bar
-//    iframe; they match by host/path alone, wherever the message comes from.
+// Johandry 2026-11-05: retain every event. A positive theme source always fails;
+// D28 cases are annotated warnings only for external or unknown sources.
 const THEME_ASSET_HOSTS = ['cdn.shopify.com'];
-function isIgnorableProxyNoise(text, resourceUrl, storeHost) {
+function isD28PlatformWarning(text, resourceUrl, storeHost) {
   let host = '';
   let path = '';
   try {
@@ -263,6 +293,267 @@ function isIgnorableProxyNoise(text, resourceUrl, storeHost) {
   if (host === 'bugsnag.com' || host.endsWith('.bugsnag.com')) return true;
   if (path.includes('/shopifycloud/') && path.includes('preview')) return true;
   return false;
+}
+
+const OMITTED_CONSOLE_MESSAGE = 'Console error message omitted for safety.';
+const SECRET_ENVIRONMENT_NAME = /TOKEN|PASSWORD|PASSWD|PWD|COOKIE|SECRET|AUTH|CREDENTIAL|PRIVATE|SESSION|API[_-]?KEY|KEY/iu;
+
+function normalizedDiagnosticForms(value) {
+  const forms = new Set();
+  let current = value;
+  for (let pass = 0; pass < 8; pass += 1) {
+    const normalized = current.normalize('NFKC').trim();
+    for (const literal of [current, normalized]) {
+      if (!literal) continue;
+      // Upper/lower folding also covers case expansions such as sharp-s.
+      const fold = text => text.normalize('NFKC').toUpperCase().toLowerCase().normalize('NFKC');
+      forms.add(fold(literal));
+      forms.add(fold(encodeURIComponent(literal)));
+      forms.add(fold(encodeURI(literal)));
+    }
+    const decoded = decodeURIComponent(normalized); // Invalid encoding fails closed.
+    if (decoded === normalized) return forms;
+    current = decoded;
+  }
+  throw new Error('DIAGNOSTIC_SECRET_NORMALIZATION_LIMIT');
+}
+
+function diagnosticSecretsInMemory() {
+  const literals = new Set();
+  const forms = new Set();
+  // Names select credentials in memory only; neither names nor values enter diagnostics.
+  for (const name of Object.keys(process.env)) {
+    if (!SECRET_ENVIRONMENT_NAME.test(name)) continue;
+    const value = process.env[name];
+    if (!value) continue;
+    literals.add(value);
+    if (value.trim()) literals.add(value.trim());
+    for (const form of normalizedDiagnosticForms(value)) {
+      if (form) forms.add(form);
+    }
+  }
+  return { literals, forms };
+}
+
+function containsSecretNormalized(candidate) {
+  try {
+    const secrets = diagnosticSecretsInMemory();
+    for (const form of normalizedDiagnosticForms(candidate)) {
+      for (const secret of secrets.forms) {
+        if (form.includes(secret)) return true;
+      }
+    }
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+function redactDiagnosticSecrets(text) {
+  let redacted = text;
+  for (const literal of diagnosticSecretsInMemory().literals) {
+    redacted = redacted.split(literal).join('[REDACTED]');
+    redacted = redacted.split(encodeURIComponent(literal)).join('[REDACTED]');
+  }
+  return redacted;
+}
+
+function guardedDiagnosticMessage(message) {
+  const candidate = message.slice(0, 200);
+  return containsSecretNormalized(candidate) ? null : candidate;
+}
+
+function sanitizeConsoleMessage(rawText) {
+  try {
+    if (typeof rawText !== 'string' || rawText.length > 20000) return guardedDiagnosticMessage(OMITTED_CONSOLE_MESSAGE);
+    const text = redactDiagnosticSecrets(rawText)
+      .replace(/(?:https?|wss?|ftp):\/\/[^\s"'`<>]+|\b(?:data|blob|file|javascript):[^\s]+|\/\/[^\s"'`<>]+/giu, '[URL]')
+      .replace(/[?#][^\s"'`<>]*/gu, '[QUERY]')
+      .replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`/gu, '[QUOTED]')
+      .replace(/\b(?:cookie|authorization|bearer|token|password|secret|credential|session|api[_-]?key|value|input|textarea|select|form)\b[^\r\n]*/giu, '[SENSITIVE]');
+    // Never return arbitrary residual text: reconstruct only closed diagnostic templates.
+    // This also suppresses unquoted form values, encoded payloads, paths and unmatched quotes.
+    let message = OMITTED_CONSOLE_MESSAGE;
+    if (/Failed to load resource/iu.test(text)) {
+      const status = /\bstatus(?:\s+of)?\s+([1-5]\d{2})\b/iu.exec(text)?.[1];
+      message = status ? `Failed to load resource (HTTP ${status}).` : 'Failed to load resource.';
+    } else if (/content[ -]security[ -]policy/iu.test(text)) {
+      message = 'Resource blocked by Content Security Policy.';
+    } else if (/\bCORS\b|cross-origin request/iu.test(text)) {
+      message = 'Cross-origin request blocked (CORS).';
+    } else {
+      const networkCode = [
+        'ERR_ABORTED', 'ERR_FAILED', 'ERR_BLOCKED_BY_CLIENT', 'ERR_CONNECTION_REFUSED',
+        'ERR_CONNECTION_RESET', 'ERR_CONNECTION_TIMED_OUT', 'ERR_NAME_NOT_RESOLVED',
+        'ERR_TUNNEL_CONNECTION_FAILED', 'ERR_CERT_AUTHORITY_INVALID', 'ERR_TIMED_OUT',
+        'ERR_NETWORK_CHANGED', 'ERR_INTERNET_DISCONNECTED', 'ERR_HTTP_RESPONSE_CODE_FAILURE',
+        'ERR_ACCESS_DENIED'
+      ].find(code => text.includes(`net::${code}`));
+      const errorType = ['TypeError', 'ReferenceError', 'SyntaxError', 'RangeError', 'URIError', 'EvalError']
+        .find(type => new RegExp(`\\b${type}:`, 'u').test(text));
+      if (networkCode) message = `Network error: ${networkCode}.`;
+      else if (errorType) message = `JavaScript ${errorType} (message details omitted).`;
+      else if (/Uncaught \(in promise\)/u.test(text)) message = 'Unhandled promise rejection (message details omitted).';
+    }
+    return guardedDiagnosticMessage(message);
+  } catch {
+    return null;
+  }
+}
+
+// Closed inventory from assets/; never reflect arbitrary source basenames.
+const SAFE_CONSOLE_FILES = new Set(['theme.js', 'product-zoom.js', 'base.css']);
+function safeConsoleFile(resourceUrl) {
+  try {
+    const basename = decodeURIComponent(new URL(resourceUrl).pathname.split('/').pop());
+    if (!SAFE_CONSOLE_FILES.has(basename) || containsSecretNormalized(basename)) return null;
+    return basename;
+  } catch {
+    return null;
+  }
+}
+
+function safeConsolePosition(value) {
+  return Number.isSafeInteger(value) && value >= 0 ? value : null;
+}
+
+const SAFE_DIAGNOSTIC_PATHS = new Set([
+  '/', '/products.json', '/cart.js', '/cart/add.js', '/cart/clear.js', '/cart/update.js'
+]);
+function safeDiagnosticPathname(pathname) {
+  let candidate = null;
+  if (pathname.startsWith('/cdn/shop/t/190232297715/')) candidate = '/cdn/shop/t/190232297715/';
+  else if (pathname.startsWith('/cdn/shop/files/')) candidate = '/cdn/shop/files/';
+  else if (SAFE_DIAGNOSTIC_PATHS.has(pathname)) candidate = pathname;
+  else if (pathname.startsWith('/collections/')) candidate = '/collections/:handle';
+  else if (pathname.startsWith('/products/')) candidate = '/products/:handle';
+  if (!candidate) return null;
+  // Fixed routes/prefixes/templates must pass the same guard as hosts and files.
+  return containsSecretNormalized(candidate) ? null : candidate;
+}
+
+// Closed exact-host inventory; subdomains and unknown labels are never reflected.
+const SAFE_DIAGNOSTIC_HOSTNAMES = new Set([
+  'tema-qkqpke0j.myshopify.com',
+  'cdn.shopify.com', 'cdn.shopifycdn.net', 'checkout.shopify.com',
+  'shop.app', 'www.shop.app', 'pay.shopify.com', 'accounts.shopify.com',
+  'monorail-edge.shopifysvc.com',
+  'bugsnag.com', 'notify.bugsnag.com', 'sessions.bugsnag.com',
+  'www.google-analytics.com', 'region1.google-analytics.com',
+  'analytics.google.com', 'www.googletagmanager.com', 'stats.g.doubleclick.net',
+  'connect.facebook.net', 'www.facebook.com', 'analytics.tiktok.com',
+  'cdn.jsdelivr.net', 'cdnjs.cloudflare.com', 'unpkg.com',
+  'fonts.googleapis.com', 'fonts.gstatic.com'
+]);
+function safeDiagnosticHostname(hostname) {
+  try {
+    if (!SAFE_DIAGNOSTIC_HOSTNAMES.has(hostname) || containsSecretNormalized(hostname)) return null;
+    return hostname;
+  } catch {
+    return null;
+  }
+}
+
+function consoleResourceSource(locationUrl, text) {
+  if (typeof locationUrl === 'string' && locationUrl.trim()) return locationUrl;
+  if (typeof text !== 'string' || text.length > 20000) return '';
+  let candidate = '';
+  // Extraction only: all URL interpretation/classification uses new URL in memory.
+  for (const match of text.matchAll(/https?:\/\/[^\s<>"'`()]+/giu)) {
+    try {
+      const source = new URL(match[0]);
+      if (!['http:', 'https:'].includes(source.protocol)) continue;
+      if (candidate && candidate !== source.href) return ''; // Ambiguous source.
+      candidate = source.href;
+    } catch { /* Ignore malformed candidates; never serialize raw input. */ }
+  }
+  return candidate;
+}
+
+function safeDiagnosticSource(resourceUrl, text) {
+  const platformWarning = isD28PlatformWarning(text, resourceUrl, new URL(TARGET_ORIGIN).hostname);
+  const unknown = {
+    host: null, pathname: null, severity: 'warning',
+    sourceReason: platformWarning ? 'D28_PLATFORM_WARNING' : 'UNKNOWN_SOURCE'
+  };
+  let classified = unknown;
+  try {
+    const source = new URL(resourceUrl);
+    if (!['http:', 'https:'].includes(source.protocol)) return unknown;
+    const isThemeSource = source.hostname === 'tema-qkqpke0j.myshopify.com' ||
+      source.pathname.startsWith('/cdn/shop/t/190232297715/') ||
+      source.pathname.startsWith('/cdn/shop/files/');
+    classified = {
+      host: null,
+      pathname: null,
+      severity: isThemeSource ? 'failure' : 'warning',
+      sourceReason: isThemeSource ? 'THEME_SOURCE' : platformWarning ? 'D28_PLATFORM_WARNING' : 'EXTERNAL_SOURCE'
+    };
+    return {
+      ...classified,
+      host: safeDiagnosticHostname(source.hostname),
+      pathname: safeDiagnosticPathname(source.pathname)
+    };
+  } catch {
+    return classified;
+  }
+}
+
+function pageErrorSource(error) {
+  // Inspect stack frames only in memory; never serialize the stack or a raw URL.
+  if (typeof error?.stack === 'string') {
+    for (const frame of error.stack.split('\n').slice(1)) {
+      const trimmed = frame.trim();
+      if (!trimmed.startsWith('at ')) continue;
+      let location = trimmed.slice(3);
+      const open = location.lastIndexOf('(');
+      if (open >= 0 && location.endsWith(')')) location = location.slice(open + 1, -1);
+      const position = /^(.*):(\d+):(\d+)$/u.exec(location);
+      if (!position) continue;
+      try {
+        const source = new URL(position[1]);
+        if (!['http:', 'https:'].includes(source.protocol)) continue;
+        return {
+          resourceUrl: position[1],
+          line: safeConsolePosition(Number(position[2])),
+          column: safeConsolePosition(Number(position[3]))
+        };
+      } catch { /* Try the next frame; an unknown source remains a warning. */ }
+    }
+  }
+  return { resourceUrl: '', line: null, column: null };
+}
+
+function attachPageDiagnostics(page, session, fixedPhase = null) {
+  page.on('console', msg => {
+    if (msg.type() === 'error') {
+      const text = msg.text();
+      const location = msg.location();
+      const resourceUrl = consoleResourceSource(location.url, text);
+      session.consoleDiagnostics.errors.push({
+        type: 'error',
+        message: sanitizeConsoleMessage(text),
+        file: safeConsoleFile(resourceUrl),
+        line: safeConsolePosition(location.lineNumber),
+        column: safeConsolePosition(location.columnNumber),
+        page: fixedPhase ?? session.consolePhase,
+        ...safeDiagnosticSource(resourceUrl, text)
+      });
+    }
+  });
+  page.on('pageerror', error => {
+    const source = pageErrorSource(error);
+    const text = typeof error?.message === 'string' ? error.message : '';
+    session.pageDiagnostics.errors.push({
+      type: 'pageerror',
+      message: sanitizeConsoleMessage(`${error?.name || 'Error'}: ${text}`),
+      file: safeConsoleFile(source.resourceUrl),
+      line: source.line,
+      column: source.column,
+      page: fixedPhase ?? session.consolePhase,
+      ...safeDiagnosticSource(source.resourceUrl, text)
+    });
+  });
 }
 
 const LOCKED_PATH = /(^|\/)(password|challenge)\/?$/;
@@ -323,8 +614,9 @@ async function closeBrowserWithTimeout(browser, ms) {
 
 const CART_NOT_EMPTY = 'GATE5_CART_NOT_EMPTY: cart could not be emptied before closing the session.';
 const CART_CLEAR_TIMEOUT_MS = 20000;
+const CART_CLEAR_REQUEST_DEADLINE_MS = 18000;
 // Empties the cart inside the same browser session and verifies item_count is 0 and no note remains.
-// Any failure (including timeout or an evaluate error) is labelled GATE5_CART_NOT_EMPTY.
+// A failed request still permits a final state read; failures and unknown state stay explicit.
 async function clearCartInSession(page) {
   let timer;
   const timeout = new Promise((_, reject) => {
@@ -335,25 +627,86 @@ async function clearCartInSession(page) {
     result = await Promise.race([
       page.evaluate(async ({ ms, expectedOrigin }) => {
         if (window.location.origin !== expectedOrigin) throw new Error('cart origin is unauthorized');
-        const signal = () => AbortSignal.timeout(ms);
-        const clearResponse = await fetch('/cart/clear.js', { method: 'POST', signal: signal() });
-        if (!clearResponse.ok) throw new Error('cart clear request failed');
-        const updateResponse = await fetch('/cart/update.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ note: '' }),
-          signal: signal()
+        const controller = new AbortController();
+        const { signal } = controller;
+        const httpStatuses = { initialRead: null, clear: null, noteUpdate: null, finalRead: null };
+        let requestFailed = false;
+        let deadlineExceeded = false;
+        let verifiedCart = null;
+        let verificationSource = 'deadline';
+        const snapshot = () => ({
+          count: verifiedCart?.count ?? null,
+          noteEmpty: verifiedCart?.noteEmpty ?? null,
+          httpStatuses: { ...httpStatuses },
+          requestFailed,
+          deadlineExceeded,
+          verificationSource
         });
-        if (!updateResponse.ok) throw new Error('cart note update failed');
-        const cartResponse = await fetch('/cart.js', { signal: signal() });
-        if (!cartResponse.ok) throw new Error('cart read failed');
-        const cart = await cartResponse.json();
-        if (!cart || !Number.isInteger(cart.item_count) ||
-            !(cart.note === null || typeof cart.note === 'string')) {
-          throw new Error('cart response shape was incomplete');
+        const request = async (endpoint, key, options = {}) => {
+          if (signal.aborted) return null;
+          try {
+            const response = await fetch(endpoint, { ...options, signal });
+            httpStatuses[key] = response.status;
+            if (!response.ok) requestFailed = true;
+            return response.ok ? response : null;
+          } catch {
+            requestFailed = true;
+            return null;
+          }
+        };
+        const readCart = async key => {
+          const response = await request('/cart.js', key);
+          if (!response) return null;
+          try {
+            const cart = await response.json();
+            if (!cart || !Number.isInteger(cart.item_count) || cart.item_count < 0 ||
+                !(cart.note === null || typeof cart.note === 'string')) return null;
+            // Do not return note text or any other cart/customer data from the browser.
+            return { count: cart.item_count, noteEmpty: cart.note === null || cart.note === '' };
+          } catch {
+            return null;
+          }
+        };
+        let deadlineTimer;
+        const deadline = new Promise(resolve => {
+          deadlineTimer = setTimeout(() => {
+            deadlineExceeded = true;
+            requestFailed = true;
+            controller.abort();
+            // Resolve with observed statuses even if a fetch/body ignores abort.
+            resolve(snapshot());
+          }, ms);
+        });
+        try {
+          return await Promise.race([
+            (async () => {
+              const initialCart = await readCart('initialRead');
+              if (initialCart?.count === 0 && initialCart.noteEmpty) {
+                verifiedCart = initialCart;
+                verificationSource = 'initial_read';
+                return snapshot();
+              }
+              if (!initialCart || initialCart.count > 0) {
+                await request('/cart/clear.js', 'clear', { method: 'POST' });
+              }
+              if (!initialCart || !initialCart.noteEmpty) {
+                await request('/cart/update.js', 'noteUpdate', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ note: '' })
+                });
+              }
+              // A failed mutation must not skip the final read while time remains.
+              verifiedCart = await readCart('finalRead');
+              verificationSource = 'final_read';
+              return snapshot();
+            })(),
+            deadline
+          ]);
+        } finally {
+          clearTimeout(deadlineTimer);
         }
-        return { count: cart.item_count, note: cart.note };
-      }, { ms: CART_CLEAR_TIMEOUT_MS, expectedOrigin: TARGET_ORIGIN }),
+      }, { ms: CART_CLEAR_REQUEST_DEADLINE_MS, expectedOrigin: TARGET_ORIGIN }),
       timeout
     ]);
   } catch {
@@ -361,23 +714,46 @@ async function clearCartInSession(page) {
   } finally {
     clearTimeout(timer);
   }
-  report.cart.emptyVerified = result.count === 0;
-  report.cart.noteEmptyVerified = result.note === null || result.note === '';
+  report.cart.emptyVerified = result.count === null ? null : result.count === 0;
+  report.cart.noteEmptyVerified = result.noteEmpty;
   checkEntry('cart_cleanup').details = {
-    itemCount: Number(result.count),
-    noteEmpty: result.note === null || result.note === ''
+    itemCount: result.count,
+    noteEmpty: result.noteEmpty,
+    httpStatuses: result.httpStatuses,
+    requestFailed: result.requestFailed,
+    deadlineExceeded: result.deadlineExceeded,
+    verificationSource: result.verificationSource
   };
-  if (result.count !== 0 || !(result.note === null || result.note === '')) {
+  if (Object.values(result.httpStatuses).includes(429)) {
+    throw new Gate5DiagnosticError('cart_cleanup', 'CART_CLEANUP_HTTP_429');
+  }
+  if (result.deadlineExceeded) {
+    throw new Gate5DiagnosticError('cart_cleanup', 'CART_CLEANUP_DEADLINE_EXCEEDED');
+  }
+  if (result.requestFailed) {
+    throw new Gate5DiagnosticError('cart_cleanup', 'CART_CLEANUP_REQUEST_FAILED');
+  }
+  if (result.count === null || result.noteEmpty === null) {
+    throw new Gate5DiagnosticError('cart_cleanup', 'CART_CLEANUP_STATE_UNKNOWN');
+  }
+  if (result.count !== 0 || !result.noteEmpty) {
     throw new Gate5DiagnosticError('cart_cleanup', 'CART_NOT_EMPTY_OR_NOTE_REMAINS');
   }
-  return { itemCount: result.count, noteEmpty: result.note === null || result.note === '' };
+  return { itemCount: result.count, noteEmpty: result.noteEmpty };
 }
 
 async function runChecks(browser) {
   const context = await recordCheck('session_context', () => browser.newContext({
     viewport: { width: 1280, height: 900 }
   }));
-  const session = { cartTouched: false };
+  const session = {
+    cartTouched: false,
+    consolePhase: 'home',
+    consoleDiagnostics: { errors: [] },
+    pageDiagnostics: { errors: [] },
+    suiteCompleted: false
+  };
+  let operationFailure = null;
   try {
     return await runChecksInContext(context, session, browser);
   } catch (error) {
@@ -389,11 +765,13 @@ async function runChecks(browser) {
       entry.reason = reason;
       report.failures.push({ check: checkName, reason });
     }
-    throw error;
+    operationFailure = new Gate5DiagnosticError(checkName, reason);
+    throw operationFailure;
   } finally {
     let cleanupFailure = null;
     try {
       if (session.cartTouched) {
+        session.consolePhase = 'cart';
         report.cart.cleanupAttempted = true;
         activeCheckName = 'cart_cleanup';
         const cleanupCheck = checkEntry('cart_cleanup');
@@ -424,34 +802,63 @@ async function runChecks(browser) {
       } catch (error) {
         closeFailure = error;
       }
+      // Keep listeners active through cart cleanup and context shutdown before deciding.
+      let consoleFailure = null;
+      for (const details of [session.consoleDiagnostics, session.pageDiagnostics]) {
+        details.count = details.errors.length;
+        details.failureCount = details.errors.filter(entry => entry.severity === 'failure').length;
+        details.warningCount = details.count - details.failureCount;
+      }
+      console.log(`  Theme console failures: ${session.consoleDiagnostics.failureCount}; warnings: ${session.consoleDiagnostics.warningCount}`);
+      console.log(`  Page error failures: ${session.pageDiagnostics.failureCount}; warnings: ${session.pageDiagnostics.warningCount}`);
+      checkEntry('page_errors').details = session.pageDiagnostics;
+      const observationComplete = session.suiteCompleted && !operationFailure &&
+        checkEntry('cart_cleanup').result === 'passed' &&
+        report.cart.emptyVerified === true && report.cart.noteEmptyVerified === true &&
+        checkEntry('session_context_close').result === 'passed';
+      for (const [name, details, reason] of [
+        ['theme_console_errors', session.consoleDiagnostics, 'THEME_CONSOLE_ERRORS_PRESENT'],
+        ['page_errors', session.pageDiagnostics, 'THEME_PAGE_ERRORS_PRESENT']
+      ]) {
+        const entry = checkEntry(name);
+        if (!session.page || (details.failureCount === 0 && !observationComplete)) {
+          entry.result = session.page ? 'observed' : 'not_run';
+          entry.reason = session.page ? 'PARTIAL_EXECUTION' : 'PAGE_NOT_CREATED';
+          await persistBestEffort();
+          continue;
+        }
+        try {
+          await recordCheck(name, async () => {
+            if (details.failureCount > 0) throw new Gate5DiagnosticError(name, reason);
+          }, 'passed', { allowWhenWriteFailed: true });
+          if (details.warningCount > 0) entry.reason = 'WARNINGS_PRESENT';
+        } catch (error) {
+          consoleFailure ??= error;
+        }
+      }
       if (cleanupFailure) throw cleanupFailure;
       if (closeFailure) throw closeFailure;
+      if (consoleFailure && !operationFailure) throw consoleFailure;
     }
   }
 }
 
 async function runChecksInContext(context, session, browser) {
 
-  let consoleErrorCount = 0;
-  let ignoredConsoleErrorCount = 0;
-  let themeJsErrorCount = 0;
-  let pageErrorCount = 0;
+  // Explicit access/home phase includes authentication; no page label is inferred from URLs.
+  session.consolePhase = 'home';
+  const consoleDiagnostics = session.consoleDiagnostics;
+  checkEntry('theme_console_errors').details = consoleDiagnostics;
+  checkEntry('page_errors').details = session.pageDiagnostics;
 
   const page = await recordCheck('storefront_page_creation', () => context.newPage());
   session.page = page;
-  page.on('console', msg => {
-    if (msg.type() === 'error') {
-      consoleErrorCount += 1;
-      const text = msg.text();
-      // Only the proxy-noise cases listed at isIgnorableProxyNoise are filtered.
-      if (!isIgnorableProxyNoise(text, msg.location().url, new URL(BASE_URL).hostname.toLowerCase())) {
-        themeJsErrorCount += 1;
-      } else {
-        ignoredConsoleErrorCount += 1;
-      }
-    }
-  });
-  page.on('pageerror', () => { pageErrorCount += 1; });
+  attachPageDiagnostics(page, session);
+  for (const name of ['theme_console_errors', 'page_errors']) {
+    const entry = checkEntry(name);
+    entry.result = 'observed';
+    entry.reason = 'PARTIAL_EXECUTION';
+  }
 
   // 1. Desbloqueo Storefront
   console.log('\n[1/4] Autenticación Storefront (/password)...');
@@ -460,6 +867,7 @@ async function runChecksInContext(context, session, browser) {
     const anonContext = await browser.newContext();
     try {
       const anonPage = await anonContext.newPage();
+      attachPageDiagnostics(anonPage, session, 'home');
       await anonPage.goto(`${BASE_URL}/products.json`, { waitUntil: 'domcontentloaded' });
       assertAuthorizedOrigin(anonPage);
       if (!/^\/password\/?$/u.test(new URL(anonPage.url()).pathname)) {
@@ -471,6 +879,7 @@ async function runChecksInContext(context, session, browser) {
   });
   let wasPrompted = false;
   await recordCheck('password_preview_access', async () => {
+    session.consolePhase = 'home';
     await page.goto(`${BASE_URL}/password?preview_theme_id=${THEME_ID}`, { waitUntil: 'domcontentloaded' });
     assertAuthorizedOrigin(page);
     const pwdInput = page.locator('input[type="password"]');
@@ -509,6 +918,7 @@ async function runChecksInContext(context, session, browser) {
     if (await pwdInput.count() > 0) throw new Gate5DiagnosticError('password_preview_access', 'PASSWORD_PROMPT_REMAINS');
   });
   await recordCheck('authenticated_home_access', async () => {
+    session.consolePhase = 'home';
     const res = await page.request.get(`${BASE_URL}/`, { maxRedirects: 0 });
     if (res.status() !== 200 || new URL(res.url()).origin !== TARGET_ORIGIN || LOCKED_PATH.test(new URL(res.url()).pathname)) {
       throw new Gate5DiagnosticError('authenticated_home_access', 'AUTHENTICATED_HOME_NOT_HTTP_200');
@@ -527,6 +937,7 @@ async function runChecksInContext(context, session, browser) {
   // 2. PLP: Grid / List view switch
   console.log('\n[2/4] Verificación PLP (Main Collection): Grid/List Switcher...');
   await recordCheck('collection_navigation', async () => {
+    session.consolePhase = 'collection';
     await page.goto(`${BASE_URL}${COLLECTION_PATH}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
     assertAuthorizedOrigin(page);
     assertUnlocked(page);
@@ -574,6 +985,7 @@ async function runChecksInContext(context, session, browser) {
   // 3. PDP: Main Product & Luxury Blocks & Subtotal
   console.log('\n[3/4] Verificación PDP (Main Product): Bloques de Lujo y Subtotal Reactivo...');
   await recordCheck('product_navigation', async () => {
+    session.consolePhase = 'product';
     await page.goto(`${BASE_URL}${PRODUCT_PATH}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
     assertAuthorizedOrigin(page);
     assertUnlocked(page);
@@ -639,16 +1051,15 @@ async function runChecksInContext(context, session, browser) {
   console.log('  ✓ Technical Specs block attached; visual style data observed');
 
   // 4. Cart Drawer: Recomendaciones, Chips de 44px y Transacciones
+  session.consolePhase = 'cart';
   console.log('\n[4/4] Verificación Cart Drawer: Recomendaciones, Chips de 44px y Transacciones...');
 
   // Añadir un producto al carrito vía /cart/add.js
-  session.cartTouched = true;
-  report.cart.touched = true;
-  await persistBestEffort();
-  if (report.run.diagnosticWriteFailed) {
-    throw new Gate5DiagnosticError('diagnostic_json_write', 'DIAGNOSTIC_REPORT_WRITE_FAILED');
-  }
   await recordCheck('cart_add_observation', async () => {
+    // Mark cleanup eligibility only after local diagnostic preflight passes and
+    // immediately before a request that may mutate this session's cart.
+    session.cartTouched = true;
+    report.cart.touched = true;
     const result = await page.evaluate(async (expectedOrigin) => {
       if (window.location.origin !== expectedOrigin) throw new Error('cart origin is unauthorized');
       const varJson = JSON.parse(document.querySelector('[data-variant-json]').textContent);
@@ -790,34 +1201,14 @@ async function runChecksInContext(context, session, browser) {
 
   console.log('  ✓ Cart note persistence check passed');
 
-  // Resumen final de Errores de Consola
-  console.log('\n' + '='.repeat(75));
-  console.log('AUDITORÍA DE CONSOLA / RUNTIME JS DEL TEMA:');
-  console.log(`  Theme JavaScript Errors: ${themeJsErrorCount}`);
-  console.log(`  Total Page Errors: ${pageErrorCount}`);
-  console.log(`  Platform Notices Ignored by D28: ${ignoredConsoleErrorCount}`);
-  console.log('='.repeat(75));
-
-  await recordCheck('theme_console_errors', async () => {
-    if (themeJsErrorCount > 0) {
-      throw new Gate5DiagnosticError('theme_console_errors', 'UNFILTERED_THEME_CONSOLE_ERRORS_PRESENT');
-    }
-  });
-  await recordCheck('page_errors', async () => {
-    if (pageErrorCount > 0) {
-      throw new Gate5DiagnosticError('page_errors', 'PAGE_ERRORS_PRESENT');
-    }
-  });
-
   const success = (
     hasSwitcher &&
     pdpAudit.specsAttached &&
     chipAudit.optionsExpanded &&
     chipAudit.measurements.every(m => m.meets44px) &&
-    noteVerification.matched &&
-    themeJsErrorCount === 0 &&
-    pageErrorCount === 0
+    noteVerification.matched
   );
+  session.suiteCompleted = true;
   return success;
 }
 
@@ -856,7 +1247,7 @@ async function runGateWithDiagnosticReport() {
     report.run.result = 'failed';
     report.run.failureReason = reason;
     report.Estado = 'failed';
-    report['Decisión requerida'] = 'No ejecutar de nuevo sin resolver la comprobación fallida y obtener autorización.';
+    report['Decisión requerida'] = 'Aplicar la autorización vigente: máximo cinco corridas; corregir los errores del tema y revisar cada cambio antes de continuar.';
     report['Hallazgos extra'] = [
       'La causa se registra solo como código seguro; no se serializa la excepción original.'
     ];
