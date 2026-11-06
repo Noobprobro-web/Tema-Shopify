@@ -158,6 +158,9 @@ function safeCode(error) {
   if (error instanceof CheckError && /^[A-Z][A-Z0-9_]+$/.test(error.code)) return error.code;
   if (error?.name === 'TimeoutError') return 'PLAYWRIGHT_TIMEOUT';
   if (['MODULE_NOT_FOUND', 'ERR_MODULE_NOT_FOUND'].includes(error?.code)) return 'MODULE_NOT_FOUND';
+  const chromiumCode = typeof error?.message === 'string' ? error.message.match(/\bnet::(ERR_[A-Z0-9_]+)\b/)?.[1] : null;
+  if (chromiumCode && new Set(['ERR_ABORTED', 'ERR_BLOCKED_BY_CLIENT', 'ERR_CONNECTION_CLOSED', 'ERR_CONNECTION_RESET', 'ERR_CONNECTION_TIMED_OUT', 'ERR_FAILED', 'ERR_INTERNET_DISCONNECTED', 'ERR_NAME_NOT_RESOLVED', 'ERR_NETWORK_CHANGED', 'ERR_SSL_PROTOCOL_ERROR', 'ERR_TUNNEL_CONNECTION_FAILED']).has(chromiumCode)) return `CHROMIUM_${chromiumCode}`;
+  if (new Set(['ECONNRESET', 'ETIMEDOUT', 'ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN']).has(error?.code)) return `NETWORK_${error.code}`;
   return 'HARNESS_OPERATION_FAILED';
 }
 async function saveReport() {
@@ -454,16 +457,22 @@ function recordRouteFailure(session, stage, method, rawAddress, error) {
   if (session.routeFailureEvents.length >= 50) { session.routeFailureEventsOmitted += 1; return; }
   session.routeFailureEvents.push(routeEvent(session, stage, method, rawAddress, error));
 }
-function isShopifyRuntimeFetchTimeout(stage, fetchInProgress, method, rawAddress, error) {
-  if (stage !== 'fetch' || !fetchInProgress || !['GET', 'HEAD'].includes(method) || safeCode(error) !== 'PLAYWRIGHT_TIMEOUT') return false;
+function isExternalHostFetchFailure(stage, fetchInProgress, method, rawAddress, error) {
+  if (stage !== 'fetch' || !fetchInProgress || !['GET', 'HEAD'].includes(method) || error instanceof CheckError) return false;
   try {
     const address = new URL(rawAddress);
-    return address.origin === 'https://cdn.shopify.com' && !address.username && !address.password && address.pathname.startsWith('/shopifycloud/shop-js/');
+    const isThemeAsset = /^\/cdn\/shop\/t\/(?:190232297715|190232330483|190232363251)\//.test(address.pathname)
+      || address.pathname.startsWith('/cdn/shop/files/');
+    // Johandry's criterion: a network error only fails this gate when it comes
+    // from the store host or a theme asset. A failed read from another host is
+    // retained as a warning with safe host/path, except the exact theme asset
+    // roots which may be served by Shopify's CDN.
+    return address.origin !== ORIGIN && !address.username && !address.password && !isThemeAsset;
   } catch { return false; }
 }
 function recordRouteWarning(session, stage, method, rawAddress, error) {
   if (session.routeWarningEvents.length >= 50) { session.routeWarningEventsOmitted += 1; return; }
-  session.routeWarningEvents.push({ severity: 'warning', reason: 'SHOPIFY_RUNTIME_FETCH_TIMEOUT_WARNING_ONLY', ...routeEvent(session, stage, method, rawAddress, error) });
+  session.routeWarningEvents.push({ severity: 'warning', reason: 'NON_STORE_HOST_FETCH_WARNING_ONLY', ...routeEvent(session, stage, method, rawAddress, error) });
 }
 function createRouter(session) {
   return async (route) => {
@@ -537,7 +546,7 @@ function createRouter(session) {
       stage = 'redirect_limit';
       throw new CheckError('REDIRECT_LIMIT_EXCEEDED');
     } catch (error) {
-      if (isShopifyRuntimeFetchTimeout(stage, fetchInProgress, method, failureAddress, error)) {
+      if (isExternalHostFetchFailure(stage, fetchInProgress, method, failureAddress, error)) {
         recordRouteWarning(session, stage, method, failureAddress, error);
       } else if (!(error instanceof PolicyBlocked)) {
         session.routeOperationFailed = true;

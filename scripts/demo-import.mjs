@@ -108,7 +108,7 @@ function variantRows(data, p) {
         Vendor: data.vendor || '',
         Type: p.type,
         Tags: p.tags.join(', '),
-        Published: 'TRUE',
+        Published: data.status === 'active' ? 'TRUE' : 'FALSE',
         'Option1 Name': opts[0] ? opts[0].name : 'Title',
         'Option2 Name': opts[1] ? opts[1].name : '',
         'Gift Card': 'FALSE',

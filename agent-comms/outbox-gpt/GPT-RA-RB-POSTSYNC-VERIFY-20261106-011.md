@@ -2,7 +2,7 @@
 
 ID: GPT-RA-RB-POSTSYNC-VERIFY-20261106-011
 
-Estado: verificación post-sync única, exit 1, `executionResult=failed`, `scopeResult=failed` por routing; cero checks fallidos. R-A/R-B y Lote 0 abiertos; Lote C no iniciado. Revisión documental independiente pendiente.
+Estado: verificación post-sync única, exit 1, `executionResult=failed`, `scopeResult=failed` por routing; cero checks fallidos. R-A/R-B y Lote 0 abiertos; Lote C no iniciado. Revisión para evidencia de cierre D19: ACCEPTED; no equivale a aceptación funcional de esta corrida.
 
 Decisión requerida: revisar los cinco eventos de routing sin confundirlos con fallos funcionales de labels. No cerrar R-A/R-B/Lote 0 ni atribuir necesidad/causalidad de hosts por su registro.
 

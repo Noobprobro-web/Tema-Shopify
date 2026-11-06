@@ -2,7 +2,7 @@
 
 ID: GPT-RA-RB-CART-VERIFY-20261106-012
 
-Estado: lectura post-route-fix aprobada con límites; prueba de carrito condicional fallida en Archive. **Estado del carrito de la sesión Archive en tienda no resuelto.** R-A/R-B y Lote 0 abiertos; Lote C no iniciado. Revisión documental independiente pendiente.
+Estado: lectura post-route-fix aprobada con límites; prueba de carrito condicional fallida en Archive. **Estado del carrito de la sesión Archive en tienda no resuelto.** R-A/R-B y Lote 0 abiertos; Lote C no iniciado. Revisión para evidencia de cierre D19: ACCEPTED; no equivale a aceptación funcional de esta corrida.
 
 Decisión requerida: conservar la incertidumbre de Archive y revisar los fallos sin declarar limpieza ni aceptación R-B. No hubo autorización de reintento en estas corridas y no se reintentó.
 

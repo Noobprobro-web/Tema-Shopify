@@ -2,7 +2,7 @@
 
 ID: GPT-RA-RB-ARCHIVE-RETRY-20261106-014
 
-Estado: nueva sesión Archive-only aprobada con límites, exit 0, `executionResult=completed`, `scopeResult=completed_with_limits`, 6/6 checks aprobados. Limpieza de esta sesión verificada; incidente antiguo `LEAVE_TO_EXPIRE` sigue desconocido y no bloqueante. Revisión de cierre Lote 0 pendiente; secuencia formal C no iniciada, salvo H-1 adelantada. Revisión documental independiente pendiente.
+Estado: nueva sesión Archive-only aprobada con límites, exit 0, `executionResult=completed`, `scopeResult=completed_with_limits`, 6/6 checks aprobados. Limpieza de esta sesión verificada; incidente antiguo `LEAVE_TO_EXPIRE` sigue desconocido y no bloqueante. Revisión de cierre Lote 0 pendiente; secuencia formal C no iniciada, salvo H-1 adelantada. Revisión para evidencia de cierre D19: ACCEPTED; no equivale a certificación R-A/R-B ni limpieza retroactiva.
 
 Decisión requerida: revisar la evidencia para el cierre de Lote 0 sin atribuir a la nueva sesión una limpieza retroactiva del carrito antiguo ni aceptar matrices R-A/R-B completas.
 

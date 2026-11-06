@@ -4142,7 +4142,7 @@ marquee-banner {
 
   /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
      columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
-     Los heroes alineados a la izquierda (Sartorial, Couture, Edition) no cambian. */
+     Los heroes alineados a la izquierda (Sartorial, Imprint) no cambian. */
   .hero-editorial--align-center .hero-editorial__heading {
     font-size: min(calc(4.5rem * var(--font-heading-scale)), 6.2vw);
   }
@@ -9950,7 +9950,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   }
 }
 
-/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Edition) y procedencia (Archive). */
+/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Imprint) y procedencia (Archive). */
 .product-technical-specs,
 .product-provenance {
   display: grid;

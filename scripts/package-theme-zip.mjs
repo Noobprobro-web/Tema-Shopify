@@ -82,11 +82,10 @@ const INCLUDE_DIRS = [
 /** Archivos de la raiz incluidos si existen en la revision. */
 const INCLUDE_ROOT_FILES = ['release-notes.md', 'update_extension.json'];
 /**
- * Exclusion explicita, vacia por ahora. Rutas exactas (relativas a la raiz) que
- * se omiten del ZIP sin borrarse del repo. Se usara en C-04-P para
- * 'templates/page.documentation.json' y 'templates/page.support.json'.
+ * Rutas exactas (relativas a la raiz) que se omiten del ZIP sin borrarse del
+ * repo. C-04-P conserva las plantillas de documentación solo en el repositorio.
  */
-const EXCLUDED_PATHS = [];
+const EXCLUDED_PATHS = ['templates/page.documentation.json', 'templates/page.support.json'];
 
 function fail(msg) {
   console.error('[package-theme-zip] ERROR: ' + msg);

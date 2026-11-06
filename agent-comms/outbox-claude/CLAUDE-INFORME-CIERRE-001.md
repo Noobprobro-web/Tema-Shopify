@@ -36,3 +36,6 @@
 9. Retirar productos QA de tema-qkqpke0j cuando A-01 y gate5 ya no los usen.
 
 Nada se fusiona a master. No se publico ningun tema ni se escribio en ninguna tienda.
+# Addendum — 2026-11-06 (estado histórico)
+
+Este informe conserva la fotografía de su SHA/ZIP original y no debe usarse como estado vigente ni como cierre del Lote C. El cierre posterior de Lote 0 se limita a D19 y está registrado en `docs/decisions.md` y `agent-comms/outbox-claude/CLAUDE-REVIEW-LOTE-0-CIERRE-001.md`; R-A/R-B, R-D/G2 y R-Demo siguen sin aceptación completa. El preflight elevado posterior confirmó como `unpublished` los temas `190232297715`, `190232330483` y `190232363251`; la última lectura quedó fallida por un evento de routing del runtime Shopify, no por checks funcionales fallidos. El carrito Sartorial T-2 sigue con estado desconocido y disposición pendiente de Johandry. Para el estado de implementación y dependencias vigentes, consultar `CLAUDE-CLOUD-STATUS.md` y el informe final más reciente de `outbox-gpt`.

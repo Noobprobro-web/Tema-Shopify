@@ -2,7 +2,7 @@
 
 ID: GPT-RA-RB-PREFLIGHT-20261106-015
 
-Estado: verificación final de lectura no ejecutada por preflight fallido. Revisión documental independiente pendiente.
+Estado: verificación final de lectura no ejecutada por el preflight de esa sesión. Revisión para evidencia de cierre D19: ACCEPTED; la evidencia histórica se conserva y no se infiere una corrida posterior desde este informe.
 
 ## Evidencia del preflight
 

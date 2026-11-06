@@ -31,6 +31,7 @@ scratch/
 # locales y las cookies de login se quedan en disco y fuera del índice.
 .env
 .env.*
+.secrets/
 *.local.json
 *.cookies.json
 .claude/

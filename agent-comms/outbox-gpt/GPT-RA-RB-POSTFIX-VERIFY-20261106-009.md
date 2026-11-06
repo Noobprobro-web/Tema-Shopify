@@ -2,7 +2,7 @@
 
 ID: GPT-RA-RB-POSTFIX-VERIFY-20261106-009
 
-Estado: verificación remota post-fix única, exit 1, `executionResult=failed`, `scopeResult=failed`. No prueba el resultado del parche local: no se había realizado theme push de las correcciones. R-A/R-B y Lote 0 abiertos; Lote C no iniciado. Revisión documental independiente pendiente.
+Estado: verificación remota post-fix única, exit 1, `executionResult=failed`, `scopeResult=failed`. No prueba el resultado del parche local: no se había realizado theme push de las correcciones. R-A/R-B y Lote 0 abiertos; Lote C no iniciado. Revisión para evidencia de cierre D19: ACCEPTED; no equivale a aceptación funcional de esta corrida.
 
 Decisión requerida: conservar la separación entre corrección local aceptada y tema remoto servido. No clasificar esta corrida como fallo del parche local ni atribuir causa a hosts o routing sin evidencia.
 

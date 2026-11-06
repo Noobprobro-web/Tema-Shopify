@@ -3,7 +3,7 @@
   "listing_templates": ["listings/sartorial/templates/index.json", "listings/sartorial/templates/collection.json", "listings/sartorial/templates/product.json", "templates/index.json"],
   "source": "agent-comms/outbox-claude/CLAUDE-DEMO-001-couture-demo-store.md (sección Dos: catálogo; descripciones traducidas al inglés sin cambiar cifras); recuentos de colección contrastados con agent-comms/outbox-claude/harness-AUDIT-FINAL-002/results-07-parity-catalog.json (atelier: new-forms 11, permanent-collection 14, tailoring 5)",
   "vendor": "LINEA NOVE",
-  "status": "active",
+  "status": "draft",
   "inventory": { "tracker": "", "policy": "deny" },
   "pending_data": [
     "Tallas: CLAUDE-DEMO-001 da XS-XL por defecto; la tienda sartorial-atelier mostró 34-40 en bias-cut-slip-dress. Johandry fija la escala real de cada producto antes de importar (D-01-L).",
