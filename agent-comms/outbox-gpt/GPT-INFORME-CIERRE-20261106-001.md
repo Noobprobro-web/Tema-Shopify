@@ -4,7 +4,7 @@ Fecha: 2026-11-06
 Rama: `lote-d`
 Escritor: GPT/Codex
 ID: `GPT-INFORME-CIERRE-20261106-001`
-Estado: la adenda del push `d81a1d3` quedó publicada en `c8f9a3790432d3bbac22bd337f99ece24dd41859` de `origin/lote-d`; las modificaciones locales posteriores de esta versión requieren revisión independiente y entrega Git.
+Estado: el commit `4aa39775d08bc8fe67493632b25dce7b45671059` se publicó en `origin/lote-d`; al redactar esta adenda se había verificado ese estado y la actualización documental se registrará en el siguiente commit de `lote-d`.
 Decisión requerida: Johandry debe resolver únicamente sus dependencias recogidas en `GPT-PENDIENTES-JOHANDRY-001.md`; no se solicita autorización adicional para el trabajo ya autorizado.
 
 Resumen en 5 líneas:
@@ -14,7 +14,7 @@ Resumen en 5 líneas:
 4. El ZIP candidato reproducible y su Theme Check recibieron revisión independiente; versión y notas siguen como propuesta.
 5. R-C global sigue pendiente; R-Demo es posterior a R-C y pertenece al cierre del Lote D.
 
-Archivos tocados: esta actualización documental comprende `CLAUDE-CLOUD-STATUS.md`, `GPT-LOTE-C-PREPARACION-20261106-016.md` y este informe; el runner y los JSON Lighthouse se indican como evidencia abajo.
+Archivos tocados: esta adenda documental actualiza `CLAUDE-CLOUD-STATUS.md` y este informe. Los documentos de propuestas, el runner y los JSON Lighthouse publicados constan en la evidencia del commit.
 Desviaciones (Nivel 1 o Nivel 2): ninguna nueva; se corrige la atribución de dependencias de C-01/C-03 y la secuencia R-C/R-Demo conforme a la revisión independiente.
 Hallazgos extra fuera de alcance (con parche listo): ninguno. El arnés Lighthouse recibió correcciones de diagnóstico y red revisadas independientemente; las causas de red y trace processor siguen sin atribución.
 Verificación (comando, resultado y qué demuestra/qué no): la versión staged anterior pasó `git diff --cached --check`; la edición actual requiere repetir ese comando después del staging. `node --check` y la revisión independiente aceptaron el runner indicado abajo. Las corridas Lighthouse documentan sus propios límites y no certifican tienda ni completitud de C.
@@ -95,4 +95,4 @@ El stderr observado de esa consulta fue el objeto diagnóstico siguiente; no hub
 
 - El commit `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc` de `lote-d` se envió a `origin/lote-d` sin force; la referencia remota avanzó de `d9f76c21f338dd5c5b55870cc3f53370afe26253` a `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc`.
 - El commit `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc` incluye los tres documentos de evidencia, el runner Lighthouse revisado y ocho JSON de diagnóstico. El commit anterior `2fed90b195122ae32d79283f0e757b05e0140148` contiene la preparación y la revisión de cierre.
-- El conteo literal anterior al push de `d81a1d3` dio 0 fuera de `tests/vendor/axe.min.js`. La adenda que documentó ese push se publicó después en `c8f9a3790432d3bbac22bd337f99ece24dd41859`; HEAD y `origin/lote-d` apuntan a ese commit. Los cambios posteriores del runner y documentos de propuestas C están locales y requieren revisión independiente y entrega Git; el estado actual contiene modificaciones.
+- El commit `4aa39775d08bc8fe67493632b25dce7b45671059` se publicó sin force en `origin/lote-d`, que avanzó desde `c8f9a3790432d3bbac22bd337f99ece24dd41859`. El conteo literal previo al push fue 0 fuera de `tests/vendor/axe.min.js`. Al redactar esta adenda, se había comprobado la rama `lote-d`, HEAD y `origin/lote-d` en `4aa3977`, y `git status --short` limpio antes de editarla. Esta actualización documental se registrará en el siguiente commit de `lote-d`.
