@@ -4,7 +4,7 @@
 // Credentials are read only from local environment variables and never emitted.
 
 import { randomUUID } from 'node:crypto';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 import process from 'node:process';
@@ -30,7 +30,14 @@ const KNOWN_WARNING_HOSTS = new Set([
 ]);
 const EXTERNAL_HEADERS = Object.freeze({ Accept: '*/*', 'User-Agent': 'Codex Shopify audit; Lighthouse 13.4.1' });
 const RESULT_DIR = path.resolve('agent-comms/outbox-gpt/harness-GPT-RD-001/results');
+const PROFILE_CACHE_DIR = path.resolve('node_modules/.cache');
+const PROFILE_PREFIX = 'gpt-rd-profile-';
 const SECRET_ENV = ['SHOPIFY_CLI_THEME_TOKEN', 'STOREFRONT_PASSWORD'];
+const CDP_NETWORK_ERROR_REASONS = new Set([
+  'Failed', 'Aborted', 'TimedOut', 'AccessDenied', 'ConnectionClosed', 'ConnectionReset',
+  'ConnectionRefused', 'ConnectionAborted', 'ConnectionFailed', 'NameNotResolved',
+  'InternetDisconnected', 'AddressUnreachable', 'BlockedByClient', 'BlockedByResponse',
+]);
 const MAX_429_RETRIES = 3;
 const PAGE_TIMEOUT_MS = 45000;
 const PREVIEW_URL_PARAM = 'preview_theme_id';
@@ -66,14 +73,32 @@ function createSecretGuard(values) {
 }
 
 function safeSource(raw, secretGuard) {
-  if (typeof raw !== 'string') return { host: null, path: null, redacted: true };
+  if (typeof raw !== 'string') return { host: null, path: null, scheme: null, redacted: true };
   try {
     const url = new URL(raw);
+    const scheme = ['http:', 'https:', 'data:', 'blob:', 'about:', 'file:', 'ws:', 'wss:'].includes(url.protocol) ? url.protocol.slice(0, -1) : 'other';
+    // Non-HTTP URLs can embed payloads or local paths; retain only a fixed scheme enum.
+    if (!['http', 'https'].includes(scheme)) return { host: null, path: null, scheme, redacted: true };
     const host = url.hostname.toLowerCase();
     const pathname = url.pathname;
-    if (url.username || url.password || secretGuard(host) || secretGuard(pathname)) return { host: null, path: null, redacted: true };
-    return { host, path: pathname, redacted: false };
-  } catch { return { host: null, path: null, redacted: true }; }
+    if (url.username || url.password || secretGuard(host) || secretGuard(pathname)) return { host: null, path: null, scheme, redacted: true };
+    return { host, path: pathname, scheme, redacted: false };
+  } catch { return { host: null, path: null, scheme: null, redacted: true }; }
+}
+
+function responseFilterError(error) {
+  const protocolCode = [error?.code, error?.cause?.code].find((value) => Number.isInteger(value)) ?? null;
+  const diagnostic = typeof error?.message === 'string' ? error.message : '';
+  let code = 'RESPONSE_FILTER_OPERATION_FAILED';
+  if (['RESPONSE_STATUS_MISSING', 'RESPONSE_HEADERS_MISSING'].includes(error?.safeFilterCode)) code = error.safeFilterCode;
+  else if (protocolCode === -32601 || /method.+(?:not found|wasn't found)|wasn't found.+method/i.test(diagnostic)) code = 'PROTOCOL_METHOD_NOT_FOUND';
+  else if (protocolCode === -32602 || /invalid parameters/i.test(diagnostic)) code = 'PROTOCOL_INVALID_PARAMETERS';
+  else if (/invalid interception|invalid.*requestid|interception.+(?:not found|invalid)/i.test(diagnostic)) code = 'PROTOCOL_INTERCEPTION_ID_INVALID';
+  else if (/target closed/i.test(diagnostic)) code = 'PROTOCOL_TARGET_CLOSED';
+  else if (/session closed|session.+not found/i.test(diagnostic)) code = 'PROTOCOL_SESSION_CLOSED';
+  else if (error?.name === 'ProtocolError') code = 'PROTOCOL_ERROR';
+  else if (error?.name === 'TimeoutError') code = 'PROTOCOL_TIMEOUT';
+  return { code, protocolCode };
 }
 
 function sanitizeReport(value, secretGuard, state = { redactions: 0 }) {
@@ -91,6 +116,16 @@ function sanitizeReport(value, secretGuard, state = { redactions: 0 }) {
 function isThemeAsset(url) {
   return /^\/cdn\/shop\/t\/(?:190232297715|190232330483|190232363251)\//.test(url.pathname)
     || url.pathname.startsWith('/cdn/shop/files/');
+}
+
+function classifyNetworkSource(raw, source) {
+  let parsed;
+  try { parsed = new URL(raw); } catch { parsed = null; }
+  return source.host && source.host !== STORE_HOST && (!parsed || !isThemeAsset(parsed)) ? 'warning' : 'failure';
+}
+
+function safeCdpNetworkReason(value) {
+  return CDP_NETWORK_ERROR_REASONS.has(value) ? value : null;
 }
 
 function parseRetryAfter(value) {
@@ -362,7 +397,7 @@ async function main() {
   const themeArg = process.argv.slice(2);
   const report = {
     schema: 'gpt-rd-lighthouse-v2', runId, startedAt: new Date().toISOString(), mode: 'read-only',
-    executionResult: 'incomplete', results: [], networkWarnings: [], networkFailures: [], blockedHosts: [],
+    executionResult: 'incomplete', results: [], networkWarnings: [], networkFailures: [], blockedHosts: [], responseFilterFailures: [], responseNetworkErrors: [],
     limits: { presets: [], pages: ROUTES.map((r) => r.page), viewports: ['mobile', 'desktop'], repetitionsPerCell: 1, cartMutations: 0, checkoutSubmitted: false, credentialsWritten: false, popupTargets: 'paused by CDP auto-attach and closed before resume' },
   };
   let outputFile = null;
@@ -401,10 +436,12 @@ async function main() {
 
     for (const preview of [selectedPreview]) {
       let browser = null;
+      let browserClosedForProfileCleanup = false;
       let context = null;
       let page = null;
       let cdp = null;
       let browserCdp = null;
+      let profileDir = null;
       const warningKeys = new Set();
       const failureKeys = new Set();
       const blockedKeys = new Set();
@@ -417,7 +454,15 @@ async function main() {
         return tracked;
       };
       try {
-        browser = await puppeteer.launch({ executablePath: playwright.chromium.executablePath(), headless: true, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+      try {
+        await mkdir(PROFILE_CACHE_DIR, { recursive: true });
+        profileDir = await mkdtemp(path.join(PROFILE_CACHE_DIR, PROFILE_PREFIX));
+        browser = await puppeteer.launch({
+          executablePath: process.env.LIGHTHOUSE_CHROME_EXECUTABLE || playwright.chromium.executablePath(),
+          userDataDir: profileDir,
+          headless: true,
+          args: ['--no-sandbox', '--disable-dev-shm-usage'],
+        });
         report.browserVersion = await browser.version();
         context = await browser.createBrowserContext();
         page = await context.newPage();
@@ -470,29 +515,87 @@ async function main() {
         await browserCdp.send('Target.setAutoAttach', { autoAttach: true, waitForDebuggerOnStart: true, flatten: true, filter: [{ type: 'tab', exclude: false }, { exclude: true }] });
       } catch (error) {
         let contextClosed = context === null;
-        let browserClosed = browser === null;
+        let browserClosed = null;
         if (context) { try { await context.close(); contextClosed = true; } catch { contextClosed = false; } }
         await Promise.allSettled([...pendingHandlers]);
-        if (browser) { try { await browser.close(); browserClosed = true; } catch { browserClosed = false; } }
+        if (browser) { try { await browser.close(); browserClosed = true; browserClosedForProfileCleanup = true; } catch { browserClosed = false; } }
         report.results.push({ preset: preview.preset, themeId: preview.themeId, page: 'preview_setup', viewport: 'none', result: 'failed', reason: safeHttpError(error), identityVerified: false });
         report.previews = report.previews || [];
+        // browserCreated records only whether Puppeteer returned a handle, not process existence.
         report.previews.push({ preset: preview.preset, themeId: preview.themeId, auth: { result: 'not_run' }, identityVerified: false, contextCreated: context !== null, contextClosed, browserCreated: browser !== null, browserClosed });
         continue;
       }
       const authEvent = { result: 'not_run' };
       const pageInFlight = new WeakSet();
       const blockedRequests = new WeakSet();
-      cdp.on('Fetch.requestPaused', (event) => track((async () => {
-        const source = safeSource(event.request.url, secretGuard);
-        const rawHeaders = Array.isArray(event.responseHeaders) ? event.responseHeaders : [];
-        const responseHeaders = rawHeaders.filter((header) => !['set-cookie', 'set-cookie2', 'www-authenticate', 'proxy-authenticate'].includes(String(header.name).toLowerCase()));
-        await cdp.send('Fetch.continueResponse', { requestId: event.requestId, responseCode: event.responseStatusCode, responsePhrase: event.responseStatusText, responseHeaders });
-        if (!source.host || source.redacted) warningKeys.add(`external_response_redacted:${source.host || 'redacted'}:${source.path || 'redacted'}`);
-      })().catch(async () => {
-        const source = safeSource(event.request.url, secretGuard);
-        failureKeys.add(`external_response_filter:${source.host || 'redacted'}:${source.path || 'redacted'}:COOKIE_FILTER_FAILED`);
-        await cdp.send('Fetch.failRequest', { requestId: event.requestId, errorReason: 'BlockedByClient' }).catch(() => {});
-      })));
+      cdp.on('Fetch.requestPaused', (event) => {
+        let stage = 'validate_response_metadata';
+        let headersModified = false;
+        return track((async () => {
+          const source = safeSource(event.request.url, secretGuard);
+          if (!['http', 'https'].includes(source.scheme)) {
+            const method = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'].includes(event.request.method) ? event.request.method : 'OTHER';
+            blockedKeys.add(JSON.stringify({ host: null, path: null, scheme: source.scheme, method, reason: 'NON_HTTP_URL_BLOCKED_BY_POLICY', redacted: true }));
+            try { await cdp.send('Fetch.failRequest', { requestId: event.requestId, errorReason: 'BlockedByClient' }); }
+            catch { failureKeys.add('non_http_resolution:FETCH_FAIL_REQUEST_FAILED'); }
+            return;
+          }
+          if (event.responseErrorReason != null) {
+            const reason = safeCdpNetworkReason(event.responseErrorReason);
+            const category = classifyNetworkSource(event.request.url, source);
+            const key = `${source.host || 'redacted'}:${source.path || 'redacted'}:CDP_${reason || 'UNRECOGNIZED'}`;
+            (category === 'warning' ? warningKeys : failureKeys).add(key);
+            const entry = {
+              preset: preview.preset, host: source.host, path: source.path, scheme: source.scheme,
+              errorReason: reason || 'UNRECOGNIZED', category, redacted: source.redacted, resolution: 'pending',
+            };
+            if (report.responseNetworkErrors.length < 200) report.responseNetworkErrors.push(entry);
+            try {
+              // Preserve recognized CDP errors; an unknown reason is safely failed without echoing it.
+              await cdp.send('Fetch.failRequest', { requestId: event.requestId, errorReason: reason || 'Failed' });
+              entry.resolution = 'failed_request';
+            } catch (error) {
+              entry.resolution = 'resolution_failed';
+              entry.resolutionError = responseFilterError(error);
+              failureKeys.add('response_error_resolution:FETCH_FAIL_REQUEST_FAILED');
+            }
+            return;
+          }
+          if (!Number.isInteger(event.responseStatusCode)) throw Object.assign(new Error(), { safeFilterCode: 'RESPONSE_STATUS_MISSING' });
+          if (!Array.isArray(event.responseHeaders)) throw Object.assign(new Error(), { safeFilterCode: 'RESPONSE_HEADERS_MISSING' });
+          stage = 'prepare_response_headers';
+          const rawHeaders = event.responseHeaders;
+          const responseHeaders = rawHeaders.filter((header) => !['set-cookie', 'set-cookie2', 'www-authenticate', 'proxy-authenticate'].includes(String(header.name).toLowerCase()));
+          headersModified = responseHeaders.length !== rawHeaders.length;
+          const response = { requestId: event.requestId };
+          if (headersModified) {
+            // CDP requires the original status together with modified response headers.
+            response.responseCode = event.responseStatusCode;
+            response.responseHeaders = responseHeaders;
+            if (typeof event.responseStatusText === 'string') response.responsePhrase = event.responseStatusText;
+          }
+          stage = 'continue_response';
+          await cdp.send('Fetch.continueResponse', response);
+          if (!source.host || source.redacted) warningKeys.add(`external_response_redacted:${source.host || 'redacted'}:${source.path || 'redacted'}`);
+        })().catch(async (error) => {
+          const source = safeSource(event.request.url, secretGuard);
+          const failureCode = stage === 'validate_response_metadata' ? 'RESPONSE_METADATA_INVALID'
+            : stage === 'continue_response' ? (headersModified ? 'COOKIE_FILTER_FAILED' : 'CONTINUE_RESPONSE_FAILED')
+              : 'RESPONSE_HEADER_FILTER_FAILED';
+          failureKeys.add(`external_response_filter:${source.host || 'redacted'}:${source.path || 'redacted'}:${failureCode}`);
+          if (report.responseFilterFailures.length < 200) {
+            report.responseFilterFailures.push({
+              preset: preview.preset, host: source.host, path: source.path, scheme: source.scheme,
+              stage, command: stage === 'continue_response' ? 'Fetch.continueResponse' : null,
+              ...responseFilterError(error),
+              responseStatusCode: Number.isInteger(event.responseStatusCode) ? event.responseStatusCode : null,
+              hasResponseHeaders: Array.isArray(event.responseHeaders), headersModified,
+              hasResponseErrorReason: typeof event.responseErrorReason === 'string' && event.responseErrorReason.length > 0,
+            });
+          }
+          await cdp.send('Fetch.failRequest', { requestId: event.requestId, errorReason: 'BlockedByClient' }).catch(() => {});
+        }));
+      });
 
       page.on('request', (request) => track((async () => {
         if (pageInFlight.has(request)) return;
@@ -506,8 +609,8 @@ async function main() {
         const readAllowed = ['GET', 'HEAD'].includes(method) && allowedRead(raw);
         const blockedNav = request.isNavigationRequest() && (/^\/(?:checkout|checkouts)(?:\/|$)/i.test(url.pathname));
         if (!readAllowed || blockedNav) {
-          const reason = blockedNav ? 'CHECKOUT_NAVIGATION_BLOCKED' : !['GET', 'HEAD'].includes(method) ? 'METHOD_BLOCKED_BY_POLICY' : 'HOST_OR_URL_BLOCKED_BY_POLICY';
-          blockedKeys.add(JSON.stringify({ host: source.host, path: source.path, method, reason, redacted: source.redacted }));
+          const reason = blockedNav ? 'CHECKOUT_NAVIGATION_BLOCKED' : !['http', 'https'].includes(source.scheme) ? 'NON_HTTP_URL_BLOCKED_BY_POLICY' : !['GET', 'HEAD'].includes(method) ? 'METHOD_BLOCKED_BY_POLICY' : 'HOST_OR_URL_BLOCKED_BY_POLICY';
+          blockedKeys.add(JSON.stringify({ host: source.host, path: source.path, scheme: source.scheme, method, reason, redacted: source.redacted }));
           blockedRequests.add(request);
           await request.abort('blockedbyclient').catch(() => {});
           return;
@@ -576,7 +679,7 @@ async function main() {
         let contextClosed = false;
         let browserClosed = false;
         try { await context.close(); contextClosed = true; } catch { failureKeys.add('context_close:CONTEXT_CLOSE_FAILED'); }
-        try { await browser.close(); browserClosed = true; } catch { failureKeys.add('browser_close:BROWSER_CLOSE_FAILED'); }
+        try { await browser.close(); browserClosed = true; browserClosedForProfileCleanup = true; } catch { failureKeys.add('browser_close:BROWSER_CLOSE_FAILED'); }
         await Promise.allSettled([...pendingHandlers]);
         report.networkWarnings.push(...[...warningKeys].slice(0, 200).map((key) => ({ source: key })));
         report.networkFailures.push(...[...failureKeys].slice(0, 200).map((key) => ({ source: key })));
@@ -584,14 +687,32 @@ async function main() {
           const source = JSON.parse(key);
           const known = KNOWN_WARNING_HOSTS.has(source.host) || (source.host && source.host.endsWith('.bugsnag.com'));
           const category = source.reason === 'CHECKOUT_NAVIGATION_BLOCKED' ? 'checkout_navigation_blocked'
-            : source.reason === 'METHOD_BLOCKED_BY_POLICY' ? 'method_blocked_by_policy'
+            : source.reason === 'NON_HTTP_URL_BLOCKED_BY_POLICY' ? 'non_http_url_blocked_by_policy'
+              : source.reason === 'METHOD_BLOCKED_BY_POLICY' ? 'method_blocked_by_policy'
               : known ? 'known_external_warning' : source.host === STORE_HOST ? 'store_url_blocked_by_policy' : 'unclassified_blocked_host';
-          return { host: source.host, path: source.path, method: source.method, reason: source.reason, category, redacted: source.redacted };
+          return { host: source.host, path: source.path, scheme: source.scheme ?? null, method: source.method, reason: source.reason, category, redacted: source.redacted };
         }));
         report.rateLimits = report.rateLimits || [];
         report.rateLimits.push({ preset: preview.preset, occurrences: rateLimitCount, events: rateLimits.slice(0, 100).map(({ source, retryAfterMs }) => ({ source, retryAfterMs })), omittedEvents: Math.max(0, rateLimits.length - 100) });
         const last = report.previews?.at(-1);
         if (last?.themeId === preview.themeId) { last.contextClosed = contextClosed; last.browserClosed = browserClosed; }
+      }
+      } finally {
+        if (!browserClosedForProfileCleanup && browser !== null) {
+          try { await browser.close(); browserClosedForProfileCleanup = true; }
+          catch { report.networkFailures.push({ source: 'profile_cleanup:BROWSER_CLOSE_FAILED' }); }
+        }
+        if (profileDir !== null) {
+          const resolvedProfile = path.resolve(profileDir);
+          if (path.dirname(resolvedProfile) !== PROFILE_CACHE_DIR || !path.basename(resolvedProfile).startsWith(PROFILE_PREFIX) || path.basename(resolvedProfile).length <= PROFILE_PREFIX.length) {
+            report.networkFailures.push({ source: 'profile_cleanup:PROFILE_PATH_VALIDATION_FAILED' });
+          } else if (!browserClosedForProfileCleanup) {
+            report.networkFailures.push({ source: 'profile_cleanup:PROFILE_RETAINED_BROWSER_NOT_CLOSED' });
+          } else {
+            try { await rm(resolvedProfile, { recursive: true, force: true }); }
+            catch { report.networkFailures.push({ source: 'profile_cleanup:PROFILE_CLEANUP_FAILED' }); }
+          }
+        }
       }
     }
     const anyFailed = report.results.some((r) => r.result === 'failed');
