@@ -4,7 +4,7 @@ Fecha: 2026-11-06
 Rama: `lote-d`
 Escritor: GPT/Codex
 ID: `GPT-INFORME-CIERRE-20261106-001`
-Estado: al redactar esta adenda, HEAD y la referencia local `origin/lote-d` apuntaban a `5cdd447938e76dee53ea20fbd7202f9fc8e9f175` en la rama `lote-d`; la adenda documental es local y requiere revisión independiente y entrega Git.
+Estado: el commit `c8e095f173f59673110622749f7e689ca92781e1` de revisión R-D se publicó en `origin/lote-d`; al redactar esta adenda se había comprobado esa referencia y la actualización documental se registrará en el siguiente commit de `lote-d`.
 Decisión requerida: Johandry debe resolver únicamente sus dependencias recogidas en `GPT-PENDIENTES-JOHANDRY-001.md`; no se solicita autorización adicional para el trabajo ya autorizado.
 
 Resumen en 5 líneas:
@@ -96,3 +96,4 @@ El stderr observado de esa consulta fue el objeto diagnóstico siguiente; no hub
 - El commit `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc` de `lote-d` se envió a `origin/lote-d` sin force; la referencia remota avanzó de `d9f76c21f338dd5c5b55870cc3f53370afe26253` a `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc`.
 - El commit `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc` incluye los tres documentos de evidencia, el runner Lighthouse revisado y ocho JSON de diagnóstico. El commit anterior `2fed90b195122ae32d79283f0e757b05e0140148` contiene la preparación y la revisión de cierre.
 - El commit `4aa39775d08bc8fe67493632b25dce7b45671059` se publicó sin force en `origin/lote-d`, que avanzó desde `c8f9a3790432d3bbac22bd337f99ece24dd41859`. El conteo literal previo al push fue 0 fuera de `tests/vendor/axe.min.js`. Al redactar esta adenda, se había comprobado la rama `lote-d`, HEAD y `origin/lote-d` en `4aa3977`, y `git status --short` limpio antes de editarla. Esta actualización documental se registrará en el siguiente commit de `lote-d`.
+- El commit de revisión de propuestas R-D `c8e095f173f59673110622749f7e689ca92781e1` se publicó sin force en `origin/lote-d`, que avanzó desde `5cdd447938e76dee53ea20fbd7202f9fc8e9f175`; el conteo literal previo al push fue 0 fuera de `tests/vendor/axe.min.js`. Al redactar esta adenda, se había comprobado la rama `lote-d`, HEAD y `origin/lote-d` en `c8e095f`, y `git status --short` limpio antes de editarla. Esta actualización documental se registrará en el siguiente commit de `lote-d`.
