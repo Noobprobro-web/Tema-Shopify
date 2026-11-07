@@ -20,7 +20,7 @@
 2. Solo HTTP 404 de `/favicon.ico` y el aborto Chromium de `/services/login_with_shop/authorize` en el host HTTPS exacto de tienda pasan a aviso.
 3. CDP, requestfailed y HTTP comparten el clasificador. Los CDN conocidos pasan a aviso y los assets reales del tema conservan fallo. Los hosts ajenos no heredan la regla.
 4. Los eventos de red retienen host y pathname con códigos seguros. No incluyen query, fragmento, credenciales ni errores crudos.
-5. Nueve pruebas sintéticas pasaron. Los ocho JSON históricos conservan sus bytes. Las cinco entradas de bloqueo históricas se conservan como estaban y la clasificación nueva se aplica solo a corridas futuras.
+5. Nueve pruebas sintéticas pasaron. Los ocho blobs Git de los JSON históricos son idénticos entre `258ca4f` y `HEAD`. Las cinco entradas de bloqueo históricas se conservan como estaban y la clasificación nueva se aplica solo a corridas futuras.
 
 ## Archivos y alcance
 
@@ -53,7 +53,7 @@ La aceptación corresponde a las puntuaciones. No cambia `executionResult=failed
 
 - `node --test agent-comms/outbox-gpt/harness-GPT-RD-001/network-policy.test.mjs` → `tests 9`, `pass 9`, `fail 0`. Importa el runner sin iniciar `main()`, sin navegador, red ni escritura de resultados.
 - `node --check` de runner y fixture y `git diff --check` → salida 0. Shopify CLI local `4.8.0`, `theme check --path . --output json` → exit 0 y literal `[]`.
-- Verificación SHA-256 de los ocho JSON del directorio `results/` antes y después: mismos bytes. `git diff --exit-code HEAD -- agent-comms/outbox-gpt/harness-GPT-RD-001/results` → 0.
+- Verificación de los ocho JSON del directorio `results/`: blobs Git idénticos entre `258ca4f` y `HEAD`. El checkout usa CRLF y los blobs LF. El contenido del checkout coincide al normalizar CRLF a LF. `git diff --exit-code 258ca4f HEAD -- agent-comms/outbox-gpt/harness-GPT-RD-001/results` → 0.
 - SHA-256 del runner corregido: `1aaab33bf3830b8f4e82228199ebf46deb2a6f663b468553c65f0bc51554e34c`. SHA-256 del fixture sintético: `736ff933a9e9fe7050429c30a85efadaec023af23588528344433d875359e84b`. Archivos LF, verificados contra los blobs de Git al preparar el commit. El fixture marcado por D12 se reemplazó por datos sintéticos distintos. El escaneo local de esa ruta devolvió 0 coincidencias con los candidatos locales. La comprobación independiente del diff completo sigue separada. El dictamen copiado se preserva byte por byte.
 
 ## Afirmaciones falsables
