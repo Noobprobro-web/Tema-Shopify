@@ -10,9 +10,12 @@ const { Liquid } = require('liquidjs');
 const engine = new Liquid();
 engine.registerFilter('money', (cents) => String(cents ?? 0));
 engine.registerFilter('json', (value) => JSON.stringify(value ?? null));
+const messages = JSON.parse(await readFile('locales/en.default.json', 'utf8')).products.product;
+engine.registerFilter('t', (key) => messages[key.split('.').at(-1)] ?? key);
 const snippet = (await readFile('snippets/variant-no-js-select.liquid', 'utf8'))
   .replace(/{% doc %}[\s\S]*?{% enddoc %}/, '');
 const theme = await readFile('assets/theme.js', 'utf8');
+const css = await readFile('assets/base.css', 'utf8');
 
 const origin = 'https://theme.test';
 const productPath = '/products/featured';
@@ -49,11 +52,14 @@ const render = (mode, ids, selectedVariant, extra = {}) => engine.parseAndRender
   mode, product: product(ids), selected_variant: selectedVariant, section, inventory_cap: 3, ...extra,
 });
 const urlFor = (values) => productPath + '?option_values=' + values.join(',');
-const links = await render('option_links', initialValues, red);
+const noticeId = 'featured-variant-notice';
+const links = await render('option_links', initialValues, red, { notice_id: noticeId });
 assert.match(links, /href="\/products\/featured\?option_values=102,202,302"/);
 assert.match(links, /href="\/products\/featured\?option_values=101,201,302"/);
 assert.match(links, /href="\/products\/featured\?option_values=101,202,301"/);
 assert.doesNotMatch(links, /no-js-only|name="id"/);
+assert.ok(links.includes(`id="${noticeId}">${messages.variant_navigation_notice}</p>`));
+assert.ok(links.includes(`aria-describedby="${noticeId}"`));
 const nativeNull = await render(undefined, invalidValues, null, { show_options: true, server_variants: true });
 assert.match(nativeNull, /name="id"[^>]*disabled/);
 const featuredInitial = await render('state', initialValues, red, { inventory_cap: 2 });
@@ -82,13 +88,16 @@ try {
   </form>`;
   const labels = 'data-unavailable-text="Unavailable" data-add-to-cart-text="Add to cart" data-available-status="Available"';
   const script = '<script defer src="/assets/theme.js"></script>';
-  const featuredPage = `<variant-selects ${labels} data-initial-variant-id="901">
+  const featuredPage = `<link rel="stylesheet" href="/assets/base.css">
+    <style>:root { --color-button: rgb(20, 30, 40); --color-button-label: white; }</style>
+    <variant-selects ${labels} data-initial-variant-id="901">
     ${links}${await form(initialValues, red)}
     <script type="application/json" data-variant-json>[${featuredInitial}]</script>
   </variant-selects>${script}`;
   const pdp = async (ids, selectedVariant) => `<variant-selects ${labels} data-product-url="${productPath}"
     data-variant-state-url="${productPath}" data-variant-state-section="${section.id}"
-    data-product-id="${productId}" data-initial-variant-id="${selectedVariant?.id || ''}">
+    data-product-id="${productId}" data-initial-variant-id="${selectedVariant?.id || ''}"
+    data-variant-loading-text="${messages.variant_loading}">
     <div data-variant-picker>${radios(ids)}</div>
     ${await form(ids, selectedVariant, true)}
     ${await render('response', ids, selectedVariant)}
@@ -102,18 +111,22 @@ try {
   ]);
   const pdpSection = await render('response', validValues, blue);
   assert.equal(JSON.parse(pdpSection.match(/data-resolved-variant>([\s\S]*?)<\/script>/)[1]).inventory_quantity, 3);
-  const routePage = async (page, requests) => {
-    await page.route(origin + '/**', (route) => {
+  const routePage = async (page, requests, sectionResponseGate) => {
+    await page.route(origin + '/**', async (route) => {
       const url = new URL(route.request().url());
       if (url.pathname === '/assets/theme.js') {
         return route.fulfill({ contentType: 'application/javascript', body: theme });
       }
+      if (url.pathname === '/assets/base.css') {
+        return route.fulfill({ contentType: 'text/css', body: css });
+      }
+      if (sectionResponseGate && url.searchParams.has('section_id')) await sectionResponseGate;
       requests.push({ path: url.pathname, search: url.search, navigation: route.request().isNavigationRequest() });
       const options = url.searchParams.get('option_values');
       const body = url.pathname === productPath
         ? (url.searchParams.has('section_id') ? pdpSection : pdpMarkup.get(options) || pdpMarkup.get(initialValues.join(',')))
         : featuredPage;
-      return route.fulfill({ contentType: 'text/html', body });
+      return route.fulfill({ contentType: 'text/html; charset=utf-8', body });
     });
   };
 
@@ -128,6 +141,12 @@ try {
         const href = urlFor(values);
         const link = page.locator(`a[href="${href}"]`);
         assert.equal(await link.isVisible(), true);
+        const notice = page.getByText(messages.variant_navigation_notice, { exact: true });
+        assert.equal(await notice.isVisible(), true);
+        assert.equal(await notice.getAttribute('id'), await link.getAttribute('aria-describedby'));
+        const selected = page.locator('a.variant-picker__label[aria-current]').first();
+        assert.equal(await selected.evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(20, 30, 40)');
+        assert.notEqual(await link.evaluate((element) => getComputedStyle(element).backgroundColor), 'rgb(20, 30, 40)');
         await Promise.all([page.waitForURL(origin + href), link.click()]);
         assert.deepEqual(requests.at(-1), { path: productPath, search: '?option_values=' + values.join(','), navigation: true });
         assert.deepEqual(await formValues(page, 'id'), valid ? ['902'] : []);
@@ -141,32 +160,46 @@ try {
       await context.close();
     }
   }
-  console.log('PASS Chromium: featured links navigate from home and unrelated PDP with and without JS; valid quantity 2 and null-safe form');
+  console.log('PASS Chromium: featured selected style and linked notice; full navigation with/without JS, quantity 2 and null-safe form');
 
   const page = await browser.newPage();
   const requests = [];
-  await routePage(page, requests);
+  let releaseSection;
+  const sectionResponseGate = new Promise((resolve) => { releaseSection = resolve; });
+  await routePage(page, requests, sectionResponseGate);
   await page.goto(origin + productPath + '?option_values=102');
   assert.deepEqual(await formValues(page, 'id'), []);
   assert.equal(await page.locator('[data-add-to-cart]').isDisabled(), true);
   await page.goto(origin + productPath + '?variant=901');
   assert.deepEqual(await formValues(page, 'id'), ['901']);
   await page.getByRole('radio', { name: 'Blue', exact: true }).check();
+  const loading = page.getByRole('button', { name: messages.variant_loading, exact: true });
+  assert.equal(await loading.isDisabled(), true);
+  assert.equal(await loading.getAttribute('aria-busy'), 'true');
+  assert.deepEqual(await formValues(page, 'id'), []);
+  releaseSection();
   await page.waitForFunction(() => !document.querySelector('[data-variant-picker]').hasAttribute('aria-busy'));
+  const add = page.getByRole('button', { name: 'Add to cart', exact: true });
+  assert.equal(await add.isEnabled(), true);
+  assert.equal(await add.getAttribute('aria-busy'), 'false');
   assert.deepEqual(await formValues(page, 'id'), ['902']);
   assert.deepEqual(await formValues(page, 'quantity'), ['2']);
   const stateRequest = requests.at(-1);
   assert.equal(new URLSearchParams(stateRequest.search).get('section_id'), section.id);
   assert.equal(stateRequest.navigation, false);
+  await page.getByRole('radio', { name: 'Missing', exact: true }).check({ force: true });
+  await page.waitForFunction(() => !document.querySelector('[data-variant-picker]').hasAttribute('aria-busy'));
+  assert.equal(await page.getByRole('button', { name: 'Unavailable', exact: true }).isDisabled(), true);
+  assert.deepEqual(await formValues(page, 'id'), []);
   await page.close();
-  console.log('PASS Chromium: PDP deep link, incomplete ID guard, capped instance GET and synchronized quantity');
+  console.log('PASS Chromium: PDP deep link, loading with no ID, resolved purchase and Unavailable only after rejected response');
 
   const inline = await browser.newPage();
   const inlineJson = await Promise.all([
     render('state', initialValues, red), render('state', validValues, blue),
   ]);
   await inline.route(origin + '/**', (route) => route.fulfill({
-    contentType: 'text/html',
+    contentType: 'text/html; charset=utf-8',
     body: `<variant-selects ${labels} data-initial-variant-id="901">${radios(initialValues)}
       ${'<form data-cart-add-form><input type="hidden" name="id" value="901" data-variant-id></form>'}
       <script type="application/json" data-variant-json>[${inlineJson.join(',')}]</script>

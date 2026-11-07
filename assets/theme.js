@@ -861,7 +861,7 @@
       this.currentVariant = variant;
       this.updatePurchaseOptions(variant);
       this.updateQuantityRules(variant);
-      this.updateForms(variant);
+      this.updateForms(variant, { resolvingVariant: false });
       this.updatePrice(variant);
       this.updateMedia(variant);
       this.updateStatus(variant);
@@ -1004,7 +1004,7 @@
       );
     }
 
-    updateForms(variant) {
+    updateForms(variant, { resolvingVariant = Boolean(this.variantRequest) } = {}) {
       this.querySelectorAll('input[data-variant-id]').forEach((input) => {
         const nextValue = variant?.id || '';
         const disabled = !nextValue;
@@ -1017,11 +1017,17 @@
       const purchaseOptionValid = this.isPurchaseOptionValid(variant);
       this.querySelectorAll('[data-add-to-cart]').forEach((button) => {
         // Never re-enable a button whose form still has an add-to-cart request in flight.
-        button.disabled = !purchaseOptionValid || button.form?.dataset.cartAddPending === 'true';
+        const cartAddPending = button.form?.dataset.cartAddPending === 'true';
+        button.disabled = !purchaseOptionValid || cartAddPending;
+        if (resolvingVariant || button.hasAttribute('aria-busy')) {
+          button.setAttribute('aria-busy', String(resolvingVariant || cartAddPending));
+        }
         const label = button.querySelector('[data-add-to-cart-text]');
         if (!label) return;
 
-        if (!variant) {
+        if (resolvingVariant) {
+          label.textContent = this.dataset.variantLoadingText;
+        } else if (!variant) {
           label.textContent = this.dataset.unavailableText;
         } else if (!variant.available) {
           label.textContent = this.dataset.soldOutText;

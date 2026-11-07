@@ -1408,7 +1408,8 @@ button[aria-busy='true']:disabled {
   text-align: center;
 }
 
-.variant-picker__input:checked + .variant-picker__label {
+.variant-picker__input:checked + .variant-picker__label,
+a.variant-picker__label[aria-current] {
   border-color: var(--color-button);
   background: var(--color-button);
   color: var(--color-button-label);

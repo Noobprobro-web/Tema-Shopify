@@ -125,8 +125,9 @@
 
             {%- when 'variant_picker' -%}
               {%- if use_variant_links -%}
+                {%- assign variant_notice_id = 'FeaturedVariantNotice-' | append: section.id | append: '-' | append: block.id -%}
                 <div {{ block.shopify_attributes }}>
-                  {% render 'variant-no-js-select', mode: 'option_links', product: featured_product %}
+                  {% render 'variant-no-js-select', mode: 'option_links', product: featured_product, notice_id: variant_notice_id %}
                 </div>
               {%- elsif featured_product != blank and featured_product.has_only_default_variant == false -%}
                 <div class="variant-picker flow js-only" data-variant-picker {{ block.shopify_attributes }}>

@@ -5,6 +5,7 @@
   @param {variant} [selected_variant] - Variant resolved by Shopify.
   @param {object} [section] - Parent section for native controls or a verified response.
   @param {string} [id_prefix] - Prefix for the native select ID.
+  @param {string} [notice_id] - ID of the visible navigation notice for linked options.
   @param {string} [mode] - Use state for variant JSON, response for PDP state, or option_links for a linked picker.
   @param {number} [inventory_cap] - Cap from the rendered section settings. Defaults to 1 when omitted.
   @param {boolean} [show_options] - Whether to render native selection controls.
@@ -12,70 +13,69 @@
 {% enddoc %}
 
 {%- if mode == 'state' or mode == 'response' -%}
+  {%- capture variant_json -%}
+    {%- if selected_variant -%}
+      {%- assign variant = selected_variant -%}
+      {%- liquid
+        assign stock_cap = inventory_cap | default: 1
+        assign var_compare_money = null
+        assign var_compare_cents = null
+        if variant.compare_at_price > variant.price
+          assign var_compare_money = variant.compare_at_price | money
+          assign var_compare_cents = variant.compare_at_price
+        endif
+      -%}
+      {
+        "id": {{ variant.id | json }},
+        "title": {{ variant.title | json }},
+        "available": {{ variant.available | json }},
+        "inventory_management": {{ variant.inventory_management | json }},
+        "inventory_quantity": {{ variant.inventory_quantity | at_most: stock_cap | json }},
+        "inventory_policy": {{ variant.inventory_policy | json }},
+        "options": {{ variant.options | json }},
+        "price": {{ variant.price | money | json }},
+        "price_cents": {{ variant.price | json }},
+        "compare_at_price": {{ var_compare_money | json }},
+        "compare_at_price_cents": {{ var_compare_cents | json }},
+        "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
+        "unit_reference_value": {{ variant.unit_price_measurement.reference_value | json }},
+        "unit_reference_unit": {{ variant.unit_price_measurement.reference_unit | json }},
+        "featured_media_id": {{ variant.featured_media.id | json }},
+        "quantity_min": {{ variant.quantity_rule.min | default: 1 | json }},
+        "quantity_increment": {{ variant.quantity_rule.increment | default: 1 | json }},
+        "quantity_max": {{ variant.quantity_rule.max | json }},
+        "requires_selling_plan": {{ variant.requires_selling_plan | json }},
+        "selling_plan_allocations": [
+          {%- for allocation in variant.selling_plan_allocations -%}
+            {%- liquid
+              assign alloc_compare_money = null
+              assign alloc_compare_cents = null
+              if allocation.compare_at_price > allocation.price
+                assign alloc_compare_money = allocation.compare_at_price | money
+                assign alloc_compare_cents = allocation.compare_at_price
+              endif
+            -%}
+            {
+              "id": {{ allocation.selling_plan.id | json }},
+              "name": {{ allocation.selling_plan.name | json }},
+              "group_id": {{ allocation.selling_plan_group_id | json }},
+              "price": {{ allocation.price | money | json }},
+              "price_cents": {{ allocation.price | json }},
+              "compare_at_price": {{ alloc_compare_money | json }},
+              "compare_at_price_cents": {{ alloc_compare_cents | json }},
+              "per_delivery_price": {{ allocation.per_delivery_price | money | json }},
+              "unit_price": {% if allocation.unit_price != blank %}{{ allocation.unit_price | money | json }}{% else %}null{% endif %}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    {%- else -%}
+      null
+    {%- endif -%}
+  {%- endcapture -%}
   {%- if mode == 'response' -%}
     <div data-variant-state data-product-id="{{ product.id }}" data-variant-id="{{ selected_variant.id }}" data-state-section-id="{{ section.id }}">
-      <script type="application/json" data-resolved-variant>
-  {%- endif -%}
-  {%- if selected_variant -%}
-    {%- assign variant = selected_variant -%}
-    {%- liquid
-      assign stock_cap = inventory_cap | default: 1
-      assign var_compare_money = null
-      assign var_compare_cents = null
-      if variant.compare_at_price > variant.price
-        assign var_compare_money = variant.compare_at_price | money
-        assign var_compare_cents = variant.compare_at_price
-      endif
-    -%}
-    {
-      "id": {{ variant.id | json }},
-      "title": {{ variant.title | json }},
-      "available": {{ variant.available | json }},
-      "inventory_management": {{ variant.inventory_management | json }},
-      "inventory_quantity": {{ variant.inventory_quantity | at_most: stock_cap | json }},
-      "inventory_policy": {{ variant.inventory_policy | json }},
-      "options": {{ variant.options | json }},
-      "price": {{ variant.price | money | json }},
-      "price_cents": {{ variant.price | json }},
-      "compare_at_price": {{ var_compare_money | json }},
-      "compare_at_price_cents": {{ var_compare_cents | json }},
-      "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
-      "unit_reference_value": {{ variant.unit_price_measurement.reference_value | json }},
-      "unit_reference_unit": {{ variant.unit_price_measurement.reference_unit | json }},
-      "featured_media_id": {{ variant.featured_media.id | json }},
-      "quantity_min": {{ variant.quantity_rule.min | default: 1 | json }},
-      "quantity_increment": {{ variant.quantity_rule.increment | default: 1 | json }},
-      "quantity_max": {{ variant.quantity_rule.max | json }},
-      "requires_selling_plan": {{ variant.requires_selling_plan | json }},
-      "selling_plan_allocations": [
-        {%- for allocation in variant.selling_plan_allocations -%}
-          {%- liquid
-            assign alloc_compare_money = null
-            assign alloc_compare_cents = null
-            if allocation.compare_at_price > allocation.price
-              assign alloc_compare_money = allocation.compare_at_price | money
-              assign alloc_compare_cents = allocation.compare_at_price
-            endif
-          -%}
-          {
-            "id": {{ allocation.selling_plan.id | json }},
-            "name": {{ allocation.selling_plan.name | json }},
-            "group_id": {{ allocation.selling_plan_group_id | json }},
-            "price": {{ allocation.price | money | json }},
-            "price_cents": {{ allocation.price | json }},
-            "compare_at_price": {{ alloc_compare_money | json }},
-            "compare_at_price_cents": {{ alloc_compare_cents | json }},
-            "per_delivery_price": {{ allocation.per_delivery_price | money | json }},
-            "unit_price": {% if allocation.unit_price != blank %}{{ allocation.unit_price | money | json }}{% else %}null{% endif %}
-          }{% unless forloop.last %},{% endunless %}
-        {%- endfor -%}
-      ]
-    }
-  {%- else -%}
-    null
-  {%- endif -%}
-  {%- if mode == 'response' -%}
-      </script>
+      <script type="application/json" data-resolved-variant>{{- variant_json -}}</script>
       {%- for option in product.options_with_values -%}
         {%- for value in option.values -%}
           <span
@@ -87,6 +87,8 @@
         {%- endfor -%}
       {%- endfor -%}
     </div>
+  {%- else -%}
+    {{- variant_json -}}
   {%- endif -%}
 {%- else -%}
   {%- liquid
@@ -120,6 +122,9 @@
     {%- assign selected_ids = selected_value_ids | split: ',' -%}
     {%- assign product_path = product.url | split: '?' | first -%}
     <div class="variant-picker flow{% unless mode == 'option_links' %} no-js-only{% endunless %}">
+      {%- if mode == 'option_links' -%}
+        <p id="{{ notice_id | escape }}">{{ 'products.product.variant_navigation_notice' | t }}</p>
+      {%- endif -%}
       {%- for option in product.options_with_values -%}
         <fieldset class="variant-picker__group">
           <legend class="variant-picker__legend">
@@ -137,6 +142,7 @@
               <a
                 class="variant-picker__label"
                 href="{{ product_path | escape }}?option_values={{ next_value_ids | escape }}"
+                {% if mode == 'option_links' %}aria-describedby="{{ notice_id | escape }}"{% endif %}
                 {% if value.selected %}aria-current="true"{% endif %}
               >
                 {{- value | escape -}}
