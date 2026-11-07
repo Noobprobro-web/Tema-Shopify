@@ -316,3 +316,16 @@ Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-A-01-B-02-001.md
 - Johandry autoriza exactamente un intento diagnóstico adicional en la preview Sartorial `190232297715`, solo tras revisión independiente del cambio. Si falla, no repetir y entregar su JSON.
 - Antes de cualquier prueba de tienda, comprobar solo la presencia de `SHOPIFY_CLI_THEME_TOKEN` y `STOREFRONT_PASSWORD`; si falta cualquiera, detenerse sin abrir navegador ni iniciar solicitudes a la tienda.
 - Si Gate 5 pasa, continuar paso 5 de R-A/R-B y previews; luego cerrar el Lote 0 con revisión independiente y avanzar al Lote C. Se mantienen las reglas previas de una tienda, ramas `lote-*`, sin force, sin `master` ni merge del PR, sin metafields, sin copiar código de Sebas y con revisión distinta del escritor.
+
+## 2026-11-06: Decisiones de Johandry sobre C-01, C-05 y C-07
+
+- El dictamen de [Claude](../agent-comms/outbox-claude/CLAUDE-REVIEW-LOTE-C-PROPUESTAS-001.md) sustituye las tres R-D de C-01, C-05 y C-07 del informe 016. SHA-256 del original y de la copia: `5a2088ec38d0c57a145cdb42028770a6e8f469b4501cd35e65569eaaa750122a`.
+- C-07: corregir primero el P1 de `getInitialVariant` con enlaces profundos `?variant=` a variantes fuera de las primeras 250. Se autoriza como Nivel 2 la sección mínima de estado de variante para producto destacado.
+- C-07 sin JavaScript: con más de 250 variantes, usar enlaces GET con `option_values` en el snippet autorizado por D25. Si Shopify devuelve una variante nula, deshabilitar el envío y omitir el campo `id`. Para 250 o menos se conserva el select nativo.
+- Implementar C-01, C-05 y C-07 conforme a las condiciones del dictamen, con revisión de un agente distinto. Las pruebas de editor e instalación de C-05 esperan a la tienda limpia de C-02. Se mantienen las reglas vigentes de autonomía.
+
+## 2026-11-07: Propuesta técnica C-07 para producto destacado con más de 250 variantes
+
+- Johandry corrigió expresamente la atribución anterior el 2026-11-07. No ha aprobado sustituir `variant-state` por navegación. La propuesta se implementó para revisión independiente y aprobación de Johandry. Alcance propuesto C-07: en un destacado con más de 250 variantes, elegir una opción navega a la ficha de `featured_product` con un GET `option_values`. Los enlaces son los mismos con y sin JavaScript y conservan, en su orden original, los IDs de las demás opciones seleccionadas. En destacados de hasta 250 variantes, la selección sigue en la sección actual.
+- Shopify aplica los settings de una sección si esa instancia está en la plantilla solicitada. La API no permite aportar los settings de una instancia de la portada o de otro producto a la URL del destacado. Resolver en la ficha mantiene las reglas de cantidad y el cap AF-07 de su propia sección. El HTML inicial del destacado conserva su cap local. El diff de la propuesta retira el prototipo de sección `variant-state`.
+- La ficha bloquea el envío cuando Shopify devuelve variante nula. El código JavaScript también comprueba que un `option_values` de entrada coincida con la selección que devolvió Shopify. Los enlaces del tema siempre usan un ID por opción. [Section Rendering API](https://shopify.dev/docs/api/ajax/section-rendering) · [Enlaces de variantes](https://shopify.dev/docs/storefronts/themes/product-merchandising/variants)

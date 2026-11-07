@@ -585,9 +585,12 @@
   class VariantSelects extends ThemeElement {
     connectedCallback() {
       this.startListening();
-      this.variantData = this.getVariantData();
+      this.usesServerVariants = this.hasAttribute('data-variant-state-url');
+      this.variantData = this.usesServerVariants ? [] : this.getVariantData();
+      this.variantRequest = null;
+      this.variantStateCache = new Map();
 
-      if (this.variantData.length === 0) return;
+      if (!this.usesServerVariants && this.variantData.length === 0) return;
 
       this.takeOverNativeControls();
       this.moneyFormat = this.dataset.moneyFormat || '';
@@ -603,8 +606,12 @@
       this.listen(this, 'change', (event) => {
         if (event.target.matches('[data-option-position]')) {
           this.updateSelectedOptionLabels();
-          this.updateOptionAvailability();
-          this.updateVariant();
+          if (this.usesServerVariants) {
+            this.resolveVariant();
+          } else {
+            this.updateOptionAvailability();
+            this.updateVariant();
+          }
           return;
         }
 
@@ -618,14 +625,31 @@
         }
       });
 
-      this.currentVariant = this.getInitialVariant();
+      this.listen(this, 'submit', (event) => {
+        const form = event.target;
+        if (!form.matches('[data-cart-add-form]')) return;
+
+        const variant = this.currentVariant;
+        if (!variant?.id || !this.isPurchaseOptionValid(variant)) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, { capture: true });
+
       this.cachePurchaseOptionElements();
       this.updateSelectedOptionLabels();
-      this.updateOptionAvailability();
+
+      this.currentVariant = this.getInitialVariant();
+      if (!this.usesServerVariants) this.updateOptionAvailability();
       this.updatePurchaseOptions(this.currentVariant);
+      this.updateQuantityRules(this.currentVariant);
       this.updateForms(this.currentVariant);
       this.updatePrice(this.currentVariant);
-      this.updateQuantityRules(this.currentVariant);
+    }
+
+    disconnectedCallback() {
+      this.variantRequest?.abort();
+      super.disconnectedCallback();
     }
 
     getVariantData() {
@@ -640,18 +664,128 @@
     }
 
     getInitialVariant() {
-      const variantId = this.querySelector('[data-variant-id]')?.value;
-      return this.variantData.find((variant) => String(variant.id) === String(variantId))
-        || this.variantData[0];
+      const variantId = this.dataset.initialVariantId;
+      if (!this.usesServerVariants) {
+        return this.variantData.find((variant) => String(variant.id) === variantId) || null;
+      }
+
+      const root = this.querySelector('[data-variant-state]');
+      const payload = root?.querySelector('[data-resolved-variant]');
+      if (!variantId || !payload || root.dataset.productId !== this.dataset.productId
+        || root.dataset.variantId !== variantId) return null;
+      const requestedValues = new URLSearchParams(window.location.search).get('option_values');
+      if (requestedValues !== null) {
+        const selectedValues = Array.from(root.querySelectorAll('[data-state-option-value][data-selected]'))
+          .map((value) => value.dataset.stateOptionValue).join(',');
+        if (!selectedValues || selectedValues !== requestedValues) return null;
+      }
+      try {
+        const variant = JSON.parse(payload.textContent);
+        return String(variant?.id) === variantId ? variant : null;
+      } catch {
+        return null;
+      }
+    }
+
+    async resolveVariant() {
+      this.variantRequest?.abort();
+      const request = new AbortController();
+      this.variantRequest = request;
+
+      const inputs = Array.from(this.querySelectorAll('[data-option-position]:checked'));
+      const optionValueIds = inputs.map((input) => input.dataset.optionValueId);
+      const optionLabels = inputs.map((input) => input.value);
+      const key = optionValueIds.join(',');
+      const picker = this.querySelector('[data-variant-picker]');
+      picker?.setAttribute('aria-busy', 'true');
+      this.currentVariant = null;
+      this.currentAllocation = null;
+      this.updateForms(null);
+
+      try {
+        if (!key || optionValueIds.some((id) => !id)) {
+          throw new Error('Incomplete variant selection');
+        }
+
+        let state = this.variantStateCache.get(key);
+        if (!state || state.expiresAt <= Date.now()) {
+          await new Promise((resolve) => window.setTimeout(resolve, 80));
+          if (this.variantRequest !== request || request.signal.aborted) return;
+
+          const sectionId = this.dataset.variantStateSection;
+          const url = new URL(this.dataset.variantStateUrl, document.baseURI);
+          url.searchParams.delete('variant');
+          url.searchParams.delete('selling_plan');
+          url.searchParams.set('section_id', sectionId);
+          url.searchParams.set('option_values', key);
+
+          const response = await fetch(url, { signal: request.signal });
+          if (!response.ok) throw new Error('Variant request failed');
+          const documentState = new DOMParser().parseFromString(await response.text(), 'text/html');
+          const root = documentState.querySelector('[data-variant-state]');
+          const payload = root?.querySelector('[data-resolved-variant]');
+          if (!payload || root.dataset.productId !== this.dataset.productId
+            || root.dataset.stateSectionId !== sectionId) {
+            throw new Error('Unexpected product in variant response');
+          }
+
+          const variant = JSON.parse(payload.textContent);
+          const values = Array.from(root.querySelectorAll('[data-state-option-value]'));
+          const resolvedOptionIds = values
+            .filter((value) => value.hasAttribute('data-selected'))
+            .map((value) => value.dataset.stateOptionValue)
+            .join(',');
+          const variantId = variant === null ? '' : String(variant.id);
+          if (resolvedOptionIds !== key
+            || variantId !== root.dataset.variantId
+            || (variant !== null && (!/^\d+$/.test(variantId)
+              || !Array.isArray(variant.options)
+              || variant.options.length !== optionLabels.length
+              || variant.options.some((label, index) => label !== optionLabels[index])))) {
+            throw new Error('Unexpected selection in variant response');
+          }
+
+          state = { variant, values, expiresAt: Date.now() + 15000 };
+          if (this.variantStateCache.size >= 16) {
+            this.variantStateCache.delete(this.variantStateCache.keys().next().value);
+          }
+          this.variantStateCache.set(key, state);
+        }
+
+        if (this.variantRequest !== request || request.signal.aborted || !this.isConnected) return;
+        const availableValues = new Map(state.values.map((value) => [
+          value.dataset.stateOptionValue, value.getAttribute('aria-disabled') === 'false',
+        ]));
+        this.querySelectorAll('[data-option-value-id]').forEach((input) => {
+          const available = availableValues.get(input.dataset.optionValueId) === true;
+          input.setAttribute('aria-disabled', String(!available));
+          const label = this.querySelector(`label[for="${input.id}"] [data-unavailable-label]`);
+          if (label) label.hidden = available;
+        });
+        const variant = state.variant;
+        this.applyVariant(variant);
+        if (!variant && key && this.dataset.productUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.delete('variant');
+          url.searchParams.delete('selling_plan');
+          url.searchParams.set('option_values', key);
+          window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+        }
+      } catch {
+        if (this.variantRequest !== request || request.signal.aborted || !this.isConnected) return;
+        this.applyVariant(null, { updateUrl: false });
+      } finally {
+        if (this.variantRequest === request) {
+          this.variantRequest = null;
+          picker?.removeAttribute('aria-busy');
+        }
+      }
     }
 
     // A-01/B-02: con JS, los selects nativos de variante y plan (sin JS) dejan de enviar
     // valores: se desactivan y pierden el name para que form.elements.namedItem('id') y
     // ('selling_plan') sigan siendo un unico control. El hidden de variante se activa.
     takeOverNativeControls() {
-      this.querySelectorAll('input[data-variant-id]').forEach((input) => {
-        input.disabled = false;
-      });
       this.querySelectorAll('[data-no-js-control]').forEach((control) => {
         control.disabled = true;
         control.removeAttribute('name');
@@ -720,14 +854,18 @@
           candidate.options.every((option, index) => option === selectedOptions[index]),
       );
 
+      this.applyVariant(variant || null);
+    }
+
+    applyVariant(variant, { updateUrl = true } = {}) {
       this.currentVariant = variant;
       this.updatePurchaseOptions(variant);
+      this.updateQuantityRules(variant);
       this.updateForms(variant);
       this.updatePrice(variant);
-      this.updateQuantityRules(variant);
       this.updateMedia(variant);
       this.updateStatus(variant);
-      this.updateUrl(variant);
+      if (updateUrl) this.updateUrl(variant);
       this.dispatchEvent(
         new CustomEvent('theme:variant-change', {
           bubbles: true,
@@ -738,6 +876,7 @@
     }
 
     updatePurchaseSelection() {
+      if (this.variantRequest) return;
       this.updatePurchaseOptions(this.currentVariant);
       this.updateForms(this.currentVariant);
       this.updatePrice(this.currentVariant);
@@ -866,10 +1005,12 @@
     }
 
     updateForms(variant) {
-      this.querySelectorAll('[data-variant-id]').forEach((input) => {
+      this.querySelectorAll('input[data-variant-id]').forEach((input) => {
         const nextValue = variant?.id || '';
-        const valueChanged = String(input.value) !== String(nextValue);
+        const disabled = !nextValue;
+        const valueChanged = String(input.value) !== String(nextValue) || input.disabled !== disabled;
         input.value = nextValue;
+        input.disabled = disabled;
         if (valueChanged) input.dispatchEvent(new Event('change', { bubbles: true }));
       });
 
@@ -915,7 +1056,7 @@
       const soldOutBadge = this.querySelector('[data-sold-out-badge]');
       const unitPrice = this.querySelector('[data-unit-price]');
 
-      if (currentPrice && priceSource) currentPrice.textContent = priceSource.price;
+      if (currentPrice) currentPrice.textContent = priceSource?.price || '';
 
       if (comparePrice) {
         comparePrice.hidden = !priceSource?.compare_at_price;
@@ -929,6 +1070,7 @@
       // variante en oferta a uno sin oferta se sigue leyendo "Precio de oferta ... Precio habitual".
       const values = currentPrice?.closest('.price__values');
       const wrapper = currentPrice?.closest('[data-price-wrapper]');
+      if (wrapper) wrapper.hidden = !variant;
       const varies = values && [...values.children].some((child) => child.tagName === 'SPAN'
         && !child.classList.contains('visually-hidden') && !child.hasAttribute('data-current-price'));
       if (values && wrapper?.dataset.labelSale && !varies) {
@@ -941,7 +1083,7 @@
           currentPrice.before(label(wrapper.dataset.labelRegular));
         }
       }
-      if (soldOutBadge) soldOutBadge.hidden = Boolean(variant?.available);
+      if (soldOutBadge) soldOutBadge.hidden = variant?.available !== false;
 
       if (unitPrice) {
         const hasUnitPrice = Boolean(priceSource?.unit_price);
@@ -1021,7 +1163,7 @@
 
     updateQuantityRules(variant) {
       const quantityInput = this.querySelector('[data-quantity-input]');
-      if (!quantityInput || !variant) return;
+      if (!quantityInput) return;
 
       const before = [
         quantityInput.value,
@@ -1030,12 +1172,13 @@
         quantityInput.getAttribute('max'),
       ].join('|');
 
-      quantityInput.min = variant.quantity_min;
-      quantityInput.step = variant.quantity_increment;
-      quantityInput.value = Math.max(Number(quantityInput.value), Number(variant.quantity_min));
+      const minimum = variant?.quantity_min || 1;
+      quantityInput.min = minimum;
+      quantityInput.step = variant?.quantity_increment || 1;
+      quantityInput.value = Math.max(Number(quantityInput.value), Number(minimum));
 
-      let effectiveMax = variant.quantity_max ?? null;
-      if (effectiveMax === null && variant.inventory_management && variant.inventory_policy === 'deny') {
+      let effectiveMax = variant?.quantity_max ?? null;
+      if (effectiveMax === null && variant?.inventory_management && variant.inventory_policy === 'deny') {
         const inventoryEl = this.querySelector('product-inventory') || this.closest('section')?.querySelector('product-inventory');
         const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 1;
         const qty = Number(variant.inventory_quantity);
@@ -1046,9 +1189,7 @@
 
       // Agotada: la cantidad se queda en el minimo y el + se apaga (syncQuantityStepper lee
       // max). Sin esto el stepper seguia subiendo en una pieza que no se puede comprar.
-      if (variant.available === false) {
-        effectiveMax = Number(variant.quantity_min) || 1;
-      }
+      if (variant?.available !== true) effectiveMax = Number(minimum);
 
       if (effectiveMax === null) {
         quantityInput.removeAttribute('max');
@@ -1064,11 +1205,7 @@
         quantityInput.getAttribute('max'),
       ].join('|');
 
-      // Cambiar de variante puede mover el minimo o el maximo, y con ellos la cantidad.
-      // Nadie se enteraba: el total de linea lo calcula updatePrice(), que corre ANTES que
-      // esto, asi que se quedaba anunciando la cantidad anterior; y el stepper no tenia
-      // forma de saber que la rejilla habia cambiado bajo sus pies. Un 'change' avisa a
-      // los dos por el mismo camino que usa el visitante al teclear.
+      // Un 'change' comunica el nuevo límite al selector de cantidad, igual que al teclear.
       if (before !== after) quantityInput.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
@@ -1083,22 +1220,22 @@
       const status = this.querySelector('[data-variant-status]');
       if (!status) return;
 
-      if (!variant) {
-        status.textContent = this.dataset.unavailableText;
-      } else if (!this.isPurchaseOptionValid(variant)) {
-        status.textContent = this.dataset.sellingPlanUnavailableText;
-      } else {
-        const availability = variant.available
-          ? this.dataset.availableStatus
-          : this.dataset.soldOutStatus;
-        status.textContent = `${variant.title}: ${availability}`;
-      }
+      const announcement = !variant
+        ? this.dataset.unavailableText
+        : !variant.available
+          ? `${variant.title}: ${this.dataset.soldOutStatus}`
+          : !this.isPurchaseOptionValid(variant)
+            ? this.dataset.sellingPlanUnavailableText
+            : `${variant.title}: ${this.dataset.availableStatus}`;
+      if (status.textContent !== announcement) status.textContent = announcement;
     }
 
     updateUrl(variant) {
       if (!variant || !this.dataset.productUrl) return;
 
-      const url = new URL(this.dataset.productUrl, document.baseURI);
+      const path = this.usesServerVariants ? window.location.href : this.dataset.productUrl;
+      const url = new URL(path, document.baseURI);
+      url.searchParams.delete('option_values');
       url.searchParams.set('variant', variant.id);
       if (this.currentAllocation) {
         url.searchParams.set('selling_plan', this.currentAllocation.id);

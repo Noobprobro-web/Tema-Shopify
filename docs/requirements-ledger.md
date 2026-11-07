@@ -1,7 +1,7 @@
 # Requirements Ledger: Shopify Theme Store (Living Audit)
 
 ```text
-CONTEO CALCULADO: 61 filas | 47 cumplido | 14 código completo | 0 no verificado | 0 ausente
+CONTEO CALCULADO: 61 filas | 46 cumplido | 15 código completo | 0 no verificado | 0 ausente
 Desglose recalculado por scripts/ledger-verify.mjs el 2026-11-05.
 Última sincronización: 2026-09-14 (Consolidación a 4 estados canónicos y verificación matemática automática)
 Fuente oficial: https://shopify.dev/docs/storefronts/themes/store/requirements

@@ -13,13 +13,15 @@
   assign title_id = 'MainAboutTitle-' | append: section.id
 -%}
 
-<section class="section main-about color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+<section class="section main-about color-{{ section_scheme }}" {% if page.title != blank %}aria-labelledby="{{ title_id }}"{% endif %}>
   <div class="container">
     <header class="main-about__header flow">
       {%- if section.settings.eyebrow != blank -%}
         <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
       {%- endif -%}
-      <h1 id="{{ title_id }}" class="main-about__title">{{ page.title | escape }}</h1>
+      {%- if page.title != blank -%}
+        <h1 id="{{ title_id }}" class="main-about__title">{{ page.title | escape }}</h1>
+      {%- endif -%}
       {%- if section.settings.intro != blank -%}
         <div class="rte lede">{{ section.settings.intro }}</div>
       {%- endif -%}
@@ -168,6 +170,8 @@
 
 {% schema %}
 {
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
   "name": "t:sections.main_about.name",
   "settings": [
     {

@@ -21,14 +21,16 @@
   endfor
 -%}
 
-<section class="section main-contact color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+<section class="section main-contact color-{{ section_scheme }}" {% if page.title != blank %}aria-labelledby="{{ title_id }}"{% endif %}>
   <div class="container flow">
     <header class="main-contact__header">
       <div class="main-contact__intro flow">
         {%- if section.settings.eyebrow != blank -%}
           <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
         {%- endif -%}
-        <h1 id="{{ title_id }}" class="main-contact__title">{{ page.title | escape }}</h1>
+        {%- if page.title != blank -%}
+          <h1 id="{{ title_id }}" class="main-contact__title">{{ page.title | escape }}</h1>
+        {%- endif -%}
         {%- if section.settings.intro != blank -%}
           <div class="rte lede">{{ section.settings.intro }}</div>
         {%- endif -%}
@@ -216,6 +218,8 @@
 
 {% schema %}
 {
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
   "name": "t:sections.main_contact.name",
   "settings": [
     {
