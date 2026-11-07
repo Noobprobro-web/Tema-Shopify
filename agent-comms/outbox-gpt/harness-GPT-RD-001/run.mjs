@@ -21,6 +21,7 @@ const ROUTES = [
 ];
 const READ_HOSTS = new Set(['tema-qkqpke0j.myshopify.com', 'cdn.shopify.com', 'fonts.shopifycdn.com']);
 const STORE_HOST = 'tema-qkqpke0j.myshopify.com';
+const SHOP_LOGIN_PATH = '/services/login_with_shop/authorize';
 const KNOWN_WARNING_HOSTS = new Set([
   'monorail-edge.shopifysvc.com', 'error-analytics-sessions-production.shopifysvc.com', 'otlp-http-production.shopifysvc.com',
   'www.google-analytics.com', 'region1.google-analytics.com', 'analytics.google.com', 'www.googletagmanager.com',
@@ -113,15 +114,92 @@ function sanitizeReport(value, secretGuard, state = { redactions: 0 }) {
   return value;
 }
 
-function isThemeAsset(url) {
-  return /^\/cdn\/shop\/t\/(?:190232297715|190232330483|190232363251)\//.test(url.pathname)
-    || url.pathname.startsWith('/cdn/shop/files/');
+function isKnownCdnHost(host) {
+  return host === 'cdn.shopify.com' || /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+shopifycdn\.com$/.test(host ?? '');
 }
 
-function classifyNetworkSource(raw, source) {
-  let parsed;
-  try { parsed = new URL(raw); } catch { parsed = null; }
-  return source.host && source.host !== STORE_HOST && (!parsed || !isThemeAsset(parsed)) ? 'warning' : 'failure';
+function isStoreCdnPath(pathname) {
+  return pathname?.startsWith('/cdn/fonts/') || pathname?.startsWith('/cdn/shop/files/');
+}
+
+function isThemeAsset(pathname) {
+  return /^\/cdn\/shop\/t\/\d+\//.test(pathname)
+    || /^\/s\/files\/(?:\d+\/)+t\/\d+\//.test(pathname);
+}
+
+function isAuthenticationPath(pathname) {
+  return pathname === '/password' || pathname === SHOP_LOGIN_PATH;
+}
+
+function classifyNetworkSource(raw, source, kind, detail) {
+  if (source.redacted || source.scheme !== 'https' || !source.host || !source.path) return 'failure';
+  if (new URL(raw).port !== '') return 'failure';
+
+  if (kind === 'http') {
+    if (!Number.isInteger(detail) || detail < 400 || detail === 429) return 'failure';
+  } else if (kind === 'cdp') {
+    if (!safeCdpNetworkReason(detail)) return 'failure';
+  } else if (kind === 'requestfailed') {
+    if (!/^(?:CHROMIUM_ERR_|NETWORK_)/.test(detail)) return 'failure';
+  } else {
+    return 'failure';
+  }
+
+  if (isThemeAsset(source.path)) return 'failure';
+
+  if (source.host === STORE_HOST) {
+    const favicon404 = source.path === '/favicon.ico' && kind === 'http' && detail === 404;
+    const shopLoginAborted = source.path === SHOP_LOGIN_PATH
+      && ((kind === 'requestfailed' && detail === 'CHROMIUM_ERR_ABORTED') || (kind === 'cdp' && detail === 'Aborted'));
+    return favicon404 || shopLoginAborted || isStoreCdnPath(source.path) ? 'warning' : 'failure';
+  }
+
+  if (isAuthenticationPath(source.path)) return 'failure';
+  return isKnownCdnHost(source.host) ? 'warning' : 'failure';
+}
+
+function recordNetworkEvent(raw, source, kind, detail, warningKeys, failureKeys) {
+  const category = classifyNetworkSource(raw, source, kind, detail);
+  const code = kind === 'cdp' ? `CDP_${detail || 'UNRECOGNIZED'}`
+    : kind === 'http' ? `HTTP_${detail}` : detail;
+  const key = `${source.host || 'redacted'}:${source.path || 'redacted'}:${code}`;
+  (category === 'warning' ? warningKeys : failureKeys).add(key);
+  return category;
+}
+
+function blockedRequestReason(url, method, blockedNav) {
+  if (blockedNav) return 'CHECKOUT_NAVIGATION_BLOCKED';
+  if (!['http:', 'https:'].includes(url.protocol)) return 'NON_HTTP_URL_BLOCKED_BY_POLICY';
+  if (url.port !== '' && url.port !== '443') return 'PORT_BLOCKED_BY_POLICY';
+  if (url.protocol !== 'https:') return 'HTTPS_REQUIRED_BY_POLICY';
+  if (!['GET', 'HEAD'].includes(method)) return 'METHOD_BLOCKED_BY_POLICY';
+  return 'HOST_OR_URL_BLOCKED_BY_POLICY';
+}
+
+function classifyBlockedHost(source) {
+  if (source.reason === 'CHECKOUT_NAVIGATION_BLOCKED') return 'checkout_navigation_blocked';
+  if (source.reason === 'NON_HTTP_URL_BLOCKED_BY_POLICY') return 'non_http_url_blocked_by_policy';
+
+  if (source.reason === 'PORT_BLOCKED_BY_POLICY' || source.reason === 'HTTPS_REQUIRED_BY_POLICY'
+    || isAuthenticationPath(source.path)) return 'unclassified_blocked_host';
+
+  const cdn = isKnownCdnHost(source.host) || (source.host === STORE_HOST && isStoreCdnPath(source.path));
+  if ((cdn || source.host === STORE_HOST) && isThemeAsset(source.path)) return 'theme_asset_blocked';
+  if (source.reason === 'METHOD_BLOCKED_BY_POLICY') return 'method_blocked_by_policy';
+  if (cdn || KNOWN_WARNING_HOSTS.has(source.host) || source.host?.endsWith('.bugsnag.com')) return 'known_external_warning';
+  return source.host === STORE_HOST ? 'store_url_blocked_by_policy' : 'unclassified_blocked_host';
+}
+
+function executionOutcome(report) {
+  const anyFailed = report.results.some((result) => result.result === 'failed');
+  const anyIncomplete = report.results.some((result) => result.result !== 'measured');
+  const fatalNetworkFailure = report.networkFailures.length > 0
+    || report.previews?.some((preview) => !preview.contextClosed || !preview.browserClosed)
+    || report.blockedHosts.some((event) => event.category === 'theme_asset_blocked');
+  const blockedHostAttention = report.blockedHosts.some((event) => event.category === 'unclassified_blocked_host');
+  const executionResult = anyFailed || fatalNetworkFailure ? 'failed'
+    : anyIncomplete || blockedHostAttention ? 'incomplete' : 'completed';
+  return { blockedHostAttention, executionResult };
 }
 
 function safeCdpNetworkReason(value) {
@@ -563,9 +641,7 @@ async function main() {
           }
           if (event.responseErrorReason != null) {
             const reason = safeCdpNetworkReason(event.responseErrorReason);
-            const category = classifyNetworkSource(event.request.url, source);
-            const key = `${source.host || 'redacted'}:${source.path || 'redacted'}:CDP_${reason || 'UNRECOGNIZED'}`;
-            (category === 'warning' ? warningKeys : failureKeys).add(key);
+            const category = recordNetworkEvent(event.request.url, source, 'cdp', reason, warningKeys, failureKeys);
             const entry = {
               preset: preview.preset, host: source.host, path: source.path, scheme: source.scheme,
               errorReason: reason || 'UNRECOGNIZED', category, redacted: source.redacted, resolution: 'pending',
@@ -630,7 +706,7 @@ async function main() {
         const readAllowed = ['GET', 'HEAD'].includes(method) && allowedRead(raw);
         const blockedNav = request.isNavigationRequest() && (/^\/(?:checkout|checkouts)(?:\/|$)/i.test(url.pathname));
         if (!readAllowed || blockedNav) {
-          const reason = blockedNav ? 'CHECKOUT_NAVIGATION_BLOCKED' : !['http', 'https'].includes(source.scheme) ? 'NON_HTTP_URL_BLOCKED_BY_POLICY' : !['GET', 'HEAD'].includes(method) ? 'METHOD_BLOCKED_BY_POLICY' : 'HOST_OR_URL_BLOCKED_BY_POLICY';
+          const reason = blockedRequestReason(url, method, blockedNav);
           blockedKeys.add(JSON.stringify({ host: source.host, path: source.path, scheme: source.scheme, method, reason, redacted: source.redacted }));
           blockedRequests.add(request);
           await request.abort('blockedbyclient').catch(() => {});
@@ -646,14 +722,8 @@ async function main() {
       page.on('requestfailed', (request) => {
         if (blockedRequests.has(request)) return;
         const source = safeSource(request.url(), secretGuard);
-        const host = source.host;
-        const pathName = source.path;
         const code = codeOf(request.failure() || {});
-        const key = `${host || 'redacted'}:${pathName || 'redacted'}:${code}`;
-        let parsed;
-        try { parsed = new URL(request.url()); } catch { parsed = null; }
-        if (host && host !== STORE_HOST && (!parsed || !isThemeAsset(parsed))) warningKeys.add(key);
-        else failureKeys.add(key);
+        recordNetworkEvent(request.url(), source, 'requestfailed', code, warningKeys, failureKeys);
       });
       page.on('response', (response) => {
         if (response.status() === 429) {
@@ -667,11 +737,7 @@ async function main() {
         if (response.status() === 429) return;
         if (response.status() < 400) return;
         const source = safeSource(response.url(), secretGuard);
-        let parsed;
-        try { parsed = new URL(response.url()); } catch { parsed = null; }
-        const key = `${source.host || 'redacted'}:${source.path || 'redacted'}:HTTP_${response.status()}`;
-        if (source.host && source.host !== STORE_HOST && (!parsed || !isThemeAsset(parsed))) warningKeys.add(key);
-        else failureKeys.add(key);
+        recordNetworkEvent(response.url(), source, 'http', response.status(), warningKeys, failureKeys);
       });
 
       try {
@@ -706,11 +772,7 @@ async function main() {
         report.networkFailures.push(...[...failureKeys].slice(0, 200).map((key) => ({ source: key })));
         report.blockedHosts.push(...[...blockedKeys].slice(0, 200).map((key) => {
           const source = JSON.parse(key);
-          const known = KNOWN_WARNING_HOSTS.has(source.host) || (source.host && source.host.endsWith('.bugsnag.com'));
-          const category = source.reason === 'CHECKOUT_NAVIGATION_BLOCKED' ? 'checkout_navigation_blocked'
-            : source.reason === 'NON_HTTP_URL_BLOCKED_BY_POLICY' ? 'non_http_url_blocked_by_policy'
-              : source.reason === 'METHOD_BLOCKED_BY_POLICY' ? 'method_blocked_by_policy'
-              : known ? 'known_external_warning' : source.host === STORE_HOST ? 'store_url_blocked_by_policy' : 'unclassified_blocked_host';
+          const category = classifyBlockedHost(source);
           return { host: source.host, path: source.path, scheme: source.scheme ?? null, method: source.method, reason: source.reason, category, redacted: source.redacted };
         }));
         report.rateLimits = report.rateLimits || [];
@@ -736,12 +798,7 @@ async function main() {
         }
       }
     }
-    const anyFailed = report.results.some((r) => r.result === 'failed');
-    const anyIncomplete = report.results.some((r) => r.result !== 'measured');
-    const fatalNetworkFailure = report.networkFailures.length > 0 || report.previews?.some((preview) => !preview.contextClosed || !preview.browserClosed);
-    const unclassifiedBlock = report.blockedHosts.some((event) => event.category === 'unclassified_blocked_host');
-    report.blockedHostAttention = unclassifiedBlock;
-    report.executionResult = anyFailed || fatalNetworkFailure ? 'failed' : anyIncomplete || unclassifiedBlock ? 'incomplete' : 'completed';
+    Object.assign(report, executionOutcome(report));
   } catch (error) {
     report.executionResult = 'failed';
     report.setupFailure = safeHttpError(error);
@@ -755,4 +812,6 @@ async function main() {
   if (report.executionResult !== 'completed' || report.results.length !== 6) process.exitCode = 1;
 }
 
-await main();
+export { allowedRead, blockedRequestReason, classifyBlockedHost, codeOf, createSecretGuard, executionOutcome, recordNetworkEvent, safeSource };
+
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) await main();

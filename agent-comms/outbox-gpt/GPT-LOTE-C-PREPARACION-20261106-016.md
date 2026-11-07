@@ -89,7 +89,9 @@ Este addendum no altera el resultado ni la evidencia histórica de los intentos 
 - **C-01/C-03 y C-02/C-07/R-Demo:** siguen sin cierre funcional. C-01 requiere baseline de viewport útil/primera tarjeta y regresiones de filtros, teclado y vacío; no depende de Lighthouse. En C-03 se midieron 18 celdas Lighthouse, pero G2 y su diagnóstico siguen sin aceptación por los fallos y límites detallados en el addendum siguiente. C-02, fixtures de suscripción/variantes, importación y revisión R-Demo requieren tienda o decisiones de Johandry. R-Demo ocurre después de R-C, en el cierre D. Las lecturas R-A/R-B `T190050695Z` aportan axe/teclado smoke con límites, no certifican las matrices completas.
 - **R-C global:** el revisor independiente rechazó la completitud porque faltaban baseline/regresión, editor/instalación, ZIP final y algunas dependencias de Johandry en su snapshot. La revisión posterior del ZIP candidato resolvió solo ese artefacto. Esos elementos permanecen delimitados arriba; el rechazo no se presenta como aceptación parcial global.
 
-## Addendum vigente: Lighthouse en tres previews — 2026-11-06
+## Addendum: Lighthouse en tres previews — 2026-11-06
+
+> Actualización DP-005 del 2026-11-07: Johandry aceptó las 18 puntuaciones como línea base G2. Los estados y flags de ejecución históricos se conservan. El texto siguiente describe el snapshot anterior a esa decisión. Véase [GPT-REPORT-DP-005-G2-001](./GPT-REPORT-DP-005-G2-001.md) para el criterio vigente.
 
 El preflight elevado confirmó los tres IDs como `unpublished`, exit 0 y sin error de autenticación. Lighthouse 13.4.1 midió 18/18 celdas, una corrida por celda, con identidad verificada. El SHA-256 del runner usado en estas corridas y aceptado por revisión independiente era `ca483d17166bd02ff05b7fc88ba35624cb5ffa161b98851bfdeb882e669dbcbf`.
 

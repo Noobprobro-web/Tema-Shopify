@@ -2,7 +2,7 @@
 
 **ID:** GPT-REPORT-LOTE-C-IMPLEMENTACION-001
 
-**Estado:** vía C-07 aprobada por Johandry. Correcciones locales de revisión implementadas. Gate 5 y la copia de `CLAUDE-REVIEW-LOTE-C-IMPL-001.md` siguen pendientes.
+**Estado:** vía C-07 aprobada por Johandry. Correcciones locales de revisión implementadas. Gate 5 sigue pendiente. El dictamen de implementación se conserva solo en local.
 
 **C-07 APROBADO por Johandry (2026-11-07):** sustituir `variant-state` por navegación al PDP con `option_values` al seleccionar una opción en un destacado con más de 250 variantes. La aprobación expresa es posterior a la corrección de la atribución previa.
 
@@ -30,7 +30,7 @@
 - Decisiones y evidencia: `docs/decisions.md`, informe 016 y este informe.
 - La autorización de Nivel 2 para una sección nueva de estado del destacado se conserva como antecedente. El prototipo `variant-state.liquid` se retiró al quedar sin consumidores. El snippet de precio oculta el contenedor para una combinación sin variante. No introduce un precio cero visible. El contrato de JSON se comparte en el snippet D25 para preservar el límite de complejidad Liquid.
 - Se corrigió el encabezado aritmético del ledger. La tabla y sus estados, las plantillas y los listings permanecen intactos.
-- Seguimiento de revisión: L1 captura el JSON antes de emitir `div` y `script` completos en una rama Liquid. L3 da estilo visible al enlace con `aria-current`. L4 muestra un aviso localizado enlazado por `aria-describedby`. L6 mantiene el botón deshabilitado, sin ID y con el texto de carga y `aria-busy` durante la petición. L5 verifica el hash del arnés final sobre bytes LF. El archivo `CLAUDE-REVIEW-LOTE-C-IMPL-001.md` todavía no se recibió en una ruta accesible para copiarlo.
+- Seguimiento de revisión: L1 captura el JSON antes de emitir `div` y `script` completos en una rama Liquid. L3 da estilo visible al enlace con `aria-current`. L4 muestra un aviso localizado enlazado por `aria-describedby`. L6 mantiene el botón deshabilitado, sin ID y con el texto de carga y `aria-busy` durante la petición. L5 verifica el hash del arnés final sobre bytes LF. Por decisión de Johandry, `CLAUDE-REVIEW-LOTE-C-IMPL-001.md` se conserva byte por byte en el worktree como archivo sin seguimiento y en el ref local `codex/claude-review-copy` (commit `49c76e2866c53695a8c0a099dc889125457e1c7c`). SHA-256 `4904ce8116584d846c829280b529d26383ec7bac44fd570a5d6da5a275bd773e`. Se excluye del historial de `lote-c-impl` y del push por D12.
 
 ## Gate 1 · Filas afectadas
 
