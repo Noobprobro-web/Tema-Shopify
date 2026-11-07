@@ -196,12 +196,30 @@ function findPageId(url) {
   return `${parsed.origin}${parsed.pathname}`;
 }
 
-async function createAuthContext(playwright, browserContext, page, origin, themeId, password, secretGuard, events) {
+function createPasswordGateEvent() {
+  return { workflowResult: 'not_started', initialHttpStatus: null, passwordFormInitiallyPresent: null, passwordPostHttpStatus: null, reloadHttpStatus: null, passwordFormVisibleAfterReload: null };
+}
+
+function passwordGateSnapshot(event) {
+  return {
+    workflowResult: event.workflowResult === 'in_progress' ? 'incomplete' : event.workflowResult,
+    initialHttpStatus: event.initialHttpStatus,
+    passwordFormInitiallyPresent: event.passwordFormInitiallyPresent,
+    passwordPostHttpStatus: event.passwordPostHttpStatus,
+    reloadHttpStatus: event.reloadHttpStatus,
+    passwordFormVisibleAfterReload: event.passwordFormVisibleAfterReload,
+  };
+}
+
+async function createAuthContext(playwright, browserContext, page, origin, themeId, password, secretGuard, passwordGateEvent) {
+  passwordGateEvent.workflowResult = 'in_progress';
   const entryUrl = new URL('/', origin);
   entryUrl.searchParams.set(PREVIEW_URL_PARAM, themeId);
   const initial = await page.goto(entryUrl.href, { waitUntil: 'domcontentloaded', timeout: PAGE_TIMEOUT_MS });
   const initialStatus = initial?.status() ?? null;
+  passwordGateEvent.initialHttpStatus = initialStatus;
   const hasPassword = await page.$('input[type="password"]');
+  passwordGateEvent.passwordFormInitiallyPresent = Boolean(hasPassword);
   if (hasPassword) {
     const formData = await page.evaluate(() => {
       const input = document.querySelector('input[type="password"]');
@@ -236,6 +254,7 @@ async function createAuthContext(playwright, browserContext, page, origin, theme
           form: formData.fields, timeout: PAGE_TIMEOUT_MS, maxRedirects: 0, maxRetries: 0,
           headers: { Origin: origin, Referer: new URL('/password', origin).href },
         });
+        passwordGateEvent.passwordPostHttpStatus = response.status();
         if (response.status() !== 429) break;
         const retryAfter = parseRetryAfter(response.headers()['retry-after']);
         if (retryAfter?.unrepresentable) throw Object.assign(new Error(), { safeCode: 'RETRY_AFTER_UNREPRESENTABLE' });
@@ -262,14 +281,16 @@ async function createAuthContext(playwright, browserContext, page, origin, theme
       }));
       if (browserStateCookies.length) await browserContext.setCookie(...browserStateCookies);
       const reloaded = await page.goto(entryUrl.href, { waitUntil: 'domcontentloaded', timeout: PAGE_TIMEOUT_MS });
+      passwordGateEvent.reloadHttpStatus = reloaded?.status() ?? null;
       const stillLocked = Boolean(await page.$('input[type="password"]'));
+      passwordGateEvent.passwordFormVisibleAfterReload = stillLocked;
       if (stillLocked) throw Object.assign(new Error(), { safeCode: 'STOREFRONT_REMAINS_LOCKED' });
-      events.auth = { result: 'passed', initialHttpStatus: initialStatus, postStatus: response.status(), reloadedStatus: reloaded?.status() ?? null };
+      passwordGateEvent.workflowResult = 'completed';
     } finally {
       await api.dispose();
     }
   } else {
-    events.auth = { result: 'observed', initialHttpStatus: initialStatus, reason: 'PASSWORD_FORM_NOT_PRESENT' };
+    passwordGateEvent.workflowResult = 'form_not_present';
   }
   const identity = await page.evaluate(() => String(window.Shopify?.theme?.id ?? ''));
   if (identity !== themeId) throw Object.assign(new Error(), { safeCode: 'THEME_IDENTITY_MISMATCH' });
@@ -396,7 +417,7 @@ async function main() {
   const runId = randomUUID();
   const themeArg = process.argv.slice(2);
   const report = {
-    schema: 'gpt-rd-lighthouse-v2', runId, startedAt: new Date().toISOString(), mode: 'read-only',
+    schema: 'gpt-rd-lighthouse-v3', runId, startedAt: new Date().toISOString(), mode: 'read-only',
     executionResult: 'incomplete', results: [], networkWarnings: [], networkFailures: [], blockedHosts: [], responseFilterFailures: [], responseNetworkErrors: [],
     limits: { presets: [], pages: ROUTES.map((r) => r.page), viewports: ['mobile', 'desktop'], repetitionsPerCell: 1, cartMutations: 0, checkoutSubmitted: false, credentialsWritten: false, popupTargets: 'paused by CDP auto-attach and closed before resume' },
   };
@@ -522,10 +543,10 @@ async function main() {
         report.results.push({ preset: preview.preset, themeId: preview.themeId, page: 'preview_setup', viewport: 'none', result: 'failed', reason: safeHttpError(error), identityVerified: false });
         report.previews = report.previews || [];
         // browserCreated records only whether Puppeteer returned a handle, not process existence.
-        report.previews.push({ preset: preview.preset, themeId: preview.themeId, auth: { result: 'not_run' }, identityVerified: false, contextCreated: context !== null, contextClosed, browserCreated: browser !== null, browserClosed });
+        report.previews.push({ preset: preview.preset, themeId: preview.themeId, passwordGate: passwordGateSnapshot(createPasswordGateEvent()), identityVerified: false, contextCreated: context !== null, contextClosed, browserCreated: browser !== null, browserClosed });
         continue;
       }
-      const authEvent = { result: 'not_run' };
+      const passwordGateEvent = createPasswordGateEvent();
       const pageInFlight = new WeakSet();
       const blockedRequests = new WeakSet();
       cdp.on('Fetch.requestPaused', (event) => {
@@ -654,7 +675,7 @@ async function main() {
       });
 
       try {
-        const auth = await createAuthContext(playwright, context, page, origin, preview.themeId, password, secretGuard, authEvent);
+        const auth = await createAuthContext(playwright, context, page, origin, preview.themeId, password, secretGuard, passwordGateEvent);
         const identity = preview.themeId;
         const paths = ROUTES.map((route) => ({ page: route.page, path: route.path || (route.env === 'STOREFRONT_COLLECTION_PATH' ? collectionPath : productPath) }));
         const mobile = { width: 390, height: 844, deviceScaleFactor: 1, isMobile: true };
@@ -669,11 +690,11 @@ async function main() {
           }
         }
         report.previews = report.previews || [];
-        report.previews.push({ preset: preview.preset, themeId: preview.themeId, auth: authEvent, identityVerified: auth.identityVerified, contextClosed: false });
+        report.previews.push({ preset: preview.preset, themeId: preview.themeId, passwordGate: passwordGateSnapshot(passwordGateEvent), identityVerified: auth.identityVerified, contextClosed: false });
       } catch (error) {
         report.results.push({ preset: preview.preset, themeId: preview.themeId, page: 'preview_setup', viewport: 'none', result: 'failed', reason: safeHttpError(error), identityVerified: false });
         report.previews = report.previews || [];
-        report.previews.push({ preset: preview.preset, themeId: preview.themeId, auth: authEvent, identityVerified: false, contextClosed: false });
+        report.previews.push({ preset: preview.preset, themeId: preview.themeId, passwordGate: passwordGateSnapshot(passwordGateEvent), identityVerified: false, contextClosed: false });
       } finally {
         await Promise.allSettled([...pendingHandlers]);
         let contextClosed = false;

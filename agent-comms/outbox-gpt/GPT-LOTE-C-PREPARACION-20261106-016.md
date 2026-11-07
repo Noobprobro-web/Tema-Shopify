@@ -63,7 +63,7 @@ Tras cierre/decisión formal de Lote 0 y antes de escribir: directiva y revisió
 - C-08: verdad/fuentes de claims y destinos aprobados; nunca suplir con promesas sin respaldo.
 - B-05: decisión expresa de alcance del endpoint POST de localización antes de cambio real de idioma.
 - C-02: tienda de desarrollo limpia, permisos y resultado canónico por preset.
-- C-07: fixtures de variantes autorizados y entorno correspondiente.
+- C-07: fixtures de variantes autorizados y entorno correspondiente; Johandry debe decidir y aprobar el contrato sin JavaScript para la variante 251+.
 - C-04-P/N/R: destino del contenido/paquete, nomenclatura adicional (Haute Couture) y versión/notas. Lo ya decidido se conserva; las ampliaciones requieren resolución.
 - R-D / G2 Lighthouse: este punto describe el snapshot anterior; las 18 mediciones posteriores y sus límites constan en el addendum vigente al final. El umbral acordado por Johandry es móvil <70 como riesgo con propuesta de mejora dentro del plan.
 - D19: resolver revisor Opus de contexto limpio o cambio explícito del requisito. GPT solo ofrece apoyo auxiliar hasta esa resolución.
@@ -91,7 +91,7 @@ Este addendum no altera el resultado ni la evidencia histórica de los intentos 
 
 ## Addendum vigente: Lighthouse en tres previews — 2026-11-06
 
-El preflight elevado confirmó los tres IDs como `unpublished`, exit 0 y sin error de autenticación. Lighthouse 13.4.1 midió 18/18 celdas, una corrida por celda, con identidad verificada. El SHA-256 del runner aceptado por revisión independiente es `ca483d17166bd02ff05b7fc88ba35624cb5ffa161b98851bfdeb882e669dbcbf`.
+El preflight elevado confirmó los tres IDs como `unpublished`, exit 0 y sin error de autenticación. Lighthouse 13.4.1 midió 18/18 celdas, una corrida por celda, con identidad verificada. El SHA-256 del runner usado en estas corridas y aceptado por revisión independiente era `ca483d17166bd02ff05b7fc88ba35624cb5ffa161b98851bfdeb882e669dbcbf`.
 
 | Preset | Móvil home / colección / producto | Escritorio home / colección / producto | Accesibilidad Lighthouse |
 |---|---|---|---|
@@ -107,3 +107,47 @@ Cada uno de los tres JSON finales contiene una contradicción de autenticación:
 
 
 La aceptación global R-C sigue pendiente: C-01 requiere su propia baseline y regresión; C-03 requiere G2 aceptado y diagnóstico causal. R-Demo es posterior a R-C y pertenece al cierre D. El ZIP candidato ya recibió aceptación independiente para C-04-P y C-04-R como borrador; no aprueba instalación ni versión.
+
+## Propuestas locales C-01, C-05 y C-07 — 2026-11-06
+
+Estas son propuestas para directiva y revisión; no representan implementación, aceptación ni prueba nueva en tienda.
+
+### C-01: colección, viewport y regresión
+
+En la misma preview, comparar antes/después el viewport útil y la posición de la primera tarjeta usando el mismo viewport en cada par. Las matrices 390×844 y 1280×800 pueden ejecutarse por separado; no se comparan viewports distintos como antes/después. La propuesta incluye verificar filtros, reset, estado vacío y navegación por teclado, incluida la tecla Escape y la devolución del foco. No fija un umbral cuantitativo ni crea fixtures; la decisión sobre criterios y la validación en preview siguen pendientes. C-01 conserva su baseline y regresión independientes de Lighthouse.
+
+#### C-01 — borrador de directiva para R-D
+
+- **Objetivo:** evaluar la jerarquía y controles de colección móvil preservando filtros, teclado y vacío, sin atribuir conversión no medida ni incorporar TT-26 de Atelier/Contour.
+- **Ámbito propuesto para revisión:** `sections/main-collection.liquid` y `assets/base.css` para una eventual intervención de jerarquía; el alcance se cierra en R-D antes de escribir. Si la solución exige otros archivos o comportamiento AJAX, devolver la propuesta a revisión. Este borrador no autoriza implementación.
+- **Baseline y evidencia:** en la preview autorizada y el mismo catálogo/settings, registrar dimensión efectiva de viewport útil y posición de la primera tarjeta antes y después. Para cada par se conserva idéntico viewport, entorno y estado de scroll: 390×844 antes/después por separado de 1280×800 antes/después. No comparar distintos viewports como si fueran un par antes/después; no fijar umbral no aprobado.
+- **Regresión:** aplicar y limpiar filtros, comprobar reset y estado sin resultados, recorrer controles con teclado, Escape y devolución de foco. Adjuntar resultados y evidencia de viewport útil/primera tarjeta en cada par. Usar datos existentes, sin crear fixtures; si falta el estado necesario, registrarlo como dependencia pendiente.
+- **Salida para R-D:** lista de archivos cerrada, diff propuesto y criterios verificables sujetos a revisión independiente; sin patch, tienda ni aceptación durante esta preparación.
+
+### C-05: tipos de página y contrato de H1
+
+Las siete secciones inventariadas siguen siendo `main-page`, `main-documentation`, `main-support`, `main-about`, `main-policy`, `main-faq` y `main-contact`. Una directiva debe separar la restricción de tipos `page` del contrato de jerarquía H1: `enabled_on` para `page` no asegura un único H1 si el comerciante agrega dos secciones con H1. La propuesta requiere prueba en editor e instalación antes de decidir un cambio de schema; no se ha aplicado ni aceptado.
+
+### C-07: propuesta para productos con muchas variantes
+
+El investigador distingue el límite de 250 elementos de `product.variants` en Liquid y Ajax frente a `product.variants_count`, que expresa el total. La paginación GraphQL con cursores devuelve hasta 250 recursos por página. Shopify establece un límite predeterminado de 2.048 variantes por producto, según el objeto Admin `ProductVariant`. No se debe poner un token Admin en el tema. La propuesta es resolver la selección mediante `options_with_values` y `product_option_value`, enviar los `option_values` en un GET y usar Section Rendering para obtener el estado de variante correspondiente, antes de permitir la compra. Es una estrategia propuesta, no una solución implementada ni aceptada.
+
+La matriz propuesta cubre fixtures de 1, 250 y 251+ variantes, combinaciones inexistentes y evitar la compra de una variante equivocada; además disponibilidad, inventario, precio, medios, selling plans, foco y accesibilidad. Los fixtures dependen de Johandry. Johandry debe decidir y aprobar antes de implementar el contrato de funcionamiento sin JavaScript para la variante 251+; no se presupone cuál será.
+
+#### C-07 — borrador de directiva para R-D
+
+- **Contrato propuesto:** en PDP y producto destacado, resolver la combinación escogida mediante `options_with_values`/`product_option_value` y un GET de Section Rendering con `option_values` cuando el producto supere 250 variantes. Nunca seleccionar silenciosamente una variante por defecto cuando la combinación no existe, no está resuelta o no corresponde; no permitir comprar una variante distinta de la elegida. Conservar el comportamiento vigente para 250 o menos.
+- **Archivos propuestos para el alcance cerrado:** `sections/main-product.liquid`, `sections/featured-product.liquid`, `assets/theme.js` y `snippets/variant-no-js-select.liquid`. `snippets/price.liquid` es condicional: solo incluirlo si se demuestra que es necesario y R-D acepta expresamente esa inclusión. Excluir product-card y complete-the-look; cualquier ampliación exige una directiva adicional. Este borrador no autoriza escritura.
+- **Puntos de partida verificables:** controles PDP en `main-product.liquid:256`, ID oculto en 489, selector sin JS en 492, selling plans desde 500 y bucle de variantes en 727; controles del producto destacado en `featured-product.liquid:148`, ID en 232, selector sin JS en 235, selling plans desde 243 y bucle de variantes en 477. En `assets/theme.js`, `VariantSelects` parte de 585, parsea JSON en 632 y contempla selección/availability/formularios/precio/cantidad/medios/estado/URL en 643–1098. `variant-no-js-select.liquid:24` contiene el bucle y su comentario de límite está en 43. Los localizadores son referencias del snapshot, no sustituyen revisar el diff.
+- **Sincronización exigida:** ID de variante, disponibilidad y estado de compra/ATC, precio, precio comparado y unitario, cantidad, medios, selling plans, URL, estado anunciado y foco deben reflejar la misma selección resuelta. Mantener el contrato de planes de venta y no introducir un token Admin en el tema.
+- **Sin JavaScript:** conservar el fallback actual; la limitación por encima de 250 sigue pendiente hasta que Johandry decida y apruebe expresamente el contrato sin JavaScript para la variante 251+. No presentar esa parte como resuelta.
+- **Matriz de aceptación propuesta:** en ambas superficies, fixtures de 1, 250 y 251+ variantes; selección existente y combinación inexistente, disponible y agotada, cambios y recarga/URL. Verificar que no se compra la variante equivocada y cubrir disponibilidad, inventario, precio y comparado/unitario, cantidad, medios, selling plans, foco, anuncios y accesibilidad. Los fixtures dependen de Johandry; cualquier prueba que toque carrito se ejecuta solo bajo las reglas de tienda y limpieza autorizadas.
+- **Salida y bloqueos:** especificación/diff propuesto y evidencia por celda para revisión independiente R-D; fixture y decisión sin JS pendientes de Johandry. Si faltan, mantener esos casos pendientes, sin inventar datos ni afirmar aceptación. No implementar ni ejecutar tienda durante esta preparación.
+
+Fuentes oficiales para la propuesta: [productos con muchas variantes](https://shopify.dev/docs/storefronts/themes/product-merchandising/variants/support-high-variant-products), [objeto Liquid product](https://shopify.dev/docs/api/liquid/objects/product), [Ajax Product API](https://shopify.dev/docs/api/ajax/reference/product), [paginación GraphQL](https://shopify.dev/docs/api/usage/pagination-graphql), [Admin GraphQL ProductVariant](https://shopify.dev/docs/api/admin-graphql/latest/objects/ProductVariant) y [Section Rendering API](https://shopify.dev/docs/api/ajax/section-rendering).
+
+### Diagnóstico estático y logger de autenticación
+
+`layout/theme.liquid:10` emite el enlace favicon solo cuando `settings.favicon` no está vacío. El análisis estático no acredita el valor de ese setting ni la causa del 404 en preview. `templates/product.json:36` activa `show_dynamic_checkout`, y `sections/main-product.liquid:653` condiciona `payment_button`: es una pista posible para el aborto de Shop login, no una causalidad demostrada. Ambas hipótesis requieren reproducción en preview/editor.
+
+La corrección posterior del logger de autenticación en `run.mjs`, SHA-256 `62191316247eaf31bd7004b7dac3d8f449bbc29c56717e36ea95a3774621668c`, recibió aceptación independiente. Los JSON históricos se conservan sin reescritura y la contradicción de sus campos de autenticación sigue vigente para interpretar esas corridas; no se acredita una prueba nueva ni un G2 aceptado.
