@@ -23,6 +23,18 @@
     assign can_add_to_cart = false
   endif
   assign product_form_id = 'product-form-' | append: section.id
+
+  comment
+    B-02. Sin JS (o con theme.js caido) el selector visual de variantes no puede cambiar el id
+    del formulario, asi que se emite un select nativo de variantes (snippet variant-no-js-select) y el
+    hidden nace desactivado. VariantSelects toma el control al conectarse. Solo si el producto
+    tiene variantes reales y el comerciante mantiene el bloque variant_picker.
+  endcomment
+  assign render_variant_no_js = false
+  assign variant_picker_blocks = section.blocks | where: 'type', 'variant_picker'
+  if product.has_only_default_variant == false and variant_picker_blocks.size > 0
+    assign render_variant_no_js = true
+  endif
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_models = product.media | where: 'media_type', 'model'
@@ -214,7 +226,7 @@
 
             {%- when 'variant_picker' -%}
               {%- unless product.has_only_default_variant -%}
-                <div class="variant-picker flow" {{ block.shopify_attributes }}>
+                <div class="variant-picker flow js-only" {{ block.shopify_attributes }}>
                   {%- for option in product.options_with_values -%}
                     <fieldset class="variant-picker__group" role="radiogroup">
                       <legend class="variant-picker__legend">
@@ -474,7 +486,11 @@
                   class: 'product-form__form',
                   data-cart-add-form: ''
                 -%}
-                  <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id>
+                  <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id{% if render_variant_no_js %} disabled{% endif %}>
+
+                  {%- if render_variant_no_js -%}
+                    {% render 'variant-no-js-select', product: product, selected_variant: selected_variant, section: section, id_prefix: 'ProductVariantNoJs' %}
+                  {%- endif -%}
 
                   <div class="product-form__payment-terms">
                     {{- form | payment_terms -}}
@@ -574,7 +590,7 @@
                         <label for="SellingPlanNoJs-{{ section.id }}">
                           {{- 'products.product.purchase_options.legend' | t -}}
                         </label>
-                        <select id="SellingPlanNoJs-{{ section.id }}" name="selling_plan">
+                        <select id="SellingPlanNoJs-{{ section.id }}" name="selling_plan" autocomplete="off" data-no-js-control>
                           {%- unless selected_variant.requires_selling_plan -%}
                             <option value=""{% unless subscription_selected %} selected{% endunless %}>
                               {{- 'products.product.purchase_options.one_time' | t -}}
@@ -656,37 +672,24 @@
             {%- when 'inventory_status' -%}
               {% render 'product-inventory', product: product, variant: selected_variant, block: block %}
 
-            {%- when 'shipping_lead_time' -%}
-              {%- liquid
-                assign delivery_fallback = 'sections.main_product.blocks.shipping_lead_time.delivery_fallback' | t
-                assign delivery_text = block.settings.delivery_text | default: delivery_fallback
-              -%}
+            {%- when 'shipping_lead_time', 'trust_badges' -%}
+              {%- assign trust_text = block.settings.delivery_text | default: block.settings.returns_text | strip -%}
+              {%- if trust_text != blank -%}
               <p class="product-trust" {{ block.shopify_attributes }}>
                 <span class="product-trust__icon" aria-hidden="true">
                   {%- if block.settings.icon == 'clock' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                   {%- elsif block.settings.icon == 'truck' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v11H2zM14 9h4l4 4v4h-8z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
-                  {%- endif -%}
-                </span>
-                <span>{{ delivery_text | escape }}</span>
-              </p>
-
-            {%- when 'trust_badges' -%}
-              {%- liquid
-                assign returns_fallback = 'sections.main_product.blocks.trust_badges.returns_fallback' | t
-                assign returns_text = block.settings.returns_text | default: returns_fallback
-              -%}
-              <p class="product-trust" {{ block.shopify_attributes }}>
-                <span class="product-trust__icon" aria-hidden="true">
-                  {%- if block.settings.icon == 'ruler' -%}
+                  {%- elsif block.settings.icon == 'ruler' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 2 7 7L9 22l-7-7L15 2Z"/><path d="m11 6 2 2m-5 1 2 2m-5 1 2 2m4-9 2 2"/></svg>
                   {%- elsif block.settings.icon == 'shield' -%}
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
                   {%- endif -%}
                 </span>
-                <span>{{ returns_text | escape }}</span>
+                <span>{{ trust_text | escape }}</span>
               </p>
+              {%- endif -%}
 
             {%- when 'collapsible_tab' -%}
               {% render 'product-accordion', block: block %}
@@ -791,6 +794,12 @@
   {%- if section.settings.enable_sticky_cart -%}
     {%- liquid
       assign sticky_media = selected_variant.featured_media.preview_image | default: product.featured_media.preview_image
+      assign sticky_action = 'products.product.add_to_cart' | t
+      if selected_variant.available == false
+        assign sticky_action = 'products.product.sold_out' | t
+      elsif plan_required_unavailable
+        assign sticky_action = 'products.product.purchase_options.unavailable' | t
+      endif
     -%}
     <sticky-cart-bar
       class="sticky-cart-bar color-{{ section_scheme }}"
@@ -798,7 +807,8 @@
       data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
       data-quantity-price-template="{{ 'products.product.sticky_quantity_price' | t: quantity: '[quantity]', price: '[price]' | escape_once }}"
       data-total-template="{{ 'products.product.sticky_total' | t: total: '[total]' | escape_once }}"
-      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: product: product.title, quantity: '[quantity]' | escape_once }}"
+      data-action-label-template="{{ 'products.product.sticky_add_to_cart' | t: action: '[action]', product: '[product]' | escape_once }}"
+      data-quantity-label-template="{{ 'products.product.sticky_add_quantity_to_cart' | t: action: '[action]', product: '[product]', quantity: '[quantity]' | escape_once }}"
       {% if product.has_only_default_variant %}data-single-variant{% endif %}
       aria-hidden="true"
       inert
@@ -843,18 +853,12 @@
         <button
           class="button sticky-cart-bar__submit"
           type="button"
-          aria-label="{{ 'products.product.sticky_add_to_cart' | t: product: product.title | escape_once }}"
+          aria-label="{{ 'products.product.sticky_add_to_cart' | t: action: sticky_action, product: product.title | escape_once }}"
           data-sticky-submit
           {% unless can_add_to_cart %}disabled{% endunless %}
         >
           <span data-sticky-label>
-            {%- if selected_variant.available == false -%}
-              {{- 'products.product.sold_out' | t -}}
-            {%- elsif plan_required_unavailable -%}
-              {{- 'products.product.purchase_options.unavailable' | t -}}
-            {%- else -%}
-              {{- 'products.product.add_to_cart' | t -}}
-            {%- endif -%}
+            {{- sticky_action | escape -}}
           </span>
           <span class="button__spinner" data-loading-icon hidden>
             {% render 'icon', name: 'spinner', size: 18 %}

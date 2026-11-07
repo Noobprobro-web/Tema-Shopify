@@ -1,0 +1,58 @@
+{%- comment -%}
+  B-02. Select nativo de variantes para el formulario de compra sin JS (o con theme.js caido).
+  Sin JS el selector visual de variantes no puede cambiar el id del formulario, asi que este
+  select es el unico control de variante exitoso hasta que VariantSelects toma el control.
+
+  Vive en un snippet porque dentro de main-product.liquid supera el limite de complejidad
+  de Theme Check (LiquidComplexity, 120).
+
+  Accepts:
+  - product: product object
+  - selected_variant: variante pintada por el servidor
+  - section: parent section object
+  - id_prefix: prefijo del id del select (se le anade el id de la seccion)
+{%- endcomment -%}
+
+{%- assign variant_select_id = id_prefix | append: '-' | append: section.id -%}
+{%- assign selected_variant_listed = false -%}
+
+<div class="form-field no-js-only">
+  <label for="{{ variant_select_id }}">
+    {{- 'products.product.choose_options' | t -}}
+  </label>
+  <select id="{{ variant_select_id }}" name="id" autocomplete="off" data-no-js-control>
+    {%- for variant in product.variants -%}
+      {%- if variant.id == selected_variant.id -%}
+        {%- assign selected_variant_listed = true -%}
+      {%- endif -%}
+      <option
+        value="{{ variant.id }}"
+        {% if variant.id == selected_variant.id %}selected{% endif %}
+        {% if variant.available == false and variant.id != selected_variant.id %}disabled{% endif %}
+      >
+        {{- variant.title | escape -}}
+        {{- ' / ' -}}
+        {{- variant.price | money | strip_html -}}
+        {%- unless variant.available -%}
+          {{- ' / ' -}}
+          {{- 'products.product.sold_out' | t -}}
+        {%- endunless -%}
+      </option>
+    {%- endfor -%}
+    {%- comment -%}
+      product.variants devuelve 250 variantes como maximo: la variante seleccionada debe existir
+      siempre como opcion marcada, o el navegador enviaria otra distinta de la que se muestra.
+    {%- endcomment -%}
+    {%- unless selected_variant_listed -%}
+      <option value="{{ selected_variant.id }}" selected>
+        {{- selected_variant.title | escape -}}
+        {{- ' / ' -}}
+        {{- selected_variant.price | money | strip_html -}}
+        {%- unless selected_variant.available -%}
+          {{- ' / ' -}}
+          {{- 'products.product.sold_out' | t -}}
+        {%- endunless -%}
+      </option>
+    {%- endunless -%}
+  </select>
+</div>

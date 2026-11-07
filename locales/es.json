@@ -154,18 +154,15 @@
         "inventory_status": {
           "low_stock": "Pocas existencias: [count] disponibles",
           "low_stock_generic": "Pocas existencias",
-          "in_stock": "En existencias, listo para enviar",
+          "in_stock": "En existencias",
           "preorder": "Disponible bajo pedido",
           "sold_out": "Agotado",
           "unavailable": "Esta opción no está disponible"
-        },
-        "shipping_lead_time": {
-          "delivery_fallback": "Plazos y costes de entrega confirmados al pagar"
-        },
-        "trust_badges": {
-          "returns_fallback": "Devoluciones sujetas a la política de la tienda"
         }
       }
+    },
+    "bento_discovery": {
+      "explore_generic": "Explorar"
     },
     "homepage": {
       "hero": {
@@ -204,7 +201,7 @@
     "form": {
       "eyebrow": "Escríbenos",
       "title": "Tu consulta",
-      "success": "Gracias. Te responderemos lo antes posible.",
+      "success": "Gracias. Tu mensaje se ha enviado.",
       "error_heading": "Revisa los siguientes campos:",
       "name": "Nombre",
       "email": "Correo electrónico",
@@ -212,7 +209,6 @@
       "reason_placeholder": "Elige un motivo",
       "reason_order": "Pedido y entrega",
       "reason_materials": "Materiales y cuidados",
-      "reason_appointment": "Cita privada",
       "reason_press": "Prensa y profesionales",
       "reason_other": "Otro",
       "message": "Mensaje",
@@ -227,14 +223,13 @@
       "title": "Antes de escribirnos"
     },
     "services": {
-      "title": "Contactos directos del estudio",
-      "response": "Plazo de respuesta: dos días hábiles"
+      "title": "Contactos directos del estudio"
     }
   },
   "faq": {
     "search": {
       "label": "Buscar en las preguntas",
-      "placeholder": "Envíos, tallas, devoluciones",
+      "placeholder": "Envíos, tallas, cuidados",
       "results": "Coincidencias: {{ count }}",
       "empty": "Ninguna pregunta coincide con esa búsqueda. Prueba con una palabra más corta o escríbenos."
     }
@@ -375,9 +370,9 @@
     "opening_label": "Nota de apertura",
     "newsletter": {
       "email": "Correo electrónico",
-      "submit": "Solicitar acceso anticipado",
-      "privacy": "Solo notas privadas. Puedes darte de baja cuando quieras.",
-      "success": "Gracias. Hemos recibido tu solicitud de acceso anticipado.",
+      "submit": "Suscribirse",
+      "privacy": "Puedes darte de baja cuando quieras.",
+      "success": "Gracias por suscribirte.",
       "error_heading": "Revisa tu correo electrónico:"
     },
     "access": {
@@ -463,8 +458,8 @@
       "measurement_units": "Unidades de medida",
       "centimeters": "CM",
       "inches": "PULGADAS",
-      "sticky_add_to_cart": "Añadir {{ product }} al carrito",
-      "sticky_add_quantity_to_cart": "Añadir {{ product }} al carrito, cantidad {{ quantity }}",
+      "sticky_add_to_cart": "{{ action }}: {{ product }}",
+      "sticky_add_quantity_to_cart": "{{ action }}: {{ product }}, cantidad {{ quantity }}",
       "sticky_quantity_price": "{{ quantity }} × {{ price }}",
       "sticky_total": "Total {{ total }}",
       "purchase_options": {
@@ -613,11 +608,11 @@
   "newsletter": {
     "eyebrow": "Correspondencia privada",
     "heading": "Notas del estudio",
-    "copy": "Nuevos objetos, estudios de materiales y avances privados, enviados con mesura.",
+    "copy": "Suscríbete a nuestro boletín.",
     "email_label": "Correo electrónico",
     "email_placeholder": "nombre@ejemplo.com",
     "submit": "Suscribirse",
-    "success": "Gracias. Tu primera nota llegará pronto.",
+    "success": "Gracias por suscribirte.",
     "error_heading": "Revisa tu correo electrónico:"
   },
   "predictive_search": {

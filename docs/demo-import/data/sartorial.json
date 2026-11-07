@@ -1,0 +1,130 @@
+{
+  "preset": "sartorial",
+  "listing_templates": ["listings/sartorial/templates/index.json", "listings/sartorial/templates/collection.json", "listings/sartorial/templates/product.json", "templates/index.json"],
+  "source": "agent-comms/outbox-claude/CLAUDE-DEMO-001-couture-demo-store.md (sección Dos: catálogo; descripciones traducidas al inglés sin cambiar cifras); recuentos de colección contrastados con agent-comms/outbox-claude/harness-AUDIT-FINAL-002/results-07-parity-catalog.json (atelier: new-forms 11, permanent-collection 14, tailoring 5)",
+  "vendor": "LINEA NOVE",
+  "status": "draft",
+  "inventory": { "tracker": "", "policy": "deny" },
+  "pending_data": [
+    "Tallas: CLAUDE-DEMO-001 da XS-XL por defecto; la tienda sartorial-atelier mostró 34-40 en bias-cut-slip-dress. Johandry fija la escala real de cada producto antes de importar (D-01-L).",
+    "Tallas «24 a 34» de pantalones y faldas: se exportan como 24, 26, 28, 30, 32, 34 (pares). Confirmar si son pares o correlativas.",
+    "Precios: los de CLAUDE-DEMO-001 (USD). La tienda sartorial-atelier tenía otro precio para el vestido (680 frente a 780).",
+    "Nombre LINEA NOVE: búsqueda de marca registrada pendiente (CLAUDE-DEMO-001 §Cero)."
+  ],
+  "products": [
+    { "handle": "serra-coat", "title": "Serra Coat", "type": "Coats", "price": 1890, "colors": ["Ink", "Camel", "Bone"], "sizes": "alpha", "tags": ["outerwear", "autumn-series", "permanent"],
+      "body": "Double-faced wool and cashmere, woven in Biella and cut without a lining so the coat falls from the shoulder. Raglan sleeves and a waist without darts let the volume settle around the body in movement. Wrap closure with a belt in the same cloth." },
+    { "handle": "doppio-trench", "title": "Doppio Trench", "type": "Coats", "price": 1240, "colors": ["Clay", "Ink"], "sizes": "alpha", "tags": ["outerwear", "autumn-series"],
+      "body": "Egyptian cotton gabardine with a dry-wax finish. Two layers across the back and a high centre vent for walking. The belt fastens with a covered buckle, with no metal in sight." },
+    { "handle": "cocoon-cardigan-coat", "title": "Cocoon Cardigan-Coat", "type": "Coats", "price": 980, "colors": ["Bone", "Olive"], "sizes": "alpha", "tags": ["outerwear", "knitwear", "autumn-series"],
+      "body": "Alpaca spun in Arequipa, knitted in an open stitch and made without side seams. Wear it as a light coat indoors or as a middle layer under a cloth coat." },
+    { "handle": "quilted-silk-liner", "title": "Quilted Silk Liner", "type": "Jackets", "price": 640, "colors": ["Ink", "Olive"], "sizes": "alpha", "tags": ["outerwear", "permanent"],
+      "body": "Washed silk filled with recycled down, quilted in four-centimetre channels. Designed to button inside the Serra Coat or to be worn on its own over fine knitwear." },
+    { "handle": "nove-blazer", "title": "Nove Blazer", "type": "Jackets", "price": 1150, "colors": ["Ink", "Clay", "Bone"], "sizes": "alpha", "tags": ["tailoring", "permanent"],
+      "body": "The cut that gives the house its name. Mid-weight virgin wool, a natural shoulder without padding, one button and a high lapel. A floating canvas, hand-stitched at the chest, lets the jacket take the shape of the person who wears it." },
+    { "handle": "cropped-tailored-jacket", "title": "Cropped Tailored Jacket", "type": "Jackets", "price": 890, "colors": ["Ink", "Olive"], "sizes": "alpha", "tags": ["tailoring", "autumn-series"],
+      "body": "A short version of the Nove Blazer, finished at the natural waist. Two buttons, jetted pockets without flaps and a single back vent." },
+    { "handle": "pleated-wide-trouser", "title": "Pleated Wide Trouser", "type": "Trousers", "price": 580, "colors": ["Ink", "Clay", "Bone"], "sizes": "waist", "tags": ["tailoring", "permanent"],
+      "body": "Two inverted pleats from a high waistband. Cool wool with four percent elastane in the weft, so the pleat holds through a day of sitting. Left unhemmed, ready to be finished to the shoe." },
+    { "handle": "cigarette-trouser", "title": "Cigarette Trouser", "type": "Trousers", "price": 520, "colors": ["Ink", "Olive"], "sizes": "waist", "tags": ["tailoring", "permanent"],
+      "body": "A straight, narrow leg, a high waistband and a concealed side zip. No front pockets, so the line of the hip stays clean." },
+    { "handle": "wool-waistcoat", "title": "Wool Waistcoat", "type": "Waistcoats", "price": 460, "colors": ["Ink", "Clay"], "sizes": "alpha", "tags": ["tailoring", "autumn-series"],
+      "body": "A five-button waistcoat in the same cloth as the Nove Blazer, with a cupro back and an adjustable buckle. Designed to complete the suit or to be worn over a poplin shirt." },
+    { "handle": "cashmere-rib-crew", "title": "Cashmere Rib Crew", "type": "Knitwear", "price": 480, "colors": ["Bone", "Ink", "Clay", "Olive"], "sizes": "alpha", "tags": ["knitwear", "permanent"],
+      "body": "Two-ply cashmere in a fine rib, with a crew neck and double cuffs. Knitted at a family factory in Umbria that has worked with the house since the first collection." },
+    { "handle": "fine-merino-turtleneck", "title": "Fine Merino Turtleneck", "type": "Knitwear", "price": 320, "colors": ["Bone", "Ink", "Olive"], "sizes": "alpha", "tags": ["knitwear", "permanent"],
+      "body": "Extra-fine 19-micron merino with a high neck that folds over once. Thin enough to wear under tailoring without bulk at the shoulder." },
+    { "handle": "hand-framed-cotton-polo", "title": "Hand-Framed Cotton Polo", "type": "Knitwear", "price": 290, "colors": ["Bone", "Clay"], "sizes": "alpha", "tags": ["knitwear", "autumn-series"],
+      "body": "Long-staple cotton knitted on a hand-operated machine, with three corozo buttons and a flat collar. The knit relaxes with wear and recovers with washing." },
+    { "handle": "oversized-alpaca-knit", "title": "Oversized Alpaca Knit", "type": "Knitwear", "price": 620, "colors": ["Camel", "Bone"], "sizes": "two", "tags": ["knitwear", "autumn-series"],
+      "body": "Alpaca in a chunky knit with a dropped shoulder and a short body. Made in two sizes, one and two. Designed to be worn over a long shirt." },
+    { "handle": "poplin-column-shirt", "title": "Poplin Column Shirt", "type": "Shirts", "price": 340, "colors": ["White", "Bone", "Ink"], "sizes": "alpha", "tags": ["shirting", "permanent"],
+      "body": "120-thread cotton poplin, a straight body without darts and a length that falls below the hip. Semi-Italian collar with a soft interlining and a concealed placket." },
+    { "handle": "silk-charmeuse-blouse", "title": "Silk Charmeuse Blouse", "type": "Shirts", "price": 520, "colors": ["Bone", "Olive"], "sizes": "alpha", "tags": ["shirting", "autumn-series"],
+      "body": "Silk charmeuse with a heavy drape, a shirt collar and covered buttons. Cut one size generous on purpose so the fabric can move." },
+    { "handle": "striped-cotton-shirt", "title": "Striped Cotton Shirt", "type": "Shirts", "price": 310, "colors": ["Ink stripe", "Clay stripe"], "sizes": "alpha", "tags": ["shirting", "permanent"],
+      "body": "A woven stripe, not a print, in combed cotton. Single-button cuff and a centre pleat at the back." },
+    { "handle": "bias-cut-slip-dress", "title": "Bias-Cut Slip Dress", "type": "Dresses", "price": 780, "colors": ["Ink", "Bone"], "sizes": "alpha", "tags": ["dresses", "autumn-series"],
+      "body": "Silk cut on the bias in four panels, with adjustable straps and a low back. The bias lets the dress follow the body without shaping seams." },
+    { "handle": "column-knit-dress", "title": "Column Knit Dress", "type": "Dresses", "price": 590, "colors": ["Ink", "Olive"], "sizes": "alpha", "tags": ["dresses", "knitwear", "permanent"],
+      "body": "Merino knitted as a tube, without side seams, with a back vent at mid-calf. It steams flat and travels well." },
+    { "handle": "wrap-wool-skirt", "title": "Wrap Wool Skirt", "type": "Skirts", "price": 440, "colors": ["Ink", "Clay"], "sizes": "waist", "tags": ["skirts", "autumn-series"],
+      "body": "A wool wrap skirt with a single visible seam and an inner tie. The wrap falls straight and does not open when walking." },
+    { "handle": "pleated-midi-skirt", "title": "Pleated Midi Skirt", "type": "Skirts", "price": 480, "colors": ["Bone", "Olive"], "sizes": "waist", "tags": ["skirts", "permanent"],
+      "body": "Knife pleats heat-set in lightweight wool, a narrow waistband and a side closure. Mid-calf length." },
+    { "handle": "leather-belt", "title": "Leather Belt", "type": "Accessories", "price": 240, "colors": ["Ink", "Cognac"], "sizes": "belt", "tags": ["accessories", "permanent"],
+      "body": "Single-layer vegetable-tanned leather, without reinforcement, with an unpolished brass buckle. It takes on colour with use." },
+    { "handle": "cashmere-scarf", "title": "Cashmere Scarf", "type": "Accessories", "price": 290, "colors": ["Bone", "Ink", "Camel"], "sizes": "none", "tags": ["accessories", "permanent"],
+      "body": "Cashmere in a diagonal twill, 180 by 45 centimetres, with a hand-knotted fringe." },
+    { "handle": "structured-tote", "title": "Structured Tote", "type": "Bags", "price": 940, "colors": ["Ink", "Cognac"], "sizes": "none", "tags": ["accessories", "bags", "permanent"],
+      "body": "Calf leather with a rigid base and handles hand-sewn in saddle stitch. One compartment, one inside pocket, no closure. Fits a thirteen-inch laptop." },
+    { "handle": "silk-twill-square", "title": "Silk Twill Square", "type": "Accessories", "price": 180, "colors": ["Olive print", "Clay print"], "sizes": "none", "tags": ["accessories", "autumn-series"],
+      "body": "A 90-centimetre silk twill square with a hand-rolled hem. The design comes from the house's archive studio." }
+  ],
+  "size_scales": {
+    "alpha": ["XS", "S", "M", "L", "XL"],
+    "waist": ["24", "26", "28", "30", "32", "34"],
+    "belt": ["70", "75", "80", "85"],
+    "two": ["1", "2"],
+    "none": []
+  },
+  "collections": [
+    { "handle": "new-forms", "title": "New forms", "tag": "autumn-series", "note": "Referenciada por listings/sartorial/templates/index.json (pestaña «New forms»). Mismos miembros que la serie de otoño; en sartorial-atelier tenía 11." },
+    { "handle": "the-autumn-series", "title": "The Autumn Series", "tag": "autumn-series", "note": "Referenciada por templates/index.json (plantilla raíz). Crear solo si la tienda usa la plantilla raíz." },
+    { "handle": "permanent-collection", "title": "Permanent collection", "tag": "permanent", "note": "Handle explícito permanent-collection (no the-permanent-collection)." },
+    { "handle": "tailoring", "title": "Tailoring", "tag": "tailoring" },
+    { "handle": "knitwear", "title": "Knitwear", "tag": "knitwear" },
+    { "handle": "outerwear", "title": "Outerwear", "tag": "outerwear" },
+    { "handle": "accessories", "title": "Accessories", "tag": "accessories" }
+  ],
+  "pages": [
+    { "handle": "about", "title": "About", "template": "about" },
+    { "handle": "faq", "title": "FAQ", "template": "faq" },
+    { "handle": "contact", "title": "Contact", "template": "contact" }
+  ],
+  "policies": ["refund-policy", "shipping-policy", "privacy-policy", "terms-of-service"],
+  "menus": {
+    "main-menu": [
+      { "title": "Catalog", "url": "/collections/all", "children": [
+        { "title": "New forms", "url": "/collections/new-forms" },
+        { "title": "Permanent collection", "url": "/collections/permanent-collection" },
+        { "title": "Tailoring", "url": "/collections/tailoring" },
+        { "title": "Knitwear", "url": "/collections/knitwear" },
+        { "title": "Outerwear", "url": "/collections/outerwear" },
+        { "title": "Accessories", "url": "/collections/accessories" }
+      ] },
+      { "title": "Tailoring", "url": "/collections/tailoring" },
+      { "title": "About", "url": "/pages/about" },
+      { "title": "Contact", "url": "/pages/contact" }
+    ],
+    "footer": [
+      { "title": "FAQ", "url": "/pages/faq" },
+      { "title": "Contact", "url": "/pages/contact" },
+      { "title": "Shipping policy", "url": "/policies/shipping-policy" },
+      { "title": "Refund policy", "url": "/policies/refund-policy" },
+      { "title": "Privacy policy", "url": "/policies/privacy-policy" },
+      { "title": "Terms of service", "url": "/policies/terms-of-service" }
+    ]
+  },
+  "photo_views": {
+    "default": ["Front, full garment on model or form", "Back", "Fabric or construction detail"],
+    "bias-cut-slip-dress": ["Front, full length", "Back", "Side or in movement, showing the bias drape", "Detail of straps and hem"],
+    "accessories": ["Front", "Detail of material or finish", "In use or to scale"]
+  },
+  "photo_slots": [
+    { "surface": "Home", "section": "hero-editorial", "setting": "image_desktop", "min_width": 2400, "orientation": "landscape", "subject": "Editorial image of the house's tailoring or the autumn series" },
+    { "surface": "Home", "section": "hero-editorial", "setting": "image_mobile", "min_width": 1200, "orientation": "portrait", "subject": "Mobile crop of the hero image" },
+    { "surface": "Home", "section": "curated-showcase / New forms", "setting": "editorial_image", "min_width": 1600, "orientation": "portrait", "subject": "A piece from New forms" },
+    { "surface": "Home", "section": "curated-showcase / Permanent collection", "setting": "editorial_image", "min_width": 1600, "orientation": "portrait", "subject": "A piece from the permanent collection" },
+    { "surface": "Home", "section": "curated-showcase / Tailoring salon", "setting": "editorial_image", "min_width": 1600, "orientation": "portrait", "subject": "Nove Blazer or tailoring detail" },
+    { "surface": "Home", "section": "lookbook", "setting": "image_desktop", "min_width": 2400, "orientation": "landscape", "subject": "One look wearing nove-blazer, pleated-wide-trouser, silk-charmeuse-blouse and cashmere-scarf (the four hotspots)" },
+    { "surface": "Home", "section": "lookbook", "setting": "image_mobile", "min_width": 1200, "orientation": "portrait", "subject": "Mobile crop of the same look; hotspots must still sit on each garment" },
+    { "surface": "Home", "section": "complete-the-look", "setting": "image_desktop", "min_width": 1600, "orientation": "portrait", "subject": "The set nove-blazer, silk-charmeuse-blouse and pleated-wide-trouser worn together" },
+    { "surface": "Home", "section": "complete-the-look", "setting": "image_mobile", "min_width": 1200, "orientation": "portrait", "subject": "Mobile crop of the same set" },
+    { "surface": "Home", "section": "brand-manifesto", "setting": "image", "min_width": 1200, "orientation": "portrait", "subject": "Atelier or cloth detail that supports the manifesto text" },
+    { "surface": "Collection", "section": "main-collection / promotion tile", "setting": "image", "min_width": 960, "orientation": "portrait", "subject": "Tailoring image (the tile links to /collections/tailoring)" },
+    { "surface": "Header", "section": "header / mega menu promo (Catalog)", "setting": "image_1", "min_width": 800, "orientation": "portrait 4:5", "subject": "New forms" },
+    { "surface": "Header", "section": "header / mega menu promo (Catalog)", "setting": "image_2", "min_width": 800, "orientation": "portrait 4:5", "subject": "Permanent collection" },
+    { "surface": "Collection", "section": "collection image (admin)", "setting": "collection featured image, one per collection", "min_width": 2400, "orientation": "landscape", "subject": "One distinct image per collection in this file" }
+  ]
+}

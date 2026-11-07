@@ -1,7 +1,8 @@
 {%- comment -%}
   Renders product provenance block for vintage/archive pieces.
-  Each row renders only when backed by verified product data or explicit settings.
-  Without verified data, nothing renders in the storefront.
+  Rows come only from this block's settings, which show as entered for every product that displays the block.
+  The unique piece label also checks the product's variant count and inventory settings.
+  With every setting empty or off, nothing renders in the storefront.
   Accepts:
   - block: {Object} Block object with settings and shopify_attributes.
   - product: {Object} Product Liquid object.
@@ -23,30 +24,19 @@
     assign unique_piece = true
   endif
 
-  # Provenance year: read from product metafields first (provenance_date, era, circa_year)
-  assign provenance_year = product.metafields.custom.provenance_date.value | default: product.metafields.custom.provenance_date | default: product.metafields.custom.era.value | default: product.metafields.custom.era | default: product.metafields.custom.circa_year.value | default: product.metafields.custom.circa_year
-
-  # If no product metafield exists: only use block.settings.circa_year if it is a verified archival product (has year in title/tags or archive type), preventing fixed 'Circa 1990' on generic products
-  if provenance_year == blank and block.settings.circa_year != blank
-    assign setting_year_clean = block.settings.circa_year | strip
-    unless setting_year_clean contains '{{' or setting_year_clean == blank
-      assign p_title_lower = product.title | downcase
-      assign p_type_lower = product.type | downcase
-      if p_title_lower contains '19' or p_title_lower contains '20' or p_title_lower contains 'archive' or p_title_lower contains 'vintage' or p_type_lower contains 'archive' or p_type_lower contains 'vintage'
-        assign provenance_year = setting_year_clean
-      endif
-    endunless
+  # Year, condition grade and notes come only from this block's settings.
+  assign provenance_year = block.settings.circa_year | strip
+  if provenance_year contains '{{'
+    assign provenance_year = ''
   endif
 
-  # Condition grade: read from metafield if present, fallback to block setting if assessed
-  assign condition_grade_val = product.metafields.custom.condition_grade.value | default: product.metafields.custom.condition_grade | default: block.settings.condition_grade
+  assign condition_grade_val = block.settings.condition_grade
   assign show_grade = false
   if condition_grade_val != blank and condition_grade_val != 'not_assessed'
     assign show_grade = true
   endif
 
-  # Provenance notes
-  assign provenance_notes_val = product.metafields.custom.provenance_notes.value | default: product.metafields.custom.provenance_notes | default: block.settings.provenance_notes
+  assign provenance_notes_val = block.settings.provenance_notes
 -%}
 
 {%- if unique_piece or show_grade or provenance_year != blank or provenance_notes_val != blank -%}

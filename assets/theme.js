@@ -296,6 +296,10 @@
         event.preventDefault();
         this.setOpen(false, true);
       });
+      // B-01 (TT-104). El corte movil/escritorio vive solo en el CSS (base.css oculta
+      // .site-header__mobile-menu en escritorio). Si el cajon abierto deja de pintarse por un
+      // cambio de ancho o un giro, se cierra aqui y devuelve scroll, inert y foco sin Escape.
+      this.listen(window, 'resize', () => this.closeIfHidden(), { passive: true });
     }
 
     disconnectedCallback() {
@@ -305,6 +309,21 @@
 
     get isOpen() {
       return this.trigger?.getAttribute('aria-expanded') === 'true';
+    }
+
+    // Cerrar sin restoreFocus: el disparador ya no se ve y focus() sobre el no haria nada.
+    // Si el foco estaba en el cajon (o cayo a BODY al ocultarse), pasa al primer control
+    // visible que sigue al cajon en su seccion: en escritorio, la navegacion principal.
+    closeIfHidden() {
+      if (!this.isOpen || this.trigger.getClientRects().length > 0) return;
+      const active = document.activeElement;
+      const focusWasInside = !active || active === document.body || this.contains(active);
+      this.setOpen(false);
+      if (!focusWasInside) return;
+      const scope = this.closest('[data-section-id]') || document.body;
+      const target = getFocusableElements(scope).find((element) => !this.contains(element)
+        && (this.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING));
+      target?.focus({ preventScroll: true });
     }
 
     setOpen(open, restoreFocus = false) {
@@ -441,6 +460,14 @@
 
     syncCarouselMode() {
       const active = this.carouselQuery.matches;
+      const pagerHasFocus = Boolean(
+        this.pager && (this.pager === document.activeElement || this.pager.contains(document.activeElement)),
+      );
+      const trackHasFocus = Boolean(
+        this.track && (this.track === document.activeElement || (this.track.contains(document.activeElement) && !pagerHasFocus)),
+      );
+      const slideIndex = Math.max(0, this.currentSlide >= 0 ? this.currentSlide : 0);
+
       this.pager.hidden = !active;
 
       // Una pista desplazable tiene que poder recibir el foco para que el teclado la mueva
@@ -449,12 +476,29 @@
       if (active) {
         this.track.tabIndex = 0;
         this.track.setAttribute('aria-label', this.getAttribute('aria-label') || '');
+        this.syncSlide(false);
       } else {
         this.track.removeAttribute('tabindex');
         this.track.removeAttribute('aria-label');
+        if (this.currentSlide < 0) this.applySlide(0, false);
       }
 
-      this.syncSlide(false);
+      // Si el paginador o la pista tenian el foco y se ocultan en escritorio, transferir
+      // el foco a un elemento interactivo y visible de la diapositiva actual (ej. zoom)
+      // o a la propia diapositiva con tabindex="0" para no expulsar el foco al body.
+      if (!active && (pagerHasFocus || trackHasFocus)) {
+        const targetSlide = (this.slides && this.slides[slideIndex]) || this.slides?.[0];
+        if (targetSlide) {
+          const interactive = targetSlide.querySelector(
+            'button:not([disabled]), [tabindex="0"], a[href], video, [data-gallery-zoom-trigger]',
+          );
+          const fallback = interactive || targetSlide;
+          if (fallback === targetSlide && !fallback.hasAttribute('tabindex')) {
+            fallback.setAttribute('tabindex', '0');
+          }
+          fallback.focus?.();
+        }
+      }
     }
 
     slideIndexFromScroll() {
@@ -477,10 +521,21 @@
       });
 
       if (this.counter) this.counter.textContent = String(index + 1);
+      const focusedStep = this.steps.find(
+        (step) => step === document.activeElement || step.contains(document.activeElement),
+      );
       this.steps.forEach((step) => {
         const direction = Number(step.dataset.galleryStep);
         step.disabled = direction < 0 ? index === 0 : index === this.slides.length - 1;
       });
+      // Si el boton recien pulsado toca el limite y se deshabilita, el foco caeria al
+      // body desorientando a tecnologias asistivas: se pasa al boton opuesto disponible
+      // o a la pista del carrusel.
+      if (focusedStep && focusedStep.disabled) {
+        const fallback = this.steps.find((step) => !step.disabled)
+          || (this.track && this.track.tabIndex >= 0 ? this.track : null);
+        fallback?.focus();
+      }
 
       if (announce && this.carouselStatus) {
         const template = this.pager.dataset.viewMediaTemplate || '';
@@ -534,6 +589,7 @@
 
       if (this.variantData.length === 0) return;
 
+      this.takeOverNativeControls();
       this.moneyFormat = this.dataset.moneyFormat || '';
       this.quantityInput = this.querySelector('[data-quantity-input]');
       this.lineTotal = this.querySelector('[data-line-total]');
@@ -587,6 +643,19 @@
       const variantId = this.querySelector('[data-variant-id]')?.value;
       return this.variantData.find((variant) => String(variant.id) === String(variantId))
         || this.variantData[0];
+    }
+
+    // A-01/B-02: con JS, los selects nativos de variante y plan (sin JS) dejan de enviar
+    // valores: se desactivan y pierden el name para que form.elements.namedItem('id') y
+    // ('selling_plan') sigan siendo un unico control. El hidden de variante se activa.
+    takeOverNativeControls() {
+      this.querySelectorAll('input[data-variant-id]').forEach((input) => {
+        input.disabled = false;
+      });
+      this.querySelectorAll('[data-no-js-control]').forEach((control) => {
+        control.disabled = true;
+        control.removeAttribute('name');
+      });
     }
 
     cachePurchaseOptionElements() {
@@ -1207,7 +1276,7 @@
       this.quantityInput = quantityField instanceof HTMLInputElement ? quantityField : null;
       this.lineTotal = this.closest('[data-section-id]')?.querySelector('[data-line-total]') || null;
       this.unitPrice = this.priceOutput?.textContent.trim() || '';
-      this.defaultAriaLabel = this.submitButton.getAttribute('aria-label') || '';
+      this.productTitle = this.querySelector('.sticky-cart-bar__title')?.textContent.trim() || '';
 
       if (this.quantityInput) {
         this.listen(this.quantityInput, 'input', () => this.renderQuantity());
@@ -1331,10 +1400,22 @@
           : '';
       }
 
-      const ariaLabel = multiple && this.dataset.quantityLabelTemplate
-        ? this.dataset.quantityLabelTemplate.replace('[quantity]', String(quantity))
-        : this.defaultAriaLabel;
-      if (ariaLabel) this.submitButton.setAttribute('aria-label', ariaLabel);
+      this.syncAccessibleName();
+    }
+
+    syncAccessibleName() {
+      const action = this.label?.textContent.trim();
+      if (!action) {
+        this.submitButton.removeAttribute('aria-label');
+        return;
+      }
+      const quantity = Number.parseInt(this.quantityInput?.value || '', 10);
+      const template = Number.isFinite(quantity) && quantity > 1 && this.dataset.quantityLabelTemplate
+        ? this.dataset.quantityLabelTemplate
+        : this.dataset.actionLabelTemplate;
+      const values = { action, product: this.productTitle, quantity: String(quantity) };
+      const name = template ? template.replace(/\[(action|product|quantity)\]/g, (_, token) => values[token]) : action;
+      this.submitButton.setAttribute('aria-label', name);
     }
 
     syncButtonState() {
@@ -1346,6 +1427,7 @@
       this.submitButton.setAttribute('aria-busy', String(busy));
       if (this.label && primaryLabel) this.label.textContent = primaryLabel.textContent.trim();
       if (this.spinner) this.spinner.hidden = !busy;
+      this.syncAccessibleName();
     }
   }
 
@@ -2215,11 +2297,85 @@
   }
 
   // Phase 2 (GPT-021). Cart drawer deadlines. The recommendations read is a complement:
-  // when it is late, the cards the server already rendered stay. The cross-sell add and
-  // the note save are never retried: a missed deadline leaves their result uncertain.
+  // when it is late, the cards the server already rendered stay. The adds (product form,
+  // cross-sell, complete the look) and the note save are never retried: a missed deadline
+  // leaves their result uncertain.
   const CART_RECOMMENDATIONS_TIMEOUT = 2000;
-  const CART_CROSS_SELL_ADD_TIMEOUT = 10000;
+  const CART_ADD_TIMEOUT = 10000;
   const CART_NOTE_SAVE_TIMEOUT = 3000;
+  // B-03 (RC-12, TT-102). Deadline of the /cart.js read that settles a lost add response.
+  const CART_RECONCILE_TIMEOUT = 5000;
+
+  // B-03. Quantity per variant id, summed over lines: one variant can sit on several lines
+  // (selling plans, line item properties).
+  const quantitiesByVariant = (items) => items.reduce((map, item) => {
+    const id = String(item?.variant_id ?? '');
+    if (id) map.set(id, (map.get(id) || 0) + (Number(item.quantity) || 0));
+    return map;
+  }, new Map());
+
+  // B-03. The same convention as CartDrawer.findLineFor: each line's title link carries
+  // ?variant=, and the quantity field's defaultValue is what the server rendered (a typed,
+  // unsent value does not count). null when the drawer cannot be read.
+  const drawerQuantities = (drawer) => {
+    if (!drawer?.querySelector?.('[data-cart-drawer-content]')) return null;
+    const items = [];
+    try {
+      for (const row of drawer.querySelectorAll('[data-cart-item-key]')) {
+        const href = row.querySelector('.cart-drawer-item__title a[href]')?.getAttribute('href');
+        const variantId = href ? new URL(href, window.location.origin).searchParams.get('variant') : null;
+        const quantity = Number(row.querySelector('[data-cart-quantity]')?.defaultValue);
+        if (!variantId || !Number.isInteger(quantity)) return null;
+        items.push({ variant_id: variantId, quantity });
+      }
+    } catch {
+      return null;
+    }
+    return quantitiesByVariant(items);
+  };
+
+  // B-03. GET {cart_url}.js. Never throws: null means the cart could not be read.
+  const readCartQuantities = async (cartUrl) => {
+    const controller = new AbortController();
+    const deadline = window.setTimeout(() => controller.abort(), CART_RECONCILE_TIMEOUT);
+    try {
+      const url = new URL(`${String(cartUrl || '/cart').replace(/\/$/, '')}.js`, window.location.origin);
+      const response = await fetch(url, {
+        headers: { Accept: 'application/json' },
+        cache: 'no-store',
+        signal: controller.signal,
+      });
+      if (!response.ok) return null;
+      const cart = await response.json();
+      if (!cart || !Array.isArray(cart.items)) return null;
+      return { items: cart.items, quantities: quantitiesByVariant(cart.items) };
+    } catch {
+      return null;
+    } finally {
+      window.clearTimeout(deadline);
+    }
+  };
+
+  // B-03. Settles an add whose response was lost by comparing the cart before and after.
+  // - applied: every requested variant grew by at least the requested quantity.
+  // - not_applied: none moved, and the POST could not still land later. Without any
+  //   response (network error, our own deadline) or with a 5xx page from Shopify or a
+  //   gateway, the request may still be applied after the read.
+  // - unknown: anything else, including a cart that could not be read. Never a retry prompt.
+  const classifyAdd = (requested, before, after, mayStillLand) => {
+    if (!before || !after || requested.size === 0) return 'unknown';
+    let applied = 0;
+    let untouched = 0;
+    requested.forEach((quantity, id) => {
+      if (!id) return;
+      const delta = (after.get(id) || 0) - (before.get(id) || 0);
+      if (delta >= quantity) applied += 1;
+      else if (delta === 0) untouched += 1;
+    });
+    if (applied === requested.size) return 'applied';
+    if (untouched === requested.size && !mayStillLand) return 'not_applied';
+    return 'unknown';
+  };
 
   class CartDrawer extends ThemeElement {
     connectedCallback() {
@@ -2255,6 +2411,8 @@
       this.crossSellOriginals = new WeakMap();
       this.noteVersion = 0;
       this.noteSavePending = false;
+      // B-03. The drawer HTML may no longer mirror the server (another tab, an unsettled add).
+      this.cartSnapshotStale = false;
 
       if (!this.overlay || !this.panel) return;
 
@@ -2292,6 +2450,10 @@
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
         event.preventDefault();
         this.close(true);
+      });
+      // B-03. While the page is hidden another tab can change the cart.
+      this.listen(document, 'visibilitychange', () => {
+        if (document.visibilityState === 'hidden') this.cartSnapshotStale = true;
       });
     }
 
@@ -2372,6 +2534,14 @@
       );
       if (viewLink) {
         this.handleCrossSellView(event, viewLink);
+        return;
+      }
+
+      // B-04. View cart leaves the drawer too: same guarded note save as the card links.
+      // Checkout is not routed here; the cart form posts the note natively.
+      const viewCartLink = event.target.closest('[data-cart-view-cart]');
+      if (viewCartLink) {
+        this.handleCrossSellView(event, viewCartLink);
         return;
       }
 
@@ -2508,57 +2678,100 @@
       this.managedInertElements = [];
     }
 
+    // B-03. Cart quantities before an add. The drawer HTML is used when it is the last
+    // thing the server rendered and nothing can have moved since; otherwise /cart.js is
+    // read. The freshness test runs synchronously, so callers invoke this before
+    // beginMutation() and await the promise just before their POST.
+    async cartBaseline() {
+      const fresh = !this.cartSnapshotStale && !this.pendingMutations
+        && this.renderedRevision === this.syncRevision;
+      const fromDrawer = fresh ? drawerQuantities(this) : null;
+      if (fromDrawer) return fromDrawer;
+      return (await readCartQuantities(this.dataset.cartUrl))?.quantities || null;
+    }
+
     async addItem(form, submitter) {
       // Blocks a second submit while the first is in flight, which otherwise buys the
       // item twice. Switching variant mid-request used to re-enable the button through
       // updateForms; that path now reads this flag and leaves it disabled.
       if (form.dataset.cartAddPending === 'true') return;
       form.dataset.cartAddPending = 'true';
+      const baseline = this.cartBaseline();
       const revision = this.beginMutation();
       this.clearMessages(form);
       this.setFormBusy(form, submitter, true);
+      // B-03. Without a deadline a hung request kept the button disabled for good.
+      const controller = new AbortController();
+      let timedOut = false;
+      const deadline = window.setTimeout(() => {
+        timedOut = true;
+        controller.abort();
+      }, CART_ADD_TIMEOUT);
 
       try {
         const formData = new FormData(form);
         formData.set('sections', this.renderSectionIds().join(','));
         formData.set('sections_url', `${window.location.pathname}${window.location.search}`);
-
-        const response = await fetchCommerce(this.dataset.cartAddUrl, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-          body: formData,
-        }, this.dataset.errorMessage);
-        // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
-        // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
-        // failure is turned into the localized message instead. A deliberate abort keeps
-        // its own name, because callers use it to stay silent.
-        const result = await response.json().catch((error) => {
-          if (error.name === 'AbortError') throw error;
-          throw new Error(this.dataset.errorMessage);
-        });
-
-        if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
-
-        await this.renderCartResponse(result, revision);
-
-        // 5A-003, GPT-AUDIT-005 H1. Un 200 no prueba que la linea exista: con una variante
-        // que exige plan de venta Shopify devuelve {} (medido en la tienda con F06) y el
-        // cajon anunciaba un exito falso. El exito solo se anuncia si la respuesta trae la
-        // variante pedida y, cuando fue esta respuesta la que se pinto, si el carrito fresco
-        // tiene su linea. Si otra mutacion la adelanto, basta con la respuesta.
         const requestedId = String(formData.get('id') || '');
-        const addedLine = this.findLineFor({ variant_id: requestedId });
-        const renderedHere = this.renderedRevision === revision;
-        if (!this.responseHasVariant(result, requestedId) || (renderedHere && !addedLine)) {
-          throw new Error(this.dataset.addFailedMessage || this.dataset.errorMessage);
+        const requested = new Map([[requestedId, Math.max(1, Number(formData.get('quantity')) || 1)]]);
+        const before = await baseline;
+
+        // B-03 (RC-12, TT-102). A lost response (network error, deadline, or a body that is
+        // not JSON, such as an HTML 429/5xx page) does not prove the add failed: Shopify may
+        // have applied it. The cart is read before the shopper is told anything, so "try again"
+        // only appears when the server answered, nothing was added and the request cannot
+        // land later. A JSON answer, error or not, keeps the path below.
+        let response = null;
+        let result = null;
+        try {
+          response = await fetch(this.dataset.cartAddUrl, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData,
+            signal: controller.signal,
+          });
+          result = await response.json();
+        } catch {
+          result = null;
+        }
+        window.clearTimeout(deadline);
+
+        let reconciledItems = null;
+        if (!response || result === null || typeof result !== 'object') {
+          const after = await readCartQuantities(this.dataset.cartUrl);
+          const mayStillLand = timedOut || !response || response.status >= 500;
+          const outcome = classifyAdd(requested, before, after?.quantities, mayStillLand);
+          if (outcome === 'not_applied') throw new Error(this.dataset.errorMessage);
+          if (outcome === 'unknown') {
+            this.showUnconfirmedAdd(submitter);
+            return;
+          }
+          reconciledItems = after.items;
+          // The cart already confirms the add. A render that fails only leaves the drawer
+          // stale, and endMutation() then fetches fresh HTML.
+          await this.renderCartResponse({}, revision).catch(() => {});
+        } else {
+          if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+
+          await this.renderCartResponse(result, revision);
+
+          // 5A-003, GPT-AUDIT-005 H1. Un 200 no prueba que la linea exista: con una variante
+          // que exige plan de venta Shopify devuelve {} (medido en la tienda con F06) y el
+          // cajon anunciaba un exito falso. El exito solo se anuncia si la respuesta trae la
+          // variante pedida y, cuando fue esta respuesta la que se pinto, si el carrito fresco
+          // tiene su linea. Si otra mutacion la adelanto, basta con la respuesta.
+          const renderedLine = this.findLineFor({ variant_id: requestedId });
+          const renderedHere = this.renderedRevision === revision;
+          if (!this.responseHasVariant(result, requestedId) || (renderedHere && !renderedLine)) {
+            throw new Error(this.dataset.addFailedMessage || this.dataset.errorMessage);
+          }
         }
 
-        const addedItem = Array.isArray(result.items)
-          ? result.items.find((item) => String(item.variant_id || item.id) === requestedId)
-          : result;
+        const addedItems = reconciledItems || (Array.isArray(result.items) ? result.items : [result]);
+        const addedItem = addedItems.find((item) => String(item?.variant_id ?? item?.id ?? '') === requestedId);
         const productTitle = addedItem?.product_title || addedItem?.title || '';
         const variantTitle = addedItem?.variant_title === 'Default Title'
           ? ''
@@ -2568,8 +2781,10 @@
           ? `${this.dataset.addedMessage} ${itemDescription}`
           : this.dataset.addedMessage);
         // Desde una tarjeta, el foco aterriza en la linea que se acaba de anadir.
+        const addedLine = this.findLineFor({ variant_id: requestedId });
         this.open(submitter, form.hasAttribute('data-quick-buy-form') ? addedLine : null);
       } finally {
+        window.clearTimeout(deadline);
         delete form.dataset.cartAddPending;
         this.setFormBusy(form, submitter, false);
         // Re-applies the availability state of whatever variant is selected now, which
@@ -2580,6 +2795,20 @@
         if (card?.isConnected) card.syncQuickBuy();
         this.endMutation();
       }
+    }
+
+    // B-03. An add whose outcome the cart could not settle: nothing invites a retry. The
+    // drawer opens on the same notice and Check cart as an uncertain cross-sell add, and
+    // endMutation() re-reads the cart even while an option panel is in use.
+    showUnconfirmedAdd(trigger = null) {
+      this.reconcileAfterMutation = true;
+      this.cartSnapshotStale = true;
+      this.showError(this.dataset.updateUnconfirmedMessage || this.dataset.errorMessage);
+      const uncertain = this.querySelector('[data-cart-uncertain]');
+      if (uncertain) uncertain.hidden = false;
+      const checkButton = uncertain?.querySelector('[data-cart-check]') || null;
+      if (!this.isOpen) this.open(trigger, checkButton);
+      else checkButton?.focus();
     }
 
     // /cart/add.js devuelve la linea anadida ({ variant_id }) o, con items[], { items: [...] }.
@@ -2624,7 +2853,7 @@
       // Its own controller: crossSellController belongs to the recommendations read and
       // beginMutation() aborts it, which must never cut an add short.
       const controller = new AbortController();
-      const deadline = window.setTimeout(() => controller.abort(), CART_CROSS_SELL_ADD_TIMEOUT);
+      const deadline = window.setTimeout(() => controller.abort(), CART_ADD_TIMEOUT);
       let outcome = 'uncertain';
       let failureMessage = '';
 
@@ -2929,8 +3158,9 @@
       return control && !control.disabled && !control.closest('[hidden]') ? control : nextItem;
     }
 
-    // View product with an unsaved note: save it first, and leave only once the server has
-    // the exact draft. Modified clicks and new-tab links keep their native behaviour.
+    // A drawer link that leaves the drawer (View product, the card links, View cart) with an
+    // unsaved note: save it first, and leave only once the server has the exact draft.
+    // Modified clicks and new-tab links keep their native behaviour.
     handleCrossSellView(event, link) {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
         return;
@@ -3423,6 +3653,8 @@
       // against syncRevision to decide whether a deferred sync still has anything to
       // fetch: if every mutation since the sync was requested has rendered, it does not.
       this.renderedRevision = this.syncRevision;
+      // B-03. The drawer mirrors the server again: cartBaseline() may read it.
+      this.cartSnapshotStale = false;
 
       this.updateHeaderCount();
       this.loadRecommendations();
@@ -4080,12 +4312,29 @@
       this.clearMessages();
       this.setBusy(true);
       this.requestController?.abort();
-      this.requestController = new AbortController();
+      const controller = new AbortController();
+      this.requestController = controller;
+      // B-03. The drawer adds' deadline. Only this timeout, not a deliberate abort, is
+      // settled by reading the cart.
+      let timedOut = false;
+      const deadline = window.setTimeout(() => {
+        timedOut = true;
+        controller.abort();
+      }, CART_ADD_TIMEOUT);
       const drawer = document.querySelector('cart-drawer');
+      // B-03. Taken before beginMutation(). Without a drawer (cart type "page") /cart.js is read.
+      const baseline = typeof drawer?.cartBaseline === 'function'
+        ? drawer.cartBaseline()
+        : readCartQuantities(this.dataset.cartUrl).then((cart) => cart?.quantities || null);
       const revision = drawer?.beginMutation?.();
       const requestBody = {
         items: selectedItems.map(({ id, quantity }) => ({ id, quantity })),
       };
+      const requested = new Map();
+      selectedItems.forEach(({ id, quantity }) => {
+        const key = String(id);
+        requested.set(key, (requested.get(key) || 0) + (Number(quantity) || 1));
+      });
 
       if (drawer?.dataset.sectionId) {
         requestBody.sections = typeof drawer.renderSectionIds === 'function'
@@ -4095,22 +4344,51 @@
       }
 
       try {
-        const response = await fetchCommerce(this.dataset.cartAddUrl, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-          body: JSON.stringify(requestBody),
-          signal: this.requestController.signal,
-        }, this.dataset.errorMessage);
-        // See addItem: an HTML error page must surface as the localized message, not as
-        // a JSON SyntaxError, and an abort must stay an abort.
-        const result = await response.json().catch((error) => {
-          if (error.name === 'AbortError') throw error;
-          throw new Error(this.dataset.errorMessage);
-        });
+        const before = await baseline;
+        // B-03. See addItem: a lost response (network error, deadline, an HTML error page)
+        // is settled by reading the cart before the shopper is invited to try again.
+        let response = null;
+        let result = null;
+        try {
+          response = await fetch(this.dataset.cartAddUrl, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify(requestBody),
+            signal: controller.signal,
+          });
+          result = await response.json();
+        } catch (error) {
+          if (error.name === 'AbortError' && !timedOut) throw error;
+          result = null;
+        }
+        window.clearTimeout(deadline);
+
+        if (!response || result === null || typeof result !== 'object') {
+          const after = await readCartQuantities(this.dataset.cartUrl);
+          const mayStillLand = timedOut || !response || response.status >= 500;
+          const outcome = classifyAdd(requested, before, after?.quantities, mayStillLand);
+          if (outcome === 'not_applied') throw new Error(this.dataset.errorMessage);
+          if (outcome === 'unknown' && typeof drawer?.showUnconfirmedAdd === 'function') {
+            drawer.showUnconfirmedAdd(this.submitButton);
+            return;
+          }
+          const canOpenDrawer = typeof drawer?.renderCartResponse === 'function'
+            && typeof drawer.open === 'function';
+          if (outcome === 'unknown' || !canOpenDrawer) {
+            // The cart page shows what the server holds.
+            window.location.assign(this.dataset.cartUrl);
+            return;
+          }
+          await drawer.renderCartResponse({}, revision).catch(() => {});
+          drawer.showStatus?.(this.dataset.addedMessage);
+          drawer.open(this.submitButton);
+          this.showStatus(this.dataset.addedMessage);
+          return;
+        }
 
         if (!response.ok) {
           throw new Error(result?.description || result?.message || this.dataset.errorMessage);
@@ -4137,6 +4415,7 @@
         drawer.open(this.submitButton);
         this.showStatus(this.dataset.addedMessage);
       } finally {
+        window.clearTimeout(deadline);
         this.setBusy(false);
         drawer?.endMutation?.();
       }

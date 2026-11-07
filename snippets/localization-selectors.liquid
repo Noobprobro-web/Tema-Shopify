@@ -49,11 +49,13 @@
       {%- if show_language_selector -%}
         <div class="localization-form__toggle" role="group" aria-label="{{ 'general.localization.language' | t }}">
           {%- for language in localization.available_languages -%}
+            {%- comment -%} WCAG 2.5.3 (B-05/LV-01): el nombre accesible del boton empieza por su texto visible. {%- endcomment -%}
+            {%- assign language_code_label = language.iso_code | upcase -%}
             {%- if language.iso_code == localization.language.iso_code -%}
               <span class="localization-form__item is-active" aria-current="true">
                 {%- assign active_language_name = language.endonym_name | capitalize -%}
                 <span class="visually-hidden">{{ 'general.localization.current_language' | t: language: active_language_name }}</span>
-                <span aria-hidden="true">{{- language.iso_code | upcase -}}</span>
+                <span aria-hidden="true">{{- language_code_label -}}</span>
               </span>
             {%- else -%}
               <button
@@ -61,9 +63,9 @@
                 type="submit"
                 name="language_code"
                 value="{{ language.iso_code | escape }}"
-                aria-label="{{ 'general.localization.update' | t }}: {{ language.endonym_name | capitalize | escape }}"
+                aria-label="{{ language_code_label | escape }}, {{ 'general.localization.update' | t }}: {{ language.endonym_name | capitalize | escape }}"
               >
-                {{- language.iso_code | upcase -}}
+                {{- language_code_label -}}
               </button>
             {%- endif -%}
             {%- unless forloop.last -%}

@@ -1,0 +1,402 @@
+{
+  "ID": "GATE5-DIAGNOSTIC-20261105T233226430Z-1d05170d-a60f-4fca-a41e-06c0167d3fd3",
+  "Estado": "failed",
+  "Decisión requerida": "Aplicar la autorización vigente: máximo cinco corridas; corregir los errores del tema y revisar cada cambio antes de continuar.",
+  "Resumen en 5 líneas": [
+    "Gate 5 diagnóstico instrumentado; ejecución sujeta al límite vigente y a revisión independiente.",
+    "El informe guarda nombres de comprobaciones, estado y códigos de motivo seguros.",
+    "No guarda credenciales, cookies, URLs completas, mensajes crudos ni cuerpos de red.",
+    "El estado de limpieza del carrito es verificado o desconocido; nunca se infiere.",
+    "El resultado global solo es positivo si pasan las comprobaciones requeridas y el carrito queda vacío."
+  ],
+  "Archivos tocados": [
+    "scripts/gate5-complete-verification.mjs"
+  ],
+  "Desviaciones": [],
+  "Hallazgos extra": [
+    "La causa se registra solo como código seguro; no se serializa la excepción original."
+  ],
+  "Verificación": [
+    "Gate 5 falló; consulta `checks` para la comprobación exacta y su motivo."
+  ],
+  "Afirmaciones falsables": [
+    {
+      "comprobación": "configuration",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "playwright_import",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "browser_launch",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "session_context",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "storefront_page_creation",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "anonymous_products_redirect",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "password_preview_access",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "authenticated_home_access",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "authenticated_products_json_access",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "collection_navigation",
+      "resultado": "failed",
+      "motivo": "PLAYWRIGHT_TIMEOUT"
+    },
+    {
+      "comprobación": "grid_switcher_presence",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "list_view_toggle",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "grid_2_toggle",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "grid_4_toggle",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "product_navigation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "quantity_subtotal_observation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "product_blocks",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "cart_add_observation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "cart_drawer_open",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "recommendation_chips",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "cart_note_persistence",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "theme_console_errors",
+      "resultado": "observed",
+      "motivo": "PARTIAL_EXECUTION"
+    },
+    {
+      "comprobación": "page_errors",
+      "resultado": "observed",
+      "motivo": "PARTIAL_EXECUTION"
+    },
+    {
+      "comprobación": "cart_cleanup",
+      "resultado": "not_run",
+      "motivo": "CART_NOT_TOUCHED; EMPTY_STATE_UNKNOWN"
+    },
+    {
+      "comprobación": "session_context_close",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "browser_shutdown",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "global_gate_result",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "diagnostic_json_write",
+      "resultado": "passed",
+      "motivo": null
+    }
+  ],
+  "run": {
+    "startedAt": "2026-11-05T23:32:26.431Z",
+    "finishedAt": "2026-11-05T23:33:03.669Z",
+    "themeId": "190232297715",
+    "result": "failed",
+    "failureReason": "PLAYWRIGHT_TIMEOUT",
+    "diagnosticWriteFailed": false,
+    "diagnosticWriteErrors": []
+  },
+  "checks": [
+    {
+      "name": "configuration",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "playwright_import",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "browser_launch",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "session_context",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "storefront_page_creation",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "anonymous_products_redirect",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "password_preview_access",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "authenticated_home_access",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "authenticated_products_json_access",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "collection_navigation",
+      "result": "failed",
+      "reason": "PLAYWRIGHT_TIMEOUT",
+      "details": null
+    },
+    {
+      "name": "grid_switcher_presence",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "list_view_toggle",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "grid_2_toggle",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "grid_4_toggle",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "product_navigation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "quantity_subtotal_observation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "product_blocks",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "cart_add_observation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "cart_drawer_open",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "recommendation_chips",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "cart_note_persistence",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "theme_console_errors",
+      "result": "observed",
+      "reason": "PARTIAL_EXECUTION",
+      "details": {
+        "errors": [
+          {
+            "type": "error",
+            "message": "Failed to load resource (HTTP 404).",
+            "file": null,
+            "line": 0,
+            "column": 0,
+            "page": "home",
+            "host": "cdn.shopify.com",
+            "pathname": null,
+            "severity": "warning",
+            "sourceReason": "EXTERNAL_SOURCE"
+          },
+          {
+            "type": "error",
+            "message": "Resource blocked by Content Security Policy.",
+            "file": null,
+            "line": 0,
+            "column": 0,
+            "page": "home",
+            "host": null,
+            "pathname": null,
+            "severity": "warning",
+            "sourceReason": "UNKNOWN_SOURCE"
+          },
+          {
+            "type": "error",
+            "message": "Failed to load resource (HTTP 403).",
+            "file": null,
+            "line": 0,
+            "column": 0,
+            "page": "home",
+            "host": null,
+            "pathname": null,
+            "severity": "warning",
+            "sourceReason": "UNKNOWN_SOURCE"
+          }
+        ],
+        "count": 3,
+        "failureCount": 0,
+        "warningCount": 3
+      }
+    },
+    {
+      "name": "page_errors",
+      "result": "observed",
+      "reason": "PARTIAL_EXECUTION",
+      "details": {
+        "errors": [],
+        "count": 0,
+        "failureCount": 0,
+        "warningCount": 0
+      }
+    },
+    {
+      "name": "cart_cleanup",
+      "result": "not_run",
+      "reason": "CART_NOT_TOUCHED; EMPTY_STATE_UNKNOWN",
+      "details": null
+    },
+    {
+      "name": "session_context_close",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "browser_shutdown",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "global_gate_result",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "diagnostic_json_write",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    }
+  ],
+  "cart": {
+    "touched": false,
+    "cleanupAttempted": false,
+    "emptyVerified": null,
+    "noteEmptyVerified": null
+  },
+  "failures": [
+    {
+      "check": "collection_navigation",
+      "reason": "PLAYWRIGHT_TIMEOUT"
+    }
+  ]
+}

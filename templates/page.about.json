@@ -15,20 +15,8 @@
           "type": "artisan_quote",
           "settings": {
             "quote": "A garment is finished when nothing else can be taken away.",
-            "attribution": "Head of atelier",
-            "role": "Cutting and finishing"
-          }
-        },
-        "values": {
-          "type": "values_grid",
-          "settings": {
-            "title": "What we hold to",
-            "value_1_title": "Traceable fibres",
-            "value_1_text": "<p>Every cloth is bought from a mill we can name.</p>",
-            "value_2_title": "Hand finished",
-            "value_2_text": "<p>Edges, linings and buttonholes are worked by hand.</p>",
-            "value_3_title": "Small series",
-            "value_3_text": "<p>Pieces are cut in short runs and rarely repeated.</p>"
+            "attribution": "",
+            "role": ""
           }
         },
         "gallery": {
@@ -36,11 +24,11 @@
           "settings": {
             "title": "Inside the studio",
             "show_third_image": true,
-            "caption": "Cutting, fitting and finishing, photographed over one season."
+            "caption": ""
           }
         }
       },
-      "block_order": ["story", "quote", "values", "gallery"],
+      "block_order": ["story", "quote", "gallery"],
       "settings": {
         "eyebrow": "Our story"
       }

@@ -4142,7 +4142,7 @@ marquee-banner {
 
   /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
      columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
-     Los heroes alineados a la izquierda (Sartorial, Couture, Edition) no cambian. */
+     Los heroes alineados a la izquierda (Sartorial, Imprint) no cambian. */
   .hero-editorial--align-center .hero-editorial__heading {
     font-size: min(calc(4.5rem * var(--font-heading-scale)), 6.2vw);
   }
@@ -7032,6 +7032,11 @@ copy-text {
   min-height: 52px;
 }
 
+.site-footer__newsletter .newsletter-form__field input::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+
 .site-footer__utilities {
   display: grid;
   margin-block-start: var(--space-2xl);
@@ -9094,34 +9099,37 @@ html[data-motion-style='heritage'] {
     text-underline-offset: 3px;
   }
 
+  /* Foco: el color del anillo sale del esquema (--color-foreground), igual que la regla base
+     :focus-visible. Un gris o un laton fijos bajan de 3:1 en esquemas oscuros o calidos (A-03).
+     Cada estilo solo cambia el outline-offset. */
   html[data-motion-style='technical'] .button:focus-visible,
   html[data-motion-style='technical'] input:focus-visible,
   html[data-motion-style='technical'] select:focus-visible {
-    outline: 2px solid #2b2b2b;
+    outline: var(--focus-width) solid var(--color-foreground);
     outline-offset: 2px;
   }
 
   /* Heritage: patina de laton envejecido y cursivas solemnes */
   html[data-motion-style='heritage'] .button:hover:not([disabled]) {
-    border-color: #b5885c;
-    color: #b5885c;
+    border-color: var(--color-foreground);
+    color: var(--color-foreground);
     background: transparent;
     transform: none;
   }
 
   html[data-motion-style='heritage'] .product-card:hover .product-card__title a {
-    color: #b5885c;
+    color: var(--color-foreground);
     font-style: italic;
   }
 
   html[data-motion-style='heritage'] .site-header__link:hover {
-    color: #b5885c;
+    color: var(--color-foreground);
   }
 
   html[data-motion-style='heritage'] .button:focus-visible,
   html[data-motion-style='heritage'] input:focus-visible,
   html[data-motion-style='heritage'] select:focus-visible {
-    outline: 2px solid #b5885c;
+    outline: var(--focus-width) solid var(--color-foreground);
     outline-offset: 3px;
   }
 }
@@ -9942,7 +9950,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   }
 }
 
-/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Edition) y procedencia (Archive). */
+/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Imprint) y procedencia (Archive). */
 .product-technical-specs,
 .product-provenance {
   display: grid;

@@ -1,0 +1,34 @@
+DERIVA [{"t":"data-cart-view-cart","liquid":0,"html":0},{"t":"id=\"CartDrawerViewCart\"","liquid":0,"html":0},{"t":"name=\"note\"","liquid":1,"html":1},{"t":"name=\"checkout\"","liquid":1,"html":1},{"t":"data-cart-drawer-content","liquid":1,"html":1}] OK
+MODO: BASE 9834bac (sintetico)
+{"name":"T01 nota sucia + View cart","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","sent":"-","serverNote":"","updates":0,"navs":"/cart","sections":1}
+{"name":"T02 nota limpia + View cart","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T03 setting oculto (sin textarea)","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T04 doble clic con pendiente","error":"page.click: Timeout 2000ms exceeded.","updates":0,"navs":"/cart","sections":1}
+{"name":"T05 pendiente (View cart) + clic en View product","error":"page.click: Timeout 2000ms exceeded.","updates":0,"navs":"/cart","sections":1}
+{"name":"T06 pendiente (View product) + clic en View cart","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":1,"navs":"/cart","sections":1}
+{"name":"T07 edicion en vuelo","error":"page.type: Timeout 2000ms exceeded.","updates":0,"navs":"/cart","sections":1}
+{"name":"T08 HTTP 500","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T09 JSON invalido","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T10 eco distinto","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T11 red caida","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T12 timeout 3000 ms","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T13 clic con Ctrl (modificado)","url":"/","note":"mod","dirty":"true","error":null,"focus":"View cart","defaultPrevented":false,"updates":0,"navs":"-","sections":1}
+{"name":"T14 Checkout nativo con nota sucia","updates":0,"navs":"-","sections":1,"cartPost":"updates%5B%5D=1&note=via+checkout&checkout="}
+{"name":"T15 mutacion en vuelo (cantidad) + View cart","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","changes":1,"updates":0,"navs":"/cart","sections":1}
+{"name":"T16 re-render de mutacion durante pendiente","error":"page.evaluate: TypeError: Cannot set properties of null (setting 'value')","updates":0,"navs":"/cart","sections":1}
+{"name":"T17 eliminar ultimo articulo con nota sucia","url":"/","note":null,"dirty":null,"error":null,"focus":"Empty","viewCart":0,"serverNote":"","updates":0,"navs":"-","sections":1}
+{"name":"T18 nota muy larga (70.000 car.)","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"T19 fallo y reintento manual","afterFail":"{\"url\":\"/cart\",\"note\":null,\"dirty\":null,\"error\":null,\"focus\":\"/cart\"}","error":"page.click: Timeout 2000ms exceeded.","updates":0,"navs":"/cart","sections":1}
+{"name":"T21 teclado: Enter sobre View cart","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","serverNote":"","updates":0,"navs":"/cart","sections":1}
+{"name":"T20 sin JS: View cart y Checkout","drawerHidden":true,"url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":0}
+{"name":"X-Ctrl clic modificado","url":"/","note":"mod","dirty":"true","error":null,"focus":"View cart","events":"click:false","newPages":1,"updates":0,"navs":"-","sections":1}
+{"name":"X-Meta clic modificado","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","events":"(navego)","newPages":0,"updates":0,"navs":"/cart","sections":1}
+{"name":"X-Shift clic modificado","url":"/","note":"mod","dirty":"true","error":null,"focus":"View cart","events":"click:false","newPages":1,"updates":0,"navs":"-","sections":1}
+{"name":"X-Alt clic modificado","url":"/","note":"mod","dirty":"true","error":null,"focus":"View cart","events":"click:false","newPages":0,"updates":0,"navs":"-","sections":1}
+{"name":"X-Middle clic modificado","url":"/","note":"mod","dirty":"true","error":null,"focus":"View cart","events":"auxclick:false","newPages":1,"updates":0,"navs":"-","sections":1}
+{"name":"X-Ctrl+Enter teclado","url":"/","note":"kmod","dirty":"true","error":null,"focus":"View cart","events":"click:false","newPages":1,"updates":0,"navs":"-","sections":1}
+{"name":"X-Shift+Enter teclado","url":"/","note":"kmod","dirty":"true","error":null,"focus":"View cart","events":"click:false","newPages":1,"updates":0,"navs":"-","sections":1}
+{"name":"X-H15 nota 2000 car. saltos/emoji + 12 lineas","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","exact":false,"updates":0,"navs":"/cart","sections":1}
+{"name":"X-T02b nota del servidor no vacia sin editar","url":"/cart","note":null,"dirty":null,"error":null,"focus":"/cart","updates":0,"navs":"/cart","sections":1}
+{"name":"X-H17 View product sucia","url":"/products/xsell","note":null,"dirty":null,"error":null,"focus":"/products/xsell","serverNote":"vp","updates":1,"navs":"/products/xsell","sections":1}
+{"name":"X-Checkout teclado Enter sucia","updates":0,"navs":"-","sections":1,"cartPost":"updates%5B%5D=1&note=kb+checkout&checkout="}

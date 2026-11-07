@@ -1,0 +1,410 @@
+{
+  "ID": "GATE5-DIAGNOSTIC-20261105T233916860Z-d5d1ed33-f9c2-4df8-8309-9d397a68da6b",
+  "Estado": "passed",
+  "Decisión requerida": "No",
+  "Resumen en 5 líneas": [
+    "Gate 5 diagnóstico instrumentado; ejecución sujeta al límite vigente y a revisión independiente.",
+    "El informe guarda nombres de comprobaciones, estado y códigos de motivo seguros.",
+    "No guarda credenciales, cookies, URLs completas, mensajes crudos ni cuerpos de red.",
+    "El estado de limpieza del carrito es verificado o desconocido; nunca se infiere.",
+    "El resultado global solo es positivo si pasan las comprobaciones requeridas y el carrito queda vacío."
+  ],
+  "Archivos tocados": [
+    "scripts/gate5-complete-verification.mjs"
+  ],
+  "Desviaciones": [],
+  "Hallazgos extra": [],
+  "Verificación": [
+    "Gate 5 terminó sin fallos; cart.emptyVerified=true y cart.noteEmptyVerified=true."
+  ],
+  "Afirmaciones falsables": [
+    {
+      "comprobación": "configuration",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "playwright_import",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "browser_launch",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "session_context",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "storefront_page_creation",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "anonymous_products_redirect",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "password_preview_access",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "authenticated_home_access",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "authenticated_products_json_access",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "collection_navigation",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "grid_switcher_presence",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "list_view_toggle",
+      "resultado": "observed",
+      "motivo": "NO_ASSERTION_DEFINED"
+    },
+    {
+      "comprobación": "grid_2_toggle",
+      "resultado": "observed",
+      "motivo": "NO_ASSERTION_DEFINED"
+    },
+    {
+      "comprobación": "grid_4_toggle",
+      "resultado": "observed",
+      "motivo": "NO_ASSERTION_DEFINED"
+    },
+    {
+      "comprobación": "product_navigation",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "quantity_subtotal_observation",
+      "resultado": "observed",
+      "motivo": "NO_ASSERTION_DEFINED"
+    },
+    {
+      "comprobación": "product_blocks",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "cart_add_observation",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "cart_drawer_open",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "recommendation_chips",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "cart_note_persistence",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "theme_console_errors",
+      "resultado": "passed",
+      "motivo": "WARNINGS_PRESENT"
+    },
+    {
+      "comprobación": "page_errors",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "cart_cleanup",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "session_context_close",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "browser_shutdown",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "global_gate_result",
+      "resultado": "passed",
+      "motivo": null
+    },
+    {
+      "comprobación": "diagnostic_json_write",
+      "resultado": "passed",
+      "motivo": null
+    }
+  ],
+  "run": {
+    "startedAt": "2026-11-05T23:39:16.861Z",
+    "finishedAt": "2026-11-05T23:39:55.911Z",
+    "themeId": "190232297715",
+    "result": "passed",
+    "failureReason": null,
+    "diagnosticWriteFailed": false,
+    "diagnosticWriteErrors": []
+  },
+  "checks": [
+    {
+      "name": "configuration",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "playwright_import",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "browser_launch",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "session_context",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "storefront_page_creation",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "anonymous_products_redirect",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "password_preview_access",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "authenticated_home_access",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "authenticated_products_json_access",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "collection_navigation",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "grid_switcher_presence",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "list_view_toggle",
+      "result": "observed",
+      "reason": "NO_ASSERTION_DEFINED",
+      "details": null
+    },
+    {
+      "name": "grid_2_toggle",
+      "result": "observed",
+      "reason": "NO_ASSERTION_DEFINED",
+      "details": null
+    },
+    {
+      "name": "grid_4_toggle",
+      "result": "observed",
+      "reason": "NO_ASSERTION_DEFINED",
+      "details": null
+    },
+    {
+      "name": "product_navigation",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "quantity_subtotal_observation",
+      "result": "observed",
+      "reason": "NO_ASSERTION_DEFINED",
+      "details": null
+    },
+    {
+      "name": "product_blocks",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "cart_add_observation",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "ok": true,
+        "httpStatus": 200
+      }
+    },
+    {
+      "name": "cart_drawer_open",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "recommendation_chips",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "cart_note_persistence",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "theme_console_errors",
+      "result": "passed",
+      "reason": "WARNINGS_PRESENT",
+      "details": {
+        "errors": [
+          {
+            "type": "error",
+            "message": "Failed to load resource (HTTP 404).",
+            "file": null,
+            "line": 0,
+            "column": 0,
+            "page": "home",
+            "host": "cdn.shopify.com",
+            "pathname": null,
+            "severity": "warning",
+            "sourceReason": "EXTERNAL_SOURCE"
+          },
+          {
+            "type": "error",
+            "message": "Resource blocked by Content Security Policy.",
+            "file": null,
+            "line": 0,
+            "column": 0,
+            "page": "home",
+            "host": null,
+            "pathname": null,
+            "severity": "warning",
+            "sourceReason": "UNKNOWN_SOURCE"
+          },
+          {
+            "type": "error",
+            "message": "Failed to load resource (HTTP 403).",
+            "file": null,
+            "line": 0,
+            "column": 0,
+            "page": "home",
+            "host": null,
+            "pathname": null,
+            "severity": "warning",
+            "sourceReason": "UNKNOWN_SOURCE"
+          }
+        ],
+        "count": 3,
+        "failureCount": 0,
+        "warningCount": 3
+      }
+    },
+    {
+      "name": "page_errors",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "errors": [],
+        "count": 0,
+        "failureCount": 0,
+        "warningCount": 0
+      }
+    },
+    {
+      "name": "cart_cleanup",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "itemCount": 0,
+        "noteEmpty": true,
+        "httpStatuses": {
+          "initialRead": 200,
+          "clear": 200,
+          "noteUpdate": 200,
+          "finalRead": 200
+        },
+        "requestFailed": false,
+        "deadlineExceeded": false,
+        "verificationSource": "final_read"
+      }
+    },
+    {
+      "name": "session_context_close",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "browser_shutdown",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "global_gate_result",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    },
+    {
+      "name": "diagnostic_json_write",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    }
+  ],
+  "cart": {
+    "touched": true,
+    "cleanupAttempted": true,
+    "emptyVerified": true,
+    "noteEmptyVerified": true
+  },
+  "failures": []
+}

@@ -1,0 +1,354 @@
+{
+  "ID": "GATE5-DIAGNOSTIC-20261105T163850611Z-04ddadc9-f9c4-4ed7-bd1e-eea290d4c8e0",
+  "Estado": "failed",
+  "Decisión requerida": "No ejecutar de nuevo sin resolver la comprobación fallida y obtener autorización.",
+  "Resumen en 5 líneas": [
+    "Gate 5 diagnóstico instrumentado; una sola ejecución autorizada después de revisión independiente.",
+    "El informe guarda nombres de comprobaciones, estado y códigos de motivo seguros.",
+    "No guarda credenciales, cookies, URLs completas, mensajes crudos ni cuerpos de red.",
+    "El estado de limpieza del carrito es verificado o desconocido; nunca se infiere.",
+    "El resultado global solo es positivo si pasan las comprobaciones requeridas y el carrito queda vacío."
+  ],
+  "Archivos tocados": [
+    "scripts/gate5-complete-verification.mjs"
+  ],
+  "Desviaciones": [],
+  "Hallazgos extra": [
+    "La causa se registra solo como código seguro; no se serializa la excepción original."
+  ],
+  "Verificación": [
+    "Gate 5 falló; consulta `checks` para la comprobación exacta y su motivo."
+  ],
+  "Afirmaciones falsables": [
+    {
+      "comprobación": "configuration",
+      "resultado": "failed",
+      "motivo": "CONFIGURATION_INVALID"
+    },
+    {
+      "comprobación": "playwright_import",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "browser_launch",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "session_context",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "storefront_page_creation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "anonymous_products_redirect",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "password_preview_access",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "authenticated_home_access",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "authenticated_products_json_access",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "collection_navigation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "grid_switcher_presence",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "list_view_toggle",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "grid_2_toggle",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "grid_4_toggle",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "product_navigation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "quantity_subtotal_observation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "product_blocks",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "cart_add_observation",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "cart_drawer_open",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "recommendation_chips",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "cart_note_persistence",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "theme_console_errors",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "page_errors",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "cart_cleanup",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "session_context_close",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "browser_shutdown",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "global_gate_result",
+      "resultado": "not_run",
+      "motivo": "NOT_RUN_AFTER_EARLIER_FAILURE"
+    },
+    {
+      "comprobación": "diagnostic_json_write",
+      "resultado": "passed",
+      "motivo": null
+    }
+  ],
+  "run": {
+    "startedAt": "2026-11-05T16:38:50.613Z",
+    "finishedAt": "2026-11-05T16:38:50.625Z",
+    "themeId": null,
+    "result": "failed",
+    "failureReason": "CONFIGURATION_INVALID",
+    "diagnosticWriteFailed": false
+  },
+  "checks": [
+    {
+      "name": "configuration",
+      "result": "failed",
+      "reason": "CONFIGURATION_INVALID",
+      "details": null
+    },
+    {
+      "name": "playwright_import",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "browser_launch",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "session_context",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "storefront_page_creation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "anonymous_products_redirect",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "password_preview_access",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "authenticated_home_access",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "authenticated_products_json_access",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "collection_navigation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "grid_switcher_presence",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "list_view_toggle",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "grid_2_toggle",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "grid_4_toggle",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "product_navigation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "quantity_subtotal_observation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "product_blocks",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "cart_add_observation",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "cart_drawer_open",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "recommendation_chips",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "cart_note_persistence",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "theme_console_errors",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "page_errors",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "cart_cleanup",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "session_context_close",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "browser_shutdown",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "global_gate_result",
+      "result": "not_run",
+      "reason": "NOT_RUN_AFTER_EARLIER_FAILURE",
+      "details": null
+    },
+    {
+      "name": "diagnostic_json_write",
+      "result": "passed",
+      "reason": null,
+      "details": null
+    }
+  ],
+  "cart": {
+    "touched": false,
+    "cleanupAttempted": false,
+    "emptyVerified": null,
+    "noteEmptyVerified": null
+  },
+  "failures": [
+    {
+      "check": "configuration",
+      "reason": "CONFIGURATION_INVALID"
+    }
+  ]
+}
