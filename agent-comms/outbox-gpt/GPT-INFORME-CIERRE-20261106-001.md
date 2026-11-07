@@ -4,7 +4,7 @@ Fecha: 2026-11-06
 Rama: `lote-d`
 Escritor: GPT/Codex
 ID: `GPT-INFORME-CIERRE-20261106-001`
-Estado: revisión independiente de este informe pendiente; commit local actual `2fed90b195122ae32d79283f0e757b05e0140148`.
+Estado: commit `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc` enviado a `origin/lote-d`; esta adenda de registro queda pendiente de revisión independiente y entrega Git.
 Decisión requerida: Johandry debe resolver únicamente sus dependencias recogidas en `GPT-PENDIENTES-JOHANDRY-001.md`; no se solicita autorización adicional para el trabajo ya autorizado.
 
 Resumen en 5 líneas:
@@ -89,6 +89,6 @@ El stderr observado de esa consulta fue el objeto diagnóstico siguiente; no hub
 
 ## Entrega Git y controles
 
-- Snapshot local: `2fed90b195122ae32d79283f0e757b05e0140148` en `lote-d`, basado en `origin/lote-d` sincronizado antes del commit.
-- El commit incluye la revisión de cierre, cuatro JSON de diagnóstico sin credenciales y los documentos/artefactos locales revisados.
-- El push no forma parte de esta instantánea del informe; se realizará únicamente a `origin/lote-d`, sin force, tras revisión independiente de este informe y comprobación literal de secretos con conteo cero fuera de `tests/vendor/axe.min.js`.
+- El commit `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc` de `lote-d` se envió a `origin/lote-d` sin force; la referencia remota avanzó de `d9f76c21f338dd5c5b55870cc3f53370afe26253` a `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc`.
+- El commit `d81a1d3058231fe6e4c2bdc8eec965abb66dd7bc` incluye los tres documentos de evidencia, el runner Lighthouse revisado y ocho JSON de diagnóstico. El commit anterior `2fed90b195122ae32d79283f0e757b05e0140148` contiene la preparación y la revisión de cierre.
+- Antes del push, el conteo literal de las credenciales dio 0 fuera de `tests/vendor/axe.min.js`. Tras el push, `git status --short` estaba limpio y HEAD coincidía con `origin/lote-d`, comprobado antes de esta adenda. Esta adenda requiere revisión independiente y un commit/push posterior para quedar publicada.
