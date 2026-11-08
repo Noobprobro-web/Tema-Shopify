@@ -1,0 +1,9 @@
+# Revisión independiente · B-02 sin JavaScript · 2026-11-08
+
+**Dictamen: PARCIAL.** No se acreditó el cambio A→B ni el ID enviado, y faltan las variantes agotadas y multiopción de `CLAUDE-DIRECTIVA-A-01-B-02-001.md:306`. Revisión documental sobre el JSON de la sesión persistente; no se repitió tienda.
+
+El archivo `matrix-persistent-cart-20261108T160650851Z-3d841abf-bebc-48fa-bb9d-8e1015077fab.json` conserva SHA-256 `ba409c7999084fd75cc53576b2bc7a1c37ea91eaec733057e0b2495f7fb4365a`. Se registró identidad de los tres presets. Cinco de seis lecturas de enlace profundo de variante disponible comprobaron un único ID de formulario coincidente y botón habilitado; la sexta, Archive a 1280, falló con `CHROMIUM_ERR_FAILED`. En las cinco, la variante agotada no tenía fixture y `multioption=false`. Un `passed` de esa fila no certifica la parte agotada.
+
+Los doce intentos A→B de PDP/destacado y dos tamaños no acreditan ningún envío: diez quedaron `NATIVE_VARIANT_SELECTOR_NOT_VISIBLE`, uno `PRODUCT_FORM_FIXTURE_NOT_RENDERED` y uno `PLAYWRIGHT_TIMEOUT`. La ausencia de selector no prueba por sí sola un defecto: los productos observados no proporcionaron el fixture necesario. El sondeo contemplaba capturar el POST sin reenviarlo, pero ningún caso llegó a ese paso; tampoco acredita interpretación de Shopify ni una línea de carrito. Sigue pendiente probar A→B, ID visible/enviado, URL agotada y combinación multiopción agotada en ambas superficies y tamaños con datos adecuados.
+
+El mismo contexto comenzó con carrito vacío verificado. Tras B-04 se registró limpieza 200/200/200; al cierre posterior, clear=200, update sin status y read=200 verificó cero artículos y nota vacía antes de cerrar. La lectura acredita estado final, no respuesta exitosa del update. El preflight de B-02 y el fallo posterior de preflight de C-01 constan en el JSON; no se atribuyen al tema ni cierran el ledger.
