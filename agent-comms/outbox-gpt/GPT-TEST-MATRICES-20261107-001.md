@@ -63,7 +63,13 @@ Los fallos del destacado coincidieron con respuestas HTTP 429 y lecturas no conc
 
 La limpieza intermedia de B-03 falló. El bloque finally agotó el reintento D28 de las tres operaciones en la misma sesión. POST /cart/clear.js, POST /cart/update.js y GET /cart.js terminaron con HTTP 429. La cantidad final y la nota quedaron sin verificar. El JSON registra scopeResult=awaiting_intervention, cleanupIncident=CART_CLEANUP_UNVERIFIED, contextPreserved=true, browserPreserved=true y contextClosed=false. No hay confirmación de carrito limpio.
 
-La sesión de ejecución 63167 sigue retenida. Una consulta de procesos de solo lectura confirmó el proceso Node PID 15328 y su hijo Chromium PID 40576. Se intentó enviar el único comando documentado, retry-cleanup, y la herramienta respondió que stdin estaba cerrado porque el comando no se inició con TTY. El contador de intentos del runner sigue en cero porque la orden no llegó. El Chromium original usa un contexto no persistente y el arnés no documenta reanexión fuera de ese canal. No se cerró ni mató ningún proceso ni se creó un contexto alternativo. Se bloqueó el arranque de las matrices restantes en la instrumentación temporal.
+En el momento del incidente, la sesión de ejecución 63167 quedó retenida. Una consulta de procesos de solo lectura confirmó el proceso Node PID 15328 y su hijo Chromium PID 40576. Se intentó enviar el único comando documentado, retry-cleanup, y la herramienta respondió que stdin estaba cerrado porque el comando no se inició con TTY. El contador de intentos del runner sigue en cero porque la orden no llegó. El Chromium original usa un contexto no persistente y el arnés no documenta reanexión fuera de ese canal. No se cerró ni mató ningún proceso ni se creó un contexto alternativo. Se bloqueó el arranque de las matrices restantes en la instrumentación temporal.
+
+### Seguimiento del incidente · 2026-11-08 10:54 (Caracas)
+
+Estado del carrito y de la nota: **sin verificar**. Disposición autorizada: `LEAVE_TO_EXPIRE`. La sesión de ejecución 63167 ya no existe. El sondeo sin entrada devolvió `write_stdin failed: Unknown process id 63167`. Una consulta de procesos de solo lectura devolvió `OriginalNodePresent=false`, `OriginalBrowserPresent=false`, `MatchingRunnerCount=0`, `MatchingBrowserChildCount=0` y confirmó que los PID originales 15328 y 40576 ya no estaban ocupados.
+
+No había contexto original para reanexar o cerrar. La espera de Retry-After y los reintentos de limpieza no se pudieron ejecutar en esa sesión. No se creó otro contexto, no se hicieron peticiones adicionales a Shopify y no se reanudaron las matrices. Se desconoce cuándo o por qué terminó el proceso. LEAVE_TO_EXPIRE deja el carrito a la expiración de la sesión y no acredita que Shopify lo haya vaciado ni que ya haya expirado. El JSON original se conserva como snapshot del incidente.
 
 ## B-04 · Bloqueada por cleanup B-03
 
@@ -105,6 +111,6 @@ Afirmaciones falsables.
 
 1. Los JSON de A-03 y B-01 contienen tres accesos con previewIdVerified=true y los contextos terminaron cerrados sin mutaciones de carrito.
 2. B-03 documenta dos casos PDP con una línea exacta y dos comprobaciones de destacado sin evidencia suficiente.
-3. El incidente final de B-03 contiene tres HTTP 429, cantidad desconocida y un contexto retenido. B-04, B-02 y C-01 carecen de evidencia de ejecución.
+3. El snapshot original de B-03 contiene tres HTTP 429, cantidad desconocida y un contexto retenido al guardar. La comprobación posterior confirma que el contexto original ya no está disponible. B-04, B-02 y C-01 carecen de evidencia de ejecución.
 4. La ejecución no cambia el ledger. Los resultados son pruebas empíricas parciales de las previews indicadas.
 
