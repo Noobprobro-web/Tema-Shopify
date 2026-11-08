@@ -1,0 +1,45 @@
+{
+  "method": "GET",
+  "guest": true,
+  "checks": [
+    {
+      "themeId": "190232297715",
+      "hops": [
+        {
+          "httpStatus": 302,
+          "redirectClass": "home"
+        },
+        {
+          "httpStatus": 302,
+          "redirectClass": "password"
+        }
+      ]
+    },
+    {
+      "themeId": "190232330483",
+      "hops": [
+        {
+          "httpStatus": 302,
+          "redirectClass": "home"
+        },
+        {
+          "httpStatus": 302,
+          "redirectClass": "password"
+        }
+      ]
+    },
+    {
+      "themeId": "190232363251",
+      "hops": [
+        {
+          "httpStatus": 302,
+          "redirectClass": "home"
+        },
+        {
+          "httpStatus": 302,
+          "redirectClass": "password"
+        }
+      ]
+    }
+  ]
+}

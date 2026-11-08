@@ -3,7 +3,7 @@
 ID: GPT-TEST-MATRICES-20261107-001  
 Estado: ejecución con cobertura parcial. Evidencia cruda por matriz en el directorio relativo indicado en cada sección.  
 Decisión requerida: revisión independiente por matriz y resolución de los casos pendientes documentados.  
-Resumen en cinco líneas: se probaron únicamente previews no publicadas y se comprobó la identidad servida en cada sesión. Se separan las observaciones de cada criterio de aceptación. Las operaciones de carrito usan un contexto de invitado y limpieza verificable. La regresión C-01 requiere identificar ambos builds para cada par. El informe no cierra filas del ledger.  
+Resumen en cinco líneas: se probaron únicamente previews no publicadas. La identidad se verificó en las corridas previas de A-03, B-01 y B-03. Quedó sin verificar en los accesos de B-04. Se separan las observaciones de cada criterio de aceptación. Las operaciones de carrito usan un contexto de invitado y limpieza verificable. La regresión C-01 requiere identificar ambos builds para cada par. El informe no cierra filas del ledger.\
 Archivos tocados: este informe y JSON sanitizados en harness-GPT-MATRICES-20261107-001/results/.  
 Desviaciones: el arnés efímero amplía las observaciones del arnés D28 sin editar su fuente. Se conservan las restricciones de red y el protocolo de limpieza.  
 Hallazgos extra: ninguno fuera de las matrices.  
@@ -16,7 +16,7 @@ Tienda tema-qkqpke0j.myshopify.com. CLI local 4.8.0. Inventario ejecutado antes 
 node .\node_modules\@shopify\cli\bin\run.js theme list --json --role unpublished --store tema-qkqpke0j.myshopify.com
 ~~~
 
-Los tres IDs elegidos por la directiva son 190232297715 (Sartorial), 190232330483 (Imprint) y 190232363251 (Archive). Las consultas preflight de cada corrida registrada salieron con código 0 y los tres IDs con role unpublished y processing=false. Los JSON registran la verificación independiente de Shopify.theme.id o su declaración HTML en la corrida con JavaScript desactivado. Se usaron contextos Chromium nuevos, sin perfil personal y DPR 1. Las preferencias de movimiento se emularon en el navegador. El inventario CLI acredita el rol de los temas, no un SHA del árbol completo. Las huellas abajo son SHA-256 del cuerpo de cada asset observado.
+Los tres IDs elegidos por la directiva son 190232297715 (Sartorial), 190232330483 (Imprint) y 190232363251 (Archive). Las consultas preflight de cada corrida registrada salieron con código 0 y los tres IDs con role unpublished y processing=false. Los JSON de las matrices previas A-03, B-01 y B-03 registran la identidad de las sesiones que accedieron al preview mediante Shopify.theme.id. Los intentos de acceso de B-04 quedaron sin identidad verificada. Se usaron contextos Chromium nuevos, sin perfil personal y DPR 1. Las preferencias de movimiento se emularon en el navegador. El inventario CLI acredita el rol de los temas, no un SHA del árbol completo. Las huellas abajo son SHA-256 del cuerpo de cada asset observado.
 
 | Preset | base.css servido | theme.js servido |
 |---|---|---|
@@ -73,7 +73,7 @@ No había contexto original para reanexar o cerrar. La espera de Retry-After y l
 
 ## B-04 · Bloqueada por cleanup B-03
 
-Sin casos ejecutados. Quedan pendientes nota sucia, limpia y oculta, eco exacto con saltos de línea/espacios/emoji y 2.000 caracteres, red lenta o interrumpida, edición en vuelo, mutaciones concurrentes, checkout nativo y verificación de teclado y anuncios. No se inició una sesión de carrito B-04.
+Sin casos ejecutados. Quedan pendientes nota sucia, limpia y oculta, eco exacto con saltos de línea/espacios/emoji y 2.000 caracteres, red lenta o interrumpida, edición en vuelo, mutaciones concurrentes, checkout nativo y verificación de teclado y anuncios. No se ejecutó B-04. Sí hubo contextos temporales solo para comprobar el acceso y realizar el sondeo GET, sin tocar el carrito.
 
 ## B-02 · Bloqueada por cleanup B-03
 
@@ -113,4 +113,21 @@ Afirmaciones falsables.
 2. B-03 documenta dos casos PDP con una línea exacta y dos comprobaciones de destacado sin evidencia suficiente.
 3. El snapshot original de B-03 contiene tres HTTP 429, cantidad desconocida y un contexto retenido al guardar. La comprobación posterior confirma que el contexto original ya no está disponible. B-04, B-02 y C-01 carecen de evidencia de ejecución.
 4. La ejecución no cambia el ledger. Los resultados son pruebas empíricas parciales de las previews indicadas.
+
+
+## Reanudación del 2026-11-08 · Bloqueada por acceso a storefront
+
+El cierre LEAVE_TO_EXPIRE permitió planificar una sesión nueva. El inventario Shopify CLI 4.8.0 devolvió exit 0 a las 11:23 y de nuevo a las 11:25 (Caracas). Los IDs 190232297715, 190232330483 y 190232363251 seguían unpublished con processing=false. Ese resultado acredita el estado administrativo de los previews.
+
+La matriz B-04 quedó sin ejecutar. Se abrió un contexto aislado en Sartorial con canal TTY para comprobar el acceso y, después, tres contextos de invitado para el sondeo GET. Ninguno tocó el carrito. El único POST /password de la sesión falló con AUTH_RESPONSE_NOT_ACCEPTED. El JSON no conserva el código HTTP de ese POST, por lo que la causa concreta queda indeterminada. No hubo eventos de reintento por 429, cartTouched=false y contextClosed=true. No se verificó ni autorizó un carrito de prueba y no hubo limpieza que ejecutar en ese contexto.
+
+Se comprobó el acceso sin repetir el POST. Playwright, en tres contextos de invitado y solo GET, no consiguió abrir el contenido ni verificar Shopify.theme.id. Para distinguir la causa de ese fallo genérico, un sondeo HTTP sin cookies, con redirects manuales limitados al origen de tienda y sin leer cuerpos, observó 302 hacia home y 302 hacia password para los tres IDs. El sondeo solo registra el código y la categoría del destino, sin valores de query, cookies ni secretos.
+
+| Evidencia | Resultado | SHA-256 |
+|---|---|---|
+| [B-04, intento de acceso](harness-GPT-MATRICES-20261107-001/results/matrix-B-04-20261108T152347800Z-74fd6a9e-00d7-4d0b-90a4-43ec8a8b2918.json) | AUTH_RESPONSE_NOT_ACCEPTED, sin carrito | dbd42c743031906fcff7471ed03b37b79beea8294cd7c74fd7a21a409be4f76e |
+| [Playwright, acceso GET](harness-GPT-MATRICES-20261107-001/results/matrix-B-04-20261108T152529531Z-9259a93c-838f-4a0b-8d2c-b57522bc9528.json) | 3/3 sin acceso, sin carrito | 6353ed89e2395c661bfe3296eb3d3d390bbc2dababfd0ec24f0c0ccead84004 |
+| [Sondeo HTTP GET sin cookies](harness-GPT-MATRICES-20261107-001/results/storefront-get-only-barrier-20261108.json) | 3/3 redirigidos a password | 51f9e3c9d480df93c5ec8bb838078f7a0380d594cd926142dd48582e1126212c |
+
+D28 limita la autenticación a una operación por contexto, con reenvíos solo tras HTTP 429. Se detuvo la secuencia de acuerdo con D10 ante la incertidumbre de acceso. B-04 quedó bloqueada antes del carrito. B-02, C-01 y las coberturas faltantes de A-03/B-01 quedaron sin iniciar por la misma barrera en los tres previews. Los resultados parciales anteriores conservan su alcance. Los casos que requieren fixtures o datos de Johandry conservan sus bloqueos independientes.
 
