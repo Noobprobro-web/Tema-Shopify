@@ -1,6 +1,18 @@
 # CLAUDE-CLOUD-STATUS
 
-## Estado vigente — 2026-11-06 (Codex/GPT, rama lote-d)
+## Estado vigente — 2026-11-08 (Codex/GPT, rama lote-c-impl)
+
+- Johandry aceptó la implementación en 6e3bbb0. Los informes 001 y 002 se copiaron sin modificar, con SHA-256 verificados, y quedaron en el commit local daf466f. La referencia local origin/lote-c-impl sigue en 6e3bbb0. Las pruebas funcionales en tienda conservan los estados indicados abajo.
+- D12 estricto, según la decisión de Johandry. La revisión independiente escaneó 2.435 blobs con cero errores y excluyó solo tests/vendor/axe.min.js. El conteo de ocurrencias exactas de bytes UTF-8 y el de líneas con coincidencias se registran por separado. HEAD daf466f contiene 46 ocurrencias en 40 líneas de 28 archivos. La base remota origin/lote-c-impl (6e3bbb0) contiene 45 ocurrencias en 39 líneas de 27 archivos. El rango origin/lote-c-impl..daf466f añade una ocurrencia en una línea de CLAUDE-REVIEW-LOTE-C-IMPL-001.md. La revisión cubre daf466f. D12 no pasa y no se hizo push.
+- El preflight de Shopify CLI 4.8.0 terminó exit 0 antes de las corridas. Confirmó Sartorial 190232297715, Imprint 190232330483 y Archive 190232363251 con role unpublished y processing=false. El runner verificó las identidades servidas. [Informe de matrices](../outbox-gpt/GPT-TEST-MATRICES-20261107-001.md).
+- **A-03, parcial.** La corrida registró 36 celdas y 1.817 muestras de foco. Hubo 32 ratios CSS estimados por debajo de 3:1. Quedan pendientes la medición visual y la cobertura completa de estados y controles. [Revisión independiente A-03](../outbox-gpt/harness-GPT-MATRICES-20261107-001/reviews/GPT-REVIEW-MATRIX-A-03-20261108-001.md).
+- **B-01, parcial.** Se observaron cruces de viewport, teclado, axe y drawer vacío desde el encabezado. El carrito desde el menú y el retorno 1180→820 quedaron sin ejecutar en los tres presets. Faltan el editor y parte de la cobertura de cruces y foco. [Revisión independiente B-01](../outbox-gpt/harness-GPT-MATRICES-20261107-001/reviews/GPT-REVIEW-MATRIZ-B01-20261108-001.md).
+- **B-03, parcial y bloqueada por D28.** Los dos casos del PDP móvil de Sartorial registraron una línea exacta. Los casos del destacado quedaron inconclusos con HTTP 429. En finally, clear, update y la lectura final devolvieron HTTP 429, con carrito y nota sin verificar. El contexto y el navegador originales quedaron vivos en awaiting_intervention en la última comprobación del ejecutor. El canal stdin cerrado impidió entregar retry-cleanup. [Revisión independiente B-03](../outbox-gpt/harness-GPT-MATRICES-20261107-001/reviews/GPT-REVIEW-MATRIX-B-03-20261108-001.md).
+- **B-04, B-02 y C-01, sin iniciar por D28.** Sigue pendiente verificar la limpieza de la sesión B-03 antes de reanudar. C-01 mantiene pendientes baseline y regresión sobre builds identificados. Las matrices R-A/R-B siguen abiertas y estos resultados no cierran filas del ledger.
+- **Pendientes de Johandry.** A-01 requiere fixture de suscripción. C-07 requiere fixtures de 1, 250 y 251+ variantes. C-05 (editor e instalación) espera la tienda limpia C-02. B-05 espera el POST de localización. A-02 y C-08 esperan los datos y las fuentes.
+- **DP-005/G2.** Johandry aprobó como línea base los puntajes de las 18 celdas históricas. Los JSON conservan los estados originales y G2 no se volvió a ejecutar. La política revisada clasifica los incidentes de favicon y Shop Login indicados como avisos y registra los del CDN con host y ruta, salvo los assets del tema. [Informe G2](../outbox-gpt/GPT-REPORT-DP-005-G2-001.md).
+
+## Estado histórico — 2026-11-06 (Codex/GPT, rama lote-d)
 
 - Único escritor GPT, conforme a la decisión de Johandry del 2026-11-05. Cada lote de cambios requiere revisión independiente antes de commit/push; D-01 ya recibió aceptación sobre su corrección puntual.
 - El preflight elevado `shopify theme list --json --no-input --role unpublished --store tema-qkqpke0j.myshopify.com` terminó exit 0 y confirmó `190232297715`, `190232330483` y `190232363251` como `unpublished`; no hubo error de autenticación. Las credenciales se comprobaron como presentes sin mostrar valores. Una consulta emitió un aviso de actualización CLI; los preflights posteriores terminaron con stderr vacío. El texto del aviso se transcribe en el informe final.
@@ -19,7 +31,7 @@
 
 ## Anterioridad
 
-El contenido preexistente de este archivo es bitácora histórica y puede describir estados ya reemplazados. Para el estado al 2026-11-06 prevalece el bloque «Estado vigente» anterior; no se deben usar los párrafos posteriores «En curso» como el estado actual sin contrastarlos con ese bloque.
+El bloque «Estado vigente» del 2026-11-08 prevalece sobre la bitácora histórica. Los apartados siguientes conservan la rama, los resultados y las decisiones de la etapa que documentan.
 
 Archivo vivo de estado para retomar la sesión. Se actualiza y se commitea después de cada tarea (D16 de `CLAUDE-DECISION-AUTONOMIA-001.md`).
 
