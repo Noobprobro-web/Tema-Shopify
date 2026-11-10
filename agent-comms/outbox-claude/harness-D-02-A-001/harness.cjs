@@ -5,6 +5,8 @@
 // Derivado de harness-A-01-B-02-001 sin copiarle cambios. Solo JS. Sin credenciales ni red externa.
 //
 // Uso:  node harness.cjs [repo] [fix|base] [BASE_SHA]
+// P-1..P-6 (X1, P3 de REVIEW-D02A-001): con &ann=1 la pagina lleva data-available-price-status, como
+// el Liquid actual; sin el, el tema cae al texto anterior y los 57 casos originales no cambian.
 //   fix  (defecto): theme.js de la copia de trabajo.
 //   base: theme.js del commit BASE_SHA (por defecto d8703c5, punta de task/b01).
 // Sale con 1 si algun caso falla.
@@ -25,6 +27,7 @@ const THEME_JS = mode === 'fix'
 const T = {
   add: 'Add to cart', soldOut: 'Sold out', unavailable: 'Unavailable', loading: 'Loading variant…',
   availStatus: 'Variant available.', soldStatus: 'Variant sold out.', oneTime: 'One-time',
+  availPrice: '[title], [price]: Variant available.', // P3: locales variant_available_with_price
   planUnavailable: 'This purchase option is unavailable',
   planRequired: 'This option requires a subscription plan that is not available right now.',
   inv: { in_stock: 'In stock', preorder: 'Available for pre-order', sold_out: 'Sold out', unavailable: 'This option is unavailable', low: 'Only a few left' },
@@ -113,7 +116,7 @@ function render(key, surface, sid, q) {
   const invState = inventoryState(sel);
   const inventory = `<product-inventory class="product-inventory" data-stock-state="${invState}" data-threshold="${THRESHOLD}" data-show-count="false" data-low-stock-template="Only [count] left" data-low-stock-generic="${T.inv.low}" data-in-stock="${T.inv.in_stock}" data-preorder="${T.inv.preorder}" data-sold-out="${T.inv.sold_out}" data-unavailable="${T.inv.unavailable}"><span class="product-inventory__message" role="status" aria-live="polite" data-inventory-message>${invState === 'low_stock' ? T.inv.low : T.inv[invState]}</span></product-inventory>`;
   const json = JSON.stringify(p.variants.map((v) => ({ ...v, inventory_quantity: Math.min(v.inventory_quantity, THRESHOLD + 1) })));
-  const attrs = `${pdp ? `data-product-url="/products/${key}" data-money-format="€{{amount_with_comma_separator}} EUR" data-line-total-template="Total for [quantity]" data-variant-loading-text="${T.loading}"` : ''} data-initial-variant-id="${sel.id}" data-add-to-cart-text="${T.add}" data-sold-out-text="${T.soldOut}" data-unavailable-text="${T.unavailable}" data-available-status="${T.availStatus}" data-sold-out-status="${T.soldStatus}" data-one-time-text="${T.oneTime}" data-selling-plan-unavailable-text="${T.planUnavailable}" data-per-delivery-template="[price] per delivery"`;
+  const attrs = `${pdp ? `data-product-url="/products/${key}" data-money-format="€{{amount_with_comma_separator}} EUR" data-line-total-template="Total for [quantity]" data-variant-loading-text="${T.loading}"` : ''} data-initial-variant-id="${sel.id}" data-add-to-cart-text="${T.add}" data-sold-out-text="${T.soldOut}" data-unavailable-text="${T.unavailable}" data-available-status="${T.availStatus}" ${q.ann ? `data-available-price-status="${T.availPrice}" ` : ''}data-sold-out-status="${T.soldStatus}" data-one-time-text="${T.oneTime}" data-selling-plan-unavailable-text="${T.planUnavailable}" data-per-delivery-template="[price] per delivery"`;
   const sticky = pdp ? `<div style="height:3000px"></div><sticky-cart-bar class="sticky-cart-bar" data-product-form-id="${formId}" data-unavailable-text="${T.unavailable}" data-quantity-price-template="[quantity] × [price]" data-total-template="Total [total]" data-action-label-template="[action]: [product]" data-quantity-label-template="[action]: [quantity] × [product]" aria-hidden="true" inert>
       <p class="sticky-cart-bar__title">Synthetic ${key}</p><p><span data-sticky-variant>${sel.title}</span> / <span data-sticky-price>${sel.price}</span></p><p data-sticky-total hidden></p>
       <button class="button" type="button" aria-label="${label}: Synthetic ${key}" data-sticky-submit ${canAdd ? '' : 'disabled'}><span data-sticky-label>${label}</span><span data-loading-icon hidden></span></button></sticky-cart-bar>` : '';
@@ -322,6 +325,59 @@ function compare(obs, exp, { initial, surface }) {
         await t.ctx.close();
       }
     } catch (e) { rec('C-4', surface, 'EXCEPCION', [String(e.message).split('\n')[0].slice(0, 120)]); }
+
+    // P-1..P-6 (P3): el precio se anuncia una vez por cambio de variante, con y sin plan.
+    const priceAnn = (live) => live.filter((x) => !x.hidden && /€/.test(x.text)).map((x) => `${x.region}:${x.text}`);
+    const stepLive = async (pg, fn) => { await pg.evaluate(() => { window.__live = []; }); await fn(); await pg.waitForTimeout(30); return pg.evaluate(() => window.__live); };
+    const once = (live, want) => { const pr = priceAnn(live); const st = live.filter((x) => x.region === 'variant-status').map((x) => x.text);
+      const bad = []; if (pr.length !== 1 || pr[0] !== want) bad.push(`precio=${JSON.stringify(pr)}≠${JSON.stringify([want])}`);
+      if (st.length > 1) bad.push(`estado x${st.length}`); return bad; };
+    try {
+      const t = await open(`${S}&product=pb&variant=201&ann=1`);
+      const seq = [
+        ['L', 'Blue/L agotada: sin precio, solo agotado', (l) => (priceAnn(l).length === 0 && JSON.stringify(l.filter((x) => x.region === 'variant-status').map((x) => x.text)) === JSON.stringify(['Blue / L: Variant sold out.']) ? [] : [`anuncios=${JSON.stringify(l)}`])],
+        ['S', 'vuelta a Blue/S con precio', (l) => once(l, `variant-status:Blue / S, ${money(5000)}: Variant available.`)],
+        ['Red', 'Red/S precio distinto', (l) => once(l, `variant-status:Red / S, ${money(5500)}: Variant available.`)],
+        ['M', 'Red/M inexistente: solo no disponible', (l) => (priceAnn(l).length === 0 ? [] : [`precio=${JSON.stringify(priceAnn(l))}`])],
+      ];
+      for (const [val, n, fn] of seq) rec('P-1', surface, n, fn(await stepLive(t.pg, () => pick(t.pg, val))));
+      rec('P-1e', surface, 'sin errores de pagina', t.errors);
+      await t.ctx.close();
+    } catch (e) { rec('P-1', surface, 'EXCEPCION', [String(e.message).split('\n')[0].slice(0, 120)]); }
+    try {
+      // pa S con plan 1 -> XL (exige plan 1, mismo texto de plan): el precio del plan va en la region de estado.
+      const t = await open(`${S}&product=pa&variant=101&ann=1`);
+      await t.pg.check('[data-purchase-option="subscription"]'); await t.pg.waitForTimeout(30);
+      rec('P-2', surface, 'S -> XL con plan 1: precio del plan una vez, en la region de estado', once(await stepLive(t.pg, () => pick(t.pg, 'XL')), `variant-status:XL, ${money(1000)}: Variant available.`));
+      // XL -> S y plan 2 -> T (solo plan 3): el estado del plan cambia y ya lleva el precio; no se repite.
+      await pick(t.pg, 'S'); await t.pg.selectOption('[data-selling-plan-select]', '2'); await t.pg.waitForTimeout(30);
+      const l3 = await stepLive(t.pg, () => pick(t.pg, 'T'));
+      const st3 = l3.filter((x) => x.region === 'variant-status').map((x) => x.text);
+      rec('P-3', surface, 'plan 2 -> T (plan 3): precio una vez (estado del plan) y disponibilidad una vez', [...once(l3, `plan-status:Plan 3: ${money(3000)}`), ...(JSON.stringify(st3) === JSON.stringify(['T: Variant available.']) ? [] : [`estado=${JSON.stringify(st3)}`])]);
+      // Cambio de plan sin cambio de variante: no se reanuncia la disponibilidad.
+      await pick(t.pg, 'S'); await t.pg.waitForTimeout(30);
+      const l4 = await stepLive(t.pg, () => t.pg.selectOption('[data-selling-plan-select]', '2'));
+      rec('P-4', surface, 'cambio de plan: precio una vez y sin repetir la disponibilidad', [...once(l4, `plan-status:Plan 2: ${money(2000)}`), ...(l4.some((x) => x.region === 'variant-status') ? ['region de estado reanunciada'] : [])]);
+      const l5 = await stepLive(t.pg, () => t.pg.check('[data-purchase-option="one_time"]'));
+      rec('P-5', surface, 'paso a compra unica: sin reanunciar disponibilidad', l5.some((x) => x.region === 'variant-status') ? [`estado=${JSON.stringify(l5)}`] : []);
+      rec('P-2e', surface, 'sin errores de pagina', t.errors);
+      await t.ctx.close();
+    } catch (e) { rec('P-2', surface, 'EXCEPCION', [String(e.message).split('\n')[0].slice(0, 120)]); }
+    try {
+      // Secuencia de C-2 con la plantilla: el texto de cada paso y un unico anuncio de precio por cambio de variante.
+      const t = await open(`${S}&product=pd&variant=401&ann=1`);
+      await t.pg.check('[data-purchase-option="subscription"]'); await t.pg.selectOption('[data-selling-plan-select]', '2'); await t.pg.waitForTimeout(30);
+      const out = [];
+      for (const val of ['M', 'Blue', 'S', 'Red']) { const l = await stepLive(t.pg, () => pick(t.pg, val)); out.push({ st: l.filter((x) => x.region === 'variant-status').map((x) => x.text), pr: priceAnn(l) }); }
+      const want = [
+        { st: ['Red / M: Variant sold out.'], pr: [] },
+        { st: ['Blue / M: Variant available.'], pr: [`plan-status:Plan 1: ${money(1000)}`] },
+        { st: [T.planUnavailable], pr: [] },
+        { st: [`Red / S, ${money(5000)}: Variant available.`], pr: [`variant-status:Red / S, ${money(5000)}: Variant available.`] },
+      ];
+      rec('P-6', surface, 'C-2 con plantilla: textos y un precio por cambio', JSON.stringify(out) === JSON.stringify(want) ? [] : [`obs=${JSON.stringify(out)}`]);
+      await t.ctx.close();
+    } catch (e) { rec('P-6', surface, 'EXCEPCION', [String(e.message).split('\n')[0].slice(0, 120)]); }
 
     // S-1: barra sticky visible fuera de vista del boton y coherente tras cambiar a agotada y volver
     if (surface === 'pdp') {

@@ -962,7 +962,7 @@
       this.updateForms(variant, { resolvingVariant: false });
       this.updatePrice(variant);
       this.updateMedia(variant);
-      this.updateStatus(variant);
+      this.updateStatus(variant, { variantChanged: true });
       if (updateUrl) this.updateUrl(variant);
       this.dispatchEvent(
         new CustomEvent('theme:variant-change', {
@@ -1052,15 +1052,21 @@
         this.subscriptionPrice.textContent = selectedAllocation?.price
           || this.dataset.sellingPlanUnavailableText;
       }
+      // Solo se reescribe si cambia: reponer el mismo texto en una region aria-live puede
+      // volver a anunciarlo. Si cambia con el plan visible, ya anuncia el precio del plan y
+      // updateStatus no lo repite.
+      let planStatusChanged = false;
       if (this.sellingPlanStatus) {
-        if (subscriptionSelected) {
-          this.sellingPlanStatus.textContent = `${selectedAllocation.name}: ${selectedAllocation.price}`;
-        } else if (oneTimeAvailable) {
-          this.sellingPlanStatus.textContent = `${this.dataset.oneTimeText}: ${variant.price}`;
-        } else {
-          this.sellingPlanStatus.textContent = this.dataset.sellingPlanUnavailableText;
-        }
+        const planStatusText = subscriptionSelected
+          ? `${selectedAllocation.name}: ${selectedAllocation.price}`
+          : oneTimeAvailable
+            ? `${this.dataset.oneTimeText}: ${variant.price}`
+            : this.dataset.sellingPlanUnavailableText;
+        planStatusChanged = this.sellingPlanStatus.textContent !== planStatusText;
+        if (planStatusChanged) this.sellingPlanStatus.textContent = planStatusText;
       }
+      this.planStatusAnnouncedPrice = Boolean(subscriptionSelected && planStatusChanged
+        && isFocusTargetUsable(this.sellingPlanStatus));
       if (this.perDeliveryPrice) {
         const showPerDelivery = Boolean(
           subscriptionSelected
@@ -1336,17 +1342,37 @@
       });
     }
 
-    updateStatus(variant) {
+    // P3 (REVIEW-D02A-001). Un cambio de variante disponible se anuncia con su precio
+    // (el del plan si hay suscripcion), en un solo texto atomico: "[title], [price]: ...".
+    // El precio no se repite si el estado del plan ya lo anuncio en este mismo cambio. Un
+    // cambio de opcion de compra no vuelve a anunciar la disponibilidad si esta no cambio:
+    // ese precio lo anuncia el estado del plan.
+    updateStatus(variant, { variantChanged = false } = {}) {
       const status = this.querySelector('[data-variant-status]');
       if (!status) return;
 
-      const announcement = !variant
+      const available = Boolean(variant?.available) && this.isPurchaseOptionValid(variant);
+      const base = !variant
         ? this.dataset.unavailableText
         : !variant.available
           ? `${variant.title}: ${this.dataset.soldOutStatus}`
-          : !this.isPurchaseOptionValid(variant)
+          : !available
             ? this.dataset.sellingPlanUnavailableText
             : `${variant.title}: ${this.dataset.availableStatus}`;
+      const baseChanged = base !== this.statusBase;
+      this.statusBase = base;
+
+      let announcement = base;
+      if (variantChanged) {
+        // Un money format con HTML (<span class=money>) no debe leerse con etiquetas.
+        const price = String((this.currentAllocation || variant)?.price || '').replace(/<[^>]*>/g, '').trim();
+        const template = this.dataset.availablePriceStatus;
+        if (available && price && template && !this.planStatusAnnouncedPrice) {
+          announcement = template.replace(/\[(title|price)\]/g, (match, key) => (key === 'title' ? variant.title : price));
+        }
+      } else if (!baseChanged) {
+        return;
+      }
       if (status.textContent !== announcement) status.textContent = announcement;
     }
 
