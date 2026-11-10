@@ -346,3 +346,7 @@ Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-A-01-B-02-001.md
 
 - Desde 2026-11-10, Claude es el único escritor del repositorio. Codex queda autorizado únicamente a registrar esta decisión en `docs/decisions.md`, ejecutar el escaneo D12 vigente y hacer push sin force de `lote-c-impl`, con `24032e8a437c9a9b02f4ae5616b9300e38f9cb78` como último commit de trabajo. El commit que contiene este registro también formará parte de ese push.
 - Después de ese push, Codex no hará más escrituras en el repositorio hasta que Johandry lo indique.
+
+## 2026-11-10: Integración en lote-e-claude (Claude)
+
+- Claude integra en `lote-e-claude` D-02-Q, el fix de C2 (umbral de inventario), el harness de B-02 y la neutralización C-08 de D-01, cada uno con revisión independiente aceptada. Informes en `agent-comms/outbox-claude/reviews-20261110/`.
