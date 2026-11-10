@@ -149,6 +149,22 @@
     throw new Error(errorMessage);
   });
 
+  // D-02-Q. Rejilla de cantidades de Shopify: solo valen min + k * incremento sin pasar
+  // de max. El techo real es el mayor escalon que cabe bajo max (min 2, paso 2, max 5
+  // da 4, no 5). Si ni el minimo cabe (max < min), devuelve un valor menor que min y
+  // quien llama decide como bloquear.
+  const quantityGridMax = (min, step, max) => (
+    Number.isFinite(max) ? min + Math.floor((max - min) / step) * step : Infinity
+  );
+
+  // Ajusta un valor al escalon valido mas cercano dentro de [min, techo]. En empate
+  // (justo entre dos escalones) baja al menor: no se pide mas de lo que se escribio.
+  const snapQuantity = (value, min, step, gridMax) => {
+    if (gridMax < min) return min;
+    const index = Math.ceil((value - min) / step - 0.5);
+    return Math.min(gridMax, Math.max(min, min + index * step));
+  };
+
   class ThemeElement extends HTMLElement {
     startListening() {
       this.stopListening();
@@ -1178,15 +1194,19 @@
         quantityInput.getAttribute('max'),
       ].join('|');
 
-      const minimum = variant?.quantity_min || 1;
+      const minimum = Number(variant?.quantity_min) || 1;
+      const increment = Math.abs(Number(variant?.quantity_increment)) || 1;
       quantityInput.min = minimum;
-      quantityInput.step = variant?.quantity_increment || 1;
-      quantityInput.value = Math.max(Number(quantityInput.value), Number(minimum));
+      quantityInput.step = increment;
 
       let effectiveMax = variant?.quantity_max ?? null;
       if (effectiveMax === null && variant?.inventory_management && variant.inventory_policy === 'deny') {
         const inventoryEl = this.querySelector('product-inventory') || this.closest('section')?.querySelector('product-inventory');
-        const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 1;
+        // D-02-Q (C2). El JSON recorta el stock a umbral + 1 a proposito, para no publicar
+        // el inventario real (variant-no-js-select, inventory_cap). Solo un stock <= umbral
+        // es exacto, asi que el techo solo se aplica ahi. Sin bloque de inventario el umbral
+        // es 0, como el que usa el Liquid; con 1 el stock recortado a 1 limitaba toda compra.
+        const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 0;
         const qty = Number(variant.inventory_quantity);
         if (Number.isFinite(qty) && qty > 0 && qty <= threshold) {
           effectiveMax = qty;
@@ -1195,14 +1215,26 @@
 
       // Agotada: la cantidad se queda en el minimo y el + se apaga (syncQuantityStepper lee
       // max). Sin esto el stepper seguia subiendo en una pieza que no se puede comprar.
-      if (variant?.available !== true) effectiveMax = Number(minimum);
+      if (variant?.available !== true) effectiveMax = minimum;
 
-      if (effectiveMax === null) {
-        quantityInput.removeAttribute('max');
-      } else {
-        quantityInput.max = effectiveMax;
-        quantityInput.value = Math.min(Number(quantityInput.value), Number(effectiveMax));
-      }
+      // El max del campo es el ultimo escalon alcanzable, no el limite crudo: asi min, step
+      // y max describen la misma rejilla. Si ni el minimo cabe (inventario por debajo del
+      // minimo), max = min y los dos botones quedan apagados.
+      const gridMax = effectiveMax === null
+        ? Infinity
+        : Math.max(minimum, quantityGridMax(minimum, increment, Number(effectiveMax)));
+      if (gridMax === Infinity) quantityInput.removeAttribute('max');
+      else quantityInput.max = gridMax;
+
+      // D-02-Q (O1). Variante disponible cuyo stock no llega al minimo: el campo queda en min
+      // pero se marca invalido, asi la validacion nativa del formulario bloquea el envio y
+      // anuncia el motivo, como hacia antes el max crudo. El boton de compra no se toca.
+      const belowMinimum = variant?.available === true && effectiveMax !== null
+        && quantityGridMax(minimum, increment, Number(effectiveMax)) < minimum;
+      quantityInput.setCustomValidity(belowMinimum ? (this.dataset.unavailableText || 'Unavailable') : '');
+
+      const current = Number(quantityInput.value);
+      quantityInput.value = snapQuantity(Number.isFinite(current) ? current : minimum, minimum, increment, gridMax);
 
       const after = [
         quantityInput.value,
@@ -2721,6 +2753,12 @@
       const quantityInput = event.target.closest('[data-cart-quantity]');
       // TEC-01. Un campo retenido por una mutacion en vuelo no puede lanzar otra.
       if (!quantityInput || quantityInput.disabled) return;
+
+      // D-02-Q. Se ajusta a la rejilla antes de decidir nada, asi lo que se ve es lo que se
+      // envia. Si el ajuste deja la cantidad que ya tiene la linea (defaultValue es lo que
+      // pinto el servidor), no hay nada que enviar y el campo ya muestra la cantidad real.
+      snapQuantityField(quantityInput);
+      if (quantityInput.value !== '0' && Number(quantityInput.value) === Number(quantityInput.defaultValue)) return;
 
       // An empty or malformed field used to fall through parseInt('') || 0 and silently
       // delete the line. Let the browser report it instead, and keep 0 as the one value
@@ -6119,11 +6157,34 @@
     const step = Math.abs(Number(input.getAttribute('step'))) || 1;
     const min = Number(input.getAttribute('min'));
     const max = Number(input.getAttribute('max'));
-    return {
+    const rules = {
       step,
       min: Number.isFinite(min) ? min : 0,
       max: input.getAttribute('max') === null || !Number.isFinite(max) ? Infinity : max,
     };
+    // D-02-Q. Techo alcanzable sobre la rejilla; nunca por debajo de min, de modo que con
+    // max < min el campo se queda en min y los dos botones se apagan.
+    rules.maxOnGrid = Math.max(rules.min, quantityGridMax(rules.min, step, rules.max));
+    return rules;
+  };
+
+  // D-02-Q. Unico punto que lleva un numero escrito a mano al escalon valido mas cercano
+  // (empate hacia abajo) dentro de [min, maxOnGrid]; ver snapQuantity. Lo llaman el
+  // 'change' de document y, antes de decidir que envia, el cajon del carrito, que escucha
+  // en su propio elemento y por eso recibe el evento primero. Es idempotente.
+  const snapQuantityField = (input) => {
+    // En una linea de carrito el 0 es la orden de quitarla: se respeta tal cual, para que
+    // el campo muestre lo que se envia (el formulario de la pagina de carrito es novalidate).
+    if (input.matches('[data-cart-quantity]') && input.value === '0') return;
+    const { step, min, maxOnGrid } = readQuantityRules(input);
+    // Campo vacio: como antes, solo sube a min si min > 0 (en el carrito min 0 lo deja).
+    const current = Number(input.value);
+    if (input.value.trim() === '') {
+      if (current < min) input.value = String(min);
+    } else if (Number.isFinite(current)) {
+      const snapped = String(snapQuantity(current, min, step, maxOnGrid));
+      if (snapped !== input.value) input.value = snapped;
+    }
   };
 
   // Shopify no acepta cualquier entero: los valores validos son min + n * incremento.
@@ -6131,12 +6192,12 @@
   // por esa rejilla en lugar de sumar y restar a ciegas. Con floor al subir y ceil al
   // bajar, un valor fuera de rejilla (tecleado a mano) cae al escalon correcto.
   const nextQuantity = (input, direction) => {
-    const { step, min, max } = readQuantityRules(input);
+    const { step, min, maxOnGrid } = readQuantityRules(input);
     const current = Number(input.value);
     const base = Number.isFinite(current) ? current : min;
     const offset = (base - min) / step;
     const index = direction > 0 ? Math.floor(offset) : Math.ceil(offset);
-    return Math.min(max, Math.max(min, min + (index + direction) * step));
+    return Math.min(maxOnGrid, Math.max(min, min + (index + direction) * step));
   };
 
   // Un boton se apaga exactamente cuando pulsarlo no cambiaria nada. Comparar contra el
@@ -6201,14 +6262,7 @@
     ['input', 'change'].forEach((type) => {
       document.addEventListener(type, (event) => {
         const input = event.target.closest?.('[data-quantity-input]');
-        if (input && type === 'change') {
-          const { min, max } = readQuantityRules(input);
-          const current = Number(input.value);
-          if (Number.isFinite(current)) {
-            if (current > max) input.value = String(max);
-            else if (current < min) input.value = String(min);
-          }
-        }
+        if (input && type === 'change') snapQuantityField(input);
         const stepper = event.target.closest?.('[data-quantity-stepper]');
         if (stepper) syncQuantityStepper(stepper);
       });
