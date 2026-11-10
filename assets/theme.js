@@ -29,21 +29,26 @@
   // sigue (o el de compatibilidad tras un toque) mande el foco a BODY. En un toque, el click
   // sintetico llega despues de ocultar el fondo y caeria en lo que queda debajo (un enlace
   // del main, el carrito de la cabecera): ese unico click se descarta. Caduca con el
-  // siguiente pointerdown o a los 800 ms, por si el gesto no termina en click (scroll).
+  // siguiente pointerdown, con pointercancel (el gesto paso a scroll y no habra click) o a
+  // los 800 ms. Un click con detail 0 (teclado, lector de pantalla, switch, click()) no
+  // viene de un puntero y nunca se descarta.
   const swallowNextClick = () => {
     let timer = 0;
     const release = () => {
       window.removeEventListener('click', swallow, true);
       window.removeEventListener('pointerdown', release, true);
+      window.removeEventListener('pointercancel', release, true);
       window.clearTimeout(timer);
     };
     const swallow = (event) => {
+      if (event.detail === 0) return;
       event.preventDefault();
       event.stopImmediatePropagation();
       release();
     };
     window.addEventListener('click', swallow, true);
     window.addEventListener('pointerdown', release, true);
+    window.addEventListener('pointercancel', release, true);
     timer = window.setTimeout(release, 800);
   };
 

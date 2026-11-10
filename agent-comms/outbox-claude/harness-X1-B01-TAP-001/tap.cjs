@@ -288,6 +288,36 @@ const D = { width: 1280, height: 800 };
     await p.setViewportSize(D); await settle(p); await p.keyboard.press('Escape'); await settle(p); const s = await st(p);
     check('foco usable tras cerrar el carrito con el disparador oculto', !s.cartOpen && s.usable, s.active); await ctx.close(); }
 
+  { console.log('\nX7 tactil: arrastre en el overlay que cierra (sin click) y Enter antes de 800 ms'); const { ctx, p } = await ctxFor(M, true);
+    await p.tap('#trigger'); await settle(p); const cdp = await ctx.newCDPSession(p); const pt = await outsidePoint(p);
+    await p.evaluate(() => { window.__pc = 0; window.addEventListener('pointercancel', () => { window.__pc += 1; }, true); });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: pt.x, y: 500 }] });
+    for (let i = 1; i <= 10; i += 1) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: pt.x, y: 500 - i * 30 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await settle(p);
+    let s = await st(p); console.log(`  info pointercancel reales=${await p.evaluate(() => window.__pc)}`);
+    check('el arrastre cierra el menu y el foco queda en trigger', !s.open && s.active === 'trigger', s.active);
+    await p.keyboard.press('Enter'); await settle(p); s = await st(p);
+    check('Enter en el disparador (<800 ms) reabre el menu', s.open, `open=${s.open}`);
+    await p.keyboard.press('Escape'); await settle(p);
+    await p.evaluate(() => document.querySelector('#under').click()); s = await st(p);
+    check('click() (detail 0, como un lector de pantalla) activa el enlace', s.hash === '#under-hit', s.hash || '(vacio)'); await ctx.close(); }
+
+  { console.log('\nX8 pointercancel libera el descarte'); const { ctx, p } = await ctxFor(M, true);
+    await p.tap('#trigger'); await settle(p);
+    await p.evaluate(() => {
+      const ov = document.querySelector('#ov');
+      ov.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'touch', isPrimary: true }));
+      window.dispatchEvent(new PointerEvent('pointercancel', { pointerType: 'touch' }));
+      document.querySelector('#under').dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }));
+    });
+    let s = await st(p); check('tras pointercancel, un click de puntero (detail 1) ya no se descarta', !s.open && s.hash === '#under-hit', s.hash || '(vacio)');
+    await p.evaluate(() => { location.hash = ''; }); await p.tap('#trigger'); await settle(p);
+    await p.evaluate(() => {
+      document.querySelector('#ov').dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerType: 'touch', isPrimary: true }));
+      document.querySelector('#under').dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }));
+    });
+    s = await st(p); check('control: sin pointercancel, el click de puntero si se descarta', s.hash !== '#under-hit', s.hash || '(vacio)'); await ctx.close(); }
+
   check('sin errores de pagina', errors.length === 0, errors.join(' | '));
   console.log(`\nRESULTADO mode=${mode}: ${checks - fails}/${checks} OK, ${fails} FAIL`);
   await browser.close();
