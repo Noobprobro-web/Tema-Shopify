@@ -21,6 +21,10 @@
       return element.getClientRects().length > 0;
     });
 
+  const isFocusTargetUsable = (element) => Boolean(element?.isConnected
+    && !element.closest('[hidden], [inert]')
+    && element.getClientRects().length > 0);
+
   const trapFocus = (container, initialFocus = null) => {
     const handleKeydown = (event) => {
       if (event.key !== 'Tab') return;
@@ -305,7 +309,11 @@
         this.listen(button, 'click', () => this.setOpen(false, true));
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.setOpen(false, true);
+        if (event.target !== this.overlay) return;
+        // Sin preventDefault, el mousedown que sigue (o el de compatibilidad tras un toque)
+        // enfoca BODY y deshace el foco devuelto al disparador.
+        event.preventDefault();
+        this.setOpen(false, true);
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -315,7 +323,23 @@
       // B-01 (TT-104). El corte movil/escritorio vive solo en el CSS (base.css oculta
       // .site-header__mobile-menu en escritorio). Si el cajon abierto deja de pintarse por un
       // cambio de ancho o un giro, se cierra aqui y devuelve scroll, inert y foco sin Escape.
-      this.listen(window, 'resize', () => this.closeIfHidden(), { passive: true });
+      this.listen(window, 'resize', () => {
+        this.closeIfHidden();
+        this.repairFocusHandoff();
+      }, { passive: true });
+      // Tras cerrar, el foco se sigue mientras quede en la cabecera: si un cambio de ancho
+      // oculta el control enfocado (la navegacion de escritorio al volver a movil), se
+      // reubica (ver repairFocusHandoff). Salir de la cabecera o soltar el foco a mano
+      // (clic en zona sin controles) termina el seguimiento.
+      this.focusHandoff = false;
+      this.listen(document, 'focusin', (event) => {
+        if (!this.focusScope.contains(event.target)) this.focusHandoff = false;
+      });
+      this.listen(document, 'focusout', (event) => {
+        if (!event.relatedTarget && this.focusScope.contains(event.target) && isFocusTargetUsable(event.target)) {
+          this.focusHandoff = false;
+        }
+      });
     }
 
     disconnectedCallback() {
@@ -327,19 +351,51 @@
       return this.trigger?.getAttribute('aria-expanded') === 'true';
     }
 
-    // Cerrar sin restoreFocus: el disparador ya no se ve y focus() sobre el no haria nada.
-    // Si el foco estaba en el cajon (o cayo a BODY al ocultarse), pasa al primer control
-    // visible que sigue al cajon en su seccion: en escritorio, la navegacion principal.
+    // B-01. Destino de foco al cerrar: el disparador si se pinta; si no (escritorio), el
+    // primer control visible que sigue al cajon en su seccion (la navegacion principal) y,
+    // en ultimo caso, el primer control visible de la seccion. Nunca un elemento oculto.
+    get focusScope() {
+      return this.closest('[data-section-id]') || this.parentElement || document.body;
+    }
+
+    getFocusReturnTarget() {
+      if (isFocusTargetUsable(this.trigger)) return this.trigger;
+      const candidates = getFocusableElements(this.focusScope).filter((element) => !this.contains(element));
+      return candidates.find((element) => this.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING)
+        || candidates[0]
+        || null;
+    }
+
+    returnFocus() {
+      const target = this.getFocusReturnTarget();
+      this.focusHandoff = Boolean(target);
+      target?.focus({ preventScroll: true });
+    }
+
+    // Cerrar sin restoreFocus: el disparador ya no se ve. Si el foco estaba en el cajon
+    // (o cayo a BODY al ocultarse), pasa a getFocusReturnTarget.
     closeIfHidden() {
       if (!this.isOpen || this.trigger.getClientRects().length > 0) return;
       const active = document.activeElement;
       const focusWasInside = !active || active === document.body || this.contains(active);
       this.setOpen(false);
-      if (!focusWasInside) return;
-      const scope = this.closest('[data-section-id]') || document.body;
-      const target = getFocusableElements(scope).find((element) => !this.contains(element)
-        && (this.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING));
-      target?.focus({ preventScroll: true });
+      if (focusWasInside) this.returnFocus();
+    }
+
+    // Si el control enfocado de la cabecera deja de pintarse tras un cierre (vuelta de 1280
+    // a 390 oculta la navegacion de escritorio), el foco va a getFocusReturnTarget en lugar
+    // de caer a BODY.
+    repairFocusHandoff() {
+      if (this.isOpen || !this.focusHandoff) return;
+      const active = document.activeElement;
+      if (active && active !== document.body) {
+        if (!this.focusScope.contains(active)) {
+          this.focusHandoff = false;
+          return;
+        }
+        if (isFocusTargetUsable(active)) return;
+      }
+      this.returnFocus();
     }
 
     setOpen(open, restoreFocus = false) {
@@ -348,6 +404,7 @@
       // Runs before this drawer touches body[data-drawer-open] or the inert background,
       // so a closing cart drawer cannot strip the state this one is about to set.
       if (open) closeOtherDialogs(this);
+      if (open) this.focusHandoff = false;
 
       this.trigger.setAttribute('aria-expanded', String(open));
       this.panel.setAttribute('aria-hidden', String(!open));
@@ -364,7 +421,7 @@
         this.releaseFocusTrap?.();
         this.releaseFocusTrap = null;
         this.restoreBackgroundInert();
-        if (restoreFocus) this.trigger.focus();
+        if (restoreFocus) this.returnFocus();
       }
     }
 
@@ -1450,7 +1507,11 @@
       const quantityField = this.productForm.elements.namedItem('quantity');
       this.quantityInput = quantityField instanceof HTMLInputElement ? quantityField : null;
       this.lineTotal = this.closest('[data-section-id]')?.querySelector('[data-line-total]') || null;
-      this.unitPrice = this.priceOutput?.textContent.trim() || '';
+      // D-02-A. El Liquid pinta el precio de compra unica; con un plan ya elegido al cargar
+      // (?selling_plan= o variante que exige plan) VariantSelects ya decidio el precio del plan
+      // y no vuelve a emitir el evento, asi que se toma de su estado.
+      this.unitPrice = this.variantSelects?.currentAllocation?.price
+        || this.priceOutput?.textContent.trim() || '';
       this.productTitle = this.querySelector('.sticky-cart-bar__title')?.textContent.trim() || '';
 
       if (this.quantityInput) {
