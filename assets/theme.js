@@ -1222,6 +1222,13 @@
       if (gridMax === Infinity) quantityInput.removeAttribute('max');
       else quantityInput.max = gridMax;
 
+      // D-02-Q (O1). Variante disponible cuyo stock no llega al minimo: el campo queda en min
+      // pero se marca invalido, asi la validacion nativa del formulario bloquea el envio y
+      // anuncia el motivo, como hacia antes el max crudo. El boton de compra no se toca.
+      const belowMinimum = variant?.available === true && effectiveMax !== null
+        && quantityGridMax(minimum, increment, Number(effectiveMax)) < minimum;
+      quantityInput.setCustomValidity(belowMinimum ? (this.dataset.unavailableText || 'Unavailable') : '');
+
       const current = Number(quantityInput.value);
       quantityInput.value = snapQuantity(Number.isFinite(current) ? current : minimum, minimum, increment, gridMax);
 
@@ -2742,6 +2749,12 @@
       const quantityInput = event.target.closest('[data-cart-quantity]');
       // TEC-01. Un campo retenido por una mutacion en vuelo no puede lanzar otra.
       if (!quantityInput || quantityInput.disabled) return;
+
+      // D-02-Q. Se ajusta a la rejilla antes de decidir nada, asi lo que se ve es lo que se
+      // envia. Si el ajuste deja la cantidad que ya tiene la linea (defaultValue es lo que
+      // pinto el servidor), no hay nada que enviar y el campo ya muestra la cantidad real.
+      snapQuantityField(quantityInput);
+      if (quantityInput.value !== '0' && Number(quantityInput.value) === Number(quantityInput.defaultValue)) return;
 
       // An empty or malformed field used to fall through parseInt('') || 0 and silently
       // delete the line. Let the browser report it instead, and keep 0 as the one value
@@ -6151,6 +6164,25 @@
     return rules;
   };
 
+  // D-02-Q. Unico punto que lleva un numero escrito a mano al escalon valido mas cercano
+  // (empate hacia abajo) dentro de [min, maxOnGrid]; ver snapQuantity. Lo llaman el
+  // 'change' de document y, antes de decidir que envia, el cajon del carrito, que escucha
+  // en su propio elemento y por eso recibe el evento primero. Es idempotente.
+  const snapQuantityField = (input) => {
+    // En una linea de carrito el 0 es la orden de quitarla: se respeta tal cual, para que
+    // el campo muestre lo que se envia (el formulario de la pagina de carrito es novalidate).
+    if (input.matches('[data-cart-quantity]') && input.value === '0') return;
+    const { step, min, maxOnGrid } = readQuantityRules(input);
+    // Campo vacio: como antes, solo sube a min si min > 0 (en el carrito min 0 lo deja).
+    const current = Number(input.value);
+    if (input.value.trim() === '') {
+      if (current < min) input.value = String(min);
+    } else if (Number.isFinite(current)) {
+      const snapped = String(snapQuantity(current, min, step, maxOnGrid));
+      if (snapped !== input.value) input.value = snapped;
+    }
+  };
+
   // Shopify no acepta cualquier entero: los valores validos son min + n * incremento.
   // Un campo con min 2 e incremento 2 no puede pasar por 5, asi que el boton se mueve
   // por esa rejilla en lugar de sumar y restar a ciegas. Con floor al subir y ceil al
@@ -6226,19 +6258,7 @@
     ['input', 'change'].forEach((type) => {
       document.addEventListener(type, (event) => {
         const input = event.target.closest?.('[data-quantity-input]');
-        if (input && type === 'change') {
-          // D-02-Q. Un numero escrito a mano se lleva al escalon valido mas cercano
-          // (empate hacia abajo) dentro de [min, maxOnGrid]; ver snapQuantity.
-          const { step, min, maxOnGrid } = readQuantityRules(input);
-          // Campo vacio: como antes, solo sube a min si min > 0 (en el carrito min 0 lo deja).
-          const current = Number(input.value);
-          if (input.value.trim() === '') {
-            if (current < min) input.value = String(min);
-          } else if (Number.isFinite(current)) {
-            const snapped = String(snapQuantity(current, min, step, maxOnGrid));
-            if (snapped !== input.value) input.value = snapped;
-          }
-        }
+        if (input && type === 'change') snapQuantityField(input);
         const stepper = event.target.closest?.('[data-quantity-stepper]');
         if (stepper) syncQuantityStepper(stepper);
       });
