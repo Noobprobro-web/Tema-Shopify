@@ -1,0 +1,1252 @@
+{
+  "id": "C-01-MEASURE",
+  "label": "SINTETICO antes 258ca4f / despues e8f17e5, barra oculta",
+  "synthetic": true,
+  "tag": "SINTETICO",
+  "previewBar": "hide",
+  "scripts": {
+    "measure": {
+      "file": "agent-comms/outbox-claude/harness-C-01-ID-001/measure.mjs",
+      "sha256": "eb97287f2e4d8eba2c4c4ac38f6f643e40569f72196ca67f1afe53e506c7b53d"
+    },
+    "capture": {
+      "file": "agent-comms/outbox-gpt/harness-GPT-C01-COLLECTION-001/capture.mjs",
+      "sha256": "ce2dab82057f939d5f49d9b386fc4ff244336f829808276ff29cf7bc52f9d1eb"
+    }
+  },
+  "planSha256": "fa11442415fbe8f6b029c4e4f4a0f26909f0890778ddae4f67de6bf738a48e43",
+  "serial": false,
+  "identity": null,
+  "rows": [
+    {
+      "cellIndex": 0,
+      "preset": "Sartorial",
+      "stage": "before",
+      "themeId": "0",
+      "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
+      "viewport": "390x844",
+      "path": "/collections/sartorial",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Sartorial",
+        "stage": "before",
+        "themeId": "0",
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/sartorial",
+        "viewportHeight": 844,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 967.09375,
+        "facetsTop": 558.703125,
+        "facetsPosition": "static",
+        "bannerHeight": 196.875,
+        "lcpMs": 72,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 844,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 350,
+          "height": 193.828125
+        },
+        "banner": {
+          "x": 20,
+          "y": 337.828125,
+          "width": 350,
+          "height": 196.875
+        },
+        "facets": {
+          "x": 20,
+          "y": 558.703125,
+          "width": 350,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 20,
+          "y": 907.09375,
+          "width": 350,
+          "height": 4657.25
+        },
+        "firstCard": {
+          "x": 20,
+          "y": 967.09375,
+          "width": 350,
+          "height": 502.40625
+        },
+        "bodyColumns": "350px",
+        "bodyGap": "32px",
+        "facetsPosition": "static"
+      },
+      "servedBaseCssSha256": [
+        "edcb075640cc5944d43eddf7bc8f049100278201182d3b59ffc103498ddb9c97"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 0,
+      "preset": "Sartorial",
+      "stage": "before",
+      "themeId": "0",
+      "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
+      "viewport": "1280x800",
+      "path": "/collections/sartorial",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Sartorial",
+        "stage": "before",
+        "themeId": "0",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/sartorial",
+        "viewportHeight": 800,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 841.28125,
+        "facetsTop": 781.28125,
+        "facetsPosition": "sticky",
+        "bannerHeight": 472.375,
+        "lcpMs": 60,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 800,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 992,
+          "height": 140.90625
+        },
+        "banner": {
+          "x": 20,
+          "y": 284.90625,
+          "width": 1240,
+          "height": 472.375
+        },
+        "facets": {
+          "x": 20,
+          "y": 781.28125,
+          "width": 272,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 340,
+          "y": 781.28125,
+          "width": 920,
+          "height": 3337.53125
+        },
+        "firstCard": {
+          "x": 340,
+          "y": 841.28125,
+          "width": 452,
+          "height": 629.90625
+        },
+        "bodyColumns": "272px 920px",
+        "bodyGap": "48px",
+        "facetsPosition": "sticky"
+      },
+      "servedBaseCssSha256": [
+        "edcb075640cc5944d43eddf7bc8f049100278201182d3b59ffc103498ddb9c97"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 1,
+      "preset": "Sartorial",
+      "stage": "after",
+      "themeId": "0",
+      "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
+      "viewport": "390x844",
+      "path": "/collections/sartorial",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Sartorial",
+        "stage": "after",
+        "themeId": "0",
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/sartorial",
+        "viewportHeight": 844,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 895.546875,
+        "facetsTop": 495.15625,
+        "facetsPosition": "static",
+        "bannerHeight": 133.328125,
+        "lcpMs": 60,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 844,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 350,
+          "height": 193.828125
+        },
+        "banner": {
+          "x": 20,
+          "y": 337.828125,
+          "width": 350,
+          "height": 133.328125
+        },
+        "facets": {
+          "x": 20,
+          "y": 495.15625,
+          "width": 350,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 20,
+          "y": 835.546875,
+          "width": 350,
+          "height": 4657.25
+        },
+        "firstCard": {
+          "x": 20,
+          "y": 895.546875,
+          "width": 350,
+          "height": 502.40625
+        },
+        "bodyColumns": "350px",
+        "bodyGap": "24px",
+        "facetsPosition": "static"
+      },
+      "servedBaseCssSha256": [
+        "1394c9a9971297d99393cd00611c0dedba35aa4773fa8dd8f41ff0bb3ddfe0bc"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 1,
+      "preset": "Sartorial",
+      "stage": "after",
+      "themeId": "0",
+      "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
+      "viewport": "1280x800",
+      "path": "/collections/sartorial",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Sartorial",
+        "stage": "after",
+        "themeId": "0",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/sartorial",
+        "viewportHeight": 800,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 841.28125,
+        "facetsTop": 781.28125,
+        "facetsPosition": "sticky",
+        "bannerHeight": 472.375,
+        "lcpMs": 60,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 800,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 992,
+          "height": 140.90625
+        },
+        "banner": {
+          "x": 20,
+          "y": 284.90625,
+          "width": 1240,
+          "height": 472.375
+        },
+        "facets": {
+          "x": 20,
+          "y": 781.28125,
+          "width": 272,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 340,
+          "y": 781.28125,
+          "width": 920,
+          "height": 3337.53125
+        },
+        "firstCard": {
+          "x": 340,
+          "y": 841.28125,
+          "width": 452,
+          "height": 629.90625
+        },
+        "bodyColumns": "272px 920px",
+        "bodyGap": "48px",
+        "facetsPosition": "sticky"
+      },
+      "servedBaseCssSha256": [
+        "1394c9a9971297d99393cd00611c0dedba35aa4773fa8dd8f41ff0bb3ddfe0bc"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 2,
+      "preset": "Imprint",
+      "stage": "before",
+      "themeId": "0",
+      "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
+      "viewport": "390x844",
+      "path": "/collections/imprint",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Imprint",
+        "stage": "before",
+        "themeId": "0",
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/imprint",
+        "viewportHeight": 844,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 770.21875,
+        "facetsTop": 361.828125,
+        "facetsPosition": "static",
+        "bannerHeight": null,
+        "lcpMs": 76,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 844,
+      "firstCardVisibleInUsefulViewport": true,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 350,
+          "height": 193.828125
+        },
+        "banner": null,
+        "facets": {
+          "x": 20,
+          "y": 361.828125,
+          "width": 350,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 20,
+          "y": 710.21875,
+          "width": 350,
+          "height": 2042.390625
+        },
+        "firstCard": {
+          "x": 20,
+          "y": 770.21875,
+          "width": 169,
+          "height": 300.078125
+        },
+        "bodyColumns": "350px",
+        "bodyGap": "32px",
+        "facetsPosition": "static"
+      },
+      "servedBaseCssSha256": [
+        "edcb075640cc5944d43eddf7bc8f049100278201182d3b59ffc103498ddb9c97"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 2,
+      "preset": "Imprint",
+      "stage": "before",
+      "themeId": "0",
+      "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
+      "viewport": "1280x800",
+      "path": "/collections/imprint",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Imprint",
+        "stage": "before",
+        "themeId": "0",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/imprint",
+        "viewportHeight": 800,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 368.90625,
+        "facetsTop": 308.90625,
+        "facetsPosition": "sticky",
+        "bannerHeight": null,
+        "lcpMs": 68,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 800,
+      "firstCardVisibleInUsefulViewport": true,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 992,
+          "height": 140.90625
+        },
+        "banner": null,
+        "facets": {
+          "x": 20,
+          "y": 308.90625,
+          "width": 272,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 340,
+          "y": 308.90625,
+          "width": 920,
+          "height": 1240.984375
+        },
+        "firstCard": {
+          "x": 340,
+          "y": 368.90625,
+          "width": 218,
+          "height": 361.328125
+        },
+        "bodyColumns": "272px 920px",
+        "bodyGap": "48px",
+        "facetsPosition": "sticky"
+      },
+      "servedBaseCssSha256": [
+        "edcb075640cc5944d43eddf7bc8f049100278201182d3b59ffc103498ddb9c97"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 3,
+      "preset": "Imprint",
+      "stage": "after",
+      "themeId": "0",
+      "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
+      "viewport": "390x844",
+      "path": "/collections/imprint",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Imprint",
+        "stage": "after",
+        "themeId": "0",
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/imprint",
+        "viewportHeight": 844,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 762.21875,
+        "facetsTop": 361.828125,
+        "facetsPosition": "static",
+        "bannerHeight": null,
+        "lcpMs": 52,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 844,
+      "firstCardVisibleInUsefulViewport": true,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 350,
+          "height": 193.828125
+        },
+        "banner": null,
+        "facets": {
+          "x": 20,
+          "y": 361.828125,
+          "width": 350,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 20,
+          "y": 702.21875,
+          "width": 350,
+          "height": 2042.390625
+        },
+        "firstCard": {
+          "x": 20,
+          "y": 762.21875,
+          "width": 169,
+          "height": 300.078125
+        },
+        "bodyColumns": "350px",
+        "bodyGap": "24px",
+        "facetsPosition": "static"
+      },
+      "servedBaseCssSha256": [
+        "1394c9a9971297d99393cd00611c0dedba35aa4773fa8dd8f41ff0bb3ddfe0bc"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 3,
+      "preset": "Imprint",
+      "stage": "after",
+      "themeId": "0",
+      "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
+      "viewport": "1280x800",
+      "path": "/collections/imprint",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Imprint",
+        "stage": "after",
+        "themeId": "0",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/imprint",
+        "viewportHeight": 800,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 368.90625,
+        "facetsTop": 308.90625,
+        "facetsPosition": "sticky",
+        "bannerHeight": null,
+        "lcpMs": 88,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 800,
+      "firstCardVisibleInUsefulViewport": true,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 992,
+          "height": 140.90625
+        },
+        "banner": null,
+        "facets": {
+          "x": 20,
+          "y": 308.90625,
+          "width": 272,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 340,
+          "y": 308.90625,
+          "width": 920,
+          "height": 1240.984375
+        },
+        "firstCard": {
+          "x": 340,
+          "y": 368.90625,
+          "width": 218,
+          "height": 361.328125
+        },
+        "bodyColumns": "272px 920px",
+        "bodyGap": "48px",
+        "facetsPosition": "sticky"
+      },
+      "servedBaseCssSha256": [
+        "1394c9a9971297d99393cd00611c0dedba35aa4773fa8dd8f41ff0bb3ddfe0bc"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 4,
+      "preset": "Archive",
+      "stage": "before",
+      "themeId": "0",
+      "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
+      "viewport": "390x844",
+      "path": "/collections/archive",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Archive",
+        "stage": "before",
+        "themeId": "0",
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/archive",
+        "viewportHeight": 844,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 967.09375,
+        "facetsTop": 558.703125,
+        "facetsPosition": "static",
+        "bannerHeight": 196.875,
+        "lcpMs": 76,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 844,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 350,
+          "height": 193.828125
+        },
+        "banner": {
+          "x": 20,
+          "y": 337.828125,
+          "width": 350,
+          "height": 196.875
+        },
+        "facets": {
+          "x": 20,
+          "y": 558.703125,
+          "width": 350,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 20,
+          "y": 907.09375,
+          "width": 350,
+          "height": 4848.625
+        },
+        "firstCard": {
+          "x": 20,
+          "y": 967.09375,
+          "width": 350,
+          "height": 526.328125
+        },
+        "bodyColumns": "350px",
+        "bodyGap": "32px",
+        "facetsPosition": "static"
+      },
+      "servedBaseCssSha256": [
+        "edcb075640cc5944d43eddf7bc8f049100278201182d3b59ffc103498ddb9c97"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 4,
+      "preset": "Archive",
+      "stage": "before",
+      "themeId": "0",
+      "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
+      "viewport": "1280x800",
+      "path": "/collections/archive",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Archive",
+        "stage": "before",
+        "themeId": "0",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/archive",
+        "viewportHeight": 800,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 841.28125,
+        "facetsTop": 781.28125,
+        "facetsPosition": "sticky",
+        "bannerHeight": 472.375,
+        "lcpMs": 72,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 800,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 992,
+          "height": 140.90625
+        },
+        "banner": {
+          "x": 20,
+          "y": 284.90625,
+          "width": 1240,
+          "height": 472.375
+        },
+        "facets": {
+          "x": 20,
+          "y": 781.28125,
+          "width": 272,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 340,
+          "y": 781.28125,
+          "width": 920,
+          "height": 3457.140625
+        },
+        "firstCard": {
+          "x": 340,
+          "y": 841.28125,
+          "width": 452,
+          "height": 653.828125
+        },
+        "bodyColumns": "272px 920px",
+        "bodyGap": "48px",
+        "facetsPosition": "sticky"
+      },
+      "servedBaseCssSha256": [
+        "edcb075640cc5944d43eddf7bc8f049100278201182d3b59ffc103498ddb9c97"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 5,
+      "preset": "Archive",
+      "stage": "after",
+      "themeId": "0",
+      "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
+      "viewport": "390x844",
+      "path": "/collections/archive",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Archive",
+        "stage": "after",
+        "themeId": "0",
+        "width": 390,
+        "height": 844,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/archive",
+        "viewportHeight": 844,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 895.546875,
+        "facetsTop": 495.15625,
+        "facetsPosition": "static",
+        "bannerHeight": 133.328125,
+        "lcpMs": 72,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 844,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 350,
+          "height": 193.828125
+        },
+        "banner": {
+          "x": 20,
+          "y": 337.828125,
+          "width": 350,
+          "height": 133.328125
+        },
+        "facets": {
+          "x": 20,
+          "y": 495.15625,
+          "width": 350,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 20,
+          "y": 835.546875,
+          "width": 350,
+          "height": 4848.625
+        },
+        "firstCard": {
+          "x": 20,
+          "y": 895.546875,
+          "width": 350,
+          "height": 526.328125
+        },
+        "bodyColumns": "350px",
+        "bodyGap": "24px",
+        "facetsPosition": "static"
+      },
+      "servedBaseCssSha256": [
+        "1394c9a9971297d99393cd00611c0dedba35aa4773fa8dd8f41ff0bb3ddfe0bc"
+      ],
+      "syntheticCssIdentity": "match"
+    },
+    {
+      "cellIndex": 5,
+      "preset": "Archive",
+      "stage": "after",
+      "themeId": "0",
+      "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
+      "viewport": "1280x800",
+      "path": "/collections/archive",
+      "servedThemeId": null,
+      "capture": {
+        "preset": "Archive",
+        "stage": "after",
+        "themeId": "0",
+        "width": 1280,
+        "height": 800,
+        "dpr": 1,
+        "previewBar": "hidden",
+        "barHeight": 0,
+        "collectionPath": "/collections/archive",
+        "viewportHeight": 800,
+        "firstCardProductId": "9000001",
+        "firstCardTop": 841.28125,
+        "facetsTop": 781.28125,
+        "facetsPosition": "sticky",
+        "bannerHeight": 472.375,
+        "lcpMs": 76,
+        "lcpElement": {
+          "tag": "H1",
+          "id": "",
+          "className": "collection-main__title"
+        },
+        "cls": 0
+      },
+      "controls": [
+        {
+          "key": "facet:0:Availability",
+          "visible": true
+        },
+        {
+          "key": "facet:1:Size",
+          "visible": true
+        },
+        {
+          "key": "facet:2:Product type",
+          "visible": true
+        },
+        {
+          "key": "sort",
+          "visible": true
+        },
+        {
+          "key": "submit",
+          "visible": true
+        }
+      ],
+      "usefulViewportHeight": 800,
+      "firstCardVisibleInUsefulViewport": false,
+      "layout": {
+        "header": {
+          "x": 20,
+          "y": 144,
+          "width": 992,
+          "height": 140.90625
+        },
+        "banner": {
+          "x": 20,
+          "y": 284.90625,
+          "width": 1240,
+          "height": 472.375
+        },
+        "facets": {
+          "x": 20,
+          "y": 781.28125,
+          "width": 272,
+          "height": 316.390625
+        },
+        "grid": {
+          "x": 340,
+          "y": 781.28125,
+          "width": 920,
+          "height": 3457.140625
+        },
+        "firstCard": {
+          "x": 340,
+          "y": 841.28125,
+          "width": 452,
+          "height": 653.828125
+        },
+        "bodyColumns": "272px 920px",
+        "bodyGap": "48px",
+        "facetsPosition": "sticky"
+      },
+      "servedBaseCssSha256": [
+        "1394c9a9971297d99393cd00611c0dedba35aa4773fa8dd8f41ff0bb3ddfe0bc"
+      ],
+      "syntheticCssIdentity": "match"
+    }
+  ],
+  "pairs": [
+    {
+      "preset": "Sartorial",
+      "viewport": "390x844",
+      "beforeTheme": "0",
+      "afterTheme": "0",
+      "firstCardTopBefore": 967.09375,
+      "firstCardTopAfter": 895.546875,
+      "deltaPx": -71.55,
+      "lostControls": [],
+      "hiddenControls": [],
+      "verdict": "SUBE",
+      "pass": true
+    },
+    {
+      "preset": "Sartorial",
+      "viewport": "1280x800",
+      "beforeTheme": "0",
+      "afterTheme": "0",
+      "firstCardTopBefore": 841.28125,
+      "firstCardTopAfter": 841.28125,
+      "deltaPx": 0,
+      "lostControls": [],
+      "hiddenControls": [],
+      "diffs": {},
+      "verdict": "SIN_CAMBIOS",
+      "pass": true
+    },
+    {
+      "preset": "Imprint",
+      "viewport": "390x844",
+      "beforeTheme": "0",
+      "afterTheme": "0",
+      "firstCardTopBefore": 770.21875,
+      "firstCardTopAfter": 762.21875,
+      "deltaPx": -8,
+      "lostControls": [],
+      "hiddenControls": [],
+      "verdict": "SUBE",
+      "pass": true
+    },
+    {
+      "preset": "Imprint",
+      "viewport": "1280x800",
+      "beforeTheme": "0",
+      "afterTheme": "0",
+      "firstCardTopBefore": 368.90625,
+      "firstCardTopAfter": 368.90625,
+      "deltaPx": 0,
+      "lostControls": [],
+      "hiddenControls": [],
+      "diffs": {},
+      "verdict": "SIN_CAMBIOS",
+      "pass": true
+    },
+    {
+      "preset": "Archive",
+      "viewport": "390x844",
+      "beforeTheme": "0",
+      "afterTheme": "0",
+      "firstCardTopBefore": 967.09375,
+      "firstCardTopAfter": 895.546875,
+      "deltaPx": -71.55,
+      "lostControls": [],
+      "hiddenControls": [],
+      "verdict": "SUBE",
+      "pass": true
+    },
+    {
+      "preset": "Archive",
+      "viewport": "1280x800",
+      "beforeTheme": "0",
+      "afterTheme": "0",
+      "firstCardTopBefore": 841.28125,
+      "firstCardTopAfter": 841.28125,
+      "deltaPx": 0,
+      "lostControls": [],
+      "hiddenControls": [],
+      "diffs": {},
+      "verdict": "SIN_CAMBIOS",
+      "pass": true
+    }
+  ],
+  "conclusive": true,
+  "pass": true,
+  "notCovered": "aplicar/limpiar filtros, orden, vacio, estado tras AJAX y GET sin JS (C01-4/C01-5) se prueban aparte"
+}
