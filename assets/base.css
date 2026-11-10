@@ -1915,6 +1915,9 @@ body[data-sticky-cart-visible] {
 }
 
 .product-card__content {
+  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver LV05-NF01 mas abajo),
+     asi que este valor es a la vez su alto real y la reserva de LV-05. */
+  --card-swatch-row-height: var(--tap-target-min);
   display: grid;
   gap: var(--space-1);
 }
@@ -1997,10 +2000,14 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .product-card__swatches {
   --card-swatch-size: 1.5rem;
+  --card-swatch-text-min: 4.75rem;
   container: card-swatches / inline-size;
   display: flex;
-  flex-wrap: wrap;
+  /* LV05-NF01. Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
+     a otra fila. El nombre completo sigue en el aria-label de cada swatch. */
+  flex-wrap: nowrap;
   align-items: center;
+  height: var(--card-swatch-row-height);
   /* Cada swatch ocupa 44x44 para el toque, pero el circulo mide 24: el margen negativo
      alinea el primer circulo con el borde del titulo. */
   margin-inline-start: calc((var(--tap-target-min) - var(--card-swatch-size)) / -2);
@@ -2008,46 +2015,259 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .product-card__swatch-group {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .product-card__swatch-item {
   display: inline-flex;
+  min-width: 0;
 }
 
-/* Dos swatches y el contador en una tarjeta estrecha (la rejilla movil de dos columnas);
-   cuatro desde 260px de tarjeta. Tres swatches mas el contador no caben a 44px cada uno. */
-.product-card__swatches .card-swatch--wide-only,
-.product-card__swatches .card-swatch-more--wide {
+.product-card__swatches .card-swatch-more {
+  flex-shrink: 0;
+}
+
+/* LV05-CN3 y LV05-CN5. Liquid (snippets/card-swatch-fit.liquid) escribe en data-swatch-fit
+   cuantas piezas caben en cada banda de ancho de la fila (a 120-140, b 140-180 ... h >= 380),
+   estimando 44 por color y por contador, 76 (--card-swatch-text-min, unos 6 caracteres
+   visibles) por nombre largo y el ancho propio de un nombre corto. Las cifras son px con la
+   letra base de 16px: cada banda empieza en max(px, rem), asi que con la letra del navegador
+   al 125 o 150 % las bandas crecen con el texto y la estimacion sigue siendo valida. Solo se
+   recorta lo que no cabe; cada contador (--k1 a --k4) cuenta lo que queda oculto. La altura
+   de la fila no cambia. */
+.product-card__swatches .card-swatch-more--fit {
   display: none;
 }
 
-@container card-swatches (min-width: 270px) {
-  .product-card__swatches .card-swatch--wide-only,
-  .product-card__swatches .card-swatch-more--wide {
+@container card-swatches (max(120px, 7.5rem) <= width < max(140px, 8.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='a1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='a2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='a3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='a1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='a2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='a3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='a4'] ~ .card-swatch-more--k4 {
     display: inline-grid;
   }
+}
 
-  .product-card__swatches .product-card__swatch-item.card-swatch--wide-only {
-    display: inline-flex;
+@container card-swatches (max(140px, 8.75rem) <= width < max(180px, 11.25rem)) {
+  .product-card__swatch-group[data-swatch-fit~='b1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='b2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='b3'] .card-swatch--n4 {
+    display: none;
   }
 
-  .product-card__swatches .card-swatch-more--narrow {
+  .product-card__swatch-group[data-swatch-fit~='b1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='b2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='b3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='b4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(180px, 11.25rem) <= width < max(220px, 13.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='c1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='c2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='c3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='c1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='c2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='c3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='c4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(220px, 13.75rem) <= width < max(260px, 16.25rem)) {
+  .product-card__swatch-group[data-swatch-fit~='d1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='d2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='d3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='d1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='d2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='d3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='d4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(260px, 16.25rem) <= width < max(300px, 18.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='e1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='e2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='e3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='e1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='e2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='e3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='e4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(300px, 18.75rem) <= width < max(340px, 21.25rem)) {
+  .product-card__swatch-group[data-swatch-fit~='f1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='f2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='f3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='f1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='f2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='f3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='f4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(340px, 21.25rem) <= width < max(380px, 23.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='g1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='g2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='g3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='g1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='g2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='g3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='g4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (width >= max(380px, 23.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='h1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='h2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='h3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='h1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='h2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='h3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='h4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+/* LV05-CN5. Red de seguridad para filas mas estrechas que la banda a (zoom del 200 %, letra
+   grande, vista de lista estrecha), donde la estimacion no garantiza nada: un swatch y el
+   contador; con menos de dos piezas de toque, solo el primer swatch; sin sitio para una,
+   ninguno. El enlace del producto sigue llevando a todas las opciones. */
+@container card-swatches (width < max(120px, 7.5rem)) {
+  .product-card__swatches .product-card__swatch-group :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--fit {
+    display: none;
+  }
+
+  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--k1 {
+    display: inline-grid;
+  }
+}
+
+/* LV05-CN6. Sin contador visible, el total queda para el lector de pantalla. */
+.product-card__swatches .card-swatch-count {
+  display: none;
+}
+
+@container card-swatches (width < 88px) {
+  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--fit {
+    display: none;
+  }
+
+  .product-card__swatches .card-swatch-count {
+    display: block;
+  }
+
+  /* Sin contador, el primer swatch de texto toma lo que haya en la fila, sin bajar de la
+     pieza de toque. */
+  .product-card__swatches .product-card__swatch-group :is(.card-swatch--text-min, .card-swatch--text-fit) {
+    flex-shrink: 1;
+    min-width: var(--tap-target-min);
+    max-width: 100%;
+  }
+}
+
+@container card-swatches (width < 44px) {
+  .product-card__swatches .product-card__swatch-group {
     display: none;
   }
 }
 
-/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. */
-.card-swatch--text {
+/* LV-05. Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
+   las tarjetas sin ellos reservan el alto de la fila de swatches (--card-swatch-row-height)
+   para que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento
+   vacio: no cambia el DOM ni el orden de lectura. Solo en rejillas de varias columnas: la
+   vista de lista, bento y curated showcase quedan fuera, y la rejilla de "2" columnas y la
+   de busqueda solo entran desde 48rem, porque por debajo son de una columna y la reserva no
+   alinearia nada. Sin :has() no se reserva nada y la tarjeta queda como antes.
+   Pendiente LV05-V01 (ledger): si el vendor falta en unas tarjetas de la fila y no en otras,
+   los titulos siguen desfasados por el alto de esa linea. */
+:is(
+    .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
+    .product-recommendations__grid,
+    .recently-viewed__grid,
+    .main-404__product-grid,
+    .main-article__product-grid
+  ):has(.product-card__swatches)
+  .product-card__content:not(:has(> .product-card__swatches))::before {
+  content: '';
+  display: block;
+  height: var(--card-swatch-row-height);
+}
+
+@media (min-width: 48rem) {
+  :is(.product-grid[data-grid-columns='2'], .search-results-grid):has(.product-card__swatches)
+    .product-card__content:not(:has(> .product-card__swatches))::before {
+    content: '';
+    display: block;
+    height: var(--card-swatch-row-height);
+  }
+}
+
+/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. LV05-NF01: el
+   selector doble gana a .card-swatch (width fijo de 44px, declarado despues); sin el, la
+   etiqueta desbordaba el boton y se montaba sobre la vecina. */
+.card-swatch.card-swatch--text {
+  /* La pista puede bajar de 0 al ancho de la etiqueta: el boton se encoge en una fila
+     estrecha y la etiqueta recorta con elipsis dentro de el. */
+  grid-template-columns: minmax(0, auto);
   width: auto;
   min-width: var(--tap-target-min);
   max-width: 100%;
   padding-inline: var(--space-2xs);
 }
 
+/* LV05-CN1. Un nombre largo se encoge hasta el minimo legible (unos 6 caracteres) y no mas;
+   uno corto (5 letras o menos) no se encoge. El nombre completo va en title (raton) y en
+   aria-label. */
+/* LV05-CN5. Si solo cabe una pieza y el contador (banda a, o letra grande), el minimo cede
+   hasta dejar sitio al contador, sin bajar de la pieza de toque. */
+.product-card__swatch-group .card-swatch--text-min {
+  flex-shrink: 1;
+  min-width: var(--card-swatch-text-min);
+  min-width: max(var(--tap-target-min), min(var(--card-swatch-text-min), 100cqi - var(--tap-target-min)));
+}
+
+.product-card__swatch-group .card-swatch--text-fit {
+  flex-shrink: 0;
+  max-width: max(var(--tap-target-min), min(100%, 100cqi - var(--tap-target-min)));
+}
+
 .card-swatch__text {
   display: block;
-  max-width: 8rem;
+  min-width: 0;
+  max-width: min(8rem, 100%);
   padding: 0.25rem 0.55rem;
   overflow: hidden;
   border: 1px solid var(--color-control-border);
