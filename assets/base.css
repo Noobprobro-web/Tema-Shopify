@@ -2050,32 +2050,132 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* LV05-CN1. Un swatch de texto no baja de --card-swatch-text-min (unos 8 caracteres visibles),
-   asi que una fila de texto muestra menos piezas que una de color: una y el contador por
-   debajo de 196px de fila (76 + 44 + holgura), dos hasta 348px (4 x 76 + 44) y cuatro
-   desde ahi. Cada contador cuenta lo que queda oculto. La altura de la fila no cambia. */
-.product-card__swatches .card-swatch-more--text {
+/* LV05-CN3. Fila con algun valor de texto: Liquid escribe en data-swatch-fit cuantas piezas
+   caben en cada banda de ancho de la fila (a < 140px, b 140-180 ... h >= 380), estimando
+   44px por color, --card-swatch-text-min (76px, unos 6 caracteres visibles) por nombre largo
+   y el ancho propio de un nombre corto. Asi XS/S/M/XL se ven enteras donde caben y solo se
+   recorta lo que no cabe. Cada contador (--k1 a --k4) cuenta lo que queda oculto. La altura
+   de la fila no cambia. Una fila solo de color sigue con la regla de 2 o 4 de arriba. */
+.product-card__swatches .card-swatch-more--fit {
   display: none;
 }
 
-@container card-swatches (width < 196px) {
-  .product-card__swatches .product-card__swatch-group--text .card-swatch--second,
-  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--narrow {
+@container card-swatches (width < 140px) {
+  .product-card__swatch-group[data-swatch-fit~='a1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='a2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='a3'] .card-swatch--n4 {
     display: none;
   }
 
-  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--text {
+  .product-card__swatch-group[data-swatch-fit~='a1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='a2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='a3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='a4'] ~ .card-swatch-more--k4 {
     display: inline-grid;
   }
 }
 
-@container card-swatches (270px <= width < 348px) {
-  .product-card__swatches .product-card__swatch-group--text .card-swatch--wide-only,
-  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--wide {
+@container card-swatches (140px <= width < 180px) {
+  .product-card__swatch-group[data-swatch-fit~='b1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='b2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='b3'] .card-swatch--n4 {
     display: none;
   }
 
-  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--narrow {
+  .product-card__swatch-group[data-swatch-fit~='b1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='b2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='b3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='b4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (180px <= width < 220px) {
+  .product-card__swatch-group[data-swatch-fit~='c1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='c2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='c3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='c1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='c2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='c3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='c4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (220px <= width < 260px) {
+  .product-card__swatch-group[data-swatch-fit~='d1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='d2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='d3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='d1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='d2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='d3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='d4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (260px <= width < 300px) {
+  .product-card__swatch-group[data-swatch-fit~='e1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='e2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='e3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='e1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='e2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='e3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='e4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (300px <= width < 340px) {
+  .product-card__swatch-group[data-swatch-fit~='f1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='f2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='f3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='f1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='f2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='f3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='f4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (340px <= width < 380px) {
+  .product-card__swatch-group[data-swatch-fit~='g1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='g2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='g3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='g1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='g2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='g3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='g4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (width >= 380px) {
+  .product-card__swatch-group[data-swatch-fit~='h1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='h2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='h3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='h1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='h2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='h3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='h4'] ~ .card-swatch-more--k4 {
     display: inline-grid;
   }
 }
@@ -2124,8 +2224,9 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   padding-inline: var(--space-2xs);
 }
 
-/* LV05-CN1. Un nombre largo se encoge hasta el minimo legible y no mas; uno corto (5 letras o
-   menos) no se encoge. El nombre completo va en title (raton) y en aria-label. */
+/* LV05-CN1. Un nombre largo se encoge hasta el minimo legible (unos 6 caracteres) y no mas;
+   uno corto (5 letras o menos) no se encoge. El nombre completo va en title (raton) y en
+   aria-label. */
 .product-card__swatch-group .card-swatch--text-min {
   flex-shrink: 1;
   min-width: var(--card-swatch-text-min);
