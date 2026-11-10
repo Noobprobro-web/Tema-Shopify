@@ -1507,7 +1507,11 @@
       const quantityField = this.productForm.elements.namedItem('quantity');
       this.quantityInput = quantityField instanceof HTMLInputElement ? quantityField : null;
       this.lineTotal = this.closest('[data-section-id]')?.querySelector('[data-line-total]') || null;
-      this.unitPrice = this.priceOutput?.textContent.trim() || '';
+      // D-02-A. El Liquid pinta el precio de compra unica; con un plan ya elegido al cargar
+      // (?selling_plan= o variante que exige plan) VariantSelects ya decidio el precio del plan
+      // y no vuelve a emitir el evento, asi que se toma de su estado.
+      this.unitPrice = this.variantSelects?.currentAllocation?.price
+        || this.priceOutput?.textContent.trim() || '';
       this.productTitle = this.querySelector('.sticky-cart-bar__title')?.textContent.trim() || '';
 
       if (this.quantityInput) {
