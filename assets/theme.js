@@ -1202,7 +1202,11 @@
       let effectiveMax = variant?.quantity_max ?? null;
       if (effectiveMax === null && variant?.inventory_management && variant.inventory_policy === 'deny') {
         const inventoryEl = this.querySelector('product-inventory') || this.closest('section')?.querySelector('product-inventory');
-        const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 1;
+        // D-02-Q (C2). El JSON recorta el stock a umbral + 1 a proposito, para no publicar
+        // el inventario real (variant-no-js-select, inventory_cap). Solo un stock <= umbral
+        // es exacto, asi que el techo solo se aplica ahi. Sin bloque de inventario el umbral
+        // es 0, como el que usa el Liquid; con 1 el stock recortado a 1 limitaba toda compra.
+        const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 0;
         const qty = Number(variant.inventory_quantity);
         if (Number.isFinite(qty) && qty > 0 && qty <= threshold) {
           effectiveMax = qty;
