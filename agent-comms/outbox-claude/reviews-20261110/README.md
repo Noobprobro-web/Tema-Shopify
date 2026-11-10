@@ -23,4 +23,6 @@ Copias sin modificar de los informes de revisión independiente del 2026-11-10. 
 | REVIEW-B01-001.md | a55937cef31da055641f975a22f545b7532fe76d69933a664dc7c0c9fed31a94 | ACEPTADO |
 | REVIEW-D02A-001.md | 7f3314c90ed1ccfd0bab55a583e436f68d6c6e14c6fe56b2c142eaee7c829c2b | ACEPTADO |
 
+`SCAN-CLASIFICACION-002.md` clasifica el escaneo de credenciales de la segunda tanda (dcef717..a09bff1).
+
 La revisión independiente de `task/d01fix` (neutralización C-08 de D-01) dio ACEPTADO sin informe en archivo; el veredicto queda registrado en el commit de merge.
