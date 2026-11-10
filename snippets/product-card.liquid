@@ -297,6 +297,13 @@
               </a>
             {%- endif -%}
           {%- endfor -%}
+          {%- comment -%}
+            LV05-CN6. When the row is too narrow for any pill (base.css), this is the only
+            count left: shown to assistive tech only, never focusable, outside the row flow.
+          {%- endcomment -%}
+          <span class="visually-hidden card-swatch-count">
+            {{- 'products.product.swatch_count' | t: count: swatch_total -}}
+          </span>
           <span class="visually-hidden" id="{{ swatch_sold_out_id }}">{{ 'products.product.sold_out' | t }}</span>
         </div>
       {%- endif -%}

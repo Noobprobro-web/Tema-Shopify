@@ -2175,9 +2175,18 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
+/* LV05-CN6. Sin contador visible, el total queda para el lector de pantalla. */
+.product-card__swatches .card-swatch-count {
+  display: none;
+}
+
 @container card-swatches (width < 88px) {
   .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--fit {
     display: none;
+  }
+
+  .product-card__swatches .card-swatch-count {
+    display: block;
   }
 
   /* Sin contador, el primer swatch de texto toma lo que haya en la fila, sin bajar de la
