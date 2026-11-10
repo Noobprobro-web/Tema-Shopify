@@ -341,3 +341,8 @@ Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-A-01-B-02-001.md
 
 - Antes del push, escanear los blobs nuevos alcanzables del rango exacto que se va a publicar. Comparar en memoria contra los valores vigentes de `STOREFRONT_PASSWORD` y `SHOPIFY_CLI_THEME_TOKEN` del entorno, sin imprimir ni registrar los valores. El conteo de coincidencias exactas debe ser cero para cada variable.
 - Una coincidencia del literal histórico se permite únicamente si se clasifica como contenido ajeno a una credencial y un agente independiente confirma la clasificación. La rotación fue confirmada por Johandry. La excepción histórica no sustituye el escaneo de los valores vigentes.
+
+## 2026-11-10: Claude como único escritor (Johandry)
+
+- Desde 2026-11-10, Claude es el único escritor del repositorio. Codex queda autorizado únicamente a registrar esta decisión en `docs/decisions.md`, ejecutar el escaneo D12 vigente y hacer push sin force de `lote-c-impl`, con `24032e8a437c9a9b02f4ae5616b9300e38f9cb78` como último commit de trabajo. El commit que contiene este registro también formará parte de ese push.
+- Después de ese push, Codex no hará más escrituras en el repositorio hasta que Johandry lo indique.
