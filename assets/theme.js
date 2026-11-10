@@ -25,6 +25,34 @@
     && !element.closest('[hidden], [inert]')
     && element.getClientRects().length > 0);
 
+  // Cierre por pulsacion en el fondo de un cajon. preventDefault evita que el mousedown que
+  // sigue (o el de compatibilidad tras un toque) mande el foco a BODY. En un toque, el click
+  // sintetico llega despues de ocultar el fondo y caeria en lo que queda debajo (un enlace
+  // del main, el carrito de la cabecera): ese unico click se descarta. Caduca con el
+  // siguiente pointerdown o a los 800 ms, por si el gesto no termina en click (scroll).
+  const swallowNextClick = () => {
+    let timer = 0;
+    const release = () => {
+      window.removeEventListener('click', swallow, true);
+      window.removeEventListener('pointerdown', release, true);
+      window.clearTimeout(timer);
+    };
+    const swallow = (event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      release();
+    };
+    window.addEventListener('click', swallow, true);
+    window.addEventListener('pointerdown', release, true);
+    timer = window.setTimeout(release, 800);
+  };
+
+  const dismissFromOverlay = (event, close) => {
+    event.preventDefault();
+    if (event.pointerType !== 'mouse') swallowNextClick();
+    close();
+  };
+
   const trapFocus = (container, initialFocus = null) => {
     const handleKeydown = (event) => {
       if (event.key !== 'Tab') return;
@@ -310,10 +338,7 @@
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
         if (event.target !== this.overlay) return;
-        // Sin preventDefault, el mousedown que sigue (o el de compatibilidad tras un toque)
-        // enfoca BODY y deshace el foco devuelto al disparador.
-        event.preventDefault();
-        this.setOpen(false, true);
+        dismissFromOverlay(event, () => this.setOpen(false, true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -2680,7 +2705,7 @@
         this.noteVersion += 1;
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.close(true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.close(true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -2888,7 +2913,12 @@
       this.releaseInteraction();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
-        this.returnFocusTarget.focus();
+        // Abierto desde el menu movil: el menu decide el destino (su disparador, o la
+        // navegacion de escritorio si ya no se pinta) y sigue el foco en los cambios de ancho.
+        const menu = this.returnFocusTarget.matches('[data-drawer-trigger]')
+          && this.returnFocusTarget.closest('theme-drawer');
+        if (typeof menu?.returnFocus === 'function') menu.returnFocus();
+        else this.returnFocusTarget.focus();
       }
     }
 
