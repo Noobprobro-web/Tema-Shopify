@@ -16,7 +16,7 @@
 // Nunca imprime valores ni pasa credenciales por argv. Solo lectura: no hay
 // push, publish ni delete en este script.
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -73,8 +73,8 @@ function cliCommand() {
   return existsSync(local) ? local : 'shopify';
 }
 
-// Ejecuta el CLI sin eco. Devuelve solo codigo y stdout (para el JSON de theme list);
-// stderr se descarta para no reflejar nada del entorno en el informe.
+// Ejecuta el CLI sin eco. Devuelve codigo, stdout (JSON de theme list) y stderr;
+// solo pullTheme usa un extracto corto de stderr en el mensaje de error.
 function runCli(args) {
   const bin = cliCommand();
   const viaNode = /\.(c|m)?js$/.test(bin);
@@ -84,7 +84,7 @@ function runCli(args) {
     stdio: ['ignore', 'pipe', 'pipe'],
     maxBuffer: 64 * 1024 * 1024,
   });
-  return { status: result.error ? -1 : result.status, stdout: result.stdout || '' };
+  return { status: result.error ? -1 : result.status, stdout: result.stdout || '', stderr: result.stderr || '' };
 }
 
 function preflight(themeIds) {
@@ -108,8 +108,13 @@ class PullError extends Error {}
 function pullTheme(themeId, paths, dest) {
   const args = ['theme', 'pull', '--theme', themeId, '--path', dest, '--no-color'];
   if (paths) for (const p of paths) args.push('--only', p);
-  const { status } = runCli(args);
-  if (status !== 0) throw new PullError(`theme pull del tema ${themeId} devolvio ${status}`);
+  // El CLI 4.8.0 rechaza un --path que no existe.
+  mkdirSync(dest, { recursive: true });
+  const { status, stderr } = runCli(args);
+  if (status !== 0) {
+    const detail = stderr.replace(/\s+/g, ' ').trim().slice(0, 200);
+    throw new PullError(`theme pull del tema ${themeId} devolvio ${status}${detail ? `: ${detail}` : ''}`);
+  }
 }
 
 function walk(dir, base = dir, out = []) {

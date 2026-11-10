@@ -53,6 +53,15 @@ Rama `lote-e-claude`. Claude es el único escritor desde 2026-11-10. Informes de
 - Tienda limpia para C-02.
 - El resto de `agent-comms/outbox-gpt/GPT-PENDIENTES-JOHANDRY-001.md`.
 
+### Sesión de tienda 2026-11-10 (CLAUDE-SESION-20261110-TIENDA-001)
+
+- Las tres previews (Sartorial, Imprint, Archive) se sincronizaron con los exports de `cb20d86` (86 archivos; pull de verificación 86/86; REVIEW-SYNC-RESULT-001: ACEPTADO CON CONDICIONES). Ya no sirven como antes/después de C-01.
+- `identity.mjs` corregido (el pull fallaba por directorio de destino ausente); su SHA cambió (0d75bd4a a 67912f75) y espera aceptación (REVIEW-PRECOMMIT-001: COMMITEAR).
+- `run.mjs --read-only` falló antes del navegador: AXE_SHA256 (línea 19) no coincide con `tests/vendor/axe.min.js`. No se editó run.mjs.
+- `run.mjs --cart` falló en el acceso a la tienda (AUTH_RESPONSE_NOT_ACCEPTED, un POST permitido, sin 429, carrito intacto). No se repitió. Cuentan 2 de las 5 corridas diagnósticas.
+- Ninguna prueba en tienda concluyente; ninguna fila del ledger cambia de estado. Johandry debe verificar o rotar la contraseña de la tienda, decidir la corrección de AXE_SHA256, aceptar el cambio de identity.mjs y, para un C-01 conclusivo, autorizar subir 258ca4f/e8f17e5 a las previews.
+- Pendiente manual: `rm /axe_head.js` (copia temporal fuera del repo).
+
 ## Estado vigente — 2026-11-08 (Codex/GPT, rama lote-c-impl)
 
 - Johandry aceptó la implementación en 6e3bbb0. Los informes 001 y 002 se copiaron sin modificar, con SHA-256 verificados, y se publicaron intactos en el historial de origin/lote-c-impl, que avanzó a 6e9523b. Las pruebas funcionales en tienda conservan los estados indicados abajo.
