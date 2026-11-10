@@ -25,6 +25,39 @@
     && !element.closest('[hidden], [inert]')
     && element.getClientRects().length > 0);
 
+  // Cierre por pulsacion en el fondo de un cajon. preventDefault evita que el mousedown que
+  // sigue (o el de compatibilidad tras un toque) mande el foco a BODY. En un toque, el click
+  // sintetico llega despues de ocultar el fondo y caeria en lo que queda debajo (un enlace
+  // del main, el carrito de la cabecera): ese unico click se descarta. Caduca con el
+  // siguiente pointerdown, con pointercancel (el gesto paso a scroll y no habra click) o a
+  // los 800 ms. Un click con detail 0 (teclado, lector de pantalla, switch, click()) no
+  // viene de un puntero y nunca se descarta.
+  const swallowNextClick = () => {
+    let timer = 0;
+    const release = () => {
+      window.removeEventListener('click', swallow, true);
+      window.removeEventListener('pointerdown', release, true);
+      window.removeEventListener('pointercancel', release, true);
+      window.clearTimeout(timer);
+    };
+    const swallow = (event) => {
+      if (event.detail === 0) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      release();
+    };
+    window.addEventListener('click', swallow, true);
+    window.addEventListener('pointerdown', release, true);
+    window.addEventListener('pointercancel', release, true);
+    timer = window.setTimeout(release, 800);
+  };
+
+  const dismissFromOverlay = (event, close) => {
+    event.preventDefault();
+    if (event.pointerType !== 'mouse') swallowNextClick();
+    close();
+  };
+
   const trapFocus = (container, initialFocus = null) => {
     const handleKeydown = (event) => {
       if (event.key !== 'Tab') return;
@@ -77,9 +110,32 @@
     });
   };
 
+  // LV-03. El bloqueo (overflow: hidden en body, base.css) quita la barra de scroll clasica
+  // de escritorio y el contenido se corria su ancho. Se mide la barra antes de bloquear y
+  // body la compensa con padding-right (--scrollbar-compensation). Con barras superpuestas
+  // (moviles) la medida es 0. No se usa scrollbar-gutter global: cambiaria el ancho de las
+  // secciones a sangre con la pagina sin bloquear.
   const syncDialogScrollLocks = () => {
-    document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
-    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]')));
+    const { body } = document;
+    const wasLocked = body.hasAttribute('data-drawer-open') || body.hasAttribute('data-modal-open');
+    const drawerOpen = Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]'));
+    const modalOpen = Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]'));
+    const locked = drawerOpen || modalOpen;
+
+    // La compensacion es lo que crece clientWidth al bloquear (la barra retirada), no
+    // innerWidth - clientWidth: en movil, con desborde horizontal, esa resta mide la escala
+    // de la pagina y daria cientos de px.
+    const widthBefore = locked && !wasLocked ? document.documentElement.clientWidth : 0;
+
+    body.toggleAttribute('data-drawer-open', drawerOpen);
+    body.toggleAttribute('data-modal-open', modalOpen);
+
+    if (locked && !wasLocked) {
+      const scrollbar = Math.max(0, document.documentElement.clientWidth - widthBefore);
+      if (scrollbar > 0) body.style.setProperty('--scrollbar-compensation', `${scrollbar}px`);
+      else body.style.removeProperty('--scrollbar-compensation');
+    }
+    if (!locked) body.style.removeProperty('--scrollbar-compensation');
   };
 
   // 5B-001, H-13. Una diapositiva que sale de la vista no puede seguir sonando: <video> se
@@ -310,10 +366,7 @@
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
         if (event.target !== this.overlay) return;
-        // Sin preventDefault, el mousedown que sigue (o el de compatibilidad tras un toque)
-        // enfoca BODY y deshace el foco devuelto al disparador.
-        event.preventDefault();
-        this.setOpen(false, true);
+        dismissFromOverlay(event, () => this.setOpen(false, true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -937,7 +990,7 @@
       this.updateForms(variant, { resolvingVariant: false });
       this.updatePrice(variant);
       this.updateMedia(variant);
-      this.updateStatus(variant);
+      this.updateStatus(variant, { variantChanged: true });
       if (updateUrl) this.updateUrl(variant);
       this.dispatchEvent(
         new CustomEvent('theme:variant-change', {
@@ -1027,15 +1080,21 @@
         this.subscriptionPrice.textContent = selectedAllocation?.price
           || this.dataset.sellingPlanUnavailableText;
       }
+      // Solo se reescribe si cambia: reponer el mismo texto en una region aria-live puede
+      // volver a anunciarlo. Si cambia con el plan visible, ya anuncia el precio del plan y
+      // updateStatus no lo repite.
+      let planStatusChanged = false;
       if (this.sellingPlanStatus) {
-        if (subscriptionSelected) {
-          this.sellingPlanStatus.textContent = `${selectedAllocation.name}: ${selectedAllocation.price}`;
-        } else if (oneTimeAvailable) {
-          this.sellingPlanStatus.textContent = `${this.dataset.oneTimeText}: ${variant.price}`;
-        } else {
-          this.sellingPlanStatus.textContent = this.dataset.sellingPlanUnavailableText;
-        }
+        const planStatusText = subscriptionSelected
+          ? `${selectedAllocation.name}: ${selectedAllocation.price}`
+          : oneTimeAvailable
+            ? `${this.dataset.oneTimeText}: ${variant.price}`
+            : this.dataset.sellingPlanUnavailableText;
+        planStatusChanged = this.sellingPlanStatus.textContent !== planStatusText;
+        if (planStatusChanged) this.sellingPlanStatus.textContent = planStatusText;
       }
+      this.planStatusAnnouncedPrice = Boolean(subscriptionSelected && planStatusChanged
+        && isFocusTargetUsable(this.sellingPlanStatus));
       if (this.perDeliveryPrice) {
         const showPerDelivery = Boolean(
           subscriptionSelected
@@ -1311,17 +1370,37 @@
       });
     }
 
-    updateStatus(variant) {
+    // P3 (REVIEW-D02A-001). Un cambio de variante disponible se anuncia con su precio
+    // (el del plan si hay suscripcion), en un solo texto atomico: "[title], [price]: ...".
+    // El precio no se repite si el estado del plan ya lo anuncio en este mismo cambio. Un
+    // cambio de opcion de compra no vuelve a anunciar la disponibilidad si esta no cambio:
+    // ese precio lo anuncia el estado del plan.
+    updateStatus(variant, { variantChanged = false } = {}) {
       const status = this.querySelector('[data-variant-status]');
       if (!status) return;
 
-      const announcement = !variant
+      const available = Boolean(variant?.available) && this.isPurchaseOptionValid(variant);
+      const base = !variant
         ? this.dataset.unavailableText
         : !variant.available
           ? `${variant.title}: ${this.dataset.soldOutStatus}`
-          : !this.isPurchaseOptionValid(variant)
+          : !available
             ? this.dataset.sellingPlanUnavailableText
             : `${variant.title}: ${this.dataset.availableStatus}`;
+      const baseChanged = base !== this.statusBase;
+      this.statusBase = base;
+
+      let announcement = base;
+      if (variantChanged) {
+        // Un money format con HTML (<span class=money>) no debe leerse con etiquetas.
+        const price = String((this.currentAllocation || variant)?.price || '').replace(/<[^>]*>/g, '').trim();
+        const template = this.dataset.availablePriceStatus;
+        if (available && price && template && !this.planStatusAnnouncedPrice) {
+          announcement = template.replace(/\[(title|price)\]/g, (match, key) => (key === 'title' ? variant.title : price));
+        }
+      } else if (!baseChanged) {
+        return;
+      }
       if (status.textContent !== announcement) status.textContent = announcement;
     }
 
@@ -1729,7 +1808,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton);
     }
@@ -1941,7 +2021,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger?.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton || this.panel);
     }
@@ -2680,7 +2761,7 @@
         this.noteVersion += 1;
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.close(true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.close(true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -2864,7 +2945,8 @@
       this.panel.inert = false;
       this.panel.setAttribute('aria-hidden', 'false');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-drawer-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
         this.panel,
@@ -2888,7 +2970,12 @@
       this.releaseInteraction();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
-        this.returnFocusTarget.focus();
+        // Abierto desde el menu movil: el menu decide el destino (su disparador, o la
+        // navegacion de escritorio si ya no se pinta) y sigue el foco en los cambios de ancho.
+        const menu = this.returnFocusTarget.matches('[data-drawer-trigger]')
+          && this.returnFocusTarget.closest('theme-drawer');
+        if (typeof menu?.returnFocus === 'function') menu.returnFocus();
+        else this.returnFocusTarget.focus();
       }
     }
 
@@ -5258,7 +5345,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
         this.panel,

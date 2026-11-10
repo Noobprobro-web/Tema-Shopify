@@ -1,0 +1,50 @@
+LV-03 mode=base ref=e5da3b1
+
+L 1280 menu
+  OK   1280 menu: hay barra clasica antes de abrir -> bar=15
+  FAIL 1280 menu: bloqueado y 0 px de desplazamiento -> brand7.5 cart15.0 text0.0 main15.0 comp=-
+  OK   1280 menu: al cerrar, sin bloqueo, sin compensacion y en su sitio -> brand0.0 cart0.0 text0.0 main0.0 pad=0px
+
+L 1280 carrito
+  OK   1280 carrito: hay barra clasica antes de abrir -> bar=15
+  FAIL 1280 carrito: bloqueado y 0 px de desplazamiento -> brand7.5 cart15.0 text0.0 main15.0 comp=-
+  OK   1280 carrito: al cerrar, sin bloqueo, sin compensacion y en su sitio -> brand0.0 cart0.0 text0.0 main0.0 pad=0px
+
+L 1280 busqueda
+  OK   1280 busqueda: hay barra clasica antes de abrir -> bar=15
+  FAIL 1280 busqueda: bloqueado y 0 px de desplazamiento -> brand7.5 cart15.0 text0.0 main15.0 comp=-
+  OK   1280 busqueda: al cerrar, sin bloqueo, sin compensacion y en su sitio -> brand0.0 cart0.0 text0.0 main0.0 pad=0px
+
+L 1280 guia de tallas
+  OK   1280 guia de tallas: hay barra clasica antes de abrir -> bar=15
+  FAIL 1280 guia de tallas: bloqueado y 0 px de desplazamiento -> brand7.5 cart15.0 text0.0 main15.0 comp=-
+  OK   1280 guia de tallas: al cerrar, sin bloqueo, sin compensacion y en su sitio -> brand0.0 cart0.0 text0.0 main0.0 pad=0px
+
+L 767 carrito
+  OK   767 carrito: hay barra clasica antes de abrir -> bar=15
+  FAIL 767 carrito: bloqueado y 0 px de desplazamiento -> brand0.0 cart15.0 text0.0 main15.0 comp=-
+  OK   767 carrito: al cerrar, sin bloqueo, sin compensacion y en su sitio -> brand0.0 cart0.0 text0.0 main0.0 pad=0px
+
+L 767 busqueda
+  OK   767 busqueda: hay barra clasica antes de abrir -> bar=15
+  FAIL 767 busqueda: bloqueado y 0 px de desplazamiento -> brand0.0 cart15.0 text0.0 main15.0 comp=-
+  OK   767 busqueda: al cerrar, sin bloqueo, sin compensacion y en su sitio -> brand0.0 cart0.0 text0.0 main0.0 pad=0px
+
+L 767 guia de tallas
+  OK   767 guia de tallas: hay barra clasica antes de abrir -> bar=15
+  FAIL 767 guia de tallas: bloqueado y 0 px de desplazamiento -> brand0.0 cart15.0 text0.0 main15.0 comp=-
+  OK   767 guia de tallas: al cerrar, sin bloqueo, sin compensacion y en su sitio -> brand0.0 cart0.0 text0.0 main0.0 pad=0px
+
+L 767 menu por el disparador
+  FAIL 767 menu: 0 px de desplazamiento -> brand0.0 cart15.0 text0.0 main15.0
+  FAIL menu -> carrito desde el menu: sigue bloqueado y sin desplazamiento -> brand0.0 cart15.0 text0.0 main15.0 comp=
+  OK   cerrar carrito: sin compensacion -> brand0.0 cart0.0 text0.0 main0.0
+
+L 1280 pagina corta (sin barra)
+  OK   sin barra: compensacion 0 -> bar=0 comp=-
+
+L movil 390 (isMobile, barra superpuesta)
+  OK   movil: compensacion 0 y sin desplazamiento -> bar=0 comp=- pad=0px
+  OK   sin errores de pagina
+
+RESULTADO mode=base: 18/27 OK, 9 FAIL
