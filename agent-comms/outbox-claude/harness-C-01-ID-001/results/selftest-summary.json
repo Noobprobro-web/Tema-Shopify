@@ -1,0 +1,117 @@
+{
+  "tag": "SINTETICO",
+  "before": "258ca4f59910ebf3c024901a25f0010d69b13856",
+  "after": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
+  "checks": [
+    {
+      "name": "identidad: antes exacto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad: despues exacto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad: deriva en base.css detectada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad: plantilla JSON reformateada aceptada como normalized",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad: despues contra commit antes falla",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad: exit 1 si algun objetivo falla",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad --full: arbol completo exacto",
+      "ok": true,
+      "detail": "85 archivos"
+    },
+    {
+      "name": "identidad --full: falta y sobra detectados",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad: sin credenciales sale 2 y no invoca el CLI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad: con una sola variable sale 2",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad via CLI: preflight + pull --only y exit 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad via CLI: sin token en argv, salida ni informe",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "identidad via CLI: tema no unpublished se rechaza antes del pull",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "medicion hide: 390 sube en los 3 presets",
+      "ok": true,
+      "detail": "Sartorial -71.55px, Imprint -8px, Archive -71.55px"
+    },
+    {
+      "name": "medicion hide: 1280 sin cambios en los 3 presets",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "medicion hide: CSS servido = commit y exit 0",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "medicion measure: barra medida 56 px y mismo veredicto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "control nulo: antes vs antes queda IGUAL_SIN_JUSTIFICAR (exit 1)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS servido distinto del commit invalida el par (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "measure sin barra visible: celdas invalidas (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "modo tienda sin informe de identidad: no mide (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cambio de layout solo en 1280 detectado (CAMBIO_LAYOUT, exit 1)",
+      "ok": true,
+      "detail": "Sartorial: grid/firstCard/bodyColumns/bodyGap; Imprint: grid/firstCard/bodyColumns/bodyGap; Archive: grid/firstCard/bodyColumns/bodyGap"
+    }
+  ]
+}
