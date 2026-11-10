@@ -6,6 +6,8 @@
   - variant: optional variant object
   - use_variant: use the supplied/selected variant when true
   - show_badges: show sale and sold-out labels
+  - badges_live: false drops aria-live from the badges (product cards, where the swatch
+    describes its own sold-out state); defaults to a polite live region
   - show_unit_price: show unit pricing when available
   - show_taxes: show the taxes-included message when applicable
   - price_class: optional additional class
@@ -99,7 +101,7 @@
   {%- endif -%}
 
   {%- if show_badges -%}
-    <div class="price__badges" aria-live="polite">
+    <div class="price__badges"{% unless badges_live == false %} aria-live="polite"{% endunless %}>
       <span class="badge" data-sale-badge{% unless on_sale %} hidden{% endunless %}>
         {{- 'products.product.sale' | t -}}
       </span>
