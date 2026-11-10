@@ -331,7 +331,7 @@
         <a href="{{ card_product.url }}" data-card-link>{{ card_product.title | escape }}</a>
       </h3>
 
-      {% render 'price', product: card_product, show_badges: true, show_unit_price: true %}
+      {% render 'price', product: card_product, show_badges: true, badges_live: false, show_unit_price: true %}
 
       {%- if show_quick_add -%}
         <div class="product-card__action">
