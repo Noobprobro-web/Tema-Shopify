@@ -1915,6 +1915,9 @@ body[data-sticky-cart-visible] {
 }
 
 .product-card__content {
+  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver NF-01 mas abajo),
+     asi que este valor es a la vez su alto real y la reserva de LV-05. */
+  --card-swatch-row-height: var(--tap-target-min);
   display: grid;
   gap: var(--space-1);
 }
@@ -1999,8 +2002,11 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   --card-swatch-size: 1.5rem;
   container: card-swatches / inline-size;
   display: flex;
-  flex-wrap: wrap;
+  /* NF-01. Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
+     a otra fila. El nombre completo sigue en el aria-label de cada swatch. */
+  flex-wrap: nowrap;
   align-items: center;
+  height: var(--card-swatch-row-height);
   /* Cada swatch ocupa 44x44 para el toque, pero el circulo mide 24: el margen negativo
      alinea el primer circulo con el borde del titulo. */
   margin-inline-start: calc((var(--tap-target-min) - var(--card-swatch-size)) / -2);
@@ -2008,11 +2014,17 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .product-card__swatch-group {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .product-card__swatch-item {
   display: inline-flex;
+  min-width: 0;
+}
+
+.product-card__swatches .card-swatch-more {
+  flex-shrink: 0;
 }
 
 /* Dos swatches y el contador en una tarjeta estrecha (la rejilla movil de dos columnas);
@@ -2038,27 +2050,43 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 }
 
 /* LV-05. Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
-   las tarjetas sin ellos reservan el alto de una fila de swatches (un objetivo de toque) para
-   que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento vacio:
-   no cambia el DOM ni el orden de lectura. Solo en rejillas de varias columnas (no en la
-   vista de lista ni en composiciones como bento o curated showcase). Sin :has() no se
-   reserva nada y la tarjeta queda como antes. */
+   las tarjetas sin ellos reservan el alto de la fila de swatches (--card-swatch-row-height)
+   para que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento
+   vacio: no cambia el DOM ni el orden de lectura. Solo en rejillas de varias columnas: la
+   vista de lista, bento y curated showcase quedan fuera, y la rejilla de "2" columnas y la
+   de busqueda solo entran desde 48rem, porque por debajo son de una columna y la reserva no
+   alinearia nada. Sin :has() no se reserva nada y la tarjeta queda como antes.
+   Pendiente fuera de LV-05: si el vendor falta en unas tarjetas de la fila y no en otras,
+   los titulos siguen desfasados por el alto de esa linea. */
 :is(
-    .product-grid:not([data-grid-columns='list']),
+    .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
     .product-recommendations__grid,
     .recently-viewed__grid,
-    .search-results-grid,
     .main-404__product-grid,
     .main-article__product-grid
   ):has(.product-card__swatches)
   .product-card__content:not(:has(> .product-card__swatches))::before {
   content: '';
   display: block;
-  min-height: var(--tap-target-min);
+  height: var(--card-swatch-row-height);
 }
 
-/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. */
-.card-swatch--text {
+@media (min-width: 48rem) {
+  :is(.product-grid[data-grid-columns='2'], .search-results-grid):has(.product-card__swatches)
+    .product-card__content:not(:has(> .product-card__swatches))::before {
+    content: '';
+    display: block;
+    height: var(--card-swatch-row-height);
+  }
+}
+
+/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. NF-01: el
+   selector doble gana a .card-swatch (width fijo de 44px, declarado despues); sin el, la
+   etiqueta desbordaba el boton y se montaba sobre la vecina. */
+.card-swatch.card-swatch--text {
+  /* La pista puede bajar de 0 al ancho de la etiqueta: el boton se encoge en una fila
+     estrecha y la etiqueta recorta con elipsis dentro de el. */
+  grid-template-columns: minmax(0, auto);
   width: auto;
   min-width: var(--tap-target-min);
   max-width: 100%;
@@ -2067,7 +2095,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .card-swatch__text {
   display: block;
-  max-width: 8rem;
+  min-width: 0;
+  max-width: min(8rem, 100%);
   padding: 0.25rem 0.55rem;
   overflow: hidden;
   border: 1px solid var(--color-control-border);
