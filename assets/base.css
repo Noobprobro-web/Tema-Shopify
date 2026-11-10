@@ -2037,6 +2037,26 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
+/* LV-05. Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
+   las tarjetas sin ellos reservan el alto de una fila de swatches (un objetivo de toque) para
+   que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento vacio:
+   no cambia el DOM ni el orden de lectura. Solo en rejillas de varias columnas (no en la
+   vista de lista ni en composiciones como bento o curated showcase). Sin :has() no se
+   reserva nada y la tarjeta queda como antes. */
+:is(
+    .product-grid:not([data-grid-columns='list']),
+    .product-recommendations__grid,
+    .recently-viewed__grid,
+    .search-results-grid,
+    .main-404__product-grid,
+    .main-article__product-grid
+  ):has(.product-card__swatches)
+  .product-card__content:not(:has(> .product-card__swatches))::before {
+  content: '';
+  display: block;
+  min-height: var(--tap-target-min);
+}
+
 /* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. */
 .card-swatch--text {
   width: auto;
