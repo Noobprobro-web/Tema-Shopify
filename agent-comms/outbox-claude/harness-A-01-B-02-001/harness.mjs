@@ -27,6 +27,8 @@ const a = LAYOUT.indexOf("document.documentElement.classList.remove('no-js');");
 const b = LAYOUT.indexOf('window.theme = window.theme || {};');
 if (a < 0 || b < a) throw new Error('script en linea de layout/theme.liquid no encontrado');
 const INLINE_SCRIPT = LAYOUT.slice(a, b); // tal cual el Liquid real (incluye S-5 en modo fix)
+const INITIAL_VARIANT_RE = /<variant-selects\b[^>]*\sdata-initial-variant-id="\{\{ selected_variant\.id \}\}"/;
+const INITIAL_VARIANT_ATTR = { pdp: INITIAL_VARIANT_RE.test(read('sections/main-product.liquid')), featured: INITIAL_VARIANT_RE.test(read('sections/featured-product.liquid')) };
 
 // ---------- catalogo sintetico ----------
 const money = (c) => `€${(c / 100).toFixed(2).replace('.', ',')} EUR`;
@@ -95,7 +97,10 @@ function render(key, surface, sid, q) {
       <div class="selling-plans__no-js no-js-only"><label for="${spId}">Purchase options</label><select id="${spId}" name="selling_plan"${nojsAttr}>${sel.requires_selling_plan ? '' : `<option value=""${sub ? '' : ' selected'}>One-time</option>`}${p.groups.map((g) => `<optgroup label="${g.name}">${sel.selling_plan_allocations.filter((x) => x.group_id === g.id).map((x) => `<option value="${x.id}" ${x.id === planId ? 'selected' : ''}>${x.name} / ${x.price}</option>`).join('')}</optgroup>`).join('')}</select></div>
     </div>` : '';
   const json = q.badjson === '1' ? '[' : JSON.stringify(cap);
-  const attrs = `${pdp ? `data-product-url="/products/${key}" data-money-format="{{amount_with_comma_separator}} EUR" data-line-total-template="[quantity]"` : ''} data-add-to-cart-text="Add" data-sold-out-text="Sold out" data-unavailable-text="Unavailable" data-available-status="ok" data-sold-out-status="so" data-one-time-text="One-time" data-selling-plan-unavailable-text="Plan unavailable" data-per-delivery-template="[price]"`;
+  // data-initial-variant-id="{{ selected_variant.id }}" (main-product.liquid y featured-product.liquid desde el lote C);
+  // selected_variant = selected_or_first_available_variant, que aqui es `sel`. Solo se emite si el Liquid leido lo emite.
+  const initialAttr = INITIAL_VARIANT_ATTR[pdp ? 'pdp' : 'featured'] ? ` data-initial-variant-id="${sel.id}"` : '';
+  const attrs = `${pdp ? `data-product-url="/products/${key}"${initialAttr} data-money-format="{{amount_with_comma_separator}} EUR" data-line-total-template="[quantity]"` : initialAttr} data-add-to-cart-text="Add" data-sold-out-text="Sold out" data-unavailable-text="Unavailable" data-available-status="ok" data-sold-out-status="so" data-one-time-text="One-time" data-selling-plan-unavailable-text="Plan unavailable" data-per-delivery-template="[price]"`;
   return `<section data-section-id="${sid}"><variant-selects ${attrs}>
   ${picker}
   <div class="product-form"><form method="post" action="/cart/add" id="${pdp ? 'product-form' : 'featured-product-form'}-${sid}" accept-charset="UTF-8" enctype="multipart/form-data" class="product-form__form" data-cart-add-form>
@@ -139,6 +144,20 @@ browser.on('disconnected', () => {});
 // ---------- utilidades de prueba ----------
 const results = [];
 const rec = (id, surface, label, ok, detail) => { results.push({ id, surface, ok }); console.log(`${ok ? 'PASS' : 'FAIL'} ${id} [${surface}] ${label} :: ${JSON.stringify(detail)}`); };
+// Una excepcion no puede hacer desaparecer casos: cada caso previsto del bloque que no llego a
+// registrarse se registra como FAIL con el mensaje de la excepcion. Si todos ya estaban registrados
+// (la excepcion llego despues, p. ej. al cerrar el contexto), el ultimo caso del bloque pasa a FAIL.
+const lost = (surface, mark, expected, e) => {
+  const msg = `EXCEPCION: ${String(e && e.message).split('\n')[0].slice(0, 110)}`;
+  const done = results.slice(mark).filter((r) => r.surface === surface).map((r) => r.id);
+  const missing = expected.filter((id) => { const i = done.indexOf(id); if (i < 0) return true; done.splice(i, 1); return false; });
+  for (const id of missing) rec(id, surface, 'EXCEPCION', false, msg);
+  if (!missing.length) {
+    const last = results.slice(mark).filter((r) => r.surface === surface).pop();
+    if (last) { last.ok = false; console.log(`FAIL ${last.id} [${surface}] ${msg} (tras registrar el caso)`); }
+    else rec(`EXCEPCION fuera de caso`, surface, 'EXCEPCION', false, msg);
+  }
+};
 const same = (x, y) => JSON.stringify(x) === JSON.stringify(y);
 const parse = (body) => { const o = {}; for (const m of (body || '').matchAll(/name="([^"]+)"\r\n\r\n([^\r]*)/g)) (o[m[1]] ||= []).push(m[2]); return o; };
 async function open(qs, { js = true } = {}) {
@@ -165,7 +184,7 @@ const pick = (pg, v) => pg.locator(`.variant-picker__input[value="${v}"]`).check
 for (const surface of ['pdp', 'featured']) {
   const S = `surface=${surface}`;
   // H-1 / H-2 / H-3 / H-4 con JS (p1: plan opcional)
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1`); await ready(t.pg);
     const h1 = await fd(t.pg); rec('H-1', surface, 'compra unica (JS)', same(h1, { id: ['101'], sp: [] }), h1);
     const seq = [];
@@ -178,109 +197,109 @@ for (const surface of ['pdp', 'featured']) {
     const t2 = await open(`${S}&product=p1&variant=104`); await ready(t2.pg); const xl = await fd(t2.pg); const xb = await btn(t2.pg);
     rec('H-3', surface, 'plan 2 y variante L solo con plan 3; agotada sin plan', same(l, { id: ['103'], sp: ['3'] }) && same(xl.sp, []) && xb.disabled, { L: l, XL: xl, btn: xb });
     await t.ctx.close(); await t2.ctx.close(); }
-  } catch (e) { rec('H-1', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
-  try {
+  } catch (e) { lost(surface, mark, ['H-1', 'H-2', 'H-3'], e); } }
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1&selling_plan=1`); await ready(t.pg);
     const c1 = await fd(t.pg); await t.pg.check('[data-purchase-option="one_time"]', { force: true }); const c2 = await fd(t.pg);
     rec('H-4', surface, 'caso C: ?selling_plan=1 y luego compra unica (JS)', same(c1.sp, ['1']) && same(c2.sp, []) && c2.id.length === 1, { carga: c1.sp, tras: c2.sp, id: c2.id });
     await t.ctx.close(); }
-  } catch (e) { rec('H-4', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-4'], e); } }
   // H-5 requires_selling_plan (p2) y H-6 (p3)
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p2`); await ready(t.pg);
     const r1 = await fd(t.pg); await t.pg.selectOption('[data-selling-plan-select]', '2'); const r2 = await fd(t.pg);
     await pick(t.pg, 'M'); const r3 = await fd(t.pg); const b3 = await btn(t.pg);
     rec('H-5', surface, 'requires_selling_plan (JS)', same(r1.sp, ['1']) && same(r2.sp, ['2']) && same(r3.sp, []) && b3.disabled && b3.notice && b3.checkoutHidden === true, { r1: r1.sp, r2: r2.sp, M: r3, btn: b3 });
     await t.ctx.close(); }
-  } catch (e) { rec('H-5', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
-  try {
+  } catch (e) { lost(surface, mark, ['H-5'], e); } }
+  { const mark = results.length; try {
   for (const js of [true, false]) { const t = await open(`${S}&product=p3`, { js }); const b3 = await btn(t.pg);
     rec(`H-6${js ? 'a' : 'b'}`, surface, `p3 requires sin grupos (${js ? 'JS' : 'sin JS'})`, b3.disabled && b3.notice, b3); await t.ctx.close(); }
-  } catch (e) { rec('H-6', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-6a', 'H-6b'], e); } }
   // H-7 sin JS: cargar A, elegir B en el select nativo (p1 y p8)
-  try {
+  { const mark = results.length; try {
   for (const [pk, target, exp, vals] of [['p1', '102', '102', ['M']], ['p8', '804', '804', ['Blue', 'M']]]) {
     const t = await open(`${S}&product=${pk}`, { js: false });
     const st = await t.pg.evaluate(() => ({ html: document.documentElement.className, selectDisplay: document.querySelector('select[name="id"]') ? getComputedStyle(document.querySelector('select[name="id"]').closest('.form-field')).display : 'sin select', pickerDisplay: getComputedStyle(document.querySelector('.variant-picker')).display, hiddenDisabled: document.querySelector('input[data-variant-id]').disabled }));
     await choose(t.pg, target, vals); const po = await t.post();
     rec('H-7', surface, `sin JS ${pk}: elegir ${target} en el select`, same(po.id, [exp]) && st.pickerDisplay === 'none' && st.selectDisplay !== 'none', { post_id: po.id, ...st }); await t.ctx.close(); }
-  } catch (e) { rec('H-7', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-7', 'H-7'], e); } }
   // H-8 / H-18 theme.js caido (404), con error de sintaxis y lento
-  try {
+  { const mark = results.length; try {
   for (const [m, hid] of [['404', 'H-8'], ['throw', 'H-18b']]) {
-    try {
+    const mi = results.length; try {
     const t = await open(`${S}&product=p8&js=${m}`);
     const st = await t.pg.evaluate(() => ({ html: document.documentElement.className, selectDisplay: document.querySelector('select[name="id"]') ? getComputedStyle(document.querySelector('select[name="id"]').closest('.form-field')).display : 'sin select' }));
     await choose(t.pg, '804', ['Blue', 'M']); const po = await t.post();
-    rec(hid, surface, `theme.js ${m}`, st.html === 'no-js' && st.selectDisplay !== 'none' && same(po.id, ['804']), { ...st, post_id: po.id }); await t.ctx.close(); } catch (e) { rec(hid, surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+    rec(hid, surface, `theme.js ${m}`, st.html === 'no-js' && st.selectDisplay !== 'none' && same(po.id, ['804']), { ...st, post_id: po.id }); await t.ctx.close(); } catch (e) { lost(surface, mi, [hid], e); }
     }
-  } catch (e) { rec('H-?', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
-  try {
+  } catch (e) { lost(surface, mark, ['H-8', 'H-18b'], e); } }
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1&js=late`); await t.pg.waitForTimeout(900);
     const st = await t.pg.evaluate(() => ({ html: document.documentElement.className, picker: getComputedStyle(document.querySelector('.variant-picker')).display, nativeSelectVisible: getComputedStyle(document.querySelector('select[data-no-js-control]')?.closest('.form-field') || document.body).display !== 'none', hiddenIdEnabled: !document.querySelector('input[data-variant-id]').disabled }));
     await pick(t.pg, 'M'); const f = await fd(t.pg);
     rec('H-18c', surface, 'theme.js tardio (tras DOMContentLoaded): vuelve a js y el comprador elige variante', st.html === 'js' && st.picker !== 'none' && !st.nativeSelectVisible && st.hiddenIdEnabled && same(f.id, ['102']), { ...st, id: f.id }); await t.ctx.close(); }
-  } catch (e) { rec('H-18c', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
-  try {
+  } catch (e) { lost(surface, mark, ['H-18c'], e); } }
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1&js=slow`); await ready(t.pg);
     const st = await t.pg.evaluate(() => ({ html: document.documentElement.className, hiddenDisabled: document.querySelector('input[data-variant-id]').disabled, native: [...document.querySelectorAll('[data-no-js-control]')].map((c) => c.disabled) }));
     rec('H-18a', surface, 'theme.js lento (1,5 s): sin vuelta falsa a no-js', st.html === 'js' && !st.hiddenDisabled && st.native.every(Boolean), st); await t.ctx.close(); }
-  } catch (e) { rec('H-18a', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-18a'], e); } }
   // H-9 ?variant=B (solo PDP: el destacado no recibe la URL de la pagina)
-  try {
+  { const mark = results.length; try {
   if (surface === 'pdp') for (const js of [true, false]) { const t = await open(`${S}&product=p1&variant=102`, { js }); if (js) await ready(t.pg);
     const po = await t.post(); rec(`H-9${js ? 'a' : 'b'}`, surface, `?variant=102 (${js ? 'JS' : 'sin JS'})`, same(po.id, ['102']), po.id); await t.ctx.close(); }
-  } catch (e) { rec('H-9', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, surface === 'pdp' ? ['H-9a', 'H-9b'] : [], e); } }
   // H-10 sin JS, ?selling_plan=1 y compra unica en el select nativo
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1&selling_plan=1`, { js: false }); await t.pg.selectOption(`select[name="selling_plan"]`, ''); const po = await t.post();
     rec('H-10', surface, 'sin JS: plan de la URL y compra unica (limite 4.3.2: selling_plan vacio)', same(po.selling_plan, ['']) && po.id.length === 1, { id: po.id, selling_plan: po.selling_plan }); await t.ctx.close(); }
-  } catch (e) { rec('H-10', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-10'], e); } }
   // H-11 sin JS: opciones agotadas
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1`, { js: false });
     const o = await t.pg.evaluate(() => [...document.querySelectorAll('select[name="id"] option')].map((x) => ({ v: x.value, d: x.disabled, s: x.selected, t: x.textContent })));
     const t2 = await open(`${S}&product=p1&variant=104`, { js: false });
     const o2 = await t2.pg.evaluate(() => [...document.querySelectorAll('select[name="id"] option')].map((x) => ({ v: x.value, d: x.disabled, s: x.selected })));
     const ok = o.find((x) => x.v === '104').d && /Sold out$/.test(o.find((x) => x.v === '104').t) && o.filter((x) => x.v !== '104').every((x) => !x.d) && o2.find((x) => x.v === '104').s && !o2.find((x) => x.v === '104').d;
     rec('H-11', surface, 'sin JS: agotadas disabled salvo la seleccionada, con sufijo', ok, { agotada: o.find((x) => x.v === '104'), seleccionadaAgotada: o2.find((x) => x.v === '104') }); await t.ctx.close(); await t2.ctx.close(); }
-  } catch (e) { rec('H-11', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-11'], e); } }
   // H-12 p4 solo variante por defecto
-  try {
+  { const mark = results.length; try {
   for (const js of [false, true]) { const t = await open(`${S}&product=p4`, { js }); if (js) await ready(t.pg);
     const n = await t.pg.evaluate(() => ({ names: document.querySelectorAll('[name="id"]').length, selects: document.querySelectorAll('select[name="id"],[data-no-js-control]').length })); const po = await t.post();
     rec(`H-12${js ? 'b' : 'a'}`, surface, `p4 (${js ? 'JS' : 'sin JS'})`, n.names === 1 && n.selects === 0 && same(po.id, ['401']), { ...n, post_id: po.id }); await t.ctx.close(); }
-  } catch (e) { rec('H-12', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-12a', 'H-12b'], e); } }
   // H-13 p5 / p6 y H-13b p9
-  try {
+  { const mark = results.length; try {
   for (const [k, n, last] of [['p5', 40, '5039'], ['p6', 250, '6249']]) {
     const t = await open(`${S}&product=${k}`, { js: false });
     const cnt = await t.pg.evaluate(() => ({ opts: document.querySelectorAll('select[name="id"] option').length, bytes: document.querySelector('select[name="id"]').closest('.form-field').outerHTML.length }));
     await t.pg.selectOption('select[name="id"]', last); const po = await t.post(); await t.ctx.close();
     const tj = await open(`${S}&product=${k}`); await ready(tj.pg); const j = await fd(tj.pg); await tj.pg.locator('.variant-picker__input[value="C1"]').check({ force: true }); const j2 = await fd(tj.pg); await tj.ctx.close();
     rec('H-13', surface, `${k} (${n} variantes)`, cnt.opts === n && same(po.id, [last]) && j.id.length === 1 && j2.id.length === 1, { ...cnt, sinJS_post: po.id, jsId: j.id, jsId_tras_C1: j2.id }); }
-  } catch (e) { rec('H-13', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
-  try {
+  } catch (e) { lost(surface, mark, ['H-13', 'H-13'], e); } }
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p9&variant=9260`, { js: false }); const cnt = await t.pg.evaluate(() => document.querySelectorAll('select[name="id"] option').length); const po = await t.post();
     rec('H-13b', surface, 'p9 300 variantes, ?variant=9260 fuera de las 250', same(po.id, ['9260']) && cnt === 251, { opciones: cnt, post_id: po.id }); await t.ctx.close(); }
-  } catch (e) { rec('H-13b', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-13b'], e); } }
   // H-14 texto largo
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p7`, { js: false });
     const txt = await t.pg.evaluate(() => document.querySelector('select[name="id"] option[value="702"]').textContent);
     await t.pg.selectOption('select[name="id"]', '702'); const po = await t.post();
     rec('H-14', surface, 'p7 titulo de 120 caracteres y precio largo', txt.includes('Y'.repeat(120)) && txt.includes(money(987654321)) && same(po.id, ['702']), { longitud: txt.length, post_id: po.id }); await t.ctx.close(); }
-  } catch (e) { rec('H-14', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-14'], e); } }
   // H-15 p8 combinacion agotada
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p8`, { js: false });
     const o = await t.pg.evaluate(() => { const x = document.querySelector('select[name="id"] option[value="802"]'); return { disabled: x.disabled, text: x.textContent }; });
     const po = await t.post(); await t.ctx.close();
     const tj = await open(`${S}&product=p8`); await ready(tj.pg); await pick(tj.pg, 'Red'); await pick(tj.pg, 'M'); const bj = await btn(tj.pg); await tj.ctx.close();
     rec('H-15', surface, 'p8 Red/M agotada', o.disabled && /Sold out$/.test(o.text) && same(po.id, ['801']) && bj.disabled, { opcion: o, sinJS_post_id: po.id, jsBtn: bj }); }
-  } catch (e) { rec('H-15', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-15'], e); } }
   // H-16 regresion con JS: control tomado y acceso por nombre unico
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1&selling_plan=1`); await ready(t.pg);
     await pick(t.pg, 'M'); await t.pg.check('[data-purchase-option="subscription"]');
     const r = await t.pg.evaluate(() => {
@@ -293,35 +312,58 @@ for (const surface of ['pdp', 'featured']) {
     const src = THEME_JS.slice(THEME_JS.indexOf('handOffFocus('), THEME_JS.indexOf('handOffFocus(') + 900);
     const focusFilter = /!element\.disabled/.test(src);
     rec('H-16', surface, 'JS toma el control (name retirado, desactivados)', r.native.length === 2 && r.native.every((c) => c.disabled && c.name === null) && r.hiddenEnabled && r.namedId === 'HTMLInputElement' && r.namedIdIsHidden && r.namedIdValue === '102' && r.namedSp === 'HTMLInputElement' && r.namedSpIsHidden && r.namedSpValue === '1' && r.qsIsHidden && r.nameIdCount === 1 && r.nameSpCount === 1 && r.pickupDisabledProp === null && focusFilter, { ...r, handOffFocusFiltraDisabled: focusFilter }); await t.ctx.close(); }
-  } catch (e) { rec('H-16', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, ['H-16'], e); } }
   // Estados degenerados extra: sin bloque variant_picker, JSON roto, destacado sin producto
-  try {
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1&nopicker=1`, { js: false }); const n = await t.pg.evaluate(() => document.querySelectorAll('[name="id"]').length); const po = await t.post();
     rec('H-19', surface, 'sin bloque variant_picker: se conserva el comportamiento actual', n === 1 && same(po.id, ['101']), { names: n, post_id: po.id }); await t.ctx.close(); }
-  } catch (e) { rec('H-19', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
-  try {
+  } catch (e) { lost(surface, mark, ['H-19'], e); } }
+  { const mark = results.length; try {
   { const t = await open(`${S}&product=p1&selling_plan=1&badjson=1`); const f = await fd(t.pg);
     rec('H-20', surface, 'JSON de variantes roto: un valor por nombre (estado del servidor)', f.id.length === 1 && f.sp.length === 1, f); await t.ctx.close(); }
-  } catch (e) { rec('H-20', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
-  try {
+  } catch (e) { lost(surface, mark, ['H-20'], e); } }
+  { const mark = results.length; try {
   if (surface === 'featured') { const t = await open(`${S}&noproduct=1&product=p1`); rec('H-21', surface, 'destacado sin producto: sin formulario ni errores', (await t.pg.locator('form').count()) === 0 && t.errors.length === 0, { errores: t.errors }); await t.ctx.close(); }
-  } catch (e) { rec('H-21', surface, 'EXCEPCION', false, String(e.message).split('\n')[0].slice(0, 110)); }
+  } catch (e) { lost(surface, mark, surface === 'featured' ? ['H-21'] : [], e); } }
 
 }
-{ const t = await open('product=p1&two=1'); const dup = await t.pg.evaluate(() => { const ids = [...document.querySelectorAll('[id]')].map((e) => e.id); return ids.filter((x, i) => ids.indexOf(x) !== i); });
-  rec('H-22', 'featured x2', 'dos productos destacados: ids unicos', dup.length === 0, dup); await t.ctx.close(); }
+{ const mark = results.length; try {
+  const t = await open('product=p1&two=1'); const dup = await t.pg.evaluate(() => { const ids = [...document.querySelectorAll('[id]')].map((e) => e.id); return ids.filter((x, i) => ids.indexOf(x) !== i); });
+  rec('H-22', 'featured x2', 'dos productos destacados: ids unicos', dup.length === 0, dup); await t.ctx.close();
+} catch (e) { lost('featured x2', mark, ['H-22'], e); } }
 
 // ---------- coherencia Liquid real frente al HTML traducido (conteos) ----------
 if (FIX) {
-  const count = (files, re) => files.reduce((s, f) => s + (fs.readFileSync(path.join(repo, f), 'utf8').match(re) || []).length, 0);
+  const src = (f) => fs.readFileSync(path.join(repo, f), 'utf8');
+  const count = (files, re) => files.reduce((s, f) => s + (src(f).match(re) || []).length, 0);
   // El snippet de pickup se cuenta solo para data-variant-id: el harness no traduce su contenido interno.
   const tokens = [['name="id"', /name="id"/g], ['data-no-js-control', /data-no-js-control/g], ['no-js-only', /no-js-only/g], ['js-only (sin no-js-only)', /(?<![-\w])js-only/g], ['data-selling-plan-input', /data-selling-plan-input/g], ['data-variant-id', /data-variant-id/g, true]];
+  // Ramas de snippets/variant-no-js-select.liquid (C-07) que el Liquid real NO emite en el caso medido (p1: 4 variantes,
+  // bloque variant_picker, sin JS). Cada rama se localiza por el contenido de su linea; sus ocurrencias se restan del
+  // conteo del Liquid. Si la linea no existe (commits anteriores a C-07) no se resta nada; si aparece mas de una vez, FAIL.
+  const SNIPPET = 'snippets/variant-no-js-select.liquid';
+  const skips = [
+    // mode == 'response': PDP solo lo renderiza con use_server_variants (variants_count > 250); el destacado nunca lo pide.
+    { anchor: '<div data-variant-state data-product-id=', surfaces: ['pdp', 'featured'], why: "mode 'response' (solo PDP con mas de 250 variantes)" },
+    // mode == 'option_links' o (show_options and server_variants): el PDP solo con mas de 250 variantes; el destacado solo con
+    // use_variant_links (option_links, donde ademas la clase no-js-only no se emite). Con p1 no aplica en ninguna superficie.
+    { anchor: '<div class="variant-picker flow{% unless mode == \'option_links\' %} no-js-only{% endunless %}">', surfaces: ['pdp', 'featured'], why: 'picker de enlaces (server_variants u option_links)' },
+  ];
+  const snippetLines = src(SNIPPET).split('\n');
   for (const [surface, sect] of [['pdp', 'sections/main-product.liquid'], ['featured', 'sections/featured-product.liquid']]) {
+    { const mark = results.length; try {
     const t = await open(`surface=${surface}&product=p1`, { js: false });
     const html = await t.pg.evaluate(() => document.documentElement.outerHTML.replace(/<(script|style)[\s\S]*?<\/\1>/g, '')); await t.ctx.close();
-    const rows = tokens.map(([n, re, pickup]) => ({ token: n, liquid: count([sect, 'snippets/variant-no-js-select.liquid', ...(pickup ? ['snippets/pickup-availability.liquid'] : [])], re), html: (html.match(re) || []).length }));
+    const applied = skips.filter((k) => k.surfaces.includes(surface)).map((k) => ({ ...k, lines: snippetLines.filter((l) => l.includes(k.anchor)) }));
+    const ambiguous = applied.filter((k) => k.lines.length > 1).map((k) => k.why);
+    const rows = tokens.map(([n, re, pickup]) => {
+      const raw = count([sect, SNIPPET, ...(pickup ? ['snippets/pickup-availability.liquid'] : [])], re);
+      const skipped = applied.reduce((s, k) => s + k.lines.reduce((c, l) => c + (l.match(re) || []).length, 0), 0);
+      return { token: n, liquid: raw - skipped, ...(skipped ? { liquidBruto: raw, ramasNoEmitidas: skipped } : {}), html: (html.match(re) || []).length };
+    });
     // El comentario del Liquid no debe contar: se comparan solo los atributos emitidos (los conteos coinciden si no hay menciones en comentarios).
-    rec('H-23', surface, 'ocurrencias de atributos clave: Liquid real = HTML traducido', rows.every((r) => r.liquid === r.html), rows);
+    rec('H-23', surface, 'ocurrencias de atributos clave: Liquid real (ramas que aplican) = HTML traducido', !ambiguous.length && rows.every((r) => r.liquid === r.html), { rows, ramasExcluidas: applied.filter((k) => k.lines.length).map((k) => k.why), ...(ambiguous.length ? { ambiguous } : {}) });
+    } catch (e) { lost(surface, mark, ['H-23'], e); } }
   }
 }
 
