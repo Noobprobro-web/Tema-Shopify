@@ -15,5 +15,12 @@ Copias sin modificar de los informes de revisión independiente del 2026-11-10. 
 | REVIEW-LV05-003.md | 8200809f8a549638f3f0dd04afff56e2dab01a5e83b021c77db7884dca67cfd7 | ACEPTADO CON CONDICIONES |
 | REVIEW-C01-001.md | 51ab091ba9c1f259112149d13e8de4b339d23becea6eb6b16580f46ef49937af | ACEPTADO CON CONDICIONES |
 | D01V-PROPUESTA-001.md | 6df94e61a9f7e1dddd2099f724a7818918dcaea5fcc0adb1948974be83754fd4 | Sin veredicto: propuesta pendiente de aprobación de Johandry |
+| REVIEW-LV05-004.md | 3622e85bc7ed68c709785dbb6e02dc36e22a060ed99b0b137c019b4fd7621dc9 | ACEPTADO CON CONDICIONES |
+| REVIEW-LV05-005.md | 6e3c750334a338c4661028fe2019c4029ff30ba631d55ceb4f2a3200339d0113 | ACEPTADO CON CONDICIONES |
+| REVIEW-LV05-006.md | 154e18fd7008a6d324a8432830e01b39b5fa6be6c6145de72d9ed4f7f83915cc | ACEPTADO |
+| REVIEW-C01-002.md | d9b897493dda3a15d4b48119242217ef3a5061f8253a0d1d0832ef79d45a8d41 | ACEPTADO CON CONDICIONES |
+| REVIEW-C01-003.md | 34ef66eadbe13ba82e5f1761e4aaf268bbf2ccf3db6edb75875f79e3f10dfcb0 | ACEPTADO |
+| REVIEW-B01-001.md | a55937cef31da055641f975a22f545b7532fe76d69933a664dc7c0c9fed31a94 | ACEPTADO |
+| REVIEW-D02A-001.md | 7f3314c90ed1ccfd0bab55a583e436f68d6c6e14c6fe56b2c142eaee7c829c2b | ACEPTADO |
 
 La revisión independiente de `task/d01fix` (neutralización C-08 de D-01) dio ACEPTADO sin informe en archivo; el veredicto queda registrado en el commit de merge.

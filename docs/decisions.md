@@ -350,3 +350,7 @@ Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-A-01-B-02-001.md
 ## 2026-11-10: Integración en lote-e-claude (Claude)
 
 - Claude integra en `lote-e-claude` D-02-Q, el fix de C2 (umbral de inventario), el harness de B-02 y la neutralización C-08 de D-01, cada uno con revisión independiente aceptada. Informes en `agent-comms/outbox-claude/reviews-20261110/`.
+- Claude integra LV-05 (alineación de títulos en tarjetas de producto) con el arreglo NF-01 y las condiciones CN-1 a CN-6 cerradas; CN-7 y R01 quedan pendientes y registrados en `docs/requirements-ledger.md`. Revisión independiente aceptada (REVIEW-LV05-006).
+- Claude integra B-01: el foco nunca cae en BODY al cerrar el menú móvil. El caso "carrito desde el menú" no aplica a este arreglo. Revisión independiente aceptada (REVIEW-B01-001).
+- Claude integra D-02-A: la barra sticky muestra el precio del plan al cargar. Revisión independiente aceptada (REVIEW-D02A-001).
+- Claude integra el harness de C-01 (identidad de preview, procedimiento de despliegue y medición). Revisión independiente aceptada (REVIEW-C01-003).
