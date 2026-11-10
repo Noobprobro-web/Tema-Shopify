@@ -1,5 +1,58 @@
 # CLAUDE-CLOUD-STATUS
 
+## Sesión Claude 2026-11-10
+
+Rama `lote-e-claude`. Claude es el único escritor desde 2026-11-10. Informes de revisión, hashes y clasificaciones de escaneo en `agent-comms/outbox-claude/reviews-20261110/`.
+
+### Integrado hoy
+
+| Tanda | Tarea | Veredicto |
+|---|---|---|
+| 1 | D-02-Q reglas de cantidad y fix C2 (umbral de inventario), `task/d02q` | ACEPTADO (REVIEW-D02Q-003) |
+| 1 | Harness B-02 de tienda, `task/b02h` | ACEPTADO (REVIEW-B02H-002) |
+| 1 | D-01 neutralización C-08, `task/d01fix` | ACEPTADO (sin informe en archivo, registrado en el merge) |
+| 2 | D-02-A barra sticky con precio de plan, `task/d02a` | ACEPTADO (REVIEW-D02A-001) |
+| 2 | B-01 foco al cerrar el menú móvil, `task/b01` (dentro de `task/d02a`) | ACEPTADO (REVIEW-B01-001) |
+| 2 | LV-05 alineación de títulos con NF-01 y CN-1 a CN-6, `task/lv05` | ACEPTADO (REVIEW-LV05-006) |
+| 2 | Harness C-01 de identidad de preview y medición, `task/c01` | ACEPTADO (REVIEW-C01-003) |
+| 3 | Toque fantasma en overlays, foco del carrito, anuncio de precio y LV-03, `task/x1` | ACEPTADO (REVIEW-X1-001 y REVIEW-X1-002) |
+| 3 | "Sold out" en la tarjeta, `task/x2` | ACEPTADO (REVIEW-X2-001 y REVIEW-X2-002) |
+| 3 | Harness A-01/B-02 actualizado tras el lote C, `task/x3` | Sin informe de revisión en archivo; 56/56 en el resultado integrado |
+
+### SHA de las tandas
+
+- Tanda 1: `dcef717`.
+- Tanda 2: `06447d2`.
+- Tanda 3: punta de `lote-e-claude` en el push que contiene esta sección (último merge de código `2fd97b4`).
+
+### Pendientes nuevos
+
+- LV-05: CN-7 y R01 (bento y curated con zoom), registrados como ausentes en `docs/requirements-ledger.md`.
+- Tres overlays sin descarte de click fantasma: guía de tallas, recogida y contraseña.
+- LV-03: elementos `fixed` sin compensación del ancho de la barra de scroll.
+- "Comprar ahora" con reglas de cantidad.
+- Desfase de títulos con vendor mezclado (V01).
+- Observaciones menores no bloqueantes del harness B-02 y del harness A-01/B-02.
+
+### Pruebas en tienda pendientes
+
+- B-02 con `harness-B-02-STORE-001/run-b02.mjs`.
+- C-01 con `harness-C-01-ID-001`.
+- A-03.
+- B-04.
+- R-A y R-B.
+- Verificación en tienda de cada tarea integrada hoy: D-02-Q, D-02-A, B-01, LV-05, D-01, toque fantasma, foco del carrito, anuncio de precio, LV-03 y "Sold out" en la tarjeta.
+
+### Decisiones de Johandry pendientes
+
+- D01V-PROPUESTA-001: 12 decisiones de copy y CTA.
+- Tallas y medidas reales.
+- Página About y mega menú.
+- Handles: hand-framed, milled y structured-tote.
+- Fixtures: suscripción; productos con 1, 250 y 251 o más variantes; selector nativo visible para B-02; variante agotada.
+- Tienda limpia para C-02.
+- El resto de `agent-comms/outbox-gpt/GPT-PENDIENTES-JOHANDRY-001.md`.
+
 ## Estado vigente — 2026-11-08 (Codex/GPT, rama lote-c-impl)
 
 - Johandry aceptó la implementación en 6e3bbb0. Los informes 001 y 002 se copiaron sin modificar, con SHA-256 verificados, y se publicaron intactos en el historial de origin/lote-c-impl, que avanzó a 6e9523b. Las pruebas funcionales en tienda conservan los estados indicados abajo.

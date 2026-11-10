@@ -354,3 +354,9 @@ Registro completo en `agent-comms/outbox-claude/CLAUDE-DECISION-A-01-B-02-001.md
 - Claude integra B-01: el foco nunca cae en BODY al cerrar el menú móvil. El caso "carrito desde el menú" no aplica a este arreglo. Revisión independiente aceptada (REVIEW-B01-001).
 - Claude integra D-02-A: la barra sticky muestra el precio del plan al cargar. Revisión independiente aceptada (REVIEW-D02A-001).
 - Claude integra el harness de C-01 (identidad de preview, procedimiento de despliegue y medición). Revisión independiente aceptada (REVIEW-C01-003).
+- Claude integra el descarte del toque fantasma al cerrar por toque el menú móvil o el cajón del carrito, conservando los clics de teclado y de tecnología asistiva. Revisión independiente aceptada (REVIEW-X1-001 y REVIEW-X1-002).
+- Claude integra la corrección del foco del carrito, incluido el caso del carrito abierto desde el menú. Revisión independiente aceptada (REVIEW-X1-001 y REVIEW-X1-002).
+- Claude integra el anuncio del precio nuevo una sola vez al cambiar de variante. Revisión independiente aceptada (REVIEW-X1-001).
+- Claude integra LV-03: al bloquear el scroll, un cajón o modal compensa solo el ancho que libera la barra de scroll. Revisión independiente aceptada (REVIEW-X1-001 y REVIEW-X1-002).
+- Claude integra "Sold out" en la tarjeta de producto: el swatch agotado se anuncia una sola vez, por su descripción, y el badge de la tarjeta deja de ser región en vivo. Revisión independiente aceptada (REVIEW-X2-001 y REVIEW-X2-002).
+- Claude integra el harness A-01/B-02 actualizado tras el lote C (56/56 en modo fix sobre el resultado integrado).

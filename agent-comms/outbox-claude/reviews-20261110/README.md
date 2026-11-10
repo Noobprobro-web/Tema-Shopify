@@ -22,7 +22,12 @@ Copias sin modificar de los informes de revisión independiente del 2026-11-10. 
 | REVIEW-C01-003.md | 34ef66eadbe13ba82e5f1761e4aaf268bbf2ccf3db6edb75875f79e3f10dfcb0 | ACEPTADO |
 | REVIEW-B01-001.md | a55937cef31da055641f975a22f545b7532fe76d69933a664dc7c0c9fed31a94 | ACEPTADO |
 | REVIEW-D02A-001.md | 7f3314c90ed1ccfd0bab55a583e436f68d6c6e14c6fe56b2c142eaee7c829c2b | ACEPTADO |
+| REVIEW-X1-001.md | 4c18f89f77f24d25c075abb8b6c42e0e138c0cb590259241eecd58580ebb410d | ACEPTADO CON CONDICIONES (a895c7d C-A, 41a6e29 C-C); ACEPTADO (e5da3b1) |
+| REVIEW-X1-002.md | 2fd7b4d46d4a65168856b22aec9cd7efced93e4561b46bd9543a68866c84ec5e | ACEPTADO (fc2aca4, 10ab28d; levanta C-A y C-C) |
+| REVIEW-X2-001.md | d05db264347920322b8486509086284ecd615a4164c0a47b76c90dfcc29619dc | ACEPTADO |
+| REVIEW-X2-002.md | aa0d71542a93262f59fb7c38839c1d4299ad8cd97f5568a00af72cad357b61a6 | ACEPTADO |
+| PLAN-DIA-20261110.md | 99afe4795b1d79eafc7f846138402e973cfc71ade4039f1268cefd47812f14eb | Sin veredicto: plan del día |
 
-`SCAN-CLASIFICACION-002.md` clasifica el escaneo de credenciales de la segunda tanda (dcef717..a09bff1).
+`SCAN-CLASIFICACION-002.md` clasifica el escaneo de credenciales de la segunda tanda (dcef717..a09bff1) y `SCAN-CLASIFICACION-003.md` el de la tercera (06447d2..punta).
 
 La revisión independiente de `task/d01fix` (neutralización C-08 de D-01) dio ACEPTADO sin informe en archivo; el veredicto queda registrado en el commit de merge.
