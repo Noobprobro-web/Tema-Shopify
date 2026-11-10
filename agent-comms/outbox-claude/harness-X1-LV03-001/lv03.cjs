@@ -150,6 +150,20 @@ const T = { width: 767, height: 900 };
     const g0 = await geo(p); await p.tap('#trigger'); await settle(p); const g1 = await geo(p);
     check('movil: compensacion 0 y sin desplazamiento', g0.bar === 0 && g1.lock && !g1.comp && g1.pad === '0px' && same(g0, g1), `bar=${g0.bar} comp=${g1.comp || '-'} pad=${g1.pad}`); await ctx.close(); }
 
+  for (const [label, vp, mobile] of [['movil 390 (isMobile)', { width: 390, height: 844 }, true], ['escritorio 1280', D, false]]) {
+    console.log(`\nL ${label} con desborde horizontal`); const { ctx, p } = await ctxFor(vp, mobile);
+    await p.evaluate((w) => { const d = document.createElement('div'); d.id = 'wide'; d.style.cssText = `width:${w}px;height:10px;background:#ccc`; document.querySelector('#MainContent').prepend(d); }, vp.width + 310);
+    await settle(p);
+    const g0 = await geo(p);
+    if (mobile) await p.tap('#trigger'); else await p.click('#cart');
+    await settle(p); await settle(p); const g1 = await geo(p);
+    const comp = parseFloat(g1.comp || '0');
+    console.log(`  info innerWidth-clientWidth=${await p.evaluate(() => window.innerWidth - document.documentElement.clientWidth)} comp=${g1.comp || '-'} pad=${g1.pad}`);
+    check(`${label} con desborde: compensacion igual a la barra real (${mobile ? 0 : 15} px)`, g1.lock && comp === (mobile ? 0 : g0.bar) && comp <= 32, `comp=${g1.comp || '-'} bar=${g0.bar}`);
+    check(`${label} con desborde: sin desplazamiento`, same(g0, g1), diff(g0, g1));
+    await ctx.close();
+  }
+
   check('sin errores de pagina', errors.length === 0, errors.join(' | '));
   console.log(`\nRESULTADO mode=${mode}: ${checks - fails}/${checks} OK, ${fails} FAIL`);
   await browser.close();

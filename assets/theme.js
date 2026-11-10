@@ -122,14 +122,19 @@
     const modalOpen = Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]'));
     const locked = drawerOpen || modalOpen;
 
-    if (locked && !wasLocked) {
-      const scrollbar = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
-      if (scrollbar > 0) body.style.setProperty('--scrollbar-compensation', `${scrollbar}px`);
-      else body.style.removeProperty('--scrollbar-compensation');
-    }
+    // La compensacion es lo que crece clientWidth al bloquear (la barra retirada), no
+    // innerWidth - clientWidth: en movil, con desborde horizontal, esa resta mide la escala
+    // de la pagina y daria cientos de px.
+    const widthBefore = locked && !wasLocked ? document.documentElement.clientWidth : 0;
 
     body.toggleAttribute('data-drawer-open', drawerOpen);
     body.toggleAttribute('data-modal-open', modalOpen);
+
+    if (locked && !wasLocked) {
+      const scrollbar = Math.max(0, document.documentElement.clientWidth - widthBefore);
+      if (scrollbar > 0) body.style.setProperty('--scrollbar-compensation', `${scrollbar}px`);
+      else body.style.removeProperty('--scrollbar-compensation');
+    }
     if (!locked) body.style.removeProperty('--scrollbar-compensation');
   };
 
