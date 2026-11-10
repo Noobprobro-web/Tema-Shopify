@@ -105,9 +105,27 @@
     });
   };
 
+  // LV-03. El bloqueo (overflow: hidden en body, base.css) quita la barra de scroll clasica
+  // de escritorio y el contenido se corria su ancho. Se mide la barra antes de bloquear y
+  // body la compensa con padding-right (--scrollbar-compensation). Con barras superpuestas
+  // (moviles) la medida es 0. No se usa scrollbar-gutter global: cambiaria el ancho de las
+  // secciones a sangre con la pagina sin bloquear.
   const syncDialogScrollLocks = () => {
-    document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
-    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]')));
+    const { body } = document;
+    const wasLocked = body.hasAttribute('data-drawer-open') || body.hasAttribute('data-modal-open');
+    const drawerOpen = Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]'));
+    const modalOpen = Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]'));
+    const locked = drawerOpen || modalOpen;
+
+    if (locked && !wasLocked) {
+      const scrollbar = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+      if (scrollbar > 0) body.style.setProperty('--scrollbar-compensation', `${scrollbar}px`);
+      else body.style.removeProperty('--scrollbar-compensation');
+    }
+
+    body.toggleAttribute('data-drawer-open', drawerOpen);
+    body.toggleAttribute('data-modal-open', modalOpen);
+    if (!locked) body.style.removeProperty('--scrollbar-compensation');
   };
 
   // 5B-001, H-13. Una diapositiva que sale de la vista no puede seguir sonando: <video> se
@@ -1780,7 +1798,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton);
     }
@@ -1992,7 +2011,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger?.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton || this.panel);
     }
@@ -2915,7 +2935,8 @@
       this.panel.inert = false;
       this.panel.setAttribute('aria-hidden', 'false');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-drawer-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
         this.panel,
@@ -5314,7 +5335,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
         this.panel,

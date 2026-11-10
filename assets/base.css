@@ -142,6 +142,8 @@ body {
 body[data-drawer-open],
 body[data-modal-open] {
   overflow: hidden;
+  /* LV-03: ancho de la barra de scroll que el bloqueo retira (theme.js, syncDialogScrollLocks). */
+  padding-right: var(--scrollbar-compensation, 0px);
 }
 
 img,
