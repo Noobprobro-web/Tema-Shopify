@@ -51,6 +51,40 @@ try {
   check('C1 JSON reformateado solo en .json: normalized vs mismatch', compareBytes('templates/a.json', Buffer.from('{"a":1,"b":2}'), Buffer.from('{\n  "b": 2,\n  "a": 1\n}')) === 'normalized'
     && compareBytes('snippets/a.liquid', Buffer.from('{"a":1,"b":2}'), Buffer.from('{\n  "b": 2,\n  "a": 1\n}')) === 'mismatch');
 
+  // ---------- Limpieza: candidatos a borrar (cleanup-check.mjs) ----------
+  {
+    const cdir = path.join(tmp, 'cleanup');
+    mkdirSync(cdir, { recursive: true });
+    const existing = [
+      { id: 190232297715, name: 'Preview Sartorial', role: 'unpublished' },
+      { id: 190232330483, name: 'Preview Imprint', role: 'unpublished' },
+      { id: 190232363251, name: 'Preview Archive', role: 'unpublished' },
+      { id: 100, name: 'Live', role: 'live' },
+      { id: 101, name: 'C01 serial Archive', role: 'unpublished' },
+    ];
+    writeFileSync(path.join(cdir, 'list-0-sartorial.json'), JSON.stringify(existing));
+    writeFileSync(path.join(cdir, 'list-0-imprint.json'), JSON.stringify([...existing, { id: 201, name: 'C01 serial Sartorial', role: 'unpublished' }]));
+    writeFileSync(path.join(cdir, 'list-final.json'), JSON.stringify([...existing,
+      { id: 201, name: 'C01 serial Sartorial', role: 'unpublished' },
+      { id: 202, name: 'C01 serial Imprint', role: 'unpublished' },
+      { id: 300, name: 'C01 serial Imprint', role: 'main' }]));
+    const ledgerLines = (entries) => writeFileSync(path.join(cdir, 'ledger.jsonl'), entries.map((e) => JSON.stringify(e)).join('\n'));
+    ledgerLines([{ preset: 'Sartorial', name: 'C01 serial Sartorial', id: '201' }, { preset: 'Imprint', name: 'C01 serial Imprint', id: '202' }]);
+    const good = await node('cleanup-check.mjs', ['--dir', cdir]);
+    check('limpieza: temas creados por el procedimiento son borrables (exit 0)', good.code === 0 && /BORRABLE\s+201/.test(good.stdout) && /BORRABLE\s+202/.test(good.stdout));
+    ledgerLines([
+      { preset: 'Sartorial', name: 'C01 serial Sartorial', id: '190232297715' },
+      { preset: 'Imprint', name: 'C01 serial Imprint', id: '300' },
+      { preset: 'Imprint', name: 'C01 serial Sartorial', id: '201' },
+      { preset: 'Sartorial', name: 'C01 serial Archive', id: '101' },
+      { preset: 'Archive', name: 'C01 serial Archive', id: '101' },
+    ]);
+    const bad = await node('cleanup-check.mjs', ['--dir', cdir]);
+    const line = (id, re) => bad.stdout.split('\n').some((l) => l.startsWith('NO_BORRAR') && l.includes(` ${id} `) && re.test(l));
+    check('limpieza: exclusion fija, rol main, ID previo al push y lista previa ausente no se borran (exit 1)', bad.code === 1 && !/BORRABLE/.test(bad.stdout)
+      && line('190232297715', /exclusion/) && line('300', /main/) && line('201', /ya existia/) && line('101', /ya existia/) && line('101', /falta la lista previa/));
+  }
+
   // ---------- Identidad ----------
   const src = path.join(tmp, 'pulled');
   const exp = async (commit, preset, id) => node('build-export.mjs', ['--commit', commit, '--preset', preset, '--out', path.join(src, id)]);

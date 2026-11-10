@@ -17,7 +17,8 @@ Las tres previews sirven `base.css` distintos entre sí y ninguno corresponde a 
 | `identity.mjs` | `theme list --role unpublished` y `theme pull --theme <id> --only …` (o `--full`), compara archivo por archivo con el commit y el preset. Estados: `exact`, `normalized`, `mismatch`, `missing-remote`, `extra-remote`. `--candidates` dice a qué commit corresponde lo bajado. |
 | `measure.mjs` | Matriz preset × 390×844 / 1280×800 × antes/después. Ejecuta `capture.mjs` de GPT sin modificar (SHA fijado) y añade controles visibles y firma de layout. En tienda: construye la URL de preview, entra con `STOREFRONT_PASSWORD` si la tienda la pide, respeta los 429, exige identidad `--full` y comprueba `Shopify.theme.id` en cada fila. Admite medición en serie (`--stage before`, luego `--stage after --before …`). |
 | `synthetic.mjs` | Fixture: marcado de `main-collection.liquid` a mano con los settings de cada listing y el `base.css` de un commit. |
-| `selftest.mjs` | 46 comprobaciones locales de identidad (directorios simulados y un doble del CLI) y de medición, con casos para C1 a C5 de `REVIEW-C01-001`. |
+| `cleanup-check.mjs` | Antes de borrar previews temporales: cruza `ledger.jsonl`, `list-0-<preset>.json` y `list-final.json` con la lista de exclusión. Solo lee archivos; no borra. |
+| `selftest.mjs` | 48 comprobaciones locales de identidad (directorios simulados y un doble del CLI) y de medición, con casos para C1 a C5 de `REVIEW-C01-001`. |
 | `results/` | Baseline SINTÉTICO (`C01-SINTETICO-hide.json`, `C01-SINTETICO-measure.json`) y `selftest-summary.json`. |
 
 Credenciales solo por entorno: `SHOPIFY_FLAG_STORE` y `SHOPIFY_CLI_THEME_TOKEN` (Theme Access), que lee el propio CLI. `identity.mjs` sale con 2 sin invocar el CLI si falta alguna, no pasa credenciales por argv, descarta stderr del CLI y no imprime valores. `measure.mjs` no copia URL con parámetros de preview al resultado, solo la ruta.
@@ -59,10 +60,10 @@ Cumple C01-1 y R-D §1.4 de forma literal: el antes y el después se miden sobre
 1. Exportar los dos estados:
    `node <harness>/build-export.mjs --commit 258ca4f --preset Sartorial --out $C01/before-sartorial`
    `node <harness>/build-export.mjs --commit e8f17e5 --preset Sartorial --out $C01/after-sartorial`
-2. Preflight de nombre: `shopify theme list --json --no-color > $C01/list-0.json` y comprobar que ningún tema se llama ya `C01 serial Sartorial`. Si existe, parar: no se reutiliza ni se borra sin revisarlo.
+2. Preflight de nombre: `shopify theme list --json --no-color > $C01/list-0-sartorial.json` (un archivo por preset, nunca se sobrescribe el de otro preset) y comprobar que ningún tema se llama ya `C01 serial Sartorial`. Si existe, parar: no se reutiliza ni se borra sin revisarlo.
 3. Push completo del antes, creando el tema (sin `--only`, sin `--nodelete`):
    `shopify theme push --unpublished --theme "C01 serial Sartorial" --path $C01/before-sartorial --no-color`
-4. `shopify theme list --role unpublished --json --no-color > $C01/list-1.json`, filtrar por nombre exacto: tiene que haber exactamente un tema con ese nombre, rol `unpublished` y un ID que no estuviera en `list-0.json`. Apuntar `nombre ID` en `$C01/ledger.txt`. Ese es `<id>` para el resto del preset.
+4. `shopify theme list --role unpublished --json --no-color > $C01/list-1.json`, filtrar por nombre exacto: tiene que haber exactamente un tema con ese nombre, rol `unpublished` y un ID que no estuviera en `list-0-sartorial.json`. Añadir una línea a `$C01/ledger.jsonl` (acumulado, solo se añade): `{"preset":"Sartorial","name":"C01 serial Sartorial","id":"<id>"}`. Ese es `<id>` para el resto del preset.
 5. Identidad completa del antes:
    `node <harness>/identity.mjs --full --candidates 258ca4f,e8f17e5 --target <id>:258ca4f:Sartorial --out $C01/id-sartorial-before.json`
    Debe salir con 0. Si `settings_data.json` sale `mismatch`, Shopify ha expandido el preset; revisarlo a mano antes de medir, no relajar el script.
@@ -92,18 +93,21 @@ Plan de ejemplo (`$C01/plan-sartorial.json`, IDs de muestra):
 
 ### Limpieza de las previews temporales
 
-Al terminar (o al abandonar la tanda), y solo con autorización, se borran los temas creados por este procedimiento y ningún otro:
+Al terminar (o al abandonar la tanda), y solo con autorización, se borran los temas creados por este procedimiento y ningún otro.
+
+Lista de exclusión fija (`DELETE_EXCLUDED_IDS` en `lib.mjs`): `190232297715`, `190232330483` y `190232363251`, las tres previews existentes, más cualquier tema con rol `main` o `live` en cualquiera de las listas. Ninguno de ellos se borra nunca, aunque esté en el ledger o su nombre empiece por `C01`.
 
 1. `shopify theme list --json --no-color > $C01/list-final.json`.
-2. Para cada línea de `$C01/ledger.txt`, el tema se borra solo si las tres cosas se cumplen a la vez: el ID figura en `list-final.json`, su nombre es exactamente el del ledger (`C01 serial <Preset>`) y su rol es `unpublished`. Si falla cualquiera, no se borra y se avisa.
-3. `shopify theme delete --theme <id> --force --no-color`, un ID cada vez, nunca por nombre ni con patrones.
-4. `shopify theme list --json --no-color` otra vez y confirmar que esos IDs ya no están y que el resto de la lista (live y las tres previews existentes) es igual que en `list-0.json`.
-
-Nunca se borra el tema live, las tres previews existentes ni un tema que no esté en el ledger, aunque su nombre empiece por `C01`.
+2. Comprobación, que solo lee archivos y no invoca el CLI:
+   `node <harness>/cleanup-check.mjs --dir $C01`
+   Para cada línea de `ledger.jsonl` exige a la vez: que el ID no esté en la lista de exclusión ni tenga rol `main`/`live`; que el nombre del ledger sea uno de este procedimiento (`C01 serial <Preset>` o, en la alternativa, `C01 before 258ca4f <Preset>` / `C01 after e8f17e5 <Preset>`); que exista `list-0-<preset>.json` y que el ID no figure en ella, es decir, que no existía antes del push de ese preset y lo creó este procedimiento; y que en `list-final.json` figure una sola vez, con el mismo nombre y rol `unpublished`. Imprime `BORRABLE` o `NO_BORRAR` con el motivo y sale con 0 solo si todas las entradas son borrables. Si sale con otro código, no se borra nada hasta revisarlo.
+3. Solo los IDs marcados `BORRABLE`, uno cada vez, nunca por nombre ni con patrones, y comprobando a ojo otra vez que el ID no es `190232297715`, `190232330483` ni `190232363251`:
+   `shopify theme delete --theme <id> --force --no-color`
+4. `shopify theme list --json --no-color` otra vez y confirmar que esos IDs ya no están y que el resto de la lista (main y las tres previews existentes) es igual que en `list-0-sartorial.json`.
 
 ### Alternativa documentada: dos previews por preset
 
-Un tema temporal para el antes y otro para el después (`C01 before 258ca4f <Preset>`, `C01 after e8f17e5 <Preset>`), cada uno con push completo `--unpublished`, los dos en el ledger y un solo `identity.mjs --full` con los dos `--target`. Se mide sin `--stage` y con `allowDistinctThemes: true` en el plan; sin esa clave `measure.mjs` invalida los pares. Ventajas: un push por estado, se puede alternar antes y después en la misma sesión y repetir la medición sin volver a subir. Inconveniente: no es "el mismo tema" de C01-1 y R-D §1.4; la identidad por contenido (`--full`, 85 archivos) y el `Shopify.theme.id` de cada fila lo compensan, pero solo vale si la R-D lo acepta por escrito. Limpieza igual que arriba, con dos IDs por preset.
+Un tema temporal para el antes y otro para el después (`C01 before 258ca4f <Preset>`, `C01 after e8f17e5 <Preset>`), cada uno con push completo `--unpublished`, los dos en `ledger.jsonl` con la lista previa `list-0-<preset>.json` y un solo `identity.mjs --full` con los dos `--target`. Se mide sin `--stage` y con `allowDistinctThemes: true` en el plan; sin esa clave `measure.mjs` invalida los pares. Ventajas: un push por estado, se puede alternar antes y después en la misma sesión y repetir la medición sin volver a subir. Inconveniente: no es "el mismo tema" de C01-1 y R-D §1.4; la identidad por contenido (`--full`, 85 archivos) y el `Shopify.theme.id` de cada fila lo compensan, pero solo vale si la R-D lo acepta por escrito. Limpieza igual que arriba, con dos IDs por preset.
 
 ## Pendiente en tienda
 

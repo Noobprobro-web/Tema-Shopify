@@ -135,3 +135,35 @@ export function compareBytes(file, expected, actual) {
   }
   return 'mismatch';
 }
+
+// ---------- Limpieza de previews temporales (solo lectura: decide, no borra) ----------
+// Temas que nunca se borran: las tres previews existentes del proyecto. Ademas
+// se excluye cualquier tema con rol main o live en cualquiera de las listas.
+export const DELETE_EXCLUDED_IDS = Object.freeze(['190232297715', '190232330483', '190232363251']);
+const PROTECTED_ROLES = new Set(['main', 'live']);
+export const C01_THEME_NAME = /^C01 (serial|before 258ca4f|after e8f17e5) (Sartorial|Imprint|Archive)$/;
+
+// ledger: [{ preset, name, id }]; listsBefore: { <preset>: lista previa al push de ese preset };
+// listFinal: lista actual. Cada lista es la salida de `shopify theme list --json`.
+// Devuelve una fila por entrada del ledger con ok y los motivos de rechazo.
+export function deleteCandidates({ ledger, listsBefore, listFinal }) {
+  const all = [listFinal, ...Object.values(listsBefore)].flat();
+  const protectedIds = new Set([...DELETE_EXCLUDED_IDS, ...all.filter((t) => PROTECTED_ROLES.has(String(t.role).toLowerCase())).map((t) => String(t.id))]);
+  return ledger.map((entry) => {
+    const id = String(entry.id);
+    const reasons = [];
+    if (!/^\d+$/.test(id)) reasons.push('ID no numerico');
+    if (protectedIds.has(id)) reasons.push('ID en la lista de exclusion o con rol main/live');
+    if (!C01_THEME_NAME.test(entry.name || '')) reasons.push('nombre del ledger no es de este procedimiento');
+    const before = listsBefore[entry.preset];
+    if (!Array.isArray(before)) reasons.push(`falta la lista previa del preset ${entry.preset}`);
+    else if (before.some((t) => String(t.id) === id)) reasons.push('el ID ya existia antes del push');
+    const now = listFinal.filter((t) => String(t.id) === id);
+    if (now.length !== 1) reasons.push('el ID no figura en la lista final');
+    else {
+      if (now[0].name !== entry.name) reasons.push('el nombre actual no coincide con el ledger');
+      if (String(now[0].role).toLowerCase() !== 'unpublished') reasons.push('el rol actual no es unpublished');
+    }
+    return { preset: entry.preset, name: entry.name, id, ok: reasons.length === 0, reasons };
+  });
+}
