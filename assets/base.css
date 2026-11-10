@@ -1915,7 +1915,7 @@ body[data-sticky-cart-visible] {
 }
 
 .product-card__content {
-  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver NF-01 mas abajo),
+  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver LV05-NF01 mas abajo),
      asi que este valor es a la vez su alto real y la reserva de LV-05. */
   --card-swatch-row-height: var(--tap-target-min);
   display: grid;
@@ -2000,9 +2000,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .product-card__swatches {
   --card-swatch-size: 1.5rem;
+  --card-swatch-text-min: 4.75rem;
   container: card-swatches / inline-size;
   display: flex;
-  /* NF-01. Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
+  /* LV05-NF01. Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
      a otra fila. El nombre completo sigue en el aria-label de cada swatch. */
   flex-wrap: nowrap;
   align-items: center;
@@ -2049,6 +2050,36 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
+/* LV05-CN1. Un swatch de texto no baja de --card-swatch-text-min (unos 8 caracteres visibles),
+   asi que una fila de texto muestra menos piezas que una de color: una y el contador por
+   debajo de 196px de fila (76 + 44 + holgura), dos hasta 348px (4 x 76 + 44) y cuatro
+   desde ahi. Cada contador cuenta lo que queda oculto. La altura de la fila no cambia. */
+.product-card__swatches .card-swatch-more--text {
+  display: none;
+}
+
+@container card-swatches (width < 196px) {
+  .product-card__swatches .product-card__swatch-group--text .card-swatch--second,
+  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--narrow {
+    display: none;
+  }
+
+  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--text {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (270px <= width < 348px) {
+  .product-card__swatches .product-card__swatch-group--text .card-swatch--wide-only,
+  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--wide {
+    display: none;
+  }
+
+  .product-card__swatches .product-card__swatch-group--text ~ .card-swatch-more--narrow {
+    display: inline-grid;
+  }
+}
+
 /* LV-05. Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
    las tarjetas sin ellos reservan el alto de la fila de swatches (--card-swatch-row-height)
    para que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento
@@ -2056,7 +2087,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
    vista de lista, bento y curated showcase quedan fuera, y la rejilla de "2" columnas y la
    de busqueda solo entran desde 48rem, porque por debajo son de una columna y la reserva no
    alinearia nada. Sin :has() no se reserva nada y la tarjeta queda como antes.
-   Pendiente fuera de LV-05: si el vendor falta en unas tarjetas de la fila y no en otras,
+   Pendiente LV05-V01 (ledger): si el vendor falta en unas tarjetas de la fila y no en otras,
    los titulos siguen desfasados por el alto de esa linea. */
 :is(
     .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
@@ -2080,7 +2111,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. NF-01: el
+/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. LV05-NF01: el
    selector doble gana a .card-swatch (width fijo de 44px, declarado despues); sin el, la
    etiqueta desbordaba el boton y se montaba sobre la vecina. */
 .card-swatch.card-swatch--text {
@@ -2091,6 +2122,17 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   min-width: var(--tap-target-min);
   max-width: 100%;
   padding-inline: var(--space-2xs);
+}
+
+/* LV05-CN1. Un nombre largo se encoge hasta el minimo legible y no mas; uno corto (5 letras o
+   menos) no se encoge. El nombre completo va en title (raton) y en aria-label. */
+.product-card__swatch-group .card-swatch--text-min {
+  flex-shrink: 1;
+  min-width: var(--card-swatch-text-min);
+}
+
+.product-card__swatch-group .card-swatch--text-fit {
+  flex-shrink: 0;
 }
 
 .card-swatch__text {

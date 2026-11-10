@@ -170,14 +170,22 @@
               assign swatch_selected_visible = true
             endif
           endfor
+          assign swatch_has_text = false
+          for value in swatch_option.values limit: swatch_limit
+            if value.swatch.image == blank and value.swatch.color == blank
+              assign swatch_has_text = true
+            endif
+          endfor
         -%}
         {%- comment -%}
           Four swatches fit a card of 260px or more; a narrow card (the two-column mobile grid)
-          shows two. The pill always counts exactly what is hidden at that width.
+          shows two. Text swatches keep a legible minimum width, so a text row shows one, two
+          or four depending on the card (base.css, LV05-CN1). The pill always counts exactly what
+          is hidden at that width.
         {%- endcomment -%}
         <div class="product-card__swatches">
           <div
-            class="product-card__swatch-group"
+            class="product-card__swatch-group{% if swatch_has_text %} product-card__swatch-group--text{% endif %}"
             role="{% if swatches_interactive %}radiogroup{% else %}list{% endif %}"
             aria-label="{{ swatch_option.name | escape }}"
             {% if swatches_interactive %}
@@ -215,6 +223,21 @@
                   <span class="card-swatch__text" aria-hidden="true">{{ value.name | escape }}</span>
                 {%- endif -%}
               {%- endcapture -%}
+              {%- liquid
+                assign swatch_slot_class = ''
+                unless swatch_css
+                  if value.name.size > 5
+                    assign swatch_slot_class = ' card-swatch--text-min'
+                  else
+                    assign swatch_slot_class = ' card-swatch--text-fit'
+                  endif
+                endunless
+                if forloop.index == 2
+                  assign swatch_slot_class = swatch_slot_class | append: ' card-swatch--second'
+                elsif forloop.index > 2
+                  assign swatch_slot_class = swatch_slot_class | append: ' card-swatch--wide-only'
+                endif
+              -%}
 
               {%- if swatches_interactive -%}
                 {%- liquid
@@ -226,12 +249,13 @@
                   endif
                 -%}
                 <button
-                  class="card-swatch{% unless swatch_css %} card-swatch--text{% endunless %}{% unless swatch_available %} card-swatch--sold-out{% endunless %}{% if forloop.index > 2 %} card-swatch--wide-only{% endif %}"
+                  class="card-swatch{% unless swatch_css %} card-swatch--text{% endunless %}{% unless swatch_available %} card-swatch--sold-out{% endunless %}{{ swatch_slot_class }}"
                   type="button"
                   role="radio"
                   aria-checked="{% if swatch_checked == true %}true{% else %}false{% endif %}"
                   tabindex="{% if swatch_checked %}0{% else %}-1{% endif %}"
                   aria-label="{{ 'products.product.color_swatch' | t: option: swatch_option.name, value: value.name }}"
+                  title="{{ value.name | escape }}"
                   {% unless swatch_available %}
                     aria-describedby="{{ swatch_sold_out_id }}"
                   {% endunless %}
@@ -249,11 +273,12 @@
                     assign swatch_href = value.variant.url
                   endif
                 -%}
-                <div class="product-card__swatch-item{% if forloop.index > 2 %} card-swatch--wide-only{% endif %}" role="listitem">
+                <div class="product-card__swatch-item{{ swatch_slot_class }}" role="listitem">
                   <a
                     class="card-swatch{% unless swatch_css %} card-swatch--text{% endunless %}{% unless swatch_available %} card-swatch--sold-out{% endunless %}"
                     href="{{ swatch_href }}"
                     aria-label="{{ 'products.product.color_swatch' | t: option: swatch_option.name, value: value.name }}"
+                    title="{{ value.name | escape }}"
                     {% unless swatch_available %}
                       aria-describedby="{{ swatch_sold_out_id }}"
                     {% endunless %}
@@ -265,6 +290,17 @@
             {%- endfor -%}
           </div>
 
+          {%- if swatch_has_text and swatch_total > 1 -%}
+            {%- assign swatch_more_text = swatch_total | minus: 1 -%}
+            <a
+              class="card-swatch-more card-swatch-more--text"
+              href="{{ card_product.url }}"
+              aria-label="{{ 'products.product.more_swatches' | t: count: swatch_more_text }}"
+              data-card-link
+            >
+              <span aria-hidden="true">+{{ swatch_more_text }}</span>
+            </a>
+          {%- endif -%}
           {%- if swatch_total > 2 -%}
             {%- assign swatch_more_narrow = swatch_total | minus: 2 -%}
             <a
