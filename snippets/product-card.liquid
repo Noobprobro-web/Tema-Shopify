@@ -174,24 +174,14 @@
         {%- capture swatch_fit -%}
           {%- render 'card-swatch-fit', option: swatch_option, limit: swatch_limit -%}
         {%- endcapture -%}
-        {%- liquid
-          assign swatch_fit = swatch_fit | strip
-          assign swatch_has_text = false
-          if swatch_fit != blank
-            assign swatch_has_text = true
-          endif
-        -%}
         {%- comment -%}
-          Color rows: four swatches fit a card of 260px or more; a narrow card (the two-column
-          mobile grid) shows two. Rows with text: data-swatch-fit picks one to four per width
-          band (base.css, LV05-CN3). The pill always counts exactly what is hidden.
+          data-swatch-fit picks one to four swatches per width band of the row (base.css,
+          LV05-CN3 and LV05-CN5). The pill always counts exactly what is hidden.
         {%- endcomment -%}
         <div class="product-card__swatches">
           <div
             class="product-card__swatch-group"
-            {% if swatch_has_text %}
-              data-swatch-fit="{{ swatch_fit }}"
-            {% endif %}
+            data-swatch-fit="{{ swatch_fit | strip }}"
             role="{% if swatches_interactive %}radiogroup{% else %}list{% endif %}"
             aria-label="{{ swatch_option.name | escape }}"
             {% if swatches_interactive %}
@@ -238,12 +228,8 @@
                     assign swatch_slot_class = ' card-swatch--text-fit'
                   endif
                 endunless
-                if swatch_has_text
-                  if forloop.index > 1
-                    assign swatch_slot_class = swatch_slot_class | append: ' card-swatch--n' | append: forloop.index
-                  endif
-                elsif forloop.index > 2
-                  assign swatch_slot_class = swatch_slot_class | append: ' card-swatch--wide-only'
+                if forloop.index > 1
+                  assign swatch_slot_class = swatch_slot_class | append: ' card-swatch--n' | append: forloop.index
                 endif
               -%}
 
@@ -298,42 +284,19 @@
             {%- endfor -%}
           </div>
 
-          {%- if swatch_has_text -%}
-            {%- for fit_count in (1..swatch_limit) -%}
-              {%- if swatch_total > fit_count -%}
-                {%- assign swatch_more_fit = swatch_total | minus: fit_count -%}
-                <a
-                  class="card-swatch-more card-swatch-more--fit card-swatch-more--k{{ fit_count }}"
-                  href="{{ card_product.url }}"
-                  aria-label="{{ 'products.product.more_swatches' | t: count: swatch_more_fit }}"
-                  data-card-link
-                >
-                  <span aria-hidden="true">+{{ swatch_more_fit }}</span>
-                </a>
-              {%- endif -%}
-            {%- endfor -%}
-          {%- elsif swatch_total > 2 -%}
-            {%- assign swatch_more_narrow = swatch_total | minus: 2 -%}
-            <a
-              class="card-swatch-more card-swatch-more--narrow"
-              href="{{ card_product.url }}"
-              aria-label="{{ 'products.product.more_swatches' | t: count: swatch_more_narrow }}"
-              data-card-link
-            >
-              <span aria-hidden="true">+{{ swatch_more_narrow }}</span>
-            </a>
-          {%- endif -%}
-          {%- if swatch_has_text == false and swatch_total > swatch_limit -%}
-            {%- assign swatch_more_wide = swatch_total | minus: swatch_limit -%}
-            <a
-              class="card-swatch-more card-swatch-more--wide"
-              href="{{ card_product.url }}"
-              aria-label="{{ 'products.product.more_swatches' | t: count: swatch_more_wide }}"
-              data-card-link
-            >
-              <span aria-hidden="true">+{{ swatch_more_wide }}</span>
-            </a>
-          {%- endif -%}
+          {%- for fit_count in (1..swatch_limit) -%}
+            {%- if swatch_total > fit_count -%}
+              {%- assign swatch_more_fit = swatch_total | minus: fit_count -%}
+              <a
+                class="card-swatch-more card-swatch-more--fit card-swatch-more--k{{ fit_count }}"
+                href="{{ card_product.url }}"
+                aria-label="{{ 'products.product.more_swatches' | t: count: swatch_more_fit }}"
+                data-card-link
+              >
+                <span aria-hidden="true">+{{ swatch_more_fit }}</span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
           <span class="visually-hidden" id="{{ swatch_sold_out_id }}">{{ 'products.product.sold_out' | t }}</span>
         </div>
       {%- endif -%}
