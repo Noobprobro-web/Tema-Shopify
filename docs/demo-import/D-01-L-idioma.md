@@ -8,7 +8,7 @@ Se propone un mercado único en **inglés** para las tres demos. Es el idioma po
 
 ## Entregable
 
-- Descripciones de Sartorial en inglés en `docs/demo-import/sartorial-products.csv`. Son la traducción de `CLAUDE-DEMO-001` §Dos, sin cambiar ninguna cifra. Incluye el vestido: «Silk cut on the bias in four panels, with adjustable straps and a low back…».
+- Descripciones de Sartorial en inglés en `docs/demo-import/sartorial-products.csv`. Parten de la traducción de `CLAUDE-DEMO-001` §Dos, sin cambiar ninguna cifra; después C-08 retiró las afirmaciones sin respaldo (ver `D-01-catalogo-y-fotos.md`), sin añadir datos. Incluye el vestido: «Silk cut on the bias in four panels, with adjustable straps and a low back…».
 - Selector de talla en todos los productos de ropa de Sartorial (opción `Size`). Son valores propuestos, pendientes de confirmar:
 
 | Escala | Productos | Valores en el CSV | Fuente | Estado |
@@ -18,7 +18,7 @@ Se propone un mercado único en **inglés** para las tres demos. Es el idioma po
 | belt | Leather Belt | 70, 75, 80, 85 | CLAUDE-DEMO-001 | Pendiente de confirmar |
 | two | Oversized Alpaca Knit | 1, 2 | CLAUDE-DEMO-001 («una y dos») | Pendiente de confirmar |
 
-- En Archive, la talla de etiqueta (FR/US) es un atributo fijo de cada pieza única. Va en la descripción y no es una opción, porque es una propuesta de GPT-REPORT-014 pendiente de verificar.
+- En Archive, la talla de etiqueta (FR/US) de cada pieza única está **pendiente de verificación por Johandry**; no es un dato confirmado. Los valores de GPT-REPORT-014 se guardan en `data/archive.json` como `label_size_proposed` y no se imprimen: el CSV ya no dice «Label size». No es una opción de variante. Cuando Johandry confirme la talla de una pieza, el campo pasa a `label_size` en esa pieza, se ejecuta `build` y la descripción vuelve a llevar «Single piece. Label size: …».
 
 ## Pasos (Johandry)
 
@@ -31,5 +31,6 @@ Se propone un mercado único en **inglés** para las tres demos. Es el idioma po
 ## Pendiente de Johandry
 
 - Mercado e idioma de cada demo.
-- Escala de tallas real de cada producto y de cada pieza de Archive.
+- Escala de tallas real de cada producto de Sartorial.
+- Talla de etiqueta de cada pieza de Archive, verificada en la etiqueta física (hoy diez piezas con valor propuesto y dos sin talla). Hasta entonces no se publica.
 - Medidas para la guía de tallas: es D-02-T, fuera de este entregable.
