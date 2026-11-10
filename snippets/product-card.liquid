@@ -165,6 +165,7 @@
           assign swatch_option = card_product.options_with_values[swatch_index]
           assign swatch_total = swatch_option.values.size
           assign swatch_selected_visible = false
+          assign swatch_sold_out_used = false
           for value in swatch_option.values limit: 2
             if value.name == current_swatch_value
               assign swatch_selected_visible = true
@@ -207,6 +208,14 @@
                     break
                   endif
                 endfor
+
+                # A whole sold-out product is announced once by the price badge, so only
+                # single sold-out values of an available product point at the note.
+                assign swatch_sold_out_note = false
+                if swatch_available == false and card_product.available
+                  assign swatch_sold_out_note = true
+                  assign swatch_sold_out_used = true
+                endif
               -%}
               {%- capture swatch_face -%}
                 {%- if swatch_css -%}
@@ -250,9 +259,9 @@
                   tabindex="{% if swatch_checked %}0{% else %}-1{% endif %}"
                   aria-label="{{ 'products.product.color_swatch' | t: option: swatch_option.name, value: value.name }}"
                   title="{{ value.name | escape }}"
-                  {% unless swatch_available %}
+                  {% if swatch_sold_out_note %}
                     aria-describedby="{{ swatch_sold_out_id }}"
-                  {% endunless %}
+                  {% endif %}
                   data-card-swatch
                   data-swatch-value="{{ value.name | escape }}"
                 >
@@ -273,9 +282,9 @@
                     href="{{ swatch_href }}"
                     aria-label="{{ 'products.product.color_swatch' | t: option: swatch_option.name, value: value.name }}"
                     title="{{ value.name | escape }}"
-                    {% unless swatch_available %}
+                    {% if swatch_sold_out_note %}
                       aria-describedby="{{ swatch_sold_out_id }}"
-                    {% endunless %}
+                    {% endif %}
                   >
                     {{- swatch_face -}}
                   </a>
@@ -304,7 +313,13 @@
           <span class="visually-hidden card-swatch-count">
             {{- 'products.product.swatch_count' | t: count: swatch_total -}}
           </span>
-          <span class="visually-hidden" id="{{ swatch_sold_out_id }}">{{ 'products.product.sold_out' | t }}</span>
+          {%- comment -%}
+            Description target only: hidden keeps it out of the reading flow and away from the
+            count text, while aria-describedby still reads it on the sold-out swatch itself.
+          {%- endcomment -%}
+          {%- if swatch_sold_out_used -%}
+            <span id="{{ swatch_sold_out_id }}" hidden>{{ 'products.product.sold_out' | t }}</span>
+          {%- endif -%}
         </div>
       {%- endif -%}
 
