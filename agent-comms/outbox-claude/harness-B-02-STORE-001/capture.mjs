@@ -82,30 +82,59 @@ export function parseCartAddPayload(buffer, contentType) {
 }
 
 const sameList = (a, b) => a.length === b.length && a.every((value, index) => value === b[index]);
+const VARIANT_ID = /^[0-9]+$/;
+const isPlainObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
 
-// PASS solo si: hay exactamente una captura nativa; un unico id; ese id es la variante
-// esperada (B), la opcion seleccionada del select visible y FormData del formulario;
-// cantidad y plan coinciden con lo esperado; las propiedades coinciden si se esperan.
+// Regla de plan (selling_plan), sin filtrar valores vacios:
+// - expected.productHasSellingPlans es obligatorio y booleano; si falta, FAIL.
+// - Con expected.sellingPlan: lo enviado debe ser exactamente [plan].
+// - Sin plan esperado: se acepta [] siempre, y [""] solo si el producto no tiene planes.
+// - Cualquier otro valor, varios valores o un plan esperado en un producto sin planes: FAIL.
+// - Lo enviado debe coincidir ademas con FormData(form).getAll('selling_plan').
+export function sellingPlanFailures(expected, sent, formDataPlans) {
+  const failures = [];
+  if (typeof expected.productHasSellingPlans !== 'boolean') return ['PRODUCT_SELLING_PLANS_UNDECLARED'];
+  const plan = expected.sellingPlan === undefined || expected.sellingPlan === null || expected.sellingPlan === '' ? null : String(expected.sellingPlan);
+  if (plan !== null && !expected.productHasSellingPlans) failures.push('EXPECTED_PLAN_WITHOUT_PRODUCT_PLANS');
+  const accepted = plan !== null ? sameList(sent, [plan]) : sent.length === 0 || (!expected.productHasSellingPlans && sameList(sent, ['']));
+  if (!accepted) failures.push('PAYLOAD_SELLING_PLAN_MISMATCH');
+  if (!Array.isArray(formDataPlans) || !sameList(sent, formDataPlans)) failures.push('PAYLOAD_SELLING_PLAN_NOT_FORMDATA');
+  return failures;
+}
+
+// Regla de propiedades: expected.properties null o ausente equivale a {} (ninguna).
+// Una clave enviada que no se espera da PAYLOAD_PROPERTIES_UNEXPECTED; una clave
+// esperada ausente, repetida o con otro valor da PAYLOAD_PROPERTIES_MISMATCH.
+export function propertyFailures(expected, sent) {
+  const wanted = expected.properties ?? {};
+  if (!isPlainObject(wanted)) return ['EXPECTED_PROPERTIES_INVALID'];
+  const failures = [];
+  if (Object.keys(sent).some((key) => !Object.hasOwn(wanted, key))) failures.push('PAYLOAD_PROPERTIES_UNEXPECTED');
+  if (Object.keys(wanted).some((key) => !Object.hasOwn(sent, key) || !sameList(sent[key], [String(wanted[key])]))) failures.push('PAYLOAD_PROPERTIES_MISMATCH');
+  return failures;
+}
+
+// PASS solo si: hay exactamente una captura nativa; el id enviado es exactamente
+// [expected.variantId], igual a la opcion seleccionada del select visible y a FormData;
+// cantidad coincide; plan y propiedades cumplen las reglas de arriba.
 export function evaluateCase({ expected, displayed, captures, blockedOther, reachedServer = [] }) {
   const failures = [];
+  const expectedId = expected.variantId === undefined || expected.variantId === null ? '' : String(expected.variantId);
+  if (!VARIANT_ID.test(expectedId)) failures.push('EXPECTED_VARIANT_MISSING');
   if (reachedServer.length) failures.push('REQUEST_REACHED_SERVER');
   if (captures.length !== 1) failures.push(captures.length === 0 ? 'NO_NATIVE_CART_ADD_CAPTURED' : 'MULTIPLE_NATIVE_CART_ADD_CAPTURED');
   if (blockedOther.length) failures.push('UNEXPECTED_MUTATION_REQUEST');
   const payload = captures[0]?.payload;
   if (payload) {
     if (payload.id.length !== 1) failures.push('PAYLOAD_ID_NOT_SINGLE');
-    if (payload.id[0] !== expected.variantId) failures.push('PAYLOAD_ID_NOT_EXPECTED_VARIANT');
+    if (!sameList(payload.id, [expectedId])) failures.push('PAYLOAD_ID_NOT_EXPECTED_VARIANT');
     if (payload.id[0] !== displayed.selectedOptionValue) failures.push('PAYLOAD_ID_NOT_DISPLAYED_VARIANT');
     if (!sameList(payload.id, displayed.formDataIds)) failures.push('PAYLOAD_ID_NOT_FORMDATA');
     if (displayed.selectedOptionDisabled) failures.push('DISPLAYED_OPTION_DISABLED');
     const quantity = payload.quantity.length ? payload.quantity : ['1'];
     if (!sameList(quantity, [String(expected.quantity ?? 1)])) failures.push('PAYLOAD_QUANTITY_MISMATCH');
-    const plan = payload.sellingPlan.filter((value) => value !== '');
-    if (!sameList(plan, expected.sellingPlan ? [String(expected.sellingPlan)] : [])) failures.push('PAYLOAD_SELLING_PLAN_MISMATCH');
-    if (expected.properties) {
-      const keys = Object.keys(expected.properties).sort();
-      if (!sameList(Object.keys(payload.properties).sort(), keys) || keys.some((key) => !sameList(payload.properties[key], [String(expected.properties[key])]))) failures.push('PAYLOAD_PROPERTIES_MISMATCH');
-    }
+    failures.push(...sellingPlanFailures(expected, payload.sellingPlan, displayed.formDataSellingPlans));
+    failures.push(...propertyFailures(expected, payload.properties));
   }
   return {
     result: failures.length ? 'FAIL' : 'PASS',
@@ -143,13 +172,21 @@ export async function installNativeCartAddCapture(context, { origin, mainFrameOf
       await route.fallback();
       return;
     }
-    // Primero se aborta: la peticion queda resuelta sin salir del navegador aunque el
-    // analisis del cuerpo falle despues.
-    const buffer = request.postDataBuffer() || Buffer.alloc(0);
-    const contentType = await request.headerValue('content-type');
-    await route.abort(ABORT_ERROR_CODE);
-    const entry = { reason: CAPTURE_REASON, pathname: new URL(request.url()).pathname, payload: null, parseError: null };
-    try { entry.payload = parseCartAddPayload(buffer, contentType); } catch (error) { entry.parseError = String(error.message).slice(0, 60); }
+    // El aborto va en finally: la ruta queda resuelta sin salir del navegador aunque
+    // leer el cuerpo o la cabecera lance. El analisis se hace despues del aborto.
+    let buffer = Buffer.alloc(0);
+    let contentType = null;
+    let readError = null;
+    try {
+      buffer = request.postDataBuffer() || Buffer.alloc(0);
+      contentType = await request.headerValue('content-type');
+    } catch {
+      readError = 'REQUEST_BODY_UNREADABLE';
+    } finally {
+      await route.abort(ABORT_ERROR_CODE).catch(() => {});
+    }
+    const entry = { reason: CAPTURE_REASON, pathname: new URL(request.url()).pathname, payload: null, parseError: readError };
+    if (!readError) { try { entry.payload = parseCartAddPayload(buffer, contentType); } catch (error) { entry.parseError = String(error.message).slice(0, 60); } }
     log.captures.push(entry);
   });
   return log;
@@ -169,21 +206,49 @@ export async function readDisplayed(page, formSelector) {
       selectedOptionValue: option ? option.value : null,
       selectedOptionDisabled: option ? option.disabled : null,
       formDataIds: form ? new FormData(form).getAll('id').map(String) : [],
+      formDataSellingPlans: form ? new FormData(form).getAll('selling_plan').map(String) : [],
     };
   }, formSelector);
 }
 
-// Un caso A->B sin JS sobre una pagina ya cargada en la variante A. El llamador ya
-// verifico identidad de tema/pagina con su propia politica (D28 en tienda).
-export async function runNoJsVariantCase(page, log, { formSelector, variantB, expected, timeoutMs = 5000 }) {
+// Precondiciones del caso, antes de tocar la pagina. Falla cerrado: sin ellas no se
+// selecciona ni se envia nada.
+export function casePreconditionFailures({ variantA, variantB, expected }) {
+  const failures = [];
+  const a = typeof variantA === 'string' ? variantA : '';
+  const b = typeof variantB === 'string' ? variantB : '';
+  if (!VARIANT_ID.test(a) || !VARIANT_ID.test(b)) failures.push('VARIANT_A_OR_B_INVALID');
+  else if (a === b) failures.push('VARIANT_A_EQUALS_B');
+  if (!expected || String(expected.variantId ?? '') !== b || !VARIANT_ID.test(b)) failures.push('EXPECTED_ID_NOT_VARIANT_B');
+  if (!expected || typeof expected.productHasSellingPlans !== 'boolean') failures.push('PRODUCT_SELLING_PLANS_UNDECLARED');
+  if (expected && expected.properties !== undefined && expected.properties !== null && !isPlainObject(expected.properties)) failures.push('EXPECTED_PROPERTIES_INVALID');
+  return failures;
+}
+
+// Un caso A->B sin JS sobre una pagina recien cargada. El llamador ya verifico
+// identidad de tema/pagina con su propia politica (D28 en tienda). Exige que A y B
+// sean distintas, que la pagina muestre A antes del cambio, que el id esperado sea B y
+// que el id enviado sea exactamente ese.
+export async function runNoJsVariantCase(page, log, { formSelector, variantA, variantB, expected, timeoutMs = 5000 }) {
+  const preconditions = casePreconditionFailures({ variantA, variantB, expected });
+  if (preconditions.length) return { result: 'FAIL', failures: preconditions, evidence: {} };
   const before = log.captures.length;
   const beforeMutations = log.nonCaptureMutations.length;
   const beforeReached = log.reachedServer.length;
+  const loaded = await readDisplayed(page, formSelector);
+  if (!loaded.formFound || !loaded.selectVisible) {
+    return { result: 'FAIL', failures: [loaded.formFound ? 'NATIVE_VARIANT_SELECTOR_NOT_VISIBLE' : 'PRODUCT_FORM_NOT_FOUND'], evidence: { loaded: { selectedOptionValue: loaded.selectedOptionValue } } };
+  }
+  if (loaded.selectedOptionValue !== variantA) {
+    return { result: 'FAIL', failures: ['PAGE_NOT_LOADED_ON_VARIANT_A'], evidence: { loaded: { selectedOptionValue: loaded.selectedOptionValue } } };
+  }
   const select = page.locator(`${formSelector} select[name="id"]`);
-  await select.selectOption(variantB, { timeout: timeoutMs });
+  try { await select.selectOption(variantB, { timeout: timeoutMs }); } catch {
+    return { result: 'FAIL', failures: ['VARIANT_B_NOT_SELECTABLE'], evidence: { loaded: { selectedOptionValue: loaded.selectedOptionValue } } };
+  }
   const displayed = await readDisplayed(page, formSelector);
   if (!displayed.formFound || !displayed.selectVisible) {
-    return { result: 'FAIL', failures: [displayed.formFound ? 'NATIVE_VARIANT_SELECTOR_NOT_VISIBLE' : 'PRODUCT_FORM_NOT_FOUND'], evidence: { displayed } };
+    return { result: 'FAIL', failures: [displayed.formFound ? 'NATIVE_VARIANT_SELECTOR_NOT_VISIBLE' : 'PRODUCT_FORM_NOT_FOUND'], evidence: { displayed: { selectedOptionValue: displayed.selectedOptionValue } } };
   }
   const submit = page.locator(`${formSelector} [type="submit"]`).first();
   // El aborto deja la navegacion fallida a proposito; no es un error de red del caso.
@@ -199,5 +264,7 @@ export async function runNoJsVariantCase(page, log, { formSelector, variantB, ex
   const reachedServer = log.reachedServer.slice(beforeReached);
   const parseFailed = captures.find((capture) => capture.parseError);
   if (parseFailed) return { result: 'FAIL', failures: ['PAYLOAD_PARSE_FAILED', ...(reachedServer.length ? ['REQUEST_REACHED_SERVER'] : [])], evidence: { parseError: parseFailed.parseError } };
-  return evaluateCase({ expected, displayed, captures, blockedOther: log.nonCaptureMutations.slice(beforeMutations), reachedServer });
+  const outcome = evaluateCase({ expected, displayed, captures, blockedOther: log.nonCaptureMutations.slice(beforeMutations), reachedServer });
+  outcome.evidence.loaded = { selectedOptionValue: loaded.selectedOptionValue };
+  return outcome;
 }

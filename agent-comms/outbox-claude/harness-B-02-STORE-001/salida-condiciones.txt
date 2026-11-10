@@ -1,0 +1,51 @@
+PASS C1 --cart rechazado :: {}
+PASS C1 --cart con fixture rechazado :: {}
+PASS C1 --read-only/--inventory rechazados :: {}
+PASS C1 sesion: mode/cartWriteEnabled/cartAuthorization no escribibles :: {"flips":["TypeError","TypeError","TypeError"]}
+PASS C1 sesion cart ajena falla cerrado :: {}
+PASS C1 D28 real: navegacion POST /cart/add.js bloqueada en sesion B-02 :: {"reason":"MUTATION_BLOCKED"}
+PASS C1 D28 real: POST /cart/add bloqueado; GET permitido :: {"native":"MUTATION_BLOCKED","read":"HOST_READ_ALLOWED"}
+PASS C1 D28 real en modo cart si permite /cart/add.js (motivo del rechazo) :: {"reason":"CART_POST_ALLOWED"}
+PASS C1 run.mjs alterado no se carga :: {"tamperCode":"D28_SOURCE_DIGEST_NOT_EXPECTED"}
+PASS C1 navegador: form a /cart/add.js en runner B-02 da FAIL sin envio :: {"failures":["NO_NATIVE_CART_ADD_CAPTURED","UNEXPECTED_MUTATION_REQUEST"],"posts":0,"d28Blocked":1}
+PASS C2 A igual a B :: {"failures":["VARIANT_A_EQUALS_B"],"posts":0,"d28Blocked":0}
+PASS C2 id esperado distinto de B :: {"failures":["EXPECTED_ID_NOT_VARIANT_B"],"posts":0,"d28Blocked":0}
+PASS C2 pagina no cargada en A (carga muestra B) :: {"failures":["PAGE_NOT_LOADED_ON_VARIANT_A"],"posts":0,"d28Blocked":0}
+PASS C2 productHasSellingPlans sin declarar :: {"failures":["PRODUCT_SELLING_PLANS_UNDECLARED"],"posts":0,"d28Blocked":0}
+PASS C2 selling_plan vacio con producto con planes :: {"failures":["PAYLOAD_SELLING_PLAN_MISMATCH"],"posts":0,"d28Blocked":0}
+PASS C2 plan esperado en producto sin planes :: {"failures":["EXPECTED_PLAN_WITHOUT_PRODUCT_PLANS"],"posts":0,"d28Blocked":0}
+PASS C2 propiedad no esperada con properties {} :: {"failures":["PAYLOAD_PROPERTIES_UNEXPECTED"],"posts":0,"d28Blocked":0}
+PASS C2 selling_plan vacio aceptado si el producto no tiene planes :: {"result":"PASS","failures":[],"sentSellingPlan":[""],"posts":0}
+PASS C2 plan 5 esperado y enviado :: {"result":"PASS","failures":[],"sentSellingPlan":["5"],"posts":0}
+PASS C2 plan enviado distinto de FormData :: {"failures":["PAYLOAD_SELLING_PLAN_NOT_FORMDATA"]}
+PASS C2 id enviado exactamente igual al esperado (normalizado) :: {"failures":[]}
+PASS REV R1 orden invertido falla cerrado :: {"failures":["NO_NATIVE_CART_ADD_CAPTURED"],"posts":0,"d28Blocked":1}
+PASS REV R2 sin captura falla cerrado :: {"failures":["NO_NATIVE_CART_ADD_CAPTURED"],"posts":0,"d28Blocked":1}
+PASS REV R3 target=iframe :: {"failures":["NO_NATIVE_CART_ADD_CAPTURED","UNEXPECTED_MUTATION_REQUEST"],"posts":0,"d28Blocked":1}
+PASS REV R4 target=_blank :: {"failures":["NO_NATIVE_CART_ADD_CAPTURED","UNEXPECTED_MUTATION_REQUEST"],"posts":0,"d28Blocked":1}
+PASS REV R5 id vacio como B :: {"failures":["VARIANT_A_OR_B_INVALID","EXPECTED_ID_NOT_VARIANT_B"],"posts":0,"d28Blocked":0}
+PASS REV R6 id extra con form= :: {"failures":["PAYLOAD_ID_NOT_SINGLE","PAYLOAD_ID_NOT_EXPECTED_VARIANT"],"posts":0,"d28Blocked":0}
+PASS REV R7 text/plain :: {"failures":["PAYLOAD_PARSE_FAILED"],"posts":0,"d28Blocked":0}
+PASS REV R8 selling_plan no esperado :: {"failures":["PAYLOAD_SELLING_PLAN_MISMATCH"],"posts":0,"d28Blocked":0}
+PASS REV W1 ["5",""] contra 5 ahora FAIL :: {"failures":["PAYLOAD_SELLING_PLAN_MISMATCH"],"posts":0,"d28Blocked":0}
+PASS REV W2 propiedad no esperada con properties null ahora FAIL :: {"failures":["PAYLOAD_PROPERTIES_UNEXPECTED"],"posts":0,"d28Blocked":0}
+PASS REV W3 B igual a A ahora FAIL :: {"failures":["VARIANT_A_EQUALS_B"],"posts":0,"d28Blocked":0}
+PASS REV R9/m1 cabecera que lanza: aborto en finally, sin envio ni rechazo sin manejar :: {"failures":["PAYLOAD_PARSE_FAILED"],"posts":0,"unhandled":0,"parseError":"REQUEST_BODY_UNREADABLE"}
+PASS C3 credenciales: sin entorno falla cerrado :: {}
+PASS C3 credenciales: solo password en memoria, token no se devuelve :: {}
+PASS C3 credenciales por argumento rechazadas :: {}
+PASS C3 argumentos: fixture obligatorio y unico :: {}
+PASS C3 fixture valido :: {}
+PASS C3 fixture: A=B, tema no autorizado, clave de credencial, plan sin declarar :: {}
+PASS C3 sonda JS detecta un contexto con JS activo :: {"ranWithJs":true}
+PASS C3 orden de rutas D28 -> captura :: {"routeOrder":["d28","capture"]}
+PASS C3 runner: 4 casos seguidos PASS con recarga entre casos :: {"result":"PASS","cases":[["pdp-a-b","PASS",[]],["featured-a-b","PASS",[]],["pdp-plan-vacio","PASS",[]],["pdp-a-b-otra-vez","PASS",[]]],"posts":0}
+PASS C3 runner: javaScriptEnabled false y sonda sin ejecucion en cada caso :: {}
+PASS C3 runner: espaciado entre casos :: {"elapsed":1171}
+PASS C3 propiedad esperada PASS sin guardar su valor :: {"r":"PASS"}
+PASS C3 propiedad no esperada FAIL :: {"failures":["PAYLOAD_PROPERTIES_UNEXPECTED"]}
+PASS C3 identidad sin JS: tema incorrecto o publicado no se envia :: {"a":["PREVIEW_ID_NOT_VERIFIED"],"b":["PREVIEW_ROLE_NOT_UNPUBLISHED"]}
+PASS C3 control B->A cargado por URL PASS :: {"failures":[]}
+PASS C3 informe sin cookies, valores ni secretos :: {"leaks":[],"redactions":0,"posts":0}
+
+RESUMEN 49/49 comprobaciones correctas; POST recibidos por el servidor: 0

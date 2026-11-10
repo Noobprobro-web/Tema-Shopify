@@ -144,8 +144,8 @@ for (const preset of Object.keys(PRESETS)) {
         await load(page, { preset, surface, catalog, ...(surface === 'pdp' ? { variant: a.id } : {}) });
         const loaded = await readDisplayed(page, formSelector(surface));
         const soldOutOption = catalog === 'sold-out' ? await page.locator(`${formSelector(surface)} select option[value="${variants[1].id}"]`).isDisabled() : null;
-        const expected = { variantId: String(b.id), quantity: PRESETS[preset].quantityInput ? 2 : 1, sellingPlan: null, properties: PRESETS[preset].properties };
-        const outcome = await runNoJsVariantCase(page, log, { formSelector: formSelector(surface), variantB: String(b.id), expected });
+        const expected = { variantId: String(b.id), quantity: PRESETS[preset].quantityInput ? 2 : 1, sellingPlan: null, productHasSellingPlans: false, properties: PRESETS[preset].properties };
+        const outcome = await runNoJsVariantCase(page, log, { formSelector: formSelector(surface), variantA: String(a.id), variantB: String(b.id), expected });
         const ok = outcome.result === 'PASS' && loaded.selectedOptionValue === String(a.id) && (soldOutOption === null || soldOutOption === true) && policy.blocked.length === 0 && log.captures.length === 1;
         record('A->B', `${preset}/${surface}/${catalog}`, ok, { loadedA: loaded.selectedOptionValue, soldOutOptionDisabled: soldOutOption, ...outcome, d28Blocked: policy.blocked.length });
       } catch (error) {
@@ -174,7 +174,7 @@ record('TOTAL', 'cero peticiones de mutacion o /cart en el servidor', postsAfter
 const NEGATIVES = [
   { id: 'payload con id A y B (hidden habilitado)', mutate: 'stale-hidden-id', expectFailure: 'PAYLOAD_ID_NOT_SINGLE' },
   { id: 'select sin name: no se envia ningun id', mutate: 'select-without-name', expectFailure: 'PAYLOAD_ID_NOT_EXPECTED_VARIANT' },
-  { id: 'id esperado distinto del mostrado', mutate: null, wrongExpected: true, expectFailure: 'PAYLOAD_ID_NOT_EXPECTED_VARIANT' },
+  { id: 'id esperado distinto de B', mutate: null, wrongExpected: true, expectFailure: 'EXPECTED_ID_NOT_VARIANT_B' },
   { id: 'POST a /cart/add.js', mutate: 'ajax-endpoint', expectFailure: 'NO_NATIVE_CART_ADD_CAPTURED' },
   { id: 'POST a otro origen', mutate: 'other-origin', expectFailure: 'NO_NATIVE_CART_ADD_CAPTURED' },
   { id: 'peticion reenviada', mutate: null, leaky: true, expectFailure: 'REQUEST_REACHED_SERVER' },
@@ -191,9 +191,9 @@ for (const negative of NEGATIVES) {
       // Sin name=id el arnes no encuentra el selector nativo: se envia igual para medir el payload.
       const displayed = await readDisplayed(page, selector);
       await Promise.allSettled([page.waitForEvent('requestfailed', { timeout: 3000 }), page.locator(`${selector} [type="submit"]`).click({ noWaitAfter: true })]);
-      outcome = evaluateCase({ expected: { variantId: '1103' }, displayed: { ...displayed, selectedOptionValue: '1103' }, captures: log.captures, blockedOther: log.nonCaptureMutations, reachedServer: log.reachedServer });
+      outcome = evaluateCase({ expected: { variantId: '1103', productHasSellingPlans: false }, displayed: { ...displayed, selectedOptionValue: '1103' }, captures: log.captures, blockedOther: log.nonCaptureMutations, reachedServer: log.reachedServer });
     } else {
-      outcome = await runNoJsVariantCase(page, log, { formSelector: selector, variantB: '1103', expected: { variantId: negative.wrongExpected ? '1102' : '1103' } });
+      outcome = await runNoJsVariantCase(page, log, { formSelector: selector, variantA: '1101', variantB: '1103', expected: { variantId: negative.wrongExpected ? '1102' : '1103', productHasSellingPlans: false } });
     }
     const after = { primary: primary.log.filter((e) => e.method !== 'GET').length, secondary: secondary.log.length };
     const serverHits = after.primary - before.primary + after.secondary - before.secondary;
