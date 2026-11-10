@@ -101,14 +101,34 @@ export function canonicalJson(value) {
   return JSON.stringify(value);
 }
 
-// Devuelve 'exact', 'normalized' (solo saltos de linea o formato JSON) o 'mismatch'.
+// Extensiones que se tratan como texto. Todo lo demas (png, jpg, webp, gif, ico,
+// woff, woff2, ttf, otf, eot, mp4, pdf...) es binario y solo admite 'exact'.
+export const TEXT_EXTENSIONS = new Set(['.liquid', '.css', '.js', '.mjs', '.json', '.svg', '.txt', '.md', '.html', '.scss', '.map']);
+export const isTextFile = (file) => TEXT_EXTENSIONS.has(path.posix.extname(file).toLowerCase());
+
+// CRLF -> LF sobre bytes, sin decodificar: 0x0d seguido de 0x0a se elimina.
+function crlfToLf(buf) {
+  const out = Buffer.allocUnsafe(buf.length);
+  let n = 0;
+  for (let i = 0; i < buf.length; i += 1) {
+    if (buf[i] === 0x0d && buf[i + 1] === 0x0a) continue;
+    out[n] = buf[i];
+    n += 1;
+  }
+  return out.subarray(0, n);
+}
+
+// Devuelve 'exact', 'normalized' (solo saltos de linea en texto o formato JSON) o 'mismatch'.
+// Binarios: comparacion byte a byte, sin normalizar. JSON: valor canonico solo en .json.
 export function compareBytes(file, expected, actual) {
-  if (sha256(expected) === sha256(actual)) return 'exact';
-  const lf = (b) => b.toString('utf8').replace(/\r\n/g, '\n');
-  if (lf(expected) === lf(actual)) return 'normalized';
-  if (file.endsWith('.json')) {
+  const a = Buffer.from(expected);
+  const b = Buffer.from(actual);
+  if (a.equals(b)) return 'exact';
+  if (!isTextFile(file)) return 'mismatch';
+  if (crlfToLf(a).equals(crlfToLf(b))) return 'normalized';
+  if (path.posix.extname(file).toLowerCase() === '.json') {
     try {
-      if (canonicalJson(parseThemeJson(expected)) === canonicalJson(parseThemeJson(actual))) return 'normalized';
+      if (canonicalJson(parseThemeJson(a)) === canonicalJson(parseThemeJson(b))) return 'normalized';
     } catch {
       return 'mismatch';
     }

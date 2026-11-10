@@ -169,10 +169,40 @@ export function buildFixture(root, stages) {
   }
 }
 
-export function serve(root) {
+// opts.password: simula una tienda con contrasena (formulario en /password y cookie).
+// Parametros de consulta del fixture:
+//   preview_theme_id=<id>  la pagina expone window.Shopify.theme.id = <id>, como Shopify;
+//   served_theme_id=<id>   fuerza otro id servido (Shopify ignorando la preview);
+//   no_shopify=1           la pagina no expone window.Shopify;
+//   ratelimit=<n>          las primeras <n> peticiones a esa URL devuelven 429 con Retry-After: 1.
+export function serve(root, opts = {}) {
   const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8' };
+  const hits = new Map();
   const server = createServer(async (req, res) => {
     const url = new URL(req.url, 'http://x');
+    if (opts.password) {
+      if (url.pathname === '/password' && req.method === 'POST') {
+        let body = '';
+        for await (const chunk of req) body += chunk;
+        const ok = new URLSearchParams(body).get('password') === opts.password;
+        res.writeHead(302, { location: ok ? '/' : '/password', ...(ok ? { 'set-cookie': 'storefront_digest=ok; Path=/' } : {}) }).end();
+        return;
+      }
+      if (url.pathname === '/password' || url.pathname === '/') {
+        res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }).end('<!doctype html><title>Password</title><form method="post" action="/password"><input type="password" name="password"><button type="submit">Enter</button></form>');
+        return;
+      }
+      if (!/storefront_digest=ok/.test(req.headers.cookie || '') && !url.pathname.includes('/assets/')) {
+        res.writeHead(302, { location: '/password' }).end();
+        return;
+      }
+    }
+    const limit = Number(url.searchParams.get('ratelimit') || 0);
+    if (limit > 0) {
+      const n = (hits.get(req.url) || 0) + 1;
+      hits.set(req.url, n);
+      if (n <= limit) { res.writeHead(429, { 'retry-after': '1' }).end('Too Many Requests'); return; }
+    }
     let rel = decodeURIComponent(url.pathname).replace(/^\/+/, '');
     // /collections/<preset>?stage=<stage> -> <stage>/collections/<preset>.html (misma ruta en ambos estados).
     const m = rel.match(/^collections\/([a-z]+)$/);
@@ -180,7 +210,11 @@ export function serve(root) {
     const file = path.resolve(root, rel);
     if (!file.startsWith(path.resolve(root))) { res.writeHead(403).end(); return; }
     try {
-      const body = await readFile(file);
+      let body = await readFile(file);
+      const served = url.searchParams.get('served_theme_id') ?? url.searchParams.get('preview_theme_id');
+      if (m && served && /^\d+$/.test(served) && !url.searchParams.has('no_shopify')) {
+        body = Buffer.from(body.toString('utf8').replace('</head>', `<script>window.Shopify = { theme: { id: ${served}, role: 'unpublished' } };</script>\n</head>`));
+      }
       res.writeHead(200, { 'content-type': types[path.extname(file)] || 'application/octet-stream', 'cache-control': 'no-store' }).end(body);
     } catch {
       res.writeHead(404).end();

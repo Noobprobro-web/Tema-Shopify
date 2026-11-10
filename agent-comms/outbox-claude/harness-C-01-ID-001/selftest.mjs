@@ -9,7 +9,7 @@ import { appendFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSyn
 import os from 'node:os';
 import path from 'node:path';
 import { promisify } from 'node:util';
-import { HARNESS_DIR, resolveCommit, sha256 } from './lib.mjs';
+import { HARNESS_DIR, compareBytes, resolveCommit, sha256 } from './lib.mjs';
 import { buildFixture, serve } from './synthetic.mjs';
 
 const run = promisify(execFile);
@@ -23,6 +23,7 @@ async function node(script, args, env = {}) {
   const clean = { ...process.env };
   delete clean.SHOPIFY_FLAG_STORE;
   delete clean.SHOPIFY_CLI_THEME_TOKEN;
+  delete clean.STOREFRONT_PASSWORD;
   try {
     const { stdout, stderr } = await run(process.execPath, [path.join(HARNESS_DIR, script), ...args], { env: { ...clean, ...env }, maxBuffer: 64 * 1024 * 1024 });
     return { code: 0, stdout, stderr };
@@ -37,6 +38,19 @@ function check(name, ok, detail = '') {
 }
 
 try {
+  // ---------- C1: comparacion de binarios byte a byte ----------
+  const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x80, 0x10]);
+  const pngMod = Buffer.from(png); pngMod[9] = 0xff;
+  const pngCrlf = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0a, 0x1a, 0x0a, 0x00, 0x80, 0x10]);
+  check('C1 binario identico: exact', compareBytes('assets/logo.png', png, Buffer.from(png)) === 'exact');
+  check('C1 binario modificado (0x80 vs 0xff): mismatch', compareBytes('assets/logo.png', png, pngMod) === 'mismatch');
+  check('C1 woff2 modificado: mismatch', compareBytes('assets/font.woff2', Buffer.from([0x77, 0x4f, 0x46, 0x32, 0xc3]), Buffer.from([0x77, 0x4f, 0x46, 0x32, 0xfe])) === 'mismatch');
+  check('C1 binario sin CRLF no se normaliza: mismatch', compareBytes('assets/logo.png', png, pngCrlf) === 'mismatch');
+  check('C1 texto con CRLF: normalized', compareBytes('snippets/a.liquid', Buffer.from('a\nb\n'), Buffer.from('a\r\nb\r\n')) === 'normalized');
+  check('C1 texto con bytes no UTF-8 distintos: mismatch', compareBytes('assets/a.css', Buffer.from([0x61, 0x80]), Buffer.from([0x61, 0xff])) === 'mismatch');
+  check('C1 JSON reformateado solo en .json: normalized vs mismatch', compareBytes('templates/a.json', Buffer.from('{"a":1,"b":2}'), Buffer.from('{\n  "b": 2,\n  "a": 1\n}')) === 'normalized'
+    && compareBytes('snippets/a.liquid', Buffer.from('{"a":1,"b":2}'), Buffer.from('{\n  "b": 2,\n  "a": 1\n}')) === 'mismatch');
+
   // ---------- Identidad ----------
   const src = path.join(tmp, 'pulled');
   const exp = async (commit, preset, id) => node('build-export.mjs', ['--commit', commit, '--preset', preset, '--out', path.join(src, id)]);
@@ -146,6 +160,95 @@ try {
     const tamDesk = await measure('C01-SINTETICO-desk', { synthetic: true, previewBar: 'hide', cells: deskCells });
     const deskPairs = tamDesk.result.pairs.filter((p) => p.viewport === '1280x800');
     check('cambio de layout solo en 1280 detectado (CAMBIO_LAYOUT, exit 1)', tamDesk.code === 1 && deskPairs.every((p) => p.verdict === 'CAMBIO_LAYOUT'), deskPairs.map((p) => `${p.preset}: ${Object.keys(p.diffs).join('/')}`).join('; '));
+
+    // ---------- C2/C3/C4/C5: modo tienda contra el fixture ----------
+    // Informes de identidad de prueba (forma de identity.mjs en modo tienda).
+    const IDS = { Sartorial: '501', Imprint: '502', Archive: '503' };
+    const fakeIdentity = (name, scope, stage, startedAt) => {
+      const file = path.join(tmp, name);
+      const commit = stage === 'before' ? BEFORE : AFTER;
+      writeFileSync(file, JSON.stringify({ id: 'C-01-ID', mode: 'store', scope, startedAt, targets: presets.map((p) => ({ themeId: IDS[p], preset: p, expectedCommit: commit, ok: true })) }));
+      return name;
+    };
+    const storeCells = (q = {}) => presets.flatMap((p) => ['before', 'after'].map((stage) => {
+      const u = new URL(`${q.origin ?? origin}/collections/${p.toLowerCase()}`);
+      u.searchParams.set('stage', stage);
+      u.searchParams.set('preview_theme_id', q.urlThemeId ?? IDS[p]);
+      for (const [k, v] of Object.entries(q.extra ?? {})) u.searchParams.set(k, v);
+      return { preset: p, stage, themeId: IDS[p], commit: stage === 'before' ? BEFORE : AFTER, url: u.href };
+    }));
+    const runStage = async (name, plan, stage, extraArgs = [], env = {}) => {
+      const planFile = path.join(tmp, `${name}.plan.json`);
+      const out = path.join(tmp, `${name}.${stage}.json`);
+      if (!existsSync(planFile)) writeFileSync(planFile, JSON.stringify(plan, null, 2));
+      const r = await node('measure.mjs', ['--plan', planFile, '--stage', stage, ...extraArgs, '--out', out], env);
+      return { ...r, result: existsSync(out) ? JSON.parse(readFileSync(out, 'utf8')) : null, out };
+    };
+    const t0 = new Date(Date.now() - 60000).toISOString();
+
+    // C2: informe de identidad sin --full no vale.
+    const paths = await runStage('c2-paths', { synthetic: false, previewBar: 'hide', identityReport: { before: fakeIdentity('id-paths.json', 'paths', 'before', t0) }, cells: storeCells() }, 'before');
+    check('C2 informe sin --full: no mide (exit 2)', paths.code === 2 && paths.result === null && /no es --full/.test(paths.stderr));
+
+    // C5 + C3: serie sobre el mismo tema: antes, (push), identidad posterior, despues.
+    const serialPlan = { label: 'tienda simulada en serie', synthetic: false, previewBar: 'hide', identityReport: { before: fakeIdentity('id-before.json', 'full', 'before', t0), after: 'id-after.json' }, cells: storeCells() };
+    const sb = await runStage('serial', serialPlan, 'before');
+    check('C3 tema servido = themeId en cada fila del antes', sb.code === 0 && sb.result.rows.length === 6 && sb.result.rows.every((r, i) => r.servedThemeId === r.themeId && !r.error), sb.result?.rows.map((r) => r.servedThemeId).join(','));
+    const stale = await runStage('serial', serialPlan, 'after', ['--before', sb.out]);
+    check('C5 sin informe del despues no mide (exit 2)', stale.code === 2 && stale.result === null);
+    fakeIdentity('id-after.json', 'full', 'after', t0);
+    const old = await runStage('serial', serialPlan, 'after', ['--before', sb.out]);
+    check('C2/C5 informe del despues anterior a la medicion del antes: no mide (exit 2)', old.code === 2 && /no es posterior/.test(old.stderr));
+    fakeIdentity('id-after.json', 'full', 'after', new Date(Date.now() + 1000).toISOString());
+    const sa = await runStage('serial', serialPlan, 'after', ['--before', sb.out]);
+    const sMob = sa.result?.pairs.filter((p) => p.viewport === '390x844') ?? [];
+    check('C5 serie mismo tema: mismos deltas que la medicion de referencia y exit 0', sa.code === 0 && sa.result.serial && sa.result.pairs.every((p) => p.beforeTheme === p.afterTheme)
+      && sMob.every((p) => p.deltaPx === mob.find((x) => x.preset === p.preset).deltaPx), sMob.map((p) => `${p.preset} ${p.deltaPx}px`).join(', '));
+    const oneShot = await measure('c5-oneshot-store', { ...serialPlan, identityReport: 'id-before.json' });
+    check('C5 tienda mismo tema sin --stage: exige serie (exit 2)', oneShot.code === 2 && /en serie/.test(oneShot.stderr));
+    const distinct = cells(B, A).map((c) => (c.stage === 'after' ? { ...c, themeId: '9' } : c));
+    const dis = await measure('c5-distinct', { synthetic: true, previewBar: 'hide', cells: distinct });
+    const disAllowed = await measure('c5-distinct-allowed', { synthetic: true, previewBar: 'hide', allowDistinctThemes: true, cells: distinct });
+    check('C5 antes y despues en temas distintos: INVALIDO salvo allowDistinctThemes', dis.code === 2 && dis.result.pairs.every((p) => p.verdict === 'INVALIDO') && disAllowed.code === 0);
+
+    // C3: Shopify sirve otro tema (preview ignorada), URL con otro preview_theme_id, pagina sin Shopify.theme.
+    const wrong = await runStage('c3-wrong', { ...serialPlan, cells: storeCells({ extra: { served_theme_id: '999' } }) }, 'before');
+    check('C3 tema servido distinto del themeId: filas invalidas (exit 2)', wrong.code === 2 && wrong.result.rows.every((r) => /tema servido 999/.test(r.error || '') && !r.capture));
+    const urlBad = await runStage('c3-url', { ...serialPlan, cells: storeCells({ urlThemeId: '777' }) }, 'before');
+    check('C3 preview_theme_id de la URL distinto del themeId: no mide (exit 2)', urlBad.code === 2 && urlBad.result === null);
+    const noShop = await measure('c3-noshopify', { synthetic: false, previewBar: 'hide', allowDistinctThemes: true, identityReport: 'id-before.json',
+      cells: storeCells().map((c) => (c.stage === 'after' ? { ...c, themeId: String(Number(c.themeId) + 100), url: c.url.replace(/preview_theme_id=\d+/, `preview_theme_id=${Number(c.themeId) + 100}`) } : c)) });
+    check('C3 tienda sin informe para el tema: no mide (exit 2)', noShop.code === 2 && noShop.result === null);
+    const bare = await runStage('c3-bare', { ...serialPlan, cells: storeCells({ extra: { no_shopify: '1' } }) }, 'before');
+    check('C3 pagina sin Shopify.theme.id en tienda: filas invalidas (exit 2)', bare.code === 2 && bare.result.rows.every((r) => /no expone Shopify.theme.id/.test(r.error || '')));
+    const capSrc = readFileSync(path.join(HARNESS_DIR, '..', '..', 'outbox-gpt', 'harness-GPT-C01-COLLECTION-001', 'capture.mjs'), 'utf8');
+    const measSrc = readFileSync(path.join(HARNESS_DIR, 'measure.mjs'), 'utf8');
+    const capSel = capSrc.match(/querySelector\('(#preview-bar-iframe[^']*)'\)/)?.[1];
+    const measSel = measSrc.match(/const BAR_SELECTORS = '([^']*)'/)?.[1];
+    check('C3 selectores de barra iguales a capture.mjs', capSel && capSel === measSel, measSel);
+    const lateBar = await runStage('c3-latebar', { ...serialPlan, previewBar: 'measure', previewBarTimeoutMs: 1500, cells: storeCells({ extra: { previewbar: '48' } }) }, 'before');
+    check('C3 modo measure espera la barra y registra la altura de capture', lateBar.code === 0 && lateBar.result.rows.every((r) => r.capture.barHeight === 48 && r.usefulViewportHeight === r.capture.height - 48));
+
+    // C4: 429 respetado, contrasena solo del entorno y nunca en el resultado.
+    const rl = await runStage('c4-429', { ...serialPlan, cells: storeCells({ extra: { ratelimit: '1' } }) }, 'before');
+    check('C4 429: espera Retry-After, reintenta y mide (exit 0)', rl.code === 0 && rl.result.rows.every((r) => !r.error)
+      && presets.every((p) => rl.result.rows.some((r) => r.preset === p && r.rateLimitRetries >= 1)));
+    const pwPlan = { ...serialPlan, label: 'password' };
+    const pwBad = await runStage('c4-planpw', { ...pwPlan, storefrontPassword: 'x' }, 'before');
+    check('C4 plan con contrasena: rechazado (exit 2)', pwBad.code === 2 && pwBad.result === null);
+    const PW = `selftest-pw-${process.pid}`;
+    const gated = await serve(site, { password: PW });
+    try {
+      const gatedPlan = { ...serialPlan, label: 'tienda con contrasena', cells: storeCells({ origin: gated.origin }) };
+      const noPw = await runStage('c4-nopw', gatedPlan, 'before');
+      check('C4 tienda con contrasena sin STOREFRONT_PASSWORD: filas invalidas (exit 2)', noPw.code === 2 && noPw.result.rows.every((r) => /STOREFRONT_PASSWORD/.test(r.error || '')));
+      const withPw = await runStage('c4-pw', gatedPlan, 'before', [], { STOREFRONT_PASSWORD: PW });
+      const pwText = readFileSync(withPw.out, 'utf8');
+      check('C4 login con STOREFRONT_PASSWORD del entorno y sin rastro en el resultado', withPw.code === 0 && withPw.result.rows.every((r) => r.storefrontLogin && r.servedThemeId === r.themeId)
+        && ![pwText, withPw.stdout, withPw.stderr].some((t) => t.includes(PW)));
+    } finally {
+      gated.server.close();
+    }
 
     if (WRITE) {
       const dir = path.join(HARNESS_DIR, 'results');

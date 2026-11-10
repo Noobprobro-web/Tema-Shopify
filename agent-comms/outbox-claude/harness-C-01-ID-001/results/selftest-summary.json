@@ -4,6 +4,41 @@
   "after": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
   "checks": [
     {
+      "name": "C1 binario identico: exact",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C1 binario modificado (0x80 vs 0xff): mismatch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C1 woff2 modificado: mismatch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C1 binario sin CRLF no se normaliza: mismatch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C1 texto con CRLF: normalized",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C1 texto con bytes no UTF-8 distintos: mismatch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C1 JSON reformateado solo en .json: normalized vs mismatch",
+      "ok": true,
+      "detail": ""
+    },
+    {
       "name": "identidad: antes exacto",
       "ok": true,
       "detail": ""
@@ -112,6 +147,91 @@
       "name": "cambio de layout solo en 1280 detectado (CAMBIO_LAYOUT, exit 1)",
       "ok": true,
       "detail": "Sartorial: grid/firstCard/bodyColumns/bodyGap; Imprint: grid/firstCard/bodyColumns/bodyGap; Archive: grid/firstCard/bodyColumns/bodyGap"
+    },
+    {
+      "name": "C2 informe sin --full: no mide (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C3 tema servido = themeId en cada fila del antes",
+      "ok": true,
+      "detail": "501,501,502,502,503,503"
+    },
+    {
+      "name": "C5 sin informe del despues no mide (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C2/C5 informe del despues anterior a la medicion del antes: no mide (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C5 serie mismo tema: mismos deltas que la medicion de referencia y exit 0",
+      "ok": true,
+      "detail": "Sartorial -71.55px, Imprint -8px, Archive -71.55px"
+    },
+    {
+      "name": "C5 tienda mismo tema sin --stage: exige serie (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C5 antes y despues en temas distintos: INVALIDO salvo allowDistinctThemes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C3 tema servido distinto del themeId: filas invalidas (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C3 preview_theme_id de la URL distinto del themeId: no mide (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C3 tienda sin informe para el tema: no mide (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C3 pagina sin Shopify.theme.id en tienda: filas invalidas (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C3 selectores de barra iguales a capture.mjs",
+      "ok": true,
+      "detail": "#preview-bar-iframe, #ShopifyPreviewBar, shopify-preview-bar"
+    },
+    {
+      "name": "C3 modo measure espera la barra y registra la altura de capture",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C4 429: espera Retry-After, reintenta y mide (exit 0)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C4 plan con contrasena: rechazado (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C4 tienda con contrasena sin STOREFRONT_PASSWORD: filas invalidas (exit 2)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C4 login con STOREFRONT_PASSWORD del entorno y sin rastro en el resultado",
+      "ok": true,
+      "detail": ""
     }
   ]
 }

@@ -103,11 +103,13 @@ function preflight(themeIds) {
   return [...unpublished].filter((id) => themeIds.includes(id));
 }
 
+class PullError extends Error {}
+
 function pullTheme(themeId, paths, dest) {
   const args = ['theme', 'pull', '--theme', themeId, '--path', dest, '--no-color'];
   if (paths) for (const p of paths) args.push('--only', p);
   const { status } = runCli(args);
-  if (status !== 0) fail(1, `theme pull del tema ${themeId} devolvio ${status}`);
+  if (status !== 0) throw new PullError(`theme pull del tema ${themeId} devolvio ${status}`);
 }
 
 function walk(dir, base = dir, out = []) {
@@ -173,6 +175,7 @@ const report = {
 if (!simulated) report.preflightUnpublished = preflight(opts.targets.map((t) => t.themeId));
 
 const tmpRoot = simulated ? null : mkdtempSync(path.join(os.tmpdir(), 'c01-pull-'));
+let pullError = null;
 try {
   for (const target of opts.targets) {
     const commit = resolveCommit(target.ref);
@@ -187,9 +190,14 @@ try {
     }
     report.targets.push({ themeId: target.themeId, preset: target.preset, expectedCommit: commit, ...result, candidates });
   }
+} catch (error) {
+  if (!(error instanceof PullError)) throw error;
+  pullError = error;
 } finally {
+  // Tambien en la ruta de error: no deja copias del tema en el temporal.
   if (tmpRoot && !opts.keep) rmSync(tmpRoot, { recursive: true, force: true });
 }
+if (pullError) fail(1, pullError.message);
 
 report.finishedAt = new Date().toISOString();
 report.ok = report.targets.every((t) => t.ok);

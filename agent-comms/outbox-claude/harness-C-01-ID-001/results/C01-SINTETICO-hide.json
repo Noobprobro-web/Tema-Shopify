@@ -7,23 +7,26 @@
   "scripts": {
     "measure": {
       "file": "agent-comms/outbox-claude/harness-C-01-ID-001/measure.mjs",
-      "sha256": "dce25c87235086195d7b06573770791ca16640aa14f896e2cd7327bee7eec34f"
+      "sha256": "eb97287f2e4d8eba2c4c4ac38f6f643e40569f72196ca67f1afe53e506c7b53d"
     },
     "capture": {
       "file": "agent-comms/outbox-gpt/harness-GPT-C01-COLLECTION-001/capture.mjs",
       "sha256": "ce2dab82057f939d5f49d9b386fc4ff244336f829808276ff29cf7bc52f9d1eb"
     }
   },
-  "planSha256": "950c7a107dc3af53049eaac06357497b9dcd6a3a91bf88061fe0b3665cf74871",
+  "planSha256": "5bf715a22e622ec5864bbbfed4ae106287f67fa5ad07c05908ebdd6d5bfa85ff",
+  "serial": false,
   "identity": null,
   "rows": [
     {
+      "cellIndex": 0,
       "preset": "Sartorial",
       "stage": "before",
       "themeId": "0",
       "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
       "viewport": "390x844",
       "path": "/collections/sartorial",
+      "servedThemeId": null,
       "capture": {
         "preset": "Sartorial",
         "stage": "before",
@@ -40,7 +43,7 @@
         "facetsTop": 558.703125,
         "facetsPosition": "static",
         "bannerHeight": 196.875,
-        "lcpMs": 68,
+        "lcpMs": 84,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -71,7 +74,6 @@
         }
       ],
       "usefulViewportHeight": 844,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
@@ -114,12 +116,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 0,
       "preset": "Sartorial",
       "stage": "before",
       "themeId": "0",
       "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
       "viewport": "1280x800",
       "path": "/collections/sartorial",
+      "servedThemeId": null,
       "capture": {
         "preset": "Sartorial",
         "stage": "before",
@@ -136,7 +140,7 @@
         "facetsTop": 781.28125,
         "facetsPosition": "sticky",
         "bannerHeight": 472.375,
-        "lcpMs": 64,
+        "lcpMs": 56,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -167,7 +171,6 @@
         }
       ],
       "usefulViewportHeight": 800,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
@@ -210,12 +213,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 1,
       "preset": "Sartorial",
       "stage": "after",
       "themeId": "0",
       "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
       "viewport": "390x844",
       "path": "/collections/sartorial",
+      "servedThemeId": null,
       "capture": {
         "preset": "Sartorial",
         "stage": "after",
@@ -232,7 +237,7 @@
         "facetsTop": 495.15625,
         "facetsPosition": "static",
         "bannerHeight": 133.328125,
-        "lcpMs": 56,
+        "lcpMs": 60,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -263,7 +268,6 @@
         }
       ],
       "usefulViewportHeight": 844,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
@@ -306,12 +310,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 1,
       "preset": "Sartorial",
       "stage": "after",
       "themeId": "0",
       "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
       "viewport": "1280x800",
       "path": "/collections/sartorial",
+      "servedThemeId": null,
       "capture": {
         "preset": "Sartorial",
         "stage": "after",
@@ -328,7 +334,7 @@
         "facetsTop": 781.28125,
         "facetsPosition": "sticky",
         "bannerHeight": 472.375,
-        "lcpMs": 88,
+        "lcpMs": 76,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -359,7 +365,6 @@
         }
       ],
       "usefulViewportHeight": 800,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
@@ -402,12 +407,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 2,
       "preset": "Imprint",
       "stage": "before",
       "themeId": "0",
       "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
       "viewport": "390x844",
       "path": "/collections/imprint",
+      "servedThemeId": null,
       "capture": {
         "preset": "Imprint",
         "stage": "before",
@@ -424,7 +431,7 @@
         "facetsTop": 361.828125,
         "facetsPosition": "static",
         "bannerHeight": null,
-        "lcpMs": 52,
+        "lcpMs": 76,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -455,7 +462,6 @@
         }
       ],
       "usefulViewportHeight": 844,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": true,
       "layout": {
         "header": {
@@ -493,12 +499,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 2,
       "preset": "Imprint",
       "stage": "before",
       "themeId": "0",
       "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
       "viewport": "1280x800",
       "path": "/collections/imprint",
+      "servedThemeId": null,
       "capture": {
         "preset": "Imprint",
         "stage": "before",
@@ -515,7 +523,7 @@
         "facetsTop": 308.90625,
         "facetsPosition": "sticky",
         "bannerHeight": null,
-        "lcpMs": 96,
+        "lcpMs": 76,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -546,7 +554,6 @@
         }
       ],
       "usefulViewportHeight": 800,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": true,
       "layout": {
         "header": {
@@ -584,12 +591,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 3,
       "preset": "Imprint",
       "stage": "after",
       "themeId": "0",
       "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
       "viewport": "390x844",
       "path": "/collections/imprint",
+      "servedThemeId": null,
       "capture": {
         "preset": "Imprint",
         "stage": "after",
@@ -637,7 +646,6 @@
         }
       ],
       "usefulViewportHeight": 844,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": true,
       "layout": {
         "header": {
@@ -675,12 +683,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 3,
       "preset": "Imprint",
       "stage": "after",
       "themeId": "0",
       "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
       "viewport": "1280x800",
       "path": "/collections/imprint",
+      "servedThemeId": null,
       "capture": {
         "preset": "Imprint",
         "stage": "after",
@@ -697,7 +707,7 @@
         "facetsTop": 308.90625,
         "facetsPosition": "sticky",
         "bannerHeight": null,
-        "lcpMs": 96,
+        "lcpMs": 68,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -728,7 +738,6 @@
         }
       ],
       "usefulViewportHeight": 800,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": true,
       "layout": {
         "header": {
@@ -766,12 +775,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 4,
       "preset": "Archive",
       "stage": "before",
       "themeId": "0",
       "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
       "viewport": "390x844",
       "path": "/collections/archive",
+      "servedThemeId": null,
       "capture": {
         "preset": "Archive",
         "stage": "before",
@@ -788,7 +799,7 @@
         "facetsTop": 558.703125,
         "facetsPosition": "static",
         "bannerHeight": 196.875,
-        "lcpMs": 72,
+        "lcpMs": 56,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -819,7 +830,6 @@
         }
       ],
       "usefulViewportHeight": 844,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
@@ -862,12 +872,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 4,
       "preset": "Archive",
       "stage": "before",
       "themeId": "0",
       "commit": "258ca4f59910ebf3c024901a25f0010d69b13856",
       "viewport": "1280x800",
       "path": "/collections/archive",
+      "servedThemeId": null,
       "capture": {
         "preset": "Archive",
         "stage": "before",
@@ -884,7 +896,7 @@
         "facetsTop": 781.28125,
         "facetsPosition": "sticky",
         "bannerHeight": 472.375,
-        "lcpMs": 56,
+        "lcpMs": 72,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -915,7 +927,6 @@
         }
       ],
       "usefulViewportHeight": 800,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
@@ -958,12 +969,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 5,
       "preset": "Archive",
       "stage": "after",
       "themeId": "0",
       "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
       "viewport": "390x844",
       "path": "/collections/archive",
+      "servedThemeId": null,
       "capture": {
         "preset": "Archive",
         "stage": "after",
@@ -980,7 +993,7 @@
         "facetsTop": 495.15625,
         "facetsPosition": "static",
         "bannerHeight": 133.328125,
-        "lcpMs": 64,
+        "lcpMs": 76,
         "lcpElement": {
           "tag": "H1",
           "id": "",
@@ -1011,7 +1024,6 @@
         }
       ],
       "usefulViewportHeight": 844,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
@@ -1054,12 +1066,14 @@
       "syntheticCssIdentity": "match"
     },
     {
+      "cellIndex": 5,
       "preset": "Archive",
       "stage": "after",
       "themeId": "0",
       "commit": "e8f17e58f98886afe58b1e7a218793c67ecab65e",
       "viewport": "1280x800",
       "path": "/collections/archive",
+      "servedThemeId": null,
       "capture": {
         "preset": "Archive",
         "stage": "after",
@@ -1107,7 +1121,6 @@
         }
       ],
       "usefulViewportHeight": 800,
-      "barOverlaysBottom": null,
       "firstCardVisibleInUsefulViewport": false,
       "layout": {
         "header": {
