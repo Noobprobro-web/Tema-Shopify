@@ -26,7 +26,7 @@ import { installNativeCartAddCapture, runNoJsVariantCase, casePreconditionFailur
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const D28_RUNNER_PATH = resolve(HERE, '../../outbox-gpt/harness-GPT-RA-RB-001/run.mjs');
 // SHA-256 de run.mjs revisado. Si D28 cambia, este runner no arranca hasta revisarlo.
-export const D28_RUNNER_SHA256 = '0f936942d2056ad4f48c16f2144300a9a066db0c4309dc6def09330c1f5dcb84';
+export const D28_RUNNER_SHA256 = '9682dc26e682e88a86bb07e91869959b6f9cfe1c7c60afc95268fd7a4c2d1324';
 export const B02_MODE = 'b02-no-js';
 export const CASE_INTERVAL_MS = 1000;
 const MAX_CASES = 24;

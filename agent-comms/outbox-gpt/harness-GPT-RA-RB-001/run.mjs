@@ -16,7 +16,7 @@ const PREVIEWS = Object.freeze([
 ]);
 const AUTHORIZED_THEME_IDS = new Set(PREVIEWS.map((preview) => preview.id));
 const ROUTES = Object.freeze({ home: '/', collection: '/collections/the-permanent-collection', product: '/products/wool-waistcoat', cart: '/cart' });
-const AXE_SHA256 = '3e34029d5a3db40742dde7ea7445e5101eb5073860f8698b2a92f091af4d7481';
+const AXE_SHA256 = 'b511cd9dec01c76f4b2ad1723b66b6db37d4c2eb4ed199076e1829d9ee7b75e3';
 const AXE_VERSION = '4.10.2';
 const AXE_RULES = Object.freeze(['aria-allowed-attr', 'aria-hidden-focus', 'aria-required-attr', 'aria-valid-attr', 'aria-valid-attr-value', 'button-name', 'color-contrast', 'document-title', 'duplicate-id-active', 'duplicate-id-aria', 'frame-title', 'heading-order', 'html-has-lang', 'html-lang-valid', 'image-alt', 'input-button-name', 'input-image-alt', 'label', 'label-content-name-mismatch', 'landmark-no-duplicate-main', 'landmark-one-main', 'landmark-unique', 'link-name', 'nested-interactive', 'page-has-heading-one', 'role-img-alt', 'scrollable-region-focusable', 'select-name', 'tabindex']);
 const EXTERNAL_HEADERS = Object.freeze({ Accept: '*/*', 'User-Agent': 'Codex-RA-RB-ReadOnly-Harness' });

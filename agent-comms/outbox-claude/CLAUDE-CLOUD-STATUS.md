@@ -61,6 +61,8 @@ Rama `lote-e-claude`. Claude es el único escritor desde 2026-11-10. Informes de
 - `run.mjs --cart` falló en el acceso a la tienda (AUTH_RESPONSE_NOT_ACCEPTED, un POST permitido, sin 429, carrito intacto). No se repitió. Cuentan 2 de las 5 corridas diagnósticas.
 - Ninguna prueba en tienda concluyente; ninguna fila del ledger cambia de estado. Johandry debe verificar o rotar la contraseña de la tienda, decidir la corrección de AXE_SHA256, aceptar el cambio de identity.mjs y, para un C-01 conclusivo, autorizar subir 258ca4f/e8f17e5 a las previews.
 - Pendiente manual: `rm /axe_head.js` (copia temporal fuera del repo).
+- Actualización 2026-11-11: el pin antiguo de AXE_SHA256 era el SHA-256 de axe.min.js con CRLF (no un hash inexistente); AXE_SHA256 (run.mjs:19) y D28_RUNNER_SHA256 (run-b02.mjs:29) cambiados (REVIEW-AXE-SHA-001: COMMITEAR con condiciones). C1: re-aceptar run.mjs 9682dc26... en decisions.md (0f936942... obsoleto); C3: .gitattributes propuesto, no aplicado.
+- Johandry corrigió STOREFRONT_PASSWORD; identity.mjs se mantiene; sigue pendiente `rm /axe_head.js`. Ninguna fila del ledger cambia.
 
 ## Estado vigente — 2026-11-08 (Codex/GPT, rama lote-c-impl)
 

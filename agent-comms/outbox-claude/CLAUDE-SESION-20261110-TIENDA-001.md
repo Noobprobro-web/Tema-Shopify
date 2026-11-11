@@ -26,7 +26,7 @@ Desviaciones (Nivel 1 o Nivel 2):
 - Consecuencia: con cb20d86 en las tres previews, ya no sirven como "antes/después" de C-01 (cb20d86 no es e8f17e5 ni 258ca4f). La evidencia R-A/R-B/Gate 5 anterior corresponde al estado previo de las previews.
 
 Hallazgos extra fuera de alcance (con parche listo):
-- AXE_SHA256 (run.mjs línea 19, introducida en bfddf79 el 2026-11-05) = 3e34029d...4d7481 no coincide con tests/vendor/axe.min.js (b511cd9d...7b75e3, axe 4.10.2, único commit 42e3b9e). No es CRLF y ese hash no existe en el historial. Parche propuesto (NO aplicado): sustituir la constante por b511cd9dec01c76f4b2ad1723b66b6db37d4c2eb4ed199076e1829d9ee7b75e3. run-b02.mjs exige el SHA de run.mjs (0f936942...), así que hay que recalcular y reaceptar. Decisión de Gemini/Johandry.
+- AXE_SHA256 (run.mjs línea 19, introducida en bfddf79 el 2026-11-05) = 3e34029d...4d7481 no coincide con tests/vendor/axe.min.js (b511cd9d...7b75e3, axe 4.10.2, único commit 42e3b9e). Corrección 2026-11-11: el pin antiguo 3e34029d... es exactamente el SHA-256 del mismo axe.min.js con fin de línea CRLF (correcto para el checkout Windows de GPT; falla en un checkout LF como este). Parche propuesto (NO aplicado): sustituir la constante por b511cd9dec01c76f4b2ad1723b66b6db37d4c2eb4ed199076e1829d9ee7b75e3. run-b02.mjs exige el SHA de run.mjs (0f936942...), así que hay que recalcular y reaceptar. Decisión de Gemini/Johandry.
 - REVIEW-PRECOMMIT-001, P3: H1 el selftest no tiene caso de fallo de pull; H2 redactar los valores de STOREFRONT_PASSWORD y SHOPIFY_CLI_THEME_TOKEN en el detalle de stderr; H4 tres directorios vacíos /tmp/c01-pull-*. P2 H3 fuera de este commit.
 - Copia temporal `/axe_head.js` (fuera del repo) dejada por un subagente; su `rm` fue bloqueado por la comprobación de seguridad y no se esquivó. Borrar a mano: `rm /axe_head.js`. `/home/user/axe_head_tmp.js` no existe.
 - C-01: el harness solo admite par antes/después con e8f17e5 como "después". Con una única preview por preset solo hay observación de estado único (`--stage before`, no concluyente y con etiqueta engañosa). No hay capture.mjs ni plan en harness-C-01-ID-001; capture.mjs está en harness-GPT-C01-COLLECTION-001 (SHA ce2dab82...). "6 celdas" = 3 presets x 2 viewports por colección; hay que escribir el plan. Colección conocida: /collections/the-permanent-collection; Imprint nunca muestra banner. Un par real exige subir 258ca4f a las previews (autorización de Johandry, README:48).
@@ -76,3 +76,13 @@ Lista de afirmaciones falsables numeradas:
 10. Se consumieron 2 de las 5 corridas diagnósticas autorizadas.
 11. Ninguna fila de docs/requirements-ledger.md cambia de estado; A-03, B-01, B-04 y C-01 no tienen fila propia. Estados: C-01 código completo (harness), A-03/B-01/B-04 código completo, R-A/R-B/Gate 5 no verificado, B-02 en tienda no verificado, `show_cart_note` desactivado = ausente en tienda. Ninguno pasa a cumplido.
 12. Ningún comando de Shopify distinto de los descritos se ejecutó y ningún tema fue creado o borrado.
+
+## Actualización 2026-11-11
+
+- Corrección: la afirmación "No es CRLF" era errónea. REVIEW-AXE-SHA-001 (COMMITEAR con condiciones) demuestra que 3e34029d... es el SHA-256 de tests/vendor/axe.min.js con CRLF; lo respaldan el resultado T190050695Z de GPT (18 axe_smoke passed) y GPT-TEST-MATRICES:93 (run.mjs dfb30247...).
+- Cambios aplicados: AXE_SHA256 en run.mjs:19 (ahora b511cd9d...) y D28_RUNNER_SHA256 en run-b02.mjs:29 (ahora 9682dc26..., nuevo SHA de run.mjs; el anterior era 0f936942...).
+- C1: Gemini/Johandry deben re-aceptar run.mjs 9682dc26... y anotarlo en docs/decisions.md; decisions.md:309 acepta 0F936942... y queda obsoleto (no editado aquí).
+- C3: los pins nuevos fallarían en un checkout Windows con autocrlf; propuesta de .gitattributes pendiente de revisión, no aplicada.
+- Johandry corrigió STOREFRONT_PASSWORD. identity.mjs se mantiene como está (decisión de Claude, delegada por Johandry).
+- Pendiente manual de Johandry: `rm /axe_head.js`.
+- Ninguna fila de docs/requirements-ledger.md cambia de estado.
