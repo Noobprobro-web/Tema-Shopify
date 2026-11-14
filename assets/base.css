@@ -1289,8 +1289,10 @@ button[aria-busy='true']:disabled {
   min-height: 20rem;
 }
 
-/* .featured-product__media recorta con overflow:hidden: un contorno exterior no se veria. */
+/* .featured-product__media recorta con overflow:hidden: un contorno exterior no se veria. model-viewer delega el foco
+   a su shadow DOM, asi que el host no cumple :focus-visible; model-viewer-ui le pone la clase .focus-visible. */
 .featured-product__media model-viewer:focus-visible,
+.featured-product__media model-viewer.focus-visible,
 .featured-product__media video:focus-visible {
   outline: 2px solid var(--color-foreground);
   outline-offset: -4px;
@@ -7774,6 +7776,7 @@ copy-text {
 
 /* El item recorta con overflow:hidden: un contorno exterior no se veria. */
 .product-gallery__item model-viewer:focus-visible,
+.product-gallery__item model-viewer.focus-visible,
 .product-gallery__item video:focus-visible {
   outline: 2px solid var(--color-foreground);
   outline-offset: -4px;
