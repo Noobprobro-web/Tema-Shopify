@@ -227,3 +227,10 @@ Comandos de esta redacción (locales, rehechos contra `f81774e`): `git status --
 6. `harness-GPT-RD-001/run.mjs:23` fija `STORE_HOST = 'tema-qkqpke0j.myshopify.com'`.
 7. D29 a D39 están en `docs/decisions.md` (pueden estar aún sin commitear), y D38 prohíbe instalar o configurar apps.
 8. Este runbook no ejecutó ningún comando de Shopify ni ninguna llamada MCP, y no tocó ningún otro archivo.
+
+## 8. Hallazgos verificados el 2026-11-14
+
+1. `theme_screenshot` NO refleja el código desplegado en temas no publicados. Experimento con marcadores DIAG en el tema Archive: ninguno apareció en la captura, y el tema se restauró a la versión `f872ab75`. No usar capturas de `theme_screenshot` como evidencia de verificación. Verificar con el HTML real vía Playwright, con `STOREFRONT_PASSWORD` de la tienda nueva en el entorno.
+2. El arreglo de la colección vacía (commit `303bf4d`) está verificado por código y por 2 revisiones, pero NO en tienda real. Hay que comprobar en el HTML que, con la colección `empty-test`, no aparecen `product-grid__item--promotion` ni `data-product-list`.
+3. Los hallazgos visuales previos (P2) proceden de esas capturas y por tanto son indicativos, no concluyentes.
+4. Tarjetas, handles y demás: sin cambios.

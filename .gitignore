@@ -49,3 +49,8 @@ raw-lighthouse-*.json
 # Bundle temporal de agentes y scripts de empaquetado de texto plano
 SARTORIAL-SOURCE-BUNDLE-PARA-ARGON.md
 scripts/build-argon-bundle.mjs
+
+# Herramientas locales de navegador y perfiles de arnes (nunca evidencia)
+.playwright-mcp/
+harness-*/chrome-profile/
+**/chrome-profile/

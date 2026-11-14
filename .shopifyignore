@@ -3,3 +3,19 @@ agent-comms/**
 scratch/
 scratch/**
 *.md
+
+# Tooling y artefactos del proyecto (no forman parte del tema)
+docs/
+scripts/
+tests/
+.agents/
+.playwright-mcp/
+.github/
+harness-*/
+node_modules/
+dist/
+.tmp/
+*.zip
+package.json
+package-lock.json
+cobertura-360-002.csv
