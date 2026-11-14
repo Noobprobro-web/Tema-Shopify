@@ -80,3 +80,31 @@ Mejoras que no bloquean el commit:
 | 5 | Mejoras | OK | `envWithout(SECRET_ENV)` para Chromium (mjs:200) y para npx (mjs:143). Comprobado en `/proc/<pid>/environ` durante una ejecución, mirando solo los nombres: 6 procesos chrome-headless, `npm exec` y 3 node, todos con `has_STOREFRONT_PASSWORD=0`. Métrica no finita invalida la ejecución (mjs:257-268). Timeout de 180 s que mata el grupo (mjs:25, 147). `--pages` con más de un `:` da exit 2 (mjs:94; selftest ok). CDP en 127.0.0.1 (`/proc/net/tcp` solo muestra `0100007F:*`, más el `0.0.0.0:2024` que ya existía antes, ajeno al script). |
 | 6 | detached y espera de 10 s | OK | `detached:true` y kill del grupo: tras SIGINT, SIGTERM y timeout no queda ningún `npm exec`, `sh` ni node lighthouse. La espera de selftest:126-129 no enmascara fallos: es un sondeo de hasta 10 s y después se ejecuta `assert` de todos modos. El patrón `lh-mobile-` cubre a Chromium (`--user-data-dir`) y a Lighthouse (`--output-path`). Un huérfano real persiste más de 10 s y haría fallar el test. |
 | 7 | Ejecución | OK | `node --check` de los dos archivos: CHECK_OK. Selftest: 20 aserciones ok, "SELFTEST OK", `real 2m10.176s`, EXIT=0. lighthouse@13.6.0 se descargó por el proxy. Después no queda `/tmp/lh-*` ni procesos. `git diff -- package.json` vacío (md5 `da394d32…` sin cambios). |
+
+## Reverificación 2 (2026-11-14, autenticación por formulario real; local, sin tienda, sin editar código)
+
+### Veredicto: COMMITEAR
+
+Ningún cambio obligatorio. R1 de la reverificación 1 quedó corregido en mjs:253: con Location ausente, `target` es null y la ejecución da exit 4. El selftest lo cubre con el caso «302 sin Location -> exit 4».
+
+Mejoras que no bloquean el commit, para un commit posterior:
+- **N1. Reintentar solo el paso que dio 429.**
+  - Problema: un 429 en `/?preview_theme_id=` (mjs:179) reinicia el flujo desde `GET /password`. Si la tienda redirige `/password` a `/` cuando la sesión ya está autenticada, el reintento falla con exit 3 («no devolvio el formulario esperado»).
+  - Lo reproduje con un servidor sintético propio (modo `home429-pwredirect`: exit 3). Con el formulario siempre servido (`home429`) el reintento funciona.
+  - Es un fallo seguro, nunca mide de más, pero puede dar un falso negativo. No sé si la tienda real redirige `/password` cuando ya hay sesión.
+  - Arreglo: en el reintento, si `page.url()` ya no está en `/password` tras el GET, saltar directamente a la comprobación de tema.
+- **N2. Exigir que el formulario envíe al mismo origen.** `form[action$="/password"]` (mjs:169) también acepta un `action` absoluto a otro host. La página viene del origen de la allowlist por https, así que el riesgo es bajo. Añadir `new URL(await form.getAttribute('action'), page.url()).origin === origin` antes de `fill` cierra ese hueco.
+- **N3. Limitar los chequeos globales del selftest.** selftest:91 y 126-129 buscan cualquier `/tmp/lh-mobile-*` nuevo y cualquier proceso `lh-mobile-`. Si la otra tarea mide en paralelo, el selftest fallará en falso, aunque no mata nada. Conviene limitarlos al PID y al directorio del hijo, o documentarlo.
+- **N4 (menor).** `Shopify.theme.role` solo acepta `unpublished`, así que también rechaza los temas `development` de `shopify theme dev`. Si es intencional, conviene decirlo en el README.
+
+### Evidencia
+
+| # | Punto | Resultado | Evidencia |
+|---|---|---|---|
+| 1 | Contraseña | OK | Sigue saliendo solo del entorno (mjs:204-205) y argv usa la lista cerrada. Se pasa a `field.fill(password)` (mjs:171) sin tracing, capturas ni vídeo: no hay `tracing.start`, `screenshot` ni `recordVideo`. Los errores de Playwright se reducen a la primera línea y pasan por `scrub` con la contraseña (mjs:189); el catch general también pasa por `scrub` con `secrets`. Selftest: «los logs no contienen la contrasena ni la cookie ficticias» ok. Mis 4 sondas de 429: `leaked_pw=false`. Sin verificar: un `DEBUG=pw:*` del entorno del usuario podría registrar llamadas de Playwright; ese entorno no se filtra. |
+| 2 | Rol `unpublished` | OK | Sin flag que lo salte. Se exige `id === String(--theme)` (mjs:182) y `role === 'unpublished'` estricto (mjs:183); el rol se trata como null si no es string. Selftest: `role=main` da exit 3 e id distinto da exit 3. |
+| 3 | 429 en autenticación | OK + N1 | Bucle de 4 intentos como máximo (mjs:166, 186), cada espera ≤ 120 s (`retryAfterMs`), y las navegaciones con un límite de 30 s. No puede quedar en bucle infinito. Sondas locales: `post429` (429 en el POST) se recupera; `home429` se recupera; `pw429x5` acaba en exit 3 «429 persistente» tras 4 intentos, en 5 s; `home429-pwredirect` da exit 3 en falso (N1). |
+| 4 | Página y cookie | OK | `page.close()` en `finally` (mjs:190-191), también cuando hay `fail`. La cookie vive solo en el contexto persistente del perfil temporal, que se borra igual que antes. Selftest: con SIGINT y SIGTERM no quedan directorios ni procesos. Tras todas mis pruebas no quedan `/tmp/lh-*` ni procesos. |
+| 5 | Servidor sintético | OK + N3 | Reproduce lo observado en la tienda: `authenticity_token` obligatorio (selftest:46), 302 con `_shopify_essential` y `localization` sin `storefront_digest` (selftest:47), y preview con 302 a la ruta sin query más una cookie (selftest:66-68). Los casos nuevos son significativos (contraseña mala, `role=main`, id distinto). La aserción de «sin storefront_digest» (selftest:120) es solo un grep del código: débil, pero inocua. El 429 de autenticación no está en el selftest; lo cubren mis sondas. |
+| 6 | Mensajes de error | OK | mjs:182-183 nombran la propiedad, pero no el valor real de id ni de rol, ni URLs. |
+| 7 | Ejecución | OK | `node --check` de los dos archivos: CHECK_OK. Selftest: 24 aserciones ok, «SELFTEST OK», `real 2m59.136s`, EXIT=0, con lighthouse@13.6.0. Después no queda `/tmp/lh-*` ni procesos; no había ninguna medición ajena en curso. `git diff -- package.json` vacío (md5 `da394d32…`). |

@@ -254,3 +254,26 @@ Tareas manuales de Johandry pendientes:
 3. App de suscripciones.
 
 Limpieza local pendiente: `rm /axe_head.js`.
+
+### Lighthouse móvil (2026-11-14)
+
+Medianas de la puntuación de Rendimiento (Lighthouse 13.6.0, móvil, 3 repeticiones por página, throttling simulado):
+
+| Preset | Home | Colección | Producto | Promedio |
+|---|---|---|---|---|
+| Sartorial | 72 | 79 | 87 | 79,3 |
+| Imprint | 82 | 85 | 85 | 84,0 |
+| Archive | 81 | 82 | 83 | 82,0 |
+
+Promedio global: 81,8.
+
+Salvedades:
+
+1. Es una medición APROXIMADA hecha desde el contenedor; NO sustituye la medición oficial de Shopify ni la compuerta 5.
+2. Los temas no están publicados y la tienda tiene contraseña; todavía no hay imágenes.
+3. Las cargas con `?preview_theme_id=` pasan por un 302 que entra en las métricas.
+4. Dispersión mayor de 5 puntos en varias páginas (p. ej. Imprint home 65–82).
+5. TBT de 440–690 ms es el factor común; la home de Sartorial es la más débil (LCP 3,7 s).
+6. El script falló dos veces mientras corría un selftest concurrente: no ejecutar selftest y medición a la vez.
+7. La autenticación del script tuvo un bug real, ya corregido (la tienda ya no emite `storefront_digest`).
+8. No se cierra ninguna fila del ledger.

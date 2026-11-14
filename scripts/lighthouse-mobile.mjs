@@ -155,22 +155,41 @@ function runLighthouse({ url, port, outFile }) {
   });
 }
 
-async function authenticate(context, origin, password) {
-  for (let attempt = 0; attempt < 4; attempt++) {
-    const res = await context.request.post(`${origin}/password`, {
-      form: { form_type: 'storefront_password', utf8: '✓', password },
-      maxRedirects: 0,
-      failOnStatusCode: false,
-    });
-    if (res.status() === 429) { await sleep(retryAfterMs(res.headers()['retry-after'], attempt)); continue; }
-    const loc = res.headers()['location'] || '';
-    const cookies = await context.cookies(origin);
-    const hasDigest = cookies.some((c) => c.name === 'storefront_digest');
-    const redirectedBack = /\/password(\?|$)/.test(loc);
-    if (res.status() >= 300 && res.status() < 400 && hasDigest && !redirectedBack) return;
-    return fail('autenticacion fallida en /password (contrasena rechazada o respuesta inesperada)', 3);
+// Autentica como lo haria una persona y como lo hace el arnes que funciona: GET /password,
+// se rellena el formulario REAL de la pagina (incluye authenticity_token) y se envia. La
+// tienda real NO emite una cookie `storefront_digest` (usa _shopify_essential, etc.), asi que
+// el exito se comprueba con lo observable: tras navegar a /?preview_theme_id=<id> no se vuelve
+// a /password, Shopify.theme.id coincide con --theme y Shopify.theme.role === 'unpublished'.
+async function authenticate(context, origin, password, themeId) {
+  const page = await context.newPage();
+  try {
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const form = await page.goto(`${origin}/password`, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      if (form?.status() === 429) { await sleep(retryAfterMs(form.headers()['retry-after'], attempt)); continue; }
+      const field = page.locator('form[action$="/password"] input[type=password]').first();
+      if (!form?.ok() || (await field.count()) !== 1) return fail('autenticacion fallida: /password no devolvio el formulario esperado', 3);
+      await field.fill(password);
+      const [submit] = await Promise.all([
+        page.waitForResponse((r) => r.request().method() === 'POST' && new URL(r.url()).pathname === '/password', { timeout: 30000 }),
+        field.press('Enter'),
+      ]);
+      if (submit.status() === 429) { await sleep(retryAfterMs(submit.headers()['retry-after'], attempt)); continue; }
+      await page.waitForLoadState('domcontentloaded');
+      const home = await page.goto(`${origin}/?preview_theme_id=${themeId}`, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      if (home?.status() === 429) { await sleep(retryAfterMs(home.headers()['retry-after'], attempt)); continue; }
+      if (new URL(page.url()).pathname.startsWith('/password')) return fail('autenticacion fallida en /password (contrasena rechazada)', 3);
+      const theme = await page.evaluate(() => ({ id: window.Shopify?.theme?.id == null ? null : String(window.Shopify.theme.id), role: typeof window.Shopify?.theme?.role === 'string' ? window.Shopify.theme.role : null }));
+      if (theme.id !== String(themeId)) return fail('autenticacion OK pero Shopify.theme.id no coincide con --theme; medicion invalida', 3);
+      if (theme.role !== 'unpublished') return fail('el tema indicado no es un tema no publicado (Shopify.theme.role); medicion rechazada', 3);
+      return;
+    }
+    return fail('autenticacion fallida: 429 persistente en /password', 3);
+  } catch (e) {
+    if (e instanceof ExitError) throw e;
+    return fail(`autenticacion fallida: ${scrub(String(e?.message || e).split('\n')[0], [password])}`, 3);
+  } finally {
+    await page.close().catch(() => {});
   }
-  return fail('autenticacion fallida: 429 persistente en /password', 3);
 }
 
 async function main() {
@@ -202,7 +221,7 @@ async function main() {
       handleSIGTERM: false,
     });
     state.context = context;
-    await authenticate(context, origin, password);
+    await authenticate(context, origin, password, args.theme);
     console.log('Autenticacion OK (cookie de sesion solo en perfil temporal).');
 
     const results = [];
