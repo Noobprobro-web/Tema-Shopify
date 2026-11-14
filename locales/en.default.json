@@ -154,18 +154,15 @@
         "inventory_status": {
           "low_stock": "Low stock: [count] left",
           "low_stock_generic": "Low stock",
-          "in_stock": "In stock, ready to ship",
+          "in_stock": "In stock",
           "preorder": "Available for pre-order",
           "sold_out": "Sold out",
           "unavailable": "This option is unavailable"
-        },
-        "shipping_lead_time": {
-          "delivery_fallback": "Delivery times and costs confirmed at checkout"
-        },
-        "trust_badges": {
-          "returns_fallback": "Returns subject to our store policy"
         }
       }
+    },
+    "bento_discovery": {
+      "explore_generic": "Explore"
     },
     "homepage": {
       "hero": {
@@ -204,7 +201,7 @@
     "form": {
       "eyebrow": "Write to us",
       "title": "Your inquiry",
-      "success": "Thank you. We will reply as soon as possible.",
+      "success": "Thank you. Your message has been sent.",
       "error_heading": "Please review the following fields:",
       "name": "Name",
       "email": "Email",
@@ -212,7 +209,6 @@
       "reason_placeholder": "Choose a reason",
       "reason_order": "Order and delivery",
       "reason_materials": "Materials and care",
-      "reason_appointment": "Private appointment",
       "reason_press": "Press and trade",
       "reason_other": "Other",
       "message": "Message",
@@ -227,14 +223,13 @@
       "title": "Before you write"
     },
     "services": {
-      "title": "Direct studio contacts",
-      "response": "Response standard: two business days"
+      "title": "Direct studio contacts"
     }
   },
   "faq": {
     "search": {
       "label": "Search the questions",
-      "placeholder": "Shipping, sizing, returns",
+      "placeholder": "Shipping, sizing, care",
       "results": "Matches: {{ count }}",
       "empty": "No question matches that search. Try a shorter word, or write to us."
     }
@@ -375,9 +370,9 @@
     "opening_label": "Opening note",
     "newsletter": {
       "email": "Email address",
-      "submit": "Request early access",
-      "privacy": "Private notes only. Unsubscribe at any time.",
-      "success": "Thank you. Your early access request was received.",
+      "submit": "Subscribe",
+      "privacy": "Unsubscribe at any time.",
+      "success": "Thank you for subscribing.",
       "error_heading": "Please check your email address:"
     },
     "access": {
@@ -407,6 +402,10 @@
       "select_size": "Select size",
       "color_swatch": "{{ option }}: {{ value }}",
       "more_swatches": "+{{ count }} more",
+      "swatch_count": {
+        "one": "{{ count }} option available",
+        "other": "{{ count }} options available"
+      },
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
       "sale": "Sale",
@@ -456,15 +455,18 @@
       },
       "view_in_space": "View in your space",
       "option_unavailable": "Option unavailable",
+      "variant_loading": "Loading variant…",
+      "variant_navigation_notice": "Choosing an option opens the product page.",
       "variant_available": "Variant available.",
+      "variant_available_with_price": "[title], [price]: Variant available.",
       "variant_sold_out": "Variant sold out.",
       "size_guide": "Size Guide and Measurements",
       "model_fit": "Model fit",
       "measurement_units": "Measurement units",
       "centimeters": "CM",
       "inches": "INCHES",
-      "sticky_add_to_cart": "Add {{ product }} to cart",
-      "sticky_add_quantity_to_cart": "Add {{ product }} to cart, quantity {{ quantity }}",
+      "sticky_add_to_cart": "{{ action }}: {{ product }}",
+      "sticky_add_quantity_to_cart": "{{ action }}: {{ product }}, quantity {{ quantity }}",
       "sticky_quantity_price": "{{ quantity }} × {{ price }}",
       "sticky_total": "Total {{ total }}",
       "purchase_options": {
@@ -613,11 +615,11 @@
   "newsletter": {
     "eyebrow": "Private correspondence",
     "heading": "Notes from the studio",
-    "copy": "New objects, material studies and private previews, sent with restraint.",
+    "copy": "Subscribe to our newsletter.",
     "email_label": "Email address",
     "email_placeholder": "name@example.com",
     "submit": "Subscribe",
-    "success": "Thank you. Your first note will arrive soon.",
+    "success": "Thank you for subscribing.",
     "error_heading": "Please check your email address:"
   },
   "predictive_search": {

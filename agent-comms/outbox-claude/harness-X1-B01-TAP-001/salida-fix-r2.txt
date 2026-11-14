@@ -1,0 +1,136 @@
+REVIEW B-01 mode=fix
+
+R1 390 raton: abrir, Escape
+  OK   abrir: abierto, aria-expanded=true, bloqueo, fondo inert, foco en close -> close lock=true
+  OK   Escape: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   Escape: foco usable en trigger -> trigger
+
+R2 390 raton: cerrar con X
+  OK   X raton: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   X raton: foco usable en trigger -> trigger
+
+R3 390 tactil: tap disparador, tap X
+  OK   abrir tactil: abierto, aria-expanded=true, bloqueo, fondo inert, foco en close -> close lock=true
+  OK   X tactil: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   X tactil: foco usable en trigger -> trigger
+
+R4 390 raton: clic fuera encima de un enlace del main (#under)
+  OK   clic fuera (debajo: ): cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   clic fuera (debajo: ): foco usable en trigger -> trigger
+  OK   el clic no activa el enlace de debajo -> (vacio)
+
+R5 390 tactil: toque fuera encima de #under (ghost click)
+  OK   toque fuera: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   toque fuera: foco usable en trigger -> trigger
+  OK   el click sintetico del toque no activa el enlace de debajo -> (vacio)
+
+R6 390 tactil: toque fuera encima del icono de carrito de la cabecera
+  OK   toque fuera sobre carrito: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   toque fuera sobre carrito: foco usable en trigger -> trigger
+  OK   el toque en la franja sobre el carrito no abre el carrito -> cartOpen=false
+
+R7 tactil: enlace dentro del panel sigue funcionando (pointerdown no es del overlay)
+  OK   tap en enlace del panel navega (#shop) -> #shop
+  OK   el cajon sigue abierto (no lo cierra el enlace)
+  OK   disclosure dentro del panel abre
+
+R8 raton: seleccion de texto dentro del panel y en la pagina tras cerrar
+  OK   doble clic selecciona texto en el panel -> "selection"
+  OK   tras cerrar, doble clic selecciona texto del main -> "mouse"
+
+R9 tactil (touch events CDP): scroll dentro del panel; scroll de pagina tras cerrar
+  OK   arrastre tactil desplaza el panel -> scrollTop=478
+  OK   pagina bloqueada (scrollY 0) y cajon abierto -> scrollY=0
+  OK   tras cerrar, arrastre tactil desplaza la pagina -> scrollY=881
+
+R10 tactil: gesto de scroll que empieza en el overlay
+  info: open=false active=trigger scrollY=0
+  OK   si se cierra, el foco queda usable; nunca BODY -> trigger
+
+R11 resize 390 -> 1280 -> 390 -> 1280 con el cajon abierto
+  OK   tras 1280: foco usable y cerrado -> d-shop
+  OK   tras 390: foco usable y cerrado -> trigger
+  OK   tras 1280: foco usable y cerrado -> d-shop
+  OK   tras 390: foco usable y cerrado -> trigger
+  secuencia 1280:d-shop 390:trigger 1280:d-shop 390:trigger
+
+R12 abrir 1280 (programatico) y Escape; luego 390
+  info abierto en 1280: active=BODY usable=false lock=true
+  OK   Escape en 1280: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   Escape en 1280: foco usable en d-shop -> d-shop
+  OK   luego 390: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   luego 390: foco usable en trigger -> trigger
+
+R13 abrir 1280 (programatico) y resize a 1300
+  OK   resize en escritorio: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   resize en escritorio: foco usable en d-shop -> d-shop
+
+R14 trap de foco con disclosure
+  OK   Shift+Tab desde close va al ultimo control del panel -> A
+  OK   50 Tab no salen del panel
+
+R15 carrito desde el menu movil
+  OK   menu cerrado, carrito abierto, foco dentro del carrito -> c-close
+  OK   Escape cierra carrito y foco vuelve al disparador del menu -> trigger
+  OK   resize a 1280 despues: foco usable -> d-shop
+
+R16 carrito de cabecera: cierre por toque en su overlay (regresion)
+  OK   carrito abierto
+  info panel carrito x=0 w=390
+  OK   toque en overlay del carrito lo cierra y foco a #cart -> cart
+
+R17 busqueda tras cerrar el menu: el seguimiento no roba el foco
+  OK   busqueda abierta, foco en input -> s-input
+  OK   resize 1280 con busqueda abierta: foco sigue en input -> s-input
+  OK   resize 390: foco sigue en input -> s-input
+  OK   Escape busqueda: foco a s-trigger -> s-trigger
+
+R18 tactil: toque fuera e inmediatamente reabrir
+  OK   reabrir: abierto, aria-expanded=true, bloqueo, fondo inert, foco en close -> close lock=true
+  OK   segundo toque fuera: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   segundo toque fuera: foco usable en trigger -> trigger
+
+R19 raton: pulsar en overlay y soltar sobre el panel
+  OK   down en overlay: cerrado, aria-expanded=false, panel inert, overlay hidden, sin bloqueo ni inert de fondo -> {"open":false,"lock":false,"bgInert":false}
+  OK   down en overlay: foco usable en trigger -> trigger
+
+R20 tactil: tap en zona vacia del main tras cerrar suelta el seguimiento
+  info tras tap en texto: active=MainContent
+  info tras 1280: active=MainContent
+  OK   no se fuerza foco tras soltarlo el usuario (BODY aceptable aqui, lo eligio el usuario)
+
+X1 tactil: tras cerrar, un toque inmediato en un enlace si navega
+  OK   segundo toque (<800 ms) en #under navega -> #under-hit
+
+X2 tactil: el descarte caduca
+  OK   click programatico a 900 ms llega al enlace -> #under-hit
+  OK   el click fantasma no llego a document
+
+X3 tactil: gesto de scroll desde el overlay (sin click) no deja descarte colgado
+  OK   toque siguiente en #under navega -> #under-hit
+  OK   foco usable -> under
+
+X4 raton: clic fuera y clic inmediato en enlace
+  OK   clic fuera no activa #under -> (vacio)
+  OK   clic siguiente en #under navega (sin descarte con raton) -> #under-hit
+
+X5 tactil 900: toque en overlay del carrito sobre un enlace
+  info panel x=404 under x=330
+  OK   carrito cerrado y foco en #cart -> cart
+  OK   el enlace de debajo no se activa -> (vacio)
+
+X6 carrito desde el menu, resize a 1280 y Escape
+  OK   foco usable tras cerrar el carrito con el disparador oculto -> d-shop
+
+X7 tactil: arrastre en el overlay que cierra (sin click) y Enter antes de 800 ms
+  info pointercancel reales=1
+  OK   el arrastre cierra el menu y el foco queda en trigger -> trigger
+  OK   Enter en el disparador (<800 ms) reabre el menu -> open=true
+  OK   click() (detail 0, como un lector de pantalla) activa el enlace -> #under-hit
+
+X8 pointercancel libera el descarte
+  OK   tras pointercancel, un click de puntero (detail 1) ya no se descarta -> #under-hit
+  OK   control: sin pointercancel, el click de puntero si se descarta -> (vacio)
+  OK   sin errores de pagina
+
+RESULTADO mode=fix: 69/69 OK, 0 FAIL

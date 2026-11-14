@@ -1,0 +1,59 @@
+PASS H-1 [pdp] compra unica (JS) :: {"id":["101"],"sp":[]}
+PASS H-2 [pdp] plan 1 -> plan 2 -> compra unica (JS) :: [{"id":["101"],"sp":["1"]},{"id":["101"],"sp":["2"]},{"id":["101"],"sp":[]}]
+PASS H-3 [pdp] plan 2 y variante L solo con plan 3; agotada sin plan :: {"L":{"id":["103"],"sp":["3"]},"XL":{"id":["104"],"sp":[]},"btn":{"disabled":true,"notice":false,"checkoutHidden":true}}
+PASS H-4 [pdp] caso C: ?selling_plan=1 y luego compra unica (JS) :: {"carga":["1"],"tras":[],"id":["101"]}
+PASS H-5 [pdp] requires_selling_plan (JS) :: {"r1":["1"],"r2":["2"],"M":{"id":["202"],"sp":[]},"btn":{"disabled":true,"notice":true,"checkoutHidden":true}}
+PASS H-6a [pdp] p3 requires sin grupos (JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+PASS H-6b [pdp] p3 requires sin grupos (sin JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+PASS H-7 [pdp] sin JS p1: elegir 102 en el select :: {"post_id":["102"],"html":"no-js","selectDisplay":"block","pickerDisplay":"none","hiddenDisabled":true}
+PASS H-7 [pdp] sin JS p8: elegir 804 en el select :: {"post_id":["804"],"html":"no-js","selectDisplay":"block","pickerDisplay":"none","hiddenDisabled":true}
+PASS H-8 [pdp] theme.js 404 :: {"html":"no-js","selectDisplay":"block","post_id":["804"]}
+PASS H-18b [pdp] theme.js throw :: {"html":"no-js","selectDisplay":"block","post_id":["804"]}
+PASS H-18c [pdp] theme.js tardio (tras DOMContentLoaded): vuelve a js y el comprador elige variante :: {"html":"js","picker":"block","nativeSelectVisible":false,"hiddenIdEnabled":true,"id":["102"]}
+PASS H-18a [pdp] theme.js lento (1,5 s): sin vuelta falsa a no-js :: {"html":"js","hiddenDisabled":false,"native":[true,true]}
+PASS H-9a [pdp] ?variant=102 (JS) :: ["102"]
+PASS H-9b [pdp] ?variant=102 (sin JS) :: ["102"]
+PASS H-10 [pdp] sin JS: plan de la URL y compra unica (limite 4.3.2: selling_plan vacio) :: {"id":["101"],"selling_plan":[""]}
+PASS H-11 [pdp] sin JS: agotadas disabled salvo la seleccionada, con sufijo :: {"agotada":{"v":"104","d":true,"s":false,"t":"XL / €50,00 EUR / Sold out"},"seleccionadaAgotada":{"v":"104","d":false,"s":true}}
+PASS H-12a [pdp] p4 (sin JS) :: {"names":1,"selects":0,"post_id":["401"]}
+PASS H-12b [pdp] p4 (JS) :: {"names":1,"selects":0,"post_id":["401"]}
+PASS H-13 [pdp] p5 (40 variantes) :: {"opts":40,"bytes":2209,"sinJS_post":["5039"],"jsId":["5000"],"jsId_tras_C1":["5010"]}
+PASS H-13 [pdp] p6 (250 variantes) :: {"opts":250,"bytes":12859,"sinJS_post":["6249"],"jsId":["6000"],"jsId_tras_C1":["6010"]}
+PASS H-13b [pdp] p9 300 variantes, ?variant=9260 fuera de las 250 :: {"opciones":251,"post_id":["9260"]}
+PASS H-14 [pdp] p7 titulo de 120 caracteres y precio largo :: {"longitud":138,"post_id":["702"]}
+PASS H-15 [pdp] p8 Red/M agotada :: {"opcion":{"disabled":true,"text":"Red / M / €50,00 EUR / Sold out"},"sinJS_post_id":["801"],"jsBtn":{"disabled":true,"notice":false,"checkoutHidden":true}}
+PASS H-16 [pdp] JS toma el control (name retirado, desactivados) :: {"native":[{"disabled":true,"name":null},{"disabled":true,"name":null}],"hiddenEnabled":true,"namedId":"HTMLInputElement","namedIdIsHidden":true,"namedIdValue":"102","namedSp":"HTMLInputElement","namedSpIsHidden":true,"namedSpValue":"1","qsIsHidden":true,"formDotId":true,"pickupDisabledProp":null,"nameIdCount":1,"nameSpCount":1,"handOffFocusFiltraDisabled":true}
+PASS H-19 [pdp] sin bloque variant_picker: se conserva el comportamiento actual :: {"names":1,"post_id":["101"]}
+PASS H-20 [pdp] JSON de variantes roto: un valor por nombre (estado del servidor) :: {"id":["101"],"sp":["1"]}
+PASS H-1 [featured] compra unica (JS) :: {"id":["101"],"sp":[]}
+PASS H-2 [featured] plan 1 -> plan 2 -> compra unica (JS) :: [{"id":["101"],"sp":["1"]},{"id":["101"],"sp":["2"]},{"id":["101"],"sp":[]}]
+PASS H-3 [featured] plan 2 y variante L solo con plan 3; agotada sin plan :: {"L":{"id":["103"],"sp":["3"]},"XL":{"id":["104"],"sp":[]},"btn":{"disabled":true,"notice":false,"checkoutHidden":true}}
+PASS H-4 [featured] caso C: ?selling_plan=1 y luego compra unica (JS) :: {"carga":["1"],"tras":[],"id":["101"]}
+PASS H-5 [featured] requires_selling_plan (JS) :: {"r1":["1"],"r2":["2"],"M":{"id":["202"],"sp":[]},"btn":{"disabled":true,"notice":true,"checkoutHidden":true}}
+PASS H-6a [featured] p3 requires sin grupos (JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+PASS H-6b [featured] p3 requires sin grupos (sin JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+PASS H-7 [featured] sin JS p1: elegir 102 en el select :: {"post_id":["102"],"html":"no-js","selectDisplay":"block","pickerDisplay":"none","hiddenDisabled":true}
+PASS H-7 [featured] sin JS p8: elegir 804 en el select :: {"post_id":["804"],"html":"no-js","selectDisplay":"block","pickerDisplay":"none","hiddenDisabled":true}
+PASS H-8 [featured] theme.js 404 :: {"html":"no-js","selectDisplay":"block","post_id":["804"]}
+PASS H-18b [featured] theme.js throw :: {"html":"no-js","selectDisplay":"block","post_id":["804"]}
+PASS H-18c [featured] theme.js tardio (tras DOMContentLoaded): vuelve a js y el comprador elige variante :: {"html":"js","picker":"block","nativeSelectVisible":false,"hiddenIdEnabled":true,"id":["102"]}
+PASS H-18a [featured] theme.js lento (1,5 s): sin vuelta falsa a no-js :: {"html":"js","hiddenDisabled":false,"native":[true,true]}
+PASS H-10 [featured] sin JS: plan de la URL y compra unica (limite 4.3.2: selling_plan vacio) :: {"id":["101"],"selling_plan":[""]}
+PASS H-11 [featured] sin JS: agotadas disabled salvo la seleccionada, con sufijo :: {"agotada":{"v":"104","d":true,"s":false,"t":"XL / €50,00 EUR / Sold out"},"seleccionadaAgotada":{"v":"104","d":false,"s":true}}
+PASS H-12a [featured] p4 (sin JS) :: {"names":1,"selects":0,"post_id":["401"]}
+PASS H-12b [featured] p4 (JS) :: {"names":1,"selects":0,"post_id":["401"]}
+PASS H-13 [featured] p5 (40 variantes) :: {"opts":40,"bytes":2221,"sinJS_post":["5039"],"jsId":["5000"],"jsId_tras_C1":["5010"]}
+PASS H-13 [featured] p6 (250 variantes) :: {"opts":250,"bytes":12871,"sinJS_post":["6249"],"jsId":["6000"],"jsId_tras_C1":["6010"]}
+PASS H-13b [featured] p9 300 variantes, ?variant=9260 fuera de las 250 :: {"opciones":251,"post_id":["9260"]}
+PASS H-14 [featured] p7 titulo de 120 caracteres y precio largo :: {"longitud":138,"post_id":["702"]}
+PASS H-15 [featured] p8 Red/M agotada :: {"opcion":{"disabled":true,"text":"Red / M / €50,00 EUR / Sold out"},"sinJS_post_id":["801"],"jsBtn":{"disabled":true,"notice":false,"checkoutHidden":true}}
+PASS H-16 [featured] JS toma el control (name retirado, desactivados) :: {"native":[{"disabled":true,"name":null},{"disabled":true,"name":null}],"hiddenEnabled":true,"namedId":"HTMLInputElement","namedIdIsHidden":true,"namedIdValue":"102","namedSp":"HTMLInputElement","namedSpIsHidden":true,"namedSpValue":"1","qsIsHidden":true,"formDotId":true,"pickupDisabledProp":null,"nameIdCount":1,"nameSpCount":1,"handOffFocusFiltraDisabled":true}
+PASS H-19 [featured] sin bloque variant_picker: se conserva el comportamiento actual :: {"names":1,"post_id":["101"]}
+PASS H-20 [featured] JSON de variantes roto: un valor por nombre (estado del servidor) :: {"id":["101"],"sp":["1"]}
+PASS H-21 [featured] destacado sin producto: sin formulario ni errores :: {"errores":[]}
+PASS H-22 [featured x2] dos productos destacados: ids unicos :: []
+PASS H-23 [pdp] ocurrencias de atributos clave: Liquid real = HTML traducido :: [{"token":"name=\"id\"","liquid":2,"html":2},{"token":"data-no-js-control","liquid":2,"html":2},{"token":"no-js-only","liquid":2,"html":2},{"token":"js-only (sin no-js-only)","liquid":2,"html":2},{"token":"data-selling-plan-input","liquid":1,"html":1},{"token":"data-variant-id","liquid":2,"html":2}]
+PASS H-23 [featured] ocurrencias de atributos clave: Liquid real = HTML traducido :: [{"token":"name=\"id\"","liquid":2,"html":2},{"token":"data-no-js-control","liquid":2,"html":2},{"token":"no-js-only","liquid":2,"html":2},{"token":"js-only (sin no-js-only)","liquid":2,"html":2},{"token":"data-selling-plan-input","liquid":1,"html":1},{"token":"data-variant-id","liquid":2,"html":2}]
+
+MODO=fix total=56 pass=56 fail=0
+FALLAN: []

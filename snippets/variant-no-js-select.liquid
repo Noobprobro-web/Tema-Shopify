@@ -1,0 +1,204 @@
+{% doc %}
+  Renders native variant controls or the data contract shared by variant pickers.
+
+  @param {product} [product] - Product for the native controls.
+  @param {variant} [selected_variant] - Variant resolved by Shopify.
+  @param {object} [section] - Parent section for native controls or a verified response.
+  @param {string} [id_prefix] - Prefix for the native select ID.
+  @param {string} [notice_id] - ID of the visible navigation notice for linked options.
+  @param {string} [mode] - Use state for variant JSON, response for PDP state, or option_links for a linked picker.
+  @param {number} [inventory_cap] - Cap from the rendered section settings. Defaults to 1 when omitted.
+  @param {boolean} [show_options] - Whether to render native selection controls.
+  @param {boolean} [server_variants] - Whether Shopify resolves the product's variants.
+{% enddoc %}
+
+{%- if mode == 'state' or mode == 'response' -%}
+  {%- capture variant_json -%}
+    {%- if selected_variant -%}
+      {%- assign variant = selected_variant -%}
+      {%- liquid
+        assign stock_cap = inventory_cap | default: 1
+        assign var_compare_money = null
+        assign var_compare_cents = null
+        if variant.compare_at_price > variant.price
+          assign var_compare_money = variant.compare_at_price | money
+          assign var_compare_cents = variant.compare_at_price
+        endif
+      -%}
+      {
+        "id": {{ variant.id | json }},
+        "title": {{ variant.title | json }},
+        "available": {{ variant.available | json }},
+        "inventory_management": {{ variant.inventory_management | json }},
+        "inventory_quantity": {{ variant.inventory_quantity | at_most: stock_cap | json }},
+        "inventory_policy": {{ variant.inventory_policy | json }},
+        "options": {{ variant.options | json }},
+        "price": {{ variant.price | money | json }},
+        "price_cents": {{ variant.price | json }},
+        "compare_at_price": {{ var_compare_money | json }},
+        "compare_at_price_cents": {{ var_compare_cents | json }},
+        "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
+        "unit_reference_value": {{ variant.unit_price_measurement.reference_value | json }},
+        "unit_reference_unit": {{ variant.unit_price_measurement.reference_unit | json }},
+        "featured_media_id": {{ variant.featured_media.id | json }},
+        "quantity_min": {{ variant.quantity_rule.min | default: 1 | json }},
+        "quantity_increment": {{ variant.quantity_rule.increment | default: 1 | json }},
+        "quantity_max": {{ variant.quantity_rule.max | json }},
+        "requires_selling_plan": {{ variant.requires_selling_plan | json }},
+        "selling_plan_allocations": [
+          {%- for allocation in variant.selling_plan_allocations -%}
+            {%- liquid
+              assign alloc_compare_money = null
+              assign alloc_compare_cents = null
+              if allocation.compare_at_price > allocation.price
+                assign alloc_compare_money = allocation.compare_at_price | money
+                assign alloc_compare_cents = allocation.compare_at_price
+              endif
+            -%}
+            {
+              "id": {{ allocation.selling_plan.id | json }},
+              "name": {{ allocation.selling_plan.name | json }},
+              "group_id": {{ allocation.selling_plan_group_id | json }},
+              "price": {{ allocation.price | money | json }},
+              "price_cents": {{ allocation.price | json }},
+              "compare_at_price": {{ alloc_compare_money | json }},
+              "compare_at_price_cents": {{ alloc_compare_cents | json }},
+              "per_delivery_price": {{ allocation.per_delivery_price | money | json }},
+              "unit_price": {% if allocation.unit_price != blank %}{{ allocation.unit_price | money | json }}{% else %}null{% endif %}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    {%- else -%}
+      null
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- if mode == 'response' -%}
+    <div data-variant-state data-product-id="{{ product.id }}" data-variant-id="{{ selected_variant.id }}" data-state-section-id="{{ section.id }}">
+      <script type="application/json" data-resolved-variant>{{- variant_json -}}</script>
+      {%- for option in product.options_with_values -%}
+        {%- for value in option.values -%}
+          <span
+            hidden
+            data-state-option-value="{{ value.id }}"
+            {% if value.selected %}data-selected{% endif %}
+            aria-disabled="{% if value.available %}false{% else %}true{% endif %}"
+          ></span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    {{- variant_json -}}
+  {%- endif -%}
+{%- else -%}
+  {%- liquid
+    assign use_native_select = false
+    if show_options and server_variants == false
+      assign use_native_select = true
+    endif
+  -%}
+  {%- unless mode == 'option_links' -%}
+    <input
+      type="hidden"
+      name="id"
+      value="{{ selected_variant.id }}"
+      data-variant-id
+      {% if use_native_select or selected_variant == blank %}disabled{% endif %}
+    >
+  {%- endunless -%}
+  {%- if mode == 'option_links' or show_options and server_variants -%}
+    {%- capture selected_value_ids -%}
+      {%- for option in product.options_with_values -%}
+        {%- assign selected_value_id = option.values.first.id -%}
+        {%- for value in option.values -%}
+          {%- if value.selected -%}
+            {%- assign selected_value_id = value.id -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {{- selected_value_id -}}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- assign selected_ids = selected_value_ids | split: ',' -%}
+    {%- assign product_path = product.url | split: '?' | first -%}
+    <div class="variant-picker flow{% unless mode == 'option_links' %} no-js-only{% endunless %}">
+      {%- if mode == 'option_links' -%}
+        <p id="{{ notice_id | escape }}">{{ 'products.product.variant_navigation_notice' | t }}</p>
+      {%- endif -%}
+      {%- for option in product.options_with_values -%}
+        <fieldset class="variant-picker__group">
+          <legend class="variant-picker__legend">
+            {{- option.name | escape -}}:
+            <span>{{ option.selected_value | escape }}</span>
+          </legend>
+          <div class="variant-picker__values">
+            {%- for value in option.values -%}
+              {%- capture next_value_ids -%}
+                {%- for selected_id in selected_ids -%}
+                  {%- if forloop.index == option.position -%}{{- value.id -}}{%- else -%}{{- selected_id -}}{%- endif -%}
+                  {%- unless forloop.last -%},{%- endunless -%}
+                {%- endfor -%}
+              {%- endcapture -%}
+              <a
+                class="variant-picker__label"
+                href="{{ product_path | escape }}?option_values={{ next_value_ids | escape }}"
+                {% if mode == 'option_links' %}aria-describedby="{{ notice_id | escape }}"{% endif %}
+                {% if value.selected %}aria-current="true"{% endif %}
+              >
+                {{- value | escape -}}
+                {%- unless value.available -%}
+                  <span aria-hidden="true">&times;</span>
+                  <span class="visually-hidden">{{ 'products.product.option_unavailable' | t }}</span>
+                {%- endunless -%}
+              </a>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+      {%- endfor -%}
+    </div>
+  {%- elsif use_native_select and selected_variant -%}
+    {%- assign variant_select_id = id_prefix | append: '-' | append: section.id -%}
+    {%- assign selected_variant_listed = false -%}
+
+    <div class="form-field no-js-only">
+      <label for="{{ variant_select_id }}">
+        {{- 'products.product.choose_options' | t -}}
+      </label>
+      <select id="{{ variant_select_id }}" name="id" autocomplete="off" data-no-js-control>
+        {%- for variant in product.variants -%}
+          {%- if variant.id == selected_variant.id -%}
+            {%- assign selected_variant_listed = true -%}
+          {%- endif -%}
+          <option
+            value="{{ variant.id }}"
+            {% if variant.id == selected_variant.id %}selected{% endif %}
+            {% if variant.available == false and variant.id != selected_variant.id %}disabled{% endif %}
+          >
+            {{- variant.title | escape -}}
+            {{- ' / ' -}}
+            {{- variant.price | money | strip_html -}}
+            {%- unless variant.available -%}
+              {{- ' / ' -}}
+              {{- 'products.product.sold_out' | t -}}
+            {%- endunless -%}
+          </option>
+        {%- endfor -%}
+        {%- comment -%}
+          product.variants devuelve 250 variantes como maximo: la variante seleccionada debe existir
+          siempre como opcion marcada, o el navegador enviaria otra distinta de la que se muestra.
+        {%- endcomment -%}
+        {%- unless selected_variant_listed -%}
+          <option value="{{ selected_variant.id }}" selected>
+            {{- selected_variant.title | escape -}}
+            {{- ' / ' -}}
+            {{- selected_variant.price | money | strip_html -}}
+            {%- unless selected_variant.available -%}
+              {{- ' / ' -}}
+              {{- 'products.product.sold_out' | t -}}
+            {%- endunless -%}
+          </option>
+        {%- endunless -%}
+      </select>
+    </div>
+  {%- endif -%}
+{%- endif -%}

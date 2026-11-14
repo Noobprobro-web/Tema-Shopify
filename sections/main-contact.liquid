@@ -21,14 +21,16 @@
   endfor
 -%}
 
-<section class="section main-contact color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+<section class="section main-contact color-{{ section_scheme }}" {% if page.title != blank %}aria-labelledby="{{ title_id }}"{% endif %}>
   <div class="container flow">
     <header class="main-contact__header">
       <div class="main-contact__intro flow">
         {%- if section.settings.eyebrow != blank -%}
           <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
         {%- endif -%}
-        <h1 id="{{ title_id }}" class="main-contact__title">{{ page.title | escape }}</h1>
+        {%- if page.title != blank -%}
+          <h1 id="{{ title_id }}" class="main-contact__title">{{ page.title | escape }}</h1>
+        {%- endif -%}
         {%- if section.settings.intro != blank -%}
           <div class="rte lede">{{ section.settings.intro }}</div>
         {%- endif -%}
@@ -112,7 +114,6 @@
               <option value="">{{ 'contact.form.reason_placeholder' | t }}</option>
               <option value="{{ 'contact.form.reason_order' | t | escape }}">{{ 'contact.form.reason_order' | t }}</option>
               <option value="{{ 'contact.form.reason_materials' | t | escape }}">{{ 'contact.form.reason_materials' | t }}</option>
-              <option value="{{ 'contact.form.reason_appointment' | t | escape }}">{{ 'contact.form.reason_appointment' | t }}</option>
               <option value="{{ 'contact.form.reason_press' | t | escape }}">{{ 'contact.form.reason_press' | t }}</option>
               <option value="{{ 'contact.form.reason_other' | t | escape }}">{{ 'contact.form.reason_other' | t }}</option>
             </select>
@@ -208,7 +209,6 @@
                 {%- endif -%}
               {%- endfor -%}
             </ul>
-            <p class="main-contact__response-note">{{ 'contact.services.response' | t }}</p>
           </div>
         {%- endif -%}
       </aside>
@@ -218,6 +218,8 @@
 
 {% schema %}
 {
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
   "name": "t:sections.main_contact.name",
   "settings": [
     {
@@ -230,25 +232,23 @@
       "type": "text",
       "id": "eyebrow",
       "label": "t:sections.all.eyebrow.label",
-      "default": "Contact / Private client services"
+      "default": "Contact"
     },
     {
       "type": "richtext",
       "id": "intro",
       "label": "t:sections.all.intro.label",
-      "default": "<p>Write to the studio about an order, a material or a private appointment.</p>"
+      "default": "<p>Write to us about an order or a product.</p>"
     },
     {
       "type": "textarea",
       "id": "studio_hours",
-      "label": "t:sections.main_contact.settings.studio_hours.label",
-      "default": "Monday to Friday / 10:00–18:00 CET"
+      "label": "t:sections.main_contact.settings.studio_hours.label"
     },
     {
       "type": "textarea",
       "id": "showroom_address",
-      "label": "t:sections.main_contact.settings.showroom_address.label",
-      "default": "By appointment / Milan"
+      "label": "t:sections.main_contact.settings.showroom_address.label"
     },
     {
       "type": "checkbox",
@@ -273,13 +273,13 @@
           "type": "text",
           "id": "question",
           "label": "t:sections.main_contact.blocks.faq_item.settings.question.label",
-          "default": "Shipping and provenance"
+          "default": "When will my order arrive?"
         },
         {
           "type": "richtext",
           "id": "answer",
           "label": "t:sections.main_contact.blocks.faq_item.settings.answer.label",
-          "default": "<p>Available pieces leave the atelier within three business days.</p>"
+          "default": "<p>Add the answer your customers need here.</p>"
         },
         {
           "type": "checkbox",
@@ -297,7 +297,7 @@
           "type": "text",
           "id": "title",
           "label": "t:sections.main_contact.blocks.service_detail.settings.title.label",
-          "default": "Order concierge"
+          "default": "Order questions"
         },
         {
           "type": "text",

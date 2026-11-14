@@ -1,0 +1,99 @@
+{
+  "preset": "imprint",
+  "listing_templates": ["listings/imprint/templates/index.json", "listings/imprint/templates/collection.json", "listings/imprint/templates/product.json"],
+  "source": "agent-comms/outbox-gpt/GPT-REPORT-014-catalog-and-copy-matrix.md (Edition E01-E13, colecciones y orden manual). Recuentos contrastados con agent-comms/outbox-claude/harness-AUDIT-FINAL-002/results-07-parity-catalog.json (edition: 13 productos, opciones Finish y Size).",
+  "vendor": "",
+  "status": "draft",
+  "inventory": { "tracker": "", "policy": "deny" },
+  "pending_data": [
+    "Estado draft: GPT-REPORT-014 exige verificar antes de activar material (full-grain, vegetable-tanned), forro, composición del metal, cantos, herrajes, ajuste de dispositivos, todas las dimensiones y el acabado fotografiado de cada variante. El plan V4.1 (línea 237) prohíbe mostrar «solid brass» o el tipo como material sin respaldo factual aprobado.",
+    "Vendor vacío: Shopify usa el nombre de la tienda. No se inventa marca.",
+    "En la tienda sartorial-edition la colección de escritorio tenía el handle desk-study; las plantillas usan desk-and-study (listings/imprint/templates/index.json). Usar desk-and-study.",
+    "Precios: propuesta de posicionamiento de GPT-REPORT-014, no tasación.",
+    "C-08 (Johandry, 2026-11-02): las descripciones ya no declaran grado o curtido de la piel, metal macizo, acabados a mano ni la evolución del metal con el uso. Lo que queda (piel, latón, medidas, forros) sigue en draft y se verifica antes de activar.",
+    "Handle milled-brass-paperweight: el título pasa a Brass Paperweight; el handle se conserva porque lo usan las colecciones. Johandry decide si se renombra antes de importar.",
+    "structured-tote también existe en Sartorial: ver D-01-catalogo-y-fotos.md. Imprint conserva el handle porque listings/imprint/templates/index.json lo usa."
+  ],
+  "products": [
+    { "handle": "structured-tote", "title": "Structured Tote in Calfskin", "type": "Bags", "price": 580, "prices_by_option2": { "Compact": 580, "Standard": 680 }, "option1": { "name": "Finish", "values": ["Black box calf", "Saddle tan", "Deep olive"] }, "option2": { "name": "Size", "values": ["Compact", "Standard"] }, "tags": ["leather-goods"],
+      "body": "Calfskin forms a clean body with a reinforced base, a lined interior and finished edges. Compact measures 30 x 24 x 11 cm; Standard measures 38 x 29 x 13 cm, with an internal slip pocket in each size." },
+    { "handle": "east-west-shoulder-bag", "title": "East-West Shoulder Bag", "type": "Bags", "price": 590, "option1": { "name": "Finish", "values": ["Black box calf", "Oxblood", "Saddle tan"] }, "tags": ["leather-goods", "daily-objects"],
+      "body": "A long, low bag in smooth calfskin with a concealed magnetic tab and a cotton-twill lining. The body measures 34 x 18 x 8 cm; one internal zip pocket." },
+    { "handle": "compact-crossbody", "title": "Compact Crossbody", "type": "Bags", "price": 425, "option1": { "name": "Finish", "values": ["Black grained calf", "Stone", "Deep olive"] }, "tags": ["leather-goods", "daily-objects"],
+      "body": "Grained calfskin with a detachable strap. The body measures 23 x 16 x 6 cm, with one interior card slot and an adjustable 48-58 cm strap drop." },
+    { "handle": "leather-document-folio", "title": "Leather Document Folio", "type": "Small Leather Goods", "price": 370, "option1": { "name": "Finish", "values": ["Black box calf", "Saddle tan"] }, "tags": ["leather-goods", "desk-and-study"],
+      "body": "Leather wraps an A4-compatible folio with a fabric-lined divider and a flat pen loop. It measures 34 x 25 x 3 cm." },
+    { "handle": "padded-laptop-sleeve", "title": "Padded Laptop Sleeve", "type": "Small Leather Goods", "price": 345, "option1": { "name": "Finish", "values": ["Black grained calf", "Dark umber"] }, "tags": ["leather-goods", "desk-and-study"],
+      "body": "A padded leather sleeve with an interior of 33 x 23 cm; check the fit against your device. Exterior dimensions are 35 x 25 x 2.5 cm, with a brushed-cotton lining and two-way zip." },
+    { "handle": "zip-travel-pouch", "title": "Zip Travel Pouch", "type": "Small Leather Goods", "price": 245, "option1": { "name": "Finish", "values": ["Black grained calf", "Saddle tan", "Deep olive"] }, "tags": ["leather-goods", "daily-objects"],
+      "body": "Calfskin with a gusseted base and a cotton lining. It measures 25 x 17 x 5 cm and has one divided interior pocket." },
+    { "handle": "slim-bifold-wallet", "title": "Slim Bifold Wallet", "type": "Small Leather Goods", "price": 165, "option1": { "name": "Finish", "values": ["Black box calf", "Saddle tan"] }, "tags": ["leather-goods"],
+      "body": "A folded leather wallet with six card slots and a full-width note sleeve. Closed dimensions are 11 x 9 x 1.5 cm; edges are finished." },
+    { "handle": "four-slot-cardholder", "title": "Four-Slot Cardholder", "type": "Small Leather Goods", "price": 95, "option1": { "name": "Finish", "values": ["Black box calf", "Oxblood", "Saddle tan"] }, "tags": ["leather-goods", "daily-objects"],
+      "body": "A compact calfskin case with four card slots and a central pocket. It measures 10.5 x 7.5 x 0.5 cm." },
+    { "handle": "leather-key-loop", "title": "Leather Key Loop", "type": "Small Leather Goods", "price": 65, "option1": { "name": "Finish", "values": ["Black", "Saddle tan", "Deep olive"] }, "tags": ["leather-goods", "daily-objects"],
+      "body": "A folded strip of leather holds a single metal split ring with a stitched keeper. The loop measures 12 x 2.5 x 0.4 cm excluding the ring." },
+    { "handle": "leather-desk-mat", "title": "Leather Desk Mat", "type": "Desk Objects", "price": 260, "prices_by_option2": { "Compact": 260, "Large": 310 }, "option1": { "name": "Finish", "values": ["Black", "Dark umber"] }, "option2": { "name": "Size", "values": ["Compact", "Large"] }, "tags": ["desk-and-study"],
+      "body": "A leather surface with a suede-backed underside. Compact measures 45 x 30 x 0.3 cm; Large measures 60 x 35 x 0.3 cm." },
+    { "handle": "folded-valet-tray", "title": "Folded Valet Tray", "type": "Desk Objects", "price": 155, "option1": { "name": "Finish", "values": ["Black", "Saddle tan", "Deep olive"] }, "tags": ["daily-objects", "desk-and-study"],
+      "body": "Four fastened corners turn leather into a shallow tray for keys, watch and small tools. The usable base measures 18 x 18 cm and the raised edge is 4 cm high." },
+    { "handle": "milled-brass-paperweight", "title": "Brass Paperweight", "type": "Desk Objects", "price": 110, "option1": { "name": "Finish", "values": ["Natural brass", "Dark patina"] }, "tags": ["daily-objects", "desk-and-study"],
+      "body": "A plain brass disc. It measures 6 cm in diameter and 2 cm high." },
+    { "handle": "single-pen-sleeve", "title": "Single Pen Sleeve", "type": "Small Leather Goods", "price": 85, "option1": { "name": "Finish", "values": ["Black box calf", "Saddle tan"] }, "tags": ["leather-goods", "desk-and-study"],
+      "body": "A stitched calfskin sleeve for one writing instrument. Exterior dimensions are 16 x 3 x 1.5 cm; check the pen's circumference before ordering." }
+  ],
+  "collections": [
+    { "handle": "leather-goods", "title": "Leather goods", "tag": "leather-goods", "order": ["structured-tote", "east-west-shoulder-bag", "compact-crossbody", "leather-document-folio", "zip-travel-pouch", "slim-bifold-wallet", "four-slot-cardholder", "leather-key-loop", "padded-laptop-sleeve", "single-pen-sleeve"] },
+    { "handle": "daily-objects", "title": "Daily objects", "tag": "daily-objects", "order": ["compact-crossbody", "four-slot-cardholder", "folded-valet-tray", "zip-travel-pouch", "east-west-shoulder-bag", "leather-key-loop", "milled-brass-paperweight"] },
+    { "handle": "desk-and-study", "title": "Desk and study", "tag": "desk-and-study", "order": ["leather-desk-mat", "leather-document-folio", "folded-valet-tray", "padded-laptop-sleeve", "milled-brass-paperweight", "single-pen-sleeve"] }
+  ],
+  "pages": [
+    { "handle": "about", "title": "About", "template": "about" },
+    { "handle": "faq", "title": "FAQ", "template": "faq" },
+    { "handle": "contact", "title": "Contact", "template": "contact" }
+  ],
+  "policies": ["refund-policy", "shipping-policy", "privacy-policy", "terms-of-service"],
+  "menus": {
+    "main-menu": [
+      { "title": "Catalog", "url": "/collections/all", "children": [
+        { "title": "Leather goods", "url": "/collections/leather-goods" },
+        { "title": "Daily objects", "url": "/collections/daily-objects" },
+        { "title": "Desk and study", "url": "/collections/desk-and-study" }
+      ] },
+      { "title": "Desk and study", "url": "/collections/desk-and-study" },
+      { "title": "About", "url": "/pages/about" },
+      { "title": "Contact", "url": "/pages/contact" }
+    ],
+    "footer": [
+      { "title": "FAQ", "url": "/pages/faq" },
+      { "title": "Contact", "url": "/pages/contact" },
+      { "title": "Shipping policy", "url": "/policies/shipping-policy" },
+      { "title": "Refund policy", "url": "/policies/refund-policy" },
+      { "title": "Privacy policy", "url": "/policies/privacy-policy" },
+      { "title": "Terms of service", "url": "/policies/terms-of-service" }
+    ]
+  },
+  "photo_views": {
+    "default": ["Front, on a neutral surface", "Interior, open or in use, to show scale", "Detail of edge, stitching or finish"]
+  },
+  "photo_slots": [
+    { "surface": "Home", "section": "hero-editorial", "setting": "image_desktop", "min_width": 2400, "orientation": "landscape", "subject": "Leather goods and desk objects in use" },
+    { "surface": "Home", "section": "hero-editorial", "setting": "image_mobile", "min_width": 1200, "orientation": "portrait", "subject": "Mobile crop of the hero image" },
+    { "surface": "Home", "section": "bento-discovery / card_featured (desk-and-study)", "setting": "image", "min_width": 1600, "orientation": "landscape or square", "subject": "Desk set: leather-desk-mat with folio and paperweight" },
+    { "surface": "Home", "section": "bento-discovery / card_editorial (leather-goods)", "setting": "image", "min_width": 1200, "orientation": "portrait", "subject": "Leather goods detail" },
+    { "surface": "Home", "section": "curated-showcase / Daily objects", "setting": "editorial_image", "min_width": 1600, "orientation": "portrait", "subject": "Daily carry objects" },
+    { "surface": "Home", "section": "curated-showcase / Workspace", "setting": "editorial_image", "min_width": 1600, "orientation": "portrait", "subject": "Desk and study objects" },
+    { "surface": "Home", "section": "curated-showcase / leather-goods tab", "setting": "editorial_image", "min_width": 1600, "orientation": "portrait", "subject": "Bags and small leather goods" },
+    { "surface": "Home", "section": "complete-the-look", "setting": "image_desktop", "min_width": 1600, "orientation": "portrait", "subject": "The set leather-document-folio, four-slot-cardholder and folded-valet-tray together" },
+    { "surface": "Home", "section": "complete-the-look", "setting": "image_mobile", "min_width": 1200, "orientation": "portrait", "subject": "Mobile crop of the same set" },
+    { "surface": "Home", "section": "brand-manifesto", "setting": "image", "min_width": 1200, "orientation": "portrait", "subject": "Workshop or material detail that supports the manifesto text" },
+    { "surface": "Collection", "section": "main-collection / promotion tile", "setting": "image", "min_width": 960, "orientation": "portrait", "subject": "Daily objects (the tile links to /collections/daily-objects)" },
+    { "surface": "Header", "section": "header / mega menu promo (Catalog)", "setting": "image_1", "min_width": 800, "orientation": "portrait 4:5", "subject": "Leather goods" },
+    { "surface": "Header", "section": "header / mega menu promo (Catalog)", "setting": "image_2", "min_width": 800, "orientation": "portrait 4:5", "subject": "Desk and study" },
+    { "surface": "Collection", "section": "collection image (admin)", "setting": "collection featured image, one per collection", "min_width": 2400, "orientation": "landscape", "subject": "One distinct image per collection in this file" },
+    { "surface": "About", "section": "main-about / hero_story (page About, templates/page.about.json)", "setting": "image", "min_width": 2400, "orientation": "panoramic 21:9", "subject": "Editorial image of the leather goods or the desk, with no claim of place or workshop" },
+    { "surface": "About", "section": "main-about / atelier_gallery (page About)", "setting": "image_1", "min_width": 1200, "orientation": "portrait 4:5", "subject": "Leather or edge detail" },
+    { "surface": "About", "section": "main-about / atelier_gallery (page About)", "setting": "image_2", "min_width": 1200, "orientation": "portrait 4:5", "subject": "Desk objects in use" },
+    { "surface": "About", "section": "main-about / atelier_gallery (page About)", "setting": "image_3", "min_width": 1200, "orientation": "portrait 4:5", "subject": "A finished piece to scale" }
+  ]
+}

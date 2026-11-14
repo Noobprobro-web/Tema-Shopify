@@ -1,10 +1,22 @@
 {%- liquid
   assign featured_product = section.settings.product
-  assign product = featured_product
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_form_id = 'featured-product-form-' | append: section.id
-  assign selected_variant = product.selected_or_first_available_variant
+  # B-02: select nativo de variantes sin JS (mismo patron que main-product).
+  assign render_variant_no_js = false
+  assign variant_picker_blocks = section.blocks | where: 'type', 'variant_picker'
+  if featured_product != blank and featured_product.has_only_default_variant == false and variant_picker_blocks.size > 0
+    assign render_variant_no_js = true
+  endif
+  assign selected_variant = featured_product.selected_or_first_available_variant
+  assign use_variant_links = false
+  if featured_product.variants_count > 250
+    assign use_variant_links = true
+  endif
+  if use_variant_links
+    assign render_variant_no_js = false
+  endif
   assign selected_selling_plan_allocation = featured_product.selected_selling_plan_allocation
   if selected_selling_plan_allocation == blank and selected_variant.requires_selling_plan
     assign selected_selling_plan_allocation = selected_variant.selling_plan_allocations.first
@@ -70,10 +82,12 @@
 
     <variant-selects
       class="featured-product__details"
+      data-initial-variant-id="{{ selected_variant.id }}"
       data-add-to-cart-text="{{ 'products.product.add_to_cart' | t | escape }}"
       data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
       data-unavailable-text="{{ 'products.product.unavailable' | t | escape }}"
       data-available-status="{{ 'products.product.variant_available' | t | escape }}"
+      data-available-price-status="{{ 'products.product.variant_available_with_price' | t | escape }}"
       data-sold-out-status="{{ 'products.product.variant_sold_out' | t | escape }}"
       data-one-time-text="{{ 'products.product.purchase_options.one_time' | t | escape }}"
       data-selling-plan-unavailable-text="{{ 'products.product.purchase_options.unavailable' | t | escape }}"
@@ -111,8 +125,13 @@
               </div>
 
             {%- when 'variant_picker' -%}
-              {%- if featured_product != blank and featured_product.has_only_default_variant == false -%}
-                <div class="variant-picker flow" {{ block.shopify_attributes }}>
+              {%- if use_variant_links -%}
+                {%- assign variant_notice_id = 'FeaturedVariantNotice-' | append: section.id | append: '-' | append: block.id -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'variant-no-js-select', mode: 'option_links', product: featured_product, notice_id: variant_notice_id %}
+                </div>
+              {%- elsif featured_product != blank and featured_product.has_only_default_variant == false -%}
+                <div class="variant-picker flow js-only" data-variant-picker {{ block.shopify_attributes }}>
                   {%- for option in featured_product.options_with_values -%}
                     <fieldset class="variant-picker__group" role="radiogroup">
                       <legend class="variant-picker__legend">
@@ -223,7 +242,14 @@
                     class: 'product-form__form',
                     data-cart-add-form: ''
                   -%}
-                    <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id>
+                    {% render 'variant-no-js-select',
+                      product: featured_product,
+                      selected_variant: selected_variant,
+                      section: section,
+                      id_prefix: 'FeaturedProductVariantNoJs',
+                      show_options: render_variant_no_js,
+                      server_variants: false
+                    %}
 
                     <div class="product-form__payment-terms">
                       {{- form | payment_terms -}}
@@ -322,7 +348,7 @@
                           <label for="FeaturedSellingPlanNoJs-{{ section.id }}">
                             {{- 'products.product.purchase_options.legend' | t -}}
                           </label>
-                          <select id="FeaturedSellingPlanNoJs-{{ section.id }}" name="selling_plan">
+                          <select id="FeaturedSellingPlanNoJs-{{ section.id }}" name="selling_plan" autocomplete="off" data-no-js-control>
                             {%- unless selected_variant.requires_selling_plan -%}
                               <option value=""{% unless subscription_selected %} selected{% endunless %}>
                                 {{- 'products.product.purchase_options.one_time' | t -}}
@@ -361,7 +387,9 @@
                       {% unless can_add_to_cart %}disabled{% endunless %}
                     >
                       <span data-add-to-cart-text>
-                        {%- if selected_variant.available == false -%}
+                        {%- if selected_variant == blank -%}
+                        {{- 'products.product.unavailable' | t -}}
+                      {%- elsif selected_variant.available == false -%}
                           {{- 'products.product.sold_out' | t -}}
                         {%- elsif plan_required_unavailable -%}
                           {{- 'products.product.purchase_options.unavailable' | t -}}
@@ -407,39 +435,22 @@
                 {% render 'product-inventory', product: featured_product, variant: selected_variant, block: block %}
               {%- endif -%}
 
-            {%- when 'shipping_lead_time' -%}
-              {%- if featured_product != blank -%}
-                {%- liquid
-                  assign delivery_fallback = 'sections.main_product.blocks.shipping_lead_time.delivery_fallback' | t
-                  assign delivery_text = block.settings.delivery_text | default: delivery_fallback
-                -%}
+            {%- when 'shipping_lead_time', 'trust_badges' -%}
+              {%- assign trust_text = block.settings.delivery_text | default: block.settings.returns_text | strip -%}
+              {%- if featured_product != blank and trust_text != blank -%}
                 <p class="product-trust" {{ block.shopify_attributes }}>
                   <span class="product-trust__icon" aria-hidden="true">
                     {%- if block.settings.icon == 'clock' -%}
                       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                     {%- elsif block.settings.icon == 'truck' -%}
                       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v11H2zM14 9h4l4 4v4h-8z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
-                    {%- endif -%}
-                  </span>
-                  <span>{{ delivery_text | escape }}</span>
-                </p>
-              {%- endif -%}
-
-            {%- when 'trust_badges' -%}
-              {%- if featured_product != blank -%}
-                {%- liquid
-                  assign returns_fallback = 'sections.main_product.blocks.trust_badges.returns_fallback' | t
-                  assign returns_text = block.settings.returns_text | default: returns_fallback
-                -%}
-                <p class="product-trust" {{ block.shopify_attributes }}>
-                  <span class="product-trust__icon" aria-hidden="true">
-                    {%- if block.settings.icon == 'ruler' -%}
+                    {%- elsif block.settings.icon == 'ruler' -%}
                       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 2 7 7L9 22l-7-7L15 2Z"/><path d="m11 6 2 2m-5 1 2 2m-5 1 2 2m4-9 2 2"/></svg>
                     {%- elsif block.settings.icon == 'shield' -%}
                       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
                     {%- endif -%}
                   </span>
-                  <span>{{ returns_text | escape }}</span>
+                  <span>{{ trust_text | escape }}</span>
                 </p>
               {%- endif -%}
 
@@ -469,62 +480,23 @@
         <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-variant-status></p>
       </div>
 
+      {%- liquid
+        assign inventory_block = section.blocks | where: 'type', 'inventory_status' | first
+        assign inventory_cap = inventory_block.settings.threshold | default: 0 | plus: 1
+      -%}
       {%- if featured_product != blank -%}
-        {%- comment -%}
-          AF-07 (AUDIT-FINAL-001): el JSON de variantes no publica el stock exacto. Se limita al
-          umbral del bloque de inventario más 1 (o a 1 si no hay bloque): ProductInventory
-          (assets/theme.js) calcula el mismo estado y nadie más lee este campo.
-        {%- endcomment -%}
-        {%- liquid
-          assign inventory_block = section.blocks | where: 'type', 'inventory_status' | first
-          assign inventory_cap = inventory_block.settings.threshold | default: 0 | plus: 1
-        -%}
         <script type="application/json" data-variant-json>
           [
-            {%- for variant in featured_product.variants -%}
-              {%- liquid
-                assign var_compare_money = null
-                assign var_compare_cents = null
-                if variant.compare_at_price > variant.price
-                  assign var_compare_money = variant.compare_at_price | money
-                  assign var_compare_cents = variant.compare_at_price
-                endif
-              -%}
-              {
-                "id": {{ variant.id | json }},
-                "title": {{ variant.title | json }},
-                "available": {{ variant.available | json }},
-                "inventory_management": {{ variant.inventory_management | json }},
-                "inventory_quantity": {{ variant.inventory_quantity | at_most: inventory_cap | json }},
-                "inventory_policy": {{ variant.inventory_policy | json }},
-                "options": {{ variant.options | json }},
-                "price": {{ variant.price | money | json }},
-                "price_cents": {{ variant.price | json }},
-                "compare_at_price": {{ var_compare_money | json }},
-                "compare_at_price_cents": {{ var_compare_cents | json }},
-                "unit_price": {% if variant.unit_price_measurement %}{{ variant.unit_price | money | json }}{% else %}null{% endif %},
-                "unit_reference_value": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_value | json }}{% else %}null{% endif %},
-                "unit_reference_unit": {% if variant.unit_price_measurement %}{{ variant.unit_price_measurement.reference_unit | json }}{% else %}null{% endif %},
-                "featured_media_id": {% if variant.featured_media %}{{ variant.featured_media.id | json }}{% else %}null{% endif %},
-                "quantity_min": {{ variant.quantity_rule.min | default: 1 | json }},
-                "quantity_increment": {{ variant.quantity_rule.increment | default: 1 | json }},
-                "quantity_max": {% if variant.quantity_rule.max != blank %}{{ variant.quantity_rule.max | json }}{% else %}null{% endif %},
-                "requires_selling_plan": {{ variant.requires_selling_plan | json }},
-                "selling_plan_allocations": [
-                  {%- for allocation in variant.selling_plan_allocations -%}
-                    {
-                      "id": {{ allocation.selling_plan.id | json }},
-                      "name": {{ allocation.selling_plan.name | json }},
-                      "group_id": {{ allocation.selling_plan_group_id | json }},
-                      "price": {{ allocation.price | money | json }},
-                      "compare_at_price": {% if allocation.compare_at_price > allocation.price %}{{ allocation.compare_at_price | money | json }}{% else %}null{% endif %},
-                      "per_delivery_price": {{ allocation.per_delivery_price | money | json }},
-                      "unit_price": {% if allocation.unit_price != blank %}{{ allocation.unit_price | money | json }}{% else %}null{% endif %}
-                    }{% unless forloop.last %},{% endunless %}
-                  {%- endfor -%}
-                ]
-              }{% unless forloop.last %},{% endunless %}
-            {%- endfor -%}
+            {%- if use_variant_links -%}
+              {%- if selected_variant -%}
+                {%- render 'variant-no-js-select', mode: 'state', selected_variant: selected_variant, inventory_cap: inventory_cap -%}
+              {%- endif -%}
+            {%- else -%}
+              {%- for variant in featured_product.variants -%}
+                {%- render 'variant-no-js-select', mode: 'state', selected_variant: variant, inventory_cap: inventory_cap -%}
+                {%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            {%- endif -%}
           ]
         </script>
       {%- endif -%}
@@ -543,7 +515,7 @@
     >
     <script src="{{ 'shopify-xr.js' | shopify_asset_url }}" defer></script>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
+      (() => {
         const setupFeaturedProductModels = () => {
           if (!window.ShopifyXR) {
             document.addEventListener('shopify_xr_initialized', setupFeaturedProductModels, { once: true });
@@ -567,11 +539,28 @@
           });
         };
 
-        setupFeaturedProductModels();
-        window.Shopify?.loadFeatures?.([
-          { name: 'model-viewer-ui', version: '1.0', onLoad: setupFeaturedModelViewerUI },
-        ]);
-      }, { once: true });
+        // Idempotent: the registered / ready flags make repeated calls harmless.
+        const initFeaturedProductModels = () => {
+          setupFeaturedProductModels();
+          window.Shopify?.loadFeatures?.([
+            { name: 'model-viewer-ui', version: '1.0', onLoad: setupFeaturedModelViewerUI },
+          ]);
+        };
+
+        // The theme editor adds or reloads the section after DOMContentLoaded has fired.
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initFeaturedProductModels, { once: true });
+        } else {
+          initFeaturedProductModels();
+        }
+        // Registered once per page: this inline script can run again when the editor re-renders.
+        if (!window.themeFeaturedModelsBound) {
+          window.themeFeaturedModelsBound = true;
+          document.addEventListener('shopify:section:load', (event) => {
+            if (event.target.querySelector?.('[id^="FeaturedProductModelJSON-"]')) initFeaturedProductModels();
+          });
+        }
+      })();
     </script>
   {%- endif -%}
 </section>

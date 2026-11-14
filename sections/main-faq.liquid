@@ -40,13 +40,15 @@
   endfor
 -%}
 
-<section class="section main-faq color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+<section class="section main-faq color-{{ section_scheme }}" {% if page.title != blank %}aria-labelledby="{{ title_id }}"{% endif %}>
   <div class="container container--narrow">
     <header class="main-faq__header flow">
       {%- if section.settings.eyebrow != blank -%}
         <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
       {%- endif -%}
-      <h1 id="{{ title_id }}" class="main-faq__title">{{ page.title | escape }}</h1>
+      {%- if page.title != blank -%}
+        <h1 id="{{ title_id }}" class="main-faq__title">{{ page.title | escape }}</h1>
+      {%- endif -%}
       {%- if section.settings.intro != blank -%}
         <div class="rte lede">{{ section.settings.intro }}</div>
       {%- endif -%}
@@ -144,6 +146,8 @@
 
 {% schema %}
 {
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
   "name": "t:sections.main_faq.name",
   "settings": [
     {
@@ -241,13 +245,13 @@
           "type": "richtext",
           "id": "text",
           "label": "t:sections.all.text.label",
-          "default": "<p>Write to the atelier and a person will answer you.</p>"
+          "default": "<p>Send us a message through our contact page.</p>"
         },
         {
           "type": "text",
           "id": "button_label",
           "label": "t:sections.all.button_label.label",
-          "default": "Contact the atelier"
+          "default": "Contact us"
         },
         {
           "type": "url",

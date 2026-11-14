@@ -8,6 +8,7 @@
   - prioritize: eager-load and prioritize the image
   - image_class: optional class
   - alt: optional alt override
+  - decorative: optional, true forces alt="" (image repeats nearby text or a control label)
 {%- endcomment -%}
 
 {%- if image != blank -%}
@@ -18,6 +19,9 @@
     assign image_loading = 'lazy'
     assign image_priority = 'auto'
     assign image_alt = alt | default: image.alt
+    if decorative
+      assign image_alt = ''
+    endif
 
     if prioritize
       assign image_loading = 'eager'

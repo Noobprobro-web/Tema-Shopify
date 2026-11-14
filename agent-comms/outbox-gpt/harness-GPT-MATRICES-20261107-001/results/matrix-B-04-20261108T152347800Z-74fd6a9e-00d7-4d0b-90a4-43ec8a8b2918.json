@@ -1,0 +1,94 @@
+{
+  "effectiveRunnerSha256": "615b7ef96a87c5fba8d18e436795918383576a18360a5d165b95358fe2f72429",
+  "schema": 1,
+  "mode": "cart",
+  "scopeResult": "failed",
+  "executionResult": "failed",
+  "startedAt": "2026-11-08T15:23:47.801Z",
+  "finishedAt": "2026-11-08T15:23:50.843Z",
+  "target": {
+    "host": "tema-qkqpke0j.myshopify.com",
+    "themeIds": [
+      "190232297715"
+    ]
+  },
+  "limits": [
+    "SCOPED_HARNESS_NOT_FULL_RA_RB_CERTIFICATION",
+    "NO_THEME_SETTINGS_OR_CATALOG_WRITES",
+    "NO_CHECKOUT_OR_PAYMENT",
+    "NO_SCREEN_READER_OR_VISUAL_CONTRAST_CERTIFICATION",
+    "RESOURCE_FILTERING_CAN_AFFECT_RESULTS",
+    "C_R0_4_SUBSCRIPTION_FIXTURE_PENDING_JOHANDRY"
+  ],
+  "checks": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "storefront_access",
+      "result": "failed",
+      "reason": "AUTH_RESPONSE_NOT_ACCEPTED",
+      "details": null
+    }
+  ],
+  "sessions": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "cartMutationsAllowed": true,
+      "unpublishedPreflight": "required_external_coordinator_check",
+      "cartInitiallyEmptyVerified": null,
+      "cartTouched": false,
+      "finalCartCleanup": null,
+      "contextClosed": true,
+      "blockedRequests": 0,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "routeFailureEvents": [],
+      "routeFailureEventsOmitted": 0,
+      "routeWarningEvents": [],
+      "routeWarningEventsOmitted": 0,
+      "rateLimitEvents": [],
+      "rateLimitEventsOmitted": 0,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "AUTH_POST_ALLOWED"
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "networkWarnings": [],
+      "warningOccurrences": 0,
+      "warningOccurrencesOmitted": 0,
+      "deniedResourceSummary": [],
+      "inventoryResources": [],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 0,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      }
+    }
+  ],
+  "interventionRequired": false,
+  "historicalIncidents": [
+    {
+      "code": "ARCHIVE_ORPHANED_CART_20261106",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "initiallyEmptyVerified": true,
+      "finalCartState": "unknown",
+      "contextClosed": true,
+      "disposition": "LEAVE_TO_EXPIRE",
+      "blocksLote0": false,
+      "sourceReport": "RA-RB-cart-20261106T112804500Z-605bdcd0-07ef-43aa-a9f5-6e0d5038b634.json"
+    }
+  ]
+}

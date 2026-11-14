@@ -22,13 +22,15 @@
   endfor
 -%}
 
-<section class="section main-documentation color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
+<section class="section main-documentation color-{{ section_scheme }}" {% if page.title != blank %}aria-labelledby="{{ title_id }}"{% endif %}>
   <div class="container container--narrow">
     <header class="main-documentation__header flow">
       {%- if section.settings.eyebrow != blank -%}
         <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
       {%- endif -%}
-      <h1 id="{{ title_id }}" class="main-documentation__title">{{ page.title | escape }}</h1>
+      {%- if page.title != blank -%}
+        <h1 id="{{ title_id }}" class="main-documentation__title">{{ page.title | escape }}</h1>
+      {%- endif -%}
       {%- if section.settings.intro != blank -%}
         <div class="rte lede">{{ section.settings.intro }}</div>
       {%- endif -%}
@@ -180,6 +182,8 @@
 
 {% schema %}
 {
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
   "name": "t:sections.main_documentation.name",
   "settings": [
     {

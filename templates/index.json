@@ -19,11 +19,11 @@
         "heading_tag": "h1",
         "eyebrow": "THE EDIT / SARTORIAL 01",
         "heading": "Form in quiet movement",
-        "subheading": "<p>A study in quiet movement. Sculptural layers and tactile materials, made in small series.</p>",
+        "subheading": "<p>A study in quiet movement. Sculptural layers and tactile materials.</p>",
         "button_primary_label": "Discover the collection",
         "button_primary_url": "/collections/all",
-        "button_secondary_label": "Explore the series",
-        "button_secondary_url": "/collections/the-autumn-series",
+        "button_secondary_label": "Browse collections",
+        "button_secondary_url": "/collections",
         "color_scheme": "scheme-2"
       }
     },
@@ -36,29 +36,15 @@
             "text": "FORM / MATERIAL / MOVEMENT"
           }
         },
-        "marquee_series": {
-          "type": "item",
-          "settings": {
-            "text": "MADE IN SMALL SERIES"
-          }
-        },
         "marquee_trace": {
           "type": "item",
           "settings": {
             "text": "DESIGNED TO GATHER CHARACTER"
           }
-        },
-        "marquee_origin": {
-          "type": "item",
-          "settings": {
-            "text": "NATURAL FIBRES / TRACEABLE ORIGIN"
-          }
         }
       },
       "block_order": [
-        "marquee_origin",
         "marquee_form",
-        "marquee_series",
         "marquee_trace"
       ],
       "settings": {
@@ -106,49 +92,15 @@
     },
     "brand_manifesto": {
       "type": "brand-manifesto",
-      "blocks": {
-        "detail_material": {
-          "type": "detail",
-          "settings": {
-            "label": "Materials",
-            "value": "100% traceable natural fibres"
-          }
-        },
-        "detail_origin": {
-          "type": "detail",
-          "settings": {
-            "label": "Origin",
-            "value": "Made close to the source"
-          }
-        },
-        "detail_finish": {
-          "type": "detail",
-          "settings": {
-            "label": "Finish",
-            "value": "Formed and finished by hand"
-          }
-        },
-        "detail_series": {
-          "type": "detail",
-          "settings": {
-            "label": "Series",
-            "value": "Numbered in small runs"
-          }
-        }
-      },
-      "block_order": [
-        "detail_material",
-        "detail_origin",
-        "detail_finish",
-        "detail_series"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "eyebrow": "THE HAND AND THE MATERIAL / 03",
         "quote": "Objects gain meaning through the hands that make them.",
-        "body": "<p>Every seam, edge and finish records a decision made by an artisan, not an anonymous process.</p>",
+        "body": "",
         "media_label": "MACRO STUDY / MATERIAL 07",
-        "button_label": "Read our process",
-        "button_url": "/pages/about",
+        "button_label": "About us",
+        "button_url": "",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
@@ -159,10 +111,10 @@
         "bento_featured": {
           "type": "card_featured",
           "settings": {
-            "collection": "the-autumn-series",
+            "collection": "all",
             "eyebrow": "[01] APPAREL / FEATURED",
             "heading": "Sculptural layers",
-            "link": "/collections/the-autumn-series"
+            "link": ""
           }
         },
         "bento_editorial": {
@@ -172,7 +124,7 @@
             "heading": "Carried close",
             "body": "<p>An editorial study in proportion, tactility and daily use.</p>",
             "link_label": "Explore the story",
-            "link": "/pages/about"
+            "link": ""
           }
         },
         "bento_product": {
@@ -282,7 +234,7 @@
         "color_scheme": "scheme-3",
         "eyebrow": "Private correspondence",
         "heading": "Notes from the atelier",
-        "text": "<p>New objects, material studies and private previews, sent with restraint.</p>"
+        "text": ""
       }
     }
   },
