@@ -1,6 +1,6 @@
 # Release notes — version 1.0.0
 
-**Draft — pending Johandry approval.** This is the initial release of the theme. Johandry must approve these notes before release. The theme metadata in `config/settings_schema.json` is already at 1.0.0.
+This is the initial release of the theme.
 
 ## Included in this release
 
@@ -11,9 +11,3 @@
 ## Product data notice
 
 Product technical specifications and provenance do not read values from `custom.*` or `sartorial.*` metafields. Existing metafield values will not appear through these blocks. Enter only approved product data in the corresponding theme editor block settings before enabling the blocks.
-
-## Approval status
-
-Not approved for publication or submission. Confirm final notes, catalog evidence, and package hash before release.
-
-<!-- Before packaging: remove the draft status line and the Approval status section. -->
