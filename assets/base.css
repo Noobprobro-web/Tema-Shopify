@@ -1282,6 +1282,20 @@ button[aria-busy='true']:disabled {
   height: auto;
 }
 
+/* model-viewer no tiene alto intrinseco: sin proporcion colapsa a 0/150 px. 4/5 sigue la proporcion de las
+   imagenes y funciona tambien en la media columna de escritorio. */
+.featured-product__media model-viewer {
+  aspect-ratio: 4 / 5;
+  min-height: 20rem;
+}
+
+/* .featured-product__media recorta con overflow:hidden: un contorno exterior no se veria. */
+.featured-product__media model-viewer:focus-visible,
+.featured-product__media video:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: -4px;
+}
+
 .featured-product__placeholder {
   min-height: 28rem;
   border: var(--border-width) solid var(--color-border-hairline);
