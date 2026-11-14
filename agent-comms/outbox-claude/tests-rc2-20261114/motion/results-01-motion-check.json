@@ -1,0 +1,1607 @@
+{
+  "harness": "MOTION-002",
+  "task": "T5",
+  "script": "01-motion-check.mjs",
+  "timestamp": "2026-11-14T18:11:47.972Z",
+  "base": "https://sartorial-theme-kvkzl39t.myshopify.com",
+  "store": "atelier",
+  "config": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "routes": [
+      "/",
+      "/collections/permanent-collection",
+      "/products/serra-coat"
+    ],
+    "shortRoute": null,
+    "forceMode": "full",
+    "clsMax": 0.1,
+    "tabPresses": 40,
+    "projects": [
+      "chromium-full",
+      "chromium-reduce",
+      "firefox-no-scroll-driven"
+    ],
+    "localTarget": false,
+    "notes": []
+  },
+  "contract": {
+    "attributes": [
+      "data-reveal=\"\"",
+      "data-reveal=\"done\"",
+      "data-revealed",
+      "html[data-reveal-ready]",
+      "html[data-animations]"
+    ],
+    "expectedKeyframes": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ]
+  },
+  "projects": [
+    {
+      "name": "chromium-full",
+      "browser": "chromium",
+      "scenario": "full",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js:1:92381\n    at window2.fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js:1:92381\n    at window2.fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 14,
+            "settled": 0,
+            "decorated": 14,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 31,
+            "scrollDriven": 24,
+            "timelineKinds": [
+              "DocumentTimeline",
+              "ViewTimeline"
+            ],
+            "scrollDrivenNames": [
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ],
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "lookbook-hotspot-pulse",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 14,
+            "srcs": [
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/theme.js?v=13010653903493019731794677917",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-ed94c51f.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-6af5f5e9.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "https://cdn.shopify.com/shopifycloud/preview-bar/preview-bar-modules.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.15.1.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-cfeae510.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Sartorial Theme",
+            "hasMain": true,
+            "bodyChildren": 10,
+            "docHeight": 7991,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 7091
+          },
+          "probes": 3,
+          "midGesture": [
+            {
+              "file": "evidence/chromium-full-home-mid-01.png",
+              "target": "header.curated-showcase__header",
+              "progress": 0.444,
+              "opacity": 0.957,
+              "clipPath": "inset(-100% -16px 0px)",
+              "animations": [
+                "scroll-fade"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-home-mid-02.png",
+              "target": "header.complete-the-look__header",
+              "progress": 0.437,
+              "opacity": 0.954,
+              "clipPath": "inset(-100% -16px 0px)",
+              "animations": [
+                "scroll-fade"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-home-mid-03.png",
+              "target": "li.complete-the-look__item",
+              "progress": 0.41,
+              "opacity": 0.944,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            }
+          ],
+          "traverse": {
+            "maxScrollDriven": 15,
+            "maxTotal": 22,
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "lookbook-hotspot-pulse",
+              "scroll-fade",
+              "scroll-line-rise",
+              "scroll-rise",
+              "scroll-unveil",
+              "scroll-unveil-settle"
+            ],
+            "iterations": 6
+          },
+          "afterScroll": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 14,
+            "decorated": 14,
+            "revealedMark": 14
+          },
+          "animationsAfterScroll": {
+            "total": 7,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal",
+              "editorial-marquee",
+              "hero-content-settle",
+              "lookbook-hotspot-pulse"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 15,
+          "cls": {
+            "supported": true,
+            "value": 0.0208,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 23,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "m3Applicable": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/collections/permanent-collection",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [],
+          "errors": [
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 13,
+            "settled": 0,
+            "decorated": 13,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 14,
+            "scrollDriven": 13,
+            "timelineKinds": [
+              "DocumentTimeline",
+              "ViewTimeline"
+            ],
+            "scrollDrivenNames": [
+              "scroll-rise"
+            ],
+            "names": [
+              "announcement-reveal",
+              "scroll-rise"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 13,
+            "srcs": [
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/theme.js?v=13010653903493019731794677917",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-ed94c51f.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-6af5f5e9.js",
+              "https://cdn.shopify.com/shopifycloud/preview-bar/preview-bar-modules.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.15.1.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-cfeae510.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Permanent collection – Sartorial Theme",
+            "hasMain": true,
+            "bodyChildren": 10,
+            "docHeight": 7293,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 6393
+          },
+          "probes": 3,
+          "midGesture": [
+            {
+              "file": "evidence/chromium-full-collections-permanent-collection-mid-01.png",
+              "target": "li.product-grid__item",
+              "progress": 0.561,
+              "opacity": 0.983,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-collections-permanent-collection-mid-02.png",
+              "target": "li.product-grid__item",
+              "progress": 0.471,
+              "opacity": 0.965,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            },
+            {
+              "file": "evidence/chromium-full-collections-permanent-collection-mid-03.png",
+              "target": "li.product-grid__item",
+              "progress": 0.531,
+              "opacity": 0.978,
+              "clipPath": null,
+              "animations": [
+                "scroll-rise"
+              ],
+              "scrollDrivenOnTarget": 1,
+              "midGesture": true,
+              "note": null
+            }
+          ],
+          "traverse": {
+            "maxScrollDriven": 5,
+            "maxTotal": 6,
+            "names": [
+              "announcement-reveal",
+              "scroll-rise"
+            ],
+            "iterations": 9
+          },
+          "afterScroll": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 13,
+            "decorated": 13,
+            "revealedMark": 13
+          },
+          "animationsAfterScroll": {
+            "total": 1,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 5,
+          "cls": {
+            "supported": true,
+            "value": 0.0014,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 16,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "m3Applicable": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-full",
+          "scenario": "full",
+          "route": "/products/serra-coat",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "Sin objetivos pendientes bajo el pliegue: no hay gesto que capturar en esta ruta.",
+            "M3: La ruta no decoro ni un objetivo ([data-reveal] = 0 antes y despues del recorrido): no hay coreografia scroll-driven que exigir. Revisa si la tienda tiene esas secciones configuradas."
+          ],
+          "errors": [
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js:1:92381\n    at window2.fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 2,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal",
+              "gallery-media-in"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 15,
+            "srcs": [
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/theme.js?v=13010653903493019731794677917",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-ed94c51f.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-6af5f5e9.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "https://cdn.shopify.com/shopifycloud/preview-bar/preview-bar-modules.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.15.1.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-cfeae510.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/product-zoom.js?v=30819926186510977431794677917",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Serra Coat – Sartorial Theme",
+            "hasMain": true,
+            "bodyChildren": 10,
+            "docHeight": 4092,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 3192
+          },
+          "probes": 0,
+          "midGesture": [],
+          "traverse": {
+            "maxScrollDriven": 0,
+            "maxTotal": 4,
+            "names": [
+              "announcement-reveal",
+              "gallery-media-in"
+            ],
+            "iterations": 13
+          },
+          "afterScroll": {
+            "revealReady": true,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAfterScroll": {
+            "total": 2,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "announcement-reveal",
+              "gallery-media-in"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 0,
+          "cls": {
+            "supported": true,
+            "value": 0.0015,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 21,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "m3Applicable": false,
+          "verdict": "PASA"
+        }
+      ]
+    },
+    {
+      "name": "chromium-reduce",
+      "browser": "chromium",
+      "scenario": "reduce",
+      "launched": true,
+      "skipped": null,
+      "browserVersion": "153.0.8010.12",
+      "rows": [
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "Sin objetivos pendientes bajo el pliegue: no hay gesto que capturar en esta ruta."
+          ],
+          "errors": [
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js:1:92381\n    at window2.fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js:1:92381\n    at window2.fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 1,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "hero-content-settle"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 14,
+            "srcs": [
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/theme.js?v=13010653903493019731794677917",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-ed94c51f.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-6af5f5e9.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "https://cdn.shopify.com/shopifycloud/preview-bar/preview-bar-modules.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.15.1.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-cfeae510.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Sartorial Theme",
+            "hasMain": true,
+            "bodyChildren": 10,
+            "docHeight": 7991,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 7091
+          },
+          "probes": 0,
+          "midGesture": [],
+          "traverse": {
+            "maxScrollDriven": 0,
+            "maxTotal": 1,
+            "names": [
+              "hero-content-settle"
+            ],
+            "iterations": 23
+          },
+          "afterScroll": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAfterScroll": {
+            "total": 1,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "hero-content-settle"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 0,
+          "cls": {
+            "supported": true,
+            "value": 0.0005,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 22,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/collections/permanent-collection",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "Sin objetivos pendientes bajo el pliegue: no hay gesto que capturar en esta ruta."
+          ],
+          "errors": [
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 0,
+            "scrollDriven": 0,
+            "timelineKinds": [],
+            "scrollDrivenNames": [],
+            "names": []
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 13,
+            "srcs": [
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/theme.js?v=13010653903493019731794677917",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-ed94c51f.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-6af5f5e9.js",
+              "https://cdn.shopify.com/shopifycloud/preview-bar/preview-bar-modules.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.15.1.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-cfeae510.js",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Permanent collection – Sartorial Theme",
+            "hasMain": true,
+            "bodyChildren": 10,
+            "docHeight": 7293,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 6393
+          },
+          "probes": 0,
+          "midGesture": [],
+          "traverse": {
+            "maxScrollDriven": 0,
+            "maxTotal": 0,
+            "names": [],
+            "iterations": 20
+          },
+          "afterScroll": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAfterScroll": {
+            "total": 0,
+            "scrollDriven": 0,
+            "timelineKinds": [],
+            "scrollDrivenNames": [],
+            "names": []
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 0,
+          "cls": {
+            "supported": true,
+            "value": 0.0014,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 16,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "verdict": "PASA"
+        },
+        {
+          "project": "chromium-reduce",
+          "scenario": "reduce",
+          "route": "/products/serra-coat",
+          "status": 200,
+          "measured": true,
+          "noMeasureReason": null,
+          "failures": [],
+          "warnings": [
+            "Sin objetivos pendientes bajo el pliegue: no hay gesto que capturar en esta ruta."
+          ],
+          "errors": [
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-B_pd1wrTz-fx.js:29:2786)",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to fetch",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js:1:92381\n    at window2.fetch"
+          ],
+          "support": {
+            "viewTimeline": true,
+            "animationRange": true
+          },
+          "mode": {
+            "native": "full",
+            "effective": "full",
+            "forced": "full"
+          },
+          "atLoad": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAtLoad": {
+            "total": 1,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "gallery-media-in"
+            ]
+          },
+          "gsap": {
+            "gsapUndefined": true,
+            "scrollTriggerUndefined": true
+          },
+          "scripts": {
+            "total": 15,
+            "srcs": [
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/theme.js?v=13010653903493019731794677917",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/checkouts/internal/preloads.js?locale=en-US",
+              "https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/theme-hot-reload/theme-hot-reload.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/load_feature-ed94c51f.js",
+              "https://cdn.shopify.com/shopifycloud/storefront/assets/storefront/origin_trials-6af5f5e9.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js",
+              "https://cdn.shopify.com/shopifycloud/preview-bar/preview-bar-modules.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b7c8e7afaw45178ba9pf12000acme993a4d3m.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/perf-kit/shopify-perf-kit-3.15.1.min.js",
+              "https://cdn.shopify.com/storefront/web-components/account.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/storefront/webmcp-cfeae510.js",
+              "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/t/7/assets/product-zoom.js?v=30819926186510977431794677917",
+              "https://cdn.shopify.com/storefront/standard-actions.js"
+            ],
+            "offenders": [],
+            "themeOffenders": [],
+            "inlineGsapMentions": 0
+          },
+          "loaded": {
+            "title": "Serra Coat – Sartorial Theme",
+            "hasMain": true,
+            "bodyChildren": 10,
+            "docHeight": 4092,
+            "innerHeight": 900,
+            "noJsClass": false,
+            "themeJsRan": true,
+            "scrollable": 3192
+          },
+          "probes": 0,
+          "midGesture": [],
+          "traverse": {
+            "maxScrollDriven": 0,
+            "maxTotal": 1,
+            "names": [
+              "gallery-media-in"
+            ],
+            "iterations": 13
+          },
+          "afterScroll": {
+            "revealReady": false,
+            "pending": 0,
+            "settled": 0,
+            "decorated": 0,
+            "revealedMark": 0
+          },
+          "animationsAfterScroll": {
+            "total": 1,
+            "scrollDriven": 0,
+            "timelineKinds": [
+              "DocumentTimeline"
+            ],
+            "scrollDrivenNames": [],
+            "names": [
+              "gallery-media-in"
+            ]
+          },
+          "hiddenAfterScroll": [],
+          "scrollDrivenMax": 0,
+          "cls": {
+            "supported": true,
+            "value": 0.0015,
+            "entries": 1
+          },
+          "keyboard": {
+            "tabs": 40,
+            "landed": 40,
+            "distinctFocusables": 21,
+            "invisibleFocus": [],
+            "measured": true,
+            "noMeasureReason": null
+          },
+          "nativeEngineAvailable": true,
+          "verdict": "PASA"
+        }
+      ]
+    },
+    {
+      "name": "firefox-no-scroll-driven",
+      "browser": "firefox",
+      "scenario": "fallback",
+      "launched": false,
+      "skipped": "No se pudo lanzar firefox: browserType.launch: Executable doesn't exist at /opt/pw-browsers/firefox-1543/firefox/firefox\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed . Instalalo con: npx playwright install firefox",
+      "browserVersion": null,
+      "rows": []
+    }
+  ],
+  "degenerate": {
+    "resolved": {
+      "catalog": {
+        "collections": [
+          {
+            "handle": "accessories",
+            "title": "Accessories",
+            "count": 4,
+            "probed": false
+          },
+          {
+            "handle": "empty-test",
+            "title": "Empty collection (test)",
+            "count": 0,
+            "probed": false
+          },
+          {
+            "handle": "fixtures",
+            "title": "Fixtures",
+            "count": 7,
+            "probed": false
+          },
+          {
+            "handle": "knitwear",
+            "title": "Knitwear",
+            "count": 4,
+            "probed": false
+          },
+          {
+            "handle": "new-arrivals",
+            "title": "New arrivals",
+            "count": 3,
+            "probed": false
+          },
+          {
+            "handle": "new-forms",
+            "title": "New forms",
+            "count": 9,
+            "probed": false
+          },
+          {
+            "handle": "outerwear",
+            "title": "Outerwear",
+            "count": 4,
+            "probed": false
+          },
+          {
+            "handle": "permanent-collection",
+            "title": "Permanent collection",
+            "count": 12,
+            "probed": false
+          },
+          {
+            "handle": "single-product-test",
+            "title": "Single product (test)",
+            "count": 1,
+            "probed": false
+          },
+          {
+            "handle": "tailoring",
+            "title": "Tailoring",
+            "count": 4,
+            "probed": false
+          },
+          {
+            "handle": "the-autumn-series",
+            "title": "The Autumn Series",
+            "count": 9,
+            "probed": false
+          }
+        ],
+        "products": 38
+      },
+      "states": [
+        {
+          "estado": "vacio",
+          "ruta": "/collections/empty-test",
+          "alcanzable": true,
+          "motivo": "Coleccion \"Empty collection (test)\" con 0 productos."
+        },
+        {
+          "estado": "unico",
+          "ruta": "/collections/single-product-test",
+          "alcanzable": true,
+          "motivo": "Coleccion \"Single product (test)\" con 1 producto."
+        },
+        {
+          "estado": "masivo",
+          "ruta": "/collections/all",
+          "alcanzable": true,
+          "motivo": "/collections/all con 38 productos en catalogo. products_per_page es ajuste de seccion (max 48): 50 por pagina no es alcanzable desde la URL; se mide la rejilla rendida tal cual."
+        },
+        {
+          "estado": "muy-largo",
+          "ruta": "/products/fixture-long-title",
+          "alcanzable": true,
+          "motivo": "Producto \"fixture-long-title\" con titulo de 120 caracteres."
+        },
+        {
+          "estado": "falta-imagen",
+          "ruta": "/products/fixture-media-3d-video",
+          "alcanzable": true,
+          "motivo": "Producto \"fixture-media-3d-video\" sin imagenes: cae en placeholder_svg_tag."
+        },
+        {
+          "estado": "unica-imagen-galeria",
+          "ruta": "/products/fixture-focal-point",
+          "alcanzable": true,
+          "motivo": "Producto \"fixture-focal-point\" con 1 sola imagen de galeria."
+        }
+      ]
+    },
+    "rows": [
+      {
+        "estado": "vacio",
+        "ruta": "/collections/empty-test",
+        "alcanzable": true,
+        "motivo": "Coleccion \"Empty collection (test)\" con 0 productos.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 0,
+          "decorated": 0,
+          "revealedMark": 0
+        },
+        "hidden": [],
+        "scrollDrivenMax": 0,
+        "grid": {
+          "cards": 0,
+          "emptyState": false,
+          "placeholderSvgInReveal": 0,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 23,
+          "galleryItems": 0
+        },
+        "scrollable": 469,
+        "verdict": "PASA"
+      },
+      {
+        "estado": "unico",
+        "ruta": "/collections/single-product-test",
+        "alcanzable": true,
+        "motivo": "Coleccion \"Single product (test)\" con 1 producto.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 0,
+          "decorated": 0,
+          "revealedMark": 0
+        },
+        "hidden": [],
+        "scrollDrivenMax": 0,
+        "grid": {
+          "cards": 2,
+          "emptyState": false,
+          "placeholderSvgInReveal": 0,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 39,
+          "galleryItems": 0
+        },
+        "scrollable": 993,
+        "verdict": "PASA"
+      },
+      {
+        "estado": "masivo",
+        "ruta": "/collections/all",
+        "alcanzable": true,
+        "motivo": "/collections/all con 38 productos en catalogo. products_per_page es ajuste de seccion (max 48): 50 por pagina no es alcanzable desde la URL; se mide la rejilla rendida tal cual.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 23,
+          "decorated": 23,
+          "revealedMark": 23
+        },
+        "hidden": [],
+        "scrollDrivenMax": 23,
+        "grid": {
+          "cards": 25,
+          "emptyState": false,
+          "placeholderSvgInReveal": 67,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 120,
+          "galleryItems": 0
+        },
+        "scrollable": 10943,
+        "verdict": "PASA"
+      },
+      {
+        "estado": "muy-largo",
+        "ruta": "/products/fixture-long-title",
+        "alcanzable": true,
+        "motivo": "Producto \"fixture-long-title\" con titulo de 120 caracteres.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 0,
+          "decorated": 0,
+          "revealedMark": 0
+        },
+        "hidden": [],
+        "scrollDrivenMax": 0,
+        "grid": {
+          "cards": 0,
+          "emptyState": false,
+          "placeholderSvgInReveal": 0,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 120,
+          "galleryItems": 0
+        },
+        "scrollable": 2344,
+        "verdict": "PASA"
+      },
+      {
+        "estado": "falta-imagen",
+        "ruta": "/products/fixture-media-3d-video",
+        "alcanzable": true,
+        "motivo": "Producto \"fixture-media-3d-video\" sin imagenes: cae en placeholder_svg_tag.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 0,
+          "decorated": 0,
+          "revealedMark": 0
+        },
+        "hidden": [],
+        "scrollDrivenMax": 0,
+        "grid": {
+          "cards": 0,
+          "emptyState": false,
+          "placeholderSvgInReveal": 0,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 120,
+          "galleryItems": 4
+        },
+        "scrollable": 3144,
+        "verdict": "PASA"
+      },
+      {
+        "estado": "unica-imagen-galeria",
+        "ruta": "/products/fixture-focal-point",
+        "alcanzable": true,
+        "motivo": "Producto \"fixture-focal-point\" con 1 sola imagen de galeria.",
+        "measured": true,
+        "noMeasureReason": null,
+        "failures": [],
+        "status": 200,
+        "themeJsRan": true,
+        "engine": {
+          "revealReady": true,
+          "pending": 0,
+          "settled": 0,
+          "decorated": 0,
+          "revealedMark": 0
+        },
+        "hidden": [],
+        "scrollDrivenMax": 0,
+        "grid": {
+          "cards": 0,
+          "emptyState": false,
+          "placeholderSvgInReveal": 0,
+          "placeholderUnveiled": [],
+          "marqueeItemsPerGroup": null,
+          "longestHeading": 120,
+          "galleryItems": 1
+        },
+        "scrollable": 2410,
+        "verdict": "PASA"
+      }
+    ],
+    "measuredBy": "chromium-full",
+    "scenario": "full"
+  },
+  "shortRoute": {
+    "estado": "ruta-corta",
+    "ruta": "/collections/single-product-test",
+    "alcanzable": true,
+    "motivo": "Guardia de fin de pagina: rango de entrada que puede no completarse nunca.",
+    "measured": true,
+    "noMeasureReason": "La ruta tiene 993 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE.",
+    "failures": [],
+    "status": 200,
+    "themeJsRan": true,
+    "engine": {
+      "revealReady": true,
+      "pending": 0,
+      "settled": 0,
+      "decorated": 0,
+      "revealedMark": 0
+    },
+    "hidden": [],
+    "scrollDrivenMax": 0,
+    "grid": {
+      "cards": 2,
+      "emptyState": false,
+      "placeholderSvgInReveal": 0,
+      "placeholderUnveiled": [],
+      "marqueeItemsPerGroup": null,
+      "longestHeading": 39,
+      "galleryItems": 0
+    },
+    "scrollable": 993,
+    "verdict": "NO_MEDIBLE",
+    "warnings": [
+      "La ruta tiene 993 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    ],
+    "measuredBy": "chromium-full",
+    "scenario": "full"
+  },
+  "keyframes": {
+    "expected": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle",
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "observed": [
+      "scroll-rise",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle"
+    ],
+    "notObserved": [
+      "hero-parallax",
+      "marquee-drift"
+    ],
+    "allObservedNames": [
+      "announcement-reveal",
+      "editorial-marquee",
+      "gallery-media-in",
+      "hero-content-settle",
+      "lookbook-hotspot-pulse",
+      "scroll-fade",
+      "scroll-line-rise",
+      "scroll-rise",
+      "scroll-unveil",
+      "scroll-unveil-settle"
+    ]
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "nombre": "Todos los proyectos arrancaron y terminaron",
+      "estado": "NO_MEDIBLE",
+      "detalle": "firefox-no-scroll-driven: No se pudo lanzar firefox: browserType.launch: Executable doesn't exist at /opt/pw-browsers/firefox-1543/firefox/firefox\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed . Instalalo con: npx playwright install firefox"
+    },
+    {
+      "id": "G1",
+      "nombre": "Axioma anti-invisible: 0 pendientes y 0 ocultos tras recorrer",
+      "estado": "PASA",
+      "detalle": "13 fila(s) medidas sin un solo elemento oculto."
+    },
+    {
+      "id": "G2",
+      "nombre": "Motor nativo: animaciones scroll-driven > 0 en modo full con soporte",
+      "estado": "PASA",
+      "detalle": "2 fila(s): /=15, /collections/permanent-collection=5."
+    },
+    {
+      "id": "G3",
+      "nombre": "prefers-reduced-motion: reduce apaga el motor por completo",
+      "estado": "PASA",
+      "detalle": "/: reveal=0 scrollAnim=0 ready=false | /collections/permanent-collection: reveal=0 scrollAnim=0 ready=false | /products/serra-coat: reveal=0 scrollAnim=0 ready=false"
+    },
+    {
+      "id": "G4",
+      "nombre": "Rama @supports not: el respaldo IntersectionObserver revela",
+      "estado": "NO_MEDIBLE",
+      "detalle": "El proyecto de Firefox no corrio."
+    },
+    {
+      "id": "G5",
+      "nombre": "GSAP erradicado (window.gsap/ScrollTrigger y scripts del tema)",
+      "estado": "PASA",
+      "detalle": "6 fila(s) sin gsap ni ScrollTrigger y sin script del tema con \"gsap\"/\"motion\"."
+    },
+    {
+      "id": "G6",
+      "nombre": "CLS durante el scroll < 0.1",
+      "estado": "PASA",
+      "detalle": "maximo 0.0208 en 6 fila(s)."
+    },
+    {
+      "id": "G7",
+      "nombre": "40 tabulaciones sin foco invisible (WCAG 2.4.7 / 2.4.11)",
+      "estado": "PASA",
+      "detalle": "6 recorrido(s), 119 destinos distintos, 0 invisibles."
+    },
+    {
+      "id": "G8",
+      "nombre": "Guardia de fin de pagina en ruta corta",
+      "estado": "NO_MEDIBLE",
+      "detalle": "/collections/single-product-test: scroll=993px, pendientes=0. La ruta tiene 993 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    },
+    {
+      "id": "G9",
+      "nombre": "Estados degenerados (Gate 2 del proyecto)",
+      "estado": "PASA",
+      "detalle": "vacio=PASA, unico=PASA, masivo=PASA, muy-largo=PASA, falta-imagen=PASA, unica-imagen-galeria=PASA"
+    },
+    {
+      "id": "G10",
+      "nombre": "Capturas a mitad de gesto",
+      "estado": "PASA",
+      "detalle": "6 PNG en evidence/, 6 con el gesto verificado a medio recorrido."
+    }
+  ],
+  "summary": {
+    "rowsTotal": 13,
+    "rowsMeasured": 13,
+    "rowsFailed": 0,
+    "rowsNotMeasured": 1,
+    "projectsIncomplete": [
+      {
+        "name": "firefox-no-scroll-driven",
+        "launched": false,
+        "reason": "No se pudo lanzar firefox: browserType.launch: Executable doesn't exist at /opt/pw-browsers/firefox-1543/firefox/firefox\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed . Instalalo con: npx playwright install firefox"
+      }
+    ],
+    "hardFailures": [],
+    "notMeasuredReasons": [
+      "ruta-corta /collections/single-product-test :: La ruta tiene 993 px de scroll: no es realmente corta, asi que NO prueba la guardia de fin de pagina. Pasa otra con MOTION_SHORT_ROUTE."
+    ]
+  },
+  "verdict": "INCOMPLETO"
+}
