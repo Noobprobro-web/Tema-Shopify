@@ -510,6 +510,7 @@
   class ProductGallery extends ThemeElement {
     connectedCallback() {
       this.startListening();
+      this.guardUnsizedModels();
       if (this.dataset.layout !== 'thumbnails') {
         this.initCarousel();
         return;
@@ -535,6 +536,38 @@
       const initialMedia = this.items.find((item) => item.hasAttribute('data-selected'))
         || this.items[0];
       this.selectMedia(initialMedia.dataset.productMediaId, false);
+    }
+
+    // WCAG 2.4.7. Un <model-viewer> entra en la tabulacion por si mismo, pero hasta que su
+    // componente carga (o mientras su diapositiva no esta maquetada) mide 0 de ancho y el
+    // foco caeria en un elemento invisible. Mientras no tenga caja se vuelve inert; al
+    // recibir tamano vuelve a ser operable (3D y AR no se tocan).
+    guardUnsizedModels() {
+      const models = Array.from(this.querySelectorAll('model-viewer'));
+      if (models.length === 0 || typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver((entries) => {
+        entries.forEach(({ target, contentRect }) => {
+          target.inert = contentRect.width < 1 || contentRect.height < 1;
+        });
+      });
+      models.forEach((model) => {
+        model.inert = model.offsetWidth < 1;
+        observer.observe(model);
+      });
+      this.disconnectModelObserver = () => observer.disconnect();
+    }
+
+    disconnectedCallback() {
+      this.disconnectModelObserver?.();
+      super.disconnectedCallback();
+    }
+
+    // En modo carrusel las diapositivas fuera de la vista no deben recibir foco de teclado:
+    // se llega a ellas con anterior y siguiente. En escritorio todas son operables.
+    syncSlideInert() {
+      this.slides.forEach((slide, position) => {
+        slide.inert = this.carouselQuery.matches && position !== this.currentSlide;
+      });
     }
 
     // 4F-001. Carrusel movil. Por debajo de 62rem la galeria (stack o grid) es una fila
@@ -595,6 +628,7 @@
       const slideIndex = Math.max(0, this.currentSlide >= 0 ? this.currentSlide : 0);
 
       this.pager.hidden = !active;
+      this.syncSlideInert();
 
       // Una pista desplazable tiene que poder recibir el foco para que el teclado la mueva
       // (axe: scrollable-region-focusable). Fuera del carrusel no es desplazable y no debe
@@ -645,6 +679,7 @@
       this.slides.forEach((slide, position) => {
         if (position !== index) pauseMedia(slide);
       });
+      this.syncSlideInert();
 
       if (this.counter) this.counter.textContent = String(index + 1);
       const focusedStep = this.steps.find(

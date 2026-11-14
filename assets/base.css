@@ -1961,6 +1961,17 @@ body[data-sticky-cart-visible] {
 
 .product-card__action {
   margin-block-start: var(--space-2);
+  min-width: 0;
+}
+
+/* Rejilla de 2 columnas a 320px con letra grande: el boton cabe en su celda y el texto
+   se parte antes que desbordar. */
+.product-card__action .button {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding-inline: clamp(0.5rem, 6%, 1.25rem);
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 /* B4. El quick add se asienta al pasar el cursor. Conserva SIEMPRE su espacio en la
@@ -7737,6 +7748,13 @@ copy-text {
 
 .product-gallery__item model-viewer {
   min-height: clamp(24rem, 62vw, 48rem);
+}
+
+/* El item recorta con overflow:hidden: un contorno exterior no se veria. */
+.product-gallery__item model-viewer:focus-visible,
+.product-gallery__item video:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: -4px;
 }
 
 @media (min-width: 48rem) {
