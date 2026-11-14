@@ -234,3 +234,23 @@ Comandos de esta redacción (locales, rehechos contra `f81774e`): `git status --
 2. El arreglo de la colección vacía (commit `303bf4d`) está verificado por código y por 2 revisiones, pero NO en tienda real. Hay que comprobar en el HTML que, con la colección `empty-test`, no aparecen `product-grid__item--promotion` ni `data-product-list`.
 3. Los hallazgos visuales previos (P2) proceden de esas capturas y por tanto son indicativos, no concluyentes.
 4. Tarjetas, handles y demás: sin cambios.
+
+## 9. Resultados en la tienda nueva (2026-11-14)
+
+1. Entorno: las variables `STOREFRONT_PASSWORD` y `SHOPIFY_CLI_THEME_TOKEN` ya están activas en la sesión y el CLI conecta con exit 0.
+2. R-A `--read-only` en los 3 presets (`run.mjs` SHA256 `103c1551fc1d639e93a882900885ba9283d8c260d49c938543d6299ac1a4292f`; JSON `RA-RB-read-only-20261114T150311681Z-5a78583c-…`): `completed_with_limits`, 0 de 132 checks fallidos (90 passed, 36 observed, 6 not_run por idioma no renderizado), axe 0 violaciones y 1 aviso `TEARDOWN_TARGET_CLOSED` esperado.
+3. R-B `--cart` en Sartorial (`RA-RB-cart-20261114T150443564Z-96c180a2-…`): `completed_with_limits`, 6/6 passed, limpieza verificada. Salvedad P2-2: el informe no guarda el producto añadido (se deduce de `stores.json`: `serra-coat`) y B-04 no tiene fila ni se ejercita el campo de nota del tema (`show_cart_note=false`).
+4. Colección vacía verificada en el HTML real de los 3 presets tras `303bf4d`: 0 `product-grid__item--promotion`, 0 `data-product-list` y 1 `collection-products__empty`.
+5. Nodos axe `incomplete` clasificados en `ANALISIS-ARIA-VALID-ATTR-COLECCION-001` (falsos positivos). Los 20 nodos de contraste de la colección de Imprint quedan no concluyentes.
+6. Corrida R-A anterior fallida por `TARGET_CLOSED` en teardown con el SHA `5c03c139…`: es la evidencia del motivo del cambio del runner.
+7. Lección: `releaseRoutes/unrouteAll` abrió un hueco de política y se retiró (`REVIEW-HARNESS-PATCH-003`).
+8. Lighthouse: el script falla la autenticación en la tienda real (código 3); la corrección está en curso y aún no hay medición.
+9. GPT: 0/68 imágenes tras 4 comprobaciones.
+
+Tareas manuales de Johandry pendientes:
+
+1. Políticas de la tienda.
+2. Colecciones de ejemplo.
+3. App de suscripciones.
+
+Limpieza local pendiente: `rm /axe_head.js`.
