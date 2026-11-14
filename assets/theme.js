@@ -2768,6 +2768,19 @@
         event.preventDefault();
         this.close(true);
       });
+      // Theme editor only (these events are never dispatched on the storefront): show the
+      // drawer while its section or one of its blocks is selected, close it on deselect.
+      this.listen(document, 'shopify:section:select', (event) => {
+        if (event.detail?.sectionId === this.dataset.sectionId) this.open();
+      });
+      this.listen(document, 'shopify:section:deselect', (event) => {
+        if (event.detail?.sectionId === this.dataset.sectionId) this.close(false);
+      });
+      // The editor re-renders the section after a setting change; reopen the fresh element.
+      this.listen(document, 'shopify:section:load', (event) => {
+        if (event.detail?.sectionId === this.dataset.sectionId) this.open();
+      });
+      this.listen(this, 'shopify:block:select', () => this.open());
       // B-03. While the page is hidden another tab can change the cart.
       this.listen(document, 'visibilitychange', () => {
         if (document.visibilityState === 'hidden') this.cartSnapshotStale = true;

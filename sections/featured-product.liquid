@@ -515,7 +515,7 @@
     >
     <script src="{{ 'shopify-xr.js' | shopify_asset_url }}" defer></script>
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
+      (() => {
         const setupFeaturedProductModels = () => {
           if (!window.ShopifyXR) {
             document.addEventListener('shopify_xr_initialized', setupFeaturedProductModels, { once: true });
@@ -539,11 +539,28 @@
           });
         };
 
-        setupFeaturedProductModels();
-        window.Shopify?.loadFeatures?.([
-          { name: 'model-viewer-ui', version: '1.0', onLoad: setupFeaturedModelViewerUI },
-        ]);
-      }, { once: true });
+        // Idempotent: the registered / ready flags make repeated calls harmless.
+        const initFeaturedProductModels = () => {
+          setupFeaturedProductModels();
+          window.Shopify?.loadFeatures?.([
+            { name: 'model-viewer-ui', version: '1.0', onLoad: setupFeaturedModelViewerUI },
+          ]);
+        };
+
+        // The theme editor adds or reloads the section after DOMContentLoaded has fired.
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initFeaturedProductModels, { once: true });
+        } else {
+          initFeaturedProductModels();
+        }
+        // Registered once per page: this inline script can run again when the editor re-renders.
+        if (!window.themeFeaturedModelsBound) {
+          window.themeFeaturedModelsBound = true;
+          document.addEventListener('shopify:section:load', (event) => {
+            if (event.target.querySelector?.('[id^="FeaturedProductModelJSON-"]')) initFeaturedProductModels();
+          });
+        }
+      })();
     </script>
   {%- endif -%}
 </section>

@@ -21,9 +21,9 @@
         "heading": "Objects with a remembered life",
         "subheading": "<p>A catalogue of garments and objects.</p>",
         "button_primary_label": "Enter the catalogue",
-        "button_primary_url": "/collections/permanent-archive",
+        "button_primary_url": "/collections/all",
         "button_secondary_label": "View the selection",
-        "button_secondary_url": "/collections/restored-pieces",
+        "button_secondary_url": "",
         "color_scheme": "scheme-2"
       }
     },
@@ -36,7 +36,7 @@
         "quote": "What endures carries the indelible record of its creation.",
         "body": "",
         "button_label": "View the archive",
-        "button_url": "/collections/permanent-archive",
+        "button_url": "",
         "media_label": "PLATE II / ARCHIVE COLLECTION",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
@@ -58,8 +58,8 @@
     "collections": {
       "type": "curated-showcase",
       "blocks": {
-        "decade80": { "type": "collection_tab", "settings": { "collection": "permanent-archive", "tab_label": "" } },
-        "decade90": { "type": "collection_tab", "settings": { "collection": "restored-pieces", "tab_label": "Selected pieces" } }
+        "decade80": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Permanent archive" } },
+        "decade90": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Selected pieces" } }
       },
       "block_order": ["decade80", "decade90"],
       "settings": {

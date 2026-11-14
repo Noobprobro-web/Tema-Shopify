@@ -22,7 +22,7 @@
         "button_primary_label": "Discover the collection",
         "button_primary_url": "/collections/all",
         "button_secondary_label": "Explore tailoring",
-        "button_secondary_url": "/collections/tailoring",
+        "button_secondary_url": "",
         "color_scheme": "scheme-2"
       }
     },
@@ -43,9 +43,9 @@
     "collections": {
       "type": "curated-showcase",
       "blocks": {
-        "new": { "type": "collection_tab", "settings": { "collection": "new-forms", "tab_label": "New forms" } },
-        "permanent": { "type": "collection_tab", "settings": { "collection": "permanent-collection", "tab_label": "Permanent collection" } },
-        "tailoring": { "type": "collection_tab", "settings": { "collection": "tailoring", "tab_label": "Tailoring salon" } }
+        "new": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "New forms" } },
+        "permanent": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Permanent collection" } },
+        "tailoring": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Tailoring salon" } }
       },
       "block_order": ["new", "permanent", "tailoring"],
       "settings": {
@@ -119,7 +119,7 @@
         "quote": "True bespoke luxury lives in the invisible mastery of the cut.",
         "body": "",
         "button_label": "Explore tailoring",
-        "button_url": "/collections/tailoring",
+        "button_url": "",
         "media_label": "ATELIER ARCHIVE / STUDY 07",
         "use_surface_background": true,
         "color_scheme": "scheme-3"

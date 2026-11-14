@@ -20,9 +20,9 @@
         "heading": "Engineered utility, precise discipline",
         "subheading": "<p>Modular gear and desk objects for daily carry.</p>",
         "button_primary_label": "Inspect system inventory",
-        "button_primary_url": "/collections/daily-objects",
+        "button_primary_url": "/collections/all",
         "button_secondary_label": "Explore desk and study",
-        "button_secondary_url": "/collections/desk-and-study",
+        "button_secondary_url": "",
         "color_scheme": "scheme-1"
       }
     },
@@ -45,10 +45,10 @@
         "collection": {
           "type": "card_featured",
           "settings": {
-            "collection": "desk-and-study",
+            "collection": "all",
             "eyebrow": "[01] MEMBRANE TELEMETRY",
             "heading": "EDC systems",
-            "link": "/collections/desk-and-study"
+            "link": ""
           }
         },
         "product1": {
@@ -67,7 +67,7 @@
           "type": "card_editorial",
           "settings": {
             "link_label": "Explore leather goods",
-            "link": "/collections/leather-goods",
+            "link": "",
             "eyebrow": "[04] BLUEPRINT ANALYSIS",
             "heading": "Leather goods",
             "body": ""
@@ -85,9 +85,9 @@
     "collections": {
       "type": "curated-showcase",
       "blocks": {
-        "daily": { "type": "collection_tab", "settings": { "collection": "daily-objects", "tab_label": "Daily objects" } },
-        "workspace": { "type": "collection_tab", "settings": { "collection": "desk-and-study", "tab_label": "Workspace" } },
-        "limited": { "type": "collection_tab", "settings": { "collection": "leather-goods", "tab_label": "" } }
+        "daily": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Daily objects" } },
+        "workspace": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Workspace" } },
+        "limited": { "type": "collection_tab", "settings": { "collection": "all", "tab_label": "Leather goods" } }
       },
       "block_order": ["daily", "workspace", "limited"],
       "settings": {
@@ -154,7 +154,7 @@
         "quote": "Form follows engineering tolerance.",
         "body": "",
         "button_label": "Inspect collection",
-        "button_url": "/collections/daily-objects",
+        "button_url": "",
         "media_label": "TECHNICAL REPORT / 01",
         "use_surface_background": false,
         "color_scheme": "scheme-3"

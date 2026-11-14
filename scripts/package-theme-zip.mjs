@@ -85,7 +85,13 @@ const INCLUDE_ROOT_FILES = ['release-notes.md', 'update_extension.json'];
  * Rutas exactas (relativas a la raiz) que se omiten del ZIP sin borrarse del
  * repo. C-04-P conserva las plantillas de documentación solo en el repositorio.
  */
-const EXCLUDED_PATHS = ['templates/page.documentation.json', 'templates/page.support.json'];
+const EXCLUDED_PATHS = [
+  'templates/page.documentation.json',
+  'templates/page.support.json',
+  // Secciones de documentacion del vendedor: solo las usan las plantillas excluidas (D23).
+  'sections/main-documentation.liquid',
+  'sections/main-support.liquid',
+];
 
 function fail(msg) {
   console.error('[package-theme-zip] ERROR: ' + msg);
