@@ -142,6 +142,8 @@ body {
 body[data-drawer-open],
 body[data-modal-open] {
   overflow: hidden;
+  /* LV-03: ancho de la barra de scroll que el bloqueo retira (theme.js, syncDialogScrollLocks). */
+  padding-right: var(--scrollbar-compensation, 0px);
 }
 
 img,
@@ -1353,6 +1355,7 @@ button[aria-busy='true']:disabled {
    dejaba precio y boton de compra bajo el pliegue a 1280x800. Mismo tipo, cuerpo menor. */
 .product-main__title[data-long-title='1'] {
   max-width: 28ch;
+  line-height: 1.2;
   font-size: calc(1.6rem * var(--font-heading-scale));
 }
 
@@ -1408,7 +1411,8 @@ button[aria-busy='true']:disabled {
   text-align: center;
 }
 
-.variant-picker__input:checked + .variant-picker__label {
+.variant-picker__input:checked + .variant-picker__label,
+a.variant-picker__label[aria-current] {
   border-color: var(--color-button);
   background: var(--color-button);
   color: var(--color-button-label);
@@ -1914,6 +1918,9 @@ body[data-sticky-cart-visible] {
 }
 
 .product-card__content {
+  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver LV05-NF01 mas abajo),
+     asi que este valor es a la vez su alto real y la reserva de LV-05. */
+  --card-swatch-row-height: var(--tap-target-min);
   display: grid;
   gap: var(--space-1);
 }
@@ -1996,10 +2003,14 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .product-card__swatches {
   --card-swatch-size: 1.5rem;
+  --card-swatch-text-min: 4.75rem;
   container: card-swatches / inline-size;
   display: flex;
-  flex-wrap: wrap;
+  /* LV05-NF01. Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
+     a otra fila. El nombre completo sigue en el aria-label de cada swatch. */
+  flex-wrap: nowrap;
   align-items: center;
+  height: var(--card-swatch-row-height);
   /* Cada swatch ocupa 44x44 para el toque, pero el circulo mide 24: el margen negativo
      alinea el primer circulo con el borde del titulo. */
   margin-inline-start: calc((var(--tap-target-min) - var(--card-swatch-size)) / -2);
@@ -2007,46 +2018,259 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .product-card__swatch-group {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .product-card__swatch-item {
   display: inline-flex;
+  min-width: 0;
 }
 
-/* Dos swatches y el contador en una tarjeta estrecha (la rejilla movil de dos columnas);
-   cuatro desde 260px de tarjeta. Tres swatches mas el contador no caben a 44px cada uno. */
-.product-card__swatches .card-swatch--wide-only,
-.product-card__swatches .card-swatch-more--wide {
+.product-card__swatches .card-swatch-more {
+  flex-shrink: 0;
+}
+
+/* LV05-CN3 y LV05-CN5. Liquid (snippets/card-swatch-fit.liquid) escribe en data-swatch-fit
+   cuantas piezas caben en cada banda de ancho de la fila (a 120-140, b 140-180 ... h >= 380),
+   estimando 44 por color y por contador, 76 (--card-swatch-text-min, unos 6 caracteres
+   visibles) por nombre largo y el ancho propio de un nombre corto. Las cifras son px con la
+   letra base de 16px: cada banda empieza en max(px, rem), asi que con la letra del navegador
+   al 125 o 150 % las bandas crecen con el texto y la estimacion sigue siendo valida. Solo se
+   recorta lo que no cabe; cada contador (--k1 a --k4) cuenta lo que queda oculto. La altura
+   de la fila no cambia. */
+.product-card__swatches .card-swatch-more--fit {
   display: none;
 }
 
-@container card-swatches (min-width: 270px) {
-  .product-card__swatches .card-swatch--wide-only,
-  .product-card__swatches .card-swatch-more--wide {
+@container card-swatches (max(120px, 7.5rem) <= width < max(140px, 8.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='a1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='a2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='a3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='a1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='a2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='a3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='a4'] ~ .card-swatch-more--k4 {
     display: inline-grid;
   }
+}
 
-  .product-card__swatches .product-card__swatch-item.card-swatch--wide-only {
-    display: inline-flex;
+@container card-swatches (max(140px, 8.75rem) <= width < max(180px, 11.25rem)) {
+  .product-card__swatch-group[data-swatch-fit~='b1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='b2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='b3'] .card-swatch--n4 {
+    display: none;
   }
 
-  .product-card__swatches .card-swatch-more--narrow {
+  .product-card__swatch-group[data-swatch-fit~='b1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='b2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='b3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='b4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(180px, 11.25rem) <= width < max(220px, 13.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='c1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='c2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='c3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='c1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='c2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='c3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='c4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(220px, 13.75rem) <= width < max(260px, 16.25rem)) {
+  .product-card__swatch-group[data-swatch-fit~='d1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='d2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='d3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='d1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='d2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='d3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='d4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(260px, 16.25rem) <= width < max(300px, 18.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='e1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='e2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='e3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='e1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='e2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='e3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='e4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(300px, 18.75rem) <= width < max(340px, 21.25rem)) {
+  .product-card__swatch-group[data-swatch-fit~='f1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='f2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='f3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='f1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='f2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='f3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='f4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (max(340px, 21.25rem) <= width < max(380px, 23.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='g1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='g2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='g3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='g1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='g2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='g3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='g4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (width >= max(380px, 23.75rem)) {
+  .product-card__swatch-group[data-swatch-fit~='h1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='h2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit~='h3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit~='h1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit~='h2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit~='h3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit~='h4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+/* LV05-CN5. Red de seguridad para filas mas estrechas que la banda a (zoom del 200 %, letra
+   grande, vista de lista estrecha), donde la estimacion no garantiza nada: un swatch y el
+   contador; con menos de dos piezas de toque, solo el primer swatch; sin sitio para una,
+   ninguno. El enlace del producto sigue llevando a todas las opciones. */
+@container card-swatches (width < max(120px, 7.5rem)) {
+  .product-card__swatches .product-card__swatch-group :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--fit {
+    display: none;
+  }
+
+  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--k1 {
+    display: inline-grid;
+  }
+}
+
+/* LV05-CN6. Sin contador visible, el total queda para el lector de pantalla. */
+.product-card__swatches .card-swatch-count {
+  display: none;
+}
+
+@container card-swatches (width < 88px) {
+  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--fit {
+    display: none;
+  }
+
+  .product-card__swatches .card-swatch-count {
+    display: block;
+  }
+
+  /* Sin contador, el primer swatch de texto toma lo que haya en la fila, sin bajar de la
+     pieza de toque. */
+  .product-card__swatches .product-card__swatch-group :is(.card-swatch--text-min, .card-swatch--text-fit) {
+    flex-shrink: 1;
+    min-width: var(--tap-target-min);
+    max-width: 100%;
+  }
+}
+
+@container card-swatches (width < 44px) {
+  .product-card__swatches .product-card__swatch-group {
     display: none;
   }
 }
 
-/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. */
-.card-swatch--text {
+/* LV-05. Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
+   las tarjetas sin ellos reservan el alto de la fila de swatches (--card-swatch-row-height)
+   para que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento
+   vacio: no cambia el DOM ni el orden de lectura. Solo en rejillas de varias columnas: la
+   vista de lista, bento y curated showcase quedan fuera, y la rejilla de "2" columnas y la
+   de busqueda solo entran desde 48rem, porque por debajo son de una columna y la reserva no
+   alinearia nada. Sin :has() no se reserva nada y la tarjeta queda como antes.
+   Pendiente LV05-V01 (ledger): si el vendor falta en unas tarjetas de la fila y no en otras,
+   los titulos siguen desfasados por el alto de esa linea. */
+:is(
+    .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
+    .product-recommendations__grid,
+    .recently-viewed__grid,
+    .main-404__product-grid,
+    .main-article__product-grid
+  ):has(.product-card__swatches)
+  .product-card__content:not(:has(> .product-card__swatches))::before {
+  content: '';
+  display: block;
+  height: var(--card-swatch-row-height);
+}
+
+@media (min-width: 48rem) {
+  :is(.product-grid[data-grid-columns='2'], .search-results-grid):has(.product-card__swatches)
+    .product-card__content:not(:has(> .product-card__swatches))::before {
+    content: '';
+    display: block;
+    height: var(--card-swatch-row-height);
+  }
+}
+
+/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. LV05-NF01: el
+   selector doble gana a .card-swatch (width fijo de 44px, declarado despues); sin el, la
+   etiqueta desbordaba el boton y se montaba sobre la vecina. */
+.card-swatch.card-swatch--text {
+  /* La pista puede bajar de 0 al ancho de la etiqueta: el boton se encoge en una fila
+     estrecha y la etiqueta recorta con elipsis dentro de el. */
+  grid-template-columns: minmax(0, auto);
   width: auto;
   min-width: var(--tap-target-min);
   max-width: 100%;
   padding-inline: var(--space-2xs);
 }
 
+/* LV05-CN1. Un nombre largo se encoge hasta el minimo legible (unos 6 caracteres) y no mas;
+   uno corto (5 letras o menos) no se encoge. El nombre completo va en title (raton) y en
+   aria-label. */
+/* LV05-CN5. Si solo cabe una pieza y el contador (banda a, o letra grande), el minimo cede
+   hasta dejar sitio al contador, sin bajar de la pieza de toque. */
+.product-card__swatch-group .card-swatch--text-min {
+  flex-shrink: 1;
+  min-width: var(--card-swatch-text-min);
+  min-width: max(var(--tap-target-min), min(var(--card-swatch-text-min), 100cqi - var(--tap-target-min)));
+}
+
+.product-card__swatch-group .card-swatch--text-fit {
+  flex-shrink: 0;
+  max-width: max(var(--tap-target-min), min(100%, 100cqi - var(--tap-target-min)));
+}
+
 .card-swatch__text {
   display: block;
-  max-width: 8rem;
+  min-width: 0;
+  max-width: min(8rem, 100%);
   padding: 0.25rem 0.55rem;
   overflow: hidden;
   border: 1px solid var(--color-control-border);
@@ -4142,7 +4366,7 @@ marquee-banner {
 
   /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
      columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
-     Los heroes alineados a la izquierda (Sartorial, Couture, Edition) no cambian. */
+     Los heroes alineados a la izquierda (Sartorial, Imprint) no cambian. */
   .hero-editorial--align-center .hero-editorial__heading {
     font-size: min(calc(4.5rem * var(--font-heading-scale)), 6.2vw);
   }
@@ -5601,7 +5825,7 @@ product-recommendations:not([hidden]):empty {
 .collection-main__banner {
   margin: 0;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 21 / 8;
   border: 1px solid var(--color-border-hairline);
   background: var(--color-surface);
 }
@@ -5612,6 +5836,12 @@ product-recommendations:not([hidden]):empty {
   object-fit: cover;
 }
 
+@media (width < 48rem) {
+  .collection-main__body {
+    gap: var(--space-4);
+  }
+}
+
 @media (min-width: 48rem) {
   .selling-plans__choices {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -5620,10 +5850,6 @@ product-recommendations:not([hidden]):empty {
   .product-recommendations__grid[data-columns='3'],
   .product-recommendations__grid[data-columns='4'] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .collection-main__banner {
-    aspect-ratio: 21 / 8;
   }
 }
 
@@ -6387,6 +6613,19 @@ copy-text {
   font-weight: 700;
 }
 
+.collection-products__empty {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: var(--space-3xl) var(--space-lg);
+  text-align: center;
+}
+
+.collection-products__empty p {
+  font-family: var(--font-heading-family);
+  font-size: calc(1.5rem * var(--font-heading-scale));
+  line-height: 1.3;
+}
+
 .main-search__empty,
 .main-search__prompt {
   max-width: 48rem;
@@ -7032,6 +7271,11 @@ copy-text {
   min-height: 52px;
 }
 
+.site-footer__newsletter .newsletter-form__field input::placeholder {
+  color: inherit;
+  opacity: 1;
+}
+
 .site-footer__utilities {
   display: grid;
   margin-block-start: var(--space-2xl);
@@ -7086,6 +7330,14 @@ copy-text {
 
 .newsletter-section__text {
   max-width: 38rem;
+}
+
+/* Contraste en cualquier esquema (WCAG 1.4.3): el placeholder por defecto del navegador
+   (#757575) no sigue el esquema y baja a 2.12:1 en scheme-4. El borde ya sale de
+   --color-control-border (regla global de input), que da >=3.36:1 en los 5 esquemas. */
+.newsletter-section .newsletter-form__field input::placeholder {
+  color: var(--color-foreground-muted);
+  opacity: 1;
 }
 
 .predictive-search,
@@ -9094,34 +9346,37 @@ html[data-motion-style='heritage'] {
     text-underline-offset: 3px;
   }
 
+  /* Foco: el color del anillo sale del esquema (--color-foreground), igual que la regla base
+     :focus-visible. Un gris o un laton fijos bajan de 3:1 en esquemas oscuros o calidos (A-03).
+     Cada estilo solo cambia el outline-offset. */
   html[data-motion-style='technical'] .button:focus-visible,
   html[data-motion-style='technical'] input:focus-visible,
   html[data-motion-style='technical'] select:focus-visible {
-    outline: 2px solid #2b2b2b;
+    outline: var(--focus-width) solid var(--color-foreground);
     outline-offset: 2px;
   }
 
   /* Heritage: patina de laton envejecido y cursivas solemnes */
   html[data-motion-style='heritage'] .button:hover:not([disabled]) {
-    border-color: #b5885c;
-    color: #b5885c;
+    border-color: var(--color-foreground);
+    color: var(--color-foreground);
     background: transparent;
     transform: none;
   }
 
   html[data-motion-style='heritage'] .product-card:hover .product-card__title a {
-    color: #b5885c;
+    color: var(--color-foreground);
     font-style: italic;
   }
 
   html[data-motion-style='heritage'] .site-header__link:hover {
-    color: #b5885c;
+    color: var(--color-foreground);
   }
 
   html[data-motion-style='heritage'] .button:focus-visible,
   html[data-motion-style='heritage'] input:focus-visible,
   html[data-motion-style='heritage'] select:focus-visible {
-    outline: 2px solid #b5885c;
+    outline: var(--focus-width) solid var(--color-foreground);
     outline-offset: 3px;
   }
 }
@@ -9942,7 +10197,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   }
 }
 
-/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Edition) y procedencia (Archive). */
+/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Imprint) y procedencia (Archive). */
 .product-technical-specs,
 .product-provenance {
   display: grid;

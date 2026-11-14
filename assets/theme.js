@@ -21,6 +21,43 @@
       return element.getClientRects().length > 0;
     });
 
+  const isFocusTargetUsable = (element) => Boolean(element?.isConnected
+    && !element.closest('[hidden], [inert]')
+    && element.getClientRects().length > 0);
+
+  // Cierre por pulsacion en el fondo de un cajon. preventDefault evita que el mousedown que
+  // sigue (o el de compatibilidad tras un toque) mande el foco a BODY. En un toque, el click
+  // sintetico llega despues de ocultar el fondo y caeria en lo que queda debajo (un enlace
+  // del main, el carrito de la cabecera): ese unico click se descarta. Caduca con el
+  // siguiente pointerdown, con pointercancel (el gesto paso a scroll y no habra click) o a
+  // los 800 ms. Un click con detail 0 (teclado, lector de pantalla, switch, click()) no
+  // viene de un puntero y nunca se descarta.
+  const swallowNextClick = () => {
+    let timer = 0;
+    const release = () => {
+      window.removeEventListener('click', swallow, true);
+      window.removeEventListener('pointerdown', release, true);
+      window.removeEventListener('pointercancel', release, true);
+      window.clearTimeout(timer);
+    };
+    const swallow = (event) => {
+      if (event.detail === 0) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      release();
+    };
+    window.addEventListener('click', swallow, true);
+    window.addEventListener('pointerdown', release, true);
+    window.addEventListener('pointercancel', release, true);
+    timer = window.setTimeout(release, 800);
+  };
+
+  const dismissFromOverlay = (event, close) => {
+    event.preventDefault();
+    if (event.pointerType !== 'mouse') swallowNextClick();
+    close();
+  };
+
   const trapFocus = (container, initialFocus = null) => {
     const handleKeydown = (event) => {
       if (event.key !== 'Tab') return;
@@ -73,9 +110,32 @@
     });
   };
 
+  // LV-03. El bloqueo (overflow: hidden en body, base.css) quita la barra de scroll clasica
+  // de escritorio y el contenido se corria su ancho. Se mide la barra antes de bloquear y
+  // body la compensa con padding-right (--scrollbar-compensation). Con barras superpuestas
+  // (moviles) la medida es 0. No se usa scrollbar-gutter global: cambiaria el ancho de las
+  // secciones a sangre con la pagina sin bloquear.
   const syncDialogScrollLocks = () => {
-    document.body.toggleAttribute('data-drawer-open', Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]')));
-    document.body.toggleAttribute('data-modal-open', Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]')));
+    const { body } = document;
+    const wasLocked = body.hasAttribute('data-drawer-open') || body.hasAttribute('data-modal-open');
+    const drawerOpen = Boolean(document.querySelector('theme-drawer[data-open], cart-drawer[data-open]'));
+    const modalOpen = Boolean(document.querySelector('size-guide-modal[data-open], pickup-availability[data-open], password-modal[data-open], predictive-search[data-open], product-card-variants[data-modal], product-zoom[data-open]'));
+    const locked = drawerOpen || modalOpen;
+
+    // La compensacion es lo que crece clientWidth al bloquear (la barra retirada), no
+    // innerWidth - clientWidth: en movil, con desborde horizontal, esa resta mide la escala
+    // de la pagina y daria cientos de px.
+    const widthBefore = locked && !wasLocked ? document.documentElement.clientWidth : 0;
+
+    body.toggleAttribute('data-drawer-open', drawerOpen);
+    body.toggleAttribute('data-modal-open', modalOpen);
+
+    if (locked && !wasLocked) {
+      const scrollbar = Math.max(0, document.documentElement.clientWidth - widthBefore);
+      if (scrollbar > 0) body.style.setProperty('--scrollbar-compensation', `${scrollbar}px`);
+      else body.style.removeProperty('--scrollbar-compensation');
+    }
+    if (!locked) body.style.removeProperty('--scrollbar-compensation');
   };
 
   // 5B-001, H-13. Una diapositiva que sale de la vista no puede seguir sonando: <video> se
@@ -148,6 +208,22 @@
     if (error.name === 'AbortError') throw error;
     throw new Error(errorMessage);
   });
+
+  // D-02-Q. Rejilla de cantidades de Shopify: solo valen min + k * incremento sin pasar
+  // de max. El techo real es el mayor escalon que cabe bajo max (min 2, paso 2, max 5
+  // da 4, no 5). Si ni el minimo cabe (max < min), devuelve un valor menor que min y
+  // quien llama decide como bloquear.
+  const quantityGridMax = (min, step, max) => (
+    Number.isFinite(max) ? min + Math.floor((max - min) / step) * step : Infinity
+  );
+
+  // Ajusta un valor al escalon valido mas cercano dentro de [min, techo]. En empate
+  // (justo entre dos escalones) baja al menor: no se pide mas de lo que se escribio.
+  const snapQuantity = (value, min, step, gridMax) => {
+    if (gridMax < min) return min;
+    const index = Math.ceil((value - min) / step - 0.5);
+    return Math.min(gridMax, Math.max(min, min + index * step));
+  };
 
   class ThemeElement extends HTMLElement {
     startListening() {
@@ -289,12 +365,33 @@
         this.listen(button, 'click', () => this.setOpen(false, true));
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.setOpen(false, true);
+        if (event.target !== this.overlay) return;
+        dismissFromOverlay(event, () => this.setOpen(false, true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
         event.preventDefault();
         this.setOpen(false, true);
+      });
+      // B-01 (TT-104). El corte movil/escritorio vive solo en el CSS (base.css oculta
+      // .site-header__mobile-menu en escritorio). Si el cajon abierto deja de pintarse por un
+      // cambio de ancho o un giro, se cierra aqui y devuelve scroll, inert y foco sin Escape.
+      this.listen(window, 'resize', () => {
+        this.closeIfHidden();
+        this.repairFocusHandoff();
+      }, { passive: true });
+      // Tras cerrar, el foco se sigue mientras quede en la cabecera: si un cambio de ancho
+      // oculta el control enfocado (la navegacion de escritorio al volver a movil), se
+      // reubica (ver repairFocusHandoff). Salir de la cabecera o soltar el foco a mano
+      // (clic en zona sin controles) termina el seguimiento.
+      this.focusHandoff = false;
+      this.listen(document, 'focusin', (event) => {
+        if (!this.focusScope.contains(event.target)) this.focusHandoff = false;
+      });
+      this.listen(document, 'focusout', (event) => {
+        if (!event.relatedTarget && this.focusScope.contains(event.target) && isFocusTargetUsable(event.target)) {
+          this.focusHandoff = false;
+        }
       });
     }
 
@@ -307,12 +404,60 @@
       return this.trigger?.getAttribute('aria-expanded') === 'true';
     }
 
+    // B-01. Destino de foco al cerrar: el disparador si se pinta; si no (escritorio), el
+    // primer control visible que sigue al cajon en su seccion (la navegacion principal) y,
+    // en ultimo caso, el primer control visible de la seccion. Nunca un elemento oculto.
+    get focusScope() {
+      return this.closest('[data-section-id]') || this.parentElement || document.body;
+    }
+
+    getFocusReturnTarget() {
+      if (isFocusTargetUsable(this.trigger)) return this.trigger;
+      const candidates = getFocusableElements(this.focusScope).filter((element) => !this.contains(element));
+      return candidates.find((element) => this.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING)
+        || candidates[0]
+        || null;
+    }
+
+    returnFocus() {
+      const target = this.getFocusReturnTarget();
+      this.focusHandoff = Boolean(target);
+      target?.focus({ preventScroll: true });
+    }
+
+    // Cerrar sin restoreFocus: el disparador ya no se ve. Si el foco estaba en el cajon
+    // (o cayo a BODY al ocultarse), pasa a getFocusReturnTarget.
+    closeIfHidden() {
+      if (!this.isOpen || this.trigger.getClientRects().length > 0) return;
+      const active = document.activeElement;
+      const focusWasInside = !active || active === document.body || this.contains(active);
+      this.setOpen(false);
+      if (focusWasInside) this.returnFocus();
+    }
+
+    // Si el control enfocado de la cabecera deja de pintarse tras un cierre (vuelta de 1280
+    // a 390 oculta la navegacion de escritorio), el foco va a getFocusReturnTarget en lugar
+    // de caer a BODY.
+    repairFocusHandoff() {
+      if (this.isOpen || !this.focusHandoff) return;
+      const active = document.activeElement;
+      if (active && active !== document.body) {
+        if (!this.focusScope.contains(active)) {
+          this.focusHandoff = false;
+          return;
+        }
+        if (isFocusTargetUsable(active)) return;
+      }
+      this.returnFocus();
+    }
+
     setOpen(open, restoreFocus = false) {
       if (!this.trigger || !this.overlay || !this.panel) return;
 
       // Runs before this drawer touches body[data-drawer-open] or the inert background,
       // so a closing cart drawer cannot strip the state this one is about to set.
       if (open) closeOtherDialogs(this);
+      if (open) this.focusHandoff = false;
 
       this.trigger.setAttribute('aria-expanded', String(open));
       this.panel.setAttribute('aria-hidden', String(!open));
@@ -329,7 +474,7 @@
         this.releaseFocusTrap?.();
         this.releaseFocusTrap = null;
         this.restoreBackgroundInert();
-        if (restoreFocus) this.trigger.focus();
+        if (restoreFocus) this.returnFocus();
       }
     }
 
@@ -441,6 +586,14 @@
 
     syncCarouselMode() {
       const active = this.carouselQuery.matches;
+      const pagerHasFocus = Boolean(
+        this.pager && (this.pager === document.activeElement || this.pager.contains(document.activeElement)),
+      );
+      const trackHasFocus = Boolean(
+        this.track && (this.track === document.activeElement || (this.track.contains(document.activeElement) && !pagerHasFocus)),
+      );
+      const slideIndex = Math.max(0, this.currentSlide >= 0 ? this.currentSlide : 0);
+
       this.pager.hidden = !active;
 
       // Una pista desplazable tiene que poder recibir el foco para que el teclado la mueva
@@ -449,12 +602,29 @@
       if (active) {
         this.track.tabIndex = 0;
         this.track.setAttribute('aria-label', this.getAttribute('aria-label') || '');
+        this.syncSlide(false);
       } else {
         this.track.removeAttribute('tabindex');
         this.track.removeAttribute('aria-label');
+        if (this.currentSlide < 0) this.applySlide(0, false);
       }
 
-      this.syncSlide(false);
+      // Si el paginador o la pista tenian el foco y se ocultan en escritorio, transferir
+      // el foco a un elemento interactivo y visible de la diapositiva actual (ej. zoom)
+      // o a la propia diapositiva con tabindex="0" para no expulsar el foco al body.
+      if (!active && (pagerHasFocus || trackHasFocus)) {
+        const targetSlide = (this.slides && this.slides[slideIndex]) || this.slides?.[0];
+        if (targetSlide) {
+          const interactive = targetSlide.querySelector(
+            'button:not([disabled]), [tabindex="0"], a[href], video, [data-gallery-zoom-trigger]',
+          );
+          const fallback = interactive || targetSlide;
+          if (fallback === targetSlide && !fallback.hasAttribute('tabindex')) {
+            fallback.setAttribute('tabindex', '0');
+          }
+          fallback.focus?.();
+        }
+      }
     }
 
     slideIndexFromScroll() {
@@ -477,10 +647,21 @@
       });
 
       if (this.counter) this.counter.textContent = String(index + 1);
+      const focusedStep = this.steps.find(
+        (step) => step === document.activeElement || step.contains(document.activeElement),
+      );
       this.steps.forEach((step) => {
         const direction = Number(step.dataset.galleryStep);
         step.disabled = direction < 0 ? index === 0 : index === this.slides.length - 1;
       });
+      // Si el boton recien pulsado toca el limite y se deshabilita, el foco caeria al
+      // body desorientando a tecnologias asistivas: se pasa al boton opuesto disponible
+      // o a la pista del carrusel.
+      if (focusedStep && focusedStep.disabled) {
+        const fallback = this.steps.find((step) => !step.disabled)
+          || (this.track && this.track.tabIndex >= 0 ? this.track : null);
+        fallback?.focus();
+      }
 
       if (announce && this.carouselStatus) {
         const template = this.pager.dataset.viewMediaTemplate || '';
@@ -530,10 +711,14 @@
   class VariantSelects extends ThemeElement {
     connectedCallback() {
       this.startListening();
-      this.variantData = this.getVariantData();
+      this.usesServerVariants = this.hasAttribute('data-variant-state-url');
+      this.variantData = this.usesServerVariants ? [] : this.getVariantData();
+      this.variantRequest = null;
+      this.variantStateCache = new Map();
 
-      if (this.variantData.length === 0) return;
+      if (!this.usesServerVariants && this.variantData.length === 0) return;
 
+      this.takeOverNativeControls();
       this.moneyFormat = this.dataset.moneyFormat || '';
       this.quantityInput = this.querySelector('[data-quantity-input]');
       this.lineTotal = this.querySelector('[data-line-total]');
@@ -547,8 +732,12 @@
       this.listen(this, 'change', (event) => {
         if (event.target.matches('[data-option-position]')) {
           this.updateSelectedOptionLabels();
-          this.updateOptionAvailability();
-          this.updateVariant();
+          if (this.usesServerVariants) {
+            this.resolveVariant();
+          } else {
+            this.updateOptionAvailability();
+            this.updateVariant();
+          }
           return;
         }
 
@@ -562,14 +751,31 @@
         }
       });
 
-      this.currentVariant = this.getInitialVariant();
+      this.listen(this, 'submit', (event) => {
+        const form = event.target;
+        if (!form.matches('[data-cart-add-form]')) return;
+
+        const variant = this.currentVariant;
+        if (!variant?.id || !this.isPurchaseOptionValid(variant)) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, { capture: true });
+
       this.cachePurchaseOptionElements();
       this.updateSelectedOptionLabels();
-      this.updateOptionAvailability();
+
+      this.currentVariant = this.getInitialVariant();
+      if (!this.usesServerVariants) this.updateOptionAvailability();
       this.updatePurchaseOptions(this.currentVariant);
+      this.updateQuantityRules(this.currentVariant);
       this.updateForms(this.currentVariant);
       this.updatePrice(this.currentVariant);
-      this.updateQuantityRules(this.currentVariant);
+    }
+
+    disconnectedCallback() {
+      this.variantRequest?.abort();
+      super.disconnectedCallback();
     }
 
     getVariantData() {
@@ -584,9 +790,132 @@
     }
 
     getInitialVariant() {
-      const variantId = this.querySelector('[data-variant-id]')?.value;
-      return this.variantData.find((variant) => String(variant.id) === String(variantId))
-        || this.variantData[0];
+      const variantId = this.dataset.initialVariantId;
+      if (!this.usesServerVariants) {
+        return this.variantData.find((variant) => String(variant.id) === variantId) || null;
+      }
+
+      const root = this.querySelector('[data-variant-state]');
+      const payload = root?.querySelector('[data-resolved-variant]');
+      if (!variantId || !payload || root.dataset.productId !== this.dataset.productId
+        || root.dataset.variantId !== variantId) return null;
+      const requestedValues = new URLSearchParams(window.location.search).get('option_values');
+      if (requestedValues !== null) {
+        const selectedValues = Array.from(root.querySelectorAll('[data-state-option-value][data-selected]'))
+          .map((value) => value.dataset.stateOptionValue).join(',');
+        if (!selectedValues || selectedValues !== requestedValues) return null;
+      }
+      try {
+        const variant = JSON.parse(payload.textContent);
+        return String(variant?.id) === variantId ? variant : null;
+      } catch {
+        return null;
+      }
+    }
+
+    async resolveVariant() {
+      this.variantRequest?.abort();
+      const request = new AbortController();
+      this.variantRequest = request;
+
+      const inputs = Array.from(this.querySelectorAll('[data-option-position]:checked'));
+      const optionValueIds = inputs.map((input) => input.dataset.optionValueId);
+      const optionLabels = inputs.map((input) => input.value);
+      const key = optionValueIds.join(',');
+      const picker = this.querySelector('[data-variant-picker]');
+      picker?.setAttribute('aria-busy', 'true');
+      this.currentVariant = null;
+      this.currentAllocation = null;
+      this.updateForms(null);
+
+      try {
+        if (!key || optionValueIds.some((id) => !id)) {
+          throw new Error('Incomplete variant selection');
+        }
+
+        let state = this.variantStateCache.get(key);
+        if (!state || state.expiresAt <= Date.now()) {
+          await new Promise((resolve) => window.setTimeout(resolve, 80));
+          if (this.variantRequest !== request || request.signal.aborted) return;
+
+          const sectionId = this.dataset.variantStateSection;
+          const url = new URL(this.dataset.variantStateUrl, document.baseURI);
+          url.searchParams.delete('variant');
+          url.searchParams.delete('selling_plan');
+          url.searchParams.set('section_id', sectionId);
+          url.searchParams.set('option_values', key);
+
+          const response = await fetch(url, { signal: request.signal });
+          if (!response.ok) throw new Error('Variant request failed');
+          const documentState = new DOMParser().parseFromString(await response.text(), 'text/html');
+          const root = documentState.querySelector('[data-variant-state]');
+          const payload = root?.querySelector('[data-resolved-variant]');
+          if (!payload || root.dataset.productId !== this.dataset.productId
+            || root.dataset.stateSectionId !== sectionId) {
+            throw new Error('Unexpected product in variant response');
+          }
+
+          const variant = JSON.parse(payload.textContent);
+          const values = Array.from(root.querySelectorAll('[data-state-option-value]'));
+          const resolvedOptionIds = values
+            .filter((value) => value.hasAttribute('data-selected'))
+            .map((value) => value.dataset.stateOptionValue)
+            .join(',');
+          const variantId = variant === null ? '' : String(variant.id);
+          if (resolvedOptionIds !== key
+            || variantId !== root.dataset.variantId
+            || (variant !== null && (!/^\d+$/.test(variantId)
+              || !Array.isArray(variant.options)
+              || variant.options.length !== optionLabels.length
+              || variant.options.some((label, index) => label !== optionLabels[index])))) {
+            throw new Error('Unexpected selection in variant response');
+          }
+
+          state = { variant, values, expiresAt: Date.now() + 15000 };
+          if (this.variantStateCache.size >= 16) {
+            this.variantStateCache.delete(this.variantStateCache.keys().next().value);
+          }
+          this.variantStateCache.set(key, state);
+        }
+
+        if (this.variantRequest !== request || request.signal.aborted || !this.isConnected) return;
+        const availableValues = new Map(state.values.map((value) => [
+          value.dataset.stateOptionValue, value.getAttribute('aria-disabled') === 'false',
+        ]));
+        this.querySelectorAll('[data-option-value-id]').forEach((input) => {
+          const available = availableValues.get(input.dataset.optionValueId) === true;
+          input.setAttribute('aria-disabled', String(!available));
+          const label = this.querySelector(`label[for="${input.id}"] [data-unavailable-label]`);
+          if (label) label.hidden = available;
+        });
+        const variant = state.variant;
+        this.applyVariant(variant);
+        if (!variant && key && this.dataset.productUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.delete('variant');
+          url.searchParams.delete('selling_plan');
+          url.searchParams.set('option_values', key);
+          window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+        }
+      } catch {
+        if (this.variantRequest !== request || request.signal.aborted || !this.isConnected) return;
+        this.applyVariant(null, { updateUrl: false });
+      } finally {
+        if (this.variantRequest === request) {
+          this.variantRequest = null;
+          picker?.removeAttribute('aria-busy');
+        }
+      }
+    }
+
+    // A-01/B-02: con JS, los selects nativos de variante y plan (sin JS) dejan de enviar
+    // valores: se desactivan y pierden el name para que form.elements.namedItem('id') y
+    // ('selling_plan') sigan siendo un unico control. El hidden de variante se activa.
+    takeOverNativeControls() {
+      this.querySelectorAll('[data-no-js-control]').forEach((control) => {
+        control.disabled = true;
+        control.removeAttribute('name');
+      });
     }
 
     cachePurchaseOptionElements() {
@@ -651,14 +980,18 @@
           candidate.options.every((option, index) => option === selectedOptions[index]),
       );
 
+      this.applyVariant(variant || null);
+    }
+
+    applyVariant(variant, { updateUrl = true } = {}) {
       this.currentVariant = variant;
       this.updatePurchaseOptions(variant);
-      this.updateForms(variant);
-      this.updatePrice(variant);
       this.updateQuantityRules(variant);
+      this.updateForms(variant, { resolvingVariant: false });
+      this.updatePrice(variant);
       this.updateMedia(variant);
-      this.updateStatus(variant);
-      this.updateUrl(variant);
+      this.updateStatus(variant, { variantChanged: true });
+      if (updateUrl) this.updateUrl(variant);
       this.dispatchEvent(
         new CustomEvent('theme:variant-change', {
           bubbles: true,
@@ -669,6 +1002,7 @@
     }
 
     updatePurchaseSelection() {
+      if (this.variantRequest) return;
       this.updatePurchaseOptions(this.currentVariant);
       this.updateForms(this.currentVariant);
       this.updatePrice(this.currentVariant);
@@ -746,15 +1080,21 @@
         this.subscriptionPrice.textContent = selectedAllocation?.price
           || this.dataset.sellingPlanUnavailableText;
       }
+      // Solo se reescribe si cambia: reponer el mismo texto en una region aria-live puede
+      // volver a anunciarlo. Si cambia con el plan visible, ya anuncia el precio del plan y
+      // updateStatus no lo repite.
+      let planStatusChanged = false;
       if (this.sellingPlanStatus) {
-        if (subscriptionSelected) {
-          this.sellingPlanStatus.textContent = `${selectedAllocation.name}: ${selectedAllocation.price}`;
-        } else if (oneTimeAvailable) {
-          this.sellingPlanStatus.textContent = `${this.dataset.oneTimeText}: ${variant.price}`;
-        } else {
-          this.sellingPlanStatus.textContent = this.dataset.sellingPlanUnavailableText;
-        }
+        const planStatusText = subscriptionSelected
+          ? `${selectedAllocation.name}: ${selectedAllocation.price}`
+          : oneTimeAvailable
+            ? `${this.dataset.oneTimeText}: ${variant.price}`
+            : this.dataset.sellingPlanUnavailableText;
+        planStatusChanged = this.sellingPlanStatus.textContent !== planStatusText;
+        if (planStatusChanged) this.sellingPlanStatus.textContent = planStatusText;
       }
+      this.planStatusAnnouncedPrice = Boolean(subscriptionSelected && planStatusChanged
+        && isFocusTargetUsable(this.sellingPlanStatus));
       if (this.perDeliveryPrice) {
         const showPerDelivery = Boolean(
           subscriptionSelected
@@ -796,22 +1136,30 @@
       );
     }
 
-    updateForms(variant) {
-      this.querySelectorAll('[data-variant-id]').forEach((input) => {
+    updateForms(variant, { resolvingVariant = Boolean(this.variantRequest) } = {}) {
+      this.querySelectorAll('input[data-variant-id]').forEach((input) => {
         const nextValue = variant?.id || '';
-        const valueChanged = String(input.value) !== String(nextValue);
+        const disabled = !nextValue;
+        const valueChanged = String(input.value) !== String(nextValue) || input.disabled !== disabled;
         input.value = nextValue;
+        input.disabled = disabled;
         if (valueChanged) input.dispatchEvent(new Event('change', { bubbles: true }));
       });
 
       const purchaseOptionValid = this.isPurchaseOptionValid(variant);
       this.querySelectorAll('[data-add-to-cart]').forEach((button) => {
         // Never re-enable a button whose form still has an add-to-cart request in flight.
-        button.disabled = !purchaseOptionValid || button.form?.dataset.cartAddPending === 'true';
+        const cartAddPending = button.form?.dataset.cartAddPending === 'true';
+        button.disabled = !purchaseOptionValid || cartAddPending;
+        if (resolvingVariant || button.hasAttribute('aria-busy')) {
+          button.setAttribute('aria-busy', String(resolvingVariant || cartAddPending));
+        }
         const label = button.querySelector('[data-add-to-cart-text]');
         if (!label) return;
 
-        if (!variant) {
+        if (resolvingVariant) {
+          label.textContent = this.dataset.variantLoadingText;
+        } else if (!variant) {
           label.textContent = this.dataset.unavailableText;
         } else if (!variant.available) {
           label.textContent = this.dataset.soldOutText;
@@ -846,7 +1194,7 @@
       const soldOutBadge = this.querySelector('[data-sold-out-badge]');
       const unitPrice = this.querySelector('[data-unit-price]');
 
-      if (currentPrice && priceSource) currentPrice.textContent = priceSource.price;
+      if (currentPrice) currentPrice.textContent = priceSource?.price || '';
 
       if (comparePrice) {
         comparePrice.hidden = !priceSource?.compare_at_price;
@@ -860,6 +1208,7 @@
       // variante en oferta a uno sin oferta se sigue leyendo "Precio de oferta ... Precio habitual".
       const values = currentPrice?.closest('.price__values');
       const wrapper = currentPrice?.closest('[data-price-wrapper]');
+      if (wrapper) wrapper.hidden = !variant;
       const varies = values && [...values.children].some((child) => child.tagName === 'SPAN'
         && !child.classList.contains('visually-hidden') && !child.hasAttribute('data-current-price'));
       if (values && wrapper?.dataset.labelSale && !varies) {
@@ -872,7 +1221,7 @@
           currentPrice.before(label(wrapper.dataset.labelRegular));
         }
       }
-      if (soldOutBadge) soldOutBadge.hidden = Boolean(variant?.available);
+      if (soldOutBadge) soldOutBadge.hidden = variant?.available !== false;
 
       if (unitPrice) {
         const hasUnitPrice = Boolean(priceSource?.unit_price);
@@ -952,7 +1301,7 @@
 
     updateQuantityRules(variant) {
       const quantityInput = this.querySelector('[data-quantity-input]');
-      if (!quantityInput || !variant) return;
+      if (!quantityInput) return;
 
       const before = [
         quantityInput.value,
@@ -961,14 +1310,19 @@
         quantityInput.getAttribute('max'),
       ].join('|');
 
-      quantityInput.min = variant.quantity_min;
-      quantityInput.step = variant.quantity_increment;
-      quantityInput.value = Math.max(Number(quantityInput.value), Number(variant.quantity_min));
+      const minimum = Number(variant?.quantity_min) || 1;
+      const increment = Math.abs(Number(variant?.quantity_increment)) || 1;
+      quantityInput.min = minimum;
+      quantityInput.step = increment;
 
-      let effectiveMax = variant.quantity_max ?? null;
-      if (effectiveMax === null && variant.inventory_management && variant.inventory_policy === 'deny') {
+      let effectiveMax = variant?.quantity_max ?? null;
+      if (effectiveMax === null && variant?.inventory_management && variant.inventory_policy === 'deny') {
         const inventoryEl = this.querySelector('product-inventory') || this.closest('section')?.querySelector('product-inventory');
-        const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 1;
+        // D-02-Q (C2). El JSON recorta el stock a umbral + 1 a proposito, para no publicar
+        // el inventario real (variant-no-js-select, inventory_cap). Solo un stock <= umbral
+        // es exacto, asi que el techo solo se aplica ahi. Sin bloque de inventario el umbral
+        // es 0, como el que usa el Liquid; con 1 el stock recortado a 1 limitaba toda compra.
+        const threshold = inventoryEl ? (Number(inventoryEl.dataset.threshold) || 0) : 0;
         const qty = Number(variant.inventory_quantity);
         if (Number.isFinite(qty) && qty > 0 && qty <= threshold) {
           effectiveMax = qty;
@@ -977,16 +1331,26 @@
 
       // Agotada: la cantidad se queda en el minimo y el + se apaga (syncQuantityStepper lee
       // max). Sin esto el stepper seguia subiendo en una pieza que no se puede comprar.
-      if (variant.available === false) {
-        effectiveMax = Number(variant.quantity_min) || 1;
-      }
+      if (variant?.available !== true) effectiveMax = minimum;
 
-      if (effectiveMax === null) {
-        quantityInput.removeAttribute('max');
-      } else {
-        quantityInput.max = effectiveMax;
-        quantityInput.value = Math.min(Number(quantityInput.value), Number(effectiveMax));
-      }
+      // El max del campo es el ultimo escalon alcanzable, no el limite crudo: asi min, step
+      // y max describen la misma rejilla. Si ni el minimo cabe (inventario por debajo del
+      // minimo), max = min y los dos botones quedan apagados.
+      const gridMax = effectiveMax === null
+        ? Infinity
+        : Math.max(minimum, quantityGridMax(minimum, increment, Number(effectiveMax)));
+      if (gridMax === Infinity) quantityInput.removeAttribute('max');
+      else quantityInput.max = gridMax;
+
+      // D-02-Q (O1). Variante disponible cuyo stock no llega al minimo: el campo queda en min
+      // pero se marca invalido, asi la validacion nativa del formulario bloquea el envio y
+      // anuncia el motivo, como hacia antes el max crudo. El boton de compra no se toca.
+      const belowMinimum = variant?.available === true && effectiveMax !== null
+        && quantityGridMax(minimum, increment, Number(effectiveMax)) < minimum;
+      quantityInput.setCustomValidity(belowMinimum ? (this.dataset.unavailableText || 'Unavailable') : '');
+
+      const current = Number(quantityInput.value);
+      quantityInput.value = snapQuantity(Number.isFinite(current) ? current : minimum, minimum, increment, gridMax);
 
       const after = [
         quantityInput.value,
@@ -995,11 +1359,7 @@
         quantityInput.getAttribute('max'),
       ].join('|');
 
-      // Cambiar de variante puede mover el minimo o el maximo, y con ellos la cantidad.
-      // Nadie se enteraba: el total de linea lo calcula updatePrice(), que corre ANTES que
-      // esto, asi que se quedaba anunciando la cantidad anterior; y el stepper no tenia
-      // forma de saber que la rejilla habia cambiado bajo sus pies. Un 'change' avisa a
-      // los dos por el mismo camino que usa el visitante al teclear.
+      // Un 'change' comunica el nuevo límite al selector de cantidad, igual que al teclear.
       if (before !== after) quantityInput.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
@@ -1010,26 +1370,46 @@
       });
     }
 
-    updateStatus(variant) {
+    // P3 (REVIEW-D02A-001). Un cambio de variante disponible se anuncia con su precio
+    // (el del plan si hay suscripcion), en un solo texto atomico: "[title], [price]: ...".
+    // El precio no se repite si el estado del plan ya lo anuncio en este mismo cambio. Un
+    // cambio de opcion de compra no vuelve a anunciar la disponibilidad si esta no cambio:
+    // ese precio lo anuncia el estado del plan.
+    updateStatus(variant, { variantChanged = false } = {}) {
       const status = this.querySelector('[data-variant-status]');
       if (!status) return;
 
-      if (!variant) {
-        status.textContent = this.dataset.unavailableText;
-      } else if (!this.isPurchaseOptionValid(variant)) {
-        status.textContent = this.dataset.sellingPlanUnavailableText;
-      } else {
-        const availability = variant.available
-          ? this.dataset.availableStatus
-          : this.dataset.soldOutStatus;
-        status.textContent = `${variant.title}: ${availability}`;
+      const available = Boolean(variant?.available) && this.isPurchaseOptionValid(variant);
+      const base = !variant
+        ? this.dataset.unavailableText
+        : !variant.available
+          ? `${variant.title}: ${this.dataset.soldOutStatus}`
+          : !available
+            ? this.dataset.sellingPlanUnavailableText
+            : `${variant.title}: ${this.dataset.availableStatus}`;
+      const baseChanged = base !== this.statusBase;
+      this.statusBase = base;
+
+      let announcement = base;
+      if (variantChanged) {
+        // Un money format con HTML (<span class=money>) no debe leerse con etiquetas.
+        const price = String((this.currentAllocation || variant)?.price || '').replace(/<[^>]*>/g, '').trim();
+        const template = this.dataset.availablePriceStatus;
+        if (available && price && template && !this.planStatusAnnouncedPrice) {
+          announcement = template.replace(/\[(title|price)\]/g, (match, key) => (key === 'title' ? variant.title : price));
+        }
+      } else if (!baseChanged) {
+        return;
       }
+      if (status.textContent !== announcement) status.textContent = announcement;
     }
 
     updateUrl(variant) {
       if (!variant || !this.dataset.productUrl) return;
 
-      const url = new URL(this.dataset.productUrl, document.baseURI);
+      const path = this.usesServerVariants ? window.location.href : this.dataset.productUrl;
+      const url = new URL(path, document.baseURI);
+      url.searchParams.delete('option_values');
       url.searchParams.set('variant', variant.id);
       if (this.currentAllocation) {
         url.searchParams.set('selling_plan', this.currentAllocation.id);
@@ -1206,8 +1586,12 @@
       const quantityField = this.productForm.elements.namedItem('quantity');
       this.quantityInput = quantityField instanceof HTMLInputElement ? quantityField : null;
       this.lineTotal = this.closest('[data-section-id]')?.querySelector('[data-line-total]') || null;
-      this.unitPrice = this.priceOutput?.textContent.trim() || '';
-      this.defaultAriaLabel = this.submitButton.getAttribute('aria-label') || '';
+      // D-02-A. El Liquid pinta el precio de compra unica; con un plan ya elegido al cargar
+      // (?selling_plan= o variante que exige plan) VariantSelects ya decidio el precio del plan
+      // y no vuelve a emitir el evento, asi que se toma de su estado.
+      this.unitPrice = this.variantSelects?.currentAllocation?.price
+        || this.priceOutput?.textContent.trim() || '';
+      this.productTitle = this.querySelector('.sticky-cart-bar__title')?.textContent.trim() || '';
 
       if (this.quantityInput) {
         this.listen(this.quantityInput, 'input', () => this.renderQuantity());
@@ -1331,10 +1715,22 @@
           : '';
       }
 
-      const ariaLabel = multiple && this.dataset.quantityLabelTemplate
-        ? this.dataset.quantityLabelTemplate.replace('[quantity]', String(quantity))
-        : this.defaultAriaLabel;
-      if (ariaLabel) this.submitButton.setAttribute('aria-label', ariaLabel);
+      this.syncAccessibleName();
+    }
+
+    syncAccessibleName() {
+      const action = this.label?.textContent.trim();
+      if (!action) {
+        this.submitButton.removeAttribute('aria-label');
+        return;
+      }
+      const quantity = Number.parseInt(this.quantityInput?.value || '', 10);
+      const template = Number.isFinite(quantity) && quantity > 1 && this.dataset.quantityLabelTemplate
+        ? this.dataset.quantityLabelTemplate
+        : this.dataset.actionLabelTemplate;
+      const values = { action, product: this.productTitle, quantity: String(quantity) };
+      const name = template ? template.replace(/\[(action|product|quantity)\]/g, (_, token) => values[token]) : action;
+      this.submitButton.setAttribute('aria-label', name);
     }
 
     syncButtonState() {
@@ -1346,6 +1742,7 @@
       this.submitButton.setAttribute('aria-busy', String(busy));
       if (this.label && primaryLabel) this.label.textContent = primaryLabel.textContent.trim();
       if (this.spinner) this.spinner.hidden = !busy;
+      this.syncAccessibleName();
     }
   }
 
@@ -1411,7 +1808,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton);
     }
@@ -1623,7 +2021,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger?.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton || this.panel);
     }
@@ -2215,11 +2614,85 @@
   }
 
   // Phase 2 (GPT-021). Cart drawer deadlines. The recommendations read is a complement:
-  // when it is late, the cards the server already rendered stay. The cross-sell add and
-  // the note save are never retried: a missed deadline leaves their result uncertain.
+  // when it is late, the cards the server already rendered stay. The adds (product form,
+  // cross-sell, complete the look) and the note save are never retried: a missed deadline
+  // leaves their result uncertain.
   const CART_RECOMMENDATIONS_TIMEOUT = 2000;
-  const CART_CROSS_SELL_ADD_TIMEOUT = 10000;
+  const CART_ADD_TIMEOUT = 10000;
   const CART_NOTE_SAVE_TIMEOUT = 3000;
+  // B-03 (RC-12, TT-102). Deadline of the /cart.js read that settles a lost add response.
+  const CART_RECONCILE_TIMEOUT = 5000;
+
+  // B-03. Quantity per variant id, summed over lines: one variant can sit on several lines
+  // (selling plans, line item properties).
+  const quantitiesByVariant = (items) => items.reduce((map, item) => {
+    const id = String(item?.variant_id ?? '');
+    if (id) map.set(id, (map.get(id) || 0) + (Number(item.quantity) || 0));
+    return map;
+  }, new Map());
+
+  // B-03. The same convention as CartDrawer.findLineFor: each line's title link carries
+  // ?variant=, and the quantity field's defaultValue is what the server rendered (a typed,
+  // unsent value does not count). null when the drawer cannot be read.
+  const drawerQuantities = (drawer) => {
+    if (!drawer?.querySelector?.('[data-cart-drawer-content]')) return null;
+    const items = [];
+    try {
+      for (const row of drawer.querySelectorAll('[data-cart-item-key]')) {
+        const href = row.querySelector('.cart-drawer-item__title a[href]')?.getAttribute('href');
+        const variantId = href ? new URL(href, window.location.origin).searchParams.get('variant') : null;
+        const quantity = Number(row.querySelector('[data-cart-quantity]')?.defaultValue);
+        if (!variantId || !Number.isInteger(quantity)) return null;
+        items.push({ variant_id: variantId, quantity });
+      }
+    } catch {
+      return null;
+    }
+    return quantitiesByVariant(items);
+  };
+
+  // B-03. GET {cart_url}.js. Never throws: null means the cart could not be read.
+  const readCartQuantities = async (cartUrl) => {
+    const controller = new AbortController();
+    const deadline = window.setTimeout(() => controller.abort(), CART_RECONCILE_TIMEOUT);
+    try {
+      const url = new URL(`${String(cartUrl || '/cart').replace(/\/$/, '')}.js`, window.location.origin);
+      const response = await fetch(url, {
+        headers: { Accept: 'application/json' },
+        cache: 'no-store',
+        signal: controller.signal,
+      });
+      if (!response.ok) return null;
+      const cart = await response.json();
+      if (!cart || !Array.isArray(cart.items)) return null;
+      return { items: cart.items, quantities: quantitiesByVariant(cart.items) };
+    } catch {
+      return null;
+    } finally {
+      window.clearTimeout(deadline);
+    }
+  };
+
+  // B-03. Settles an add whose response was lost by comparing the cart before and after.
+  // - applied: every requested variant grew by at least the requested quantity.
+  // - not_applied: none moved, and the POST could not still land later. Without any
+  //   response (network error, our own deadline) or with a 5xx page from Shopify or a
+  //   gateway, the request may still be applied after the read.
+  // - unknown: anything else, including a cart that could not be read. Never a retry prompt.
+  const classifyAdd = (requested, before, after, mayStillLand) => {
+    if (!before || !after || requested.size === 0) return 'unknown';
+    let applied = 0;
+    let untouched = 0;
+    requested.forEach((quantity, id) => {
+      if (!id) return;
+      const delta = (after.get(id) || 0) - (before.get(id) || 0);
+      if (delta >= quantity) applied += 1;
+      else if (delta === 0) untouched += 1;
+    });
+    if (applied === requested.size) return 'applied';
+    if (untouched === requested.size && !mayStillLand) return 'not_applied';
+    return 'unknown';
+  };
 
   class CartDrawer extends ThemeElement {
     connectedCallback() {
@@ -2255,6 +2728,8 @@
       this.crossSellOriginals = new WeakMap();
       this.noteVersion = 0;
       this.noteSavePending = false;
+      // B-03. The drawer HTML may no longer mirror the server (another tab, an unsettled add).
+      this.cartSnapshotStale = false;
 
       if (!this.overlay || !this.panel) return;
 
@@ -2286,12 +2761,29 @@
         this.noteVersion += 1;
       });
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.close(true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.close(true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
         event.preventDefault();
         this.close(true);
+      });
+      // Theme editor only (these events are never dispatched on the storefront): show the
+      // drawer while its section or one of its blocks is selected, close it on deselect.
+      this.listen(document, 'shopify:section:select', (event) => {
+        if (event.detail?.sectionId === this.dataset.sectionId) this.open();
+      });
+      this.listen(document, 'shopify:section:deselect', (event) => {
+        if (event.detail?.sectionId === this.dataset.sectionId) this.close(false);
+      });
+      // The editor re-renders the section after a setting change; reopen the fresh element.
+      this.listen(document, 'shopify:section:load', (event) => {
+        if (event.detail?.sectionId === this.dataset.sectionId) this.open();
+      });
+      this.listen(this, 'shopify:block:select', () => this.open());
+      // B-03. While the page is hidden another tab can change the cart.
+      this.listen(document, 'visibilitychange', () => {
+        if (document.visibilityState === 'hidden') this.cartSnapshotStale = true;
       });
     }
 
@@ -2375,6 +2867,14 @@
         return;
       }
 
+      // B-04. View cart leaves the drawer too: same guarded note save as the card links.
+      // Checkout is not routed here; the cart form posts the note natively.
+      const viewCartLink = event.target.closest('[data-cart-view-cart]');
+      if (viewCartLink) {
+        this.handleCrossSellView(event, viewCartLink);
+        return;
+      }
+
       const crossSellButton = event.target.closest('[data-cross-sell-add]');
       if (crossSellButton) {
         this.addCrossSell(crossSellButton).catch((error) => {
@@ -2408,6 +2908,12 @@
       const quantityInput = event.target.closest('[data-cart-quantity]');
       // TEC-01. Un campo retenido por una mutacion en vuelo no puede lanzar otra.
       if (!quantityInput || quantityInput.disabled) return;
+
+      // D-02-Q. Se ajusta a la rejilla antes de decidir nada, asi lo que se ve es lo que se
+      // envia. Si el ajuste deja la cantidad que ya tiene la linea (defaultValue es lo que
+      // pinto el servidor), no hay nada que enviar y el campo ya muestra la cantidad real.
+      snapQuantityField(quantityInput);
+      if (quantityInput.value !== '0' && Number(quantityInput.value) === Number(quantityInput.defaultValue)) return;
 
       // An empty or malformed field used to fall through parseInt('') || 0 and silently
       // delete the line. Let the browser report it instead, and keep 0 as the one value
@@ -2452,7 +2958,8 @@
       this.panel.inert = false;
       this.panel.setAttribute('aria-hidden', 'false');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-drawer-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
         this.panel,
@@ -2476,7 +2983,12 @@
       this.releaseInteraction();
 
       if (restoreFocus && this.returnFocusTarget?.isConnected) {
-        this.returnFocusTarget.focus();
+        // Abierto desde el menu movil: el menu decide el destino (su disparador, o la
+        // navegacion de escritorio si ya no se pinta) y sigue el foco en los cambios de ancho.
+        const menu = this.returnFocusTarget.matches('[data-drawer-trigger]')
+          && this.returnFocusTarget.closest('theme-drawer');
+        if (typeof menu?.returnFocus === 'function') menu.returnFocus();
+        else this.returnFocusTarget.focus();
       }
     }
 
@@ -2508,57 +3020,100 @@
       this.managedInertElements = [];
     }
 
+    // B-03. Cart quantities before an add. The drawer HTML is used when it is the last
+    // thing the server rendered and nothing can have moved since; otherwise /cart.js is
+    // read. The freshness test runs synchronously, so callers invoke this before
+    // beginMutation() and await the promise just before their POST.
+    async cartBaseline() {
+      const fresh = !this.cartSnapshotStale && !this.pendingMutations
+        && this.renderedRevision === this.syncRevision;
+      const fromDrawer = fresh ? drawerQuantities(this) : null;
+      if (fromDrawer) return fromDrawer;
+      return (await readCartQuantities(this.dataset.cartUrl))?.quantities || null;
+    }
+
     async addItem(form, submitter) {
       // Blocks a second submit while the first is in flight, which otherwise buys the
       // item twice. Switching variant mid-request used to re-enable the button through
       // updateForms; that path now reads this flag and leaves it disabled.
       if (form.dataset.cartAddPending === 'true') return;
       form.dataset.cartAddPending = 'true';
+      const baseline = this.cartBaseline();
       const revision = this.beginMutation();
       this.clearMessages(form);
       this.setFormBusy(form, submitter, true);
+      // B-03. Without a deadline a hung request kept the button disabled for good.
+      const controller = new AbortController();
+      let timedOut = false;
+      const deadline = window.setTimeout(() => {
+        timedOut = true;
+        controller.abort();
+      }, CART_ADD_TIMEOUT);
 
       try {
         const formData = new FormData(form);
         formData.set('sections', this.renderSectionIds().join(','));
         formData.set('sections_url', `${window.location.pathname}${window.location.search}`);
-
-        const response = await fetchCommerce(this.dataset.cartAddUrl, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-          body: formData,
-        }, this.dataset.errorMessage);
-        // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
-        // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
-        // failure is turned into the localized message instead. A deliberate abort keeps
-        // its own name, because callers use it to stay silent.
-        const result = await response.json().catch((error) => {
-          if (error.name === 'AbortError') throw error;
-          throw new Error(this.dataset.errorMessage);
-        });
-
-        if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
-
-        await this.renderCartResponse(result, revision);
-
-        // 5A-003, GPT-AUDIT-005 H1. Un 200 no prueba que la linea exista: con una variante
-        // que exige plan de venta Shopify devuelve {} (medido en la tienda con F06) y el
-        // cajon anunciaba un exito falso. El exito solo se anuncia si la respuesta trae la
-        // variante pedida y, cuando fue esta respuesta la que se pinto, si el carrito fresco
-        // tiene su linea. Si otra mutacion la adelanto, basta con la respuesta.
         const requestedId = String(formData.get('id') || '');
-        const addedLine = this.findLineFor({ variant_id: requestedId });
-        const renderedHere = this.renderedRevision === revision;
-        if (!this.responseHasVariant(result, requestedId) || (renderedHere && !addedLine)) {
-          throw new Error(this.dataset.addFailedMessage || this.dataset.errorMessage);
+        const requested = new Map([[requestedId, Math.max(1, Number(formData.get('quantity')) || 1)]]);
+        const before = await baseline;
+
+        // B-03 (RC-12, TT-102). A lost response (network error, deadline, or a body that is
+        // not JSON, such as an HTML 429/5xx page) does not prove the add failed: Shopify may
+        // have applied it. The cart is read before the shopper is told anything, so "try again"
+        // only appears when the server answered, nothing was added and the request cannot
+        // land later. A JSON answer, error or not, keeps the path below.
+        let response = null;
+        let result = null;
+        try {
+          response = await fetch(this.dataset.cartAddUrl, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData,
+            signal: controller.signal,
+          });
+          result = await response.json();
+        } catch {
+          result = null;
+        }
+        window.clearTimeout(deadline);
+
+        let reconciledItems = null;
+        if (!response || result === null || typeof result !== 'object') {
+          const after = await readCartQuantities(this.dataset.cartUrl);
+          const mayStillLand = timedOut || !response || response.status >= 500;
+          const outcome = classifyAdd(requested, before, after?.quantities, mayStillLand);
+          if (outcome === 'not_applied') throw new Error(this.dataset.errorMessage);
+          if (outcome === 'unknown') {
+            this.showUnconfirmedAdd(submitter);
+            return;
+          }
+          reconciledItems = after.items;
+          // The cart already confirms the add. A render that fails only leaves the drawer
+          // stale, and endMutation() then fetches fresh HTML.
+          await this.renderCartResponse({}, revision).catch(() => {});
+        } else {
+          if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+
+          await this.renderCartResponse(result, revision);
+
+          // 5A-003, GPT-AUDIT-005 H1. Un 200 no prueba que la linea exista: con una variante
+          // que exige plan de venta Shopify devuelve {} (medido en la tienda con F06) y el
+          // cajon anunciaba un exito falso. El exito solo se anuncia si la respuesta trae la
+          // variante pedida y, cuando fue esta respuesta la que se pinto, si el carrito fresco
+          // tiene su linea. Si otra mutacion la adelanto, basta con la respuesta.
+          const renderedLine = this.findLineFor({ variant_id: requestedId });
+          const renderedHere = this.renderedRevision === revision;
+          if (!this.responseHasVariant(result, requestedId) || (renderedHere && !renderedLine)) {
+            throw new Error(this.dataset.addFailedMessage || this.dataset.errorMessage);
+          }
         }
 
-        const addedItem = Array.isArray(result.items)
-          ? result.items.find((item) => String(item.variant_id || item.id) === requestedId)
-          : result;
+        const addedItems = reconciledItems || (Array.isArray(result.items) ? result.items : [result]);
+        const addedItem = addedItems.find((item) => String(item?.variant_id ?? item?.id ?? '') === requestedId);
         const productTitle = addedItem?.product_title || addedItem?.title || '';
         const variantTitle = addedItem?.variant_title === 'Default Title'
           ? ''
@@ -2568,8 +3123,10 @@
           ? `${this.dataset.addedMessage} ${itemDescription}`
           : this.dataset.addedMessage);
         // Desde una tarjeta, el foco aterriza en la linea que se acaba de anadir.
+        const addedLine = this.findLineFor({ variant_id: requestedId });
         this.open(submitter, form.hasAttribute('data-quick-buy-form') ? addedLine : null);
       } finally {
+        window.clearTimeout(deadline);
         delete form.dataset.cartAddPending;
         this.setFormBusy(form, submitter, false);
         // Re-applies the availability state of whatever variant is selected now, which
@@ -2580,6 +3137,20 @@
         if (card?.isConnected) card.syncQuickBuy();
         this.endMutation();
       }
+    }
+
+    // B-03. An add whose outcome the cart could not settle: nothing invites a retry. The
+    // drawer opens on the same notice and Check cart as an uncertain cross-sell add, and
+    // endMutation() re-reads the cart even while an option panel is in use.
+    showUnconfirmedAdd(trigger = null) {
+      this.reconcileAfterMutation = true;
+      this.cartSnapshotStale = true;
+      this.showError(this.dataset.updateUnconfirmedMessage || this.dataset.errorMessage);
+      const uncertain = this.querySelector('[data-cart-uncertain]');
+      if (uncertain) uncertain.hidden = false;
+      const checkButton = uncertain?.querySelector('[data-cart-check]') || null;
+      if (!this.isOpen) this.open(trigger, checkButton);
+      else checkButton?.focus();
     }
 
     // /cart/add.js devuelve la linea anadida ({ variant_id }) o, con items[], { items: [...] }.
@@ -2624,7 +3195,7 @@
       // Its own controller: crossSellController belongs to the recommendations read and
       // beginMutation() aborts it, which must never cut an add short.
       const controller = new AbortController();
-      const deadline = window.setTimeout(() => controller.abort(), CART_CROSS_SELL_ADD_TIMEOUT);
+      const deadline = window.setTimeout(() => controller.abort(), CART_ADD_TIMEOUT);
       let outcome = 'uncertain';
       let failureMessage = '';
 
@@ -2929,8 +3500,9 @@
       return control && !control.disabled && !control.closest('[hidden]') ? control : nextItem;
     }
 
-    // View product with an unsaved note: save it first, and leave only once the server has
-    // the exact draft. Modified clicks and new-tab links keep their native behaviour.
+    // A drawer link that leaves the drawer (View product, the card links, View cart) with an
+    // unsaved note: save it first, and leave only once the server has the exact draft.
+    // Modified clicks and new-tab links keep their native behaviour.
     handleCrossSellView(event, link) {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
         return;
@@ -3423,6 +3995,8 @@
       // against syncRevision to decide whether a deferred sync still has anything to
       // fetch: if every mutation since the sync was requested has rendered, it does not.
       this.renderedRevision = this.syncRevision;
+      // B-03. The drawer mirrors the server again: cartBaseline() may read it.
+      this.cartSnapshotStale = false;
 
       this.updateHeaderCount();
       this.loadRecommendations();
@@ -4080,12 +4654,29 @@
       this.clearMessages();
       this.setBusy(true);
       this.requestController?.abort();
-      this.requestController = new AbortController();
+      const controller = new AbortController();
+      this.requestController = controller;
+      // B-03. The drawer adds' deadline. Only this timeout, not a deliberate abort, is
+      // settled by reading the cart.
+      let timedOut = false;
+      const deadline = window.setTimeout(() => {
+        timedOut = true;
+        controller.abort();
+      }, CART_ADD_TIMEOUT);
       const drawer = document.querySelector('cart-drawer');
+      // B-03. Taken before beginMutation(). Without a drawer (cart type "page") /cart.js is read.
+      const baseline = typeof drawer?.cartBaseline === 'function'
+        ? drawer.cartBaseline()
+        : readCartQuantities(this.dataset.cartUrl).then((cart) => cart?.quantities || null);
       const revision = drawer?.beginMutation?.();
       const requestBody = {
         items: selectedItems.map(({ id, quantity }) => ({ id, quantity })),
       };
+      const requested = new Map();
+      selectedItems.forEach(({ id, quantity }) => {
+        const key = String(id);
+        requested.set(key, (requested.get(key) || 0) + (Number(quantity) || 1));
+      });
 
       if (drawer?.dataset.sectionId) {
         requestBody.sections = typeof drawer.renderSectionIds === 'function'
@@ -4095,22 +4686,51 @@
       }
 
       try {
-        const response = await fetchCommerce(this.dataset.cartAddUrl, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-          body: JSON.stringify(requestBody),
-          signal: this.requestController.signal,
-        }, this.dataset.errorMessage);
-        // See addItem: an HTML error page must surface as the localized message, not as
-        // a JSON SyntaxError, and an abort must stay an abort.
-        const result = await response.json().catch((error) => {
-          if (error.name === 'AbortError') throw error;
-          throw new Error(this.dataset.errorMessage);
-        });
+        const before = await baseline;
+        // B-03. See addItem: a lost response (network error, deadline, an HTML error page)
+        // is settled by reading the cart before the shopper is invited to try again.
+        let response = null;
+        let result = null;
+        try {
+          response = await fetch(this.dataset.cartAddUrl, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify(requestBody),
+            signal: controller.signal,
+          });
+          result = await response.json();
+        } catch (error) {
+          if (error.name === 'AbortError' && !timedOut) throw error;
+          result = null;
+        }
+        window.clearTimeout(deadline);
+
+        if (!response || result === null || typeof result !== 'object') {
+          const after = await readCartQuantities(this.dataset.cartUrl);
+          const mayStillLand = timedOut || !response || response.status >= 500;
+          const outcome = classifyAdd(requested, before, after?.quantities, mayStillLand);
+          if (outcome === 'not_applied') throw new Error(this.dataset.errorMessage);
+          if (outcome === 'unknown' && typeof drawer?.showUnconfirmedAdd === 'function') {
+            drawer.showUnconfirmedAdd(this.submitButton);
+            return;
+          }
+          const canOpenDrawer = typeof drawer?.renderCartResponse === 'function'
+            && typeof drawer.open === 'function';
+          if (outcome === 'unknown' || !canOpenDrawer) {
+            // The cart page shows what the server holds.
+            window.location.assign(this.dataset.cartUrl);
+            return;
+          }
+          await drawer.renderCartResponse({}, revision).catch(() => {});
+          drawer.showStatus?.(this.dataset.addedMessage);
+          drawer.open(this.submitButton);
+          this.showStatus(this.dataset.addedMessage);
+          return;
+        }
 
         if (!response.ok) {
           throw new Error(result?.description || result?.message || this.dataset.errorMessage);
@@ -4137,6 +4757,7 @@
         drawer.open(this.submitButton);
         this.showStatus(this.dataset.addedMessage);
       } finally {
+        window.clearTimeout(deadline);
         this.setBusy(false);
         drawer?.endMutation?.();
       }
@@ -4737,7 +5358,8 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      document.body.setAttribute('data-modal-open', '');
+      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
         this.panel,
@@ -5697,11 +6319,34 @@
     const step = Math.abs(Number(input.getAttribute('step'))) || 1;
     const min = Number(input.getAttribute('min'));
     const max = Number(input.getAttribute('max'));
-    return {
+    const rules = {
       step,
       min: Number.isFinite(min) ? min : 0,
       max: input.getAttribute('max') === null || !Number.isFinite(max) ? Infinity : max,
     };
+    // D-02-Q. Techo alcanzable sobre la rejilla; nunca por debajo de min, de modo que con
+    // max < min el campo se queda en min y los dos botones se apagan.
+    rules.maxOnGrid = Math.max(rules.min, quantityGridMax(rules.min, step, rules.max));
+    return rules;
+  };
+
+  // D-02-Q. Unico punto que lleva un numero escrito a mano al escalon valido mas cercano
+  // (empate hacia abajo) dentro de [min, maxOnGrid]; ver snapQuantity. Lo llaman el
+  // 'change' de document y, antes de decidir que envia, el cajon del carrito, que escucha
+  // en su propio elemento y por eso recibe el evento primero. Es idempotente.
+  const snapQuantityField = (input) => {
+    // En una linea de carrito el 0 es la orden de quitarla: se respeta tal cual, para que
+    // el campo muestre lo que se envia (el formulario de la pagina de carrito es novalidate).
+    if (input.matches('[data-cart-quantity]') && input.value === '0') return;
+    const { step, min, maxOnGrid } = readQuantityRules(input);
+    // Campo vacio: como antes, solo sube a min si min > 0 (en el carrito min 0 lo deja).
+    const current = Number(input.value);
+    if (input.value.trim() === '') {
+      if (current < min) input.value = String(min);
+    } else if (Number.isFinite(current)) {
+      const snapped = String(snapQuantity(current, min, step, maxOnGrid));
+      if (snapped !== input.value) input.value = snapped;
+    }
   };
 
   // Shopify no acepta cualquier entero: los valores validos son min + n * incremento.
@@ -5709,12 +6354,12 @@
   // por esa rejilla en lugar de sumar y restar a ciegas. Con floor al subir y ceil al
   // bajar, un valor fuera de rejilla (tecleado a mano) cae al escalon correcto.
   const nextQuantity = (input, direction) => {
-    const { step, min, max } = readQuantityRules(input);
+    const { step, min, maxOnGrid } = readQuantityRules(input);
     const current = Number(input.value);
     const base = Number.isFinite(current) ? current : min;
     const offset = (base - min) / step;
     const index = direction > 0 ? Math.floor(offset) : Math.ceil(offset);
-    return Math.min(max, Math.max(min, min + (index + direction) * step));
+    return Math.min(maxOnGrid, Math.max(min, min + (index + direction) * step));
   };
 
   // Un boton se apaga exactamente cuando pulsarlo no cambiaria nada. Comparar contra el
@@ -5779,14 +6424,7 @@
     ['input', 'change'].forEach((type) => {
       document.addEventListener(type, (event) => {
         const input = event.target.closest?.('[data-quantity-input]');
-        if (input && type === 'change') {
-          const { min, max } = readQuantityRules(input);
-          const current = Number(input.value);
-          if (Number.isFinite(current)) {
-            if (current > max) input.value = String(max);
-            else if (current < min) input.value = String(min);
-          }
-        }
+        if (input && type === 'change') snapQuantityField(input);
         const stepper = event.target.closest?.('[data-quantity-stepper]');
         if (stepper) syncQuantityStepper(stepper);
       });

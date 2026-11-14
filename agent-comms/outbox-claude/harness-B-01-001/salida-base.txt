@@ -1,0 +1,96 @@
+B-01 arnes SINTETICO (Chromium local, sin tienda). mode=base sha=1fee9e2 MOBILE=0
+
+## S1 escritorio: 390x844 -> 1280x800 -> 390x844
+  abierto  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  cruzado  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=false activeVisible=false active=BODY
+  FAIL tras cruzar: cerrado (data-open, aria-expanded, overlay, panel inert)
+  FAIL tras cruzar: sin bloqueo de scroll
+  FAIL tras cruzar: sin inert en fondo
+  FAIL tras cruzar: foco en elemento visible (d-shop)
+  FAIL Tab alcanza el siguiente control (BODY)
+  FAIL rueda desplaza la pagina (scrollY>0: false)
+  vuelta   : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=false active=BODY
+  FAIL vuelta: cerrado y coherente
+  FAIL reabre normalmente (trigger tapado por el overlay)
+
+## S2 giro tableta: 820x1180 -> 1180x820 -> 820x1180
+  abierto  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  cruzado  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=false activeVisible=false active=BODY
+  FAIL tras cruzar: cerrado (data-open, aria-expanded, overlay, panel inert)
+  FAIL tras cruzar: sin bloqueo de scroll
+  FAIL tras cruzar: sin inert en fondo
+  FAIL tras cruzar: foco en elemento visible (d-shop)
+  FAIL Tab alcanza el siguiente control (BODY)
+  FAIL rueda desplaza la pagina (scrollY>0: false)
+  vuelta   : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=false active=BODY
+  FAIL vuelta: cerrado y coherente
+  FAIL reabre normalmente (trigger tapado por el overlay)
+
+## S3 giro movil (sin cruce): 390x844 -> 844x390 -> 390x844
+  abierto  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  cruzado  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  OK   sin cruce: sigue abierto con bloqueo e inert
+  vuelta   : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+
+## S4 justo en el corte: 991x800 -> 992x800 -> 991x800
+  abierto  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  cruzado  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=false activeVisible=false active=BODY
+  FAIL tras cruzar: cerrado (data-open, aria-expanded, overlay, panel inert)
+  FAIL tras cruzar: sin bloqueo de scroll
+  FAIL tras cruzar: sin inert en fondo
+  FAIL tras cruzar: foco en elemento visible (d-shop)
+  FAIL Tab alcanza el siguiente control (BODY)
+  FAIL rueda desplaza la pagina (scrollY>0: false)
+  vuelta   : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=false active=BODY
+  FAIL vuelta: cerrado y coherente
+  FAIL reabre normalmente (trigger tapado por el overlay)
+
+## Degenerado vacio (nav sin enlaces: foco al logo): 390x844 -> 1280x800 -> 390x844
+  abierto  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  cruzado  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=false activeVisible=false active=BODY
+  FAIL tras cruzar: cerrado (data-open, aria-expanded, overlay, panel inert)
+  FAIL tras cruzar: sin bloqueo de scroll
+  FAIL tras cruzar: sin inert en fondo
+  FAIL tras cruzar: foco en elemento visible (logo)
+  FAIL Tab alcanza el siguiente control (BODY)
+  FAIL rueda desplaza la pagina (scrollY>0: false)
+  vuelta   : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=false active=BODY
+
+## Degenerado muchos (40 enlaces, 5 submenus): 390x844 -> 1280x800 -> 390x844
+  abierto  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  cruzado  : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=false activeVisible=false active=BODY
+  FAIL tras cruzar: cerrado (data-open, aria-expanded, overlay, panel inert)
+  FAIL tras cruzar: sin bloqueo de scroll
+  FAIL tras cruzar: sin inert en fondo
+  FAIL tras cruzar: foco en elemento visible (d-1)
+  FAIL Tab alcanza el siguiente control (BODY)
+  FAIL rueda desplaza la pagina (scrollY>0: false)
+  vuelta   : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=false active=BODY
+  FAIL vuelta: cerrado y coherente
+  FAIL reabre normalmente (trigger tapado por el overlay)
+
+## Teclado virtual: 390x844 -> 390x420 -> 390x844 (solo cambia el alto)
+  reducido : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  OK   sigue abierto con bloqueo, inert y foco en Cerrar
+  vuelta   : open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=true activeVisible=true active=Close
+  OK   vuelta: sigue abierto con foco en Cerrar
+
+## Arrastre: 89 setViewportSize de 400 a 1280 sin esperar entre pasos
+  pasos=89 open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=false activeVisible=false active=BODY
+  FAIL setOpen(false) exactamente 1 vez
+  FAIL estado final coherente y foco visible en d-shop
+
+## Regresion Escape a 390
+  open=false expanded=false overlayHidden=true panelInert=true bodyLock=false overflow=visible inert=- triggerRendered=true activeVisible=true active=icon-button site-header__menu-button
+  OK   Escape cierra y devuelve foco al disparador
+
+## Cajon cerrado, foco en main, 390 -> 1280
+  open=false expanded=false overlayHidden=true panelInert=true bodyLock=false overflow=visible inert=- triggerRendered=false activeVisible=true active=main-link
+  OK   foco intacto (main-link) y nada cambia
+
+## Submenu abierto, foco en enlace interior, 390 -> 1280 -> 390
+  open=true expanded=true overlayHidden=false panelInert=false bodyLock=true overflow=hidden inert=MainContent,footer,desktop-nav,logo triggerRendered=false activeVisible=false active=BODY
+  FAIL cerrado, sin inert, foco visible en d-shop
+  info: submenu aria-expanded tras volver: true (igual que tras un cierre por boton; PD-3)
+
+resumen fallos=41

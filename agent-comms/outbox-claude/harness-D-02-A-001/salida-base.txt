@@ -1,0 +1,62 @@
+PASS M-1 [pdp] disponible
+PASS M-2 [pdp] agotada
+PASS M-3 [pdp] inventory_policy continue (preventa, stock 0)
+FAIL M-4 [pdp] requiere plan, con plan :: sticky.price=€50,00 EUR≠€10,00 EUR
+PASS M-5 [pdp] requiere plan, sin plan
+PASS M-6 [pdp] agotada que ademas requiere plan sin plan (gana agotado)
+PASS M-7 [pdp] plan solo 3; ?selling_plan=1 no valido para la variante -> compra unica
+FAIL M-9 [pdp] plan opcional elegido por URL (?selling_plan=2) :: sticky.price=€50,00 EUR≠€20,00 EUR
+PASS M-8 [pdp] variante por defecto que exige plan, producto sin grupos
+PASS C-1 [pdp] Blue/L agotada
+PASS C-1 [pdp] vuelta a Blue/S
+PASS C-1 [pdp] Red/S precio distinto
+PASS C-1 [pdp] Red/M inexistente
+PASS C-1 [pdp] Red/L disponible
+PASS A-1 [pdp] region de estado: un anuncio por cambio y sin contradicciones
+PASS A-2 [pdp] insignia Sold out en region viva solo con la agotada
+PASS A-3 [pdp] inventario (role=status) coherente
+INFO P-1 [pdp] precio en regiones vivas visibles durante C-1: []
+PASS C-1e [pdp] sin errores de pagina
+PASS C-2 [pdp] Red/S plan 2
+PASS C-2 [pdp] Red/M agotada y exige plan (gana agotado)
+PASS C-2 [pdp] Blue/M exige plan y lo tiene
+PASS C-2 [pdp] Blue/S exige plan sin plan
+PASS C-2 [pdp] vuelta a Red/S (compra unica)
+PASS A-4 [pdp] anuncios con planes: agotado frente a plan no disponible
+PASS C-2e [pdp] sin errores de pagina
+PASS C-3 [pdp] plan 2 no vale para T: pasa a plan 3, boton y anuncio coherentes
+PASS C-4 [pdp] envio bloqueado: agotada
+PASS C-4 [pdp] envio bloqueado: plan ausente
+PASS S-1 [pdp] barra sticky: visible, agotada y vuelta
+PASS M-1 [featured] disponible
+PASS M-2 [featured] agotada
+PASS M-3 [featured] inventory_policy continue (preventa, stock 0)
+PASS M-4 [featured] requiere plan, con plan
+PASS M-5 [featured] requiere plan, sin plan
+PASS M-6 [featured] agotada que ademas requiere plan sin plan (gana agotado)
+PASS M-7 [featured] plan solo 3; ?selling_plan=1 no valido para la variante -> compra unica
+PASS M-9 [featured] plan opcional elegido por URL (?selling_plan=2)
+PASS M-8 [featured] variante por defecto que exige plan, producto sin grupos
+PASS C-1 [featured] Blue/L agotada
+PASS C-1 [featured] vuelta a Blue/S
+PASS C-1 [featured] Red/S precio distinto
+PASS C-1 [featured] Red/M inexistente
+PASS C-1 [featured] Red/L disponible
+PASS A-1 [featured] region de estado: un anuncio por cambio y sin contradicciones
+PASS A-2 [featured] insignia Sold out en region viva solo con la agotada
+PASS A-3 [featured] inventario (role=status) coherente
+INFO P-1 [featured] precio en regiones vivas visibles durante C-1: []
+PASS C-1e [featured] sin errores de pagina
+PASS C-2 [featured] Red/S plan 2
+PASS C-2 [featured] Red/M agotada y exige plan (gana agotado)
+PASS C-2 [featured] Blue/M exige plan y lo tiene
+PASS C-2 [featured] Blue/S exige plan sin plan
+PASS C-2 [featured] vuelta a Red/S (compra unica)
+PASS A-4 [featured] anuncios con planes: agotado frente a plan no disponible
+PASS C-2e [featured] sin errores de pagina
+PASS C-3 [featured] plan 2 no vale para T: pasa a plan 3, boton y anuncio coherentes
+PASS C-4 [featured] envio bloqueado: agotada
+PASS C-4 [featured] envio bloqueado: plan ausente
+
+MODO=base BASE=d8703c5 total=57 pass=55 fail=2
+FALLAN: ["M-4[pdp]","M-9[pdp]"]

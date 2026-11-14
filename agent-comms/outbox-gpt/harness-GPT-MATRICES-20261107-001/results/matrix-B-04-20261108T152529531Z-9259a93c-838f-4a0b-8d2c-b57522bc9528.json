@@ -1,0 +1,241 @@
+{
+  "effectiveRunnerSha256": "fb46313fef276c2a092e8eb3e3a9736cdf938d9c60bbdeb7e23038aeb9812694",
+  "schema": 1,
+  "mode": "cart",
+  "scopeResult": "failed",
+  "executionResult": "failed",
+  "startedAt": "2026-11-08T15:25:29.532Z",
+  "finishedAt": "2026-11-08T15:25:49.275Z",
+  "target": {
+    "host": "tema-qkqpke0j.myshopify.com",
+    "themeIds": [
+      "190232297715",
+      "190232330483",
+      "190232363251"
+    ]
+  },
+  "limits": [
+    "SCOPED_HARNESS_NOT_FULL_RA_RB_CERTIFICATION",
+    "NO_THEME_SETTINGS_OR_CATALOG_WRITES",
+    "NO_CHECKOUT_OR_PAYMENT",
+    "NO_SCREEN_READER_OR_VISUAL_CONTRAST_CERTIFICATION",
+    "RESOURCE_FILTERING_CAN_AFFECT_RESULTS",
+    "C_R0_4_SUBSCRIPTION_FIXTURE_PENDING_JOHANDRY"
+  ],
+  "checks": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "storefront_access",
+      "result": "failed",
+      "reason": "HARNESS_OPERATION_FAILED",
+      "details": null
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "storefront_access",
+      "result": "failed",
+      "reason": "HARNESS_OPERATION_FAILED",
+      "details": null
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "storefront_access",
+      "result": "failed",
+      "reason": "HARNESS_OPERATION_FAILED",
+      "details": null
+    }
+  ],
+  "sessions": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "cartMutationsAllowed": true,
+      "unpublishedPreflight": "required_external_coordinator_check",
+      "cartInitiallyEmptyVerified": null,
+      "cartTouched": false,
+      "finalCartCleanup": null,
+      "contextClosed": true,
+      "blockedRequests": 0,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "routeFailureEvents": [],
+      "routeFailureEventsOmitted": 0,
+      "routeWarningEvents": [],
+      "routeWarningEventsOmitted": 0,
+      "rateLimitEvents": [],
+      "rateLimitEventsOmitted": 0,
+      "requestDecisions": [
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "networkWarnings": [],
+      "warningOccurrences": 0,
+      "warningOccurrencesOmitted": 0,
+      "deniedResourceSummary": [],
+      "inventoryResources": [],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 0,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      }
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "cartMutationsAllowed": true,
+      "unpublishedPreflight": "required_external_coordinator_check",
+      "cartInitiallyEmptyVerified": null,
+      "cartTouched": false,
+      "finalCartCleanup": null,
+      "contextClosed": true,
+      "blockedRequests": 0,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "routeFailureEvents": [],
+      "routeFailureEventsOmitted": 0,
+      "routeWarningEvents": [],
+      "routeWarningEventsOmitted": 0,
+      "rateLimitEvents": [],
+      "rateLimitEventsOmitted": 0,
+      "requestDecisions": [
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "networkWarnings": [],
+      "warningOccurrences": 0,
+      "warningOccurrencesOmitted": 0,
+      "deniedResourceSummary": [],
+      "inventoryResources": [],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 0,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      }
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "cartMutationsAllowed": true,
+      "unpublishedPreflight": "required_external_coordinator_check",
+      "cartInitiallyEmptyVerified": null,
+      "cartTouched": false,
+      "finalCartCleanup": null,
+      "contextClosed": true,
+      "blockedRequests": 0,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "routeFailureEvents": [],
+      "routeFailureEventsOmitted": 0,
+      "routeWarningEvents": [],
+      "routeWarningEventsOmitted": 0,
+      "rateLimitEvents": [],
+      "rateLimitEventsOmitted": 0,
+      "requestDecisions": [
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "networkWarnings": [],
+      "warningOccurrences": 0,
+      "warningOccurrencesOmitted": 0,
+      "deniedResourceSummary": [],
+      "inventoryResources": [],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 0,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      }
+    }
+  ],
+  "interventionRequired": false,
+  "historicalIncidents": [
+    {
+      "code": "ARCHIVE_ORPHANED_CART_20261106",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "initiallyEmptyVerified": true,
+      "finalCartState": "unknown",
+      "contextClosed": true,
+      "disposition": "LEAVE_TO_EXPIRE",
+      "blocksLote0": false,
+      "sourceReport": "RA-RB-cart-20261106T112804500Z-605bdcd0-07ef-43aa-a9f5-6e0d5038b634.json"
+    }
+  ]
+}

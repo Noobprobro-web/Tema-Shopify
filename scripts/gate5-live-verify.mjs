@@ -1,10 +1,56 @@
-import { chromium } from 'playwright';
+// Match these inputs to the approved candidate sheet before live use.
+// Live evidence also requires independent review of this harness.
+const BASE_URL = process.env.STOREFRONT_ORIGIN;
+const THEME_ID = process.env.STOREFRONT_THEME_ID;
+const STORE_PASSWORD = process.env.STOREFRONT_PASSWORD;
+const COLLECTION_PATH = process.env.STOREFRONT_COLLECTION_PATH;
+const PRODUCT_PATH = process.env.STOREFRONT_PRODUCT_PATH;
 
-const BASE_URL = 'https://tema-qkqpke0j.myshopify.com';
-const THEME_ID = '166186909939';
-const STORE_PASSWORD = process.env.STOREFRONT_PASSWORD || ***ROTATED_STOREFRONT_CREDENTIAL***;
+function validateConfiguration() {
+  const fail = message => { throw new Error(`GATE5_CONFIG: ${message}`); };
+  if (!STORE_PASSWORD?.trim()) {
+    fail('STOREFRONT_PASSWORD is required.');
+  }
+  if (!BASE_URL?.trim()) {
+    fail('STOREFRONT_ORIGIN is required.');
+  }
+  let origin;
+  try {
+    origin = new URL(BASE_URL);
+  } catch {
+    fail('STOREFRONT_ORIGIN must be an HTTPS origin without credentials, path, query or fragment.');
+  }
+  if (origin.protocol !== 'https:' || origin.username || origin.password ||
+      origin.pathname !== '/' || origin.search || origin.hash || origin.origin !== BASE_URL) {
+    fail('STOREFRONT_ORIGIN must be an HTTPS origin without credentials, path, query or fragment.');
+  }
+  if (!THEME_ID?.trim()) {
+    fail('STOREFRONT_THEME_ID is required.');
+  }
+  if (!/^[1-9][0-9]*$/.test(THEME_ID)) {
+    fail('STOREFRONT_THEME_ID must be a positive decimal ID.');
+  }
+  for (const [name, value, prefix] of [
+    ['STOREFRONT_COLLECTION_PATH', COLLECTION_PATH, '/collections/'],
+    ['STOREFRONT_PRODUCT_PATH', PRODUCT_PATH, '/products/']
+  ]) {
+    if (!value?.trim()) fail(`${name} is required.`);
+    if (!value.startsWith(prefix) || value.length === prefix.length ||
+        /[\\?#\s%]/u.test(value) || new URL(value, BASE_URL).pathname !== value) {
+      fail(`${name} must be a canonical ${prefix} path without query or fragment.`);
+    }
+  }
+}
+
+const LOCKED_PATH = /(^|\/)(password|challenge)\/?$/;
+const ACCESS_DENIED = 'GATE5_ACCESS: storefront password was not accepted.';
+function assertUnlocked(page) {
+  if (LOCKED_PATH.test(new URL(page.url()).pathname)) throw new Error(ACCESS_DENIED);
+}
 
 async function run() {
+  validateConfiguration();
+  const { chromium } = await import('playwright');
   console.log('='.repeat(70));
   console.log(`GATE 5: AUDITORÍA EN TIENDA DE DESARROLLO EN VIVO`);
   console.log(`Tienda: ${BASE_URL}`);
@@ -12,6 +58,14 @@ async function run() {
   console.log('='.repeat(70));
 
   const browser = await chromium.launch({ headless: true });
+  try {
+    return await runChecks(browser);
+  } finally {
+    await browser.close().catch(() => {});
+  }
+}
+
+async function runChecks(browser) {
   const context = await browser.newContext({
     viewport: { width: 1280, height: 900 }
   });
@@ -33,16 +87,27 @@ async function run() {
   console.log('\n[Paso 1] Desbloqueando tienda mediante /password...');
   await page.goto(`${BASE_URL}/password?preview_theme_id=${THEME_ID}`, { waitUntil: 'domcontentloaded' });
   const pwdInput = page.locator('input[type="password"]');
-  if (await pwdInput.count() > 0) {
+  const wasPrompted = await pwdInput.count() > 0;
+  if (wasPrompted) {
+    // Sartorial hides the password field in a modal until [data-password-open] is clicked.
+    if (!(await pwdInput.first().isVisible())) {
+      const opener = page.locator('[data-password-open], details:has(input[type="password"]) > summary').first();
+      if (await opener.count() > 0) {
+        await opener.click();
+        await pwdInput.first().waitFor({ state: 'visible' });
+      }
+    }
     await pwdInput.fill(STORE_PASSWORD);
     await Promise.all([
       page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
       page.keyboard.press('Enter')
     ]);
-    console.log('  -> Acceso concedido exitosamente.');
-  } else {
-    console.log('  -> La tienda no solicitó contraseña o ya estaba desbloqueada.');
   }
+  assertUnlocked(page);
+  if (await pwdInput.count() > 0) throw new Error(ACCESS_DENIED);
+  console.log(wasPrompted
+    ? '  -> Acceso concedido exitosamente.'
+    : '  -> La tienda no solicitó contraseña o ya estaba desbloqueada.');
 
   const results = {
     theme_id: THEME_ID,
@@ -56,7 +121,8 @@ async function run() {
 
   // Step 2: Test PLP (Main Collection) List/Grid View Switch
   console.log('\n[Paso 2] Verificando PLP (Main Collection): Switch List View / Grid View...');
-  await page.goto(`${BASE_URL}/collections/all?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}${COLLECTION_PATH}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
+  assertUnlocked(page);
 
   const gridSwitcher = page.locator('.collection-grid-switcher');
   const hasSwitcher = await gridSwitcher.count() > 0;
@@ -96,12 +162,11 @@ async function run() {
 
   // Step 3: Test PDP (Main Product)
   console.log('\n[Paso 3] Verificando PDP (Main Product): Bloques de Lujo y Especificaciones...');
-  // Find a product link from collection
-  const firstProductHref = await page.locator('a[href*="/products/"]').first().getAttribute('href');
-  const productUrl = firstProductHref ? new URL(firstProductHref, BASE_URL).pathname : '/products/cashmere-rib-crew';
+  const productUrl = PRODUCT_PATH;
   console.log(`  -> Navegando a PDP: ${productUrl}`);
 
   await page.goto(`${BASE_URL}${productUrl}?preview_theme_id=${THEME_ID}`, { waitUntil: 'networkidle' });
+  assertUnlocked(page);
 
   // Evaluate schema / rendered elements
   const pdpInfo = await page.evaluate(async () => {
@@ -279,6 +344,6 @@ async function run() {
 }
 
 run().catch(err => {
-  console.error('Fatal in test:', err);
+  console.error(/^GATE5_(CONFIG|ACCESS): /.test(err.message) ? err.message : 'Gate 5 verification failed.');
   process.exit(1);
 });

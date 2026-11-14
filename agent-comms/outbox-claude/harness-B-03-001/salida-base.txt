@@ -1,0 +1,219 @@
+SINTETICO (Chromium local, servidor de carrito simulado, sin tienda) | modo=base 4e5c6d6
+
+## D0 control: alta normal, cajon cerrado
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"1","drawerQty":"1","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  OK   101=1, cajon abierto y estado de exito
+  OK   sin pageerror
+
+## D1 PDP, respuesta perdida tras aplicar, cajon cerrado
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=2 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"2","drawerQty":"2","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=1 (sin duplicar), un solo POST de alta
+  FAIL cajon abierto con exito, sin error de formulario, contador 1
+  OK   sin pageerror
+
+## D2 PDP, 504 HTML tras aplicar, cajon cerrado
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=2 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"2","drawerQty":"2","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=1 (sin duplicar), un solo POST de alta
+  OK   cajon abierto con exito, sin error de formulario
+  OK   sin pageerror
+
+## D3 PDP con linea previa (101 x2), respuesta perdida tras aplicar
+  101=3 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"2","drawerQty":"2","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=4 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"4","drawerQty":"4","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=3 y contador 3
+  OK   cajon abierto con exito, sin error de formulario
+  OK   sin pageerror
+
+## D4 PDP, peticion colgada (aplicada, sin respuesta), 12 s
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":true,"focus":"body","pendingFlag":"true","bundleError":null,"bundleStatus":null}
+  FAIL 101=1, cajon abierto con exito
+  FAIL boton habilitado y sin data-cart-add-pending
+  OK   sin pageerror
+
+## D5 complete the look, respuesta perdida tras aplicar
+  101=0 201/202=1/1 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":"We could not add this look. Review the selected options and try again.","bundleStatus":null}
+  (el comprador reintenta)
+  101=0 201/202=2/2 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Look added.","uncertainVisible":false,"headerCount":"4","drawerQty":"2,2","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":"Look added."}
+  FAIL 201/202=1/1 (sin duplicar), un solo POST de alta
+  OK   cajon abierto, "Look added." en cajon y en el bloque
+  OK   sin pageerror
+
+## D6 control changeLine: cajon abierto, 1 a 3, respuesta perdida; reintento
+  101=3 POSTchange=2
+  OK   cantidad absoluta: 101=3 tras el reintento (no se suma)
+  OK   sin pageerror
+
+## E1 respuesta perdida SIN aplicar (no llega al servidor)
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=0 y 1 GET a /cart.js
+  FAIL cajon abierto con "We could not confirm the update.", Check cart visible y enfocado
+  FAIL sin error de formulario ("try again")
+  tras Check cart y una nueva alta: 101=1
+  OK   una nueva alta deja 101=1
+  OK   sin pageerror
+
+## E2 perdida tras aplicar con /cart.js y seccion caidos; luego vuelve la red y Check cart
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL cajon con aviso, Check cart visible y enfocado, sin error de formulario
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=- (tras Check cart)
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL tras Check cart: 101=1, POST add=1, cantidad 1 en el cajon
+  OK   sin pageerror
+
+## E3 422 JSON (fallo confirmado): sin lectura de reconciliacion
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"All 1 Wool coat - M are in your cart.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  OK   mensaje del servidor en el formulario y 0 GET
+  OK   sin pageerror
+
+## E4 alta normal: sin coste extra
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"1","drawerQty":"1","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  OK   0 GET a /cart.js y 1 POST de alta
+  OK   sin pageerror
+
+## E5 cantidad 3, respuesta perdida tras aplicar
+  101=3 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=6 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"6","drawerQty":"6","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=3 y exito
+  OK   sin pageerror
+
+## E6 doble envio durante la reconciliacion (/cart.js lento 1,5 s)
+  101=2 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"2","drawerQty":"2","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  durante: pendingFlag=null addDisabled=false
+  FAIL durante la reconciliacion: pendiente y boton deshabilitado
+  FAIL final: 101=1 y un solo POST de alta
+  OK   sin pageerror
+
+## E7 otra pestana ANADE la misma variante tras cargar (visible); perdida tras aplicar
+  101=2 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=2 y exito
+  OK   sin pageerror
+
+## E8 otra ventana visible QUITA la linea tras cargar; perdida tras aplicar
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"1","drawerQty":"1","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=2 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"2","drawerQty":"2","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=1 (sin duplicar)
+  FAIL Check cart y nada invita a reintentar ("try again")
+  OK   sin pageerror
+
+## E8b igual con la pestana oculta entre medias (visibilitychange)
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"1","drawerQty":"1","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 2 GET (linea base y reconciliacion), exito y 101=1
+  OK   sin pageerror
+
+## E9 complete the look, respuesta perdida SIN aplicar
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":"We could not add this look. Review the selected options and try again.","bundleStatus":null}
+  OK   201/202=0/0
+  FAIL cajon con el aviso y sin error del look
+  OK   sin pageerror
+
+## E10 complete the look, perdida tras aplicar con /cart.js y seccion caidos
+  101=0 201/202=1/1 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":"We could not add this look. Review the selected options and try again.","bundleStatus":null}
+  FAIL cajon con aviso y Check cart; sin error del look
+  OK   sin pageerror
+
+## E11 200 {} (variante que exige plan, forma medida F06): fallo confirmado
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"This item could not be added to your cart.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  OK   "This item could not be added to your cart." y 0 GET
+  OK   sin pageerror
+
+## E12 colgada SIN aplicar; el servidor la aplica a los 11 s (tras el plazo de 10 s)
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=- (a 10,6 s)
+  estado {"formError":null,"drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":true,"focus":"body","pendingFlag":"true","bundleError":null,"bundleStatus":null}
+  FAIL a 10,6 s: cajon con aviso y Check cart, sin "try again"
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=- (final)
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=2 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"2","drawerQty":"2","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL final: 101=1 y ningun POST extra
+  OK   el boton queda libre
+  OK   sin pageerror
+
+## E13 504 HTML SIN aplicar (pasarela): puede entrar despues
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL Check cart, 1 GET, sin "try again"
+  OK   sin pageerror
+
+## E14 502 HTML SIN aplicar: cualquier 5xx puede entrar despues
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL Check cart, 1 GET, sin "try again"
+  OK   sin pageerror
+
+## E15 complete the look SIN cajon, perdida tras aplicar
+  101=0 201/202=1/1 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":false,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":"We could not add this look. Review the selected options and try again.","bundleStatus":null}
+  FAIL navega a /cart; 201/202=1/1; un solo POST
+  OK   sin pageerror
+
+## E16 complete the look SIN cajon, perdida SIN aplicar
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":false,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":"We could not add this look. Review the selected options and try again.","bundleStatus":null}
+  FAIL navega a /cart (muestra el carrito real); 201/202=0/0
+  OK   sin pageerror
+
+## E17 tras un alta sin confirmar con red caida (cajon obsoleto), 2.a alta perdida tras aplicar
+  101=2 201/202=0/0 POSTadd=2 GETcart=0 nav=- GETen2a=0
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 2 GET en la 2.a alta (linea base y reconciliacion), exito, 101=2
+  OK   sin pageerror
+
+## E18 muchos: 40 lineas y la variante en 2 lineas (1+2); perdida tras aplicar
+  101=4 201/202=19/19 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"41","drawerQty":"1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=5 201/202=19/19 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"43","drawerQty":"3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL 101=4, exito, contador 42 y 1 GET
+  OK   sin pageerror
+
+## R1 429 HTML SIN aplicar: la unica rama que invita a reintentar
+  101=0 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL "try again", 1 GET, 101=0
+  OK   sin pageerror
+
+## R5 carrera: la conexion se corta y el servidor aplica 400 ms despues
+  101=1 201/202=0/0 POSTadd=1 GETcart=0 nav=-
+  estado {"formError":"We could not update your cart. Please try again.","drawerOpen":false,"drawerError":null,"drawerStatus":null,"uncertainVisible":false,"headerCount":"0","drawerQty":"","addDisabled":false,"focus":"body","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  (el comprador reintenta)
+  101=2 201/202=0/0 POSTadd=2 GETcart=0 nav=-
+  estado {"formError":null,"drawerOpen":true,"drawerError":null,"drawerStatus":"Item added to your cart. Wool coat - M","uncertainVisible":false,"headerCount":"2","drawerQty":"2","addDisabled":false,"focus":"x","pendingFlag":null,"bundleError":null,"bundleStatus":null}
+  FAIL Check cart, sin "try again"
+  FAIL 101=1 y ningun POST extra
+  OK   sin pageerror
+
+resultados D0=OK D1=FAIL D2=FAIL D3=FAIL D4=FAIL D5=FAIL D6=OK E1=FAIL E2=FAIL E3=OK E4=OK E5=FAIL E6=FAIL E7=FAIL E8=FAIL E8b=FAIL E9=FAIL E10=FAIL E11=OK E12=FAIL E13=FAIL E14=FAIL E15=FAIL E16=FAIL E17=FAIL E18=FAIL R1=FAIL R5=FAIL
+resumen fallos=32

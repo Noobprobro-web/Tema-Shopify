@@ -1,0 +1,1870 @@
+{
+  "schema": "gpt-rd-lighthouse-v2",
+  "runId": "37a73a90-362a-4cbe-b6d1-b7c742bf7c61",
+  "startedAt": "2026-11-06T20:33:24.643Z",
+  "mode": "read-only",
+  "executionResult": "failed",
+  "results": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "home",
+      "viewport": "mobile",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 89,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 92
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 2360.98,
+        "largestContentfulPaintMs": 2360.98,
+        "totalBlockingTimeMs": 280,
+        "cumulativeLayoutShift": 0,
+        "speedIndexMs": 2360.98
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "speed-index",
+          "cache-insight",
+          "document-latency-insight",
+          "legacy-javascript-insight",
+          "network-dependency-tree-insight",
+          "render-blocking-insight",
+          "interactive",
+          "max-potential-fid",
+          "mainthread-work-breakdown",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/",
+      "finalPath": "/",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "mobile": true,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "home",
+      "viewport": "desktop",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 92
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 631,
+        "largestContentfulPaintMs": 631,
+        "totalBlockingTimeMs": 20.5,
+        "cumulativeLayoutShift": 0.031,
+        "speedIndexMs": 784.658
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "speed-index",
+          "cache-insight",
+          "document-latency-insight",
+          "forced-reflow-insight",
+          "legacy-javascript-insight",
+          "network-dependency-tree-insight",
+          "render-blocking-insight",
+          "max-potential-fid",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/",
+      "finalPath": "/",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "mobile": false,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "collection",
+      "viewport": "mobile",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 1952,
+        "largestContentfulPaintMs": 2102,
+        "totalBlockingTimeMs": 165.5,
+        "cumulativeLayoutShift": 0,
+        "speedIndexMs": 1952
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "viewport-insight",
+          "interactive",
+          "max-potential-fid",
+          "bootup-time",
+          "mainthread-work-breakdown",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/collections/the-permanent-collection",
+      "finalPath": "/collections/the-permanent-collection",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "mobile": true,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "collection",
+      "viewport": "desktop",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 585,
+        "largestContentfulPaintMs": 585,
+        "totalBlockingTimeMs": 0,
+        "cumulativeLayoutShift": 0.001,
+        "speedIndexMs": 600.951
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/collections/the-permanent-collection",
+      "finalPath": "/collections/the-permanent-collection",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "mobile": false,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "product",
+      "viewport": "mobile",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 1816,
+        "largestContentfulPaintMs": 1816,
+        "totalBlockingTimeMs": 0,
+        "cumulativeLayoutShift": 0,
+        "speedIndexMs": 2842.075
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "speed-index",
+          "viewport-insight",
+          "bootup-time",
+          "mainthread-work-breakdown",
+          "bf-cache",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/products/wool-waistcoat",
+      "finalPath": "/products/wool-waistcoat",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "mobile": true,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "product",
+      "viewport": "desktop",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 586,
+        "largestContentfulPaintMs": 586,
+        "totalBlockingTimeMs": 15.5,
+        "cumulativeLayoutShift": 0.002,
+        "speedIndexMs": 645.725
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "max-potential-fid",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/products/wool-waistcoat",
+      "finalPath": "/products/wool-waistcoat",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "mobile": false,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    }
+  ],
+  "networkWarnings": [
+    {
+      "source": "cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--regular.woff:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--bold.woff2:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--light.woff2:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/storefront/standard-actions.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/storefront/web-components/account.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopifycloud/preview-bar/preview-bar-modules.js:AUDIT_OPERATION_FAILED"
+    }
+  ],
+  "networkFailures": [
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--regular.woff:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--bold.woff2:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--light.woff2:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "tema-qkqpke0j.myshopify.com:/favicon.ico:HTTP_404"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/storefront/standard-actions.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/storefront/web-components/account.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopifycloud/preview-bar/preview-bar-modules.js:COOKIE_FILTER_FAILED"
+    }
+  ],
+  "blockedHosts": [
+    {
+      "host": "tema-qkqpke0j.myshopify.com",
+      "path": "/.well-known/shopify/monorail/unstable/produce_batch",
+      "scheme": "https",
+      "method": "POST",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "error-analytics-sessions-production.shopifysvc.com",
+      "path": "/observeonly",
+      "scheme": "https",
+      "method": "OPTIONS",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "tema-qkqpke0j.myshopify.com",
+      "path": "/api/collect",
+      "scheme": "https",
+      "method": "POST",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "otlp-http-production.shopifysvc.com",
+      "path": "/v1/metrics",
+      "scheme": "https",
+      "method": "OPTIONS",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "monorail-edge.shopifysvc.com",
+      "path": "/v1/produce",
+      "scheme": "https",
+      "method": "OPTIONS",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "tema-qkqpke0j.myshopify.com",
+      "path": "/.well-known/shopify/fec/produce",
+      "scheme": "https",
+      "method": "POST",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": null,
+      "path": null,
+      "scheme": "data",
+      "method": "GET",
+      "reason": "NON_HTTP_URL_BLOCKED_BY_POLICY",
+      "category": "non_http_url_blocked_by_policy",
+      "redacted": true
+    }
+  ],
+  "responseFilterFailures": [
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopify-marketing_assets/static/ShopifySans--regular.woff",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": null,
+      "hasResponseHeaders": false,
+      "hasResponseErrorReason": true
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopify-marketing_assets/static/ShopifySans--bold.woff2",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": null,
+      "hasResponseHeaders": false,
+      "hasResponseErrorReason": true
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopify-marketing_assets/static/ShopifySans--light.woff2",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": null,
+      "hasResponseHeaders": false,
+      "hasResponseErrorReason": true
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/standard-actions.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/storefront/web-components/account.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    },
+    {
+      "preset": "sartorial",
+      "host": "cdn.shopify.com",
+      "path": "/shopifycloud/preview-bar/preview-bar-modules.js",
+      "scheme": "https",
+      "stage": "continue_response",
+      "command": "Fetch.continueResponse",
+      "code": "PROTOCOL_ERROR",
+      "protocolCode": null,
+      "responseStatusCode": 200,
+      "hasResponseHeaders": true,
+      "hasResponseErrorReason": false
+    }
+  ],
+  "limits": {
+    "presets": [
+      "sartorial"
+    ],
+    "pages": [
+      "home",
+      "collection",
+      "product"
+    ],
+    "viewports": [
+      "mobile",
+      "desktop"
+    ],
+    "repetitionsPerCell": 1,
+    "cartMutations": 0,
+    "checkoutSubmitted": false,
+    "credentialsWritten": false,
+    "popupTargets": "paused by CDP auto-attach and closed before resume"
+  },
+  "lighthouseVersion": "13.4.1",
+  "preflight": {
+    "credentials": {
+      "SHOPIFY_CLI_THEME_TOKEN": "present",
+      "STOREFRONT_PASSWORD": "present"
+    },
+    "originValidated": true,
+    "themeInventory": "externally_confirmed_unpublished"
+  },
+  "browserVersion": "Chrome/153.0.8010.12",
+  "previews": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "auth": {
+        "result": "not_run",
+        "auth": {
+          "result": "passed",
+          "initialHttpStatus": 200,
+          "postStatus": 302,
+          "reloadedStatus": 200
+        }
+      },
+      "identityVerified": true,
+      "contextClosed": true,
+      "browserClosed": true
+    }
+  ],
+  "rateLimits": [
+    {
+      "preset": "sartorial",
+      "occurrences": 0,
+      "events": [],
+      "omittedEvents": 0
+    }
+  ],
+  "blockedHostAttention": false,
+  "finishedAt": "2026-11-06T20:34:59.262Z",
+  "security": {
+    "secretValueRedactions": 0
+  }
+}

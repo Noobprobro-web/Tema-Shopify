@@ -246,12 +246,27 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
         this.y = start.y + event.clientY - start.event.clientY;
         this.apply();
       }
-    } else if (pointers.delete(id) && !pointers.size) {
-      this.start = this.pinch = null;
-      this.dialog.removeAttribute('data-gesture');
-      if (pinch) this.announce();
-      else if (type === 'pointerup' && start && !start.moved && event.timeStamp - start.event.timeStamp < 500) {
-        this.tap(event, start.event.target);
+    } else if (pointers.delete(id)) {
+      if (pointers.size === 1) {
+        const [remaining] = pointers.values();
+        this.start = { event: remaining, x: this.x, y: this.y, moved: Boolean(pinch || start?.moved) };
+        if (pinch) this.announce();
+        this.pinch = null;
+        if (this.scale > 1) {
+          this.dialog.setAttribute('data-gesture', '');
+          try { this.track.setPointerCapture(remaining.pointerId); } catch {}
+        }
+      } else if (pointers.size >= 2) {
+        const [a, b] = pointers.values();
+        this.pinch = { gap: gap(a, b) || 1, scale: this.scale, x: this.x, y: this.y, mid: mid(a, b) };
+        this.start = null;
+      } else {
+        this.start = this.pinch = null;
+        this.dialog.removeAttribute('data-gesture');
+        if (pinch) this.announce();
+        else if (type === 'pointerup' && start && !start.moved && event.timeStamp - start.event.timeStamp < 500) {
+          this.tap(event, start.event.target);
+        }
       }
     }
   }

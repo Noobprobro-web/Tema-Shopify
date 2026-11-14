@@ -306,7 +306,8 @@
               </div>
             </div>
 
-            {%- if collection.products.size > 0 or section.blocks.size > 0 -%}
+            {%- comment -%} Promotion tiles ride on real products; with 0 products (empty or fully filtered) only the empty state below is shown. {%- endcomment -%}
+            {%- if collection.products.size > 0 -%}
               <ul
                 class="product-grid unstyled-list"
                 data-product-list

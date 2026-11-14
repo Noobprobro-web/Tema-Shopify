@@ -1,0 +1,68 @@
+{
+  "schema": "gpt-rd-lighthouse-v2",
+  "runId": "e3829b90-de9d-4913-888f-930316726e6f",
+  "startedAt": "2026-11-06T20:00:30.126Z",
+  "mode": "read-only",
+  "executionResult": "failed",
+  "results": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "preview_setup",
+      "viewport": "none",
+      "result": "failed",
+      "reason": "AUDIT_OPERATION_FAILED",
+      "identityVerified": false
+    }
+  ],
+  "networkWarnings": [],
+  "networkFailures": [],
+  "blockedHosts": [],
+  "limits": {
+    "presets": [
+      "sartorial"
+    ],
+    "pages": [
+      "home",
+      "collection",
+      "product"
+    ],
+    "viewports": [
+      "mobile",
+      "desktop"
+    ],
+    "repetitionsPerCell": 1,
+    "cartMutations": 0,
+    "checkoutSubmitted": false,
+    "credentialsWritten": false,
+    "popupTargets": "paused by CDP auto-attach and closed before resume"
+  },
+  "lighthouseVersion": "13.4.1",
+  "preflight": {
+    "credentials": {
+      "SHOPIFY_CLI_THEME_TOKEN": "present",
+      "STOREFRONT_PASSWORD": "present"
+    },
+    "originValidated": true,
+    "themeInventory": "externally_confirmed_unpublished"
+  },
+  "previews": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "auth": {
+        "result": "not_run"
+      },
+      "identityVerified": false,
+      "contextCreated": false,
+      "contextClosed": true,
+      "browserCreated": false,
+      "browserClosed": true
+    }
+  ],
+  "blockedHostAttention": false,
+  "finishedAt": "2026-11-06T20:00:36.127Z",
+  "security": {
+    "secretValueRedactions": 0
+  }
+}

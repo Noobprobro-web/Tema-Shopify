@@ -1,0 +1,9 @@
+# GPT-REVIEW-MATRIX-B-03-20261108-002 · Seguimiento independiente
+
+**Dictamen documental: conforme con D28 y con la disposición `LEAVE_TO_EXPIRE` registrada para B-03.** El estado del carrito y de la nota sigue desconocido. Se mantiene el dictamen parcial de tienda. [Seguimiento del ejecutor](../../GPT-TEST-MATRICES-20261107-001.md#seguimiento-del-incidente--2026-11-08-1054-caracas) · [Revisión B-03 inicial](GPT-REVIEW-MATRIX-B-03-20261108-001.md)
+
+El snapshot original conserva SHA-256 `5c72794b450a8a9e5cb1e1426e7e7a6cd64bc18b16286b98dbf8927068910fa5`. Registra `awaiting_intervention`, tres respuestas 429 al finalizar el intento de limpieza y cero comandos manuales recibidos. Los indicadores de contexto y navegador preservados describen el instante en que se guardó ese snapshot. [JSON original](../results/matrix-B-03-20261108T072412209Z-8b45f271-e4e3-40c6-93ce-34111b6e782d.json)
+
+El seguimiento del ejecutor registra que la herramienta ya no reconocía la sesión y que no quedaban procesos asociados. Una consulta independiente de solo lectura tampoco encontró los PID originales de Node y Chromium. El ejecutor reporta que durante el seguimiento no creó otro contexto, no hizo peticiones a Shopify y no reanudó las matrices. La hora y la causa de la desaparición del contexto original se desconocen. [Informe consolidado](../../GPT-TEST-MATRICES-20261107-001.md#seguimiento-del-incidente--2026-11-08-1054-caracas)
+
+D28 exige verificar el carrito vacío y sin nota en su mismo contexto antes de que el arnés lo cierre. El contexto original ya no está disponible y el reintento de limpieza no pudo ejecutarse. `LEAVE_TO_EXPIRE` registra la disposición operativa comunicada para B-03. No certifica expiración, limpieza, cierre manual ni cierre normal del contexto. El caso Archive registrado en D28 es un incidente distinto. [D28 y addendum](../../../../docs/decisions.md)

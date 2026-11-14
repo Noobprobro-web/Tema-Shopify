@@ -45,7 +45,7 @@ Lista de afirmaciones falsables numeradas:
 - Usar `rg -n` sobre los informes para recuperar cita de línea exacta antes de pegar en informe final.
 
 ## Harness y sesiones de tienda
-- Helper autorizado: `agent-comms/outbox-claude/harness-AUDIT-FINAL-002/lib.mjs`. Define `STORES` con URLs `https://sartorial-{atelier,edition,archive}.myshopify.com`, password default `1234` y `launch()`, `unlock(context, storeUrl)`, `pace(context)`, `attachConsole(page,sink)`.
+- Helper autorizado: `agent-comms/outbox-claude/harness-AUDIT-FINAL-002/lib.mjs`. Define `STORES` con URLs `https://sartorial-{atelier,edition,archive}.myshopify.com`, password default `[REDACTED_STOREFRONT_PASSWORD]` y `launch()`, `unlock(context, storeUrl)`, `pace(context)`, `attachConsole(page,sink)`.
 - `unlock` llama a `pace`, usa cookies temporales fuera del repo, visita `/cart`, ingresa contraseña solo si se muestra pantalla `/password`, y escribe cookie fuera de Git. `pace` intercepta `page.goto`, aplica separación mínima entre navegaciones; si hay 429 de myshopify espera 60 segundos/reintenta hasta 8 veces. Unlock espera 30 segundos entre fallos. No crear un segundo navegador concurrente contra la misma tienda. Un 429 es limitación/rate-control, no defecto del producto.
 - Antes de prueba de flujo confirmar que ningún otro rol navega esa tienda; coordinar turnos/tiendas para que cada tienda tenga como máximo una sesión de navegador activa. Guardar evidencias sin datos de cliente; no almacenar/exportar cookies.
 - Navegador disponible vía Playwright, dependencia importada por helper. Alternativa UI de escritorio: MCP `mcp__cua_repl.js` (requiere leer primero skill computer-use y su documentación inicial); no iniciar un segundo cliente simultáneo de la misma tienda.

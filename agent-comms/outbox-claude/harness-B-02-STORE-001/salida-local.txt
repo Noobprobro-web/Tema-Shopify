@@ -1,0 +1,33 @@
+PASS REGLA /cart/add nativo :: {"capture":true,"reason":"CAPTURED_NOT_SENT"}
+PASS REGLA /fr-ca/cart/add nativo :: {"capture":true,"reason":"CAPTURED_NOT_SENT"}
+PASS REGLA /cart/add con query :: {"capture":false,"reason":"NOT_NATIVE_CART_ADD"}
+PASS REGLA /cart/add.js :: {"capture":false,"reason":"AJAX_ENDPOINT"}
+PASS REGLA /cart/update :: {"capture":false,"reason":"NOT_NATIVE_CART_ADD"}
+PASS REGLA GET /cart/add :: {"capture":false,"reason":"NOT_POST"}
+PASS REGLA fetch, no navegacion :: {"capture":false,"reason":"NOT_PRIMARY_DOCUMENT_NAVIGATION"}
+PASS REGLA iframe :: {"capture":false,"reason":"NOT_PRIMARY_DOCUMENT_NAVIGATION"}
+PASS REGLA otro origen :: {"capture":false,"reason":"OTHER_ORIGIN"}
+PASS REGLA parseo urlencoded :: {"id":["42"],"quantity":["3"],"sellingPlan":["7"],"properties":{"Note":["x"]}}
+PASS A->B sartorial/pdp/available :: {"loadedA":"1101","soldOutOptionDisabled":null,"result":"PASS","failures":[],"evidence":{"sentId":["1103"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"1103","formDataIds":["1103"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"1101"}},"d28Blocked":0}
+PASS A->B sartorial/pdp/sold-out :: {"loadedA":"2201","soldOutOptionDisabled":true,"result":"PASS","failures":[],"evidence":{"sentId":["2203"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"2203","formDataIds":["2203"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"2201"}},"d28Blocked":0}
+PASS A->B sartorial/featured/available :: {"loadedA":"1101","soldOutOptionDisabled":null,"result":"PASS","failures":[],"evidence":{"sentId":["1103"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"1103","formDataIds":["1103"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"1101"}},"d28Blocked":0}
+PASS A->B sartorial/featured/sold-out :: {"loadedA":"2201","soldOutOptionDisabled":true,"result":"PASS","failures":[],"evidence":{"sentId":["2203"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"2203","formDataIds":["2203"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"2201"}},"d28Blocked":0}
+PASS A->B imprint/pdp/available :: {"loadedA":"1101","soldOutOptionDisabled":null,"result":"PASS","failures":[],"evidence":{"sentId":["1103"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":["Engraving"],"displayed":{"selectedOptionValue":"1103","formDataIds":["1103"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"1101"}},"d28Blocked":0}
+PASS A->B imprint/pdp/sold-out :: {"loadedA":"2201","soldOutOptionDisabled":true,"result":"PASS","failures":[],"evidence":{"sentId":["2203"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":["Engraving"],"displayed":{"selectedOptionValue":"2203","formDataIds":["2203"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"2201"}},"d28Blocked":0}
+PASS A->B imprint/featured/available :: {"loadedA":"1101","soldOutOptionDisabled":null,"result":"PASS","failures":[],"evidence":{"sentId":["1103"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":["Engraving"],"displayed":{"selectedOptionValue":"1103","formDataIds":["1103"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"1101"}},"d28Blocked":0}
+PASS A->B imprint/featured/sold-out :: {"loadedA":"2201","soldOutOptionDisabled":true,"result":"PASS","failures":[],"evidence":{"sentId":["2203"],"sentQuantity":[],"sentSellingPlan":[],"propertyKeys":["Engraving"],"displayed":{"selectedOptionValue":"2203","formDataIds":["2203"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"2201"}},"d28Blocked":0}
+PASS A->B archive/pdp/available :: {"loadedA":"1101","soldOutOptionDisabled":null,"result":"PASS","failures":[],"evidence":{"sentId":["1103"],"sentQuantity":["2"],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"1103","formDataIds":["1103"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"1101"}},"d28Blocked":0}
+PASS A->B archive/pdp/sold-out :: {"loadedA":"2201","soldOutOptionDisabled":true,"result":"PASS","failures":[],"evidence":{"sentId":["2203"],"sentQuantity":["2"],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"2203","formDataIds":["2203"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"2201"}},"d28Blocked":0}
+PASS A->B archive/featured/available :: {"loadedA":"1101","soldOutOptionDisabled":null,"result":"PASS","failures":[],"evidence":{"sentId":["1103"],"sentQuantity":["2"],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"1103","formDataIds":["1103"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"1101"}},"d28Blocked":0}
+PASS A->B archive/featured/sold-out :: {"loadedA":"2201","soldOutOptionDisabled":true,"result":"PASS","failures":[],"evidence":{"sentId":["2203"],"sentQuantity":["2"],"sentSellingPlan":[],"propertyKeys":[],"displayed":{"selectedOptionValue":"2203","formDataIds":["2203"]},"captureReason":"CAPTURED_NOT_SENT","loaded":{"selectedOptionValue":"2201"}},"d28Blocked":0}
+PASS TOTAL capturados 12/12 :: {"capturedCount":12}
+PASS TOTAL cero peticiones de mutacion o /cart en el servidor :: {"posts":0,"cartHits":0}
+PASS CONTROL URL de variante agotada: boton deshabilitado y sin captura :: {"disabled":true,"captures":0}
+PASS NEG payload con id A y B (hidden habilitado) :: {"result":"FAIL","failures":["PAYLOAD_ID_NOT_SINGLE","PAYLOAD_ID_NOT_EXPECTED_VARIANT","PAYLOAD_ID_NOT_DISPLAYED_VARIANT"],"serverHits":0,"d28Blocked":0}
+PASS NEG select sin name: no se envia ningun id :: {"result":"FAIL","failures":["PAYLOAD_ID_NOT_SINGLE","PAYLOAD_ID_NOT_EXPECTED_VARIANT","PAYLOAD_ID_NOT_DISPLAYED_VARIANT"],"serverHits":0,"d28Blocked":0}
+PASS NEG id esperado distinto de B :: {"result":"FAIL","failures":["EXPECTED_ID_NOT_VARIANT_B"],"serverHits":0,"d28Blocked":0}
+PASS NEG POST a /cart/add.js :: {"result":"FAIL","failures":["NO_NATIVE_CART_ADD_CAPTURED","UNEXPECTED_MUTATION_REQUEST"],"serverHits":0,"d28Blocked":1}
+PASS NEG POST a otro origen :: {"result":"FAIL","failures":["NO_NATIVE_CART_ADD_CAPTURED","UNEXPECTED_MUTATION_REQUEST"],"serverHits":0,"d28Blocked":1}
+PASS NEG peticion reenviada :: {"result":"FAIL","failures":["REQUEST_REACHED_SERVER","NO_NATIVE_CART_ADD_CAPTURED"],"serverHits":1,"d28Blocked":0}
+
+RESUMEN 31/31 comprobaciones del arnes correctas

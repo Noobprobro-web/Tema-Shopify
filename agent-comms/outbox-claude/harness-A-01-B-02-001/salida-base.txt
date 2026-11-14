@@ -1,0 +1,56 @@
+FAIL H-1 [pdp] compra unica (JS) :: {"id":["101"],"sp":[""]}
+FAIL H-2 [pdp] plan 1 -> plan 2 -> compra unica (JS) :: [{"id":["101"],"sp":["1",""]},{"id":["101"],"sp":["2",""]},{"id":["101"],"sp":[""]}]
+FAIL H-3 [pdp] plan 2 y variante L solo con plan 3; agotada sin plan :: {"L":{"id":["103"],"sp":["3",""]},"XL":{"id":["104"],"sp":[""]},"btn":{"disabled":true,"notice":false,"checkoutHidden":true}}
+FAIL H-4 [pdp] caso C: ?selling_plan=1 y luego compra unica (JS) :: {"carga":["1","1"],"tras":["1"],"id":["101"]}
+FAIL H-5 [pdp] requires_selling_plan (JS) :: {"r1":["1","1"],"r2":["2","1"],"M":{"id":["202"],"sp":["1"]},"btn":{"disabled":true,"notice":true,"checkoutHidden":true}}
+PASS H-6a [pdp] p3 requires sin grupos (JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+PASS H-6b [pdp] p3 requires sin grupos (sin JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+FAIL H-7 [pdp] sin JS p1: elegir 102 en el select :: {"post_id":["101"],"html":"no-js","selectDisplay":"sin select","pickerDisplay":"block","hiddenDisabled":false}
+FAIL H-7 [pdp] sin JS p8: elegir 804 en el select :: {"post_id":["801"],"html":"no-js","selectDisplay":"sin select","pickerDisplay":"block","hiddenDisabled":false}
+FAIL H-8 [pdp] theme.js 404 :: {"html":"js","selectDisplay":"sin select","post_id":["801"]}
+FAIL H-18b [pdp] theme.js throw :: {"html":"js","selectDisplay":"sin select","post_id":["801"]}
+FAIL H-18c [pdp] theme.js tardio (tras DOMContentLoaded): vuelve a js y el comprador elige variante :: {"html":"js","picker":"block","nativeSelectVisible":true,"hiddenIdEnabled":true,"id":["102"]}
+PASS H-18a [pdp] theme.js lento (1,5 s): sin vuelta falsa a no-js :: {"html":"js","hiddenDisabled":false,"native":[]}
+PASS H-9a [pdp] ?variant=102 (JS) :: ["102"]
+PASS H-9b [pdp] ?variant=102 (sin JS) :: ["102"]
+PASS H-10 [pdp] sin JS: plan de la URL y compra unica (limite 4.3.2: selling_plan vacio) :: {"id":["101"],"selling_plan":[""]}
+FAIL H-11 [pdp] EXCEPCION :: "Cannot read properties of undefined (reading 'd')"
+PASS H-12a [pdp] p4 (sin JS) :: {"names":1,"selects":0,"post_id":["401"]}
+PASS H-12b [pdp] p4 (JS) :: {"names":1,"selects":0,"post_id":["401"]}
+FAIL H-13 [pdp] EXCEPCION :: "page.evaluate: TypeError: Cannot read properties of null (reading 'closest')"
+FAIL H-13b [pdp] p9 300 variantes, ?variant=9260 fuera de las 250 :: {"opciones":0,"post_id":["9260"]}
+FAIL H-14 [pdp] EXCEPCION :: "page.evaluate: TypeError: Cannot read properties of null (reading 'textContent')"
+FAIL H-15 [pdp] EXCEPCION :: "page.evaluate: TypeError: Cannot read properties of null (reading 'disabled')"
+FAIL H-16 [pdp] JS toma el control (name retirado, desactivados) :: {"native":[],"hiddenEnabled":true,"namedId":"HTMLInputElement","namedIdIsHidden":true,"namedIdValue":"102","namedSp":"RadioNodeList","namedSpIsHidden":false,"namedSpValue":"","qsIsHidden":true,"formDotId":true,"pickupDisabledProp":null,"nameIdCount":1,"nameSpCount":2,"handOffFocusFiltraDisabled":true}
+PASS H-19 [pdp] sin bloque variant_picker: se conserva el comportamiento actual :: {"names":1,"post_id":["101"]}
+PASS H-20 [pdp] JSON de variantes roto: un valor por nombre (estado del servidor) :: {"id":["101"],"sp":["1"]}
+FAIL H-1 [featured] compra unica (JS) :: {"id":["101"],"sp":[""]}
+FAIL H-2 [featured] plan 1 -> plan 2 -> compra unica (JS) :: [{"id":["101"],"sp":["1",""]},{"id":["101"],"sp":["2",""]},{"id":["101"],"sp":[""]}]
+FAIL H-3 [featured] plan 2 y variante L solo con plan 3; agotada sin plan :: {"L":{"id":["103"],"sp":["3",""]},"XL":{"id":["104"],"sp":[""]},"btn":{"disabled":true,"notice":false,"checkoutHidden":true}}
+FAIL H-4 [featured] caso C: ?selling_plan=1 y luego compra unica (JS) :: {"carga":["1","1"],"tras":["1"],"id":["101"]}
+FAIL H-5 [featured] requires_selling_plan (JS) :: {"r1":["1","1"],"r2":["2","1"],"M":{"id":["202"],"sp":["1"]},"btn":{"disabled":true,"notice":true,"checkoutHidden":true}}
+PASS H-6a [featured] p3 requires sin grupos (JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+PASS H-6b [featured] p3 requires sin grupos (sin JS) :: {"disabled":true,"notice":true,"checkoutHidden":true}
+FAIL H-7 [featured] sin JS p1: elegir 102 en el select :: {"post_id":["101"],"html":"no-js","selectDisplay":"sin select","pickerDisplay":"block","hiddenDisabled":false}
+FAIL H-7 [featured] sin JS p8: elegir 804 en el select :: {"post_id":["801"],"html":"no-js","selectDisplay":"sin select","pickerDisplay":"block","hiddenDisabled":false}
+FAIL H-8 [featured] theme.js 404 :: {"html":"js","selectDisplay":"sin select","post_id":["801"]}
+FAIL H-18b [featured] theme.js throw :: {"html":"js","selectDisplay":"sin select","post_id":["801"]}
+FAIL H-18c [featured] theme.js tardio (tras DOMContentLoaded): vuelve a js y el comprador elige variante :: {"html":"js","picker":"block","nativeSelectVisible":true,"hiddenIdEnabled":true,"id":["102"]}
+PASS H-18a [featured] theme.js lento (1,5 s): sin vuelta falsa a no-js :: {"html":"js","hiddenDisabled":false,"native":[]}
+PASS H-10 [featured] sin JS: plan de la URL y compra unica (limite 4.3.2: selling_plan vacio) :: {"id":["101"],"selling_plan":[""]}
+FAIL H-11 [featured] EXCEPCION :: "Cannot read properties of undefined (reading 'd')"
+PASS H-12a [featured] p4 (sin JS) :: {"names":1,"selects":0,"post_id":["401"]}
+PASS H-12b [featured] p4 (JS) :: {"names":1,"selects":0,"post_id":["401"]}
+FAIL H-13 [featured] EXCEPCION :: "page.evaluate: TypeError: Cannot read properties of null (reading 'closest')"
+FAIL H-13b [featured] p9 300 variantes, ?variant=9260 fuera de las 250 :: {"opciones":0,"post_id":["9260"]}
+FAIL H-14 [featured] EXCEPCION :: "page.evaluate: TypeError: Cannot read properties of null (reading 'textContent')"
+FAIL H-15 [featured] EXCEPCION :: "page.evaluate: TypeError: Cannot read properties of null (reading 'disabled')"
+FAIL H-16 [featured] JS toma el control (name retirado, desactivados) :: {"native":[],"hiddenEnabled":true,"namedId":"HTMLInputElement","namedIdIsHidden":true,"namedIdValue":"102","namedSp":"RadioNodeList","namedSpIsHidden":false,"namedSpValue":"","qsIsHidden":true,"formDotId":true,"pickupDisabledProp":null,"nameIdCount":1,"nameSpCount":2,"handOffFocusFiltraDisabled":true}
+PASS H-19 [featured] sin bloque variant_picker: se conserva el comportamiento actual :: {"names":1,"post_id":["101"]}
+PASS H-20 [featured] JSON de variantes roto: un valor por nombre (estado del servidor) :: {"id":["101"],"sp":["1"]}
+PASS H-21 [featured] destacado sin producto: sin formulario ni errores :: {"errores":[]}
+PASS H-22 [featured x2] dos productos destacados: ids unicos :: []
+
+MODO=base total=52 pass=20 fail=32
+FALLAN: ["H-1[pdp]","H-2[pdp]","H-3[pdp]","H-4[pdp]","H-5[pdp]","H-7[pdp]","H-8[pdp]","H-18b[pdp]","H-18c[pdp]","H-11[pdp]","H-13[pdp]","H-13b[pdp]","H-14[pdp]","H-15[pdp]","H-16[pdp]","H-1[featured]","H-2[featured]","H-3[featured]","H-4[featured]","H-5[featured]","H-7[featured]","H-8[featured]","H-18b[featured]","H-18c[featured]","H-11[featured]","H-13[featured]","H-13b[featured]","H-14[featured]","H-15[featured]","H-16[featured]"]
+H-17 (la base reproduce los fallos de H-1, H-2, H-4, H-7 y H-8 en las dos superficies): PASS

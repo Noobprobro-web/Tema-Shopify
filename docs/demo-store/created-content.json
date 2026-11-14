@@ -1,0 +1,26 @@
+{
+  "shop": "sartorial-theme-kvkzl39t.myshopify.com",
+  "collections": [
+    {"handle":"the-autumn-series","id":"515552641328","type":"smart","rule":"tag=autumn-series","sort":"MANUAL","published":true,"productsAtCreation":9},
+    {"handle":"new-forms","id":"515552674096","type":"smart","rule":"tag=autumn-series","published":true,"productsAtCreation":9},
+    {"handle":"permanent-collection","id":"515552706864","type":"smart","rule":"tag=permanent","published":true,"productsAtCreation":12},
+    {"handle":"tailoring","id":"515552739632","type":"smart","rule":"tag=tailoring","published":true,"productsAtCreation":4},
+    {"handle":"knitwear","id":"515552772400","type":"smart","rule":"tag=knitwear","published":true,"productsAtCreation":4},
+    {"handle":"outerwear","id":"515552805168","type":"smart","rule":"tag=outerwear","published":true,"productsAtCreation":4},
+    {"handle":"accessories","id":"515552837936","type":"smart","rule":"tag=accessories","published":true,"productsAtCreation":4},
+    {"handle":"new-arrivals","id":"515552870704","type":"smart","rule":"tag=new-arrival","published":true,"productsAtCreation":3},
+    {"handle":"empty-test","id":"515552903472","type":"smart","rule":"tag=tag-that-no-product-has","published":true,"productsAtCreation":0},
+    {"handle":"single-product-test","id":"515552936240","type":"smart","rule":"tag=single-product-test","published":true,"productsAtCreation":1},
+    {"handle":"test-fixtures","id":"515552969008","type":"smart","rule":"tag=test-fixture","published":false,"productsAtCreation":3}
+  ],
+  "pages": [
+    {"handle":"about","id":"164079108400","template":"about","action":"created"},
+    {"handle":"faq","id":"164079141168","template":"faq","action":"created"},
+    {"handle":"contact","id":"164078453040","template":"contact","action":"updated existing"}
+  ],
+  "menus": {
+    "main-menu": "Catalog(/collections/all)[New forms, Permanent collection, Tailoring, Knitwear, Outerwear, Accessories], Tailoring, About, Contact",
+    "footer": "FAQ, Contact, Shipping policy, Refund policy, Privacy policy, Terms of service (HTTP /policies/*)"
+  },
+  "blog": {"handle":"news","id":"123872543024","action":"already existed","articles":["welcome-to-the-demo-store","how-to-read-the-size-chart","long-title-article-test"]}
+}

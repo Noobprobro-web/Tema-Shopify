@@ -1,0 +1,11 @@
+# Revisión independiente · B-04, recorridos posteriores · 2026-11-08
+
+**Dictamen: PARCIAL.** La evidencia muestra navegación con la nota ausente en Sartorial y limpieza verificada; no ejecuta los casos de guardado de nota exigidos por `CLAUDE-DIRECTIVA-B-04-001.md:312`. Esta revisión es documental y no repitió operaciones en tienda. La revisión 001 conserva por separado el intento previo bloqueado en acceso.
+
+## Evidencia y resultados
+
+- JSON B-04 Sartorial `matrix-B-04-20261108T155404698Z-ae8c6a9d-b7e9-4237-bf8c-011051686e29.json`: SHA-256 `e71d73b9ffd6b5ea6936d12f791bf266fa814fc97f954a4a75369cd4327686a4`. La nota sucia no se ejecutó en ambos viewports porque no se renderizó el control; otras comprobaciones registraron timeout o fallo de lectura sin causa atribuible al tema. La limpieza final registró clear/update/read HTTP 200, cero artículos y nota vacía, antes del cierre.
+- JSON de sesión persistente `matrix-persistent-cart-20261108T160650851Z-3d841abf-bebc-48fa-bb9d-8e1015077fab.json`: SHA-256 `ba409c7999084fd75cc53576b2bc7a1c37ea91eaec733057e0b2495f7fb4365a`. Se verificó Sartorial, carrito inicial vacío y una línea de prueba. A 390×844 y 1280×800 el textarea de nota estuvo ausente en drawer y carrito; se enfocó View cart y Enter navegó a `/cart`. El resultado `passed` de esas filas acredita ese recorrido con control ausente, no el guardado de nota.
+- La limpieza tras B-04 en la sesión persistente registró clear/update/read HTTP 200, cero artículos y nota vacía. Al final de B-02 la primera lectura no fue interpretable; la limpieza posterior registró clear=200, update sin status verificable y read=200 con cero artículos y nota vacía, antes de `contextClosed=true`. La lectura acredita el estado final vacío; el status de update queda desconocido. No hay eventos 429 registrados.
+
+La directiva también exige nota limpia y sucia con control habilitado, eco real de multilinea/espacios/emoji y longitud, red lenta u offline, edición en vuelo, concurrencia, checkout nativo y accesibilidad con teclado y lector. Esos casos siguen pendientes; la ausencia observada del control no acredita por sí sola el estado del setting. Los preflights CLI están consignados en el JSON/informe; esta revisión no los repitió. No se cierra ninguna fila del ledger.

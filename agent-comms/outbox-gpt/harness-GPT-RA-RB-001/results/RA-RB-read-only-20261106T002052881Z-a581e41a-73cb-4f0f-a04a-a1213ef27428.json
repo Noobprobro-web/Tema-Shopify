@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "mode": "read-only",
+  "scopeResult": "failed",
+  "startedAt": "2026-11-06T00:20:52.882Z",
+  "finishedAt": "2026-11-06T00:20:56.079Z",
+  "target": {
+    "host": "tema-qkqpke0j.myshopify.com",
+    "themeIds": [
+      "190232297715",
+      "190232330483",
+      "190232363251"
+    ]
+  },
+  "limits": [
+    "SCOPED_HARNESS_NOT_FULL_RA_RB_CERTIFICATION",
+    "NO_THEME_SETTINGS_OR_CATALOG_WRITES",
+    "NO_CHECKOUT_OR_PAYMENT",
+    "NO_SCREEN_READER_OR_VISUAL_CONTRAST_CERTIFICATION",
+    "C_R0_4_SUBSCRIPTION_FIXTURE_PENDING_JOHANDRY"
+  ],
+  "checks": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "storefront_access",
+      "result": "failed",
+      "reason": "AUTH_REDIRECT_DESTINATION_NOT_ALLOWED",
+      "details": null
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "storefront_access",
+      "result": "failed",
+      "reason": "AUTH_REDIRECT_DESTINATION_NOT_ALLOWED",
+      "details": null
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "storefront_access",
+      "result": "failed",
+      "reason": "AUTH_REDIRECT_DESTINATION_NOT_ALLOWED",
+      "details": null
+    }
+  ],
+  "sessions": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "cartMutationsAllowed": false,
+      "contextClosed": true,
+      "blockedRequests": 0,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "AUTH_POST_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "store_read",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "STORE_READ_ALLOWED",
+          "redirectHop": true
+        }
+      ],
+      "requestDecisionsOmitted": 0
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "cartMutationsAllowed": false,
+      "contextClosed": true,
+      "blockedRequests": 0,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "AUTH_POST_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "store_read",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "STORE_READ_ALLOWED",
+          "redirectHop": true
+        }
+      ],
+      "requestDecisionsOmitted": 0
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "cartMutationsAllowed": false,
+      "contextClosed": true,
+      "blockedRequests": 0,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "AUTH_POST_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "store_read",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "STORE_READ_ALLOWED",
+          "redirectHop": true
+        }
+      ],
+      "requestDecisionsOmitted": 0
+    }
+  ]
+}

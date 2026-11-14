@@ -1,0 +1,523 @@
+{
+  "schema": "gpt-rd-lighthouse-v2",
+  "runId": "4d1b2990-60ea-4a21-8695-7ac88b7bcdf8",
+  "startedAt": "2026-11-06T20:24:29.147Z",
+  "mode": "read-only",
+  "executionResult": "failed",
+  "results": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "home",
+      "viewport": "mobile",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 92
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 2130.445,
+        "largestContentfulPaintMs": 2130.445,
+        "totalBlockingTimeMs": 165.5,
+        "cumulativeLayoutShift": 0,
+        "speedIndexMs": 2141.084
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "speed-index",
+          "cache-insight",
+          "document-latency-insight",
+          "forced-reflow-insight",
+          "legacy-javascript-insight",
+          "network-dependency-tree-insight",
+          "render-blocking-insight",
+          "interactive",
+          "max-potential-fid",
+          "mainthread-work-breakdown",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/",
+      "finalPath": "/",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "mobile": true,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "home",
+      "viewport": "desktop",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 92
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 610,
+        "largestContentfulPaintMs": 610,
+        "totalBlockingTimeMs": 25,
+        "cumulativeLayoutShift": 0.031,
+        "speedIndexMs": 902.851
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "speed-index",
+          "cache-insight",
+          "document-latency-insight",
+          "forced-reflow-insight",
+          "legacy-javascript-insight",
+          "network-dependency-tree-insight",
+          "render-blocking-insight",
+          "max-potential-fid",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/",
+      "finalPath": "/",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "mobile": false,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "collection",
+      "viewport": "mobile",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 1950,
+        "largestContentfulPaintMs": 1950,
+        "totalBlockingTimeMs": 42,
+        "cumulativeLayoutShift": 0,
+        "speedIndexMs": 1950
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "viewport-insight",
+          "interactive",
+          "max-potential-fid",
+          "bootup-time",
+          "mainthread-work-breakdown",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/collections/the-permanent-collection",
+      "finalPath": "/collections/the-permanent-collection",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "mobile": true,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "collection",
+      "viewport": "desktop",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 570,
+        "largestContentfulPaintMs": 570,
+        "totalBlockingTimeMs": 0,
+        "cumulativeLayoutShift": 0.001,
+        "speedIndexMs": 659.641
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/collections/the-permanent-collection",
+      "finalPath": "/collections/the-permanent-collection",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "mobile": false,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "product",
+      "viewport": "mobile",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 1890,
+        "largestContentfulPaintMs": 1890,
+        "totalBlockingTimeMs": 200.5,
+        "cumulativeLayoutShift": 0,
+        "speedIndexMs": 1890
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "largest-contentful-paint",
+          "total-blocking-time",
+          "viewport-insight",
+          "interactive",
+          "max-potential-fid",
+          "bootup-time",
+          "mainthread-work-breakdown",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/products/wool-waistcoat",
+      "finalPath": "/products/wool-waistcoat",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "mobile",
+          "viewport": "390x844",
+          "deviceScaleFactor": 1,
+          "mobile": true,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "page": "product",
+      "viewport": "desktop",
+      "result": "measured",
+      "reason": null,
+      "identityVerified": true,
+      "httpStatus": null,
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 570,
+        "largestContentfulPaintMs": 570,
+        "totalBlockingTimeMs": 8,
+        "cumulativeLayoutShift": 0.002,
+        "speedIndexMs": 687.296
+      },
+      "failedAuditIds": {
+        "performance": [
+          "first-contentful-paint",
+          "max-potential-fid",
+          "redirects"
+        ],
+        "accessibility": []
+      },
+      "runtimeError": null,
+      "requestedPath": "/products/wool-waistcoat",
+      "finalPath": "/products/wool-waistcoat",
+      "lighthouseVersion": "13.4.1",
+      "config": {
+        "requested": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "throttlingMethod": "simulate"
+        },
+        "effective": {
+          "formFactor": "desktop",
+          "viewport": "1280x800",
+          "deviceScaleFactor": 1,
+          "mobile": false,
+          "throttlingMethod": "simulate",
+          "userAgentFamily": "Chromium"
+        }
+      },
+      "mobilePerformanceRisk": false
+    }
+  ],
+  "networkWarnings": [
+    {
+      "source": "cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--regular.woff:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--bold.woff2:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--light.woff2:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/storefront/standard-actions.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/storefront/web-components/account.js:AUDIT_OPERATION_FAILED"
+    },
+    {
+      "source": "cdn.shopify.com:/shopifycloud/preview-bar/preview-bar-modules.js:AUDIT_OPERATION_FAILED"
+    }
+  ],
+  "networkFailures": [
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--regular.woff:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--bold.woff2:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopify-marketing_assets/static/ShopifySans--light.woff2:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "tema-qkqpke0j.myshopify.com:/favicon.ico:HTTP_404"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopifycloud/shop-js/modules/v2/loader.init-shop-cart-sync.en.esm.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopifycloud/storefront/assets/storefront/origin_trials-e8afbaf1.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/storefront/standard-actions.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/storefront/web-components/account.js:COOKIE_FILTER_FAILED"
+    },
+    {
+      "source": "external_response_filter:cdn.shopify.com:/shopifycloud/preview-bar/preview-bar-modules.js:COOKIE_FILTER_FAILED"
+    }
+  ],
+  "blockedHosts": [
+    {
+      "host": "tema-qkqpke0j.myshopify.com",
+      "path": "/.well-known/shopify/monorail/unstable/produce_batch",
+      "method": "POST",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "error-analytics-sessions-production.shopifysvc.com",
+      "path": "/observeonly",
+      "method": "OPTIONS",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "tema-qkqpke0j.myshopify.com",
+      "path": "/api/collect",
+      "method": "POST",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "otlp-http-production.shopifysvc.com",
+      "path": "/v1/metrics",
+      "method": "OPTIONS",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "monorail-edge.shopifysvc.com",
+      "path": "/v1/produce",
+      "method": "OPTIONS",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "tema-qkqpke0j.myshopify.com",
+      "path": "/.well-known/shopify/fec/produce",
+      "method": "POST",
+      "reason": "METHOD_BLOCKED_BY_POLICY",
+      "category": "method_blocked_by_policy",
+      "redacted": false
+    },
+    {
+      "host": "",
+      "path": "image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "method": "GET",
+      "reason": "HOST_OR_URL_BLOCKED_BY_POLICY",
+      "category": "unclassified_blocked_host",
+      "redacted": false
+    }
+  ],
+  "limits": {
+    "presets": [
+      "sartorial"
+    ],
+    "pages": [
+      "home",
+      "collection",
+      "product"
+    ],
+    "viewports": [
+      "mobile",
+      "desktop"
+    ],
+    "repetitionsPerCell": 1,
+    "cartMutations": 0,
+    "checkoutSubmitted": false,
+    "credentialsWritten": false,
+    "popupTargets": "paused by CDP auto-attach and closed before resume"
+  },
+  "lighthouseVersion": "13.4.1",
+  "preflight": {
+    "credentials": {
+      "SHOPIFY_CLI_THEME_TOKEN": "present",
+      "STOREFRONT_PASSWORD": "present"
+    },
+    "originValidated": true,
+    "themeInventory": "externally_confirmed_unpublished"
+  },
+  "browserVersion": "Chrome/153.0.8010.12",
+  "previews": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "auth": {
+        "result": "not_run",
+        "auth": {
+          "result": "passed",
+          "initialHttpStatus": 200,
+          "postStatus": 302,
+          "reloadedStatus": 200
+        }
+      },
+      "identityVerified": true,
+      "contextClosed": true,
+      "browserClosed": true
+    }
+  ],
+  "rateLimits": [
+    {
+      "preset": "sartorial",
+      "occurrences": 0,
+      "events": [],
+      "omittedEvents": 0
+    }
+  ],
+  "blockedHostAttention": true,
+  "finishedAt": "2026-11-06T20:26:04.584Z",
+  "security": {
+    "secretValueRedactions": 0
+  }
+}

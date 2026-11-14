@@ -969,7 +969,7 @@
           "settings": {
             "delivery_text": {
               "label": "Delivery message",
-              "info": "Match your shipping rates and delivery estimates. Leave blank for a neutral checkout message."
+              "info": "Match your shipping rates and delivery estimates. Leave blank to hide this block."
             },
             "icon": {
               "label": "Icon"
@@ -981,7 +981,7 @@
           "settings": {
             "returns_text": {
               "label": "Returns message",
-              "info": "Match your published returns policy. Leave blank for a neutral policy message."
+              "info": "Match your published returns policy. Leave blank to hide this block."
             },
             "icon": {
               "label": "Icon"
@@ -1008,19 +1008,19 @@
             },
             "material": {
               "label": "Material composition",
-              "info": "Displays fabric composition or material blend."
+              "info": "Displays fabric composition or material blend. Shown as entered on every product that displays this block."
             },
             "gsm": {
               "label": "Fabric weight (GSM)",
-              "info": "Enter a documented fabric mass per square meter. This is not the garment or shipping weight."
+              "info": "Enter a documented fabric mass per square meter. This is not the garment or shipping weight. Shown as entered on every product that displays this block."
             },
             "hardware": {
               "label": "Hardware and trims",
-              "info": "Add the actual manufacturer, series and finish for this product. Leave unknown details blank."
+              "info": "Add the actual manufacturer, series and finish. Shown as entered on every product that displays this block. Leave unknown details blank."
             },
             "origin": {
               "label": "Origin and craftsmanship",
-              "info": "Use documented product data. Fabric origin and manufacturing location can differ."
+              "info": "Use documented product data. Fabric origin and manufacturing location can differ. Shown as entered on every product that displays this block."
             }
           }
         },
@@ -1032,7 +1032,7 @@
             },
             "circa_year": {
               "label": "Circa year",
-              "info": "Era or estimated year of production. Leave blank if unconfirmed."
+              "info": "Era or estimated year of production. Shown as entered on every product that displays this block. Leave blank if unconfirmed."
             },
             "show_unique_piece": {
               "label": "Show unique piece label",
@@ -1040,7 +1040,7 @@
             },
             "condition_grade": {
               "label": "Condition grade",
-              "info": "Select a grade only after inspection. Disclose damage, repairs and use restrictions separately.",
+              "info": "Select a grade only after inspection. Disclose damage, repairs and use restrictions separately. Shown as entered on every product that displays this block.",
               "options": {
                 "not_assessed": {
                   "label": "Not assessed"
@@ -1064,7 +1064,7 @@
             },
             "provenance_notes": {
               "label": "Provenance notes",
-              "info": "Historical context, collection season or archival record notes."
+              "info": "Historical context, collection season or archival record notes. Shown as entered on every product that displays this block."
             }
           }
         }

@@ -1,0 +1,2381 @@
+{
+  "schema": 1,
+  "mode": "inventory",
+  "scopeResult": "inventory_only",
+  "executionResult": "completed",
+  "startedAt": "2026-11-06T01:18:24.412Z",
+  "finishedAt": "2026-11-06T01:18:38.662Z",
+  "target": {
+    "host": "tema-qkqpke0j.myshopify.com",
+    "themeIds": [
+      "190232297715",
+      "190232330483",
+      "190232363251"
+    ]
+  },
+  "limits": [
+    "SCOPED_HARNESS_NOT_FULL_RA_RB_CERTIFICATION",
+    "NO_THEME_SETTINGS_OR_CATALOG_WRITES",
+    "NO_CHECKOUT_OR_PAYMENT",
+    "NO_SCREEN_READER_OR_VISUAL_CONTRAST_CERTIFICATION",
+    "RESOURCE_FILTERING_CAN_AFFECT_RESULTS",
+    "C_R0_4_SUBSCRIPTION_FIXTURE_PENDING_JOHANDRY"
+  ],
+  "checks": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "storefront_access",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "unlocked": true,
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "inventory_home_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "home",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "inventory_page_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "collection",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "inventory_page_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "product",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "storefront_access",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "unlocked": true,
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "inventory_home_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "home",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "inventory_page_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "collection",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "inventory_page_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "product",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "storefront_access",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "unlocked": true,
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "inventory_home_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "home",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "inventory_page_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "collection",
+        "previewIdVerified": true
+      }
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "inventory_page_load",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "page": "product",
+        "previewIdVerified": true
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "cartMutationsAllowed": false,
+      "contextClosed": true,
+      "blockedRequests": 46,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "AUTH_POST_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "redirectHop": true,
+          "validationOnly": true,
+          "allowed": true,
+          "reason": "AUTH_HOME_DESTINATION_VALIDATED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "image",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "deniedResourceSummary": [
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "base_css",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 3
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 12
+        },
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "theme_js",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 3
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "count": 3
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "count": 3
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 12
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 7
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 2
+        },
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "product_zoom_js",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 1
+        }
+      ],
+      "inventoryResources": [
+        {
+          "method": "GET",
+          "resourceKind": "stylesheet",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "de586aa243f1b50ad88385f9f8198104696d43d214b11fc1649393fabe9bcc85",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "f26f6f4fceccf84038803c518f8c420495bdf2cf469d1c486bd5dbdf5042f6d8",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "3cfb367ca95456d733ee528728b212b5171e4f3bb5f01b0d8264c805aacb4fc8",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "8590da96c4d6af1d4be066c4464678fc19f7520109c4b9beb303467e9946c62a",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "57114d158807c25edd95fde609e32a7d3ecd1c732b95b91007c5fe262edbe358",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "e4a833449a93c6fece72c21a98d98a676bde99a58a8950efa604ede04d8d5c14",
+          "rootCategory": "other_store",
+          "blockReason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "2e6d6b72062dc15d64848ef6f6f9878bb12f4ba76f9da611c0c232db57981feb",
+          "rootCategory": "external",
+          "blockReason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "6ff0ffbefe2d443fc7ba3400025aed7731bab44f9a249c48a3437c006a98d19b",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "f2e143f4ab12c904a6dca3452e609a188eb379b1c7a395546382e6b65c067fc0",
+          "rootCategory": "other_store",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 6
+        },
+        {
+          "method": "GET",
+          "resourceKind": "image",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "76fbf2389b3bc8e29b811a4aed1e55bc5876e8523f3dcbf1b71dfd4013b7e4db",
+          "rootCategory": "other_store",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "3106c41902a4b27184c5168f27e21cad97a6ec8f9f02ebfd50ed9af8a7c11b1b",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        }
+      ],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 32,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      }
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "cartMutationsAllowed": false,
+      "contextClosed": true,
+      "blockedRequests": 45,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "AUTH_POST_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "redirectHop": true,
+          "validationOnly": true,
+          "allowed": true,
+          "reason": "AUTH_HOME_DESTINATION_VALIDATED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "deniedResourceSummary": [
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "base_css",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 3
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 12
+        },
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "theme_js",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 3
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "count": 3
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "count": 3
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 12
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 6
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 2
+        },
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "product_zoom_js",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 1
+        }
+      ],
+      "inventoryResources": [
+        {
+          "method": "GET",
+          "resourceKind": "stylesheet",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "a6093daea265ffaf0a34c82daff58efb601e5b30ed64f75371ff1d14422d4df1",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "f26f6f4fceccf84038803c518f8c420495bdf2cf469d1c486bd5dbdf5042f6d8",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "3cfb367ca95456d733ee528728b212b5171e4f3bb5f01b0d8264c805aacb4fc8",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "57114d158807c25edd95fde609e32a7d3ecd1c732b95b91007c5fe262edbe358",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "6278331841b2481cd9df95143bc33c0746e462fd83355574da0de23eaceed3e3",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "e4a833449a93c6fece72c21a98d98a676bde99a58a8950efa604ede04d8d5c14",
+          "rootCategory": "other_store",
+          "blockReason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "2e6d6b72062dc15d64848ef6f6f9878bb12f4ba76f9da611c0c232db57981feb",
+          "rootCategory": "external",
+          "blockReason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "6ff0ffbefe2d443fc7ba3400025aed7731bab44f9a249c48a3437c006a98d19b",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "f2e143f4ab12c904a6dca3452e609a188eb379b1c7a395546382e6b65c067fc0",
+          "rootCategory": "other_store",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 6
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "8a11aaeba41a96987a7b380b98578ef7e888cd6cd27dd755275689e458e28527",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        }
+      ],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 31,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      }
+    },
+    {
+      "preset": "archive",
+      "themeId": "190232363251",
+      "cartMutationsAllowed": false,
+      "contextClosed": true,
+      "blockedRequests": 45,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": false,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "AUTH_POST_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "redirectHop": true,
+          "validationOnly": true,
+          "allowed": true,
+          "reason": "AUTH_HOME_DESTINATION_VALIDATED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "image",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "reason": "DOCUMENT_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "stylesheet",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "restricted_commerce_account_admin",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "shopify_cdn",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "outside_allowlist",
+          "queryRemoved": false,
+          "allowed": false,
+          "reason": "MUTATION_BLOCKED"
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "deniedResourceSummary": [
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "base_css",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 3
+        },
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "theme_js",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 3
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 12
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "count": 3
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "count": 3
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 12
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 7
+        },
+        {
+          "rootCategory": "other_theme_root",
+          "extensionClass": "known_static",
+          "sourceSuffix": "product_zoom_js",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "count": 1
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 1
+        }
+      ],
+      "inventoryResources": [
+        {
+          "method": "GET",
+          "resourceKind": "stylesheet",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "4db99e72b01ee64e7511aa5b54221c2917851438ee97e365e610a2e47ce1a122",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "38ac8ca06c14e913c9ff6e78a100128304fa8102ce92e5198e66c7b702dc74e8",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "f26f6f4fceccf84038803c518f8c420495bdf2cf469d1c486bd5dbdf5042f6d8",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "3cfb367ca95456d733ee528728b212b5171e4f3bb5f01b0d8264c805aacb4fc8",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "e4a833449a93c6fece72c21a98d98a676bde99a58a8950efa604ede04d8d5c14",
+          "rootCategory": "other_store",
+          "blockReason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "57114d158807c25edd95fde609e32a7d3ecd1c732b95b91007c5fe262edbe358",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "2e6d6b72062dc15d64848ef6f6f9878bb12f4ba76f9da611c0c232db57981feb",
+          "rootCategory": "external",
+          "blockReason": "CHECKOUT_PAYMENT_ACCOUNT_ADMIN_BLOCKED",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "known_static_host",
+          "host": "cdn.shopify.com",
+          "resourceFingerprint": "6ff0ffbefe2d443fc7ba3400025aed7731bab44f9a249c48a3437c006a98d19b",
+          "rootCategory": "external",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "f2e143f4ab12c904a6dca3452e609a188eb379b1c7a395546382e6b65c067fc0",
+          "rootCategory": "other_store",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 6
+        },
+        {
+          "method": "GET",
+          "resourceKind": "image",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "76fbf2389b3bc8e29b811a4aed1e55bc5876e8523f3dcbf1b71dfd4013b7e4db",
+          "rootCategory": "other_store",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        },
+        {
+          "method": "GET",
+          "resourceKind": "script",
+          "hostCategory": "store",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "resourceFingerprint": "07978aa79e2eeb3377daaaecdcdde4c1a922094fe3f8d2edb4c2b4182d935595",
+          "rootCategory": "other_theme_root",
+          "blockReason": "REQUEST_OUTSIDE_ALLOWLIST",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        }
+      ],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 32,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      }
+    }
+  ]
+}

@@ -97,6 +97,21 @@
     <script>
       document.documentElement.classList.remove('no-js');
       document.documentElement.classList.add('js');
+      // B-02: si theme.js no llego a definir variant-selects (caido, bloqueado o con error),
+      // vuelve a no-js para que los controles nativos de compra sean los visibles.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!window.customElements || !window.customElements.get('variant-selects')) {
+          document.documentElement.classList.remove('js');
+          document.documentElement.classList.add('no-js');
+          // Si theme.js llega tarde (apps que difieren el JS), vuelve a js al definirse.
+          if (window.customElements) {
+            window.customElements.whenDefined('variant-selects').then(function () {
+              document.documentElement.classList.remove('no-js');
+              document.documentElement.classList.add('js');
+            });
+          }
+        }
+      });
       window.theme = window.theme || {};
       window.theme.moneyFormat = {{ shop.money_format | strip_html | json }};
       document.documentElement.dataset.moneyFormat = window.theme.moneyFormat;

@@ -80,7 +80,7 @@ Storefront vivo (nada), Safari (nunca se abrio), rama B8.1 (lo que ve Firefox, 1
 
 ### Estado real de la exposicion
 - **`.mcp.json` NUNCA estuvo trackeado** (ignorado en `.gitignore:22`). Las claves de Figma y Composio no se publicaron por git. Queda un blob suelto **inalcanzable** con la clave de Figma (`10cb7820...`), que se purga con el gc automatico (~2026-10-13) o con `git prune --expire=now`.
-- **La contrasena de storefront es `1234`** y SI esta en el historial en el HEAD de 3 archivos trackeados (commits `ea3e3dc`, `1779ec2`). Verificado: `git merge-base --is-ancestor ff3dca1 origin/master` -> exit 0. **Esta en GitHub.**
+- **La contrasena de storefront es `[REDACTED_STOREFRONT_PASSWORD]`** y SI esta en el historial en el HEAD de 3 archivos trackeados (commits `ea3e3dc`, `1779ec2`). Verificado: `git merge-base --is-ancestor ff3dca1 origin/master` -> exit 0. **Esta en GitHub.**
 - Repo privado, 1 colaborador. Se decidio **no reescribir historial**.
 
 ### PENDIENTE de seguridad
@@ -268,7 +268,7 @@ G-2, G-3 y G-4 pueden arrancar **ya**, sin esperar al re-despliegue.
 
 | Prioridad | Accion |
 |---|---|
-| **P0** | **Rotar la contrasena de storefront `1234`** en las 3 demos + `tema-qkqpke0j`. Esta en GitHub. Invalida tambien las cookies de sesion publicadas. Unica mitigacion real |
+| **P0** | **Rotar la contrasena de storefront `[REDACTED_STOREFRONT_PASSWORD]`** en las 3 demos + `tema-qkqpke0j`. Esta en GitHub. Invalida tambien las cookies de sesion publicadas. Unica mitigacion real |
 | **P0** | **Exportar `STOREFRONT_PASSWORD`** (la nueva). Llave de las 4 filas abiertas y de los 13 puntos sin verificar |
 | **P1** | **Redesplegar las 3 demos** sin `--nodelete` (cierra la deriva de la seccion 10) |
 | **P1** | Rotar el PAT de Figma y la API key de Composio (higiene: nunca se commitearon, pero hay 5 copias en disco y un blob suelto) |

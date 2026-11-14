@@ -1,0 +1,33 @@
+{
+  "schema": "gpt-rd-lighthouse-v2",
+  "runId": "9192a33d-bd4e-42fb-abfa-3d367b990dd5",
+  "startedAt": "2026-11-06T20:23:50.885Z",
+  "mode": "read-only",
+  "executionResult": "failed",
+  "results": [],
+  "networkWarnings": [],
+  "networkFailures": [],
+  "blockedHosts": [],
+  "limits": {
+    "presets": [],
+    "pages": [
+      "home",
+      "collection",
+      "product"
+    ],
+    "viewports": [
+      "mobile",
+      "desktop"
+    ],
+    "repetitionsPerCell": 1,
+    "cartMutations": 0,
+    "checkoutSubmitted": false,
+    "credentialsWritten": false,
+    "popupTargets": "paused by CDP auto-attach and closed before resume"
+  },
+  "setupFailure": "MISSING_LIGHTHOUSE_ROOT",
+  "finishedAt": "2026-11-06T20:23:50.888Z",
+  "security": {
+    "secretValueRedactions": 0
+  }
+}

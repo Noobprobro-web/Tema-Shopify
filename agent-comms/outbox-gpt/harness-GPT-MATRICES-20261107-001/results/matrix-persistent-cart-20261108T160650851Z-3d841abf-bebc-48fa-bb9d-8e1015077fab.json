@@ -1,0 +1,3249 @@
+{
+  "effectiveRunnerSha256": "0e9f8c8fda8822bb4d148fb53a067cf75496ecc68d3f61c2afe9252df571e000",
+  "matrices": [
+    {
+      "name": "B-04",
+      "preflight": {
+        "matrix": "B-04",
+        "version": "4.8.0",
+        "exitCode": 0,
+        "checkedAt": "2026-11-08T16:07:00.651Z",
+        "themes": [
+          {
+            "id": "190232297715",
+            "role": "unpublished",
+            "processing": false
+          },
+          {
+            "id": "190232330483",
+            "role": "unpublished",
+            "processing": false
+          },
+          {
+            "id": "190232363251",
+            "role": "unpublished",
+            "processing": false
+          }
+        ]
+      },
+      "startedAt": "2026-11-08T16:07:01.149Z",
+      "finishedAt": "2026-11-08T16:07:38.870Z",
+      "status": "observations_recorded"
+    },
+    {
+      "name": "B-02",
+      "preflight": {
+        "matrix": "B-02",
+        "version": "4.8.0",
+        "exitCode": 0,
+        "checkedAt": "2026-11-08T16:07:46.111Z",
+        "themes": [
+          {
+            "id": "190232297715",
+            "role": "unpublished",
+            "processing": false
+          },
+          {
+            "id": "190232330483",
+            "role": "unpublished",
+            "processing": false
+          },
+          {
+            "id": "190232363251",
+            "role": "unpublished",
+            "processing": false
+          }
+        ]
+      },
+      "startedAt": "2026-11-08T16:07:38.873Z",
+      "finishedAt": "2026-11-08T16:21:06.163Z",
+      "status": "observations_recorded"
+    },
+    {
+      "name": "C-01",
+      "preflight": null,
+      "startedAt": "2026-11-08T16:21:06.179Z",
+      "finishedAt": "2026-11-08T19:40:31.946Z",
+      "status": "partial_error"
+    }
+  ],
+  "schema": 1,
+  "mode": "cart",
+  "scopeResult": "failed",
+  "executionResult": "failed",
+  "startedAt": "2026-11-08T16:06:50.852Z",
+  "finishedAt": "2026-11-08T20:52:36.161Z",
+  "target": {
+    "host": "tema-qkqpke0j.myshopify.com",
+    "themeIds": [
+      "190232297715",
+      "190232330483",
+      "190232363251"
+    ]
+  },
+  "limits": [
+    "SCOPED_HARNESS_NOT_FULL_RA_RB_CERTIFICATION",
+    "NO_THEME_SETTINGS_OR_CATALOG_WRITES",
+    "NO_CHECKOUT_OR_PAYMENT",
+    "NO_SCREEN_READER_OR_VISUAL_CONTRAST_CERTIFICATION",
+    "RESOURCE_FILTERING_CAN_AFFECT_RESULTS",
+    "C_R0_4_SUBSCRIPTION_FIXTURE_PENDING_JOHANDRY"
+  ],
+  "checks": [
+    {
+      "matrix": "B-04",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "storefront_access",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "unlocked": true,
+        "previewIdVerified": true,
+        "authOperations": 1
+      }
+    },
+    {
+      "matrix": "B-04",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "persistent_preview_identity",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "previewIdVerified": true,
+        "assetFingerprints": {
+          "base.css": "d30648c182a7929bcf88ac5d05781543be0a0d7771d7c21d6a742b1cc8f84a63",
+          "theme.js": "89baa75dd5389767787aa351dcd256d57344d09d683b4686ef0abf7bf3e7cd13"
+        }
+      }
+    },
+    {
+      "matrix": "B-04",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B04_fixture_one_test_line",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "itemCount": 1
+      }
+    },
+    {
+      "matrix": "B-04",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B04_inconclusive_note_fixture",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "width": 390,
+        "height": 844,
+        "noteCount": 0,
+        "noteVisible": false,
+        "navigatedWithHiddenNote": true,
+        "pageNoteCount": 0,
+        "dirtyNoteCase": "fixture_unavailable"
+      }
+    },
+    {
+      "matrix": "B-04",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B04_inconclusive_note_fixture",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "width": 1280,
+        "height": 800,
+        "noteCount": 0,
+        "noteVisible": false,
+        "navigatedWithHiddenNote": true,
+        "pageNoteCount": 0,
+        "dirtyNoteCase": "fixture_unavailable"
+      }
+    },
+    {
+      "matrix": "B-04",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "final_same_session_cart_cleanup",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "attempted": true,
+        "clearHttpStatus": 200,
+        "updateHttpStatus": 200,
+        "readHttpStatus": 200,
+        "itemCount": 0,
+        "emptyVerified": true,
+        "noteEmptyVerified": true
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "persistent_preview_identity",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "previewIdVerified": true,
+        "assetFingerprints": {
+          "base.css": "d30648c182a7929bcf88ac5d05781543be0a0d7771d7c21d6a742b1cc8f84a63",
+          "theme.js": "89baa75dd5389767787aa351dcd256d57344d09d683b4686ef0abf7bf3e7cd13"
+        }
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "pdp",
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "featured",
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B02_nojs_deep_link_available_and_sold_out",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "width": 390,
+        "height": 844,
+        "multioption": false,
+        "observations": [
+          {
+            "kind": "available",
+            "fixtureAvailable": true,
+            "singleMatchingId": true,
+            "addEnabled": true
+          },
+          {
+            "kind": "sold_out",
+            "fixtureAvailable": false
+          }
+        ]
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "pdp",
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "featured",
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "name": "B02_nojs_deep_link_available_and_sold_out",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "width": 1280,
+        "height": 800,
+        "multioption": false,
+        "observations": [
+          {
+            "kind": "available",
+            "fixtureAvailable": true,
+            "singleMatchingId": true,
+            "addEnabled": true
+          },
+          {
+            "kind": "sold_out",
+            "fixtureAvailable": false
+          }
+        ]
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "persistent_preview_identity",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "previewIdVerified": true,
+        "assetFingerprints": {
+          "base.css": "0adc02af370db91ef7219587c0fa216069205b78fce3b9823b9588523261dde2",
+          "theme.js": "0532b78515106c88461e465a58fb794389e33d9b6eb7f9fd7ef4834a0e1dfeab"
+        }
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "pdp",
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "featured",
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "B02_nojs_deep_link_available_and_sold_out",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "width": 390,
+        "height": 844,
+        "multioption": false,
+        "observations": [
+          {
+            "kind": "available",
+            "fixtureAvailable": true,
+            "singleMatchingId": true,
+            "addEnabled": true
+          },
+          {
+            "kind": "sold_out",
+            "fixtureAvailable": false
+          }
+        ]
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "pdp",
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "featured",
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "imprint",
+      "themeId": "190232330483",
+      "name": "B02_nojs_deep_link_available_and_sold_out",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "width": 1280,
+        "height": 800,
+        "multioption": false,
+        "observations": [
+          {
+            "kind": "available",
+            "fixtureAvailable": true,
+            "singleMatchingId": true,
+            "addEnabled": true
+          },
+          {
+            "kind": "sold_out",
+            "fixtureAvailable": false
+          }
+        ]
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "persistent_preview_identity",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "previewIdVerified": true,
+        "assetFingerprints": {
+          "base.css": "cabe253ee8805f9b80aa5171647a048d3489e68e2b441610d1e8df2f3ebf2480",
+          "theme.js": "f29ebf55a139e0815372b0b054b87ab98f98d521349b4d60221b5668400e76df"
+        }
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "pdp",
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "PRODUCT_FORM_FIXTURE_NOT_RENDERED",
+      "details": {
+        "surface": "featured",
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "B02_nojs_deep_link_available_and_sold_out",
+      "result": "passed",
+      "reason": null,
+      "details": {
+        "width": 390,
+        "height": 844,
+        "multioption": false,
+        "observations": [
+          {
+            "kind": "available",
+            "fixtureAvailable": true,
+            "singleMatchingId": true,
+            "addEnabled": true
+          },
+          {
+            "kind": "sold_out",
+            "fixtureAvailable": false
+          }
+        ]
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "B02_nojs_variant_submission",
+      "result": "not_run",
+      "reason": "NATIVE_VARIANT_SELECTOR_NOT_VISIBLE",
+      "details": {
+        "surface": "pdp",
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "B02_nojs_variant_submission",
+      "result": "failed",
+      "reason": "PLAYWRIGHT_TIMEOUT",
+      "details": {
+        "surface": "featured",
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "matrix": "B-02",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "B02_nojs_deep_link_available_and_sold_out",
+      "result": "failed",
+      "reason": "CHROMIUM_ERR_FAILED",
+      "details": {
+        "width": 1280,
+        "height": 800
+      }
+    },
+    {
+      "matrix": "C-01",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "name": "matrix_runtime",
+      "result": "failed",
+      "reason": "CLI_PREFLIGHT_EXECUTION_FAILED",
+      "details": null
+    }
+  ],
+  "sessions": [
+    {
+      "preset": "sartorial",
+      "themeId": "190232297715",
+      "cartMutationsAllowed": true,
+      "unpublishedPreflight": "required_external_coordinator_check",
+      "cartInitiallyEmptyVerified": true,
+      "cartTouched": true,
+      "finalCartCleanup": {
+        "attempted": true,
+        "clearHttpStatus": 200,
+        "updateHttpStatus": null,
+        "readHttpStatus": 200,
+        "itemCount": 0,
+        "emptyVerified": true,
+        "noteEmptyVerified": true
+      },
+      "contextClosed": true,
+      "blockedRequests": 175,
+      "blockedWebSockets": 0,
+      "popupsClosed": 0,
+      "routeOperationFailed": true,
+      "routeFailureEvents": [
+        {
+          "stage": "fetch",
+          "code": "PLAYWRIGHT_TIMEOUT",
+          "pageKind": "product",
+          "method": "GET",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/",
+          "redacted": false,
+          "redactionReason": null
+        },
+        {
+          "stage": "fetch",
+          "code": "HARNESS_OPERATION_FAILED",
+          "pageKind": "product",
+          "method": "GET",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/products/wool-waistcoat",
+          "redacted": false,
+          "redactionReason": null
+        }
+      ],
+      "routeFailureEventsOmitted": 0,
+      "routeWarningEvents": [
+        {
+          "severity": "warning",
+          "reason": "NON_STORE_HOST_FETCH_WARNING_ONLY",
+          "stage": "fetch",
+          "code": "PLAYWRIGHT_TIMEOUT",
+          "pageKind": "cart",
+          "method": "GET",
+          "host": "cdn.shopify.com",
+          "pathname": "/shopifycloud/shop-js/modules/v2/chunk.validators_09U1U9sZ.esm.js",
+          "redacted": false,
+          "redactionReason": null
+        },
+        {
+          "severity": "warning",
+          "reason": "NON_STORE_HOST_FETCH_WARNING_ONLY",
+          "stage": "fetch",
+          "code": "PLAYWRIGHT_TIMEOUT",
+          "pageKind": "cart",
+          "method": "GET",
+          "host": "cdn.shopify.com",
+          "pathname": "/shopifycloud/shop-js/modules/v2/chunk.utils_DNd9Kbhz.esm.js",
+          "redacted": false,
+          "redactionReason": null
+        }
+      ],
+      "routeWarningEventsOmitted": 0,
+      "rateLimitEvents": [],
+      "rateLimitEventsOmitted": 0,
+      "requestDecisions": [
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "password_auth",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "AUTH_POST_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "redirectHop": true,
+          "validationOnly": true,
+          "allowed": true,
+          "reason": "AUTH_HOME_DESTINATION_VALIDATED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "cart_post",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "CART_POST_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "ANALYTICS_HOST_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "xhr",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "xhr",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "PLATFORM_HOST_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "script",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "other",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "xhr",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "GET",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "cart_post",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "CART_POST_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "external",
+          "pathClass": "blocked_host",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "HOST_NOT_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "cart_post",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "CART_POST_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "POST",
+          "kind": "fetch",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "blocked_mutation",
+          "queryRemoved": false,
+          "allowed": false,
+          "severity": "warning",
+          "reason": "MUTATION_BLOCKED"
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "GET",
+          "kind": "document",
+          "context": "browser",
+          "hostClass": "store",
+          "pathClass": "store_document",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "HOST_READ_ALLOWED",
+          "redirectHop": true
+        },
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "cart_post",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "CART_POST_ALLOWED"
+        },
+        {
+          "method": "POST",
+          "kind": "api",
+          "context": "api",
+          "hostClass": "store",
+          "pathClass": "cart_post",
+          "queryRemoved": false,
+          "allowed": true,
+          "severity": null,
+          "reason": "CART_POST_ALLOWED"
+        }
+      ],
+      "requestDecisionsOmitted": 0,
+      "networkWarnings": [
+        {
+          "severity": "warning",
+          "method": "GET",
+          "resourceKind": "script",
+          "reason": "MUTATION_BLOCKED",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/checkouts/internal/preloads.js",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 6
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "other",
+          "reason": "MUTATION_BLOCKED",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/.well-known/shopify/monorail/unstable/produce_batch",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 55
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "fetch",
+          "reason": "HOST_NOT_ALLOWED",
+          "host": "error-analytics-sessions-production.shopifysvc.com",
+          "pathname": "/observeonly",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 4
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "fetch",
+          "reason": "MUTATION_BLOCKED",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/api/collect",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 20
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "fetch",
+          "reason": "HOST_NOT_ALLOWED",
+          "host": "otlp-http-production.shopifysvc.com",
+          "pathname": "/v1/metrics",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 28
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "fetch",
+          "reason": "HOST_NOT_ALLOWED",
+          "host": "otlp-http-production.shopifysvc.com",
+          "pathname": "/v1/logs",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 13
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "fetch",
+          "reason": "MUTATION_BLOCKED",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/.well-known/shopify/monorail/unstable/produce_batch",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 31
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "fetch",
+          "reason": "MUTATION_BLOCKED",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/api/2026-01/graphql.json",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 6
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "fetch",
+          "reason": "ANALYTICS_HOST_BLOCKED",
+          "host": "monorail-edge.shopifysvc.com",
+          "pathname": "/v1/produce",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "other",
+          "reason": "MUTATION_BLOCKED",
+          "host": "tema-qkqpke0j.myshopify.com",
+          "pathname": "/.well-known/shopify/fec/produce",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 5
+        },
+        {
+          "severity": "warning",
+          "method": "POST",
+          "resourceKind": "xhr",
+          "reason": "HOST_NOT_ALLOWED",
+          "host": "error-analytics-sessions-production.shopifysvc.com",
+          "pathname": "/",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 3
+        },
+        {
+          "severity": "warning",
+          "method": "GET",
+          "resourceKind": "document",
+          "reason": "PLATFORM_HOST_BLOCKED",
+          "host": "shop.app",
+          "pathname": "/pay/hop",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        },
+        {
+          "severity": "warning",
+          "method": "GET",
+          "resourceKind": "fetch",
+          "reason": "HOST_NOT_ALLOWED",
+          "host": "shopify-assets.shopifycdn.com",
+          "pathname": "/shopifycloud/admin-ui-foundations/experimental/c565d.svg",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        },
+        {
+          "severity": "warning",
+          "method": "GET",
+          "resourceKind": "fetch",
+          "reason": "HOST_NOT_ALLOWED",
+          "host": "shopify-assets.shopifycdn.com",
+          "pathname": "/shopifycloud/admin-ui-foundations/icons/bef77.svg",
+          "redacted": false,
+          "redactionReason": null,
+          "count": 1
+        }
+      ],
+      "warningOccurrences": 175,
+      "warningOccurrencesOmitted": 0,
+      "deniedResourceSummary": [
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 6
+        },
+        {
+          "rootCategory": "other_store",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "MUTATION_BLOCKED",
+          "count": 117
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "HOST_NOT_ALLOWED",
+          "count": 48
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "ANALYTICS_HOST_BLOCKED",
+          "count": 1
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "other",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "PLATFORM_HOST_BLOCKED",
+          "count": 1
+        },
+        {
+          "rootCategory": "external",
+          "extensionClass": "known_static",
+          "sourceSuffix": "other",
+          "asciiAllowed": true,
+          "lengthWithinLimit": true,
+          "reason": "HOST_NOT_ALLOWED",
+          "count": 2
+        }
+      ],
+      "inventoryResources": [],
+      "inventoryCounters": {
+        "maxEntries": 100,
+        "eligibleOccurrences": 0,
+        "redactedOccurrences": 0,
+        "truncatedOccurrences": 0
+      },
+      "persistentAcrossMatrices": true,
+      "finalPersistentCartRead": {
+        "ok": false,
+        "httpStatus": null
+      }
+    }
+  ],
+  "interventionRequired": false,
+  "historicalIncidents": [
+    {
+      "code": "ARCHIVE_ORPHANED_CART_20261106",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "initiallyEmptyVerified": true,
+      "finalCartState": "unknown",
+      "contextClosed": true,
+      "disposition": "LEAVE_TO_EXPIRE",
+      "blocksLote0": false,
+      "sourceReport": "RA-RB-cart-20261106T112804500Z-605bdcd0-07ef-43aa-a9f5-6e0d5038b634.json"
+    }
+  ]
+}

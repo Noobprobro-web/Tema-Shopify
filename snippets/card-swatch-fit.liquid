@@ -1,0 +1,57 @@
+{%- comment -%}
+  LV05-CN3 / LV05-CN5. Prints how many swatches of a card swatch option fit in each width
+  band of the swatch row: "a1 b2 c3 ...", read by base.css as data-swatch-fit.
+
+  Bands (lower edge of the row width, px with a 16px base font; base.css starts each band at
+  max(px, rem), so the estimate holds when the visitor enlarges the browser font): a 120,
+  b 140, c 180, d 220, e 260, f 300, g 340, h 380. Estimated slot width: 44 for a color, 76 (--card-swatch-text-min) for a name longer
+  than 5 characters, 9px per character plus 28 (at least 44) for a short one. A pill (44)
+  counts only when some values are left over.
+
+  Accepts:
+  - option: the swatch option (an entry of product.options_with_values)
+  - limit: how many swatches the card renders at most
+{%- endcomment -%}
+{%- liquid
+  assign fit_total = option.values.size
+  assign fit_running = 0
+  assign fit_sums = ''
+  for value in option.values limit: limit
+    if value.swatch.image != blank or value.swatch.color != blank
+      assign fit_slot = 44
+    elsif value.name.size > 5
+      assign fit_slot = 76
+    else
+      assign fit_slot = value.name.size | times: 9 | plus: 28
+      if fit_slot < 44
+        assign fit_slot = 44
+      endif
+    endif
+    assign fit_running = fit_running | plus: fit_slot
+    assign fit_sums = fit_sums | append: fit_running | append: ','
+  endfor
+
+  assign fit_sums = fit_sums | split: ','
+  assign fit_bands = 'a:120,b:140,c:180,d:220,e:260,f:300,g:340,h:380' | split: ','
+  assign fit_words = ''
+  for band in fit_bands
+    assign band_name = band | split: ':' | first
+    assign band_min = band | split: ':' | last | plus: 0
+    assign fit_count = 1
+    for fit_sum in fit_sums
+      if forloop.index > 1
+        assign fit_need = fit_sum | plus: 0
+        if fit_total > forloop.index
+          assign fit_need = fit_need | plus: 44
+        endif
+        if fit_need <= band_min
+          assign fit_count = forloop.index
+        else
+          break
+        endif
+      endif
+    endfor
+    assign fit_words = fit_words | append: band_name | append: fit_count | append: ' '
+  endfor
+  echo fit_words | strip
+-%}

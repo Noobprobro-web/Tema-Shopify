@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "mode": "read-only",
+  "scopeResult": "failed",
+  "executionResult": "failed",
+  "startedAt": "2026-11-10T16:11:50.849Z",
+  "finishedAt": "2026-11-10T16:11:51.177Z",
+  "target": {
+    "host": "tema-qkqpke0j.myshopify.com",
+    "themeIds": [
+      "190232297715",
+      "190232330483",
+      "190232363251"
+    ]
+  },
+  "limits": [
+    "SCOPED_HARNESS_NOT_FULL_RA_RB_CERTIFICATION",
+    "NO_THEME_SETTINGS_OR_CATALOG_WRITES",
+    "NO_CHECKOUT_OR_PAYMENT",
+    "NO_SCREEN_READER_OR_VISUAL_CONTRAST_CERTIFICATION",
+    "RESOURCE_FILTERING_CAN_AFFECT_RESULTS",
+    "C_R0_4_SUBSCRIPTION_FIXTURE_PENDING_JOHANDRY"
+  ],
+  "checks": [
+    {
+      "preset": null,
+      "themeId": null,
+      "name": "harness_preflight_or_runtime",
+      "result": "failed",
+      "reason": "AXE_SOURCE_DIGEST_NOT_EXPECTED",
+      "details": null
+    }
+  ],
+  "sessions": [],
+  "interventionRequired": false,
+  "historicalIncidents": [
+    {
+      "code": "ARCHIVE_ORPHANED_CART_20261106",
+      "preset": "archive",
+      "themeId": "190232363251",
+      "initiallyEmptyVerified": true,
+      "finalCartState": "unknown",
+      "contextClosed": true,
+      "disposition": "LEAVE_TO_EXPIRE",
+      "blocksLote0": false,
+      "sourceReport": "RA-RB-cart-20261106T112804500Z-605bdcd0-07ef-43aa-a9f5-6e0d5038b634.json"
+    }
+  ]
+}

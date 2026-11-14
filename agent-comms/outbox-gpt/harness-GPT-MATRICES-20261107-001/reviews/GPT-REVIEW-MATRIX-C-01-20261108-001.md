@@ -1,0 +1,9 @@
+# Revisión independiente · C-01 colección · 2026-11-08
+
+**Dictamen: PARCIAL; cero pares antes/después acreditados.** El JSON aporta observaciones de previews, pero no una baseline ni una regresión comparables conforme a `harness-GPT-C01-COLLECTION-001/README.md:3`.
+
+El JSON `matrix-persistent-read-only-20261108T205655091Z-6cd1c1e0-94f4-4426-a0f7-eb66aaf3a0dd.json` conserva SHA-256 `155440014a4e60a4c82c3e262fd55c4a98b186da7c077e3cf5677757d2b9f657`. Cinco de seis celdas registran observaciones individuales; Sartorial móvil terminó en `PLAYWRIGHT_TIMEOUT`. Las cinco marcan `matchedStage=null` y `paired=false`. Los `base.css` servidos no coinciden con los hashes esperados de antes o después en ninguno de los tres presets. Verifiqué por separado los hashes de `base.css` en `258ca4f` y `6e9523b`: coinciden con las referencias de antes y después registradas en el JSON, no con los cuerpos servidos.
+
+Seis comprobaciones de orden registraron cambio de URL y estado de foco marcado usable; las tres observaciones de escritorio disponibles registraron facetas sticky. Son observaciones del estado servido, no comparación antes/después. Quedan pendientes pares con mismo tema/preset, colección, catálogo, locale, DPR, viewport y tratamiento de barra, identificación de builds, capturas y comparación de primera tarjeta; también aplicar/limpiar filtros, vacío, estado tras AJAX y formulario GET sin JS. Las observaciones LCP/CLS no se convierten en baseline sin par acreditado. El push Git por sí solo no acredita despliegue del tema en la preview.
+
+El preflight de C-01 figura en el JSON. La sesión de solo lectura declara `cartTouched=false` y lecturas inicial y final HTTP 200 con cero artículos/líneas y nota vacía antes de `contextClosed=true`; no hubo eventos 429 registrados. El timeout y el mismatch de hashes no se atribuyen al tema. No se cierra el ledger.
