@@ -26,7 +26,10 @@ import { installNativeCartAddCapture, runNoJsVariantCase, casePreconditionFailur
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const D28_RUNNER_PATH = resolve(HERE, '../../outbox-gpt/harness-GPT-RA-RB-001/run.mjs');
 // SHA-256 de run.mjs revisado. Si D28 cambia, este runner no arranca hasta revisarlo.
-export const D28_RUNNER_SHA256 = '9682dc26e682e88a86bb07e91869959b6f9cfe1c7c60afc95268fd7a4c2d1324';
+export const D28_RUNNER_SHA256 = '5c03c13957dfd0fef8fd241f89f44d8b471da20819162e10438ed55d578a2bc1';
+// run.mjs exige --store=<dominio> de su lista cerrada y stores.json (junto a el). B-02 sigue
+// anclado a la tienda antigua: migrarlo a la tienda nueva es una decision aparte.
+export const D28_STORE = 'tema-qkqpke0j.myshopify.com';
 export const B02_MODE = 'b02-no-js';
 export const CASE_INTERVAL_MS = 1000;
 const MAX_CASES = 24;
@@ -89,7 +92,7 @@ export const expectedFor = (item) => ({ variantId: item.variantB, quantity: item
 // SHA-256 revisado, se quita solo la invocacion final de main() y se anaden exports. La
 // logica de politica (requestDecision, createRouter, 429) queda byte a byte igual. La
 // copia vive en un directorio temporal propio que se borra tras importarla.
-export async function loadD28Policy({ runnerPath = D28_RUNNER_PATH, expectedSha256 = D28_RUNNER_SHA256 } = {}) {
+export async function loadD28Policy({ runnerPath = D28_RUNNER_PATH, expectedSha256 = D28_RUNNER_SHA256, store = D28_STORE } = {}) {
   const source = await readFile(runnerPath, 'utf8');
   requireThat(createHash('sha256').update(source).digest('hex') === expectedSha256, 'D28_SOURCE_DIGEST_NOT_EXPECTED');
   const marker = '\ntry {\n  await main();\n}';
@@ -103,7 +106,16 @@ export function installSecretGuard(environment) { inventorySecretGuard = buildIn
   try {
     const file = join(dir, 'd28-policy.mjs');
     await writeFile(file, module, { mode: 0o600 });
-    return await import(`${pathToFileURL(file).href}?v=${randomUUID()}`);
+    // La copia temporal resuelve stores.json junto a si misma: se copia el del runner revisado.
+    await writeFile(join(dir, 'stores.json'), await readFile(join(dirname(runnerPath), 'stores.json')), { mode: 0o600 });
+    // run.mjs lee --store de process.argv al cargarse; se fija solo durante la importacion.
+    const savedArgv = process.argv;
+    process.argv = [savedArgv[0], savedArgv[1], `--store=${store}`];
+    try {
+      return await import(`${pathToFileURL(file).href}?v=${randomUUID()}`);
+    } finally {
+      process.argv = savedArgv;
+    }
   } finally {
     await rm(dir, { recursive: true, force: true });
   }

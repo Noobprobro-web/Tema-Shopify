@@ -24,7 +24,7 @@ No amplía la allowlist: `/cart/add` sigue sin autorización en D28 y nunca sale
 
 ## Runner B-02 (`run-b02.mjs`)
 
-`node run-b02.mjs --fixture=<fixture.json>`. No modifica `harness-GPT-RA-RB-001/run.mjs`: lee ese archivo, exige su SHA-256 revisado (`D28_RUNNER_SHA256`), quita solo la llamada final a `main()`, añade exports y lo importa desde un directorio temporal propio que se borra al cargar. Si run.mjs cambia, el runner no arranca (`D28_SOURCE_DIGEST_NOT_EXPECTED`). La política D28 (`requestDecision`, `createRouter`, `requestViaPolicy`, 429) se usa tal cual.
+`node run-b02.mjs --fixture=<fixture.json>`. No modifica `harness-GPT-RA-RB-001/run.mjs`: lee ese archivo, exige su SHA-256 revisado (`D28_RUNNER_SHA256`), quita solo la llamada final a `main()`, añade exports y lo importa desde un directorio temporal propio que se borra al cargar. Si run.mjs cambia, el runner no arranca (`D28_SOURCE_DIGEST_NOT_EXPECTED`). La política D28 (`requestDecision`, `createRouter`, `requestViaPolicy`, 429) se usa tal cual. Desde el parche de redaccion y de allowlist de tiendas, run.mjs exige `--store=<dominio>` y `stores.json` (junto a el): `loadD28Policy` copia `stores.json` al directorio temporal y fija `--store` solo durante la importacion. B-02 sigue anclado a `tema-qkqpke0j.myshopify.com` (`D28_STORE`); usarlo en la tienda nueva exige un cambio y una decision aparte.
 
 Reglas:
 

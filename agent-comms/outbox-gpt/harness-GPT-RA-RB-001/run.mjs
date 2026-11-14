@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { dirname, resolve, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, randomUUID } from 'node:crypto';
@@ -8,19 +9,60 @@ import { setTimeout as delay } from 'node:timers/promises';
 // screenshots, raw exceptions, response bodies, DOM text or form values are saved.
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../../..');
-const ORIGIN = 'https://tema-qkqpke0j.myshopify.com';
-const PREVIEWS = Object.freeze([
-  { preset: 'sartorial', id: '190232297715' },
-  { preset: 'imprint', id: '190232330483' },
-  { preset: 'archive', id: '190232363251' },
-]);
+// Closed allowlist of exactly two known development stores. The store is chosen
+// only by an explicit --store=<domain> flag that must match one entry exactly;
+// no environment variable or free-form value can supply the domain. Theme IDs
+// come from the versioned stores.json next to this file (per-store allowlist).
+const KNOWN_STORES = Object.freeze(['tema-qkqpke0j.myshopify.com', 'sartorial-theme-kvkzl39t.myshopify.com']);
+const LEGACY_STORE = KNOWN_STORES[0];
+const STORES_FILE = resolve(HERE, 'stores.json');
+const args = process.argv.slice(2);
+// Never throws at load time (run-b02 imports this source as a module): an invalid
+// selection yields error !== null, ORIGIN === null and main() refuses to start.
+function resolveTarget(argList, readStoresText) {
+  const refused = (error) => ({ error, host: null, origin: null, themes: Object.freeze([]), routes: Object.freeze({ collection: null, product: null }) });
+  const storeArgs = argList.filter((arg) => arg.startsWith('--store='));
+  if (storeArgs.length !== 1) return refused(storeArgs.length === 0 ? 'STORE_FLAG_REQUIRED' : 'STORE_FLAG_DUPLICATED');
+  const host = storeArgs[0].slice('--store='.length);
+  if (!KNOWN_STORES.includes(host)) return refused('STORE_NOT_ALLOWED');
+  let text;
+  try { text = readStoresText(); } catch { return refused('STORES_FILE_INVALID'); }
+  // JSON.parse silently keeps the LAST of two equal keys, which could hide an ID in a diff review.
+  if (typeof text === 'string' && KNOWN_STORES.some((known) => (text.match(new RegExp(`"${known.replace(/\./g, '\\.')}"\\s*:`, 'g')) || []).length > 1)) return refused('STORES_FILE_DUPLICATE_KEY');
+  let parsed;
+  try { parsed = JSON.parse(text); } catch { return refused('STORES_FILE_INVALID'); }
+  const entries = parsed && typeof parsed === 'object' && !Array.isArray(parsed) && parsed.stores && typeof parsed.stores === 'object' && !Array.isArray(parsed.stores) ? parsed.stores : null;
+  if (!entries || parsed.schema !== 1 || Object.keys(parsed).some((key) => !['schema', 'stores'].includes(key))) return refused('STORES_FILE_INVALID');
+  // The file must describe exactly the two known stores, so it cannot add a third.
+  if (Object.keys(entries).length !== KNOWN_STORES.length || !KNOWN_STORES.every((known) => Object.hasOwn(entries, known))) return refused('STORES_FILE_INVALID');
+  const themes = [];
+  let routes = null;
+  const seen = new Set();
+  for (const known of KNOWN_STORES) {
+    const list = entries[known]?.themes;
+    const own = entries[known]?.routes;
+    if (!Array.isArray(list) || Object.keys(entries[known]).some((key) => !['themes', 'routes'].includes(key))) return refused('STORES_FILE_INVALID');
+    // Per-store storefront routes (home is always '/'): strict handles, exactly these two keys.
+    if (!own || typeof own !== 'object' || Array.isArray(own) || Object.keys(own).length !== 2 || typeof own.collection !== 'string' || typeof own.product !== 'string' || !/^\/collections\/[a-z0-9-]+$/.test(own.collection) || !/^\/products\/[a-z0-9-]+$/.test(own.product)) return refused('STORES_FILE_INVALID');
+    if (known === host) routes = Object.freeze({ collection: own.collection, product: own.product });
+    for (const item of list) {
+      if (!item || typeof item !== 'object' || Object.keys(item).some((key) => !['preset', 'id'].includes(key)) || typeof item.preset !== 'string' || !/^[a-z0-9-]{1,32}$/.test(item.preset) || typeof item.id !== 'string' || !/^\d{6,20}$/.test(item.id) || seen.has(item.id)) return refused('STORES_FILE_INVALID');
+      seen.add(item.id);
+      if (known === host) themes.push(Object.freeze({ preset: item.preset, id: item.id }));
+    }
+  }
+  return { error: null, host, origin: `https://${host}`, themes: Object.freeze(themes), routes };
+}
+const TARGET = resolveTarget(args, () => readFileSync(STORES_FILE, 'utf8'));
+const ORIGIN = TARGET.origin;
+const PREVIEWS = TARGET.themes;
 const AUTHORIZED_THEME_IDS = new Set(PREVIEWS.map((preview) => preview.id));
-const ROUTES = Object.freeze({ home: '/', collection: '/collections/the-permanent-collection', product: '/products/wool-waistcoat', cart: '/cart' });
+const ROUTES = Object.freeze({ home: '/', collection: TARGET.routes.collection, product: TARGET.routes.product, cart: '/cart' });
 const AXE_SHA256 = 'b511cd9dec01c76f4b2ad1723b66b6db37d4c2eb4ed199076e1829d9ee7b75e3';
 const AXE_VERSION = '4.10.2';
 const AXE_RULES = Object.freeze(['aria-allowed-attr', 'aria-hidden-focus', 'aria-required-attr', 'aria-valid-attr', 'aria-valid-attr-value', 'button-name', 'color-contrast', 'document-title', 'duplicate-id-active', 'duplicate-id-aria', 'frame-title', 'heading-order', 'html-has-lang', 'html-lang-valid', 'image-alt', 'input-button-name', 'input-image-alt', 'label', 'label-content-name-mismatch', 'landmark-no-duplicate-main', 'landmark-one-main', 'landmark-unique', 'link-name', 'nested-interactive', 'page-has-heading-one', 'role-img-alt', 'scrollable-region-focusable', 'select-name', 'tabindex']);
 const EXTERNAL_HEADERS = Object.freeze({ Accept: '*/*', 'User-Agent': 'Codex-RA-RB-ReadOnly-Harness' });
-const READ_HOSTS = new Set(['tema-qkqpke0j.myshopify.com', 'cdn.shopify.com', 'fonts.shopifycdn.com']);
+const READ_HOSTS = new Set(TARGET.host ? [TARGET.host, 'cdn.shopify.com', 'fonts.shopifycdn.com'] : []);
 const ANALYTICS_WARNING_HOSTS = new Set(['monorail-edge.shopifysvc.com', 'www.google-analytics.com', 'region1.google-analytics.com', 'analytics.google.com', 'www.googletagmanager.com', 'stats.g.doubleclick.net', 'connect.facebook.net', 'www.facebook.com', 'analytics.tiktok.com']);
 const PLATFORM_WARNING_HOSTS = new Set(['bugsnag.com', 'notify.bugsnag.com', 'sessions.bugsnag.com', 'shop.app', 'www.shop.app', 'pay.shopify.com', 'checkout.shopify.com', 'accounts.shopify.com']);
 const CART_POST_PATHS = new Set(['/cart/add.js', '/cart/update.js', '/cart/clear.js']);
@@ -29,7 +71,7 @@ const CART_REQUEST_INTERVAL_MS = 1000;
 const KNOWN_STATIC_SUFFIX = /\.(?:css|m?js|svg|png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf|eot|mp4|webm|mov)$/i;
 const DENIAL_REASONS = new Set(['HOST_NOT_ALLOWED', 'ANALYTICS_HOST_BLOCKED', 'PLATFORM_HOST_BLOCKED', 'REQUEST_ADDRESS_NOT_ALLOWED', 'MUTATION_BLOCKED', 'WEBSOCKET_BLOCKED']);
 const DENIED_SOURCE_SUFFIXES = Object.freeze({ 'base.css': 'base_css', 'theme.js': 'theme_js', 'shopify-xr.js': 'shopify_xr_js', 'product-zoom.js': 'product_zoom_js' });
-const INVENTORY_HOSTS = new Set(['tema-qkqpke0j.myshopify.com', 'cdn.shopify.com', 'cdn.shopifycdn.net', 'fonts.shopifycdn.com', 'fonts.googleapis.com', 'fonts.gstatic.com']);
+const INVENTORY_HOSTS = new Set([...(TARGET.host ? [TARGET.host] : []), 'cdn.shopify.com', 'cdn.shopifycdn.net', 'fonts.shopifycdn.com', 'fonts.googleapis.com', 'fonts.gstatic.com']);
 const INVENTORY_KINDS = new Set(['script', 'stylesheet', 'image', 'font', 'media', 'texttrack']);
 const INVENTORY_LIMIT = 100;
 // Kept only in process memory; it is distinct from every emitted run/file ID.
@@ -40,7 +82,6 @@ const CROSSES = Object.freeze([
   [{ width: 820, height: 1180 }, { width: 1180, height: 820 }],
   [{ width: 390, height: 844 }, { width: 844, height: 390 }],
 ]);
-const args = process.argv.slice(2);
 const mode = args.includes('--read-only') ? 'read-only' : args.includes('--inventory') ? 'inventory' : args.includes('--cart') ? 'cart' : null;
 const themeArg = args.find((arg) => arg.startsWith('--theme='))?.slice(8);
 const selected = themeArg ? PREVIEWS.filter((preview) => preview.id === themeArg) : PREVIEWS;
@@ -53,7 +94,7 @@ const report = {
   executionResult: 'not_run',
   startedAt: new Date().toISOString(),
   finishedAt: null,
-  target: { host: 'tema-qkqpke0j.myshopify.com', themeIds: selected.map((preview) => preview.id) },
+  target: { host: TARGET.host, themeIds: selected.map((preview) => preview.id) },
   limits: [
     'SCOPED_HARNESS_NOT_FULL_RA_RB_CERTIFICATION',
     'NO_THEME_SETTINGS_OR_CATALOG_WRITES',
@@ -65,7 +106,8 @@ const report = {
   checks: [],
   sessions: [],
   interventionRequired: false,
-  historicalIncidents: [{ code: 'ARCHIVE_ORPHANED_CART_20261106', preset: 'archive', themeId: '190232363251', initiallyEmptyVerified: true, finalCartState: 'unknown', contextClosed: true, disposition: 'LEAVE_TO_EXPIRE', blocksLote0: false, sourceReport: 'RA-RB-cart-20261106T112804500Z-605bdcd0-07ef-43aa-a9f5-6e0d5038b634.json' }],
+  // This incident happened on the legacy store; it is not attributed to any other store.
+  historicalIncidents: TARGET.host !== LEGACY_STORE ? [] : [{ code: 'ARCHIVE_ORPHANED_CART_20261106', preset: 'archive', themeId: '190232363251', initiallyEmptyVerified: true, finalCartState: 'unknown', contextClosed: true, disposition: 'LEAVE_TO_EXPIRE', blocksLote0: false, sourceReport: 'RA-RB-cart-20261106T112804500Z-605bdcd0-07ef-43aa-a9f5-6e0d5038b634.json' }],
 };
 let expect;
 let inventorySecretGuard = null;
@@ -160,7 +202,15 @@ function safeCode(error) {
   if (['MODULE_NOT_FOUND', 'ERR_MODULE_NOT_FOUND'].includes(error?.code)) return 'MODULE_NOT_FOUND';
   const chromiumCode = typeof error?.message === 'string' ? error.message.match(/\bnet::(ERR_[A-Z0-9_]+)\b/)?.[1] : null;
   if (chromiumCode && new Set(['ERR_ABORTED', 'ERR_BLOCKED_BY_CLIENT', 'ERR_CONNECTION_CLOSED', 'ERR_CONNECTION_RESET', 'ERR_CONNECTION_TIMED_OUT', 'ERR_FAILED', 'ERR_INTERNET_DISCONNECTED', 'ERR_NAME_NOT_RESOLVED', 'ERR_NETWORK_CHANGED', 'ERR_SSL_PROTOCOL_ERROR', 'ERR_TUNNEL_CONNECTION_FAILED']).has(chromiumCode)) return `CHROMIUM_${chromiumCode}`;
-  if (new Set(['ECONNRESET', 'ETIMEDOUT', 'ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN']).has(error?.code)) return `NETWORK_${error.code}`;
+  if (new Set(['ECONNRESET', 'ETIMEDOUT', 'ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN', 'EPIPE']).has(error?.code)) return `NETWORK_${error.code}`;
+  // Playwright raises TargetClosedError when a context/page/request client is
+  // disposed under an in-flight handler; Node socket errors often arrive only in
+  // the message (route.fetch uses Node's HTTP client). Fixed codes only: the
+  // message itself is never serialized.
+  if (error?.name === 'TargetClosedError') return 'TARGET_CLOSED';
+  const message = typeof error?.message === 'string' ? error.message : '';
+  if (/Target page, context or browser has been closed|Request context disposed/.test(message)) return 'TARGET_CLOSED';
+  if (/\b(?:ECONNRESET|EPIPE|ETIMEDOUT|ECONNREFUSED|ENOTFOUND|EAI_AGAIN)\b|socket hang up|net::ERR_/i.test(message)) return 'NETWORK_ERROR';
   return 'HARNESS_OPERATION_FAILED';
 }
 async function saveReport() {
@@ -213,8 +263,10 @@ function assertStorePage(page, session) {
 }
 async function verifyPreview(page, session) {
   assertStorePage(page, session);
-  const matches = await page.evaluate((expected) => typeof window.Shopify?.theme?.id !== 'undefined' && String(window.Shopify.theme.id) === expected, session.themeId);
-  requireThat(matches && AUTHORIZED_THEME_IDS.has(session.themeId), 'PREVIEW_ID_NOT_VERIFIED');
+  const identity = await page.evaluate(() => ({ id: typeof window.Shopify?.theme?.id !== 'undefined' ? String(window.Shopify.theme.id) : null, role: typeof window.Shopify?.theme?.role === 'string' ? window.Shopify.theme.role : null }));
+  requireThat(identity?.id === session.themeId && AUTHORIZED_THEME_IDS.has(session.themeId), 'PREVIEW_ID_NOT_VERIFIED');
+  // A published (main) theme serves the same Shopify.theme.id under ?preview_theme_id, so the role is the guard.
+  requireThat(identity.role === 'unpublished', 'PREVIEW_ROLE_NOT_UNPUBLISHED');
   session.previewVerified = true;
 }
 async function goto(page, preview, route, session) {
@@ -316,11 +368,20 @@ function normalizedForms(value) {
   }
   return forms;
 }
+// The two real credentials are always guarded, whatever their length. Every other
+// matching variable must be at least MIN_GUARDED_VALUE_LENGTH long: a 1-character
+// value such as OLDPWD="/" would otherwise match every pathname and blind the
+// diagnostics. PWD/OLDPWD are shell directory variables, never credentials.
+const ALWAYS_GUARDED_NAMES = new Set(['STOREFRONT_PASSWORD', 'SHOPIFY_CLI_THEME_TOKEN']);
+const MIN_GUARDED_VALUE_LENGTH = 8;
 function buildInventorySecretGuard(environment) {
   const secrets = new Set();
   let unavailable = false;
   for (const [name, value] of Object.entries(environment)) {
+    const always = ALWAYS_GUARDED_NAMES.has(name);
+    if (!always && /^(?:OLD)?PWD$/i.test(name)) continue;
     if (!/(?:token|password|passwd|pwd|cookie|secret|auth|credential|key)/i.test(name) || !value) continue;
+    if (!always && value.length < MIN_GUARDED_VALUE_LENGTH) continue;
     if (value.length > 16384) { unavailable = true; continue; }
     for (const form of normalizedForms(value)) secrets.add(form);
   }
@@ -451,7 +512,7 @@ function routeEvent(session, stage, method, rawAddress, error) {
     const path = new URL(session.page.url()).pathname;
     pageKind = Object.entries(ROUTES).find(([, route]) => route === path)?.[0] || 'other';
   } catch { /* Only the fixed page-kind category is emitted. */ }
-  return { stage: stages.has(stage) ? stage : 'request_setup', code: safeCode(error), pageKind, method: ['GET', 'HEAD', 'POST'].includes(method) ? method : 'OTHER', ...safeWarningSource(rawAddress) };
+  return { stage: stages.has(stage) ? stage : 'request_setup', phase: session.teardownStarted ? 'teardown' : 'workflow', code: safeCode(error), pageKind, method: ['GET', 'HEAD', 'POST'].includes(method) ? method : 'OTHER', ...safeWarningSource(rawAddress) };
 }
 function recordRouteFailure(session, stage, method, rawAddress, error) {
   if (session.routeFailureEvents.length >= 50) { session.routeFailureEventsOmitted += 1; return; }
@@ -461,7 +522,7 @@ function isExternalHostFetchFailure(stage, fetchInProgress, method, rawAddress, 
   if (stage !== 'fetch' || !fetchInProgress || !['GET', 'HEAD'].includes(method) || error instanceof CheckError) return false;
   try {
     const address = new URL(rawAddress);
-    const isThemeAsset = /^\/cdn\/shop\/t\/(?:190232297715|190232330483|190232363251)\//.test(address.pathname)
+    const isThemeAsset = AUTHORIZED_THEME_IDS.has(/^\/cdn\/shop\/t\/(\d+)\//.exec(address.pathname)?.[1] ?? '')
       || address.pathname.startsWith('/cdn/shop/files/');
     // Johandry's criterion: a network error only fails this gate when it comes
     // from the store host or a theme asset. A failed read from another host is
@@ -612,7 +673,7 @@ async function runAxe(page, axeSource) {
   const wrapped = `(() => { const module = { exports: {} }; const define = undefined; const previous = Object.getOwnPropertyDescriptor(window, 'axe'); ${axeSource}\n; const controlled = module.exports; if (previous) Object.defineProperty(window, 'axe', previous); else delete window.axe; Object.defineProperty(window, ${JSON.stringify(alias)}, { value: controlled, configurable: true, writable: false }); })();`;
   await page.addScriptTag({ content: wrapped });
   try {
-    const measured = await page.evaluate(async ({ key, allowedRules, version }) => {
+    const measured = await page.evaluate(async ({ key, allowedRules, version, storeOrigin }) => {
       const controlled = window[key];
       if (!controlled || controlled.version !== version || typeof controlled.run !== 'function' || typeof controlled.getRules !== 'function') return { valid: false };
       const allow = new Set(allowedRules);
@@ -636,13 +697,13 @@ async function runAxe(page, axeSource) {
             iframeSourceFamily = 'other';
             try {
               const address = new URL(element.getAttribute('src'), element.ownerDocument.baseURI);
-              if (address.origin === 'https://tema-qkqpke0j.myshopify.com') iframeSourceCategory = 'store';
+              if (address.origin === storeOrigin) iframeSourceCategory = 'store';
               else if (address.hostname === 'cdn.shopify.com') iframeSourceCategory = 'shopify_cdn';
               else if (address.hostname === 'hcaptcha.com' || address.hostname.endsWith('.hcaptcha.com')) iframeSourceCategory = 'captcha';
               const safeAddress = address.protocol === 'https:' && !address.port && !address.username && !address.password && /^[a-z0-9.-]{1,253}$/.test(address.hostname) && address.pathname.length <= 1024 && /^[A-Za-z0-9_@+.,~/%-]+$/.test(address.pathname);
               if (safeAddress && address.hostname === 'cdn.shopify.com' && /^\/shopifycloud\/(?:preview-bar|storefront-preview-bar)(?:\/|$)/.test(address.pathname)) iframeSourceFamily = 'shopify_preview_bar';
               else if (safeAddress && address.hostname === 'cdn.shopify.com' && address.pathname.startsWith('/shopifycloud/')) iframeSourceFamily = 'shopify_cloud_other';
-              else if (safeAddress && address.origin === 'https://tema-qkqpke0j.myshopify.com') iframeSourceFamily = 'store';
+              else if (safeAddress && address.origin === storeOrigin) iframeSourceFamily = 'store';
             } catch { /* Invalid addresses retain a fixed category. */ }
           }
           const sectionFamily = sectionFamilies.find(([, root]) => element.closest(root))?.[0] || 'other_or_none';
@@ -675,7 +736,7 @@ async function runAxe(page, axeSource) {
       const violations = summarize(result.violations, true);
       const incomplete = summarize(result.incomplete);
       return { valid: true, axeVersion: version, selectedRuleCount: selectedRules.length, unavailableFixedRuleCount: allowedRules.length - selectedRules.length, labelNameRuleAvailable: hasNameRule, violations, incomplete, passes: Array.isArray(result.passes) ? result.passes.length : 0, previewBarWarningOnlyNodeCount };
-    }, { key: alias, allowedRules: AXE_RULES, version: AXE_VERSION });
+    }, { key: alias, allowedRules: AXE_RULES, version: AXE_VERSION, storeOrigin: ORIGIN });
     requireThat(measured.valid, 'CONTROLLED_AXE_INSTANCE_NOT_VERIFIED');
     return measured;
   } finally { await page.evaluate((key) => { delete window[key]; }, alias).catch(() => {}); }
@@ -962,7 +1023,9 @@ async function holdForManualCleanup(session, browser) {
 }
 async function main() {
   requireThat(mode && args.filter((arg) => ['--read-only', '--inventory', '--cart'].includes(arg)).length === 1, 'SELECT_EXACTLY_ONE_MODE');
-  requireThat(args.every((arg) => ['--read-only', '--inventory', '--cart'].includes(arg) || arg.startsWith('--theme=')), 'ARGUMENT_NOT_SUPPORTED');
+  requireThat(args.every((arg) => ['--read-only', '--inventory', '--cart'].includes(arg) || arg.startsWith('--theme=') || arg.startsWith('--store=')), 'ARGUMENT_NOT_SUPPORTED');
+  requireThat(TARGET.error === null, TARGET.error || 'STORE_NOT_ALLOWED');
+  requireThat(args.filter((arg) => arg.startsWith('--theme=')).length <= 1, 'THEME_FLAG_DUPLICATED');
   requireThat(selected.length > 0 && (!themeArg || /^\d+$/.test(themeArg)), 'THEME_NOT_ALLOWED');
   requireThat(Boolean(process.env.STOREFRONT_PASSWORD) && Boolean(process.env.SHOPIFY_CLI_THEME_TOKEN), 'REQUIRED_CREDENTIAL_ENV_MISSING');
   const password = process.env.STOREFRONT_PASSWORD;
@@ -978,7 +1041,7 @@ async function main() {
       const page = await context.newPage();
       page.setDefaultTimeout(15000);
       const publicSession = { preset: preview.preset, themeId: preview.id, cartMutationsAllowed: mode === 'cart', unpublishedPreflight: 'required_external_coordinator_check', cartInitiallyEmptyVerified: null, cartTouched: false, finalCartCleanup: null, contextClosed: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, rateLimitEvents: [], rateLimitEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: [], warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: [], inventoryResources: [], inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
-      const session = { mode, preset: preview.preset, themeId: preview.id, page, context, api: context.request, createExternalClient: () => playwright.request.newContext({ storageState: { cookies: [], origins: [] }, userAgent: EXTERNAL_HEADERS['User-Agent'], extraHTTPHeaders: EXTERNAL_HEADERS }), publicSession, authPostAllowed: false, authSubmitted: false, previewVerified: false, cartAuthorization: false, cartWriteEnabled: false, cartTouched: false, cleanupInProgress: false, expectedCartLine: null, cartAddReconciled: false, cartStopRequested: false, cartAddInFlight: false, cartAddCompletion: Promise.resolve(), resolveCartAddCompletion: null, interventionOccurred: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, rateLimitEvents: [], rateLimitEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: new Map(), warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
+      const session = { mode, preset: preview.preset, themeId: preview.id, page, context, api: context.request, createExternalClient: () => playwright.request.newContext({ storageState: { cookies: [], origins: [] }, userAgent: EXTERNAL_HEADERS['User-Agent'], extraHTTPHeaders: EXTERNAL_HEADERS }), publicSession, authPostAllowed: false, authSubmitted: false, previewVerified: false, cartAuthorization: false, cartWriteEnabled: false, cartTouched: false, cleanupInProgress: false, expectedCartLine: null, cartAddReconciled: false, cartStopRequested: false, cartAddInFlight: false, teardownStarted: false, cartAddCompletion: Promise.resolve(), resolveCartAddCompletion: null, interventionOccurred: false, blockedRequests: 0, blockedWebSockets: 0, popupsClosed: 0, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, rateLimitEvents: [], rateLimitEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: new Map(), warningOccurrences: 0, warningOccurrencesOmitted: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { maxEntries: INVENTORY_LIMIT, eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 } };
       report.sessions.push(publicSession);
       runtimeSessions.push(session);
       await context.route('**/*', createRouter(session));
@@ -1004,6 +1067,7 @@ async function main() {
       } catch (error) {
         report.checks.push({ preset: preview.preset, themeId: preview.id, name: 'preview_suite', result: 'failed', reason: safeCode(error), details: null });
       } finally {
+        session.teardownStarted = true;
         session.authPostAllowed = false;
         if (mode === 'cart' && session.cartAuthorization) {
           let cleaned;
