@@ -53,3 +53,30 @@ Mejoras que no bloquean el commit:
 3. `--password=X` no produce un error de argumento.
 4. Un preflight 302 a otro host no invalida la ejecución, porque mjs:181-182 solo comprueban `/password` y status ≥ 400.
 5. `git diff -- package.json` está vacío.
+
+## Reverificación (2026-11-14, solo lo cambiado; local, sin tienda, sin editar código)
+
+### Veredicto: COMMITEAR CON CAMBIOS
+
+Hay un único cambio obligatorio, de una línea:
+
+- **R1 (C3, Location ausente).** mjs:234 usa `new URL(loc, url)`. Cuando falta Location, `loc` vale `''` (mjs:222), y `new URL('', url).origin` devuelve el origen de la propia URL. Lo comprobé con `node -e`: devuelve `http://127.0.0.1:5`. Por tanto, un 3xx sin Location cuenta como el mismo origen, y no como otro origen, que es lo que se pidió. Lo mitiga la comprobación posterior de mjs:253, pero no cumple la especificación.
+  - Arreglo: `try { target = loc ? new URL(loc, url).origin : null; } catch { /* inválida */ }`.
+  - Lo ideal es añadir al selftest un caso con `302` sin Location y comprobar que da exit 4.
+
+Mejoras que no bloquean el commit:
+- README:50: "compruebe su integridad sha512 con `npm view`" es circular, porque compara el registro consigo mismo. Hay que anotar el valor esperado: `sha512-2/HUPUpQyGm01VEgYCUjSlNZY7Zkhk1v3QI4c7UTbnaoRB7HF0qYMPzzaiidNf5iqw5wnmtm9LpGawKKqCfLmg==`.
+- README:41: la frase "(Playwright lo hace con handleSIGINT/handleSIGTERM desactivados)" se entiende al revés. Debe decir "Playwright se lanza con … desactivados".
+- Si llega una señal mientras se ejecuta `launchPersistentContext` (mjs:196-204), `state.context` todavía es null. Chromium queda entonces a cargo del handler de `exit` de Playwright, y el `rmSync` podría ir antes de que muera. No lo probé; es una ventana inferior a 1 s.
+
+### Evidencia
+
+| # | Punto | Resultado | Evidencia |
+|---|---|---|---|
+| 1 | C1: señales | OK | `handleSIGINT:false` y `handleSIGTERM:false` (mjs:201-202). Handlers propios (mjs:45-55): `killChild` mata el grupo con `-pid` (mjs:41), `close` tiene un límite de 5 s (mjs:50), `rmSync` (mjs:51) y exit 130/143. El `catch` se queda esperando mientras dura la limpieza (mjs:309). Con mi arnés `scratchpad/sigint-test.mjs`: SIGINT da exit 130 y SIGTERM exit 143. En los dos casos no queda `/tmp/lh-mobile-*`, ni procesos chrome o lighthouse. En el selftest también pasan los dos casos. README:41 documenta que SIGKILL y un corte del contenedor no están cubiertos. |
+| 2 | C2: argumentos | OK | `ALLOWED_ARGS` (mjs:26, 71). `--selftest` se trata aparte (mjs:68). El mensaje no repite el valor. Selftest: `--password=SECRETO-ARG` da exit 2 y el valor no aparece en la salida; `--foo=bar` da exit 2. |
+| 3 | C3: mismo origen | Parcial (R1) | 3xx a otro origen da exit 4 (mjs:230-236; selftest `redirect-302` ok). `finalDisplayedUrl` de otro origen da exit 4 (mjs:246, 253; selftest `redirect-js` ok, "origen distinto"). Una URL final inválida deja `finalOrigin=''` y da exit 4. Location ausente: ver R1. |
+| 4 | C4: README Riesgos | OK, con la mejora de integridad | README:48-52. Lo que dice es cierto: transitivas con `^` (comprobado con `npm view`), entorno filtrado, acceso a la cookie por CDP y puerto en 127.0.0.1. Exit codes actualizados (README:37). |
+| 5 | Mejoras | OK | `envWithout(SECRET_ENV)` para Chromium (mjs:200) y para npx (mjs:143). Comprobado en `/proc/<pid>/environ` durante una ejecución, mirando solo los nombres: 6 procesos chrome-headless, `npm exec` y 3 node, todos con `has_STOREFRONT_PASSWORD=0`. Métrica no finita invalida la ejecución (mjs:257-268). Timeout de 180 s que mata el grupo (mjs:25, 147). `--pages` con más de un `:` da exit 2 (mjs:94; selftest ok). CDP en 127.0.0.1 (`/proc/net/tcp` solo muestra `0100007F:*`, más el `0.0.0.0:2024` que ya existía antes, ajeno al script). |
+| 6 | detached y espera de 10 s | OK | `detached:true` y kill del grupo: tras SIGINT, SIGTERM y timeout no queda ningún `npm exec`, `sh` ni node lighthouse. La espera de selftest:126-129 no enmascara fallos: es un sondeo de hasta 10 s y después se ejecuta `assert` de todos modos. El patrón `lh-mobile-` cubre a Chromium (`--user-data-dir`) y a Lighthouse (`--output-path`). Un huérfano real persiste más de 10 s y haría fallar el test. |
+| 7 | Ejecución | OK | `node --check` de los dos archivos: CHECK_OK. Selftest: 20 aserciones ok, "SELFTEST OK", `real 2m10.176s`, EXIT=0. lighthouse@13.6.0 se descargó por el proxy. Después no queda `/tmp/lh-*` ni procesos. `git diff -- package.json` vacío (md5 `da394d32…` sin cambios). |
