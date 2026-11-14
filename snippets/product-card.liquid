@@ -340,7 +340,7 @@
       {%- endif -%}
 
       {%- if show_vendor and card_product.vendor != blank -%}
-        <p class="product-card__vendor">{{ card_product.vendor | escape }}</p>
+        <p class="product-card__vendor" title="{{ card_product.vendor | escape }}">{{ card_product.vendor | escape }}</p>
       {%- endif -%}
 
       <h3 class="product-card__title" id="{{ card_title_id }}">

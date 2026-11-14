@@ -1946,8 +1946,8 @@ body[data-sticky-cart-visible] {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.35;
-  /* LV05-R01. Una palabra larga se parte en vez de ensanchar la tarjeta (zoom, letra grande). */
-  overflow-wrap: anywhere;
+  /* LV05-R01. Politica global de palabras intacta; el corte vive en los contenedores estrechos, */
+  /* regla `.bento-discovery__item--product .product-card__title` al final de este archivo. */
 }
 
 .product-card__title a {
@@ -10430,4 +10430,11 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     position: sticky;
     top: calc(var(--header-offset, 0px) + var(--space-4));
   }
+}
+
+/* LV05-R01. Solo estos contenedores estrechos parten una palabra larga en vez de ensanchar la
+   tarjeta (zoom, letra grande); la politica global overflow-wrap: normal se mantiene. */
+.bento-discovery__item--product .product-card__title,
+.curated-showcase__supporting .product-card__title {
+  overflow-wrap: anywhere;
 }
