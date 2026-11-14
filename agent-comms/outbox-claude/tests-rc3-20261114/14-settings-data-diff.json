@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-14T20:18:27.971Z",
+  "exportCommit": "51fda7c",
+  "method": "shopify theme pull --only config/settings_data.json por tema; export local con harness-C-01-ID-001/build-export.mjs --commit 51fda7c; comparacion de claves hoja tras quitar el comentario de cabecera",
+  "themes": {
+    "sartorial": {
+      "themeId": "190317920560",
+      "exportBytes": 6870,
+      "storeBytes": 7233,
+      "leafKeysExport": 160,
+      "leafKeysStore": 160,
+      "differingKeys": [],
+      "sha256Store": "b2b8d0863c7f720de9093237259e1191f5a64c18263a19db7db05b8331da8743"
+    },
+    "imprint": {
+      "themeId": "190317953328",
+      "exportBytes": 6868,
+      "storeBytes": 7231,
+      "leafKeysExport": 160,
+      "leafKeysStore": 160,
+      "differingKeys": [],
+      "sha256Store": "a9c23f43f8f800189ff6852e1f95f890aa95de6c8ad15d9cead76dc857d17697"
+    },
+    "archive": {
+      "themeId": "190317986096",
+      "exportBytes": 6868,
+      "storeBytes": 7231,
+      "leafKeysExport": 160,
+      "leafKeysStore": 160,
+      "differingKeys": [],
+      "sha256Store": "c1505cb0405709ebf80e8cd5f3c600e49d3163198558670fc94348c01d87b2fe"
+    }
+  },
+  "conclusion": "Sin perdida de ajustes: 160 claves hoja identicas en los 3 temas; la unica diferencia de bytes (363) es el comentario de cabecera autogenerado que anade Shopify. El tamano de 4157 bytes no se reproduce: hoy la tienda tiene 7231-7233 bytes."
+}
