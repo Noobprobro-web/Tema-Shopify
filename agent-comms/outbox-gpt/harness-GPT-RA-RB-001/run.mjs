@@ -531,9 +531,17 @@ function isExternalHostFetchFailure(stage, fetchInProgress, method, rawAddress, 
     return address.origin !== ORIGIN && !address.username && !address.password && !isThemeAsset;
   } catch { return false; }
 }
-function recordRouteWarning(session, stage, method, rawAddress, error) {
+function recordRouteWarning(session, stage, method, rawAddress, error, reason = 'NON_STORE_HOST_FETCH_WARNING_ONLY') {
   if (session.routeWarningEvents.length >= 50) { session.routeWarningEventsOmitted += 1; return; }
-  session.routeWarningEvents.push({ severity: 'warning', reason: 'NON_STORE_HOST_FETCH_WARNING_ONLY', ...routeEvent(session, stage, method, rawAddress, error) });
+  session.routeWarningEvents.push({ severity: 'warning', reason, ...routeEvent(session, stage, method, rawAddress, error) });
+}
+// Context closure cancels GET handlers that were already allowed by the request
+// policy. That exact case (teardown + TARGET_CLOSED + GET/HEAD read that reached
+// fetch/fulfill) is a warning. Any other code, any workflow-phase failure and any
+// POST/mutation still fails the run.
+function isTeardownClosedReadFailure(session, stage, method, error, cartAddRequest) {
+  return session.teardownStarted === true && !cartAddRequest && ['fetch', 'fulfill'].includes(stage) && ['GET', 'HEAD'].includes(method)
+    && !(error instanceof CheckError) && safeCode(error) === 'TARGET_CLOSED';
 }
 function createRouter(session) {
   return async (route) => {
@@ -607,7 +615,9 @@ function createRouter(session) {
       stage = 'redirect_limit';
       throw new CheckError('REDIRECT_LIMIT_EXCEEDED');
     } catch (error) {
-      if (isExternalHostFetchFailure(stage, fetchInProgress, method, failureAddress, error)) {
+      if (isTeardownClosedReadFailure(session, stage, method, error, cartAddRequest)) {
+        recordRouteWarning(session, stage, method, failureAddress, error, 'TEARDOWN_TARGET_CLOSED');
+      } else if (isExternalHostFetchFailure(stage, fetchInProgress, method, failureAddress, error)) {
         recordRouteWarning(session, stage, method, failureAddress, error);
       } else if (!(error instanceof PolicyBlocked)) {
         session.routeOperationFailed = true;

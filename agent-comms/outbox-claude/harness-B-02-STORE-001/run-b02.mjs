@@ -26,7 +26,7 @@ import { installNativeCartAddCapture, runNoJsVariantCase, casePreconditionFailur
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const D28_RUNNER_PATH = resolve(HERE, '../../outbox-gpt/harness-GPT-RA-RB-001/run.mjs');
 // SHA-256 de run.mjs revisado. Si D28 cambia, este runner no arranca hasta revisarlo.
-export const D28_RUNNER_SHA256 = '5c03c13957dfd0fef8fd241f89f44d8b471da20819162e10438ed55d578a2bc1';
+export const D28_RUNNER_SHA256 = '103c1551fc1d639e93a882900885ba9283d8c260d49c938543d6299ac1a4292f';
 // run.mjs exige --store=<dominio> de su lista cerrada y stores.json (junto a el). B-02 sigue
 // anclado a la tienda antigua: migrarlo a la tienda nueva es una decision aparte.
 export const D28_STORE = 'tema-qkqpke0j.myshopify.com';

@@ -17,7 +17,7 @@ const marker = '\ntry {\n  await main();\n}';
 const cut = source.lastIndexOf(marker);
 if (!(cut > 0 && source.indexOf(marker) === cut)) throw new Error('RUNNER_LAYOUT_NOT_EXPECTED');
 const moduleText = `${source.slice(0, cut)}
-export { resolveTarget, safeCode, buildInventorySecretGuard, safeWarningSource, requestDecision, routeEvent, isExternalHostFetchFailure, ORIGIN, READ_HOSTS, INVENTORY_HOSTS, AUTHORIZED_THEME_IDS, PREVIEWS, TARGET, KNOWN_STORES, ROUTES, verifyPreview };
+export { resolveTarget, safeCode, buildInventorySecretGuard, safeWarningSource, requestDecision, routeEvent, isExternalHostFetchFailure, createRouter, ORIGIN, READ_HOSTS, INVENTORY_HOSTS, AUTHORIZED_THEME_IDS, PREVIEWS, TARGET, KNOWN_STORES, ROUTES, verifyPreview };
 export function installGuard(environment) { inventorySecretGuard = buildInventorySecretGuard(environment); return inventorySecretGuard; }
 `;
 const dir = await mkdtemp(join(tmpdir(), 'ra-rb-selftest-'));
@@ -178,6 +178,81 @@ try {
   const wf = oldRun.routeEvent({ page, teardownStarted: false }, 'fetch', 'GET', `https://${OLD}/a`, named('TargetClosedError', 'x'));
   const td = oldRun.routeEvent({ page, teardownStarted: true }, 'fetch', 'GET', `https://${OLD}/a`, named('TargetClosedError', 'x'));
   check('routeEvent: phase workflow/teardown y codigo fijo', wf.phase === 'workflow' && td.phase === 'teardown' && td.code === 'TARGET_CLOSED' && td.stage === 'fetch');
+
+  // ---- 6. Cierre del contexto: TARGET_CLOSED en teardown (arnes real, rutas sinteticas, sin red ni navegador)
+  {
+    const NEWID = '190300356912';
+    const makeSession = (extra = {}) => ({ mode: 'read-only', preset: 'sartorial', themeId: NEWID, page: { url: () => `https://${NEW}/`, mainFrame: () => 'main', evaluate: async (fn) => { globalThis.window = { Shopify: { theme: { id: Number(NEWID), role: 'unpublished' } } }; try { return fn(); } finally { delete globalThis.window; } } }, teardownStarted: false, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, rateLimitEvents: [], rateLimitEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: new Map(), warningOccurrences: 0, warningOccurrencesOmitted: 0, blockedRequests: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 }, cartAddInFlight: false, resolveCartAddCompletion: null, ...extra });
+    const driveRoute = async (run, session, method, url, fetchError, kind = 'script') => {
+      let aborted = 0;
+      const route = { request: () => ({ url: () => url, method: () => method, resourceType: () => kind, frame: () => (method === 'POST' ? 'main' : 'other'), isNavigationRequest: () => false }), fetch: async () => { throw fetchError; }, fulfill: async () => {}, abort: async () => { aborted += 1; } };
+      await run.createRouter(session)(route);
+      return aborted;
+    };
+    const asset = `https://${NEW}/cdn/shopifycloud/checkout-web/assets/c1/f4d0afee.CBQgxqHw.js`;
+    const decision = newRun.requestDecision({ mode: 'read-only' }, 'GET', asset, 'script', 'browser', false);
+    check('el GET de checkout-web de la corrida real esta permitido por la politica (precondicion)', decision.allowed === true, JSON.stringify(decision));
+    const closed = () => named('TargetClosedError', 'Target page, context or browser has been closed');
+    {
+      const session = makeSession({ teardownStarted: true });
+      const aborted = await driveRoute(newRun, session, 'GET', asset, closed());
+      const warning = session.routeWarningEvents[0];
+      check('(a) TARGET_CLOSED en teardown de un GET permitido: no falla y queda como aviso fijo', session.routeOperationFailed === false && session.routeFailureEvents.length === 0 && session.routeWarningEvents.length === 1 && warning.reason === 'TEARDOWN_TARGET_CLOSED' && warning.phase === 'teardown' && warning.code === 'TARGET_CLOSED' && warning.method === 'GET' && aborted === 1, JSON.stringify(warning));
+    }
+    {
+      const session = makeSession({ teardownStarted: false });
+      await driveRoute(newRun, session, 'GET', asset, closed());
+      check('(b) TARGET_CLOSED en workflow: sigue fallando', session.routeOperationFailed === true && session.routeFailureEvents.length === 1 && session.routeFailureEvents[0].phase === 'workflow' && session.routeWarningEvents.length === 0);
+    }
+    for (const [label, error] of [['read ECONNRESET (NETWORK_ERROR)', new Error('read ECONNRESET')], ['socket hang up (NETWORK_ERROR)', new Error('socket hang up')], ['codigo de Node ECONNRESET (NETWORK_ECONNRESET)', Object.assign(new Error('m'), { code: 'ECONNRESET' })], ['desconocido (HARNESS_OPERATION_FAILED)', new Error('boom')]]) {
+      const session = makeSession({ teardownStarted: true });
+      await driveRoute(newRun, session, 'GET', asset, error);
+      check(`(c) ${label} en teardown de un GET permitido: falla`, session.routeOperationFailed === true && session.routeFailureEvents.length === 1 && session.routeFailureEvents[0].phase === 'teardown' && session.routeWarningEvents.length === 0, JSON.stringify(session.routeFailureEvents[0]));
+    }
+    {
+      const session = makeSession({ mode: 'cart', teardownStarted: true, cartWriteEnabled: true, cartAuthorization: true, cleanupInProgress: false, previewVerified: true });
+      const url = `https://${NEW}/cart/clear.js`;
+      const allowedPost = newRun.requestDecision(session, 'POST', url, 'fetch', 'browser', true);
+      await driveRoute(newRun, session, 'POST', url, closed(), 'fetch');
+      check('(d) TARGET_CLOSED de un POST en teardown: falla (no es aviso)', allowedPost.allowed === true && session.routeOperationFailed === true && session.routeFailureEvents.length === 1 && session.routeFailureEvents[0].method === 'POST' && session.routeFailureEvents[0].phase === 'teardown' && session.routeWarningEvents.length === 0, `postAllowed=${allowedPost.allowed} ${JSON.stringify(session.routeFailureEvents[0])}`);
+    }
+    {
+      const session = makeSession({ mode: 'cart', teardownStarted: true, cartWriteEnabled: true, cartAuthorization: true, cleanupInProgress: false, previewVerified: true });
+      await driveRoute(newRun, session, 'POST', `https://${NEW}/cart/add.js`, closed(), 'fetch');
+      check('(d2) TARGET_CLOSED de /cart/add.js en teardown: falla', session.routeFailureEvents.length === 1 && session.routeOperationFailed === true && session.routeWarningEvents.length === 0);
+    }
+    {
+      // Etapa fulfill: la ruta recupera la respuesta pero fulfill() choca con el cierre.
+      const response = { headers: () => ({}), status: () => 200, dispose: async () => {} };
+      const fulfillRoute = (method, url, failing) => ({ request: () => ({ url: () => url, method: () => method, resourceType: () => 'script', frame: () => 'other', isNavigationRequest: () => false }), fetch: async () => response, fulfill: async () => { throw failing; }, abort: async () => {} });
+      const session = makeSession({ teardownStarted: true });
+      await newRun.createRouter(session)(fulfillRoute('GET', asset, closed()));
+      check('(f) TARGET_CLOSED en etapa fulfill durante el teardown de un GET permitido: aviso', session.routeOperationFailed === false && session.routeFailureEvents.length === 0 && session.routeWarningEvents.length === 1 && session.routeWarningEvents[0].reason === 'TEARDOWN_TARGET_CLOSED' && session.routeWarningEvents[0].stage === 'fulfill', JSON.stringify(session.routeWarningEvents[0]));
+    }
+    {
+      // request_setup: request() lanza antes de conocer metodo ni URL.
+      const session = makeSession({ teardownStarted: true });
+      await newRun.createRouter(session)({ request: () => { throw closed(); }, fetch: async () => { throw closed(); }, fulfill: async () => {}, abort: async () => {} });
+      check('(g) TARGET_CLOSED en request_setup durante el teardown: sigue fallando', session.routeOperationFailed === true && session.routeFailureEvents.length === 1 && session.routeFailureEvents[0].stage === 'request_setup' && session.routeWarningEvents.length === 0, JSON.stringify(session.routeFailureEvents[0]));
+    }
+    {
+      // redirect_validation: la respuesta llega pero leer sus cabeceras choca con el cierre.
+      const response = { headers: () => { throw closed(); }, status: () => 200, dispose: async () => {} };
+      const route = { request: () => ({ url: () => asset, method: () => 'GET', resourceType: () => 'script', frame: () => 'other', isNavigationRequest: () => false }), fetch: async () => response, fulfill: async () => {}, abort: async () => {} };
+      const session = makeSession({ teardownStarted: true });
+      await newRun.createRouter(session)(route);
+      check('(h) TARGET_CLOSED en redirect_validation durante el teardown: sigue fallando', session.routeOperationFailed === true && session.routeFailureEvents.length === 1 && session.routeFailureEvents[0].stage === 'redirect_validation' && session.routeWarningEvents.length === 0, JSON.stringify(session.routeFailureEvents[0]));
+    }
+    {
+      // El aviso no activa routeOperationFailed en el informe final; un fallo real si.
+      const warnSession = makeSession({ teardownStarted: true });
+      await driveRoute(newRun, warnSession, 'GET', asset, closed());
+      const failSession = makeSession({ teardownStarted: true });
+      await driveRoute(newRun, failSession, 'GET', asset, new Error('read ECONNRESET'));
+      const flagged = (session) => Boolean(session.routeOperationFailed || session.routeFailureEvents.length > 0 || session.routeFailureEventsOmitted > 0);
+      check('el aviso TEARDOWN_TARGET_CLOSED no marca la sesion como fallida; ECONNRESET en teardown si', flagged(warnSession) === false && flagged(failSession) === true);
+    }
+  }
 } finally {
   await rm(dir, { recursive: true, force: true });
 }
