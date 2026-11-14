@@ -1166,6 +1166,14 @@ button[aria-busy='true']:disabled {
   width: 100%;
 }
 
+/* Shopify envuelve cada model-viewer en div.shopify-model-viewer-ui (inline-block sin ancho):
+   sin esto el width: 100% del visor se resuelve contra 0 px y el 3D queda inerte. */
+.product-gallery__item .shopify-model-viewer-ui,
+.featured-product__media .shopify-model-viewer-ui {
+  display: block;
+  width: 100%;
+}
+
 .product-gallery__placeholder {
   min-height: 28rem;
   background: color-mix(in srgb, var(--color-foreground) 7%, var(--color-background));
