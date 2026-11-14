@@ -92,10 +92,10 @@ try {
   delete process.env.SHOPIFY_FLAG_STORE; delete process.env.STOREFRONT_ORIGIN; if (envBefore === undefined) delete process.env.STORE; else process.env.STORE = envBefore;
   check('tienda antigua: 3 themes de stores.json', oldRun.TARGET.error === null && oldRun.ORIGIN === `https://${OLD}` && oldRun.PREVIEWS.map((p) => p.id).join() === '190232297715,190232330483,190232363251', oldRun.PREVIEWS.map((p) => p.preset).join());
   check('tienda antigua conserva sus rutas', oldRun.ROUTES.home === '/' && oldRun.ROUTES.collection === '/collections/the-permanent-collection' && oldRun.ROUTES.product === '/products/wool-waistcoat' && oldRun.ROUTES.cart === '/cart');
-  check('tienda nueva: 3 temas no publicados, origen propio', newRun.TARGET.error === null && newRun.ORIGIN === `https://${NEW}` && newRun.PREVIEWS.map((p) => `${p.preset}:${p.id}`).join() === 'sartorial:190316839216,imprint:190316871984,archive:190316904752');
+  check('tienda nueva: 3 temas no publicados, origen propio', newRun.TARGET.error === null && newRun.ORIGIN === `https://${NEW}` && newRun.PREVIEWS.map((p) => `${p.preset}:${p.id}`).join() === 'sartorial:190317920560,imprint:190317953328,archive:190317986096');
   check('tienda nueva: rutas propias (permanent-collection / serra-coat)', newRun.ROUTES.collection === '/collections/permanent-collection' && newRun.ROUTES.product === '/products/serra-coat' && newRun.ROUTES.home === '/');
   check('el tema publicado test-data (190299111728) NO esta en stores.json (ni Horizon/debut)', !storesText.includes('190299111728') && !/horizon|debut/i.test(storesText));
-  check('los IDs de la tienda antigua no se autorizan en la nueva', !newRun.AUTHORIZED_THEME_IDS.has('190232297715') && !oldRun.AUTHORIZED_THEME_IDS.has('190316839216'));
+  check('los IDs de la tienda antigua no se autorizan en la nueva', !newRun.AUTHORIZED_THEME_IDS.has('190232297715') && !oldRun.AUTHORIZED_THEME_IDS.has('190317920560'));
   check('READ_HOSTS e INVENTORY_HOSTS solo contienen la tienda elegida', oldRun.READ_HOSTS.has(OLD) && !oldRun.READ_HOSTS.has(NEW) && newRun.READ_HOSTS.has(NEW) && !newRun.READ_HOSTS.has(OLD) && newRun.INVENTORY_HOSTS.has(NEW) && !newRun.INVENTORY_HOSTS.has(OLD));
   const mutate = (fn) => { const doc = JSON.parse(storesText); fn(doc); return JSON.stringify(doc); };
   const bad = {
@@ -150,7 +150,7 @@ try {
 
   // ---- 4b. Rol del tema en el navegador (C1): ejecuta el verifyPreview real con un window sintetico
   {
-    const NEWID = '190316839216';
+    const NEWID = '190317920560';
     const MAIN_ID = '190299111728'; // test-data, tema publicado de la tienda nueva
     const runVerify = async (run, themeId, shopifyTheme, host = NEW) => {
       const session = { themeId, previewVerified: false };
@@ -181,7 +181,7 @@ try {
 
   // ---- 6. Cierre del contexto: TARGET_CLOSED en teardown (arnes real, rutas sinteticas, sin red ni navegador)
   {
-    const NEWID = '190316839216';
+    const NEWID = '190317920560';
     const makeSession = (extra = {}) => ({ mode: 'read-only', preset: 'sartorial', themeId: NEWID, page: { url: () => `https://${NEW}/`, mainFrame: () => 'main', evaluate: async (fn) => { globalThis.window = { Shopify: { theme: { id: Number(NEWID), role: 'unpublished' } } }; try { return fn(); } finally { delete globalThis.window; } } }, teardownStarted: false, routeOperationFailed: false, routeFailureEvents: [], routeFailureEventsOmitted: 0, routeWarningEvents: [], routeWarningEventsOmitted: 0, rateLimitEvents: [], rateLimitEventsOmitted: 0, requestDecisions: [], requestDecisionsOmitted: 0, networkWarnings: new Map(), warningOccurrences: 0, warningOccurrencesOmitted: 0, blockedRequests: 0, deniedResourceSummary: new Map(), inventoryResources: new Map(), inventoryCounters: { eligibleOccurrences: 0, redactedOccurrences: 0, truncatedOccurrences: 0 }, cartAddInFlight: false, resolveCartAddCompletion: null, ...extra });
     const driveRoute = async (run, session, method, url, fetchError, kind = 'script') => {
       let aborted = 0;
