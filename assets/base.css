@@ -1921,14 +1921,23 @@ body[data-sticky-cart-visible] {
   /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver LV05-NF01 mas abajo),
      asi que este valor es a la vez su alto real y la reserva de LV-05. */
   --card-swatch-row-height: var(--tap-target-min);
+  /* LV05-V01. Alto de la linea de vendor (una sola linea, ver .product-card__vendor): lo
+     reservan las tarjetas sin vendor para alinear el titulo. Va en em/rem, escala con la letra. */
+  --card-vendor-font-size: 0.7rem;
+  --card-vendor-line-height: 1.4;
   display: grid;
   gap: var(--space-1);
 }
 
 .product-card__vendor {
   margin: 0;
-  font-size: 0.7rem;
+  font-size: var(--card-vendor-font-size);
+  line-height: var(--card-vendor-line-height);
   text-transform: uppercase;
+  /* LV05-V01. Una sola linea con elipsis: un vendor largo no puede crecer y desalinear. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .product-card__title {
@@ -1937,6 +1946,8 @@ body[data-sticky-cart-visible] {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.35;
+  /* LV05-R01. Una palabra larga se parte en vez de ensanchar la tarjeta (zoom, letra grande). */
+  overflow-wrap: anywhere;
 }
 
 .product-card__title a {
@@ -2163,17 +2174,153 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
+/* LV05-CN7. Filas solo de color (data-swatch-fit-px): cada pieza mide 44px fijos aunque la
+   letra del navegador crezca, asi que sus bandas van en px puros, sin max(px, rem). Mismo
+   reparto de piezas que las bandas de arriba; con la letra al 125 o 150 % la fila conserva
+   los swatches que caben en vez de bajar a uno. */
+@container card-swatches (120px <= width < 140px) {
+  .product-card__swatch-group[data-swatch-fit-px~='a1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='a2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='a3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='a1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='a2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='a3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='a4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (140px <= width < 180px) {
+  .product-card__swatch-group[data-swatch-fit-px~='b1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='b2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='b3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='b1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='b2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='b3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='b4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (180px <= width < 220px) {
+  .product-card__swatch-group[data-swatch-fit-px~='c1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='c2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='c3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='c1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='c2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='c3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='c4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (220px <= width < 260px) {
+  .product-card__swatch-group[data-swatch-fit-px~='d1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='d2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='d3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='d1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='d2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='d3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='d4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (260px <= width < 300px) {
+  .product-card__swatch-group[data-swatch-fit-px~='e1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='e2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='e3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='e1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='e2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='e3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='e4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (300px <= width < 340px) {
+  .product-card__swatch-group[data-swatch-fit-px~='f1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='f2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='f3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='f1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='f2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='f3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='f4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (340px <= width < 380px) {
+  .product-card__swatch-group[data-swatch-fit-px~='g1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='g2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='g3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='g1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='g2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='g3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='g4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
+@container card-swatches (width >= 380px) {
+  .product-card__swatch-group[data-swatch-fit-px~='h1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='h2'] :is(.card-swatch--n3, .card-swatch--n4),
+  .product-card__swatch-group[data-swatch-fit-px~='h3'] .card-swatch--n4 {
+    display: none;
+  }
+
+  .product-card__swatch-group[data-swatch-fit-px~='h1'] ~ .card-swatch-more--k1,
+  .product-card__swatch-group[data-swatch-fit-px~='h2'] ~ .card-swatch-more--k2,
+  .product-card__swatch-group[data-swatch-fit-px~='h3'] ~ .card-swatch-more--k3,
+  .product-card__swatch-group[data-swatch-fit-px~='h4'] ~ .card-swatch-more--k4 {
+    display: inline-grid;
+  }
+}
+
 /* LV05-CN5. Red de seguridad para filas mas estrechas que la banda a (zoom del 200 %, letra
    grande, vista de lista estrecha), donde la estimacion no garantiza nada: un swatch y el
    contador; con menos de dos piezas de toque, solo el primer swatch; sin sitio para una,
    ninguno. El enlace del producto sigue llevando a todas las opciones. */
 @container card-swatches (width < max(120px, 7.5rem)) {
-  .product-card__swatches .product-card__swatch-group :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
-  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--fit {
+  .product-card__swatches .product-card__swatch-group:not([data-swatch-fit-px]) :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatches .product-card__swatch-group:not([data-swatch-fit-px]) ~ .card-swatch-more--fit {
     display: none;
   }
 
-  .product-card__swatches .product-card__swatch-group ~ .card-swatch-more--k1 {
+  .product-card__swatches .product-card__swatch-group:not([data-swatch-fit-px]) ~ .card-swatch-more--k1 {
+    display: inline-grid;
+  }
+}
+
+/* LV05-CN7. La misma red de seguridad para filas solo de color, en px puros. */
+@container card-swatches (width < 120px) {
+  .product-card__swatches .product-card__swatch-group[data-swatch-fit-px] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
+  .product-card__swatches .product-card__swatch-group[data-swatch-fit-px] ~ .card-swatch-more--fit {
+    display: none;
+  }
+
+  .product-card__swatches .product-card__swatch-group[data-swatch-fit-px] ~ .card-swatch-more--k1 {
     display: inline-grid;
   }
 }
@@ -2214,8 +2361,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
    vista de lista, bento y curated showcase quedan fuera, y la rejilla de "2" columnas y la
    de busqueda solo entran desde 48rem, porque por debajo son de una columna y la reserva no
    alinearia nada. Sin :has() no se reserva nada y la tarjeta queda como antes.
-   Pendiente LV05-V01 (ledger): si el vendor falta en unas tarjetas de la fila y no en otras,
-   los titulos siguen desfasados por el alto de esa linea. */
+   LV05-V01: el vendor se reserva aparte, mas abajo. */
 :is(
     .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
     .product-recommendations__grid,
@@ -2235,6 +2381,30 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
     content: '';
     display: block;
     height: var(--card-swatch-row-height);
+  }
+}
+
+/* LV05-V01. Mismo criterio para el vendor: si alguna tarjeta de la rejilla lo muestra, las
+   que no lo tienen empujan el titulo la altura de esa linea mas el hueco de la rejilla de
+   contenido, sin altura fija en px. Misma lista de rejillas que la reserva de swatches; sin
+   :has() no se reserva nada. */
+:is(
+    .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
+    .product-recommendations__grid,
+    .recently-viewed__grid,
+    .main-404__product-grid,
+    .main-article__product-grid
+  ):has(.product-card__vendor)
+  .product-card__content:not(:has(> .product-card__vendor))
+  .product-card__title {
+  margin-block-start: calc(var(--card-vendor-font-size) * var(--card-vendor-line-height) + var(--space-1));
+}
+
+@media (min-width: 48rem) {
+  :is(.product-grid[data-grid-columns='2'], .search-results-grid):has(.product-card__vendor)
+    .product-card__content:not(:has(> .product-card__vendor))
+    .product-card__title {
+    margin-block-start: calc(var(--card-vendor-font-size) * var(--card-vendor-line-height) + var(--space-1));
   }
 }
 
@@ -3796,10 +3966,12 @@ curated-showcase {
   gap: var(--space-lg);
 }
 
+/* LV05-R01. El minimo de la columna de imagen no puede pasar del 42 % de la tarjeta: con
+   zoom del 200 % (viewport de 160 a 195 px) 7.5rem la ensanchaba mas que el viewport. */
 .curated-showcase__supporting .product-card {
   padding-block-start: var(--space-md);
   border-top: var(--border-width) solid var(--color-border-hairline);
-  grid-template-columns: minmax(7.5rem, 42%) minmax(0, 1fr);
+  grid-template-columns: minmax(min(7.5rem, 42%), 42%) minmax(0, 1fr);
   align-items: center;
   gap: var(--space-md);
 }
@@ -4143,7 +4315,7 @@ curated-showcase {
   height: 100%;
   padding: var(--space-md);
   border: var(--border-width) solid var(--color-border-hairline);
-  grid-template-columns: minmax(7.5rem, 42%) minmax(0, 1fr);
+  grid-template-columns: minmax(min(7.5rem, 42%), 42%) minmax(0, 1fr);
   align-items: center;
   gap: var(--space-md);
   background: var(--color-background);
