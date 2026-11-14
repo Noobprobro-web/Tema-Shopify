@@ -1355,6 +1355,7 @@ button[aria-busy='true']:disabled {
    dejaba precio y boton de compra bajo el pliegue a 1280x800. Mismo tipo, cuerpo menor. */
 .product-main__title[data-long-title='1'] {
   max-width: 28ch;
+  line-height: 1.2;
   font-size: calc(1.6rem * var(--font-heading-scale));
 }
 
@@ -6612,6 +6613,19 @@ copy-text {
   font-weight: 700;
 }
 
+.collection-products__empty {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: var(--space-3xl) var(--space-lg);
+  text-align: center;
+}
+
+.collection-products__empty p {
+  font-family: var(--font-heading-family);
+  font-size: calc(1.5rem * var(--font-heading-scale));
+  line-height: 1.3;
+}
+
 .main-search__empty,
 .main-search__prompt {
   max-width: 48rem;
@@ -7316,6 +7330,14 @@ copy-text {
 
 .newsletter-section__text {
   max-width: 38rem;
+}
+
+/* Contraste en cualquier esquema (WCAG 1.4.3): el placeholder por defecto del navegador
+   (#757575) no sigue el esquema y baja a 2.12:1 en scheme-4. El borde ya sale de
+   --color-control-border (regla global de input), que da >=3.36:1 en los 5 esquemas. */
+.newsletter-section .newsletter-form__field input::placeholder {
+  color: var(--color-foreground-muted);
+  opacity: 1;
 }
 
 .predictive-search,
