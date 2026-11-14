@@ -1,0 +1,39 @@
+{
+  "script": "probe-3d-proposed-fix.mjs (CSS inyectado en runtime, no edita el tema)",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "model": {
+        "w": 350,
+        "h": 384,
+        "inert": false
+      },
+      "focusOnModel": [
+        {
+          "step": 8,
+          "w": 350,
+          "h": 384,
+          "inert": false
+        }
+      ]
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "model": {
+        "w": 604,
+        "h": 768,
+        "inert": false
+      },
+      "focusOnModel": [
+        {
+          "step": 12,
+          "w": 604,
+          "h": 768,
+          "inert": false
+        }
+      ]
+    }
+  ]
+}

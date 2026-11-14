@@ -1,0 +1,104 @@
+{
+  "script": "probe-b03-b04-cart.mjs",
+  "at": "2026-11-14T19:25:09.970Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "themeId": "190317920560",
+      "b03": {},
+      "b04": {
+        "N2_slow_over_deadline": {
+          "updateRequests": 1,
+          "navigatedAway": false,
+          "ui": {
+            "path": "/products/serra-coat",
+            "taPresent": true,
+            "taValueLen": 13,
+            "taDirty": "true",
+            "errorText": "We could not confirm that your cart note was saved.",
+            "statusText": null
+          },
+          "serverNoteLen": 13,
+          "serverNoteEquals": true,
+          "serverLines": [
+            {
+              "variant_id": 68442276921648,
+              "quantity": 1
+            }
+          ]
+        },
+        "N3_offline": {
+          "updateRequests": 1,
+          "navigatedAway": false,
+          "ui": {
+            "path": "/products/serra-coat",
+            "taPresent": true,
+            "taValueLen": 13,
+            "taDirty": "true",
+            "errorText": "We could not confirm that your cart note was saved.",
+            "statusText": null
+          },
+          "serverNoteLen": 0,
+          "serverNoteEquals": false,
+          "serverLines": [
+            {
+              "variant_id": 68442276921648,
+              "quantity": 1
+            }
+          ]
+        },
+        "N4_edit_while_in_flight": {
+          "updateRequests": 1,
+          "navigatedAway": false,
+          "ui": {
+            "path": "/products/serra-coat",
+            "taPresent": true,
+            "taValueLen": 19,
+            "taDirty": "true",
+            "errorText": "We could not confirm that your cart note was saved.",
+            "statusText": null
+          },
+          "serverNoteLen": 13,
+          "serverNoteEquals": true,
+          "serverLines": [
+            {
+              "variant_id": 68442276921648,
+              "quantity": 1
+            }
+          ]
+        },
+        "N1_fast_baseline": {
+          "updateRequests": 1,
+          "navigatedAway": true,
+          "ui": {
+            "path": "/cart",
+            "taPresent": true,
+            "taValueLen": 13,
+            "taDirty": null,
+            "errorText": null,
+            "statusText": null
+          },
+          "serverNoteLen": 13,
+          "serverNoteEquals": true,
+          "serverLines": [
+            {
+              "variant_id": 68442276921648,
+              "quantity": 1
+            }
+          ]
+        }
+      },
+      "cleanup": {
+        "clearStatus": 200,
+        "updateStatus": 200,
+        "readStatus": 200,
+        "itemCount": 0,
+        "noteEmpty": true,
+        "emptyVerified": true
+      },
+      "initialEmpty": true,
+      "contextClosed": true
+    }
+  ],
+  "waits": 1
+}

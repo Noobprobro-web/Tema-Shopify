@@ -1,0 +1,601 @@
+{
+  "script": "probe-b03-b04-cart.mjs",
+  "at": "2026-11-14T19:16:00.354Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "themeId": "190317920560",
+      "b03": {
+        "S1_abort_before_server": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 0,
+            "lineQty": [],
+            "errorVisible": true,
+            "errorText": "We could not confirm the update.",
+            "statusText": null,
+            "uncertainVisible": true,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 0,
+            "lines": [],
+            "note": ""
+          },
+          "afterRecovery": {
+            "ui": {
+              "drawerOpen": true,
+              "lines": 1,
+              "lineQty": [
+                "1"
+              ],
+              "errorVisible": false,
+              "errorText": null,
+              "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+              "uncertainVisible": false,
+              "addBtnDisabled": false,
+              "addBtnBusy": "false",
+              "url": "/products/serra-coat"
+            },
+            "server": {
+              "status": 200,
+              "item_count": 1,
+              "lines": [
+                {
+                  "variant_id": 68442276921648,
+                  "quantity": 1
+                }
+              ],
+              "note": ""
+            }
+          }
+        },
+        "S2_applied_then_response_lost": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        },
+        "S3_late_fulfill_after_deadline_applied": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        },
+        "S3b_late_abort_after_deadline_not_applied": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 0,
+            "lineQty": [],
+            "errorVisible": true,
+            "errorText": "We could not confirm the update.",
+            "statusText": null,
+            "uncertainVisible": true,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 0,
+            "lines": [],
+            "note": ""
+          },
+          "afterRecovery": {
+            "ui": {
+              "drawerOpen": true,
+              "lines": 1,
+              "lineQty": [
+                "1"
+              ],
+              "errorVisible": false,
+              "errorText": null,
+              "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+              "uncertainVisible": false,
+              "addBtnDisabled": false,
+              "addBtnBusy": "false",
+              "url": "/products/serra-coat"
+            },
+            "server": {
+              "status": 200,
+              "item_count": 1,
+              "lines": [
+                {
+                  "variant_id": 68442276921648,
+                  "quantity": 1
+                }
+              ],
+              "note": ""
+            }
+          }
+        },
+        "S4_double_submit_in_flight": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        }
+      },
+      "b04": {},
+      "cleanup": {
+        "clearStatus": 200,
+        "updateStatus": 200,
+        "readStatus": 200,
+        "itemCount": 0,
+        "noteEmpty": true,
+        "emptyVerified": true
+      },
+      "initialEmpty": true,
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#CartDrawerNote') to be visible\u001b[22m\n",
+      "contextClosed": true
+    },
+    {
+      "preset": "imprint",
+      "themeId": "190317953328",
+      "b03": {
+        "S1_abort_before_server": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 0,
+            "lineQty": [],
+            "errorVisible": true,
+            "errorText": "We could not confirm the update.",
+            "statusText": null,
+            "uncertainVisible": true,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 0,
+            "lines": [],
+            "note": ""
+          },
+          "afterRecovery": {
+            "ui": {
+              "drawerOpen": true,
+              "lines": 1,
+              "lineQty": [
+                "1"
+              ],
+              "errorVisible": false,
+              "errorText": null,
+              "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+              "uncertainVisible": false,
+              "addBtnDisabled": false,
+              "addBtnBusy": "false",
+              "url": "/products/serra-coat"
+            },
+            "server": {
+              "status": 200,
+              "item_count": 1,
+              "lines": [
+                {
+                  "variant_id": 68442276921648,
+                  "quantity": 1
+                }
+              ],
+              "note": ""
+            }
+          }
+        },
+        "S2_applied_then_response_lost": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        },
+        "S3_late_fulfill_after_deadline_applied": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        },
+        "S3b_late_abort_after_deadline_not_applied": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 0,
+            "lineQty": [],
+            "errorVisible": true,
+            "errorText": "We could not confirm the update.",
+            "statusText": null,
+            "uncertainVisible": true,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 0,
+            "lines": [],
+            "note": ""
+          },
+          "afterRecovery": {
+            "ui": {
+              "drawerOpen": true,
+              "lines": 1,
+              "lineQty": [
+                "1"
+              ],
+              "errorVisible": false,
+              "errorText": null,
+              "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+              "uncertainVisible": false,
+              "addBtnDisabled": false,
+              "addBtnBusy": "false",
+              "url": "/products/serra-coat"
+            },
+            "server": {
+              "status": 200,
+              "item_count": 1,
+              "lines": [
+                {
+                  "variant_id": 68442276921648,
+                  "quantity": 1
+                }
+              ],
+              "note": ""
+            }
+          }
+        },
+        "S4_double_submit_in_flight": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        }
+      },
+      "b04": {},
+      "cleanup": {
+        "clearStatus": 200,
+        "updateStatus": 200,
+        "readStatus": 200,
+        "itemCount": 0,
+        "noteEmpty": true,
+        "emptyVerified": true
+      },
+      "initialEmpty": true,
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#CartDrawerNote') to be visible\u001b[22m\n",
+      "contextClosed": true
+    },
+    {
+      "preset": "archive",
+      "themeId": "190317986096",
+      "b03": {
+        "S1_abort_before_server": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 0,
+            "lineQty": [],
+            "errorVisible": true,
+            "errorText": "We could not confirm the update.",
+            "statusText": null,
+            "uncertainVisible": true,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 0,
+            "lines": [],
+            "note": ""
+          },
+          "afterRecovery": {
+            "ui": {
+              "drawerOpen": true,
+              "lines": 1,
+              "lineQty": [
+                "1"
+              ],
+              "errorVisible": false,
+              "errorText": null,
+              "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+              "uncertainVisible": false,
+              "addBtnDisabled": false,
+              "addBtnBusy": "false",
+              "url": "/products/serra-coat"
+            },
+            "server": {
+              "status": 200,
+              "item_count": 1,
+              "lines": [
+                {
+                  "variant_id": 68442276921648,
+                  "quantity": 1
+                }
+              ],
+              "note": ""
+            }
+          }
+        },
+        "S2_applied_then_response_lost": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        },
+        "S3_late_fulfill_after_deadline_applied": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        },
+        "S3b_late_abort_after_deadline_not_applied": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 0,
+            "lineQty": [],
+            "errorVisible": true,
+            "errorText": "We could not confirm the update.",
+            "statusText": null,
+            "uncertainVisible": true,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 0,
+            "lines": [],
+            "note": ""
+          },
+          "afterRecovery": {
+            "ui": {
+              "drawerOpen": true,
+              "lines": 1,
+              "lineQty": [
+                "1"
+              ],
+              "errorVisible": false,
+              "errorText": null,
+              "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+              "uncertainVisible": false,
+              "addBtnDisabled": false,
+              "addBtnBusy": "false",
+              "url": "/products/serra-coat"
+            },
+            "server": {
+              "status": 200,
+              "item_count": 1,
+              "lines": [
+                {
+                  "variant_id": 68442276921648,
+                  "quantity": 1
+                }
+              ],
+              "note": ""
+            }
+          }
+        },
+        "S4_double_submit_in_flight": {
+          "addRequests": 1,
+          "ui": {
+            "drawerOpen": true,
+            "lines": 1,
+            "lineQty": [
+              "1"
+            ],
+            "errorVisible": false,
+            "errorText": null,
+            "statusText": "Item added to your cart. Serra Coat - Ink / XS",
+            "uncertainVisible": false,
+            "addBtnDisabled": false,
+            "addBtnBusy": "false",
+            "url": "/products/serra-coat"
+          },
+          "server": {
+            "status": 200,
+            "item_count": 1,
+            "lines": [
+              {
+                "variant_id": 68442276921648,
+                "quantity": 1
+              }
+            ],
+            "note": ""
+          }
+        }
+      },
+      "b04": {},
+      "cleanup": {
+        "clearStatus": 200,
+        "updateStatus": 200,
+        "readStatus": 200,
+        "itemCount": 0,
+        "noteEmpty": true,
+        "emptyVerified": true
+      },
+      "initialEmpty": true,
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#CartDrawerNote') to be visible\u001b[22m\n",
+      "contextClosed": true
+    }
+  ],
+  "waits": 3
+}

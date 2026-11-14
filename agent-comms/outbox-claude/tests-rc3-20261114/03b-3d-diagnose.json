@@ -1,0 +1,413 @@
+{
+  "script": "probe-3d-diagnose.mjs",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "chain": [
+        {
+          "el": "model-viewer.product-gallery__media",
+          "w": 0,
+          "h": 384,
+          "display": "block",
+          "position": "relative",
+          "width": "0px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-shopify-feature,inert,data-theme-model-viewer-ready,data-js-focus-visible"
+        },
+        {
+          "el": "div.shopify-model-viewer-ui.shopify-model-viewer-ui--desktop",
+          "w": 0,
+          "h": 384,
+          "display": "inline-block",
+          "position": "relative",
+          "width": "0px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        },
+        {
+          "el": "figure.product-gallery__item",
+          "w": 350,
+          "h": 392,
+          "display": "block",
+          "position": "relative",
+          "width": "350px",
+          "flex": "0 1 auto",
+          "overflow": "hidden",
+          "gridCols": "none",
+          "attrs": "data-product-media-id,data-selected"
+        },
+        {
+          "el": "div.product-gallery__items",
+          "w": 0,
+          "h": 0,
+          "display": "contents",
+          "position": "static",
+          "width": "auto",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-gallery-track"
+        },
+        {
+          "el": "product-gallery.product-gallery",
+          "w": 350,
+          "h": 810,
+          "display": "grid",
+          "position": "static",
+          "width": "350px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "350px",
+          "attrs": "data-layout"
+        },
+        {
+          "el": "div.container.product-main__layout.product-main__layout--split_screen",
+          "w": 350,
+          "h": 1524,
+          "display": "grid",
+          "position": "static",
+          "width": "350px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "350px",
+          "attrs": ""
+        },
+        {
+          "el": "section.section.product-main.color-scheme-1",
+          "w": 390,
+          "h": 1620,
+          "display": "block",
+          "position": "static",
+          "width": "390px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-section-id,data-recently-viewed-product-id"
+        },
+        {
+          "el": "div.shopify-section",
+          "w": 390,
+          "h": 1620,
+          "display": "block",
+          "position": "static",
+          "width": "390px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        },
+        {
+          "el": "main.site-main",
+          "w": 390,
+          "h": 2766,
+          "display": "block",
+          "position": "static",
+          "width": "390px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        }
+      ],
+      "rules": [
+        {
+          "sel": ".product-gallery__image, .product-gallery__media, .product-gallery__item video, .product-gallery__item model-viewer",
+          "css": "width: 100%;",
+          "href": "base.css"
+        },
+        {
+          "sel": ".featured-product__media .product-gallery__image, .featured-product__media .product-gallery__media, .featured-product__m",
+          "css": "display: block; width: 100%; height: auto;",
+          "href": "base.css"
+        },
+        {
+          "sel": ".product-gallery__item model-viewer",
+          "css": "min-height: clamp(24rem, 62vw, 48rem);",
+          "href": "base.css"
+        },
+        {
+          "sel": ".product-gallery__item model-viewer:focus-visible, .product-gallery__item video:focus-visible",
+          "css": "outline: 2px solid var(--color-foreground); outline-offset: -4px;",
+          "href": "base.css"
+        }
+      ]
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "chain": [
+        {
+          "el": "model-viewer.product-gallery__media",
+          "w": 0,
+          "h": 768,
+          "display": "block",
+          "position": "relative",
+          "width": "0px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-shopify-feature,inert,data-theme-model-viewer-ready,data-js-focus-visible"
+        },
+        {
+          "el": "div.shopify-model-viewer-ui.shopify-model-viewer-ui--desktop",
+          "w": 0,
+          "h": 768,
+          "display": "inline-block",
+          "position": "relative",
+          "width": "0px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        },
+        {
+          "el": "figure.product-gallery__item",
+          "w": 604,
+          "h": 776,
+          "display": "block",
+          "position": "relative",
+          "width": "604px",
+          "flex": "0 1 auto",
+          "overflow": "hidden",
+          "gridCols": "none",
+          "attrs": "data-product-media-id,data-selected"
+        },
+        {
+          "el": "div.product-gallery__items",
+          "w": 0,
+          "h": 0,
+          "display": "contents",
+          "position": "static",
+          "width": "auto",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-gallery-track"
+        },
+        {
+          "el": "product-gallery.product-gallery",
+          "w": 604,
+          "h": 1392,
+          "display": "grid",
+          "position": "static",
+          "width": "604px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "604px",
+          "attrs": "data-layout"
+        },
+        {
+          "el": "div.container.product-main__layout.product-main__layout--split_screen",
+          "w": 1240,
+          "h": 1392,
+          "display": "grid",
+          "position": "static",
+          "width": "1240px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "604px 604px",
+          "attrs": ""
+        },
+        {
+          "el": "section.section.product-main.color-scheme-1",
+          "w": 1280,
+          "h": 1488,
+          "display": "block",
+          "position": "static",
+          "width": "1280px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-section-id,data-recently-viewed-product-id"
+        },
+        {
+          "el": "div.shopify-section",
+          "w": 1280,
+          "h": 1488,
+          "display": "block",
+          "position": "static",
+          "width": "1280px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        },
+        {
+          "el": "main.site-main",
+          "w": 1280,
+          "h": 2277,
+          "display": "block",
+          "position": "static",
+          "width": "1280px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        }
+      ],
+      "rules": [
+        {
+          "sel": ".product-gallery__image, .product-gallery__media, .product-gallery__item video, .product-gallery__item model-viewer",
+          "css": "width: 100%;",
+          "href": "base.css"
+        },
+        {
+          "sel": ".featured-product__media .product-gallery__image, .featured-product__media .product-gallery__media, .featured-product__m",
+          "css": "display: block; width: 100%; height: auto;",
+          "href": "base.css"
+        },
+        {
+          "sel": ".product-gallery__item model-viewer",
+          "css": "min-height: clamp(24rem, 62vw, 48rem);",
+          "href": "base.css"
+        },
+        {
+          "sel": ".product-gallery__item model-viewer:focus-visible, .product-gallery__item video:focus-visible",
+          "css": "outline: 2px solid var(--color-foreground); outline-offset: -4px;",
+          "href": "base.css"
+        }
+      ]
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "chain": [
+        {
+          "el": "model-viewer.product-gallery__media",
+          "w": 0,
+          "h": 768,
+          "display": "block",
+          "position": "relative",
+          "width": "0px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-shopify-feature,inert,data-theme-model-viewer-ready,data-js-focus-visible"
+        },
+        {
+          "el": "div.shopify-model-viewer-ui.shopify-model-viewer-ui--desktop",
+          "w": 0,
+          "h": 768,
+          "display": "inline-block",
+          "position": "relative",
+          "width": "0px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        },
+        {
+          "el": "figure.product-gallery__item",
+          "w": 382,
+          "h": 776,
+          "display": "block",
+          "position": "relative",
+          "width": "382.203px",
+          "flex": "0 1 auto",
+          "overflow": "hidden",
+          "gridCols": "none",
+          "attrs": "data-product-media-id,data-selected"
+        },
+        {
+          "el": "div.product-gallery__items",
+          "w": 0,
+          "h": 0,
+          "display": "contents",
+          "position": "static",
+          "width": "auto",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-gallery-track"
+        },
+        {
+          "el": "product-gallery.product-gallery",
+          "w": 776,
+          "h": 776,
+          "display": "grid",
+          "position": "static",
+          "width": "776.406px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "382.203px 382.203px",
+          "attrs": "data-layout"
+        },
+        {
+          "el": "div.container.product-main__layout.product-main__layout--grid",
+          "w": 1240,
+          "h": 776,
+          "display": "grid",
+          "position": "static",
+          "width": "1240px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "776.406px 401.594px",
+          "attrs": ""
+        },
+        {
+          "el": "section.section.product-main.color-scheme-1",
+          "w": 1280,
+          "h": 872,
+          "display": "block",
+          "position": "static",
+          "width": "1280px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": "data-section-id,data-recently-viewed-product-id"
+        },
+        {
+          "el": "div.shopify-section",
+          "w": 1280,
+          "h": 872,
+          "display": "block",
+          "position": "static",
+          "width": "1280px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        },
+        {
+          "el": "main.site-main",
+          "w": 1280,
+          "h": 1663,
+          "display": "block",
+          "position": "static",
+          "width": "1280px",
+          "flex": "0 1 auto",
+          "overflow": "visible",
+          "gridCols": "none",
+          "attrs": ""
+        }
+      ],
+      "rules": [
+        {
+          "sel": ".product-gallery__image, .product-gallery__media, .product-gallery__item video, .product-gallery__item model-viewer",
+          "css": "width: 100%;",
+          "href": "base.css"
+        },
+        {
+          "sel": ".featured-product__media .product-gallery__image, .featured-product__media .product-gallery__media, .featured-product__m",
+          "css": "display: block; width: 100%; height: auto;",
+          "href": "base.css"
+        },
+        {
+          "sel": ".product-gallery__item model-viewer",
+          "css": "min-height: clamp(24rem, 62vw, 48rem);",
+          "href": "base.css"
+        },
+        {
+          "sel": ".product-gallery__item model-viewer:focus-visible, .product-gallery__item video:focus-visible",
+          "css": "outline: 2px solid var(--color-foreground); outline-offset: -4px;",
+          "href": "base.css"
+        }
+      ]
+    }
+  ]
+}
