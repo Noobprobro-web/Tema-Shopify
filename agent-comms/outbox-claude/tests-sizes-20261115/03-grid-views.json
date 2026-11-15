@@ -1,0 +1,4686 @@
+{
+  "script": "grid-views.mjs",
+  "at": "2026-11-15T18:27:03.838Z",
+  "rows": [
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 144,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 320,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 144,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 320,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 96,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 320,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 524,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 524,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 512,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 512,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 32,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 480,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 696,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 696,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1164,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1164,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1152,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1152,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "sartorial",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 7,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 144,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 320,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 7,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 144,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 320,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 7,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 96,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 320,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 524,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 524,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 512,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 25,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 512,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 7,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 32,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 480,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 696,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 696,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1164,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1164,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1152,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 11,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1152,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "imprint",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 144,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 320,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 100,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 350,
+        "px": 800,
+        "needed": 700
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 462,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 169,
+        "px": 800,
+        "needed": 338
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "390@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 144,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 320,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 372,
+        "px": 800,
+        "needed": 744
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 444,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 178,
+        "px": 800,
+        "needed": 356
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 624,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 88,
+        "px": 800,
+        "needed": 176
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "800@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 96,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 320,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 188,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 640,
+        "needed": 452
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 422,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 640,
+        "needed": 218
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 416,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 640,
+        "needed": 224
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@1",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 56,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 524,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 524,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 512,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 33,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 512,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/all",
+      "step": "page2",
+      "expectView": "saved",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 28,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 32,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 480,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 696,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "2",
+      "expectView": "2",
+      "view": "2",
+      "pressed": [
+        "2"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 2,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 696,
+      "sample": {
+        "sizes": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "box": 452,
+        "px": 1600,
+        "needed": 904
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1164,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "4",
+      "expectView": "4",
+      "view": "4",
+      "pressed": [
+        "4"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 4,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1164,
+      "sample": {
+        "sizes": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "box": 218,
+        "px": 1600,
+        "needed": 436
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "click",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1152,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "reload",
+      "stored": "list",
+      "expectView": "list",
+      "view": "list",
+      "pressed": [
+        "list"
+      ],
+      "ds": {
+        "2": "(min-width: 1300px) 650px, (min-width: 48rem) calc(100vw / 2), calc(100vw / 1)",
+        "4": "(min-width: 1300px) 325px, (min-width: 48rem) calc(100vw / 4), calc(100vw / 2)",
+        "list": "(min-width: 990px) 14rem, 5.5rem"
+      },
+      "cols": 1,
+      "docX": 0,
+      "n": 22,
+      "wrongSizes": 0,
+      "underN": 0,
+      "under": [],
+      "minMargin": 1152,
+      "sample": {
+        "sizes": "(min-width: 990px) 14rem, 5.5rem",
+        "box": 224,
+        "px": 1600,
+        "needed": 448
+      }
+    },
+    {
+      "preset": "archive",
+      "vp": "1280@2",
+      "path": "/collections/permanent-collection",
+      "step": "page2",
+      "skipped": "no pagination"
+    }
+  ]
+}
