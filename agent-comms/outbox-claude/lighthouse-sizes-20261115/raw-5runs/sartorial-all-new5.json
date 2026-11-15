@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-11-15T19:18:47.870Z",
+  "lighthouseVersion": "13.6.0",
+  "pinnedLighthouse": "13.6.0",
+  "note": "Medicion aproximada desde contenedor (CPU/red distintas a Shopify); throttling simulado de Lighthouse.",
+  "pages": [
+    {
+      "kind": "collection",
+      "handle": "all",
+      "preset": "mobile",
+      "validRuns": 5,
+      "performanceScores": [
+        73,
+        83,
+        81,
+        85,
+        66
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        92,
+        92,
+        92,
+        92,
+        92
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0,
+            "display": "Est savings of 167 KiB",
+            "savingsMs": 150,
+            "savingsBytes": 170917
+          },
+          "unused-css-rules": {
+            "score": 0,
+            "display": "Est savings of 140 KiB",
+            "savingsMs": 150,
+            "savingsBytes": 143834
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "5.5 s"
+          },
+          "bootup-time": {
+            "score": 0,
+            "display": "1.7 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,607 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 81,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "imgKB": 833,
+        "imgCount": 11,
+        "totalKB": 2618,
+        "lcpMs": 2246,
+        "cls": 0,
+        "tbtMs": 557,
+        "fcpMs": 1364,
+        "siMs": 4012
+      }
+    }
+  ],
+  "presets": {
+    "mobile": {
+      "averagePerformanceOfMedians": 81,
+      "minPerformanceOfMedians": 81
+    }
+  }
+}
