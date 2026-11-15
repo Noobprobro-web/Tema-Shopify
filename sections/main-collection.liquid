@@ -9,6 +9,18 @@
   if default_grid_columns == '2'
     assign grid_columns_mobile = 1
   endif
+  # Image sizes for each grid view the visitor can switch to; theme.js applies the matching
+  # one to the card photos. Columns follow the data-grid-columns rules in base.css: view 2 is
+  # one column on phones and two from 48rem, view 4 is two on phones and four from 48rem.
+  capture grid_sizes_2
+    render 'card-sizes', columns_mobile: 1, columns_tablet: 2, columns_desktop: 2
+  endcapture
+  capture grid_sizes_4
+    render 'card-sizes', columns_mobile: 2, columns_tablet: 4, columns_desktop: 4
+  endcapture
+  capture grid_sizes_list
+    render 'card-sizes', view: 'list'
+  endcapture
   assign collection_banner_image = collection.featured_image
   assign collection_image_alt = collection_banner_image.alt | default: collection.title
   # Filtros que se pintan como swatch aunque Search & Discovery no los marque asi.
@@ -317,6 +329,9 @@
                 class="product-grid unstyled-list"
                 data-product-list
                 data-grid-columns="{{ default_grid_columns }}"
+                data-sizes-2="{{ grid_sizes_2 | strip | escape }}"
+                data-sizes-4="{{ grid_sizes_4 | strip | escape }}"
+                data-sizes-list="{{ grid_sizes_list | strip | escape }}"
               >
                 {%- liquid
                   assign product_cursor = 0

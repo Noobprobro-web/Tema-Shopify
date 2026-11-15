@@ -4319,6 +4319,15 @@
       if (!productList) return;
 
       productList.dataset.gridColumns = gridView;
+      // Liquid prints the `sizes` of every view on the list (data-sizes-*), so the photos ask
+      // for the width the chosen view really gives them. Cards come from the server with the
+      // default view's value, which also covers the markup swapped in by filters and paging.
+      const viewSizes = productList.getAttribute(`data-sizes-${gridView}`);
+      if (viewSizes) {
+        productList.querySelectorAll('.product-card__media img').forEach((image) => {
+          if (image.getAttribute('sizes') !== viewSizes) image.setAttribute('sizes', viewSizes);
+        });
+      }
       this.querySelectorAll('[data-grid-view]').forEach((button) => {
         button.setAttribute('aria-pressed', String(button.dataset.gridView === gridView));
       });

@@ -5,20 +5,35 @@
   - columns_mobile: columns below 48rem (default 2)
   - columns_tablet: columns from 48rem (default: columns_mobile)
   - columns_desktop: columns from 62rem (default: columns_tablet)
+  - view: pass 'list' for the collection list view, where the photo has a fixed width
+    (5.5rem, up to 14rem from 990px) instead of a share of the row. Keep these two values in
+    step with `.product-grid[data-grid-columns='list']` in base.css.
 
   48rem and 62rem are the grid breakpoints in base.css. The width is 100vw / columns, which
   ignores gutters, gaps and the filters sidebar, so it never asks for less than the real box.
+  Once the viewport is wider than the page width setting the grid stops growing, so a pixel
+  cap (page width / columns, rounded up) replaces the vw value. The page width setting starts
+  at 1000px, always above the 62rem breakpoint, so the cap applies to the desktop columns.
 {%- endcomment -%}
 
 {%- liquid
-  assign sizes_mobile = columns_mobile | default: 2 | plus: 0 | at_least: 1
-  assign sizes_tablet = columns_tablet | default: sizes_mobile | plus: 0 | at_least: 1
-  assign sizes_desktop = columns_desktop | default: sizes_tablet | plus: 0 | at_least: 1
-  if sizes_desktop != sizes_tablet
-    echo '(min-width: 62rem) calc(100vw / ' | append: sizes_desktop | append: '), '
+  if view == 'list'
+    echo '(min-width: 990px) 14rem, 5.5rem'
+  else
+    assign sizes_mobile = columns_mobile | default: 2 | plus: 0 | at_least: 1
+    assign sizes_tablet = columns_tablet | default: sizes_mobile | plus: 0 | at_least: 1
+    assign sizes_desktop = columns_desktop | default: sizes_tablet | plus: 0 | at_least: 1
+    assign page_width_px = settings.page_width | plus: 0
+    if page_width_px > 0
+      assign width_cap = page_width_px | plus: sizes_desktop | minus: 1 | divided_by: sizes_desktop | ceil
+      echo '(min-width: ' | append: page_width_px | append: 'px) ' | append: width_cap | append: 'px, '
+    endif
+    if sizes_desktop != sizes_tablet
+      echo '(min-width: 62rem) calc(100vw / ' | append: sizes_desktop | append: '), '
+    endif
+    if sizes_tablet != sizes_mobile
+      echo '(min-width: 48rem) calc(100vw / ' | append: sizes_tablet | append: '), '
+    endif
+    echo 'calc(100vw / ' | append: sizes_mobile | append: ')'
   endif
-  if sizes_tablet != sizes_mobile
-    echo '(min-width: 48rem) calc(100vw / ' | append: sizes_tablet | append: '), '
-  endif
-  echo 'calc(100vw / ' | append: sizes_mobile | append: ')'
 -%}
