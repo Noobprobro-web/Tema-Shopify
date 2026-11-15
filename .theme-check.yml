@@ -72,8 +72,9 @@ ignore:
   # una propuesta de locale que Theme Check leeria como archivo de tema.
   - agent-comms/**
 
-  # Arneses de sprint en la raiz (harness-4D-001 ... harness-COMP-001): fixtures
-  # y crudos de medicion. 417 archivos inspeccionados de mas, 0 del tema.
+  # Arneses de sprint (harness-*): fixtures y crudos de medicion, 0 del tema.
+  # Los que estaban en la raiz viven ahora en agent-comms/archive/ (ya cubierto
+  # por agent-comms/**); se conserva el patron por si un arnes vuelve a la raiz.
   - harness-*/**
 
   # Documentacion del proyecto y del comerciante, informes de compuertas y
