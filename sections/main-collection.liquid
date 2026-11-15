@@ -4,6 +4,11 @@
   assign sort_by = collection.sort_by | default: collection.default_sort_by
   assign active_filter_count = 0
   assign default_grid_columns = section.settings.default_grid_columns | default: '4'
+  # The grid shows one column on phones when 2 is chosen and two when 4 is chosen.
+  assign grid_columns_mobile = 2
+  if default_grid_columns == '2'
+    assign grid_columns_mobile = 1
+  endif
   assign collection_banner_image = collection.featured_image
   assign collection_image_alt = collection_banner_image.alt | default: collection.title
   # Filtros que se pintan como swatch aunque Search & Discovery no los marque asi.
@@ -389,7 +394,10 @@
                           eager_image: is_eager_card,
                           show_secondary_image: section.settings.show_secondary_image,
                           show_vendor: section.settings.show_vendor,
-                          show_quick_add: section.settings.show_quick_add
+                          show_quick_add: section.settings.show_quick_add,
+                          columns_mobile: grid_columns_mobile,
+                          columns_tablet: default_grid_columns,
+                          columns_desktop: default_grid_columns
                         %}
                       </li>
                       {%- assign product_cursor = product_cursor | plus: 1 -%}

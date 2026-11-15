@@ -1,0 +1,24 @@
+{%- comment -%}
+  Prints the image `sizes` attribute for a product card that sits in a grid.
+
+  Accepts:
+  - columns_mobile: columns below 48rem (default 2)
+  - columns_tablet: columns from 48rem (default: columns_mobile)
+  - columns_desktop: columns from 62rem (default: columns_tablet)
+
+  48rem and 62rem are the grid breakpoints in base.css. The width is 100vw / columns, which
+  ignores gutters, gaps and the filters sidebar, so it never asks for less than the real box.
+{%- endcomment -%}
+
+{%- liquid
+  assign sizes_mobile = columns_mobile | default: 2 | plus: 0 | at_least: 1
+  assign sizes_tablet = columns_tablet | default: sizes_mobile | plus: 0 | at_least: 1
+  assign sizes_desktop = columns_desktop | default: sizes_tablet | plus: 0 | at_least: 1
+  if sizes_desktop != sizes_tablet
+    echo '(min-width: 62rem) calc(100vw / ' | append: sizes_desktop | append: '), '
+  endif
+  if sizes_tablet != sizes_mobile
+    echo '(min-width: 48rem) calc(100vw / ' | append: sizes_tablet | append: '), '
+  endif
+  echo 'calc(100vw / ' | append: sizes_mobile | append: ')'
+-%}

@@ -1,4 +1,9 @@
 {%- liquid
+  # Below 62rem the grid is capped at 3 columns (see base.css); 2 stays 2.
+  assign grid_columns_tablet = 3
+  if section.settings.columns_desktop == '2'
+    assign grid_columns_tablet = 2
+  endif
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign recommendations_heading = section.settings.heading
@@ -39,7 +44,10 @@
                 card_product: recommendation,
                 show_secondary_image: section.settings.show_secondary_image,
                 show_vendor: section.settings.show_vendor,
-                show_quick_add: section.settings.show_quick_add
+                show_quick_add: section.settings.show_quick_add,
+                columns_mobile: 2,
+                columns_tablet: grid_columns_tablet,
+                columns_desktop: section.settings.columns_desktop
               %}
             </li>
           {%- endfor -%}
