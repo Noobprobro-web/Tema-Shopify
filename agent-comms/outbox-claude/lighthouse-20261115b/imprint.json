@@ -1,0 +1,245 @@
+{
+  "generatedAt": "2026-11-15T17:48:18.570Z",
+  "lighthouseVersion": "13.6.0",
+  "pinnedLighthouse": "13.6.0",
+  "note": "Medicion aproximada desde contenedor (CPU/red distintas a Shopify); throttling simulado de Lighthouse.",
+  "pages": [
+    {
+      "kind": "product",
+      "handle": "leather-desk-mat",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        88,
+        80,
+        78
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        100,
+        100,
+        100
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 208 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 212505
+          },
+          "unused-css-rules": {
+            "score": 0.5,
+            "display": "Est savings of 140 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 143473
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "4.5 s"
+          },
+          "bootup-time": {
+            "score": 0,
+            "display": "1.7 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,427 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 80,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 100,
+        "lcpMs": 3061,
+        "cls": 0,
+        "tbtMs": 344,
+        "fcpMs": 1193,
+        "siMs": 5081
+      }
+    },
+    {
+      "kind": "collection",
+      "handle": "all",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        75,
+        69,
+        78
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        92,
+        92,
+        92
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 167 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 170911
+          },
+          "unused-css-rules": {
+            "score": 0.5,
+            "display": "Est savings of 141 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 144099
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "6.1 s"
+          },
+          "bootup-time": {
+            "score": 0,
+            "display": "1.7 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,089 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 75,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "lcpMs": 2484,
+        "cls": 0,
+        "tbtMs": 870,
+        "fcpMs": 1360,
+        "siMs": 4244
+      }
+    },
+    {
+      "kind": "collection",
+      "handle": "permanent-collection",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        80,
+        88,
+        85
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        92,
+        92,
+        92
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 167 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 170755
+          },
+          "unused-css-rules": {
+            "score": 0.5,
+            "display": "Est savings of 140 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 143867
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "4.9 s"
+          },
+          "bootup-time": {
+            "score": 0,
+            "display": "1.3 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,003 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 85,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "lcpMs": 1360,
+        "cls": 0,
+        "tbtMs": 503,
+        "fcpMs": 1360,
+        "siMs": 4013
+      }
+    }
+  ],
+  "presets": {
+    "mobile": {
+      "averagePerformanceOfMedians": 80,
+      "minPerformanceOfMedians": 75
+    }
+  }
+}
