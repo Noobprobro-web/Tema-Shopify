@@ -37,7 +37,7 @@ scratch/
 .claude/
 # Volcados temporales de agentes (cabeceras, cookies de sesion, HAR). Todos
 # arrastran el header Cookie de una sesion real del storefront: se quedan en
-# disco y nunca entran al indice. harness-AUDIT-360-001/lh-headers.json salio
+# disco y nunca entran al indice. agent-comms/archive/audit-360/harness-AUDIT-360-001/lh-headers.json salio
 # del indice con 'git rm --cached', asi que *headers.json ya no enmascara nada.
 temp-*.json
 temp-*.txt

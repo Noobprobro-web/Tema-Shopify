@@ -25,6 +25,10 @@ Descripcion de lo que hay en `docs/`. La vigencia se indica solo cuando se puede
 | `contour-reference-plan.md` | Plan de mejoras con una referencia externa (GPT-PLAN-CONTOUR-001) |
 | `phase-4-plan.md` | Plan maestro de la fase 4 |
 
+## Estructura de la raiz del repositorio
+
+Tema: `assets config layout locales sections snippets templates listings` y `release-notes.md`. Tooling: `scripts/`, `tests/`, `playwright.config.mjs`, `package.json`, `.github/`. Proyecto: `docs/`, `agent-comms/`, `AGENTS.md`. Los arneses historicos que estaban en la raiz (`harness-4D-*`, `harness-4E-*`, `harness-COMP-001`, `harness-AUDIT-360-*`, `cobertura-360-002.csv`, `.agents/teamwork/`) viven ahora en `agent-comms/archive/harness-root/` y `agent-comms/archive/audit-360/`; sus README tienen la tabla de rutas antes -> ahora.
+
 ## Historicos de fases tempranas
 
 `mvp-scope.md`, `roadmap.md`, `strategy-brief.md`, `phase-2-architecture-plan.md`, `theme-concept-proposals.md`, `top-theme-benchmark.md` y `gemini-task-01-report.md` documentan el planteamiento inicial. Pueden no reflejar el estado actual del tema.

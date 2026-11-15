@@ -15,12 +15,12 @@ Tooling y proyecto (no forman parte del tema):
 - `tests/`: pruebas Playwright y `axe` vendorizado
 - `docs/`: ledger, decisiones, documentacion del comerciante y de la tienda demo (indice en `docs/README.md`)
 - `agent-comms/`: comunicacion entre agentes, informes y evidencia
-- `harness-*/`: arneses historicos de auditoria en la raiz
+- `agent-comms/archive/harness-root/` y `agent-comms/archive/audit-360/`: arneses historicos de sprint y de la auditoria 360 (antes en la raiz; cada carpeta tiene un README con la tabla de rutas antes -> ahora)
 - `.github/workflows/ci.yml`, `package.json`, `.nvmrc`, `playwright.config.mjs`, `.theme-check.yml`
 
 ## Requisitos locales
 
-- Node: `.nvmrc` indica 22.12.0. Ojo: el CI (`.github/workflows/ci.yml`) usa hoy Node 20, discrepancia pendiente de resolver.
+- Node: `.nvmrc` indica 22.12.0 y el CI (`.github/workflows/ci.yml`) lo lee con `node-version-file: '.nvmrc'`.
 - `npm ci` instala Shopify CLI y Playwright.
 
 ## Compuertas
