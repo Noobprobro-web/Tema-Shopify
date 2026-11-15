@@ -1,0 +1,174 @@
+{
+  "generatedAt": "2026-11-15T19:10:02.748Z",
+  "lighthouseVersion": "13.6.0",
+  "pinnedLighthouse": "13.6.0",
+  "note": "Medicion aproximada desde contenedor (CPU/red distintas a Shopify); throttling simulado de Lighthouse.",
+  "pages": [
+    {
+      "kind": "collection",
+      "handle": "permanent-collection",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        61,
+        84,
+        88
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        92,
+        92,
+        92
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 169 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 172967
+          },
+          "unused-css-rules": {
+            "score": 0.5,
+            "display": "Est savings of 141 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 144344
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "5.1 s"
+          },
+          "bootup-time": {
+            "score": 0,
+            "display": "1.5 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,255 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 84,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "imgKB": 490,
+        "imgCount": 8,
+        "totalKB": 2264,
+        "lcpMs": 2131,
+        "cls": 0,
+        "tbtMs": 520,
+        "fcpMs": 1386,
+        "siMs": 3717
+      }
+    },
+    {
+      "kind": "search",
+      "handle": "coat",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        87,
+        87,
+        84
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        61,
+        61,
+        61
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 169 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 173563
+          },
+          "unused-css-rules": {
+            "score": 0.5,
+            "display": "Est savings of 141 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 144464
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "5.0 s"
+          },
+          "bootup-time": {
+            "score": 0,
+            "display": "1.6 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,323 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 87,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 61,
+        "imgKB": 546,
+        "imgCount": 9,
+        "totalKB": 2323,
+        "lcpMs": 1397,
+        "cls": 0,
+        "tbtMs": 425,
+        "fcpMs": 1397,
+        "siMs": 4475
+      }
+    }
+  ],
+  "presets": {
+    "mobile": {
+      "averagePerformanceOfMedians": 85.5,
+      "minPerformanceOfMedians": 84
+    }
+  }
+}
