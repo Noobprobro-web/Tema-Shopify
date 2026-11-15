@@ -1,14 +1,14 @@
 # Sartorial 1.0.0 - ZIP canonico (node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip)
-# rev:       HEAD 30064cda1915195cf3b5a11a3ccd0cf3f05a1c4a (merge PR #5)
-# archivos:  92
-# tamano:    290337 bytes
-# sha256:    494aeca08ee62c6afdeb40b35625ef2fd3c9842da278280b7eb55292596a88b2
-# contenido: 0b2d428fc1682828abda3df554040cdae38bddb8c08a88efbe2b3ccad1bbc61c (huella independiente de zlib)
+# rev:       HEAD c2f2ce66b208247c39828e782c209ec917281841 (merge PR #12)
+# archivos:  93
+# tamano:    292372 bytes
+# sha256:    c2390c69164bca16e3d1fb20732cecbebeff38ae557e2e7eaa9fbd12d2dc7db3
+# contenido: 3470d21f06d1c2c17b27a0f5fa6e8836d7438d781e6b9ae73baa76798ef2e7de (huella independiente de zlib)
 # zlib:      1.3.1-e00f703 (node 22.23.4)
 # Lineas siguientes: sha256  ruta, una por archivo del ZIP.
 fc041e26c6b93e1bb5b593cc04a61f942e54d3cbba856b0ca2caccb089d7159d  assets/base.css
 b4d71ef3a262bdd791ec76b95c5bb68a49b8d8a5ac65d11ec1c2eacae2b23d9b  assets/product-zoom.js
-05427efb7a40b773279c39f77d3f39c39aa5241ecdb5f8762c4a95791a32c1a2  assets/theme.js
+1665b7e53266bb7e3a1ed56f0a86b9d71bfb5748834d76d933d12ab9b032689e  assets/theme.js
 152d3883bde7540d4ad3c75499b05477b274297ed0185b1dfdac85686240483f  config/settings_data.json
 9e4075995ac98475b0bc9effce9e84314def3b9c4f376acc3d5aa0b1dd038cdb  config/settings_schema.json
 998c6defb5f491a5791e84f609bc40cb393c00d525ce141816a070b415421f2c  layout/password.liquid
@@ -40,12 +40,12 @@ f2dafb132a32590a2e139db32cf9e79bbbbb941ad9a8453fb36496aecca4767a  sections/cart-
 c5b6bdfca58ad2223faa34e82110073a19a6e2696c00475d2d98c44d574fef12  sections/header.liquid
 56f8cc1389baed6df3991ca6ab04258555c7a98f1cfc90d925dce924e74cbfe0  sections/hero-editorial.liquid
 35506e4b9f4e762d235e1e2023abfeffbb22a144b23d0e3b114c5ceca22777c7  sections/lookbook.liquid
-86a9b15a0b178083522387e746329e10a885906e653813ca661416e14f573ad2  sections/main-404.liquid
+d3d7dbe0ce23556bc7ebff75f4893c1dfb7b0c7031452c80ea27bd7d767e909d  sections/main-404.liquid
 515d66e2be6bec0e2b02b84a50eeedc75f8c6d388d75a73ff14be21a6131f902  sections/main-about.liquid
-287d06783fca72b801b8fb34d40e5f334e775bcae1424467a2efeec3953c85f5  sections/main-article.liquid
+b51835739b342dfe8a4b739fec18a8e56f1d72fbc1a228c45fc01006e639ffc0  sections/main-article.liquid
 b35e3163acb801a188665e9579154f21724cbb569da2b78c8b4376f7b86d7252  sections/main-blog.liquid
 426c1e72974ea6db9631d8a18c6c096e4d13bc21104e0faf848202652632053b  sections/main-cart-items.liquid
-0374059909a62643e21977b0f03a7319cadfac2e585d6d010d32435c1beecfb4  sections/main-collection.liquid
+98df7b3d7645766b4b704e17004102313b3ba94cce67bae3b0d0a70bfc0d303e  sections/main-collection.liquid
 f5837a7047459bfdaa8d11cfc5e4d0d51c54141ae1625ce62037021660f06f4a  sections/main-contact.liquid
 1d4c5dd9b06a48d34436058d5ae3d1c7e8468406fd5b9f8d325be09e4111b82b  sections/main-faq.liquid
 77faf2097897d0dcf8fc3d809a2cc31e40eac8cc45b3279753042be80cfde31c  sections/main-list-collections.liquid
@@ -54,11 +54,12 @@ f5837a7047459bfdaa8d11cfc5e4d0d51c54141ae1625ce62037021660f06f4a  sections/main-
 1eacafcfc7d2a08293f8270154870169d3d029e6f13a88bdb6e198fdc8ae3cf4  sections/main-placeholder.liquid
 0a8fc6a7fcbd84c7ca608092eb21f40bb6d89a47cd6718a6fb8645a5cddaa354  sections/main-policy.liquid
 d79257de19ce8b2e090b40da1cc4c3539bc7e318e970540ee285ef10383d121d  sections/main-product.liquid
-3bbdb92531793f37681a7a085b10cef795987ec1c40733042bdc5286e9d0ef8b  sections/main-search.liquid
+247e21095fe46446550a8011340ce4870b9cb37109d3568f02939e495a02be44  sections/main-search.liquid
 dcb1fb6b15af7c79fa61bfba70ad7d31b16148cbb470b5e99380b8be5682ecb1  sections/marquee.liquid
 67ae86cef735cf4a2616791e14d940855f3913c116c0b2f8458b18e2b4b7f8fb  sections/newsletter.liquid
-37c08b8ceb4ef3e8c1f57b8860201cd4fcce817edef596552e52f0c700a23d9f  sections/product-recommendations.liquid
-c2c0661cc5d70d6ae4b760f666eb7436904716cd3a9e8318b84116c48ee3156c  sections/recently-viewed.liquid
+46855b0349eab38e0b4a9e42cb0166e56f284e3047a199daa1f3ce958cc12e1f  sections/product-recommendations.liquid
+0d0fe8f3815335527ec375785d73255bfea70a797faa41a2f1e6ec550cec93f5  sections/recently-viewed.liquid
+06240ae1fb62a83e83ac2df240977ed4ccef9507a0ff0540e31de1d077a1e407  snippets/card-sizes.liquid
 401588053ccb79553b981f45ffb3fbb71eb444f696bc4acfc9f32576584be9ec  snippets/card-swatch-fit.liquid
 a92926ee7e2e20f5504938ea7a82538084a97bdc2021f67230c19e2fc363d793  snippets/cart-drawer-recommendations.liquid
 ba4e0256a43441ecb0a7ee03b9dc56f9db11c4ad6b6173bfb705c43bb14519d5  snippets/facets-active-filters.liquid
@@ -72,7 +73,7 @@ abe59f567ed64562c5dde2012df265ff6890dcce4f6bc02348cac7aab9f21ebb  snippets/gift-
 743e06cbb2331546a65101d4af04b1e655119a8c57d60f5da3c2c4c2069d07b3  snippets/predictive-search.liquid
 e5d43e705d32d2fb28409026f5979f0293b27e3bb61e84d37b83db6ec322ddc1  snippets/price.liquid
 3fdaad40f9e28d996c5864897d09db6cce6951fbc625767efa48fe3738878d4c  snippets/product-accordion.liquid
-8e921c009c40039c1a022e245936c18c222bbff5cd8c61ad552ae1ad7e72baec  snippets/product-card.liquid
+97b6df1b21b0dec2d12a6365033a4c6cd22236e626c75910cd284f76e322e3c9  snippets/product-card.liquid
 f57016e3b52c8d7282fb13a69afd75064386fbeee5a18d7bd457f608048245a3  snippets/product-inventory.liquid
 dca21fa5af95a53e196dea2be2535a17c36380ac1ef282677aef092c0c8ca64b  snippets/product-media.liquid
 a217c745ad69ba8398c75433493c58786ff9f10c812219d1347b6b6ba9bd1959  snippets/product-provenance.liquid
