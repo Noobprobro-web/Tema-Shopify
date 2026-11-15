@@ -1,0 +1,20 @@
+cart completed_with_limits completed interv false
+sartorial 190316839216 cartTouched true initEmpty true cleanup {"attempted":true,"clearHttpStatus":200,"updateHttpStatus":200,"readHttpStatus":200,"itemCount":0,"emptyVerified":true,"noteEmptyVerified":true} closed true 429s 0 routeFail false
+imprint 190316871984 cartTouched true initEmpty true cleanup {"attempted":true,"clearHttpStatus":200,"updateHttpStatus":200,"readHttpStatus":200,"itemCount":0,"emptyVerified":true,"noteEmptyVerified":true} closed true 429s 0 routeFail false
+archive 190316904752 cartTouched true initEmpty true cleanup {"attempted":true,"clearHttpStatus":200,"updateHttpStatus":200,"readHttpStatus":200,"itemCount":0,"emptyVerified":true,"noteEmptyVerified":true} closed true 429s 0 routeFail false
+{"passed":18}
+sartorial:cart_pdp_add_one_line:passed
+sartorial:populated_cart_drawer_viewport:passed
+sartorial:populated_cart_drawer_viewport:passed
+sartorial:cart_note_exact_api_echo:passed
+sartorial:final_same_session_cart_cleanup:passed
+imprint:cart_pdp_add_one_line:passed
+imprint:populated_cart_drawer_viewport:passed
+imprint:populated_cart_drawer_viewport:passed
+imprint:cart_note_exact_api_echo:passed
+imprint:final_same_session_cart_cleanup:passed
+archive:cart_pdp_add_one_line:passed
+archive:populated_cart_drawer_viewport:passed
+archive:populated_cart_drawer_viewport:passed
+archive:cart_note_exact_api_echo:passed
+archive:final_same_session_cart_cleanup:passed

@@ -1,0 +1,15 @@
+import { createRequire } from 'module';
+const require = createRequire('/home/user/Tema-Shopify/');
+const { chromium } = require('playwright');
+const O='https://sartorial-theme-kvkzl39t.myshopify.com', id='190316839216';
+const b=await chromium.launch(); const ctx=await b.newContext({viewport:{width:320,height:640},isMobile:true,hasTouch:true});
+await ctx.request.post(O+'/password',{form:{form_type:'storefront_password',utf8:'✓',password:process.env.STOREFRONT_PASSWORD},maxRedirects:0});
+const p=await ctx.newPage();
+await p.goto(`${O}/collections/fixtures?preview_theme_id=${id}`,{waitUntil:'load'}); await p.waitForTimeout(1200);
+await p.evaluate(()=>localStorage.setItem('theme:grid-columns','4')); await p.locator('[data-grid-view="4"]').first().click({force:true}).catch(()=>{});
+await p.addStyleTag({content:`html{font-size:150% !important}`}); await p.waitForTimeout(800);
+const w=()=>p.evaluate(()=>{const c=[...document.querySelectorAll('.product-card')][2];return Math.round(c.querySelector('.product-card__media').getBoundingClientRect().width)+' / card '+Math.round(c.getBoundingClientRect().width)});
+console.log('base',await w());
+console.log(await p.evaluate(()=>{const c=[...document.querySelectorAll('.product-card')][2];const pr=c.querySelector('.price');return [pr,...pr.querySelectorAll('*')].map(e=>(e.className||e.tagName).toString().slice(0,22)+' w='+Math.round(e.getBoundingClientRect().width)+' d='+getComputedStyle(e).display+' h='+e.hidden)}));
+console.log(await p.evaluate(()=>{const c=[...document.querySelectorAll('.product-card')][2];const a=c.querySelector('.product-card__action');return [a,...a.querySelectorAll('*')].map(e=>(e.className||e.tagName).toString().slice(0,30)+' w='+Math.round(e.getBoundingClientRect().width)+' d='+getComputedStyle(e).display)}));
+await b.close();

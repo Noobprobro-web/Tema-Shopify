@@ -175,14 +175,30 @@
         {%- capture swatch_fit -%}
           {%- render 'card-swatch-fit', option: swatch_option, limit: swatch_limit -%}
         {%- endcapture -%}
+        {%- liquid
+          assign swatch_color_only = true
+          for value in swatch_option.values limit: swatch_limit
+            if value.swatch.image == blank and value.swatch.color == blank
+              assign swatch_color_only = false
+              break
+            endif
+          endfor
+        -%}
         {%- comment -%}
+          LV05-CN7. A row of only colors has fixed-size pieces (44px), so its bands must not grow
+          with the browser font size: it prints data-swatch-fit-px (bands in px) instead of
+          data-swatch-fit (bands in max(px, rem), for rows with text swatches).
           data-swatch-fit picks one to four swatches per width band of the row (base.css,
           LV05-CN3 and LV05-CN5). The pill always counts exactly what is hidden.
         {%- endcomment -%}
         <div class="product-card__swatches">
           <div
             class="product-card__swatch-group"
-            data-swatch-fit="{{ swatch_fit | strip }}"
+            {% if swatch_color_only %}
+              data-swatch-fit-px="{{ swatch_fit | strip }}"
+            {% else %}
+              data-swatch-fit="{{ swatch_fit | strip }}"
+            {% endif %}
             role="{% if swatches_interactive %}radiogroup{% else %}list{% endif %}"
             aria-label="{{ swatch_option.name | escape }}"
             {% if swatches_interactive %}
@@ -324,7 +340,7 @@
       {%- endif -%}
 
       {%- if show_vendor and card_product.vendor != blank -%}
-        <p class="product-card__vendor">{{ card_product.vendor | escape }}</p>
+        <p class="product-card__vendor" title="{{ card_product.vendor | escape }}">{{ card_product.vendor | escape }}</p>
       {%- endif -%}
 
       <h3 class="product-card__title" id="{{ card_title_id }}">

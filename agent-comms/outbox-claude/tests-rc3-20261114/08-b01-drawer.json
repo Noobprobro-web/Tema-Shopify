@@ -1,0 +1,445 @@
+{
+  "script": "probe-b01-drawer.mjs",
+  "at": "2026-11-14T19:11:21.036Z",
+  "breakpointPx": 992,
+  "runs": [
+    {
+      "preset": "sartorial",
+      "cases": {
+        "A_390_open_to_1280": {
+          "opened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 11,
+            "triggerVisible": false,
+            "active": "button.desktop-nav__toggle",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "F_back_to_390": {
+          "expanded": "false",
+          "dataOpen": false,
+          "panelInert": true,
+          "panelAriaHidden": "true",
+          "overlayHidden": true,
+          "bodyDrawerOpen": false,
+          "bodyOverflow": "visible",
+          "inertCount": 11,
+          "triggerVisible": true,
+          "active": "button.icon-button",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": false
+        },
+        "E_reopen_escape": {
+          "reopened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 11,
+            "triggerVisible": true,
+            "active": "button.icon-button",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "B_991_open_to_992": {
+          "opened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 11,
+            "triggerVisible": false,
+            "active": "button.desktop-nav__toggle",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "C_rotate_stays_open": {
+          "expanded": "true",
+          "dataOpen": true,
+          "panelInert": false,
+          "panelAriaHidden": "false",
+          "overlayHidden": false,
+          "bodyDrawerOpen": true,
+          "bodyOverflow": "hidden",
+          "inertCount": 22,
+          "triggerVisible": true,
+          "active": "button.icon-button[Close]",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": true
+        },
+        "D_trap": {
+          "tabOutside": 0,
+          "shiftOutside": 0,
+          "tabSeq": [
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "select.localization-form__country",
+            "button.icon-button[Close]",
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "select.localization-form__country",
+            "button.icon-button[Close]",
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link"
+          ],
+          "shiftSeq": [
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]",
+            "select.localization-form__country",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]",
+            "select.localization-form__country",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]"
+          ],
+          "stillOpen": true
+        },
+        "G_desktop_focus_to_390": {
+          "expanded": "false",
+          "dataOpen": false,
+          "panelInert": true,
+          "panelAriaHidden": "true",
+          "overlayHidden": true,
+          "bodyDrawerOpen": false,
+          "bodyOverflow": "visible",
+          "inertCount": 11,
+          "triggerVisible": true,
+          "active": "button.icon-button",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": false
+        }
+      },
+      "baselineInert": 11
+    },
+    {
+      "preset": "imprint",
+      "cases": {
+        "A_390_open_to_1280": {
+          "opened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 7,
+            "triggerVisible": false,
+            "active": "button.desktop-nav__toggle",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "F_back_to_390": {
+          "expanded": "false",
+          "dataOpen": false,
+          "panelInert": true,
+          "panelAriaHidden": "true",
+          "overlayHidden": true,
+          "bodyDrawerOpen": false,
+          "bodyOverflow": "visible",
+          "inertCount": 7,
+          "triggerVisible": true,
+          "active": "button.icon-button",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": false
+        },
+        "E_reopen_escape": {
+          "reopened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 7,
+            "triggerVisible": true,
+            "active": "button.icon-button",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "B_991_open_to_992": {
+          "opened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 7,
+            "triggerVisible": false,
+            "active": "button.desktop-nav__toggle",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "C_rotate_stays_open": {
+          "expanded": "true",
+          "dataOpen": true,
+          "panelInert": false,
+          "panelAriaHidden": "false",
+          "overlayHidden": false,
+          "bodyDrawerOpen": true,
+          "bodyOverflow": "hidden",
+          "inertCount": 18,
+          "triggerVisible": true,
+          "active": "button.icon-button[Close]",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": true
+        },
+        "D_trap": {
+          "tabOutside": 0,
+          "shiftOutside": 0,
+          "tabSeq": [
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "select.localization-form__country",
+            "button.icon-button[Close]",
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "select.localization-form__country",
+            "button.icon-button[Close]",
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link"
+          ],
+          "shiftSeq": [
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]",
+            "select.localization-form__country",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]",
+            "select.localization-form__country",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]"
+          ],
+          "stillOpen": true
+        },
+        "G_desktop_focus_to_390": {
+          "expanded": "false",
+          "dataOpen": false,
+          "panelInert": true,
+          "panelAriaHidden": "true",
+          "overlayHidden": true,
+          "bodyDrawerOpen": false,
+          "bodyOverflow": "visible",
+          "inertCount": 7,
+          "triggerVisible": true,
+          "active": "button.icon-button",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": false
+        }
+      },
+      "baselineInert": 7
+    },
+    {
+      "preset": "archive",
+      "cases": {
+        "A_390_open_to_1280": {
+          "opened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 9,
+            "triggerVisible": false,
+            "active": "button.desktop-nav__toggle",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "F_back_to_390": {
+          "expanded": "false",
+          "dataOpen": false,
+          "panelInert": true,
+          "panelAriaHidden": "true",
+          "overlayHidden": true,
+          "bodyDrawerOpen": false,
+          "bodyOverflow": "visible",
+          "inertCount": 9,
+          "triggerVisible": true,
+          "active": "button.icon-button",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": false
+        },
+        "E_reopen_escape": {
+          "reopened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 9,
+            "triggerVisible": true,
+            "active": "button.icon-button",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "B_991_open_to_992": {
+          "opened": true,
+          "after": {
+            "expanded": "false",
+            "dataOpen": false,
+            "panelInert": true,
+            "panelAriaHidden": "true",
+            "overlayHidden": true,
+            "bodyDrawerOpen": false,
+            "bodyOverflow": "visible",
+            "inertCount": 9,
+            "triggerVisible": false,
+            "active": "button.desktop-nav__toggle",
+            "activeIsBody": false,
+            "activeUsable": true,
+            "activeInPanel": false
+          }
+        },
+        "C_rotate_stays_open": {
+          "expanded": "true",
+          "dataOpen": true,
+          "panelInert": false,
+          "panelAriaHidden": "false",
+          "overlayHidden": false,
+          "bodyDrawerOpen": true,
+          "bodyOverflow": "hidden",
+          "inertCount": 20,
+          "triggerVisible": true,
+          "active": "button.icon-button[Close]",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": true
+        },
+        "D_trap": {
+          "tabOutside": 0,
+          "shiftOutside": 0,
+          "tabSeq": [
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "select.localization-form__country",
+            "button.icon-button[Close]",
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "select.localization-form__country",
+            "button.icon-button[Close]",
+            "button.mobile-nav__toggle",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link"
+          ],
+          "shiftSeq": [
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]",
+            "select.localization-form__country",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]",
+            "select.localization-form__country",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "a.mobile-nav__link",
+            "button.mobile-nav__toggle",
+            "button.icon-button[Close]"
+          ],
+          "stillOpen": true
+        },
+        "G_desktop_focus_to_390": {
+          "expanded": "false",
+          "dataOpen": false,
+          "panelInert": true,
+          "panelAriaHidden": "true",
+          "overlayHidden": true,
+          "bodyDrawerOpen": false,
+          "bodyOverflow": "visible",
+          "inertCount": 9,
+          "triggerVisible": true,
+          "active": "button.icon-button",
+          "activeIsBody": false,
+          "activeUsable": true,
+          "activeInPanel": false
+        }
+      },
+      "baselineInert": 9
+    }
+  ]
+}

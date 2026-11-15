@@ -1,0 +1,15 @@
+{
+  "store": "sartorial-theme-kvkzl39t.myshopify.com",
+  "createdAt": "2026-11-14",
+  "collection": {"id": "gid://shopify/Collection/515570401584", "handle": "fixtures", "publishedOnlineStore": true, "inMenus": false},
+  "onlineStorePublicationId": "gid://shopify/Publication/316919710000",
+  "products": [
+    {"handle": "fixture-focal-point", "id": "gid://shopify/Product/15428945805616", "variants": 1, "media": ["IMAGE"], "note": "Off-center subject (lower-left). Focal point NOT set: no focalPoint field in Admin API 2026-10 (FileUpdateInput/productCreateMedia absent); set manually in admin."},
+    {"handle": "fixture-long-swatches", "id": "gid://shopify/Product/15428945740080", "variants": 18, "options": {"Color": 12, "Size": 6, "Finish": 1}, "note": "Sparse variant matrix (18 of 72 combinations)."},
+    {"handle": "fixture-many-variants", "id": "gid://shopify/Product/15428945641776", "variants": 40, "options": {"Color": 5, "Size": 8}, "prices": "89.00-109.75"},
+    {"handle": "fixture-long-title", "id": "gid://shopify/Product/15428945379632", "variants": 1, "titleLength": 120, "media": [], "description": "empty"},
+    {"handle": "fixture-media-3d-video", "id": "gid://shopify/Product/15428945838384", "variants": 1, "media": ["MODEL_3D", "VIDEO"], "note": "Minimal triangle .glb and 2 s ffmpeg test pattern mp4."},
+    {"handle": "fixture-single-variant-no-vendor", "id": "gid://shopify/Product/15428945412400", "variants": 1, "vendor": "Sartorial Theme", "note": "Title 'Fixture Alignment Tee'. Empty vendor is not possible: Shopify assigns the shop default vendor."},
+    {"handle": "fixture-with-vendor", "id": "gid://shopify/Product/15428945477936", "variants": 1, "vendor": "Sartorial Fixtures", "note": "Same title 'Fixture Alignment Tee'."}
+  ]
+}

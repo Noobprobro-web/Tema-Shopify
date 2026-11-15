@@ -1,0 +1,1967 @@
+{
+  "script": "contrast-incomplete.mjs",
+  "at": "2026-11-14T18:51:41.354Z",
+  "method": "rect interior inset 3px (evita bordes), barra de preview oculta; ratio WCAG sobre pixeles muestreados; p05 = peor 5% de pixeles, med = mediana",
+  "nodes": [
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345386598704__collections-new > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[01]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 15.52,
+      "ratioP05": 15.52,
+      "ratioMed": 15.52,
+      "fg": "29,27,24",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345386598704__collections-permanent > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[02]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 7.87,
+      "ratioP05": 7.87,
+      "ratioMed": 7.87,
+      "fg": "77,75,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345386598704__collections-tailoring > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[03]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[03]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 7.87,
+      "ratioP05": 7.87,
+      "ratioMed": 7.87,
+      "fg": "77,75,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345386598704__collections-tailoring > span:nth-child(2)"
+      ],
+      "html": "<span>Tailoring salon</span>",
+      "messageKey": "elmPartiallyObscured",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it's partially obscured by another element",
+      "text": "Tailoring salon",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 1144,
+      "ratioMin": 7.87,
+      "ratioP05": 7.87,
+      "ratioMed": 7.87,
+      "fg": "77,75,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        ".facets__sort > label"
+      ],
+      "html": "<label for=\"SortBy-template--28345386664240__main\">Sort by</label>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Sort by",
+      "fontPx": 16,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 836,
+      "ratioMin": 15.52,
+      "ratioP05": 15.52,
+      "ratioMed": 15.52,
+      "fg": "29,27,24",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        "#SortBy-template--28345386664240__main"
+      ],
+      "html": "<select id=\"SortBy-template--28345386664240__main\" name=\"sort_by\" data-facet-sort=\"\">",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "FeaturedMost relevantBest sellingAlphabetically, A",
+      "fontPx": 16,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 617,
+      "ratioMin": 15.52,
+      "ratioP05": 15.52,
+      "ratioMed": 15.52,
+      "fg": "29,27,24",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        ".facets__actions > .button[type=\"submit\"]"
+      ],
+      "html": "<button class=\"button\" type=\"submit\">Apply</button>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Apply",
+      "fontPx": 14,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 732,
+      "ratioMin": 17.18,
+      "ratioP05": 17.18,
+      "ratioMed": 17.18,
+      "fg": "255,255,255",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#HeroEditorialTitle-template--28345386598704__hero"
+      ],
+      "html": "<h1 id=\"HeroEditorialTitle-template--28345386598704__hero\" class=\"hero-editorial__heading\">The Master Tailor's Cut</h1>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "56.7pt (75.6px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "3:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "The Master Tailor's Cut",
+      "fontPx": 75.6,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": true,
+      "threshold": 3,
+      "samples": 603,
+      "ratioMin": 15.65,
+      "ratioP05": 15.65,
+      "ratioMed": 15.65,
+      "fg": "248,244,235",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        ".hero-editorial__subheading > p"
+      ],
+      "html": "<p>Sculptural tailoring cut in considered proportions.</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Sculptural tailoring cut in considered proportions",
+      "fontPx": 16,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 630,
+      "ratioMin": 9.89,
+      "ratioP05": 9.89,
+      "ratioMed": 9.89,
+      "fg": "200,196,189",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345386598704__collections-new > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[01]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 15.52,
+      "ratioP05": 15.52,
+      "ratioMed": 15.52,
+      "fg": "29,27,24",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345386598704__collections-permanent > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[02]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 7.87,
+      "ratioP05": 7.87,
+      "ratioMed": 7.87,
+      "fg": "77,75,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345386598704__collections-tailoring > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[03]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[03]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 7.87,
+      "ratioP05": 7.87,
+      "ratioMed": 7.87,
+      "fg": "77,75,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "product",
+      "target": [
+        ".product-form__tax-note"
+      ],
+      "html": "<p class=\"product-form__tax-note\">Taxes and shipping calculated at checkout.\n\n                  Discounts and the final amount are confirmed",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Taxes and shipping calculated at checkout.\n\n      ",
+      "fontPx": 12,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 653,
+      "ratioMin": 7.87,
+      "ratioP05": 7.87,
+      "ratioMed": 7.87,
+      "fg": "77,75,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "product",
+      "target": [
+        ".product-inventory__message"
+      ],
+      "html": "<span class=\"product-inventory__message\" role=\"status\" aria-live=\"polite\" data-inventory-message=\"\">In stock</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "In stock",
+      "fontPx": 14,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 570,
+      "ratioMin": 15.52,
+      "ratioP05": 15.52,
+      "ratioMed": 15.52,
+      "fg": "29,27,24",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390432560__collections-daily > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[01]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390432560__collections-workspace > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[02]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390432560__collections-limited > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[03]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[03]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390432560__collections-limited > span:nth-child(2)"
+      ],
+      "html": "<span>Leather goods</span>",
+      "messageKey": "elmPartiallyObscured",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it's partially obscured by another element",
+      "text": "Leather goods",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 1053,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        ".collection-products__count"
+      ],
+      "html": "<p class=\"collection-products__count\" data-results-status=\"\" tabindex=\"-1\">12 products</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "12 products",
+      "fontPx": 14,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 976,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        ".collection-grid-switcher__title"
+      ],
+      "html": "<span class=\"collection-grid-switcher__title\" aria-hidden=\"true\">Grid</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Grid",
+      "fontPx": 12,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        ".product-gallery__counter"
+      ],
+      "html": "<p class=\"product-gallery__counter\" aria-hidden=\"true\">\n            <span data-gallery-current=\"\">1</span> / 4\n          </p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "1 / 4",
+      "fontPx": 14,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 448,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        "span[data-gallery-current=\"\"]"
+      ],
+      "html": "<span data-gallery-current=\"\">1</span>",
+      "messageKey": "shortTextContent",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element content is too short to determine if it is actual text content",
+      "text": "1",
+      "fontPx": 14,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 108,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        ".product-main__vendor"
+      ],
+      "html": "<p class=\"product-main__vendor eyebrow\">Studio Demo</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Studio Demo",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 688,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        "h1"
+      ],
+      "html": "<h1 class=\"product-main__title\" data-long-title=\"0\">Serra Coat</h1>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "28.2pt (37.6px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "3:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Serra Coat",
+      "fontPx": 37.6,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": true,
+      "threshold": 3,
+      "samples": 633,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#HeroEditorialTitle-template--28345390432560__hero"
+      ],
+      "html": "<h1 id=\"HeroEditorialTitle-template--28345390432560__hero\" class=\"hero-editorial__heading\">Engineered utility, precise discipline</h1>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "54.0pt (72px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "3:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Engineered utility, precise discipline",
+      "fontPx": 72,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": true,
+      "threshold": 3,
+      "samples": 603,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        ".hero-editorial__subheading > p"
+      ],
+      "html": "<p>Modular gear and desk objects for daily carry.</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Modular gear and desk objects for daily carry.",
+      "fontPx": 16,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 660,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390432560__collections-daily > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[01]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390432560__collections-workspace > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[02]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390432560__collections-limited > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[03]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[03]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "product-card-variants[data-product-url=\"/products/structured-tote\"] > .product-card__content > .product-card__swatches > .product-card__swatch-group[data-swatch-fit=\"a1 b2 c2 d2 e2 f2 g2 h2\"][role=\"radiogroup\"] > button[aria-label=\"Color: Black\"][title=\"Black\"][data-swatch-value=\"Black\"] > .card-swatch__text[aria-hidden=\"true\"]"
+      ],
+      "html": "<span class=\"card-swatch__text\" aria-hidden=\"true\">Black</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "8.3pt (11px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Black",
+      "fontPx": 11,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 720,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "product-card-variants[data-product-url=\"/products/structured-tote\"] > .product-card__content > .product-card__swatches > .product-card__swatch-group[data-swatch-fit=\"a1 b2 c2 d2 e2 f2 g2 h2\"][role=\"radiogroup\"] > button[aria-label=\"Color: Tan\"][title=\"Tan\"][data-swatch-value=\"Tan\"] > .card-swatch__text[aria-hidden=\"true\"]"
+      ],
+      "html": "<span class=\"card-swatch__text\" aria-hidden=\"true\">Tan</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "8.3pt (11px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Tan",
+      "fontPx": 11,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 540,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "product-card-variants[data-product-url=\"/products/structured-tote\"] > .product-card__content > .product-card__vendor[title=\"Studio Demo\"]"
+      ],
+      "html": "<p class=\"product-card__vendor\" title=\"Studio Demo\">Studio Demo</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "8.4pt (11.2px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Studio Demo",
+      "fontPx": 11.2,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 636,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "#CardTitle-template--28345390498096__main-15428356899120 > a[href$=\"structured-tote\"][data-card-link=\"\"]"
+      ],
+      "html": "<a href=\"/products/structured-tote\" data-card-link=\"\">Structured Tote</a>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "11.4pt (15.2px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Structured Tote",
+      "fontPx": 15.2,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 679,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "product-card-variants[data-product-url=\"/products/cashmere-scarf\"] > .product-card__content > .product-card__vendor[title=\"Studio Demo\"]"
+      ],
+      "html": "<p class=\"product-card__vendor\" title=\"Studio Demo\">Studio Demo</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "8.4pt (11.2px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Studio Demo",
+      "fontPx": 11.2,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 636,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "#CardTitle-template--28345390498096__main-15428356833584 > a[href$=\"cashmere-scarf\"][data-card-link=\"\"]"
+      ],
+      "html": "<a href=\"/products/cashmere-scarf\" data-card-link=\"\">Cashmere Scarf</a>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "11.4pt (15.2px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Cashmere Scarf",
+      "fontPx": 15.2,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 679,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "product-card-variants[data-product-url=\"/products/leather-belt\"] > .product-card__content > .product-card__swatches > .product-card__swatch-group[data-swatch-fit=\"a1 b2 c2 d2 e2 f2 g2 h2\"][role=\"radiogroup\"] > button[aria-label=\"Color: Black\"][title=\"Black\"][data-swatch-value=\"Black\"] > .card-swatch__text[aria-hidden=\"true\"]"
+      ],
+      "html": "<span class=\"card-swatch__text\" aria-hidden=\"true\">Black</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "8.3pt (11px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Black",
+      "fontPx": 11,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 720,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "product-card-variants[data-product-url=\"/products/leather-belt\"] > .product-card__content > .product-card__swatches > .product-card__swatch-group[data-swatch-fit=\"a1 b2 c2 d2 e2 f2 g2 h2\"][role=\"radiogroup\"] > button[aria-label=\"Color: Tan\"][title=\"Tan\"][data-swatch-value=\"Tan\"] > .card-swatch__text[aria-hidden=\"true\"]"
+      ],
+      "html": "<span class=\"card-swatch__text\" aria-hidden=\"true\">Tan</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "8.3pt (11px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Tan",
+      "fontPx": 11,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 540,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "product-card-variants[data-product-url=\"/products/leather-belt\"] > .product-card__content > .product-card__vendor[title=\"Studio Demo\"]"
+      ],
+      "html": "<p class=\"product-card__vendor\" title=\"Studio Demo\">Studio Demo</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "8.4pt (11.2px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Studio Demo",
+      "fontPx": 11.2,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 636,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        "#CardTitle-template--28345390498096__main-15428356800816 > a[href$=\"leather-belt\"][data-card-link=\"\"]"
+      ],
+      "html": "<a href=\"/products/leather-belt\" data-card-link=\"\">Leather Belt</a>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "11.4pt (15.2px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Leather Belt",
+      "fontPx": 15.2,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 1036,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "17,17,17",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "target": [
+        ".promotion-tile__text > p"
+      ],
+      "html": "<p>Toggle between compact 4-column matrix and detailed 2-column inspection view.</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Toggle between compact 4-column matrix and detaile",
+      "fontPx": 16,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 623,
+      "ratioMin": 11.14,
+      "ratioP05": 11.14,
+      "ratioMed": 11.14,
+      "fg": "240,242,245",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "product",
+      "target": [
+        ".product-form__tax-note"
+      ],
+      "html": "<p class=\"product-form__tax-note\">Taxes and shipping calculated at checkout.\n\n                  Discounts and the final amount are confirmed",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Taxes and shipping calculated at checkout.\n\n      ",
+      "fontPx": 12,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 624,
+      "ratioMin": 9.59,
+      "ratioP05": 9.59,
+      "ratioMed": 9.59,
+      "fg": "69,69,69",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "product",
+      "target": [
+        ".product-form__submit > span[data-add-to-cart-text=\"\"]"
+      ],
+      "html": "<span data-add-to-cart-text=\"\">Add to cart</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Add to cart",
+      "fontPx": 14,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 830,
+      "ratioMin": 18.88,
+      "ratioP05": 18.88,
+      "ratioMed": 18.88,
+      "fg": "255,255,255",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        ".hero-editorial__intro > .eyebrow"
+      ],
+      "html": "<p class=\"eyebrow\">CATALOGUE I / THE HOUSE</p>",
+      "messageKey": "imgNode",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because element contains an image node",
+      "text": "CATALOGUE I / THE HOUSE",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 752,
+      "ratioMin": 15.21,
+      "ratioP05": 15.21,
+      "ratioMed": 15.21,
+      "fg": "239,230,217",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#HeroEditorialTitle-template--28345390825776__hero"
+      ],
+      "html": "<h1 id=\"HeroEditorialTitle-template--28345390825776__hero\" class=\"hero-editorial__heading\">Objects with a remembered life</h1>",
+      "messageKey": "elmPartiallyObscuring",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "30.7pt (40.95px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "3:1"
+      },
+      "message": "Element's background color could not be determined because it partially overlaps other elements",
+      "text": "Objects with a remembered life",
+      "fontPx": 40.95,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": true,
+      "threshold": 3,
+      "samples": 601,
+      "ratioMin": 14.4,
+      "ratioP05": 14.8,
+      "ratioMed": 15.21,
+      "fg": "239,230,217",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        ".hero-editorial__subheading > p"
+      ],
+      "html": "<p>A catalogue of garments and objects.</p>",
+      "messageKey": "imgNode",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because element contains an image node",
+      "text": "A catalogue of garments and objects.",
+      "fontPx": 16,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 635,
+      "ratioMin": 14.53,
+      "ratioP05": 15.09,
+      "ratioMed": 15.21,
+      "fg": "239,230,217",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390825776__collections-decade80 > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[01]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390825776__collections-decade90 > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[02]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 6.48,
+      "ratioP05": 6.48,
+      "ratioMed": 6.48,
+      "fg": "88,79,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        ".facets__sort > label"
+      ],
+      "html": "<label for=\"SortBy-template--28345390858544__main\">Sort by</label>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Sort by",
+      "fontPx": 16,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 836,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        "#SortBy-template--28345390858544__main"
+      ],
+      "html": "<select id=\"SortBy-template--28345390858544__main\" name=\"sort_by\" data-facet-sort=\"\">",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "FeaturedMost relevantBest sellingAlphabetically, A",
+      "fontPx": 16,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 617,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "collection",
+      "target": [
+        ".facets__actions > .button[type=\"submit\"]"
+      ],
+      "html": "<button class=\"button\" type=\"submit\">Apply</button>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Apply",
+      "fontPx": 14,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 732,
+      "ratioMin": 5.53,
+      "ratioP05": 5.53,
+      "ratioMed": 5.53,
+      "fg": "255,248,240",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        ".product-gallery__counter"
+      ],
+      "html": "<p class=\"product-gallery__counter\" aria-hidden=\"true\">\n            <span data-gallery-current=\"\">1</span> / 4\n          </p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "1 / 4",
+      "fontPx": 14,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 448,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        "span[data-gallery-current=\"\"]"
+      ],
+      "html": "<span data-gallery-current=\"\">1</span>",
+      "messageKey": "shortTextContent",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element content is too short to determine if it is actual text content",
+      "text": "1",
+      "fontPx": 14,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 108,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        ".product-main__vendor"
+      ],
+      "html": "<p class=\"product-main__vendor eyebrow\">Studio Demo</p>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Studio Demo",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 688,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "product",
+      "target": [
+        "h1"
+      ],
+      "html": "<h1 class=\"product-main__title\" data-long-title=\"0\">Serra Coat</h1>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "31.0pt (41.36px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "3:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Serra Coat",
+      "fontPx": 41.36,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": true,
+      "threshold": 3,
+      "samples": 607,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        ".hero-editorial__intro > .eyebrow"
+      ],
+      "html": "<p class=\"eyebrow\">CATALOGUE I / THE HOUSE</p>",
+      "messageKey": "imgNode",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because element contains an image node",
+      "text": "CATALOGUE I / THE HOUSE",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 666,
+      "ratioMin": 14.26,
+      "ratioP05": 15.06,
+      "ratioMed": 15.21,
+      "fg": "239,230,217",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#HeroEditorialTitle-template--28345390825776__hero"
+      ],
+      "html": "<h1 id=\"HeroEditorialTitle-template--28345390825776__hero\" class=\"hero-editorial__heading\">Objects with a remembered life</h1>",
+      "messageKey": "elmPartiallyObscuring",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "59.4pt (79.2px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "3:1"
+      },
+      "message": "Element's background color could not be determined because it partially overlaps other elements",
+      "text": "Objects with a remembered life",
+      "fontPx": 79.2,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": true,
+      "threshold": 3,
+      "samples": 602,
+      "ratioMin": 14.26,
+      "ratioP05": 14.54,
+      "ratioMed": 15.21,
+      "fg": "239,230,217",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        ".hero-editorial__subheading > p"
+      ],
+      "html": "<p>A catalogue of garments and objects.</p>",
+      "messageKey": "imgNode",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "12.0pt (16px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because element contains an image node",
+      "text": "A catalogue of garments and objects.",
+      "fontPx": 16,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 660,
+      "ratioMin": 14.26,
+      "ratioP05": 14.4,
+      "ratioMed": 15.21,
+      "fg": "239,230,217",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390825776__collections-decade80 > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[01]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[01]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 12.27,
+      "ratioP05": 12.27,
+      "ratioMed": 12.27,
+      "fg": "46,36,28",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "home",
+      "target": [
+        "#CuratedTab-template--28345390825776__collections-decade90 > span[aria-hidden=\"true\"]"
+      ],
+      "html": "<span aria-hidden=\"true\">[02]</span>",
+      "messageKey": "pseudoContent",
+      "data": {
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined due to a pseudo element",
+      "text": "[02]",
+      "fontPx": 12,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 182,
+      "ratioMin": 6.48,
+      "ratioP05": 6.48,
+      "ratioMed": 6.48,
+      "fg": "88,79,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "product",
+      "target": [
+        ".product-form__tax-note"
+      ],
+      "html": "<p class=\"product-form__tax-note\">Taxes and shipping calculated at checkout.\n\n                  Discounts and the final amount are confirmed",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "9.0pt (12px)",
+        "fontWeight": "normal",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Taxes and shipping calculated at checkout.\n\n      ",
+      "fontPx": 12,
+      "fontWeight": "400",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 624,
+      "ratioMin": 6.48,
+      "ratioP05": 6.48,
+      "ratioMed": 6.48,
+      "fg": "88,79,70",
+      "fgAlpha": 1,
+      "below": false
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "product",
+      "target": [
+        ".product-form__submit > span[data-add-to-cart-text=\"\"]"
+      ],
+      "html": "<span data-add-to-cart-text=\"\">Add to cart</span>",
+      "messageKey": "bgOverlap",
+      "data": {
+        "contrastRatio": 0,
+        "fontSize": "10.5pt (14px)",
+        "fontWeight": "bold",
+        "expectedContrastRatio": "4.5:1"
+      },
+      "message": "Element's background color could not be determined because it is overlapped by another element",
+      "text": "Add to cart",
+      "fontPx": 14,
+      "fontWeight": "700",
+      "opacityChain": 1,
+      "large": false,
+      "threshold": 4.5,
+      "samples": 830,
+      "ratioMin": 5.53,
+      "ratioP05": 5.53,
+      "ratioMed": 5.53,
+      "fg": "255,248,240",
+      "fgAlpha": 1,
+      "below": false
+    }
+  ],
+  "pages": [
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "home",
+      "axe": "4.10.2",
+      "incomplete": 4,
+      "violations": 0
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "collection",
+      "axe": "4.10.2",
+      "incomplete": 3,
+      "violations": 0
+    },
+    {
+      "preset": "sartorial",
+      "vw": 390,
+      "page": "product",
+      "axe": "4.10.2",
+      "incomplete": 0,
+      "violations": 0
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "home",
+      "axe": "4.10.2",
+      "incomplete": 5,
+      "violations": 0
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "collection",
+      "axe": "4.10.2",
+      "incomplete": 0,
+      "violations": 0
+    },
+    {
+      "preset": "sartorial",
+      "vw": 1280,
+      "page": "product",
+      "axe": "4.10.2",
+      "incomplete": 2,
+      "violations": 0
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "home",
+      "axe": "4.10.2",
+      "incomplete": 4,
+      "violations": 0
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "collection",
+      "axe": "4.10.2",
+      "incomplete": 2,
+      "violations": 0
+    },
+    {
+      "preset": "imprint",
+      "vw": 390,
+      "page": "product",
+      "axe": "4.10.2",
+      "incomplete": 4,
+      "violations": 0
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "home",
+      "axe": "4.10.2",
+      "incomplete": 5,
+      "violations": 0
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "collection",
+      "axe": "4.10.2",
+      "incomplete": 11,
+      "violations": 0
+    },
+    {
+      "preset": "imprint",
+      "vw": 1280,
+      "page": "product",
+      "axe": "4.10.2",
+      "incomplete": 2,
+      "violations": 0
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "home",
+      "axe": "4.10.2",
+      "incomplete": 5,
+      "violations": 0
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "collection",
+      "axe": "4.10.2",
+      "incomplete": 3,
+      "violations": 0
+    },
+    {
+      "preset": "archive",
+      "vw": 390,
+      "page": "product",
+      "axe": "4.10.2",
+      "incomplete": 4,
+      "violations": 0
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "home",
+      "axe": "4.10.2",
+      "incomplete": 5,
+      "violations": 0
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "collection",
+      "axe": "4.10.2",
+      "incomplete": 0,
+      "violations": 0
+    },
+    {
+      "preset": "archive",
+      "vw": 1280,
+      "page": "product",
+      "axe": "4.10.2",
+      "incomplete": 2,
+      "violations": 0
+    }
+  ]
+}

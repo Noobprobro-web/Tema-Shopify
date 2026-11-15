@@ -1,0 +1,47 @@
+# read-only completed_with_limits completed interv false
+AXE sartorial/home/390 viol=[] incomplete=[aria-valid-attr-value:4,color-contrast:8]
+OBSERVED sartorial/home/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"home","width":390,"height":844,"nodeOccurrences":1}
+AXE sartorial/collection/390 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:4]
+OBSERVED sartorial/collection/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"collection","width":390,"height":844,"nodeOccurrences":1}
+AXE sartorial/product/390 viol=[] incomplete=[aria-valid-attr-value:2,color-contrast:3]
+OBSERVED sartorial/product/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"product","width":390,"height":844,"nodeOccurrences":1}
+NOT_RUN sartorial//390 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":390}
+AXE sartorial/home/1280 viol=[] incomplete=[aria-valid-attr-value:4,color-contrast:12]
+OBSERVED sartorial/home/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"home","width":1280,"height":800,"nodeOccurrences":1}
+AXE sartorial/collection/1280 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:6]
+OBSERVED sartorial/collection/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"collection","width":1280,"height":800,"nodeOccurrences":1}
+AXE sartorial/product/1280 viol=[] incomplete=[color-contrast:8]
+OBSERVED sartorial/product/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"product","width":1280,"height":800,"nodeOccurrences":1}
+NOT_RUN sartorial//1280 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":1280}
+AXE imprint/home/390 viol=[] incomplete=[color-contrast:8]
+OBSERVED imprint/home/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"home","width":390,"height":844,"nodeOccurrences":1}
+AXE imprint/collection/390 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:12]
+OBSERVED imprint/collection/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"collection","width":390,"height":844,"nodeOccurrences":1}
+AXE imprint/product/390 viol=[] incomplete=[aria-valid-attr-value:2,color-contrast:2]
+OBSERVED imprint/product/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"product","width":390,"height":844,"nodeOccurrences":1}
+NOT_RUN imprint//390 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":390}
+AXE imprint/home/1280 viol=[] incomplete=[color-contrast:12]
+OBSERVED imprint/home/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"home","width":1280,"height":800,"nodeOccurrences":1}
+AXE imprint/collection/1280 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:26]
+OBSERVED imprint/collection/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"collection","width":1280,"height":800,"nodeOccurrences":1}
+AXE imprint/product/1280 viol=[] incomplete=[aria-valid-attr-value:2,color-contrast:7]
+OBSERVED imprint/product/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"product","width":1280,"height":800,"nodeOccurrences":1}
+NOT_RUN imprint//1280 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":1280}
+AXE archive/home/390 viol=[] incomplete=[aria-valid-attr-value:3,color-contrast:9]
+OBSERVED archive/home/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"home","width":390,"height":844,"nodeOccurrences":1}
+AXE archive/collection/390 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:4]
+OBSERVED archive/collection/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"collection","width":390,"height":844,"nodeOccurrences":1}
+AXE archive/product/390 viol=[] incomplete=[aria-valid-attr-value:2,color-contrast:6]
+OBSERVED archive/product/390 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"product","width":390,"height":844,"nodeOccurrences":1}
+NOT_RUN archive//390 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":390}
+AXE archive/home/1280 viol=[] incomplete=[aria-valid-attr-value:3,color-contrast:17]
+OBSERVED archive/home/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"home","width":1280,"height":800,"nodeOccurrences":1}
+AXE archive/collection/1280 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:6]
+OBSERVED archive/collection/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"collection","width":1280,"height":800,"nodeOccurrences":1}
+AXE archive/product/1280 viol=[] incomplete=[aria-valid-attr-value:2,color-contrast:20]
+OBSERVED archive/product/1280 axe_platform_warning SHOPIFY_PREVIEW_BAR_WARNING_ONLY {"page":"product","width":1280,"height":800,"nodeOccurrences":1}
+NOT_RUN archive//1280 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":1280}
+totals {"passed":90,"observed":36,"not_run":6}
+session sartorial 190317920560 routeFail false cartTouched false cleanup null 429s 0 closed true
+session imprint 190317953328 routeFail false cartTouched false cleanup null 429s 0 closed true
+session archive 190317986096 routeFail false cartTouched false cleanup null 429s 0 closed true

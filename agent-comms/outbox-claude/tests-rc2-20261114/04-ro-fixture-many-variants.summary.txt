@@ -1,0 +1,29 @@
+# read-only completed_with_limits completed interv false
+AXE sartorial/home/390 viol=[] incomplete=[aria-valid-attr-value:4,color-contrast:8]
+AXE sartorial/collection/390 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:4]
+AXE sartorial/product/390 viol=[] incomplete=[color-contrast:4]
+NOT_RUN sartorial//390 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":390}
+AXE sartorial/home/1280 viol=[] incomplete=[aria-valid-attr-value:4,color-contrast:12]
+AXE sartorial/collection/1280 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:6]
+AXE sartorial/product/1280 viol=[] incomplete=[color-contrast:7]
+NOT_RUN sartorial//1280 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":1280}
+AXE imprint/home/390 viol=[] incomplete=[color-contrast:8]
+AXE imprint/collection/390 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:12]
+AXE imprint/product/390 viol=[] incomplete=[color-contrast:4]
+NOT_RUN imprint//390 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":390}
+AXE imprint/home/1280 viol=[] incomplete=[color-contrast:12]
+AXE imprint/collection/1280 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:26]
+AXE imprint/product/1280 viol=[] incomplete=[color-contrast:7]
+NOT_RUN imprint//1280 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":1280}
+AXE archive/home/390 viol=[] incomplete=[aria-valid-attr-value:3,color-contrast:9]
+AXE archive/collection/390 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:4]
+AXE archive/product/390 viol=[] incomplete=[color-contrast:4]
+NOT_RUN archive//390 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":390}
+AXE archive/home/1280 viol=[] incomplete=[aria-valid-attr-value:3,color-contrast:17]
+AXE archive/collection/1280 viol=[] incomplete=[aria-valid-attr-value:10,color-contrast:6]
+AXE archive/product/1280 viol=[] incomplete=[color-contrast:7]
+NOT_RUN archive//1280 language_visible_name_match LANGUAGE_CONTROL_NOT_RENDERED {"width":1280}
+totals {"passed":90,"observed":36,"not_run":6}
+session sartorial 190316839216 routeFail false cartTouched false cleanup null 429s 0 closed true
+session imprint 190316871984 routeFail false cartTouched false cleanup null 429s 0 closed true
+session archive 190316904752 routeFail false cartTouched false cleanup null 429s 0 closed true
