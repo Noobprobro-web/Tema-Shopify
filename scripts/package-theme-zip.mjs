@@ -66,6 +66,7 @@
  * con `unzip -t` y con zipfile de Python. Sin dependencias npm.
  */
 
+import { deepStrictEqual } from 'node:assert';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
@@ -105,6 +106,105 @@ const EXCLUDED_PATHS = [
   'sections/main-documentation.liquid',
   'sections/main-support.liquid',
 ];
+
+/**
+ * Contenido solo del repositorio. Las secciones de documentacion y soporte del
+ * vendedor se quedan en el repo pero no viajan en el ZIP (ver EXCLUDED_PATHS). Su
+ * CSS y JS llevan delimitadores de texto estables que se eliminan al empaquetar:
+ *   CSS: a comment line `docs-only:start` ... a comment line `docs-only:end`
+ *   JS:  the same two markers as `//` line comments
+ * JSON no admite comentarios: las claves de locale se borran por su ruta exacta.
+ * El empaquetado falla si falta un delimitador esperado, si quedan desparejados o
+ * si tras quitarlos sigue habiendo alguna referencia en archivos del ZIP.
+ */
+const DOCS_ONLY_DELIMITED = {
+  'assets/base.css': { start: '/* docs-only:start */', end: '/* docs-only:end */' },
+  'assets/theme.js': { start: '// docs-only:start', end: '// docs-only:end' },
+};
+/** Rutas de clave a borrar por archivo de locale. El esquema usa `sections.*`, el resto claves de primer nivel. */
+const DOCS_ONLY_LOCALE_KEYS = {
+  schema: [['sections', 'main_documentation'], ['sections', 'main_support']],
+  storefront: [['documentation'], ['support']],
+};
+/** Referencias que no deben sobrevivir en ningun archivo de texto del ZIP. */
+const DOCS_ONLY_LEFTOVER = /main-documentation|main-support|support-form|\bdoc-[a-z]|copy-text|CopyText|data-copy-|main_documentation|main_support|docs-only/;
+const DOCS_ONLY_LEFTOVER_KEYS = /['"]\s*(documentation|support)\.[a-z_]/;
+
+function stripDelimited(p, text, { start, end }) {
+  const lines = text.split('\n');
+  const out = [];
+  let open = false;
+  let blocks = 0;
+  for (const line of lines) {
+    const t = line.trim();
+    if (t === start) {
+      if (open) fail('docs-only: delimitador de inicio anidado en ' + p);
+      open = true;
+      blocks++;
+    } else if (t === end) {
+      if (!open) fail('docs-only: delimitador de fin sin inicio en ' + p);
+      open = false;
+    } else if (!open) {
+      out.push(line);
+    }
+  }
+  if (open) fail('docs-only: bloque sin cerrar en ' + p);
+  if (blocks === 0) fail('docs-only: faltan los delimitadores esperados en ' + p);
+  return out.join('\n');
+}
+
+/** Borra una clave de un JSON de locale por texto (conserva el formato) y comprueba el resultado. */
+function removeJsonKey(p, text, keyPath) {
+  const lines = text.split('\n');
+  const depth = keyPath.length;
+  const key = keyPath[depth - 1];
+  const indent = '  '.repeat(depth);
+  const idx = lines.findIndex((l) => l.startsWith(indent + '"' + key + '": {') && l.trimEnd().endsWith('{'));
+  if (idx === -1) fail('docs-only: falta la clave ' + keyPath.join('.') + ' en ' + p);
+  let close = -1;
+  for (let i = idx + 1; i < lines.length; i++) {
+    if (lines[i] === indent + '}' || lines[i] === indent + '},') { close = i; break; }
+  }
+  if (close === -1) fail('docs-only: no se encontro el cierre de ' + keyPath.join('.') + ' en ' + p);
+  const hadComma = lines[close].endsWith(',');
+  lines.splice(idx, close - idx + 1);
+  if (!hadComma && idx > 0 && lines[idx - 1].endsWith(',')) lines[idx - 1] = lines[idx - 1].slice(0, -1);
+  return lines.join('\n');
+}
+
+function stripLocale(p, text) {
+  const kind = p.endsWith('.schema.json') ? 'schema' : 'storefront';
+  let out = text;
+  for (const kp of DOCS_ONLY_LOCALE_KEYS[kind]) out = removeJsonKey(p, out, kp);
+  const after = JSON.parse(out);
+  const expected = JSON.parse(text);
+  for (const kp of DOCS_ONLY_LOCALE_KEYS[kind]) {
+    let node = expected;
+    for (const k of kp.slice(0, -1)) node = node[k];
+    delete node[kp[kp.length - 1]];
+  }
+  deepStrictEqual(after, expected);
+  return out;
+}
+
+function applyDocsOnly(entries) {
+  for (const e of entries) {
+    if (!isTextBlob(e)) continue;
+    let text = e.data.toString('utf8');
+    if (DOCS_ONLY_DELIMITED[e.path]) text = stripDelimited(e.path, text, DOCS_ONLY_DELIMITED[e.path]);
+    else if (/^locales\/[^/]+\.json$/.test(e.path)) text = stripLocale(e.path, text);
+    else continue;
+    e.data = Buffer.from(text, 'utf8');
+  }
+  const bad = [];
+  for (const e of entries) {
+    if (!isTextBlob(e)) continue;
+    e.data.toString('utf8').split('\n').forEach((line, i) => {
+      if (DOCS_ONLY_LEFTOVER.test(line) || DOCS_ONLY_LEFTOVER_KEYS.test(line)) bad.push(e.path + ':' + (i + 1));
+    });
+  }
+  if (bad.length) fail('docs-only: quedan referencias a contenido solo del repositorio en el ZIP:\n  ' + bad.join('\n  '));
+}
 
 function fail(msg) {
   console.error('[package-theme-zip] ERROR: ' + msg);
@@ -192,6 +292,7 @@ function collect(commit) {
     e.data = git(['cat-file', 'blob', e.sha]);
     if (isTextBlob(e) && e.data.includes(0x0d)) fail('el blob contiene CR (se exige LF): ' + e.path);
   }
+  applyDocsOnly(entries);
   return entries;
 }
 

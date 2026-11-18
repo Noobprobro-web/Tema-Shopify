@@ -1486,7 +1486,9 @@
       this.dataset.stockState = state.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
       this.message.textContent = state === 'lowStock'
         ? (this.dataset.showCount === 'true'
-          ? this.dataset.lowStockTemplate.replace('[count]', String(quantity))
+          ? (quantity === 1 && this.dataset.lowStockTemplateOne
+            ? this.dataset.lowStockTemplateOne
+            : this.dataset.lowStockTemplate.replace('[count]', String(quantity)))
           : this.dataset.lowStockGeneric)
         : this.dataset[state];
     }
@@ -4199,19 +4201,39 @@
       this.startListening();
       this.requestController = null;
       this.gridStorageKey = 'theme:grid-columns';
+      this.priceTimer = null;
+
+      // With JavaScript the filters apply as soon as they change, so the Apply button is
+      // redundant and the stylesheet hides it. Without JavaScript the attribute is never
+      // set and the form still works through that button.
+      this.setAttribute('data-auto-apply', '');
 
       this.listen(this, 'submit', (event) => {
         const form = event.target.closest('[data-facet-form]');
         if (!form) return;
         event.preventDefault();
+        clearTimeout(this.priceTimer);
         const submitter = event.submitter || document.activeElement;
-        const fallback = submitter?.id ? `#${CSS.escape(submitter.id)}` : 'button[type="submit"]';
+        // Apply may be hidden, so it is never the fallback: focus goes back to the
+        // control that was used, or to the summary of its filter group.
+        const fallback = submitter?.id ? `#${CSS.escape(submitter.id)}` : 'summary.facet__summary';
         this.renderForm(form, true, fallback);
       });
 
       this.listen(this, 'change', (event) => {
-        if (!event.target.matches('[data-facet-sort]')) return;
-        event.target.form?.requestSubmit();
+        const target = event.target;
+        if (target.matches('[data-facet-sort]') || target.matches('.facet input[type="checkbox"]')) {
+          target.form?.requestSubmit();
+          return;
+        }
+
+        // Price fields wait a moment so that editing the minimum and then the maximum
+        // sends a single request.
+        if (target.matches('.facet input')) {
+          clearTimeout(this.priceTimer);
+          const form = target.form;
+          this.priceTimer = setTimeout(() => form?.requestSubmit(), 400);
+        }
       });
 
       this.listen(this, 'click', (event) => {
@@ -4238,6 +4260,7 @@
 
     disconnectedCallback() {
       this.requestController?.abort();
+      clearTimeout(this.priceTimer);
       super.disconnectedCallback();
     }
 
@@ -4265,6 +4288,8 @@
       const activeEl = document.activeElement;
       const focusedId = activeEl?.id;
       const focusedName = activeEl?.name;
+      // The mobile filter panel is a <details>; replacing the markup would close it.
+      const disclosureWasOpen = Boolean(this.querySelector('.facets__disclosure')?.open);
 
       this.requestController?.abort();
       this.requestController = new AbortController();
@@ -4283,6 +4308,10 @@
         if (!nextElement) throw new Error('invalid-section');
 
         this.innerHTML = nextElement.innerHTML;
+        if (disclosureWasOpen) {
+          const disclosure = this.querySelector('.facets__disclosure');
+          if (disclosure) disclosure.open = true;
+        }
         this.applyStoredGridView();
         this.announceResultCount();
         if (pushState) window.history.pushState({}, '', navigationUrl);
@@ -4295,8 +4324,11 @@
           const fallbackTarget = this.querySelector(focusFallback);
           requestAnimationFrame(() => fallbackTarget?.focus());
         } else {
-          const defaultTarget = this.querySelector('button[type="submit"], [data-facet-sort], summary.facet__summary, [data-results-status]');
-          if (defaultTarget) requestAnimationFrame(() => defaultTarget?.focus());
+          // Skip anything not rendered (the hidden Apply button): focus() on it is a no-op.
+          const defaultTarget = Array.from(
+            this.querySelectorAll('button[type="submit"], [data-facet-sort], summary.facet__summary, [data-results-status]')
+          ).find((node) => node.getClientRects().length > 0);
+          if (defaultTarget) requestAnimationFrame(() => defaultTarget.focus());
         }
       } catch (error) {
         if (error.name === 'AbortError') return;
@@ -5232,8 +5264,9 @@
     }
   }
 
+  // docs-only:start
   // ---------------------------------------------------------------------------
-  // 4E-001. Copiado de un fragmento de la documentacion.
+  // Copiado de un fragmento de la documentacion.
   //
   // El boton nace con [hidden] en el Liquid y solo se revela aqui, cuando consta que el
   // navegador tiene portapapeles. Sin JavaScript, o en un contexto sin permiso, el
@@ -5288,6 +5321,7 @@
       this.resetTimer = setTimeout(() => this.setCopied(false), 2000);
     }
   }
+  // docs-only:end
 
   // ---------------------------------------------------------------------------
   // 4E-002. Filtro instantaneo de preguntas frecuentes.
@@ -6045,9 +6079,11 @@
     customElements.define('anchor-nav', AnchorNav);
   }
 
+  // docs-only:start
   if (!customElements.get('copy-text')) {
     customElements.define('copy-text', CopyText);
   }
+  // docs-only:end
 
   if (!customElements.get('faq-filter')) {
     customElements.define('faq-filter', FaqFilter);
@@ -6115,6 +6151,15 @@
     '.main-about__quote',
     '.main-about__value',
     '.main-about__gallery-item',
+    // Secciones estandar. Entran las tarjetas, el texto y la imagen; el slideshow y el
+    // video quedan fuera porque suelen ser la primera pantalla y su medio ya tiene su
+    // propio movimiento.
+    '.std-section__header',
+    '.collection-list__card',
+    '.blog-posts__card',
+    '.rich-text__content',
+    '.image-text__copy',
+    '.image-text__media',
   ].join(', ');
 
   // Tope del escalonado. Sin el, una rejilla de 40 productos tardaria mas de dos segundos

@@ -104,7 +104,7 @@
 [class*=' color-'] {
   --color-surface: color-mix(in srgb, var(--color-background) 94%, var(--color-foreground));
   --color-surface-subtle: color-mix(in srgb, var(--color-background) 90%, var(--color-foreground));
-  --color-foreground-muted: color-mix(in srgb, var(--color-foreground) 78%, var(--color-background));
+  --color-foreground-muted: color-mix(in srgb, var(--color-foreground) 84%, var(--color-background));
   --color-accent: var(--color-button);
   --color-accent-contrast: var(--color-button-label);
   --color-border-hairline: color-mix(in srgb, var(--color-border) 58%, var(--color-background));
@@ -6142,8 +6142,10 @@ product-recommendations:not([hidden]):empty {
 
 faq-accordion,
 password-modal,
-anchor-nav,
-copy-text {
+/* docs-only:start */
+copy-text,
+/* docs-only:end */
+anchor-nav {
   display: block;
 }
 
@@ -6216,8 +6218,10 @@ copy-text {
    h1 de pagina cae en el clamp de portada (hasta 7rem) y en un portatil el titulo se
    come la pantalla: "Documentation" no cabe en la cabecera y se parte a mitad de
    palabra. */
+/* docs-only:start */
 .main-documentation__title,
 .main-support__title,
+/* docs-only:end */
 .main-faq__title,
 .main-about__title,
 .main-policy__title,
@@ -6379,7 +6383,9 @@ copy-text {
 }
 
 .contact-form,
+/* docs-only:start */
 .support-form,
+/* docs-only:end */
 .comment-form,
 .password-newsletter,
 .storefront-password-form {
@@ -6405,21 +6411,27 @@ copy-text {
 }
 
 .contact-form__grid,
+/* docs-only:start */
 .support-form__grid,
+/* docs-only:end */
 .comment-form__grid {
   display: grid;
   gap: var(--space-lg);
 }
 
-.contact-form__footer,
-.support-form__footer {
+/* docs-only:start */
+.support-form__footer,
+/* docs-only:end */
+.contact-form__footer {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
-.contact-form__submit,
-.support-form__submit {
+/* docs-only:start */
+.support-form__submit,
+/* docs-only:end */
+.contact-form__submit {
   min-height: 52px;
 }
 
@@ -6490,18 +6502,24 @@ copy-text {
   color: var(--color-foreground);
 }
 
-.main-contact__service-list,
-.main-support__channel-list {
+/* docs-only:start */
+.main-support__channel-list,
+/* docs-only:end */
+.main-contact__service-list {
   border-top: 1px solid var(--color-border);
 }
 
-.main-contact__service-list li,
-.main-support__channel-list li {
+/* docs-only:start */
+.main-support__channel-list li,
+/* docs-only:end */
+.main-contact__service-list li {
   border-bottom: 1px solid var(--color-border);
 }
 
-.main-contact__service-link,
-.main-support__channel {
+/* docs-only:start */
+.main-support__channel,
+/* docs-only:end */
+.main-contact__service-link {
   display: flex;
   min-height: 64px;
   align-items: center;
@@ -6511,15 +6529,19 @@ copy-text {
   text-decoration: none;
 }
 
-.main-contact__service-link strong,
-.main-contact__service-link small,
+/* docs-only:start */
 .main-support__channel strong,
-.main-support__channel small {
+.main-support__channel small,
+/* docs-only:end */
+.main-contact__service-link strong,
+.main-contact__service-link small {
   display: block;
 }
 
-.main-contact__service-link small,
-.main-support__channel small {
+/* docs-only:start */
+.main-support__channel small,
+/* docs-only:end */
+.main-contact__service-link small {
   margin-block-start: var(--space-3xs);
   color: var(--color-foreground-muted);
 }
@@ -7172,8 +7194,10 @@ copy-text {
 }
 
 @media (min-width: 48rem) {
+  /* docs-only:start */
   .main-documentation__title,
   .main-support__title,
+  /* docs-only:end */
   .main-faq__title,
   .main-about__title,
   .main-policy__title,
@@ -7241,8 +7265,10 @@ copy-text {
 }
 
 @media (min-width: 62rem) {
+  /* docs-only:start */
   .main-documentation__title,
   .main-support__title,
+  /* docs-only:end */
   .main-faq__title,
   .main-about__title,
   .main-policy__title,
@@ -8067,6 +8093,7 @@ copy-text {
   opacity: 1;
 }
 
+/* docs-only:start */
 /* ---------- Documentacion ---------- */
 .main-documentation__header {
   max-width: 46rem;
@@ -8321,6 +8348,7 @@ copy-text {
 .main-support__policy-items li + li {
   margin-block-start: var(--space-2xs);
 }
+/* docs-only:end */
 
 /* ---------- Preguntas frecuentes ---------- */
 .main-faq__header {
@@ -8586,7 +8614,9 @@ copy-text {
 }
 
 @media (min-width: 62rem) {
+  /* docs-only:start */
   .main-documentation__layout,
+  /* docs-only:end */
   .main-policy__layout {
     grid-template-columns: minmax(12rem, 0.24fr) minmax(0, 1fr);
     gap: var(--space-4xl);
@@ -8595,7 +8625,9 @@ copy-text {
 
   /* La barra lateral acompana al scroll, pero nunca supera la altura de la ventana: con
      un indice largo, lo que sobra se desplaza dentro de ella en vez de quedar fuera. */
+  /* docs-only:start */
   .main-documentation__nav,
+  /* docs-only:end */
   .main-policy__nav {
     position: sticky;
     top: var(--space-2xl);
@@ -8603,12 +8635,15 @@ copy-text {
     overflow-y: auto;
   }
 
+  /* docs-only:start */
   .main-support__layout {
     grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
     gap: var(--space-4xl);
     align-items: start;
   }
+  /* docs-only:end */
 
+  /* docs-only:start */
   .support-form__grid,
   .main-support__policies {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -8619,6 +8654,7 @@ copy-text {
     align-items: center;
     justify-content: space-between;
   }
+  /* docs-only:end */
 
   .main-about__values-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -8693,6 +8729,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   color: var(--color-foreground-muted);
 }
 
+/* docs-only:start */
 /* ---------- Soporte: validacion sutil y tarjetas de alcance ----------
    :user-invalid, no :invalid: el navegador solo lo aplica despues de que la persona haya
    interactuado con el campo, asi que un formulario recien abierto no aparece en rojo
@@ -8730,6 +8767,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   content: '';
   opacity: 0.6;
 }
+/* docs-only:end */
 
 /* ---------- Historia de marca: comillas editoriales ---------- */
 .main-about__quote-text::before {
@@ -8907,7 +8945,9 @@ html {
     overscroll-behavior: contain;
   }
 
+  /* docs-only:start */
   .main-documentation__nav,
+  /* docs-only:end */
   .main-policy__nav {
     top: calc(var(--header-offset) + var(--space-2xl));
     max-height: calc(100vh - var(--header-offset) - (var(--space-2xl) * 2));
