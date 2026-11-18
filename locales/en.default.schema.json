@@ -5,7 +5,7 @@
       "settings": {
         "animations": {
           "label": "Motion",
-          "info": "Subtle adds scroll reveals, hover transitions and page transitions. Full adds expressive motion tied to the scroll position, so each gesture advances and rewinds with the page until it settles: headlines rise line by line, images unveil behind a mask, the hero drifts in parallax and the scrolling text surges as it crosses the screen. All of it runs on native CSS, so no animation library is loaded in any mode, and browsers without scroll-driven animation support get the same reveals as Subtle. Visitors who ask their device to reduce motion always see the static theme, whichever option you choose.",
+          "info": "Subtle adds scroll reveals and hover transitions. Full adds motion tied to scroll position, such as rising headlines, image reveals and a parallax hero. Visitors who ask their device to reduce motion always see the static theme.",
           "options__none": {
             "label": "None"
           },
@@ -349,9 +349,6 @@
     "footer_group": {
       "name": "Footer group"
     },
-    "main_placeholder": {
-      "name": "Page foundation"
-    },
     "custom_liquid": {
       "name": "Custom Liquid",
       "settings": {
@@ -383,6 +380,52 @@
       },
       "presets": {
         "name": "Announcement bar"
+      }
+    },
+    "blog_posts": {
+      "name": "Blog posts",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 2"
+          },
+          "options__2": {
+            "label": "Heading 3"
+          }
+        },
+        "blog": {
+          "label": "Blog"
+        },
+        "posts_to_show": {
+          "label": "Posts to show",
+          "info": "Shows fewer posts when the blog has fewer than this number."
+        },
+        "show_view_all": {
+          "label": "Show link to the blog"
+        },
+        "cards_header": {
+          "content": "Post cards"
+        },
+        "show_image": {
+          "label": "Show image"
+        },
+        "show_excerpt": {
+          "label": "Show excerpt"
+        },
+        "show_date": {
+          "label": "Show date"
+        },
+        "show_author": {
+          "label": "Show author"
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "presets": {
+        "name": "Blog posts"
       }
     },
     "newsletter": {
@@ -652,6 +695,149 @@
         "name": "Mixed content grid"
       }
     },
+    "image_with_text": {
+      "name": "Image with text",
+      "settings": {
+        "image_alt": {
+          "info": "Describes the image for screen readers. Leave blank to use the image's own alternative text, or none when a heading already explains it."
+        },
+        "layout": {
+          "label": "Desktop layout",
+          "options__1": { "label": "Image first" },
+          "options__2": { "label": "Text first" }
+        },
+        "image_width": {
+          "label": "Image width",
+          "options__1": { "label": "Half" },
+          "options__2": { "label": "Larger than the text" }
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "info": "Choose Original to keep the image's own proportions. Other shapes crop it.",
+          "options__1": { "label": "Original" },
+          "options__2": { "label": "Portrait" },
+          "options__3": { "label": "Square" },
+          "options__4": { "label": "Landscape" }
+        },
+        "text_position": {
+          "label": "Text position",
+          "options__1": { "label": "Top" },
+          "options__2": { "label": "Middle" },
+          "options__3": { "label": "Bottom" }
+        },
+        "mobile_order": {
+          "label": "Mobile order"
+        },
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use level 1 only for the main heading of the page. Other sections should use level 2 or 3.",
+          "options__1": { "label": "Heading 1" },
+          "options__2": { "label": "Heading 2" },
+          "options__3": { "label": "Heading 3" }
+        },
+        "button_style": {
+          "label": "Button style",
+          "options__1": { "label": "Solid" },
+          "options__2": { "label": "Outline" }
+        }
+      },
+      "presets": {
+        "name": "Image with text"
+      }
+    },
+    "slideshow": {
+      "name": "Slideshow",
+      "settings": {
+        "height_desktop": {
+          "label": "Minimum height on desktop",
+          "info": "Percentage of the screen height. A slide grows taller on its own when its text needs more room."
+        },
+        "height_mobile": {
+          "label": "Minimum height on mobile",
+          "info": "Percentage of the screen height. A slide grows taller on its own when its text needs more room."
+        },
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use level 1 only for the main heading of the page. Other sections should use level 2 or 3.",
+          "options__1": { "label": "Heading 1" },
+          "options__2": { "label": "Heading 2" },
+          "options__3": { "label": "Heading 3" }
+        },
+        "autoplay": {
+          "label": "Change slides automatically",
+          "info": "Automatic changes pause on hover and focus. For visitors who prefer reduced motion, slides never change automatically and the pause button is not shown. Otherwise a pause button is shown."
+        },
+        "autoplay_delay": {
+          "label": "Time between slides"
+        }
+      },
+      "blocks": {
+        "slide": {
+          "name": "Slide",
+          "settings": {
+            "image_alt": {
+              "info": "Describes the image for screen readers. Leave blank to use the image's own alternative text."
+            },
+            "overlay_opacity": {
+              "label": "Image overlay",
+              "info": "Darkens the image so the text stays readable. Raise it for bright photos."
+            },
+            "text_alignment": {
+              "label": "Text alignment",
+              "options__1": { "label": "Left" },
+              "options__2": { "label": "Center" },
+              "options__3": { "label": "Right" }
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Slideshow"
+      }
+    },
+    "video": {
+      "name": "Video",
+      "settings": {
+        "video": {
+          "label": "Video file",
+          "info": "A video uploaded to Shopify. Takes priority over the video link below."
+        },
+        "video_url": {
+          "label": "Video link",
+          "info": "A YouTube or Vimeo link. The player loads from that service only after a visitor presses play."
+        },
+        "cover_image": {
+          "label": "Cover image",
+          "info": "Shown before the video plays. Uploaded videos use their own preview when this is empty."
+        },
+        "video_title": {
+          "label": "Video title",
+          "info": "Read aloud by screen readers to describe the video. Required for accessibility."
+        },
+        "width": {
+          "label": "Width",
+          "options__1": { "label": "Contained" },
+          "options__2": { "label": "Full width" }
+        },
+        "aspect_ratio": {
+          "label": "Video shape",
+          "options__1": { "label": "Widescreen (16:9)" },
+          "options__2": { "label": "Cinematic (21:9)" },
+          "options__3": { "label": "Standard (4:3)" },
+          "options__4": { "label": "Square (1:1)" }
+        },
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use level 1 only for the main heading of the page. Other sections should use level 2 or 3.",
+          "options__1": { "label": "Heading 1" },
+          "options__2": { "label": "Heading 2" },
+          "options__3": { "label": "Heading 3" }
+        }
+      },
+      "presets": {
+        "name": "Video"
+      }
+    },
     "lookbook": {
       "name": "Shoppable lookbook",
       "settings": {
@@ -701,6 +887,77 @@
         "name": "Shoppable lookbook"
       }
     },
+    "collection_list": {
+      "name": "Collection list",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 2"
+          },
+          "options__2": {
+            "label": "Heading 3"
+          }
+        },
+        "show_product_count": {
+          "label": "Show product count"
+        },
+        "layout_header": {
+          "content": "Layout"
+        },
+        "columns_desktop": {
+          "label": "Collections per row on desktop",
+          "options__1": {
+            "label": "Two per row"
+          },
+          "options__2": {
+            "label": "Three per row"
+          },
+          "options__3": {
+            "label": "Four per row"
+          }
+        },
+        "columns_mobile": {
+          "label": "Collections per row on mobile",
+          "options__1": {
+            "label": "One per row"
+          },
+          "options__2": {
+            "label": "Two per row"
+          }
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "options__1": {
+            "label": "Portrait"
+          },
+          "options__2": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Landscape"
+          }
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "blocks": {
+        "collection": {
+          "name": "Collection",
+          "settings": {
+            "image": {
+              "label": "Custom image",
+              "info": "Replaces the collection image. Leave empty to use the collection image or its first product."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Collection list"
+      }
+    },
     "complete_the_look": {
       "name": "Complete the look",
       "blocks": {
@@ -716,6 +973,42 @@
       },
       "presets": {
         "name": "Complete the look"
+      }
+    },
+    "featured_collection": {
+      "name": "Featured collection",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 2"
+          },
+          "options__2": {
+            "label": "Heading 3"
+          }
+        },
+        "show_view_all": {
+          "label": "Show link to the collection"
+        },
+        "layout_header": {
+          "content": "Layout"
+        },
+        "columns_mobile": {
+          "label": "Products per row on mobile",
+          "options__1": {
+            "label": "One per row"
+          },
+          "options__2": {
+            "label": "Two per row"
+          }
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "presets": {
+        "name": "Featured collection"
       }
     },
     "featured_product": {
@@ -803,6 +1096,74 @@
       },
       "presets": {
         "name": "Recently viewed"
+      }
+    },
+    "rich_text": {
+      "name": "Rich text",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 1"
+          },
+          "options__2": {
+            "label": "Heading 2"
+          },
+          "options__3": {
+            "label": "Heading 3"
+          }
+        },
+        "layout_header": {
+          "content": "Layout"
+        },
+        "text_alignment": {
+          "label": "Text alignment",
+          "info": "Start and end follow the reading direction of the language.",
+          "options__1": {
+            "label": "Start"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "End"
+          }
+        },
+        "content_width": {
+          "label": "Content width",
+          "options__1": {
+            "label": "Narrow"
+          },
+          "options__2": {
+            "label": "Standard"
+          },
+          "options__3": {
+            "label": "Wide"
+          }
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "blocks": {
+        "button": {
+          "name": "Button",
+          "settings": {
+            "style": {
+              "label": "Button style",
+              "options__1": {
+                "label": "Solid"
+              },
+              "options__2": {
+                "label": "Outline"
+              }
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Rich text"
       }
     },
     "cart_drawer": {
@@ -1162,9 +1523,6 @@
             }
           }
         }
-      },
-      "presets": {
-        "name": "Page content"
       }
     },
     "main_blog": {
@@ -1254,9 +1612,6 @@
             }
           }
         }
-      },
-      "presets": {
-        "name": "Contact and FAQ"
       }
     },
     "main_documentation": {
@@ -1431,9 +1786,6 @@
             }
           }
         }
-      },
-      "presets": {
-        "name": "Brand story"
       }
     },
     "main_faq": {
@@ -1472,9 +1824,6 @@
         "unresolved_cta": {
           "name": "Closing card"
         }
-      },
-      "presets": {
-        "name": "FAQ"
       }
     },
     "main_policy": {
@@ -1488,9 +1837,6 @@
           "label": "Show table of contents",
           "info": "Built from the heading level 2 titles in the page content. Hidden when the page has fewer than two."
         }
-      },
-      "presets": {
-        "name": "Legal page"
       }
     },
     "main_password": {

@@ -36,8 +36,12 @@
   assign unit_price_target = price_target
   assign price_varies = false
 
-  if target_is_product and product.price_varies
-    assign price_varies = true
+  # When the price differs between variants, only "From" and the lowest price are shown:
+  # a struck-through value would not belong to that price.
+  if target_is_product
+    if product.price_varies
+      assign price_varies = true
+    endif
   endif
 
   if target_is_product
@@ -68,12 +72,7 @@
     {%- if price_varies -%}
       <span>{{ 'products.product.price_from' | t }}</span>
       <span data-current-price>{{ current_price | money }}</span>
-      {%- if on_sale -%}
-        <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-        <s class="price__compare" data-compare-price>{{ compare_price | money }}</s>
-      {%- else -%}
-        <s class="price__compare" data-compare-price hidden></s>
-      {%- endif -%}
+      <s class="price__compare" data-compare-price hidden></s>
     {%- elsif on_sale -%}
       <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
       <span data-current-price>{{ current_price | money }}</span>

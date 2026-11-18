@@ -1,5 +1,5 @@
 {%- comment -%}
-  Productos complementarios del cajon del carrito (V1.1.0, fase 2).
+  Productos complementarios del cajon del carrito.
 
   Accepts:
   - section: la seccion cart-drawer (ajustes y bloques)
@@ -182,7 +182,7 @@
                 class="cart-cross-sell__button"
                 data-cross-sell-add
                 data-variant-id="{{ card_variant.id }}"
-                aria-label="{{ 'sections.cart.add_complementary_product' | t: product: candidate.title | escape }}"
+                aria-label="{{ 'sections.cart.add_complementary_product' | t: product: candidate.title | escape_once }}"
               >
                 {{- add_button_content -}}
               </button>
@@ -193,7 +193,7 @@
                 data-cross-sell-expand
                 aria-expanded="false"
                 aria-controls="CrossSellOptions-{{ section.id }}-{{ candidate.id }}"
-                aria-label="{{ 'sections.cart.choose_options_product' | t: product: candidate.title | escape }}"
+                aria-label="{{ 'sections.cart.choose_options_product' | t: product: candidate.title | escape_once }}"
               >
                 {{- 'sections.cart.choose_options' | t -}}
               </button>
@@ -212,7 +212,7 @@
                   {%- assign option_position = forloop.index -%}
                   <fieldset class="cart-cross-sell__fieldset" data-option-position="{{ option_position }}">
                     <legend class="cart-cross-sell__legend">
-                      {{- 'sections.cart.select_option' | t: option: option.name | escape -}}
+                      {{- 'sections.cart.select_option' | t: option: option.name | escape_once -}}
                     </legend>
                     <div class="cart-cross-sell__chips">
                       {%- for value in option.values -%}
@@ -249,7 +249,7 @@
                     data-cross-sell-add
                     data-variant-id=""
                     disabled
-                    aria-label="{{ 'sections.cart.add_complementary_product' | t: product: candidate.title | escape }}"
+                    aria-label="{{ 'sections.cart.add_complementary_product' | t: product: candidate.title | escape_once }}"
                   >
                     {{- add_button_content -}}
                   </button>
@@ -279,7 +279,7 @@
                 class="button button--secondary cart-cross-sell__link"
                 href="{{ candidate.url }}"
                 data-cross-sell-view
-                aria-label="{{ 'sections.cart.view_product_for' | t: product: candidate.title | escape }}"
+                aria-label="{{ 'sections.cart.view_product_for' | t: product: candidate.title | escape_once }}"
               >
                 {{- 'sections.cart.view_product' | t -}}
               </a>

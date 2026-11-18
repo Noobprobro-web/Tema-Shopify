@@ -1,0 +1,292 @@
+{{ 'section-standard-a.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+  assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  assign source_blog = section.settings.blog
+  assign heading_tag = section.settings.heading_tag | default: 'h2'
+  assign title_id = 'BlogPostsTitle-' | append: section.id
+  assign region_label = source_blog.title
+  if region_label == blank
+    assign region_label = 'sections.blog_posts.region_label' | t
+  endif
+  assign post_limit = section.settings.posts_to_show | default: 3
+
+  # The cards sit one level below the section heading; with no heading they take its level.
+  assign card_tag = heading_tag
+  if section.settings.heading != blank
+    if heading_tag == 'h2'
+      assign card_tag = 'h3'
+    else
+      assign card_tag = 'h4'
+    endif
+  endif
+
+  # One column per post, so a blog with fewer posts than requested does not leave a hole.
+  assign available_posts = source_blog.articles_count | default: post_limit
+  assign columns_desktop = post_limit | at_most: available_posts | at_least: 1
+  assign columns_tablet = columns_desktop | at_most: 2
+
+  capture image_sizes
+    render 'card-sizes', columns_mobile: 1, columns_tablet: columns_tablet, columns_desktop: columns_desktop
+  endcapture
+
+  # Only the first section on the page loads its images eagerly.
+  assign is_first_section = false
+  if section.index == 1
+    assign is_first_section = true
+  endif
+
+  assign has_posts = false
+  if source_blog != blank and source_blog.articles_count > 0
+    assign has_posts = true
+  endif
+  assign show_view_all = false
+  if section.settings.show_view_all and has_posts
+    assign show_view_all = true
+  endif
+  assign grid_is_single = false
+  if columns_desktop == 1 and has_posts
+    assign grid_is_single = true
+  endif
+-%}
+
+{%- if source_blog == blank or has_posts or request.design_mode -%}
+  <section
+    class="section std-section blog-posts color-{{ section_scheme }}"
+    style="--std-padding-top: {{ section.settings.padding_top }}px; --std-padding-bottom: {{ section.settings.padding_bottom }}px; --std-columns-mobile: 1; --std-columns-tablet: {{ columns_tablet }}; --std-columns-desktop: {{ columns_desktop }};"
+    {% if section.settings.heading != blank %}
+      aria-labelledby="{{ title_id }}"
+    {% else %}
+      aria-label="{{ region_label | escape }}"
+    {% endif %}
+  >
+    <div class="std-section__inner">
+      {%- if section.settings.heading != blank or section.settings.eyebrow != blank or show_view_all -%}
+        <header class="std-section__header">
+          <div class="std-section__title-group">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <{{ heading_tag }} id="{{ title_id }}" class="std-section__heading">
+                {{- section.settings.heading | escape -}}
+              </{{ heading_tag }}>
+            {%- endif -%}
+          </div>
+          {%- if show_view_all -%}
+            <a
+              class="std-section__link"
+              href="{{ source_blog.url }}"
+              aria-label="{{ 'sections.blog_posts.view_all_label' | t: title: source_blog.title | escape_once }}"
+            >
+              <span class="std-section__link-text">{{ 'sections.blog_posts.view_all' | t }}</span>
+              {% render 'icon', name: 'arrow', size: 18 %}
+            </a>
+          {%- endif -%}
+        </header>
+      {%- endif -%}
+
+      {%- if source_blog == blank -%}
+        {%- if request.design_mode -%}
+          <p class="std-section__note">{{ 'sections.blog_posts.choose_blog' | t }}</p>
+        {%- endif -%}
+        <ul class="std-grid" aria-hidden="true">
+          {%- for placeholder_index in (1..columns_desktop) -%}
+            <li>
+              <div class="blog-posts__card">
+                <div class="blog-posts__media">
+                  {{- 'image' | placeholder_svg_tag: 'homepage-placeholder' -}}
+                </div>
+                <div class="blog-posts__body">
+                  <{{ card_tag }} class="blog-posts__title">{{ 'sections.blog_posts.placeholder_title' | t }}</{{ card_tag }}>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- elsif has_posts -%}
+        <ul class="std-grid{% if grid_is_single %} std-grid--single{% endif %}">
+          {%- for blog_article in source_blog.articles limit: post_limit -%}
+            {%- liquid
+              assign eager_card = false
+              if is_first_section and forloop.index <= columns_desktop
+                assign eager_card = true
+              endif
+              assign meta_parts = 0
+              if section.settings.show_date
+                assign meta_parts = meta_parts | plus: 1
+              endif
+              if section.settings.show_author and blog_article.author != blank
+                assign meta_parts = meta_parts | plus: 1
+              endif
+            -%}
+            <li>
+              <article class="blog-posts__card">
+                {%- if section.settings.show_image -%}
+                  <div class="blog-posts__media">
+                    {%- if blog_article.image != blank -%}
+                      {% render 'responsive-image',
+                        image: blog_article.image,
+                        eager: eager_card,
+                        sizes: image_sizes,
+                        widths: '320, 480, 640, 800, 1000, 1200',
+                        image_class: 'blog-posts__image',
+                        decorative: true
+                      %}
+                    {%- else -%}
+                      {{- 'image' | placeholder_svg_tag: 'homepage-placeholder' -}}
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                <div class="blog-posts__body">
+                  {%- if meta_parts > 0 -%}
+                    <p class="blog-posts__meta">
+                      {%- if section.settings.show_date -%}
+                        {{- blog_article.published_at | time_tag: format: 'date' -}}
+                      {%- endif -%}
+                      {%- if section.settings.show_date and section.settings.show_author and blog_article.author != blank %} / {% endif -%}
+                      {%- if section.settings.show_author and blog_article.author != blank -%}
+                        {{- 'blogs.article.by_author' | t: author: blog_article.author | escape_once -}}
+                      {%- endif -%}
+                    </p>
+                  {%- endif -%}
+                  <{{ card_tag }} class="blog-posts__title">{{ blog_article.title | escape }}</{{ card_tag }}>
+                  {%- if section.settings.show_excerpt -%}
+                    {%- assign excerpt_text = blog_article.excerpt_or_content | strip_html | strip | truncatewords: 24 -%}
+                    {%- if excerpt_text != blank -%}
+                      <p class="blog-posts__excerpt">{{ excerpt_text }}</p>
+                    {%- endif -%}
+                  {%- endif -%}
+                  <a class="blog-posts__link" href="{{ blog_article.url }}">
+                    {{- 'sections.blog_posts.read_more' | t -}}
+                    <span class="visually-hidden"> {{ blog_article.title | escape }}</span>
+                  </a>
+                </div>
+              </article>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p class="std-section__note">{{ 'sections.blog_posts.empty_blog' | t }}</p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.blog_posts.name",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.all.eyebrow.label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.all.heading.label",
+      "default": "From the journal"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.blog_posts.settings.heading_tag.label",
+      "info": "t:sections.blog_posts.settings.heading_tag.info",
+      "options": [
+        { "value": "h2", "label": "t:sections.blog_posts.settings.heading_tag.options__1.label" },
+        { "value": "h3", "label": "t:sections.blog_posts.settings.heading_tag.options__2.label" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "t:sections.blog_posts.settings.blog.label"
+    },
+    {
+      "type": "range",
+      "id": "posts_to_show",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "t:sections.blog_posts.settings.posts_to_show.label",
+      "info": "t:sections.blog_posts.settings.posts_to_show.info",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "t:sections.blog_posts.settings.show_view_all.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.blog_posts.settings.cards_header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "t:sections.blog_posts.settings.show_image.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "t:sections.blog_posts.settings.show_excerpt.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "t:sections.blog_posts.settings.show_date.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "t:sections.blog_posts.settings.show_author.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.blog_posts.settings.appearance_header.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.featured_product.settings.padding_top.label",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.featured_product.settings.padding_bottom.label",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.blog_posts.presets.name"
+    }
+  ]
+}
+{% endschema %}

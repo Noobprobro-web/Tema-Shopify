@@ -1,6 +1,6 @@
 {%- comment -%}
-  5C-001. Desplegable de un enlace de primer nivel del menu de escritorio. Lo pinta
-  sections/header.liquid para cada enlace con hijos; aqui vive la decision entre el panel
+  Desplegable de un enlace de primer nivel del menu de escritorio. Lo pinta
+  sections/header.liquid para cada enlace con hijos; aqui vive la eleccion entre el panel
   clasico y el mega menu, para que la cabecera no crezca en complejidad.
 
   Mega menu cuando el enlace tiene un bloque mega_menu_promo asociado o tres niveles:
@@ -106,7 +106,7 @@
                 assign card_subheading = promo.settings[subheading_key]
                 assign card_link = promo.settings[link_key]
 
-                # P1: Localizar URL de tarjeta para preservar el locale en /es/ y mercados
+                # Localizar URL de tarjeta para preservar el locale en /es/ y mercados
                 assign localized_card_link = card_link
                 if card_link == '/collections/all'
                   assign localized_card_link = routes.all_products_collection_url
@@ -134,7 +134,7 @@
                   assign card_alt = card_image.alt | default: link.title
                 endif
 
-                # 5C-002. La caja es 4:5 y la foto la cubre: una apaisada se pinta mas ancha que la
+                # La caja es 4:5 y la foto la cubre: una apaisada se pinta mas ancha que la
                 # tarjeta (1376 x 768 ocupa 2,24 veces sus 15rem). sizes declara ese ancho pintado
                 # para que el navegador no elija una copia pequena y la estire.
                 assign card_rem = 15

@@ -66,9 +66,6 @@
         <div class="lookbook__hotspots">
           {%- for block in section.blocks -%}
             {%- assign hotspot_product = block.settings.product -%}
-            {%- if hotspot_product == blank -%}
-              {%- continue -%}
-            {%- endif -%}
             {%- liquid
               assign popover_id = 'LookbookPopover-' | append: section.id | append: '-' | append: block.id
               assign popover_title_id = 'LookbookPopoverTitle-' | append: section.id | append: '-' | append: block.id
@@ -81,6 +78,21 @@
                 assign vp_mobile = block.settings.vertical_position
               endif
             -%}
+            {%- if hotspot_product == blank -%}
+              {%- comment -%} Not shown in the store; the editor keeps the numbered marker so the block can be selected. {%- endcomment -%}
+              {%- if request.design_mode -%}
+                <div
+                  class="lookbook-hotspot"
+                  style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%; --hotspot-x-mobile: {{ hp_mobile }}%; --hotspot-y-mobile: {{ vp_mobile }}%;"
+                  {{ block.shopify_attributes }}
+                >
+                  <span class="lookbook-hotspot__trigger lookbook-hotspot__trigger--sample" aria-hidden="true">
+                    <span>{{ forloop.index }}</span>
+                  </span>
+                </div>
+              {%- endif -%}
+              {%- continue -%}
+            {%- endif -%}
             <div
               class="lookbook-hotspot"
               style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%; --hotspot-x-mobile: {{ hp_mobile }}%; --hotspot-y-mobile: {{ vp_mobile }}%;"

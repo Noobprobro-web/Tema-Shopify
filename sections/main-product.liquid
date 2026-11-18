@@ -15,7 +15,7 @@
   endif
 
   comment
-    5A-003, GPT-AUDIT-005 H1. Una variante que exige plan de venta y no tiene ninguno
+    Una variante que exige plan de venta y no tiene ninguno
     asignado no se puede comprar: Shopify responde 200 a /cart/add sin crear la linea. La
     ficha falla cerrada desde el servidor: sin boton activo, sin pago acelerado y con el
     motivo a la vista. VariantSelects repite la misma regla al cambiar de variante.
@@ -29,7 +29,7 @@
   assign product_form_id = 'product-form-' | append: section.id
 
   comment
-    B-02. Sin JS (o con theme.js caido) el selector visual de variantes no puede cambiar el id
+    Sin JS (o con theme.js caido) el selector visual de variantes no puede cambiar el id
     del formulario, asi que se emite un select nativo de variantes (snippet variant-no-js-select) y el
     hidden nace desactivado. VariantSelects toma el control al conectarse. Solo si el producto
     tiene variantes reales y el comerciante mantiene el bloque variant_picker.
@@ -45,7 +45,7 @@
   assign selected_media_id = selected_variant.featured_media.id | default: product.featured_media.id
 
   comment
-    Proporcion del carrusel movil (4F-001): la de la primera imagen, acotada entre 2:3 y
+    Proporcion del carrusel movil: la de la primera imagen, acotada entre 2:3 y
     3:2. Todas las diapositivas comparten marco para que el carrusel no cambie de alto al
     deslizar; una imagen de otra proporcion se muestra entera dentro de ese marco.
   endcomment
@@ -56,7 +56,7 @@
   endif
 
   comment
-    5B-001. Zoom de imagen (CLAUDE-AUDIT-OPUS-001, seccion 6). Solo las imagenes se amplian:
+    Zoom de imagen. Solo las imagenes se amplian:
     el video y el 3D conservan sus controles. Con el ajuste apagado o sin imagenes no hay
     disparadores, ni visor, ni product-zoom.js.
   endcomment
@@ -88,7 +88,7 @@
               {% if section.settings.media_layout == 'thumbnails' and media.id != selected_media_id %}hidden{% endif %}
             >
               {%- liquid
-                # 5B-001, H-07. En la rejilla de escritorio cada foto ocupa media columna de la
+                # En la rejilla de escritorio cada foto ocupa media columna de la
                 # galeria (unos 30vw); la primera, si el total es impar, ocupa las dos.
                 assign media_sizes = '(min-width: 62rem) 60vw, 100vw'
                 if section.settings.media_layout == 'grid' and product.media.size > 1
@@ -297,7 +297,9 @@
                 assign default_guide_title = 'products.product.size_guide' | t
                 assign guide_title = block.settings.guide_title | default: default_guide_title
                 assign size_guide_id = 'SizeGuide-' | append: section.id | append: '-' | append: block.id
+                assign size_guide_content = block.settings.model_fit_info | append: block.settings.page_content.handle | append: block.settings.size_table_cm | append: block.settings.size_table_in | strip
               -%}
+              {%- if size_guide_content != blank or request.design_mode -%}
               <size-guide-modal
                 class="size-guide"
                 data-default-unit="cm"
@@ -416,6 +418,7 @@
                   </section>
                 </div>
               </size-guide-modal>
+              {%- endif -%}
 
             {%- when 'quantity' -%}
               {%- liquid
@@ -691,23 +694,7 @@
               {% render 'product-inventory', product: product, variant: selected_variant, block: block %}
 
             {%- when 'shipping_lead_time', 'trust_badges' -%}
-              {%- assign trust_text = block.settings.delivery_text | default: block.settings.returns_text | strip -%}
-              {%- if trust_text != blank -%}
-              <p class="product-trust" {{ block.shopify_attributes }}>
-                <span class="product-trust__icon" aria-hidden="true">
-                  {%- if block.settings.icon == 'clock' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                  {%- elsif block.settings.icon == 'truck' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v11H2zM14 9h4l4 4v4h-8z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
-                  {%- elsif block.settings.icon == 'ruler' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 2 7 7L9 22l-7-7L15 2Z"/><path d="m11 6 2 2m-5 1 2 2m-5 1 2 2m4-9 2 2"/></svg>
-                  {%- elsif block.settings.icon == 'shield' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
-                  {%- endif -%}
-                </span>
-                <span>{{ trust_text | escape }}</span>
-              </p>
-              {%- endif -%}
+              {% render 'product-trust', block: block %}
 
             {%- when 'collapsible_tab' -%}
               {% render 'product-accordion', block: block %}
@@ -757,7 +744,7 @@
   </div>
 
   {%- comment -%}
-    5C-002. El visor va fuera de .product-main__layout: dentro era un hijo mas de la rejilla,
+    El visor va fuera de .product-main__layout: dentro era un hijo mas de la rejilla,
     ocupaba la segunda columna con alto 0 y mandaba la ficha debajo de la galeria.
   {%- endcomment -%}
   {%- if zoom_enabled -%}
@@ -818,7 +805,7 @@
             <span class="sticky-cart-bar__price" data-sticky-price>{% if selected_variant %}{{ selected_variant.price | money }}{% endif %}</span>
           </p>
           {%- comment -%}
-            4F-002. Con cantidad 2 o mas la barra dice cuantas unidades va a anadir y el total
+            Con cantidad 2 o mas la barra dice cuantas unidades va a anadir y el total
             de la linea, en su propia linea para que nunca se recorte. El total no se calcula
             aqui: se copia del total que ya muestra el bloque de cantidad, asi la barra nunca
             puede discrepar de la ficha.
@@ -916,14 +903,12 @@
         {
           "type": "text",
           "id": "guide_title",
-          "label": "t:sections.main_product.blocks.size_guide.settings.guide_title.label",
-          "default": "Size Guide & Measurements"
+          "label": "t:sections.main_product.blocks.size_guide.settings.guide_title.label"
         },
         {
           "type": "text",
           "id": "model_fit_info",
-          "label": "t:sections.main_product.blocks.size_guide.settings.model_fit_info.label",
-          "default": "Model is 178cm / 5'10\" wearing size S"
+          "label": "t:sections.main_product.blocks.size_guide.settings.model_fit_info.label"
         },
         {
           "type": "checkbox",
@@ -940,14 +925,12 @@
         {
           "type": "richtext",
           "id": "size_table_cm",
-          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_cm.label",
-          "default": "<p>XS: 84 cm / S: 88 cm / M: 92 cm / L: 96 cm</p>"
+          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_cm.label"
         },
         {
           "type": "richtext",
           "id": "size_table_in",
-          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_in.label",
-          "default": "<p>XS: 33 in / S: 34.5 in / M: 36 in / L: 38 in</p>"
+          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_in.label"
         }
       ]
     },

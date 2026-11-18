@@ -1,0 +1,757 @@
+{
+  "when": "2026-11-18T02:40:17.514Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "identity": {
+        "id": "190452203824",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 890,
+          "textLen": 112,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "The Master Tailor's Cut",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 209,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1413,
+          "textLen": 1001,
+          "imgs": 15,
+          "brokenImgs": 0,
+          "heading": "Selected Silhouettes",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 800,
+          "textLen": 260,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Silhouettes in Motion",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 758,
+          "textLen": 31,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Featured luxury product",
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 658,
+          "textLen": 126,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "True bespoke luxury lives in the invisib",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": [
+          "button.curated-showcase__tab",
+          "span."
+        ]
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 4,
+            "targets": [
+              "#CuratedTab-template--28391806763312__collections-new > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391806763312__collections-permanent > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391806763312__collections-tailoring > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391806763312__collections-tailoring > span:nth-child(2)"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 13,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/shots4/home-sartorial-mobile-full.png",
+      "pageHeight": 5694
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "identity": {
+        "id": "190452203824",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 745,
+          "textLen": 112,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "The Master Tailor's Cut",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 209,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1107,
+          "textLen": 1001,
+          "imgs": 15,
+          "brokenImgs": 0,
+          "heading": "Selected Silhouettes",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 963,
+          "textLen": 260,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Silhouettes in Motion",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 923,
+          "textLen": 31,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Featured luxury product",
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 478,
+          "textLen": 126,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "True bespoke luxury lives in the invisib",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              "#HeroEditorialTitle-template--28391806763312__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28391806763312__collections-new > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391806763312__collections-permanent > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391806763312__collections-tailoring > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 12,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/shots4/home-sartorial-desktop-full.png",
+      "pageHeight": 5046
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "identity": {
+        "id": "190452236592",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 951,
+          "textLen": 144,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Engineered utility, precise discipline",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 158,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "discovery",
+          "h": 1456,
+          "textLen": 155,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Collection, product, process",
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1377,
+          "textLen": 992,
+          "imgs": 9,
+          "brokenImgs": 0,
+          "heading": "Studio Modular Systems",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 755,
+          "textLen": 31,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Featured luxury product",
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 561,
+          "textLen": 82,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Form follows engineering tolerance.",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": [
+          "button.curated-showcase__tab",
+          "span."
+        ]
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 4,
+            "targets": [
+              "#CuratedTab-template--28391808598320__collections-daily > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391808598320__collections-workspace > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391808598320__collections-limited > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391808598320__collections-limited > span:nth-child(2)"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 13,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/shots4/home-imprint-mobile-full.png",
+      "pageHeight": 6274
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "identity": {
+        "id": "190452236592",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 705,
+          "textLen": 144,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Engineered utility, precise discipline",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 158,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "discovery",
+          "h": 1273,
+          "textLen": 155,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Collection, product, process",
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1154,
+          "textLen": 992,
+          "imgs": 9,
+          "brokenImgs": 0,
+          "heading": "Studio Modular Systems",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 923,
+          "textLen": 31,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Featured luxury product",
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 468,
+          "textLen": 82,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Form follows engineering tolerance.",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              "#HeroEditorialTitle-template--28391808598320__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28391808598320__collections-daily > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391808598320__collections-workspace > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391808598320__collections-limited > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 13,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/shots4/home-imprint-desktop-full.png",
+      "pageHeight": 5352
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "identity": {
+        "id": "190452269360",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 634,
+          "textLen": 109,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Objects with a remembered life",
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 668,
+          "textLen": 123,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "What endures carries the indelible recor",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 263,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1374,
+          "textLen": 734,
+          "imgs": 6,
+          "brokenImgs": 0,
+          "heading": "Archive Entries",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 881,
+          "textLen": 326,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Three objects from the archive record",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 762,
+          "textLen": 31,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Featured luxury product",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px"
+      ],
+      "bigGaps": [],
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".hero-editorial__intro > .eyebrow",
+              "#HeroEditorialTitle-template--28391811449136__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28391811449136__collections-decade80 > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391811449136__collections-decade90 > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 13,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/shots4/home-archive-mobile-full.png",
+      "pageHeight": 5498
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "identity": {
+        "id": "190452269360",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 681,
+          "textLen": 109,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Objects with a remembered life",
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 562,
+          "textLen": 123,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "What endures carries the indelible recor",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 263,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1109,
+          "textLen": 734,
+          "imgs": 6,
+          "brokenImgs": 0,
+          "heading": "Archive Entries",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 1058,
+          "textLen": 326,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Three objects from the archive record",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 923,
+          "textLen": 31,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Featured luxury product",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px"
+      ],
+      "bigGaps": [],
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".hero-editorial__intro > .eyebrow",
+              "#HeroEditorialTitle-template--28391811449136__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28391811449136__collections-decade80 > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28391811449136__collections-decade90 > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 12,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/shots4/home-archive-desktop-full.png",
+      "pageHeight": 5163
+    }
+  ]
+}

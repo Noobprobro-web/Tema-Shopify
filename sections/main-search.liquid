@@ -282,6 +282,7 @@
 
           {%- paginate search.results by section.settings.results_per_page -%}
             {%- if search.results.size > 0 -%}
+              <h2 class="visually-hidden">{{ 'search.results.heading' | t }}</h2>
               <ul class="search-results-grid unstyled-list">
                 {%- for item in search.results -%}
                   <li class="search-results-grid__item search-results-grid__item--{{ item.object_type }}">
