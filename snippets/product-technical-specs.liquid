@@ -1,7 +1,7 @@
 {%- comment -%}
   Renders product technical specifications block.
   Values come only from this block's settings and show as entered for every product that displays the block.
-  With every value empty, nothing renders.
+  With every value empty, nothing renders outside the theme editor.
   Accepts:
   - block: {Object} Block object with settings and shopify_attributes.
   - product: {Object} Product Liquid object (optional, not read; kept so existing render calls stay valid).
@@ -49,5 +49,9 @@
         </div>
       {%- endif -%}
     </dl>
+  </div>
+{%- elsif request.design_mode -%}
+  <div class="product-editor-note" {{ block.shopify_attributes }}>
+    <p>{{ 'products.product.editor_empty' | t }}</p>
   </div>
 {%- endif -%}

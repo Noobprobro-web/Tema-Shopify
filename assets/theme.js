@@ -2225,7 +2225,8 @@
   class ProductCardVariants extends ThemeElement {
     connectedCallback() {
       this.startListening();
-      this.data = this.readData();
+      this.variantData = undefined;
+      this.warmed = false;
       this.swatches = Array.from(this.querySelectorAll('[data-card-swatch]'));
       this.trigger = this.querySelector('[data-quick-buy-trigger]');
       this.dialog = this.querySelector('[data-quick-buy-panel]');
@@ -2244,7 +2245,7 @@
         .find((swatch) => swatch.getAttribute('aria-checked') === 'true')?.dataset.swatchValue ?? null;
       this.mobileQuery = window.matchMedia('(max-width: 47.99rem)');
 
-      if (this.swatches.length > 0 && this.data) this.bindSwatches();
+      if (this.swatches.length > 0 && this.querySelector('[data-card-variants]')) this.bindSwatches();
       if (this.trigger && this.dialog) this.bindQuickBuy();
     }
 
@@ -2252,6 +2253,13 @@
       this.resizeObserver?.disconnect();
       if (this.isOpen) this.close(false);
       super.disconnectedCallback();
+    }
+
+    // The variants JSON can be large and most cards are never touched, so it is parsed the
+    // first time something needs it instead of on page load.
+    get data() {
+      if (this.variantData === undefined) this.variantData = this.readData();
+      return this.variantData;
     }
 
     readData() {
@@ -2284,6 +2292,10 @@
         });
       });
 
+      ['pointerenter', 'focusin', 'touchstart', 'pointerdown'].forEach((type) => {
+        this.listen(this, type, () => this.warm(), { passive: true });
+      });
+
       if (!group) return;
       this.listen(group, 'pointerleave', (event) => {
         if (event.pointerType === 'mouse') this.showImageFor(this.selectedValue);
@@ -2297,6 +2309,17 @@
         this.resizeObserver = new ResizeObserver(() => this.refreshTabStop());
         this.resizeObserver.observe(group);
       }
+    }
+
+    // First interaction with the card (hover, focus, touch or click): parse the variants and
+    // apply the selected color's image, links, price and quick buy state once.
+    warm() {
+      if (this.warmed || !this.isConnected) return;
+      this.warmed = true;
+      this.showImageFor(this.selectedValue);
+      this.updateLinks(this.variantForSwatch(this.selectedValue));
+      this.updatePrice(this.selectedValue);
+      this.syncQuickBuy();
     }
 
     visibleSwatches() {
@@ -2331,6 +2354,7 @@
     }
 
     selectSwatch(swatch) {
+      this.warmed = true;
       this.selectedValue = swatch.dataset.swatchValue;
       this.swatches.forEach((item) => item.setAttribute('aria-checked', String(item === swatch)));
       this.refreshTabStop();
@@ -2421,14 +2445,13 @@
       compare.className = 'price__compare';
       compare.dataset.comparePrice = '';
       compare.textContent = shown.compare || '';
-      compare.hidden = !onSale;
+      compare.hidden = varies || !onSale;
 
       const parts = [];
       if (varies) {
         const from = document.createElement('span');
         from.textContent = this.dataset.labelFrom;
         parts.push(from, current);
-        if (onSale) parts.push(hiddenLabel(this.dataset.labelRegularPrice));
       } else if (onSale) {
         parts.push(hiddenLabel(this.dataset.labelSalePrice), current, hiddenLabel(this.dataset.labelRegularPrice));
       } else {
@@ -2963,6 +2986,9 @@
       const lineKey = quantityInput.closest('[data-cart-item-key]')?.dataset.cartItemKey;
       if (!lineKey) return;
       const quantity = Number(quantityInput.value);
+      // Enter blurs the field before this change event fires, so focus sits on body: keep
+      // the field as the restore target so the re-render does not drop focus to "Close".
+      if (document.activeElement === document.body) this.busyFocus = quantityInput;
       this.changeLine(lineKey, quantity).catch((error) => {
         // beginMutation() aborts an in-flight section read, so a superseded request must
         // stay silent instead of showing the browser's own English abort text.
@@ -4941,9 +4967,22 @@
       this.interval = Math.max(3000, Number(this.dataset.interval) || 5000);
       this.userPaused = false;
       this.interactionPaused = false;
+      this.editorSelected = false;
       this.timer = null;
 
       if (this.items.length <= 1) return;
+
+      // Theme editor: show the selected announcement and hold rotation until it is deselected.
+      this.listen(this, 'shopify:block:select', (event) => {
+        const index = this.items.indexOf(event.target.closest?.('[data-announcement-item]'));
+        this.editorSelected = true;
+        this.clearTimer();
+        if (index >= 0) this.setActive(index, false);
+      });
+      this.listen(this, 'shopify:block:deselect', () => {
+        this.editorSelected = false;
+        this.schedule();
+      });
 
       this.listen(this.previousButton, 'click', () => this.changeBy(-1));
       this.listen(this.nextButton, 'click', () => this.changeBy(1));
@@ -5016,7 +5055,7 @@
     schedule() {
       this.clearTimer();
       if (!this.isConnected) return;
-      if (!this.autoRotate || this.userPaused || this.interactionPaused || reducedMotionQuery.matches) return;
+      if (!this.autoRotate || this.userPaused || this.interactionPaused || this.editorSelected || reducedMotionQuery.matches) return;
 
       this.timer = window.setTimeout(() => {
         this.setActive((this.activeIndex + 1) % this.items.length, false);
@@ -5463,21 +5502,6 @@
       this.listen(this.form, 'submit', () => {
         this.form.setAttribute('aria-busy', 'true');
       });
-
-      this.querySelectorAll('[data-localization-select]').forEach((select) => {
-        this.listen(select, 'change', () => this.submitForm());
-      });
-    }
-
-    submitForm() {
-      if (!this.form || this.form.getAttribute('aria-busy') === 'true') return;
-      this.form.setAttribute('aria-busy', 'true');
-
-      if (typeof this.form.requestSubmit === 'function') {
-        this.form.requestSubmit();
-      } else {
-        this.form.submit();
-      }
     }
   }
 
