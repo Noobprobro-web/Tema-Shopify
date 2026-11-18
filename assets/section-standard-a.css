@@ -1,0 +1,382 @@
+/* Home sections: featured collection, collection list, blog posts and rich text.
+   Loaded by each of those sections. Colors, spacing, type and motion come from the
+   tokens declared in base.css; the only values defined here are layout ones. */
+
+/* Shared section frame and header */
+
+.std-section {
+  padding-block: var(--std-padding-top, var(--section-spacing)) var(--std-padding-bottom, var(--section-spacing));
+}
+
+.std-section__inner {
+  width: var(--content-width);
+  margin-inline: auto;
+}
+
+.std-section__header {
+  display: grid;
+  margin-block-end: var(--space-xl);
+  padding-block-end: var(--space-md);
+  border-block-end: var(--border-width) solid var(--color-border-hairline);
+  gap: var(--space-md);
+}
+
+.std-section__title-group > * + * {
+  margin-block-start: var(--space-sm);
+}
+
+.std-section__title-group .eyebrow {
+  margin-block-end: 0;
+}
+
+.std-section__heading {
+  max-width: 24ch;
+  margin: 0;
+  font-size: calc(2rem * var(--font-heading-scale));
+  letter-spacing: 0;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.std-section__link {
+  display: inline-flex;
+  min-height: var(--tap-target-min);
+  align-items: center;
+  gap: var(--space-xs);
+  justify-self: start;
+  color: var(--color-link);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.std-section__link-text {
+  padding-block: var(--space-2xs);
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% var(--border-width) no-repeat;
+  transition: background-size var(--motion-fast) var(--ease-move);
+}
+
+.std-section__link:hover .std-section__link-text {
+  background-size: 0 var(--border-width);
+}
+
+.std-section__link .icon {
+  flex: none;
+  transition: transform var(--motion-fast) var(--ease-move);
+}
+
+.std-section__link:hover .icon {
+  transform: translateX(var(--space-2xs));
+}
+
+[dir='rtl'] .std-section__link .icon {
+  transform: scaleX(-1);
+}
+
+[dir='rtl'] .std-section__link:hover .icon {
+  transform: scaleX(-1) translateX(var(--space-2xs));
+}
+
+.std-section__note {
+  max-width: 48ch;
+  margin: 0 0 var(--space-lg);
+  padding: var(--space-md);
+  border: var(--border-width) dashed var(--color-control-border);
+  color: var(--color-foreground-muted);
+  font-size: 0.875rem;
+}
+
+/* Column grid. The section sets the column counts as custom properties. */
+
+.std-grid {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(var(--std-columns-mobile, 2), minmax(0, 1fr));
+  gap: var(--space-xl) var(--space-sm);
+  list-style: none;
+}
+
+.std-grid > li {
+  min-width: 0;
+}
+
+.std-grid--single {
+  max-width: 28rem;
+}
+
+/* Collection list cards */
+
+.collection-list__card {
+  position: relative;
+  display: grid;
+  gap: var(--space-md);
+}
+
+.collection-list__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border: var(--border-width) solid var(--color-border-hairline);
+  background: var(--color-surface);
+}
+
+.collection-list--square .collection-list__media {
+  aspect-ratio: 1;
+}
+
+.collection-list--landscape .collection-list__media {
+  aspect-ratio: 4 / 3;
+}
+
+.collection-list__image,
+.collection-list__media .homepage-placeholder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+}
+
+.collection-list__caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.collection-list__title {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.collection-list__title a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+/* The whole card is the target of the title link. */
+.collection-list__title a::after {
+  position: absolute;
+  content: '';
+  inset: 0;
+}
+
+.collection-list__count {
+  flex: none;
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.collection-list__card:has(:focus-visible) .collection-list__media {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: 3px;
+}
+
+.collection-list__title a:focus-visible,
+.blog-posts__link:focus-visible {
+  outline: none;
+}
+
+/* Blog post cards */
+
+.blog-posts__card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-md);
+}
+
+.blog-posts__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--color-surface);
+}
+
+.blog-posts__image,
+.blog-posts__media .homepage-placeholder {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+}
+
+.blog-posts__body > * + * {
+  margin-block-start: var(--space-sm);
+}
+
+.blog-posts__meta {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.blog-posts__title {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.blog-posts__excerpt {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.blog-posts__link {
+  display: inline-flex;
+  min-height: var(--tap-target-min);
+  align-items: center;
+  color: var(--color-link);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-width);
+  text-transform: uppercase;
+  text-underline-offset: 0.35em;
+}
+
+/* The whole card is the target of the read more link. */
+.blog-posts__link::after {
+  position: absolute;
+  content: '';
+  inset: 0;
+}
+
+.blog-posts__card:has(:focus-visible) {
+  outline: var(--focus-width) solid var(--color-foreground);
+  outline-offset: var(--space-xs);
+}
+
+/* Rich text */
+
+.rich-text__inner {
+  width: var(--content-width);
+  max-width: var(--rich-text-width, 48rem);
+  margin-inline: auto;
+}
+
+.rich-text__content {
+  display: grid;
+  justify-items: var(--rich-text-justify, start);
+  text-align: var(--rich-text-align, start);
+  gap: var(--space-md);
+}
+
+.rich-text__content .eyebrow {
+  margin: 0;
+}
+
+.rich-text__heading {
+  max-width: 100%;
+  margin: 0;
+  font-size: calc(2.25rem * var(--font-heading-scale));
+  letter-spacing: 0;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.rich-text__text {
+  max-width: 100%;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.rich-text__text > :first-child {
+  margin-block-start: 0;
+}
+
+.rich-text__actions {
+  display: flex;
+  flex-wrap: wrap;
+  margin-block-start: var(--space-sm);
+  gap: var(--space-sm);
+  justify-content: var(--rich-text-justify, start);
+}
+
+.rich-text--center {
+  --rich-text-justify: center;
+  --rich-text-align: center;
+}
+
+.rich-text--end {
+  --rich-text-justify: end;
+  --rich-text-align: end;
+}
+
+.rich-text--narrow {
+  --rich-text-width: 36rem;
+}
+
+.rich-text--wide {
+  --rich-text-width: 64rem;
+}
+
+@media (min-width: 48rem) {
+  .std-grid {
+    grid-template-columns: repeat(var(--std-columns-tablet, 2), minmax(0, 1fr));
+    gap: var(--space-2xl) var(--space-lg);
+  }
+
+  .std-section__header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .std-section__link {
+    justify-self: end;
+  }
+
+  .std-section__heading {
+    font-size: calc(2.75rem * var(--font-heading-scale));
+  }
+
+  .rich-text__heading {
+    font-size: calc(3rem * var(--font-heading-scale));
+  }
+}
+
+@media (min-width: 62rem) {
+  .std-grid {
+    grid-template-columns: repeat(var(--std-columns-desktop, 3), minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .collection-list__image,
+  .blog-posts__image {
+    transition: transform var(--motion-slow) var(--ease-move);
+  }
+
+  .collection-list__card:hover .collection-list__image,
+  .blog-posts__card:hover .blog-posts__image {
+    transform: scale(1.03);
+  }
+}
+
+@media (forced-colors: active) {
+  .collection-list__card:has(:focus-visible) .collection-list__media,
+  .blog-posts__card:has(:focus-visible) {
+    outline-color: Highlight;
+  }
+}

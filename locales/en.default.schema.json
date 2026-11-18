@@ -385,6 +385,52 @@
         "name": "Announcement bar"
       }
     },
+    "blog_posts": {
+      "name": "Blog posts",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 2"
+          },
+          "options__2": {
+            "label": "Heading 3"
+          }
+        },
+        "blog": {
+          "label": "Blog"
+        },
+        "posts_to_show": {
+          "label": "Posts to show",
+          "info": "Shows fewer posts when the blog has fewer than this number."
+        },
+        "show_view_all": {
+          "label": "Show link to the blog"
+        },
+        "cards_header": {
+          "content": "Post cards"
+        },
+        "show_image": {
+          "label": "Show image"
+        },
+        "show_excerpt": {
+          "label": "Show excerpt"
+        },
+        "show_date": {
+          "label": "Show date"
+        },
+        "show_author": {
+          "label": "Show author"
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "presets": {
+        "name": "Blog posts"
+      }
+    },
     "newsletter": {
       "name": "Email signup",
       "settings": {
@@ -701,6 +747,77 @@
         "name": "Shoppable lookbook"
       }
     },
+    "collection_list": {
+      "name": "Collection list",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 2"
+          },
+          "options__2": {
+            "label": "Heading 3"
+          }
+        },
+        "show_product_count": {
+          "label": "Show product count"
+        },
+        "layout_header": {
+          "content": "Layout"
+        },
+        "columns_desktop": {
+          "label": "Collections per row on desktop",
+          "options__1": {
+            "label": "Two per row"
+          },
+          "options__2": {
+            "label": "Three per row"
+          },
+          "options__3": {
+            "label": "Four per row"
+          }
+        },
+        "columns_mobile": {
+          "label": "Collections per row on mobile",
+          "options__1": {
+            "label": "One per row"
+          },
+          "options__2": {
+            "label": "Two per row"
+          }
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "options__1": {
+            "label": "Portrait"
+          },
+          "options__2": {
+            "label": "Square"
+          },
+          "options__3": {
+            "label": "Landscape"
+          }
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "blocks": {
+        "collection": {
+          "name": "Collection",
+          "settings": {
+            "image": {
+              "label": "Custom image",
+              "info": "Replaces the collection image. Leave empty to use the collection image or its first product."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Collection list"
+      }
+    },
     "complete_the_look": {
       "name": "Complete the look",
       "blocks": {
@@ -716,6 +833,42 @@
       },
       "presets": {
         "name": "Complete the look"
+      }
+    },
+    "featured_collection": {
+      "name": "Featured collection",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 2"
+          },
+          "options__2": {
+            "label": "Heading 3"
+          }
+        },
+        "show_view_all": {
+          "label": "Show link to the collection"
+        },
+        "layout_header": {
+          "content": "Layout"
+        },
+        "columns_mobile": {
+          "label": "Products per row on mobile",
+          "options__1": {
+            "label": "One per row"
+          },
+          "options__2": {
+            "label": "Two per row"
+          }
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "presets": {
+        "name": "Featured collection"
       }
     },
     "featured_product": {
@@ -803,6 +956,74 @@
       },
       "presets": {
         "name": "Recently viewed"
+      }
+    },
+    "rich_text": {
+      "name": "Rich text",
+      "settings": {
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use heading 2 unless this section sits under another heading on the page.",
+          "options__1": {
+            "label": "Heading 1"
+          },
+          "options__2": {
+            "label": "Heading 2"
+          },
+          "options__3": {
+            "label": "Heading 3"
+          }
+        },
+        "layout_header": {
+          "content": "Layout"
+        },
+        "text_alignment": {
+          "label": "Text alignment",
+          "info": "Start and end follow the reading direction of the language.",
+          "options__1": {
+            "label": "Start"
+          },
+          "options__2": {
+            "label": "Center"
+          },
+          "options__3": {
+            "label": "End"
+          }
+        },
+        "content_width": {
+          "label": "Content width",
+          "options__1": {
+            "label": "Narrow"
+          },
+          "options__2": {
+            "label": "Standard"
+          },
+          "options__3": {
+            "label": "Wide"
+          }
+        },
+        "appearance_header": {
+          "content": "Appearance"
+        }
+      },
+      "blocks": {
+        "button": {
+          "name": "Button",
+          "settings": {
+            "style": {
+              "label": "Button style",
+              "options__1": {
+                "label": "Solid"
+              },
+              "options__2": {
+                "label": "Outline"
+              }
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Rich text"
       }
     },
     "cart_drawer": {
