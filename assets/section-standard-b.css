@@ -1,0 +1,464 @@
+/*
+ * Slideshow, image with text and video sections.
+ * Built on the tokens declared in base.css; nothing here defines its own palette.
+ */
+
+/* ---------------------------------------------------------------------------
+   Slideshow
+   ------------------------------------------------------------------------- */
+
+.slideshow-wrapper {
+  display: block;
+}
+
+.slideshow.section {
+  padding-block: 0;
+  border-block-end: var(--border-width) solid var(--color-border-hairline);
+}
+
+/* The track is a plain horizontal scroller: swipe and trackpad work without any script. */
+.slideshow__track {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.slideshow__track::-webkit-scrollbar {
+  display: none;
+}
+
+.slideshow__track:focus-visible {
+  outline-offset: -4px;
+}
+
+.slideshow__slide {
+  position: relative;
+  display: grid;
+  flex: 0 0 100%;
+  min-width: 0;
+  height: max(22rem, calc(var(--slideshow-height-mobile, 70) * 1svh));
+  grid-template: 'stack' minmax(0, 1fr) / minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+@media (min-width: 48rem) {
+  .slideshow__slide {
+    height: max(26rem, calc(var(--slideshow-height-desktop, 80) * 1svh));
+  }
+}
+
+.slideshow__media,
+.slideshow__content {
+  grid-area: stack;
+}
+
+.slideshow__media {
+  position: relative;
+  min-height: 0;
+}
+
+.slideshow__media picture,
+.slideshow__placeholder,
+.slideshow__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.slideshow__image {
+  object-fit: cover;
+  object-position: var(--slide-focal, center);
+}
+
+/* Veil: the strength comes from the slide setting; the soft gradient keeps the copy legible
+   at the bottom even when the veil is set to zero. */
+.slideshow__veil {
+  position: absolute;
+  inset: 0;
+  background: var(--color-foreground);
+  opacity: var(--slide-veil, 0);
+  pointer-events: none;
+}
+
+.slideshow__slide--image .slideshow__media::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--color-foreground) 45%, transparent), transparent 65%);
+  content: '';
+  pointer-events: none;
+}
+
+.slideshow__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: var(--content-width);
+  margin-inline: auto;
+  padding-block: var(--space-2xl);
+  align-items: flex-end;
+}
+
+.slideshow__copy {
+  width: min(100%, 40rem);
+}
+
+.slideshow__slide--start .slideshow__copy {
+  margin-inline-end: auto;
+  text-align: start;
+}
+
+.slideshow__slide--center .slideshow__copy {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.slideshow__slide--end .slideshow__copy {
+  margin-inline-start: auto;
+  text-align: end;
+}
+
+.slideshow__slide--image .slideshow__content {
+  color: var(--color-background);
+}
+
+.slideshow__heading {
+  font-size: calc(clamp(2.25rem, 6vw, 5rem) * var(--font-heading-scale));
+}
+
+.slideshow__text {
+  max-width: 34rem;
+}
+
+.slideshow__slide--center .slideshow__text {
+  margin-inline: auto;
+}
+
+.slideshow__slide--end .slideshow__text {
+  margin-inline-start: auto;
+}
+
+/* The default outline buttons turn transparent on hover; over a photograph they need a solid fill. */
+.slideshow__slide--image .slideshow__button:hover {
+  border-color: var(--color-background);
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.slideshow__slide--image :focus-visible {
+  outline-color: var(--color-background);
+}
+
+/* Controls sit under the picture, on the section background, so contrast never depends on the photo. */
+.slideshow__controls {
+  display: flex;
+  width: var(--content-width);
+  margin-inline: auto;
+  padding-block: var(--space-sm);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+}
+
+.slideshow__nav {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.slideshow__arrow,
+.slideshow__pause {
+  display: inline-grid;
+  width: var(--tap-target-min);
+  height: var(--tap-target-min);
+  padding: 0;
+  border: var(--border-width) solid var(--color-control-border);
+  border-radius: var(--button-radius);
+  place-items: center;
+  background: transparent;
+  color: var(--color-foreground);
+  transition: background-color var(--motion-fast) var(--ease-move), color var(--motion-fast) var(--ease-move);
+}
+
+.slideshow__arrow:hover,
+.slideshow__pause:hover {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.slideshow__arrow--previous svg {
+  transform: scaleX(-1);
+}
+
+[dir='rtl'] .slideshow__arrow--previous svg {
+  transform: none;
+}
+
+[dir='rtl'] .slideshow__arrow--next svg {
+  transform: scaleX(-1);
+}
+
+.slideshow__dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.slideshow__dot {
+  display: grid;
+  width: 1.5rem;
+  height: var(--tap-target-min);
+  padding: 0;
+  border: 0;
+  place-items: center;
+  background: transparent;
+  color: var(--color-foreground);
+}
+
+.slideshow__dot::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: var(--border-width) solid currentColor;
+  border-radius: 50%;
+  content: '';
+  transition: background-color var(--motion-fast) var(--ease-move), transform var(--motion-fast) var(--ease-move);
+}
+
+.slideshow__dot[aria-current='true']::before {
+  background: currentColor;
+  transform: scale(1.35);
+}
+
+.slideshow__pause-icon {
+  width: 0.625rem;
+  height: 0.75rem;
+  border-inline: 3px solid currentColor;
+}
+
+.slideshow__play-icon {
+  width: 0.625rem;
+  height: 0.75rem;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.slideshow__pause[data-paused] .slideshow__pause-icon,
+.slideshow__pause:not([data-paused]) .slideshow__play-icon {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .slideshow__controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-md);
+  }
+
+  .slideshow__pause {
+    justify-self: end;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Image with text
+   ------------------------------------------------------------------------- */
+
+.image-text__inner {
+  display: grid;
+  width: var(--content-width);
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.image-text__media {
+  order: var(--image-text-order-mobile, 0);
+  min-width: 0;
+}
+
+.image-text__copy {
+  order: 1;
+  min-width: 0;
+  max-width: 36rem;
+}
+
+.image-text__media > picture,
+.image-text__image,
+.image-text__placeholder {
+  display: block;
+  width: 100%;
+}
+
+.image-text__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--image-text-ratio, 4 / 5);
+  background: var(--color-surface);
+}
+
+.image-text__image,
+.image-text__placeholder {
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-text__heading {
+  font-size: calc(clamp(1.75rem, 3.6vw, 3.25rem) * var(--font-heading-scale));
+}
+
+@media (min-width: 48rem) {
+  .image-text__inner {
+    grid-template-columns: minmax(0, calc(var(--image-text-media-fr, 1) * 1fr)) minmax(0, calc(var(--image-text-copy-fr, 1) * 1fr));
+    gap: var(--space-3xl);
+  }
+
+  .image-text__media {
+    order: var(--image-text-order-desktop, 0);
+  }
+
+  .image-text__inner--start {
+    align-items: start;
+  }
+
+  .image-text__inner--end {
+    align-items: end;
+  }
+
+  .image-text__copy {
+    justify-self: center;
+  }
+}
+
+/* With the text first, the columns swap so the wider weight stays on the image. */
+@media (min-width: 48rem) {
+  .image-text__inner--text-first {
+    grid-template-columns: minmax(0, calc(var(--image-text-copy-fr, 1) * 1fr)) minmax(0, calc(var(--image-text-media-fr, 1) * 1fr));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Video
+   ------------------------------------------------------------------------- */
+
+.video-section__header {
+  width: var(--content-width);
+  max-width: 46rem;
+  margin-inline: auto;
+  margin-block-end: var(--space-xl);
+  text-align: center;
+}
+
+.video-section__heading {
+  font-size: calc(clamp(1.75rem, 3.6vw, 3.25rem) * var(--font-heading-scale));
+}
+
+.video-section__frame {
+  display: block;
+  width: var(--content-width);
+  margin-inline: auto;
+}
+
+.video-section--full .video-section__frame {
+  width: 100%;
+}
+
+.video-section__stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--video-ratio, 16 / 9);
+  border: var(--border-width) solid var(--color-border-hairline);
+  background: var(--color-surface-subtle);
+}
+
+.video-section--full .video-section__stage {
+  border-inline: 0;
+}
+
+.video-section__poster,
+.video-section__poster picture,
+.video-section__placeholder,
+.video-section__image,
+.video-section__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.video-section__image {
+  object-fit: cover;
+}
+
+.video-section__media {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: var(--color-foreground);
+  object-fit: contain;
+}
+
+.video-section__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: 0;
+  border: 0;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-foreground) 12%, transparent);
+  color: var(--color-foreground);
+  transition: background-color var(--motion-base) var(--ease-enter);
+}
+
+.video-section__play:hover {
+  background: color-mix(in srgb, var(--color-foreground) 24%, transparent);
+}
+
+.video-section__play:focus-visible {
+  outline-offset: -6px;
+}
+
+.video-section__play-pill {
+  display: inline-flex;
+  min-height: var(--tap-target-min);
+  padding: 0.7rem 1.5rem;
+  border: var(--border-width) solid var(--color-border);
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--color-background);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.video-section__play-icon {
+  width: 0.75rem;
+  height: 0.875rem;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+[dir='rtl'] .video-section__play-icon {
+  transform: scaleX(-1);
+}
+
+.video-section__fallback {
+  position: absolute;
+  inset-block-end: var(--space-md);
+  inset-inline-start: var(--space-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-section__play,
+  .slideshow__arrow,
+  .slideshow__pause,
+  .slideshow__dot::before {
+    transition: none;
+  }
+}
