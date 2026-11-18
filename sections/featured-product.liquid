@@ -39,11 +39,16 @@
   assign title_blocks = section.blocks | where: 'type', 'title'
 -%}
 
+{%- comment -%}
+  Without a product there is nothing to show or buy: the section is not printed in the store.
+  In the theme editor it stays, with sample content, so the merchant can pick a product.
+{%- endcomment -%}
+{%- if featured_product != blank or request.design_mode -%}
 <section
   class="section featured-product color-{{ section_scheme }}{% if section.settings.secondary_background %} featured-product--secondary{% endif %}"
   style="--featured-product-padding-top: {{ section.settings.padding_top }}px; --featured-product-padding-bottom: {{ section.settings.padding_bottom }}px;"
   data-section-id="{{ section.id }}"
-  {% if title_blocks.size > 0 %}
+  {% if title_blocks.size > 0 and featured_product != blank %}
     aria-labelledby="FeaturedProductTitle-{{ section.id }}"
   {% else %}
     aria-label="{{ 'sections.featured_product.region_label' | t }}"
@@ -578,6 +583,7 @@
     </script>
   {%- endif -%}
 </section>
+{%- endif -%}
 
 {% schema %}
 {

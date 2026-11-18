@@ -4256,6 +4256,28 @@
 
       this.listen(window, 'popstate', () => this.renderUrl(window.location.href, false));
       this.applyStoredGridView();
+
+      // From 62rem the filters are always shown. The stylesheet does it with ::details-content
+      // where supported; this keeps the panel really open where it is not.
+      this.sidebarQuery = window.matchMedia('(min-width: 62rem)');
+      this.autoOpened = false;
+      this.listen(this.sidebarQuery, 'change', () => this.syncDisclosure());
+      this.syncDisclosure();
+    }
+
+    syncDisclosure() {
+      const disclosure = this.querySelector('.facets__disclosure');
+      if (!disclosure) return;
+      if (this.sidebarQuery.matches) {
+        if (!disclosure.open) {
+          disclosure.open = true;
+          this.autoOpened = true;
+        }
+      } else if (this.autoOpened) {
+        // Below that width the visitor decides: undo only what was opened for the sidebar.
+        disclosure.open = false;
+        this.autoOpened = false;
+      }
     }
 
     disconnectedCallback() {
@@ -4289,7 +4311,7 @@
       const focusedId = activeEl?.id;
       const focusedName = activeEl?.name;
       // The mobile filter panel is a <details>; replacing the markup would close it.
-      const disclosureWasOpen = Boolean(this.querySelector('.facets__disclosure')?.open);
+      const disclosureWasOpen = Boolean(this.querySelector('.facets__disclosure')?.open) && !this.autoOpened;
 
       this.requestController?.abort();
       this.requestController = new AbortController();
@@ -4308,10 +4330,12 @@
         if (!nextElement) throw new Error('invalid-section');
 
         this.innerHTML = nextElement.innerHTML;
+        this.autoOpened = false;
         if (disclosureWasOpen) {
           const disclosure = this.querySelector('.facets__disclosure');
           if (disclosure) disclosure.open = true;
         }
+        this.syncDisclosure();
         this.applyStoredGridView();
         this.announceResultCount();
         if (pushState) window.history.pushState({}, '', navigationUrl);
@@ -6118,7 +6142,7 @@
   // esa logica en dos lenguajes es justo lo que se evita.
   //
   // El hero editorial no entra nunca: es el LCP, y animarlo cuesta la puntuacion de
-  // rendimiento que la revision de Theme Store mira primero.
+  // rendimiento que la revision de Shopify mira primero.
   // ---------------------------------------------------------------------------
   const REVEAL_TARGETS = [
     // Encabezados de seccion del homepage. Van primero porque intersectan antes que sus

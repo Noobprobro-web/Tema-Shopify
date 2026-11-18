@@ -259,7 +259,19 @@
     gap: var(--space-md);
   }
 
+  .slideshow__nav {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .slideshow__dots {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
   .slideshow__pause {
+    grid-column: 3;
+    grid-row: 1;
     justify-self: end;
   }
 }

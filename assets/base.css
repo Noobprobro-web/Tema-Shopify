@@ -2993,7 +2993,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   display: inline-flex;
   min-width: var(--tap-target-min);
   /* 44 x 44 px exactos en cualquier viewport. Es el criterio 2.5.8 de WCAG 2.2 que
-     revisa la Theme Store, no una holgura estetica. */
+     exige Shopify, no una holgura estetica. */
   min-height: var(--tap-target-min);
   padding: 0;
   border: 0;

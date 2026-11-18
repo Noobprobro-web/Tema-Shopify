@@ -36,10 +36,10 @@
   assign unit_price_target = price_target
   assign price_varies = false
 
-  # When the price or the compare-at price differs between variants, only "From" and the
-  # lowest price are shown: a struck-through value would not belong to that price.
+  # When the price differs between variants, only "From" and the lowest price are shown:
+  # a struck-through value would not belong to that price.
   if target_is_product
-    if product.price_varies or product.compare_at_price_varies
+    if product.price_varies
       assign price_varies = true
     endif
   endif

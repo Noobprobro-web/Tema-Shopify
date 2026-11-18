@@ -52,59 +52,83 @@
         this.refreshPlayback();
       };
 
+      // One controller per connection: aborting it removes every listener added below.
+      this.abort = new AbortController();
+      const { signal } = this.abort;
+      this.status = this.querySelector('[data-slideshow-status]');
+
       if (this.controls) this.controls.hidden = false;
-      this.track.tabIndex = 0;
-      this.track.addEventListener('scroll', this.onScroll, { passive: true });
-      this.track.addEventListener('keydown', (event) => this.onKey(event));
-      this.addEventListener('shopify:block:select', this.onSelect);
-      this.addEventListener('shopify:block:deselect', this.onDeselect);
-      window.addEventListener('resize', this.onResize);
-      document.addEventListener('visibilitychange', this.onVisibility);
-      reducedMotion.addEventListener('change', this.onMotionChange);
+      this.track.addEventListener('scroll', this.onScroll, { passive: true, signal });
+      this.track.addEventListener('keydown', (event) => this.onKey(event), { signal });
+      this.addEventListener('shopify:block:select', this.onSelect, { signal });
+      this.addEventListener('shopify:block:deselect', this.onDeselect, { signal });
+      window.addEventListener('resize', this.onResize, { signal });
+      document.addEventListener('visibilitychange', this.onVisibility, { signal });
+      reducedMotion.addEventListener('change', this.onMotionChange, { signal });
 
       const previous = this.querySelector('[data-slideshow-previous]');
       const next = this.querySelector('[data-slideshow-next]');
-      if (previous) previous.addEventListener('click', () => this.step(-1));
-      if (next) next.addEventListener('click', () => this.step(1));
+      if (previous) previous.addEventListener('click', () => this.step(-1, { announce: true }), { signal });
+      if (next) next.addEventListener('click', () => this.step(1, { announce: true }), { signal });
       this.dots.forEach((dot, position) => {
-        dot.addEventListener('click', () => this.goTo(position));
-        dot.addEventListener('keydown', (event) => this.onKey(event));
+        dot.addEventListener('click', () => this.goTo(position, { announce: true }), { signal });
+        dot.addEventListener('keydown', (event) => this.onKey(event), { signal });
       });
 
       if (this.toggle) {
-        this.toggle.addEventListener('click', () => {
-          this.userPaused = !this.userPaused;
-          // Pressing play is an explicit request, so hover and focus no longer hold it back.
-          if (!this.userPaused) {
-            this.hovering = false;
-            this.focusInside = false;
-          }
-          this.refreshPlayback();
-        });
+        this.toggle.addEventListener(
+          'click',
+          () => {
+            this.userPaused = !this.userPaused;
+            // Pressing play is an explicit request, so hover and focus no longer hold it back.
+            if (!this.userPaused) {
+              this.hovering = false;
+              this.focusInside = false;
+            }
+            this.refreshPlayback();
+          },
+          { signal }
+        );
       }
 
-      this.addEventListener('pointerenter', (event) => {
-        if (event.pointerType === 'mouse') {
-          this.hovering = true;
+      this.addEventListener(
+        'pointerenter',
+        (event) => {
+          if (event.pointerType === 'mouse') {
+            this.hovering = true;
+            this.refreshPlayback();
+          }
+        },
+        { signal }
+      );
+      this.addEventListener(
+        'pointerleave',
+        (event) => {
+          if (event.pointerType === 'mouse') {
+            this.hovering = false;
+            this.refreshPlayback();
+          }
+        },
+        { signal }
+      );
+      this.addEventListener(
+        'focusin',
+        () => {
+          this.focusInside = true;
           this.refreshPlayback();
-        }
-      });
-      this.addEventListener('pointerleave', (event) => {
-        if (event.pointerType === 'mouse') {
-          this.hovering = false;
-          this.refreshPlayback();
-        }
-      });
-      this.addEventListener('focusin', () => {
-        this.focusInside = true;
-        this.refreshPlayback();
-      });
-      this.addEventListener('focusout', (event) => {
-        if (!this.contains(event.relatedTarget)) {
-          this.focusInside = false;
-          this.refreshPlayback();
-        }
-      });
+        },
+        { signal }
+      );
+      this.addEventListener(
+        'focusout',
+        (event) => {
+          if (!this.contains(event.relatedTarget)) {
+            this.focusInside = false;
+            this.refreshPlayback();
+          }
+        },
+        { signal }
+      );
 
       this.setAttribute('data-ready', '');
       this.setActive(0);
@@ -117,9 +141,7 @@
       clearTimeout(this.timer);
       clearTimeout(this.settleTimer);
       if (this.frame) cancelAnimationFrame(this.frame);
-      window.removeEventListener('resize', this.onResize);
-      document.removeEventListener('visibilitychange', this.onVisibility);
-      reducedMotion.removeEventListener('change', this.onMotionChange);
+      this.abort.abort();
     }
 
     get isPlaying() {
@@ -134,14 +156,14 @@
       );
     }
 
-    step(direction) {
+    step(direction, { announce = false } = {}) {
       const total = this.slides.length;
       const nextIndex = (this.index + direction + total) % total;
       const wrapped = Math.abs(nextIndex - this.index) > 1;
-      this.goTo(nextIndex, { smooth: !wrapped });
+      this.goTo(nextIndex, { smooth: !wrapped, announce });
     }
 
-    goTo(position, { smooth = true } = {}) {
+    goTo(position, { smooth = true, announce = false } = {}) {
       if (position < 0 || position >= this.slides.length) return;
       const slide = this.slides[position];
       // Distance from the track's start edge to the slide, valid for both writing directions.
@@ -153,7 +175,7 @@
       this.settleTimer = setTimeout(() => {
         this.target = null;
       }, 900);
-      this.setActive(position);
+      this.setActive(position, { announce });
       this.track.scrollTo({
         left,
         behavior: smooth && !reducedMotion.matches ? 'smooth' : 'auto',
@@ -173,10 +195,10 @@
         this.target = null;
         clearTimeout(this.settleTimer);
       }
-      if (nearest !== this.index) this.setActive(nearest);
+      if (nearest !== this.index) this.setActive(nearest, { announce: true });
     }
 
-    setActive(position) {
+    setActive(position, { announce = false } = {}) {
       this.index = position;
       this.slides.forEach((slide, slidePosition) => {
         const active = slidePosition === position;
@@ -186,6 +208,12 @@
       this.dots.forEach((dot, dotPosition) => {
         dot.setAttribute('aria-current', dotPosition === position ? 'true' : 'false');
       });
+      // Spoken only when the visitor moves the slides; automatic changes stay silent.
+      if (announce && this.status && this.dataset.statusTemplate) {
+        this.status.textContent = this.dataset.statusTemplate
+          .replace('__current__', position + 1)
+          .replace('__total__', this.slides.length);
+      }
       this.refreshPlayback();
     }
 
@@ -193,10 +221,10 @@
       const forward = this.rtl ? 'ArrowLeft' : 'ArrowRight';
       const backward = this.rtl ? 'ArrowRight' : 'ArrowLeft';
       let handled = true;
-      if (event.key === forward) this.step(1);
-      else if (event.key === backward) this.step(-1);
-      else if (event.key === 'Home') this.goTo(0);
-      else if (event.key === 'End') this.goTo(this.slides.length - 1);
+      if (event.key === forward) this.step(1, { announce: true });
+      else if (event.key === backward) this.step(-1, { announce: true });
+      else if (event.key === 'Home') this.goTo(0, { announce: true });
+      else if (event.key === 'End') this.goTo(this.slides.length - 1, { announce: true });
       else handled = false;
       if (handled) event.preventDefault();
     }
@@ -204,8 +232,6 @@
     refreshPlayback() {
       clearTimeout(this.timer);
       const playing = this.isPlaying;
-      // Announce slide changes only when the visitor moves them; automatic changes stay silent.
-      this.track.setAttribute('aria-live', playing ? 'off' : 'polite');
       if (this.toggle) {
         const available = this.wantsAutoplay && !reducedMotion.matches;
         this.toggle.hidden = !available;

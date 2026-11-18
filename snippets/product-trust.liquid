@@ -3,7 +3,7 @@
   Accepts:
   - block: {Object} shipping_lead_time or trust_badges block.
   - show: {Boolean} false hides the line in the store (for example, no product selected).
-  In the theme editor an empty block shows a short notice so it can still be selected.
+  In the theme editor a block that is hidden (no text, or no product selected) shows a short notice so it can still be selected.
 {%- endcomment -%}
 
 {%- assign trust_text = block.settings.delivery_text | default: block.settings.returns_text | strip -%}
@@ -25,6 +25,10 @@
   </p>
 {%- elsif request.design_mode -%}
   <div class="product-editor-note" {{ block.shopify_attributes }}>
-    <p>{{ 'products.product.editor_empty' | t }}</p>
+    {%- if trust_text != blank -%}
+      <p>{{ 'products.product.editor_no_product' | t }}</p>
+    {%- else -%}
+      <p>{{ 'products.product.editor_empty' | t }}</p>
+    {%- endif -%}
   </div>
 {%- endif -%}
