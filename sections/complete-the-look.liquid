@@ -66,7 +66,7 @@
 {%- endcapture -%}
 
 {%- comment -%}
-  COMP-001 (S-02). Sin productos no hay nada que comprar: en la tienda la seccion no se
+  Sin productos no hay nada que comprar: en la tienda la seccion no se
   pinta, y el comprador no ve la instruccion del editor ni un total de 0. En el editor
   se mantiene entera, con el aviso, para que el comerciante sepa como configurarla.
 {%- endcomment -%}
@@ -314,9 +314,9 @@
               <div>
                 <p class="eyebrow">{{ 'sections.complete_the_look.total_label' | t }}</p>
                 {%- comment -%}
-                  4F-002. El sustantivo concuerda con el total, no con lo seleccionado:
+                  El sustantivo concuerda con el total, no con lo seleccionado:
                   "1 of 3 items selected", "1 of 1 item selected". Antes se elegia la forma
-                  por la seleccion y salia "1 of 3 item selected" (GPT-AUDIT-002, UX-12).
+                  por la seleccion y salia "1 of 3 item selected".
                 {%- endcomment -%}
                 <p data-bundle-count>
                   {%- if rendered_item_count == 1 -%}

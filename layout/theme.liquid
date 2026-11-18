@@ -108,8 +108,10 @@
     <script>
       document.documentElement.classList.remove('no-js');
       document.documentElement.classList.add('js');
-      // B-02: si theme.js no llego a definir variant-selects (caido, bloqueado o con error),
-      // vuelve a no-js para que los controles nativos de compra sean los visibles.
+      {%- comment -%}
+        Si theme.js no llego a definir variant-selects (caido, bloqueado o con error),
+        vuelve a no-js para que los controles nativos de compra sean los visibles.
+      {%- endcomment -%}
       document.addEventListener('DOMContentLoaded', function () {
         if (!window.customElements || !window.customElements.get('variant-selects')) {
           document.documentElement.classList.remove('js');

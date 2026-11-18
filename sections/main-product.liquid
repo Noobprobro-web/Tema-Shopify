@@ -15,7 +15,7 @@
   endif
 
   comment
-    5A-003, GPT-AUDIT-005 H1. Una variante que exige plan de venta y no tiene ninguno
+    Una variante que exige plan de venta y no tiene ninguno
     asignado no se puede comprar: Shopify responde 200 a /cart/add sin crear la linea. La
     ficha falla cerrada desde el servidor: sin boton activo, sin pago acelerado y con el
     motivo a la vista. VariantSelects repite la misma regla al cambiar de variante.
@@ -29,7 +29,7 @@
   assign product_form_id = 'product-form-' | append: section.id
 
   comment
-    B-02. Sin JS (o con theme.js caido) el selector visual de variantes no puede cambiar el id
+    Sin JS (o con theme.js caido) el selector visual de variantes no puede cambiar el id
     del formulario, asi que se emite un select nativo de variantes (snippet variant-no-js-select) y el
     hidden nace desactivado. VariantSelects toma el control al conectarse. Solo si el producto
     tiene variantes reales y el comerciante mantiene el bloque variant_picker.
@@ -45,7 +45,7 @@
   assign selected_media_id = selected_variant.featured_media.id | default: product.featured_media.id
 
   comment
-    Proporcion del carrusel movil (4F-001): la de la primera imagen, acotada entre 2:3 y
+    Proporcion del carrusel movil: la de la primera imagen, acotada entre 2:3 y
     3:2. Todas las diapositivas comparten marco para que el carrusel no cambie de alto al
     deslizar; una imagen de otra proporcion se muestra entera dentro de ese marco.
   endcomment
@@ -56,7 +56,7 @@
   endif
 
   comment
-    5B-001. Zoom de imagen (CLAUDE-AUDIT-OPUS-001, seccion 6). Solo las imagenes se amplian:
+    Zoom de imagen. Solo las imagenes se amplian:
     el video y el 3D conservan sus controles. Con el ajuste apagado o sin imagenes no hay
     disparadores, ni visor, ni product-zoom.js.
   endcomment
@@ -88,7 +88,7 @@
               {% if section.settings.media_layout == 'thumbnails' and media.id != selected_media_id %}hidden{% endif %}
             >
               {%- liquid
-                # 5B-001, H-07. En la rejilla de escritorio cada foto ocupa media columna de la
+                # En la rejilla de escritorio cada foto ocupa media columna de la
                 # galeria (unos 30vw); la primera, si el total es impar, ocupa las dos.
                 assign media_sizes = '(min-width: 62rem) 60vw, 100vw'
                 if section.settings.media_layout == 'grid' and product.media.size > 1
@@ -744,7 +744,7 @@
   </div>
 
   {%- comment -%}
-    5C-002. El visor va fuera de .product-main__layout: dentro era un hijo mas de la rejilla,
+    El visor va fuera de .product-main__layout: dentro era un hijo mas de la rejilla,
     ocupaba la segunda columna con alto 0 y mandaba la ficha debajo de la galeria.
   {%- endcomment -%}
   {%- if zoom_enabled -%}
@@ -805,7 +805,7 @@
             <span class="sticky-cart-bar__price" data-sticky-price>{% if selected_variant %}{{ selected_variant.price | money }}{% endif %}</span>
           </p>
           {%- comment -%}
-            4F-002. Con cantidad 2 o mas la barra dice cuantas unidades va a anadir y el total
+            Con cantidad 2 o mas la barra dice cuantas unidades va a anadir y el total
             de la linea, en su propia linea para que nunca se recorte. El total no se calcula
             aqui: se copia del total que ya muestra el bloque de cantidad, asi la barra nunca
             puede discrepar de la ficha.

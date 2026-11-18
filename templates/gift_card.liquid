@@ -128,7 +128,7 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // AF-13 (AUDIT-FINAL-001): sin manejadores en línea, compatible con una CSP estricta.
+        {%- comment -%} Sin manejadores en línea, compatible con una CSP estricta. {%- endcomment -%}
         var printButton = document.querySelector('[data-gift-card-print]');
         if (printButton) {
           printButton.addEventListener('click', function () {

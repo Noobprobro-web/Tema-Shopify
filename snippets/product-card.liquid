@@ -110,7 +110,7 @@
     elsif combined_listing or variant_total > 250
       assign quick_buy_mode = 'options'
     elsif card_product.has_only_default_variant or variant_total == 1
-      # LEAD-001: opciones con un solo valor (p. ej. una pieza 1-de-1 con Condicion y Talla)
+      # Opciones con un solo valor (p. ej. una pieza 1-de-1 con Condicion y Talla)
       # siguen siendo una unica variante; pedir "Elegir opciones" era un paso vacio.
       assign quick_buy_mode = 'single'
     elsif card_product.options.size == 1 and swatch_position == 1
@@ -201,11 +201,11 @@
           endfor
         -%}
         {%- comment -%}
-          LV05-CN7. A row of only colors has fixed-size pieces (44px), so its bands must not grow
+          A row of only colors has fixed-size pieces (44px), so its bands must not grow
           with the browser font size: it prints data-swatch-fit-px (bands in px) instead of
           data-swatch-fit (bands in max(px, rem), for rows with text swatches).
-          data-swatch-fit picks one to four swatches per width band of the row (base.css,
-          LV05-CN3 and LV05-CN5). The pill always counts exactly what is hidden.
+          data-swatch-fit picks one to four swatches per width band of the row (base.css).
+          The pill always counts exactly what is hidden.
         {%- endcomment -%}
         <div class="product-card__swatches">
           <div
@@ -339,7 +339,7 @@
             {%- endif -%}
           {%- endfor -%}
           {%- comment -%}
-            LV05-CN6. When the row is too narrow for any pill (base.css), this is the only
+            When the row is too narrow for any pill (base.css), this is the only
             count left: shown to assistive tech only, never focusable, outside the row flow.
           {%- endcomment -%}
           <span class="visually-hidden card-swatch-count">

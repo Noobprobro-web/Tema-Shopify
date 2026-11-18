@@ -49,7 +49,7 @@
       {%- if show_language_selector -%}
         <div class="localization-form__toggle" role="group" aria-label="{{ 'general.localization.language' | t }}">
           {%- for language in localization.available_languages -%}
-            {%- comment -%} WCAG 2.5.3 (B-05/LV-01): el nombre accesible del boton empieza por su texto visible. {%- endcomment -%}
+            {%- comment -%} WCAG 2.5.3: el nombre accesible del boton empieza por su texto visible. {%- endcomment -%}
             {%- assign language_code_label = language.iso_code | upcase -%}
             {%- if language.iso_code == localization.language.iso_code -%}
               <span class="localization-form__item is-active" aria-current="true">
