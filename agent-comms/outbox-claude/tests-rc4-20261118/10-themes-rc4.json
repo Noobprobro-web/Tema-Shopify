@@ -1,0 +1,15 @@
+{
+  "store": "sartorial-theme-kvkzl39t.myshopify.com",
+  "sourceCommit": "9e4359fe16ea6322a741f0170e873ebeae144d83",
+  "branch": "origin/feat/audit-integration (PR #14)",
+  "method": "build-export.mjs (agent-comms/outbox-claude/harness-C-01-ID-001) per preset; deleted sections/main-documentation.liquid, sections/main-support.liquid, templates/page.documentation.json, templates/page.support.json; 93 files per preset; zip -r -X; stagedUploadsCreate (FILE) + POST + themeCreate role UNPUBLISHED",
+  "themes": [
+    { "preset": "sartorial", "id": "190452203824", "name": "Sartorial rc4 (9e4359f)", "role": "UNPUBLISHED", "processing": false, "settingsDataMd5": "b75014e6a46516017aa8c02beee30b2c", "exportMd5": "b75014e6a46516017aa8c02beee30b2c", "match": true },
+    { "preset": "imprint", "id": "190452236592", "name": "Imprint rc4 (9e4359f)", "role": "UNPUBLISHED", "processing": false, "settingsDataMd5": "d7ba9fad745212424c7074330ca3ad2e", "exportMd5": "d7ba9fad745212424c7074330ca3ad2e", "match": true },
+    { "preset": "archive", "id": "190452269360", "name": "Archive rc4 (9e4359f)", "role": "UNPUBLISHED", "processing": false, "settingsDataMd5": "a0f10a7b6c91751cf65ab9c71f8147dd", "exportMd5": "a0f10a7b6c91751cf65ab9c71f8147dd", "match": true }
+  ],
+  "extra": { "templates/page.std-test.json": "upserted (TEXT) in the 3 rc4 themes only", "page": { "id": "gid://shopify/Page/164230955312", "handle": "std-test", "templateSuffix": "std-test" } },
+  "runMjsSha256Before": "103c1551fc1d639e93a882900885ba9283d8c260d49c938543d6299ac1a4292f",
+  "runMjsSha256After": "103c1551fc1d639e93a882900885ba9283d8c260d49c938543d6299ac1a4292f",
+  "selftest": "RESUMEN 96/96 comprobaciones correctas (stores.json and selftest.mjs updated locally with the rc4 IDs, not committed)"
+}
