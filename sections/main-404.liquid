@@ -32,7 +32,7 @@
     </div>
 
     {%- if recommendation_collection != blank and recommendation_collection.products.size > 0 -%}
-      <aside class="main-404__recommendations" aria-labelledby="NotFoundRecommendations-{{ section.id }}">
+      <section class="main-404__recommendations" aria-labelledby="NotFoundRecommendations-{{ section.id }}">
         <h2 id="NotFoundRecommendations-{{ section.id }}" class="main-404__recommendations-heading">
           {{- 'not_found.recommendations' | t -}}
         </h2>
@@ -57,7 +57,7 @@
             </li>
           {%- endfor -%}
         </ul>
-      </aside>
+      </section>
     {%- endif -%}
   </div>
 </section>

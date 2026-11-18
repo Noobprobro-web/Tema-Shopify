@@ -749,10 +749,12 @@
       "name": "Slideshow",
       "settings": {
         "height_desktop": {
-          "label": "Height on desktop"
+          "label": "Minimum height on desktop",
+          "info": "Percentage of the screen height. A slide grows taller on its own when its text needs more room."
         },
         "height_mobile": {
-          "label": "Height on mobile"
+          "label": "Minimum height on mobile",
+          "info": "Percentage of the screen height. A slide grows taller on its own when its text needs more room."
         },
         "heading_tag": {
           "label": "Heading level",
