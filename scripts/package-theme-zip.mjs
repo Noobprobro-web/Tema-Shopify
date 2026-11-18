@@ -47,8 +47,10 @@
  *   --out           ZIP de salida (obligatorio). Se rechaza una ruta dentro de
  *                   los directorios del tema del repo; usar una ruta fuera del
  *                   repo o ignorada (*.zip esta en .gitignore).
- *   Al empaquetar se avisa (sin fallar) de las referencias internas que queden en
- *   los archivos de texto del tema; ver INTERNAL_REFERENCE_PATTERN.
+ *   Al empaquetar se FALLA (exit 1) si queda alguna referencia interna (rutas de
+ *   trabajo, nombres de personas o de herramientas de IA, codigos de tarea,
+ *   hashes de commit...) en los archivos de texto del tema; ver
+ *   INTERNAL_REFERENCE_PATTERN e INTERNAL_REFERENCE_ALLOWLIST.
  *   --expect-count  falla (exit 1) si el numero de archivos no coincide.
  *   --expect-sha256 falla (exit 1) si el SHA-256 del ZIP no coincide.
  *   --expect-content-sha256  idem para la huella de contenido: SHA-256 (hex) del
@@ -88,13 +90,36 @@ const INCLUDE_DIRS = [
  */
 const INCLUDE_ROOT_FILES = ['update_extension.json'];
 /**
- * Internal-reference check (warning only for now). Theme files must not carry
- * task ids, people or tooling names. Occurrences are listed after packaging so
- * they can be cleaned up; they do not fail the build yet. Paths in
- * INTERNAL_REFERENCE_ALLOWED_PATHS are skipped.
+ * Internal-reference check (fails the build). Theme files must not carry internal
+ * paths, people or AI-tool names, task/sprint/finding codes, commit hashes or
+ * internal version numbers. Every match in a text file that goes into the ZIP is
+ * listed and the packaging exits with an error.
+ *
+ * INTERNAL_REFERENCE_ALLOWLIST is the only escape hatch and must stay minimal:
+ * each entry skips ONE known false positive and needs the exact path plus a
+ * substring that must appear on the offending line (so a new match elsewhere in
+ * the same file still fails). Current entries:
+ *   - theme_author is the public author name shown in the theme settings.
+ *   - model-viewer-ui/assets/v1.0/ is Shopify's CDN path for the 3D viewer CSS.
+ *   - decade80 / decade90 are block ids in the archive listing template and
+ *     happen to look like hex.
  */
-const INTERNAL_REFERENCE_PATTERN = /agent-comms|Johandry|GPT-|CLAUDE-|LEAD-|AUDIT|Sprint|\b[0-9][A-Z]-[0-9]{3}\b/g;
-const INTERNAL_REFERENCE_ALLOWED_PATHS = [];
+const INTERNAL_REFERENCE_PATTERN = new RegExp([
+  'agent-comms', 'outbox-', 'inbox-', 'harness', 'Johandry', 'Ruiz',
+  'Claude', 'CLAUDE-', 'GPT-', 'Gemini', 'Codex', 'AUDIT', 'Sprint',
+  '\\b[0-9][A-Z]-[0-9]{3}\\b', 'LEAD-\\d+', 'GPT-\\d+', 'AF-\\d+', 'LV0\\d-', 'COMP-\\d+', 'MOTION-\\d+',
+  '\\b[ABC]-0\\d\\b', '\\bP1\\b', '\\bD-02-[A-Z]\\b', '\\bTEC-0\\d\\b', 'REVIEW-[A-Z0-9-]+', 'FIXES-[A-Z0-9-]+',
+  '[Ll]edger', '\\bGate\\b', '[Cc]ompuerta', 'aprobad[oa] por', 'tras la auditor',
+  '(?<![#\\w/.-])(?=[0-9a-f]*[0-9])(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}\\b', // commit hashes
+  '\\bv\\d+\\.\\d+\\.\\d+\\b', // internal versions such as v1.1.0
+].join('|'), 'g');
+const INTERNAL_REFERENCE_ALLOWLIST = [
+  { path: 'config/settings_schema.json', text: '"theme_author": "Ruiz Digital"' },
+  { path: 'layout/theme.liquid', text: 'model-viewer-ui/assets/v1.0/model-viewer-ui.css' },
+  { path: 'sections/featured-product.liquid', text: 'model-viewer-ui/assets/v1.0/model-viewer-ui.css' },
+  { path: 'listings/archive/templates/index.json', text: '"decade80"' },
+  { path: 'listings/archive/templates/index.json', text: '"decade90"' },
+];
 /**
  * Rutas exactas (relativas a la raiz) que se omiten del ZIP sin borrarse del
  * repo. C-04-P conserva las plantillas de documentación solo en el repositorio.
@@ -296,24 +321,23 @@ function collect(commit) {
   return entries;
 }
 
-/** Lists internal-reference matches in the text files that go into the ZIP. Warning only. */
-function warnInternalReferences(entries) {
+/** Fails the build if any text file that goes into the ZIP carries an internal reference. */
+function checkInternalReferences(entries) {
   const found = [];
   for (const e of entries) {
-    if (!isTextBlob(e) || INTERNAL_REFERENCE_ALLOWED_PATHS.includes(e.path)) continue;
-    const lines = e.data.toString('utf8').split('\n');
-    lines.forEach((line, i) => {
+    if (!isTextBlob(e)) continue;
+    e.data.toString('utf8').split('\n').forEach((line, i) => {
       const hits = line.match(INTERNAL_REFERENCE_PATTERN);
-      if (hits) found.push({ path: e.path, line: i + 1, hits: [...new Set(hits)] });
+      if (!hits) return;
+      if (INTERNAL_REFERENCE_ALLOWLIST.some((a) => a.path === e.path && line.includes(a.text))) return;
+      found.push(e.path + ':' + (i + 1) + '  ' + [...new Set(hits)].join(', '));
     });
   }
   if (found.length === 0) {
-    console.log('referencias internas: ninguna');
+    console.log('internal references: none');
     return;
   }
-  const files = new Set(found.map((f) => f.path));
-  console.warn('[package-theme-zip] AVISO: ' + found.length + ' lineas con referencias internas en ' + files.size + ' archivos (no falla el empaquetado):');
-  for (const f of found) console.warn('  ' + f.path + ':' + f.line + '  ' + f.hits.join(', '));
+  fail('internal references in ' + found.length + ' lines of the theme files:\n  ' + found.join('\n  '));
 }
 
 function buildZip(entries, dos) {
@@ -418,7 +442,7 @@ function main() {
   const epoch = Number(m[2]);
   const dos = dosDateTime(epoch);
 
-  warnInternalReferences(entries);
+  checkInternalReferences(entries);
 
   const zip = buildZip(entries, dos);
   const sha256 = createHash('sha256').update(zip).digest('hex');
