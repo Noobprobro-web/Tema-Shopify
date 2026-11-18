@@ -652,6 +652,147 @@
         "name": "Mixed content grid"
       }
     },
+    "image_with_text": {
+      "name": "Image with text",
+      "settings": {
+        "image_alt": {
+          "info": "Describes the image for screen readers. Leave blank to use the image's own alternative text, or none when a heading already explains it."
+        },
+        "layout": {
+          "label": "Desktop layout",
+          "options__1": { "label": "Image first" },
+          "options__2": { "label": "Text first" }
+        },
+        "image_width": {
+          "label": "Image width",
+          "options__1": { "label": "Half" },
+          "options__2": { "label": "Larger than the text" }
+        },
+        "image_ratio": {
+          "label": "Image shape",
+          "info": "Choose Original to keep the image's own proportions. Other shapes crop it.",
+          "options__1": { "label": "Original" },
+          "options__2": { "label": "Portrait" },
+          "options__3": { "label": "Square" },
+          "options__4": { "label": "Landscape" }
+        },
+        "text_position": {
+          "label": "Text position",
+          "options__1": { "label": "Top" },
+          "options__2": { "label": "Middle" },
+          "options__3": { "label": "Bottom" }
+        },
+        "mobile_order": {
+          "label": "Mobile order"
+        },
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use level 1 only for the main heading of the page. Other sections should use level 2 or 3.",
+          "options__1": { "label": "Heading 1" },
+          "options__2": { "label": "Heading 2" },
+          "options__3": { "label": "Heading 3" }
+        },
+        "button_style": {
+          "label": "Button style",
+          "options__1": { "label": "Solid" },
+          "options__2": { "label": "Outline" }
+        }
+      },
+      "presets": {
+        "name": "Image with text"
+      }
+    },
+    "slideshow": {
+      "name": "Slideshow",
+      "settings": {
+        "height_desktop": {
+          "label": "Height on desktop"
+        },
+        "height_mobile": {
+          "label": "Height on mobile"
+        },
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use level 1 only for the main heading of the page. Other sections should use level 2 or 3.",
+          "options__1": { "label": "Heading 1" },
+          "options__2": { "label": "Heading 2" },
+          "options__3": { "label": "Heading 3" }
+        },
+        "autoplay": {
+          "label": "Change slides automatically",
+          "info": "Automatic changes pause on hover and focus and are turned off for visitors who prefer reduced motion. A pause button is always shown."
+        },
+        "autoplay_delay": {
+          "label": "Time between slides"
+        }
+      },
+      "blocks": {
+        "slide": {
+          "name": "Slide",
+          "settings": {
+            "image_alt": {
+              "info": "Describes the image for screen readers. Leave blank to use the image's own alternative text."
+            },
+            "overlay_opacity": {
+              "label": "Image overlay",
+              "info": "Darkens the image so the text stays readable. Raise it for bright photos."
+            },
+            "text_alignment": {
+              "label": "Text alignment",
+              "options__1": { "label": "Left" },
+              "options__2": { "label": "Center" },
+              "options__3": { "label": "Right" }
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Slideshow"
+      }
+    },
+    "video": {
+      "name": "Video",
+      "settings": {
+        "video": {
+          "label": "Video file",
+          "info": "A video uploaded to Shopify. Takes priority over the video link below."
+        },
+        "video_url": {
+          "label": "Video link",
+          "info": "A YouTube or Vimeo link. The player loads from that service only after a visitor presses play."
+        },
+        "cover_image": {
+          "label": "Cover image",
+          "info": "Shown before the video plays. Uploaded videos use their own preview when this is empty."
+        },
+        "video_title": {
+          "label": "Video title",
+          "info": "Read aloud by screen readers to describe the video. Required for accessibility."
+        },
+        "width": {
+          "label": "Width",
+          "options__1": { "label": "Contained" },
+          "options__2": { "label": "Full width" }
+        },
+        "aspect_ratio": {
+          "label": "Video shape",
+          "options__1": { "label": "Widescreen (16:9)" },
+          "options__2": { "label": "Cinematic (21:9)" },
+          "options__3": { "label": "Standard (4:3)" },
+          "options__4": { "label": "Square (1:1)" }
+        },
+        "heading_tag": {
+          "label": "Heading level",
+          "info": "Use level 1 only for the main heading of the page. Other sections should use level 2 or 3.",
+          "options__1": { "label": "Heading 1" },
+          "options__2": { "label": "Heading 2" },
+          "options__3": { "label": "Heading 3" }
+        }
+      },
+      "presets": {
+        "name": "Video"
+      }
+    },
     "lookbook": {
       "name": "Shoppable lookbook",
       "settings": {

@@ -161,6 +161,28 @@
         }
       }
     },
+    "image_with_text": {
+      "region_label": "Imagen con texto"
+    },
+    "slideshow": {
+      "region_label": "Presentación de diapositivas",
+      "carousel_role": "carrusel",
+      "slide_role": "diapositiva",
+      "slide_label": "Diapositiva {{ current }} de {{ total }}",
+      "previous": "Diapositiva anterior",
+      "next": "Diapositiva siguiente",
+      "go_to_slide": "Ir a la diapositiva {{ number }}",
+      "pause": "Pausar la presentación",
+      "play": "Reproducir la presentación",
+      "empty": "Añade diapositivas a esta sección para crear tu presentación."
+    },
+    "video": {
+      "region_label": "Vídeo",
+      "default_title": "Vídeo",
+      "play": "Reproducir",
+      "play_label": "Reproducir vídeo: {{ title }}",
+      "watch": "Ver el vídeo"
+    },
     "bento_discovery": {
       "explore_generic": "Explorar"
     },

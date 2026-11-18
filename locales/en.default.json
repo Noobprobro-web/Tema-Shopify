@@ -161,6 +161,28 @@
         }
       }
     },
+    "image_with_text": {
+      "region_label": "Image with text"
+    },
+    "slideshow": {
+      "region_label": "Slideshow",
+      "carousel_role": "carousel",
+      "slide_role": "slide",
+      "slide_label": "Slide {{ current }} of {{ total }}",
+      "previous": "Previous slide",
+      "next": "Next slide",
+      "go_to_slide": "Go to slide {{ number }}",
+      "pause": "Pause slideshow",
+      "play": "Play slideshow",
+      "empty": "Add slides to this section to build your slideshow."
+    },
+    "video": {
+      "region_label": "Video",
+      "default_title": "Video",
+      "play": "Play",
+      "play_label": "Play video: {{ title }}",
+      "watch": "Watch the video"
+    },
     "bento_discovery": {
       "explore_generic": "Explore"
     },
