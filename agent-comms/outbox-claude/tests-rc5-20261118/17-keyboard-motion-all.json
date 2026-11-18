@@ -1,0 +1,882 @@
+{
+  "when": "2026-11-18T03:24:31.147Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "tabCount": 38,
+      "mainStops": [
+        "7:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "8:slideshow:button:Previous slide",
+        "9:slideshow:button:Next slide",
+        "10:slideshow:button:Play slideshow",
+        "11:slideshow:button:Go to slide 1",
+        "12:slideshow:button:Go to slide 2",
+        "13:slideshow:button:Go to slide 3",
+        "14:image_with_text:a:Read more",
+        "15:featured_collection:a:View all products in Permanent collectio",
+        "16:featured_collection:a:Structured Tote",
+        "17:featured_collection:button:Color: Black",
+        "18:featured_collection:a:Structured Tote",
+        "19:featured_collection:a:Cashmere Scarf",
+        "20:featured_collection:a:Cashmere Scarf",
+        "21:featured_collection:a:Leather Belt",
+        "22:featured_collection:button:Color: Black",
+        "23:featured_collection:a:Leather Belt",
+        "24:featured_collection:a:Pleated Midi Skirt",
+        "25:featured_collection:button:Color: Navy",
+        "26:featured_collection:a:Pleated Midi Skirt",
+        "27:collection_list:a:Tailoring",
+        "28:collection_list:a:Knitwear",
+        "29:collection_list:a:Outerwear",
+        "30:blog_posts:a:View all posts in News",
+        "31:blog_posts:a:Read more A very long article title used",
+        "32:blog_posts:a:Read more How to read the size chart",
+        "33:blog_posts:a:Read more Welcome to the demo store",
+        "34:rich_text:a:Shop now",
+        "35:video_external:button:Play video: YouTube example",
+        "36:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar",
+        "23:a:Leather Belt:featured_collection",
+        "26:a:Pleated Midi Skirt:featured_collection",
+        "34:a:Shop now:rich_text"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "reducedMotion": true,
+      "toggleLabel": "Pause slideshow",
+      "toggleHidden": true,
+      "idx0": 0,
+      "idxAfter8s": 0,
+      "autoplayAdvancedUnderReducedMotion": false,
+      "behaviorOnNext": "auto",
+      "nextWorks": true,
+      "transitions": [
+        "0s",
+        "0s"
+      ],
+      "check": {
+        "noAutoAdvance": true,
+        "nextWorks": true,
+        "toggleHidden": true
+      }
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "tabCount": 43,
+      "mainStops": [
+        "12:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "13:slideshow:button:Previous slide",
+        "14:slideshow:button:Next slide",
+        "15:slideshow:button:Play slideshow",
+        "16:slideshow:button:Go to slide 1",
+        "17:slideshow:button:Go to slide 2",
+        "18:slideshow:button:Go to slide 3",
+        "19:image_with_text:a:Read more",
+        "20:featured_collection:a:View all products in Permanent collectio",
+        "21:featured_collection:a:Structured Tote",
+        "22:featured_collection:button:Color: Black",
+        "23:featured_collection:a:Structured Tote",
+        "24:featured_collection:a:Cashmere Scarf",
+        "25:featured_collection:a:Cashmere Scarf",
+        "26:featured_collection:a:Leather Belt",
+        "27:featured_collection:button:Color: Black",
+        "28:featured_collection:a:Leather Belt",
+        "29:featured_collection:a:Pleated Midi Skirt",
+        "30:featured_collection:button:Color: Navy",
+        "31:featured_collection:a:Pleated Midi Skirt",
+        "32:collection_list:a:Tailoring",
+        "33:collection_list:a:Knitwear",
+        "34:collection_list:a:Outerwear",
+        "35:blog_posts:a:View all posts in News",
+        "36:blog_posts:a:Read more A very long article title used",
+        "37:blog_posts:a:Read more How to read the size chart",
+        "38:blog_posts:a:Read more Welcome to the demo store",
+        "39:rich_text:a:Shop now",
+        "40:video_external:button:Play video: YouTube example",
+        "41:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "reducedMotion": true,
+      "toggleLabel": "Pause slideshow",
+      "toggleHidden": true,
+      "idx0": 0,
+      "idxAfter8s": 0,
+      "autoplayAdvancedUnderReducedMotion": false,
+      "behaviorOnNext": "auto",
+      "nextWorks": true,
+      "transitions": [
+        "0s",
+        "0s"
+      ],
+      "check": {
+        "noAutoAdvance": true,
+        "nextWorks": true,
+        "toggleHidden": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "tabCount": 39,
+      "mainStops": [
+        "7:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "8:slideshow:a:Explore",
+        "9:slideshow:button:Previous slide",
+        "10:slideshow:button:Next slide",
+        "11:slideshow:button:Play slideshow",
+        "12:slideshow:button:Go to slide 1",
+        "13:slideshow:button:Go to slide 2",
+        "14:slideshow:button:Go to slide 3",
+        "15:image_with_text:a:Read more",
+        "16:featured_collection:a:View all products in Permanent collectio",
+        "17:featured_collection:a:Structured Tote",
+        "18:featured_collection:button:Color: Black",
+        "19:featured_collection:a:Structured Tote",
+        "20:featured_collection:a:Cashmere Scarf",
+        "21:featured_collection:a:Cashmere Scarf",
+        "22:featured_collection:a:Leather Belt",
+        "23:featured_collection:button:Color: Black",
+        "24:featured_collection:a:Leather Belt",
+        "25:featured_collection:a:Pleated Midi Skirt",
+        "26:featured_collection:button:Color: Navy",
+        "27:featured_collection:a:Pleated Midi Skirt",
+        "28:collection_list:a:Tailoring",
+        "29:collection_list:a:Knitwear",
+        "30:collection_list:a:Outerwear",
+        "31:blog_posts:a:View all posts in News",
+        "32:blog_posts:a:Read more A very long article title used",
+        "33:blog_posts:a:Read more How to read the size chart",
+        "34:blog_posts:a:Read more Welcome to the demo store",
+        "35:rich_text:a:Shop now",
+        "36:video_external:button:Play video: YouTube example",
+        "37:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar",
+        "23:button:Color: Black:featured_collection"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "reducedMotion": true,
+      "toggleLabel": "Pause slideshow",
+      "toggleHidden": true,
+      "idx0": 0,
+      "idxAfter8s": 0,
+      "autoplayAdvancedUnderReducedMotion": false,
+      "behaviorOnNext": "auto",
+      "nextWorks": true,
+      "transitions": [
+        "0s",
+        "0s"
+      ],
+      "check": {
+        "noAutoAdvance": true,
+        "nextWorks": true,
+        "toggleHidden": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "tabCount": 43,
+      "mainStops": [
+        "12:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "13:slideshow:button:Previous slide",
+        "14:slideshow:button:Next slide",
+        "15:slideshow:button:Play slideshow",
+        "16:slideshow:button:Go to slide 1",
+        "17:slideshow:button:Go to slide 2",
+        "18:slideshow:button:Go to slide 3",
+        "19:image_with_text:a:Read more",
+        "20:featured_collection:a:View all products in Permanent collectio",
+        "21:featured_collection:a:Structured Tote",
+        "22:featured_collection:button:Color: Black",
+        "23:featured_collection:a:Structured Tote",
+        "24:featured_collection:a:Cashmere Scarf",
+        "25:featured_collection:a:Cashmere Scarf",
+        "26:featured_collection:a:Leather Belt",
+        "27:featured_collection:button:Color: Black",
+        "28:featured_collection:a:Leather Belt",
+        "29:featured_collection:a:Pleated Midi Skirt",
+        "30:featured_collection:button:Color: Navy",
+        "31:featured_collection:a:Pleated Midi Skirt",
+        "32:collection_list:a:Tailoring",
+        "33:collection_list:a:Knitwear",
+        "34:collection_list:a:Outerwear",
+        "35:blog_posts:a:View all posts in News",
+        "36:blog_posts:a:Read more A very long article title used",
+        "37:blog_posts:a:Read more How to read the size chart",
+        "38:blog_posts:a:Read more Welcome to the demo store",
+        "39:rich_text:a:Shop now",
+        "40:video_external:button:Play video: YouTube example",
+        "41:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "reducedMotion": true,
+      "toggleLabel": "Pause slideshow",
+      "toggleHidden": true,
+      "idx0": 0,
+      "idxAfter8s": 0,
+      "autoplayAdvancedUnderReducedMotion": false,
+      "behaviorOnNext": "auto",
+      "nextWorks": true,
+      "transitions": [
+        "0s",
+        "0s"
+      ],
+      "check": {
+        "noAutoAdvance": true,
+        "nextWorks": true,
+        "toggleHidden": true
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "tabCount": 38,
+      "mainStops": [
+        "7:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "8:slideshow:button:Previous slide",
+        "9:slideshow:button:Next slide",
+        "10:slideshow:button:Play slideshow",
+        "11:slideshow:button:Go to slide 1",
+        "12:slideshow:button:Go to slide 2",
+        "13:slideshow:button:Go to slide 3",
+        "14:image_with_text:a:Read more",
+        "15:featured_collection:a:View all products in Permanent collectio",
+        "16:featured_collection:a:Structured Tote",
+        "17:featured_collection:button:Color: Black",
+        "18:featured_collection:a:Structured Tote",
+        "19:featured_collection:a:Cashmere Scarf",
+        "20:featured_collection:a:Cashmere Scarf",
+        "21:featured_collection:a:Leather Belt",
+        "22:featured_collection:button:Color: Black",
+        "23:featured_collection:a:Leather Belt",
+        "24:featured_collection:a:Pleated Midi Skirt",
+        "25:featured_collection:button:Color: Navy",
+        "26:featured_collection:a:Pleated Midi Skirt",
+        "27:collection_list:a:Tailoring",
+        "28:collection_list:a:Knitwear",
+        "29:collection_list:a:Outerwear",
+        "30:blog_posts:a:View all posts in News",
+        "31:blog_posts:a:Read more A very long article title used",
+        "32:blog_posts:a:Read more How to read the size chart",
+        "33:blog_posts:a:Read more Welcome to the demo store",
+        "34:rich_text:a:Shop now",
+        "35:video_external:button:Play video: YouTube example",
+        "36:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar",
+        "23:a:Leather Belt:featured_collection",
+        "34:a:Shop now:rich_text"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "reducedMotion": true,
+      "toggleLabel": "Pause slideshow",
+      "toggleHidden": true,
+      "idx0": 0,
+      "idxAfter8s": 0,
+      "autoplayAdvancedUnderReducedMotion": false,
+      "behaviorOnNext": "auto",
+      "nextWorks": true,
+      "transitions": [
+        "0s",
+        "0s"
+      ],
+      "check": {
+        "noAutoAdvance": true,
+        "nextWorks": true,
+        "toggleHidden": true
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "tabCount": 43,
+      "mainStops": [
+        "12:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "13:slideshow:button:Previous slide",
+        "14:slideshow:button:Next slide",
+        "15:slideshow:button:Play slideshow",
+        "16:slideshow:button:Go to slide 1",
+        "17:slideshow:button:Go to slide 2",
+        "18:slideshow:button:Go to slide 3",
+        "19:image_with_text:a:Read more",
+        "20:featured_collection:a:View all products in Permanent collectio",
+        "21:featured_collection:a:Structured Tote",
+        "22:featured_collection:button:Color: Black",
+        "23:featured_collection:a:Structured Tote",
+        "24:featured_collection:a:Cashmere Scarf",
+        "25:featured_collection:a:Cashmere Scarf",
+        "26:featured_collection:a:Leather Belt",
+        "27:featured_collection:button:Color: Black",
+        "28:featured_collection:a:Leather Belt",
+        "29:featured_collection:a:Pleated Midi Skirt",
+        "30:featured_collection:button:Color: Navy",
+        "31:featured_collection:a:Pleated Midi Skirt",
+        "32:collection_list:a:Tailoring",
+        "33:collection_list:a:Knitwear",
+        "34:collection_list:a:Outerwear",
+        "35:blog_posts:a:View all posts in News",
+        "36:blog_posts:a:Read more A very long article title used",
+        "37:blog_posts:a:Read more How to read the size chart",
+        "38:blog_posts:a:Read more Welcome to the demo store",
+        "39:rich_text:a:Shop now",
+        "40:video_external:button:Play video: YouTube example",
+        "41:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "reducedMotion": true,
+      "toggleLabel": "Pause slideshow",
+      "toggleHidden": true,
+      "idx0": 0,
+      "idxAfter8s": 0,
+      "autoplayAdvancedUnderReducedMotion": false,
+      "behaviorOnNext": "auto",
+      "nextWorks": true,
+      "transitions": [
+        "0s",
+        "0s"
+      ],
+      "check": {
+        "noAutoAdvance": true,
+        "nextWorks": true,
+        "toggleHidden": true
+      }
+    },
+    {
+      "preset": "pkg",
+      "mode": "mobile",
+      "tabCount": 38,
+      "mainStops": [
+        "7:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "8:slideshow:button:Previous slide",
+        "9:slideshow:button:Next slide",
+        "10:slideshow:button:Play slideshow",
+        "11:slideshow:button:Go to slide 1",
+        "12:slideshow:button:Go to slide 2",
+        "13:slideshow:button:Go to slide 3",
+        "14:image_with_text:a:Read more",
+        "15:featured_collection:a:View all products in Permanent collectio",
+        "16:featured_collection:a:Structured Tote",
+        "17:featured_collection:button:Color: Black",
+        "18:featured_collection:a:Structured Tote",
+        "19:featured_collection:a:Cashmere Scarf",
+        "20:featured_collection:a:Cashmere Scarf",
+        "21:featured_collection:a:Leather Belt",
+        "22:featured_collection:button:Color: Black",
+        "23:featured_collection:a:Leather Belt",
+        "24:featured_collection:a:Pleated Midi Skirt",
+        "25:featured_collection:button:Color: Navy",
+        "26:featured_collection:a:Pleated Midi Skirt",
+        "27:collection_list:a:Tailoring",
+        "28:collection_list:a:Knitwear",
+        "29:collection_list:a:Outerwear",
+        "30:blog_posts:a:View all posts in News",
+        "31:blog_posts:a:Read more A very long article title used",
+        "32:blog_posts:a:Read more How to read the size chart",
+        "33:blog_posts:a:Read more Welcome to the demo store",
+        "34:rich_text:a:Shop now",
+        "35:video_external:button:Play video: YouTube example",
+        "36:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar",
+        "23:a:Leather Belt:featured_collection",
+        "26:a:Pleated Midi Skirt:featured_collection",
+        "34:a:Shop now:rich_text"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "pkg",
+      "mode": "mobile",
+      "reducedMotion": true,
+      "toggleLabel": "Pause slideshow",
+      "toggleHidden": true,
+      "idx0": 0,
+      "idxAfter8s": 0,
+      "autoplayAdvancedUnderReducedMotion": false,
+      "behaviorOnNext": "auto",
+      "nextWorks": true,
+      "transitions": [
+        "0s",
+        "0s"
+      ],
+      "check": {
+        "noAutoAdvance": true,
+        "nextWorks": true,
+        "toggleHidden": true
+      }
+    },
+    {
+      "preset": "pkg",
+      "mode": "desktop",
+      "tabCount": 43,
+      "mainStops": [
+        "12:slideshow:div:New seasonQuiet tailoringConsidered cuts",
+        "13:slideshow:button:Previous slide",
+        "14:slideshow:button:Next slide",
+        "15:slideshow:button:Play slideshow",
+        "16:slideshow:button:Go to slide 1",
+        "17:slideshow:button:Go to slide 2",
+        "18:slideshow:button:Go to slide 3",
+        "19:image_with_text:a:Read more",
+        "20:featured_collection:a:View all products in Permanent collectio",
+        "21:featured_collection:a:Structured Tote",
+        "22:featured_collection:button:Color: Black",
+        "23:featured_collection:a:Structured Tote",
+        "24:featured_collection:a:Cashmere Scarf",
+        "25:featured_collection:a:Cashmere Scarf",
+        "26:featured_collection:a:Leather Belt",
+        "27:featured_collection:button:Color: Black",
+        "28:featured_collection:a:Leather Belt",
+        "29:featured_collection:a:Pleated Midi Skirt",
+        "30:featured_collection:button:Color: Navy",
+        "31:featured_collection:a:Pleated Midi Skirt",
+        "32:collection_list:a:Tailoring",
+        "33:collection_list:a:Knitwear",
+        "34:collection_list:a:Outerwear",
+        "35:blog_posts:a:View all posts in News",
+        "36:blog_posts:a:Read more A very long article title used",
+        "37:blog_posts:a:Read more How to read the size chart",
+        "38:blog_posts:a:Read more Welcome to the demo store",
+        "39:rich_text:a:Shop now",
+        "40:video_external:button:Play video: YouTube example",
+        "41:video_hosted:button:Play video: Hosted example"
+      ],
+      "sectionsReached": [
+        "slideshow",
+        "image_with_text",
+        "featured_collection",
+        "collection_list",
+        "blog_posts",
+        "rich_text",
+        "video_external",
+        "video_hosted"
+      ],
+      "noIndicator": [
+        "1:a:Explore the collection:announcement_bar"
+      ],
+      "notVisible": [],
+      "orderViolations": [],
+      "stopsOnInertSlides": 0,
+      "shiftTab": [
+        {
+          "got": "button:Play video: Hosted example",
+          "expected": "button:Play video: Hosted example"
+        },
+        {
+          "got": "button:Play video: YouTube example",
+          "expected": "button:Play video: YouTube example"
+        },
+        {
+          "got": "a:Shop now",
+          "expected": "a:Shop now"
+        },
+        {
+          "got": "a:Read more Welcome to the demo store",
+          "expected": "a:Read more Welcome to the demo store"
+        },
+        {
+          "got": "a:Read more How to read the size chart",
+          "expected": "a:Read more How to read the size chart"
+        },
+        {
+          "got": "a:Read more A very long article title used",
+          "expected": "a:Read more A very long article title used"
+        }
+      ],
+      "shiftTabMatches": true,
+      "checks": {
+        "allSectionsReachable": true,
+        "focusAlwaysVisibleIndicator": false,
+        "focusNeverHidden": true,
+        "orderMonotonic": true,
+        "noStopOnInertSlide": true,
+        "shiftTabSymmetric": true
+      }
+    },
+    {
+      "preset": "pkg",
+      "mode": "desktop",
+      "reducedMotion": true,
+      "error": "TimeoutError: page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://sartorial-theme-kvkzl39t.myshopify.com/pages/std-test?preview_theme_id=190453285168\", waiting until \"load\"\u001b[22m\n"
+    }
+  ],
+  "failedChecks": [
+    "sartorial/mobile:focusAlwaysVisibleIndicator",
+    "sartorial/desktop:focusAlwaysVisibleIndicator",
+    "imprint/mobile:focusAlwaysVisibleIndicator",
+    "imprint/desktop:focusAlwaysVisibleIndicator",
+    "archive/mobile:focusAlwaysVisibleIndicator",
+    "archive/desktop:focusAlwaysVisibleIndicator",
+    "pkg/mobile:focusAlwaysVisibleIndicator",
+    "pkg/desktop:focusAlwaysVisibleIndicator"
+  ]
+}

@@ -1,0 +1,2923 @@
+{
+  "when": "2026-11-18T03:17:17.673Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "slug": "serra-coat",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": true,
+        "swipeMovesTrack": true,
+        "swipeUpdatesCounter": true,
+        "prevReturns": true,
+        "nextAdvances": true,
+        "activeNotInertAfterNext": true,
+        "oneNonInertAfterNext": true,
+        "statusAnnounces": true,
+        "zoomOpens": true,
+        "zoomCloses": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 4,
+        "items": [
+          {
+            "l": 20,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": false,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 370,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 720,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 1070,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          }
+        ],
+        "track": {
+          "sw": 1400,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": 0,
+          "label": "Product media gallery"
+        },
+        "pagerHidden": false,
+        "counter": "1",
+        "status": "",
+        "inertCount": 3
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "afterSwipe": {
+        "sl": 350,
+        "counter": "2",
+        "status": ""
+      },
+      "afterPrev": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterNext": {
+        "sl": 350,
+        "counter": "2",
+        "status": "View product media 2",
+        "items": [
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      "atEnd": {
+        "counter": "4",
+        "sl": 1050,
+        "nextDisabled": true
+      },
+      "zoomOpen": {
+        "open": true,
+        "w": 390,
+        "h": 844,
+        "counter": "1 / 4",
+        "imgLoaded": true
+      },
+      "media": {
+        "video": 0,
+        "model": 0
+      }
+    },
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "slug": "fixture-media-3d-video",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": true,
+        "swipeOn3dCaptured": true,
+        "prevReturns": true,
+        "nextAdvances": true,
+        "activeNotInertAfterNext": true,
+        "oneNonInertAfterNext": true,
+        "statusAnnounces": true,
+        "videoPlays": true
+      },
+      "notes": [
+        "OBS: el swipe sobre el visor 3D no mueve el carrusel (el visor captura el gesto horizontal)",
+        "prev click: TimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting ",
+        "sin disparador de zoom visible"
+      ],
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 2,
+        "items": [
+          {
+            "l": 20,
+            "t": 146,
+            "w": 350,
+            "h": 384,
+            "inert": false,
+            "hiddenAttr": false,
+            "kind": "model",
+            "zoom": false
+          },
+          {
+            "l": 370,
+            "t": 146,
+            "w": 350,
+            "h": 384,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "video",
+            "zoom": false
+          }
+        ],
+        "track": {
+          "sw": 700,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": 0,
+          "label": "Product media gallery"
+        },
+        "pagerHidden": false,
+        "counter": "1",
+        "status": "",
+        "inertCount": 1
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "afterSwipe": {
+        "sl": 0,
+        "counter": "1",
+        "status": ""
+      },
+      "afterGutterSwipeRight": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterPrev": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterNext": {
+        "sl": 350,
+        "counter": "2",
+        "status": "View product media 2",
+        "items": [
+          true,
+          false
+        ]
+      },
+      "atEnd": {
+        "counter": "2",
+        "sl": 350,
+        "nextDisabled": true
+      },
+      "media": {
+        "video": 1,
+        "model": 1
+      },
+      "video": {
+        "before": {
+          "paused": true,
+          "ready": 4
+        },
+        "played": true,
+        "currentTime": 0.9,
+        "controls": true,
+        "w": 350,
+        "h": 350
+      },
+      "model": [
+        {
+          "w": 350,
+          "h": 384,
+          "inert": false
+        }
+      ]
+    },
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "slug": "fixture-many-variants",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": null
+      },
+      "notes": [
+        "sin disparador de zoom visible"
+      ],
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 0,
+        "items": [],
+        "track": {
+          "sw": 350,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": -1,
+          "label": null
+        },
+        "pagerHidden": null,
+        "counter": null,
+        "status": null,
+        "inertCount": 0
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "media": {
+        "video": 0,
+        "model": 0
+      }
+    },
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at jo.startSession (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js:12:3091)\n    at new jo (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js:12:",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at jo.startSe",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js"
+          },
+          {
+            "type": "error",
+            "text": "Refused to execute script from 'https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled.",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/products/fixture-media-3d-video"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "warning",
+            "text": "[.WebGL-0x28ac0217a200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/products/fixture-media-3d-video"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "[.WebGL-0x28ac0217a200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/products/fixture-media-3d-video"
+          },
+          {
+            "type": "warning",
+            "text": "[.WebGL-0x28ac0217a200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/products/fixture-media-3d-video"
+          },
+          {
+            "type": "warning",
+            "text": "[.WebGL-0x28ac0217a200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/products/fixture-media-3d-video"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at jo.startSe",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=6c2e437a-8636-41df-8a46-21018a237431&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=c9cb27de-09ec-4655-aff",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=c9cb27de-09ec-4655-aff3-98ce71dd6154&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=c96b76f3-c192-4c23-990",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/videos/c/vp/53496eb04e1342f186c1c217d9f6da01/53496eb04e1342f186c1c217d9f6da01.SD-480p-0.9Mbps-101374064.",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=c96b76f3-c192-4c23-990c-c301252d5d6d&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=f742b555-0c26-43ac-b5a",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=f742b555-0c26-43ac-b5ac-a7043ccdd38f&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "slug": "serra-coat",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": true,
+        "swipeMovesTrack": true,
+        "swipeUpdatesCounter": true,
+        "prevReturns": true,
+        "nextAdvances": true,
+        "activeNotInertAfterNext": true,
+        "oneNonInertAfterNext": true,
+        "statusAnnounces": true,
+        "zoomOpens": true,
+        "zoomCloses": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 4,
+        "items": [
+          {
+            "l": 20,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": false,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 370,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 720,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 1070,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          }
+        ],
+        "track": {
+          "sw": 1400,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": 0,
+          "label": "Product media gallery"
+        },
+        "pagerHidden": false,
+        "counter": "1",
+        "status": "",
+        "inertCount": 3
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "afterSwipe": {
+        "sl": 350,
+        "counter": "2",
+        "status": ""
+      },
+      "afterPrev": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterNext": {
+        "sl": 350,
+        "counter": "2",
+        "status": "View product media 2",
+        "items": [
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      "atEnd": {
+        "counter": "4",
+        "sl": 1050,
+        "nextDisabled": true
+      },
+      "zoomOpen": {
+        "open": true,
+        "w": 390,
+        "h": 844,
+        "counter": "1 / 4",
+        "imgLoaded": true
+      },
+      "media": {
+        "video": 0,
+        "model": 0
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "slug": "fixture-media-3d-video",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": true,
+        "swipeOn3dCaptured": true,
+        "prevReturns": true,
+        "nextAdvances": true,
+        "activeNotInertAfterNext": true,
+        "oneNonInertAfterNext": true,
+        "statusAnnounces": true,
+        "videoPlays": true
+      },
+      "notes": [
+        "OBS: el swipe sobre el visor 3D no mueve el carrusel (el visor captura el gesto horizontal)",
+        "prev click: TimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting ",
+        "sin disparador de zoom visible"
+      ],
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 2,
+        "items": [
+          {
+            "l": 20,
+            "t": 146,
+            "w": 350,
+            "h": 384,
+            "inert": false,
+            "hiddenAttr": false,
+            "kind": "model",
+            "zoom": false
+          },
+          {
+            "l": 370,
+            "t": 146,
+            "w": 350,
+            "h": 384,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "video",
+            "zoom": false
+          }
+        ],
+        "track": {
+          "sw": 700,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": 0,
+          "label": "Product media gallery"
+        },
+        "pagerHidden": false,
+        "counter": "1",
+        "status": "",
+        "inertCount": 1
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "afterSwipe": {
+        "sl": 0,
+        "counter": "1",
+        "status": ""
+      },
+      "afterGutterSwipeRight": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterPrev": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterNext": {
+        "sl": 350,
+        "counter": "2",
+        "status": "View product media 2",
+        "items": [
+          true,
+          false
+        ]
+      },
+      "atEnd": {
+        "counter": "2",
+        "sl": 350,
+        "nextDisabled": true
+      },
+      "media": {
+        "video": 1,
+        "model": 1
+      },
+      "video": {
+        "before": {
+          "paused": true,
+          "ready": 4
+        },
+        "played": true,
+        "currentTime": 0.9,
+        "controls": true,
+        "w": 350,
+        "h": 350
+      },
+      "model": [
+        {
+          "w": 350,
+          "h": 384,
+          "inert": false
+        }
+      ]
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "slug": "fixture-many-variants",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": null
+      },
+      "notes": [
+        "sin disparador de zoom visible"
+      ],
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 0,
+        "items": [],
+        "track": {
+          "sw": 350,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": -1,
+          "label": null
+        },
+        "pagerHidden": null,
+        "counter": null,
+        "status": null,
+        "inertCount": 0
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "media": {
+        "video": 0,
+        "model": 0
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at jo.startSession (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js:12:3091)\n    at new jo (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/p",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl3",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_even",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js"
+          },
+          {
+            "type": "error",
+            "text": "Refused to execute script from 'https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled.",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/products/fixture-media-3d-video"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cd",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_even",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cd",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:5353)\n    at M.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:8005)\n    at https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/ch",
+          "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopi",
+          "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopi",
+          "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopi",
+          "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopi",
+          "TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopi"
+        ],
+        "failed": [
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=1561eb8a-3ecf-40f4-afae-0a6505828a41&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=11048435-a854-4dbc-ab2",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=11048435-a854-4dbc-ab2a-053513dbf94e&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=4ef59846-c5ee-4ee9-86f",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=4ef59846-c5ee-4ee9-86ff-b9c69773486e&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/videos/c/vp/53496eb04e1342f186c1c217d9f6da01/53496eb04e1342f186c1c217d9f6da01.SD-480p-0.9Mbps-101374064.",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=b5b23df7-3d64-43c8-b78",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=b5b23df7-3d64-43c8-b780-401f3edd60fd&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/event/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "slug": "serra-coat",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": true,
+        "swipeMovesTrack": true,
+        "swipeUpdatesCounter": true,
+        "prevReturns": true,
+        "nextAdvances": true,
+        "activeNotInertAfterNext": true,
+        "oneNonInertAfterNext": true,
+        "statusAnnounces": true,
+        "zoomOpens": true,
+        "zoomCloses": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 4,
+        "items": [
+          {
+            "l": 20,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": false,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 370,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 720,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          },
+          {
+            "l": 1070,
+            "t": 146,
+            "w": 350,
+            "h": 438,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "image",
+            "zoom": true
+          }
+        ],
+        "track": {
+          "sw": 1400,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": 0,
+          "label": "Product media gallery"
+        },
+        "pagerHidden": false,
+        "counter": "1",
+        "status": "",
+        "inertCount": 3
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "afterSwipe": {
+        "sl": 350,
+        "counter": "2",
+        "status": ""
+      },
+      "afterPrev": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterNext": {
+        "sl": 350,
+        "counter": "2",
+        "status": "View product media 2",
+        "items": [
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      "atEnd": {
+        "counter": "4",
+        "sl": 1050,
+        "nextDisabled": true
+      },
+      "zoomOpen": {
+        "open": true,
+        "w": 390,
+        "h": 844,
+        "counter": "1 / 4",
+        "imgLoaded": true
+      },
+      "media": {
+        "video": 0,
+        "model": 0
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "slug": "fixture-media-3d-video",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": true,
+        "swipeOn3dCaptured": true,
+        "prevReturns": true,
+        "nextAdvances": true,
+        "activeNotInertAfterNext": true,
+        "oneNonInertAfterNext": true,
+        "statusAnnounces": true,
+        "videoPlays": true
+      },
+      "notes": [
+        "OBS: el swipe sobre el visor 3D no mueve el carrusel (el visor captura el gesto horizontal)",
+        "prev click: TimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting ",
+        "sin disparador de zoom visible"
+      ],
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 2,
+        "items": [
+          {
+            "l": 20,
+            "t": 146,
+            "w": 350,
+            "h": 384,
+            "inert": false,
+            "hiddenAttr": false,
+            "kind": "model",
+            "zoom": false
+          },
+          {
+            "l": 370,
+            "t": 146,
+            "w": 350,
+            "h": 384,
+            "inert": true,
+            "hiddenAttr": false,
+            "kind": "video",
+            "zoom": false
+          }
+        ],
+        "track": {
+          "sw": 700,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": 0,
+          "label": "Product media gallery"
+        },
+        "pagerHidden": false,
+        "counter": "1",
+        "status": "",
+        "inertCount": 1
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "afterSwipe": {
+        "sl": 0,
+        "counter": "1",
+        "status": ""
+      },
+      "afterGutterSwipeRight": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterPrev": {
+        "sl": 0,
+        "counter": "1"
+      },
+      "afterNext": {
+        "sl": 350,
+        "counter": "2",
+        "status": "View product media 2",
+        "items": [
+          true,
+          false
+        ]
+      },
+      "atEnd": {
+        "counter": "2",
+        "sl": 350,
+        "nextDisabled": true
+      },
+      "media": {
+        "video": 1,
+        "model": 1
+      },
+      "video": {
+        "before": {
+          "paused": true,
+          "ready": 4
+        },
+        "played": true,
+        "currentTime": 0.9,
+        "controls": true,
+        "w": 350,
+        "h": 350
+      },
+      "model": [
+        {
+          "w": 350,
+          "h": 384,
+          "inert": false
+        }
+      ]
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "slug": "fixture-many-variants",
+      "checks": {
+        "notStacked": true,
+        "trackScrolls": true,
+        "pagerVisible": true,
+        "exactlyOneNonInert": true,
+        "activeNotInert": null
+      },
+      "notes": [
+        "sin disparador de zoom visible"
+      ],
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "initial": {
+        "n": 0,
+        "items": [],
+        "track": {
+          "sw": 350,
+          "cw": 350,
+          "sl": 0,
+          "overflowX": "auto",
+          "snap": "x mandatory",
+          "display": "flex",
+          "tabIndex": -1,
+          "label": null
+        },
+        "pagerHidden": null,
+        "counter": null,
+        "status": null,
+        "inertCount": 0
+      },
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "media": {
+        "video": 0,
+        "model": 0
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at jo.startSession (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js:12:3091)\n    at new jo (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js:12:",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at jo.startSe",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js"
+          },
+          {
+            "type": "error",
+            "text": "Refused to execute script from 'https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled.",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/products/fixture-media-3d-video"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly"
+          },
+          {
+            "type": "warning",
+            "text": "[bugsnag-light] failed to start session",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "warning",
+            "text": "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at jo.startSe",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=713a3699-e279-4af8-aad3-e65d3b27f63a&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=3381974c-e0fe-468f-bfe",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=3381974c-e0fe-468f-bfe2-5fe0a4a2f61f&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=46c0c55b-bbd0-421c-993",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/s/shopify/shopify-xr.js",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/videos/c/vp/53496eb04e1342f186c1c217d9f6da01/53496eb04e1342f186c1c217d9f6da01.SD-480p-0.9Mbps-101374064.",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=46c0c55b-bbd0-421c-9938-446fed1b278c&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/observeonly",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=7abf154c-d49b-4edc-b12",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=7abf154c-d49b-4edc-b12c-1969dc08db53&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          }
+        ]
+      }
+    }
+  ],
+  "failedChecks": [],
+  "errors": []
+}

@@ -1,0 +1,453 @@
+{
+  "when": "2026-11-18T03:12:08.499Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "steps": {
+        "open": {
+          "open": true,
+          "items": 2,
+          "focus": {
+            "tag": "BUTTON",
+            "close": true
+          }
+        },
+        "enter": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "tab": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "plus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityPlus-1",
+            "name": "plus",
+            "label": "Increase quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "minus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityMinus-1",
+            "name": "minus",
+            "label": "Decrease quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "price": [
+          {
+            "title": "",
+            "priceHtml": "<span>$1,490.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          },
+          {
+            "title": "",
+            "priceHtml": "<span>$1,891.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          }
+        ]
+      },
+      "add": {
+        "status": 200,
+        "lines": [
+          [
+            "doppio-trench",
+            2,
+            189100,
+            189100
+          ],
+          [
+            "nove-blazer",
+            1,
+            74500,
+            74500
+          ]
+        ]
+      },
+      "finalCartCleanup": {
+        "cleared": true,
+        "clearStatus": 200,
+        "noteStatus": 200,
+        "itemCount": 0,
+        "note": ""
+      }
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "steps": {
+        "open": {
+          "open": true,
+          "items": 2,
+          "focus": {
+            "tag": "BUTTON",
+            "close": true
+          }
+        },
+        "enter": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "tab": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "plus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityPlus-1",
+            "name": "plus",
+            "label": "Increase quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "minus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityMinus-1",
+            "name": "minus",
+            "label": "Decrease quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "price": [
+          {
+            "title": "",
+            "priceHtml": "<span>$1,490.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          },
+          {
+            "title": "",
+            "priceHtml": "<span>$1,891.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          }
+        ]
+      },
+      "add": {
+        "status": 200,
+        "lines": [
+          [
+            "doppio-trench",
+            2,
+            189100,
+            189100
+          ],
+          [
+            "nove-blazer",
+            1,
+            74500,
+            74500
+          ]
+        ]
+      },
+      "finalCartCleanup": {
+        "cleared": true,
+        "clearStatus": 200,
+        "noteStatus": 200,
+        "itemCount": 0,
+        "note": ""
+      }
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "steps": {
+        "open": {
+          "open": true,
+          "items": 2,
+          "focus": {
+            "tag": "BUTTON",
+            "close": true
+          }
+        },
+        "enter": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "tab": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "plus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityPlus-1",
+            "name": "plus",
+            "label": "Increase quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "minus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityMinus-1",
+            "name": "minus",
+            "label": "Decrease quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "price": [
+          {
+            "title": "",
+            "priceHtml": "<span>$1,490.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          },
+          {
+            "title": "",
+            "priceHtml": "<span>$1,891.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          }
+        ]
+      },
+      "add": {
+        "status": 200,
+        "lines": [
+          [
+            "doppio-trench",
+            2,
+            189100,
+            189100
+          ],
+          [
+            "nove-blazer",
+            1,
+            74500,
+            74500
+          ]
+        ]
+      },
+      "finalCartCleanup": {
+        "cleared": true,
+        "clearStatus": 200,
+        "noteStatus": 200,
+        "itemCount": 0,
+        "note": ""
+      }
+    },
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "steps": {
+        "open": {
+          "open": true,
+          "items": 2,
+          "focus": {
+            "tag": "BUTTON",
+            "close": true
+          }
+        },
+        "enter": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "tab": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "name": "updates[]",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "plus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityPlus-1",
+            "name": "plus",
+            "label": "Increase quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "3"
+        },
+        "minus": {
+          "focus": {
+            "tag": "BUTTON",
+            "id": "DrawerQuantityMinus-1",
+            "name": "minus",
+            "label": "Decrease quantity for Nove Blazer - Black / XS",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d",
+            "lineIndex": 0
+          },
+          "qty": "2"
+        },
+        "price": [
+          {
+            "title": "",
+            "priceHtml": "<span>$1,490.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          },
+          {
+            "title": "",
+            "priceHtml": "<span>$1,891.00</span>",
+            "hasStrike": false,
+            "strikeDecoration": null,
+            "hiddenLabels": []
+          }
+        ]
+      },
+      "add": {
+        "status": 200,
+        "lines": [
+          [
+            "doppio-trench",
+            2,
+            189100,
+            189100
+          ],
+          [
+            "nove-blazer",
+            1,
+            74500,
+            74500
+          ]
+        ]
+      },
+      "finalCartCleanup": {
+        "cleared": true,
+        "clearStatus": 200,
+        "noteStatus": 200,
+        "itemCount": 0,
+        "note": ""
+      }
+    }
+  ]
+}
