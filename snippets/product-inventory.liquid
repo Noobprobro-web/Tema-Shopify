@@ -12,6 +12,12 @@
       assign inventory_state = 'low_stock'
     endif
   endif
+
+  # The script swaps the count when the variant changes, so it gets the plural forms with a
+  # [count] placeholder (a sentinel number is swapped for it; the one form stays as written).
+  assign low_stock_sentinel = 99999
+  assign low_stock_template = 'sections.main_product.blocks.inventory_status.low_stock' | t: count: low_stock_sentinel | replace: low_stock_sentinel, '[count]'
+  assign low_stock_template_one = 'sections.main_product.blocks.inventory_status.low_stock' | t: count: 1
 -%}
 
 <product-inventory
@@ -19,7 +25,8 @@
   data-stock-state="{{ inventory_state }}"
   data-threshold="{{ block.settings.threshold }}"
   data-show-count="{{ block.settings.show_count }}"
-  data-low-stock-template="{{ 'sections.main_product.blocks.inventory_status.low_stock' | t | escape }}"
+  data-low-stock-template="{{ low_stock_template | escape }}"
+  data-low-stock-template-one="{{ low_stock_template_one | escape }}"
   data-low-stock-generic="{{ 'sections.main_product.blocks.inventory_status.low_stock_generic' | t | escape }}"
   data-in-stock="{{ 'sections.main_product.blocks.inventory_status.in_stock' | t | escape }}"
   data-preorder="{{ 'sections.main_product.blocks.inventory_status.preorder' | t | escape }}"
@@ -32,7 +39,7 @@
     {%- case inventory_state -%}
       {%- when 'low_stock' -%}
         {%- if block.settings.show_count -%}
-          {{- 'sections.main_product.blocks.inventory_status.low_stock' | t | replace: '[count]', inventory_variant.inventory_quantity -}}
+          {{- 'sections.main_product.blocks.inventory_status.low_stock' | t: count: inventory_variant.inventory_quantity -}}
         {%- else -%}
           {{- 'sections.main_product.blocks.inventory_status.low_stock_generic' | t -}}
         {%- endif -%}

@@ -71,7 +71,26 @@
       {%- endif -%}
 
       <div class="collection-main__body">
-        <form class="facets" action="{{ collection.url }}" method="get" data-facet-form>
+        <form class="facets" action="{{ collection.url | split: '?' | first }}" method="get" data-facet-form>
+          {%- comment -%}
+            Vendor and type collections (/collections/vendors?q=Name) keep their value in the query string,
+            which a GET form drops from its action, so it is sent back as a hidden field.
+          {%- endcomment -%}
+          {%- if collection.current_vendor != blank -%}
+            <input type="hidden" name="q" value="{{ collection.current_vendor | escape }}">
+          {%- elsif collection.current_type != blank -%}
+            <input type="hidden" name="q" value="{{ collection.current_type | escape }}">
+          {%- endif -%}
+          <details class="facets__disclosure">
+            <summary class="facets__disclosure-summary">
+              <span>{{ 'collections.filters.title' | t }}</span>
+              {%- if active_filter_count > 0 -%}
+                <span class="facets__count" aria-label="{{ 'collections.filters.active_count' | t: count: active_filter_count }}">
+                  {{- active_filter_count -}}
+                </span>
+              {%- endif -%}
+              {% render 'icon', name: 'chevron-down', size: 16 %}
+            </summary>
           <div class="facets__heading cluster">
             <h2 class="facets__title">{{ 'collections.filters.title' | t }}</h2>
             {%- if active_filter_count > 0 -%}
@@ -252,13 +271,18 @@
           <div class="facets__actions cluster">
             <button class="button" type="submit">{{ 'collections.filters.apply' | t }}</button>
           </div>
+          </details>
         </form>
 
         <div class="collection-products" data-product-grid aria-busy="false">
           {%- liquid
             # "Clear all" vive en la barra de filtros activos y conserva el orden elegido.
             assign sort_by_param = sort_by | url_encode
-            assign clear_filters_url = collection.url | append: '?sort_by=' | append: sort_by_param
+            assign clear_filters_separator = '?'
+            if collection.url contains '?'
+              assign clear_filters_separator = '&'
+            endif
+            assign clear_filters_url = collection.url | append: clear_filters_separator | append: 'sort_by=' | append: sort_by_param
           -%}
           {% render 'facets-active-filters', filters: collection.filters, clear_url: clear_filters_url, section_id: section.id %}
 

@@ -5,7 +5,7 @@
       "settings": {
         "animations": {
           "label": "Motion",
-          "info": "Subtle adds scroll reveals, hover transitions and page transitions. Full adds expressive motion tied to the scroll position, so each gesture advances and rewinds with the page until it settles: headlines rise line by line, images unveil behind a mask, the hero drifts in parallax and the scrolling text surges as it crosses the screen. All of it runs on native CSS, so no animation library is loaded in any mode, and browsers without scroll-driven animation support get the same reveals as Subtle. Visitors who ask their device to reduce motion always see the static theme, whichever option you choose.",
+          "info": "Subtle adds scroll reveals and hover transitions. Full adds motion tied to scroll position, such as rising headlines, image reveals and a parallax hero. Visitors who ask their device to reduce motion always see the static theme.",
           "options__none": {
             "label": "None"
           },
@@ -348,9 +348,6 @@
     },
     "footer_group": {
       "name": "Footer group"
-    },
-    "main_placeholder": {
-      "name": "Page foundation"
     },
     "custom_liquid": {
       "name": "Custom Liquid",

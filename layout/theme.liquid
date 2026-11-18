@@ -49,7 +49,16 @@
       assign heading_font_italic = settings.type_heading_font | font_modify: 'style', 'italic'
       assign heading_font_bold_italic = heading_font_bold | font_modify: 'style', 'italic'
       assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
+      assign fonts_match = false
+      if settings.type_heading_font.family == settings.type_body_font.family and settings.type_heading_font.weight == settings.type_body_font.weight and settings.type_heading_font.style == settings.type_body_font.style
+        assign fonts_match = true
+      endif
     -%}
+
+    {{ settings.type_body_font | font_url: 'woff2' | preload_tag: as: 'font', type: 'font/woff2', crossorigin: '' }}
+    {%- unless fonts_match -%}
+      {{ settings.type_heading_font | font_url: 'woff2' | preload_tag: as: 'font', type: 'font/woff2', crossorigin: '' }}
+    {%- endunless -%}
 
     {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
 
@@ -58,10 +67,12 @@
       {{ body_font_bold | font_face: font_display: 'swap' }}
       {{ body_font_italic | font_face: font_display: 'swap' }}
       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
-      {{ settings.type_heading_font | font_face: font_display: 'swap' }}
-      {{ heading_font_bold | font_face: font_display: 'swap' }}
-      {{ heading_font_italic | font_face: font_display: 'swap' }}
-      {{ heading_font_bold_italic | font_face: font_display: 'swap' }}
+      {%- unless fonts_match -%}
+        {{ settings.type_heading_font | font_face: font_display: 'swap' }}
+        {{ heading_font_bold | font_face: font_display: 'swap' }}
+        {{ heading_font_italic | font_face: font_display: 'swap' }}
+        {{ heading_font_bold_italic | font_face: font_display: 'swap' }}
+      {%- endunless -%}
 
       :root {
         --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};

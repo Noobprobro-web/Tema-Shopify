@@ -147,12 +147,16 @@
       "onboarding_price": "$480.00"
     },
     "recently_viewed": {
-      "heading": "Vistos recientemente"
+      "heading": "Vistos recientemente",
+      "editor_notice": "Los productos aparecen aquí cuando un visitante ha visto alguno. Esta nota solo se muestra en el editor del tema."
     },
     "main_product": {
       "blocks": {
         "inventory_status": {
-          "low_stock": "Pocas existencias: [count] disponibles",
+          "low_stock": {
+            "one": "Pocas existencias: {{ count }} disponible",
+            "other": "Pocas existencias: {{ count }} disponibles"
+          },
           "low_stock_generic": "Pocas existencias",
           "in_stock": "En existencias",
           "preorder": "Disponible bajo pedido",
@@ -183,8 +187,7 @@
         "material_image_alt": "Estudio en detalle de un material"
       },
       "bento": {
-        "region_label": "Descubre colecciones, historias y productos",
-        "explore": "Explorar {{ title }}"
+        "region_label": "Descubre colecciones, historias y productos"
       },
       "marquee": {
         "region_label": "Destacados editoriales",
@@ -551,50 +554,6 @@
     },
     "merchandising": {
       "promotion": "Destacado editorial de la colección"
-    }
-  },
-  "templates": {
-    "home": {
-      "title": "{{ shop }}",
-      "message": "Una tienda editorial y flexible está tomando forma."
-    },
-    "product": {
-      "title": "Producto"
-    },
-    "collection": {
-      "title": "Colección"
-    },
-    "list_collections": {
-      "title": "Colecciones"
-    },
-    "cart": {
-      "title": "Carrito",
-      "empty": "Tu carrito está vacío."
-    },
-    "search": {
-      "title": "Buscar",
-      "results_for": "Resultados de búsqueda para «{{ terms }}»",
-      "prompt": "Usa el buscador para explorar el catálogo."
-    },
-    "not_found": {
-      "title": "Página no encontrada",
-      "message": "No encontramos la página que buscas.",
-      "link": "Volver al inicio"
-    },
-    "page": {
-      "title": "Página"
-    },
-    "blog": {
-      "title": "Diario"
-    },
-    "article": {
-      "title": "Artículo"
-    },
-    "password": {
-      "title": "Próxima apertura",
-      "message": "Esta tienda prepara su próximo capítulo.",
-      "password_label": "Contraseña de la tienda",
-      "submit": "Entrar en la tienda"
     }
   },
   "gift_cards": {

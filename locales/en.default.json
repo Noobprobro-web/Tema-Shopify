@@ -147,12 +147,16 @@
       "onboarding_price": "$480.00"
     },
     "recently_viewed": {
-      "heading": "Recently viewed"
+      "heading": "Recently viewed",
+      "editor_notice": "Products appear here once a visitor has viewed some. This note shows only in the theme editor."
     },
     "main_product": {
       "blocks": {
         "inventory_status": {
-          "low_stock": "Low stock: [count] left",
+          "low_stock": {
+            "one": "Low stock: {{ count }} left",
+            "other": "Low stock: {{ count }} left"
+          },
           "low_stock_generic": "Low stock",
           "in_stock": "In stock",
           "preorder": "Available for pre-order",
@@ -183,8 +187,7 @@
         "material_image_alt": "Close-up study of a material"
       },
       "bento": {
-        "region_label": "Discover collections, stories and products",
-        "explore": "Explore {{ title }}"
+        "region_label": "Discover collections, stories and products"
       },
       "marquee": {
         "region_label": "Editorial highlights",
@@ -551,50 +554,6 @@
     },
     "merchandising": {
       "promotion": "Editorial collection feature"
-    }
-  },
-  "templates": {
-    "home": {
-      "title": "{{ shop }}",
-      "message": "A flexible editorial storefront is taking shape."
-    },
-    "product": {
-      "title": "Product"
-    },
-    "collection": {
-      "title": "Collection"
-    },
-    "list_collections": {
-      "title": "Collections"
-    },
-    "cart": {
-      "title": "Cart",
-      "empty": "Your cart is currently empty."
-    },
-    "search": {
-      "title": "Search",
-      "results_for": "Search results for “{{ terms }}”",
-      "prompt": "Use search to explore the catalog."
-    },
-    "not_found": {
-      "title": "Page not found",
-      "message": "The page you requested could not be found.",
-      "link": "Return home"
-    },
-    "page": {
-      "title": "Page"
-    },
-    "blog": {
-      "title": "Journal"
-    },
-    "article": {
-      "title": "Article"
-    },
-    "password": {
-      "title": "Opening soon",
-      "message": "This shop is preparing its next chapter.",
-      "password_label": "Store password",
-      "submit": "Enter store"
     }
   },
   "gift_cards": {

@@ -54,13 +54,13 @@
         "product1": {
           "type": "card_product",
           "settings": {
-            "product": "leather-desk-mat"
+            "product": ""
           }
         },
         "product2": {
           "type": "card_product",
           "settings": {
-            "product": "milled-brass-paperweight"
+            "product": ""
           }
         },
         "story": {
@@ -122,7 +122,7 @@
       },
       "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "technical_specs", "inventory", "shipping", "description"],
       "settings": {
-        "product": "structured-tote",
+        "product": "",
         "color_scheme": "scheme-1",
         "secondary_background": true,
         "padding_top": 64,
@@ -132,9 +132,9 @@
     "capsule": {
       "type": "complete-the-look",
       "blocks": {
-        "piece1": { "type": "bundle_product", "settings": { "product": "leather-document-folio" } },
-        "piece2": { "type": "bundle_product", "settings": { "product": "four-slot-cardholder" } },
-        "piece3": { "type": "bundle_product", "settings": { "product": "folded-valet-tray" } }
+        "piece1": { "type": "bundle_product", "settings": { "product": "" } },
+        "piece2": { "type": "bundle_product", "settings": { "product": "" } },
+        "piece3": { "type": "bundle_product", "settings": { "product": "" } }
       },
       "block_order": ["piece1", "piece2", "piece3"],
       "settings": {
@@ -159,16 +159,7 @@
         "use_surface_background": false,
         "color_scheme": "scheme-3"
       }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "color_scheme": "scheme-4",
-        "eyebrow": "TECHNICAL DISPATCH",
-        "heading": "Engineering telemetry & field updates",
-        "text": ""
-      }
     }
   },
-  "order": ["hero", "marquee", "discovery", "collections", "featured_product", "capsule", "manifesto", "newsletter"]
+  "order": ["hero", "marquee", "discovery", "collections", "featured_product", "capsule", "manifesto"]
 }

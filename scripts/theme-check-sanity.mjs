@@ -54,7 +54,7 @@ const MUTATIONS = [
   },
   {
     check: 'ValidSchemaTranslations',
-    file: 'sections/main-placeholder.liquid',
+    file: 'sections/recently-viewed.liquid',
     apply: (src) => src.replace(/"name":\s*"[^"]*"/, '"name": "t:sanity.schema.key.that.does.not.exist"'),
     why: 'clave t: de schema inexistente',
   },

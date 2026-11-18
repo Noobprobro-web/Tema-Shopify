@@ -16,9 +16,9 @@
  *     .txt y ademas sin bytes NUL; cualquier otro blob (p. ej. PNG, fuentes) se
  *     trata como binario y no se inspecciona.
  *   - Inclusion: assets/ config/ layout/ locales/ sections/ snippets/
- *     templates/ listings/ y, si existen en la revision, blocks/,
- *     release-notes.md y update_extension.json (raiz; este ultimo lo incluye
- *     el CLI 4.8.0). Menos las rutas de EXCLUDED_PATHS. Coincide con el
+ *     templates/ listings/ y, si existen en la revision, blocks/ y
+ *     update_extension.json (raiz; lo incluye el CLI 4.8.0). release-notes.md
+ *     no se empaqueta. Menos las rutas de EXCLUDED_PATHS. Coincide con el
  *     `listings/**\/*` del CLI 4.8.0 (condicion (b) de la R0-002).
  *   - Orden: alfabetico por bytes UTF-8 de la ruta. Sin entradas de directorio.
  *   - Fecha: fecha de committer UTC del ultimo commit que modifico las rutas
@@ -47,6 +47,8 @@
  *   --out           ZIP de salida (obligatorio). Se rechaza una ruta dentro de
  *                   los directorios del tema del repo; usar una ruta fuera del
  *                   repo o ignorada (*.zip esta en .gitignore).
+ *   Al empaquetar se avisa (sin fallar) de las referencias internas que queden en
+ *   los archivos de texto del tema; ver INTERNAL_REFERENCE_PATTERN.
  *   --expect-count  falla (exit 1) si el numero de archivos no coincide.
  *   --expect-sha256 falla (exit 1) si el SHA-256 del ZIP no coincide.
  *   --expect-content-sha256  idem para la huella de contenido: SHA-256 (hex) del
@@ -79,8 +81,19 @@ const INCLUDE_DIRS = [
   'assets/', 'config/', 'layout/', 'locales/', 'sections/', 'snippets/',
   'templates/', 'listings/', 'blocks/', // blocks/ solo si existe en la revision.
 ];
-/** Archivos de la raiz incluidos si existen en la revision. */
-const INCLUDE_ROOT_FILES = ['release-notes.md', 'update_extension.json'];
+/**
+ * Archivos de la raiz incluidos si existen en la revision. release-notes.md ya no
+ * se empaqueta: las notas de version se entregan en el formulario del envio.
+ */
+const INCLUDE_ROOT_FILES = ['update_extension.json'];
+/**
+ * Internal-reference check (warning only for now). Theme files must not carry
+ * task ids, people or tooling names. Occurrences are listed after packaging so
+ * they can be cleaned up; they do not fail the build yet. Paths in
+ * INTERNAL_REFERENCE_ALLOWED_PATHS are skipped.
+ */
+const INTERNAL_REFERENCE_PATTERN = /agent-comms|Johandry|GPT-|CLAUDE-|LEAD-|AUDIT|Sprint|\b[0-9][A-Z]-[0-9]{3}\b/g;
+const INTERNAL_REFERENCE_ALLOWED_PATHS = [];
 /**
  * Rutas exactas (relativas a la raiz) que se omiten del ZIP sin borrarse del
  * repo. C-04-P conserva las plantillas de documentación solo en el repositorio.
@@ -180,6 +193,26 @@ function collect(commit) {
     if (isTextBlob(e) && e.data.includes(0x0d)) fail('el blob contiene CR (se exige LF): ' + e.path);
   }
   return entries;
+}
+
+/** Lists internal-reference matches in the text files that go into the ZIP. Warning only. */
+function warnInternalReferences(entries) {
+  const found = [];
+  for (const e of entries) {
+    if (!isTextBlob(e) || INTERNAL_REFERENCE_ALLOWED_PATHS.includes(e.path)) continue;
+    const lines = e.data.toString('utf8').split('\n');
+    lines.forEach((line, i) => {
+      const hits = line.match(INTERNAL_REFERENCE_PATTERN);
+      if (hits) found.push({ path: e.path, line: i + 1, hits: [...new Set(hits)] });
+    });
+  }
+  if (found.length === 0) {
+    console.log('referencias internas: ninguna');
+    return;
+  }
+  const files = new Set(found.map((f) => f.path));
+  console.warn('[package-theme-zip] AVISO: ' + found.length + ' lineas con referencias internas en ' + files.size + ' archivos (no falla el empaquetado):');
+  for (const f of found) console.warn('  ' + f.path + ':' + f.line + '  ' + f.hits.join(', '));
 }
 
 function buildZip(entries, dos) {
@@ -283,6 +316,8 @@ function main() {
   }
   const epoch = Number(m[2]);
   const dos = dosDateTime(epoch);
+
+  warnInternalReferences(entries);
 
   const zip = buildZip(entries, dos);
   const sha256 = createHash('sha256').update(zip).digest('hex');

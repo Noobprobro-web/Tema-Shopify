@@ -57,6 +57,10 @@
   </section>
 </recently-viewed>
 
+{%- if request.design_mode -%}
+  <p class="recently-viewed__editor-notice">{{ 'sections.recently_viewed.editor_notice' | t }}</p>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "t:sections.recently_viewed.name",
@@ -115,6 +119,7 @@
       "type": "checkbox",
       "id": "show_quick_add",
       "label": "t:sections.all.show_quick_add.label",
+      "info": "t:sections.all.show_quick_add.info",
       "default": true
     }
   ],

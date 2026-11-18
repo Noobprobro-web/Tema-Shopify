@@ -177,6 +177,11 @@ button,
   touch-action: manipulation;
 }
 
+::placeholder {
+  color: var(--color-foreground-muted);
+  opacity: 1;
+}
+
 button:disabled,
 input:disabled,
 select:disabled,
@@ -849,12 +854,6 @@ blockquote {
   opacity: 0.78;
 }
 
-.page-foundation {
-  min-height: min(70vh, 48rem);
-  display: grid;
-  align-items: center;
-}
-
 .site-footer {
   padding-block: clamp(3rem, 8vw, 7rem) var(--space-4);
   border-top: 1px solid var(--color-border);
@@ -985,6 +984,12 @@ textarea {
   max-height: 3rem;
 }
 
+.gift-card h1 {
+  margin-block-end: 0;
+  font-size: calc(1.5rem * var(--font-heading-scale));
+  letter-spacing: 0;
+}
+
 .gift-card__value {
   margin-block: var(--space-3);
   font-family: var(--font-heading-family);
@@ -1086,7 +1091,7 @@ button[aria-busy='true']:disabled {
 }
 
 .price__compare {
-  opacity: 0.68;
+  color: var(--color-foreground-muted);
 }
 
 .price__unit,
@@ -1710,6 +1715,65 @@ body[data-sticky-cart-visible] {
 .collection-main__body {
   display: grid;
   gap: var(--space-5);
+}
+
+.recently-viewed__editor-notice {
+  margin: var(--space-4) auto;
+  color: var(--color-foreground-muted);
+  text-align: center;
+}
+
+/* Once the section has history and is shown, the editor note is redundant. */
+recently-viewed:not([hidden]) + .recently-viewed__editor-notice {
+  display: none;
+}
+
+.facets__disclosure-summary {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: var(--space-2);
+  border-block: 1px solid var(--color-border-hairline, var(--color-border));
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+}
+
+.facets__disclosure-summary::-webkit-details-marker {
+  display: none;
+}
+
+.facets__disclosure-summary .icon {
+  margin-inline-start: auto;
+}
+
+.facets__disclosure[open] > .facets__disclosure-summary .icon {
+  transform: rotate(180deg);
+}
+
+/* On phones the filters collapse behind one summary so the products stay above the fold. */
+@media (width < 62rem) {
+  .facets__disclosure .facets__heading {
+    display: none;
+  }
+}
+
+/* From 62rem the filters sit in a sticky sidebar: the summary is dropped and the content is always shown. */
+@media (min-width: 62rem) {
+  @supports selector(::details-content) {
+    .facets__disclosure > .facets__disclosure-summary {
+      display: none;
+    }
+
+    .facets__disclosure::details-content {
+      content-visibility: visible;
+    }
+  }
+}
+
+/* Hidden once theme.js marks the form as applying changes by itself; without it, Apply stays visible. */
+facet-filters-form[data-auto-apply] .facets__actions {
+  display: none;
 }
 
 .facets__heading {
@@ -5296,12 +5360,12 @@ complete-the-look {
   justify-content: flex-start;
 }
 
-.complete-the-look__item:not([data-selected]) .complete-the-look__item-media {
+.js .complete-the-look__item:not([data-selected]) .complete-the-look__item-media {
   opacity: 0.55;
 }
 
-.complete-the-look__item:not([data-selected]) .complete-the-look__item-details,
-.complete-the-look__item:not([data-selected]) .complete-the-look__item-price {
+.js .complete-the-look__item:not([data-selected]) .complete-the-look__item-details,
+.js .complete-the-look__item:not([data-selected]) .complete-the-look__item-price {
   color: var(--color-foreground-muted);
   opacity: 1;
 }
@@ -5819,7 +5883,7 @@ product-recommendations:not([hidden]):empty {
 }
 
 .product-form__line-total [data-line-total-compare] {
-  opacity: 0.68;
+  color: var(--color-foreground-muted);
 }
 
 .product-form__line-total [data-line-total-current] {
@@ -8835,6 +8899,12 @@ html {
 
   .facets {
     inset-block-start: calc(var(--header-offset) + var(--space-3));
+    max-height: calc(100dvh - var(--header-offset) - 2rem);
+    /* Padding and the matching negative margin keep focus rings from being clipped by the scroll box. */
+    margin: -0.25rem;
+    padding: 0.25rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .main-documentation__nav,
@@ -8951,47 +9021,38 @@ html {
 }
 
 @media (max-width: 61.99rem) {
-  .product-main__layout--stack .product-gallery__items,
-  .product-main__layout--grid .product-gallery__items {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items {
     display: flex;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     scroll-snap-type: x mandatory;
   }
 
-  .js .product-main__layout--stack .product-gallery__items,
-  .js .product-main__layout--grid .product-gallery__items {
+  .js .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items {
     scrollbar-width: none;
   }
 
-  .js .product-main__layout--stack .product-gallery__items::-webkit-scrollbar,
-  .js .product-main__layout--grid .product-gallery__items::-webkit-scrollbar {
+  .js .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items::-webkit-scrollbar {
     display: none;
   }
 
-  .product-main__layout--stack .product-gallery__items:focus-visible,
-  .product-main__layout--grid .product-gallery__items:focus-visible {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items:focus-visible {
     outline-offset: -3px;
   }
 
-  .product-main__layout--stack .product-gallery__item,
-  .product-main__layout--grid .product-gallery__item,
-  .product-main__layout--stack .product-gallery__placeholder,
-  .product-main__layout--grid .product-gallery__placeholder {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__item,
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__placeholder {
     flex: 0 0 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
 
-  /* El borde de "imagen de la variante" sirve en la rejilla de escritorio; en un
-     carrusel de una imagen a la vez no marca nada. */
-  .product-main__layout--stack .product-gallery__item[data-selected]::after,
-  .product-main__layout--grid .product-gallery__item[data-selected]::after {
+  /* The selected-variant border works in the desktop grid; in a one-image carousel it marks nothing. */
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__item[data-selected]::after {
     content: none;
   }
 
-  .product-main__layout--stack .product-gallery__image,
-  .product-main__layout--grid .product-gallery__image {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__image {
     height: auto;
     max-height: 55svh;
     aspect-ratio: var(--gallery-ratio, 0.8);
