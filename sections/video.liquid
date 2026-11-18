@@ -113,11 +113,25 @@
                 title: video_title
             -}}
           {%- else -%}
-            {{-
-              external_video
-              | external_video_url: autoplay: true
-              | external_video_tag: class: 'video-section__media', title: video_title
-            -}}
+            {%- if external_video.type == 'youtube' -%}
+              <iframe
+                class="video-section__media"
+                src="https://www.youtube-nocookie.com/embed/{{ external_video.id | escape }}?autoplay=1&rel=0&playsinline=1"
+                title="{{ video_title | escape }}"
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+              ></iframe>
+            {%- elsif external_video.type == 'vimeo' -%}
+              <iframe
+                class="video-section__media"
+                src="https://player.vimeo.com/video/{{ external_video.id | escape }}?autoplay=1"
+                title="{{ video_title | escape }}"
+                allow="autoplay; picture-in-picture; fullscreen"
+                allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+              ></iframe>
+            {%- endif -%}
           {%- endif -%}
         </template>
 

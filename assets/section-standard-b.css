@@ -29,8 +29,32 @@
   display: none;
 }
 
+.slideshow__viewport {
+  position: relative;
+}
+
 .slideshow__track:focus-visible {
   outline-offset: -4px;
+}
+
+/* The slides are positioned and paint over the track's own outline, so where :has() is available the
+   ring is drawn by an overlay above them: a foreground line with a background line inside it keeps the
+   ring above 3:1 against both light and dark photos. */
+@supports selector(:has(*)) {
+  .slideshow__track:focus-visible {
+    outline: none;
+  }
+
+  .slideshow__viewport:has(.slideshow__track:focus-visible)::after {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    box-shadow:
+      inset 0 0 0 var(--focus-width) var(--color-foreground),
+      inset 0 0 0 calc(var(--focus-width) * 2) var(--color-background);
+    content: '';
+    pointer-events: none;
+  }
 }
 
 .slideshow__slide {
@@ -76,8 +100,8 @@
   object-position: var(--slide-focal, center);
 }
 
-/* Veil: the strength comes from the slide setting; the soft gradient keeps the copy legible
-   at the bottom even when the veil is set to zero. */
+/* Veil: the strength comes from the slide setting. The text block also gets its own scrim (see
+   .slideshow__copy below) so legibility never depends on the photo or on a low veil. */
 .slideshow__veil {
   position: absolute;
   inset: 0;
@@ -106,6 +130,33 @@
 
 .slideshow__copy {
   width: min(100%, 40rem);
+}
+
+/* Scrim behind the text: a radial fade twice as wide and tall as the text block, centred on it. The
+   opaque part reaches 72% of the radius, so the four corners of the block (at about 71%) stay inside
+   it and the fade happens outside the text. Its strength is fixed at 85% of the scheme text colour:
+   that is the lowest value at which the scheme background colour used for the text keeps 4.5:1 on
+   a pure white or pure black photograph in every shipped colour scheme. */
+.slideshow__slide--image .slideshow__copy {
+  position: relative;
+  isolation: isolate;
+}
+
+.slideshow__slide--image .slideshow__copy::before {
+  position: absolute;
+  z-index: -1;
+  inset: -50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-foreground) 85%, transparent) 72%,
+    color-mix(in srgb, var(--color-foreground) 71%, transparent) 77%,
+    color-mix(in srgb, var(--color-foreground) 51%, transparent) 82%,
+    color-mix(in srgb, var(--color-foreground) 31%, transparent) 88%,
+    color-mix(in srgb, var(--color-foreground) 12%, transparent) 94%,
+    transparent 100%
+  );
+  content: '';
+  pointer-events: none;
 }
 
 .slideshow__slide--start .slideshow__copy {
@@ -326,7 +377,7 @@
 
 @media (min-width: 48rem) {
   .image-text__inner {
-    grid-template-columns: minmax(0, calc(var(--image-text-media-fr, 1) * 1fr)) minmax(0, calc(var(--image-text-copy-fr, 1) * 1fr));
+    grid-template-columns: var(--image-text-columns, minmax(0, 1fr) minmax(0, 1fr));
     gap: var(--space-3xl);
   }
 
@@ -344,13 +395,6 @@
 
   .image-text__copy {
     justify-self: center;
-  }
-}
-
-/* With the text first, the columns swap so the wider weight stays on the image. */
-@media (min-width: 48rem) {
-  .image-text__inner--text-first {
-    grid-template-columns: minmax(0, calc(var(--image-text-copy-fr, 1) * 1fr)) minmax(0, calc(var(--image-text-media-fr, 1) * 1fr));
   }
 }
 

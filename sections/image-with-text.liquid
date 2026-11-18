@@ -10,14 +10,17 @@
     assign is_first_section = true
   endif
 
-  # Column weights (fr) for the image and the text, and the crop of the image frame.
-  assign media_fr = 1
-  assign copy_fr = 1
+  # Desktop column template for the image and the text, and the crop of the image frame.
+  # With the text first, the template is mirrored so the wider weight stays on the image.
+  assign media_columns = 'minmax(0, 1fr) minmax(0, 1fr)'
   assign media_sizes = '(min-width: 48rem) 50vw, 100vw'
   if section.settings.image_width == 'large'
-    assign media_fr = 3
-    assign copy_fr = 2
     assign media_sizes = '(min-width: 48rem) 60vw, 100vw'
+    if section.settings.layout == 'text_first'
+      assign media_columns = 'minmax(0, 2fr) minmax(0, 3fr)'
+    else
+      assign media_columns = 'minmax(0, 3fr) minmax(0, 2fr)'
+    endif
   endif
 
   assign media_ratio = image.aspect_ratio | default: 1.25
@@ -55,14 +58,14 @@
 
 <section
   class="section image-text color-{{ section_scheme }}"
-  style="--image-text-media-fr: {{ media_fr }}; --image-text-copy-fr: {{ copy_fr }}; --image-text-ratio: {{ media_ratio }}; --image-text-order-desktop: {{ media_order_desktop }}; --image-text-order-mobile: {{ media_order_mobile }};"
+  style="--image-text-columns: {{ media_columns }}; --image-text-ratio: {{ media_ratio }}; --image-text-order-desktop: {{ media_order_desktop }}; --image-text-order-mobile: {{ media_order_mobile }};"
   {% if section.settings.heading != blank %}
     aria-labelledby="ImageTextTitle-{{ section.id }}"
   {% else %}
     aria-label="{{ 'sections.image_with_text.region_label' | t }}"
   {% endif %}
 >
-  <div class="image-text__inner image-text__inner--{{ section.settings.text_position }}{% if section.settings.layout == 'text_first' %} image-text__inner--text-first{% endif %}">
+  <div class="image-text__inner image-text__inner--{{ section.settings.text_position }}">
     <div class="image-text__media">
       {%- if image != blank -%}
         {% render 'responsive-image',

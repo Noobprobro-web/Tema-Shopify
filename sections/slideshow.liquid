@@ -31,6 +31,7 @@
     aria-label="{{ 'sections.slideshow.region_label' | t }}"
     {% if slide_total > 1 %}aria-roledescription="{{ 'sections.slideshow.carousel_role' | t }}"{% endif %}
   >
+    <div class="slideshow__viewport">
     <div class="slideshow__track" data-slideshow-track{% if slide_total > 1 %} tabindex="0"{% endif %}>
       {%- for block in section.blocks -%}
         {%- liquid
@@ -131,6 +132,7 @@
           {%- endif -%}
         </div>
       {%- endfor -%}
+    </div>
     </div>
 
     {%- if slide_total > 1 -%}

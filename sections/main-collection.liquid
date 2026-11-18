@@ -71,7 +71,7 @@
       {%- endif -%}
 
       <div class="collection-main__body">
-        <form class="facets" action="{{ collection.url | split: '?' | first }}" method="get" data-facet-form>
+        <form class="facets" action="{{ collection.url | split: '?' | first }}" method="get" aria-label="{{ 'collections.filters.title' | t }}" data-facet-form>
           {%- comment -%}
             Vendor and type collections (/collections/vendors?q=Name) keep their value in the query string,
             which a GET form drops from its action, so it is sent back as a hidden field.
@@ -92,7 +92,7 @@
               {% render 'icon', name: 'chevron-down', size: 16 %}
             </summary>
           <div class="facets__heading cluster">
-            <h2 class="facets__title">{{ 'collections.filters.title' | t }}</h2>
+            <p class="facets__title">{{ 'collections.filters.title' | t }}</p>
             {%- if active_filter_count > 0 -%}
               <span class="facets__count" aria-label="{{ 'collections.filters.active_count' | t: count: active_filter_count }}">
                 {{- active_filter_count -}}
@@ -349,6 +349,7 @@
 
             {%- comment -%} Promotion tiles ride on real products; with 0 products (empty or fully filtered) only the empty state below is shown. {%- endcomment -%}
             {%- if collection.products.size > 0 -%}
+              <h2 class="visually-hidden">{{ 'collections.general.products_heading' | t }}</h2>
               <ul
                 class="product-grid unstyled-list"
                 data-product-list
