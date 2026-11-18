@@ -1,7 +1,7 @@
 {%- liquid
   assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-2'
   assign current_year = 'now' | date: '%Y'
-  assign shop_name = shop.name | escape
+  assign shop_name = shop.name
   assign has_social_links = false
   if settings.social_instagram_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_tiktok_link != blank or settings.social_youtube_link != blank
     assign has_social_links = true
@@ -25,7 +25,7 @@
 <footer class="site-footer color-{{ color_scheme_id }}" data-section-id="{{ section.id }}">
   <div class="container site-footer__grid">
     <div class="site-footer__brand flow">
-      <a class="site-footer__title h2" href="{{ routes.root_url }}">{{ shop_name }}</a>
+      <a class="site-footer__title h2" href="{{ routes.root_url }}">{{ shop_name | escape }}</a>
       {%- if section.settings.show_description and shop.description != blank -%}
         <p>{{ shop.description | escape }}</p>
       {%- endif -%}
@@ -142,7 +142,7 @@
 
   <div class="container site-footer__bottom">
     <div class="site-footer__legal">
-      <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name }}</small>
+      <small>{{ 'sections.footer.copyright' | t: year: current_year, shop: shop_name | escape_once }}</small>
       <small class="site-footer__powered-by">{{ powered_by_link }}</small>
     </div>
     <div class="site-footer__follow">

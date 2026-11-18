@@ -297,7 +297,9 @@
                 assign default_guide_title = 'products.product.size_guide' | t
                 assign guide_title = block.settings.guide_title | default: default_guide_title
                 assign size_guide_id = 'SizeGuide-' | append: section.id | append: '-' | append: block.id
+                assign size_guide_content = block.settings.model_fit_info | append: block.settings.page_content.handle | append: block.settings.size_table_cm | append: block.settings.size_table_in | strip
               -%}
+              {%- if size_guide_content != blank or request.design_mode -%}
               <size-guide-modal
                 class="size-guide"
                 data-default-unit="cm"
@@ -416,6 +418,7 @@
                   </section>
                 </div>
               </size-guide-modal>
+              {%- endif -%}
 
             {%- when 'quantity' -%}
               {%- liquid
@@ -691,23 +694,7 @@
               {% render 'product-inventory', product: product, variant: selected_variant, block: block %}
 
             {%- when 'shipping_lead_time', 'trust_badges' -%}
-              {%- assign trust_text = block.settings.delivery_text | default: block.settings.returns_text | strip -%}
-              {%- if trust_text != blank -%}
-              <p class="product-trust" {{ block.shopify_attributes }}>
-                <span class="product-trust__icon" aria-hidden="true">
-                  {%- if block.settings.icon == 'clock' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                  {%- elsif block.settings.icon == 'truck' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h12v11H2zM14 9h4l4 4v4h-8z"/><circle cx="6.5" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
-                  {%- elsif block.settings.icon == 'ruler' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m15 2 7 7L9 22l-7-7L15 2Z"/><path d="m11 6 2 2m-5 1 2 2m-5 1 2 2m4-9 2 2"/></svg>
-                  {%- elsif block.settings.icon == 'shield' -%}
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
-                  {%- endif -%}
-                </span>
-                <span>{{ trust_text | escape }}</span>
-              </p>
-              {%- endif -%}
+              {% render 'product-trust', block: block %}
 
             {%- when 'collapsible_tab' -%}
               {% render 'product-accordion', block: block %}
@@ -916,14 +903,12 @@
         {
           "type": "text",
           "id": "guide_title",
-          "label": "t:sections.main_product.blocks.size_guide.settings.guide_title.label",
-          "default": "Size Guide & Measurements"
+          "label": "t:sections.main_product.blocks.size_guide.settings.guide_title.label"
         },
         {
           "type": "text",
           "id": "model_fit_info",
-          "label": "t:sections.main_product.blocks.size_guide.settings.model_fit_info.label",
-          "default": "Model is 178cm / 5'10\" wearing size S"
+          "label": "t:sections.main_product.blocks.size_guide.settings.model_fit_info.label"
         },
         {
           "type": "checkbox",
@@ -940,14 +925,12 @@
         {
           "type": "richtext",
           "id": "size_table_cm",
-          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_cm.label",
-          "default": "<p>XS: 84 cm / S: 88 cm / M: 92 cm / L: 96 cm</p>"
+          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_cm.label"
         },
         {
           "type": "richtext",
           "id": "size_table_in",
-          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_in.label",
-          "default": "<p>XS: 33 in / S: 34.5 in / M: 36 in / L: 38 in</p>"
+          "label": "t:sections.main_product.blocks.size_guide.settings.size_table_in.label"
         }
       ]
     },
