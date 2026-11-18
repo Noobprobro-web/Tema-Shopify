@@ -95,6 +95,9 @@ const INCLUDE_ROOT_FILES = ['update_extension.json'];
  * internal version numbers. Every match in a text file that goes into the ZIP is
  * listed and the packaging exits with an error.
  *
+ * INTERNAL_NAME_PATTERN adds the same check, ignoring case, for tool and vendor names
+ * and for the store review channel.
+ *
  * INTERNAL_REFERENCE_ALLOWLIST is the only escape hatch and must stay minimal:
  * each entry skips ONE known false positive and needs the exact path plus a
  * substring that must appear on the offending line (so a new match elsewhere in
@@ -113,6 +116,10 @@ const INTERNAL_REFERENCE_PATTERN = new RegExp([
   '(?<![#\\w/.-])(?=[0-9a-f]*[0-9])(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}\\b', // commit hashes
   '\\bv\\d+\\.\\d+\\.\\d+\\b', // internal versions such as v1.1.0
 ].join('|'), 'g');
+// Names of tools, vendors and review channels: matched ignoring case.
+const INTERNAL_NAME_PATTERN = new RegExp([
+  'claude', 'gemini', 'gpt-?\\d', 'codex', 'anthropic', 'openai', 'opus', 'sonnet', 'theme\\s+store',
+].join('|'), 'gi');
 const INTERNAL_REFERENCE_ALLOWLIST = [
   { path: 'config/settings_schema.json', text: '"theme_author": "Ruiz Digital"' },
   { path: 'layout/theme.liquid', text: 'model-viewer-ui/assets/v1.0/model-viewer-ui.css' },
@@ -327,8 +334,8 @@ function checkInternalReferences(entries) {
   for (const e of entries) {
     if (!isTextBlob(e)) continue;
     e.data.toString('utf8').split('\n').forEach((line, i) => {
-      const hits = line.match(INTERNAL_REFERENCE_PATTERN);
-      if (!hits) return;
+      const hits = [...(line.match(INTERNAL_REFERENCE_PATTERN) || []), ...(line.match(INTERNAL_NAME_PATTERN) || [])];
+      if (hits.length === 0) return;
       if (INTERNAL_REFERENCE_ALLOWLIST.some((a) => a.path === e.path && line.includes(a.text))) return;
       found.push(e.path + ':' + (i + 1) + '  ' + [...new Set(hits)].join(', '));
     });

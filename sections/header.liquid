@@ -2,7 +2,7 @@
   assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
   assign logo_alt = settings.logo.alt | default: shop.name
 
-  # secondary_menu trae main-menu por defecto, como pide la Theme Store para
+  # secondary_menu trae main-menu por defecto, como exige Shopify para
   # todo link_list de la cabecera. Si el comerciante no elige otro, seria el mismo menu que
   # el principal: en ese caso, o sin enlaces, no se pinta dos veces.
   assign show_secondary_menu = false
