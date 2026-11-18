@@ -64,6 +64,8 @@
   min-width: 0;
   min-height: max(22rem, calc(var(--slideshow-height-mobile, 70) * 1svh));
   grid-template: 'stack' minmax(0, 1fr) / minmax(0, 1fr);
+  /* The slide grows with its text, so only the soft outer edge of the text scrim is ever clipped. */
+  overflow: clip;
   background: var(--color-surface);
   color: var(--color-foreground);
   scroll-snap-align: start;
@@ -133,8 +135,6 @@
   margin-inline: auto;
   padding-block: var(--space-2xl);
   align-items: flex-end;
-  /* Only clips the soft edge of the text scrim; the block grows with its text, so nothing is cut. */
-  overflow: clip;
 }
 
 .slideshow__copy {
