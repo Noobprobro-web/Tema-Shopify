@@ -1,0 +1,3623 @@
+{
+  "when": "2026-11-18T02:23:16.180Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "checks": {
+        "allSectionsPresent": true,
+        "noBrokenImages": true,
+        "noHorizontalOverflow": true,
+        "axeNoViolations": true,
+        "slideshow_controlsVisible": true,
+        "slideshow_nextWorks": true,
+        "slideshow_prevWorks": true,
+        "slideshow_dotWorks": true,
+        "slideshow_pausedHolds": true,
+        "slideshow_autoplayAdvanced": true,
+        "slideshow_minTarget24": true,
+        "contrastOnImage": false,
+        "noThirdPartyBeforePlay": true,
+        "videoPlayersCreated": false,
+        "noConsoleErrors": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190452203824",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "n": "slideshow",
+          "found": true,
+          "h": 660,
+          "w": 390,
+          "headings": [
+            "H2:Quiet tailoring",
+            "H2:A very long slide heading to test wrappi",
+            "H2:Evening"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "image_with_text",
+          "found": true,
+          "h": 800,
+          "w": 390,
+          "headings": [
+            "H2:Made to last"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "featured_collection",
+          "found": true,
+          "h": 1023,
+          "w": 390,
+          "headings": [
+            "H2:Permanent collection",
+            "H3:Structured Tote",
+            "H3:Cashmere Scarf",
+            "H3:Leather Belt",
+            "H3:Pleated Midi Skirt"
+          ],
+          "imgs": 6,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "collection_list",
+          "found": true,
+          "h": 765,
+          "w": 390,
+          "headings": [
+            "H2:Shop by collection",
+            "H3:Tailoring",
+            "H3:Knitwear",
+            "H3:Outerwear"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "blog_posts",
+          "found": true,
+          "h": 1671,
+          "w": 390,
+          "headings": [
+            "H2:From the journal",
+            "H3:A very long article title used to test h",
+            "H3:How to read the size chart",
+            "H3:Welcome to the demo store"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "rich_text",
+          "found": true,
+          "h": 371,
+          "w": 390,
+          "headings": [
+            "H2:Talk about your brand"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_external",
+          "found": true,
+          "h": 404,
+          "w": 390,
+          "headings": [
+            "H2:Watch the story"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_hosted",
+          "found": true,
+          "h": 404,
+          "w": 390,
+          "headings": [
+            "H2:Hosted film"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        }
+      ],
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "headingOrder": [
+        "H1:Std test",
+        "H2:Quiet tailoring",
+        "H2:A very long slide heading",
+        "H2:Evening",
+        "H2:Made to last",
+        "H2:Permanent collection",
+        "H3:Structured Tote",
+        "H3:Cashmere Scarf",
+        "H3:Leather Belt",
+        "H3:Pleated Midi Skirt",
+        "H2:Shop by collection",
+        "H3:Tailoring",
+        "H3:Knitwear",
+        "H3:Outerwear",
+        "H2:From the journal",
+        "H3:A very long article title",
+        "H3:How to read the size char",
+        "H3:Welcome to the demo store",
+        "H2:Talk about your brand",
+        "H2:Watch the story",
+        "H2:Hosted film"
+      ],
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .eyebrow",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__heading",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__text.rte > p",
+              ".featured-collection > .std-section__inner > .std-section__header > .std-section__link > .std-section__link-text",
+              "a[href$=\"news\"] > .std-section__link-text"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "slideshow": {
+        "controlsVisible": true,
+        "slides": 3,
+        "idx0": 0,
+        "toggleLabel0": "Pause slideshow",
+        "idxAfterAutoplay": 1,
+        "autoplayAdvanced": true,
+        "toggleLabelPaused": "Play slideshow",
+        "pausedHolds": true,
+        "nextWorks": true,
+        "prevWorks": true,
+        "dotWorks": true,
+        "activeSlideInert": [
+          true,
+          true,
+          null
+        ],
+        "toggleLabelResumed": "Pause slideshow",
+        "targetSize": [
+          [
+            44,
+            44
+          ],
+          [
+            44,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            44,
+            44
+          ]
+        ],
+        "minTarget": 24,
+        "keyboardNext": true
+      },
+      "contrastOnImage": [
+        {
+          "slide": 1,
+          "el": "eyebrow",
+          "text": "New season",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 2.57,
+          "p5": 2.84,
+          "median": 3.98,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__heading",
+          "text": "Quiet tailoring",
+          "size": 37.8,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.9,
+          "p5": 3.22,
+          "median": 4.59,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__text rte",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.23,
+          "p5": 3.74,
+          "median": 5.46,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "P",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.23,
+          "p5": 3.74,
+          "median": 5.46,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "eyebrow",
+          "text": "Silk",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 1.43,
+          "p5": 1.6,
+          "median": 2.34,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__heading",
+          "text": "A very long slide heading to t",
+          "size": 37.8,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1.43,
+          "p5": 2,
+          "median": 3.26,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__text rte",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.48,
+          "p5": 2.99,
+          "median": 4.58,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "P",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.48,
+          "p5": 2.99,
+          "median": 4.58,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__heading",
+          "text": "Evening",
+          "size": 37.8,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.16,
+          "p5": 3.55,
+          "median": 4.15,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__text rte",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.93,
+          "p5": 4.25,
+          "median": 4.84,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "P",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.93,
+          "p5": 4.25,
+          "median": 4.84,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        }
+      ],
+      "video": {
+        "thirdPartyBeforePlay": [],
+        "playButtons": 2,
+        "play0": {
+          "label": "Play video: YouTube example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": null,
+          "posterGone": false,
+          "activeEl": "BUTTON:",
+          "newRequests": []
+        },
+        "play1": {
+          "label": "Play video: Hosted example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": {
+            "paused": true,
+            "rs": 4,
+            "ct": 2
+          },
+          "posterGone": false,
+          "activeEl": "VIDEO:Hosted example",
+          "newRequests": []
+        }
+      },
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "warning",
+            "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://sartorial-theme-kvkzl39t.myshopify.com') does not match the recipient window's origin ('https://cdn.shopify.com').",
+            "url": ""
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=b56cb3eb-bd64-4d10-b144-cb2a567649df&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=a57714b1-f8df-4ee0-b05",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=a57714b1-f8df-4ee0-b05e-d2caaf739c77&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "consoleTheme": [],
+      "consolePlatform": 11
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "checks": {
+        "allSectionsPresent": true,
+        "noBrokenImages": true,
+        "noHorizontalOverflow": true,
+        "axeNoViolations": true,
+        "slideshow_controlsVisible": true,
+        "slideshow_nextWorks": true,
+        "slideshow_prevWorks": true,
+        "slideshow_dotWorks": true,
+        "slideshow_pausedHolds": true,
+        "slideshow_autoplayAdvanced": true,
+        "slideshow_minTarget24": true,
+        "contrastOnImage": false,
+        "noThirdPartyBeforePlay": true,
+        "videoPlayersCreated": false,
+        "noConsoleErrors": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190452203824",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "n": "slideshow",
+          "found": true,
+          "h": 709,
+          "w": 1280,
+          "headings": [
+            "H2:Quiet tailoring",
+            "H2:A very long slide heading to test wrappi",
+            "H2:Evening"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "image_with_text",
+          "found": true,
+          "h": 1965,
+          "w": 1280,
+          "headings": [
+            "H2:Made to last"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "featured_collection",
+          "found": true,
+          "h": 730,
+          "w": 1280,
+          "headings": [
+            "H2:Permanent collection",
+            "H3:Structured Tote",
+            "H3:Cashmere Scarf",
+            "H3:Leather Belt",
+            "H3:Pleated Midi Skirt"
+          ],
+          "imgs": 6,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "collection_list",
+          "found": true,
+          "h": 781,
+          "w": 1280,
+          "headings": [
+            "H2:Shop by collection",
+            "H3:Tailoring",
+            "H3:Knitwear",
+            "H3:Outerwear"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "blog_posts",
+          "found": true,
+          "h": 737,
+          "w": 1280,
+          "headings": [
+            "H2:From the journal",
+            "H3:A very long article title used to test h",
+            "H3:How to read the size chart",
+            "H3:Welcome to the demo store"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "rich_text",
+          "found": true,
+          "h": 315,
+          "w": 1280,
+          "headings": [
+            "H2:Talk about your brand"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_external",
+          "found": true,
+          "h": 924,
+          "w": 1280,
+          "headings": [
+            "H2:Watch the story"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_hosted",
+          "found": true,
+          "h": 924,
+          "w": 1280,
+          "headings": [
+            "H2:Hosted film"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        }
+      ],
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "headingOrder": [
+        "H1:Std test",
+        "H2:Quiet tailoring",
+        "H2:A very long slide heading",
+        "H2:Evening",
+        "H2:Made to last",
+        "H2:Permanent collection",
+        "H3:Structured Tote",
+        "H3:Cashmere Scarf",
+        "H3:Leather Belt",
+        "H3:Pleated Midi Skirt",
+        "H2:Shop by collection",
+        "H3:Tailoring",
+        "H3:Knitwear",
+        "H3:Outerwear",
+        "H2:From the journal",
+        "H3:A very long article title",
+        "H3:How to read the size char",
+        "H3:Welcome to the demo store",
+        "H2:Talk about your brand",
+        "H2:Watch the story",
+        "H2:Hosted film"
+      ],
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .eyebrow",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__heading",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__text.rte > p",
+              ".featured-collection > .std-section__inner > .std-section__header > .std-section__link > .std-section__link-text",
+              "a[href$=\"news\"] > .std-section__link-text"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "slideshow": {
+        "controlsVisible": true,
+        "slides": 3,
+        "idx0": 0,
+        "toggleLabel0": "Pause slideshow",
+        "idxAfterAutoplay": 2,
+        "autoplayAdvanced": true,
+        "toggleLabelPaused": "Play slideshow",
+        "pausedHolds": true,
+        "nextWorks": true,
+        "prevWorks": true,
+        "dotWorks": true,
+        "activeSlideInert": [
+          true,
+          true,
+          null
+        ],
+        "toggleLabelResumed": "Pause slideshow",
+        "targetSize": [
+          [
+            44,
+            44
+          ],
+          [
+            44,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            44,
+            44
+          ]
+        ],
+        "minTarget": 24,
+        "keyboardNext": true
+      },
+      "contrastOnImage": [
+        {
+          "slide": 1,
+          "el": "eyebrow",
+          "text": "New season",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 2.47,
+          "p5": 2.63,
+          "median": 3.5,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__heading",
+          "text": "Quiet tailoring",
+          "size": 80.64,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.67,
+          "p5": 2.99,
+          "median": 3.97,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__text rte",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.42,
+          "p5": 3.66,
+          "median": 4.89,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "P",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.42,
+          "p5": 3.66,
+          "median": 4.89,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "eyebrow",
+          "text": "Silk",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 1,
+          "p5": 1,
+          "median": 1,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__heading",
+          "text": "A very long slide heading to t",
+          "size": 80.64,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1,
+          "p5": 1,
+          "median": 2.64,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__text rte",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.52,
+          "p5": 2.88,
+          "median": 4.31,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "P",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.52,
+          "p5": 2.88,
+          "median": 4.31,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__heading",
+          "text": "Evening",
+          "size": 80.64,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.14,
+          "p5": 3.36,
+          "median": 4.06,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__text rte",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.63,
+          "p5": 4.27,
+          "median": 4.72,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "P",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.63,
+          "p5": 4.27,
+          "median": 4.72,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        }
+      ],
+      "video": {
+        "thirdPartyBeforePlay": [],
+        "playButtons": 2,
+        "play0": {
+          "label": "Play video: YouTube example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": null,
+          "posterGone": false,
+          "activeEl": "BUTTON:",
+          "newRequests": []
+        },
+        "play1": {
+          "label": "Play video: Hosted example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": {
+            "paused": true,
+            "rs": 4,
+            "ct": 2
+          },
+          "posterGone": false,
+          "activeEl": "VIDEO:Hosted example",
+          "newRequests": []
+        }
+      },
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "warning",
+            "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://sartorial-theme-kvkzl39t.myshopify.com') does not match the recipient window's origin ('https://cdn.shopify.com').",
+            "url": ""
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=9ef8b022-05af-4e18-be5e-0216cfd4a906&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=94535ed1-3b9d-499c-803",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=94535ed1-3b9d-499c-8030-aa9db837fcc4&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "consoleTheme": [],
+      "consolePlatform": 11
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "checks": {
+        "allSectionsPresent": true,
+        "noBrokenImages": true,
+        "noHorizontalOverflow": true,
+        "axeNoViolations": true,
+        "slideshow_controlsVisible": true,
+        "slideshow_nextWorks": true,
+        "slideshow_prevWorks": true,
+        "slideshow_dotWorks": true,
+        "slideshow_pausedHolds": true,
+        "slideshow_autoplayAdvanced": true,
+        "slideshow_minTarget24": true,
+        "contrastOnImage": false,
+        "noThirdPartyBeforePlay": true,
+        "videoPlayersCreated": false,
+        "noConsoleErrors": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190452236592",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "n": "slideshow",
+          "found": true,
+          "h": 660,
+          "w": 390,
+          "headings": [
+            "H2:Quiet tailoring",
+            "H2:A very long slide heading to test wrappi",
+            "H2:Evening"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "image_with_text",
+          "found": true,
+          "h": 767,
+          "w": 390,
+          "headings": [
+            "H2:Made to last"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "featured_collection",
+          "found": true,
+          "h": 985,
+          "w": 390,
+          "headings": [
+            "H2:Permanent collection",
+            "H3:Structured Tote",
+            "H3:Cashmere Scarf",
+            "H3:Leather Belt",
+            "H3:Pleated Midi Skirt"
+          ],
+          "imgs": 6,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "collection_list",
+          "found": true,
+          "h": 763,
+          "w": 390,
+          "headings": [
+            "H2:Shop by collection",
+            "H3:Tailoring",
+            "H3:Knitwear",
+            "H3:Outerwear"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "blog_posts",
+          "found": true,
+          "h": 1669,
+          "w": 390,
+          "headings": [
+            "H2:From the journal",
+            "H3:A very long article title used to test h",
+            "H3:How to read the size chart",
+            "H3:Welcome to the demo store"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "rich_text",
+          "found": true,
+          "h": 328,
+          "w": 390,
+          "headings": [
+            "H2:Talk about your brand"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_external",
+          "found": true,
+          "h": 370,
+          "w": 390,
+          "headings": [
+            "H2:Watch the story"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_hosted",
+          "found": true,
+          "h": 370,
+          "w": 390,
+          "headings": [
+            "H2:Hosted film"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        }
+      ],
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "headingOrder": [
+        "H1:Std test",
+        "H2:Quiet tailoring",
+        "H2:A very long slide heading",
+        "H2:Evening",
+        "H2:Made to last",
+        "H2:Permanent collection",
+        "H3:Structured Tote",
+        "H3:Cashmere Scarf",
+        "H3:Leather Belt",
+        "H3:Pleated Midi Skirt",
+        "H2:Shop by collection",
+        "H3:Tailoring",
+        "H3:Knitwear",
+        "H3:Outerwear",
+        "H2:From the journal",
+        "H3:A very long article title",
+        "H3:How to read the size char",
+        "H3:Welcome to the demo store",
+        "H2:Talk about your brand",
+        "H2:Watch the story",
+        "H2:Hosted film"
+      ],
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .eyebrow",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__heading",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__text.rte > p",
+              ".featured-collection > .std-section__inner > .std-section__header > .std-section__link > .std-section__link-text",
+              "a[href$=\"news\"] > .std-section__link-text"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "slideshow": {
+        "controlsVisible": true,
+        "slides": 3,
+        "idx0": 0,
+        "toggleLabel0": "Pause slideshow",
+        "idxAfterAutoplay": 1,
+        "autoplayAdvanced": true,
+        "toggleLabelPaused": "Play slideshow",
+        "pausedHolds": true,
+        "nextWorks": true,
+        "prevWorks": true,
+        "dotWorks": true,
+        "activeSlideInert": [
+          true,
+          true,
+          null
+        ],
+        "toggleLabelResumed": "Pause slideshow",
+        "targetSize": [
+          [
+            44,
+            44
+          ],
+          [
+            44,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            44,
+            44
+          ]
+        ],
+        "minTarget": 24,
+        "keyboardNext": true
+      },
+      "contrastOnImage": [
+        {
+          "slide": 1,
+          "el": "eyebrow",
+          "text": "New season",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 2.99,
+          "p5": 3.34,
+          "median": 4.7,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__heading",
+          "text": "Quiet tailoring",
+          "size": 36,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 3.43,
+          "p5": 3.79,
+          "median": 5.47,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__text rte",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.83,
+          "p5": 4.42,
+          "median": 6.53,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "P",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.83,
+          "p5": 4.42,
+          "median": 6.53,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "eyebrow",
+          "text": "Silk",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 1.64,
+          "p5": 2,
+          "median": 3.05,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__heading",
+          "text": "A very long slide heading to t",
+          "size": 36,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1.81,
+          "p5": 2.46,
+          "median": 3.95,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__text rte",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.89,
+          "p5": 3.5,
+          "median": 5.4,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "P",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.89,
+          "p5": 3.5,
+          "median": 5.4,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__heading",
+          "text": "Evening",
+          "size": 36,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.49,
+          "p5": 4.11,
+          "median": 4.81,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__text rte",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 4.56,
+          "p5": 4.99,
+          "median": 5.7,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "P",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 4.56,
+          "p5": 4.99,
+          "median": 5.7,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        }
+      ],
+      "video": {
+        "thirdPartyBeforePlay": [],
+        "playButtons": 2,
+        "play0": {
+          "label": "Play video: YouTube example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": null,
+          "posterGone": false,
+          "activeEl": "BUTTON:",
+          "newRequests": []
+        },
+        "play1": {
+          "label": "Play video: Hosted example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": {
+            "paused": true,
+            "rs": 4,
+            "ct": 2
+          },
+          "posterGone": false,
+          "activeEl": "VIDEO:Hosted example",
+          "newRequests": []
+        }
+      },
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "warning",
+            "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://sartorial-theme-kvkzl39t.myshopify.com') does not match the recipient window's origin ('https://cdn.shopify.com').",
+            "url": ""
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=2e2b5479-433b-4e4d-9b16-e585a751c0b0&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=ae98035b-a2a2-4896-89f",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=ae98035b-a2a2-4896-89f2-589ad5808b43&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "consoleTheme": [],
+      "consolePlatform": 11
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "checks": {
+        "allSectionsPresent": true,
+        "noBrokenImages": true,
+        "noHorizontalOverflow": true,
+        "axeNoViolations": true,
+        "slideshow_controlsVisible": true,
+        "slideshow_nextWorks": true,
+        "slideshow_prevWorks": true,
+        "slideshow_dotWorks": true,
+        "slideshow_pausedHolds": true,
+        "slideshow_autoplayAdvanced": true,
+        "slideshow_minTarget24": true,
+        "contrastOnImage": false,
+        "noThirdPartyBeforePlay": true,
+        "videoPlayersCreated": false,
+        "noConsoleErrors": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190452236592",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "n": "slideshow",
+          "found": true,
+          "h": 709,
+          "w": 1280,
+          "headings": [
+            "H2:Quiet tailoring",
+            "H2:A very long slide heading to test wrappi",
+            "H2:Evening"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "image_with_text",
+          "found": true,
+          "h": 1930,
+          "w": 1280,
+          "headings": [
+            "H2:Made to last"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "featured_collection",
+          "found": true,
+          "h": 727,
+          "w": 1280,
+          "headings": [
+            "H2:Permanent collection",
+            "H3:Structured Tote",
+            "H3:Cashmere Scarf",
+            "H3:Leather Belt",
+            "H3:Pleated Midi Skirt"
+          ],
+          "imgs": 6,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "collection_list",
+          "found": true,
+          "h": 778,
+          "w": 1280,
+          "headings": [
+            "H2:Shop by collection",
+            "H3:Tailoring",
+            "H3:Knitwear",
+            "H3:Outerwear"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "blog_posts",
+          "found": true,
+          "h": 735,
+          "w": 1280,
+          "headings": [
+            "H2:From the journal",
+            "H3:A very long article title used to test h",
+            "H3:How to read the size chart",
+            "H3:Welcome to the demo store"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "rich_text",
+          "found": true,
+          "h": 313,
+          "w": 1280,
+          "headings": [
+            "H2:Talk about your brand"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_external",
+          "found": true,
+          "h": 890,
+          "w": 1280,
+          "headings": [
+            "H2:Watch the story"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_hosted",
+          "found": true,
+          "h": 890,
+          "w": 1280,
+          "headings": [
+            "H2:Hosted film"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        }
+      ],
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "headingOrder": [
+        "H1:Std test",
+        "H2:Quiet tailoring",
+        "H2:A very long slide heading",
+        "H2:Evening",
+        "H2:Made to last",
+        "H2:Permanent collection",
+        "H3:Structured Tote",
+        "H3:Cashmere Scarf",
+        "H3:Leather Belt",
+        "H3:Pleated Midi Skirt",
+        "H2:Shop by collection",
+        "H3:Tailoring",
+        "H3:Knitwear",
+        "H3:Outerwear",
+        "H2:From the journal",
+        "H3:A very long article title",
+        "H3:How to read the size char",
+        "H3:Welcome to the demo store",
+        "H2:Talk about your brand",
+        "H2:Watch the story",
+        "H2:Hosted film"
+      ],
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .eyebrow",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__heading",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__text.rte > p",
+              ".featured-collection > .std-section__inner > .std-section__header > .std-section__link > .std-section__link-text",
+              "a[href$=\"news\"] > .std-section__link-text"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "slideshow": {
+        "controlsVisible": true,
+        "slides": 3,
+        "idx0": 0,
+        "toggleLabel0": "Pause slideshow",
+        "idxAfterAutoplay": 2,
+        "autoplayAdvanced": true,
+        "toggleLabelPaused": "Play slideshow",
+        "pausedHolds": true,
+        "nextWorks": true,
+        "prevWorks": true,
+        "dotWorks": true,
+        "activeSlideInert": [
+          true,
+          true,
+          null
+        ],
+        "toggleLabelResumed": "Pause slideshow",
+        "targetSize": [
+          [
+            44,
+            44
+          ],
+          [
+            44,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            44,
+            44
+          ]
+        ],
+        "minTarget": 24,
+        "keyboardNext": true
+      },
+      "contrastOnImage": [
+        {
+          "slide": 1,
+          "el": "eyebrow",
+          "text": "New season",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 2.88,
+          "p5": 3.07,
+          "median": 4.14,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__heading",
+          "text": "Quiet tailoring",
+          "size": 76.8,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 3.17,
+          "p5": 3.54,
+          "median": 4.72,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__text rte",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 4.06,
+          "p5": 4.35,
+          "median": 5.87,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "P",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 4.06,
+          "p5": 4.35,
+          "median": 5.87,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "eyebrow",
+          "text": "Silk",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 1.62,
+          "p5": 1.85,
+          "median": 2.83,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__heading",
+          "text": "A very long slide heading to t",
+          "size": 76.8,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1.6,
+          "p5": 2.06,
+          "median": 3.37,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__text rte",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.95,
+          "p5": 3.38,
+          "median": 5.09,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "P",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.95,
+          "p5": 3.38,
+          "median": 5.09,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__heading",
+          "text": "Evening",
+          "size": 76.8,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.46,
+          "p5": 3.89,
+          "median": 4.72,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__text rte",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 4.26,
+          "p5": 5,
+          "median": 5.54,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "P",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 4.26,
+          "p5": 5,
+          "median": 5.54,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        }
+      ],
+      "video": {
+        "thirdPartyBeforePlay": [],
+        "playButtons": 2,
+        "play0": {
+          "label": "Play video: YouTube example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": null,
+          "posterGone": false,
+          "activeEl": "BUTTON:",
+          "newRequests": []
+        },
+        "play1": {
+          "label": "Play video: Hosted example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": {
+            "paused": true,
+            "rs": 4,
+            "ct": 2
+          },
+          "posterGone": false,
+          "activeEl": "VIDEO:Hosted example",
+          "newRequests": []
+        }
+      },
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "warning",
+            "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://sartorial-theme-kvkzl39t.myshopify.com') does not match the recipient window's origin ('https://cdn.shopify.com').",
+            "url": ""
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=00d91e1d-8ac4-45f0-a889-be1171bf0c9f&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=e64807fb-bd34-4f5b-9fc",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=e64807fb-bd34-4f5b-9fc5-88be186154b1&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "consoleTheme": [],
+      "consolePlatform": 11
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "checks": {
+        "allSectionsPresent": true,
+        "noBrokenImages": true,
+        "noHorizontalOverflow": true,
+        "axeNoViolations": true,
+        "slideshow_controlsVisible": true,
+        "slideshow_nextWorks": true,
+        "slideshow_prevWorks": true,
+        "slideshow_dotWorks": true,
+        "slideshow_pausedHolds": true,
+        "slideshow_autoplayAdvanced": true,
+        "slideshow_minTarget24": true,
+        "contrastOnImage": false,
+        "noThirdPartyBeforePlay": true,
+        "videoPlayersCreated": false,
+        "noConsoleErrors": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190452269360",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "n": "slideshow",
+          "found": true,
+          "h": 660,
+          "w": 390,
+          "headings": [
+            "H2:Quiet tailoring",
+            "H2:A very long slide heading to test wrappi",
+            "H2:Evening"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "image_with_text",
+          "found": true,
+          "h": 802,
+          "w": 390,
+          "headings": [
+            "H2:Made to last"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "featured_collection",
+          "found": true,
+          "h": 1027,
+          "w": 390,
+          "headings": [
+            "H2:Permanent collection",
+            "H3:Structured Tote",
+            "H3:Cashmere Scarf",
+            "H3:Leather Belt",
+            "H3:Pleated Midi Skirt"
+          ],
+          "imgs": 6,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "collection_list",
+          "found": true,
+          "h": 767,
+          "w": 390,
+          "headings": [
+            "H2:Shop by collection",
+            "H3:Tailoring",
+            "H3:Knitwear",
+            "H3:Outerwear"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "blog_posts",
+          "found": true,
+          "h": 1673,
+          "w": 390,
+          "headings": [
+            "H2:From the journal",
+            "H3:A very long article title used to test h",
+            "H3:How to read the size chart",
+            "H3:Welcome to the demo store"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "rich_text",
+          "found": true,
+          "h": 375,
+          "w": 390,
+          "headings": [
+            "H2:Talk about your brand"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_external",
+          "found": true,
+          "h": 405,
+          "w": 390,
+          "headings": [
+            "H2:Watch the story"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_hosted",
+          "found": true,
+          "h": 405,
+          "w": 390,
+          "headings": [
+            "H2:Hosted film"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        }
+      ],
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "headingOrder": [
+        "H1:Std test",
+        "H2:Quiet tailoring",
+        "H2:A very long slide heading",
+        "H2:Evening",
+        "H2:Made to last",
+        "H2:Permanent collection",
+        "H3:Structured Tote",
+        "H3:Cashmere Scarf",
+        "H3:Leather Belt",
+        "H3:Pleated Midi Skirt",
+        "H2:Shop by collection",
+        "H3:Tailoring",
+        "H3:Knitwear",
+        "H3:Outerwear",
+        "H2:From the journal",
+        "H3:A very long article title",
+        "H3:How to read the size char",
+        "H3:Welcome to the demo store",
+        "H2:Talk about your brand",
+        "H2:Watch the story",
+        "H2:Hosted film"
+      ],
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .eyebrow",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__heading",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__text.rte > p",
+              ".featured-collection > .std-section__inner > .std-section__header > .std-section__link > .std-section__link-text",
+              "a[href$=\"news\"] > .std-section__link-text"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "slideshow": {
+        "controlsVisible": true,
+        "slides": 3,
+        "idx0": 0,
+        "toggleLabel0": "Pause slideshow",
+        "idxAfterAutoplay": 1,
+        "autoplayAdvanced": true,
+        "toggleLabelPaused": "Play slideshow",
+        "pausedHolds": true,
+        "nextWorks": true,
+        "prevWorks": true,
+        "dotWorks": true,
+        "activeSlideInert": [
+          true,
+          true,
+          null
+        ],
+        "toggleLabelResumed": "Pause slideshow",
+        "targetSize": [
+          [
+            44,
+            44
+          ],
+          [
+            44,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            44,
+            44
+          ]
+        ],
+        "minTarget": 24,
+        "keyboardNext": true
+      },
+      "contrastOnImage": [
+        {
+          "slide": 1,
+          "el": "eyebrow",
+          "text": "New season",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 2.18,
+          "p5": 2.39,
+          "median": 3.34,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__heading",
+          "text": "Quiet tailoring",
+          "size": 39.6,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.45,
+          "p5": 2.69,
+          "median": 3.83,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__text rte",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.68,
+          "p5": 3.11,
+          "median": 4.52,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "P",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.68,
+          "p5": 3.11,
+          "median": 4.52,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "eyebrow",
+          "text": "Silk",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 1.25,
+          "p5": 1.43,
+          "median": 2.07,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__heading",
+          "text": "A very long slide heading to t",
+          "size": 39.6,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1.26,
+          "p5": 1.72,
+          "median": 2.78,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__text rte",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.1,
+          "p5": 2.53,
+          "median": 3.84,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "P",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.1,
+          "p5": 2.53,
+          "median": 3.84,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__heading",
+          "text": "Evening",
+          "size": 39.6,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1.86,
+          "p5": 3.04,
+          "median": 3.53,
+          "passP5": true,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__text rte",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.31,
+          "p5": 3.57,
+          "median": 4.1,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "P",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.31,
+          "p5": 3.57,
+          "median": 4.1,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        }
+      ],
+      "video": {
+        "thirdPartyBeforePlay": [],
+        "playButtons": 2,
+        "play0": {
+          "label": "Play video: YouTube example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": null,
+          "posterGone": false,
+          "activeEl": "BUTTON:",
+          "newRequests": []
+        },
+        "play1": {
+          "label": "Play video: Hosted example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": {
+            "paused": true,
+            "rs": 4,
+            "ct": 2
+          },
+          "posterGone": false,
+          "activeEl": "VIDEO:Hosted example",
+          "newRequests": []
+        }
+      },
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "warning",
+            "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://sartorial-theme-kvkzl39t.myshopify.com') does not match the recipient window's origin ('https://cdn.shopify.com').",
+            "url": ""
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=38d15b41-cc75-48c4-ba35-52f8f9b6b5f1&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=539aa5eb-68e3-4f25-8ed",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=539aa5eb-68e3-4f25-8edd-85ed560e0ad3&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "consoleTheme": [],
+      "consolePlatform": 11
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "checks": {
+        "allSectionsPresent": true,
+        "noBrokenImages": true,
+        "noHorizontalOverflow": true,
+        "axeNoViolations": true,
+        "slideshow_controlsVisible": true,
+        "slideshow_nextWorks": true,
+        "slideshow_prevWorks": true,
+        "slideshow_dotWorks": true,
+        "slideshow_pausedHolds": true,
+        "slideshow_autoplayAdvanced": true,
+        "slideshow_minTarget24": true,
+        "contrastOnImage": false,
+        "noThirdPartyBeforePlay": true,
+        "videoPlayersCreated": false,
+        "noConsoleErrors": true
+      },
+      "notes": [],
+      "identity": {
+        "id": "190452269360",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "n": "slideshow",
+          "found": true,
+          "h": 709,
+          "w": 1280,
+          "headings": [
+            "H2:Quiet tailoring",
+            "H2:A very long slide heading to test wrappi",
+            "H2:Evening"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "image_with_text",
+          "found": true,
+          "h": 1967,
+          "w": 1280,
+          "headings": [
+            "H2:Made to last"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "featured_collection",
+          "found": true,
+          "h": 732,
+          "w": 1280,
+          "headings": [
+            "H2:Permanent collection",
+            "H3:Structured Tote",
+            "H3:Cashmere Scarf",
+            "H3:Leather Belt",
+            "H3:Pleated Midi Skirt"
+          ],
+          "imgs": 6,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "collection_list",
+          "found": true,
+          "h": 783,
+          "w": 1280,
+          "headings": [
+            "H2:Shop by collection",
+            "H3:Tailoring",
+            "H3:Knitwear",
+            "H3:Outerwear"
+          ],
+          "imgs": 3,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "blog_posts",
+          "found": true,
+          "h": 739,
+          "w": 1280,
+          "headings": [
+            "H2:From the journal",
+            "H3:A very long article title used to test h",
+            "H3:How to read the size chart",
+            "H3:Welcome to the demo store"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "rich_text",
+          "found": true,
+          "h": 318,
+          "w": 1280,
+          "headings": [
+            "H2:Talk about your brand"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_external",
+          "found": true,
+          "h": 927,
+          "w": 1280,
+          "headings": [
+            "H2:Watch the story"
+          ],
+          "imgs": 0,
+          "brokenImgs": 0,
+          "empty": false
+        },
+        {
+          "n": "video_hosted",
+          "found": true,
+          "h": 927,
+          "w": 1280,
+          "headings": [
+            "H2:Hosted film"
+          ],
+          "imgs": 1,
+          "brokenImgs": 0,
+          "empty": false
+        }
+      ],
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "headingOrder": [
+        "H1:Std test",
+        "H2:Quiet tailoring",
+        "H2:A very long slide heading",
+        "H2:Evening",
+        "H2:Made to last",
+        "H2:Permanent collection",
+        "H3:Structured Tote",
+        "H3:Cashmere Scarf",
+        "H3:Leather Belt",
+        "H3:Pleated Midi Skirt",
+        "H2:Shop by collection",
+        "H3:Tailoring",
+        "H3:Knitwear",
+        "H3:Outerwear",
+        "H2:From the journal",
+        "H3:A very long article title",
+        "H3:How to read the size char",
+        "H3:Welcome to the demo store",
+        "H2:Talk about your brand",
+        "H2:Watch the story",
+        "H2:Hosted film"
+      ],
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .eyebrow",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__heading",
+              ".slideshow__slide--start > .slideshow__content > .slideshow__copy.flow > .slideshow__text.rte > p",
+              ".featured-collection > .std-section__inner > .std-section__header > .std-section__link > .std-section__link-text",
+              "a[href$=\"news\"] > .std-section__link-text"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "slideshow": {
+        "controlsVisible": true,
+        "slides": 3,
+        "idx0": 0,
+        "toggleLabel0": "Pause slideshow",
+        "idxAfterAutoplay": 2,
+        "autoplayAdvanced": true,
+        "toggleLabelPaused": "Play slideshow",
+        "pausedHolds": true,
+        "nextWorks": true,
+        "prevWorks": true,
+        "dotWorks": true,
+        "activeSlideInert": [
+          true,
+          true,
+          null
+        ],
+        "toggleLabelResumed": "Pause slideshow",
+        "targetSize": [
+          [
+            44,
+            44
+          ],
+          [
+            44,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            24,
+            44
+          ],
+          [
+            44,
+            44
+          ]
+        ],
+        "minTarget": 24,
+        "keyboardNext": true
+      },
+      "contrastOnImage": [
+        {
+          "slide": 1,
+          "el": "eyebrow",
+          "text": "New season",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 2.1,
+          "p5": 2.21,
+          "median": 2.96,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__heading",
+          "text": "Quiet tailoring",
+          "size": 84.48,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 2.25,
+          "p5": 2.51,
+          "median": 3.31,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "slideshow__text rte",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.84,
+          "p5": 3.04,
+          "median": 4.04,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 1,
+          "el": "P",
+          "text": "Considered cuts in natural fib",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.84,
+          "p5": 3.04,
+          "median": 4.04,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "eyebrow",
+          "text": "Silk",
+          "size": 12,
+          "weight": 700,
+          "large": false,
+          "need": 4.5,
+          "min": 1,
+          "p5": 1,
+          "median": 1,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__heading",
+          "text": "A very long slide heading to t",
+          "size": 84.48,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1,
+          "p5": 1,
+          "median": 2.42,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "slideshow__text rte",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.14,
+          "p5": 2.44,
+          "median": 3.6,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 2,
+          "el": "P",
+          "text": "Second slide with a longer mes",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 2.14,
+          "p5": 2.44,
+          "median": 3.6,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__heading",
+          "text": "Evening",
+          "size": 84.48,
+          "weight": 400,
+          "large": true,
+          "need": 3,
+          "min": 1.86,
+          "p5": 2.88,
+          "median": 3.47,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "slideshow__text rte",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.1,
+          "p5": 3.61,
+          "median": 3.96,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        },
+        {
+          "slide": 3,
+          "el": "P",
+          "text": "Third slide.",
+          "size": 16,
+          "weight": 400,
+          "large": false,
+          "need": 4.5,
+          "min": 3.1,
+          "p5": 3.61,
+          "median": 3.96,
+          "passP5": false,
+          "opacity": "1",
+          "skipped": false
+        }
+      ],
+      "video": {
+        "thirdPartyBeforePlay": [],
+        "playButtons": 2,
+        "play0": {
+          "label": "Play video: YouTube example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": null,
+          "posterGone": false,
+          "activeEl": "BUTTON:",
+          "newRequests": []
+        },
+        "play1": {
+          "label": "Play video: Hosted example",
+          "iframe": null,
+          "iframeTitle": null,
+          "video": {
+            "paused": true,
+            "rs": 4,
+            "ct": 2
+          },
+          "posterGone": false,
+          "activeEl": "VIDEO:Hosted example",
+          "newRequests": []
+        }
+      },
+      "watch": {
+        "console": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "[bugsnag] Session failed to send… Error: Request failed with status 0\n    at Te.onreadystatechange (https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js:29:2786)",
+            "url": "https://cdn.shopify.com/shopifycloud/preview-bar/vendor-BzORzJP8Sw0G.js"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED",
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics"
+          },
+          {
+            "type": "warning",
+            "text": "Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://sartorial-theme-kvkzl39t.myshopify.com') does not match the recipient window's origin ('https://cdn.shopify.com').",
+            "url": ""
+          }
+        ],
+        "pageerrors": [
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util",
+          "TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b997a76bdw6b2572e2pb4e93427m632f4b2am.js:1:92979\n    at b.exportTo (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6141)\n    at b.exportBatches (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.utils_Cjeq_SSZ.esm.js:1:6966)\n    at b.exportMetrics (https://cdn.shopify.com/shopifycloud/shop-js/modules/v2/chunk.util"
+        ],
+        "failed": [
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/pay/hop?analytics_trace_id=cf80e400-ae0e-4c72-80e5-129c54b7f720&target_origin=https%3A%2F%2Fsartorial-theme-kvkzl39t.myshopify.com&client_handl",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://error-analytics-sessions-production.shopifysvc.com/",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/logs",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/.well-known/shopify/monorail/unstable/produce_batch",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://monorail-edge.shopifysvc.com/v1/produce",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/services/login_with_shop/authorize?analytics_context=loginWithShopEmbed&analytics_trace_id=ada4998e-9733-4910-a5e",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://otlp-http-production.shopifysvc.com/v1/metrics",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://shop.app/accounts/pre_auth?client_id=6b0c5131-6a68-480d-9f04-bc2503012bc0&analytics_trace_id=ada4998e-9733-4910-a5e0-205cb9f3bd84&flow=embed&flow_versio",
+            "err": "net::ERR_TUNNEL_CONNECTION_FAILED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          },
+          {
+            "url": "https://sartorial-theme-kvkzl39t.myshopify.com/api/collect",
+            "err": "net::ERR_ABORTED"
+          }
+        ]
+      },
+      "consoleTheme": [],
+      "consolePlatform": 12
+    }
+  ],
+  "failedChecks": [
+    "sartorial/mobile:contrastOnImage",
+    "sartorial/mobile:videoPlayersCreated",
+    "sartorial/desktop:contrastOnImage",
+    "sartorial/desktop:videoPlayersCreated",
+    "imprint/mobile:contrastOnImage",
+    "imprint/mobile:videoPlayersCreated",
+    "imprint/desktop:contrastOnImage",
+    "imprint/desktop:videoPlayersCreated",
+    "archive/mobile:contrastOnImage",
+    "archive/mobile:videoPlayersCreated",
+    "archive/desktop:contrastOnImage",
+    "archive/desktop:videoPlayersCreated"
+  ],
+  "errors": []
+}
