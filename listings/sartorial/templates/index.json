@@ -59,10 +59,10 @@
     "lookbook": {
       "type": "lookbook",
       "blocks": {
-        "marker1": { "type": "hotspot", "settings": { "product": "nove-blazer", "horizontal_position": 26, "vertical_position": 34, "horizontal_position_mobile": 28, "vertical_position_mobile": 30, "popover_position": "right" } },
-        "marker2": { "type": "hotspot", "settings": { "product": "pleated-wide-trouser", "horizontal_position": 48, "vertical_position": 66, "horizontal_position_mobile": 46, "vertical_position_mobile": 64, "popover_position": "top" } },
-        "marker3": { "type": "hotspot", "settings": { "product": "silk-charmeuse-blouse", "horizontal_position": 69, "vertical_position": 38, "horizontal_position_mobile": 68, "vertical_position_mobile": 42, "popover_position": "left" } },
-        "marker4": { "type": "hotspot", "settings": { "product": "cashmere-scarf", "horizontal_position": 82, "vertical_position": 72, "horizontal_position_mobile": 78, "vertical_position_mobile": 74, "popover_position": "left" } }
+        "marker1": { "type": "hotspot", "settings": { "product": "", "horizontal_position": 26, "vertical_position": 34, "horizontal_position_mobile": 28, "vertical_position_mobile": 30, "popover_position": "right" } },
+        "marker2": { "type": "hotspot", "settings": { "product": "", "horizontal_position": 48, "vertical_position": 66, "horizontal_position_mobile": 46, "vertical_position_mobile": 64, "popover_position": "top" } },
+        "marker3": { "type": "hotspot", "settings": { "product": "", "horizontal_position": 69, "vertical_position": 38, "horizontal_position_mobile": 68, "vertical_position_mobile": 42, "popover_position": "left" } },
+        "marker4": { "type": "hotspot", "settings": { "product": "", "horizontal_position": 82, "vertical_position": 72, "horizontal_position_mobile": 78, "vertical_position_mobile": 74, "popover_position": "left" } }
       },
       "block_order": ["marker1", "marker2", "marker3", "marker4"],
       "settings": {
@@ -87,7 +87,7 @@
       },
       "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "inventory", "shipping", "description"],
       "settings": {
-        "product": "serra-coat",
+        "product": "",
         "color_scheme": "scheme-3",
         "secondary_background": false,
         "padding_top": 64,
@@ -97,9 +97,9 @@
     "capsule": {
       "type": "complete-the-look",
       "blocks": {
-        "piece1": { "type": "bundle_product", "settings": { "product": "nove-blazer" } },
-        "piece2": { "type": "bundle_product", "settings": { "product": "silk-charmeuse-blouse" } },
-        "piece3": { "type": "bundle_product", "settings": { "product": "pleated-wide-trouser" } }
+        "piece1": { "type": "bundle_product", "settings": { "product": "" } },
+        "piece2": { "type": "bundle_product", "settings": { "product": "" } },
+        "piece3": { "type": "bundle_product", "settings": { "product": "" } }
       },
       "block_order": ["piece1", "piece2", "piece3"],
       "settings": {
@@ -124,16 +124,7 @@
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "color_scheme": "scheme-3",
-        "eyebrow": "PRIVATE SALON CORRESPONDENCE",
-        "heading": "The Master Tailor's Gazette",
-        "text": ""
-      }
     }
   },
-  "order": ["hero", "marquee", "collections", "lookbook", "featured_product", "capsule", "manifesto", "newsletter"]
+  "order": ["hero", "marquee", "collections", "lookbook", "featured_product", "capsule", "manifesto"]
 }

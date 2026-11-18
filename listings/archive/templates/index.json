@@ -73,9 +73,9 @@
     "lookbook": {
       "type": "lookbook",
       "blocks": {
-        "marker1": { "type": "hotspot", "settings": { "product": "1994-cashmere-cocoon-coat", "horizontal_position": 24, "vertical_position": 42, "horizontal_position_mobile": 26, "vertical_position_mobile": 40, "popover_position": "right" } },
-        "marker2": { "type": "hotspot", "settings": { "product": "1999-technical-cotton-trench", "horizontal_position": 46, "vertical_position": 62, "horizontal_position_mobile": 48, "vertical_position_mobile": 60, "popover_position": "top" } },
-        "marker3": { "type": "hotspot", "settings": { "product": "1998-bias-cut-silk-slip", "horizontal_position": 78, "vertical_position": 50, "horizontal_position_mobile": 76, "vertical_position_mobile": 48, "popover_position": "left" } }
+        "marker1": { "type": "hotspot", "settings": { "product": "", "horizontal_position": 24, "vertical_position": 42, "horizontal_position_mobile": 26, "vertical_position_mobile": 40, "popover_position": "right" } },
+        "marker2": { "type": "hotspot", "settings": { "product": "", "horizontal_position": 46, "vertical_position": 62, "horizontal_position_mobile": 48, "vertical_position_mobile": 60, "popover_position": "top" } },
+        "marker3": { "type": "hotspot", "settings": { "product": "", "horizontal_position": 78, "vertical_position": 50, "horizontal_position_mobile": 76, "vertical_position_mobile": 48, "popover_position": "left" } }
       },
       "block_order": ["marker1", "marker2", "marker3"],
       "settings": {
@@ -110,22 +110,13 @@
       },
       "block_order": ["title", "price", "variant_picker", "quantity", "buy_buttons", "provenance", "inventory", "shipping", "description"],
       "settings": {
-        "product": "1990-pinstripe-double-breasted-jacket",
+        "product": "",
         "color_scheme": "scheme-3",
         "secondary_background": false,
         "padding_top": 64,
         "padding_bottom": 64
       }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "color_scheme": "scheme-4",
-        "eyebrow": "ARCHIVAL GAZETTE",
-        "heading": "New vault accession notices",
-        "text": ""
-      }
     }
   },
-  "order": ["hero", "manifesto", "marquee", "collections", "lookbook", "featured_product", "newsletter"]
+  "order": ["hero", "manifesto", "marquee", "collections", "lookbook", "featured_product"]
 }

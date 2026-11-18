@@ -1,6 +1,13 @@
 {%- liquid
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
+  # The photo of a horizontal card is about 22% of the container from 62rem and 42% of the card
+  # below it. Above the page width the box stops growing, so a pixel cap replaces the vw value.
+  assign card_width_cap = settings.page_width | times: 0.22 | ceil
+  capture card_image_sizes
+    echo '(min-width: ' | append: settings.page_width | append: 'px) ' | append: card_width_cap | append: 'px, '
+    echo '(min-width: 62rem) 22vw, 42vw'
+  endcapture
 -%}
 
 <curated-showcase>
@@ -121,6 +128,7 @@
                 {% render 'product-card',
                   card_product: card_product,
                   card_id_suffix: block.id,
+                  sizes: card_image_sizes,
                   show_secondary_image: section.settings.show_secondary_image,
                   show_vendor: section.settings.show_vendor,
                   show_quick_add: false

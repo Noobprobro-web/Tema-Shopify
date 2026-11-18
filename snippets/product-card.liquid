@@ -13,6 +13,8 @@
     box. Each falls back to the previous one; pass none to keep the legacy sizes
     ((min-width: 990px) 25vw, 50vw). Pass the widest estimate: 100vw / columns ignores the
     gutters and the filters sidebar, so it never asks for an image narrower than the box.
+  - sizes: optional. A ready-made `sizes` attribute for cards whose box is not a share of a grid
+    row (for example a horizontal card). It takes priority over the column parameters.
   - show_quick_add: show quick add. A single variant adds in one click; a product whose
     only option is its color adds the committed color in one click; a product with one
     size-like option (plus an optional color) opens a size picker where the size itself is the
@@ -38,6 +40,9 @@
     capture card_sizes
       render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop
     endcapture
+  endif
+  if sizes != blank
+    assign card_sizes = sizes
   endif
   assign card_key = section.id | append: '-' | append: card_product.id
   if card_id_suffix != blank

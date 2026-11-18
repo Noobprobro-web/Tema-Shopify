@@ -23,6 +23,12 @@
 
   # The hero only claims the page h1 on the homepage. Every other template already
   # renders its own h1, so the automatic level drops to h2 there.
+  # Only a hero near the top of the page is likely above the fold, so only then is its image prioritized.
+  assign hero_prioritize = false
+  if section.index <= 2
+    assign hero_prioritize = true
+  endif
+
   assign heading_tag = section.settings.heading_tag
   if heading_tag == blank or heading_tag == 'auto'
     assign heading_tag = 'h2'
@@ -91,7 +97,7 @@
               image: video_poster,
               sizes: hero_sizes,
               widths: '550, 750, 960, 1200, 1600, 2000, 2400',
-              prioritize: true,
+              prioritize: hero_prioritize,
               image_class: 'hero-editorial__image',
               alt: hero_alt
             %}
@@ -143,7 +149,7 @@
               image: hero_image,
               sizes: hero_sizes,
               widths: '550, 750, 960, 1200, 1600, 2000, 2400',
-              prioritize: true,
+              prioritize: hero_prioritize,
               image_class: 'hero-editorial__image',
               alt: hero_alt
             %}
