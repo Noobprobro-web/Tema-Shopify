@@ -110,6 +110,15 @@
       "pause": "Pause announcements",
       "play": "Play announcements"
     },
+    "blog_posts": {
+      "region_label": "Latest blog posts",
+      "view_all": "View all",
+      "view_all_label": "View all posts in {{ title }}",
+      "read_more": "Read more",
+      "placeholder_title": "Post title",
+      "choose_blog": "Choose a blog in the theme editor to show its latest posts here.",
+      "empty_blog": "This blog has no posts yet."
+    },
     "lookbook": {
       "region_label": "Interactive editorial lookbook",
       "image_alt": "Editorial composition with shoppable products",
@@ -117,6 +126,11 @@
       "featured_piece": "Featured piece",
       "view_product": "View product",
       "products_label": "Products featured in this look"
+    },
+    "collection_list": {
+      "region_label": "Collections",
+      "placeholder_title": "Collection title",
+      "add_collections": "Add collection blocks in the theme editor to build this list."
     },
     "complete_the_look": {
       "region_label": "Complete the look",
@@ -141,18 +155,33 @@
       "added": "The selected look was added to your cart.",
       "error": "We could not add this look. Review the selected options and try again."
     },
+    "featured_collection": {
+      "region_label": "Featured collection",
+      "view_all": "View all",
+      "view_all_label": "View all products in {{ title }}",
+      "choose_collection": "Choose a collection in the theme editor to show its products here.",
+      "empty_collection": "This collection has no products yet."
+    },
     "featured_product": {
       "region_label": "Featured product",
       "onboarding_title": "Featured luxury product",
       "onboarding_price": "$480.00"
     },
     "recently_viewed": {
-      "heading": "Recently viewed"
+      "heading": "Recently viewed",
+      "editor_notice": "Products appear here once a visitor has viewed some. This note shows only in the theme editor."
+    },
+    "rich_text": {
+      "region_label": "Rich text",
+      "add_content": "Add a heading, text or button in the theme editor."
     },
     "main_product": {
       "blocks": {
         "inventory_status": {
-          "low_stock": "Low stock: [count] left",
+          "low_stock": {
+            "one": "Low stock: {{ count }} left",
+            "other": "Low stock: {{ count }} left"
+          },
           "low_stock_generic": "Low stock",
           "in_stock": "In stock",
           "preorder": "Available for pre-order",
@@ -160,6 +189,29 @@
           "unavailable": "This option is unavailable"
         }
       }
+    },
+    "image_with_text": {
+      "region_label": "Image with text"
+    },
+    "slideshow": {
+      "region_label": "Slideshow",
+      "carousel_role": "carousel",
+      "slide_role": "slide",
+      "slide_label": "Slide {{ current }} of {{ total }}",
+      "slide_status": "Slide {{ current }} of {{ total }}",
+      "previous": "Previous slide",
+      "next": "Next slide",
+      "go_to_slide": "Go to slide {{ number }}",
+      "pause": "Pause slideshow",
+      "play": "Play slideshow",
+      "empty": "Add slides to this section to build your slideshow."
+    },
+    "video": {
+      "region_label": "Video",
+      "default_title": "Video",
+      "play": "Play",
+      "play_label": "Play video: {{ title }}",
+      "watch": "Watch the video"
     },
     "bento_discovery": {
       "explore_generic": "Explore"
@@ -183,8 +235,7 @@
         "material_image_alt": "Close-up study of a material"
       },
       "bento": {
-        "region_label": "Discover collections, stories and products",
-        "explore": "Explore {{ title }}"
+        "region_label": "Discover collections, stories and products"
       },
       "marquee": {
         "region_label": "Editorial highlights",
@@ -339,6 +390,7 @@
       "submit": "Search"
     },
     "results": {
+      "heading": "Search results",
       "count": {
         "one": "{{ count }} result",
         "other": "{{ count }} results"
@@ -457,6 +509,8 @@
       "option_unavailable": "Option unavailable",
       "variant_loading": "Loading variant…",
       "variant_navigation_notice": "Choosing an option opens the product page.",
+      "editor_empty": "Theme editor only: this block stays hidden in the store until it has a product or content to show.",
+      "editor_no_product": "Theme editor only: this text stays hidden in the store until a product is selected.",
       "variant_available": "Variant available.",
       "variant_available_with_price": "[title], [price]: Variant available.",
       "variant_sold_out": "Variant sold out.",
@@ -513,6 +567,7 @@
   "collections": {
     "general": {
       "collection": "Collection",
+      "products_heading": "Products",
       "products_count": {
         "one": "{{ count }} product",
         "other": "{{ count }} products"
@@ -551,50 +606,6 @@
     },
     "merchandising": {
       "promotion": "Editorial collection feature"
-    }
-  },
-  "templates": {
-    "home": {
-      "title": "{{ shop }}",
-      "message": "A flexible editorial storefront is taking shape."
-    },
-    "product": {
-      "title": "Product"
-    },
-    "collection": {
-      "title": "Collection"
-    },
-    "list_collections": {
-      "title": "Collections"
-    },
-    "cart": {
-      "title": "Cart",
-      "empty": "Your cart is currently empty."
-    },
-    "search": {
-      "title": "Search",
-      "results_for": "Search results for “{{ terms }}”",
-      "prompt": "Use search to explore the catalog."
-    },
-    "not_found": {
-      "title": "Page not found",
-      "message": "The page you requested could not be found.",
-      "link": "Return home"
-    },
-    "page": {
-      "title": "Page"
-    },
-    "blog": {
-      "title": "Journal"
-    },
-    "article": {
-      "title": "Article"
-    },
-    "password": {
-      "title": "Opening soon",
-      "message": "This shop is preparing its next chapter.",
-      "password_label": "Store password",
-      "submit": "Enter store"
     }
   },
   "gift_cards": {

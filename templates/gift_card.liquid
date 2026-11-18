@@ -6,12 +6,12 @@
   assign default_scheme = settings.default_color_scheme
   assign logo_alt = settings.logo.alt | default: shop.name
   if gift_card.expires_on
-    assign formatted_expires_on = gift_card.expires_on | date: '%B %d, %Y'
+    assign formatted_expires_on = gift_card.expires_on | date: format: 'date'
   endif
 -%}
 
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ request.locale.direction }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -80,8 +80,7 @@
         </a>
 
         <div>
-          <p class="eyebrow">{{ 'gift_cards.issued.gift_card' | t }}</p>
-          <h1 id="GiftCardTitle">{{ shop.name | escape }}</h1>
+          <h1 id="GiftCardTitle">{{ 'gift_cards.issued.gift_card' | t }}</h1>
           <p class="gift-card__value">{{ initial_value }}</p>
           <p>{{ 'gift_cards.issued.remaining_html' | t: balance: balance }}</p>
         </div>
@@ -129,7 +128,7 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // AF-13 (AUDIT-FINAL-001): sin manejadores en línea, compatible con una CSP estricta.
+        {%- comment -%} Sin manejadores en línea, compatible con una CSP estricta. {%- endcomment -%}
         var printButton = document.querySelector('[data-gift-card-print]');
         if (printButton) {
           printButton.addEventListener('click', function () {

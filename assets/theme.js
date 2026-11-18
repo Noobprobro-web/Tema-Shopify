@@ -110,7 +110,7 @@
     });
   };
 
-  // LV-03. El bloqueo (overflow: hidden en body, base.css) quita la barra de scroll clasica
+  // El bloqueo (overflow: hidden en body, base.css) quita la barra de scroll clasica
   // de escritorio y el contenido se corria su ancho. Se mide la barra antes de bloquear y
   // body la compensa con padding-right (--scrollbar-compensation). Con barras superpuestas
   // (moviles) la medida es 0. No se usa scrollbar-gutter global: cambiaria el ancho de las
@@ -138,7 +138,7 @@
     if (!locked) body.style.removeProperty('--scrollbar-compensation');
   };
 
-  // 5B-001, H-13. Una diapositiva que sale de la vista no puede seguir sonando: <video> se
+  // Una diapositiva que sale de la vista no puede seguir sonando: <video> se
   // pausa y los reproductores de YouTube y Vimeo (media_tag con su API activa) reciben la
   // orden de pausa por postMessage, el mismo mensaje que documenta cada plataforma.
   const pauseMedia = (container) => {
@@ -209,7 +209,7 @@
     throw new Error(errorMessage);
   });
 
-  // D-02-Q. Rejilla de cantidades de Shopify: solo valen min + k * incremento sin pasar
+  // Rejilla de cantidades de Shopify: solo valen min + k * incremento sin pasar
   // de max. El techo real es el mayor escalon que cabe bajo max (min 2, paso 2, max 5
   // da 4, no 5). Si ni el minimo cabe (max < min), devuelve un valor menor que min y
   // quien llama decide como bloquear.
@@ -265,7 +265,7 @@
       });
       this.listen(this, 'shopify:block:select', () => this.setOpen(true));
       this.listen(this, 'shopify:block:deselect', () => this.setOpen(false));
-      // 5C-002. En escritorio el panel tapa la pagina bajo la cabecera: si el foco llega a algo
+      // En escritorio el panel tapa la pagina bajo la cabecera: si el foco llega a algo
       // de fuera, se cierra para no dejarlo debajo (WCAG 2.4.11). Dentro de la cabecera no tapa
       // nada y Shift+Tab sigue volviendo al panel. El cajon movil no lo necesita.
       const header = this.closest('.desktop-nav') && this.closest('.site-header');
@@ -373,7 +373,7 @@
         event.preventDefault();
         this.setOpen(false, true);
       });
-      // B-01 (TT-104). El corte movil/escritorio vive solo en el CSS (base.css oculta
+      // El corte movil/escritorio vive solo en el CSS (base.css oculta
       // .site-header__mobile-menu en escritorio). Si el cajon abierto deja de pintarse por un
       // cambio de ancho o un giro, se cierra aqui y devuelve scroll, inert y foco sin Escape.
       this.listen(window, 'resize', () => {
@@ -404,7 +404,7 @@
       return this.trigger?.getAttribute('aria-expanded') === 'true';
     }
 
-    // B-01. Destino de foco al cerrar: el disparador si se pinta; si no (escritorio), el
+    // Destino de foco al cerrar: el disparador si se pinta; si no (escritorio), el
     // primer control visible que sigue al cajon en su seccion (la navegacion principal) y,
     // en ultimo caso, el primer control visible de la seccion. Nunca un elemento oculto.
     get focusScope() {
@@ -570,7 +570,7 @@
       });
     }
 
-    // 4F-001. Carrusel movil. Por debajo de 62rem la galeria (stack o grid) es una fila
+    // Carrusel movil. Por debajo de 62rem la galeria (stack o grid) es una fila
     // con scroll-snap que el CSS ya hace deslizable sin JavaScript. Aqui solo se anade lo
     // que el CSS no sabe hacer: contador, botones anterior y siguiente, foco de teclado en
     // la pista y saltar a la imagen de la variante elegida.
@@ -943,7 +943,7 @@
       }
     }
 
-    // A-01/B-02: con JS, los selects nativos de variante y plan (sin JS) dejan de enviar
+    // Con JS, los selects nativos de variante y plan (sin JS) dejan de enviar
     // valores: se desactivan y pierden el name para que form.elements.namedItem('id') y
     // ('selling_plan') sigan siendo un unico control. El hidden de variante se activa.
     takeOverNativeControls() {
@@ -1149,7 +1149,7 @@
 
     isPurchaseOptionValid(variant) {
       if (!variant?.available) return false;
-      // 5A-003, GPT-AUDIT-005 H1. Sin bloque de planes en la ficha (el producto no tiene
+      // Sin bloque de planes en la ficha (el producto no tiene
       // grupos que ofrecer) una variante que exige plan tampoco se puede comprar: Shopify
       // responde 200 a /cart/add sin crear la linea. Falla cerrado, igual que el Liquid.
       if (!this.sellingPlans) return !variant.requires_selling_plan;
@@ -1238,7 +1238,7 @@
 
       if (saleBadge) saleBadge.hidden = !priceSource?.compare_at_price;
 
-      // AUDIT-PRESETS-001. Las etiquetas para lectores de pantalla siguen al estado de oferta del
+      // Las etiquetas para lectores de pantalla siguen al estado de oferta del
       // variante elegido, como ya hace la tarjeta (product-card-variants). Sin esto, pasar de un
       // variante en oferta a uno sin oferta se sigue leyendo "Precio de oferta ... Precio habitual".
       const values = currentPrice?.closest('.price__values');
@@ -1353,7 +1353,7 @@
       let effectiveMax = variant?.quantity_max ?? null;
       if (effectiveMax === null && variant?.inventory_management && variant.inventory_policy === 'deny') {
         const inventoryEl = this.querySelector('product-inventory') || this.closest('section')?.querySelector('product-inventory');
-        // D-02-Q (C2). El JSON recorta el stock a umbral + 1 a proposito, para no publicar
+        // El JSON recorta el stock a umbral + 1 a proposito, para no publicar
         // el inventario real (variant-no-js-select, inventory_cap). Solo un stock <= umbral
         // es exacto, asi que el techo solo se aplica ahi. Sin bloque de inventario el umbral
         // es 0, como el que usa el Liquid; con 1 el stock recortado a 1 limitaba toda compra.
@@ -1377,7 +1377,7 @@
       if (gridMax === Infinity) quantityInput.removeAttribute('max');
       else quantityInput.max = gridMax;
 
-      // D-02-Q (O1). Variante disponible cuyo stock no llega al minimo: el campo queda en min
+      // Variante disponible cuyo stock no llega al minimo: el campo queda en min
       // pero se marca invalido, asi la validacion nativa del formulario bloquea el envio y
       // anuncia el motivo, como hacia antes el max crudo. El boton de compra no se toca.
       const belowMinimum = variant?.available === true && effectiveMax !== null
@@ -1405,7 +1405,7 @@
       });
     }
 
-    // P3 (REVIEW-D02A-001). Un cambio de variante disponible se anuncia con su precio
+    // Un cambio de variante disponible se anuncia con su precio
     // (el del plan si hay suscripcion), en un solo texto atomico: "[title], [price]: ...".
     // El precio no se repite si el estado del plan ya lo anuncio en este mismo cambio. Un
     // cambio de opcion de compra no vuelve a anunciar la disponibilidad si esta no cambio:
@@ -1486,7 +1486,9 @@
       this.dataset.stockState = state.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
       this.message.textContent = state === 'lowStock'
         ? (this.dataset.showCount === 'true'
-          ? this.dataset.lowStockTemplate.replace('[count]', String(quantity))
+          ? (quantity === 1 && this.dataset.lowStockTemplateOne
+            ? this.dataset.lowStockTemplateOne
+            : this.dataset.lowStockTemplate.replace('[count]', String(quantity)))
           : this.dataset.lowStockGeneric)
         : this.dataset[state];
     }
@@ -1614,14 +1616,14 @@
 
       if (!this.productForm || !this.primaryButton || !this.submitButton) return;
 
-      // 4F-002. La barra aparece cuando el formulario ya no se ve, asi que tiene que decir
+      // La barra aparece cuando el formulario ya no se ve, asi que tiene que decir
       // lo mismo que el: cuantas unidades se anaden y cuanto suman. La cantidad sale del
       // campo del formulario (dentro o asociado con form="") y el total, del total de linea
       // que ya pinta VariantSelects, nunca de una segunda cuenta.
       const quantityField = this.productForm.elements.namedItem('quantity');
       this.quantityInput = quantityField instanceof HTMLInputElement ? quantityField : null;
       this.lineTotal = this.closest('[data-section-id]')?.querySelector('[data-line-total]') || null;
-      // D-02-A. El Liquid pinta el precio de compra unica; con un plan ya elegido al cargar
+      // El Liquid pinta el precio de compra unica; con un plan ya elegido al cargar
       // (?selling_plan= o variante que exige plan) VariantSelects ya decidio el precio del plan
       // y no vuelve a emitir el evento, asi que se toma de su estado.
       this.unitPrice = this.variantSelects?.currentAllocation?.price
@@ -1702,7 +1704,7 @@
       this.setAttribute('aria-hidden', String(!visible));
       this.inert = !visible;
       document.body.toggleAttribute('data-sticky-cart-visible', visible);
-      // AF-08 (AUDIT-FINAL-001, WCAG 2.4.11): con la barra visible, el foco por teclado se detiene
+      // WCAG 2.4.11: con la barra visible, el foco por teclado se detiene
       // por encima de ella. Es el mismo mecanismo que --header-offset usa arriba.
       document.documentElement.style.setProperty('--sticky-cart-offset', visible ? `${this.offsetHeight}px` : '0px');
     }
@@ -1843,7 +1845,7 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      // Por syncDialogScrollLocks, que mide la barra antes de bloquear.
       syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton);
@@ -2056,7 +2058,7 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger?.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      // Por syncDialogScrollLocks, que mide la barra antes de bloquear.
       syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(this.panel, this.closeButton || this.panel);
@@ -2225,7 +2227,8 @@
   class ProductCardVariants extends ThemeElement {
     connectedCallback() {
       this.startListening();
-      this.data = this.readData();
+      this.variantData = undefined;
+      this.warmed = false;
       this.swatches = Array.from(this.querySelectorAll('[data-card-swatch]'));
       this.trigger = this.querySelector('[data-quick-buy-trigger]');
       this.dialog = this.querySelector('[data-quick-buy-panel]');
@@ -2244,7 +2247,7 @@
         .find((swatch) => swatch.getAttribute('aria-checked') === 'true')?.dataset.swatchValue ?? null;
       this.mobileQuery = window.matchMedia('(max-width: 47.99rem)');
 
-      if (this.swatches.length > 0 && this.data) this.bindSwatches();
+      if (this.swatches.length > 0 && this.querySelector('[data-card-variants]')) this.bindSwatches();
       if (this.trigger && this.dialog) this.bindQuickBuy();
     }
 
@@ -2252,6 +2255,13 @@
       this.resizeObserver?.disconnect();
       if (this.isOpen) this.close(false);
       super.disconnectedCallback();
+    }
+
+    // The variants JSON can be large and most cards are never touched, so it is parsed the
+    // first time something needs it instead of on page load.
+    get data() {
+      if (this.variantData === undefined) this.variantData = this.readData();
+      return this.variantData;
     }
 
     readData() {
@@ -2284,6 +2294,10 @@
         });
       });
 
+      ['pointerenter', 'focusin', 'touchstart', 'pointerdown'].forEach((type) => {
+        this.listen(this, type, () => this.warm(), { passive: true });
+      });
+
       if (!group) return;
       this.listen(group, 'pointerleave', (event) => {
         if (event.pointerType === 'mouse') this.showImageFor(this.selectedValue);
@@ -2297,6 +2311,17 @@
         this.resizeObserver = new ResizeObserver(() => this.refreshTabStop());
         this.resizeObserver.observe(group);
       }
+    }
+
+    // First interaction with the card (hover, focus, touch or click): parse the variants and
+    // apply the selected color's image, links, price and quick buy state once.
+    warm() {
+      if (this.warmed || !this.isConnected) return;
+      this.warmed = true;
+      this.showImageFor(this.selectedValue);
+      this.updateLinks(this.variantForSwatch(this.selectedValue));
+      this.updatePrice(this.selectedValue);
+      this.syncQuickBuy();
     }
 
     visibleSwatches() {
@@ -2331,6 +2356,7 @@
     }
 
     selectSwatch(swatch) {
+      this.warmed = true;
       this.selectedValue = swatch.dataset.swatchValue;
       this.swatches.forEach((item) => item.setAttribute('aria-checked', String(item === swatch)));
       this.refreshTabStop();
@@ -2421,14 +2447,13 @@
       compare.className = 'price__compare';
       compare.dataset.comparePrice = '';
       compare.textContent = shown.compare || '';
-      compare.hidden = !onSale;
+      compare.hidden = varies || !onSale;
 
       const parts = [];
       if (varies) {
         const from = document.createElement('span');
         from.textContent = this.dataset.labelFrom;
         parts.push(from, current);
-        if (onSale) parts.push(hiddenLabel(this.dataset.labelRegularPrice));
       } else if (onSale) {
         parts.push(hiddenLabel(this.dataset.labelSalePrice), current, hiddenLabel(this.dataset.labelRegularPrice));
       } else {
@@ -2509,7 +2534,7 @@
       });
     }
 
-    // 5A-003, GPT-AUDIT-005 H2. Un color sin ninguna talla disponible no abre un selector
+    // Un color sin ninguna talla disponible no abre un selector
     // sin salida: el disparador dice "Agotado" y queda inactivo. Al comprometer otro color
     // con existencias vuelve a "Anadir rapido". La tarjeta y su enlace a la ficha siguen
     // accesibles, y la etiqueta de agotado del precio ya la pone updatePrice().
@@ -2648,17 +2673,17 @@
     }
   }
 
-  // Phase 2 (GPT-021). Cart drawer deadlines. The recommendations read is a complement:
+  // Cart drawer deadlines. The recommendations read is a complement:
   // when it is late, the cards the server already rendered stay. The adds (product form,
   // cross-sell, complete the look) and the note save are never retried: a missed deadline
   // leaves their result uncertain.
   const CART_RECOMMENDATIONS_TIMEOUT = 2000;
   const CART_ADD_TIMEOUT = 10000;
   const CART_NOTE_SAVE_TIMEOUT = 3000;
-  // B-03 (RC-12, TT-102). Deadline of the /cart.js read that settles a lost add response.
+  // Deadline of the /cart.js read that settles a lost add response.
   const CART_RECONCILE_TIMEOUT = 5000;
 
-  // B-03. Quantity per variant id, summed over lines: one variant can sit on several lines
+  // Quantity per variant id, summed over lines: one variant can sit on several lines
   // (selling plans, line item properties).
   const quantitiesByVariant = (items) => items.reduce((map, item) => {
     const id = String(item?.variant_id ?? '');
@@ -2666,7 +2691,7 @@
     return map;
   }, new Map());
 
-  // B-03. The same convention as CartDrawer.findLineFor: each line's title link carries
+  // The same convention as CartDrawer.findLineFor: each line's title link carries
   // ?variant=, and the quantity field's defaultValue is what the server rendered (a typed,
   // unsent value does not count). null when the drawer cannot be read.
   const drawerQuantities = (drawer) => {
@@ -2686,7 +2711,7 @@
     return quantitiesByVariant(items);
   };
 
-  // B-03. GET {cart_url}.js. Never throws: null means the cart could not be read.
+  // GET {cart_url}.js. Never throws: null means the cart could not be read.
   const readCartQuantities = async (cartUrl) => {
     const controller = new AbortController();
     const deadline = window.setTimeout(() => controller.abort(), CART_RECONCILE_TIMEOUT);
@@ -2708,7 +2733,7 @@
     }
   };
 
-  // B-03. Settles an add whose response was lost by comparing the cart before and after.
+  // Settles an add whose response was lost by comparing the cart before and after.
   // - applied: every requested variant grew by at least the requested quantity.
   // - not_applied: none moved, and the POST could not still land later. Without any
   //   response (network error, our own deadline) or with a 5xx page from Shopify or a
@@ -2740,18 +2765,18 @@
       this.requestController = null;
       this.crossSellController = null;
       this.pendingMutations = 0;
-      // TEC-01. Profundidad de setDrawerBusy y control que tenia el foco al entrar en busy:
+      // Profundidad de setDrawerBusy y control que tenia el foco al entrar en busy:
       // deshabilitarlo lo desenfoca, y el re-render o la liberacion lo necesitan para volver.
       this.drawerBusyDepth = 0;
       this.busyFocus = null;
-      // TEC-02. Destino de foco de una eliminacion en curso (clave quitada y sus vecinas).
+      // Destino de foco de una eliminacion en curso (clave quitada y sus vecinas).
       this.pendingRemoval = null;
       this.syncRevision = 0;
       this.renderedRevision = 0;
       this.syncAfterMutation = false;
       this.overlappingMutations = false;
       this.reconcileAfterMutation = false;
-      // Phase 2. While the shopper works an inline option panel, late syncs and
+      // While the shopper works an inline option panel, late syncs and
       // recommendation responses must not touch the DOM; a skipped sync runs on release.
       this.interactionFrozen = false;
       this.skippedSync = false;
@@ -2763,7 +2788,7 @@
       this.crossSellOriginals = new WeakMap();
       this.noteVersion = 0;
       this.noteSavePending = false;
-      // B-03. The drawer HTML may no longer mirror the server (another tab, an unsettled add).
+      // The drawer HTML may no longer mirror the server (another tab, an unsettled add).
       this.cartSnapshotStale = false;
 
       if (!this.overlay || !this.panel) return;
@@ -2816,7 +2841,7 @@
         if (event.detail?.sectionId === this.dataset.sectionId) this.open();
       });
       this.listen(this, 'shopify:block:select', () => this.open());
-      // B-03. While the page is hidden another tab can change the cart.
+      // While the page is hidden another tab can change the cart.
       this.listen(document, 'visibilitychange', () => {
         if (document.visibilityState === 'hidden') this.cartSnapshotStale = true;
       });
@@ -2902,7 +2927,7 @@
         return;
       }
 
-      // B-04. View cart leaves the drawer too: same guarded note save as the card links.
+      // View cart leaves the drawer too: same guarded note save as the card links.
       // Checkout is not routed here; the cart form posts the note natively.
       const viewCartLink = event.target.closest('[data-cart-view-cart]');
       if (viewCartLink) {
@@ -2941,10 +2966,10 @@
       }
 
       const quantityInput = event.target.closest('[data-cart-quantity]');
-      // TEC-01. Un campo retenido por una mutacion en vuelo no puede lanzar otra.
+      // Un campo retenido por una mutacion en vuelo no puede lanzar otra.
       if (!quantityInput || quantityInput.disabled) return;
 
-      // D-02-Q. Se ajusta a la rejilla antes de decidir nada, asi lo que se ve es lo que se
+      // Se ajusta a la rejilla antes de decidir nada, asi lo que se ve es lo que se
       // envia. Si el ajuste deja la cantidad que ya tiene la linea (defaultValue es lo que
       // pinto el servidor), no hay nada que enviar y el campo ya muestra la cantidad real.
       snapQuantityField(quantityInput);
@@ -2958,11 +2983,14 @@
         return;
       }
 
-      // TEC-01. La linea se identifica por su clave, no por su posicion: un indice cambia
+      // La linea se identifica por su clave, no por su posicion: un indice cambia
       // en cuanto otra linea desaparece y el POST modificaria un producto distinto.
       const lineKey = quantityInput.closest('[data-cart-item-key]')?.dataset.cartItemKey;
       if (!lineKey) return;
       const quantity = Number(quantityInput.value);
+      // Enter blurs the field before this change event fires, so focus sits on body: keep
+      // the field as the restore target so the re-render does not drop focus to "Close".
+      if (document.activeElement === document.body) this.busyFocus = quantityInput;
       this.changeLine(lineKey, quantity).catch((error) => {
         // beginMutation() aborts an in-flight section read, so a superseded request must
         // stay silent instead of showing the browser's own English abort text.
@@ -2993,7 +3021,7 @@
       this.panel.inert = false;
       this.panel.setAttribute('aria-hidden', 'false');
       this.setAttribute('data-open', '');
-      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      // Por syncDialogScrollLocks, que mide la barra antes de bloquear.
       syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
@@ -3055,7 +3083,7 @@
       this.managedInertElements = [];
     }
 
-    // B-03. Cart quantities before an add. The drawer HTML is used when it is the last
+    // Cart quantities before an add. The drawer HTML is used when it is the last
     // thing the server rendered and nothing can have moved since; otherwise /cart.js is
     // read. The freshness test runs synchronously, so callers invoke this before
     // beginMutation() and await the promise just before their POST.
@@ -3077,7 +3105,7 @@
       const revision = this.beginMutation();
       this.clearMessages(form);
       this.setFormBusy(form, submitter, true);
-      // B-03. Without a deadline a hung request kept the button disabled for good.
+      // Without a deadline a hung request kept the button disabled for good.
       const controller = new AbortController();
       let timedOut = false;
       const deadline = window.setTimeout(() => {
@@ -3093,7 +3121,7 @@
         const requested = new Map([[requestedId, Math.max(1, Number(formData.get('quantity')) || 1)]]);
         const before = await baseline;
 
-        // B-03 (RC-12, TT-102). A lost response (network error, deadline, or a body that is
+        // A lost response (network error, deadline, or a body that is
         // not JSON, such as an HTML 429/5xx page) does not prove the add failed: Shopify may
         // have applied it. The cart is read before the shopper is told anything, so "try again"
         // only appears when the server answered, nothing was added and the request cannot
@@ -3135,7 +3163,7 @@
 
           await this.renderCartResponse(result, revision);
 
-          // 5A-003, GPT-AUDIT-005 H1. Un 200 no prueba que la linea exista: con una variante
+          // Un 200 no prueba que la linea exista: con una variante
           // que exige plan de venta Shopify devuelve {} (medido en la tienda con F06) y el
           // cajon anunciaba un exito falso. El exito solo se anuncia si la respuesta trae la
           // variante pedida y, cuando fue esta respuesta la que se pinto, si el carrito fresco
@@ -3174,7 +3202,7 @@
       }
     }
 
-    // B-03. An add whose outcome the cart could not settle: nothing invites a retry. The
+    // An add whose outcome the cart could not settle: nothing invites a retry. The
     // drawer opens on the same notice and Check cart as an uncertain cross-sell add, and
     // endMutation() re-reads the cart even while an option panel is in use.
     showUnconfirmedAdd(trigger = null) {
@@ -3205,7 +3233,7 @@
       }) || null;
     }
 
-    // Phase 2 (GPT-021). The add is never retried and its outcome is classified:
+    // The add is never retried and its outcome is classified:
     // - confirmed failure: an HTTP error with a JSON body (422 and the like). The cart did
     //   not change, so the selection stays and focus lands on a usable control.
     // - uncertain: network error, deadline, abort, a body that is not JSON (an HTML 429 or
@@ -3551,7 +3579,7 @@
       this.saveNoteAndNavigate(link.href, note).catch(() => {});
     }
 
-    // GPT-021 note protocol. The draft counts as saved only when the server echoes the exact
+    // Note protocol. The draft counts as saved only when the server echoes the exact
     // text sent and no keystroke arrived meanwhile (noteVersion). Otherwise it stays dirty,
     // the drawer reconciles (renderSection keeps the dirty draft) and the shopper stays.
     // The note text is never stored locally or logged.
@@ -3712,8 +3740,8 @@
       }, { signal: controller.signal });
     }
 
-    // TEC-01. /cart/change.js recibe la clave de la linea (id: item.key), estable aunque
-    // cambie el orden. TEC-02. Con cantidad 0 la eliminacion se anuncia en la region viva y
+    // /cart/change.js recibe la clave de la linea (id: item.key), estable aunque
+    // cambie el orden. Con cantidad 0 la eliminacion se anuncia en la region viva y
     // el foco pasa a la linea siguiente, la anterior, el aviso de carrito vacio o el titulo.
     async changeLine(key, quantity) {
       const lineRows = Array.from(this.querySelectorAll('[data-cart-item-key]'));
@@ -3771,7 +3799,7 @@
       }
     }
 
-    // TEC-01. El mismo control (campo, mas, menos o quitar) de la misma linea, por su clave.
+    // El mismo control (campo, mas, menos o quitar) de la misma linea, por su clave.
     lineControlAfterRender(control, nextContent) {
       const key = control?.closest?.('[data-cart-item-key]')?.dataset.cartItemKey;
       if (!key) return null;
@@ -3783,7 +3811,7 @@
       return selector ? row.querySelector(selector) : null;
     }
 
-    // TEC-02. La region persistente [data-cart-status] anuncia la linea quitada y el
+    // La region persistente [data-cart-status] anuncia la linea quitada y el
     // recuento nuevo. El texto sale de una clave de locale con [title] como marcador.
     announceRemoval(removal, rendered) {
       if (!this.isOpen) return;
@@ -3797,7 +3825,7 @@
       this.showStatus([message, count].filter(Boolean).join(' '));
     }
 
-    // TEC-02. Destino del foco tras quitar una linea, buscado en el contenido recien pintado:
+    // Destino del foco tras quitar una linea, buscado en el contenido recien pintado:
     // la linea siguiente, si no la anterior, si no el aviso de carrito vacio y, en ultimo
     // caso, el titulo del cajon (los dos con tabindex="-1"). Nunca el boton Cerrar.
     // Solo actua cuando el HTML nuevo ya no trae la linea quitada, y se consume al usarse.
@@ -3840,7 +3868,7 @@
       this.syncAfterMutation = false;
       const overlapped = this.overlappingMutations;
       this.overlappingMutations = false;
-      // Phase 2. An uncertain cross-sell add is reconciled even while an option panel holds
+      // An uncertain cross-sell add is reconciled even while an option panel holds
       // interactionFrozen; any other sync waits for the freeze to end.
       const reconcile = this.reconcileAfterMutation;
       this.reconcileAfterMutation = false;
@@ -3861,7 +3889,7 @@
         this.syncAfterMutation = true;
         return;
       }
-      // Phase 2. While an option panel is in use a sync must not replace it: the skip is
+      // While an option panel is in use a sync must not replace it: the skip is
       // remembered and releaseInteraction() runs it. A reconciling sync goes through.
       if (this.interactionFrozen && !reconcile) {
         this.skippedSync = true;
@@ -3913,9 +3941,9 @@
       await this.renderCartPage(result.sections, revision);
     }
 
-    // 4F-002. En /cart el cajon y la pagina de carrito muestran la misma compra. Si el
+    // En /cart el cajon y la pagina de carrito muestran la misma compra. Si el
     // cajon cambia una linea y la pagina no se entera, el comprador ve dos carritos
-    // distintos hasta que recarga (GPT-AUDIT-002, UX-06). Cada mutacion pide tambien la
+    // distintos hasta que recarga. Cada mutacion pide tambien la
     // seccion de la pagina en la misma llamada, asi las dos salen del mismo estado del
     // servidor y no hace falta una segunda peticion.
     cartPageSection() {
@@ -3990,7 +4018,7 @@
       const nextScroll = nextContent.querySelector('[data-cart-scroll]');
       if (nextScroll && previousScroll) nextScroll.scrollTop = previousScroll;
 
-      // TEC-01. El control pulsado se deshabilita mientras dura la mutacion y el navegador
+      // El control pulsado se deshabilita mientras dura la mutacion y el navegador
       // manda el foco al body; el que tenia el foco al entrar en busy es el que se restaura.
       const focusSource = active === document.body && this.busyFocus && currentContent.contains(this.busyFocus)
         ? this.busyFocus
@@ -4030,7 +4058,7 @@
       // against syncRevision to decide whether a deferred sync still has anything to
       // fetch: if every mutation since the sync was requested has rendered, it does not.
       this.renderedRevision = this.syncRevision;
-      // B-03. The drawer mirrors the server again: cartBaseline() may read it.
+      // The drawer mirrors the server again: cartBaseline() may read it.
       this.cartSnapshotStale = false;
 
       this.updateHeaderCount();
@@ -4077,7 +4105,7 @@
       if (!busy) delete button.dataset.wasDisabled;
     }
 
-    // TEC-01. Los +/- y el campo de cantidad quedan inactivos mientras dura la mutacion: un
+    // Los +/- y el campo de cantidad quedan inactivos mientras dura la mutacion: un
     // segundo clic ya no lanza un POST en paralelo que Shopify podria aplicar en otro orden.
     // Al liberar, cada control recupera su estado previo (wasDisabled) y no se fuerza a
     // activo, asi el disabled de los extremos que puso el servidor no se pierde. Si la
@@ -4159,7 +4187,7 @@
       const output = this.querySelector('[data-cart-status]');
       if (!output) return;
       // La region se muestra vacia y el texto llega despues: una region viva que aparece ya
-      // con contenido no siempre se anuncia (NVDA/JAWS con Chrome). 6B-001.
+      // con contenido no siempre se anuncia (NVDA/JAWS con Chrome).
       output.textContent = '';
       output.hidden = false;
       window.setTimeout(() => {
@@ -4173,23 +4201,43 @@
       this.startListening();
       this.requestController = null;
       this.gridStorageKey = 'theme:grid-columns';
+      this.priceTimer = null;
+
+      // With JavaScript the filters apply as soon as they change, so the Apply button is
+      // redundant and the stylesheet hides it. Without JavaScript the attribute is never
+      // set and the form still works through that button.
+      this.setAttribute('data-auto-apply', '');
 
       this.listen(this, 'submit', (event) => {
         const form = event.target.closest('[data-facet-form]');
         if (!form) return;
         event.preventDefault();
+        clearTimeout(this.priceTimer);
         const submitter = event.submitter || document.activeElement;
-        const fallback = submitter?.id ? `#${CSS.escape(submitter.id)}` : 'button[type="submit"]';
+        // Apply may be hidden, so it is never the fallback: focus goes back to the
+        // control that was used, or to the summary of its filter group.
+        const fallback = submitter?.id ? `#${CSS.escape(submitter.id)}` : 'summary.facet__summary';
         this.renderForm(form, true, fallback);
       });
 
       this.listen(this, 'change', (event) => {
-        if (!event.target.matches('[data-facet-sort]')) return;
-        event.target.form?.requestSubmit();
+        const target = event.target;
+        if (target.matches('[data-facet-sort]') || target.matches('.facet input[type="checkbox"]')) {
+          target.form?.requestSubmit();
+          return;
+        }
+
+        // Price fields wait a moment so that editing the minimum and then the maximum
+        // sends a single request.
+        if (target.matches('.facet input')) {
+          clearTimeout(this.priceTimer);
+          const form = target.form;
+          this.priceTimer = setTimeout(() => form?.requestSubmit(), 400);
+        }
       });
 
       this.listen(this, 'click', (event) => {
-        // Pildoras de filtros activos y "Clear all" (6B-001): son enlaces a url_to_remove que
+        // Pildoras de filtros activos y "Clear all": son enlaces a url_to_remove que
         // funcionan sin JS; aqui se refrescan por AJAX. Ctrl/Cmd/Shift/clic central siguen
         // abriendo el enlace como el navegador espera.
         const removeLink = event.target.closest('[data-facet-remove], [data-facet-clear-all]');
@@ -4208,10 +4256,33 @@
 
       this.listen(window, 'popstate', () => this.renderUrl(window.location.href, false));
       this.applyStoredGridView();
+
+      // From 62rem the filters are always shown. The stylesheet does it with ::details-content
+      // where supported; this keeps the panel really open where it is not.
+      this.sidebarQuery = window.matchMedia('(min-width: 62rem)');
+      this.autoOpened = false;
+      this.listen(this.sidebarQuery, 'change', () => this.syncDisclosure());
+      this.syncDisclosure();
+    }
+
+    syncDisclosure() {
+      const disclosure = this.querySelector('.facets__disclosure');
+      if (!disclosure) return;
+      if (this.sidebarQuery.matches) {
+        if (!disclosure.open) {
+          disclosure.open = true;
+          this.autoOpened = true;
+        }
+      } else if (this.autoOpened) {
+        // Below that width the visitor decides: undo only what was opened for the sidebar.
+        disclosure.open = false;
+        this.autoOpened = false;
+      }
     }
 
     disconnectedCallback() {
       this.requestController?.abort();
+      clearTimeout(this.priceTimer);
       super.disconnectedCallback();
     }
 
@@ -4231,7 +4302,7 @@
     // repintado (la pildora que se acaba de quitar no tiene id ni existe en el HTML nuevo).
     async renderUrl(urlValue, pushState, focusFallback = null) {
       const navigationUrl = new URL(urlValue, window.location.origin);
-      // AF-14 (AUDIT-FINAL-001): solo se pinta o se navega dentro de la propia tienda.
+      // Solo se pinta o se navega dentro de la propia tienda.
       if (navigationUrl.origin !== window.location.origin) return;
       navigationUrl.searchParams.delete('section_id');
       const requestUrl = new URL(navigationUrl);
@@ -4239,6 +4310,8 @@
       const activeEl = document.activeElement;
       const focusedId = activeEl?.id;
       const focusedName = activeEl?.name;
+      // The mobile filter panel is a <details>; replacing the markup would close it.
+      const disclosureWasOpen = Boolean(this.querySelector('.facets__disclosure')?.open) && !this.autoOpened;
 
       this.requestController?.abort();
       this.requestController = new AbortController();
@@ -4257,6 +4330,12 @@
         if (!nextElement) throw new Error('invalid-section');
 
         this.innerHTML = nextElement.innerHTML;
+        this.autoOpened = false;
+        if (disclosureWasOpen) {
+          const disclosure = this.querySelector('.facets__disclosure');
+          if (disclosure) disclosure.open = true;
+        }
+        this.syncDisclosure();
         this.applyStoredGridView();
         this.announceResultCount();
         if (pushState) window.history.pushState({}, '', navigationUrl);
@@ -4269,8 +4348,11 @@
           const fallbackTarget = this.querySelector(focusFallback);
           requestAnimationFrame(() => fallbackTarget?.focus());
         } else {
-          const defaultTarget = this.querySelector('button[type="submit"], [data-facet-sort], summary.facet__summary, [data-results-status]');
-          if (defaultTarget) requestAnimationFrame(() => defaultTarget?.focus());
+          // Skip anything not rendered (the hidden Apply button): focus() on it is a no-op.
+          const defaultTarget = Array.from(
+            this.querySelectorAll('button[type="submit"], [data-facet-sort], summary.facet__summary, [data-results-status]')
+          ).find((node) => node.getClientRects().length > 0);
+          if (defaultTarget) requestAnimationFrame(() => defaultTarget.focus());
         }
       } catch (error) {
         if (error.name === 'AbortError') return;
@@ -4341,7 +4423,7 @@
     }
   }
 
-  // TEC-04 (WCAG 2.2.2). El video solo arranca solo si el visitante no pidio reducir
+  // WCAG 2.2.2. El video solo arranca solo si el visitante no pidio reducir
   // movimiento y el comerciante no apago las animaciones (data-animations="none"). En los dos
   // casos se queda el poster y el boton permite reproducirlo a mano. userChoice guarda la
   // ultima orden explicita ('play' o 'pause'), que manda sobre el arranque automatico.
@@ -4656,7 +4738,7 @@
       );
       const formattedTotal = formatMoney(total, this.dataset.moneyFormat);
       // El sustantivo concuerda con el total de piezas del look, no con las seleccionadas:
-      // "1 of 3 items selected" (4F-002).
+      // "1 of 3 items selected".
       const countTemplate = this.items.length === 1
         ? this.dataset.selectedOneTemplate
         : this.dataset.selectedManyTemplate;
@@ -4700,7 +4782,7 @@
       this.requestController?.abort();
       const controller = new AbortController();
       this.requestController = controller;
-      // B-03. The drawer adds' deadline. Only this timeout, not a deliberate abort, is
+      // The drawer adds' deadline. Only this timeout, not a deliberate abort, is
       // settled by reading the cart.
       let timedOut = false;
       const deadline = window.setTimeout(() => {
@@ -4708,7 +4790,7 @@
         controller.abort();
       }, CART_ADD_TIMEOUT);
       const drawer = document.querySelector('cart-drawer');
-      // B-03. Taken before beginMutation(). Without a drawer (cart type "page") /cart.js is read.
+      // Taken before beginMutation(). Without a drawer (cart type "page") /cart.js is read.
       const baseline = typeof drawer?.cartBaseline === 'function'
         ? drawer.cartBaseline()
         : readCartQuantities(this.dataset.cartUrl).then((cart) => cart?.quantities || null);
@@ -4731,7 +4813,7 @@
 
       try {
         const before = await baseline;
-        // B-03. See addItem: a lost response (network error, deadline, an HTML error page)
+        // See addItem: a lost response (network error, deadline, an HTML error page)
         // is settled by reading the cart before the shopper is invited to try again.
         let response = null;
         let result = null;
@@ -4941,9 +5023,22 @@
       this.interval = Math.max(3000, Number(this.dataset.interval) || 5000);
       this.userPaused = false;
       this.interactionPaused = false;
+      this.editorSelected = false;
       this.timer = null;
 
       if (this.items.length <= 1) return;
+
+      // Theme editor: show the selected announcement and hold rotation until it is deselected.
+      this.listen(this, 'shopify:block:select', (event) => {
+        const index = this.items.indexOf(event.target.closest?.('[data-announcement-item]'));
+        this.editorSelected = true;
+        this.clearTimer();
+        if (index >= 0) this.setActive(index, false);
+      });
+      this.listen(this, 'shopify:block:deselect', () => {
+        this.editorSelected = false;
+        this.schedule();
+      });
 
       this.listen(this.previousButton, 'click', () => this.changeBy(-1));
       this.listen(this.nextButton, 'click', () => this.changeBy(1));
@@ -5016,7 +5111,7 @@
     schedule() {
       this.clearTimer();
       if (!this.isConnected) return;
-      if (!this.autoRotate || this.userPaused || this.interactionPaused || reducedMotionQuery.matches) return;
+      if (!this.autoRotate || this.userPaused || this.interactionPaused || this.editorSelected || reducedMotionQuery.matches) return;
 
       this.timer = window.setTimeout(() => {
         this.setActive((this.activeIndex + 1) % this.items.length, false);
@@ -5057,7 +5152,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 4E-001. Indice de anclas con seguimiento del scroll.
+  // Indice de anclas con seguimiento del scroll.
   //
   // Dos consumidores, una sola pieza:
   //   - Documentacion: el Liquid ya sirve la lista, porque los ids de ancla son un
@@ -5193,8 +5288,9 @@
     }
   }
 
+  // docs-only:start
   // ---------------------------------------------------------------------------
-  // 4E-001. Copiado de un fragmento de la documentacion.
+  // Copiado de un fragmento de la documentacion.
   //
   // El boton nace con [hidden] en el Liquid y solo se revela aqui, cuando consta que el
   // navegador tiene portapapeles. Sin JavaScript, o en un contexto sin permiso, el
@@ -5249,9 +5345,10 @@
       this.resetTimer = setTimeout(() => this.setCopied(false), 2000);
     }
   }
+  // docs-only:end
 
   // ---------------------------------------------------------------------------
-  // 4E-002. Filtro instantaneo de preguntas frecuentes.
+  // Filtro instantaneo de preguntas frecuentes.
   //
   // Mejora progresiva pura: el campo llega oculto por la utilidad js-only del tema, de
   // modo que sin JavaScript la pagina muestra todas las preguntas y no queda un buscador
@@ -5402,7 +5499,7 @@
       this.panel.setAttribute('aria-hidden', 'false');
       this.trigger.setAttribute('aria-expanded', 'true');
       this.setAttribute('data-open', '');
-      // LV-03: por syncDialogScrollLocks, que mide la barra antes de bloquear.
+      // Por syncDialogScrollLocks, que mide la barra antes de bloquear.
       syncDialogScrollLocks();
       this.applyBackgroundInert();
       this.releaseFocusTrap = trapFocus(
@@ -5463,21 +5560,6 @@
       this.listen(this.form, 'submit', () => {
         this.form.setAttribute('aria-busy', 'true');
       });
-
-      this.querySelectorAll('[data-localization-select]').forEach((select) => {
-        this.listen(select, 'change', () => this.submitForm());
-      });
-    }
-
-    submitForm() {
-      if (!this.form || this.form.getAttribute('aria-busy') === 'true') return;
-      this.form.setAttribute('aria-busy', 'true');
-
-      if (typeof this.form.requestSubmit === 'function') {
-        this.form.requestSubmit();
-      } else {
-        this.form.submit();
-      }
     }
   }
 
@@ -5648,7 +5730,7 @@
         headingElement.id = headingId;
         headingElement.className = 'predictive-search__group-title eyebrow';
         // Dentro de un listbox solo caben option y group: el titulo nombra el grupo por
-        // aria-labelledby y no expone su propio rol (WAI-ARIA 1.2, 6A-001).
+        // aria-labelledby y no expone su propio rol (WAI-ARIA 1.2).
         headingElement.setAttribute('role', 'presentation');
         headingElement.textContent = heading || '';
         list.className = 'predictive-search__list';
@@ -5711,7 +5793,7 @@
         const image = document.createElement('img');
         // La API de sugerencias devuelve la URL del original (1800 px o mas). El CDN de
         // Shopify sirve cualquier ancho con ?width=: se piden las densidades 1x, 2x y 3x
-        // de una miniatura de 72 px en vez de descargar el original entero (4F-001).
+        // de una miniatura de 72 px en vez de descargar el original entero.
         const sizedUrl = (width) => {
           try {
             const url = new URL(imageUrl, window.location.origin);
@@ -5742,7 +5824,7 @@
       priceRow.className = 'predictive-search__price';
 
       // aria-label no esta permitido en <s> (rol deletion) y el precio rebajado no tenia
-      // etiqueta: se anuncian con texto oculto, igual que price.liquid tras af6ee6d (6A-001).
+      // etiqueta: se anuncian con texto oculto, igual que price.liquid.
       const onSale = Number.isFinite(compareAtPrice) && compareAtPrice > currentPrice;
       const srLabel = (text) => {
         const label = document.createElement('span');
@@ -5922,7 +6004,7 @@
   reflectReducedMotion(reducedMotionQuery);
   reducedMotionQuery.addEventListener?.('change', reflectReducedMotion);
 
-  // 5B-001. product-zoom.js se carga aparte, solo en la ficha, y extiende estas piezas en
+  // product-zoom.js se carga aparte, solo en la ficha, y extiende estas piezas en
   // vez de copiarlas.
   window.ThemeCore = {
     initialized: true,
@@ -6021,9 +6103,11 @@
     customElements.define('anchor-nav', AnchorNav);
   }
 
+  // docs-only:start
   if (!customElements.get('copy-text')) {
     customElements.define('copy-text', CopyText);
   }
+  // docs-only:end
 
   if (!customElements.get('faq-filter')) {
     customElements.define('faq-filter', FaqFilter);
@@ -6050,15 +6134,15 @@
   // no pidio reducir movimiento. Sin JS, con JS roto o en cualquiera de esos tres casos,
   // la tienda se lee entera y no queda un solo elemento escondido.
   //
-  // MOTION-002. Este codigo NO sabe que motor anima, y no debe saberlo. Solo reparte
+  // Este codigo NO sabe que motor anima, y no debe saberlo. Solo reparte
   // coreografia: marca con data-reveal="" lo que todavia tiene que entrar, publica su
   // --reveal-index, pone data-revealed al cruzar la linea de entrada y cierra con
   // data-reveal="done" cuando el gesto termino. Si anima la animacion CSS scroll-driven
   // o la transicion del fallback lo decide la cascada de base.css, y solo ella: duplicar
-  // esa decision en dos lenguajes es exactamente lo que esta migracion elimino.
+  // esa logica en dos lenguajes es justo lo que se evita.
   //
   // El hero editorial no entra nunca: es el LCP, y animarlo cuesta la puntuacion de
-  // rendimiento que la revision de Theme Store mira primero.
+  // rendimiento que la revision de Shopify mira primero.
   // ---------------------------------------------------------------------------
   const REVEAL_TARGETS = [
     // Encabezados de seccion del homepage. Van primero porque intersectan antes que sus
@@ -6080,17 +6164,26 @@
     '.complete-the-look__media',
     '.curated-showcase__spotlight',
     '.lookbook__media',
-    // MOTION-002/T2. Antes decia '.newsletter-section .newsletter__inner', una clase que no
+    // Antes decia '.newsletter-section .newsletter__inner', una clase que no
     // existe en ninguna seccion ni snippet del tema: el envoltorio real de newsletter.liquid
     // es .newsletter-section__inner. El selector muerto dejaba la seccion sin entrada.
     '.newsletter-section__inner',
-    // 4E-002. Historia de marca. Entra el TEXTO del panel, nunca su imagen: en esa pagina
+    // Historia de marca. Entra el TEXTO del panel, nunca su imagen: en esa pagina
     // la fotografia del primer bloque es el LCP, y esconderla aunque sea medio segundo es
-    // exactamente lo que la regla de oro de 4D-001 prohibe.
+    // exactamente lo que la regla de oro del movimiento prohibe.
     '.main-about__story-text',
     '.main-about__quote',
     '.main-about__value',
     '.main-about__gallery-item',
+    // Secciones estandar. Entran las tarjetas, el texto y la imagen; el slideshow y el
+    // video quedan fuera porque suelen ser la primera pantalla y su medio ya tiene su
+    // propio movimiento.
+    '.std-section__header',
+    '.collection-list__card',
+    '.blog-posts__card',
+    '.rich-text__content',
+    '.image-text__copy',
+    '.image-text__media',
   ].join(', ');
 
   // Tope del escalonado. Sin el, una rejilla de 40 productos tardaria mas de dos segundos
@@ -6294,7 +6387,7 @@
   // B7. Cabecera condensada al bajar. Solo escribe cuando el estado cambia, asi que el
   // listener pasivo no toca el DOM en la inmensa mayoria de los eventos de scroll.
   //
-  // 4F-001. La cabecera es sticky (lo declara header.liquid sobre su seccion). Aqui se
+  // La cabecera es sticky (lo declara header.liquid sobre su seccion). Aqui se
   // publica ademas su altura real en --header-offset, que usan scroll-padding (anclas y
   // foco por teclado nunca quedan debajo de la cabecera, WCAG 2.4.11) y las columnas
   // sticky de ficha, coleccion y documentacion. Si la seccion no es sticky (sin soporte
@@ -6344,7 +6437,7 @@
   };
 
   // ---------------------------------------------------------------------------
-  // 4D-002. Stepper de cantidad (menos / mas) del carrito.
+  // Stepper de cantidad (menos / mas) del carrito.
   //
   // Delegado en document, no atado a cada boton: el cajon reemplaza su contenido
   // entero en cada mutacion, asi que no hay nodo al que atar un listener que
@@ -6355,7 +6448,7 @@
   // adelante manda el camino ya endurecido y una sola implementacion sirve a las
   // dos superficies:
   //   - En el cajon lo recoge handleDrawerChange -> validacion -> changeLine(),
-  //     con la revision por mutacion de 4D-001 que descarta respuestas superadas.
+  //     con la revision por mutacion que descarta respuestas superadas.
   //   - En la pagina de carrito, que es un formulario sin JavaScript, el campo
   //     queda editado a la espera de "Update cart", igual que si se hubiera escrito.
   // ---------------------------------------------------------------------------
@@ -6368,13 +6461,13 @@
       min: Number.isFinite(min) ? min : 0,
       max: input.getAttribute('max') === null || !Number.isFinite(max) ? Infinity : max,
     };
-    // D-02-Q. Techo alcanzable sobre la rejilla; nunca por debajo de min, de modo que con
+    // Techo alcanzable sobre la rejilla; nunca por debajo de min, de modo que con
     // max < min el campo se queda en min y los dos botones se apagan.
     rules.maxOnGrid = Math.max(rules.min, quantityGridMax(rules.min, step, rules.max));
     return rules;
   };
 
-  // D-02-Q. Unico punto que lleva un numero escrito a mano al escalon valido mas cercano
+  // Unico punto que lleva un numero escrito a mano al escalon valido mas cercano
   // (empate hacia abajo) dentro de [min, maxOnGrid]; ver snapQuantity. Lo llaman el
   // 'change' de document y, antes de decidir que envia, el cajon del carrito, que escucha
   // en su propio elemento y por eso recibe el evento primero. Es idempotente.
@@ -6420,7 +6513,7 @@
     stepper.querySelectorAll('[data-quantity-button]').forEach((button) => {
       const direction = button.dataset.quantityButton === 'increase' ? 1 : -1;
       const atLimit = nextQuantity(input, direction) === value;
-      // TEC-01. Mientras el cajon retiene el boton por una mutacion (wasDisabled), el limite
+      // Mientras el cajon retiene el boton por una mutacion (wasDisabled), el limite
       // se guarda para cuando lo libere y el boton sigue inactivo: el 'change' que lanza la
       // propia mutacion no puede reactivarlo a mitad de vuelo.
       if (button.dataset.wasDisabled !== undefined) {
@@ -6478,7 +6571,7 @@
   };
 
   // ---------------------------------------------------------------------------
-  // 4E-001. Foco en el resultado de un formulario recien enviado.
+  // Foco en el resultado de un formulario recien enviado.
   //
   // Los formularios nativos de Shopify (contacto, soporte, comentarios, contrasena)
   // recargan la pagina entera al enviarse. El foco vuelve al principio del documento y la

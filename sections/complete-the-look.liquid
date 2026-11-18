@@ -54,8 +54,19 @@
   assign selected_total_money = selected_total | money
 -%}
 
+{%- comment -%} Theme editor only: stand-in card for blocks without a product, so they can be selected. {%- endcomment -%}
+{%- capture sample_card -%}
+  <span class="complete-the-look__item-media" aria-hidden="true">
+    {{- 'product-1' | placeholder_svg_tag: 'complete-the-look__item-placeholder' -}}
+  </span>
+  <span class="complete-the-look__item-details" aria-hidden="true">
+    <span class="complete-the-look__sample-line"></span>
+    <span class="complete-the-look__sample-line complete-the-look__sample-line--short"></span>
+  </span>
+{%- endcapture -%}
+
 {%- comment -%}
-  COMP-001 (S-02). Sin productos no hay nada que comprar: en la tienda la seccion no se
+  Sin productos no hay nada que comprar: en la tienda la seccion no se
   pinta, y el comprador no ve la instruccion del editor ni un total de 0. En el editor
   se mantiene entera, con el aviso, para que el comerciante sepa como configurarla.
 {%- endcomment -%}
@@ -134,11 +145,16 @@
         </div>
 
         <div class="complete-the-look__commerce">
-          {%- if rendered_item_count > 0 -%}
+          {%- if rendered_item_count > 0 or request.design_mode and section.blocks.size > 0 -%}
             <ul class="complete-the-look__items unstyled-list">
               {%- for block in section.blocks -%}
                 {%- assign bundle_product = block.settings.product -%}
                 {%- if bundle_product == blank -%}
+                  {%- if request.design_mode -%}
+                    <li class="complete-the-look__item complete-the-look__item--sample" {{ block.shopify_attributes }}>
+                      {{- sample_card -}}
+                    </li>
+                  {%- endif -%}
                   {%- continue -%}
                 {%- endif -%}
                 {%- liquid
@@ -282,7 +298,14 @@
                 </li>
               {%- endfor -%}
             </ul>
-          {%- else -%}
+          {%- elsif request.design_mode -%}
+            <ul class="complete-the-look__items unstyled-list">
+              {%- for sample_index in (1..2) -%}
+                <li class="complete-the-look__item complete-the-look__item--sample">{{- sample_card -}}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if rendered_item_count == 0 -%}
             <p class="complete-the-look__empty">{{ 'sections.complete_the_look.empty' | t }}</p>
           {%- endif -%}
 
@@ -291,9 +314,9 @@
               <div>
                 <p class="eyebrow">{{ 'sections.complete_the_look.total_label' | t }}</p>
                 {%- comment -%}
-                  4F-002. El sustantivo concuerda con el total, no con lo seleccionado:
+                  El sustantivo concuerda con el total, no con lo seleccionado:
                   "1 of 3 items selected", "1 of 1 item selected". Antes se elegia la forma
-                  por la seleccion y salia "1 of 3 item selected" (GPT-AUDIT-002, UX-12).
+                  por la seleccion y salia "1 of 3 item selected".
                 {%- endcomment -%}
                 <p data-bundle-count>
                   {%- if rendered_item_count == 1 -%}

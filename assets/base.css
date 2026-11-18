@@ -31,7 +31,7 @@
   --page-gutter-mobile: 16px;
   --page-gutter-desktop: 32px;
   --container-max-width: 1440px;
-  /* LEAD-001. Ancho de contenido unico: la misma formula que .container, gobernada por los
+  /* Ancho de contenido unico: la misma formula que .container, gobernada por los
      ajustes Ancho de pagina y Margen de pagina. Las secciones editoriales usaban 1440px con
      32px (16px en movil) y su borde izquierdo no coincidia con el del header ni el footer. */
   --content-width: min(100% - (var(--page-gutter) * 2), var(--page-width));
@@ -41,7 +41,7 @@
   --border-width: 1px;
   --tap-target-min: 44px;
 
-  /* B0. Una sola familia de duraciones y curvas para todo el tema. Tres curvas y tres
+  /* Una sola familia de duraciones y curvas para todo el tema. Tres curvas y tres
      duraciones bastan: lo que hace que una interfaz se sienta cara es que todo comparta
      el mismo vocabulario de movimiento, no que cada efecto tenga el suyo.
 
@@ -50,7 +50,7 @@
        base  entrada de superficie: cruce de imagen, reveal, quick add, lineas de carrito
        slow  masas grandes: cajones, modales, escala de imagen en hover
 
-     Calibracion 4D-001 ("Atelier Prime"): el ojo no registraba 320ms ni 12px en pantallas
+     Calibracion: el ojo no registraba 320ms ni 12px en pantallas
      grandes. Con la curva expo-out, el 80% del recorrido ocurre en el primer tercio del
      tiempo, asi que 680ms se percibe como una llegada suave y no como lentitud. */
   --motion-fast: 160ms;
@@ -63,14 +63,14 @@
      90ms entre hermanos hace legible la secuencia de una rejilla al hacer scroll. */
   --reveal-shift: 24px;
   --reveal-stagger: 90ms;
-  /* Modo Full (motor CSS scroll-driven nativo, bloque B8). El movimiento lee estos tokens
+  /* Modo Full (motor CSS scroll-driven nativo, bloque de coreografia scroll-driven). El movimiento lee estos tokens
      en vez de fijar sus propios valores: mas recorrido y mas tiempo para que la entrada se
      lea como gesto editorial, con la misma curva expo-out del resto del tema. */
   --motion-expressive: 1200ms;
   --reveal-shift-expressive: 64px;
   --reveal-stagger-expressive: 100ms;
   --parallax-shift: 16%;
-  /* Modo Full (MOTION-002): coreografia scroll-driven, bloque B8. Las distancias en vh son
+  /* Modo Full: coreografia scroll-driven (bloque del motor nativo). Las distancias en vh son
      scroll recorrido. theme.js lee --scroll-enter-inset (%), --scroll-reveal-distance (vh) y
      --scroll-reveal-stagger (vh) para colocar sus lineas de observacion: unidades fijas. */
   --scroll-enter-inset: 6%;
@@ -104,7 +104,7 @@
 [class*=' color-'] {
   --color-surface: color-mix(in srgb, var(--color-background) 94%, var(--color-foreground));
   --color-surface-subtle: color-mix(in srgb, var(--color-background) 90%, var(--color-foreground));
-  --color-foreground-muted: color-mix(in srgb, var(--color-foreground) 78%, var(--color-background));
+  --color-foreground-muted: color-mix(in srgb, var(--color-foreground) 84%, var(--color-background));
   --color-accent: var(--color-button);
   --color-accent-contrast: var(--color-button-label);
   --color-border-hairline: color-mix(in srgb, var(--color-border) 58%, var(--color-background));
@@ -142,7 +142,7 @@ body {
 body[data-drawer-open],
 body[data-modal-open] {
   overflow: hidden;
-  /* LV-03: ancho de la barra de scroll que el bloqueo retira (theme.js, syncDialogScrollLocks). */
+  /* Ancho de la barra de scroll que el bloqueo retira (theme.js, syncDialogScrollLocks). */
   padding-right: var(--scrollbar-compensation, 0px);
 }
 
@@ -175,6 +175,11 @@ button,
 [type='reset'] {
   cursor: pointer;
   touch-action: manipulation;
+}
+
+::placeholder {
+  color: var(--color-foreground-muted);
+  opacity: 1;
 }
 
 button:disabled,
@@ -412,7 +417,7 @@ blockquote {
   border-radius: var(--button-radius);
   background-color: var(--color-foreground) !important;
   color: var(--color-background) !important;
-  /* Misma tipografia que .button para que "Buy it now" no rompa la pareja con Add to cart (6A-001). */
+  /* Misma tipografia que .button para que "Buy it now" no rompa la pareja con Add to cart. */
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -602,7 +607,7 @@ blockquote {
   background: var(--color-surface);
 }
 
-/* Cabecera sticky (4F-001): se pega la seccion que envuelve a la <header>, solo con JS.
+/* Cabecera sticky: se pega la seccion que envuelve a la <header>, solo con JS.
    Ver el comentario de sections/header.liquid; antes era un {% style %} en el body. */
 .js .section-header {
   position: sticky;
@@ -694,7 +699,7 @@ blockquote {
   text-decoration: none;
 }
 
-/* 5A-003, H-02. El ancho sale del ajuste "Logo width" (--logo-width en header.liquid);
+/* El ancho sale del ajuste "Logo width" (--logo-width en header.liquid);
    antes width: auto y un tope de 3rem de alto lo anulaban y el editor no cambiaba nada. El
    alto sigue la proporcion del archivo, sea horizontal, cuadrado o vertical. El ancho es
    fijo y el tope va en max-width: un min() con porcentaje dentro de width hace que la
@@ -705,7 +710,7 @@ blockquote {
   height: auto;
 }
 
-/* COMP-001 (S-04). Una sola linea con elipsis dejaba "Sartorial Ateli…" a 390 px. El
+/* Una sola linea con elipsis dejaba "Sartorial Ateli…" a 390 px. El
    nombre pasa a una segunda linea y solo recurre a la elipsis si tampoco cabe en dos; el
    min-height de 4.75rem de la cabecera absorbe las dos lineas sin crecer. overflow-wrap
    normal evita que una palabra se parta: si es mas larga que la columna, termina en "…". */
@@ -731,7 +736,7 @@ blockquote {
 
 .site-header__account {
   --shopify-account-signed-in-avatar-size: 2.25rem;
-  /* 5A-003, H-05. El boton del componente toma su minimo de esta variable; sin ella lo
+  /* El boton del componente toma su minimo de esta variable; sin ella lo
      calcula como 1,57 veces el avatar (50,2 px) y la cabecera movil pierde 6 px. */
   --shopify-account-avatar-size: var(--tap-target-min);
   display: grid;
@@ -750,7 +755,7 @@ blockquote {
   position: relative;
 }
 
-/* 5A-003, H-05. El contador va sobre la esquina del icono, fuera del flujo: dentro del
+/* El contador va sobre la esquina del icono, fuera del flujo: dentro del
    enlace le sumaba 10,8 px al carrito y cortaba el nombre de la tienda a 390 px. Con 0
    articulos no se pinta (hidden desde header.liquid y desde CartDrawer). */
 .site-header__cart-count {
@@ -849,12 +854,6 @@ blockquote {
   opacity: 0.78;
 }
 
-.page-foundation {
-  min-height: min(70vh, 48rem);
-  display: grid;
-  align-items: center;
-}
-
 .site-footer {
   padding-block: clamp(3rem, 8vw, 7rem) var(--space-4);
   border-top: 1px solid var(--color-border);
@@ -872,13 +871,13 @@ blockquote {
 }
 
 .site-footer__brand {
-  /* COMP-001 (S-03). Sin el minimo, la columna crece hasta la palabra mas larga del
+  /* Sin el minimo, la columna crece hasta la palabra mas larga del
      titulo (break-word no la cuenta como divisible) y da scroll horizontal en movil. */
   min-width: 0;
   max-width: 34rem;
 }
 
-/* COMP-001 (S-03). Con el tamano de .h2 (75,6 px) en una columna de 304 px, el
+/* Con el tamano de .h2 (75,6 px) en una columna de 304 px, el
    overflow-wrap: anywhere del body partia "Sartorial" en "Sartori / al". A esta escala el
    nombre corta entre palabras. break-word y no normal: una sola palabra mas ancha que la
    columna se parte como ultimo recurso; con normal se salia y daba 311 px de scroll
@@ -985,6 +984,12 @@ textarea {
   max-height: 3rem;
 }
 
+.gift-card h1 {
+  margin-block-end: 0;
+  font-size: calc(1.5rem * var(--font-heading-scale));
+  letter-spacing: 0;
+}
+
 .gift-card__value {
   margin-block: var(--space-3);
   font-family: var(--font-heading-family);
@@ -1086,7 +1091,7 @@ button[aria-busy='true']:disabled {
 }
 
 .price__compare {
-  opacity: 0.68;
+  color: var(--color-foreground-muted);
 }
 
 .price__unit,
@@ -1375,7 +1380,7 @@ button[aria-busy='true']:disabled {
   letter-spacing: 0;
 }
 
-/* AF-09 (AUDIT-FINAL-001): con 60+ caracteres, 3rem y 18ch el titulo llegaba a 13 lineas y
+/* Con 60+ caracteres, 3rem y 18ch el titulo llegaba a 13 lineas y
    dejaba precio y boton de compra bajo el pliegue a 1280x800. Mismo tipo, cuerpo menor. */
 .product-main__title[data-long-title='1'] {
   max-width: 28ch;
@@ -1712,6 +1717,65 @@ body[data-sticky-cart-visible] {
   gap: var(--space-5);
 }
 
+.recently-viewed__editor-notice {
+  margin: var(--space-4) auto;
+  color: var(--color-foreground-muted);
+  text-align: center;
+}
+
+/* Once the section has history and is shown, the editor note is redundant. */
+recently-viewed:not([hidden]) + .recently-viewed__editor-notice {
+  display: none;
+}
+
+.facets__disclosure-summary {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: var(--space-2);
+  border-block: 1px solid var(--color-border-hairline, var(--color-border));
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+}
+
+.facets__disclosure-summary::-webkit-details-marker {
+  display: none;
+}
+
+.facets__disclosure-summary .icon {
+  margin-inline-start: auto;
+}
+
+.facets__disclosure[open] > .facets__disclosure-summary .icon {
+  transform: rotate(180deg);
+}
+
+/* On phones the filters collapse behind one summary so the products stay above the fold. */
+@media (width < 62rem) {
+  .facets__disclosure .facets__heading {
+    display: none;
+  }
+}
+
+/* From 62rem the filters sit in a sticky sidebar: the summary is dropped and the content is always shown. */
+@media (min-width: 62rem) {
+  @supports selector(::details-content) {
+    .facets__disclosure > .facets__disclosure-summary {
+      display: none;
+    }
+
+    .facets__disclosure::details-content {
+      content-visibility: visible;
+    }
+  }
+}
+
+/* Hidden once theme.js marks the form as applying changes by itself; without it, Apply stays visible. */
+facet-filters-form[data-auto-apply] .facets__actions {
+  display: none;
+}
+
 .facets__heading {
   justify-content: space-between;
 }
@@ -1798,7 +1862,7 @@ body[data-sticky-cart-visible] {
   margin-block-start: var(--space-3);
 }
 
-/* Barra de filtros activos (6B-001). Pildoras con el borde de control (>= 3:1 contra el fondo),
+/* Barra de filtros activos. Pildoras con el borde de control (>= 3:1 contra el fondo),
    la misma escala tipografica que los chips de variante y 44 px de objetivo tactil. */
 .facets__active-filters {
   margin-block-end: var(--space-3);
@@ -1942,10 +2006,10 @@ body[data-sticky-cart-visible] {
 }
 
 .product-card__content {
-  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver LV05-NF01 mas abajo),
-     asi que este valor es a la vez su alto real y la reserva de LV-05. */
+  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver mas abajo),
+     asi que este valor es a la vez su alto real y la reserva de altura. */
   --card-swatch-row-height: var(--tap-target-min);
-  /* LV05-V01. Alto de la linea de vendor (una sola linea, ver .product-card__vendor): lo
+  /* Alto de la linea de vendor (una sola linea, ver .product-card__vendor): lo
      reservan las tarjetas sin vendor para alinear el titulo. Va en em/rem, escala con la letra. */
   --card-vendor-font-size: 0.7rem;
   --card-vendor-line-height: 1.4;
@@ -1958,7 +2022,7 @@ body[data-sticky-cart-visible] {
   font-size: var(--card-vendor-font-size);
   line-height: var(--card-vendor-line-height);
   text-transform: uppercase;
-  /* LV05-V01. Una sola linea con elipsis: un vendor largo no puede crecer y desalinear. */
+  /* Una sola linea con elipsis: un vendor largo no puede crecer y desalinear. */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1970,7 +2034,7 @@ body[data-sticky-cart-visible] {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.35;
-  /* LV05-R01. Politica global de palabras intacta; el corte vive en los contenedores estrechos, */
+  /* Politica global de palabras intacta; el corte vive en los contenedores estrechos, */
   /* regla `.bento-discovery__item--product .product-card__title` al final de este archivo. */
 }
 
@@ -1998,7 +2062,7 @@ body[data-sticky-cart-visible] {
   overflow-wrap: anywhere;
 }
 
-/* B4. El quick add se asienta al pasar el cursor. Conserva SIEMPRE su espacio en la
+/* El quick add se asienta al pasar el cursor. Conserva SIEMPRE su espacio en la
    rejilla, asi que no provoca ni un pixel de desplazamiento: solo cambian opacidad y
    transform, las dos propiedades que el compositor resuelve sin relayout. En pantallas
    tactiles, donde no hay hover que dispare nada, se queda visible y directamente
@@ -2052,7 +2116,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   --card-swatch-text-min: 4.75rem;
   container: card-swatches / inline-size;
   display: flex;
-  /* LV05-NF01. Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
+  /* Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
      a otra fila. El nombre completo sigue en el aria-label de cada swatch. */
   flex-wrap: nowrap;
   align-items: center;
@@ -2077,7 +2141,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   flex-shrink: 0;
 }
 
-/* LV05-CN3 y LV05-CN5. Liquid (snippets/card-swatch-fit.liquid) escribe en data-swatch-fit
+/* Liquid (snippets/card-swatch-fit.liquid) escribe en data-swatch-fit
    cuantas piezas caben en cada banda de ancho de la fila (a 120-140, b 140-180 ... h >= 380),
    estimando 44 por color y por contador, 76 (--card-swatch-text-min, unos 6 caracteres
    visibles) por nombre largo y el ancho propio de un nombre corto. Las cifras son px con la
@@ -2209,7 +2273,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* LV05-CN7. Filas solo de color (data-swatch-fit-px): cada pieza mide 44px fijos aunque la
+/* Filas solo de color (data-swatch-fit-px): cada pieza mide 44px fijos aunque la
    letra del navegador crezca, asi que sus bandas van en px puros, sin max(px, rem). Mismo
    reparto de piezas que las bandas de arriba; con la letra al 125 o 150 % la fila conserva
    los swatches que caben en vez de bajar a uno. */
@@ -2333,7 +2397,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* LV05-CN5. Red de seguridad para filas mas estrechas que la banda a (zoom del 200 %, letra
+/* Red de seguridad para filas mas estrechas que la banda a (zoom del 200 %, letra
    grande, vista de lista estrecha), donde la estimacion no garantiza nada: un swatch y el
    contador; con menos de dos piezas de toque, solo el primer swatch; sin sitio para una,
    ninguno. El enlace del producto sigue llevando a todas las opciones. */
@@ -2348,7 +2412,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* LV05-CN7. La misma red de seguridad para filas solo de color, en px puros. */
+/* La misma red de seguridad para filas solo de color, en px puros. */
 @container card-swatches (width < 120px) {
   .product-card__swatches .product-card__swatch-group[data-swatch-fit-px] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
   .product-card__swatches .product-card__swatch-group[data-swatch-fit-px] ~ .card-swatch-more--fit {
@@ -2360,7 +2424,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* LV05-CN6. Sin contador visible, el total queda para el lector de pantalla. */
+/* Sin contador visible, el total queda para el lector de pantalla. */
 .product-card__swatches .card-swatch-count {
   display: none;
 }
@@ -2389,14 +2453,14 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* LV-05. Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
+/* Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
    las tarjetas sin ellos reservan el alto de la fila de swatches (--card-swatch-row-height)
    para que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento
    vacio: no cambia el DOM ni el orden de lectura. Solo en rejillas de varias columnas: la
    vista de lista, bento y curated showcase quedan fuera, y la rejilla de "2" columnas y la
    de busqueda solo entran desde 48rem, porque por debajo son de una columna y la reserva no
    alinearia nada. Sin :has() no se reserva nada y la tarjeta queda como antes.
-   LV05-V01: el vendor se reserva aparte, mas abajo. */
+   El vendor se reserva aparte, mas abajo. */
 :is(
     .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
     .product-recommendations__grid,
@@ -2419,7 +2483,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* LV05-V01. Mismo criterio para el vendor: si alguna tarjeta de la rejilla lo muestra, las
+/* Mismo criterio para el vendor: si alguna tarjeta de la rejilla lo muestra, las
    que no lo tienen empujan el titulo la altura de esa linea mas el hueco de la rejilla de
    contenido, sin altura fija en px. Misma lista de rejillas que la reserva de swatches; sin
    :has() no se reserva nada. */
@@ -2443,7 +2507,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. LV05-NF01: el
+/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. El
    selector doble gana a .card-swatch (width fijo de 44px, declarado despues); sin el, la
    etiqueta desbordaba el boton y se montaba sobre la vecina. */
 .card-swatch.card-swatch--text {
@@ -2456,10 +2520,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   padding-inline: var(--space-2xs);
 }
 
-/* LV05-CN1. Un nombre largo se encoge hasta el minimo legible (unos 6 caracteres) y no mas;
+/* Un nombre largo se encoge hasta el minimo legible (unos 6 caracteres) y no mas;
    uno corto (5 letras o menos) no se encoge. El nombre completo va en title (raton) y en
    aria-label. */
-/* LV05-CN5. Si solo cabe una pieza y el contador (banda a, o letra grande), el minimo cede
+/* Si solo cabe una pieza y el contador (banda a, o letra grande), el minimo cede
    hasta dejar sitio al contador, sin bajar de la pieza de toque. */
 .product-card__swatch-group .card-swatch--text-min {
   flex-shrink: 1;
@@ -2913,7 +2977,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   align-items: baseline;
 }
 
-/* 4D-002. Stepper de cantidad (menos, campo, mas). Pieza compartida por el cajon y por
+/* Stepper de cantidad (menos, campo, mas). Pieza compartida por el cajon y por
    la pagina de carrito. Una sola caja con hilo de 1px: los botones no llevan borde
    propio y se separan del campo con lineas internas, para que el control se lea como
    un objeto y no como tres piezas sueltas. Sin radio ni relleno de color, en la linea
@@ -2929,7 +2993,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   display: inline-flex;
   min-width: var(--tap-target-min);
   /* 44 x 44 px exactos en cualquier viewport. Es el criterio 2.5.8 de WCAG 2.2 que
-     revisa la Theme Store, no una holgura estetica. */
+     exige Shopify, no una holgura estetica. */
   min-height: var(--tap-target-min);
   padding: 0;
   border: 0;
@@ -2999,7 +3063,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 .no-js .quantity-stepper {
   /* El ancho que tenia el campo antes del stepper: sin botones, una caja de 50 px seria
-     un retroceso frente a la version que este sprint sustituye. */
+     un retroceso frente al diseno anterior. */
   grid-template-columns: minmax(5rem, 7rem);
 }
 
@@ -3288,7 +3352,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 }
 
 .cart-cross-sell__title {
-  /* Fase 2 (GPT-021): un titulo largo se parte en lineas; nunca se recorta. */
+  /* Un titulo largo se parte en lineas; nunca se recorta. */
   font-weight: 700;
   overflow-wrap: anywhere;
 }
@@ -3318,7 +3382,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   margin-inline-start: var(--space-2xs);
 }
 
-/* ---------- Fase 2 (GPT-021). Recomendaciones del cajon: opciones inline ---------- */
+/* ---------- Recomendaciones del cajon: opciones inline ---------- */
 /* El panel de opciones ocupa todo el ancho de la tarjeta y crece dentro de
    .cart-drawer__scroll: nunca empuja el pie. Chips de 44 x 44 CSS px como minimo con el
    radio nativo encima (opacidad 0, enfocable); el anillo de foco y la seleccion se pintan
@@ -3569,7 +3633,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
     justify-self: start;
   }
 }
-/* ---------- Fin Fase 2 (GPT-021) ---------- */
+/* ---------- Fin de las recomendaciones del cajon ---------- */
 
 .cart-drawer__footer {
   --flow-space: var(--space-3);
@@ -3693,7 +3757,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   opacity: 1;
 }
 
-/* TEC-04 (WCAG 2.2.2). Control del video de fondo: 44x44 (--tap-target-min), por encima del
+/* WCAG 2.2.2. Control del video de fondo: 44x44 (--tap-target-min), por encima del
    velo (.hero-editorial__overlay, z-index 2) y del bloque de texto (z-index 3), en la esquina
    superior final del medio. En cinematic el texto se superpone al medio y a 375 px mide 18rem:
    centrado o al final, y con un titular largo, alcanzaria esa esquina. Por eso, solo cuando
@@ -3823,7 +3887,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 
 
-/* AUDIT-PRESETS-001. Titular y subtitulo tienen max-width: con texto centrado o a la derecha,
+/* Titular y subtitulo tienen max-width: con texto centrado o a la derecha,
    su caja tambien se centra o se alinea a la derecha. Sin esto, en Archive (align-center) el
    subtitulo queda 141 px a la izquierda del eje a 1280 px. */
 .hero-editorial--align-center .hero-editorial__heading,
@@ -4001,7 +4065,7 @@ curated-showcase {
   gap: var(--space-lg);
 }
 
-/* LV05-R01. El minimo de la columna de imagen no puede pasar del 42 % de la tarjeta: con
+/* El minimo de la columna de imagen no puede pasar del 42 % de la tarjeta: con
    zoom del 200 % (viewport de 160 a 195 px) 7.5rem la ensanchaba mas que el viewport. */
 .curated-showcase__supporting .product-card {
   padding-block-start: var(--space-md);
@@ -4571,7 +4635,7 @@ marquee-banner {
 
 
 
-  /* AUDIT-PRESETS-001. Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
+  /* Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
      columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
      Los heroes alineados a la izquierda (Sartorial, Imprint) no cambian. */
   .hero-editorial--align-center .hero-editorial__heading {
@@ -4933,7 +4997,7 @@ marquee-banner {
   }
 }
 
-/* Phase 3B.3 discovery and collection merchandising */
+/* Discovery and collection merchandising */
 editorial-lookbook,
 complete-the-look {
   display: block;
@@ -5296,12 +5360,12 @@ complete-the-look {
   justify-content: flex-start;
 }
 
-.complete-the-look__item:not([data-selected]) .complete-the-look__item-media {
+.js .complete-the-look__item:not([data-selected]) .complete-the-look__item-media {
   opacity: 0.55;
 }
 
-.complete-the-look__item:not([data-selected]) .complete-the-look__item-details,
-.complete-the-look__item:not([data-selected]) .complete-the-look__item-price {
+.js .complete-the-look__item:not([data-selected]) .complete-the-look__item-details,
+.js .complete-the-look__item:not([data-selected]) .complete-the-look__item-price {
   color: var(--color-foreground-muted);
   opacity: 1;
 }
@@ -5473,7 +5537,7 @@ complete-the-look {
   grid-column: 1 / -1;
 }
 
-/* v1.1.0 PLP list view. Solo se activa con data-grid-columns="list" desde el conmutador. */
+/* PLP list view. Solo se activa con data-grid-columns="list" desde el conmutador. */
 .collection-grid-switcher__icon--list {
   grid-auto-flow: row;
   grid-template-rows: repeat(3, minmax(0, 1fr));
@@ -5805,7 +5869,7 @@ product-recommendations:not([hidden]):empty {
   font-size: 0.875rem;
 }
 
-/* LEAD-001. El hueco se reserva siempre: con display: none, el total aparecia al pasar de 1 a 2
+/* El hueco se reserva siempre: con display: none, el total aparecia al pasar de 1 a 2
    y empujaba ~31px hacia abajo el boton de compra justo cuando el comprador iba a pulsarlo. */
 .product-form__line-total[data-empty] {
   visibility: hidden;
@@ -5819,7 +5883,7 @@ product-recommendations:not([hidden]):empty {
 }
 
 .product-form__line-total [data-line-total-compare] {
-  opacity: 0.68;
+  color: var(--color-foreground-muted);
 }
 
 .product-form__line-total [data-line-total-current] {
@@ -6078,8 +6142,10 @@ product-recommendations:not([hidden]):empty {
 
 faq-accordion,
 password-modal,
-anchor-nav,
-copy-text {
+/* docs-only:start */
+copy-text,
+/* docs-only:end */
+anchor-nav {
   display: block;
 }
 
@@ -6152,8 +6218,10 @@ copy-text {
    h1 de pagina cae en el clamp de portada (hasta 7rem) y en un portatil el titulo se
    come la pantalla: "Documentation" no cabe en la cabecera y se parte a mitad de
    palabra. */
+/* docs-only:start */
 .main-documentation__title,
 .main-support__title,
+/* docs-only:end */
 .main-faq__title,
 .main-about__title,
 .main-policy__title,
@@ -6308,14 +6376,16 @@ copy-text {
   gap: var(--space-3xl);
 }
 
-/* LEAD-001. Los h2 de las columnas (formulario y FAQ) heredaban la escala de portada y
+/* Los h2 de las columnas (formulario y FAQ) heredaban la escala de portada y
    quedaban mas grandes que el h1 de la pagina. Son subtitulos de bloque: escala de seccion. */
 .main-contact__layout h2 {
   font-size: calc(clamp(1.5rem, 2.5vw, 2rem) * var(--font-heading-scale));
 }
 
 .contact-form,
+/* docs-only:start */
 .support-form,
+/* docs-only:end */
 .comment-form,
 .password-newsletter,
 .storefront-password-form {
@@ -6341,21 +6411,27 @@ copy-text {
 }
 
 .contact-form__grid,
+/* docs-only:start */
 .support-form__grid,
+/* docs-only:end */
 .comment-form__grid {
   display: grid;
   gap: var(--space-lg);
 }
 
-.contact-form__footer,
-.support-form__footer {
+/* docs-only:start */
+.support-form__footer,
+/* docs-only:end */
+.contact-form__footer {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
-.contact-form__submit,
-.support-form__submit {
+/* docs-only:start */
+.support-form__submit,
+/* docs-only:end */
+.contact-form__submit {
   min-height: 52px;
 }
 
@@ -6426,18 +6502,24 @@ copy-text {
   color: var(--color-foreground);
 }
 
-.main-contact__service-list,
-.main-support__channel-list {
+/* docs-only:start */
+.main-support__channel-list,
+/* docs-only:end */
+.main-contact__service-list {
   border-top: 1px solid var(--color-border);
 }
 
-.main-contact__service-list li,
-.main-support__channel-list li {
+/* docs-only:start */
+.main-support__channel-list li,
+/* docs-only:end */
+.main-contact__service-list li {
   border-bottom: 1px solid var(--color-border);
 }
 
-.main-contact__service-link,
-.main-support__channel {
+/* docs-only:start */
+.main-support__channel,
+/* docs-only:end */
+.main-contact__service-link {
   display: flex;
   min-height: 64px;
   align-items: center;
@@ -6447,15 +6529,19 @@ copy-text {
   text-decoration: none;
 }
 
-.main-contact__service-link strong,
-.main-contact__service-link small,
+/* docs-only:start */
 .main-support__channel strong,
-.main-support__channel small {
+.main-support__channel small,
+/* docs-only:end */
+.main-contact__service-link strong,
+.main-contact__service-link small {
   display: block;
 }
 
-.main-contact__service-link small,
-.main-support__channel small {
+/* docs-only:start */
+.main-support__channel small,
+/* docs-only:end */
+.main-contact__service-link small {
   margin-block-start: var(--space-3xs);
   color: var(--color-foreground-muted);
 }
@@ -7108,8 +7194,10 @@ copy-text {
 }
 
 @media (min-width: 48rem) {
+  /* docs-only:start */
   .main-documentation__title,
   .main-support__title,
+  /* docs-only:end */
   .main-faq__title,
   .main-about__title,
   .main-policy__title,
@@ -7177,8 +7265,10 @@ copy-text {
 }
 
 @media (min-width: 62rem) {
+  /* docs-only:start */
   .main-documentation__title,
   .main-support__title,
+  /* docs-only:end */
   .main-faq__title,
   .main-about__title,
   .main-policy__title,
@@ -7291,7 +7381,7 @@ copy-text {
   border-block-start: 1px solid var(--color-border-hairline);
 }
 
-/* LEAD-001. Sin idiomas ni monedas que elegir, el snippet no pinta nada y quedaba solo la
+/* Sin idiomas ni monedas que elegir, el snippet no pinta nada y quedaba solo la
    linea divisoria flotando al pie del cajon. */
 .mobile-nav__localization:not(:has(*)) {
   display: none;
@@ -7926,7 +8016,7 @@ copy-text {
 }
 
 /* =========================================================================
-   PAGINAS NATIVAS (Sprint 4E-001)
+   PAGINAS NATIVAS
    Documentacion, soporte, preguntas frecuentes, historia de marca y paginas
    legales. Todo se apoya en los tokens ya existentes: ni un color, ni una
    duracion, ni un espacio nuevos.
@@ -8003,6 +8093,7 @@ copy-text {
   opacity: 1;
 }
 
+/* docs-only:start */
 /* ---------- Documentacion ---------- */
 .main-documentation__header {
   max-width: 46rem;
@@ -8257,6 +8348,7 @@ copy-text {
 .main-support__policy-items li + li {
   margin-block-start: var(--space-2xs);
 }
+/* docs-only:end */
 
 /* ---------- Preguntas frecuentes ---------- */
 .main-faq__header {
@@ -8459,7 +8551,7 @@ copy-text {
   margin-block-start: var(--space-xs);
 }
 
-/* LEAD-001. Politicas que genera Shopify en /policies/* (reembolso, envio, privacidad,
+/* Politicas que genera Shopify en /policies/* (reembolso, envio, privacidad,
    terminos, contacto). No pasan por main-policy.liquid: su marcado es fijo
    (.shopify-policy__container > __title > h1 + __body > .rte) y Shopify inyecta despues de
    base.css su propio CSS (65ch, titulo centrado). Sin esto heredaban el h1 de portada (7rem,
@@ -8522,7 +8614,9 @@ copy-text {
 }
 
 @media (min-width: 62rem) {
+  /* docs-only:start */
   .main-documentation__layout,
+  /* docs-only:end */
   .main-policy__layout {
     grid-template-columns: minmax(12rem, 0.24fr) minmax(0, 1fr);
     gap: var(--space-4xl);
@@ -8531,7 +8625,9 @@ copy-text {
 
   /* La barra lateral acompana al scroll, pero nunca supera la altura de la ventana: con
      un indice largo, lo que sobra se desplaza dentro de ella en vez de quedar fuera. */
+  /* docs-only:start */
   .main-documentation__nav,
+  /* docs-only:end */
   .main-policy__nav {
     position: sticky;
     top: var(--space-2xl);
@@ -8539,12 +8635,15 @@ copy-text {
     overflow-y: auto;
   }
 
+  /* docs-only:start */
   .main-support__layout {
     grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
     gap: var(--space-4xl);
     align-items: start;
   }
+  /* docs-only:end */
 
+  /* docs-only:start */
   .support-form__grid,
   .main-support__policies {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -8555,6 +8654,7 @@ copy-text {
     align-items: center;
     justify-content: space-between;
   }
+  /* docs-only:end */
 
   .main-about__values-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -8572,7 +8672,7 @@ copy-text {
 }
 
 /* =========================================================================
-   REFINAMIENTO DE PAGINAS Y NAVEGACION (Sprint 4E-002)
+   REFINAMIENTO DE PAGINAS Y NAVEGACION
    ========================================================================= */
 
 /* ---------- Acordeones: apertura sedosa ----------
@@ -8629,6 +8729,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   color: var(--color-foreground-muted);
 }
 
+/* docs-only:start */
 /* ---------- Soporte: validacion sutil y tarjetas de alcance ----------
    :user-invalid, no :invalid: el navegador solo lo aplica despues de que la persona haya
    interactuado con el campo, asi que un formulario recien abierto no aparece en rojo
@@ -8666,6 +8767,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   content: '';
   opacity: 0.6;
 }
+/* docs-only:end */
 
 /* ---------- Historia de marca: comillas editoriales ---------- */
 .main-about__quote-text::before {
@@ -8783,11 +8885,10 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 
 
 /* =========================================================================
-   AUDITORIA EN VIVO: CORRECCIONES P0 Y P1 (Sprint 4F-001)
-   Referencia: agent-comms/outbox-claude/CLAUDE-AUDIT-LIVE-001-tienda-en-vivo.md
+   CORRECCIONES DE CARRITO, CABECERA STICKY Y GALERIA
    ========================================================================= */
 
-/* ---------- T1. Checkout acelerado en el carrito ---------- */
+/* ---------- Checkout acelerado en el carrito ---------- */
 /* Los botones viven en un custom element con shadow DOM cerrado: solo se tocan con las
    propiedades que publica Shopify, declaradas sobre el propio elemento como recomienda la
    documentacion (heredadas desde el contenedor perderian frente a sus valores por
@@ -8806,14 +8907,14 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   --shopify-accelerated-checkout-skeleton-background-color: var(--color-surface);
 }
 
-/* ---------- T2. Escalera de apilamiento ---------- */
+/* ---------- Escalera de apilamiento ---------- */
 /* La cabecera sticky queda en 150 (header.liquid). Todo modal global va por encima; el
    de contrasena estaba en 90 y la cabecera le habria tapado el boton de cerrar. */
 .password-modal__overlay {
   z-index: 240;
 }
 
-/* ---------- T8. Consecuencias de la cabecera sticky ---------- */
+/* ---------- Consecuencias de la cabecera sticky ---------- */
 /* --header-offset lo publica initHeaderScrollState con la altura real de la cabecera;
    vale 0 cuando no es sticky. scroll-padding hace que las anclas y el foco por teclado
    se detengan debajo de la cabecera y no detras de ella (WCAG 2.4.11). */
@@ -8823,7 +8924,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 
 html {
   scroll-padding-block-start: var(--header-offset);
-  /* AF-08 (AUDIT-FINAL-001): la barra fija de compra publica su altura en --sticky-cart-offset. */
+  /* La barra fija de compra publica su altura en --sticky-cart-offset. */
   scroll-padding-block-end: var(--sticky-cart-offset, 0px);
 }
 
@@ -8835,16 +8936,24 @@ html {
 
   .facets {
     inset-block-start: calc(var(--header-offset) + var(--space-3));
+    max-height: calc(100dvh - var(--header-offset) - 2rem);
+    /* Padding and the matching negative margin keep focus rings from being clipped by the scroll box. */
+    margin: -0.25rem;
+    padding: 0.25rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
+  /* docs-only:start */
   .main-documentation__nav,
+  /* docs-only:end */
   .main-policy__nav {
     top: calc(var(--header-offset) + var(--space-2xl));
     max-height: calc(100vh - var(--header-offset) - (var(--space-2xl) * 2));
   }
 }
 
-/* ---------- T3. Legibilidad del hero cinematografico ---------- */
+/* ---------- Legibilidad del hero cinematografico ---------- */
 /* Sobre fotografia no hay gris seguro: el subtitulo usa el color de texto del esquema,
    igual que el titular. Medido antes del cambio: 1.19:1 a 390 px. */
 .hero-editorial--cinematic .hero-editorial__subheading {
@@ -8892,7 +9001,7 @@ html {
   pointer-events: none;
 }
 
-/* ---------- T4. Galeria de producto sin huecos ---------- */
+/* ---------- Galeria de producto sin huecos ---------- */
 /* Una sola imagen, o ninguna, ocupa todo el ancho de la galeria. Con un numero impar de
    imagenes la primera abre a todo el ancho y el resto va por parejas, la misma regla que
    ya usa el producto destacado: la ultima fila nunca queda con una celda vacia. */
@@ -8907,7 +9016,7 @@ html {
   }
 }
 
-/* ---------- T7. Carrusel tactil de la galeria (por debajo de 62rem) ---------- */
+/* ---------- Carrusel tactil de la galeria (por debajo de 62rem) ---------- */
 /* Hasta 62rem la ficha es de una columna: apilar las imagenes empujaba el titulo y el
    boton de compra tres pantallas abajo. Aqui la galeria es una fila con scroll-snap que
    se desliza sin JavaScript; <product-gallery> anade contador y botones. Todas las
@@ -8951,47 +9060,38 @@ html {
 }
 
 @media (max-width: 61.99rem) {
-  .product-main__layout--stack .product-gallery__items,
-  .product-main__layout--grid .product-gallery__items {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items {
     display: flex;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     scroll-snap-type: x mandatory;
   }
 
-  .js .product-main__layout--stack .product-gallery__items,
-  .js .product-main__layout--grid .product-gallery__items {
+  .js .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items {
     scrollbar-width: none;
   }
 
-  .js .product-main__layout--stack .product-gallery__items::-webkit-scrollbar,
-  .js .product-main__layout--grid .product-gallery__items::-webkit-scrollbar {
+  .js .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items::-webkit-scrollbar {
     display: none;
   }
 
-  .product-main__layout--stack .product-gallery__items:focus-visible,
-  .product-main__layout--grid .product-gallery__items:focus-visible {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__items:focus-visible {
     outline-offset: -3px;
   }
 
-  .product-main__layout--stack .product-gallery__item,
-  .product-main__layout--grid .product-gallery__item,
-  .product-main__layout--stack .product-gallery__placeholder,
-  .product-main__layout--grid .product-gallery__placeholder {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__item,
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__placeholder {
     flex: 0 0 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
 
-  /* El borde de "imagen de la variante" sirve en la rejilla de escritorio; en un
-     carrusel de una imagen a la vez no marca nada. */
-  .product-main__layout--stack .product-gallery__item[data-selected]::after,
-  .product-main__layout--grid .product-gallery__item[data-selected]::after {
+  /* The selected-variant border works in the desktop grid; in a one-image carousel it marks nothing. */
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__item[data-selected]::after {
     content: none;
   }
 
-  .product-main__layout--stack .product-gallery__image,
-  .product-main__layout--grid .product-gallery__image {
+  .product-main__layout:not(.product-main__layout--thumbnails) .product-gallery__image {
     height: auto;
     max-height: 55svh;
     aspect-ratio: var(--gallery-ratio, 0.8);
@@ -8999,7 +9099,7 @@ html {
   }
 }
 
-/* ---------- 5B-001. Zoom de imagen de la ficha ---------- */
+/* ---------- Zoom de imagen de la ficha ---------- */
 /* Disparador: la foto entera es el boton (un toque o un clic la amplian) y la lupa de 44 px
    solo lo anuncia. Tras un deslizamiento el navegador no dispara click, asi que no choca
    con el carrusel movil. Sin JavaScript no hay visor y el boton no se muestra. */
@@ -9188,7 +9288,7 @@ html[data-animations='full'] .product-zoom[open] {
   animation: gallery-media-in var(--motion-fast) var(--ease-enter) both;
 }
 
-/* ---------- T5. Buscador: fila estable y una sola cruz ---------- */
+/* ---------- Buscador: fila estable y una sola cruz ---------- */
 /* El boton de borrar sale del flujo cuando esta oculto; sin posiciones explicitas el
    boton de enviar caia en su pista de 44 px y "SEARCH" se apilaba letra a letra. */
 input[type='search']::-webkit-search-cancel-button,
@@ -9228,7 +9328,7 @@ input[type='search']::-webkit-search-decoration {
   }
 }
 
-/* ---------- T6. Cajon del carrito en pantallas bajas ---------- */
+/* ---------- Cajon del carrito en pantallas bajas ---------- */
 /* El panel ya no se desplaza entero: cabecera, avisos y pie quedan fijos y solo se
    mueve la pista de lineas y recomendaciones. Si la ventana es tan baja que ni la pista
    minima cabe, el contenido entero pasa a desplazarse como ultimo recurso. */
@@ -9288,10 +9388,10 @@ input[type='search']::-webkit-search-decoration {
 
 
 /* =========================================================================
-   FRICCIONES COMERCIALES DE GPT-AUDIT-002 (Sprint 4F-002)
+   FRICCIONES COMERCIALES: BARRA DE COMPRA, CARRITO Y CABECERA MOVIL
    ========================================================================= */
 
-/* ---------- T1. Sticky ATC: cantidad y total ---------- */
+/* ---------- Sticky ATC: cantidad y total ---------- */
 /* La linea de datos pasa a flex para que, si no cabe, se recorte el nombre de la variante
    y nunca "12 x $980.00". El total va en su propia linea: con 12 unidades a 360 px
    ("Total $11,760.00") no cabria junto al resto y se habria cortado justo lo que el
@@ -9335,7 +9435,7 @@ body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidd
   }
 }
 
-/* ---------- T2. Pagina de carrito sin desborde horizontal ---------- */
+/* ---------- Pagina de carrito sin desborde horizontal ---------- */
 /* El stepper es inline-grid y su pista central es minmax(2.25rem, 1fr): medido por su
    contenido, el campo numerico aporta su ancho intrinseco (unos 170 px) y el control
    llegaba a 265 px dentro de una columna de 160. Mismo tope que ya usa el cajon. */
@@ -9364,7 +9464,7 @@ body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidd
   align-items: center;
 }
 
-/* ---------- T3. Acordeones de la ficha de producto ---------- */
+/* ---------- Acordeones de la ficha de producto ---------- */
 /* Hilo fino arriba y abajo, titulo en versalitas pequenas como los rotulos del tema y una
    flecha que gira al abrir. Varios seguidos forman una sola lista: sin aire entre ellos y
    sin doble hilo. */
@@ -9427,11 +9527,11 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
 /* Con la marca centrada y tres iconos a la derecha, en 390 px la columna central tiene
    unos 70 px: "LINEA NOVE" pisaba la lupa 26 px (41 px a 360). Por debajo de 48rem la
    marca se alinea a la izquierda junto a un boton de menu solo con icono; la palabra
-   "Menu" sigue ahi para lectores de pantalla. Decision aprobada por Johandry en 4F-002. */
+   "Menu" sigue ahi para lectores de pantalla. */
 @media (max-width: 47.99rem) {
   .site-header__inner {
     grid-template-columns: auto minmax(0, 1fr) auto;
-    /* 5A-003. Los 44 px de cada boton ya separan: con el hueco de 12 px "LINEA NOVE"
+    /* Los 44 px de cada boton ya separan: con el hueco de 12 px "LINEA NOVE"
        seguia cortada a 360 px (le faltaban 12 px medidos en la tienda). */
     column-gap: var(--space-2xs);
   }
@@ -9444,11 +9544,11 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
 
   .site-header__brand-text {
     font-size: clamp(1.1rem, 4.5vw, 1.5rem);
-    /* COMP-001 (S-04). La marca movil va alineada a la izquierda; la segunda linea tambien. */
+    /* La marca movil va alineada a la izquierda; la segunda linea tambien. */
     text-align: start;
   }
 
-  /* 5A-003. La cabecera movil es fija: sin tope, un logo vertical a 140 px de ancho la
+  /* La cabecera movil es fija: sin tope, un logo vertical a 140 px de ancho la
      llevaba a 280 px de alto. El ancho que se pinta es el menor entre el ajuste y el que
      deja el logo en 3rem de alto (max-width: 100 % sigue conteniendolo en la columna), asi
      que la proporcion no se deforma. */
@@ -9562,7 +9662,7 @@ html[data-motion-style='heritage'] {
   }
 
   /* Foco: el color del anillo sale del esquema (--color-foreground), igual que la regla base
-     :focus-visible. Un gris o un laton fijos bajan de 3:1 en esquemas oscuros o calidos (A-03).
+     :focus-visible. Un gris o un laton fijos bajan de 3:1 en esquemas oscuros o calidos.
      Cada estilo solo cambia el outline-offset. */
   html[data-motion-style='technical'] .button:focus-visible,
   html[data-motion-style='technical'] input:focus-visible,
@@ -9597,18 +9697,18 @@ html[data-motion-style='heritage'] {
 }
 
 /* =========================================================================
-   SISTEMA DE MOVIMIENTO (Sprint 4C-002)
+   SISTEMA DE MOVIMIENTO
    Todo lo de aqui abajo esta gobernado por html[data-animations] y por
    prefers-reduced-motion. Las dos llaves de apagado viven al final del bloque.
    ========================================================================= */
 
-/* B5. Transiciones de pagina nativas. Una sola regla, sin JavaScript y sin librerias.
+/* Transiciones de pagina nativas. Una sola regla, sin JavaScript y sin librerias.
    Los navegadores que no implementan la API la ignoran por completo. */
 @view-transition {
   navigation: auto;
 }
 
-/* B2. El estado oculto SOLO existe cuando el motor de reveal confirmo que puede
+/* El estado oculto SOLO existe cuando el motor de reveal confirmo que puede
    ejecutarse. Sin data-reveal-ready en <html> esta regla no aplica y todo se ve. */
 html[data-reveal-ready] [data-reveal]:not([data-revealed]) {
   opacity: 0;
@@ -9632,7 +9732,7 @@ html[data-reveal-ready] [data-reveal][data-revealed] {
   will-change: auto;
 }
 
-/* B3. Hero editorial. La imagen NO se anima ni se oculta: es el LCP. Lo unico que se
+/* Hero editorial. La imagen NO se anima ni se oculta: es el LCP. Lo unico que se
    mueve es el bloque de texto, y solo en modo full, con una entrada corta que arranca
    ya pintada. */
 html[data-animations='full'] .hero-editorial__content {
@@ -9653,7 +9753,7 @@ html[data-animations='full'] .hero-editorial__content {
   }
 }
 
-/* B6. Galeria de PDP: la imagen que pasa a estar seleccionada entra con un fundido
+/* Galeria de PDP: la imagen que pasa a estar seleccionada entra con un fundido
    corto en vez de aparecer de golpe al cambiar de variante o de miniatura. */
 html[data-animations='subtle'] .product-gallery__item[data-selected] .product-gallery__image,
 html[data-animations='full'] .product-gallery__item[data-selected] .product-gallery__image {
@@ -9670,8 +9770,8 @@ html[data-animations='full'] .product-gallery__item[data-selected] .product-gall
   }
 }
 
-/* B7. Cabecera condensada. El atributo lo pone initHeaderScrollState.
-   4F-001: desde que la cabecera es sticky el estado condensado se ve de verdad. Ya no
+/* Cabecera condensada. El atributo lo pone initHeaderScrollState.
+   Desde que la cabecera es sticky el estado condensado se ve de verdad. Ya no
    cambia de altura: una cabecera pegada que encoge desplaza todo el contenido de debajo
    a mitad de scroll, y eso es desplazamiento de layout. Cambian sombra y fondo. */
 .site-header {
@@ -9706,7 +9806,7 @@ html[data-animations='full'] .product-gallery__item[data-selected] .product-gall
   }
 }
 
-/* B7. Lineas del carrito escalonadas al abrir el drawer. El indice lo emite el Liquid. */
+/* Lineas del carrito escalonadas al abrir el drawer. El indice lo emite el Liquid. */
 html[data-animations='subtle'] cart-drawer[data-open] .cart-drawer-item,
 html[data-animations='full'] cart-drawer[data-open] .cart-drawer-item {
   animation: cart-line-in var(--motion-base) var(--ease-enter) both;
@@ -9726,26 +9826,26 @@ html[data-animations='full'] cart-drawer[data-open] .cart-drawer-item {
 }
 
 /* =========================================================================
-   B8 (MOTION-002). Coreografia scroll-driven nativa, en sustitucion del motor GSAP.
+   Coreografia scroll-driven nativa, en sustitucion del motor GSAP.
    La progresion ya no la calcula JavaScript cuadro a cuadro: la calcula el compositor
    contra la posicion del elemento dentro de su scroller, asi que el movimiento sigue al
    dedo y no a un reloj. theme.js solo marca los objetivos y publica --reveal-index.
 
-   Posicion en la cascada (invariante, ver la cabecera del sistema de movimiento): B8 va
-   DESPUES de B2 y ANTES de las dos llaves de apagado. Lo primero deja que el modo full
+   Posicion en la cascada (invariante, ver la cabecera del sistema de movimiento): este bloque va
+   DESPUES de las reglas de reveal y ANTES de las dos llaves de apagado. Lo primero deja que el modo full
    sobre-escriba el estado oculto; lo segundo deja que las llaves lo apaguen todo.
    ========================================================================= */
 
-/* B8.0. Comun a los dos motores. Si un elemento pendiente recibe el foco por teclado se
+/* Comun a los dos motores. Si un elemento pendiente recibe el foco por teclado se
    asienta de golpe: el visitante ya esta en el, y cruzar 1200ms de fundido con el anillo
    de foco dentro se lee como un fallo de pintado y no como una entrada. Especificidad
-   (0,5,1): gana a B2 y a B8.1 sea cual sea el orden en que acaben en el archivo. */
+   (0,5,1): gana a las reglas de reveal y al respaldo sea cual sea el orden en que acaben en el archivo. */
 html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-within {
   transition: none;
 }
 
-/* B8.1. Respaldo donde no hay timelines de scroll. El modo full no se queda en la entrada
-   de base: reusa el estado oculto y la transicion de B2 y solo les sube distancia,
+/* Respaldo donde no hay timelines de scroll. El modo full no se queda en la entrada
+   de base: reusa el estado oculto y la transicion de las reglas de reveal y solo les sube distancia,
    duracion y escalonado a los tokens expresivos. Sin mascara tipografica: una mascara que
    no progresa con el scroll no tendria nada que animar. */
 @supports not (animation-timeline: view()) {
@@ -9759,7 +9859,7 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
   }
 }
 
-/* B8.2. El motor. Dos pruebas y no una: hubo versiones que aceptaban view() pero no la
+/* El motor. Dos pruebas y no una: hubo versiones que aceptaban view() pero no la
    sintaxis de dos valores de animation-range, y ahi los rangos se quedaban sin resolver y
    la coreografia entera no arrancaba. La consulta de movimiento reducido envuelve el
    bloque en vez de confiar solo en la llave 2: asi los timelines ni se crean. */
@@ -9769,7 +9869,7 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
        entrada, de modo que la animacion es scroll y no tiempo. El escalonado tambien pasa a
        ser recorrido: --reveal-index (0..7, el tope lo fija theme.js) corre el inicio y el
        final la MISMA distancia, asi todos recorren lo mismo y el hermano siguiente arranca
-       mas abajo. La transicion de B2 se retira aqui: dos origenes gobernando opacity y
+       mas abajo. La transicion de las reglas de reveal se retira aqui: dos origenes gobernando opacity y
        transform a la vez dan un resultado que depende del orden de pintado. */
     html[data-animations='full'][data-reveal-ready] [data-reveal=''] {
       view-timeline-name: --reveal;
@@ -9910,13 +10010,13 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
   }
 }
 
-/* B8.3. Los fotogramas del motor. Ninguno lleva duracion propia: la pone animation-range.
+/* Los fotogramas del motor. Ninguno lleva duracion propia: la pone animation-range.
 
    scroll-fade y scroll-unveil declaran opacity y transform aunque no los cambien, y eso es
    DELIBERADO: no son relleno, no se limpien. Una propiedad solo queda gobernada por el
    origen "animacion" si aparece en los fotogramas. Sin esas declaraciones, un contenedor
    que entra por scroll-unveil seguiria cogiendo el opacity: 0 y el translateY del estado
-   oculto de B2 y se quedaria invisible hasta que el JS lo marcara: exactamente el parpadeo
+   oculto de las reglas de reveal y se quedaria invisible hasta que el JS lo marcara: exactamente el parpadeo
    que este motor viene a quitar. */
 @keyframes scroll-rise {
   from {
@@ -10001,7 +10101,7 @@ html[data-animations='none'] *::after {
 html[data-animations='none'] [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
-  /* MOTION-002: la mascara tipografica de B8.2b recorta por el borde del contenedor. Sin
+  /* La mascara tipografica del motor recorta por el borde del contenedor. Sin
      anularla aqui, apagar el movimiento dejaria las lineas recortadas en su sitio inicial. */
   clip-path: none !important;
 }
@@ -10013,7 +10113,7 @@ html[data-animations='none'] [data-reveal] {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    /* MOTION-002 (CLS en reduce). Las transiciones van a 0s, no a 0.01ms: con
+    /* Las transiciones van a 0s, no a 0.01ms: con
        transition-property en su valor inicial (all), una duracion de 0.01ms convierte
        CUALQUIER cambio de estilo calculado en una transicion de un fotograma que pinta
        primero el valor viejo. Al cargar la fuente web, el max-width en ch del titular
@@ -10030,7 +10130,7 @@ html[data-animations='none'] [data-reveal] {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
-    /* MOTION-002: ver la nota de la llave 1. La mascara tambien se anula aqui. */
+    /* Ver la nota de la llave 1. La mascara tambien se anula aqui. */
     clip-path: none !important;
   }
 
@@ -10046,14 +10146,14 @@ html[data-animations='none'] [data-reveal] {
 }
 
 /* ---------- Llave 3: papel. No hay scroll que recorrer ---------- */
-/* MOTION-002. Las dos llaves de arriba no cubren este caso: el motor es scroll, y al
+/* Las dos llaves de arriba no cubren este caso: el motor es scroll, y al
    imprimir no hay scroll que recorrer, asi que todo lo pendiente de revelar se queda en
    progreso 0 y hoy sale en blanco. Esto lo asienta en papel sin tocar la pantalla. */
 @media print {
-  /* Los hijos que B8 anima llevan su propia animation con animation-timeline: no heredan el
+  /* Los hijos que el motor scroll-driven anima llevan su propia animation con animation-timeline: no heredan el
      animation: none del contenedor y en papel se quedan en el fotograma 0 (lineas 64 px
      abajo y fuera del clip-path, fotos a scale(1.18) bajo el overflow: hidden). Se listan
-     los mismos objetivos que B8.2 y no un * global, para no pisar estilos de impresion
+     los mismos objetivos que el motor y no un * global, para no pisar estilos de impresion
      ajenos. Hero y banda se asientan tambien: en papel no hay scroll ni tiempo que recorrer. */
   html[data-reveal-ready] [data-reveal],
   html[data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
@@ -10080,7 +10180,7 @@ html[data-animations='none'] [data-reveal] {
 }
 
 /* -------------------------------------------------------------------------- */
-/* 5C-002. PDP Confianza, Inventario y Recently Viewed                        */
+/* PDP Confianza, Inventario y Recently Viewed                        */
 /* -------------------------------------------------------------------------- */
 
 product-inventory {
@@ -10213,7 +10313,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 }
 
 /* -------------------------------------------------------------------------- */
-/* 5C-001. Mega Menú Editorial Multicolumna                                   */
+/* Mega Menú Editorial Multicolumna                                   */
 /* -------------------------------------------------------------------------- */
 /* El panel es el mismo [data-disclosure-panel] de <theme-disclosure>: sin JS nuevo. Con el
    disparador en position: static, el panel se ancla a .site-header (position: relative) y
@@ -10412,7 +10512,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   }
 }
 
-/* v1.1.0 bloques de PDP por preset: especificaciones tecnicas (Imprint) y procedencia (Archive). */
+/* Bloques de PDP por preset: especificaciones tecnicas (Imprint) y procedencia (Archive). */
 .product-technical-specs,
 .product-provenance {
   display: grid;
@@ -10475,9 +10575,81 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   }
 }
 
-/* LV05-R01. Solo estos contenedores estrechos parten una palabra larga en vez de ensanchar la
+/* Solo estos contenedores estrechos parten una palabra larga en vez de ensanchar la
    tarjeta (zoom, letra grande); la politica global overflow-wrap: normal se mantiene. */
 .bento-discovery__item--product .product-card__title,
 .curated-showcase__supporting .product-card__title {
   overflow-wrap: anywhere;
 }
+
+/* ===== Localization form and other script-driven additions ===== */
+.localization-form__country-submit {
+  min-height: 44px;
+  margin-inline-start: var(--space-xs);
+  padding-inline: var(--space-sm);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.featured-product__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.featured-product__title-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.product-editor-note {
+  padding: var(--space-3);
+  border: 1px dashed var(--color-border);
+  color: var(--color-foreground-muted);
+  font-size: 0.875rem;
+}
+
+.product-editor-note p {
+  margin: 0;
+}
+
+/* Gallery: one image at a time on narrow screens (the selected variant's, or the first),
+   and the first five plus the selected one on wide screens. */
+@media (max-width: 61.99rem) {
+  .featured-product__media:not([data-selected]) {
+    display: none;
+  }
+
+  .featured-product__gallery:not(:has(.featured-product__media[data-selected])) .featured-product__media:first-child {
+    display: block;
+  }
+}
+
+@media (min-width: 62rem) {
+  .featured-product__media:nth-child(n + 6):not([data-selected]) {
+    display: none;
+  }
+}
+
+.complete-the-look__item--sample {
+  grid-template-areas: 'media details';
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  align-items: center;
+  opacity: 0.7;
+}
+
+.complete-the-look__sample-line {
+  display: block;
+  height: 0.75rem;
+  margin-block: var(--space-xs);
+  background: var(--color-border-hairline);
+}
+
+.complete-the-look__sample-line--short {
+  width: 40%;
+}
+
+.lookbook-hotspot__trigger--sample {
+  opacity: 0.6;
+  cursor: default;
+}
+/* ===== end ===== */

@@ -1,4 +1,4 @@
-/* 5B-001. Zoom de la ficha: <dialog>, Pointer Events y teclado. */
+/* Zoom de la ficha: <dialog>, Pointer Events y teclado. */
 if (window.ThemeCore && !customElements.get('product-zoom')) customElements.define('product-zoom', class extends window.ThemeCore.ThemeElement {
   clamp = (value, min, max) => Math.min(Math.max(value, min), max);
   pointers = new Map();
@@ -92,7 +92,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.scale = Math.min(previous, Math.max(1, this.fit.max));
     this.track.scrollLeft = this.offsetOf(this.index);
     this.apply();
-    // P2-01: anuncia el zoom reajustado.
+    // Anuncia el zoom reajustado.
     if (this.dialog.open && Math.round(this.scale * 100) !== Math.round(previous * 100)) this.announce();
   }
 

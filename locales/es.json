@@ -110,6 +110,15 @@
       "pause": "Pausar los avisos",
       "play": "Reproducir los avisos"
     },
+    "blog_posts": {
+      "region_label": "Últimas publicaciones del blog",
+      "view_all": "Ver todo",
+      "view_all_label": "Ver todas las publicaciones de {{ title }}",
+      "read_more": "Leer más",
+      "placeholder_title": "Título de la publicación",
+      "choose_blog": "Elige un blog en el editor de temas para mostrar aquí sus últimas publicaciones.",
+      "empty_blog": "Este blog aún no tiene publicaciones."
+    },
     "lookbook": {
       "region_label": "Lookbook editorial interactivo",
       "image_alt": "Composición editorial con prendas disponibles para comprar",
@@ -117,6 +126,11 @@
       "featured_piece": "Pieza destacada",
       "view_product": "Ver producto",
       "products_label": "Piezas presentes en este look"
+    },
+    "collection_list": {
+      "region_label": "Colecciones",
+      "placeholder_title": "Título de la colección",
+      "add_collections": "Añade bloques de colección en el editor de temas para crear esta lista."
     },
     "complete_the_look": {
       "region_label": "Completa el look",
@@ -141,18 +155,33 @@
       "added": "El look seleccionado se añadió a tu carrito.",
       "error": "No pudimos añadir este look. Revisa las opciones seleccionadas e inténtalo de nuevo."
     },
+    "featured_collection": {
+      "region_label": "Colección destacada",
+      "view_all": "Ver todo",
+      "view_all_label": "Ver todos los productos de {{ title }}",
+      "choose_collection": "Elige una colección en el editor de temas para mostrar aquí sus productos.",
+      "empty_collection": "Esta colección aún no tiene productos."
+    },
     "featured_product": {
       "region_label": "Producto destacado",
       "onboarding_title": "Producto de lujo destacado",
       "onboarding_price": "$480.00"
     },
     "recently_viewed": {
-      "heading": "Vistos recientemente"
+      "heading": "Vistos recientemente",
+      "editor_notice": "Los productos aparecen aquí cuando un visitante ha visto alguno. Esta nota solo se muestra en el editor del tema."
+    },
+    "rich_text": {
+      "region_label": "Texto enriquecido",
+      "add_content": "Añade un encabezado, texto o botón en el editor de temas."
     },
     "main_product": {
       "blocks": {
         "inventory_status": {
-          "low_stock": "Pocas existencias: [count] disponibles",
+          "low_stock": {
+            "one": "Pocas existencias: {{ count }} disponible",
+            "other": "Pocas existencias: {{ count }} disponibles"
+          },
           "low_stock_generic": "Pocas existencias",
           "in_stock": "En existencias",
           "preorder": "Disponible bajo pedido",
@@ -160,6 +189,29 @@
           "unavailable": "Esta opción no está disponible"
         }
       }
+    },
+    "image_with_text": {
+      "region_label": "Imagen con texto"
+    },
+    "slideshow": {
+      "region_label": "Presentación de diapositivas",
+      "carousel_role": "carrusel",
+      "slide_role": "diapositiva",
+      "slide_label": "Diapositiva {{ current }} de {{ total }}",
+      "slide_status": "Diapositiva {{ current }} de {{ total }}",
+      "previous": "Diapositiva anterior",
+      "next": "Diapositiva siguiente",
+      "go_to_slide": "Ir a la diapositiva {{ number }}",
+      "pause": "Pausar la presentación",
+      "play": "Reproducir la presentación",
+      "empty": "Añade diapositivas a esta sección para crear tu presentación."
+    },
+    "video": {
+      "region_label": "Vídeo",
+      "default_title": "Vídeo",
+      "play": "Reproducir",
+      "play_label": "Reproducir vídeo: {{ title }}",
+      "watch": "Ver el vídeo"
     },
     "bento_discovery": {
       "explore_generic": "Explorar"
@@ -183,8 +235,7 @@
         "material_image_alt": "Estudio en detalle de un material"
       },
       "bento": {
-        "region_label": "Descubre colecciones, historias y productos",
-        "explore": "Explorar {{ title }}"
+        "region_label": "Descubre colecciones, historias y productos"
       },
       "marquee": {
         "region_label": "Destacados editoriales",
@@ -339,6 +390,7 @@
       "submit": "Buscar"
     },
     "results": {
+      "heading": "Resultados de búsqueda",
       "count": {
         "one": "{{ count }} resultado",
         "other": "{{ count }} resultados"
@@ -457,6 +509,8 @@
       "option_unavailable": "Opción no disponible",
       "variant_loading": "Cargando variante…",
       "variant_navigation_notice": "Al elegir una opción se abre la ficha del producto.",
+      "editor_empty": "Solo en el editor de temas: este bloque queda oculto en la tienda hasta que tenga un producto o contenido que mostrar.",
+      "editor_no_product": "Solo en el editor de temas: este texto queda oculto en la tienda hasta que se seleccione un producto.",
       "variant_available": "Variante disponible.",
       "variant_available_with_price": "[title], [price]: Variante disponible.",
       "variant_sold_out": "Variante agotada.",
@@ -513,6 +567,7 @@
   "collections": {
     "general": {
       "collection": "Colección",
+      "products_heading": "Productos",
       "products_count": {
         "one": "{{ count }} producto",
         "other": "{{ count }} productos"
@@ -551,50 +606,6 @@
     },
     "merchandising": {
       "promotion": "Destacado editorial de la colección"
-    }
-  },
-  "templates": {
-    "home": {
-      "title": "{{ shop }}",
-      "message": "Una tienda editorial y flexible está tomando forma."
-    },
-    "product": {
-      "title": "Producto"
-    },
-    "collection": {
-      "title": "Colección"
-    },
-    "list_collections": {
-      "title": "Colecciones"
-    },
-    "cart": {
-      "title": "Carrito",
-      "empty": "Tu carrito está vacío."
-    },
-    "search": {
-      "title": "Buscar",
-      "results_for": "Resultados de búsqueda para «{{ terms }}»",
-      "prompt": "Usa el buscador para explorar el catálogo."
-    },
-    "not_found": {
-      "title": "Página no encontrada",
-      "message": "No encontramos la página que buscas.",
-      "link": "Volver al inicio"
-    },
-    "page": {
-      "title": "Página"
-    },
-    "blog": {
-      "title": "Diario"
-    },
-    "article": {
-      "title": "Artículo"
-    },
-    "password": {
-      "title": "Próxima apertura",
-      "message": "Esta tienda prepara su próximo capítulo.",
-      "password_label": "Contraseña de la tienda",
-      "submit": "Entrar en la tienda"
     }
   },
   "gift_cards": {

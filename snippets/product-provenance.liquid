@@ -48,7 +48,7 @@
       <p class="product-provenance__badge">{{ 'products.product.provenance.single_piece' | t }}</p>
     {%- endif -%}
     {%- if provenance_year != blank -%}
-      <p class="product-provenance__year">{{ 'products.product.provenance.circa' | t: year: provenance_year | escape }}</p>
+      <p class="product-provenance__year">{{ 'products.product.provenance.circa' | t: year: provenance_year | escape_once }}</p>
     {%- endif -%}
     {%- if show_grade -%}
       <p class="product-provenance__grade">

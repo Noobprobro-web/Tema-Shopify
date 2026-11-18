@@ -13,6 +13,8 @@
     box. Each falls back to the previous one; pass none to keep the legacy sizes
     ((min-width: 990px) 25vw, 50vw). Pass the widest estimate: 100vw / columns ignores the
     gutters and the filters sidebar, so it never asks for an image narrower than the box.
+  - sizes: optional. A ready-made `sizes` attribute for cards whose box is not a share of a grid
+    row (for example a horizontal card). It takes priority over the column parameters.
   - show_quick_add: show quick add. A single variant adds in one click; a product whose
     only option is its color adds the committed color in one click; a product with one
     size-like option (plus an optional color) opens a size picker where the size itself is the
@@ -38,6 +40,9 @@
     capture card_sizes
       render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop
     endcapture
+  endif
+  if sizes != blank
+    assign card_sizes = sizes
   endif
   assign card_key = section.id | append: '-' | append: card_product.id
   if card_id_suffix != blank
@@ -105,7 +110,7 @@
     elsif combined_listing or variant_total > 250
       assign quick_buy_mode = 'options'
     elsif card_product.has_only_default_variant or variant_total == 1
-      # LEAD-001: opciones con un solo valor (p. ej. una pieza 1-de-1 con Condicion y Talla)
+      # Opciones con un solo valor (p. ej. una pieza 1-de-1 con Condicion y Talla)
       # siguen siendo una unica variante; pedir "Elegir opciones" era un paso vacio.
       assign quick_buy_mode = 'single'
     elsif card_product.options.size == 1 and swatch_position == 1
@@ -196,11 +201,11 @@
           endfor
         -%}
         {%- comment -%}
-          LV05-CN7. A row of only colors has fixed-size pieces (44px), so its bands must not grow
+          A row of only colors has fixed-size pieces (44px), so its bands must not grow
           with the browser font size: it prints data-swatch-fit-px (bands in px) instead of
           data-swatch-fit (bands in max(px, rem), for rows with text swatches).
-          data-swatch-fit picks one to four swatches per width band of the row (base.css,
-          LV05-CN3 and LV05-CN5). The pill always counts exactly what is hidden.
+          data-swatch-fit picks one to four swatches per width band of the row (base.css).
+          The pill always counts exactly what is hidden.
         {%- endcomment -%}
         <div class="product-card__swatches">
           <div
@@ -334,7 +339,7 @@
             {%- endif -%}
           {%- endfor -%}
           {%- comment -%}
-            LV05-CN6. When the row is too narrow for any pill (base.css), this is the only
+            When the row is too narrow for any pill (base.css), this is the only
             count left: shown to assistive tech only, never focusable, outside the row flow.
           {%- endcomment -%}
           <span class="visually-hidden card-swatch-count">
