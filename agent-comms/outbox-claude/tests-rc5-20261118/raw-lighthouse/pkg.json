@@ -1,0 +1,334 @@
+{
+  "generatedAt": "2026-11-18T03:44:47.699Z",
+  "lighthouseVersion": "13.6.0",
+  "pinnedLighthouse": "13.6.0",
+  "note": "Medicion aproximada desde contenedor (CPU/red distintas a Shopify); throttling simulado de Lighthouse.",
+  "pages": [
+    {
+      "kind": "home",
+      "handle": null,
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        93,
+        90,
+        89
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        92,
+        92,
+        92
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 170 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 173692
+          },
+          "unused-css-rules": {
+            "score": 0.5,
+            "display": "Est savings of 139 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 142269
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "3.1 s"
+          },
+          "bootup-time": {
+            "score": 1,
+            "display": "0.8 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,011 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 90,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "imgKB": 157,
+        "imgCount": 6,
+        "totalKB": 2011,
+        "lcpMs": 2387,
+        "cls": 0,
+        "tbtMs": 197,
+        "fcpMs": 2387,
+        "siMs": 4094
+      }
+    },
+    {
+      "kind": "collection",
+      "handle": "all",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        97,
+        95,
+        97
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        92,
+        92,
+        92
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 166 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 169619
+          },
+          "unused-css-rules": {
+            "score": 0.5,
+            "display": "Est savings of 141 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 143892
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "3.5 s"
+          },
+          "bootup-time": {
+            "score": 1,
+            "display": "0.9 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,541 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 97,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "imgKB": 727,
+        "imgCount": 28,
+        "totalKB": 2541,
+        "lcpMs": 1893,
+        "cls": 0,
+        "tbtMs": 125,
+        "fcpMs": 1327,
+        "siMs": 4021
+      }
+    },
+    {
+      "kind": "product",
+      "handle": "serra-coat",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        89,
+        84,
+        87
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        100,
+        100,
+        100
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0.5,
+            "display": "Est savings of 210 KiB",
+            "savingsMs": 0,
+            "savingsBytes": 215221
+          },
+          "unused-css-rules": {
+            "score": 0,
+            "display": "Est savings of 140 KiB",
+            "savingsMs": 150,
+            "savingsBytes": 143154
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "3.2 s"
+          },
+          "bootup-time": {
+            "score": 1,
+            "display": "1.0 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,369 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 87,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 100,
+        "imgKB": 472,
+        "imgCount": 13,
+        "totalKB": 2359,
+        "lcpMs": 3237,
+        "cls": 0,
+        "tbtMs": 195,
+        "fcpMs": 1340,
+        "siMs": 4566
+      }
+    },
+    {
+      "kind": "page",
+      "handle": "std-test",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        68,
+        69,
+        69
+      ],
+      "accessibilityScores": [
+        97,
+        97,
+        97
+      ],
+      "bestPracticesScores": [
+        96,
+        96,
+        96
+      ],
+      "seoScores": [
+        92,
+        92,
+        92
+      ],
+      "diagLast": {
+        "diag": {
+          "unsized-images": {
+            "score": 1
+          },
+          "uses-responsive-images": {},
+          "offscreen-images": {},
+          "render-blocking-resources": {},
+          "modern-image-formats": {},
+          "prioritize-lcp-image": {},
+          "lcp-lazy-loaded": {},
+          "unused-javascript": {
+            "score": 0,
+            "display": "Est savings of 170 KiB",
+            "savingsMs": 210,
+            "savingsBytes": 173981
+          },
+          "unused-css-rules": {
+            "score": 0,
+            "display": "Est savings of 141 KiB",
+            "savingsMs": 150,
+            "savingsBytes": 144426
+          },
+          "third-party-summary": {},
+          "mainthread-work-breakdown": {
+            "score": 0,
+            "display": "3.7 s"
+          },
+          "bootup-time": {
+            "score": 1,
+            "display": "1.2 s"
+          },
+          "uses-optimized-images": {},
+          "efficient-animated-content": {},
+          "total-byte-weight": {
+            "score": 1,
+            "display": "Total size was 2,201 KiB"
+          }
+        }
+      },
+      "median": {
+        "performance": 69,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "imgKB": 383,
+        "imgCount": 14,
+        "totalKB": 2201,
+        "lcpMs": 5837,
+        "cls": 0,
+        "tbtMs": 222,
+        "fcpMs": 1858,
+        "siMs": 5413
+      }
+    }
+  ],
+  "presets": {
+    "mobile": {
+      "averagePerformanceOfMedians": 85.8,
+      "minPerformanceOfMedians": 69
+    }
+  }
+}

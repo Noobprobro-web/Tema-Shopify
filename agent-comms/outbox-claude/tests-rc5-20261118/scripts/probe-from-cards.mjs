@@ -1,0 +1,6 @@
+import { chromium, newCtx, nav, save, THEMES, presets } from './common.mjs';
+const browser = await chromium.launch(); const res = [];
+for (const preset of presets) { const ctx = await newCtx(browser, 390, 844, { deviceScaleFactor: 2, hasTouch: true, isMobile: true }); const page = await ctx.newPage(); await nav(page, '/collections/all', THEMES[preset], 800);
+  const r = await page.evaluate(() => [...document.querySelectorAll('.product-card')].filter((c) => /from/i.test(c.querySelector('.price')?.textContent || '')).map((c) => { const p = c.querySelector('.price'); const strikes = [...p.querySelectorAll('s, del, .price__compare')].map((e) => { const rr = e.getBoundingClientRect(); return { visible: rr.width > 0 && getComputedStyle(e).display !== 'none' && !e.hidden && getComputedStyle(e).visibility !== 'hidden', text: e.textContent.trim() }; }); return { title: c.querySelector('.product-card__title')?.textContent.trim().slice(0, 30), price: p.textContent.replace(/\s+/g, ' ').trim(), strikes }; }));
+  res.push({ preset, cards: r }); console.log(preset, JSON.stringify(r.map((c) => [c.title, c.price, c.strikes.filter((s) => s.visible).length]))); await ctx.close(); }
+await browser.close(); save('27b-from-cards.json', res);

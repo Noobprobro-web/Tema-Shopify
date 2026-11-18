@@ -1,0 +1,58 @@
+{
+  "store": "sartorial-theme-kvkzl39t.myshopify.com",
+  "sourceCommit": "e5fd4b2a8f5878d31d49b3b3b89cb66cfd6a01f4",
+  "branch": "origin/feat/audit-integration (PR #14)",
+  "themes": [
+    {
+      "preset": "pkg",
+      "id": "190453285168",
+      "name": "Sartorial pkg (e5fd4b2)",
+      "role": "UNPUBLISHED",
+      "processing": false,
+      "settingsDataMd5": "4601ae823243e570029346db9f18b7e6",
+      "expectedMd5": "4601ae823243e570029346db9f18b7e6",
+      "match": true,
+      "zipSha256": "23057ce7aa5efec61531af9b90ebf5a0cae4f48f2ff4b51a4dd5fbf9d649aa18",
+      "zipFiles": 102,
+      "zipBytes": 314385,
+      "note": "artefacto de scripts/package-theme-zip.mjs --rev e5fd4b2 subido tal cual; sha256 verificado antes de subir; sin release-notes.md ni docs-only"
+    },
+    {
+      "preset": "sartorial",
+      "id": "190453317936",
+      "name": "Sartorial rc5 (e5fd4b2)",
+      "role": "UNPUBLISHED",
+      "processing": false,
+      "settingsDataMd5": "b75014e6a46516017aa8c02beee30b2c",
+      "exportMd5": "b75014e6a46516017aa8c02beee30b2c",
+      "match": true
+    },
+    {
+      "preset": "imprint",
+      "id": "190453350704",
+      "name": "Imprint rc5 (e5fd4b2)",
+      "role": "UNPUBLISHED",
+      "processing": false,
+      "settingsDataMd5": "d7ba9fad745212424c7074330ca3ad2e",
+      "exportMd5": "d7ba9fad745212424c7074330ca3ad2e",
+      "match": true
+    },
+    {
+      "preset": "archive",
+      "id": "190453383472",
+      "name": "Archive rc5 (e5fd4b2)",
+      "role": "UNPUBLISHED",
+      "processing": false,
+      "settingsDataMd5": "a0f10a7b6c91751cf65ab9c71f8147dd",
+      "exportMd5": "a0f10a7b6c91751cf65ab9c71f8147dd",
+      "match": true
+    }
+  ],
+  "method": "build-export.mjs --commit e5fd4b2 --preset P (97 archivos, 93 tras borrar en la copia 4 rutas de docs/soporte) + zip -r -X + stagedUploadsCreate (FILE) + POST + themeCreate UNPUBLISHED; pkg: ZIP del empaquetador sin tocar",
+  "extraFiles": {
+    "templates/page.std-test.json": "4 temas",
+    "templates/page.iwt.json": "3 rc5",
+    "templates/product.lowstock.json": "3 rc5 (umbral 10)"
+  },
+  "runMjsSha256Before": "103c1551fc1d639e93a882900885ba9283d8c260d49c938543d6299ac1a4292f"
+}
