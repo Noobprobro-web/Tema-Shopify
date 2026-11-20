@@ -2,10 +2,6 @@
   assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-2'
   assign current_year = 'now' | date: '%Y'
   assign shop_name = shop.name
-  assign has_social_links = false
-  if settings.social_instagram_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_tiktok_link != blank or settings.social_youtube_link != blank
-    assign has_social_links = true
-  endif
 -%}
 
 {%- comment -%}
@@ -98,27 +94,8 @@
       </nav>
     {%- endif -%}
 
-    {%- if section.settings.show_social and has_social_links -%}
-      <nav class="site-footer__social" aria-label="{{ 'general.social.follow_us' | t }}">
-        <p class="eyebrow">{{ 'general.social.follow_us' | t }}</p>
-        <ul class="social-links unstyled-list" role="list">
-          {%- if settings.social_instagram_link != blank -%}
-            <li><a href="{{ settings.social_instagram_link | escape }}">{{ 'general.social.instagram' | t }}</a></li>
-          {%- endif -%}
-          {%- if settings.social_facebook_link != blank -%}
-            <li><a href="{{ settings.social_facebook_link | escape }}">{{ 'general.social.facebook' | t }}</a></li>
-          {%- endif -%}
-          {%- if settings.social_pinterest_link != blank -%}
-            <li><a href="{{ settings.social_pinterest_link | escape }}">{{ 'general.social.pinterest' | t }}</a></li>
-          {%- endif -%}
-          {%- if settings.social_tiktok_link != blank -%}
-            <li><a href="{{ settings.social_tiktok_link | escape }}">{{ 'general.social.tiktok' | t }}</a></li>
-          {%- endif -%}
-          {%- if settings.social_youtube_link != blank -%}
-            <li><a href="{{ settings.social_youtube_link | escape }}">{{ 'general.social.youtube' | t }}</a></li>
-          {%- endif -%}
-        </ul>
-      </nav>
+    {%- if section.settings.show_social -%}
+      {%- render 'social-links' -%}
     {%- endif -%}
   </div>
 

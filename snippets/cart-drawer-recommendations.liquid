@@ -56,6 +56,10 @@
 
     assign seen_ids = ','
     assign cross_sell_count = 0
+    # True when the loop reaches source 2 with free slots, i.e. the product metafield did not
+    # fill both. Source 2 outranks blocks and collection, so it must be requested even when
+    # those lower sources fill the slots on this first render.
+    assign search_slot_open = false
   -%}
 
   {%- capture add_button_content -%}
@@ -81,6 +85,7 @@
               assign budget = 10
             endif
           when 2
+            assign search_slot_open = true
             if section.settings.use_search_discovery and anchor_product and recommendations.performed?
               assign pool = recommendations.products
               assign budget = 10
@@ -293,8 +298,9 @@
   {%- liquid
     # Fuente 2 sin resolver todavia: el JavaScript pide la ruta de recomendaciones para el
     # ancla y sustituye este contenedor. Mientras tanto se ve lo que dieron las demas fuentes.
+    # Se pide siempre que la fuente 2 tenga hueco (aunque las fuentes 3 y 4 ya lo llenen).
     assign fetch_pending = false
-    if section.settings.use_search_discovery and anchor_product and recommendations.performed? != true and cross_sell_count < 2
+    if section.settings.use_search_discovery and anchor_product and recommendations.performed? != true and search_slot_open
       assign fetch_pending = true
     endif
   -%}

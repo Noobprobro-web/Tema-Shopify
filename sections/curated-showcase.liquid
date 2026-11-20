@@ -82,16 +82,26 @@
             assign spotlight_title = spotlight_product.title | default: tab_label
             assign spotlight_url = spotlight_product.url | default: collection_url
             assign spotlight_alt = spotlight_image.alt | default: spotlight_title
+            # Supporting cards need a second product; with one or none, the storefront shows the
+            # spotlight alone and only the theme editor keeps sample cards.
+            assign show_supporting = request.design_mode
+            if tab_collection.products_count > 1
+              assign show_supporting = true
+            endif
           -%}
           <div
             id="CuratedPanel-{{ section.id }}-{{ block.id }}"
-            class="curated-showcase__panel"
+            class="curated-showcase__panel{% unless show_supporting %} curated-showcase__panel--single{% endunless %}"
             role="tabpanel"
             aria-labelledby="CuratedTab-{{ section.id }}-{{ block.id }}"
             data-curated-panel
-            {% unless forloop.first %}hidden inert{% endunless %}
             {{ block.shopify_attributes }}
           >
+            {%- comment -%}
+              No `hidden inert` here: the script hides the unselected panels once it runs. Without
+              JavaScript every panel stays visible, stacked, and this heading names each one.
+            {%- endcomment -%}
+            <h3 class="curated-showcase__panel-title no-js-only">{{ tab_label | escape }}</h3>
             <article class="curated-showcase__spotlight">
               <a
                 class="curated-showcase__spotlight-media"
@@ -123,6 +133,7 @@
               </div>
             </article>
 
+            {%- if show_supporting -%}
             <div class="curated-showcase__supporting">
               {%- for card_product in tab_collection.products limit: 2 offset: 1 -%}
                 {% render 'product-card',
@@ -134,20 +145,24 @@
                   show_quick_add: false
                 %}
               {%- else -%}
-                {%- for placeholder_index in (1..2) -%}
-                  {%- assign placeholder_name = 'product-' | append: placeholder_index | append: '' -%}
-                  <article class="product-card curated-showcase__placeholder-card" aria-hidden="true">
-                    <div class="product-card__media">
-                      {{- placeholder_name | placeholder_svg_tag: 'homepage-placeholder' -}}
-                    </div>
-                    <div class="product-card__content">
-                      <span class="curated-showcase__placeholder-line"></span>
-                      <span class="curated-showcase__placeholder-line curated-showcase__placeholder-line--short"></span>
-                    </div>
-                  </article>
-                {%- endfor -%}
+                {%- comment -%}Sample cards only in the theme editor; the storefront shows just the featured product.{%- endcomment -%}
+                {%- if request.design_mode -%}
+                  {%- for placeholder_index in (1..2) -%}
+                    {%- assign placeholder_name = 'product-' | append: placeholder_index | append: '' -%}
+                    <article class="product-card curated-showcase__placeholder-card" aria-hidden="true">
+                      <div class="product-card__media">
+                        {{- placeholder_name | placeholder_svg_tag: 'homepage-placeholder' -}}
+                      </div>
+                      <div class="product-card__content">
+                        <span class="curated-showcase__placeholder-line"></span>
+                        <span class="curated-showcase__placeholder-line curated-showcase__placeholder-line--short"></span>
+                      </div>
+                    </article>
+                  {%- endfor -%}
+                {%- endif -%}
               {%- endfor -%}
             </div>
+            {%- endif -%}
 
             <footer class="curated-showcase__footer">
               <span aria-hidden="true">{{ tab_number }} / {{ section.blocks.size | prepend: '0' }}</span>

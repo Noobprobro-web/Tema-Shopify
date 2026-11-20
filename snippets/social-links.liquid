@@ -1,0 +1,59 @@
+{%- comment -%}
+  Renders the footer social media links. Each network is drawn only when its
+  URL is set in the theme settings; nothing is output when none are set.
+  Every link shows an icon and keeps its network name as accessible text.
+{%- endcomment -%}
+
+{%- assign social_networks = 'instagram,facebook,x,youtube,tiktok,pinterest,snapchat,vimeo,tumblr' | split: ',' -%}
+{%- capture social_items -%}
+  {%- for network in social_networks -%}
+    {%- liquid
+      case network
+        when 'instagram'
+          assign social_url = settings.social_instagram_link
+          assign social_label = 'general.social.instagram' | t
+        when 'facebook'
+          assign social_url = settings.social_facebook_link
+          assign social_label = 'general.social.facebook' | t
+        when 'x'
+          assign social_url = settings.social_x_link
+          assign social_label = 'general.social.x' | t
+        when 'youtube'
+          assign social_url = settings.social_youtube_link
+          assign social_label = 'general.social.youtube' | t
+        when 'tiktok'
+          assign social_url = settings.social_tiktok_link
+          assign social_label = 'general.social.tiktok' | t
+        when 'pinterest'
+          assign social_url = settings.social_pinterest_link
+          assign social_label = 'general.social.pinterest' | t
+        when 'snapchat'
+          assign social_url = settings.social_snapchat_link
+          assign social_label = 'general.social.snapchat' | t
+        when 'vimeo'
+          assign social_url = settings.social_vimeo_link
+          assign social_label = 'general.social.vimeo' | t
+        when 'tumblr'
+          assign social_url = settings.social_tumblr_link
+          assign social_label = 'general.social.tumblr' | t
+      endcase
+    -%}
+    {%- if social_url != blank -%}
+      <li>
+        <a class="social-links__link" href="{{ social_url | escape }}" rel="noopener">
+          {%- render 'icon', name: network, size: 22 -%}
+          <span class="visually-hidden">{{ social_label }}</span>
+        </a>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if social_items contains '<li>' -%}
+  <nav class="site-footer__social" aria-label="{{ 'general.social.follow_us' | t }}">
+    <p class="eyebrow">{{ 'general.social.follow_us' | t }}</p>
+    <ul class="social-links unstyled-list" role="list">
+      {{- social_items -}}
+    </ul>
+  </nav>
+{%- endif -%}

@@ -10653,3 +10653,80 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   cursor: default;
 }
 /* ===== end ===== */
+
+/* ===== Liquid additions ===== */
+/* Social links: icon-only targets with a 44px hit area; the network name is visually hidden text. */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.social-links__link {
+  justify-content: center;
+  min-width: var(--tap-target-min);
+  min-height: var(--tap-target-min);
+}
+
+.social-links__link .icon {
+  flex: none;
+}
+
+/* Featured product gallery on narrow screens: every media item sits in one horizontal scroll-snap strip so
+   video and 3D stay reachable. The item of the selected variant is ordered first. */
+@media (max-width: 61.99rem) {
+  .featured-product__gallery {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .featured-product__gallery .featured-product__media {
+    display: block;
+    flex: 0 0 85%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .featured-product__gallery .featured-product__media[data-selected] {
+    order: -1;
+  }
+
+  .featured-product__gallery .featured-product__media:only-child,
+  .featured-product__gallery .featured-product__placeholder {
+    flex: 0 0 100%;
+  }
+}
+
+/* Curated showcase without JavaScript: the tabs do nothing, so they are hidden and every panel is
+   shown stacked under its own title. Before the script upgrades the element, only the first panel
+   shows, so the page does not jump when the other panels are hidden. */
+.curated-showcase__panel-title {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: calc(1.5rem * var(--font-heading-scale));
+  font-weight: var(--font-heading-weight);
+}
+
+.curated-showcase__panel--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.no-js .curated-showcase__tabs {
+  display: none;
+}
+
+.no-js .curated-showcase__panels {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+.js curated-showcase:not(:defined) .curated-showcase__panel:not(:first-child) {
+  display: none;
+}
+/* ===== end ===== */

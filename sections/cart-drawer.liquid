@@ -96,7 +96,12 @@
             style="--cart-progress: {{ rewards_progress }}%; --shipping-marker: {{ shipping_marker }}%;"
             data-cart-rewards
           >
-            <p class="cart-rewards__message" role="status" aria-live="polite">
+            {%- comment -%}
+              No live region here: the whole drawer body is replaced on every update, and a region that
+              is inserted together with its text is not reliably announced. The message is also exposed as
+              the progress bar value text, and cart changes are announced by the persistent status above.
+            {%- endcomment -%}
+            <p class="cart-rewards__message">
               {{- rewards_message -}}
             </p>
             <div
