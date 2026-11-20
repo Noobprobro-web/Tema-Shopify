@@ -59,7 +59,6 @@
                 tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
                 data-curated-tab
               >
-                <span aria-hidden="true">[{{ tab_number }}]</span>
                 <span>{{ tab_label | escape }}</span>
               </button>
             {%- endfor -%}
@@ -165,7 +164,6 @@
             {%- endif -%}
 
             <footer class="curated-showcase__footer">
-              <span aria-hidden="true">{{ tab_number }} / {{ section.blocks.size | prepend: '0' }}</span>
               <a href="{{ collection_url }}">
                 <span>{{ 'sections.homepage.curated.view_collection' | t: title: tab_label | escape_once }}</span>
                 {% render 'icon', name: 'arrow', size: 18 %}
