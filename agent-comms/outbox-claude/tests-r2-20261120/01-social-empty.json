@@ -1,0 +1,449 @@
+{
+  "when": "2026-11-20T03:34:01.262Z",
+  "runs": [
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "links": [
+        {
+          "href": "https://www.facebook.com/example",
+          "name": "Facebook",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://x.com/example",
+          "name": "X",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.youtube.com/@example",
+          "name": "YouTube",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.tiktok.com/@example",
+          "name": "TikTok",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.pinterest.com/example",
+          "name": "Pinterest",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.snapchat.com/add/example",
+          "name": "Snapchat",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://vimeo.com/example",
+          "name": "Vimeo",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        }
+      ],
+      "count": 7,
+      "allVisible": true,
+      "minTarget": 44,
+      "allNamed": true,
+      "hasNetworks": false,
+      "rows": 1,
+      "focus": {
+        "reached": 7,
+        "allIndicator": true,
+        "seen": [
+          {
+            "inSocial": true,
+            "name": "Facebook",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": false
+          },
+          {
+            "inSocial": true,
+            "name": "X",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "YouTube",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "TikTok",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "Pinterest",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "Snapchat",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "Vimeo",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": false,
+            "name": "Canada (USD $)\n              \n                United States (USD $)",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": false,
+            "name": "Update preferences",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          }
+        ]
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 8,
+            "targets": [
+              ".site-header__brand-text",
+              ".hero-editorial__intro > .eyebrow",
+              "#HeroEditorialTitle-template--28392165114160__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28392165114160__collections-decade80 > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392165114160__collections-decade90 > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": []
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "links": [
+        {
+          "href": "https://www.facebook.com/example",
+          "name": "Facebook",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://x.com/example",
+          "name": "X",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.youtube.com/@example",
+          "name": "YouTube",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.tiktok.com/@example",
+          "name": "TikTok",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.pinterest.com/example",
+          "name": "Pinterest",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://www.snapchat.com/add/example",
+          "name": "Snapchat",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        },
+        {
+          "href": "https://vimeo.com/example",
+          "name": "Vimeo",
+          "nameSource": "visually-hidden text",
+          "w": 44,
+          "h": 44,
+          "visible": true,
+          "svgW": 22,
+          "svgHidden": "true"
+        }
+      ],
+      "count": 7,
+      "allVisible": true,
+      "minTarget": 44,
+      "allNamed": true,
+      "hasNetworks": false,
+      "rows": 2,
+      "focus": {
+        "reached": 7,
+        "allIndicator": true,
+        "seen": [
+          {
+            "inSocial": true,
+            "name": "Facebook",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": false
+          },
+          {
+            "inSocial": true,
+            "name": "X",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "YouTube",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "TikTok",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "Pinterest",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "Snapchat",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": true,
+            "name": "Vimeo",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": true
+          },
+          {
+            "inSocial": false,
+            "name": "Canada (USD $)\n              \n                United States (USD $)",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": false
+          },
+          {
+            "inSocial": false,
+            "name": "Update preferences",
+            "outline": "solid 2px rgb(239, 230, 217)",
+            "boxShadow": null,
+            "focusVisible": true,
+            "inViewport": false
+          }
+        ]
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 14,
+            "targets": [
+              ".desktop-nav__toggle > span",
+              ".desktop-nav__link[href$=\"tailoring\"]",
+              ".desktop-nav__link[href$=\"about\"]",
+              ".desktop-nav__link[href$=\"contact\"]",
+              ".site-header__brand-text",
+              "#LocalizationForm-header-country"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": []
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "links": [],
+      "count": 0,
+      "allVisible": true,
+      "minTarget": null,
+      "allNamed": true,
+      "hasNetworks": false,
+      "rows": 0,
+      "error": "TimeoutError: locator.evaluate: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.site-footer__social a').first()\u001b[22m\n",
+      "consoleTheme": []
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "links": [],
+      "count": 0,
+      "allVisible": true,
+      "minTarget": null,
+      "allNamed": true,
+      "hasNetworks": false,
+      "rows": 0,
+      "error": "TimeoutError: locator.evaluate: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.site-footer__social a').first()\u001b[22m\n",
+      "consoleTheme": []
+    }
+  ]
+}

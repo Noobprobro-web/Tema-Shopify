@@ -1,0 +1,1538 @@
+{
+  "when": "2026-11-20T02:40:54.543Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "products": {
+        "media": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 607,
+            "scrollable": true,
+            "gw": 350,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              257,
+              257,
+              257,
+              257,
+              257,
+              257
+            ],
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "allReached": true,
+            "maxScroll": 257
+          },
+          "keyboard": {
+            "afterArrowRight": 257,
+            "afterEnd": 257,
+            "movesWithKeys": true,
+            "allReachedByArrows": true,
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [
+            "model-viewer::tab=-1",
+            "button:Play 3D Viewer:tab=0",
+            "button:Zoom In:tab=0",
+            "button:Zoom Out:tab=0",
+            "button:Enter Fullscreen:tab=0",
+            "button::tab=0",
+            "video:Two second test pattern:tab=0"
+          ]
+        },
+        "serra": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 1226,
+            "scrollable": true,
+            "gw": 350,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 639,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 949,
+                "w": 298,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              310,
+              619,
+              876,
+              876,
+              876,
+              876
+            ],
+            "reachedIdx": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "allReached": true,
+            "maxScroll": 876
+          },
+          "keyboard": {
+            "afterArrowRight": 310,
+            "afterEnd": 876,
+            "movesWithKeys": true,
+            "allReachedByArrows": false,
+            "reachedIdx": [
+              0,
+              2,
+              3
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [],
+          "orderSim": {
+            "thirdIsFirst": true,
+            "lefts": [
+              330,
+              639,
+              20,
+              949
+            ]
+          },
+          "variantInputs": 6,
+          "variantChange": {
+            "before": 876,
+            "after": 876,
+            "selectedMarked": 0,
+            "note": "no variant of serra-coat has a featured media, so data-selected is never set and updateMedia() (assets/theme.js:1411) skips scrollTo"
+          }
+        }
+      },
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "products": {
+        "media": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        },
+        "serra": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 424,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392,
+              392,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        }
+      },
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "products": {
+        "media": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 607,
+            "scrollable": true,
+            "gw": 350,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              257,
+              257,
+              257,
+              257,
+              257,
+              257
+            ],
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "allReached": true,
+            "maxScroll": 257
+          },
+          "keyboard": {
+            "afterArrowRight": 257,
+            "afterEnd": 257,
+            "movesWithKeys": true,
+            "allReachedByArrows": true,
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [
+            "model-viewer::tab=-1",
+            "button:Play 3D Viewer:tab=0",
+            "button:Zoom In:tab=0",
+            "button:Zoom Out:tab=0",
+            "button:Enter Fullscreen:tab=0",
+            "button::tab=0",
+            "video:Two second test pattern:tab=0"
+          ]
+        },
+        "serra": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 1226,
+            "scrollable": true,
+            "gw": 350,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 639,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 949,
+                "w": 298,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              310,
+              619,
+              876,
+              876,
+              876,
+              876
+            ],
+            "reachedIdx": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "allReached": true,
+            "maxScroll": 876
+          },
+          "keyboard": {
+            "afterArrowRight": 310,
+            "afterEnd": 876,
+            "movesWithKeys": true,
+            "allReachedByArrows": false,
+            "reachedIdx": [
+              0,
+              2,
+              3
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [],
+          "orderSim": {
+            "thirdIsFirst": true,
+            "lefts": [
+              330,
+              639,
+              20,
+              949
+            ]
+          },
+          "variantInputs": 6,
+          "variantChange": {
+            "before": 876,
+            "after": 876,
+            "selectedMarked": 0,
+            "note": "no variant of serra-coat has a featured media, so data-selected is never set and updateMedia() (assets/theme.js:1411) skips scrollTo"
+          }
+        }
+      },
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "products": {
+        "media": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        },
+        "serra": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 424,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392,
+              392,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        }
+      },
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "products": {
+        "media": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 607,
+            "scrollable": true,
+            "gw": 350,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              257,
+              257,
+              257,
+              257,
+              257,
+              257
+            ],
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "allReached": true,
+            "maxScroll": 257
+          },
+          "keyboard": {
+            "afterArrowRight": 257,
+            "afterEnd": 257,
+            "movesWithKeys": true,
+            "allReachedByArrows": true,
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [
+            "model-viewer::tab=-1",
+            "button:Play 3D Viewer:tab=0",
+            "button:Zoom In:tab=0",
+            "button:Zoom Out:tab=0",
+            "button:Enter Fullscreen:tab=0",
+            "button::tab=0",
+            "video:Two second test pattern:tab=0"
+          ]
+        },
+        "serra": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 1226,
+            "scrollable": true,
+            "gw": 350,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 639,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 949,
+                "w": 298,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              310,
+              619,
+              876,
+              876,
+              876,
+              876
+            ],
+            "reachedIdx": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "allReached": true,
+            "maxScroll": 876
+          },
+          "keyboard": {
+            "afterArrowRight": 310,
+            "afterEnd": 876,
+            "movesWithKeys": true,
+            "allReachedByArrows": false,
+            "reachedIdx": [
+              0,
+              2,
+              3
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [],
+          "orderSim": {
+            "thirdIsFirst": true,
+            "lefts": [
+              330,
+              639,
+              20,
+              949
+            ]
+          },
+          "variantInputs": 6,
+          "variantChange": {
+            "before": 876,
+            "after": 876,
+            "selectedMarked": 0,
+            "note": "no variant of serra-coat has a featured media, so data-selected is never set and updateMedia() (assets/theme.js:1411) skips scrollTo"
+          }
+        }
+      },
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "products": {
+        "media": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        },
+        "serra": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 424,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392,
+              392,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        }
+      },
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "pkg",
+      "mode": "mobile",
+      "products": {
+        "media": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 607,
+            "scrollable": true,
+            "gw": 350,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              257,
+              257,
+              257,
+              257,
+              257,
+              257
+            ],
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "allReached": true,
+            "maxScroll": 257
+          },
+          "keyboard": {
+            "afterArrowRight": 257,
+            "afterEnd": 257,
+            "movesWithKeys": true,
+            "allReachedByArrows": true,
+            "reachedIdx": [
+              0,
+              1
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [
+            "model-viewer::tab=-1",
+            "button:Play 3D Viewer:tab=0",
+            "button:Zoom In:tab=0",
+            "button:Zoom Out:tab=0",
+            "button:Enter Fullscreen:tab=0",
+            "button::tab=0",
+            "video:Two second test pattern:tab=0"
+          ]
+        },
+        "serra": {
+          "info": {
+            "display": "flex",
+            "overflowX": "auto",
+            "snap": "x mandatory",
+            "tabindex": "0",
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 350,
+            "scrollWidth": 1226,
+            "scrollable": true,
+            "gw": 350,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "-1",
+                "selected": true,
+                "left": 20,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 330,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 639,
+                "w": 298,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 949,
+                "w": 298,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "initialScroll": 0,
+          "swipe": {
+            "scrollLefts": [
+              310,
+              619,
+              876,
+              876,
+              876,
+              876
+            ],
+            "reachedIdx": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "allReached": true,
+            "maxScroll": 876
+          },
+          "keyboard": {
+            "afterArrowRight": 310,
+            "afterEnd": 876,
+            "movesWithKeys": true,
+            "allReachedByArrows": false,
+            "reachedIdx": [
+              0,
+              2,
+              3
+            ],
+            "focusableRegion": 0
+          },
+          "tabIntoMedia": [],
+          "orderSim": {
+            "thirdIsFirst": true,
+            "lefts": [
+              330,
+              639,
+              20,
+              949
+            ]
+          },
+          "variantInputs": 6,
+          "variantChange": {
+            "before": 876,
+            "after": 876,
+            "selectedMarked": 0,
+            "note": "no variant of serra-coat has a featured media, so data-selected is never set and updateMedia() (assets/theme.js:1411) skips scrollTo"
+          }
+        }
+      },
+      "identity": {
+        "id": "190453285168",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "pkg",
+      "mode": "desktop",
+      "products": {
+        "media": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 2,
+            "items": [
+              {
+                "id": "46295759094064",
+                "kind": "3d",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": "Minimal triangle 3D model"
+              },
+              {
+                "id": "46295759585584",
+                "kind": "video",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": "Two second test pattern"
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        },
+        "serra": {
+          "info": {
+            "display": "grid",
+            "overflowX": "visible",
+            "snap": "none",
+            "tabindex": null,
+            "role": "region",
+            "label": "Product media gallery",
+            "clientWidth": 795,
+            "scrollWidth": 795,
+            "scrollable": false,
+            "gw": 795,
+            "n": 4,
+            "items": [
+              {
+                "id": "46295775117616",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": true,
+                "left": 20,
+                "w": 795,
+                "label": null
+              },
+              {
+                "id": "46295775740208",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295776330032",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 424,
+                "w": 392,
+                "label": null
+              },
+              {
+                "id": "46295775936816",
+                "kind": "image",
+                "display": "block",
+                "visibility": "visible",
+                "order": "0",
+                "selected": false,
+                "left": 20,
+                "w": 392,
+                "label": null
+              }
+            ],
+            "docOverflow": 0
+          },
+          "noDisplayNone": true,
+          "desktop": {
+            "tabindexAttr": null,
+            "tabIndexProp": -1,
+            "emptyTab0": false,
+            "display": "grid",
+            "flexDirection": "row",
+            "mediaWidths": [
+              795,
+              392,
+              392,
+              392
+            ],
+            "galleryW": 795,
+            "horizontallyScrollable": false,
+            "order": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          },
+          "noTabindexEmpty": true
+        }
+      },
+      "identity": {
+        "id": "190453285168",
+        "role": "unpublished"
+      },
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl3",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl3",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at fetch (event-observer-collector.js:2:837)\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl3",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    }
+  ]
+}

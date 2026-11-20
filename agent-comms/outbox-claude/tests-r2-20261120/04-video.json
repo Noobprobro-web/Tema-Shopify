@@ -1,0 +1,1403 @@
+{
+  "when": "2026-11-20T02:49:38.099Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Product media gallery",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Two second test pattern",
+            "landed": {
+              "tag": "MODEL-VIEWER",
+              "insideVideo": false,
+              "name": ""
+            },
+            "pass": false
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Product media gallery",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Two second test pattern",
+            "landed": {
+              "tag": "MODEL-VIEWER",
+              "insideVideo": false,
+              "name": ""
+            },
+            "pass": false
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Product media gallery",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Two second test pattern",
+            "landed": {
+              "tag": "MODEL-VIEWER",
+              "insideVideo": false,
+              "name": ""
+            },
+            "pass": false
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "pkg",
+      "mode": "mobile",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Product media gallery",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453285168",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/web-pixels@59be8e47w556dc13fpc8f027a5m478ef996/custom/web-pixel-shopify-custom-pixel@0540/sandbox/modern/pages/st"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: net::ERR_BLOCKED_BY_RESPONSE.NotSameOriginAfterDefaultedToSameOriginByCoep",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=a5d42750096f35b0"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_listener-819172a8.js:1:7379)\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f02",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    },
+    {
+      "preset": "pkg",
+      "mode": "desktop",
+      "videos": {
+        "video_external": {
+          "poster": {
+            "hasImg": false,
+            "loaded": null,
+            "src": null
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube example",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "BUTTON",
+            "text": "Play",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: Hosted example",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube example"
+            },
+            "pass": true
+          }
+        },
+        "video_hosted": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/preview_images/53496eb04e134"
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted example",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Two second test pattern",
+            "landed": {
+              "tag": "MODEL-VIEWER",
+              "insideVideo": false,
+              "name": ""
+            },
+            "pass": false
+          }
+        },
+        "video_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/poplin-column-shirt-1.jpg?v="
+          },
+          "created": {
+            "iframe": null,
+            "iframeTitle": null,
+            "video": true,
+            "controls": true,
+            "activeTag": "VIDEO",
+            "activeInside": true
+          },
+          "newThirdParty": [],
+          "afterTab": {
+            "tag": "VIDEO",
+            "text": "Two second test pattern",
+            "insideVideo": true
+          },
+          "afterShiftTab": {
+            "tag": "VIDEO",
+            "title": "Hosted with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Play video: YouTube with poster",
+            "landed": {
+              "tag": "VIDEO",
+              "insideVideo": true,
+              "name": "Two second test pattern"
+            },
+            "pass": true
+          }
+        },
+        "video_yt_poster": {
+          "poster": {
+            "hasImg": true,
+            "loaded": true,
+            "src": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shop/files/silk-charmeuse-blouse-1.jpg?"
+          },
+          "created": {
+            "iframe": "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline=",
+            "iframeTitle": "YouTube with poster",
+            "video": false,
+            "controls": null,
+            "activeTag": "IFRAME",
+            "activeInside": true
+          },
+          "newThirdParty": [
+            "https://www.youtube-nocookie.com/embed/0jeoo7Ol3aI?autoplay=1&rel=0&playsinline="
+          ],
+          "afterTab": {
+            "tag": "A",
+            "text": "Sartorial Theme",
+            "insideVideo": false
+          },
+          "afterShiftTab": {
+            "tag": "IFRAME",
+            "title": "YouTube with poster",
+            "insideVideo": true,
+            "isPlayer": true
+          },
+          "pass": true,
+          "fromNextLink": {
+            "nextLink": "Sartorial Theme",
+            "landed": {
+              "tag": "IFRAME",
+              "insideVideo": true,
+              "name": "YouTube with poster"
+            },
+            "pass": true
+          }
+        }
+      },
+      "identity": {
+        "id": "190453285168",
+        "role": "unpublished"
+      },
+      "thirdPartyBeforePlay": [],
+      "thirdPartyAfterScrollNoPlay": [],
+      "consoleTheme": [
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        },
+        {
+          "type": "error",
+          "text": "Suppressed error while exporting metrics: TypeError: Failed to fetch\n    at https://sartorial-theme-kvkzl39t.myshopify.com/cdn/wpm/b59be8e47w556dc13fpc8f027a5m478ef996m.js:1:93574\n    at window2.fetch (https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/storefront/assets/shop_events_list",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/portable-wallets/latest/portable-wallets.en.js"
+        }
+      ]
+    }
+  ]
+}

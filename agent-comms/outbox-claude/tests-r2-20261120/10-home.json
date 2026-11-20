@@ -1,0 +1,793 @@
+{
+  "when": "2026-11-20T03:29:56.878Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 890,
+          "textLen": 108,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "The Master Tailor's Cut",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 227,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1413,
+          "textLen": 1042,
+          "imgs": 15,
+          "brokenImgs": 0,
+          "heading": "Selected Silhouettes",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 800,
+          "textLen": 257,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Silhouettes in Motion",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 658,
+          "textLen": 110,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "True bespoke luxury lives in the invisib",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "featured_product:0px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "looseNumbering": [
+        "/ 03",
+        "01 / 03"
+      ],
+      "visibleText": "NEW SEASON The Master Tailor's Cut Sculptural tailoring cut in considered proportions. DISCOVER THE COLLECTION PROPORTION / CUT / DRAPE TAILORING SILHOUETTE STUDIES MADE TO MEASURE PROPORTION / CUT / DRAPE TAILORING SILHOUETTE STUDIES MADE TO MEASURE PROPORTION / CUT / DRAPE TAILORING SILHOUETTE STUDIES MADE TO MEASURE Pause editorial highlights FEATURED Selected Silhouettes [01] NEW FORMS [02] PERMANENT COLLECTION [03] TAILORING SALON SPOTLIGHT SELECTION 1990 Pinstripe Double-Breasted Jacket Regular price $1,500.00 1994 Double-Faced Cashmere Cocoon Coat Regular price $2,800.00 1998 Bias-Cut Silk Evening Slip Regular price $1,450.00 01 / 03 VIEW ALL NEW FORMS PRESENTATION / SALON Silhouettes",
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": [
+          "button.curated-showcase__tab",
+          "span."
+        ]
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 4,
+            "targets": [
+              "#CuratedTab-template--28392162328880__collections-new > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392162328880__collections-permanent > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392162328880__collections-tailoring > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392162328880__collections-tailoring > span:nth-child(2)"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 14,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/t6/shots/home-sartorial-mobile-full.png",
+      "pageHeight": 5104
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 745,
+          "textLen": 108,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "The Master Tailor's Cut",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 227,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1107,
+          "textLen": 1042,
+          "imgs": 15,
+          "brokenImgs": 0,
+          "heading": "Selected Silhouettes",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 963,
+          "textLen": 257,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Silhouettes in Motion",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 478,
+          "textLen": 110,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "True bespoke luxury lives in the invisib",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "featured_product:0px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "looseNumbering": [
+        "/ 03",
+        "01 / 03"
+      ],
+      "visibleText": "NEW SEASON The Master Tailor's Cut Sculptural tailoring cut in considered proportions. DISCOVER THE COLLECTION PROPORTION / CUT / DRAPE TAILORING SILHOUETTE STUDIES MADE TO MEASURE PROPORTION / CUT / DRAPE TAILORING SILHOUETTE STUDIES MADE TO MEASURE PROPORTION / CUT / DRAPE TAILORING SILHOUETTE STUDIES MADE TO MEASURE Pause editorial highlights FEATURED Selected Silhouettes [01] NEW FORMS [02] PERMANENT COLLECTION [03] TAILORING SALON SPOTLIGHT SELECTION 1990 Pinstripe Double-Breasted Jacket Regular price $1,500.00 1994 Double-Faced Cashmere Cocoon Coat Regular price $2,800.00 1998 Bias-Cut Silk Evening Slip Regular price $1,450.00 01 / 03 VIEW ALL NEW FORMS PRESENTATION / SALON Silhouettes",
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              "#HeroEditorialTitle-template--28392162328880__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28392162328880__collections-new > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392162328880__collections-permanent > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392162328880__collections-tailoring > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 13,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/t6/shots/home-sartorial-desktop-full.png",
+      "pageHeight": 4122
+    },
+    {
+      "preset": "imprint",
+      "mode": "mobile",
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 951,
+          "textLen": 125,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Engineered utility, precise discipline",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 158,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "discovery",
+          "h": 1456,
+          "textLen": 140,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Collection, product, process",
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1377,
+          "textLen": 1025,
+          "imgs": 9,
+          "brokenImgs": 0,
+          "heading": "Studio Modular Systems",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 561,
+          "textLen": 72,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Form follows engineering tolerance.",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "featured_product:0px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "looseNumbering": [
+        "/ 03",
+        "01 / 03"
+      ],
+      "visibleText": "TECHNICAL STUDIO Engineered utility, precise discipline Modular gear and desk objects for daily carry. INSPECT SYSTEM INVENTORY TECHNICAL STUDIO DAILY OBJECTS DESK AND STUDY TECHNICAL STUDIO DAILY OBJECTS DESK AND STUDY TECHNICAL STUDIO DAILY OBJECTS DESK AND STUDY Pause editorial highlights GRID STUDY Collection, product, process A denser view of the working collection. MEMBRANE TELEMETRY EDC systems BLUEPRINT ANALYSIS Leather goods SYSTEM INVENTORY Studio Modular Systems [01] DAILY OBJECTS [02] WORKSPACE [03] LEATHER GOODS SPOTLIGHT SELECTION 1990 Pinstripe Double-Breasted Jacket Regular price $1,500.00 1994 Double-Faced Cashmere Cocoon Coat Regular price $2,800.00 1998 Bias-Cut Silk Eveni",
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": [
+          "button.curated-showcase__tab",
+          "span."
+        ]
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 4,
+            "targets": [
+              "#CuratedTab-template--28392164131120__collections-daily > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392164131120__collections-workspace > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392164131120__collections-limited > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392164131120__collections-limited > span:nth-child(2)"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 14,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/t6/shots/home-imprint-mobile-full.png",
+      "pageHeight": 5519
+    },
+    {
+      "preset": "imprint",
+      "mode": "desktop",
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 705,
+          "textLen": 125,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Engineered utility, precise discipline",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 158,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "discovery",
+          "h": 1273,
+          "textLen": 140,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Collection, product, process",
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1154,
+          "textLen": 1025,
+          "imgs": 9,
+          "brokenImgs": 0,
+          "heading": "Studio Modular Systems",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "capsule",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 468,
+          "textLen": 72,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Form follows engineering tolerance.",
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "featured_product:0px",
+        "capsule:0px"
+      ],
+      "bigGaps": [],
+      "looseNumbering": [
+        "/ 03",
+        "01 / 03"
+      ],
+      "visibleText": "TECHNICAL STUDIO Engineered utility, precise discipline Modular gear and desk objects for daily carry. INSPECT SYSTEM INVENTORY TECHNICAL STUDIO DAILY OBJECTS DESK AND STUDY TECHNICAL STUDIO DAILY OBJECTS DESK AND STUDY TECHNICAL STUDIO DAILY OBJECTS DESK AND STUDY Pause editorial highlights GRID STUDY Collection, product, process A denser view of the working collection. MEMBRANE TELEMETRY EDC systems BLUEPRINT ANALYSIS Leather goods SYSTEM INVENTORY Studio Modular Systems [01] DAILY OBJECTS [02] WORKSPACE [03] LEATHER GOODS SPOTLIGHT SELECTION 1990 Pinstripe Double-Breasted Jacket Regular price $1,500.00 1994 Double-Faced Cashmere Cocoon Coat Regular price $2,800.00 1998 Bias-Cut Silk Eveni",
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              "#HeroEditorialTitle-template--28392164131120__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28392164131120__collections-daily > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392164131120__collections-workspace > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392164131120__collections-limited > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 14,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/t6/shots/home-imprint-desktop-full.png",
+      "pageHeight": 4429
+    },
+    {
+      "preset": "archive",
+      "mode": "mobile",
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 634,
+          "textLen": 101,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Objects with a remembered life",
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 668,
+          "textLen": 99,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "What endures carries the indelible recor",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 263,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1374,
+          "textLen": 756,
+          "imgs": 6,
+          "brokenImgs": 0,
+          "heading": "Archive Entries",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 881,
+          "textLen": 316,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Three objects from the archive record",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "featured_product:0px"
+      ],
+      "bigGaps": [],
+      "looseNumbering": [
+        "/ 02",
+        "01 / 02"
+      ],
+      "visibleText": "CATALOG / THE HOUSE Objects with a remembered life A catalog of garments and objects. ENTER THE CATALOG CURATORIAL PROTOCOL “ What endures carries the indelible record of its creation. ARCHIVE COLLECTION THE PERMANENT ARCHIVE CURATED GARMENTS & OBJECTS CURATED SELECTIONS & ACCESSIONS THE PERMANENT ARCHIVE CURATED GARMENTS & OBJECTS CURATED SELECTIONS & ACCESSIONS THE PERMANENT ARCHIVE CURATED GARMENTS & OBJECTS CURATED SELECTIONS & ACCESSIONS Pause editorial highlights THE VAULT Archive Entries [01] PERMANENT ARCHIVE [02] SELECTED PIECES SPOTLIGHT SELECTION 1990 Pinstripe Double-Breasted Jacket Regular price $1,500.00 STUDIO DEMO 1994 Double-Faced Cashmere Cocoon Coat Regular price $2,800.00",
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".hero-editorial__intro > .eyebrow",
+              "#HeroEditorialTitle-template--28392165114160__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28392165114160__collections-decade80 > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392165114160__collections-decade90 > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 14,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/t6/shots/home-archive-mobile-full.png",
+      "pageHeight": 4854
+    },
+    {
+      "preset": "archive",
+      "mode": "desktop",
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "h": 681,
+          "textLen": 101,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Objects with a remembered life",
+          "liquidError": false
+        },
+        {
+          "id": "manifesto",
+          "h": 562,
+          "textLen": 99,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "What endures carries the indelible recor",
+          "liquidError": false
+        },
+        {
+          "id": "marquee",
+          "h": 50,
+          "textLen": 263,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        },
+        {
+          "id": "collections",
+          "h": 1109,
+          "textLen": 756,
+          "imgs": 6,
+          "brokenImgs": 0,
+          "heading": "Archive Entries",
+          "liquidError": false
+        },
+        {
+          "id": "lookbook",
+          "h": 1058,
+          "textLen": 316,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": "Three objects from the archive record",
+          "liquidError": false
+        },
+        {
+          "id": "featured_product",
+          "h": 0,
+          "textLen": 0,
+          "imgs": 0,
+          "brokenImgs": 0,
+          "heading": null,
+          "liquidError": false
+        }
+      ],
+      "liquidErrorsInPage": [],
+      "tinySections": [
+        "marquee:50px",
+        "featured_product:0px"
+      ],
+      "bigGaps": [],
+      "looseNumbering": [
+        "/ 02",
+        "01 / 02"
+      ],
+      "visibleText": "CATALOG / THE HOUSE Objects with a remembered life A catalog of garments and objects. ENTER THE CATALOG CURATORIAL PROTOCOL “ What endures carries the indelible record of its creation. ARCHIVE COLLECTION THE PERMANENT ARCHIVE CURATED GARMENTS & OBJECTS CURATED SELECTIONS & ACCESSIONS THE PERMANENT ARCHIVE CURATED GARMENTS & OBJECTS CURATED SELECTIONS & ACCESSIONS THE PERMANENT ARCHIVE CURATED GARMENTS & OBJECTS CURATED SELECTIONS & ACCESSIONS Pause editorial highlights THE VAULT Archive Entries [01] PERMANENT ARCHIVE [02] SELECTED PIECES SPOTLIGHT SELECTION 1990 Pinstripe Double-Breasted Jacket Regular price $1,500.00 STUDIO DEMO 1994 Double-Faced Cashmere Cocoon Coat Regular price $2,800.00",
+      "overflow": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "offenders": []
+      },
+      "axe": {
+        "version": "4.10.2",
+        "violations": [
+          {
+            "id": "frame-title",
+            "impact": "serious",
+            "help": "Frames must have an accessible name",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "nodes": 5,
+            "targets": [
+              ".hero-editorial__intro > .eyebrow",
+              "#HeroEditorialTitle-template--28392165114160__hero",
+              ".hero-editorial__subheading > p",
+              "#CuratedTab-template--28392165114160__collections-decade80 > span[aria-hidden=\"true\"]",
+              "#CuratedTab-template--28392165114160__collections-decade90 > span[aria-hidden=\"true\"]"
+            ]
+          },
+          {
+            "id": "frame-tested",
+            "impact": "critical",
+            "help": "Frames should be tested with axe-core",
+            "nodes": 1,
+            "targets": [
+              "#PBarNextFrame"
+            ]
+          }
+        ]
+      },
+      "axeTheme": [],
+      "consoleTheme": [],
+      "consolePlatform": 13,
+      "fullShot": "/tmp/claude-0/-home-user-Tema-Shopify/48068f27-de8d-56a7-8d32-7f4b623543a8/scratchpad/t6/shots/home-archive-desktop-full.png",
+      "pageHeight": 4239
+    }
+  ]
+}
