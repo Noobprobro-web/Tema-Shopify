@@ -586,6 +586,8 @@
       this.carouselQuery = window.matchMedia('(max-width: 61.99rem)');
       this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.currentSlide = -1;
+      // The first time the carousel is shown it starts on the preselected media, if any.
+      this.initialSlidePending = true;
 
       this.steps.forEach((step) => {
         this.listen(step, 'click', () => {
@@ -636,7 +638,12 @@
       if (active) {
         this.track.tabIndex = 0;
         this.track.setAttribute('aria-label', this.getAttribute('aria-label') || '');
-        this.syncSlide(false);
+        const preselected = this.initialSlidePending && this.currentSlide < 0
+          ? this.slides.findIndex((slide) => slide.hasAttribute('data-selected'))
+          : -1;
+        this.initialSlidePending = false;
+        if (preselected > 0 && !this.slides.some((slide) => slide.hidden)) this.goToSlide(preselected, false, true);
+        else this.syncSlide(false);
       } else {
         this.track.removeAttribute('tabindex');
         this.track.removeAttribute('aria-label');
@@ -704,13 +711,13 @@
       }
     }
 
-    goToSlide(index, announce) {
+    goToSlide(index, announce, instant = false) {
       if (!this.carouselQuery?.matches) return;
       const target = Math.min(Math.max(index, 0), this.slides.length - 1);
       const rtl = getComputedStyle(this.track).direction === 'rtl';
       const left = target * this.track.clientWidth * (rtl ? -1 : 1);
 
-      this.track.scrollTo({ left, behavior: this.reducedMotionQuery.matches ? 'auto' : 'smooth' });
+      this.track.scrollTo({ left, behavior: instant || this.reducedMotionQuery.matches ? 'auto' : 'smooth' });
       // El contador salta ya al destino: esperar al scroll suave lo dejaria unos cientos
       // de milisegundos en la imagen de origen, y con la pista ya en su sitio no habria
       // evento scroll que lo corrigiera.
@@ -4202,6 +4209,9 @@
       this.requestController = null;
       this.gridStorageKey = 'theme:grid-columns';
       this.priceTimer = null;
+      this.pendingRequests = 0;
+      this.focusOrigin = null;
+      this.renderedSearch = this.filterSearch(window.location.search);
 
       // With JavaScript the filters apply as soon as they change, so the Apply button is
       // redundant and the stylesheet hides it. Without JavaScript the attribute is never
@@ -4213,27 +4223,34 @@
         if (!form) return;
         event.preventDefault();
         clearTimeout(this.priceTimer);
-        const submitter = event.submitter || document.activeElement;
-        // Apply may be hidden, so it is never the fallback: focus goes back to the
-        // control that was used, or to the summary of its filter group.
-        const fallback = submitter?.id ? `#${CSS.escape(submitter.id)}` : 'summary.facet__summary';
-        this.renderForm(form, true, fallback);
+        // Apply may be hidden, so it is never the fallback: focus goes back to the control
+        // that was used (in Safari a clicked checkbox is not focused, so the change target
+        // is remembered), or to the summary of its filter group.
+        const origin = this.focusOrigin || event.submitter || document.activeElement;
+        this.focusOrigin = null;
+        this.renderForm(form, true, 'summary.facet__summary', { origin });
       });
 
       this.listen(this, 'change', (event) => {
         const target = event.target;
         if (target.matches('[data-facet-sort]') || target.matches('.facet input[type="checkbox"]')) {
+          this.focusOrigin = target;
           target.form?.requestSubmit();
+          this.focusOrigin = null;
           return;
         }
 
-        // Price fields wait a moment so that editing the minimum and then the maximum
-        // sends a single request.
-        if (target.matches('.facet input')) {
-          clearTimeout(this.priceTimer);
-          const form = target.form;
-          this.priceTimer = setTimeout(() => form?.requestSubmit(), 400);
-        }
+        if (target.matches('.facet input')) this.schedulePriceSubmit(target.form);
+      });
+
+      // Price fields wait until typing stops, so that editing the minimum and then the
+      // maximum sends a single request carrying both values.
+      this.listen(this, 'input', (event) => {
+        const target = event.target;
+        if (!target.matches?.('.facet input:not([type="checkbox"])')) return;
+        // A response to an older state must not repaint the field being edited.
+        this.requestController?.abort();
+        this.schedulePriceSubmit(target.form);
       });
 
       this.listen(this, 'click', (event) => {
@@ -4254,7 +4271,12 @@
         this.setGridView(button.dataset.gridView, true);
       });
 
-      this.listen(window, 'popstate', () => this.renderUrl(window.location.href, false));
+      this.listen(window, 'popstate', () => {
+        // Anchor navigation (a skip link) also fires popstate; only a change of the
+        // filters themselves needs a refresh, and it must not move the focus.
+        if (this.filterSearch(window.location.search) === this.renderedSearch) return;
+        this.renderUrl(window.location.href, false, null, { moveFocus: false });
+      });
       this.applyStoredGridView();
 
       // From 62rem the filters are always shown. The stylesheet does it with ::details-content
@@ -4263,6 +4285,24 @@
       this.autoOpened = false;
       this.listen(this.sidebarQuery, 'change', () => this.syncDisclosure());
       this.syncDisclosure();
+    }
+
+    schedulePriceSubmit(form) {
+      clearTimeout(this.priceTimer);
+      this.priceTimer = setTimeout(() => form?.requestSubmit(), 600);
+    }
+
+    filterSearch(search) {
+      const parameters = new URLSearchParams(search);
+      parameters.delete('section_id');
+      return parameters.toString();
+    }
+
+    // Stable identity of a filter group across the HTML swap: the name of its first field.
+    facetGroupKey(group) {
+      return group.querySelector('input[name], select[name]')?.name
+        || group.querySelector('summary')?.textContent.trim()
+        || '';
     }
 
     syncDisclosure() {
@@ -4286,7 +4326,7 @@
       super.disconnectedCallback();
     }
 
-    renderForm(form, pushState, focusFallback = 'button[type="submit"]') {
+    renderForm(form, pushState, focusFallback = 'button[type="submit"]', options = {}) {
       const url = new URL(form.action, window.location.origin);
       const parameters = new URLSearchParams(new FormData(form));
 
@@ -4295,26 +4335,25 @@
       });
 
       url.search = parameters.toString();
-      this.renderUrl(url, pushState, focusFallback);
+      this.renderUrl(url, pushState, focusFallback, options);
     }
 
     // focusFallback: selector que recibe el foco cuando el elemento enfocado no sobrevive al
     // repintado (la pildora que se acaba de quitar no tiene id ni existe en el HTML nuevo).
-    async renderUrl(urlValue, pushState, focusFallback = null) {
+    // options.origin: control que provoco el cambio (puede no tener el foco, como en Safari).
+    // options.moveFocus: false deja el foco donde esta salvo que se pierda con el repintado.
+    async renderUrl(urlValue, pushState, focusFallback = null, options = {}) {
       const navigationUrl = new URL(urlValue, window.location.origin);
       // Solo se pinta o se navega dentro de la propia tienda.
       if (navigationUrl.origin !== window.location.origin) return;
       navigationUrl.searchParams.delete('section_id');
       const requestUrl = new URL(navigationUrl);
       requestUrl.searchParams.set('section_id', this.dataset.sectionId);
-      const activeEl = document.activeElement;
-      const focusedId = activeEl?.id;
-      const focusedName = activeEl?.name;
-      // The mobile filter panel is a <details>; replacing the markup would close it.
-      const disclosureWasOpen = Boolean(this.querySelector('.facets__disclosure')?.open) && !this.autoOpened;
+      const moveFocus = options.moveFocus !== false;
 
       this.requestController?.abort();
       this.requestController = new AbortController();
+      this.pendingRequests += 1;
       this.setBusy(true);
 
       try {
@@ -4329,8 +4368,43 @@
         const nextElement = documentFragment.querySelector('facet-filters-form');
         if (!nextElement) throw new Error('invalid-section');
 
-        this.innerHTML = nextElement.innerHTML;
-        this.autoOpened = false;
+        // Everything about the focus is read now, just before the markup changes.
+        const activeEl = document.activeElement;
+        const origin = options.origin || activeEl;
+        const focusWasInside = !activeEl || activeEl === document.body || this.contains(activeEl);
+        const originGroup = origin?.closest?.('details.facet');
+        const focusTarget = {
+          id: origin?.id || '',
+          name: origin?.name || '',
+          value: origin?.type === 'checkbox' || origin?.type === 'radio' ? origin.value : null,
+          groupKey: originGroup ? this.facetGroupKey(originGroup) : '',
+        };
+        // The mobile filter panel and every filter group are <details>; replacing the markup
+        // would close them, so the state the visitor left is carried over.
+        const openGroups = new Set(
+          Array.from(this.querySelectorAll('details.facet[open]')).map((group) => this.facetGroupKey(group))
+        );
+        const disclosureWasOpen = Boolean(this.querySelector('.facets__disclosure')?.open) && !this.autoOpened;
+        // A price field being edited keeps its node (value, caret and focus); only what
+        // surrounds its group is replaced.
+        const editedGroup = activeEl?.matches?.('.facet input:not([type="checkbox"])')
+          ? activeEl.closest('details.facet')
+          : null;
+        const nextEditedGroup = editedGroup
+          ? Array.from(nextElement.querySelectorAll('details.facet')).find(
+            (group) => this.facetGroupKey(group) === this.facetGroupKey(editedGroup)
+          )
+          : null;
+
+        if (editedGroup && nextEditedGroup && this.swapAround(editedGroup, nextEditedGroup, nextElement)) {
+          // Focus never left the price field.
+        } else {
+          this.innerHTML = nextElement.innerHTML;
+          this.autoOpened = false;
+        }
+        this.querySelectorAll('details.facet').forEach((group) => {
+          if (openGroups.has(this.facetGroupKey(group))) group.open = true;
+        });
         if (disclosureWasOpen) {
           const disclosure = this.querySelector('.facets__disclosure');
           if (disclosure) disclosure.open = true;
@@ -4338,27 +4412,86 @@
         this.syncDisclosure();
         this.applyStoredGridView();
         this.announceResultCount();
+        this.renderedSearch = this.filterSearch(navigationUrl.search);
         if (pushState) window.history.pushState({}, '', navigationUrl);
 
-        if (focusedId && document.getElementById(focusedId)) {
-          requestAnimationFrame(() => document.getElementById(focusedId)?.focus());
-        } else if (focusedName && this.querySelector(`[name="${CSS.escape(focusedName)}"]`)) {
-          requestAnimationFrame(() => this.querySelector(`[name="${CSS.escape(focusedName)}"]`)?.focus());
-        } else if (focusFallback && this.querySelector(focusFallback)) {
-          const fallbackTarget = this.querySelector(focusFallback);
-          requestAnimationFrame(() => fallbackTarget?.focus());
-        } else {
-          // Skip anything not rendered (the hidden Apply button): focus() on it is a no-op.
-          const defaultTarget = Array.from(
-            this.querySelectorAll('button[type="submit"], [data-facet-sort], summary.facet__summary, [data-results-status]')
-          ).find((node) => node.getClientRects().length > 0);
-          if (defaultTarget) requestAnimationFrame(() => defaultTarget.focus());
+        if (!editedGroup && (focusWasInside || options.origin) && (moveFocus || focusWasInside)) {
+          requestAnimationFrame(() => this.restoreFocus(focusTarget, focusFallback, moveFocus));
         }
       } catch (error) {
         if (error.name === 'AbortError') return;
         window.location.assign(navigationUrl);
       } finally {
-        this.setBusy(false);
+        this.pendingRequests -= 1;
+        // An aborted request must not clear the busy state of the one that replaced it.
+        if (this.pendingRequests <= 0) {
+          this.pendingRequests = 0;
+          this.setBusy(false);
+        }
+      }
+    }
+
+    // Replaces the content around `keep` with the content around `counterpart` (its twin in
+    // the freshly loaded markup), level by level up to this element, leaving `keep` and its
+    // ancestors in place. Returns false, changing nothing, when the two trees do not line up.
+    swapAround(keep, counterpart, nextRoot) {
+      const levels = [];
+      let oldNode = keep;
+      let newNode = counterpart;
+      while (oldNode !== this) {
+        if (!oldNode.parentElement || !newNode.parentElement) return false;
+        if (oldNode.localName !== newNode.localName) return false;
+        levels.push([oldNode, newNode]);
+        oldNode = oldNode.parentElement;
+        newNode = newNode.parentElement;
+      }
+      if (newNode !== nextRoot) return false;
+
+      levels.forEach(([current, next]) => {
+        const parent = current.parentElement;
+        const before = [];
+        const after = [];
+        let seen = false;
+        next.parentElement.childNodes.forEach((node) => {
+          if (node === next) seen = true;
+          else (seen ? after : before).push(node);
+        });
+        Array.from(parent.childNodes).forEach((node) => {
+          if (node !== current) node.remove();
+        });
+        before.forEach((node) => parent.insertBefore(node, current));
+        after.forEach((node) => parent.append(node));
+      });
+      return true;
+    }
+
+    restoreFocus(target, focusFallback, moveFocus) {
+      const group = target.groupKey
+        ? Array.from(this.querySelectorAll('details.facet')).find(
+          (details) => this.facetGroupKey(details) === target.groupKey
+        )
+        : null;
+      const candidates = [];
+      if (target.id) candidates.push(document.getElementById(target.id));
+      if (target.name) {
+        const valueSelector = target.value !== null ? `[value="${CSS.escape(target.value)}"]` : '';
+        candidates.push(this.querySelector(`[name="${CSS.escape(target.name)}"]${valueSelector}`));
+      }
+      candidates.push(group?.querySelector('summary'));
+      if (moveFocus) {
+        if (focusFallback) candidates.push(this.querySelector(focusFallback));
+        // Skip anything not rendered (the hidden Apply button): focus() on it is a no-op.
+        candidates.push(
+          ...Array.from(
+            this.querySelectorAll('button[type="submit"], [data-facet-sort], summary.facet__summary, [data-results-status]')
+          )
+        );
+      }
+
+      for (const candidate of candidates) {
+        if (!candidate || !this.contains(candidate) || candidate.disabled || candidate.getClientRects().length === 0) continue;
+        candidate.focus({ preventScroll: true });
+        if (document.activeElement === candidate) return;
       }
     }
 
@@ -5047,11 +5180,16 @@
         this.updatePauseButton();
         this.schedule();
       });
+      // Rotation resumes only once neither the pointer nor the keyboard focus is inside.
+      this.pointerInside = false;
       this.listen(this, 'pointerenter', () => {
+        this.pointerInside = true;
         this.interactionPaused = true;
         this.clearTimer();
       });
       this.listen(this, 'pointerleave', () => {
+        this.pointerInside = false;
+        if (this.contains(document.activeElement)) return;
         this.interactionPaused = false;
         this.schedule();
       });
@@ -5062,7 +5200,7 @@
       this.listen(this, 'focusout', () => {
         requestAnimationFrame(() => {
           // The frame can land after the Theme Editor has removed this section.
-          if (!this.isConnected || this.contains(document.activeElement)) return;
+          if (!this.isConnected || this.pointerInside || this.contains(document.activeElement)) return;
           this.interactionPaused = false;
           this.schedule();
         });
@@ -5636,6 +5774,8 @@
       if (open) {
         this.applyBackgroundInert();
         this.releaseFocusTrap = trapFocus(this.panel, this.input);
+        // Closing empties the option list while the results stay in the DOM.
+        this.collectOptions();
         this.updateComboboxState();
       } else {
         window.clearTimeout(this.searchTimer);
@@ -5777,8 +5917,7 @@
         this.results.append(footer);
         this.results.hidden = false;
       }
-      this.options = Array.from(this.results.querySelectorAll('[role="option"]'));
-      this.activeIndex = -1;
+      this.collectOptions();
       this.updateComboboxState();
       if (this.status) this.status.textContent = this.getResultsCountText(resultCount);
     }
@@ -5926,6 +6065,13 @@
       if (!activeOption) return;
       this.input.setAttribute('aria-activedescendant', activeOption.id);
       activeOption.scrollIntoView({ block: 'nearest' });
+    }
+
+    collectOptions() {
+      this.options = this.results.hidden ? [] : Array.from(this.results.querySelectorAll('[role="option"]'));
+      this.options.forEach((option) => option.setAttribute('aria-selected', 'false'));
+      this.activeIndex = -1;
+      this.input?.removeAttribute('aria-activedescendant');
     }
 
     resetActiveOption() {
