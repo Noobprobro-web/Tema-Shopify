@@ -203,7 +203,8 @@ a:hover {
 .button:active,
 .icon-button:active,
 .variant-picker__label:active {
-  opacity: 0.72;
+  /* Pressed feedback without opacity: fading the control would drop label contrast. */
+  transform: translateY(1px) scale(0.985);
 }
 
 p,
@@ -3567,6 +3568,16 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
       outline: 2px solid CanvasText;
       outline-offset: 2px;
     }
+  }
+}
+
+/* Focus rings that add a box-shadow halo keep a real outline in forced colors, where
+   shadows are dropped. */
+@media (forced-colors: active) {
+  .hero-editorial__video-toggle:focus-visible,
+  .lookbook-hotspot__trigger:focus-visible,
+  .product-gallery__zoom-trigger:focus-visible {
+    outline: 2px solid CanvasText;
   }
 }
 
@@ -10098,6 +10109,32 @@ html[data-animations='none'] *::after {
   scroll-behavior: auto !important;
 }
 
+/* Static marquee composition when motion is off: no scrolling track, wrapped items,
+   duplicate group and pause toggle hidden. Mirrors the reduced-motion layout. */
+html[data-animations='none'] .marquee-banner__viewport {
+  overflow: visible;
+}
+
+html[data-animations='none'] .marquee-banner__track,
+html[data-animations='none'] .marquee-banner__group {
+  width: 100%;
+  transform: none;
+  animation: none;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+html[data-animations='none'] .marquee-banner__item {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+html[data-animations='none'] .marquee-banner__group[aria-hidden='true'],
+html[data-animations='none'] .marquee-banner__toggle {
+  display: none;
+}
+
 html[data-animations='none'] [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
@@ -10612,18 +10649,9 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   margin: 0;
 }
 
-/* Gallery: one image at a time on narrow screens (the selected variant's, or the first),
-   and the first five plus the selected one on wide screens. */
-@media (max-width: 61.99rem) {
-  .featured-product__media:not([data-selected]) {
-    display: none;
-  }
-
-  .featured-product__gallery:not(:has(.featured-product__media[data-selected])) .featured-product__media:first-child {
-    display: block;
-  }
-}
-
+/* Gallery: on wide screens the first five media plus the selected one are shown. The
+   narrow-screen layout is defined in the final block of this file, and no media is hidden
+   here on narrow screens. */
 @media (min-width: 62rem) {
   .featured-product__media:nth-child(n + 6):not([data-selected]) {
     display: none;
