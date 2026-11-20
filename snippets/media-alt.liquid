@@ -1,13 +1,11 @@
 {%- comment -%}
-  Texto alternativo de una foto de producto. Sin alt en el catalogo, el titulo
-  del producto y su posicion ("Image 3 of 8"): diez fotos con el mismo alt se anunciaban
-  como la misma foto. Con una sola foto basta el titulo.
-
+  Alternative text of a product photo. With no alt in the catalog, the product title and its
+  position ("Image 3 of 8"): ten photos with the same alt were announced as the same photo. With a
+  single photo the title is enough.
   Accepts:
-  - media: product media object
-  - product: product object
-
-  Devuelve texto sin escapar; quien lo pinta lo escapa (image_tag o escape_once).
+    - media: product media object
+    - product: product object
+  Returns unescaped text; whoever prints it escapes it (image_tag or escape_once).
 {%- endcomment -%}
 {%- if media.alt != blank -%}
   {{- media.alt -}}

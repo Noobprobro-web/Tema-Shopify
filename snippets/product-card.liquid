@@ -110,8 +110,8 @@
     elsif combined_listing or variant_total > 250
       assign quick_buy_mode = 'options'
     elsif card_product.has_only_default_variant or variant_total == 1
-      # Opciones con un solo valor (p. ej. una pieza 1-de-1 con Condicion y Talla)
-      # siguen siendo una unica variante; pedir "Elegir opciones" era un paso vacio.
+      # Options with a single value (e.g. a one-of-one piece with Condition and Size) are still a
+      # single variant; asking for "Choose options" was an empty step.
       assign quick_buy_mode = 'single'
     elsif card_product.options.size == 1 and swatch_position == 1
       assign quick_buy_mode = 'direct'
@@ -120,7 +120,12 @@
     else
       assign quick_buy_mode = 'options'
     endif
+
+    capture quick_buy_mode
+      render 'quick-add-mode', product: card_product, mode: quick_buy_mode
+    endcapture
   endif
+  assign quick_add_quantity = current_variant.quantity_rule.min | default: 1
 
   # More than 250 variants would serialize a truncated map, and a combined listing has no
   # variant state to share: both keep their swatches as plain links.
@@ -376,7 +381,7 @@
                 data-quick-buy-form: ''
               -%}
                 <input type="hidden" name="id" value="{{ current_variant.id }}" data-quick-buy-id>
-                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="quantity" value="{{ quick_add_quantity }}">
                 <button
                   class="button button--full"
                   type="submit"

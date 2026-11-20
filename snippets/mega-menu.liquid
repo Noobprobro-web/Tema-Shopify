@@ -1,28 +1,23 @@
 {%- comment -%}
-  Desplegable de un enlace de primer nivel del menu de escritorio. Lo pinta
-  sections/header.liquid para cada enlace con hijos; aqui vive la eleccion entre el panel
-  clasico y el mega menu, para que la cabecera no crezca en complejidad.
-
-  Mega menu cuando el enlace tiene un bloque mega_menu_promo asociado o tres niveles:
-  - una columna por enlace de segundo nivel, encabezada por el propio enlace, con sus
-    enlaces de tercer nivel debajo;
-  - a la derecha, hasta dos tarjetas del bloque (imagen 4:5 diferida, titulo, subtitulo).
-  Si no, el panel clasico de siempre, con el mismo marcado que antes de 5C (sin tercer
-  nivel, que ahora siempre abre el mega menu).
-
-  El bloque se asocia por nombre, sin distinguir mayusculas ni acentos: vale el titulo que
-  ve el comprador ("Catalogo" en /es) o el handle del enlace, que no cambia de idioma
-  ("catalog"). Si dos bloques nombran el mismo enlace, gana el primero.
-
-  Sin JS nuevo: <theme-disclosure> ya abre y cierra, sincroniza aria-expanded, cierra con
-  Escape devolviendo el foco al disparador y con un clic fuera. Tab recorre el panel en el
-  orden del DOM y sale de el sin trampa.
-
+  Dropdown of a first-level link of the desktop menu. It is rendered by sections/header.liquid for
+  each link with children; the choice between the classic panel and the mega menu lives here, so the
+  header does not grow in complexity.
+  Mega menu when the link has an associated mega_menu_promo block or three levels:
+    - one column per second-level link, headed by the link itself, with its third-level links below;
+    - on the right, up to two cards from the block (deferred 4:5 image, title, subtitle).
+  Otherwise, the classic panel, with the same markup as always (without a third level, which now
+  always opens the mega menu).
+  The block is associated by name, ignoring case and accents: the title the shopper sees (e.g. the
+  translated "Catalogo" on the /es store) or the link handle, which does not change with language
+  ("catalog"). If two blocks name the same link, the first wins.
+  No new JS: <theme-disclosure> already opens and closes, syncs aria-expanded, closes with Escape
+  returning focus to the trigger and with a click outside. Tab walks the panel in DOM order and
+  leaves it with no trap.
   Accepts:
-  - link: enlace de primer nivel con hijos (link.links != blank)
-  - section: la seccion header (id y bloques)
-  - index: forloop.index del enlace, para los ids
-  - color_scheme_id: esquema de color de la cabecera
+    - link: first-level link with children (link.links != blank)
+    - section: the header section (id and blocks)
+    - index: forloop.index of the link, for the ids
+    - color_scheme_id: the header's color scheme
 {%- endcomment -%}
 {%- liquid
   assign promo = nil
@@ -106,7 +101,7 @@
                 assign card_subheading = promo.settings[subheading_key]
                 assign card_link = promo.settings[link_key]
 
-                # Localizar URL de tarjeta para preservar el locale en /es/ y mercados
+                # Localize the card URL to preserve the locale on /es/ and other markets
                 assign localized_card_link = card_link
                 if card_link == '/collections/all'
                   assign localized_card_link = routes.all_products_collection_url
@@ -127,16 +122,17 @@
                   endif
                 endif
 
-                # Con titulo, la foto acompana al texto del enlace y su alt iria repetido: va
-                # vacio. Sin titulo, la foto es el nombre del enlace: su alt o el del menu.
+                # With a title, the photo accompanies the link text and its alt would be repeated:
+                # it is left empty. Without a title, the photo is the link's name: its alt or the
+                # menu's.
                 assign card_alt = ''
                 if card_heading == blank
                   assign card_alt = card_image.alt | default: link.title
                 endif
 
-                # La caja es 4:5 y la foto la cubre: una apaisada se pinta mas ancha que la
-                # tarjeta (1376 x 768 ocupa 2,24 veces sus 15rem). sizes declara ese ancho pintado
-                # para que el navegador no elija una copia pequena y la estire.
+                # The box is 4:5 and the photo covers it: a landscape one is painted wider than the
+                # card (1376 x 768 takes 2.24 times its 15rem). sizes declares that painted width so
+                # the browser does not choose a small copy and stretch it.
                 assign card_rem = 15
                 if card_image.aspect_ratio > 0.8
                   assign card_rem = card_image.aspect_ratio | times: 18.75 | round: 2

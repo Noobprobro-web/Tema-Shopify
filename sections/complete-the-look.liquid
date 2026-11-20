@@ -66,9 +66,9 @@
 {%- endcapture -%}
 
 {%- comment -%}
-  Sin productos no hay nada que comprar: en la tienda la seccion no se
-  pinta, y el comprador no ve la instruccion del editor ni un total de 0. En el editor
-  se mantiene entera, con el aviso, para que el comerciante sepa como configurarla.
+  With no products there is nothing to buy: on the storefront the section is not rendered, so the
+  shopper sees neither the editor instruction nor a total of 0. In the editor it is kept whole, with
+  the notice, so the merchant knows how to configure it.
 {%- endcomment -%}
 {%- if rendered_item_count > 0 or request.design_mode -%}
 <complete-the-look
@@ -314,9 +314,8 @@
               <div>
                 <p class="eyebrow">{{ 'sections.complete_the_look.total_label' | t }}</p>
                 {%- comment -%}
-                  El sustantivo concuerda con el total, no con lo seleccionado:
-                  "1 of 3 items selected", "1 of 1 item selected". Antes se elegia la forma
-                  por la seleccion y salia "1 of 3 item selected".
+                  The noun agrees with the total, not with the selection: "1 of 3 items selected",
+                  "1 of 1 item selected".
                 {%- endcomment -%}
                 <p data-bundle-count>
                   {%- if rendered_item_count == 1 -%}
@@ -392,8 +391,7 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "t:sections.all.eyebrow.label",
-      "default": "Shoppable capsule / Look 03"
+      "label": "t:sections.all.eyebrow.label"
     },
     {
       "type": "inline_richtext",

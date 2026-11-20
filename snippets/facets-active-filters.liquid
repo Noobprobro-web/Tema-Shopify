@@ -1,16 +1,13 @@
 {%- comment -%}
-  Barra de filtros activos de colección y búsqueda.
-
+  Active filters bar for collection and search.
   Accepts:
-  - filters: collection.filters o search.filters
-  - clear_url: URL sin filtros que conserva el orden (y los términos en búsqueda)
-  - section_id: id de la sección, para el id del título oculto
-
-  Cada píldora es un enlace a url_to_remove: sin JS navega de forma nativa y
-  FacetFiltersForm intercepta [data-facet-remove] y [data-facet-clear-all] para
-  refrescar por AJAX. El nombre accesible sale del contenido ("Quitar filtro
-  Disponibilidad: En existencia"): el precio no pasa por la interpolación de t,
-  que escaparía otra vez las entidades de un money_format como "&nbsp;€".
+    - filters: collection.filters or search.filters
+    - clear_url: URL without filters that keeps the sort order (and the search terms)
+    - section_id: section id, for the id of the hidden title
+  Each pill is a link to url_to_remove: without JS it navigates natively and FacetFiltersForm
+  intercepts [data-facet-remove] and [data-facet-clear-all] to refresh via AJAX. The accessible name
+  comes from the content ("Remove filter Availability: In stock"): the price does not go through t
+  interpolation, which would escape again the entities of a money_format such as "&nbsp;€".
 {%- endcomment -%}
 
 {%- liquid

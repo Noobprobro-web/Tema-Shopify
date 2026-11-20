@@ -28,7 +28,11 @@
       "facebook": "Facebook",
       "pinterest": "Pinterest",
       "tiktok": "TikTok",
-      "youtube": "YouTube"
+      "youtube": "YouTube",
+      "x": "X",
+      "snapchat": "Snapchat",
+      "vimeo": "Vimeo",
+      "tumblr": "Tumblr"
     },
     "localization": {
       "country": "Country/region",
@@ -195,7 +199,9 @@
     },
     "slideshow": {
       "region_label": "Slideshow",
+      "region_label_numbered": "Slideshow {{ number }}",
       "carousel_role": "carousel",
+      "track_label": "Slides",
       "slide_role": "slide",
       "slide_label": "Slide {{ current }} of {{ total }}",
       "slide_status": "Slide {{ current }} of {{ total }}",
@@ -491,7 +497,9 @@
         "editor_empty": "Add a circa year, condition grade or provenance notes to show this block. It stays hidden in the store until then."
       },
       "media_gallery": "Product media gallery",
+      "media_gallery_named": "{{ title }} media gallery",
       "media_thumbnails": "Product media thumbnails",
+      "media_label": "{{ title }}, media {{ index }} of {{ total }}",
       "view_media": "View product media {{ number }}",
       "media_zoom": {
         "title": "Image zoom",

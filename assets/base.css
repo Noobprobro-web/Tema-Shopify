@@ -31,9 +31,8 @@
   --page-gutter-mobile: 16px;
   --page-gutter-desktop: 32px;
   --container-max-width: 1440px;
-  /* Ancho de contenido unico: la misma formula que .container, gobernada por los
-     ajustes Ancho de pagina y Margen de pagina. Las secciones editoriales usaban 1440px con
-     32px (16px en movil) y su borde izquierdo no coincidia con el del header ni el footer. */
+  /* Single content width: the same formula as .container, driven by the Page width and Page
+     margin settings, so editorial sections line up with the header and footer edges. */
   --content-width: min(100% - (var(--page-gutter) * 2), var(--page-width));
   --section-spacing: 72px;
   --button-radius: 0;
@@ -41,38 +40,38 @@
   --border-width: 1px;
   --tap-target-min: 44px;
 
-  /* Una sola familia de duraciones y curvas para todo el tema. Tres curvas y tres
-     duraciones bastan: lo que hace que una interfaz se sienta cara es que todo comparta
-     el mismo vocabulario de movimiento, no que cada efecto tenga el suyo.
+  /* One family of durations and curves for the whole theme. Three curves and three durations are
+     enough: an interface feels premium when every effect shares the same motion vocabulary.
 
-     Reparto por intencion, no por valor:
-       fast  realimentacion que sigue al usuario: hover de boton, chevron, cabecera
-       base  entrada de superficie: cruce de imagen, reveal, quick add, lineas de carrito
-       slow  masas grandes: cajones, modales, escala de imagen en hover
+     Assigned by intent, not by value:
+     fast  feedback that follows the user: button hover, chevron, header
+     base  surface entrance: image crossfade, reveal, quick add, cart lines
+     slow  large masses: drawers, modals, image scale on hover
 
-     Calibracion: el ojo no registraba 320ms ni 12px en pantallas
-     grandes. Con la curva expo-out, el 80% del recorrido ocurre en el primer tercio del
-     tiempo, asi que 680ms se percibe como una llegada suave y no como lentitud. */
+     Calibration: 320ms or 12px is not perceptible on large screens. With the expo-out curve, 80%
+     of the travel happens in the first third of the time, so 680ms reads as a smooth arrival
+     rather than sluggishness. */
   --motion-fast: 160ms;
   --motion-base: 680ms;
   --motion-slow: 1000ms;
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
   --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
-  /* Distancia y ritmo del scroll reveal. 24px tiene peso sin leerse como carga lenta;
-     90ms entre hermanos hace legible la secuencia de una rejilla al hacer scroll. */
+  /* Distance and rhythm of the scroll reveal. 24px has weight without reading as slow loading;
+     90ms between siblings makes the sequence of a grid legible while scrolling. */
   --reveal-shift: 24px;
   --reveal-stagger: 90ms;
-  /* Modo Full (motor CSS scroll-driven nativo, bloque de coreografia scroll-driven). El movimiento lee estos tokens
-     en vez de fijar sus propios valores: mas recorrido y mas tiempo para que la entrada se
-     lea como gesto editorial, con la misma curva expo-out del resto del tema. */
+  /* Full mode (native CSS scroll-driven engine, scroll-driven choreography block). Motion reads
+     these tokens instead of hard-coding its own values: more travel and more time so the
+     entrance reads as an editorial gesture, with the same expo-out curve as the rest of the
+     theme. */
   --motion-expressive: 1200ms;
   --reveal-shift-expressive: 64px;
   --reveal-stagger-expressive: 100ms;
   --parallax-shift: 16%;
-  /* Modo Full: coreografia scroll-driven (bloque del motor nativo). Las distancias en vh son
-     scroll recorrido. theme.js lee --scroll-enter-inset (%), --scroll-reveal-distance (vh) y
-     --scroll-reveal-stagger (vh) para colocar sus lineas de observacion: unidades fijas. */
+  /* Full mode: scroll-driven choreography (native engine block). Distances in vh are fixed units
+     of scroll travel. theme.js reads --scroll-enter-inset (%), --scroll-reveal-distance (vh) and
+     --scroll-reveal-stagger (vh) to place its observation lines. */
   --scroll-enter-inset: 6%;
   --scroll-reveal-distance: 32vh;
   --scroll-reveal-stagger: 4vh;
@@ -142,7 +141,7 @@ body {
 body[data-drawer-open],
 body[data-modal-open] {
   overflow: hidden;
-  /* Ancho de la barra de scroll que el bloqueo retira (theme.js, syncDialogScrollLocks). */
+  /* Width of the scrollbar that the scroll lock removes (theme.js, syncDialogScrollLocks). */
   padding-right: var(--scrollbar-compensation, 0px);
 }
 
@@ -203,7 +202,8 @@ a:hover {
 .button:active,
 .icon-button:active,
 .variant-picker__label:active {
-  opacity: 0.72;
+  /* Pressed feedback without opacity: fading the control would drop label contrast. */
+  transform: translateY(1px) scale(0.985);
 }
 
 p,
@@ -410,14 +410,14 @@ blockquote {
   color: var(--color-foreground);
 }
 
-/* Shopify inyecta su propio botón de pago dinámico con un azul de marca que queda en
-   3.59:1 contra el blanco de su etiqueta. Se reviste con la paleta del tema para llevarlo
-   por encima de 12:1 y que deje de ser la unica violacion de contraste de la PDP. */
+/* Shopify injects its own dynamic checkout button with a brand blue that sits at 3.59:1 against
+   the white of its label. It is restyled with the theme palette to bring it above 12:1 so it
+   stops being the only contrast violation on the product page. */
 .shopify-payment-button__button--unbranded {
   border-radius: var(--button-radius);
   background-color: var(--color-foreground) !important;
   color: var(--color-background) !important;
-  /* Misma tipografia que .button para que "Buy it now" no rompa la pareja con Add to cart. */
+  /* Same typography as .button so "Buy it now" does not break the pair with Add to cart. */
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -607,8 +607,8 @@ blockquote {
   background: var(--color-surface);
 }
 
-/* Cabecera sticky: se pega la seccion que envuelve a la <header>, solo con JS.
-   Ver el comentario de sections/header.liquid; antes era un {% style %} en el body. */
+/* Sticky header: the section that wraps the <header> sticks, JS only. See the comment in
+   sections/header.liquid. */
 .js .section-header {
   position: sticky;
   top: 0;
@@ -688,8 +688,8 @@ blockquote {
 
 .site-header__brand {
   display: inline-flex;
-  /* Sin logo cargado, la marca se renderiza como texto y el enlace medía 18.4px de alto.
-     El minimo la lleva al area tactil de 44px sin alterar la maqueta del header. */
+  /* With no logo uploaded, the brand renders as text and the link measured 18.4px tall. The
+     minimum brings it up to the 44px touch target without altering the header layout. */
   min-width: var(--tap-target-min);
   min-height: var(--tap-target-min);
   max-width: min(45vw, 15rem);
@@ -699,21 +699,20 @@ blockquote {
   text-decoration: none;
 }
 
-/* El ancho sale del ajuste "Logo width" (--logo-width en header.liquid);
-   antes width: auto y un tope de 3rem de alto lo anulaban y el editor no cambiaba nada. El
-   alto sigue la proporcion del archivo, sea horizontal, cuadrado o vertical. El ancho es
-   fijo y el tope va en max-width: un min() con porcentaje dentro de width hace que la
-   columna de la marca se mida con el tamano natural de la foto y no con el ajuste. */
+/* The width comes from the "Logo width" setting (--logo-width in header.liquid). The height
+   follows the file's aspect ratio, whether horizontal, square or vertical. The width is fixed
+   and the cap goes in max-width: a min() with a percentage inside width makes the brand column
+   measure itself from the photo's natural size instead of the setting. */
 .site-header__logo-image {
   width: var(--logo-width, 140px);
   max-width: 100%;
   height: auto;
 }
 
-/* Una sola linea con elipsis dejaba "Sartorial Ateli…" a 390 px. El
-   nombre pasa a una segunda linea y solo recurre a la elipsis si tampoco cabe en dos; el
-   min-height de 4.75rem de la cabecera absorbe las dos lineas sin crecer. overflow-wrap
-   normal evita que una palabra se parta: si es mas larga que la columna, termina en "…". */
+/* A single line with an ellipsis truncated long brand names at 390px. The name wraps onto a
+   second line and only falls back to an ellipsis if it does not fit in two; the header's 4.75rem
+   min-height absorbs two lines without growing. overflow-wrap: normal prevents a word from being
+   split: if it is longer than the column, it ends in "…". */
 .site-header__brand-text {
   display: -webkit-box;
   overflow: hidden;
@@ -736,8 +735,8 @@ blockquote {
 
 .site-header__account {
   --shopify-account-signed-in-avatar-size: 2.25rem;
-  /* El boton del componente toma su minimo de esta variable; sin ella lo
-     calcula como 1,57 veces el avatar (50,2 px) y la cabecera movil pierde 6 px. */
+  /* The component's button takes its minimum from this variable; without it, it is computed as
+     1.57 times the avatar (50.2px) and the mobile header loses 6px. */
   --shopify-account-avatar-size: var(--tap-target-min);
   display: grid;
   min-width: 44px;
@@ -755,9 +754,9 @@ blockquote {
   position: relative;
 }
 
-/* El contador va sobre la esquina del icono, fuera del flujo: dentro del
-   enlace le sumaba 10,8 px al carrito y cortaba el nombre de la tienda a 390 px. Con 0
-   articulos no se pinta (hidden desde header.liquid y desde CartDrawer). */
+/* The counter sits over the icon's corner, out of flow: inside the link it added 10.8px to the
+   cart and truncated the store name at 390px. With 0 items it is not painted (hidden from
+   header.liquid and from CartDrawer). */
 .site-header__cart-count {
   position: absolute;
   inset-block-start: var(--space-3xs);
@@ -871,17 +870,17 @@ blockquote {
 }
 
 .site-footer__brand {
-  /* Sin el minimo, la columna crece hasta la palabra mas larga del
-     titulo (break-word no la cuenta como divisible) y da scroll horizontal en movil. */
+  /* Without the minimum, the column grows to the longest word of the title (break-word does not
+     count it as breakable) and causes horizontal scroll on mobile. */
   min-width: 0;
   max-width: 34rem;
 }
 
-/* Con el tamano de .h2 (75,6 px) en una columna de 304 px, el
-   overflow-wrap: anywhere del body partia "Sartorial" en "Sartori / al". A esta escala el
-   nombre corta entre palabras. break-word y no normal: una sola palabra mas ancha que la
-   columna se parte como ultimo recurso; con normal se salia y daba 311 px de scroll
-   horizontal a 360. El multiplicador mantiene vivo el ajuste "Heading scale". */
+/* At the .h2 size (75.6px) in a 304px column, the body's overflow-wrap: anywhere split a long
+   brand name mid-word. At this scale the name breaks between words. break-word and not normal: a
+   single word wider than the column is split as a last resort; with normal it overflowed and
+   produced 311px of horizontal scroll at 360. The multiplier keeps the "Heading scale" setting
+   working. */
 .site-footer__title {
   font-size: calc(clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem) * var(--font-heading-scale));
   color: currentColor;
@@ -890,17 +889,34 @@ blockquote {
   word-break: normal;
 }
 
-.site-footer__menu,
-.social-links {
+.site-footer__menu {
   display: grid;
   gap: var(--space-2);
 }
 
-.site-footer__menu a,
-.social-links a {
+.site-footer__menu a {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
+}
+
+/* Social links: icon-only targets with a full hit area; the network name is visually hidden text. */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.social-links__link {
+  display: inline-flex;
+  min-width: var(--tap-target-min);
+  min-height: var(--tap-target-min);
+  align-items: center;
+  justify-content: center;
+}
+
+.social-links__link .icon {
+  flex: none;
 }
 
 .site-footer__bottom {
@@ -921,7 +937,7 @@ blockquote {
   align-items: center;
 }
 
-/* powered_by_link llega tal cual de Shopify: solo se le da un area tactil de 24 px (WCAG 2.5.8). */
+/* powered_by_link arrives as-is from Shopify: it only gets a 24px touch area (WCAG 2.5.8). */
 .site-footer__powered-by a {
   display: inline-flex;
   min-height: 24px;
@@ -1171,8 +1187,8 @@ button[aria-busy='true']:disabled {
   width: 100%;
 }
 
-/* Shopify envuelve cada model-viewer en div.shopify-model-viewer-ui (inline-block sin ancho):
-   sin esto el width: 100% del visor se resuelve contra 0 px y el 3D queda inerte. */
+/* Shopify wraps each model-viewer in div.shopify-model-viewer-ui (inline-block without width):
+   without this, the viewer's width: 100% resolves against 0px and the 3D view is inert. */
 .product-gallery__item .shopify-model-viewer-ui,
 .featured-product__media .shopify-model-viewer-ui {
   display: block;
@@ -1287,15 +1303,16 @@ button[aria-busy='true']:disabled {
   height: auto;
 }
 
-/* model-viewer no tiene alto intrinseco: sin proporcion colapsa a 0/150 px. 4/5 sigue la proporcion de las
-   imagenes y funciona tambien en la media columna de escritorio. */
+/* model-viewer has no intrinsic height: without an aspect ratio it collapses to 0/150px. 4/5
+   matches the images' ratio and also works in the half column on desktop. */
 .featured-product__media model-viewer {
   aspect-ratio: 4 / 5;
   min-height: 20rem;
 }
 
-/* .featured-product__media recorta con overflow:hidden: un contorno exterior no se veria. model-viewer delega el foco
-   a su shadow DOM, asi que el host no cumple :focus-visible; model-viewer-ui le pone la clase .focus-visible. */
+/* .featured-product__media clips with overflow:hidden, so an outer outline would not show.
+   model-viewer delegates focus to its shadow DOM, so the host does not match :focus-visible;
+   model-viewer-ui adds the .focus-visible class to it. */
 .featured-product__media model-viewer:focus-visible,
 .featured-product__media model-viewer.focus-visible,
 .featured-product__media video:focus-visible {
@@ -1380,8 +1397,8 @@ button[aria-busy='true']:disabled {
   letter-spacing: 0;
 }
 
-/* Con 60+ caracteres, 3rem y 18ch el titulo llegaba a 13 lineas y
-   dejaba precio y boton de compra bajo el pliegue a 1280x800. Mismo tipo, cuerpo menor. */
+/* With 60+ characters, 3rem and 18ch the title reached 13 lines and pushed the price and buy
+   button below the fold at 1280x800. Same typeface, smaller size. */
 .product-main__title[data-long-title='1'] {
   max-width: 28ch;
   line-height: 1.2;
@@ -1458,15 +1475,15 @@ a.variant-picker__label[aria-current] {
 }
 
 .product-form__quantity {
-  /* Sin tope de ancho: el stepper es inline-grid y ya se mide por su contenido. El
-     max-width de 8rem existia solo para que el campo suelto no se estirase, y de paso
-     partia el total de linea en una columna estrecha. */
+  /* No width cap: the stepper is inline-grid and already sizes to its content. The 8rem
+     max-width existed only so a bare field would not stretch, and it also split the line total
+     in a narrow column. */
   display: block;
 }
 
-/* La etiqueta global es inline-block porque acompanaba a un campo de ancho completo.
-   Junto a un stepper inline-grid se le pondria al lado, asi que aqui vuelve a su linea
-   y su margen inferior recupera sentido. */
+/* The global label is inline-block because it used to accompany a full-width field. Next to an
+   inline-grid stepper it would sit beside it, so here it goes back onto its own line and its
+   bottom margin makes sense again. */
 .product-form__quantity label {
   display: block;
 }
@@ -1862,8 +1879,8 @@ facet-filters-form[data-auto-apply] .facets__actions {
   margin-block-start: var(--space-3);
 }
 
-/* Barra de filtros activos. Pildoras con el borde de control (>= 3:1 contra el fondo),
-   la misma escala tipografica que los chips de variante y 44 px de objetivo tactil. */
+/* Active filters bar. Pills with the control border (>= 3:1 against the background), the same
+   type scale as the variant chips and a 44px touch target. */
 .facets__active-filters {
   margin-block-end: var(--space-3);
 }
@@ -1960,19 +1977,19 @@ facet-filters-form[data-auto-apply] .facets__actions {
   transition: opacity var(--motion-base) var(--ease-enter), transform var(--motion-slow) var(--ease-move);
 }
 
-/* Cruce de imagenes: la que se va acelera (ease-exit), la que llega frena (ease-enter).
-   La curva la fija el estilo de destino, asi que cada regla describe el estado al que
-   se entra: al pasar el cursor la primaria sale y la secundaria entra; al retirarlo,
-   al reves. El transform conserva su propia curva en las cuatro reglas. */
+/* Image crossfade: the outgoing image accelerates (ease-exit), the incoming one decelerates
+   (ease-enter). The curve is set by the destination style, so each rule describes the state
+   being entered: on hover the primary exits and the secondary enters; on leave, the reverse. The
+   transform keeps its own curve in all four rules. */
 .product-card__image--secondary {
   opacity: 0;
   transition: opacity var(--motion-base) var(--ease-exit), transform var(--motion-slow) var(--ease-move);
 }
 
-/* La primaria solo se retira si hay una secundaria que la sustituya. La marca
-   data-has-secondary la pone snippets/product-card.liquid (y recently-viewed la retira si
-   quita la secundaria), asi que no depende de :has(). Sin ella, la foto se queda y solo se
-   acerca: un hueco con el fondo de .product-card__media no es un estado de hover. */
+/* The primary image is only removed if a secondary one replaces it. The data-has-secondary
+   marker is set by snippets/product-card.liquid (and recently-viewed removes it if it drops the
+   secondary image), so it does not depend on :has(). Without it, the photo stays and only zooms
+   in: a gap showing the .product-card__media background is not a hover state. */
 .product-card__media[data-has-secondary]:hover .product-card__image--primary,
 .product-card__media[data-has-secondary]:focus-visible .product-card__image--primary {
   opacity: 0;
@@ -1985,8 +2002,8 @@ facet-filters-form[data-auto-apply] .facets__actions {
   transition: opacity var(--motion-base) var(--ease-enter), transform var(--motion-slow) var(--ease-move);
 }
 
-/* El acercamiento es movimiento: solo con no-preference y fuera de "none". Con
-   secundaria se conserva el 1.025 del cruce; sin ella, 1.02 sobre la primaria. */
+/* The zoom is motion: only with no-preference and outside "none". With a secondary image the
+   crossfade's 1.025 is kept; without one, 1.02 on the primary. */
 @media (prefers-reduced-motion: no-preference) {
   html:not([data-animations='none']) .product-card__media:hover .product-card__image,
   html:not([data-animations='none']) .product-card__media:focus-visible .product-card__image {
@@ -2006,11 +2023,11 @@ facet-filters-form[data-auto-apply] .facets__actions {
 }
 
 .product-card__content {
-  /* Alto de la fila de swatches. La fila nunca pasa de una linea (ver mas abajo),
-     asi que este valor es a la vez su alto real y la reserva de altura. */
+  /* Height of the swatch row. The row never exceeds one line (see below), so this value is both
+     its real height and the height reservation. */
   --card-swatch-row-height: var(--tap-target-min);
-  /* Alto de la linea de vendor (una sola linea, ver .product-card__vendor): lo
-     reservan las tarjetas sin vendor para alinear el titulo. Va en em/rem, escala con la letra. */
+  /* Height of the vendor line (a single line, see .product-card__vendor): cards without a vendor
+     reserve it to align the title. It uses em/rem so it scales with the font size. */
   --card-vendor-font-size: 0.7rem;
   --card-vendor-line-height: 1.4;
   display: grid;
@@ -2022,7 +2039,7 @@ facet-filters-form[data-auto-apply] .facets__actions {
   font-size: var(--card-vendor-font-size);
   line-height: var(--card-vendor-line-height);
   text-transform: uppercase;
-  /* Una sola linea con elipsis: un vendor largo no puede crecer y desalinear. */
+  /* Single line with an ellipsis: a long vendor cannot grow and misalign the cards. */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2034,8 +2051,8 @@ facet-filters-form[data-auto-apply] .facets__actions {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.35;
-  /* Politica global de palabras intacta; el corte vive en los contenedores estrechos, */
-  /* regla `.bento-discovery__item--product .product-card__title` al final de este archivo. */
+  /* The global word-break policy is left intact; breaking lives in the narrow containers, */
+  /* see the `.bento-discovery__item--product .product-card__title` rule at the end of this file. */
 }
 
 .product-card__title a {
@@ -2052,8 +2069,8 @@ facet-filters-form[data-auto-apply] .facets__actions {
   min-width: 0;
 }
 
-/* Rejilla de 2 columnas a 320px con letra grande: el boton cabe en su celda y el texto
-   se parte antes que desbordar. */
+/* 2-column grid at 320px with a large font: the button fits in its cell and the text wraps
+   before it overflows. */
 .product-card__action .button {
   box-sizing: border-box;
   max-width: 100%;
@@ -2062,11 +2079,10 @@ facet-filters-form[data-auto-apply] .facets__actions {
   overflow-wrap: anywhere;
 }
 
-/* El quick add se asienta al pasar el cursor. Conserva SIEMPRE su espacio en la
-   rejilla, asi que no provoca ni un pixel de desplazamiento: solo cambian opacidad y
-   transform, las dos propiedades que el compositor resuelve sin relayout. En pantallas
-   tactiles, donde no hay hover que dispare nada, se queda visible y directamente
-   pulsable. */
+/* Quick add settles in on hover. It ALWAYS keeps its space in the grid, so it causes not even a
+   pixel of layout shift: only opacity and transform change, the two properties the compositor
+   handles without relayout. On touch screens, where there is no hover to trigger anything, it
+   stays visible and directly tappable. */
 @media (hover: hover) and (pointer: fine) {
   html[data-animations='subtle'] .product-card__action,
   html[data-animations='full'] .product-card__action {
@@ -2085,23 +2101,23 @@ facet-filters-form[data-auto-apply] .facets__actions {
   }
 }
 
-/* 5A. Tarjeta de producto: swatches y compra rapida.
-   El elemento que coordina la variante envuelve la tarjeta con display: contents, asi que
-   la rejilla de .product-card (y las variantes de bento y curated showcase) siguen viendo
-   los mismos hijos de siempre. */
+/* Product card: swatches and quick add.
+   The element that coordinates the variant wraps the card with display: contents, so the
+   .product-card grid (and the bento and curated showcase variants) keep seeing the same children
+   as always. */
 product-card-variants {
   display: contents;
 }
 
-/* Abierto, el panel se ancla al bloque de texto: la accion no puede conservar el transform
-   del reveal (lo convertiria en el ancla). La especificidad supera la del :focus-within. */
+/* When open, the panel anchors to the text block: the action cannot keep the reveal's transform
+   (it would become the anchor). The specificity beats that of :focus-within. */
 html[data-animations] .product-card product-card-variants[data-open] .product-card__action {
   opacity: 1;
   transform: none;
 }
 
-/* Con la foto de un color a la vista, el cruce hacia la segunda imagen del producto
-   mostraria otro color: se desactiva hasta volver a la foto del producto. */
+/* With a color's photo in view, the crossfade to the product's second image would show a
+   different color, so it is disabled until the product photo returns. */
 product-card-variants[data-variant-media] .product-card__image--secondary {
   display: none;
 }
@@ -2116,13 +2132,13 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   --card-swatch-text-min: 4.75rem;
   container: card-swatches / inline-size;
   display: flex;
-  /* Una sola linea: los swatches de texto se encogen con elipsis en vez de saltar
-     a otra fila. El nombre completo sigue en el aria-label de cada swatch. */
+  /* Single line: text swatches shrink with an ellipsis instead of jumping to another row. The
+     full name stays in each swatch's aria-label. */
   flex-wrap: nowrap;
   align-items: center;
   height: var(--card-swatch-row-height);
-  /* Cada swatch ocupa 44x44 para el toque, pero el circulo mide 24: el margen negativo
-     alinea el primer circulo con el borde del titulo. */
+  /* Each swatch takes 44x44 for touch, but the circle is 24: the negative margin aligns the
+     first circle with the title's edge. */
   margin-inline-start: calc((var(--tap-target-min) - var(--card-swatch-size)) / -2);
 }
 
@@ -2141,14 +2157,13 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   flex-shrink: 0;
 }
 
-/* Liquid (snippets/card-swatch-fit.liquid) escribe en data-swatch-fit
-   cuantas piezas caben en cada banda de ancho de la fila (a 120-140, b 140-180 ... h >= 380),
-   estimando 44 por color y por contador, 76 (--card-swatch-text-min, unos 6 caracteres
-   visibles) por nombre largo y el ancho propio de un nombre corto. Las cifras son px con la
-   letra base de 16px: cada banda empieza en max(px, rem), asi que con la letra del navegador
-   al 125 o 150 % las bandas crecen con el texto y la estimacion sigue siendo valida. Solo se
-   recorta lo que no cabe; cada contador (--k1 a --k4) cuenta lo que queda oculto. La altura
-   de la fila no cambia. */
+/* Liquid (snippets/card-swatch-fit.liquid) writes to data-swatch-fit how many pieces fit in each
+   width band of the row (a 120-140, b 140-180 ... h >= 380), estimating 44 per color and per
+   counter, 76 (--card-swatch-text-min, about 6 visible characters) per long name and the natural
+   width of a short name. The figures are px at a 16px base font: each band starts at max(px,
+   rem), so with the browser font at 125 or 150% the bands grow with the text and the estimate
+   stays valid. Only what does not fit is clipped; each counter (--k1 to --k4) counts what
+   remains hidden. The row height does not change. */
 .product-card__swatches .card-swatch-more--fit {
   display: none;
 }
@@ -2273,10 +2288,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Filas solo de color (data-swatch-fit-px): cada pieza mide 44px fijos aunque la
-   letra del navegador crezca, asi que sus bandas van en px puros, sin max(px, rem). Mismo
-   reparto de piezas que las bandas de arriba; con la letra al 125 o 150 % la fila conserva
-   los swatches que caben en vez de bajar a uno. */
+/* Color-only rows (data-swatch-fit-px): each piece is a fixed 44px even if the browser font
+   grows, so their bands are in pure px, without max(px, rem). Same piece distribution as the
+   bands above; with the font at 125 or 150% the row keeps the swatches that fit instead of
+   dropping to one. */
 @container card-swatches (120px <= width < 140px) {
   .product-card__swatch-group[data-swatch-fit-px~='a1'] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
   .product-card__swatch-group[data-swatch-fit-px~='a2'] :is(.card-swatch--n3, .card-swatch--n4),
@@ -2397,10 +2412,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Red de seguridad para filas mas estrechas que la banda a (zoom del 200 %, letra
-   grande, vista de lista estrecha), donde la estimacion no garantiza nada: un swatch y el
-   contador; con menos de dos piezas de toque, solo el primer swatch; sin sitio para una,
-   ninguno. El enlace del producto sigue llevando a todas las opciones. */
+/* Safety net for rows narrower than band a (200% zoom, large font, narrow list view), where the
+   estimate guarantees nothing: one swatch and the counter; with fewer than two touch pieces,
+   only the first swatch; with room for none, nothing. The product link still leads to all
+   options. */
 @container card-swatches (width < max(120px, 7.5rem)) {
   .product-card__swatches .product-card__swatch-group:not([data-swatch-fit-px]) :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
   .product-card__swatches .product-card__swatch-group:not([data-swatch-fit-px]) ~ .card-swatch-more--fit {
@@ -2412,7 +2427,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* La misma red de seguridad para filas solo de color, en px puros. */
+/* The same safety net for color-only rows, in pure px. */
 @container card-swatches (width < 120px) {
   .product-card__swatches .product-card__swatch-group[data-swatch-fit-px] :is(.card-swatch--n2, .card-swatch--n3, .card-swatch--n4),
   .product-card__swatches .product-card__swatch-group[data-swatch-fit-px] ~ .card-swatch-more--fit {
@@ -2424,7 +2439,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Sin contador visible, el total queda para el lector de pantalla. */
+/* With no visible counter, the total is left for the screen reader. */
 .product-card__swatches .card-swatch-count {
   display: none;
 }
@@ -2438,8 +2453,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
     display: block;
   }
 
-  /* Sin contador, el primer swatch de texto toma lo que haya en la fila, sin bajar de la
-     pieza de toque. */
+  /* With no counter, the first text swatch takes whatever room the row has, without going below
+     the touch piece. */
   .product-card__swatches .product-card__swatch-group :is(.card-swatch--text-min, .card-swatch--text-fit) {
     flex-shrink: 1;
     min-width: var(--tap-target-min);
@@ -2453,14 +2468,14 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Los swatches van encima del titulo: en una rejilla donde alguna tarjeta los tiene,
-   las tarjetas sin ellos reservan el alto de la fila de swatches (--card-swatch-row-height)
-   para que todos los titulos arranquen a la misma altura. El hueco es un pseudo-elemento
-   vacio: no cambia el DOM ni el orden de lectura. Solo en rejillas de varias columnas: la
-   vista de lista, bento y curated showcase quedan fuera, y la rejilla de "2" columnas y la
-   de busqueda solo entran desde 48rem, porque por debajo son de una columna y la reserva no
-   alinearia nada. Sin :has() no se reserva nada y la tarjeta queda como antes.
-   El vendor se reserva aparte, mas abajo. */
+/* Swatches sit above the title: in a grid where some card has them, cards without them reserve
+   the swatch row height (--card-swatch-row-height) so all titles start at the same height. The
+   gap is an empty pseudo-element: it changes neither the DOM nor the reading order. Only in
+   multi-column grids: list view, bento and curated showcase are excluded, and the "2" column
+   grid and the search grid only apply from 48rem, because below that they are one column and the
+   reservation would align nothing. Without :has() nothing is reserved and the card stays as
+   before.
+   The vendor is reserved separately, further down. */
 :is(
     .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
     .product-recommendations__grid,
@@ -2483,10 +2498,9 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Mismo criterio para el vendor: si alguna tarjeta de la rejilla lo muestra, las
-   que no lo tienen empujan el titulo la altura de esa linea mas el hueco de la rejilla de
-   contenido, sin altura fija en px. Misma lista de rejillas que la reserva de swatches; sin
-   :has() no se reserva nada. */
+/* Same approach for the vendor: if any card in the grid shows it, those without one push the
+   title down by that line's height plus the content grid gap, with no fixed px height. Same list
+   of grids as the swatch reservation; without :has() nothing is reserved. */
 :is(
     .product-grid:not([data-grid-columns='list'], [data-grid-columns='2']),
     .product-recommendations__grid,
@@ -2507,12 +2521,12 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Sin swatch nativo: el nombre del valor, en una pieza del mismo alto de toque. El
-   selector doble gana a .card-swatch (width fijo de 44px, declarado despues); sin el, la
-   etiqueta desbordaba el boton y se montaba sobre la vecina. */
+/* No native swatch: the value's name, in a piece with the same touch height. The doubled
+   selector beats .card-swatch (fixed 44px width, declared later); without it, the label
+   overflowed the button and overlapped its neighbor. */
 .card-swatch.card-swatch--text {
-  /* La pista puede bajar de 0 al ancho de la etiqueta: el boton se encoge en una fila
-     estrecha y la etiqueta recorta con elipsis dentro de el. */
+  /* The track may drop below 0 to the label's width: the button shrinks in a narrow row and the
+     label is clipped with an ellipsis inside it. */
   grid-template-columns: minmax(0, auto);
   width: auto;
   min-width: var(--tap-target-min);
@@ -2520,11 +2534,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   padding-inline: var(--space-2xs);
 }
 
-/* Un nombre largo se encoge hasta el minimo legible (unos 6 caracteres) y no mas;
-   uno corto (5 letras o menos) no se encoge. El nombre completo va en title (raton) y en
-   aria-label. */
-/* Si solo cabe una pieza y el contador (banda a, o letra grande), el minimo cede
-   hasta dejar sitio al contador, sin bajar de la pieza de toque. */
+/* A long name shrinks to the legible minimum (about 6 characters) and no further; a short one (5
+   letters or fewer) does not shrink. The full name goes in title (mouse) and in aria-label. */
+/* If only one piece plus the counter fits (band a, or large font), the minimum gives way to
+   leave room for the counter, without going below the touch piece. */
 .product-card__swatch-group .card-swatch--text-min {
   flex-shrink: 1;
   min-width: var(--card-swatch-text-min);
@@ -2579,9 +2592,9 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   cursor: pointer;
 }
 
-/* Solo datos nativos de Shopify (swatch.color o swatch.image). Un valor sin swatch nunca
-   recibe un color deducido de su nombre: en la tarjeta muestra el nombre y en el filtro una
-   trama neutra junto a la etiqueta visible. */
+/* Native Shopify data only (swatch.color or swatch.image). A value without a swatch never gets a
+   color inferred from its name: on the card it shows the name, and in the filter a neutral
+   pattern next to the visible label. */
 .card-swatch__color,
 .facet__swatch {
   position: relative;
@@ -2589,8 +2602,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   flex: 0 0 auto;
   border: 1px solid var(--color-control-border);
   border-radius: 50%;
-  /* Posicion y tamano van aparte: si el punto focal llega vacio, el fondo no se invalida
-     entero, solo vuelve la posicion inicial. */
+  /* Position and size are separate: if the focal point arrives empty, the background is not
+     invalidated entirely, only the initial position returns. */
   background: var(--variant-swatch, repeating-linear-gradient(135deg, var(--color-surface) 0 3px, var(--color-surface-subtle) 3px 6px));
   background-position: var(--variant-swatch-position, center);
   background-repeat: no-repeat;
@@ -2607,8 +2620,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   transform: scale(1.08);
 }
 
-/* Anillo concentrico: separacion del color del fondo y trazo del texto, 3:1 o mas con
-   cualquier esquema porque usa el propio primer plano. */
+/* Concentric ring: separation from the background color and text stroke, 3:1 or more with any
+   scheme because it uses the foreground itself. */
 .card-swatch[aria-checked='true'] .card-swatch__color {
   box-shadow: 0 0 0 2px var(--color-background), 0 0 0 3px var(--color-foreground);
 }
@@ -2652,10 +2665,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 }
 
 
-/* Compra rapida. En escritorio el panel se apoya sobre la base de la imagen, justo encima
-   del bloque de texto: no mueve la rejilla ni tapa el boton, el titulo o los swatches. En
-   movil el mismo <dialog> se abre modal como hoja inferior. El ancla es el bloque de texto;
-   por eso la accion, abierta, pierde su transform (que la convertiria en el ancla). */
+/* Quick add. On desktop the panel rests on the image's base, right above the text block: it does
+   not move the grid or cover the button, title or swatches. On mobile the same <dialog> opens
+   modally as a bottom sheet. The anchor is the text block; that is why the action, when open,
+   loses its transform (which would turn it into the anchor). */
 .product-card__content {
   position: relative;
 }
@@ -2712,8 +2725,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   color: var(--color-foreground-muted);
 }
 
-/* Sobre la tarjeta el titulo ya esta a la vista: el del panel queda solo para lectores de
-   pantalla, que lo reciben como descripcion del dialogo. */
+/* On the card the title is already in view: the panel's title is left for screen readers only,
+   which receive it as the dialog description. */
 .quick-buy__panel:not(:modal) .quick-buy__product {
   position: absolute;
   width: 1px;
@@ -2773,7 +2786,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   outline-offset: 2px;
 }
 
-/* Agotado: trazo diagonal fino y texto atenuado; el lector de pantalla oye "Agotado". */
+/* Sold out: thin diagonal stroke and muted text; the screen reader announces "Sold out". */
 .quick-buy__value[disabled]:not([aria-busy='true']) {
   border-color: var(--color-border);
   background: linear-gradient(to top left, transparent calc(50% - 0.5px), var(--color-foreground-muted) 50%, transparent calc(50% + 0.5px));
@@ -2793,7 +2806,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 }
 
 .quick-buy__panel::backdrop {
-  /* Mismo velo que el cajon; ::backdrop no hereda variables en navegadores antiguos, de ahi el respaldo. */
+  /* Same scrim as the drawer; ::backdrop does not inherit variables in older browsers, hence the
+     fallback. */
   background: color-mix(in srgb, var(--color-shadow, rgb(28 25 23)) 48%, transparent);
 }
 
@@ -2811,8 +2825,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Filtros con swatch: el checkbox sigue siendo el control real (mismo name y value, misma
-   sumision estandar y AJAX); el circulo solo lo viste. */
+/* Swatch filters: the checkbox remains the real control (same name and value, same standard and
+   AJAX submission); the circle only styles it. */
 .facet__values--swatch {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(4.25rem, 1fr));
@@ -2977,11 +2991,10 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   align-items: baseline;
 }
 
-/* Stepper de cantidad (menos, campo, mas). Pieza compartida por el cajon y por
-   la pagina de carrito. Una sola caja con hilo de 1px: los botones no llevan borde
-   propio y se separan del campo con lineas internas, para que el control se lea como
-   un objeto y no como tres piezas sueltas. Sin radio ni relleno de color, en la linea
-   editorial del tema. */
+/* Quantity stepper (minus, field, plus). A piece shared by the drawer and the cart page. A
+   single box with a 1px hairline: the buttons have no border of their own and are separated from
+   the field by internal lines, so the control reads as one object rather than three loose
+   pieces. No radius or color fill, in the theme's editorial style. */
 .quantity-stepper {
   display: inline-grid;
   border: 1px solid var(--color-control-border);
@@ -2992,8 +3005,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 .quantity-stepper__button {
   display: inline-flex;
   min-width: var(--tap-target-min);
-  /* 44 x 44 px exactos en cualquier viewport. Es el criterio 2.5.8 de WCAG 2.2 que
-     exige Shopify, no una holgura estetica. */
+  /* Exactly 44 x 44px at any viewport. This is WCAG 2.2 criterion 2.5.8, which Shopify requires,
+     not an aesthetic allowance. */
   min-height: var(--tap-target-min);
   padding: 0;
   border: 0;
@@ -3009,25 +3022,24 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
 }
 
-/* El anillo de foco se dibuja hacia dentro: con el outline-offset global de 3px
-   quedaria por fuera de la caja y pisaria el borde del stepper. */
+/* The focus ring is drawn inward: with the global 3px outline-offset it would sit outside the
+   box and overlap the stepper's border. */
 .quantity-stepper__button:focus-visible,
 .quantity-stepper__input:focus-visible {
   outline-offset: -3px;
 }
 
-/* El selector va doblado a proposito. La regla global de campos es
-   input:not([type='checkbox'], [type='radio']), y :not() suma la especificidad de su
-   argumento: (0,1,1) contra los (0,1,0) de una clase suelta. Sin doblar, el campo se
-   quedaba con el borde y el relleno de un input normal y el stepper se leia como tres
-   cajas apiladas en vez de una sola pieza. */
+/* The selector is doubled on purpose. The global field rule is input:not([type='checkbox'],
+   [type='radio']), and :not() adds the specificity of its argument: (0,1,1) against the (0,1,0)
+   of a lone class. Without doubling, the field kept the border and fill of a regular input and
+   the stepper read as three stacked boxes instead of a single piece. */
 .quantity-stepper .quantity-stepper__input {
   width: 100%;
   min-height: var(--tap-target-min);
   padding: 0 0.25rem;
   border: 0;
-  /* Hilos internos en el borde suave, no en el de control: separan lo justo para que se
-     vean tres zonas pulsables sin que el conjunto parezca una tabla. */
+  /* Internal hairlines use the soft border, not the control one: they separate just enough to
+     show three tappable zones without making the whole look like a table. */
   border-inline: 1px solid var(--color-border);
   border-radius: 0;
   background: transparent;
@@ -3037,8 +3049,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   -moz-appearance: textfield;
 }
 
-/* Las flechas nativas duplicarian el control, y ademas son objetivos tactiles de
-   unos 10 px que arruinarian la reticula de 44 px. */
+/* Native arrows would duplicate the control, and they are touch targets of about 10px that would
+   break the 44px grid. */
 .quantity-stepper__input::-webkit-outer-spin-button,
 .quantity-stepper__input::-webkit-inner-spin-button {
   margin: 0;
@@ -3046,24 +3058,24 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   -webkit-appearance: none;
 }
 
-/* Mientras el cajon espera al servidor, setDrawerBusy deshabilita el campo. Eso es una
-   espera, no un control muerto, asi que el numero se mantiene legible: el mismo criterio
-   que el tema ya aplica a .button[aria-busy='true']:disabled. */
+/* While the drawer waits for the server, setDrawerBusy disables the field. That is a wait, not a
+   dead control, so the number stays legible: the same approach the theme already applies to
+   .button[aria-busy='true']:disabled. */
 [aria-busy='true'] .quantity-stepper__input:disabled {
   cursor: progress;
   opacity: 1;
 }
 
-/* Sin JavaScript los botones no pueden hacer nada, asi que se retiran en vez de quedarse
-   como controles muertos. El campo sobrevive y sigue siendo funcional: en la pagina de
-   carrito con el boton "Update cart", y en el cajon porque el cajon no existe sin JS. */
+/* Without JavaScript the buttons cannot do anything, so they are removed instead of staying as
+   dead controls. The field survives and remains functional: on the cart page with the "Update
+   cart" button, and in the drawer because the drawer does not exist without JS. */
 .no-js .quantity-stepper__button {
   display: none;
 }
 
 .no-js .quantity-stepper {
-  /* El ancho que tenia el campo antes del stepper: sin botones, una caja de 50 px seria
-     un retroceso frente al diseno anterior. */
+  /* The width the field had before the stepper: without buttons, a 50px box would be a step back
+     from the previous design. */
   grid-template-columns: minmax(5rem, 7rem);
 }
 
@@ -3074,7 +3086,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 .cart-item__controls {
   display: grid;
   grid-column: 2;
-  /* max-content para que el stepper entre entero (44 + campo + 44) sin comprimirse. */
+  /* max-content so the stepper fits whole (44 + field + 44) without being squeezed. */
   grid-template-columns: max-content auto;
   gap: var(--space-2);
   align-items: end;
@@ -3283,8 +3295,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 }
 
 .cart-drawer-item__stepper {
-  /* El stepper es inline-grid, asi que se mide por su contenido; el maximo solo evita
-     que el campo se estire en lineas con titulos cortos. */
+  /* The stepper is inline-grid, so it sizes to its content; the maximum only prevents the field
+     from stretching in lines with short titles. */
   max-width: 9rem;
 }
 
@@ -3352,7 +3364,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 }
 
 .cart-cross-sell__title {
-  /* Un titulo largo se parte en lineas; nunca se recorta. */
+  /* A long title wraps onto several lines; it is never clipped. */
   font-weight: 700;
   overflow-wrap: anywhere;
 }
@@ -3382,16 +3394,16 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   margin-inline-start: var(--space-2xs);
 }
 
-/* ---------- Recomendaciones del cajon: opciones inline ---------- */
-/* El panel de opciones ocupa todo el ancho de la tarjeta y crece dentro de
-   .cart-drawer__scroll: nunca empuja el pie. Chips de 44 x 44 CSS px como minimo con el
-   radio nativo encima (opacidad 0, enfocable); el anillo de foco y la seleccion se pintan
-   en el chip. "No disponible" combina borde discontinuo, tachado y texto oculto. */
+/* ---------- Drawer recommendations: inline options ---------- */
+/* The options panel takes the full width of the card and grows inside .cart-drawer__scroll: it
+   never pushes the footer. Chips are at least 44 x 44 CSS px with the native radio on top
+   (opacity 0, focusable); the focus ring and selection are painted on the chip. "Unavailable"
+   combines a dashed border, strikethrough and hidden text. */
 .cart-cross-sell-slot {
   min-width: 0;
 }
 
-/* La lista es un <ul role="list">: sin sangria ni vinetas del navegador. */
+/* The list is a <ul role="list">: no browser indentation or bullets. */
 .cart-cross-sell__list {
   margin: 0;
   padding: 0;
@@ -3520,8 +3532,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   outline-offset: 2px;
 }
 
-/* Sin :has() (navegadores anteriores a 2023) el chip no puede pintarse desde el radio: la
-   etiqueta hermana (el input la precede) marca seleccion y foco. */
+/* Without :has() (browsers before 2023) the chip cannot be painted from the radio: the sibling
+   label (the input precedes it) marks selection and focus. */
 @supports not selector(:has(*)) {
   .cart-cross-sell__radio:checked + .cart-cross-sell__chip-label {
     font-weight: 700;
@@ -3540,9 +3552,9 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   }
 }
 
-/* Colores forzados (alto contraste): el sistema anula fondos y bordes del tema, asi que la
-   seleccion se pinta con Highlight y el foco con CanvasText. Cada selector va en su propia
-   regla: un navegador sin :has() descartaria la lista entera. */
+/* Forced colors (high contrast): the system overrides the theme's backgrounds and borders, so
+   selection is painted with Highlight and focus with CanvasText. Each selector goes in its own
+   rule: a browser without :has() would discard the whole list. */
 @media (forced-colors: active) {
   .cart-cross-sell__chip:has(.cart-cross-sell__radio:checked) {
     border-color: Highlight;
@@ -3567,6 +3579,16 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
       outline: 2px solid CanvasText;
       outline-offset: 2px;
     }
+  }
+}
+
+/* Focus rings that add a box-shadow halo keep a real outline in forced colors, where
+   shadows are dropped. */
+@media (forced-colors: active) {
+  .hero-editorial__video-toggle:focus-visible,
+  .lookbook-hotspot__trigger:focus-visible,
+  .product-gallery__zoom-trigger:focus-visible {
+    outline: 2px solid CanvasText;
   }
 }
 
@@ -3615,8 +3637,8 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   max-width: 100%;
 }
 
-/* Cajon estrecho (menos de 30rem: el panel ocupa todo el ancho): la accion baja bajo el
-   titulo para que titulo, precio y boton no se disputen una sola fila a 320 px. */
+/* Narrow drawer (under 30rem: the panel takes the full width): the action drops below the title
+   so title, price and button do not compete for a single row at 320px. */
 @media (max-width: 29.99rem) {
   .cart-cross-sell__item {
     grid-template-columns: 4rem minmax(0, 1fr);
@@ -3633,7 +3655,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
     justify-self: start;
   }
 }
-/* ---------- Fin de las recomendaciones del cajon ---------- */
+/* ---------- End of drawer recommendations ---------- */
 
 .cart-drawer__footer {
   --flow-space: var(--space-3);
@@ -3702,7 +3724,7 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   font-size: min(3.25rem, calc(2.75rem * var(--font-heading-scale)), 10.5vw);
   letter-spacing: 0;
   line-height: 1.04;
-  /* Titulares grandes: nunca partir una palabra para ajustar el ancho (en y es). */
+  /* Large headlines: never break a word to fit the width (in and es). */
   overflow-wrap: break-word;
 }
 
@@ -3757,13 +3779,13 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   opacity: 1;
 }
 
-/* WCAG 2.2.2. Control del video de fondo: 44x44 (--tap-target-min), por encima del
-   velo (.hero-editorial__overlay, z-index 2) y del bloque de texto (z-index 3), en la esquina
-   superior final del medio. En cinematic el texto se superpone al medio y a 375 px mide 18rem:
-   centrado o al final, y con un titular largo, alcanzaria esa esquina. Por eso, solo cuando
-   hay video (hero-editorial--has-video, puesta desde Liquid), el bloque de texto reserva arriba
-   la altura del control y nunca lo pisa. El anillo de foco es el global (:focus-visible) con
-   un halo del fondo del esquema debajo, para que se lea tambien sobre un fotograma oscuro. */
+/* WCAG 2.2.2. Background video control: 44x44 (--tap-target-min), above the overlay
+   (.hero-editorial__overlay, z-index 2) and the text block (z-index 3), in the media's top end
+   corner. In cinematic the text overlaps the media and at 375px measures 18rem: centered or
+   end-aligned, and with a long headline, it could reach that corner. So, only when there is a
+   video (hero-editorial--has-video, set from Liquid), the text block reserves the control's
+   height at the top and never overlaps it. The focus ring is the global one (:focus-visible)
+   with a halo of the scheme background underneath, so it also reads over a dark frame. */
 .hero-editorial__video-toggle {
   position: absolute;
   z-index: 4;
@@ -3887,9 +3909,9 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 
 
 
-/* Titular y subtitulo tienen max-width: con texto centrado o a la derecha,
-   su caja tambien se centra o se alinea a la derecha. Sin esto, en Archive (align-center) el
-   subtitulo queda 141 px a la izquierda del eje a 1280 px. */
+/* Headline and subtitle have a max-width: with centered or right-aligned text, their box is also
+   centered or right-aligned. Without this, in the Archive preset (align-center) the subtitle
+   sits 141px left of the axis at 1280px. */
 .hero-editorial--align-center .hero-editorial__heading,
 .hero-editorial--align-center .hero-editorial__subheading {
   margin-inline: auto;
@@ -4065,8 +4087,8 @@ curated-showcase {
   gap: var(--space-lg);
 }
 
-/* El minimo de la columna de imagen no puede pasar del 42 % de la tarjeta: con
-   zoom del 200 % (viewport de 160 a 195 px) 7.5rem la ensanchaba mas que el viewport. */
+/* The image column's minimum cannot exceed 42% of the card: at 200% zoom (viewport 160 to 195px)
+   7.5rem made it wider than the viewport. */
 .curated-showcase__supporting .product-card {
   padding-block-start: var(--space-md);
   border-top: var(--border-width) solid var(--color-border-hairline);
@@ -4112,7 +4134,7 @@ curated-showcase {
   padding-block-start: var(--space-md);
   border-top: var(--border-width) solid var(--color-border-hairline);
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: var(--space-md);
   color: var(--color-foreground-muted);
   font-size: 0.75rem;
@@ -4272,7 +4294,7 @@ curated-showcase {
   line-height: 1.4;
 }
 
-/* El indice es un dd (en un dl solo caben dt y dd) pero conserva la medida del span anterior. */
+/* The index is a dd (a dl can only hold dt and dd) but keeps the measure of the previous span. */
 .brand-manifesto__detail > .brand-manifesto__index {
   line-height: inherit;
 }
@@ -4556,7 +4578,7 @@ marquee-banner {
 .marquee-banner:hover .marquee-banner__track,
 .marquee-banner:focus-within .marquee-banner__track,
 .marquee-banner[data-paused] .marquee-banner__track {
-  /* El track lleva una sola animacion de tiempo (editorial-marquee) en todos los modos. */
+  /* The track carries a single timing animation (editorial-marquee) in every mode. */
   animation-play-state: paused;
 }
 
@@ -4635,9 +4657,9 @@ marquee-banner {
 
 
 
-  /* Hero centrado: entre 992 y 1277 px la palabra mas larga no cabe en la
-     columna y el bloque se descentra. 6.2vw solo actua en ese tramo (a 1280 px ya vale 79 px).
-     Los heroes alineados a la izquierda (Sartorial, Imprint) no cambian. */
+  /* Centered hero: between 992 and 1277px the longest word does not fit in the column and the
+     block goes off-center. 6.2vw only acts in that range (at 1280px it is already 79px).
+     Left-aligned heroes do not change. */
   .hero-editorial--align-center .hero-editorial__heading {
     font-size: min(calc(4.5rem * var(--font-heading-scale)), 6.2vw);
   }
@@ -4795,9 +4817,9 @@ marquee-banner {
     transform: translateX(0);
   }
 
-  /* Un grupo exacto, sean los que sean los que monte el Liquid: el ciclo cierra justo sobre
-     la copia siguiente y la banda no da un salto. El fallback 2 permite que esta hoja y el
-     Liquid se despliegen en cualquier orden, sin un ciclo roto en el intervalo. */
+  /* Exactly one group, however many the Liquid builds: the cycle ends right on the next copy and
+     the band does not jump. The fallback of 2 lets this stylesheet and the Liquid load in any
+     order, without a broken cycle in between. */
   to {
     transform: translateX(calc(-100% / var(--marquee-groups, 2)));
   }
@@ -5537,7 +5559,7 @@ complete-the-look {
   grid-column: 1 / -1;
 }
 
-/* PLP list view. Solo se activa con data-grid-columns="list" desde el conmutador. */
+/* PLP list view. Only active with data-grid-columns="list" from the layout toggle. */
 .collection-grid-switcher__icon--list {
   grid-auto-flow: row;
   grid-template-rows: repeat(3, minmax(0, 1fr));
@@ -5869,8 +5891,8 @@ product-recommendations:not([hidden]):empty {
   font-size: 0.875rem;
 }
 
-/* El hueco se reserva siempre: con display: none, el total aparecia al pasar de 1 a 2
-   y empujaba ~31px hacia abajo el boton de compra justo cuando el comprador iba a pulsarlo. */
+/* The gap is always reserved: with display: none, the total appeared when going from 1 to 2 and
+   pushed the buy button down ~31px just as the shopper was about to press it. */
 .product-form__line-total[data-empty] {
   visibility: hidden;
 }
@@ -6158,8 +6180,8 @@ anchor-nav {
 .form-message--error {
   padding: var(--space-md);
   border: 1px solid var(--color-border);
-  /* initFormMessageFocus lleva el foco aqui tras enviar un formulario. El margen evita
-     que la cabecera pegajosa tape el mensaje al que se acaba de saltar. */
+  /* initFormMessageFocus moves focus here after a form is submitted. The margin keeps the sticky
+     header from covering the message that was just jumped to. */
   scroll-margin-block-start: var(--space-4xl);
 }
 
@@ -6214,10 +6236,9 @@ anchor-nav {
   text-align: center;
 }
 
-/* Las paginas de utilidad comparten una sola escala de titulo. Sin esta linea, un
-   h1 de pagina cae en el clamp de portada (hasta 7rem) y en un portatil el titulo se
-   come la pantalla: "Documentation" no cabe en la cabecera y se parte a mitad de
-   palabra. */
+/* Utility pages share a single title scale. Without this rule, a page h1 falls into the cover
+   clamp (up to 7rem) and on a laptop the title takes over the screen: a long word does not fit
+   in the header and breaks mid-word. */
 /* docs-only:start */
 .main-documentation__title,
 .main-support__title,
@@ -6376,8 +6397,8 @@ anchor-nav {
   gap: var(--space-3xl);
 }
 
-/* Los h2 de las columnas (formulario y FAQ) heredaban la escala de portada y
-   quedaban mas grandes que el h1 de la pagina. Son subtitulos de bloque: escala de seccion. */
+/* The h2s of the columns (form and FAQ) inherited the cover scale and ended up larger than the
+   page h1. They are block subtitles: section scale. */
 .main-contact__layout h2 {
   font-size: calc(clamp(1.5rem, 2.5vw, 2rem) * var(--font-heading-scale));
 }
@@ -7381,8 +7402,8 @@ anchor-nav {
   border-block-start: 1px solid var(--color-border-hairline);
 }
 
-/* Sin idiomas ni monedas que elegir, el snippet no pinta nada y quedaba solo la
-   linea divisoria flotando al pie del cajon. */
+/* With no languages or currencies to choose from, the snippet renders nothing and only the
+   divider line was left floating at the bottom of the drawer. */
 .mobile-nav__localization:not(:has(*)) {
   display: none;
 }
@@ -7465,9 +7486,9 @@ anchor-nav {
   user-select: none;
 }
 
-/* Selector de moneda con el mismo lenguaje que el toggle EN/ES: texto de 12 px en mayusculas,
-   sin caja, chevron de linea como el del menu y objetivo tactil de 44 px. Una raya fina lo
-   separa del toggle de idioma. */
+/* Currency selector with the same language as the language toggle: 12px uppercase text, no box,
+   a line chevron like the menu's and a 44px touch target. A thin line separates it from the
+   language toggle. */
 .localization-form__country-wrapper {
   position: relative;
   display: inline-flex;
@@ -7515,8 +7536,8 @@ anchor-nav {
   cursor: pointer;
 }
 
-/* Sin JS el boton de enviar va dentro del mismo contenedor: el chevron dibujado se quita y el
-   select vuelve a su flecha nativa para no taparlo. */
+/* Without JS the submit button sits inside the same container: the drawn chevron is removed and
+   the select returns to its native arrow so it is not covered. */
 .no-js .localization-form__country-wrapper::after {
   content: none;
 }
@@ -7525,8 +7546,8 @@ anchor-nav {
   appearance: auto;
 }
 
-/* Solo en el editor de temas: explica por que el pie no muestra selectores cuando la tienda
-   tiene un solo idioma o un solo mercado. El comprador nunca lo ve. */
+/* Theme editor only: explains why the footer shows no selectors when the store has a single
+   language or a single market. Shoppers never see it. */
 .localization-form__notice {
   max-width: 34rem;
   padding: var(--space-sm) var(--space-md);
@@ -7629,9 +7650,9 @@ anchor-nav {
   max-width: 38rem;
 }
 
-/* Contraste en cualquier esquema (WCAG 1.4.3): el placeholder por defecto del navegador
-   (#757575) no sigue el esquema y baja a 2.12:1 en scheme-4. El borde ya sale de
-   --color-control-border (regla global de input), que da >=3.36:1 en los 5 esquemas. */
+/* Contrast on any scheme (WCAG 1.4.3): the browser's default placeholder (#757575) does not
+   follow the scheme and drops to 2.12:1 on scheme-4. The border already comes from
+   --color-control-border (global input rule), which gives >=3.36:1 on all 5 schemes. */
 .newsletter-section .newsletter-form__field input::placeholder {
   color: var(--color-foreground-muted);
   opacity: 1;
@@ -7864,7 +7885,7 @@ anchor-nav {
   min-height: clamp(24rem, 62vw, 48rem);
 }
 
-/* El item recorta con overflow:hidden: un contorno exterior no se veria. */
+/* The item clips with overflow:hidden, so an outer outline would not show. */
 .product-gallery__item model-viewer:focus-visible,
 .product-gallery__item model-viewer.focus-visible,
 .product-gallery__item video:focus-visible {
@@ -7992,7 +8013,7 @@ anchor-nav {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    /* 0s y no 0.01ms: ver la nota de la llave 2 del sistema de movimiento (CLS). */
+    /* 0s and not 0.01ms: see the note on key 2 of the motion system (CLS). */
     transition-duration: 0s !important;
   }
 }
@@ -8016,13 +8037,12 @@ anchor-nav {
 }
 
 /* =========================================================================
-   PAGINAS NATIVAS
-   Documentacion, soporte, preguntas frecuentes, historia de marca y paginas
-   legales. Todo se apoya en los tokens ya existentes: ni un color, ni una
-   duracion, ni un espacio nuevos.
+   NATIVE PAGES
+   Documentation, support, FAQ, brand story and legal pages. Everything relies on the existing
+   tokens: no new color, duration or spacing.
    ========================================================================= */
 
-/* ---------- Indice de anclas, compartido por documentacion y paginas legales ---------- */
+/* ---------- Anchor index, shared by documentation and legal pages ---------- */
 .anchor-nav__disclosure {
   border-block: 1px solid var(--color-border-hairline);
 }
@@ -8052,15 +8072,15 @@ anchor-nav {
 
 .anchor-nav__link {
   display: grid;
-  /* 44 px de alto por entrada: es una lista de navegacion, no una nota al pie. */
+  /* 44px tall per entry: it is a navigation list, not a footnote. */
   min-height: var(--tap-target-min);
-  /* Sangria francesa: un titulo largo que ocupa dos lineas alinea la segunda con la
-     primera, no debajo del numero. */
+  /* Hanging indent: a long title that takes two lines aligns the second with the first, not
+     under the number. */
   grid-template-columns: 1.25rem minmax(0, 1fr);
   align-items: center;
   gap: var(--space-xs);
-  /* La linea de acento se dibuja con el borde, que no ocupa sitio al aparecer: animar un
-     ancho movería el texto de toda la lista al cambiar de apartado. */
+  /* The accent line is drawn with the border, which takes no space when it appears: animating a
+     width would shift the text of the whole list when switching sections. */
   padding-inline-start: var(--space-sm);
   border-inline-start: 2px solid transparent;
   color: var(--color-foreground-muted);
@@ -8082,8 +8102,8 @@ anchor-nav {
   color: var(--color-foreground);
 }
 
-/* El apartado en pantalla se marca con peso y con una linea de acento, no solo con
-   color: el color por si solo no distingue nada para quien no lo percibe. */
+/* The section in view is marked with weight and an accent line, not only with color: color alone
+   distinguishes nothing for someone who cannot perceive it. */
 .anchor-nav__link[aria-current] {
   border-inline-start-color: var(--color-foreground);
   font-weight: 700;
@@ -8094,7 +8114,7 @@ anchor-nav {
 }
 
 /* docs-only:start */
-/* ---------- Documentacion ---------- */
+/* ---------- Documentation ---------- */
 .main-documentation__header {
   max-width: 46rem;
 }
@@ -8107,17 +8127,17 @@ anchor-nav {
 
 .main-documentation__body {
   display: grid;
-  /* La medida de lectura vive en la columna, no en cada pieza. Cuando la llevaba cada
-     hijo, los <h2> se quedaban sin limite y llegaban al borde del contenedor mientras el
-     texto paraba 380 px antes: el apartado no tenia un borde derecho, tenia dos. */
+  /* The reading measure lives on the column, not on each piece. When each child carried it, the
+     <h2>s had no limit and reached the container's edge while the text stopped 380px earlier:
+     the section had two right edges instead of one. */
   max-width: 68ch;
   gap: var(--space-2xl);
   min-width: 0;
 }
 
-/* Un elemento de rejilla se mide por su contenido minimo salvo que se le diga lo
-   contrario. Sin esto, un comando largo dentro de un <pre> estira la columna entera y la
-   pagina acaba scrolleando en horizontal en movil, en vez de scrollear el bloque. */
+/* A grid item is sized by its minimum content unless told otherwise. Without this, a long
+   command inside a <pre> stretches the whole column and the page ends up scrolling horizontally
+   on mobile, instead of the block scrolling. */
 .main-documentation__body > * {
   min-width: 0;
 }
@@ -8144,8 +8164,8 @@ anchor-nav {
   margin-block-start: var(--space-md);
 }
 
-/* Tarjetas, fragmentos y avisos ya no llevan medida propia: la heredan de la columna,
-   que es lo que mantiene recto el borde derecho de todo el apartado. */
+/* Cards, snippets and notices no longer carry their own measure: they inherit it from the
+   column, which keeps the right edge of the whole section straight. */
 .doc-preset {
   padding: var(--space-lg);
   border: 1px solid var(--color-border);
@@ -8206,8 +8226,8 @@ anchor-nav {
   transition: background-color var(--motion-fast) var(--ease-move);
 }
 
-/* La marca de verificacion no existe hasta que hay algo que confirmar: reservarle sitio
-   desplazaria la etiqueta al aparecer. Entra con la escala, que no mueve a nadie. */
+/* The checkmark does not exist until there is something to confirm: reserving space for it would
+   shift the label when it appears. It enters with a scale, which moves nothing. */
 .doc-snippet__copy-icon {
   display: none;
   line-height: 0;
@@ -8243,11 +8263,11 @@ anchor-nav {
 }
 
 .doc-snippet__code {
-  /* El unico sitio del tema con tipografia monoespaciada: un fragmento de codigo se lee
-     mal en una serif editorial, y aqui la exactitud importa mas que el tono.
+  /* The only place in the theme with monospace typography: a code snippet reads poorly in an
+     editorial serif, and here accuracy matters more than tone.
 
-     Y el unico sitio que se sale del overflow-wrap: anywhere global: un comando partido a
-     mitad de una ruta o de un flag se copia mal y se lee peor. Aqui el bloque scrollea. */
+     And the only place that opts out of the global overflow-wrap: anywhere: a command broken
+     mid-path or mid-flag is copied wrong and read worse. Here the block scrolls. */
   overflow-wrap: normal;
   margin: 0;
   padding: var(--space-md);
@@ -8268,8 +8288,8 @@ anchor-nav {
   border-inline-start-color: var(--color-accent);
 }
 
-/* Aviso importante: el unico que lleva el borde a plena intensidad. No se usa color para
-   comunicarlo, porque la etiqueta de texto ya dice lo que es. */
+/* Important notice: the only one with the border at full strength. Color is not used to convey
+   it, because the text label already says what it is. */
 .doc-callout--warning {
   border-inline-start-color: var(--color-foreground);
 }
@@ -8286,7 +8306,7 @@ anchor-nav {
   color: var(--color-foreground-muted);
 }
 
-/* ---------- Soporte ---------- */
+/* ---------- Support ---------- */
 .main-support__header {
   max-width: 46rem;
 }
@@ -8315,9 +8335,9 @@ anchor-nav {
   margin-block-start: var(--space-2xl);
 }
 
-/* Los tres apartados de la pagina (formulario, preguntas y canales) comparten la misma
-   escala que un apartado de la documentacion. Antes eran <h2> sin clase y caian en el
-   clamp de portada: 76 px en un portatil, mas grandes que el propio contenido. */
+/* The three sections of the page (form, questions and channels) share the same scale as a
+   documentation section. They used to be unclassed <h2>s and fell into the cover clamp: 76px on
+   a laptop, larger than the content itself. */
 .main-support__section-title {
   font-size: calc(clamp(1.5rem, 3vw, 2.125rem) * var(--font-heading-scale));
 }
@@ -8350,14 +8370,13 @@ anchor-nav {
 }
 /* docs-only:end */
 
-/* ---------- Preguntas frecuentes ---------- */
+/* ---------- Frequently asked questions ---------- */
 .main-faq__header {
   max-width: 42rem;
 }
 
-/* El margen va en cada grupo, no en el par adyacente: con el selector "+" el primero se
-   quedaba sin separacion y su encabezado de categoria chocaba contra el descendente de la
-   ultima linea del h1. .main-faq__groups no existe en el markup; era regla muerta. */
+/* The margin goes on each group, not on the adjacent pair: with the "+" selector the first one
+   had no separation and its category heading collided with the descender of the h1's last line. */
 .main-faq__group {
   margin-block-start: var(--space-2xl);
 }
@@ -8385,7 +8404,7 @@ anchor-nav {
   font-size: 1.5rem;
 }
 
-/* ---------- Historia de marca ---------- */
+/* ---------- Brand story ---------- */
 .main-about__header {
   max-width: 46rem;
 }
@@ -8399,8 +8418,8 @@ anchor-nav {
 .main-about__story-media {
   position: relative;
   overflow: hidden;
-  /* El ratio lo fija el bloque, asi que la caja reserva su altura antes de que llegue la
-     imagen y la pagina no salta al cargarla. */
+  /* The aspect ratio is set by the block, so the box reserves its height before the image
+     arrives and the page does not jump on load. */
   aspect-ratio: var(--about-story-ratio, 21 / 9);
   background: var(--color-surface);
 }
@@ -8453,8 +8472,8 @@ anchor-nav {
   color: var(--color-foreground-muted);
 }
 
-/* El relato encabeza su propio panel, asi que pesa un punto mas que los otros dos
-   apartados, pero sigue siendo un titulo de apartado y no una portada. */
+/* The story heads its own panel, so it weighs one step more than the other two sections, but it
+   is still a section title and not a cover. */
 .main-about__story-title {
   font-size: calc(clamp(1.75rem, 3.5vw, 2.5rem) * var(--font-heading-scale));
 }
@@ -8502,7 +8521,7 @@ anchor-nav {
   font-size: 0.8125rem;
 }
 
-/* ---------- Paginas legales ---------- */
+/* ---------- Legal pages ---------- */
 .main-policy__header {
   max-width: 46rem;
 }
@@ -8519,8 +8538,8 @@ anchor-nav {
 }
 
 .main-policy__body {
-  /* 70ch: la medida de lectura de un texto legal largo. Por encima de 75 el ojo pierde el
-     principio de la linea siguiente, y este es contenido que la gente lee entero. */
+  /* 70ch: the reading measure for a long legal text. Beyond 75 the eye loses the start of the
+     next line, and this is content people read in full. */
   max-width: 70ch;
   min-width: 0;
   font-size: 1.0625rem;
@@ -8551,13 +8570,12 @@ anchor-nav {
   margin-block-start: var(--space-xs);
 }
 
-/* Politicas que genera Shopify en /policies/* (reembolso, envio, privacidad,
-   terminos, contacto). No pasan por main-policy.liquid: su marcado es fijo
-   (.shopify-policy__container > __title > h1 + __body > .rte) y Shopify inyecta despues de
-   base.css su propio CSS (65ch, titulo centrado). Sin esto heredaban el h1 de portada (7rem,
-   partido a mitad de palabra) sin aire arriba ni abajo. .site-main sube la especificidad
-   para ganar a ese CSS inyectado; medida, escala y ritmo son los de las paginas legales del
-   tema (.main-policy__*). */
+/* Policies generated by Shopify at /policies/* (refund, shipping, privacy, terms, contact). They
+   do not go through main-policy.liquid: their markup is fixed (.shopify-policy__container >
+   __title > h1 + __body > .rte) and Shopify injects its own CSS after base.css (65ch, centered
+   title). Without this they inherited the cover h1 (7rem, broken mid-word) with no space above
+   or below. .site-main raises the specificity to beat that injected CSS; measure, scale and
+   rhythm match the theme's legal pages (.main-policy__*). */
 .site-main .shopify-policy__container {
   width: min(100% - (var(--page-gutter) * 2), 46rem);
   max-width: none;
@@ -8623,8 +8641,8 @@ anchor-nav {
     align-items: start;
   }
 
-  /* La barra lateral acompana al scroll, pero nunca supera la altura de la ventana: con
-     un indice largo, lo que sobra se desplaza dentro de ella en vez de quedar fuera. */
+  /* The sidebar follows the scroll but never exceeds the window height: with a long index, the
+     overflow scrolls inside it instead of falling out of view. */
   /* docs-only:start */
   .main-documentation__nav,
   /* docs-only:end */
@@ -8672,15 +8690,14 @@ anchor-nav {
 }
 
 /* =========================================================================
-   REFINAMIENTO DE PAGINAS Y NAVEGACION
+   PAGE AND NAVIGATION REFINEMENTS
    ========================================================================= */
 
-/* ---------- Acordeones: apertura sedosa ----------
-   Un <details> nativo no renderiza su contenido cuando esta cerrado, asi que una
-   transicion de ida nunca tendria fotograma inicial. Una animacion si arranca en el
-   momento en que el contenido pasa a existir, que es justo lo que queremos animar. El
-   cierre es instantaneo a proposito: retenerlo obligaria a gobernar el atributo open
-   desde JavaScript y a pelearse con el teclado. */
+/* ---------- Accordions: smooth opening ----------
+   A native <details> does not render its content when closed, so a forward transition would
+   never have a starting frame. An animation does start the moment the content comes into
+   existence, which is exactly what we want to animate. Closing is instant on purpose: retaining
+   it would force the open attribute to be governed from JavaScript and fight the keyboard. */
 html[data-animations='subtle'] .faq-item[open] .faq-item__answer,
 html[data-animations='full'] .faq-item[open] .faq-item__answer {
   animation: faq-answer-in var(--motion-base) var(--ease-enter) both;
@@ -8698,8 +8715,8 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   }
 }
 
-/* El mas gira al convertirse en menos. El giro completo se nota sin llamar la atencion,
-   porque las dos barras acaban formando la misma figura. */
+/* The plus turns into a minus. The full rotation is noticeable without drawing attention,
+   because the two bars end up forming the same shape. */
 .faq-item__icon {
   transition: transform var(--motion-base) var(--ease-enter);
 }
@@ -8708,7 +8725,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   transform: rotate(180deg);
 }
 
-/* ---------- Buscador instantaneo de preguntas ---------- */
+/* ---------- Instant FAQ search ---------- */
 .main-faq__search {
   display: block;
   max-width: 26rem;
@@ -8719,8 +8736,8 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   margin-block: var(--space-xs) 0;
   color: var(--color-foreground-muted);
   font-size: 0.8125rem;
-  /* Reserva su linea: sin esto, el conteo de resultados empuja la lista hacia abajo en
-     cuanto aparece y toda la pagina da un salto al primer caracter. */
+  /* Reserves its line: without this, the result count pushes the list down as soon as it appears
+     and the whole page jumps at the first character. */
   min-height: 1.2em;
 }
 
@@ -8730,10 +8747,9 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 }
 
 /* docs-only:start */
-/* ---------- Soporte: validacion sutil y tarjetas de alcance ----------
-   :user-invalid, no :invalid: el navegador solo lo aplica despues de que la persona haya
-   interactuado con el campo, asi que un formulario recien abierto no aparece en rojo
-   antes de que nadie escriba nada. */
+/* ---------- Support: subtle validation and scope cards ----------
+   :user-invalid, not :invalid: the browser only applies it after the person has interacted with
+   the field, so a freshly opened form does not show red before anyone types anything. */
 .support-form .form-field input:user-invalid,
 .support-form .form-field select:user-invalid,
 .support-form .form-field textarea:user-invalid {
@@ -8750,8 +8766,8 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   list-style: none;
 }
 
-/* Vinete de raya, no de punto: la raya es la marca editorial que el tema ya usa en los
-   hilos de separacion, y se alinea con el texto en vez de flotar sobre el. */
+/* Dash bullet, not a dot: the dash is the editorial mark the theme already uses in its separator
+   lines, and it aligns with the text instead of floating over it. */
 .main-support__policy-items li {
   position: relative;
   padding-inline-start: var(--space-md);
@@ -8769,7 +8785,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 }
 /* docs-only:end */
 
-/* ---------- Historia de marca: comillas editoriales ---------- */
+/* ---------- Brand story: editorial quotation marks ---------- */
 .main-about__quote-text::before {
   display: block;
   margin-block-end: calc(var(--space-md) * -1);
@@ -8781,7 +8797,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   opacity: 0.35;
 }
 
-/* ---------- Paginas legales: enlaces del texto ---------- */
+/* ---------- Legal pages: text links ---------- */
 .main-policy__body a {
   color: currentColor;
   text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
@@ -8794,15 +8810,15 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   text-decoration-color: currentColor;
 }
 
-/* ---------- Header: panel desplegable de escritorio ---------- */
+/* ---------- Header: desktop dropdown panel ---------- */
 @media (min-width: 62rem) {
   .desktop-nav__panel {
     border-color: var(--color-border-hairline);
     box-shadow: 0 1.25rem 2.5rem color-mix(in srgb, var(--color-shadow) 10%, transparent);
   }
 
-  /* Igual que el acordeon: el panel pasa de no existir a existir, asi que lo que entra es
-     una animacion, no una transicion. */
+  /* Same as the accordion: the panel goes from not existing to existing, so what enters is an
+     animation, not a transition. */
   html[data-animations='subtle'] .desktop-nav__disclosure[data-open] .desktop-nav__panel,
   html[data-animations='full'] .desktop-nav__disclosure[data-open] .desktop-nav__panel {
     animation: desktop-nav-panel-in var(--motion-fast) var(--ease-enter) both;
@@ -8821,7 +8837,7 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   }
 }
 
-/* ---------- Header: menu secundario ---------- */
+/* ---------- Header: secondary menu ---------- */
 .site-header__secondary {
   display: none;
 }
@@ -8854,12 +8870,12 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 }
 
 @media (min-width: 62rem) {
-  /* Solo en escritorio: en movil estos enlaces ya viven al pie del menu lateral, y
-     repetirlos en una cabecera estrecha le quitaria sitio al carrito. */
+  /* Desktop only: on mobile these links already live at the bottom of the side menu, and
+     repeating them in a narrow header would take space from the cart. */
   .site-header__secondary {
     display: block;
-    /* El margen va aqui y no como gap del contenedor: los botones de icono vecinos ya se
-       separan con su propio relleno de 44 px, y un gap los alejaria de mas. */
+    /* The margin goes here and not as the container's gap: neighboring icon buttons are already
+       separated by their own 44px padding, and a gap would push them too far apart. */
     margin-inline-end: var(--space-3);
   }
 
@@ -8885,16 +8901,16 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
 
 
 /* =========================================================================
-   CORRECCIONES DE CARRITO, CABECERA STICKY Y GALERIA
+   CART, STICKY HEADER AND GALLERY FIXES
    ========================================================================= */
 
-/* ---------- Checkout acelerado en el carrito ---------- */
-/* Los botones viven en un custom element con shadow DOM cerrado: solo se tocan con las
-   propiedades que publica Shopify, declaradas sobre el propio elemento como recomienda la
-   documentacion (heredadas desde el contenedor perderian frente a sus valores por
-   defecto). block-size es la altura en la pila vertical e inline-size la altura en la
-   fila horizontal: las dos a la altura tactil del boton Checkout, con su mismo radio y el
-   esqueleto de carga en el tono de superficie del esquema. */
+/* ---------- Accelerated checkout in the cart ---------- */
+/* The buttons live in a custom element with a closed shadow DOM: only the properties Shopify
+   publishes are touched, declared on the element itself as the documentation recommends
+   (inherited from the container they would lose to their defaults). block-size is the height in
+   the vertical stack and inline-size the height in the horizontal row: both at the Checkout
+   button's touch height, with the same radius and the loading skeleton in the scheme's surface
+   tone. */
 .cart__dynamic-checkout {
   width: 100%;
   margin-block-start: var(--space-2);
@@ -8907,24 +8923,24 @@ html[data-animations='full'] .faq-item[open] .faq-item__answer {
   --shopify-accelerated-checkout-skeleton-background-color: var(--color-surface);
 }
 
-/* ---------- Escalera de apilamiento ---------- */
-/* La cabecera sticky queda en 150 (header.liquid). Todo modal global va por encima; el
-   de contrasena estaba en 90 y la cabecera le habria tapado el boton de cerrar. */
+/* ---------- Stacking ladder ---------- */
+/* The sticky header sits at 150 (header.liquid). Every global modal goes above it; the password
+   modal was at 90 and the header would have covered its close button. */
 .password-modal__overlay {
   z-index: 240;
 }
 
-/* ---------- Consecuencias de la cabecera sticky ---------- */
-/* --header-offset lo publica initHeaderScrollState con la altura real de la cabecera;
-   vale 0 cuando no es sticky. scroll-padding hace que las anclas y el foco por teclado
-   se detengan debajo de la cabecera y no detras de ella (WCAG 2.4.11). */
+/* ---------- Effects of the sticky header ---------- */
+/* --header-offset is published by initHeaderScrollState with the header's real height; it is 0
+   when the header is not sticky. scroll-padding makes anchors and keyboard focus stop below the
+   header and not behind it (WCAG 2.4.11). */
 :root {
   --header-offset: 0px;
 }
 
 html {
   scroll-padding-block-start: var(--header-offset);
-  /* La barra fija de compra publica su altura en --sticky-cart-offset. */
+  /* The sticky buy bar publishes its height in --sticky-cart-offset. */
   scroll-padding-block-end: var(--sticky-cart-offset, 0px);
 }
 
@@ -8953,18 +8969,17 @@ html {
   }
 }
 
-/* ---------- Legibilidad del hero cinematografico ---------- */
-/* Sobre fotografia no hay gris seguro: el subtitulo usa el color de texto del esquema,
-   igual que el titular. Medido antes del cambio: 1.19:1 a 390 px. */
+/* ---------- Cinematic hero legibility ---------- */
+/* Over photography there is no safe gray: the subtitle uses the scheme's text color, like the
+   headline. Measured before the change: 1.19:1 at 390px. */
 .hero-editorial--cinematic .hero-editorial__subheading {
   color: var(--color-foreground);
 }
 
-/* "Gradient behind the text only": un velo que sigue al bloque de texto donde se
-   coloque. El texto va siempre sobre la parte opaca del velo (el difuminado empieza
-   fuera de la caja del texto) y su opacidad nunca baja de 60 %: es el minimo con el que
-   un texto crema de 16 px llega a 4.5:1 incluso sobre blanco puro (con 55 % se queda en
-   4.34:1). */
+/* "Gradient behind the text only": a scrim that follows the text block wherever it is placed.
+   The text always sits on the opaque part of the scrim (the fade starts outside the text box)
+   and its opacity never drops below 60%: that is the minimum at which 16px cream text reaches
+   4.5:1 even over pure white (at 55% it stays at 4.34:1). */
 .hero-editorial--cinematic.hero-editorial--overlay-gradient_content {
   --hero-scrim-alpha: max(0.6, var(--hero-overlay-opacity, 0.6));
 }
@@ -8978,16 +8993,15 @@ html {
   isolation: isolate;
 }
 
-/* Un velo radial del doble de alto y de ancho que el bloque de texto, centrado en el. Con
-   el tramo opaco hasta el 72 % del radio, las cuatro esquinas del bloque (a 70.7 %) quedan
-   dentro de la zona opaca y el difuminado ocurre entero fuera del texto: se lee como luz
-   que cae, no como una caja gris. */
+/* A radial scrim twice the height and width of the text block, centered on it. With the opaque
+   stop out to 72% of the radius, the block's four corners (at 70.7%) fall inside the opaque zone
+   and the fade happens entirely outside the text: it reads as falling light, not as a gray box. */
 .hero-editorial--cinematic.hero-editorial--overlay-gradient_content .hero-editorial__content::before {
   position: absolute;
   z-index: -1;
   inset: -50%;
-  /* Caida escalonada (curva de salida suave): con dos paradas el borde del velo se leia
-     como un arco sobre el techo de la foto. */
+  /* Stepped falloff (soft ease-out curve): with two stops the scrim's edge read as an arc over
+     the top of the photo. */
   background: radial-gradient(
     closest-side,
     rgb(0 0 0 / var(--hero-scrim-alpha)) 72%,
@@ -9001,10 +9015,10 @@ html {
   pointer-events: none;
 }
 
-/* ---------- Galeria de producto sin huecos ---------- */
-/* Una sola imagen, o ninguna, ocupa todo el ancho de la galeria. Con un numero impar de
-   imagenes la primera abre a todo el ancho y el resto va por parejas, la misma regla que
-   ya usa el producto destacado: la ultima fila nunca queda con una celda vacia. */
+/* ---------- Product gallery without gaps ---------- */
+/* A single image, or none, takes the full width of the gallery. With an odd number of images the
+   first opens at full width and the rest go in pairs, the same rule the featured product already
+   uses: the last row never ends with an empty cell. */
 .product-gallery__item:only-child,
 .product-gallery__placeholder {
   grid-column: 1 / -1;
@@ -9016,13 +9030,12 @@ html {
   }
 }
 
-/* ---------- Carrusel tactil de la galeria (por debajo de 62rem) ---------- */
-/* Hasta 62rem la ficha es de una columna: apilar las imagenes empujaba el titulo y el
-   boton de compra tres pantallas abajo. Aqui la galeria es una fila con scroll-snap que
-   se desliza sin JavaScript; <product-gallery> anade contador y botones. Todas las
-   diapositivas comparten el marco de la primera imagen (--gallery-ratio, acotado en el
-   Liquid) y nunca pasan de 55 % del alto de la ventana: en un movil bajo (690 px) el
-   titulo del producto sigue entrando en la primera pantalla. */
+/* ---------- Touch gallery carousel (below 62rem) ---------- */
+/* Up to 62rem the product page is a single column: stacking the images pushed the title and buy
+   button three screens down. Here the gallery is a scroll-snap row that swipes without
+   JavaScript; <product-gallery> adds the counter and buttons. All slides share the first image's
+   frame (--gallery-ratio, clamped in the Liquid) and never exceed 55% of the window height: on a
+   short phone (690px) the product title still fits on the first screen. */
 .product-gallery__pager {
   display: flex;
   align-items: center;
@@ -9099,10 +9112,10 @@ html {
   }
 }
 
-/* ---------- Zoom de imagen de la ficha ---------- */
-/* Disparador: la foto entera es el boton (un toque o un clic la amplian) y la lupa de 44 px
-   solo lo anuncia. Tras un deslizamiento el navegador no dispara click, asi que no choca
-   con el carrusel movil. Sin JavaScript no hay visor y el boton no se muestra. */
+/* ---------- Product image zoom ---------- */
+/* Trigger: the whole photo is the button (a tap or click enlarges it) and the 44px magnifier
+   only announces it. After a swipe the browser does not fire click, so it does not clash with
+   the mobile carousel. Without JavaScript there is no viewer and the button is not shown. */
 .product-gallery__zoom-trigger {
   position: absolute;
   inset: 0;
@@ -9135,9 +9148,9 @@ html {
   box-shadow: 0 0.25rem 1rem color-mix(in srgb, var(--color-shadow) 12%, transparent);
 }
 
-/* Visor: <dialog> a pantalla completa en la capa superior, con el fondo del esquema de la
-   seccion. La pista es un scroll-snap horizontal; con zoom deja de desplazarse y el gesto
-   pasa a ser del visor (touch-action: none). El JS fija el tamano de cada foto a 1x. */
+/* Viewer: a full-screen <dialog> in the top layer, with the section's scheme background. The
+   track is a horizontal scroll-snap; when zoomed it stops scrolling and the gesture belongs to
+   the viewer (touch-action: none). JS sets each photo's size at 1x. */
 .product-zoom {
   width: 100%;
   max-width: none;
@@ -9256,7 +9269,7 @@ html {
   cursor: zoom-out;
 }
 
-/* Durante el pellizco o el arrastre la foto va pegada al dedo, sin transicion. */
+/* During a pinch or drag the photo sticks to the finger, with no transition. */
 .product-zoom[data-gesture] .product-zoom__image {
   transition: none;
   will-change: transform;
@@ -9288,9 +9301,9 @@ html[data-animations='full'] .product-zoom[open] {
   animation: gallery-media-in var(--motion-fast) var(--ease-enter) both;
 }
 
-/* ---------- Buscador: fila estable y una sola cruz ---------- */
-/* El boton de borrar sale del flujo cuando esta oculto; sin posiciones explicitas el
-   boton de enviar caia en su pista de 44 px y "SEARCH" se apilaba letra a letra. */
+/* ---------- Search: stable row and a single clear icon ---------- */
+/* The clear button leaves the flow when hidden; without explicit positions the submit button
+   fell into its 44px track and "SEARCH" stacked letter by letter. */
 input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
@@ -9302,9 +9315,9 @@ input[type='search']::-webkit-search-decoration {
   grid-column: 1;
 }
 
-/* El campo ocupa tambien la pista del boton de borrar y le reserva sitio con su relleno:
-   con el campo vacio no queda un hueco de 44 px entre el texto y SEARCH, y al escribir la
-   cruz aparece dentro del campo, no a su lado. */
+/* The field also spans the clear button's track and reserves room for it with its padding: with
+   an empty field there is no 44px gap between the text and SEARCH, and when typing the cross
+   appears inside the field, not beside it. */
 .predictive-search__input {
   grid-row: 1;
   grid-column: 2 / 4;
@@ -9328,10 +9341,10 @@ input[type='search']::-webkit-search-decoration {
   }
 }
 
-/* ---------- Cajon del carrito en pantallas bajas ---------- */
-/* El panel ya no se desplaza entero: cabecera, avisos y pie quedan fijos y solo se
-   mueve la pista de lineas y recomendaciones. Si la ventana es tan baja que ni la pista
-   minima cabe, el contenido entero pasa a desplazarse como ultimo recurso. */
+/* ---------- Cart drawer on short screens ---------- */
+/* The panel no longer scrolls as a whole: header, notices and footer stay fixed and only the
+   lines and recommendations track moves. If the window is so short that not even the minimum
+   track fits, the whole content scrolls as a last resort. */
 .cart-drawer__panel {
   min-height: 0;
   overflow: hidden;
@@ -9367,9 +9380,9 @@ input[type='search']::-webkit-search-decoration {
   flex-shrink: 0;
 }
 
-/* En ventanas bajas (un portatil de 768 px con la barra del navegador se queda en unos
-   650) el pie y la barra de envio compactan su aire para que la primera linea del
-   carrito se vea entera sin desplazar la pista. */
+/* On short windows (a 768px laptop with the browser bar ends up around 650) the footer and the
+   shipping bar compact their spacing so the first cart line is fully visible without scrolling
+   the track. */
 @media (max-height: 45rem) {
   .cart-drawer__header {
     min-height: 4.5rem;
@@ -9388,14 +9401,14 @@ input[type='search']::-webkit-search-decoration {
 
 
 /* =========================================================================
-   FRICCIONES COMERCIALES: BARRA DE COMPRA, CARRITO Y CABECERA MOVIL
+   COMMERCE FRICTION: BUY BAR, CART AND MOBILE HEADER
    ========================================================================= */
 
-/* ---------- Sticky ATC: cantidad y total ---------- */
-/* La linea de datos pasa a flex para que, si no cabe, se recorte el nombre de la variante
-   y nunca "12 x $980.00". El total va en su propia linea: con 12 unidades a 360 px
-   ("Total $11,760.00") no cabria junto al resto y se habria cortado justo lo que el
-   comprador necesita confirmar antes de pulsar. */
+/* ---------- Sticky add to cart: quantity and total ---------- */
+/* The data line becomes flex so that, if it does not fit, the variant name is truncated and
+   never "12 x $980.00". The total goes on its own line: with 12 units at 360px ("Total
+   $11,760.00") it would not fit next to the rest and the very thing the shopper needs to confirm
+   before pressing would have been cut off. */
 .sticky-cart-bar__meta {
   display: flex;
   align-items: baseline;
@@ -9423,8 +9436,8 @@ input[type='search']::-webkit-search-decoration {
   white-space: nowrap;
 }
 
-/* Con la linea del total la barra crece unos 12 px: la reserva inferior del documento
-   crece con ella para que el final de la pagina no quede escondido debajo. */
+/* With the total line the bar grows about 12px: the document's bottom reserve grows with it so
+   the end of the page is not hidden underneath. */
 body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidden])) {
   padding-block-end: calc(5rem + env(safe-area-inset-bottom));
 }
@@ -9435,16 +9448,16 @@ body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidd
   }
 }
 
-/* ---------- Pagina de carrito sin desborde horizontal ---------- */
-/* El stepper es inline-grid y su pista central es minmax(2.25rem, 1fr): medido por su
-   contenido, el campo numerico aporta su ancho intrinseco (unos 170 px) y el control
-   llegaba a 265 px dentro de una columna de 160. Mismo tope que ya usa el cajon. */
+/* ---------- Cart page without horizontal overflow ---------- */
+/* The stepper is inline-grid and its center track is minmax(2.25rem, 1fr): sized by its content,
+   the number field contributes its intrinsic width (about 170px) and the control reached 265px
+   inside a 160px column. Same cap the drawer already uses. */
 .cart-item__stepper {
   max-width: 9rem;
 }
 
-/* Cantidad y "Remove" comparten fila si caben y, si no, Remove baja a la siguiente en vez
-   de salirse por el borde derecho. */
+/* Quantity and "Remove" share a row if they fit and, if not, Remove drops to the next one
+   instead of running past the right edge. */
 .cart-item__controls {
   display: flex;
   min-width: 0;
@@ -9464,10 +9477,10 @@ body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidd
   align-items: center;
 }
 
-/* ---------- Acordeones de la ficha de producto ---------- */
-/* Hilo fino arriba y abajo, titulo en versalitas pequenas como los rotulos del tema y una
-   flecha que gira al abrir. Varios seguidos forman una sola lista: sin aire entre ellos y
-   sin doble hilo. */
+/* ---------- Product page accordions ---------- */
+/* Thin line above and below, title in small caps like the theme's labels, and an arrow that
+   rotates when opened. Several in a row form a single list: no space between them and no double
+   line. */
 .product-details__accordion {
   border-block: 1px solid var(--color-border-hairline);
 }
@@ -9516,23 +9529,22 @@ body[data-sticky-cart-visible]:has(sticky-cart-bar [data-sticky-total]:not([hidd
   font-size: 0.9375rem;
 }
 
-/* Misma entrada que las respuestas del FAQ: el contenido de un <details> no existe
-   cerrado, asi que se anima al aparecer y el cierre es instantaneo. */
+/* Same entrance as the FAQ answers: the content of a <details> does not exist when closed, so it
+   animates on appearing and closing is instant. */
 html[data-animations='subtle'] .product-details__accordion[open] .product-details__content,
 html[data-animations='full'] .product-details__accordion[open] .product-details__content {
   animation: faq-answer-in var(--motion-base) var(--ease-enter) both;
 }
 
-/* ---------- Cabecera movil con nombre de tienda largo ---------- */
-/* Con la marca centrada y tres iconos a la derecha, en 390 px la columna central tiene
-   unos 70 px: "LINEA NOVE" pisaba la lupa 26 px (41 px a 360). Por debajo de 48rem la
-   marca se alinea a la izquierda junto a un boton de menu solo con icono; la palabra
-   "Menu" sigue ahi para lectores de pantalla. */
+/* ---------- Mobile header with a long store name ---------- */
+/* With the brand centered and three icons on the right, at 390px the center column is about
+   70px: a long store name overlapped the magnifier by 26px (41px at 360). Below 48rem the brand
+   aligns left next to an icon-only menu button; the word "Menu" stays there for screen readers. */
 @media (max-width: 47.99rem) {
   .site-header__inner {
     grid-template-columns: auto minmax(0, 1fr) auto;
-    /* Los 44 px de cada boton ya separan: con el hueco de 12 px "LINEA NOVE"
-       seguia cortada a 360 px (le faltaban 12 px medidos en la tienda). */
+    /* The 44px of each button already separate them: with a 12px gap a long store name was still
+       cut off at 360px (12px short, measured on the store). */
     column-gap: var(--space-2xs);
   }
 
@@ -9544,14 +9556,14 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
 
   .site-header__brand-text {
     font-size: clamp(1.1rem, 4.5vw, 1.5rem);
-    /* La marca movil va alineada a la izquierda; la segunda linea tambien. */
+    /* The mobile brand is left-aligned; the second line too. */
     text-align: start;
   }
 
-  /* La cabecera movil es fija: sin tope, un logo vertical a 140 px de ancho la
-     llevaba a 280 px de alto. El ancho que se pinta es el menor entre el ajuste y el que
-     deja el logo en 3rem de alto (max-width: 100 % sigue conteniendolo en la columna), asi
-     que la proporcion no se deforma. */
+  /* The mobile header is fixed: without a cap, a vertical logo at 140px wide took it to 280px
+     tall. The width painted is the smaller of the setting and the one that leaves the logo at
+     3rem tall (max-width: 100% still keeps it contained in the column), so the proportion is not
+     distorted. */
   .site-header__logo-image {
     width: min(var(--logo-width, 140px), calc(3rem * var(--logo-ratio, 1)));
   }
@@ -9567,10 +9579,10 @@ html[data-animations='full'] .product-details__accordion[open] .product-details_
 }
 
 /* =========================================================================
-   FAMILIAS FISICAS DE MOVIMIENTO (motion_style)
-   - Atelier (Sartorial / Alta costura): expo-out fluido, elevacion sutil.
-   - Technical (Imprint / Estudio tecnico): respuesta instantanea, sharp, grafito.
-   - Heritage (Archive / Museo y boveda): inercia ceremonial, patina de laton y cursivas.
+   PHYSICAL MOTION FAMILIES (motion_style)
+   - Atelier (Sartorial / Haute couture): fluid expo-out, subtle elevation.
+   - Technical (Imprint / Technical studio): instant response, sharp, graphite.
+   - Heritage (Archive / Museum and vault): ceremonial inertia, brass patina and italics.
    ========================================================================= */
 
 html[data-motion-style='atelier'],
@@ -9616,9 +9628,9 @@ html[data-motion-style='heritage'] {
   --parallax-scale: 1.08;
 }
 
-/* Microinteracciones de hover y foco diferenciadas */
+/* Differentiated hover and focus microinteractions */
 @media (prefers-reduced-motion: no-preference) {
-  /* Atelier: elevacion sutil en boton y tarjeta */
+  /* Atelier: subtle elevation on button and card */
   html[data-motion-style='atelier'] .button:hover:not([disabled]) {
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -9635,7 +9647,7 @@ html[data-motion-style='heritage'] {
     outline-offset: 3px;
   }
 
-  /* Technical: inversion rapida con bordes grafito, respuesta tactil instantanea */
+  /* Technical: quick inversion with graphite borders, instant tactile response */
   html[data-motion-style='technical'] .button {
     transition: background-color var(--motion-fast) var(--ease-enter),
       color var(--motion-fast) var(--ease-enter),
@@ -9661,9 +9673,9 @@ html[data-motion-style='heritage'] {
     text-underline-offset: 3px;
   }
 
-  /* Foco: el color del anillo sale del esquema (--color-foreground), igual que la regla base
-     :focus-visible. Un gris o un laton fijos bajan de 3:1 en esquemas oscuros o calidos.
-     Cada estilo solo cambia el outline-offset. */
+  /* Focus: the ring color comes from the scheme (--color-foreground), like the base
+     :focus-visible rule. A fixed gray or brass drops below 3:1 on dark or warm schemes. Each
+     style only changes the outline-offset. */
   html[data-motion-style='technical'] .button:focus-visible,
   html[data-motion-style='technical'] input:focus-visible,
   html[data-motion-style='technical'] select:focus-visible {
@@ -9671,7 +9683,7 @@ html[data-motion-style='heritage'] {
     outline-offset: 2px;
   }
 
-  /* Heritage: patina de laton envejecido y cursivas solemnes */
+  /* Heritage: aged brass patina and solemn italics */
   html[data-motion-style='heritage'] .button:hover:not([disabled]) {
     border-color: var(--color-foreground);
     color: var(--color-foreground);
@@ -9697,47 +9709,46 @@ html[data-motion-style='heritage'] {
 }
 
 /* =========================================================================
-   SISTEMA DE MOVIMIENTO
-   Todo lo de aqui abajo esta gobernado por html[data-animations] y por
-   prefers-reduced-motion. Las dos llaves de apagado viven al final del bloque.
+   MOTION SYSTEM
+   Everything below is governed by html[data-animations] and by prefers-reduced-motion. The two
+   off switches live at the end of the block.
    ========================================================================= */
 
-/* Transiciones de pagina nativas. Una sola regla, sin JavaScript y sin librerias.
-   Los navegadores que no implementan la API la ignoran por completo. */
+/* Native page transitions. A single rule, no JavaScript and no libraries. Browsers that do not
+   implement the API ignore it entirely. */
 @view-transition {
   navigation: auto;
 }
 
-/* El estado oculto SOLO existe cuando el motor de reveal confirmo que puede
-   ejecutarse. Sin data-reveal-ready en <html> esta regla no aplica y todo se ve. */
+/* The hidden state ONLY exists when the reveal engine has confirmed it can run. Without
+   data-reveal-ready on <html> this rule does not apply and everything is visible. */
 html[data-reveal-ready] [data-reveal]:not([data-revealed]) {
   opacity: 0;
   transform: translateY(var(--reveal-shift));
   will-change: opacity, transform;
 }
 
-/* La transicion vive SOLO en el estado revelado. Si viviera en [data-reveal] a secas,
-   un elemento que ya tenia estilo calculado cuando el motor arranca (la pagina pinto
-   antes de llegar al script, cosa habitual) se animaria de visible a oculto en vez de
-   ocultarse al instante; sobre el pliegue eso se veia como un parpadeo y anulaba la
-   entrada. Ocultar es instantaneo; solo revelar se anima. */
+/* The transition lives ONLY in the revealed state. If it lived on a bare [data-reveal], an
+   element that already had computed style when the engine starts (the page painted before the
+   script arrived, which is common) would animate from visible to hidden instead of hiding
+   instantly; above the fold that looked like a flicker and cancelled the entrance. Hiding is
+   instant; only revealing animates. */
 html[data-reveal-ready] [data-reveal][data-revealed] {
   opacity: 1;
   transform: none;
   transition: opacity var(--motion-base) var(--ease-enter),
     transform var(--motion-base) var(--ease-enter);
   transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
-  /* Se retira en cuanto termina: dejar will-change permanente reserva una capa de
-     composicion por elemento y penaliza la memoria en rejillas largas. */
+  /* It is removed as soon as it finishes: leaving will-change permanently reserves a compositing
+     layer per element and costs memory in long grids. */
   will-change: auto;
 }
 
-/* Hero editorial. La imagen NO se anima ni se oculta: es el LCP. Lo unico que se
-   mueve es el bloque de texto, y solo en modo full, con una entrada corta que arranca
-   ya pintada. */
+/* Hero editorial. The image is NOT animated or hidden: it is the LCP. The only thing that moves
+   is the text block, and only in full mode, with a short entrance that starts already painted. */
 html[data-animations='full'] .hero-editorial__content {
-  /* Texto, no masa: un segundo de titular casi invisible ya seria retrasar contenido
-     primario. Base lo asienta en 680ms y solo en modo full. */
+  /* Text, not mass: a second of an almost invisible headline would already delay primary
+     content. Base settles it at 680ms and only in full mode. */
   animation: hero-content-settle var(--motion-base) var(--ease-enter) both;
 }
 
@@ -9753,8 +9764,8 @@ html[data-animations='full'] .hero-editorial__content {
   }
 }
 
-/* Galeria de PDP: la imagen que pasa a estar seleccionada entra con un fundido
-   corto en vez de aparecer de golpe al cambiar de variante o de miniatura. */
+/* Product gallery: the image that becomes selected enters with a short fade instead of appearing
+   abruptly when switching variant or thumbnail. */
 html[data-animations='subtle'] .product-gallery__item[data-selected] .product-gallery__image,
 html[data-animations='full'] .product-gallery__item[data-selected] .product-gallery__image {
   animation: gallery-media-in var(--motion-base) var(--ease-enter) both;
@@ -9770,13 +9781,13 @@ html[data-animations='full'] .product-gallery__item[data-selected] .product-gall
   }
 }
 
-/* Cabecera condensada. El atributo lo pone initHeaderScrollState.
-   Desde que la cabecera es sticky el estado condensado se ve de verdad. Ya no
-   cambia de altura: una cabecera pegada que encoge desplaza todo el contenido de debajo
-   a mitad de scroll, y eso es desplazamiento de layout. Cambian sombra y fondo. */
+/* Condensed header. The attribute is set by initHeaderScrollState. Since the header is sticky
+   the condensed state is actually visible. It no longer changes height: a stuck header that
+   shrinks shifts all the content below it mid-scroll, and that is layout shift. Shadow and
+   background change instead. */
 .site-header {
-  /* Sigue al scroll del usuario: si tarda lo que una entrada de superficie, se rezaga
-     detras del contenido y se lee como lag. Va en fast. */
+  /* It follows the user's scroll: if it takes as long as a surface entrance, it lags behind the
+     content and reads as lag. It uses fast. */
   transition: box-shadow var(--motion-fast) var(--ease-move),
     background-color var(--motion-fast) var(--ease-move);
 }
@@ -9786,10 +9797,9 @@ html[data-animations='full'] .product-gallery__item[data-selected] .product-gall
     0 0.75rem 1.5rem -1.25rem color-mix(in srgb, var(--color-shadow) 45%, transparent);
 }
 
-/* El desenfoque va en un pseudo-elemento y nunca en la cabecera: un backdrop-filter la
-   convertiria en el bloque contenedor de sus descendientes position: fixed, y el menu
-   movil y el buscador quedarian encerrados en los 77 px de la cabecera en cuanto se
-   hiciera scroll. */
+/* The blur goes on a pseudo-element and never on the header: a backdrop-filter would turn it
+   into the containing block of its position: fixed descendants, and the mobile menu and search
+   would be trapped inside the 77px of the header as soon as the page scrolled. */
 @supports (backdrop-filter: blur(8px)) {
   html[data-animations='full'] .site-header[data-header-scrolled] {
     background: transparent;
@@ -9806,7 +9816,7 @@ html[data-animations='full'] .product-gallery__item[data-selected] .product-gall
   }
 }
 
-/* Lineas del carrito escalonadas al abrir el drawer. El indice lo emite el Liquid. */
+/* Staggered cart lines when the drawer opens. The index is emitted by the Liquid. */
 html[data-animations='subtle'] cart-drawer[data-open] .cart-drawer-item,
 html[data-animations='full'] cart-drawer[data-open] .cart-drawer-item {
   animation: cart-line-in var(--motion-base) var(--ease-enter) both;
@@ -9826,28 +9836,28 @@ html[data-animations='full'] cart-drawer[data-open] .cart-drawer-item {
 }
 
 /* =========================================================================
-   Coreografia scroll-driven nativa, en sustitucion del motor GSAP.
-   La progresion ya no la calcula JavaScript cuadro a cuadro: la calcula el compositor
-   contra la posicion del elemento dentro de su scroller, asi que el movimiento sigue al
-   dedo y no a un reloj. theme.js solo marca los objetivos y publica --reveal-index.
+   Native scroll-driven choreography.
+   Progress is no longer computed by JavaScript frame by frame: the compositor computes it
+   against the element's position inside its scroller, so the motion follows the finger and not a
+   clock. theme.js only marks the targets and publishes --reveal-index.
 
-   Posicion en la cascada (invariante, ver la cabecera del sistema de movimiento): este bloque va
-   DESPUES de las reglas de reveal y ANTES de las dos llaves de apagado. Lo primero deja que el modo full
-   sobre-escriba el estado oculto; lo segundo deja que las llaves lo apaguen todo.
+   Position in the cascade (invariant, see the motion system header): this block goes AFTER the
+   reveal rules and BEFORE the two off switches. The first lets full mode override the hidden
+   state; the second lets the switches turn everything off.
    ========================================================================= */
 
-/* Comun a los dos motores. Si un elemento pendiente recibe el foco por teclado se
-   asienta de golpe: el visitante ya esta en el, y cruzar 1200ms de fundido con el anillo
-   de foco dentro se lee como un fallo de pintado y no como una entrada. Especificidad
-   (0,5,1): gana a las reglas de reveal y al respaldo sea cual sea el orden en que acaben en el archivo. */
+/* Common to both engines. If a pending element receives keyboard focus it settles at once: the
+   visitor is already on it, and crossing 1200ms of fade with the focus ring inside reads as a
+   painting glitch and not as an entrance. Specificity (0,5,1): it beats the reveal rules and the
+   fallback whatever order they end up in the file. */
 html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-within {
   transition: none;
 }
 
-/* Respaldo donde no hay timelines de scroll. El modo full no se queda en la entrada
-   de base: reusa el estado oculto y la transicion de las reglas de reveal y solo les sube distancia,
-   duracion y escalonado a los tokens expresivos. Sin mascara tipografica: una mascara que
-   no progresa con el scroll no tendria nada que animar. */
+/* Fallback where scroll timelines are unavailable. Full mode does not stay at the base entrance:
+   it reuses the hidden state and the transition of the reveal rules and only raises their
+   distance, duration and stagger to the expressive tokens. No typographic mask: a mask that does
+   not progress with scroll would have nothing to animate. */
 @supports not (animation-timeline: view()) {
   html[data-animations='full'][data-reveal-ready] [data-reveal]:not([data-revealed]) {
     transform: translateY(var(--reveal-shift-expressive));
@@ -9859,18 +9869,18 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
   }
 }
 
-/* El motor. Dos pruebas y no una: hubo versiones que aceptaban view() pero no la
-   sintaxis de dos valores de animation-range, y ahi los rangos se quedaban sin resolver y
-   la coreografia entera no arrancaba. La consulta de movimiento reducido envuelve el
-   bloque en vez de confiar solo en la llave 2: asi los timelines ni se crean. */
+/* The engine. Two tests, not one: some versions accepted view() but not the two-value syntax of
+   animation-range, and there the ranges stayed unresolved and the whole choreography did not
+   start. The reduced-motion query wraps the block instead of relying only on switch 2: that way
+   the timelines are never created. */
 @supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
   @media (prefers-reduced-motion: no-preference) {
-    /* a) Bloques. Cada objetivo mide contra si mismo y entra mientras cruza su rango de
-       entrada, de modo que la animacion es scroll y no tiempo. El escalonado tambien pasa a
-       ser recorrido: --reveal-index (0..7, el tope lo fija theme.js) corre el inicio y el
-       final la MISMA distancia, asi todos recorren lo mismo y el hermano siguiente arranca
-       mas abajo. La transicion de las reglas de reveal se retira aqui: dos origenes gobernando opacity y
-       transform a la vez dan un resultado que depende del orden de pintado. */
+    /* a) Blocks. Each target measures against itself and enters while it crosses its entry
+       range, so the animation is scroll and not time. The stagger is also travel: --reveal-index
+       (0..7, the cap is set by theme.js) shifts the start and end by the SAME distance, so all
+       travel the same amount and the next sibling starts lower. The reveal rules' transition is
+       removed here: two origins governing opacity and transform at once give a result that
+       depends on paint order. */
     html[data-animations='full'][data-reveal-ready] [data-reveal=''] {
       view-timeline-name: --reveal;
       view-timeline-inset: 0 var(--scroll-enter-inset);
@@ -9881,19 +9891,18 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       transition: none;
     }
 
-    /* b) Tipografia con mascara. En los siete encabezados editoriales el contenedor solo
-       funde y son sus lineas las que suben, recortadas por el borde del contenedor: el gesto
-       de una portada de moda. El clip-path es FIJO, nunca animado, porque animarlo cuesta un
-       repintado por cuadro. La holgura lateral de 1rem deja salir las italicas y el anillo de
-       foco, que recortados serian un fallo de WCAG 2.4.13.
+    /* b) Masked typography. In the seven editorial headings the container only fades and it is
+       their lines that rise, clipped by the container's edge: the gesture of a fashion cover.
+       The clip-path is FIXED, never animated, because animating it costs a repaint per frame.
+       The 1rem side allowance lets italics and the focus ring through, which if clipped would be
+       a WCAG 2.4.13 failure.
 
-       El borde superior queda ABIERTO (-100%) y solo se recorta el inferior (0): las lineas
-       suben desde abajo, asi que el borde de abajo es el unico que el gesto necesita. No se
-       vuelva a inset(0 -1rem): .brand-manifesto__quote-mark es absoluto y cuelga 1.5rem por
-       encima de su blockquote, y en escritorio sin eyebrow su borde superior coincide
-       EXACTAMENTE con el del contenedor (padding-block-start: var(--space-lg) = 1.5rem,
-       medido 0 px de margen). Cualquier ajuste de --space-lg o de esa cota lo decapitaba
-       durante toda la entrada. */
+       The top edge stays OPEN (-100%) and only the bottom is clipped (0): the lines rise from
+       below, so the bottom edge is the only one the gesture needs. Do not go back to inset(0
+       -1rem): .brand-manifesto__quote-mark is absolute and hangs 1.5rem above its blockquote,
+       and on desktop without an eyebrow its top edge coincides EXACTLY with the container's
+       (padding-block-start: var(--space-lg) = 1.5rem, measured 0px of margin). Any adjustment to
+       --space-lg or to that value would behead it throughout the entrance. */
     html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
       .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
       .brand-manifesto__statement, .main-about__quote)[data-reveal=''] {
@@ -9903,9 +9912,9 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       animation-range-end: entry var(--scroll-reveal-distance);
     }
 
-    /* Las lineas consumen el timeline --reveal del PADRE, que ya lo declara la regla a).
-       Dos ramas porque el marcado varia: unos encabezados envuelven sus lineas en .flow o en
-       un div de rejilla y otros las cuelgan directamente del contenedor. */
+    /* The lines consume the PARENT's --reveal timeline, which rule a) already declares. Two
+       branches because the markup varies: some headings wrap their lines in .flow or in a grid
+       div and others hang them directly from the container. */
     html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
       .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
       .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :not(.flow, div),
@@ -9918,10 +9927,10 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       animation-range-end: entry var(--scroll-reveal-distance);
     }
 
-    /* Escalonado por linea: tambien recorrido, no tiempo. El final se desplaza lo mismo que
-       el inicio, asi las tres lineas recorren identica distancia y la ultima no se comprime.
-       A partir de la tercera todas comparten el segundo escalon: un encabezado con cinco
-       lineas no debe acabar de entrar medio pliegue despues que la primera. */
+    /* Per-line stagger: also travel, not time. The end shifts by the same amount as the start,
+       so the three lines travel an identical distance and the last one is not compressed. From
+       the third on, all share the second step: a heading with five lines must not finish
+       entering half a fold after the first. */
     html[data-animations='full'][data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
       .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
       .brand-manifesto__statement, .main-about__quote)[data-reveal=''] > :not(.flow, div):nth-child(2),
@@ -9942,23 +9951,22 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       animation-range-end: entry calc(var(--scroll-reveal-distance) + 2 * var(--scroll-line-stagger));
     }
 
-    /* .curated-showcase__tabs es un carril con overflow-x: auto, y la regla que prohibe
-       desbordar un solo eje lo deja con overflow-y: auto tambien. Mover sus botones 64px
-       convierte el carril en scrollable mientras dura la entrada: scrollHeight pasa de 52 a
-       116 px, asoma una barra vertical y los botones se van fuera del recorte. Es el unico
-       objetivo de linea que vive dentro de un contenedor de scroll. El carril no es
-       tipografia sino un control: entra fundiendose con su encabezado y no se mueve.
-       [role='tablist'] sube la especificidad a (0,6,1) y gana a la regla de lineas sin
-       depender del orden en el archivo. */
+    /* .curated-showcase__tabs is a lane with overflow-x: auto, and the rule that forbids
+       overflowing a single axis leaves it with overflow-y: auto too. Moving its buttons 64px
+       turns the lane scrollable for the duration of the entrance: scrollHeight goes from 52 to
+       116px, a vertical bar peeks out and the buttons go outside the clip. It is the only line
+       target that lives inside a scroll container. The lane is not typography but a control: it
+       enters fading with its heading and does not move. [role='tablist'] raises the specificity
+       to (0,6,1) and beats the lines rule without depending on file order. */
     html[data-animations='full'][data-reveal-ready] .curated-showcase__header[data-reveal='']
       > .curated-showcase__tabs[role='tablist'] > * {
       animation-name: none;
     }
 
-    /* c) Unveil. Las cuatro masas fotograficas no suben: se descubren de abajo arriba.
-       Especificidad (0,4,1) frente a (0,3,1) del generico, asi que basta sobre-escribir el
-       nombre y el rango y se heredan duracion, curva y fill-mode de la regla a). El recorte
-       lo contiene el overflow: hidden que ya tenian las cuatro. */
+    /* c) Unveil. The four photographic masses do not rise: they are uncovered from bottom to
+       top. Specificity (0,4,1) against the generic's (0,3,1), so it is enough to override the
+       name and the range and duration, curve and fill-mode are inherited from rule a). The clip
+       is contained by the overflow: hidden the four already had. */
     html[data-animations='full'][data-reveal-ready] :is(.brand-manifesto__media, .complete-the-look__media,
       .lookbook__media, .main-about__gallery-item)[data-reveal=''] {
       animation-name: scroll-unveil;
@@ -9966,13 +9974,13 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       animation-range-end: entry var(--scroll-unveil-distance);
     }
 
-    /* La foto se asienta mientras el recorte la descubre: dos escalas que terminan juntas.
-       .lookbook__media queda FUERA a proposito, porque lleva los hotspots encima en
-       coordenadas porcentuales y escalar el fondo los dejaria senalando al sitio equivocado
-       durante toda la entrada. svg cubre el placeholder_svg_tag del estado "falta el asset".
-       El rango se mide sobre el timeline --reveal del CONTENEDOR y no sobre un view() propio:
-       el contenedor tiene overflow: hidden, asi que un view() del hijo mediria contra ese
-       recorte y nunca contra el scroller de la pagina. */
+    /* The photo settles while the clip uncovers it: two scales that end together.
+       .lookbook__media is deliberately OUTSIDE, because it carries hotspots on top in percentage
+       coordinates and scaling the background would leave them pointing at the wrong place
+       throughout the entrance. svg covers the placeholder_svg_tag of the "missing asset" state.
+       The range is measured on the CONTAINER's --reveal timeline and not on its own view(): the
+       container has overflow: hidden, so the child's view() would measure against that clip and
+       never against the page scroller. */
     html[data-animations='full'][data-reveal-ready] :is(.brand-manifesto__media, .complete-the-look__media,
       .main-about__gallery-item)[data-reveal=''] :is(img, svg, video) {
       animation: scroll-unveil-settle auto var(--ease-enter) both;
@@ -9981,17 +9989,17 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       animation-range-end: entry var(--scroll-unveil-settle);
     }
 
-    /* d) Hero. El unico movimiento ligado al scroll que vive sobre el pliegue. Lineal a
-       proposito: un parallax es scroll, y meterle una curva de entrada lo desacopla del dedo.
-       Sin opacidad en ningun fotograma: ese medio es el LCP y no se oculta ni un cuadro.
+    /* d) Hero. The only scroll-linked motion that lives above the fold. Linear on purpose: a
+       parallax is scroll, and giving it an entrance curve decouples it from the finger. No
+       opacity in any frame: that media is the LCP and is not hidden for even one frame.
 
-       El rango arranca en exit 0% y NO restando --header-offset: la cabecera pegada ya esta
-       descontada, porque el timeline no mide contra el viewport sino contra la region optima
-       de visionado, y html lleva scroll-padding-block-start: var(--header-offset). Restarla
-       otra vez adelanta el inicio por debajo del scroll 0 y el progreso nace en 0,124 con una
-       cabecera de 77 px: 9,7 px de --color-surface asomando por el borde superior del medio
-       antes de que nadie toque la rueda, y justo en el elemento LCP. Con exit 0% el progreso
-       nace en 0 y avanza ya en el primer pixel de scroll, que es lo que se buscaba. */
+       The range starts at exit 0% and does NOT subtract --header-offset: the stuck header is
+       already accounted for, because the timeline does not measure against the viewport but
+       against the optimal viewing region, and html carries scroll-padding-block-start:
+       var(--header-offset). Subtracting it again moves the start below scroll 0 and progress is
+       born at 0.124 with a 77px header: 9.7px of --color-surface peeking out of the media's top
+       edge before anyone touches the wheel, right on the LCP element. With exit 0% progress is
+       born at 0 and advances from the first pixel of scroll, which is the intent. */
     html[data-animations='full'] .hero-editorial__media {
       view-timeline-name: --hero-media;
     }
@@ -10003,21 +10011,21 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
       animation-range-end: exit 100%;
     }
 
-    /* e) Banda editorial: sin capa ligada al scroll. El modo full ya no suma marquee-drift
-       (translateX aditivo sobre el bucle): dos movimientos horizontales simultaneos sobre
-       el mismo texto dificultaban la lectura y el bucle pausado seguia moviendose con el
-       scroll. La banda usa en todos los modos la regla base de .marquee-banner__track. */
+    /* e) Editorial band: no scroll-linked layer. Full mode no longer adds marquee-drift
+       (additive translateX over the loop): two simultaneous horizontal motions over the same
+       text made it harder to read and the paused loop kept moving with the scroll. In every mode
+       the band uses the base rule of .marquee-banner__track. */
   }
 }
 
-/* Los fotogramas del motor. Ninguno lleva duracion propia: la pone animation-range.
+/* The engine's keyframes. None carries its own duration: animation-range sets it.
 
-   scroll-fade y scroll-unveil declaran opacity y transform aunque no los cambien, y eso es
-   DELIBERADO: no son relleno, no se limpien. Una propiedad solo queda gobernada por el
-   origen "animacion" si aparece en los fotogramas. Sin esas declaraciones, un contenedor
-   que entra por scroll-unveil seguiria cogiendo el opacity: 0 y el translateY del estado
-   oculto de las reglas de reveal y se quedaria invisible hasta que el JS lo marcara: exactamente el parpadeo
-   que este motor viene a quitar. */
+   scroll-fade and scroll-unveil declare opacity and transform even if they do not change them,
+   and that is DELIBERATE: they are not filler, do not clean them up. A property only comes under
+   the "animation" origin if it appears in the keyframes. Without those declarations, a container
+   entering via scroll-unveil would keep picking up the opacity: 0 and translateY of the reveal
+   rules' hidden state and stay invisible until JS marked it: exactly the flicker this engine is
+   meant to remove. */
 @keyframes scroll-rise {
   from {
     opacity: 0;
@@ -10086,42 +10094,67 @@ html[data-animations][data-reveal-ready] [data-reveal][data-revealed]:focus-with
   }
 }
 
-/* ---------- Llave 1: el comerciante apaga el movimiento ---------- */
+/* ---------- Switch 1: the merchant turns motion off ---------- */
 html[data-animations='none'] *,
 html[data-animations='none'] *::before,
 html[data-animations='none'] *::after {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
-  /* 0s y no 0.01ms: ver la nota de la llave 2 (CLS). */
+  /* 0s and not 0.01ms: see the note on switch 2 (CLS). */
   transition-duration: 0s !important;
   transition-delay: 0ms !important;
   scroll-behavior: auto !important;
 }
 
+/* Static marquee composition when motion is off: no scrolling track, wrapped items,
+   duplicate group and pause toggle hidden. Mirrors the reduced-motion layout. */
+html[data-animations='none'] .marquee-banner__viewport {
+  overflow: visible;
+}
+
+html[data-animations='none'] .marquee-banner__track,
+html[data-animations='none'] .marquee-banner__group {
+  width: 100%;
+  transform: none;
+  animation: none;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+html[data-animations='none'] .marquee-banner__item {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+html[data-animations='none'] .marquee-banner__group[aria-hidden='true'],
+html[data-animations='none'] .marquee-banner__toggle {
+  display: none;
+}
+
 html[data-animations='none'] [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
-  /* La mascara tipografica del motor recorta por el borde del contenedor. Sin
-     anularla aqui, apagar el movimiento dejaria las lineas recortadas en su sitio inicial. */
+  /* The engine's typographic mask clips at the container's edge. Without overriding it here,
+     turning motion off would leave the lines clipped at their initial position. */
   clip-path: none !important;
 }
 
-/* ---------- Llave 2: el visitante pidio reducir movimiento. Gana siempre ---------- */
+/* ---------- Switch 2: the visitor asked to reduce motion. It always wins ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    /* Las transiciones van a 0s, no a 0.01ms: con
-       transition-property en su valor inicial (all), una duracion de 0.01ms convierte
-       CUALQUIER cambio de estilo calculado en una transicion de un fotograma que pinta
-       primero el valor viejo. Al cargar la fuente web, el max-width en ch del titular
-       (11ch pasa de 416 a 594 px con Libre Baskerville) se pintaba un fotograma con los
-       glifos nuevos y el ancho viejo: el titular se iba a 4 lineas, el bloque crecia 160 px
-       y el velo del hero (inset -50%, el doble del bloque) lo amplificaba: CLS 0.18 en Atelier,
-       limite 0.1. Con 0s no hay transicion y el cambio es atomico. Ningun script del tema
-       escucha transitionend, asi que 0.01ms no servia para nada. */
+    /* Transitions go to 0s, not 0.01ms: with transition-property at its initial value (all), a
+       0.01ms duration turns ANY computed style change into a one-frame transition that paints
+       the old value first. When the web font loaded, the headline's max-width in ch (11ch goes
+       from 416 to 594px with the heading font) was painted for one frame with the new glyphs and
+       the old width: the headline went to 4 lines, the block grew 160px and the hero scrim
+       (inset -50%, double the block) amplified it: CLS 0.18, limit 0.1. With 0s there is no
+       transition and the change is atomic. No theme script listens to transitionend, so 0.01ms
+       served no purpose. */
     transition-duration: 0s !important;
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;
@@ -10130,7 +10163,7 @@ html[data-animations='none'] [data-reveal] {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
-    /* Ver la nota de la llave 1. La mascara tambien se anula aqui. */
+    /* See the note on switch 1. The mask is also overridden here. */
     clip-path: none !important;
   }
 
@@ -10145,16 +10178,17 @@ html[data-animations='none'] [data-reveal] {
   }
 }
 
-/* ---------- Llave 3: papel. No hay scroll que recorrer ---------- */
-/* Las dos llaves de arriba no cubren este caso: el motor es scroll, y al
-   imprimir no hay scroll que recorrer, asi que todo lo pendiente de revelar se queda en
-   progreso 0 y hoy sale en blanco. Esto lo asienta en papel sin tocar la pantalla. */
+/* ---------- Switch 3: print. There is no scroll to travel ---------- */
+/* The two switches above do not cover this case: the engine is scroll, and when printing there
+   is no scroll to travel, so everything pending reveal stays at progress 0 and would come out
+   blank. This settles it on paper without touching the screen. */
 @media print {
-  /* Los hijos que el motor scroll-driven anima llevan su propia animation con animation-timeline: no heredan el
-     animation: none del contenedor y en papel se quedan en el fotograma 0 (lineas 64 px
-     abajo y fuera del clip-path, fotos a scale(1.18) bajo el overflow: hidden). Se listan
-     los mismos objetivos que el motor y no un * global, para no pisar estilos de impresion
-     ajenos. Hero y banda se asientan tambien: en papel no hay scroll ni tiempo que recorrer. */
+  /* The children the scroll-driven engine animates carry their own animation with
+     animation-timeline: they do not inherit the container's animation: none and on paper they
+     stay at frame 0 (lines 64px down and outside the clip-path, photos at scale(1.18) under the
+     overflow: hidden). The same targets as the engine are listed and not a global *, so as not
+     to override unrelated print styles. Hero and band also settle: on paper there is no scroll
+     or time to travel. */
   html[data-reveal-ready] [data-reveal],
   html[data-reveal-ready] :is(.lookbook__header, .curated-showcase__header,
     .complete-the-look__header, .bento-discovery__header, .product-recommendations__header,
@@ -10170,8 +10204,8 @@ html[data-animations='none'] [data-reveal] {
     animation: none !important;
   }
 
-  /* Sin opacity: el video del hero nace en 0 y solo se muestra con data-video-active; en
-     papel manda el poster. */
+  /* No opacity: the hero video starts at 0 and is only shown with data-video-active; on paper
+     the poster takes over. */
   html[data-animations='full'] .hero-editorial__media :is(.hero-editorial__image, .hero-editorial__video),
   html[data-animations='full'] .marquee-banner__track {
     transform: none !important;
@@ -10180,7 +10214,7 @@ html[data-animations='none'] [data-reveal] {
 }
 
 /* -------------------------------------------------------------------------- */
-/* PDP Confianza, Inventario y Recently Viewed                        */
+/* Product page trust, inventory and recently viewed                  */
 /* -------------------------------------------------------------------------- */
 
 product-inventory {
@@ -10313,14 +10347,14 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 }
 
 /* -------------------------------------------------------------------------- */
-/* Mega Menú Editorial Multicolumna                                   */
+/* Multi-column editorial mega menu */
 /* -------------------------------------------------------------------------- */
-/* El panel es el mismo [data-disclosure-panel] de <theme-disclosure>: sin JS nuevo. Con el
-   disparador en position: static, el panel se ancla a .site-header (position: relative) y
-   ocupa todo el ancho bajo la cabecera; dentro, .container alinea la rejilla con la pagina.
-   Las tarjetas llevan loading="lazy" y viven en un panel con hidden: ninguna foto se pide
-   hasta abrir. Sin JS el panel se pinta dentro de la cabecera (reglas .no-js de arriba):
-   ahi sobran las fotos y solo quedan las columnas. */
+/* The panel is the same [data-disclosure-panel] of <theme-disclosure>: no new JS. With the
+   trigger at position: static, the panel anchors to .site-header (position: relative) and spans
+   the full width below the header; inside, .container aligns the grid with the page. The cards
+   carry loading="lazy" and live in a panel with hidden: no photo is requested until it opens.
+   Without JS the panel is painted inside the header (.no-js rules above): there the photos are
+   unnecessary and only the columns remain. */
 .no-js .mega-menu__promos {
   display: none;
 }
@@ -10354,7 +10388,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     inset-block-start: 100%;
     inset-inline: 0;
     min-width: 0;
-    /* Con la cabecera pegada, un menu mas alto que la ventana se recorre dentro del panel. */
+    /* With the header stuck, a menu taller than the window scrolls inside the panel. */
     max-height: calc(100dvh - var(--header-offset, 0px) - var(--space-6));
     padding: var(--space-5) 0 var(--space-6);
     overflow-y: auto;
@@ -10362,7 +10396,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     border-inline: 0;
   }
 
-  /* Las tarjetas abren una segunda columna implicita: sin ellas no queda hueco a la derecha. */
+  /* The cards open an implicit second column: without them there is no gap on the right. */
   .mega-menu__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -10455,12 +10489,12 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     gap: var(--space-1);
   }
 
-  /* Sin foto la tarjeta se queda en dos lineas sueltas pegadas al borde y el panel se lee
-     como texto plano. Mismo recurso que .bento-card--editorial-text: la variante reclama la
-     caja que ocupaba el medio y la convierte en una placa tipografica centrada. La cota es
-     el mismo 15rem de la columna (placa cuadrada, proporcion deliberada) y el fondo es el
-     mismo --color-surface que ya usa el hueco de la foto, asi que una fila mixta se lee como
-     pareja. Sin bordes, iconos ni degradados: solo tipografia y aire. */
+  /* Without a photo the card is left as two loose lines stuck to the edge and the panel reads as
+     plain text. Same device as .bento-card--editorial-text: the variant claims the box the media
+     occupied and turns it into a centered typographic plaque. The cap is the same 15rem as the
+     column (square plaque, deliberate proportion) and the background is the same --color-surface
+     the photo's gap already uses, so a mixed row reads as a pair. No borders, icons or
+     gradients: just typography and air. */
   .mega-menu__promo-card--editorial-text {
     height: 100%;
     min-height: 15rem;
@@ -10469,7 +10503,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     background: var(--color-surface);
   }
 
-  /* Retrato 4:5 fijo: la foto ocupa su hueco antes de llegar y no mueve el texto. */
+  /* Fixed 4:5 portrait: the photo takes its space before arriving and does not move the text. */
   .mega-menu__promo-media {
     display: block;
     overflow: hidden;
@@ -10506,13 +10540,13 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     transition: transform var(--motion-slow) var(--ease-move);
   }
 
-  /* El mismo gesto que la foto de la tarjeta de producto. */
+  /* The same gesture as the product card photo. */
   html[data-animations='full'] a.mega-menu__promo-card:hover .mega-menu__promo-image {
     transform: scale(1.025);
   }
 }
 
-/* Bloques de PDP por preset: especificaciones tecnicas (Imprint) y procedencia (Archive). */
+/* Product page blocks per preset: technical specifications (Imprint) and provenance (Archive). */
 .product-technical-specs,
 .product-provenance {
   display: grid;
@@ -10575,8 +10609,8 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   }
 }
 
-/* Solo estos contenedores estrechos parten una palabra larga en vez de ensanchar la
-   tarjeta (zoom, letra grande); la politica global overflow-wrap: normal se mantiene. */
+/* Only these narrow containers break a long word instead of widening the card (zoom, large
+   font); the global overflow-wrap: normal policy is kept. */
 .bento-discovery__item--product .product-card__title,
 .curated-showcase__supporting .product-card__title {
   overflow-wrap: anywhere;
@@ -10612,18 +10646,9 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   margin: 0;
 }
 
-/* Gallery: one image at a time on narrow screens (the selected variant's, or the first),
-   and the first five plus the selected one on wide screens. */
-@media (max-width: 61.99rem) {
-  .featured-product__media:not([data-selected]) {
-    display: none;
-  }
-
-  .featured-product__gallery:not(:has(.featured-product__media[data-selected])) .featured-product__media:first-child {
-    display: block;
-  }
-}
-
+/* Gallery: on wide screens the first five media plus the selected one are shown. The
+   narrow-screen layout is defined in the final block of this file, and no media is hidden
+   here on narrow screens. */
 @media (min-width: 62rem) {
   .featured-product__media:nth-child(n + 6):not([data-selected]) {
     display: none;
@@ -10651,5 +10676,70 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 .lookbook-hotspot__trigger--sample {
   opacity: 0.6;
   cursor: default;
+}
+/* ===== end ===== */
+
+/* ===== Liquid additions ===== */
+/* Featured product gallery on narrow screens: every media item sits in one horizontal scroll-snap strip so
+   video and 3D stay reachable. The item of the selected variant is ordered first. */
+@media (max-width: 61.99rem) {
+  .featured-product__gallery {
+    display: flex;
+    gap: var(--space-2);
+    align-items: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .featured-product__gallery .featured-product__media {
+    display: block;
+    flex: 0 0 85%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .featured-product__gallery .featured-product__media[data-selected] {
+    order: -1;
+  }
+
+  .featured-product__gallery .featured-product__media:only-child,
+  .featured-product__gallery .featured-product__placeholder {
+    flex: 0 0 100%;
+  }
+}
+
+/* Comment text arrives as sanitized HTML from the platform: keep long words and links inside the column. */
+.comment__content {
+  overflow-wrap: anywhere;
+}
+
+/* Curated showcase without JavaScript: the tabs do nothing, so they are hidden and every panel is
+   shown stacked under its own title. Before the script upgrades the element, only the first panel
+   shows, so the page does not jump when the other panels are hidden. */
+.curated-showcase__panel-title {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: calc(1.5rem * var(--font-heading-scale));
+  font-weight: var(--font-heading-weight);
+}
+
+.curated-showcase__panel--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.no-js .curated-showcase__tabs {
+  display: none;
+}
+
+.no-js .curated-showcase__panels {
+  display: grid;
+  gap: var(--space-2xl);
+}
+
+.js curated-showcase:not(:defined) .curated-showcase__panel:not(:first-child) {
+  display: none;
 }
 /* ===== end ===== */

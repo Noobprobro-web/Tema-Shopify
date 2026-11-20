@@ -28,7 +28,11 @@
       "facebook": "Facebook",
       "pinterest": "Pinterest",
       "tiktok": "TikTok",
-      "youtube": "YouTube"
+      "youtube": "YouTube",
+      "x": "X",
+      "snapchat": "Snapchat",
+      "vimeo": "Vimeo",
+      "tumblr": "Tumblr"
     },
     "localization": {
       "country": "País/región",
@@ -195,7 +199,9 @@
     },
     "slideshow": {
       "region_label": "Presentación de diapositivas",
+      "region_label_numbered": "Presentación de diapositivas {{ number }}",
       "carousel_role": "carrusel",
+      "track_label": "Diapositivas",
       "slide_role": "diapositiva",
       "slide_label": "Diapositiva {{ current }} de {{ total }}",
       "slide_status": "Diapositiva {{ current }} de {{ total }}",
@@ -491,7 +497,9 @@
         "editor_empty": "Añade un año aproximado, un grado de estado o notas de procedencia para mostrar este bloque. Hasta entonces no aparece en la tienda."
       },
       "media_gallery": "Galería de imágenes del producto",
+      "media_gallery_named": "Galería de medios de {{ title }}",
       "media_thumbnails": "Miniaturas del producto",
+      "media_label": "{{ title }}, elemento multimedia {{ index }} de {{ total }}",
       "view_media": "Ver imagen {{ number }} del producto",
       "media_zoom": {
         "title": "Zoom de imagen",

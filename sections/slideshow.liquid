@@ -28,11 +28,19 @@
   <section
     class="section slideshow color-{{ section_scheme }}"
     style="--slideshow-height-desktop: {{ section.settings.height_desktop }}; --slideshow-height-mobile: {{ section.settings.height_mobile }};"
-    aria-label="{{ 'sections.slideshow.region_label' | t }}"
-    {% if slide_total > 1 %}aria-roledescription="{{ 'sections.slideshow.carousel_role' | t }}"{% endif %}
+    aria-label="{{ 'sections.slideshow.region_label_numbered' | t: number: section.index }}"
   >
     <div class="slideshow__viewport">
-    <div class="slideshow__track" data-slideshow-track{% if slide_total > 1 %} tabindex="0"{% endif %}>
+    <div
+      class="slideshow__track"
+      data-slideshow-track
+      {% if slide_total > 1 %}
+        tabindex="0"
+        role="group"
+        aria-roledescription="{{ 'sections.slideshow.carousel_role' | t }}"
+        aria-label="{{ 'sections.slideshow.track_label' | t }}"
+      {% endif %}
+    >
       {%- for block in section.blocks -%}
         {%- liquid
           assign slide_image = block.settings.image | default: block.settings.image_mobile
@@ -176,7 +184,7 @@
               <button
                 class="slideshow__dot"
                 type="button"
-                aria-label="{{ 'sections.slideshow.go_to_slide' | t: number: forloop.index | escape }}"
+                aria-label="{{ 'sections.slideshow.go_to_slide' | t: number: forloop.index | escape_once }}"
                 aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
                 data-slideshow-dot
               ></button>

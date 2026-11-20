@@ -21,9 +21,6 @@
   assign columns_desktop = section.settings.columns_desktop | default: 3 | plus: 0
   assign columns_tablet = columns_desktop | at_most: 3
 
-  capture image_sizes
-    render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop
-  endcapture
 
   # Only the first section on the page loads its images eagerly.
   assign is_first_section = false
@@ -35,6 +32,16 @@
   if section.blocks.size == 1
     assign grid_is_single = true
   endif
+
+  # A lone card sits in a grid capped at 28rem (448px) that keeps its column tracks and the 12px gap
+  # (see .std-grid--single in section-standard-a.css), so it is narrower than a share of the viewport.
+  capture image_sizes
+    if grid_is_single
+      render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop, max_width: 448, gap: 12
+    else
+      render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop
+    endif
+  endcapture
 -%}
 
 {%- if section.blocks.size > 0 or request.design_mode -%}

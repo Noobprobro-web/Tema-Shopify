@@ -122,7 +122,7 @@
             <ol class="comment-list unstyled-list">
               {%- for comment in article.comments -%}
                 <li id="Comment-{{ comment.id }}" class="comment">
-                  <div class="comment__content">{{ comment.content | escape | newline_to_br }}</div>
+                  <div class="comment__content rte">{{ comment.content }}</div>
                   <p class="comment__meta">
                     <strong>{{ comment.author | escape }}</strong>
                     <span aria-hidden="true"> / </span>

@@ -3,7 +3,7 @@
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_form_id = 'featured-product-form-' | append: section.id
-  # Select nativo de variantes sin JS (mismo patron que main-product).
+  # Native variant select without JS (same pattern as main-product).
   assign render_variant_no_js = false
   assign variant_picker_blocks = section.blocks | where: 'type', 'variant_picker'
   if featured_product != blank and featured_product.has_only_default_variant == false and variant_picker_blocks.size > 0
@@ -26,7 +26,7 @@
   if selected_selling_plan_id != blank
     assign subscription_selected = true
   endif
-  # Misma regla que main-product: plan exigido sin asignacion.
+  # Same rule as main-product: a plan is required but none is assigned.
   assign plan_required_unavailable = false
   if selected_variant.requires_selling_plan and selected_variant.selling_plan_allocations.size == 0
     assign plan_required_unavailable = true
@@ -55,27 +55,59 @@
   {% endif %}
 >
   <div class="container featured-product__layout">
-    <div class="featured-product__gallery" role="region" aria-label="{{ 'products.product.media_gallery' | t }}">
+    {%- comment -%}
+      On narrow screens the gallery is a horizontal scroll-snap strip that holds every media item, so
+      video and 3D stay reachable without JavaScript. The strip is focusable so it can be scrolled with the keyboard.
+    {%- endcomment -%}
+    {%- liquid
+      # Each gallery is a landmark, so its name must be unique when a page holds several featured products.
+      assign gallery_label = 'products.product.media_gallery' | t
+      if featured_product != blank and featured_product.title != blank
+        assign gallery_label = 'products.product.media_gallery_named' | t: title: featured_product.title
+      endif
+    -%}
+    <div
+      class="featured-product__gallery"
+      role="region"
+      aria-label="{{ gallery_label | escape }}"
+      {% if featured_product.media.size > 1 %}tabindex="0"{% endif %}
+    >
       {%- if featured_product == blank -%}
         <div class="featured-product__placeholder" aria-hidden="true">
           {{- 'product-1' | placeholder_svg_tag: 'homepage-placeholder' -}}
         </div>
       {%- elsif featured_product.media.size > 0 -%}
         {%- for media in featured_product.media -%}
+          {%- liquid
+            assign media_selected = false
+            if media.id == selected_variant.featured_media.id or selected_variant.featured_media == blank and forloop.first
+              assign media_selected = true
+            endif
+            # Only the visible (selected) item is loaded eagerly; the rest of the strip stays lazy.
+            assign media_priority = false
+            if media_selected and section.index <= 2
+              assign media_priority = true
+            endif
+            assign media_label = blank
+            if media.media_type != 'image'
+              assign media_label = media.alt
+              if media_label == blank
+                assign media_label = 'products.product.media_label' | t: title: featured_product.title, index: forloop.index, total: featured_product.media.size
+              endif
+            endif
+          -%}
           <figure
             class="featured-product__media"
             data-product-media-id="{{ media.id }}"
-            {% if media.id == selected_variant.featured_media.id or selected_variant.featured_media == blank and forloop.first %}data-selected{% endif %}
+            {% if media_label != blank %}role="group" aria-label="{{ media_label | escape_once }}"{% endif %}
+            {% if media_selected %}data-selected{% endif %}
           >
-            {%- liquid
-              assign media_priority = false
-              if forloop.first
-                unless section.index > 2
-                  assign media_priority = true
-                endunless
-              endif
-            -%}
-            {% render 'product-media', media: media, product: featured_product, prioritize: media_priority %}
+            {% render 'product-media',
+              media: media,
+              product: featured_product,
+              prioritize: media_priority,
+              sizes: '(min-width: 62rem) 60vw, 85vw'
+            %}
           </figure>
         {%- endfor -%}
       {%- else -%}
@@ -392,28 +424,13 @@
                       {% render 'gift-card-recipient', form: form, section: section %}
                     {%- endif -%}
 
-                    <button
-                      class="button button--full product-form__submit"
-                      type="submit"
-                      name="add"
-                      data-add-to-cart
-                      {% unless can_add_to_cart %}disabled{% endunless %}
-                    >
-                      <span data-add-to-cart-text>
-                        {%- if selected_variant == blank -%}
-                        {{- 'products.product.unavailable' | t -}}
-                      {%- elsif selected_variant.available == false -%}
-                          {{- 'products.product.sold_out' | t -}}
-                        {%- elsif plan_required_unavailable -%}
-                          {{- 'products.product.purchase_options.unavailable' | t -}}
-                        {%- else -%}
-                          {{- 'products.product.add_to_cart' | t -}}
-                        {%- endif -%}
-                      </span>
-                      <span class="button__spinner" data-loading-icon hidden>
-                        {% render 'icon', name: 'spinner', size: 18 %}
-                      </span>
-                    </button>
+                    {%- render 'product-submit-button',
+                      product: featured_product,
+                      selected_variant: selected_variant,
+                      can_add_to_cart: can_add_to_cart,
+                      plan_required_unavailable: plan_required_unavailable,
+                      has_no_js_select: render_variant_no_js
+                    -%}
 
                     <p
                       class="form-message"
@@ -526,12 +543,7 @@
     <script type="application/json" id="FeaturedProductModelJSON-{{ section.id }}">
       {{- featured_models | json -}}
     </script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
-      media="print"
-      onload="this.media='all'"
-    >
+    <noscript><link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"></noscript>
     <script src="{{ 'shopify-xr.js' | shopify_asset_url }}" defer></script>
     <script>
       (() => {
@@ -755,7 +767,7 @@
           "type": "richtext",
           "id": "content",
           "label": "t:sections.all.text.label",
-          "default": "<p>Describe the fibres, the finish and how to care for the piece.</p>"
+          "default": "<p>Describe the fibers, the finish and how to care for the piece.</p>"
         },
         {
           "type": "select",

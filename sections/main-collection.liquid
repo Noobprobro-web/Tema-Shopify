@@ -23,7 +23,7 @@
   endcapture
   assign collection_banner_image = collection.featured_image
   assign collection_image_alt = collection_banner_image.alt | default: collection.title
-  # Filtros que se pintan como swatch aunque Search & Discovery no los marque asi.
+  # Filters rendered as swatches even if Search & Discovery does not flag them as such.
   assign facet_swatch_names = 'color,colour,coloris,farbe,material' | split: ','
 
   for filter in collection.filters
@@ -276,7 +276,7 @@
 
         <div class="collection-products" data-product-grid aria-busy="false">
           {%- liquid
-            # "Clear all" vive en la barra de filtros activos y conserva el orden elegido.
+            # "Clear all" lives in the active filters bar and keeps the chosen sort order.
             assign sort_by_param = sort_by | url_encode
             assign clear_filters_separator = '?'
             if collection.url contains '?'
@@ -448,9 +448,9 @@
             {%- endif -%}
 
             {%- comment -%}
-              "Ningun producto coincide" solo tiene sentido con filtros puestos
-              (o en una pagina fuera de rango de una coleccion con productos). Una coleccion
-              sin productos lo dice y lleva a todo el catalogo, salvo que ya sea ese catalogo.
+              "No products match" only makes sense with filters applied (or on an out-of-range page
+              of a collection with products). A collection with no products says so and links to the
+              whole catalog, unless it already is that catalog.
             {%- endcomment -%}
             {%- if collection.products.size == 0 -%}
               <div class="collection-products__empty flow">
@@ -597,7 +597,7 @@
           "type": "richtext",
           "id": "text",
           "label": "t:sections.all.text.label",
-          "default": "<p>Follow a material study from fibre to finished form.</p>"
+          "default": "<p>Follow a material study from fiber to finished form.</p>"
         },
         {
           "type": "text",

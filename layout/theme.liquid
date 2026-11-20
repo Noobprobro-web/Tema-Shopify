@@ -29,16 +29,11 @@
     {% render 'social-meta-tags' %}
 
     {%- if request.page_type == 'product' and product_models.size > 0 -%}
-      <link
-        id="ModelViewerStyle"
-        rel="stylesheet"
-        href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
-        media="print"
-        onload="this.media='all'"
-      >
-      <noscript>
-        <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
-      </noscript>
+      {%- comment -%}
+        Controls for the 3D viewer. The script adds this stylesheet without blocking the render, and
+        only when a viewer exists on the page; this is the fallback without JavaScript.
+      {%- endcomment -%}
+      <noscript><link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"></noscript>
     {%- endif -%}
 
     {%- liquid
@@ -109,14 +104,14 @@
       document.documentElement.classList.remove('no-js');
       document.documentElement.classList.add('js');
       {%- comment -%}
-        Si theme.js no llego a definir variant-selects (caido, bloqueado o con error),
-        vuelve a no-js para que los controles nativos de compra sean los visibles.
+        If theme.js never defined variant-selects (failed, blocked or errored), fall back to no-js
+        so the native purchase controls are the visible ones.
       {%- endcomment -%}
       document.addEventListener('DOMContentLoaded', function () {
         if (!window.customElements || !window.customElements.get('variant-selects')) {
           document.documentElement.classList.remove('js');
           document.documentElement.classList.add('no-js');
-          // Si theme.js llega tarde (apps que difieren el JS), vuelve a js al definirse.
+          // If theme.js arrives late (apps that defer JS), switch back to js once the element is defined.
           if (window.customElements) {
             window.customElements.whenDefined('variant-selects').then(function () {
               document.documentElement.classList.remove('no-js');

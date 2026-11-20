@@ -130,6 +130,18 @@
         },
         "youtube": {
           "label": "YouTube URL"
+        },
+        "x": {
+          "label": "X URL"
+        },
+        "snapchat": {
+          "label": "Snapchat URL"
+        },
+        "vimeo": {
+          "label": "Vimeo URL"
+        },
+        "tumblr": {
+          "label": "Tumblr URL"
         }
       }
     },
@@ -517,7 +529,7 @@
         },
         "overlay_opacity": {
           "label": "Overlay strength",
-          "info": "Below 20% you may need to check that the text is still readable on your image."
+          "info": "Low values can leave the text hard to read on light images. Check the result on desktop and mobile."
         },
         "content_position_x": {
           "label": "Text position, left to right",

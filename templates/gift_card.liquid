@@ -128,7 +128,7 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        {%- comment -%} Sin manejadores en línea, compatible con una CSP estricta. {%- endcomment -%}
+        {%- comment -%} Listeners are attached with addEventListener instead of inline event attributes. {%- endcomment -%}
         var printButton = document.querySelector('[data-gift-card-print]');
         if (printButton) {
           printButton.addEventListener('click', function () {
