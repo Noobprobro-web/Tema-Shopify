@@ -1,0 +1,49 @@
+{%- comment -%}
+  Renders the add to cart submit button of a product form.
+
+  Accepts:
+  - product: product object
+  - selected_variant: the variant selected on the server
+  - can_add_to_cart: whether the selected variant can be bought
+  - plan_required_unavailable: the variant needs a selling plan and has none
+  - has_no_js_select: the form prints the native variant select for visitors without JavaScript
+
+  Without JavaScript a sold-out variant can still be swapped in the native select, but a disabled
+  button would never re-enable. In that case a plain submit button replaces it, shown only when
+  JavaScript is off. With JavaScript the button below behaves as before.
+{%- endcomment -%}
+
+{%- liquid
+  assign no_js_submit = false
+  if has_no_js_select and product.available and selected_variant.available == false and plan_required_unavailable == false
+    assign no_js_submit = true
+  endif
+-%}
+
+{%- if no_js_submit -%}
+  <button class="button button--full product-form__submit no-js-only" type="submit" name="add">
+    {{- 'products.product.add_to_cart' | t -}}
+  </button>
+{%- endif -%}
+<button
+  class="button button--full product-form__submit{% if no_js_submit %} js-only{% endif %}"
+  type="submit"
+  name="add"
+  data-add-to-cart
+  {% unless can_add_to_cart %}disabled{% endunless %}
+>
+  <span data-add-to-cart-text>
+    {%- if selected_variant == blank -%}
+      {{- 'products.product.unavailable' | t -}}
+    {%- elsif selected_variant.available == false -%}
+      {{- 'products.product.sold_out' | t -}}
+    {%- elsif plan_required_unavailable -%}
+      {{- 'products.product.purchase_options.unavailable' | t -}}
+    {%- else -%}
+      {{- 'products.product.add_to_cart' | t -}}
+    {%- endif -%}
+  </span>
+  <span class="button__spinner" data-loading-icon hidden>
+    {% render 'icon', name: 'spinner', size: 18 %}
+  </span>
+</button>

@@ -59,6 +59,20 @@
   if compare_price != blank and compare_price > current_price
     assign on_sale = true
   endif
+
+  # With varying prices the highest compare-at price can belong to a variant that costs more than
+  # the lowest price shown (A: 100 with no compare-at, B: 200 compared at 150), which would label
+  # the product as on sale although no variant is discounted. The badge is kept only when some
+  # variant really has compare_at_price > price (checked on the first 250 variants Liquid exposes).
+  if on_sale and price_varies
+    assign on_sale = false
+    for sale_variant in product.variants
+      if sale_variant.compare_at_price > sale_variant.price
+        assign on_sale = true
+        break
+      endif
+    endfor
+  endif
 -%}
 
 <div

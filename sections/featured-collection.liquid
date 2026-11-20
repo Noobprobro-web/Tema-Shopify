@@ -36,6 +36,16 @@
   if has_products and feature_collection.products_count == 1
     assign grid_is_single = true
   endif
+
+  # A lone product sits in a grid capped at 28rem (448px) that keeps its column tracks and the
+  # 12px gap (see .std-grid--single in section-standard-a.css), so each card is far narrower
+  # than a share of the viewport.
+  assign card_sizes = blank
+  if grid_is_single
+    capture card_sizes
+      render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop, max_width: 448, gap: 12
+    endcapture
+  endif
 -%}
 
 {%- if feature_collection == blank or has_products or request.design_mode -%}
@@ -101,7 +111,8 @@
                 show_quick_add: section.settings.show_quick_add,
                 columns_mobile: columns_mobile,
                 columns_tablet: columns_tablet,
-                columns_desktop: columns_desktop
+                columns_desktop: columns_desktop,
+                sizes: card_sizes
               %}
             </li>
           {%- endfor -%}

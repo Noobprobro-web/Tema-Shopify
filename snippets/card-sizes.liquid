@@ -5,6 +5,10 @@
   - columns_mobile: columns below 48rem (default 2)
   - columns_tablet: columns from 48rem (default: columns_mobile)
   - columns_desktop: columns from 62rem (default: columns_tablet)
+  - max_width: optional, in pixels. Pass it when the grid itself is capped to a fixed width (a
+    single card in a section grid): each card is then (max_width - gaps) / columns wide instead
+    of a share of the viewport. Ignored with view 'list'.
+  - gap: pixels between columns, used only with max_width (default 0).
   - view: pass 'list' for the collection list view, where the photo has a fixed width
     (5.5rem, up to 14rem from 990px) instead of a share of the row. Keep these two values in
     step with `.product-grid[data-grid-columns='list']` in base.css.
@@ -19,6 +23,17 @@
 {%- liquid
   if view == 'list'
     echo '(min-width: 990px) 14rem, 5.5rem'
+  elsif max_width != blank
+    assign sizes_mobile = columns_mobile | default: 2 | plus: 0 | at_least: 1
+    assign sizes_tablet = columns_tablet | default: sizes_mobile | plus: 0 | at_least: 1
+    assign sizes_desktop = columns_desktop | default: sizes_tablet | plus: 0 | at_least: 1
+    assign capped_gap = gap | default: 0 | plus: 0
+    assign capped_box = max_width | plus: 0
+    # Width of one card inside the capped box, rounded up so the request is never too small.
+    assign capped_mobile = sizes_mobile | minus: 1 | times: capped_gap | times: -1 | plus: capped_box | plus: sizes_mobile | minus: 1 | divided_by: sizes_mobile
+    assign capped_tablet = sizes_tablet | minus: 1 | times: capped_gap | times: -1 | plus: capped_box | plus: sizes_tablet | minus: 1 | divided_by: sizes_tablet
+    assign capped_desktop = sizes_desktop | minus: 1 | times: capped_gap | times: -1 | plus: capped_box | plus: sizes_desktop | minus: 1 | divided_by: sizes_desktop
+    echo '(min-width: 62rem) ' | append: capped_desktop | append: 'px, (min-width: 48rem) ' | append: capped_tablet | append: 'px, (min-width: 32rem) ' | append: capped_mobile | append: 'px, calc(100vw / ' | append: sizes_mobile | append: ')'
   else
     assign sizes_mobile = columns_mobile | default: 2 | plus: 0 | at_least: 1
     assign sizes_tablet = columns_tablet | default: sizes_mobile | plus: 0 | at_least: 1

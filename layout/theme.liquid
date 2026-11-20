@@ -29,16 +29,8 @@
     {% render 'social-meta-tags' %}
 
     {%- if request.page_type == 'product' and product_models.size > 0 -%}
-      <link
-        id="ModelViewerStyle"
-        rel="stylesheet"
-        href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
-        media="print"
-        onload="this.media='all'"
-      >
-      <noscript>
-        <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
-      </noscript>
+      {%- comment -%}Controls for the 3D viewer. Only requested on product pages that have a 3D model.{%- endcomment -%}
+      <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
     {%- endif -%}
 
     {%- liquid

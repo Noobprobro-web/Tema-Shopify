@@ -640,28 +640,13 @@
                     {% render 'gift-card-recipient', form: form, section: section %}
                   {%- endif -%}
 
-                  <button
-                    class="button button--full product-form__submit"
-                    type="submit"
-                    name="add"
-                    data-add-to-cart
-                    {% unless can_add_to_cart %}disabled{% endunless %}
-                  >
-                    <span data-add-to-cart-text>
-                      {%- if selected_variant == blank -%}
-                      {{- 'products.product.unavailable' | t -}}
-                    {%- elsif selected_variant.available == false -%}
-                        {{- 'products.product.sold_out' | t -}}
-                      {%- elsif plan_required_unavailable -%}
-                        {{- 'products.product.purchase_options.unavailable' | t -}}
-                      {%- else -%}
-                        {{- 'products.product.add_to_cart' | t -}}
-                      {%- endif -%}
-                    </span>
-                    <span class="button__spinner" data-loading-icon hidden>
-                      {% render 'icon', name: 'spinner', size: 18 %}
-                    </span>
-                  </button>
+                  {%- render 'product-submit-button',
+                    product: product,
+                    selected_variant: selected_variant,
+                    can_add_to_cart: can_add_to_cart,
+                    plan_required_unavailable: plan_required_unavailable,
+                    has_no_js_select: render_variant_no_js
+                  -%}
 
                   <p
                     class="form-message"
