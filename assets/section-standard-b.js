@@ -72,8 +72,9 @@
       if (next) next.addEventListener('click', () => this.step(1, { announce: true }), { signal });
       this.dots.forEach((dot, position) => {
         dot.addEventListener('click', () => this.goTo(position, { announce: true }), { signal });
-        dot.addEventListener('keydown', (event) => this.onKey(event), { signal });
       });
+      // Keys act on the slideshow's own controls; inside a slide they belong to its content.
+      if (this.controls) this.controls.addEventListener('keydown', (event) => this.onKey(event), { signal });
 
       if (this.toggle) {
         this.toggle.addEventListener(
@@ -200,11 +201,15 @@
 
     setActive(position, { announce = false } = {}) {
       this.index = position;
+      const focused = document.activeElement;
+      const focusedSlide = focused && focused !== document.body ? this.slides.find((slide) => slide.contains(focused)) : null;
       this.slides.forEach((slide, slidePosition) => {
         const active = slidePosition === position;
         slide.inert = !active;
         slide.toggleAttribute('data-active', active);
       });
+      // An inert slide cannot keep focus, which would otherwise drop to the page body.
+      if (focusedSlide && focusedSlide !== this.slides[position]) this.track.focus({ preventScroll: true });
       this.dots.forEach((dot, dotPosition) => {
         dot.setAttribute('aria-current', dotPosition === position ? 'true' : 'false');
       });
@@ -218,6 +223,11 @@
     }
 
     onKey(event) {
+      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      // Only the track and the slideshow controls take these keys, never the content of a slide.
+      const onTrack = event.target === this.track;
+      const onControls = Boolean(this.controls && this.controls.contains(event.target));
+      if (!onTrack && !onControls) return;
       const forward = this.rtl ? 'ArrowLeft' : 'ArrowRight';
       const backward = this.rtl ? 'ArrowRight' : 'ArrowLeft';
       let handled = true;
@@ -266,7 +276,6 @@
       if (poster) poster.hidden = true;
       this.button.hidden = true;
       this.setAttribute('data-playing', '');
-      player.tabIndex = -1;
       player.focus({ preventScroll: true });
       if (player instanceof HTMLVideoElement) {
         const attempt = player.play();

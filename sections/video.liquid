@@ -67,6 +67,7 @@
     </header>
   {%- endif -%}
 
+  {%- if has_video or request.design_mode or cover != blank -%}
   <theme-video-poster class="video-section__frame">
     <div class="video-section__stage" data-video-stage>
       <div class="video-section__poster" data-video-poster>
@@ -79,7 +80,7 @@
             image_class: 'video-section__image',
             decorative: true
           %}
-        {%- else -%}
+        {%- elsif request.design_mode or has_video -%}
           <div class="video-section__placeholder" aria-hidden="true">
             {{- 'lifestyle-2' | placeholder_svg_tag: 'homepage-placeholder' -}}
           </div>
@@ -145,6 +146,7 @@
       {%- endif -%}
     </div>
   </theme-video-poster>
+  {%- endif -%}
 </section>
 
 {% schema %}

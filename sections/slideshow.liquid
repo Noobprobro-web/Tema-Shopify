@@ -29,10 +29,18 @@
     class="section slideshow color-{{ section_scheme }}"
     style="--slideshow-height-desktop: {{ section.settings.height_desktop }}; --slideshow-height-mobile: {{ section.settings.height_mobile }};"
     aria-label="{{ 'sections.slideshow.region_label' | t }}"
-    {% if slide_total > 1 %}aria-roledescription="{{ 'sections.slideshow.carousel_role' | t }}"{% endif %}
   >
     <div class="slideshow__viewport">
-    <div class="slideshow__track" data-slideshow-track{% if slide_total > 1 %} tabindex="0"{% endif %}>
+    <div
+      class="slideshow__track"
+      data-slideshow-track
+      {% if slide_total > 1 %}
+        tabindex="0"
+        role="group"
+        aria-roledescription="{{ 'sections.slideshow.carousel_role' | t }}"
+        aria-label="{{ 'sections.slideshow.track_label' | t }}"
+      {% endif %}
+    >
       {%- for block in section.blocks -%}
         {%- liquid
           assign slide_image = block.settings.image | default: block.settings.image_mobile
