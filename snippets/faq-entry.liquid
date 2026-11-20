@@ -1,12 +1,10 @@
 {%- comment -%}
-  Una pregunta del acordeon de FAQ.
-
-  Vive en un snippet porque main-faq la emite desde dos sitios (las preguntas sin
-  categoria y las de cada categoria). Una sola copia del markup evita que los
-  acordeones se separen con el tiempo.
-
-  Acepta:
-  - block: el bloque con question, answer y open_by_default
+  A question of the FAQ accordion.
+  It lives in a snippet because main-faq emits it from two places (the questions without a category
+  and those of each category). A single copy of the markup keeps the accordions from drifting apart
+  over time.
+  Accepts:
+    - block: the block with question, answer and open_by_default
 {%- endcomment -%}
 
 <details class="faq-item" {% if block.settings.open_by_default %}open{% endif %} {{ block.shopify_attributes }}>

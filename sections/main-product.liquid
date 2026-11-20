@@ -88,8 +88,8 @@
               {% if section.settings.media_layout == 'thumbnails' and media.id != selected_media_id %}hidden{% endif %}
             >
               {%- liquid
-                # En la rejilla de escritorio cada foto ocupa media columna de la
-                # galeria (unos 30vw); la primera, si el total es impar, ocupa las dos.
+                # On the desktop grid each photo takes half a column of the gallery (about 30vw);
+                # the first one, if the total is odd, takes both.
                 assign media_sizes = '(min-width: 62rem) 60vw, 100vw'
                 if section.settings.media_layout == 'grid' and product.media.size > 1
                   unless forloop.first and odd_media == 1
@@ -121,10 +121,10 @@
 
       {%- if gallery_is_carousel -%}
         {%- comment -%}
-          Paginador del carrusel movil. Nace oculto y solo lo muestra <product-gallery> por
-          debajo de 62rem, que es donde la galeria se convierte en carrusel: sin JavaScript
-          el carrusel se sigue deslizando con el dedo y no queda ningun boton que no haga
-          nada. El contador es visual; el anuncio para lector de pantalla va en el estado.
+          Mobile carousel pager. It is born hidden and only shown by <product-gallery> below 62rem,
+          where the gallery becomes a carousel: without JavaScript the carousel still swipes with a
+          finger and no button is left that does nothing. The counter is visual; the screen reader
+          announcement goes in the status.
         {%- endcomment -%}
         <div
           class="product-gallery__pager"
@@ -429,9 +429,9 @@
               <div class="product-form__quantity" {{ block.shopify_attributes }}>
                 <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
                 {%- comment -%}
-                  El valor inicial es el minimo de la variante seleccionada, asi que el
-                  boton de restar nace apagado. Al cambiar de variante manda
-                  updateQuantityRules, que emite un change y el stepper se resincroniza.
+                  The initial value is the minimum of the selected variant, so the minus button is
+                  born turned off. When the variant changes, updateQuantityRules takes over, which
+                  emits a change and the stepper resynchronizes.
                 {%- endcomment -%}
                 <div class="quantity-stepper product-form__stepper" data-quantity-stepper>
                   <button
@@ -729,8 +729,8 @@
   </div>
 
   {%- comment -%}
-    El visor va fuera de .product-main__layout: dentro era un hijo mas de la rejilla,
-    ocupaba la segunda columna con alto 0 y mandaba la ficha debajo de la galeria.
+    The viewer goes outside .product-main__layout: inside it would be one more child of the grid,
+    take the second column with height 0 and push the product details below the gallery.
   {%- endcomment -%}
   {%- if zoom_enabled -%}
     {% render 'product-zoom', product: product, images: zoom_images %}
@@ -790,10 +790,10 @@
             <span class="sticky-cart-bar__price" data-sticky-price>{% if selected_variant %}{{ selected_variant.price | money }}{% endif %}</span>
           </p>
           {%- comment -%}
-            Con cantidad 2 o mas la barra dice cuantas unidades va a anadir y el total
-            de la linea, en su propia linea para que nunca se recorte. El total no se calcula
-            aqui: se copia del total que ya muestra el bloque de cantidad, asi la barra nunca
-            puede discrepar de la ficha.
+            With quantity 2 or more the bar says how many units it will add and the line total, on
+            its own line so it is never clipped. The total is not calculated here: it is copied from
+            the total the quantity block already shows, so the bar can never disagree with the
+            product page.
           {%- endcomment -%}
           <p class="sticky-cart-bar__total" data-sticky-total hidden></p>
         </div>

@@ -1,4 +1,4 @@
-/* Zoom de la ficha: <dialog>, Pointer Events y teclado. */
+/* Product zoom: <dialog>, Pointer Events and keyboard support. */
 if (window.ThemeCore && !customElements.get('product-zoom')) customElements.define('product-zoom', class extends window.ThemeCore.ThemeElement {
   clamp = (value, min, max) => Math.min(Math.max(value, min), max);
   pointers = new Map();
@@ -32,14 +32,14 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
       frame = requestAnimationFrame(() => this.select(this.clamp(Math.round(Math.abs(this.track.scrollLeft) / (this.track.clientWidth || 1)), 0, this.slides.length - 1)));
     });
     ['down', 'move', 'up', 'cancel'].forEach((type) => on(this.track, `pointer${type}`, (event) => this.handlePointer(event)));
-    // Dos dedos a 1x: si no, el navegador lo toma como pan-x.
+    // Two fingers at 1x: otherwise the browser treats it as pan-x.
     on(this.track, 'touchmove', (event) => {
       if (event.touches.length > 1 || this.scale > 1) event.preventDefault();
     }, { passive: false });
     on(window, 'resize', () => this.dialog.open && this.layout());
   }
 
-  // A360-11. El evento close llega despues de abortar los listeners: se limpia aqui.
+  // The close event fires after the listeners are aborted, so clean up here.
   disconnectedCallback() {
     if (this.dialog?.open) {
       this.dialog.close();
@@ -92,7 +92,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.scale = Math.min(previous, Math.max(1, this.fit.max));
     this.track.scrollLeft = this.offsetOf(this.index);
     this.apply();
-    // Anuncia el zoom reajustado.
+    // Announces the re-fitted zoom level.
     if (this.dialog.open && Math.round(this.scale * 100) !== Math.round(previous * 100)) this.announce();
   }
 
@@ -132,8 +132,8 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     if (priority) img.fetchPriority = 'high';
     if (img.dataset.pending) return;
     img.dataset.pending = 1;
-    // sizes viaja en data-sizes: sin srcset en el HTML, un sizes suelto no es valido.
-    // Se pone antes que srcset para que el navegador elija el candidato correcto.
+    // sizes travels in data-sizes: without srcset in the HTML a bare sizes attribute is invalid.
+    // It is set before srcset so the browser picks the right candidate.
     const upgrade = () => {
       if (!img.getAttribute('sizes')) img.setAttribute('sizes', img.dataset.sizes || '100vw');
       img.setAttribute('srcset', img.dataset.srcset);
@@ -167,7 +167,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.set([[this.inButton, fit.max < 1.25 || scale >= fit.max - 0.01], [this.outButton, scale <= 1], [this.resetButton, scale <= 1]]);
   }
 
-  // F01: el foco sale del boton antes de ocultarlo o desactivarlo (si no, cae en body).
+  // Focus leaves the button before it is hidden or disabled (otherwise it falls back to body).
   set(states, prefer = []) {
     const next = new Map(states);
     const move = () => [...prefer, this.inButton, this.outButton, ...this.steps, this.closeButton]
@@ -188,7 +188,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     this.x = pointX - (pointX - this.x) * ratio;
     this.y = pointY - (pointY - this.y) * ratio;
     this.scale = scale;
-    // Primer zoom: sizes al ancho ampliado.
+    // First zoom: sizes matches the enlarged width.
     const baseSizes = fit.img.getAttribute('sizes');
     if (scale > 1 && (!baseSizes || baseSizes === (fit.img.dataset.sizes || '100vw'))) {
       fit.img.sizes = `${Math.ceil(fit.width * fit.max)}px`;
@@ -232,7 +232,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
       pointers.set(id, event);
       const [a, b] = pointers.values();
       if (pinch && b) {
-        // Pellizco absoluto: la foto sigue al punto medio.
+        // Absolute pinch: the photo follows the midpoint.
         const [pointX, pointY] = mid(a, b);
         this.scale = pinch.scale;
         this.x = pinch.x + pointX - pinch.mid[0];
@@ -271,7 +271,7 @@ if (window.ThemeCore && !customElements.get('product-zoom')) customElements.defi
     }
   }
 
-  // target es el del pointerdown: con captura, el pointerup llega a la pista.
+  // target is the pointerdown target: with capture, pointerup is delivered to the track.
   tap(event, target) {
     const onImage = target === this.fit.img;
     const toggle = () => this.zoomTo(this.scale > 1 ? 1 : 3, ...this.point(event));

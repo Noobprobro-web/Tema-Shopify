@@ -1,15 +1,13 @@
 {%- comment -%}
-  Visor de zoom de la ficha (<product-zoom>, assets/product-zoom.js). Lo pinta
-  main-product solo con el ajuste enable_media_zoom activo y al menos una imagen.
-
-  Las fotos llevan data-srcset (1600 a 4096 px, sin pasar del original) y ninguna peticion
-  sale hasta abrir: product-zoom.js copia primero la foto ya descargada de la galeria y
-  despues pide la alta resolucion de la actual y sus vecinas. El src inicial es un GIF
-  transparente en linea, sin red.
-
+  Product page zoom viewer (<product-zoom>, assets/product-zoom.js). Rendered by main-product only
+  with the enable_media_zoom setting on and at least one image.
+  The photos carry data-srcset (1600 to 4096px, never beyond the original) and no request goes out
+  until opened: product-zoom.js first copies the photo already downloaded from the gallery and then
+  requests the high resolution of the current one and its neighbors. The initial src is an inline
+  transparent GIF, with no network.
   Accepts:
-  - product: product object
-  - images: product.media filtrado a media_type 'image' (video y 3D no se amplian)
+    - product: product object
+    - images: product.media filtered to media_type 'image' (video and 3D are not enlarged)
 {%- endcomment -%}
 <product-zoom
   data-status-template="{{ 'products.product.media_zoom.status' | t: index: '[index]', total: '[total]', zoom: '[zoom]' | escape_once }}"

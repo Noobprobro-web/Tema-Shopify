@@ -184,8 +184,8 @@
           </option>
         {%- endfor -%}
         {%- comment -%}
-          product.variants devuelve 250 variantes como maximo: la variante seleccionada debe existir
-          siempre como opcion marcada, o el navegador enviaria otra distinta de la que se muestra.
+          product.variants returns 250 variants at most: the selected variant must always exist as a
+          checked option, or the browser would submit a different one from the one shown.
         {%- endcomment -%}
         {%- unless selected_variant_listed -%}
           <option value="{{ selected_variant.id }}" selected>

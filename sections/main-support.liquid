@@ -1,13 +1,10 @@
 {%- comment -%}
-  Portal de soporte para el comerciante que compra el tema.
-
-  Es una pagina distinta de /pages/contact: aquella atiende al comprador de la tienda y
-  esta a quien configura el tema. Por eso lleva su propia plantilla y su propio formulario
-  en lugar de convivir con main-contact, que era justo lo que producia dos cabeceras y dos
-  formularios en la misma vista.
-
-  El formulario es {% form 'contact' %} nativo: llega al correo del comerciante por el
-  canal que Shopify ya gestiona, sin JavaScript y sin servicios de terceros.
+  Support portal for the merchant who buys the theme.
+  It is a different page from /pages/contact: that one serves the shopper of the store and this one
+  whoever configures the theme. That is why it has its own template and its own form instead of
+  sharing main-contact, which would show two headers and two forms in the same view.
+  The form is a native {% form 'contact' %}: it reaches the merchant's email through the channel
+  Shopify already manages, without JavaScript and without third-party services.
 {%- endcomment -%}
 
 {%- liquid
@@ -57,11 +54,11 @@
         </p>
       {%- endif -%}
       {%- comment -%}
-        Blindaje ante HTML residual. Una pagina que antes se maqueto pegando HTML
-        en el editor puede traer bloques <style> y <script> con selectores globales
-        (header, main, body) que secuestran la cabecera, el pie y la tipografia de todo el
-        tema. Aqui se quitan esos bloques enteros y se conserva el resto del contenido con
-        su formato. La misma logica vive en main-documentation.liquid.
+        Shield against leftover HTML. A page previously laid out by pasting HTML into the editor may
+        carry <style> and <script> blocks with global selectors (header, main, body) that hijack the
+        header, footer and typography of the whole theme. Those blocks are removed whole here and
+        the rest of the content keeps its formatting. The same logic lives in
+        main-documentation.liquid.
       {%- endcomment -%}
       {%- liquid
         assign page_body = page.content
@@ -87,9 +84,9 @@
     </header>
 
     {%- comment -%}
-      El alcance del soporte va antes del formulario y a todo el ancho: es lo que decide si
-      merece la pena escribir. Dentro de la columna lateral, cada tarjeta se quedaba en 231
-      px y un titulo de tres palabras se partia en dos lineas.
+      The scope of support goes before the form and at full width: it is what decides whether it is
+      worth writing. Inside the side column each card would shrink to 231px and a three-word title
+      would wrap onto two lines.
     {%- endcomment -%}
     {%- if policy_count > 0 -%}
       <div class="main-support__policies">
@@ -160,9 +157,9 @@
           </div>
 
           {%- comment -%}
-            El campo no se repuebla tras un error de validacion: el objeto form de Shopify
-            solo devuelve name, email y body, asi que un value aqui seria codigo muerto que
-            aparenta una memoria que no existe.
+            The field is not repopulated after a validation error: Shopify's form object only
+            returns name, email and body, so a value here would be dead code that pretends to a
+            memory that does not exist.
           {%- endcomment -%}
           <div class="form-field">
             <label for="{{ store_id }}">{{ 'support.form.store_url' | t }}</label>

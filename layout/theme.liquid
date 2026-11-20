@@ -101,14 +101,14 @@
       document.documentElement.classList.remove('no-js');
       document.documentElement.classList.add('js');
       {%- comment -%}
-        Si theme.js no llego a definir variant-selects (caido, bloqueado o con error),
-        vuelve a no-js para que los controles nativos de compra sean los visibles.
+        If theme.js never defined variant-selects (failed, blocked or errored), fall back to no-js
+        so the native purchase controls are the visible ones.
       {%- endcomment -%}
       document.addEventListener('DOMContentLoaded', function () {
         if (!window.customElements || !window.customElements.get('variant-selects')) {
           document.documentElement.classList.remove('js');
           document.documentElement.classList.add('no-js');
-          // Si theme.js llega tarde (apps que difieren el JS), vuelve a js al definirse.
+          // If theme.js arrives late (apps that defer JS), switch back to js once the element is defined.
           if (window.customElements) {
             window.customElements.whenDefined('variant-selects').then(function () {
               document.documentElement.classList.remove('no-js');

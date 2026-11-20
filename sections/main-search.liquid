@@ -19,7 +19,7 @@
   endfor
   assign plain_terms = search.terms | replace: '&quot;', '"' | replace: '&#39;', "'" | replace: '&lt;', '<' | replace: '&gt;', '>' | replace: '&amp;', '&'
   assign encoded_terms = plain_terms | url_encode
-  # Filtros que se pintan como swatch aunque Search & Discovery no los marque asi.
+  # Filters rendered as swatches even if Search & Discovery does not flag them as such.
   assign facet_swatch_names = 'color,colour,coloris,farbe,material' | split: ','
   assign encoded_search_types = active_search_types | url_encode
   assign all_search_url = routes.search_url | append: '?q=' | append: encoded_terms | append: '&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last'

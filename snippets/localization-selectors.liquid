@@ -1,14 +1,13 @@
 {%- comment -%}
   Renders Shopify's native localization form with an ultra-clean, minimal language toggle.
   Accepts:
-  - context: 'header', 'header-mobile', 'footer', etc.
-  - enable_language: false hides the language toggle. Default: shown.
-  - enable_country: false hides the currency selector. Default: shown.
-  - editor_notice: true lets this instance show the theme editor notice.
-
-  Un selector con un solo valor seria un control muerto: aunque el ajuste este activo,
-  cada uno se pinta solo con 2 o mas idiomas o paises. En el editor, la instancia con
-  editor_notice explica al comerciante por que no aparece.
+    - context: 'header', 'header-mobile', 'footer', etc.
+    - enable_language: false hides the language toggle. Default: shown.
+    - enable_country: false hides the currency selector. Default: shown.
+    - editor_notice: true lets this instance show the theme editor notice.
+  A selector with a single value would be a dead control: even if the setting is on, each one is
+  only rendered with 2 or more languages or countries. In the editor, the instance with
+  editor_notice explains to the merchant why it does not appear.
 {%- endcomment -%}
 
 {%- liquid
@@ -49,7 +48,7 @@
       {%- if show_language_selector -%}
         <div class="localization-form__toggle" role="group" aria-label="{{ 'general.localization.language' | t }}">
           {%- for language in localization.available_languages -%}
-            {%- comment -%} WCAG 2.5.3: el nombre accesible del boton empieza por su texto visible. {%- endcomment -%}
+            {%- comment -%} WCAG 2.5.3: the button's accessible name starts with its visible text. {%- endcomment -%}
             {%- assign language_code_label = language.iso_code | upcase -%}
             {%- if language.iso_code == localization.language.iso_code -%}
               <span class="localization-form__item is-active" aria-current="true">

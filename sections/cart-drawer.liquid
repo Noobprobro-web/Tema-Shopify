@@ -77,9 +77,9 @@
       </header>
 
       {%- comment -%}
-        Los avisos van justo bajo la cabecera y fuera de la zona desplazable: se leen sin
-        buscarlos y nunca tapan el pie. JavaScript los localiza por su atributo, no por su
-        posicion.
+        Notices sit right under the header and outside the scrollable area: they are read without
+        searching for them and never cover the footer. JavaScript finds them by their attribute, not
+        by their position.
       {%- endcomment -%}
       <p class="cart-drawer__message" role="status" aria-live="polite" data-cart-status hidden></p>
       <p class="cart-drawer__message" role="alert" data-cart-error hidden></p>
@@ -143,17 +143,16 @@
           </div>
         {%- else -%}
           {%- comment -%}
-            Formulario vacio y oculto: es el dueno de los radios de opciones de los productos
-            complementarios (atributo form). Va antes del formulario del carrito y fuera de el,
-            asi no hay formularios anidados y esos radios nunca se envian con el checkout.
+            Empty, hidden form: it owns the option radios of the complementary products (form
+            attribute). It goes before the cart form and outside it, so there are no nested forms
+            and those radios are never submitted with the checkout.
           {%- endcomment -%}
           <form id="CartCrossSellOptions-{{ section.id }}" hidden></form>
           <form class="cart-drawer__form" action="{{ routes.cart_url }}" method="post" data-cart-form>
             {%- comment -%}
-              Lineas y recomendaciones se desplazan dentro de su propia pista; el pie con el
-              subtotal y el Checkout queda fuera de ella y siempre a la vista. Antes
-              desplazaba el panel entero y, en pantallas bajas, el aviso de estado tapaba el
-              boton Checkout.
+              Lines and recommendations scroll inside their own track; the footer with the subtotal
+              and Checkout stays outside it and always in view. Scrolling the whole panel would let
+              the status notice cover the Checkout button on short screens.
             {%- endcomment -%}
             <div class="cart-drawer__scroll" data-cart-scroll>
             <div class="cart-drawer__items" role="list">
@@ -248,18 +247,19 @@
                       assign quantity_min = item.variant.quantity_rule.min | default: 1
                       assign quantity_step = item.variant.quantity_rule.increment | default: 1
                       assign quantity_max = item.variant.quantity_rule.max
-                      # Con stock controlado y sin venta en negativo, el + se apaga cuando la
-                      # linea ya tiene todo lo vendible (p. ej. una pieza 1-de-1). Solo revela lo que el
-                      # propio error de Shopify diria al pulsar; misma regla en cart-drawer y main-cart-items.
+                      # With controlled stock and no overselling, the + button turns off when the
+                      # line already has everything sellable (e.g. a one-of-one piece). It only
+                      # reveals what Shopify's own error would say on press; same rule in
+                      # cart-drawer and main-cart-items.
                       if quantity_max == blank and item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny' and item.variant.inventory_quantity <= item.quantity
                         assign quantity_max = item.quantity
                       endif
                     -%}
                     <label for="DrawerQuantity-{{ forloop.index }}">{{ 'sections.cart.quantity' | t }}</label>
                     {%- comment -%}
-                      El estado disabled de los dos botones lo decide el servidor en cada
-                      render, no solo el JavaScript: asi la linea llega correcta desde el
-                      primer pintado y tras cada re-render del cajon.
+                      The disabled state of the two buttons is decided by the server on every
+                      render, not only by JavaScript: that way the line arrives correct from the
+                      first paint and after each re-render of the drawer.
                     {%- endcomment -%}
                     <div class="quantity-stepper cart-drawer-item__stepper" data-quantity-stepper>
                       <button
@@ -359,11 +359,11 @@
                 {{- 'sections.cart.checkout' | t -}}
               </button>
               {%- comment -%}
-                Checkout acelerado (Shop Pay, Apple Pay, Google Pay, PayPal). Shopify lo
-                exige en el carrito, y el cajon es un carrito: el Section Rendering API vuelve a
-                pintar los botones cada vez que el cajon se re-renderiza. Sin forzar el apilado
-                vertical: Shopify los pone en fila si caben y solo los apila si no, y en un
-                cajon cada fila de mas es alto que se le quita a la lista de productos.
+                Accelerated checkout (Shop Pay, Apple Pay, Google Pay, PayPal). Shopify requires it
+                in the cart, and the drawer is a cart: the Section Rendering API repaints the
+                buttons every time the drawer re-renders. Vertical stacking is not forced: Shopify
+                puts them in a row if they fit and only stacks them if not, and in a drawer every
+                extra row is height taken from the product list.
               {%- endcomment -%}
               {%- if additional_checkout_buttons -%}
                 <div class="cart__dynamic-checkout">

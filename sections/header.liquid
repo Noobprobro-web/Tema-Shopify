@@ -2,9 +2,9 @@
   assign color_scheme_id = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
   assign logo_alt = settings.logo.alt | default: shop.name
 
-  # secondary_menu trae main-menu por defecto, como exige Shopify para
-  # todo link_list de la cabecera. Si el comerciante no elige otro, seria el mismo menu que
-  # el principal: en ese caso, o sin enlaces, no se pinta dos veces.
+  # secondary_menu defaults to main-menu, as Shopify requires for every header link_list. If the
+  # merchant picks nothing else it would be the same menu as the main one: in that case, or with no
+  # links, it is not rendered twice.
   assign show_secondary_menu = false
   if section.settings.secondary_menu.links.size > 0 and section.settings.secondary_menu.handle != section.settings.menu.handle
     assign show_secondary_menu = true
@@ -12,23 +12,18 @@
 -%}
 
 {%- comment -%}
-  Cabecera sticky. Lo que se pega es la seccion que envuelve a la cabecera, no
-  la <header>: una <header> sticky solo se pegaria dentro de su propia seccion, que mide
-  exactamente lo mismo que ella, y no se moveria nunca.
-
-  Su z-index resuelve ademas un defecto de apilamiento: el menu movil y el buscador viven
-  dentro de la cabecera, y su z-index propio no sale del contexto de apilamiento que crea
-  la cabecera. Con 150 ese contexto queda por encima de la barra de anuncio (21), de la
-  barra de compra fija (40) y de los popovers del lookbook (120), y por debajo de los
-  modales globales: cajon del carrito (200), guia de tallas (220), recogida en tienda
-  (230) y contrasena (240).
-
-  Solo con JavaScript: sin JS el menu de escritorio se despliega entero dentro de la
-  cabecera, y pegar ese bloque alto a la ventana se comeria la pantalla.
-
-  La regla vive en assets/base.css (.js .section-header, la clase que el schema da a la
-  seccion). Antes era un bloque style de Liquid dentro del div de la seccion, y un
-  elemento style en el body no es HTML valido.
+  Sticky header. What sticks is the section that wraps the header, not the <header>: a sticky
+  <header> would only stick inside its own section, which measures exactly the same as it, and it
+  would never move.
+  Its z-index also resolves a stacking defect: the mobile menu and the search live inside the
+  header, and their own z-index does not escape the stacking context the header creates. At 150 that
+  context sits above the announcement bar (21), the sticky buy bar (40) and the lookbook popovers
+  (120), and below the global modals: cart drawer (200), size guide (220), store pickup (230) and
+  password (240).
+  JavaScript only: without JS the desktop menu expands fully inside the header, and sticking that
+  tall block to the window would eat the screen.
+  The rule lives in assets/base.css (.js .section-header, the class the schema gives the section). A
+  style element in the body is not valid HTML, so it is not emitted from Liquid.
 {%- endcomment -%}
 
 <header class="site-header color-{{ color_scheme_id }}" data-section-id="{{ section.id }}">
@@ -132,7 +127,7 @@
         {%- for link in section.settings.menu.links -%}
           <li>
             {%- if link.links != blank -%}
-              {%- comment -%} Panel clasico o mega menu, en el snippet. {%- endcomment -%}
+              {%- comment -%} Classic panel or mega menu, handled in the snippet. {%- endcomment -%}
               {%- render 'mega-menu', link: link, section: section, index: forloop.index, color_scheme_id: color_scheme_id -%}
             {%- else -%}
               <a class="desktop-nav__link" href="{{ link.url }}">{{ link.title | escape }}</a>
@@ -143,9 +138,9 @@
     </nav>
 
     {%- comment -%}
-      El ancho del logo llega como variable CSS: el atributo width del <img>
-      lo anulaba la regla de base.css y el ajuste del editor no cambiaba nada. La proporcion
-      sirve para acotar el alto en la cabecera movil sin deformar el archivo.
+      The logo width arrives as a CSS variable: the <img> width attribute is overridden by the
+      base.css rule, so the editor setting would change nothing. The aspect ratio is used to cap the
+      height in the mobile header without distorting the file.
     {%- endcomment -%}
     <a
       class="site-header__brand"
@@ -170,8 +165,8 @@
 
      <div class="site-header__actions">
       {%- comment -%}
-        Los mismos enlaces aparecen al pie del menu lateral en movil, donde hay sitio. Aqui
-        se muestran solo desde 62rem, que es donde empieza la navegacion de escritorio.
+        The same links appear at the foot of the side menu on mobile, where there is room. Here they
+        are only shown from 62rem, where the desktop navigation begins.
       {%- endcomment -%}
       {%- if show_secondary_menu -%}
         <nav class="site-header__secondary" aria-label="{{ 'general.navigation.secondary' | t }}">

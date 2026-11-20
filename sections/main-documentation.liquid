@@ -1,12 +1,10 @@
 {%- comment -%}
-  Documentacion del tema para el comerciante, servida por la propia tienda.
-
-  Existe para que nadie tenga que pegar HTML en un editor de texto enriquecido: cada
-  apartado, tarjeta de preset, fragmento de codigo y aviso es un bloque con sus ajustes.
-
-  El indice lateral se construye en el Liquid, no en el cliente, porque los anclajes son
-  un ajuste del bloque y el servidor los conoce. <anchor-nav> solo anade el seguimiento
-  del scroll encima de unos enlaces que ya funcionan sin JavaScript.
+  Theme documentation for the merchant, served by the store itself.
+  It exists so nobody has to paste HTML into a rich text editor: every section, preset card, code
+  snippet and notice is a block with its settings.
+  The side index is built in Liquid, not on the client, because the anchors are a block setting and
+  the server knows them. <anchor-nav> only adds scroll tracking on top of links that already work
+  without JavaScript.
 {%- endcomment -%}
 
 {%- liquid
@@ -35,11 +33,10 @@
         <div class="rte lede">{{ section.settings.intro }}</div>
       {%- endif -%}
       {%- comment -%}
-        Blindaje ante HTML residual. Una pagina que antes se maqueto pegando HTML
-        en el editor puede traer bloques <style> y <script> con selectores globales
-        (header, main, body) que secuestran la cabecera, el pie y la tipografia de todo el
-        tema. Aqui se quitan esos bloques enteros y se conserva el resto del contenido con
-        su formato. La misma logica vive en main-support.liquid.
+        Shield against leftover HTML. A page previously laid out by pasting HTML into the editor may
+        carry <style> and <script> blocks with global selectors (header, main, body) that hijack the
+        header, footer and typography of the whole theme. Those blocks are removed whole here and
+        the rest of the content keeps its formatting. The same logic lives in main-support.liquid.
       {%- endcomment -%}
       {%- liquid
         assign page_body = page.content
@@ -142,9 +139,9 @@
                     <p class="doc-snippet__title">{{ block.settings.title | escape }}</p>
                   {%- endif -%}
                   {%- comment -%}
-                    El boton nace oculto y solo lo muestra <copy-text> si el navegador tiene
-                    portapapeles: sin JavaScript el codigo se sigue leyendo y seleccionando,
-                    y no queda un boton que no hace nada.
+                    The button is born hidden and only shown by <copy-text> if the browser has a
+                    clipboard: without JavaScript the code can still be read and selected, and there
+                    is no button that does nothing.
                   {%- endcomment -%}
                   <button class="doc-snippet__copy" type="button" data-copy-trigger hidden>
                     <span class="doc-snippet__copy-icon" aria-hidden="true" data-copy-icon>

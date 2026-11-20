@@ -3,7 +3,7 @@
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_form_id = 'featured-product-form-' | append: section.id
-  # Select nativo de variantes sin JS (mismo patron que main-product).
+  # Native variant select without JS (same pattern as main-product).
   assign render_variant_no_js = false
   assign variant_picker_blocks = section.blocks | where: 'type', 'variant_picker'
   if featured_product != blank and featured_product.has_only_default_variant == false and variant_picker_blocks.size > 0
@@ -26,7 +26,7 @@
   if selected_selling_plan_id != blank
     assign subscription_selected = true
   endif
-  # Misma regla que main-product: plan exigido sin asignacion.
+  # Same rule as main-product: a plan is required but none is assigned.
   assign plan_required_unavailable = false
   if selected_variant.requires_selling_plan and selected_variant.selling_plan_allocations.size == 0
     assign plan_required_unavailable = true

@@ -3,8 +3,8 @@
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign layout_mode = section.settings.layout_mode | default: 'split'
 
-  # En modo split la imagen ocupa 60/65/50 % del ancho desde 62rem
-  # (base.css, .hero-editorial--split). Con sizes 100vw el navegador bajaba casi el doble.
+  # In split mode the image takes 60/65/50% of the width from 62rem (base.css,
+  # .hero-editorial--split). With sizes 100vw the browser downloaded almost twice as much.
   assign hero_sizes = '100vw'
   if layout_mode == 'split'
     case section.settings.split_ratio
@@ -116,9 +116,9 @@
             {%- endfor -%}
           </video>
           {%- comment -%}
-            WCAG 2.2.2. Oculto hasta que EditorialHero confirma que hay video que
-            controlar; sin JS el video no carga fuentes y no hace falta. La etiqueta la cambia
-            el JS (pausar / reproducir) con data-pause-label y data-play-label.
+            WCAG 2.2.2. Hidden until EditorialHero confirms there is a video to control; without JS
+            the video does not load sources and no control is needed. The label is changed by JS
+            (pause / play) from data-pause-label and data-play-label.
           {%- endcomment -%}
           <button
             class="hero-editorial__video-toggle"
@@ -161,10 +161,8 @@
         {%- endif -%}
 
         {%- comment -%}
-          "Gradient behind the text only" (gradient_content) ya no oscurece la imagen entera: el velo se
-          dibuja detras del bloque de texto y lo sigue a donde se coloque. Antes era
-          un degradado fijo desde la izquierda que no hacia lo que decia su etiqueta y
-          dejaba el texto sin fondo en cuanto el contenido iba a la derecha.
+          "Gradient behind the text only" (gradient_content) does not darken the whole image: the
+          scrim is drawn behind the text block and follows it wherever it is placed.
         {%- endcomment -%}
         {%- if layout_mode == 'cinematic' and section.settings.overlay_style != 'none' and section.settings.overlay_style != 'gradient_content' -%}
           <span class="hero-editorial__overlay hero-editorial__overlay--{{ section.settings.overlay_style }}" aria-hidden="true"></span>
