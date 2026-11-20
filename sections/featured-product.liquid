@@ -536,7 +536,7 @@
     <script type="application/json" id="FeaturedProductModelJSON-{{ section.id }}">
       {{- featured_models | json -}}
     </script>
-    <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
+    <noscript><link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"></noscript>
     <script src="{{ 'shopify-xr.js' | shopify_asset_url }}" defer></script>
     <script>
       (() => {

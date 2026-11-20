@@ -40,7 +40,7 @@
     -%}
     {%- if social_url != blank -%}
       <li>
-        <a class="social-links__link" href="{{ social_url | escape }}" rel="noopener">
+        <a class="social-links__link" href="{{ social_url | escape }}">
           {%- render 'icon', name: network, size: 22 -%}
           <span class="visually-hidden">{{ social_label }}</span>
         </a>

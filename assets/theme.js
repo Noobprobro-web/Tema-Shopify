@@ -2864,6 +2864,7 @@
       this.requestController?.abort();
       this.crossSellController?.abort();
       this.recommendationWatch?.controller.abort();
+      window.clearTimeout(this.rewardsTimer);
       this.close(false);
       super.disconnectedCallback();
     }
@@ -4031,7 +4032,7 @@
       // The rewards message is replaced along with the body, so it cannot be announced from its own
       // node: if it changed, it is queued for the persistent region.
       const nextRewards = nextContent.querySelector('.cart-rewards__message')?.textContent.trim() || '';
-      if (this.isOpen && nextRewards && nextRewards !== previousRewards) this.queueRewardsAnnouncement(nextRewards);
+      if (nextRewards && nextRewards !== previousRewards) this.queueRewardsAnnouncement(nextRewards);
 
       const nextScroll = nextContent.querySelector('[data-cart-scroll]');
       if (nextScroll && previousScroll) nextScroll.scrollTop = previousScroll;
@@ -4240,6 +4241,8 @@
       this.pendingRequests = 0;
       this.focusOrigin = null;
       this.renderedSearch = this.filterSearch(window.location.search);
+      // Filters of the latest request sent, painted or still in flight.
+      this.requestedSearch = this.renderedSearch;
 
       // With JavaScript the filters apply as soon as they change, so the Apply button is
       // redundant and the stylesheet hides it. Without JavaScript the attribute is never
@@ -4278,6 +4281,7 @@
         if (!target.matches?.('.facet input:not([type="checkbox"])')) return;
         // A response to an older state must not repaint the field being edited.
         this.requestController?.abort();
+        this.requestedSearch = this.renderedSearch;
         this.schedulePriceSubmit(target.form);
       });
 
@@ -4317,7 +4321,17 @@
 
     schedulePriceSubmit(form) {
       clearTimeout(this.priceTimer);
-      this.priceTimer = setTimeout(() => form?.requestSubmit(), 600);
+      this.priceTimer = setTimeout(() => {
+        if (!form?.isConnected) return;
+        // A number field fires `change` when it loses focus, after the debounced `input`
+        // already sent the same values: nothing new to request or announce.
+        const parameters = new URLSearchParams(new FormData(form));
+        Array.from(parameters.entries()).forEach(([key, value]) => {
+          if (value === '') parameters.delete(key);
+        });
+        if (this.filterSearch(parameters.toString()) === this.requestedSearch) return;
+        form.requestSubmit();
+      }, 600);
     }
 
     filterSearch(search) {
@@ -4381,6 +4395,7 @@
 
       this.requestController?.abort();
       this.requestController = new AbortController();
+      this.requestedSearch = this.filterSearch(navigationUrl.search);
       this.pendingRequests += 1;
       this.setBusy(true);
 
@@ -4431,7 +4446,7 @@
           this.autoOpened = false;
         }
         this.querySelectorAll('details.facet').forEach((group) => {
-          if (openGroups.has(this.facetGroupKey(group))) group.open = true;
+          group.open = openGroups.has(this.facetGroupKey(group));
         });
         if (disclosureWasOpen) {
           const disclosure = this.querySelector('.facets__disclosure');
@@ -4455,6 +4470,9 @@
         if (this.pendingRequests <= 0) {
           this.pendingRequests = 0;
           this.setBusy(false);
+        } else {
+          // The freshly painted grid must not arrive without the busy state of the request still running.
+          this.setBusy(true);
         }
       }
     }
@@ -6769,6 +6787,42 @@
     if (!url || /^\/(checkouts?|cart\/c)\//.test(path)) event.viewTransition.skipTransition();
   });
 
+  // The controls of the 3D viewer come from an external stylesheet. It is added here, once per
+  // page and only when a viewer exists, so that it never blocks the first render (the markup keeps
+  // a <noscript> copy for visitors without JavaScript).
+  const initModelViewerStyles = () => {
+    if (!document.querySelector('model-viewer') || document.getElementById('ModelViewerUIStyles')) return;
+    const link = document.createElement('link');
+    link.id = 'ModelViewerUIStyles';
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css';
+    document.head.append(link);
+  };
+  // The theme editor can add a section with a 3D model after the page has loaded.
+  document.addEventListener('shopify:section:load', initModelViewerStyles);
+
+  // The media strip of the featured product is only a scrolling region on narrow screens. The
+  // markup keeps tabindex="0" so that it can be scrolled with the keyboard when JavaScript is
+  // off; with JavaScript it stays in the tab order only while its content really overflows.
+  const syncScrollableRegions = (root = document) => {
+    if (typeof ResizeObserver === 'undefined') return;
+    root.querySelectorAll('.featured-product__gallery[tabindex]').forEach((gallery) => {
+      if (gallery.dataset.scrollWatch) return;
+      gallery.dataset.scrollWatch = 'true';
+      const sync = () => {
+        if (gallery.scrollWidth > gallery.clientWidth) gallery.setAttribute('tabindex', '0');
+        else gallery.removeAttribute('tabindex');
+      };
+      const observer = new ResizeObserver(sync);
+      observer.observe(gallery);
+      Array.from(gallery.children).forEach((child) => observer.observe(child));
+      sync();
+    });
+  };
+  document.addEventListener('shopify:section:load', (event) => syncScrollableRegions(event.target));
+
+  initModelViewerStyles();
+  syncScrollableRegions();
   initScrollReveal();
   initHeaderScrollState();
   initQuantitySteppers();

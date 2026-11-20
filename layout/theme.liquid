@@ -29,8 +29,11 @@
     {% render 'social-meta-tags' %}
 
     {%- if request.page_type == 'product' and product_models.size > 0 -%}
-      {%- comment -%}Controls for the 3D viewer. Only requested on product pages that have a 3D model.{%- endcomment -%}
-      <link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css">
+      {%- comment -%}
+        Controls for the 3D viewer. The script adds this stylesheet without blocking the render, and
+        only when a viewer exists on the page; this is the fallback without JavaScript.
+      {%- endcomment -%}
+      <noscript><link rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"></noscript>
     {%- endif -%}
 
     {%- liquid
