@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-11-20T04:09:20.415Z",
+  "lighthouseVersion": "13.6.0",
+  "pinnedLighthouse": "13.6.0",
+  "note": "Medicion aproximada desde contenedor (CPU/red distintas a Shopify); throttling simulado de Lighthouse.",
+  "pages": [
+    {
+      "kind": "collection",
+      "handle": "all",
+      "theme": "A1",
+      "themeId": "190453285168",
+      "preset": "mobile",
+      "validRuns": 5,
+      "performanceScores": [
+        73,
+        90,
+        90,
+        88,
+        84
+      ],
+      "tbtMsRuns": [
+        633,
+        275,
+        231,
+        368,
+        298
+      ],
+      "median": {
+        "performance": 88,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "lcpMs": 2464,
+        "cls": 0,
+        "tbtMs": 298,
+        "fcpMs": 2164,
+        "siMs": 4383,
+        "docTransferSize": 63614,
+        "themeJsTransferSize": 36189,
+        "themeJsBootupTotalMs": 231.1,
+        "themeJsBootupScriptingMs": 32
+      }
+    },
+    {
+      "kind": "collection",
+      "handle": "all",
+      "theme": "A2",
+      "themeId": "190453285168",
+      "preset": "mobile",
+      "validRuns": 5,
+      "performanceScores": [
+        92,
+        85,
+        82,
+        88,
+        84
+      ],
+      "tbtMsRuns": [
+        215,
+        451,
+        506,
+        351,
+        328
+      ],
+      "median": {
+        "performance": 85,
+        "accessibility": 97,
+        "bestPractices": 96,
+        "seo": 92,
+        "lcpMs": 2404,
+        "cls": 0,
+        "tbtMs": 351,
+        "fcpMs": 1356,
+        "siMs": 4258,
+        "docTransferSize": 63620,
+        "themeJsTransferSize": 36191,
+        "themeJsBootupTotalMs": 294,
+        "themeJsBootupScriptingMs": 43.8
+      }
+    }
+  ],
+  "presets": {
+    "mobile": {
+      "averagePerformanceOfMedians": 86.5,
+      "minPerformanceOfMedians": 85
+    }
+  }
+}
