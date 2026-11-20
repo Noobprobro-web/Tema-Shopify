@@ -1410,6 +1410,13 @@
       productSection?.querySelectorAll('[data-product-media-id]').forEach((media) => {
         media.toggleAttribute('data-selected', String(media.dataset.productMediaId) === String(variant?.featured_media_id));
       });
+      // En pantallas estrechas la galeria es una tira desplazable donde el medio elegido va primero
+      // (order: -1): se vuelve al inicio para que el cambio de variante sea visible.
+      productSection?.querySelectorAll('.featured-product__gallery').forEach((gallery) => {
+        if (gallery.scrollWidth > gallery.clientWidth && gallery.querySelector('[data-selected]')) {
+          gallery.scrollTo({ left: 0 });
+        }
+      });
     }
 
     // Un cambio de variante disponible se anuncia con su precio
@@ -4020,7 +4027,12 @@
       this.recommendationWatch?.controller.abort();
       this.recommendationWatch = null;
 
+      const previousRewards = currentContent.querySelector('.cart-rewards__message')?.textContent.trim() || '';
       currentContent.replaceWith(nextContent);
+      // El mensaje de recompensas se reemplaza junto con el cuerpo, asi que no puede anunciarse
+      // desde su propio nodo: si cambio, se encola para la region persistente.
+      const nextRewards = nextContent.querySelector('.cart-rewards__message')?.textContent.trim() || '';
+      if (this.isOpen && nextRewards && nextRewards !== previousRewards) this.queueRewardsAnnouncement(nextRewards);
 
       const nextScroll = nextContent.querySelector('[data-cart-scroll]');
       if (nextScroll && previousScroll) nextScroll.scrollTop = previousScroll;
@@ -4190,9 +4202,26 @@
       output.hidden = false;
     }
 
+    // Guarda el mensaje de recompensas para anunciarlo con el aviso del cambio que lo provoco;
+    // si ningun aviso llega enseguida, se anuncia solo, una unica vez.
+    queueRewardsAnnouncement(message) {
+      window.clearTimeout(this.rewardsTimer);
+      this.pendingRewards = message;
+      this.rewardsTimer = window.setTimeout(() => {
+        const pending = this.pendingRewards;
+        this.pendingRewards = '';
+        if (pending) this.showStatus(pending);
+      }, 600);
+    }
+
     showStatus(message) {
       const output = this.querySelector('[data-cart-status]');
       if (!output) return;
+      if (this.pendingRewards) {
+        window.clearTimeout(this.rewardsTimer);
+        if (!message.includes(this.pendingRewards)) message = [message, this.pendingRewards].filter(Boolean).join(' ');
+        this.pendingRewards = '';
+      }
       // La region se muestra vacia y el texto llega despues: una region viva que aparece ya
       // con contenido no siempre se anuncia (NVDA/JAWS con Chrome).
       output.textContent = '';

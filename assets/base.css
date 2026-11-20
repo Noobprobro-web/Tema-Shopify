@@ -10730,6 +10730,11 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   }
 }
 
+/* Comment text arrives as sanitized HTML from the platform: keep long words and links inside the column. */
+.comment__content {
+  overflow-wrap: anywhere;
+}
+
 /* Curated showcase without JavaScript: the tabs do nothing, so they are hidden and every panel is
    shown stacked under its own title. Before the script upgrades the element, only the first panel
    shows, so the page does not jump when the other panels are hidden. */

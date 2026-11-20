@@ -231,15 +231,15 @@
                       {%- endif -%}
                       <span>{{ item.final_line_price | money }}</span>
 
-                      {%- if item.variant.unit_price_measurement -%}
+                      {%- if item.unit_price_measurement -%}
                         <small class="price__unit">
                           <span class="visually-hidden">{{ 'products.product.unit_price' | t }}</span>
-                          {{ item.variant.unit_price | money }}
+                          {{ item.unit_price | money }}
                           <span aria-hidden="true">/</span>
-                          {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
-                            {{- item.variant.unit_price_measurement.reference_value -}}
+                          {%- if item.unit_price_measurement.reference_value != 1 -%}
+                            {{- item.unit_price_measurement.reference_value -}}
                           {%- endif -%}
-                          {{- item.variant.unit_price_measurement.reference_unit -}}
+                          {{- item.unit_price_measurement.reference_unit -}}
                         </small>
                       {%- endif -%}
                     </div>

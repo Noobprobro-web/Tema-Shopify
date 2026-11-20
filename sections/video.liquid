@@ -91,7 +91,7 @@
         <button
           class="video-section__play"
           type="button"
-          aria-label="{{ 'sections.video.play_label' | t: title: video_title | escape }}"
+          aria-label="{{ 'sections.video.play_label' | t: title: video_title | escape_once }}"
           data-video-play
           hidden
         >
