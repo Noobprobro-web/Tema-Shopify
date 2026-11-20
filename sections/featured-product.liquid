@@ -59,10 +59,17 @@
       On narrow screens the gallery is a horizontal scroll-snap strip that holds every media item, so
       video and 3D stay reachable without JavaScript. The strip is focusable so it can be scrolled with the keyboard.
     {%- endcomment -%}
+    {%- liquid
+      # Each gallery is a landmark, so its name must be unique when a page holds several featured products.
+      assign gallery_label = 'products.product.media_gallery' | t
+      if featured_product != blank and featured_product.title != blank
+        assign gallery_label = 'products.product.media_gallery_named' | t: title: featured_product.title
+      endif
+    -%}
     <div
       class="featured-product__gallery"
       role="region"
-      aria-label="{{ 'products.product.media_gallery' | t }}"
+      aria-label="{{ gallery_label | escape }}"
       {% if featured_product.media.size > 1 %}tabindex="0"{% endif %}
     >
       {%- if featured_product == blank -%}
