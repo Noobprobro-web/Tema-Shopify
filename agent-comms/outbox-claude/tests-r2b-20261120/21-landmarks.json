@@ -1,0 +1,378 @@
+{
+  "sartorial": {
+    "items": [
+      {
+        "tag": "announcement-bar",
+        "role": "region",
+        "name": "Store announcements",
+        "cls": "announcement-bar color-scheme-2",
+        "section": "announcement_bar"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Primary navigation",
+        "cls": "",
+        "section": "header"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Primary navigation",
+        "cls": "site-header__desktop-nav",
+        "section": "header"
+      },
+      {
+        "tag": "form",
+        "role": "search",
+        "name": null,
+        "cls": "predictive-search__form",
+        "section": "header"
+      },
+      {
+        "tag": "form",
+        "role": "search",
+        "name": null,
+        "cls": "predictive-search-no-js__form",
+        "section": "header"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Std test",
+        "cls": "section main-page color-scheme-1",
+        "section": "main"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Slideshow 2",
+        "cls": "section slideshow color-scheme-1",
+        "section": "slideshow"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Made to last",
+        "cls": "section image-text color-scheme-1",
+        "section": "image_with_text"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Permanent collection",
+        "cls": "section std-section featured-collection color-sche",
+        "section": "featured_collection"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Shop by collection",
+        "cls": "section std-section collection-list collection-lis",
+        "section": "collection_list"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "From the journal",
+        "cls": "section std-section blog-posts color-scheme-1",
+        "section": "blog_posts"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Talk about your brand",
+        "cls": "section std-section rich-text rich-text--center ri",
+        "section": "rich_text"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Watch the story",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_external"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Hosted film",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_hosted"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Fixture 3D Model Product",
+        "cls": "section featured-product color-scheme-1",
+        "section": "fp_media"
+      },
+      {
+        "tag": "div",
+        "role": "region",
+        "name": "Product media gallery",
+        "cls": "featured-product__gallery",
+        "section": "fp_media"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Serra Coat",
+        "cls": "section featured-product color-scheme-1",
+        "section": "fp_serra"
+      },
+      {
+        "tag": "div",
+        "role": "region",
+        "name": "Product media gallery",
+        "cls": "featured-product__gallery",
+        "section": "fp_serra"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Slideshow 12",
+        "cls": "section slideshow color-scheme-1",
+        "section": "slideshow_link"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Film with poster",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_poster"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "YouTube with poster",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_yt_poster"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Footer navigation",
+        "cls": "site-footer__nav",
+        "section": "footer"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Follow us",
+        "cls": "site-footer__social",
+        "section": "footer"
+      }
+    ],
+    "duplicates": [
+      {
+        "k": "nav|Primary navigation",
+        "where": [
+          "header",
+          "header"
+        ]
+      },
+      {
+        "k": "search|null",
+        "where": [
+          "header",
+          "header"
+        ]
+      },
+      {
+        "k": "region|Product media gallery",
+        "where": [
+          "fp_media",
+          "fp_serra"
+        ]
+      }
+    ]
+  },
+  "pkg": {
+    "items": [
+      {
+        "tag": "announcement-bar",
+        "role": "region",
+        "name": "Store announcements",
+        "cls": "announcement-bar color-scheme-2",
+        "section": "announcement_bar"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Primary navigation",
+        "cls": "",
+        "section": "header"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Primary navigation",
+        "cls": "site-header__desktop-nav",
+        "section": "header"
+      },
+      {
+        "tag": "form",
+        "role": "search",
+        "name": null,
+        "cls": "predictive-search__form",
+        "section": "header"
+      },
+      {
+        "tag": "form",
+        "role": "search",
+        "name": null,
+        "cls": "predictive-search-no-js__form",
+        "section": "header"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Std test",
+        "cls": "section main-page color-scheme-1",
+        "section": "main"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Slideshow 2",
+        "cls": "section slideshow color-scheme-1",
+        "section": "slideshow"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Made to last",
+        "cls": "section image-text color-scheme-1",
+        "section": "image_with_text"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Permanent collection",
+        "cls": "section std-section featured-collection color-sche",
+        "section": "featured_collection"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Shop by collection",
+        "cls": "section std-section collection-list collection-lis",
+        "section": "collection_list"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "From the journal",
+        "cls": "section std-section blog-posts color-scheme-1",
+        "section": "blog_posts"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Talk about your brand",
+        "cls": "section std-section rich-text rich-text--center ri",
+        "section": "rich_text"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Watch the story",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_external"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Hosted film",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_hosted"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Fixture 3D Model Product",
+        "cls": "section featured-product color-scheme-1",
+        "section": "fp_media"
+      },
+      {
+        "tag": "div",
+        "role": "region",
+        "name": "Product media gallery",
+        "cls": "featured-product__gallery",
+        "section": "fp_media"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Serra Coat",
+        "cls": "section featured-product color-scheme-1",
+        "section": "fp_serra"
+      },
+      {
+        "tag": "div",
+        "role": "region",
+        "name": "Product media gallery",
+        "cls": "featured-product__gallery",
+        "section": "fp_serra"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Slideshow 12",
+        "cls": "section slideshow color-scheme-1",
+        "section": "slideshow_link"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "Film with poster",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_poster"
+      },
+      {
+        "tag": "section",
+        "role": null,
+        "name": "YouTube with poster",
+        "cls": "section video-section video-section--contained col",
+        "section": "video_yt_poster"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Footer navigation",
+        "cls": "site-footer__nav",
+        "section": "footer"
+      },
+      {
+        "tag": "nav",
+        "role": null,
+        "name": "Follow us",
+        "cls": "site-footer__social",
+        "section": "footer"
+      }
+    ],
+    "duplicates": [
+      {
+        "k": "nav|Primary navigation",
+        "where": [
+          "header",
+          "header"
+        ]
+      },
+      {
+        "k": "search|null",
+        "where": [
+          "header",
+          "header"
+        ]
+      },
+      {
+        "k": "region|Product media gallery",
+        "where": [
+          "fp_media",
+          "fp_serra"
+        ]
+      }
+    ]
+  }
+}
