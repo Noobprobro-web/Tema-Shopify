@@ -4134,7 +4134,7 @@ curated-showcase {
   padding-block-start: var(--space-md);
   border-top: var(--border-width) solid var(--color-border-hairline);
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: var(--space-md);
   color: var(--color-foreground-muted);
   font-size: 0.75rem;
