@@ -1,0 +1,12 @@
+{
+  "base": "origin/feat/r2-integration (PR #18) 3b5ba53a9d133299927f62173aa7cb5571fd8793",
+  "method": "overwrite with themeFilesUpsert (store was at the 20-theme limit); no theme created or deleted; no file deleted (3b5ba53 removes no file against e5fd4b2)",
+  "themes": [
+    { "name": "Sartorial pkg", "id": "190453285168", "content": "REAL packager artifact: node scripts/package-theme-zip.mjs --out pkg.zip; zip sha256 46efca1cdbb5eb4497567cdbe67c149814fe1ec40c6ede5209e1020a0008c88b (content fingerprint 5dcffb00d05b10ec61a6e1dac414d23ca0e5f2ccc7ed2fdd505319b0939a8d6d); 105 files; no release-notes, no documentation/support section or template; the 5 files the packager rewrites (assets/base.css, assets/theme.js, locales x3) uploaded via Shopify staged upload, the rest from raw.githubusercontent.com at the SHA", "settings_data.json md5 before test edits": "4601ae823243e570029346db9f18b7e6 (== zip)" },
+    { "name": "Sartorial rc5", "id": "190453317936", "content": "build-export.mjs --commit 3b5ba53 --preset Sartorial (100 files); only the 55 files that differ from e5fd4b2 were upserted (raw URLs at the SHA, listings/<preset>/templates for the preset overlay)", "settings_data.json md5 before test edits": "b75014e6a46516017aa8c02beee30b2c (== export)" },
+    { "name": "Imprint rc5", "id": "190453350704", "content": "same, preset Imprint (54 files)", "settings_data.json md5 before test edits": "d7ba9fad745212424c7074330ca3ad2e (== export)" },
+    { "name": "Archive rc5", "id": "190453383472", "content": "same, preset Archive (55 files)", "settings_data.json md5 before test edits": "a0f10a7b6c91751cf65ab9c71f8147dd (== export)" }
+  ],
+  "verified": "all 4 role UNPUBLISHED, processing false (themes query before and after); md5 of the changed assets/locales/sections/snippets files compared with the local export on every theme",
+  "test_edits_not_committed": "templates/page.std-test.json (14 sections) and config/settings_data.json with the 9 social links in current (presets block dropped) on the 4 themes; names still say e5fd4b2"
+}

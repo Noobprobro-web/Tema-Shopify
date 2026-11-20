@@ -1,0 +1,503 @@
+{
+  "when": "2026-11-20T02:44:34.996Z",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "path": "/collections/permanent-collection",
+      "steps": {
+        "price": {
+          "requests": [
+            "/collections/permanent-collection?filter.v.price.gte=50&filter.v.price.lte=200&sort_by=best-selling&section_id=template--28392162459952__main"
+          ],
+          "count": 1,
+          "bothParamsCount": 1,
+          "onlyGte50": 0,
+          "focusAfterTab": "filter.v.price.lte",
+          "value": "200",
+          "gteValue": "50",
+          "activeName": "filter.v.price.lte",
+          "activeValue": "200",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection?filter.v.price.gte=50&filter.v.price.lte=200&sort_by=best-selling",
+          "pass": true
+        },
+        "foldManual": {
+          "foldedBeforeRepaint": true,
+          "priceOpenAfterRepaint": false,
+          "pass": true
+        },
+        "uncheckLast": {
+          "groupOpen": true,
+          "focusId": "Filter-template--28392162459952__main-filter-v-availability-1",
+          "focusOnCheckbox": true,
+          "checked": false,
+          "tag": "INPUT",
+          "wasChecked": true,
+          "groupOpenBefore": true,
+          "pass": true,
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection?filter.v.price.gte=50.0&filter.v.price.lte=200.0&sort_by=best-selling"
+        },
+        "skipBack": {
+          "skip": {
+            "tag": "A",
+            "href": "#MainContent",
+            "text": "Skip to content"
+          },
+          "hashChanged": true,
+          "urlAfterSkip": "t.myshopify.com/collections/permanent-collection#MainContent",
+          "requestsDuringSkip": 7,
+          "requestsAfterBack": [
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/a50c8864f4x995b8dc6.DiwHZi",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/7188aae948xccd7bc85.CW2HhX",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/90ea855f49.yJ74SdcD.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/6e3faf45e1x0e0212c9.ct4xfi",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/04c08e5c0e.CuRoM9zv.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/6e3faf45e1.Du9dByaI.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/5caf6ce603.87JMHPUK.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/65db0eadda.qa_ACxP4.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/966e3f4d79.gzvCNwz_.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/d4951797f3.UDCqXpbq.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/df684aa9a8.CIs_ZowJ.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/f2a87b867b.Cl0Eyn3N.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/37e1a3659dx995b8dc6.BEvzDD",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/df684aa9a8xbaeb52f9.DvPZal",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/0fde071d7ex9f0ef4a6.B0RErz",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/605b2a80c9xbaeb52f9.BAjucZ",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/4d60858badxb036935a.xO_7ct",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/5a34f22f1a.D7MQTDGO.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/e8404cbaefxc1eab701.B68J3G",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/7aa3c6599b.C5b9n-0_.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/e07f74760d.DU0m5rdF.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/e07f74760dxbaeb52f9.4dSOKu",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/6559bc5a39x1573b800.vTcdVG",
+              "t": "other"
+            }
+          ],
+          "urlAfterBack": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection",
+          "pass": false
+        }
+      },
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "facets": [
+        {
+          "name": "Availability",
+          "open": false,
+          "inputs": [
+            "filter.v.availability:checkbox",
+            "filter.v.availability:checkbox"
+          ]
+        },
+        {
+          "name": "Price",
+          "open": false,
+          "inputs": [
+            "filter.v.price.gte:number",
+            "filter.v.price.lte:number"
+          ]
+        }
+      ],
+      "consoleTheme": []
+    },
+    {
+      "preset": "imprint",
+      "path": "/collections/permanent-collection",
+      "steps": {
+        "price": {
+          "requests": [
+            "/collections/permanent-collection?filter.v.price.gte=50&filter.v.price.lte=200&sort_by=best-selling&section_id=template--28392164196656__main"
+          ],
+          "count": 1,
+          "bothParamsCount": 1,
+          "onlyGte50": 0,
+          "focusAfterTab": "filter.v.price.lte",
+          "value": "200",
+          "gteValue": "50",
+          "activeName": "filter.v.price.lte",
+          "activeValue": "200",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection?filter.v.price.gte=50&filter.v.price.lte=200&sort_by=best-selling",
+          "pass": true
+        },
+        "foldManual": {
+          "foldedBeforeRepaint": true,
+          "priceOpenAfterRepaint": false,
+          "pass": true
+        },
+        "uncheckLast": {
+          "groupOpen": true,
+          "focusId": "Filter-template--28392164196656__main-filter-v-availability-1",
+          "focusOnCheckbox": true,
+          "checked": false,
+          "tag": "INPUT",
+          "wasChecked": true,
+          "groupOpenBefore": true,
+          "pass": true,
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection?filter.v.price.gte=50.0&filter.v.price.lte=200.0&sort_by=best-selling"
+        },
+        "skipBack": {
+          "skip": {
+            "tag": "A",
+            "href": "#MainContent",
+            "text": "Skip to content"
+          },
+          "hashChanged": true,
+          "urlAfterSkip": "t.myshopify.com/collections/permanent-collection#MainContent",
+          "requestsDuringSkip": 9,
+          "requestsAfterBack": [
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/69f8f26d.BFl5Eyl8.js",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/e72406f8.BwYa1o7n.js",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/app.BXIamu_v.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/deferred-boot.CtzAgHHk.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/OnePage.BHJbo22r.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/621ec27e44.oowFu-NJ.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/256cc32287.B1YSPUDc.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/a50c8864f4x995b8dc6.DiwHZi",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/7188aae948xccd7bc85.CW2HhX",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/90ea855f49.yJ74SdcD.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/6e3faf45e1x0e0212c9.ct4xfi",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/04c08e5c0e.CuRoM9zv.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/6e3faf45e1.Du9dByaI.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/5caf6ce603.87JMHPUK.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/65db0eadda.qa_ACxP4.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/966e3f4d79.gzvCNwz_.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/d4951797f3.UDCqXpbq.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/df684aa9a8.CIs_ZowJ.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/f2a87b867b.Cl0Eyn3N.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/37e1a3659dx995b8dc6.BEvzDD",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/df684aa9a8xbaeb52f9.DvPZal",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/0fde071d7ex9f0ef4a6.B0RErz",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/605b2a80c9xbaeb52f9.BAjucZ",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/4d60858badxb036935a.xO_7ct",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/5a34f22f1a.D7MQTDGO.css",
+              "t": "other"
+            }
+          ],
+          "urlAfterBack": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection",
+          "pass": false
+        }
+      },
+      "identity": {
+        "id": "190453350704",
+        "role": "unpublished"
+      },
+      "facets": [
+        {
+          "name": "Availability",
+          "open": false,
+          "inputs": [
+            "filter.v.availability:checkbox",
+            "filter.v.availability:checkbox"
+          ]
+        },
+        {
+          "name": "Price",
+          "open": false,
+          "inputs": [
+            "filter.v.price.gte:number",
+            "filter.v.price.lte:number"
+          ]
+        }
+      ],
+      "consoleTheme": []
+    },
+    {
+      "preset": "archive",
+      "path": "/collections/permanent-collection",
+      "steps": {
+        "price": {
+          "requests": [
+            "/collections/permanent-collection?filter.v.price.gte=50&filter.v.price.lte=200&sort_by=best-selling&section_id=template--28392165146928__main"
+          ],
+          "count": 1,
+          "bothParamsCount": 1,
+          "onlyGte50": 0,
+          "focusAfterTab": "filter.v.price.lte",
+          "value": "200",
+          "gteValue": "50",
+          "activeName": "filter.v.price.lte",
+          "activeValue": "200",
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection?filter.v.price.gte=50&filter.v.price.lte=200&sort_by=best-selling",
+          "pass": true
+        },
+        "foldManual": {
+          "foldedBeforeRepaint": true,
+          "priceOpenAfterRepaint": false,
+          "pass": true
+        },
+        "uncheckLast": {
+          "groupOpen": true,
+          "focusId": "Filter-template--28392165146928__main-filter-v-availability-1",
+          "focusOnCheckbox": true,
+          "checked": false,
+          "tag": "INPUT",
+          "wasChecked": true,
+          "groupOpenBefore": true,
+          "pass": true,
+          "url": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection?filter.v.price.gte=50.0&filter.v.price.lte=200.0&sort_by=best-selling"
+        },
+        "skipBack": {
+          "skip": {
+            "tag": "A",
+            "href": "#MainContent",
+            "text": "Skip to content"
+          },
+          "hashChanged": true,
+          "urlAfterSkip": "t.myshopify.com/collections/permanent-collection#MainContent",
+          "requestsDuringSkip": 6,
+          "requestsAfterBack": [
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/app.BXIamu_v.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/deferred-boot.CtzAgHHk.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/OnePage.BHJbo22r.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/621ec27e44.oowFu-NJ.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/256cc32287.B1YSPUDc.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/a50c8864f4x995b8dc6.DiwHZi",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/7188aae948xccd7bc85.CW2HhX",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/90ea855f49.yJ74SdcD.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/6e3faf45e1x0e0212c9.ct4xfi",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/04c08e5c0e.CuRoM9zv.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/6e3faf45e1.Du9dByaI.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/5caf6ce603.87JMHPUK.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/65db0eadda.qa_ACxP4.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/966e3f4d79.gzvCNwz_.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/d4951797f3.UDCqXpbq.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/df684aa9a8.CIs_ZowJ.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/f2a87b867b.Cl0Eyn3N.css",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/37e1a3659dx995b8dc6.BEvzDD",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/df684aa9a8xbaeb52f9.DvPZal",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/0fde071d7ex9f0ef4a6.B0RErz",
+              "t": "other"
+            },
+            {
+              "u": "https://sartorial-theme-kvkzl39t.myshopify.com/cdn/shopifycloud/checkout-web/assets/c1/assets/605b2a80c9xbaeb52f9.BAjucZ",
+              "t": "other"
+            }
+          ],
+          "urlAfterBack": "https://sartorial-theme-kvkzl39t.myshopify.com/collections/permanent-collection",
+          "pass": false
+        }
+      },
+      "identity": {
+        "id": "190453383472",
+        "role": "unpublished"
+      },
+      "facets": [
+        {
+          "name": "Availability",
+          "open": false,
+          "inputs": [
+            "filter.v.availability:checkbox",
+            "filter.v.availability:checkbox"
+          ]
+        },
+        {
+          "name": "Price",
+          "open": false,
+          "inputs": [
+            "filter.v.price.gte:number",
+            "filter.v.price.lte:number"
+          ]
+        }
+      ],
+      "consoleTheme": []
+    }
+  ]
+}

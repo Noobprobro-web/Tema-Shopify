@@ -1,0 +1,673 @@
+{
+  "when": "2026-11-20T03:37:22.301Z",
+  "note": "desktop+mobile from the first execution (its rewards phase failed on a card with variant buttons and was rerun with ONLY_REWARDS=1)",
+  "runs": [
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "steps": {
+        "quickAdd": {
+          "status": 200,
+          "cart": {
+            "count": 1,
+            "total": 150000,
+            "items": [
+              {
+                "v": 68442393968944,
+                "q": 1,
+                "h": "1990-pinstripe-double-breasted-jacket",
+                "orig": 150000,
+                "fin": 150000,
+                "disc": [],
+                "rule": {
+                  "min": 1,
+                  "max": null,
+                  "increment": 1
+                }
+              }
+            ],
+            "cartDisc": []
+          },
+          "drawerOpen": true,
+          "itemsInDrawer": 1
+        },
+        "discountTry3": {
+          "count": 3,
+          "total": 10500,
+          "items": [
+            {
+              "v": 68445346005296,
+              "q": 3,
+              "h": "fixture-media-3d-video",
+              "orig": 10500,
+              "fin": 10500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            }
+          ],
+          "cartDisc": []
+        },
+        "discountTryMixed": {
+          "count": 3,
+          "total": 172550,
+          "items": [
+            {
+              "v": 68442277937456,
+              "q": 1,
+              "h": "nove-blazer",
+              "orig": 74500,
+              "fin": 74500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68442277413168,
+              "q": 1,
+              "h": "doppio-trench",
+              "orig": 94550,
+              "fin": 94550,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68445346005296,
+              "q": 1,
+              "h": "fixture-media-3d-video",
+              "orig": 3500,
+              "fin": 3500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            }
+          ],
+          "cartDisc": []
+        },
+        "drawerLines": [
+          {
+            "title": "",
+            "price": "$745.00",
+            "hasStrike": false,
+            "discounts": [],
+            "unit": null
+          },
+          {
+            "title": "",
+            "price": "$945.50",
+            "hasStrike": false,
+            "discounts": [],
+            "unit": null
+          },
+          {
+            "title": "",
+            "price": "$35.00",
+            "hasStrike": false,
+            "discounts": [],
+            "unit": null
+          }
+        ],
+        "enter": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d"
+          },
+          "qty": "4"
+        },
+        "tab": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d"
+          },
+          "qty": "2"
+        },
+        "afterQty": {
+          "count": 4,
+          "total": 247050,
+          "items": [
+            {
+              "v": 68442277937456,
+              "q": 2,
+              "h": "nove-blazer",
+              "orig": 149000,
+              "fin": 149000,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68442277413168,
+              "q": 1,
+              "h": "doppio-trench",
+              "orig": 94550,
+              "fin": 94550,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68445346005296,
+              "q": 1,
+              "h": "fixture-media-3d-video",
+              "orig": 3500,
+              "fin": 3500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            }
+          ],
+          "cartDisc": []
+        }
+      },
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "startCart": {
+        "count": 0,
+        "total": 0,
+        "items": [],
+        "cartDisc": []
+      },
+      "quickAddForms": [
+        {
+          "q": "1",
+          "title": "1990 Pinstripe Double-Breasted"
+        },
+        {
+          "q": "1",
+          "title": "1994 Double-Faced Cashmere Coc"
+        },
+        {
+          "q": "1",
+          "title": "1998 Bias-Cut Silk Evening Sli"
+        },
+        {
+          "q": "1",
+          "title": "1999 Technical Cotton Trench"
+        },
+        {
+          "q": "1",
+          "title": "Bias-Cut Slip Dress"
+        },
+        {
+          "q": "1",
+          "title": "Brass Paperweight"
+        },
+        {
+          "q": "1",
+          "title": "Cashmere Rib Crew"
+        },
+        {
+          "q": "1",
+          "title": "Cashmere Scarf"
+        },
+        {
+          "q": "1",
+          "title": "Cigarette Trouser"
+        },
+        {
+          "q": "1",
+          "title": "Cocoon Cardigan-Coat"
+        },
+        {
+          "q": "1",
+          "title": "Doppio Trench"
+        },
+        {
+          "q": "1",
+          "title": "Fine Merino Turtleneck"
+        },
+        {
+          "q": "1",
+          "title": "Fixture 3D Model Product"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Alignment Tee"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Alignment Tee"
+        },
+        {
+          "q": "1",
+          "title": "Fixture color only"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Focal Point Scarf"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Long Title Hand-Finish"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Many Variants Jacket"
+        },
+        {
+          "q": "1",
+          "title": "Folded Valet Tray"
+        },
+        {
+          "q": "1",
+          "title": "Four-Slot Cardholder"
+        }
+      ],
+      "quickAddMinRuleProducts": [],
+      "discountApplied": false,
+      "cleanup": {
+        "cleared": true,
+        "attempts": 1,
+        "clearStatus": 200,
+        "getStatus": 200,
+        "itemCount": 0,
+        "note": ""
+      },
+      "consoleTheme": []
+    },
+    {
+      "preset": "sartorial",
+      "mode": "mobile",
+      "steps": {
+        "quickAdd": {
+          "status": 200,
+          "cart": {
+            "count": 1,
+            "total": 150000,
+            "items": [
+              {
+                "v": 68442393968944,
+                "q": 1,
+                "h": "1990-pinstripe-double-breasted-jacket",
+                "orig": 150000,
+                "fin": 150000,
+                "disc": [],
+                "rule": {
+                  "min": 1,
+                  "max": null,
+                  "increment": 1
+                }
+              }
+            ],
+            "cartDisc": []
+          },
+          "drawerOpen": true,
+          "itemsInDrawer": 1
+        },
+        "discountTry3": {
+          "count": 3,
+          "total": 10500,
+          "items": [
+            {
+              "v": 68445346005296,
+              "q": 3,
+              "h": "fixture-media-3d-video",
+              "orig": 10500,
+              "fin": 10500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            }
+          ],
+          "cartDisc": []
+        },
+        "discountTryMixed": {
+          "count": 3,
+          "total": 172550,
+          "items": [
+            {
+              "v": 68442277937456,
+              "q": 1,
+              "h": "nove-blazer",
+              "orig": 74500,
+              "fin": 74500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68442277413168,
+              "q": 1,
+              "h": "doppio-trench",
+              "orig": 94550,
+              "fin": 94550,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68445346005296,
+              "q": 1,
+              "h": "fixture-media-3d-video",
+              "orig": 3500,
+              "fin": 3500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            }
+          ],
+          "cartDisc": []
+        },
+        "drawerLines": [
+          {
+            "title": "",
+            "price": "$745.00",
+            "hasStrike": false,
+            "discounts": [],
+            "unit": null
+          },
+          {
+            "title": "",
+            "price": "$945.50",
+            "hasStrike": false,
+            "discounts": [],
+            "unit": null
+          },
+          {
+            "title": "",
+            "price": "$35.00",
+            "hasStrike": false,
+            "discounts": [],
+            "unit": null
+          }
+        ],
+        "enter": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d"
+          },
+          "qty": "4"
+        },
+        "tab": {
+          "response": 200,
+          "focus": {
+            "tag": "INPUT",
+            "id": "DrawerQuantity-1",
+            "label": "",
+            "isClose": false,
+            "isBody": false,
+            "inDrawer": true,
+            "lineKey": "68442277937456:6e4ca9a148226c2f7e6e6310e572e45d"
+          },
+          "qty": "2"
+        },
+        "afterQty": {
+          "count": 4,
+          "total": 247050,
+          "items": [
+            {
+              "v": 68442277937456,
+              "q": 2,
+              "h": "nove-blazer",
+              "orig": 149000,
+              "fin": 149000,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68442277413168,
+              "q": 1,
+              "h": "doppio-trench",
+              "orig": 94550,
+              "fin": 94550,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            {
+              "v": 68445346005296,
+              "q": 1,
+              "h": "fixture-media-3d-video",
+              "orig": 3500,
+              "fin": 3500,
+              "disc": [],
+              "rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            }
+          ],
+          "cartDisc": []
+        }
+      },
+      "identity": {
+        "id": "190453317936",
+        "role": "unpublished"
+      },
+      "startCart": {
+        "count": 0,
+        "total": 0,
+        "items": [],
+        "cartDisc": []
+      },
+      "quickAddForms": [
+        {
+          "q": "1",
+          "title": "1990 Pinstripe Double-Breasted"
+        },
+        {
+          "q": "1",
+          "title": "1994 Double-Faced Cashmere Coc"
+        },
+        {
+          "q": "1",
+          "title": "1998 Bias-Cut Silk Evening Sli"
+        },
+        {
+          "q": "1",
+          "title": "1999 Technical Cotton Trench"
+        },
+        {
+          "q": "1",
+          "title": "Bias-Cut Slip Dress"
+        },
+        {
+          "q": "1",
+          "title": "Brass Paperweight"
+        },
+        {
+          "q": "1",
+          "title": "Cashmere Rib Crew"
+        },
+        {
+          "q": "1",
+          "title": "Cashmere Scarf"
+        },
+        {
+          "q": "1",
+          "title": "Cigarette Trouser"
+        },
+        {
+          "q": "1",
+          "title": "Cocoon Cardigan-Coat"
+        },
+        {
+          "q": "1",
+          "title": "Doppio Trench"
+        },
+        {
+          "q": "1",
+          "title": "Fine Merino Turtleneck"
+        },
+        {
+          "q": "1",
+          "title": "Fixture 3D Model Product"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Alignment Tee"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Alignment Tee"
+        },
+        {
+          "q": "1",
+          "title": "Fixture color only"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Focal Point Scarf"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Long Title Hand-Finish"
+        },
+        {
+          "q": "1",
+          "title": "Fixture Many Variants Jacket"
+        },
+        {
+          "q": "1",
+          "title": "Folded Valet Tray"
+        },
+        {
+          "q": "1",
+          "title": "Four-Slot Cardholder"
+        }
+      ],
+      "quickAddMinRuleProducts": [],
+      "discountApplied": false,
+      "cleanup": {
+        "cleared": true,
+        "attempts": 1,
+        "clearStatus": 200,
+        "getStatus": 200,
+        "itemCount": 0,
+        "note": ""
+      },
+      "consoleTheme": []
+    },
+    {
+      "preset": "sartorial",
+      "mode": "desktop",
+      "rewards": {
+        "enabled": true,
+        "messages": [
+          "Add $50.00 for free shipping",
+          "Add $50.00 for free shipping",
+          "Free shipping and gift unlocked"
+        ],
+        "cheapest": [
+          {
+            "i": 2,
+            "form": true,
+            "price": 1.45
+          },
+          {
+            "i": 19,
+            "form": true,
+            "price": 1.499
+          }
+        ],
+        "lastTotal": 145000,
+        "statusEvents": [
+          {
+            "t": 20531,
+            "text": "",
+            "hidden": true
+          },
+          {
+            "t": 21447,
+            "text": "",
+            "hidden": false
+          },
+          {
+            "t": 21543,
+            "text": "Item added to your cart. 1998 Bias-Cut Silk Evening Slip Free shipping and gift unlocked",
+            "hidden": false
+          },
+          {
+            "t": 23251,
+            "text": "",
+            "hidden": true
+          }
+        ],
+        "distinctMessages": [
+          "Add $50.00 for free shipping",
+          "Free shipping and gift unlocked"
+        ],
+        "announcedTexts": [
+          "Item added to your cart. 1998 Bias-Cut Silk Evening Slip Free shipping and gift unlocked"
+        ],
+        "announcedChange": true
+      },
+      "startCart": {
+        "count": 0,
+        "total": 0,
+        "items": [],
+        "cartDisc": []
+      },
+      "cleanup": {
+        "cleared": true,
+        "attempts": 1,
+        "clearStatus": 200,
+        "getStatus": 200,
+        "itemCount": 0,
+        "note": ""
+      }
+    }
+  ]
+}
