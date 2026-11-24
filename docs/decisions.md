@@ -391,3 +391,30 @@ Fuente de todas las decisiones de esta sección: respuesta de Johandry en la ses
   - Fuente: respuesta de Johandry en la sesión de Claude Code, 2026-11-14, y lectura del Admin (consulta de solo lectura).
   - Nota 2026-11-14 (resultado verificado por lectura, Admin GraphQL, solo lectura): las cuatro políticas (reembolso, envío, términos y privacidad) tienen el CUERPO en inglés (plantillas automatizadas de Shopify). Los TÍTULOS salen en español en la API («Política de reembolso», «Envío», «Términos del servicio», «Política de privacidad») porque el español está publicado como idioma de la tienda. Cada cuerpo contiene exactamente 1 arroba, que corresponde al email de contacto de la tienda, con dominio gmail.com (cuenta personal del dueño); no se transcribe la dirección ni su parte local. `contactEmail` y el email del remitente coinciden. Decisión de Johandry (2026-11-14): dejar el email de contacto tal cual.
 - **D43 · Suscripciones (A-01) descartadas del alcance de envío:** las suscripciones (A-01) quedan descartadas del alcance de envío por decisión de Johandry: las configurarán o pedirán los clientes si es necesario. La fila de ledger de A-01 no se modifica (sin verificación en tienda con selling plans); no es un requisito de esta entrega. Aclaración: el tema sí soporta selling plans (selector completo en `main-product` y `featured-product`, y el plan se muestra en el carrito); lo descartado es la verificación en tienda y cualquier integración con apps de suscripción, no el soporte en el código. Fuente: respuesta de Johandry en la sesión de Claude Code, 2026-11-14.
+
+## 2026-11-24: Decisiones de Johandry sobre la ronda R3 (D44 a D55)
+
+Fuente de todas las decisiones de esta sección: respuesta de Johandry en la sesión de Claude Code, 2026-11-24, literalmente «apruebo los textos, adelante con tus recomendaciones». En ese momento tenía delante la lista de textos de Claude (`agent-comms/outbox-claude/CLAUDE-R3-IMPL-001.md` §8), los textos y defaults de GPT, la retirada de defaults (bento y umbrales del cajón), la recomendación de añadir a la ayuda del cajón que la barra no se muestra sin umbrales, y las decisiones pendientes DP-007 a DP-020. Cada decisión registra la opción recomendada que figuraba escrita en su entrada de `docs/decisions-pending.md`. DP-019 y DP-020 no tenían una recomendación inequívoca y siguen pendientes.
+
+- **D44 · Textos de R3 aprobados (D35; resuelve DP-011):** quedan aprobados en bloque:
+  - los textos de Claude de `CLAUDE-R3-IMPL-001.md` §8 (claves de storefront, `info` del editor y defaults de schema del bento y de los umbrales del cajón);
+  - el copy de presets, plantillas y defaults de schema de GPT, tal como lo entregó en `agent-comms/outbox-gpt/GPT-R3-001-ENTREGA.md` §4 (rama `gpt/r3-copy-plantillas` @ `94f7b03`);
+  - las propuestas de locales de GPT y la redacción final aplicada por Claude en `a1339ae` y `97e050d`, listadas en `CLAUDE-R3-IMPL-001.md` §11;
+  - el `info` nuevo del interruptor de la barra de recompensas del cajón, que avisa de que la barra no se muestra sin umbrales.
+
+  Dos textos son criterio del líder y no estaban literalmente en lo aprobado. Se informaron a Johandry y siguen siendo revisables:
+  - el eyebrow de la página no encontrada, «Error» en inglés y en español (GPT proponía «Page not found», que repetía el título);
+  - el eyebrow del newsletter, «Newsletter» / «Boletín», y los defaults de `sections/newsletter.liquid`, «Newsletter» y «Store updates» (nadie había propuesto texto).
+
+  La voz editorial que R3 no ha tocado queda pendiente en DP-021. El copy D6 que GPT aplicó después en `03cddcb` no forma parte de esta aprobación y queda en DP-023.
+- **D45 · DP-007, reglas de cantidad y precios por volumen:** se muestran el mínimo, el incremento y el máximo en la ficha y en featured product, y el quick add con mínimo o incremento mayor que 1 lleva a la ficha (R3-SO-04). No hay tabla de `quantity_price_breaks`.
+- **D46 · DP-008, procedencia y especificaciones por producto (R3-FB-11):** se acepta como residual de 1.0, con `info` aclaratorio. Los metafields quedan para 1.1.
+- **D47 · DP-009, placeholders del bento:** las tarjetas de producto vacías solo se dibujan en el editor (`request.design_mode`), como en `curated-showcase`.
+- **D48 · DP-010, Nivel 2 en bloque:** queda autorizado el cambio de defaults de schema y la semántica de umbrales vacíos de R3-FB-10, solo para la lista cerrada de `CLAUDE-R3-ANALISIS-001` §3 y `GPT-TASK-R3-001` §5. La retirada de los defaults 150 y 250 de los umbrales del cajón forma parte de esa semántica y estaba en la lista que se aprobó.
+- **D49 · DP-012, Combined Listings en la ficha (R3-AS-08):** aplazado y documentado.
+- **D50 · DP-013, sin JS con reglas o planes distintos por variante (R3-AS-04):** se usa el modo `option_links` (navegación) cuando las variantes difieren.
+- **D51 · DP-014, CLS y rendimiento estimados (R3-FB-18, R3-FB-38, R3-FB-48, G-PERF-06):** aplazados hasta la medición de DP-005 (D31).
+- **D52 · DP-015, residuales G-xxx:** se aceptan G-I18N-01, G-SEC-01, G-SEC-03, G-I18N-05, G-I18N-06, G-MANT-01, G-PERF-06, G-UX-01 y G-TSR-01 (este último vía D45). Se arreglan G-SEC-04 (Vimeo con `dnt=1`) y G-I18N-04 («Atelier» pasa a «Classic»). La entrada no nombraba un dueño por residual, así que la asignación de dueños no forma parte de esta decisión.
+- **D53 · DP-016, severidad de R3-AS-01:** media, no alta. El decisor indicado en la entrada era Gemini; queda decidida con la aprobación de Johandry.
+- **D54 · DP-017, plazo en el cambio de línea del carrito (R3-FB-36):** se acepta como residual de 1.0. No se implementa el estado de resultado incierto. La fila del ledger queda `ausente`.
+- **D55 · DP-018, compromiso de R3-AS-02:** se acepta para 1.0. Con ediciones sin enviar en /cart, abrir el cajón no sustituye la página, y un cambio hecho desde otra pestaña la deja desactualizada hasta la siguiente mutación. Se prueba en tienda (compuerta 5).

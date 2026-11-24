@@ -333,3 +333,98 @@ Afirmaciones falsables:
 - La fila «Validación de Nombre contra Reglamento y Marcas» del ledger también cita el preset «Edition». No se corrige porque esta entrega solo tenía mandato para la fila de presets.
 - Varias filas ajenas a R3 citan líneas de `assets/theme.js` y `assets/base.css` que R3 ha desplazado (por ejemplo, Recomendaciones del Cajón, `assets/theme.js:2865-2866`). `gates:ledger` no lo detecta porque solo comprueba el rango. Conviene un barrido en la integración.
 - `agent-comms/RULES.md` (compuerta 5) sigue nombrando la tienda `tema-qkqpke0j.myshopify.com`. La vigente es `sartorial-theme-kvkzl39t` (D38). Lo corrige Gemini o Johandry.
+
+---
+
+## 11. Actualización del 2026-11-24 (después de `72aaee1`)
+
+```text
+Estado: textos aprobados por Johandry ("apruebo los textos, adelante con tus recomendaciones") y aplicados
+        en los archivos de Claude. Compuerta 5 sigue ABIERTA. Rama de Claude en 97e050d. La de GPT, en 792d58f y sin fusionar, ya trae sus correcciones de la ADENDA-B, que están sin revisar.
+Decisiones: DP-007 a DP-018 pasan a docs/decisions.md (D44 a D55). Siguen pendientes DP-019 y DP-020, que no
+            tenían recomendación inequívoca, y se abren DP-021 (voz editorial), DP-022 (subida a la tienda) y DP-023
+            (copy D6 que GPT añadió después de la entrega aprobada).
+Ledger: 5 filas actualizadas, sin cambios de estado. 97 filas: 37 cumplido, 55 código completo,
+        4 no verificado y 1 ausente.
+ZIP desde 97e050d: 107 archivos, sha256 eaaaaaabfd86663e89fc9203923b0e9179dcdfcb73ff76a5bba5f3eb8a673547.
+     El manifiesto no se regenera hasta la integración.
+```
+
+### 11.1 Commits nuevos
+
+| Commit | Contenido |
+| --- | --- |
+| `26363b2` | Solo documentación. Revisión de la rama de GPT (`agent-comms/reviews/CLAUDE-review-GPT-R3-001.md`) y encargo de correcciones (`agent-comms/inbox-gpt/GPT-TASK-R3-001-ADENDA-B-correcciones.md`) |
+| `a1339ae` | Aplica los textos aprobados en `locales/` y en los schemas de Claude: `info` del interruptor de la barra del cajón (`sections/cart-drawer.liquid:456`), defaults de `sections/newsletter.liquid` y respaldo de `section.index` vacío en `sections/slideshow.liquid:31-35` |
+| `97e050d` | Ajustes de coherencia: eyebrow de la 404 «Error»; pestañas «Articles» / «Artículos»; eyebrow del newsletter «Newsletter» / «Boletín» |
+
+### 11.2 Textos aplicados
+
+Fuente: diff `72aaee1..97e050d`. Si `a1339ae` dejó un valor intermedio, se indica.
+
+**Storefront** (`locales/en.default.json` y `locales/es.json`)
+
+| Clave | Antes (en / es) | Ahora (en / es) | Origen |
+| --- | --- | --- | --- |
+| `not_found.eyebrow` | Error / Archive index / Error / Índice del archivo | Error / Error (en `a1339ae` fue «Error 404») | **criterio del líder** (GPT proponía «Page not found», que repite el título) |
+| `not_found.title` | Object not found. / Página no encontrada. | Page not found / Página no encontrada. (es sin cambios) | GPT |
+| `not_found.message` | The requested page is not in our current series. It may have moved into the archive. / La página que buscas no forma parte de la serie actual. Es posible que haya pasado al archivo. | The page you requested could not be found. / No se ha encontrado la página que buscas. | GPT |
+| `sections.complete_the_look.add_selected.one` | Add {{ count }} piece to bag \| {{ total }} / Añadir {{ count }} pieza \| {{ total }} | Add {{ count }} item to cart \| {{ total }} / Añadir {{ count }} artículo al carrito \| {{ total }} | GPT |
+| `sections.complete_the_look.add_selected.other` | Add {{ count }} pieces to bag \| {{ total }} / Añadir {{ count }} piezas \| {{ total }} | Add {{ count }} items to cart \| {{ total }} / Añadir {{ count }} artículos al carrito \| {{ total }} | GPT |
+| `sections.complete_the_look.total_label` | Capsule total / Total de la cápsula | Total / Total | GPT |
+| `search.results.article` | Journal / Diario | Article / Artículo | GPT |
+| `search.tabs.articles` | Journal / Diario | Articles / Artículos | líder, para cuadrar con el singular |
+| `predictive_search.articles` | Journal / Diario | Articles / Artículos | líder, para cuadrar con el singular |
+| `newsletter.eyebrow` | Private correspondence / Correspondencia privada | Newsletter / Boletín | **criterio del líder** (sin propuesta) |
+| `newsletter.heading` | Notes from the studio / Notas del estudio | Store updates / Novedades de la tienda | GPT |
+| `predictive_search.error` | …Press enter… / (es ya decía «Pulsa Enter») | …Press Enter… / sin cambios | nota de copy de §8.1 |
+
+**Editor** (`locales/en.default.schema.json`, solo inglés)
+
+| Clave | Antes | Ahora | Origen |
+| --- | --- | --- | --- |
+| `settings_schema.animations.settings.motion_style.options.atelier` | Atelier | Classic | GPT (G-I18N-04) |
+| `sections.hero_editorial.settings.image_alt.info` | Describe the image for customers using a screen reader. Leave empty to use the heading. | Describes the image for screen readers. Leave blank to use the image's own alternative text, or none when a heading already explains it. | GPT proponía «Describe the image for screen reader users. Leave blank to use the image's alt text.»; la redacción aplicada es del líder |
+| `sections.cart_drawer.settings.enable_tiered_progress.info` | (no existía) | The bar stays hidden until at least one threshold is set, and when customers shop in a currency other than the store currency. | recomendación aprobada; redacción del líder |
+
+**Defaults de schema** (`sections/newsletter.liquid`)
+
+| Ajuste | Antes | Ahora | Origen |
+| --- | --- | --- | --- |
+| `eyebrow` | Private correspondence | Newsletter | **criterio del líder** |
+| `heading` | Notes from the atelier | Store updates | **criterio del líder** (coincide con `newsletter.heading`) |
+
+Además de los dos textos de criterio del líder que se registran en D44, hay otras tres redacciones del líder que no estaban literalmente en lo aprobado: el `info` del alt del hero, el `info` del interruptor del cajón y el plural «Articles». No consta que se hayan presentado a Johandry palabra por palabra y siguen siendo revisables.
+
+Nota de copy: el `info` del interruptor del cajón se puede leer mal. Una redacción más clara sería «The bar is hidden until at least one threshold is set. It is also hidden when customers shop in a currency other than the store currency.».
+
+Localizadores del schema que cambian respecto a §2.6 y §8: FB-55 está ahora en `:1471`, FB-11 en `:1411` y los `info` del cajón en `:1184-1195`. «Atelier» sigue en `:23`.
+
+### 11.3 Estado de la rama de GPT y de los pull requests
+
+| | Estado |
+| --- | --- |
+| `gpt/r3-copy-plantillas` | La revisión se hizo sobre `94f7b03`. Después GPT publicó `03cddcb` (`fix(r3): repair blog pagination and edge cases`, 17:04 UTC) y `792d58f` (actualiza su entrega, 17:10 UTC): declara aplicados D1 a D6 de la ADENDA-B. La Adenda A ya estaba aplicada, incluido el `sizes` de collection-list. **Sigue sin considerarse fusionable** hasta que Claude revise esos dos commits. |
+| PR #24 (GPT) | Abierto en borrador. |
+| PR #23 (Claude) | Abierto en borrador. HEAD `97e050d` más este commit de documentación. No es publicable sin el PR #24. |
+| Encargos a GPT | ADENDA-B (obligatoria): entregada en `03cddcb`, pendiente de revisión. ADENDA-C, nueva: su copy queda aprobado y se le informa de los textos ya aplicados. El default «bag» → «cart» de `sections/complete-the-look.liquid` ya está hecho en su rama (línea 408 en `792d58f`; en `94f7b03` era la línea 404 y decía «bag»), así que no se le pide nada nuevo. |
+| Copy D6 de GPT | Llegó en `03cddcb`, después de la entrega que Johandry aprobó: «Engineered for high telemetry» → «Objects for everyday use» (Imprint), descripción del lookbook de `templates/index.json` → «Explore the collection.», se retira el bloque CTA sin URL de `templates/page.faq.json` y el default «Contact us» de `sections/main-faq.liquid` queda vacío. No está en D44; queda en DP-023, con recomendación de aprobarlo. |
+
+### 11.4 `scripts/translations/es.storefront.json` (comprobación)
+
+- **Qué es:** el diccionario de `scripts/translate-storefront.mjs`. Ese script registra por la Admin API (`translationsRegister`) las traducciones al español del **contenido de la tienda**: valores de las plantillas JSON, el grupo de cabecera, páginas, enlaces, menús y colecciones. Ninguna entrada de `package.json` ni del CI lo invoca.
+- **No regenera `locales/es.json`:** solo escribe con `--emit` (lotes GraphQL). Sus rutas, por ejemplo `index.json` → `newsletter.eyebrow`, son ajustes de sección de `templates/index.json`, no claves de locale. No puede revertir los textos de R3.
+- **Está desincronizado, pero desde antes de R3:** `node scripts/translate-storefront.mjs --check` da «89 problemas» tanto en `master` (`2e94454`) como en esta rama. R3 de Claude no toca plantillas. Tras fusionar la rama de GPT, que cambia copy de `templates/` y `listings/`, aumentarán las entradas desfasadas.
+- **No causa daño silencioso:** el script solo registra una traducción si el sha256 del inglés coincide con el texto vivo. Una entrada desfasada se informa y no se registra.
+- **Pendiente (paso 7 de 11.5):** antes de registrar traducciones en la tienda para la compuerta 5, regenerar el diccionario contra las plantillas integradas. Mientras tanto, el contenido de plantillas que haya cambiado se verá en inglés en `/es`. No se edita en esta entrega.
+
+### 11.5 Pasos que quedan para la integración (en serie)
+
+1. Hecho por GPT en `03cddcb`, sin revisar: correcciones de `sections/main-blog.liquid` según la ADENDA-B (D1 y D2 obligatorios, D3 a D5 recomendados), D6 y el default «bag». Si la revisión pide algo más, va en la misma rama y sin force-push.
+2. Claude revisa `03cddcb` y `792d58f` con una nueva revisión en `agent-comms/reviews/`; Johandry decide DP-023 (copy D6).
+3. Fusionar los PR #23 y #24 en `master`, y luego `npm run gates:static` y Playwright.
+4. Tras la fusión, borrar las claves huérfanas de locale. Son 5: `sections.lookbook.image_alt`, `sections.complete_the_look.image_alt`, `sections.homepage.manifesto.material_image_alt`, `password.image_alt` y `sections.homepage.marquee.region_label`. `sections.slideshow.region_label` vuelve a usarse desde `a1339ae`.
+5. Ledger: añadir las filas de GPT y cerrar la de tarjeta única.
+6. Regenerar la ZIP y `docs/demo-store/ZIP-FINAL-MANIFEST-1.0.0.txt`, una sola vez.
+7. Regenerar `scripts/translations/es.storefront.json` contra las plantillas integradas (11.4) antes de registrar traducciones.
+8. Compuerta 5 en `sartorial-theme-kvkzl39t` según §6, después de que se resuelva DP-022 (subida del tema de desarrollo, no antes de la integración).
