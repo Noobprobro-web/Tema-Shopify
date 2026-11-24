@@ -85,18 +85,16 @@
             <summary class="facets__disclosure-summary">
               <span>{{ 'collections.filters.title' | t }}</span>
               {%- if active_filter_count > 0 -%}
-                <span class="facets__count" aria-label="{{ 'collections.filters.active_count' | t: count: active_filter_count }}">
-                  {{- active_filter_count -}}
-                </span>
+                <span class="facets__count" aria-hidden="true">{{- active_filter_count -}}</span>
+                <span class="visually-hidden">{{ 'collections.filters.active_count' | t: count: active_filter_count }}</span>
               {%- endif -%}
               {% render 'icon', name: 'chevron-down', size: 16 %}
             </summary>
           <div class="facets__heading cluster">
             <p class="facets__title">{{ 'collections.filters.title' | t }}</p>
             {%- if active_filter_count > 0 -%}
-              <span class="facets__count" aria-label="{{ 'collections.filters.active_count' | t: count: active_filter_count }}">
-                {{- active_filter_count -}}
-              </span>
+              <span class="facets__count" aria-hidden="true">{{- active_filter_count -}}</span>
+              <span class="visually-hidden">{{ 'collections.filters.active_count' | t: count: active_filter_count }}</span>
             {%- endif -%}
           </div>
 
@@ -373,7 +371,11 @@
                         assign promotion_scheme = block.settings.color_scheme.id | default: block.settings.color_scheme | default: section_scheme
                         assign promotion_title_id = 'PromotionTileTitle-' | append: section.id | append: '-' | append: block.id
                         assign promotion_heading_alt = block.settings.heading | strip_html
-                        assign promotion_alt = block.settings.image_alt | default: promotion_heading_alt
+                        assign promotion_alt = block.settings.image_alt | default: block.settings.image.alt
+                        assign promotion_image_decorative = false
+                        if promotion_alt == blank and promotion_heading_alt != blank
+                          assign promotion_image_decorative = true
+                        endif
                       -%}
                       <li class="product-grid__item product-grid__item--promotion" {{ block.shopify_attributes }}>
                         <article
@@ -391,7 +393,8 @@
                                 sizes: '(min-width: 62rem) 40vw, (min-width: 48rem) 33vw, 100vw',
                                 widths: '390, 550, 750, 960',
                                 image_class: 'promotion-tile__image',
-                                alt: promotion_alt
+                                alt: promotion_alt,
+                                decorative: promotion_image_decorative
                               %}
                             </div>
                           {%- endif -%}
@@ -585,7 +588,7 @@
           "type": "text",
           "id": "eyebrow",
           "label": "t:sections.all.eyebrow.label",
-          "default": "Atelier note / 01"
+          "default": "Promotion"
         },
         {
           "type": "inline_richtext",

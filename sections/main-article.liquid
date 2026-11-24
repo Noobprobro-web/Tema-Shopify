@@ -93,20 +93,22 @@
       </section>
     {%- endif -%}
 
-    <nav class="main-article__navigation" aria-label="{{ 'blogs.article.navigation' | t }}">
-      {%- if blog.previous_article -%}
-        <a class="main-article__navigation-link" href="{{ blog.previous_article.url }}" rel="prev">
+    {%- if blog.previous_article or blog.next_article -%}
+      <nav class="main-article__navigation" aria-label="{{ 'blogs.article.navigation' | t }}">
+        {%- if blog.previous_article -%}
+          <a class="main-article__navigation-link" href="{{ blog.previous_article.url }}" rel="prev">
           <span class="eyebrow">{{ 'blogs.article.previous' | t }}</span>
           <strong>{{ blog.previous_article.title | escape }}</strong>
-        </a>
-      {%- endif -%}
-      {%- if blog.next_article -%}
-        <a class="main-article__navigation-link main-article__navigation-link--next" href="{{ blog.next_article.url }}" rel="next">
+          </a>
+        {%- endif -%}
+        {%- if blog.next_article -%}
+          <a class="main-article__navigation-link main-article__navigation-link--next" href="{{ blog.next_article.url }}" rel="next">
           <span class="eyebrow">{{ 'blogs.article.next' | t }}</span>
           <strong>{{ blog.next_article.title | escape }}</strong>
-        </a>
-      {%- endif -%}
-    </nav>
+          </a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
 
     {%- if blog.comments_enabled? -%}
       <section class="main-article__comments" id="Comments-{{ section.id }}" aria-labelledby="CommentsTitle-{{ section.id }}">
