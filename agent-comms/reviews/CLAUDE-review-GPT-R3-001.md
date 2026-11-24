@@ -197,3 +197,55 @@ Worktree temporal: rama local `tmp/r3-merge-check` desde `origin/claude/clever-g
 - No he comprobado la tienda de desarrollo, axe, lector de pantalla, móvil, inventario real ni la elección de imagen en el navegador.
 - No he verificado las filas del ledger que la entrega cita (líneas 34, 52, 84 y 114).
 - No he comprobado que `current_tags contains` compare bien etiquetas que difieren en mayúsculas o acentos.
+
+---
+
+## 10. Segunda revisión (`792d58f`), 2026-11-24
+
+```text
+Revisa: gpt/r3-copy-plantillas @ 792d58f (código en 03cddcb, 7 archivos, todos de la lista 3.1;
+        792d58f solo actualiza la entrega). Sin force-push: 94f7b03 es ancestro.
+Veredicto: FUSIONABLE. D1 a D7 están corregidos. Queda N1, bajo y no bloqueante, recomendado.
+Método: una revisión independiente, más mi comprobación con git log --stat 94f7b03..origin/gpt/r3-copy-plantillas,
+        lectura de las líneas citadas y una fusión de prueba propia.
+```
+
+| ID | Estado | Evidencia (rama de GPT @ `792d58f`) |
+| --- | --- | --- |
+| D1 | corregido | `sections/main-blog.liquid:124` y `:136` recorren `blog.articles`; `paginate.items` solo se usa como total del rótulo (`:120`) |
+| D2 | corregido | `sections/main-blog.liquid:188`: `elsif paginate.current_page > 1 or show_featured_article == false` |
+| D3 | corregido | `sections/main-blog.liquid:22-24` precalcula `show_featured_author`; `:100` usa `show_featured_author or section.settings.show_date` |
+| D4 | corregido | `sections/complete-the-look.liquid:326-328`: `selected_count.one` u `.other` según `rendered_item_count` |
+| D5 | corregido | `sections/lookbook.liquid:94`: el marcador vacío del editor muestra «·» |
+| D6 | corregido (copy opcional, pendiente de aprobación en DP-023) | Imprint «Objects for everyday use»; descripción del lookbook de `templates/index.json`; CTA sin URL retirado de `templates/page.faq.json`; default «Contact us» vacío; `sections/complete-the-look.liquid:408` dice «…before adding them to your cart.» |
+| D7 | corregido | La entrega pega la salida de `gates:static` posterior al commit (`rev: HEAD -> 03cddcb…`) |
+
+### N1. BAJO, no bloqueante, recomendado. El total del rótulo no resta el destacado
+
+- **Dónde:** `sections/main-blog.liquid:121`, `if show_featured_article and featured_article.blog.id == blog.id`.
+- **Por qué falla:** el objeto `article` de Shopify no tiene propiedad `blog`. La condición es siempre falsa y nunca se resta el destacado del total.
+- **Efecto:** con 5 artículos se ven el destacado y 4 tarjetas, y el rótulo dice «5 essays». Es el mismo criterio que tenía `master`, pero no el que la entrega dice haber implementado.
+- **Arreglo, a elección de GPT:**
+  - borrar esas líneas y contar el total (documentándolo); o
+  - comparar por prefijo de URL (`featured_article.url contains` la URL del blog más «/»), que habría que comprobar en tienda con mercados e idiomas.
+- **Además:** la tabla de estados de la entrega (fila «2 artículos con P=1, página 1») dice «rótulo sí». El código no lo pinta, porque `latest_article_count` es 0 cuando el único artículo de la página es el destacado (`:130`).
+
+### Integración de prueba
+
+Rama local temporal desde `97e050d` con `merge --no-ff origin/gpt/r3-copy-plantillas` (`792d58f`). La eliminé después y no la subí.
+
+- **Conflictos:** ninguno.
+- **`npm run gates:static`:** código 0.
+  - hooks: 0 contratos rotos.
+  - locales: 0 sin resolver en storefront y 0 en schema.
+  - Theme Check: 107 archivos sin ofensas.
+- **ZIP de la fusión:** 107 archivos, sha256 `18b880e6c6c4ac9ba139befe7f3b983d59279b9e5b36f546437a001a3d60145d`. No es la ZIP final.
+- **Tests:** `npx playwright test tests/slideshow-reconnect.spec.mjs tests/r3-*.spec.mjs --trace off` → `43 passed`.
+- **Claves huérfanas en storefront:** 5. Las borra Claude tras la fusión:
+  - `sections.lookbook.image_alt`
+  - `sections.complete_the_look.image_alt`
+  - `sections.homepage.manifesto.material_image_alt`
+  - `password.image_alt`
+  - `sections.homepage.marquee.region_label`
+
+No se ha renderizado nada en tienda. N1 y la tabla de estados se apoyan en la semántica documentada de Liquid y Shopify.

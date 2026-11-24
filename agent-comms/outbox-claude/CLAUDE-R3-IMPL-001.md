@@ -340,7 +340,7 @@ Afirmaciones falsables:
 
 ```text
 Estado: textos aprobados por Johandry ("apruebo los textos, adelante con tus recomendaciones") y aplicados
-        en los archivos de Claude. Compuerta 5 sigue ABIERTA. Rama de Claude en 97e050d. La de GPT, en 792d58f y sin fusionar, ya trae sus correcciones de la ADENDA-B, que están sin revisar.
+        en los archivos de Claude. Compuerta 5 sigue ABIERTA. Rama de Claude en 97e050d. La de GPT, en 792d58f: FUSIONABLE según la segunda revisión, con N1 recomendado.
 Decisiones: DP-007 a DP-018 pasan a docs/decisions.md (D44 a D55). Siguen pendientes DP-019 y DP-020, que no
             tenían recomendación inequívoca, y se abren DP-021 (voz editorial), DP-022 (subida a la tienda) y DP-023
             (copy D6 que GPT añadió después de la entrega aprobada).
@@ -404,10 +404,10 @@ Localizadores del schema que cambian respecto a §2.6 y §8: FB-55 está ahora e
 
 | | Estado |
 | --- | --- |
-| `gpt/r3-copy-plantillas` | La revisión se hizo sobre `94f7b03`. Después GPT publicó `03cddcb` (`fix(r3): repair blog pagination and edge cases`, 17:04 UTC) y `792d58f` (actualiza su entrega, 17:10 UTC): declara aplicados D1 a D6 de la ADENDA-B. La Adenda A ya estaba aplicada, incluido el `sizes` de collection-list. **Sigue sin considerarse fusionable** hasta que Claude revise esos dos commits. |
+| `gpt/r3-copy-plantillas` | La revisión se hizo sobre `94f7b03`. Después GPT publicó `03cddcb` (`fix(r3): repair blog pagination and edge cases`, 17:04 UTC) y `792d58f` (actualiza su entrega, 17:10 UTC): declara aplicados D1 a D6 de la ADENDA-B. La Adenda A ya estaba aplicada, incluido el `sizes` de collection-list. **Fusionable** según la segunda revisión (`agent-comms/reviews/CLAUDE-review-GPT-R3-001.md` §10): D1 a D7 están corregidos, la fusión de prueba con `97e050d` no da conflictos, `gates:static` pasa, los 43 tests pasan y la ZIP fusionada tiene 107 archivos. Queda N1, bajo y no bloqueante: `sections/main-blog.liquid:121` en `792d58f` compara `featured_article.blog.id`, una propiedad que `article` no tiene, así que el total del rótulo nunca resta el destacado. |
 | PR #24 (GPT) | Abierto en borrador. |
 | PR #23 (Claude) | Abierto en borrador. HEAD `97e050d` más este commit de documentación. No es publicable sin el PR #24. |
-| Encargos a GPT | ADENDA-B (obligatoria): entregada en `03cddcb`, pendiente de revisión. ADENDA-C, nueva: su copy queda aprobado y se le informa de los textos ya aplicados. El default «bag» → «cart» de `sections/complete-the-look.liquid` ya está hecho en su rama (línea 408 en `792d58f`; en `94f7b03` era la línea 404 y decía «bag»), así que no se le pide nada nuevo. |
+| Encargos a GPT | ADENDA-B: atendida en `03cddcb`. ADENDA-C, nueva: su copy queda aprobado y se le informa de los textos ya aplicados. El default «bag» → «cart» de `sections/complete-the-look.liquid` ya está hecho en su rama (línea 408 en `792d58f`; en `94f7b03` era la línea 404 y decía «bag»), así que no se le pide. Se le recomienda N1, sin obligación. |
 | Copy D6 de GPT | Llegó en `03cddcb`, después de la entrega que Johandry aprobó: «Engineered for high telemetry» → «Objects for everyday use» (Imprint), descripción del lookbook de `templates/index.json` → «Explore the collection.», se retira el bloque CTA sin URL de `templates/page.faq.json` y el default «Contact us» de `sections/main-faq.liquid` queda vacío. No está en D44; queda en DP-023, con recomendación de aprobarlo. |
 
 ### 11.4 `scripts/translations/es.storefront.json` (comprobación)
@@ -420,10 +420,10 @@ Localizadores del schema que cambian respecto a §2.6 y §8: FB-55 está ahora e
 
 ### 11.5 Pasos que quedan para la integración (en serie)
 
-1. Hecho por GPT en `03cddcb`, sin revisar: correcciones de `sections/main-blog.liquid` según la ADENDA-B (D1 y D2 obligatorios, D3 a D5 recomendados), D6 y el default «bag». Si la revisión pide algo más, va en la misma rama y sin force-push.
-2. Claude revisa `03cddcb` y `792d58f` con una nueva revisión en `agent-comms/reviews/`; Johandry decide DP-023 (copy D6).
+1. Hecho: GPT corrigió D1 a D6 de la ADENDA-B en `03cddcb`, y la segunda revisión (`CLAUDE-review-GPT-R3-001.md` §10) da la rama por fusionable.
+2. Opcional, antes de fusionar: GPT arregla N1 en la misma rama, sin force-push, y Claude lo revisa. Johandry decide DP-023 (copy D6).
 3. Fusionar los PR #23 y #24 en `master`, y luego `npm run gates:static` y Playwright.
-4. Tras la fusión, borrar las claves huérfanas de locale. Son 5: `sections.lookbook.image_alt`, `sections.complete_the_look.image_alt`, `sections.homepage.manifesto.material_image_alt`, `password.image_alt` y `sections.homepage.marquee.region_label`. `sections.slideshow.region_label` vuelve a usarse desde `a1339ae`.
+4. Tras la fusión, borrar las claves huérfanas de locale. Son 5, confirmadas en la fusión de prueba: `sections.lookbook.image_alt`, `sections.complete_the_look.image_alt`, `sections.homepage.manifesto.material_image_alt`, `password.image_alt` y `sections.homepage.marquee.region_label`. `sections.slideshow.region_label` vuelve a usarse desde `a1339ae`.
 5. Ledger: añadir las filas de GPT y cerrar la de tarjeta única.
 6. Regenerar la ZIP y `docs/demo-store/ZIP-FINAL-MANIFEST-1.0.0.txt`, una sola vez.
 7. Regenerar `scripts/translations/es.storefront.json` contra las plantillas integradas (11.4) antes de registrar traducciones.
