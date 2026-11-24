@@ -246,13 +246,13 @@
                           {%- liquid
                             case property.first
                               when 'Recipient email'
-                                assign property_label = 'products.product.recipient.email' | t
+                                assign property_label = 'sections.cart.gift_card_properties.email' | t
                               when 'Recipient name'
-                                assign property_label = 'products.product.recipient.name' | t
+                                assign property_label = 'sections.cart.gift_card_properties.name' | t
                               when 'Message'
-                                assign property_label = 'products.product.recipient.message' | t
+                                assign property_label = 'sections.cart.gift_card_properties.message' | t
                               when 'Send on'
-                                assign property_label = 'products.product.recipient.send_on' | t
+                                assign property_label = 'sections.cart.gift_card_properties.send_on' | t
                               else
                                 assign property_label = property.first | escape
                             endcase

@@ -6,16 +6,46 @@
   - selected_variant: the variant selected on the server
   - can_add_to_cart: whether the selected variant can be bought
   - plan_required_unavailable: the variant needs a selling plan and has none
-  - has_no_js_select: the form prints the native variant select for visitors without JavaScript
+  - has_no_js_select: the form prints the no-JavaScript variant controls
+  - server_variants: Shopify resolves the variants, so the controls are always links (optional)
 
   Without JavaScript a sold-out variant can still be swapped in the native select, but a disabled
   button would never re-enable. In that case a plain submit button replaces it, shown only when
   JavaScript is off. With JavaScript the button below behaves as before.
+
+  The native select exists only when the variant-no-js-select snippet does not switch to links
+  (server_variants, or variants that differ from the selected one in quantity rule or selling
+  plans). The check below mirrors that snippet. With links there is no select to pick another
+  variant, so the plain submit button would send the sold-out one and is not printed.
 {%- endcomment -%}
 
 {%- liquid
+  assign no_js_links = false
+  if server_variants
+    assign no_js_links = true
+  elsif has_no_js_select and selected_variant
+    capture reference_rules
+      echo selected_variant.quantity_rule.min | append: '/' | append: selected_variant.quantity_rule.increment | append: '/' | append: selected_variant.quantity_rule.max
+      for allocation in selected_variant.selling_plan_allocations
+        echo '/' | append: allocation.selling_plan.id
+      endfor
+    endcapture
+    for rule_variant in product.variants
+      capture variant_rules
+        echo rule_variant.quantity_rule.min | append: '/' | append: rule_variant.quantity_rule.increment | append: '/' | append: rule_variant.quantity_rule.max
+        for allocation in rule_variant.selling_plan_allocations
+          echo '/' | append: allocation.selling_plan.id
+        endfor
+      endcapture
+      if variant_rules != reference_rules
+        assign no_js_links = true
+        break
+      endif
+    endfor
+  endif
+
   assign no_js_submit = false
-  if has_no_js_select and product.available and selected_variant.available == false and plan_required_unavailable == false
+  if has_no_js_select and no_js_links == false and product.available and selected_variant.available == false and plan_required_unavailable == false
     assign no_js_submit = true
   endif
 -%}
