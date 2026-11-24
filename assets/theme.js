@@ -958,6 +958,9 @@
         control.disabled = true;
         control.removeAttribute('name');
       });
+      // The no-JS fallback submit comes first in the DOM, so it would stay the form's default
+      // button. Disabling it would cancel implicit submission (Enter), so it is removed instead.
+      this.querySelectorAll('button.no-js-only[type="submit"]').forEach((button) => button.remove());
     }
 
     cachePurchaseOptionElements() {
@@ -1817,7 +1820,7 @@
       this.listen(this.trigger, 'click', () => this.open());
       this.listen(this.closeButton, 'click', () => this.close(true));
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.close(true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.close(true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -2061,7 +2064,9 @@
     }
 
     open(trigger) {
-      if (!this.overlay || !this.panel || this.isOpen) return;
+      // While the variant request is in flight the panel content is about to be replaced: opening
+      // now would leave the focus trap, inert background and scroll lock without an owner.
+      if (!this.overlay || !this.panel || this.isOpen || this.getAttribute('aria-busy') === 'true') return;
 
       const returnTarget = trigger || document.activeElement;
       closeOtherDialogs(this);
@@ -2098,6 +2103,7 @@
 
       if (!variant?.id || !this.dataset.productUrl || !this.dataset.sectionId) {
         this.hidden = true;
+        this.setAttribute('aria-busy', 'false');
         return;
       }
 
@@ -2120,6 +2126,8 @@
         const nextPickup = documentFragment.querySelector('pickup-availability');
         if (!nextPickup) throw new Error(this.dataset.updateError);
 
+        // Defensive: if it somehow opened, release trap, inert and scroll lock before replacing.
+        this.close(false);
         this.innerHTML = nextPickup.innerHTML;
         this.dataset.variantId = String(variant.id);
         this.hidden = nextPickup.hidden || !this.querySelector('[data-pickup-content]');
@@ -3213,6 +3221,12 @@
         const card = form.closest('product-card-variants');
         if (card?.isConnected) card.syncQuickBuy();
         this.endMutation();
+        // The button is disabled while the request runs, so the browser drops focus to body; after
+        // an error (no drawer opened) it is handed back to the control that submitted.
+        const returnTarget = submitter || form.querySelector('[data-add-to-cart]');
+        if (!this.isOpen && document.activeElement === document.body && returnTarget?.isConnected) {
+          returnTarget.focus();
+        }
       }
     }
 
@@ -4087,7 +4101,8 @@
     updateHeaderCount() {
       const itemCount = Number(this.dataset.itemCount) || 0;
 
-      document.querySelectorAll('a[href]').forEach((link) => {
+      // Only the header cart link (the one that carries the counter) gets its name rewritten.
+      document.querySelectorAll('a.site-header__cart[data-cart-count-enabled]').forEach((link) => {
         const linkUrl = new URL(link.href, window.location.origin);
         const cartUrl = new URL(this.dataset.cartUrl, window.location.origin);
         if (linkUrl.origin !== cartUrl.origin || linkUrl.pathname !== cartUrl.pathname) return;
@@ -4800,6 +4815,9 @@
       const popoverWidth = this.activePopover.offsetWidth;
       const popoverHeight = this.activePopover.offsetHeight;
       const margin = 16;
+      // The fixed header must not cover the popover (--header-offset is 0 when it is not sticky).
+      const headerOffset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')) || 0;
+      const minTop = margin + headerOffset;
       const gap = 12;
       const preferredPosition = this.activePopover.dataset.position || 'right';
       let left = triggerRect.left + (triggerRect.width - popoverWidth) / 2;
@@ -4816,9 +4834,9 @@
       }
 
       const maxLeft = Math.max(margin, window.innerWidth - popoverWidth - margin);
-      const maxTop = Math.max(margin, window.innerHeight - popoverHeight - margin);
+      const maxTop = Math.max(minTop, window.innerHeight - popoverHeight - margin);
       left = Math.min(Math.max(left, margin), maxLeft);
-      top = Math.min(Math.max(top, margin), maxTop);
+      top = Math.min(Math.max(top, minTop), maxTop);
 
       this.activePopover.style.left = `${Math.round(left)}px`;
       this.activePopover.style.top = `${Math.round(top)}px`;
@@ -5065,6 +5083,11 @@
         window.clearTimeout(deadline);
         this.setBusy(false);
         drawer?.endMutation?.();
+        // Same as the product form: the disabled button dropped focus to body, give it back
+        // when no drawer took it.
+        if (!drawer?.isOpen && document.activeElement === document.body && this.submitButton?.isConnected) {
+          this.submitButton.focus();
+        }
       }
     }
 
@@ -5182,7 +5205,8 @@
 
     setPaused(paused) {
       this.toggleAttribute('data-paused', paused);
-      this.toggleButton.setAttribute('aria-pressed', String(paused));
+      // A single mechanism: the accessible name swaps (Pause/Play), so no aria-pressed.
+      this.toggleButton.removeAttribute('aria-pressed');
       const label = paused ? this.dataset.playLabel : this.dataset.pauseLabel;
       this.toggleButton.setAttribute('aria-label', label);
       if (this.toggleLabel) this.toggleLabel.textContent = label;
@@ -5636,7 +5660,7 @@
       this.listen(this.trigger, 'click', () => this.open());
       this.listen(this.closeButton, 'click', () => this.close(true));
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.close(true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.close(true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -5779,7 +5803,7 @@
         this.listen(this.clearButton, 'click', () => this.clearSearch());
       }
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.setOpen(false, true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.setOpen(false, true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
