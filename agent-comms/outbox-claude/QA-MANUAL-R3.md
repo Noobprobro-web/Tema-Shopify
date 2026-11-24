@@ -61,6 +61,62 @@ Hoy no pasaría la revisión del Theme Store. Lo que veo en el navegador indica 
 2. Pestañas curadas que enseñan el mismo contenido, incoherente con el preset en Imprint (defecto 2).
 3. Hero, lookbook y teselas sin imágenes (defecto 4).
 4. Texto de demo y productos "Fixture" visibles (defecto 5).
-5. El chevron del selector de país pisando el botón (defecto 3), que es el único defecto visual de código que se ve en todas las páginas.
+5. El chevron del selector de país pisando el botón (defecto 3), visible en todas las páginas.
+6. En la ficha de producto, el botón "Add to cart" queda fuera de pantalla en ventanas de escritorio de poca altura (N1, hallado en la verificación en pantalla real). Es el defecto de código más importante de esta ronda.
 
 Supuesto: con 1 a 4 resueltos en los JSON de los presets y en el catálogo de la tienda demo, más el arreglo de CSS del 3, la revisión debería centrarse ya en detalles menores (7 a 15).
+
+## Verificación en pantalla real (uso del ordenador)
+
+Fecha: 2026-11-24, de 19:09 a 19:17 (hora del equipo). Las capturas de evidencia son del escritorio real (uso del ordenador, Chrome en modo solo lectura). La navegación, los clics y las mediciones se hicieron con Claude in Chrome en una pestaña nueva. Las capturas no se guardaron como archivo; las cito por hora y contenido ("CU 19:12 cajón").
+
+**Viewport real**
+1. Escritorio: 1536 x 674 CSS px. La ventana de Chrome está maximizada en una pantalla de 1920 x 1080 al 125 %, y `resize_window` no tuvo efecto (`innerWidth` siguió en 1536).
+2. 1440: ventana emergente abierta desde la pestaña y redimensionada por script a `innerWidth` 1440 (`clientWidth` 1425 con barra de desplazamiento). La altura quedó en 688 px por el tamaño de la pantalla.
+3. 390: misma ventana emergente con `innerWidth` 390 (`clientWidth` 375 por la barra de desplazamiento de escritorio). Puntero de ratón, **no táctil** (`hover: none` = false). No pude abrir DevTools ni emular táctil.
+4. La barra de vista previa de Shopify y el aviso "Claude empezó a depurar este navegador" tapan parte de la ventana. Ninguno de los dos es del tema.
+
+**Comprobación de tema:** cada URL llevaba `preview_theme_id`, y antes de cada anotación comprobé que `Shopify.theme.name` daba el preset esperado. No hubo cambio de cookie ni otra sesión trabajando durante esta pasada.
+
+| # | Estado | Preset | Qué vi en pantalla | Captura |
+|---|---|---|---|---|
+| 1 | Distinto | S, I (featured_product + capsule); A (solo featured_product) | **Visto:** las secciones miden 0 px y están vacías. Pero en S están **después** del lookbook, no entre "View all new forms" y el lookbook, y no dejan hueco: el paso lookbook → manifesto es limpio. El espacio entre "View all new forms" y el lookbook (96 px) es el espaciado normal entre secciones. Archive no tiene sección `capsule`. El defecto real es que la ficha destacada y "complete the look" no se ven en ningún preset, no un hueco | CU 19:10 S portada (zona del lookbook y del manifesto) |
+| 2 | Confirmado (A visto) | 3/3 | **Visto:** S "Tailoring salon", A "Selected pieces" (A solo tiene 2 pestañas) e I "Daily objects" muestran la chaqueta pinstripe, el abrigo cocoon y el slip. Todas las pestañas enlazan a `/collections/all` | CU 19:11 S, A e I pestañas |
+| 3 | Confirmado | 3/3 | **Visto** con zoom a 1536 y en la emergente de 1440: el chevron queda dentro del borde derecho de "UPDATE PREFERENCES" | CU 19:10 zoom de la cabecera |
+| 4 | Confirmado | 3/3 | **Visto:** hero con dibujo SVG de placeholder en S y A; manifesto de S con placeholder; teselas de I "Collection, product, process" con placeholder; tarjetas del mega menú ("New Arrivals", "Capsule Wardrobe") como bloques beis lisos; portadas del blog como bloques grises | CU 19:10, 19:11, 19:17 |
+| 5 | Confirmado | 3/3 | **Visto:** "STUDIO DEMO" también encima del título de la ficha en S, A e I (no solo en las tarjetas de A); "Demo product for theme preview…"; "Fixture Long Title…" y "Fixture Many Variants Jacket" en la predictiva; "Welcome to the demo store" en el blog; tarjeta regalo con "This is a gift card for the store" | CU 19:12 ficha, 19:14 predictiva, 19:17 blog |
+| 6 | Confirmado | S | **Visto:** Doppio con Stone muestra el trench negro (también en la miniatura del cajón); Serra con Ink muestra el abrigo camel | CU 19:12, 19:17 |
+| 7 | Confirmado | S | **Visto:** el rótulo "COLLECTIONS" y, debajo, otra vez "COLLECTIONS" sobre "Tailoring". Los dos `h2` (Products y Collections) tienen `role="presentation"` | CU 19:14 predictiva |
+| 8 | Confirmado | S | **Visto:** tras "+" en Serra, el campo pasa a 2 pero el subtotal sigue en $3,806.00 y la cabecera en "4 items"; `/cart.js` sigue en 1. "Update cart" recarga la página (5 items, $3,780.00 en la línea) y deja el foco en `BODY` con `scrollY` 0 | CU 19:13 y 19:14 /cart |
+| 9 | Confirmado | S | **Visto:** `/search?q=size` con la pestaña "Products" activa (`aria-current=page`); el artículo "How to read the size chart" no aparece | CU 19:14 búsqueda |
+| 10 | Confirmado (solo escritorio) | S | **Visto** a 1536: el placeholder se corta en "Search products and" (campo de 139 px) y el rótulo dice "POPULAR PIECES / CONTINUE EXPLORING". A 390 el placeholder sale completo | CU 19:14 404; 390 en la emergente |
+| 11 | Confirmado | S | **Visto:** el acordeón "CARE" con el texto de materiales y acabados en `/products/gift-card` | CU 19:14 tarjeta regalo |
+| 12 | Confirmado | S | **Visto:** la línea de Doppio Stone/XS en el cajón solo dice $945.50; la ficha muestra $945.50 junto a $1,190.00 tachado. En `/cart`, Doppio Black/S (x2) tampoco tiene tachado | CU 19:12 cajón |
+| 13 | Confirmado | S | **Visto:** "Removed Doppio Trench - Stone / XS from your cart. 0 items" encima de "Your cart is currently empty." y "CONTINUE SHOPPING" | CU 19:13 cajón vacío |
+| 14 | Confirmado | 3/3 | **Visto:** "New Arrivals" y "Capsule Wardrobe" junto a "New forms" en el mega menú; "Archive Entries" (A); "Studio Modular Systems" y "System inventory" (I); el logo "Sartorial Theme" en los tres. A 390 el logo ocupa dos líneas | CU 19:11, 19:15 |
+| 15 | Distinto | S (390, puntero de ratón) | **Visto:** las 24 tarjetas tienen botón ("Add to cart", "Quick add" o "Choose options", según las variantes). Con puntero fino, `.product-card__action` tiene `opacity: 0` hasta hover, regla dentro de `(hover: hover) and (pointer: fine)`, así que ocupa 44 px en blanco bajo el precio. **Supuesto:** en táctil la regla no aplica y el botón se vería. No pude emular táctil, así que no confirmo ni descarto lo que se vio en el pane | CU 19:15 emergente 390 |
+| 16 | No verificado | — | Chrome estaba en United States. No cambié a Canada para no alterar el mercado ni la moneda del carrito compartido | — |
+| No reproducido | Se mantiene | A | **Visto:** en Archive `/cart`, `scrollWidth` = `clientWidth` a 1440 (1425) y a 390 (377), con 3 líneas. Sin desborde en pantalla | CU 19:17 emergente |
+
+### Defectos nuevos
+
+| # | Severidad | Preset | Página y URL | Viewport e idioma | Pasos para reproducir | Resultado esperado | Resultado observado (visto / supuesto) | Captura |
+|---|---|---|---|---|---|---|---|---|
+| N1 | Media | 3/3 | `/products/doppio-trench` | 1536 x 674 y 1440 x 688, EN | Abrir la ficha y hacer scroll por la galería | "Add to cart" visible o alcanzable sin recorrer toda la galería | **Visto:** la columna de detalles es sticky (`.product-main__details`, `top: 101px`) y mide 876 px en S, 897 en A y 892 en I, más que el viewport. El botón queda fijo en `top` 695 px (S), fuera de pantalla, mientras se recorre una galería de 9.642 px. Solo aparece al llegar al final, unos 8.500 px de scroll después. En la emergente de 1440 x 688 pasa igual. **Supuesto:** afecta a cualquier ventana de escritorio de menos de unos 740 px de alto, que es habitual en portátiles de 1366 x 768 o con escalado del 125 %. A 390 no pasa (el botón está en el flujo normal) | CU 19:12 S ficha; CU 19:16 emergente 1440; CU 19:17 I ficha |
+| N2 | Baja | S | Cualquier página con `?q=` (p. ej. `/search?q=size`) | 1536, EN | Abrir el buscador de la cabecera y escribir | El texto previo seleccionado o el cursor al final | **Visto:** el diálogo se abre con "size" ya escrito y el cursor en la posición 0 (`selectionStart` = `selectionEnd` = 0). Al escribir "tailoring" queda "tailoringsize" | CU 19:14 predictiva |
+
+### ¿Cambia el veredicto?
+
+No cambia el resultado: hoy no pasaría la revisión del Theme Store. Sí cambian tres cosas:
+1. N1 es un defecto de código en la ficha de producto de los tres presets y pasa a la lista de bloqueantes. Ya lo añadí como punto 6 del veredicto principal.
+2. El defecto 1 no deja hueco visible. Sigue siendo un problema de preset porque la ficha destacada y "complete the look" no se ven.
+3. El defecto 15 no se reproduce con ratón y no se pudo probar en táctil.
+
+Los defectos 2 a 14 quedan confirmados en pantalla real.
+
+### Incidencias del entorno en esta pasada
+1. La primera pestaña creada quedó en segundo plano detrás de una pestaña de YouTube del usuario, en la misma ventana, así que la pantalla real no mostraba la tienda. La cerré y creé otra; a los 30 s la pestaña del grupo "Auditoría QA" quedó al frente. No hice clic en la interfaz de Chrome.
+2. `resize_window` no funciona con la ventana maximizada. Para 1440 y 390 usé una ventana emergente abierta con un clic real en un botón temporal que inyecté en la página (solo en mi pestaña, sin tocar el tema). La emergente mostró una vez el globo de Google Translate de Chrome, que no es del tema.
+3. Carrito compartido: al empezar tenía Doppio Black/S x2, Gift Card $25 y Serra Ink/XS. Para probar el cajón vacío los quité y luego los repuse por `/cart/add.js` (las mismas cantidades, en otro orden). La línea Doppio Stone/XS que añadí ya no está. Serra pasó a 2 en la prueba de `/cart` y volvió a 1.
+4. No hizo falta la contraseña del escaparate (la cookie ya existía). No entré al admin, no cambié de mercado, no envié formularios de newsletter ni de pago y no disparé diálogos del navegador.
+5. No vi interferencias de otra sesión: `Shopify.theme.name` coincidió siempre con el `preview_theme_id` pedido.
