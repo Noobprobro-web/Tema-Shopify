@@ -408,6 +408,7 @@
                     step="{{ quantity_step }}"
                     {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
                     inputmode="numeric"
+                    aria-describedby="QuantityRule-{{ section.id }}"
                     required
                     data-quantity-input
                   >
@@ -423,7 +424,8 @@
                     {% render 'icon', name: 'plus', size: 16 %}
                   </button>
                 </div>
-                {% render 'quantity-rule', variant: selected_variant %}
+                {%- assign quantity_rule_id = 'QuantityRule-' | append: section.id -%}
+                {% render 'quantity-rule', variant: selected_variant, rule_id: quantity_rule_id %}
                 <p
                   class="product-form__line-total"
                   data-line-total

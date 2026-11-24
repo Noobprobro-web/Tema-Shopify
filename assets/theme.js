@@ -1363,7 +1363,7 @@
 
       if (label) {
         label.textContent = (this.dataset.lineTotalTemplate || '')
-          .replace('[quantity]', String(quantity));
+          .replaceAll('[quantity]', String(quantity));
       }
       if (current) current.textContent = formatMoney(unitCents * quantity, this.moneyFormat);
       if (compareValue) {
@@ -1398,7 +1398,7 @@
         const kind = part.dataset.quantityRulePart;
         const template = rule.getAttribute(`data-quantity-rule-${kind}-template`) || '';
         part.hidden = !shown[kind];
-        part.textContent = shown[kind] ? template.replace('[quantity]', String(values[kind])) : '';
+        part.textContent = shown[kind] ? template.replaceAll('[quantity]', String(values[kind])) : '';
       });
       rule.hidden = !Object.values(shown).some(Boolean);
     }
@@ -1564,7 +1564,7 @@
         ? (this.dataset.showCount === 'true'
           ? (quantity === 1 && this.dataset.lowStockTemplateOne
             ? this.dataset.lowStockTemplateOne
-            : this.dataset.lowStockTemplate.replace('[count]', String(quantity)))
+            : this.dataset.lowStockTemplate.replaceAll('[count]', String(quantity)))
           : this.dataset.lowStockGeneric)
         : this.dataset[state];
     }
@@ -1816,7 +1816,7 @@
       if (this.priceOutput) {
         this.priceOutput.textContent = multiple && this.unitPrice
           ? (this.dataset.quantityPriceTemplate || '')
-            .replace('[quantity]', String(quantity))
+            .replaceAll('[quantity]', String(quantity))
             .replace('[price]', this.unitPrice)
           : this.unitPrice;
       }
@@ -2051,7 +2051,7 @@
     updateCharacterCount() {
       if (!this.message || !this.characterCount) return;
       const remaining = Math.max(0, Number(this.message.maxLength) - this.message.value.length);
-      this.characterCount.textContent = this.dataset.charactersTemplate.replace('[count]', remaining);
+      this.characterCount.textContent = this.dataset.charactersTemplate.replaceAll('[count]', remaining);
     }
   }
 
@@ -3914,7 +3914,7 @@
       const count = rendered
         ? this.querySelector('[data-cart-drawer-count]')?.textContent.trim() || ''
         : '';
-      const message = template.replace('[title]', removal.title).trim();
+      const message = template.replaceAll('[title]', () => removal.title).trim();
       this.showStatus([message, count].filter(Boolean).join(' '));
     }
 
@@ -3923,7 +3923,7 @@
     announceQuantity(title, quantity) {
       const template = this.dataset.quantityUpdatedTemplate || '';
       if (!template) return;
-      this.showStatus(template.replace('[title]', title).replace('[quantity]', String(quantity)).trim());
+      this.showStatus(template.replaceAll('[title]', () => title).replaceAll('[quantity]', String(quantity)).trim());
     }
 
     // Focus target after removing a line, looked up in the freshly painted content: the next line,
@@ -4555,7 +4555,11 @@
         // where focus stays. The control that started the request is only a fallback for when the
         // repaint dropped focus (or Safari never focused the clicked checkbox).
         const focusIsElsewhere = !focusIsLost && !this.contains(activeEl);
-        const origin = !focusIsLost && !focusIsElsewhere ? activeEl : (options.origin || activeEl);
+        // The results grid lives inside this element too: a product link focused meanwhile is
+        // replaced by the swap and has nothing to find it again by (no id, no name, no filter
+        // group), so the request origin is the better target then.
+        const canRestoreActive = Boolean(activeEl?.id || activeEl?.name || activeEl?.closest?.('details.facet'));
+        const origin = !focusIsLost && !focusIsElsewhere && canRestoreActive ? activeEl : (options.origin || activeEl);
         const focusWasInside = focusIsLost || this.contains(activeEl);
         const originGroup = origin?.closest?.('details.facet');
         const focusTarget = {
@@ -5765,7 +5769,7 @@
       if (this.empty) this.empty.hidden = matches > 0;
       if (this.status) {
         this.status.textContent = (this.dataset.filterCountTemplate || '')
-          .replace('[count]', String(matches));
+          .replaceAll('[count]', String(matches));
       }
     }
   }
@@ -6267,7 +6271,7 @@
 
     getResultsCountText(count) {
       if (count === 1) return this.dataset.resultsCountOne || '';
-      return (this.dataset.resultsCountOther || '').replace('[count]', String(count));
+      return (this.dataset.resultsCountOther || '').replaceAll('[count]', String(count));
     }
 
     handleInputKeydown(event) {

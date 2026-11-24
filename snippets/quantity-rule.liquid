@@ -3,9 +3,12 @@
 
   Accepts:
   - variant: the variant selected on the server
+  - rule_id: id for the note, so the quantity input can reference it with aria-describedby
+    (unique per section; the caller prints that attribute on the input)
 
   Nothing is shown for the trivial rule (minimum 1, multiples of 1, no maximum): the container is
   still printed, hidden, so theme.js can reveal it when the shopper picks a variant with a rule.
+  The hidden note stays empty (no text in any part), so the input's aria-describedby reads nothing.
   The translated templates travel as data attributes (the token [quantity] is replaced by theme.js)
   and the values per variant come from the quantity_min, quantity_increment and quantity_max fields
   of the variant JSON that variant-no-js-select prints. Without JavaScript the server text above is
@@ -21,6 +24,7 @@
   endif
 -%}
 <p
+  {% if rule_id != blank %}id="{{ rule_id }}"{% endif %}
   class="product-form__tax-note product-form__quantity-rule"
   data-quantity-rule
   data-quantity-rule-min-template="{{ 'products.product.quantity_rules.min' | t: quantity: '[quantity]' | escape_once }}"

@@ -102,6 +102,9 @@
   endif
 
   assign quick_buy_mode = 'none'
+  # A single-variant product only reaches the options mode through a quantity rule: there is
+  # nothing to choose, so the card links to the page ("View product") instead of "Choose options".
+  assign options_label = 'products.product.choose_options' | t
   if show_quick_add
     if card_product.available == false
       assign quick_buy_mode = 'sold_out'
@@ -113,6 +116,7 @@
       # Options with a single value (e.g. a one-of-one piece with Condition and Size) are still a
       # single variant; asking for "Choose options" was an empty step.
       assign quick_buy_mode = 'single'
+      assign options_label = 'products.product.view_product' | t
     elsif card_product.options.size == 1 and swatch_position == 1
       assign quick_buy_mode = 'direct'
     elsif card_product.options.size <= 2 and picker_position > 0
@@ -517,7 +521,7 @@
 
             {%- when 'options' -%}
               <a class="button button--secondary button--full" href="{{ card_product.url }}" data-card-link>
-                {{- 'products.product.choose_options' | t -}}
+                {{- options_label -}}
               </a>
 
             {%- when 'sold_out' -%}

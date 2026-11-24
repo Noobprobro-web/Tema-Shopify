@@ -4847,18 +4847,22 @@ marquee-banner {
     grid-template-rows: minmax(24rem, auto);
   }
 
+  /* The tall collection card only applies when it is the first block: that is the cell the base
+     layout reserves for it. Anywhere else it is a regular tile, so the auto placement leaves no
+     gaps, and an odd last block takes the whole row. */
+  .bento-discovery__grid:not(:has(> .bento-discovery__item--featured:first-child)) .bento-discovery__item--featured,
   .bento-discovery__grid[data-count='1'] .bento-discovery__item--featured,
   .bento-discovery__grid[data-count='2'] .bento-discovery__item--featured {
     grid-row: auto;
   }
 
-  /* Four blocks: the collection card and two more fill two rows, the last block runs full width. */
-  .bento-discovery__grid[data-count='4'] .bento-discovery__item:last-child {
+  /* Four blocks with the collection card first: it and two more fill two rows, the last block runs
+     full width. */
+  .bento-discovery__grid[data-count='4']:has(> .bento-discovery__item--featured:first-child) .bento-discovery__item:last-child {
     grid-column: 1 / -1;
   }
 
-  /* Without a collection card there is no tall cell: an odd last block takes the whole row. */
-  .bento-discovery__grid:not(:has(.bento-discovery__item--featured)) .bento-discovery__item:last-child:nth-child(odd) {
+  .bento-discovery__grid:not(:has(> .bento-discovery__item--featured:first-child)) .bento-discovery__item:last-child:nth-child(odd) {
     grid-column: 1 / -1;
   }
 

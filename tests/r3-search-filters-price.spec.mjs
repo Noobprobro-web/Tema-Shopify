@@ -187,6 +187,7 @@ const facetsMarkup = (render) => `<facet-filters-form data-section-id="facets" d
     </form>
     <div class="collection-products" data-product-grid aria-busy="false" data-render="${render}">
       <p class="collection-products__count" data-results-status tabindex="-1">24 products</p>
+      <a class="product-link" href="/products/p" data-card-link>Product</a>
     </div>
   </section>
 </facet-filters-form>`;
@@ -232,6 +233,18 @@ test.describe('AS-05 focus after a slow filter response', () => {
     await expect.poll(() => state.queries.length).toBe(2);
     state.hold.open();
     await swapped(page, 2);
+    await afterFrames(page);
+    await expect(page.locator('#Filter-facets-color-1')).toBeFocused();
+  });
+
+  test('AS-05 focus that moved to a product link inside the component returns to the control that started the request', async ({ page }) => {
+    const state = await mountFilters(page, { hold: gate() });
+    await page.locator('#Filter-facets-color-1').click();
+    await expect.poll(() => state.queries.length).toBe(1);
+    // The results grid is part of the component, but the link has no id or name to be found by.
+    await page.locator('.product-link').focus();
+    state.hold.open();
+    await swapped(page, 1);
     await afterFrames(page);
     await expect(page.locator('#Filter-facets-color-1')).toBeFocused();
   });
@@ -351,5 +364,17 @@ test.describe('FO-05 quantity rule text', () => {
     await expect(part('min')).toBeHidden();
     await expect(part('increment')).toHaveText('Sold in multiples of 2');
     await expect(part('max')).toHaveText('Maximum of 10');
+  });
+
+  test('FO-05 a template that repeats the marker is filled everywhere (Spanish increment text)', async ({ page }) => {
+    const variants = [variantRecord({ id: 1, options: ['A'], quantity_min: 6, quantity_increment: 6 }), variantRecord({ id: 2, options: ['B'] })];
+    // The Spanish string is "De {{ quantity }} en {{ quantity }}": the marker appears twice.
+    const html = pageShell(productBlock(variants, 2)).replace(
+      'Sold in multiples of [quantity]',
+      'De [quantity] en [quantity]'
+    );
+    await mountPage(page, html, { path: '/products/p' });
+    await page.locator('#Size-1').check();
+    await expect(page.locator('[data-quantity-rule-part="increment"]')).toHaveText('De 6 en 6');
   });
 });

@@ -187,6 +187,35 @@ test.describe('FB-17 bento grid adapts to the number of blocks', () => {
     expect(four[3].top, 'and sits below the other three').toBeGreaterThanOrEqual(Math.max(four[0].bottom, four[2].bottom) - 1);
   });
 
+  // Four blocks where the collection card is not the first one: a clean 2x2 with no empty cell.
+  for (const kinds of [
+    ['editorial', 'product', 'product', 'product'],
+    ['editorial', 'product', 'product', 'featured'],
+    ['editorial', 'featured', 'product', 'product'],
+  ]) {
+    test(`FB-17 four blocks (${kinds.join(', ')}) fill a 2x2 with no gap`, async ({ page }) => {
+      await mount(page, bento(kinds));
+      const grid = await box(page, '.bento-discovery__grid');
+      const [a, b, c, d] = await bentoRects(page);
+      expect(Math.abs(a.top - b.top), 'first row').toBeLessThanOrEqual(1);
+      expect(Math.abs(c.top - d.top), 'second row').toBeLessThanOrEqual(1);
+      expect(c.top, 'second row sits under the first').toBeGreaterThanOrEqual(Math.max(a.bottom, b.bottom) - 1);
+      expect(Math.abs(a.left - c.left), 'same first column').toBeLessThanOrEqual(1);
+      expect(Math.abs(b.left - d.left), 'same second column').toBeLessThanOrEqual(1);
+      expect(d.right, 'the last cell reaches the right edge').toBeGreaterThanOrEqual(grid.right - 1);
+      expect(d.width, 'and is not stretched over the row').toBeLessThan(grid.width - 100);
+    });
+  }
+
+  test('FB-17 a collection card in the last of three blocks is a regular tile and the odd block takes the row', async ({ page }) => {
+    await mount(page, bento(['editorial', 'product', 'featured']));
+    const grid = await box(page, '.bento-discovery__grid');
+    const [first, second, third] = await bentoRects(page);
+    expect(Math.abs(first.top - second.top)).toBeLessThanOrEqual(1);
+    expect(third.width, 'no half-empty row').toBeGreaterThanOrEqual(grid.width - 1);
+    expect(third.top).toBeGreaterThanOrEqual(Math.max(first.bottom, second.bottom) - 1);
+  });
+
   test('FB-17 without a collection card an odd last block takes the whole row', async ({ page }) => {
     await mount(page, bento(['editorial', 'product', 'product']));
     const grid = await box(page, '.bento-discovery__grid');
