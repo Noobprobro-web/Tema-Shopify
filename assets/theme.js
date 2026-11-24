@@ -3818,6 +3818,10 @@
         applied = true;
         await this.renderCartResponse(result, revision);
         if (removal && this.isOpen) this.announceRemoval(removal, this.renderedRevision === revision);
+        // An overtaken response is not announced: the newer mutation announces its own result.
+        else if (!removal && quantity > 0 && removedRow && this.isOpen && this.renderedRevision === revision) {
+          this.announceQuantity(removedRow.dataset.cartItemTitle || '', result?.items?.find((item) => item.key === key)?.quantity ?? quantity);
+        }
       } finally {
         // If the removal failed or the drawer closed, nobody will consume its focus target. If it
         // was applied but its response was overtaken, the target waits for the render that reflects
@@ -3852,6 +3856,14 @@
         : '';
       const message = template.replace('[title]', removal.title).trim();
       this.showStatus([message, count].filter(Boolean).join(' '));
+    }
+
+    // Same region for a quantity change (the removal has its own notice). showStatus() adds a pending
+    // rewards message, so the two are announced together and never twice.
+    announceQuantity(title, quantity) {
+      const template = this.dataset.quantityUpdatedTemplate || '';
+      if (!template) return;
+      this.showStatus(template.replace('[title]', title).replace('[quantity]', String(quantity)).trim());
     }
 
     // Focus target after removing a line, looked up in the freshly painted content: the next line,
@@ -3992,6 +4004,9 @@
       if (!page) return;
 
       const pageSectionId = page.dataset.sectionId;
+      // A sync without a mutation (opening the drawer) must not throw away what the shopper has typed
+      // on the page and not submitted yet: the page is left as is until the next mutation or reload.
+      if (!sections && this.cartPageHasEdits(page)) return;
       let pageHtml = sections?.[pageSectionId];
 
       if (!pageHtml) {
@@ -4009,7 +4024,18 @@
       if (revision !== this.syncRevision) return;
       const nextPage = new DOMParser().parseFromString(pageHtml, 'text/html').querySelector('[data-cart-page]');
       const currentPage = this.cartPageSection();
-      if (nextPage && currentPage?.isConnected) currentPage.replaceWith(nextPage);
+      if (!nextPage || !currentPage?.isConnected) return;
+      // A mutation does change the lines, but an unsent note typed on the page is still the shopper's.
+      const note = currentPage.querySelector('textarea[name="note"]');
+      const nextNote = nextPage.querySelector('textarea[name="note"]');
+      if (note && nextNote && note.value !== note.defaultValue) nextNote.value = note.value;
+      currentPage.replaceWith(nextPage);
+    }
+
+    // True when a quantity field or the note of the page differs from what the server painted.
+    cartPageHasEdits(page) {
+      return Array.from(page.querySelectorAll('input[name="updates[]"], textarea[name="note"]'))
+        .some((field) => field.value !== field.defaultValue);
     }
 
     renderSection(sectionHtml) {
@@ -4034,6 +4060,11 @@
 
       const active = document.activeElement;
       const restoreFocus = this.isOpen && (currentContent.contains(active) || active === document.body);
+      // Checkout and the accelerated payment container have no stable id: they are found again by
+      // their data-focus-key. It is read here because the old content is detached below.
+      const focusKey = (active === document.body && this.busyFocus && currentContent.contains(this.busyFocus)
+        ? this.busyFocus
+        : active)?.closest?.('[data-focus-key]')?.dataset.focusKey || '';
       // The scrollable track lives inside the block that is replaced: without this, changing the
       // quantity of a line at the bottom of the list would send the track back to the very top.
       const previousScroll = currentContent.querySelector('[data-cart-scroll]')?.scrollTop || 0;
@@ -4078,7 +4109,14 @@
         const target = restored && !restored.disabled
           ? restored
           : restored?.closest('[data-quantity-stepper]')?.querySelector('[data-quantity-button]:not([disabled])');
-        (target || this.crossSellFocusAfterRender(focusSource, nextContent) || this.querySelector('[data-cart-drawer-close]'))?.focus();
+        // The accelerated payment container is not focusable itself: its first focusable child is.
+        const keyed = focusKey ? nextContent.querySelector(`[data-focus-key="${CSS.escape(focusKey)}"]`) : null;
+        const keyedTarget = keyed && !keyed.disabled
+          ? (keyed.matches('button, a[href], input, select, textarea, [tabindex]')
+            ? keyed
+            : keyed.querySelector('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+          : null;
+        (target || keyedTarget || this.crossSellFocusAfterRender(focusSource, nextContent) || this.querySelector('[data-cart-drawer-close]'))?.focus();
       }
       this.dataset.itemCount = nextDrawer.dataset.itemCount;
       this.dataset.cartCountLabel = nextDrawer.dataset.cartCountLabel;
@@ -6685,8 +6723,8 @@
   // receives the event first. It is idempotent.
   const snapQuantityField = (input) => {
     // On a cart line, 0 is the command to remove it: it is respected as is, so the field shows what
-    // is sent (the cart page form is novalidate).
-    if (input.matches('[data-cart-quantity]') && input.value === '0') return;
+    // is sent (the cart page form is novalidate). The page fields are named updates[].
+    if (input.matches('[data-cart-quantity], [name="updates[]"]') && input.value === '0') return;
     const { step, min, maxOnGrid } = readQuantityRules(input);
     // Empty field: it only rises to min if min > 0 (in the cart, min 0 leaves it).
     const current = Number(input.value);
