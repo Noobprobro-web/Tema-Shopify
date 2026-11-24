@@ -428,3 +428,64 @@ Localizadores del schema que cambian respecto a §2.6 y §8: FB-55 está ahora e
 6. Regenerar la ZIP y `docs/demo-store/ZIP-FINAL-MANIFEST-1.0.0.txt`, una sola vez.
 7. Regenerar `scripts/translations/es.storefront.json` contra las plantillas integradas (11.4) antes de registrar traducciones.
 8. Compuerta 5 en `sartorial-theme-kvkzl39t` según §6, después de que se resuelva DP-022 (subida del tema de desarrollo, no antes de la integración).
+
+---
+
+## 12. Integración (2026-11-24)
+
+```text
+Estado: ramas integradas en claude/clever-gauss-ddhyr2. Compuerta 5 sigue ABIERTA (nada de R3 probado en tienda real).
+Autorización: Johandry, 2026-11-24, «si se puede fusionar y no choca con gpt hazlo, al igual que tus recomendaciones» (D56 a D61 en docs/decisions.md).
+```
+
+### 12.1 Fusión
+
+- `master` estaba en `d70b45a1cc297c02e081d2071568ccbcaadecd2b` (fusión del PR #24, rama de GPT en `792d58f`). `git merge --no-edit origin/master` sobre la rama de Claude: sin conflictos, commit de fusión `9ab848414d901ff3e13d8c48fa6e3767f0a9010d`.
+- Los archivos de GPT no se editaron en la integración.
+
+### 12.2 Claves de locale borradas
+
+Cinco claves, confirmadas sin referencia estática ni construida por concatenación en `sections/`, `snippets/`, `layout/`, `templates/`, `assets/`, `config/` y `listings/`, y borradas de `locales/en.default.json` y `locales/es.json` (ninguna era clave de schema): `sections.lookbook.image_alt`, `sections.complete_the_look.image_alt`, `sections.homepage.manifesto.material_image_alt`, `sections.homepage.marquee.region_label` y `password.image_alt`. Antes del borrado, `npm run gates:locales` listaba exactamente esas cinco; después, 0 huérfanas en storefront y en schema. No había otras.
+
+### 12.3 Retoques de texto
+
+| Clave | Texto final |
+| --- | --- |
+| `sections.cart_drawer.settings.enable_tiered_progress.info` (`locales/en.default.schema.json:1186`) | The bar stays hidden until at least one threshold is set. It is also hidden when customers shop in a currency other than the store currency. |
+| `not_found.title` (`locales/es.json:425`) | Página no encontrada |
+
+### 12.4 Decisiones registradas
+
+D56 (DP-019, numeración por posición), D57 (DP-020, no hay vista rápida; se documenta), D58 (DP-021, voz editorial se mantiene), D59 (DP-022, subir el HEAD integrado como tema NO publicado para la compuerta 5 y nada más), D60 (DP-023, copy D6 aprobado) y D61 (fusión del PR #24). DP-019 a DP-023 salen de `docs/decisions-pending.md`.
+
+### 12.5 Ledger
+
+Filas tocadas: tarjeta única (FB-08, a `código completo`, evidencia `sections/collection-list.liquid:31-43`), comentarios en inglés (FO-06, FB-37, a `cumplido`, sin necesidad de tienda y con revisión cruzada hecha), textos D35 (sigue `no verificado` hasta verlos en tienda), vista rápida y FB-36 (referencias a decisiones resueltas), slideshow y foco (DP-019 resuelta), Imágenes Responsivas (evidencia de GPT). Filas nuevas: blog (rejilla, vacío, destacado y paginación, con el defecto N1), texto alternativo de imágenes, encabezados de búsqueda y recuento de filtros, página de contraseña y marquee.
+
+Recuento final: 102 filas, 38 `cumplido`, 61 `código completo`, 2 `no verificado` y 1 `ausente` (antes 97: 37, 55, 4 y 1).
+
+**Defecto conocido N1 (de GPT, no tocado):** `sections/main-blog.liquid:121` compara `featured_article.blog.id`, propiedad que un `article` no tiene, así que la condición es siempre falsa y el rótulo con el total de artículos cuenta también el destacado. Bajo impacto, no bloquea. Pendiente de GPT.
+
+### 12.6 Verificación
+
+| Comando | Resultado |
+| --- | --- |
+| `npm run gates:static` (ocho etapas) | salida 0; Theme Check «107 files inspected with no offenses found»; `gates:locales` 0 huérfanas; `gates:ledger` 0 incoherencias |
+| `npx playwright test tests/slideshow-reconnect.spec.mjs tests/r3-*.spec.mjs --trace off`, dos pasadas | 43 passed y 43 passed, sin tienda |
+
+Qué demuestra: coherencia estática y comportamiento en un navegador sin tienda. Qué no: nada de lo que exige la compuerta 5.
+
+### 12.7 ZIP final y manifiesto
+
+- Procedimiento (el de `d334221`): `node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip --expect-count 107` sobre HEAD ya commiteado (el empaquetador lee los blobs de git). El manifiesto lleva la cabecera de diez líneas del anterior y una línea `sha256  ruta` por archivo, en el orden del ZIP, calculadas sobre el ZIP extraído.
+- Revisión empaquetada: `823449746fe99a4883e3ada130bed70c867cb3b0`. Archivos: 107 (dos más que la ZIP anterior de 105: `snippets/quantity-rule.liquid` y `snippets/size-guide-measurements.liquid`). Tamaño: 329701 bytes. sha256: `1306eaf959d7007b7930e368a6489917090428c093541c913713a573eb810db8`. Huella de contenido: `e32baed9311aa65576f8dc96adb4c9db49e6452d7228bedfa40864484a137d19`.
+- Comprobaciones: «internal references: none», `unzip -t` sin errores y `node --check assets/theme.js` correcto sobre el archivo extraído.
+- El manifiesto declara que esta revisión NO está validada en tienda.
+
+### 12.8 Pasos que quedan
+
+1. Compuerta 5 en `sartorial-theme-kvkzl39t` (D38, D59): subir el HEAD integrado como tema NO publicado y recorrer `CLAUDE-R3-IMPL-001` §6, incluidos los dos tests de `tests/pdp-line-total.spec.mjs` que necesitan tienda.
+2. Regenerar `scripts/translations/es.storefront.json` contra las plantillas integradas (§11.4): está desincronizado desde antes de R3 y la rama de GPT cambia copy de `templates/` y `listings/`. Hasta entonces, ese contenido saldrá en inglés en `/es`.
+3. N1: arreglo en `sections/main-blog.liquid` (de GPT), recomendado y no bloqueante.
+4. Fusionar el PR #23 (rama de Claude) en `master`. Si cambia algún archivo del tema después de este commit, hay que regenerar la ZIP y el manifiesto.
+5. Nota de submission sobre la ausencia de vista rápida (D57).
