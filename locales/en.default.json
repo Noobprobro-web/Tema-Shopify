@@ -72,6 +72,7 @@
       "remove": "Remove",
       "remove_item": "Remove {{ title }}",
       "item_removed": "Removed {{ title }} from your cart.",
+      "quantity_updated": "Quantity of {{ title }} updated to {{ quantity }}.",
       "discount": "Discount",
       "subtotal": "Subtotal",
       "taxes_included": "Taxes included.",
@@ -86,6 +87,9 @@
       "add_failed": "This item could not be added to your cart.",
       "shipping_remaining": "Add {{ amount }} for free shipping",
       "shipping_unlocked_gift_remaining": "Free shipping unlocked. Add {{ amount }} for a gift",
+      "shipping_unlocked": "Free shipping unlocked",
+      "gift_remaining": "Add {{ amount }} for a gift",
+      "gift_unlocked": "Gift unlocked",
       "rewards_unlocked": "Free shipping and gift unlocked",
       "rewards_progress": "Cart rewards progress",
       "shipping_milestone": "Shipping at {{ amount }}",
@@ -168,6 +172,7 @@
     },
     "featured_product": {
       "region_label": "Featured product",
+      "region_label_numbered": "Featured product {{ number }}",
       "onboarding_title": "Featured luxury product",
       "onboarding_price": "$480.00"
     },
@@ -476,6 +481,11 @@
       "unit_price": "Unit price",
       "taxes_included": "Taxes included.",
       "estimated_line_total": "Estimated item subtotal for {{ quantity }} units:",
+      "quantity_rules": {
+        "min": "Minimum {{ quantity }}",
+        "max": "Maximum {{ quantity }}",
+        "increment": "Sold in multiples of {{ quantity }}"
+      },
       "taxes_included_shipping_at_checkout": "Taxes included. Shipping calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout.",
       "discounts_at_checkout": "Discounts and the final amount are confirmed at checkout.",
@@ -648,6 +658,7 @@
     "results_label": "Search suggestions",
     "loading": "Searching",
     "no_results": "No suggestions yet. Press enter to search the full catalog.",
+    "error": "We could not load suggestions. Press enter to search the full catalog.",
     "clear": "Clear search",
     "in_stock": "In stock",
     "products": "Products",

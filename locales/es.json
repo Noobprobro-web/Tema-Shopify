@@ -72,6 +72,7 @@
       "remove": "Eliminar",
       "remove_item": "Eliminar {{ title }}",
       "item_removed": "Se eliminó {{ title }} de tu carrito.",
+      "quantity_updated": "Cantidad de {{ title }} actualizada a {{ quantity }}.",
       "discount": "Descuento",
       "subtotal": "Subtotal",
       "taxes_included": "Impuestos incluidos.",
@@ -86,6 +87,9 @@
       "add_failed": "No se pudo añadir este artículo al carrito.",
       "shipping_remaining": "Añade {{ amount }} para el envío gratuito",
       "shipping_unlocked_gift_remaining": "Envío gratuito desbloqueado. Añade {{ amount }} para recibir un obsequio",
+      "shipping_unlocked": "Envío gratuito desbloqueado",
+      "gift_remaining": "Añade {{ amount }} para recibir un obsequio",
+      "gift_unlocked": "Obsequio desbloqueado",
       "rewards_unlocked": "Envío gratuito y obsequio desbloqueados",
       "rewards_progress": "Progreso de las ventajas del carrito",
       "shipping_milestone": "Envío desde {{ amount }}",
@@ -168,6 +172,7 @@
     },
     "featured_product": {
       "region_label": "Producto destacado",
+      "region_label_numbered": "Producto destacado {{ number }}",
       "onboarding_title": "Producto de lujo destacado",
       "onboarding_price": "$480.00"
     },
@@ -476,6 +481,11 @@
       "unit_price": "Precio unitario",
       "taxes_included": "Impuestos incluidos.",
       "estimated_line_total": "Subtotal estimado del artículo para {{ quantity }} unidades:",
+      "quantity_rules": {
+        "min": "Mínimo {{ quantity }}",
+        "max": "Máximo {{ quantity }}",
+        "increment": "De {{ quantity }} en {{ quantity }}"
+      },
       "taxes_included_shipping_at_checkout": "Impuestos incluidos. Envío calculado al pagar.",
       "taxes_and_shipping_at_checkout": "Impuestos y envío calculados al pagar.",
       "discounts_at_checkout": "Los descuentos y el importe final se confirman al pagar.",
@@ -648,6 +658,7 @@
     "results_label": "Sugerencias de búsqueda",
     "loading": "Buscando",
     "no_results": "Aún no hay sugerencias. Pulsa Enter para buscar en todo el catálogo.",
+    "error": "No pudimos cargar las sugerencias. Pulsa Enter para buscar en todo el catálogo.",
     "clear": "Borrar la búsqueda",
     "in_stock": "Disponible",
     "products": "Productos",

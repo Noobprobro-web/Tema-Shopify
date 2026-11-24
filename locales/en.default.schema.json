@@ -1186,11 +1186,11 @@
         },
         "free_shipping_threshold": {
           "label": "Free shipping amount",
-          "info": "Match your actual shipping rates and eligible markets in Settings > Shipping and delivery. This amount does not create a shipping rate, make express shipping free, or guarantee eligibility at checkout."
+          "info": "Match your actual shipping rates and eligible markets in Settings > Shipping and delivery. This amount does not create a shipping rate, make express shipping free, or guarantee eligibility at checkout. Leave empty or enter 0 to skip this step and show only the gift."
         },
         "atelier_gift_threshold": {
           "label": "Gift amount",
-          "info": "Match an actual gift offer and its eligibility conditions. Configure any required products and discounts in Shopify. This amount does not add a gift or create a discount."
+          "info": "Match an actual gift offer and its eligibility conditions. Configure any required products and discounts in Shopify. This amount does not add a gift or create a discount. Leave empty or enter 0 to skip this step and show only free shipping."
         },
         "show_complementary_products": {
           "label": "Show complementary products",
@@ -1409,7 +1409,7 @@
             },
             "show_unique_piece": {
               "label": "Show unique piece label",
-              "info": "Requires documented uniqueness and a reviewed single physical item. Size variants, untracked inventory or overselling make the item ineligible."
+              "info": "Requires documented uniqueness and a reviewed single physical item. Size variants, untracked inventory or overselling make the item ineligible. This setting applies to every product that displays this block."
             },
             "condition_grade": {
               "label": "Condition grade",
@@ -1468,8 +1468,8 @@
           "name": "Editorial tile",
           "settings": {
             "position_in_grid": {
-              "label": "Place after this many products",
-              "info": "Moves to the end of the grid when the collection has fewer products."
+              "label": "Position in grid",
+              "info": "Position the tile takes in the grid. For example, 4 makes it the fourth item. Moves to the end of the grid when the collection has fewer products."
             },
             "link_label": {
               "label": "Link text"
