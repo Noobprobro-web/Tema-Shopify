@@ -429,3 +429,40 @@ Fuente de todas las decisiones de esta sección: respuesta de Johandry en la ses
 - **D59 · DP-022, tema de desarrollo para la compuerta 5:** se autoriza subir el HEAD integrado de las dos ramas a `sartorial-theme-kvkzl39t` como tema de desarrollo NO publicado, para las pruebas de la compuerta 5 de R3, y nada más. No autoriza publicar ni modificar el tema publicado. Se mantiene el alcance de D38 (no se publica, no se borra ningún tema, no se instalan ni configuran apps). La subida se ejecuta después de la integración, no antes.
 - **D60 · DP-023, copy D6 de GPT posterior a la aprobación:** se aprueba el copy aplicado en `03cddcb`: «Engineered for high telemetry» pasa a «Objects for everyday use» (`listings/imprint/templates/collection.json`), la descripción del lookbook de `templates/index.json` pasa a «Explore the collection.», se retira el bloque CTA sin URL de `templates/page.faq.json` y el default «Contact us» de `sections/main-faq.liquid` queda vacío. Se suma a lo aprobado en D44.
 - **D61 · PR #24 fusionado a master:** el PR #24 (`gpt/r3-copy-plantillas` a `master`, cabeza `792d58f`) se fusionó a `master` por autorización de Johandry (commit de fusión `d70b45a1cc297c02e081d2071568ccbcaadecd2b`). Claude trajo `master` a `claude/clever-gauss-ddhyr2` el mismo día sin conflictos (commit de fusión `9ab848414d901ff3e13d8c48fa6e3767f0a9010d`). La fusión del PR #23 queda pendiente.
+
+## 2026-11-24: Limpieza de temas en la tienda de desarrollo (D62)
+
+Fecha: 2026-11-24. Decidido por: Johandry. Fuente: respuesta de Johandry en la sesión de Claude Code, 2026-11-24, literalmente «elimina los previews de tema que no se usaran, deja solo el mas reciente y el publicado», con la opción elegida por él de conservar también los dos presets rc5.
+
+- **D62 · Limpieza de temas en `sartorial-theme-kvkzl39t.myshopify.com`:** se borraron 15 temas antiguos sin publicar. Es una excepción puntual a la prohibición de borrar temas de D38, limitada a esta lista.
+  - Borrados (ID → nombre):
+    - `190299111728` test-data
+    - `190300356912` Preview sartorial 2026-11-14
+    - `190300422448` Preview archive 2026-11-14
+    - `190300455216` Preview imprint 2026-11-14
+    - `190316839216` Sartorial rc2 (bb9fc8a)
+    - `190316871984` Imprint rc2 (bb9fc8a)
+    - `190316904752` Archive rc2 (bb9fc8a)
+    - `190317920560` Sartorial rc3 (51fda7c)
+    - `190317953328` Imprint rc3 (51fda7c)
+    - `190317986096` Archive rc3 (51fda7c)
+    - `190352425264` Sartorial rc3-oldsizes
+    - `190452203824` Sartorial rc4 (9e4359f)
+    - `190452236592` Imprint rc4 (9e4359f)
+    - `190452269360` Archive rc4 (9e4359f)
+    - `190453285168` Sartorial pkg (e5fd4b2)
+  - Conservados:
+    - `190453383472` Archive rc5 (e5fd4b2), publicado por Johandry hoy
+    - `190453317936` Sartorial rc5 (e5fd4b2)
+    - `190453350704` Imprint rc5 (e5fd4b2)
+    - `190692557104` Development (476aa2-vm), tema de desarrollo de la compuerta 5 de R3
+  - Consecuencias:
+    - El borrado es irreversible.
+    - El tema publicado `Archive rc5 (e5fd4b2)` contiene código anterior a R3.
+    - Los documentos anteriores pueden citar IDs que ya no existen. Se conservan como registro histórico y no se editan.
+  - Archivos que citan los IDs borrados, según `git grep` sobre el árbol antes de escribir esta entrada (131 archivos; esta entrada no cuenta):
+    - `docs/decisions.md`: línea 378 (D38), con los IDs `190300356912`, `190300422448` y `190300455216`.
+    - `docs/demo-store/created-themes.json`.
+    - `agent-comms/outbox-claude/`: `HANDOFF-SESION-NUEVA-20261114.md`; `reviews-20261110/` (5); `tests-rc2-20261114/` (26); `tests-rc3-20261114/` (15); `tests-rc4-20261118/` (8); `tests-rc5-20261118/` (8); `tests-r2-20261120/` (14); `tests-r2b-20261120/` (31); `tests-sizes-20261115/` (6); `lighthouse-20261115b/` (1); `lighthouse-sizes-20261115/` (1).
+    - `agent-comms/outbox-gpt/harness-GPT-RA-RB-001/`: `README.md`, `selftest.mjs` y 11 archivos en `results/`.
+    - Lista completa: `git grep -l -E '<los 15 IDs>'`.
