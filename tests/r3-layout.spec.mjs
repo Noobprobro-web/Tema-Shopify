@@ -292,3 +292,54 @@ test.describe('Quantity rule text', () => {
     await expect(page.locator('[data-quantity-rule-part="max"]')).toBeHidden();
   });
 });
+
+// ---------------------------------------------------------------------------------------------
+test.describe('L3 grid switcher in forced colors', () => {
+  const switcher = `<div class="collection-grid-switcher">
+    <button class="collection-grid-switcher__button" type="button" aria-pressed="true">
+      <span class="collection-grid-switcher__icon collection-grid-switcher__icon--two" aria-hidden="true"><i></i><i></i></span>
+    </button>
+    <button class="collection-grid-switcher__button" type="button" aria-pressed="false">
+      <span class="collection-grid-switcher__icon collection-grid-switcher__icon--four" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </button></div>`;
+
+  test('L3 the icons stay visible and the pressed button has a highlight outline', async ({ page }) => {
+    await page.emulateMedia({ forcedColors: 'active' });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await mount(page, switcher);
+    const state = await page.evaluate(() => {
+      const button = (n) => document.querySelectorAll('.collection-grid-switcher__button')[n];
+      const style = (el) => getComputedStyle(el);
+      const icon = style(document.querySelector('.collection-grid-switcher__icon i'));
+      const canvas = style(document.body).backgroundColor;
+      return {
+        iconBackground: icon.backgroundColor,
+        canvas,
+        pressedOutline: style(button(0)).outlineStyle,
+        pressedWidth: style(button(0)).outlineWidth,
+        otherOutline: style(button(1)).outlineStyle,
+      };
+    });
+    expect(state.iconBackground, 'icon bars must not take the canvas color').not.toBe(state.canvas);
+    expect(state.pressedOutline).toBe('solid');
+    expect(state.pressedWidth).toBe('3px');
+    expect(state.otherOutline).toBe('none');
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+test.describe('L4 cart drawer product link target size', () => {
+  for (const width of [390, 320]) {
+    test(`L4 the item title link is at least 24px tall and the line does not grow at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await mount(page, `<div class="cart-drawer-item"><div class="cart-drawer-item__details">
+        <h3 class="cart-drawer-item__title"><a href="/products/x">Blue Hat</a></h3>
+        <p>after</p></div></div>`);
+      const link = await box(page, '.cart-drawer-item__title a');
+      expect(link.height).toBeGreaterThanOrEqual(24);
+      // The negative margin cancels the padding: the heading keeps the height of one text line.
+      const heading = await box(page, '.cart-drawer-item__title');
+      expect(heading.height).toBeLessThan(24);
+    });
+  }
+});

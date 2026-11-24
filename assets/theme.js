@@ -6194,6 +6194,11 @@
       if (Number.isFinite(currentPrice)) {
         const price = document.createElement('span');
         if (onSale && this.dataset.salePriceText) price.append(srLabel(this.dataset.salePriceText));
+        // A product whose variants differ in price lists its lowest one, so it reads "From $89.00".
+        const maxPrice = Number.parseFloat(product.price_max);
+        if (this.dataset.priceFromText && Number.isFinite(maxPrice) && maxPrice > currentPrice) {
+          price.append(`${this.dataset.priceFromText} `);
+        }
         price.append(formatMoney(Math.round(currentPrice * 100), this.dataset.moneyFormat));
         priceRow.append(price);
       }

@@ -3314,6 +3314,16 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   margin: 0;
 }
 
+.cart-drawer-item__title a {
+  /* WCAG 2.2 2.5.8: the title link is at least 24px tall. The padding is cancelled by the
+     negative margin, so the line keeps the height it had. */
+  display: inline-block;
+  min-height: 1.5rem;
+  padding-block: 0.125rem;
+  margin-block: -0.125rem;
+  box-sizing: border-box;
+}
+
 .cart-drawer-item__price {
   display: flex;
   flex-wrap: wrap;
@@ -3629,6 +3639,18 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   .card-swatch[aria-checked='true'] .card-swatch__color,
   .facet__swatch-input:checked + .facet__swatch,
   .variant-picker__input:checked + .variant-picker__label .variant-picker__swatch {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  /* The grid switcher icons are bars painted with a background, which forced colors replace with
+     the canvas color. Keep them visible and mark the pressed option with a highlight outline. */
+  .collection-grid-switcher__icon i {
+    forced-color-adjust: none;
+    background: ButtonText;
+  }
+
+  .collection-grid-switcher__button[aria-pressed='true'] {
     outline: 3px solid Highlight;
     outline-offset: 2px;
   }

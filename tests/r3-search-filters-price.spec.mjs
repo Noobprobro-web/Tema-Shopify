@@ -21,7 +21,7 @@ const predictiveSearchMarkup = `<predictive-search class="predictive-search js-o
   data-loading-text="Loading" data-no-results-text="No results" data-error-text="Search is not available right now"
   data-products-heading="Products" data-collections-heading="Collections" data-articles-heading="Articles"
   data-pages-heading="Pages" data-sold-out-text="Sold out" data-in-stock-text="In stock"
-  data-regular-price-text="Regular price" data-sale-price-text="Sale price" data-view-all-template="View all [terms]"
+  data-regular-price-text="Regular price" data-price-from-text="From" data-sale-price-text="Sale price" data-view-all-template="View all [terms]"
   data-results-count-one="1 result" data-results-count-other="[count] results">
   <button class="icon-button predictive-search__trigger" type="button" aria-label="Search" aria-expanded="false"
     aria-controls="PredictiveSearchPanel-header" data-predictive-search-open>Search</button>
@@ -116,6 +116,25 @@ test.describe('AS-03 predictive search cancelled queries', () => {
     Object.assign(state, { status: 200, body: resultsBody({}) });
     await page.locator('[data-predictive-search-input]').fill('hatx');
     await expect(footer).toContainText('No results');
+  });
+});
+
+test.describe('L5 predictive search price range', () => {
+  test('L5 a product whose variants differ in price reads "From"; a single price does not', async ({ page }) => {
+    await mountSearch(page, {
+      body: resultsBody({
+        products: [
+          { title: 'Range', url: '/products/range', price: '89.00', price_min: '89.00', price_max: '109.75' },
+          { title: 'Single', url: '/products/single', price: '50.00', price_min: '50.00', price_max: '50.00' },
+        ],
+      }),
+    });
+    await page.locator('[data-predictive-search-open]').click();
+    await page.locator('[data-predictive-search-input]').fill('x1');
+    await expect(results(page).locator('a')).toHaveCount(2);
+    const prices = results(page).locator('.predictive-search__price');
+    await expect(prices.nth(0)).toHaveText('From $89.00');
+    await expect(prices.nth(1)).toHaveText('$50.00');
   });
 });
 
