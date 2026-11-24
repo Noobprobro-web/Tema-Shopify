@@ -489,3 +489,37 @@ Qué demuestra: coherencia estática y comportamiento en un navegador sin tienda
 3. N1: arreglo en `sections/main-blog.liquid` (de GPT), recomendado y no bloqueante.
 4. Fusionar el PR #23 (rama de Claude) en `master`. Si cambia algún archivo del tema después de este commit, hay que regenerar la ZIP y el manifiesto.
 5. Nota de submission sobre la ausencia de vista rápida (D57).
+
+---
+
+## 13. Corrección de la compuerta 5 (2026-11-24)
+
+```text
+Estado: S1 corregido en código; gate nuevo en gates:json. La subida limpia a Shopify sigue PENDIENTE (Schemas Válidos queda en código completo hasta entonces).
+Origen: agent-comms/outbox-claude/tests-r3-20261124/INFORME.md (revisión 52b254c, tienda de desarrollo).
+```
+
+### 13.1 Qué se hizo
+
+- Fusión de `origin/master` (retoque de `sections/main-blog.liquid` y entrega de GPT): sin conflictos.
+- S1: eliminados los `"default": ""` de `sections/complete-the-look.liquid` (`caption`), `sections/lookbook.liquid` (`caption`) y `sections/main-faq.liquid` (`button_label` del bloque `unresolved_cta`). No había ningún otro en secciones, snippets, bloques ni `config/settings_schema.json`.
+- Gate: `scripts/json-validate.mjs` (parte de `gates:json`, que el CI ya ejecuta) falla si un schema de sección, bloque o `settings_schema.json` tiene un `default` vacío o en blanco, e incluye una autoprueba. Contra los tres archivos anteriores a la corrección: 3 hallazgos y salida 1; con la corrección: 0 y salida 0.
+- Menores: L3 (`assets/base.css:3648-3656`), L4 (`assets/base.css:3317`), contacto (`sections/main-contact.liquid:158`, `<aside>` a `<div>`) y «From» en la búsqueda predictiva (`assets/theme.js:6197-6201`, clave existente `products.product.price_from` por `data-price-from-text`). Tests nuevos: L3, L4 (390 y 320) y L5 predictiva; los cuatro fallan sin los cambios y pasan con ellos.
+- Fuera de alcance, sin tocar: M1, N1, L2, tarjeta regalo y envío gratis, imágenes a partir de la 6.ª, placeholder de la 404 y texto «0 suggestions available».
+
+### 13.2 Verificación
+
+`npm run gates:static`: salida 0 (Theme Check 107 archivos sin ofensas). `npx playwright test tests/slideshow-reconnect.spec.mjs tests/r3-*.spec.mjs --trace off`, dos pasadas: 47 passed y 47 passed. Ledger: 103 filas, 38 `cumplido`, 62 `código completo`, 2 `no verificado`, 1 `ausente` (Schemas Válidos baja a `código completo`, Tarjeta única sube a `cumplido`, una fila nueva de contacto).
+
+### 13.3 ZIP regenerada
+
+- Procedimiento de §12.7 sobre `b6994d87387459d63f189ec9cb42eebda3607d1f`: `node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip --expect-count 107`.
+- Archivos: 107. Tamaño: 329964 bytes. sha256: `604be3d3ee7f66be245a897c035c359b15376135d263a2057da0ee6208a3f8d6`. Huella de contenido: `7e2b6a3145a9f0dbba8bef843e2792139d20c21ee07f678cae196ccabc7470fa`.
+- «internal references: none», `unzip -t` sin errores, `node --check assets/theme.js` correcto sobre el archivo extraído. Sobre los archivos extraídos: 38 schemas (`{% schema %}` y `settings_schema.json`) analizados, 0 `default` vacíos.
+- Manifiesto regenerado en `docs/demo-store/ZIP-FINAL-MANIFEST-1.0.0.txt`; sigue declarando que la revisión no está validada en tienda.
+
+### 13.4 Pasos que quedan
+
+1. Subir esta revisión como tema no publicado (`theme push --unpublished`) y confirmar que es limpia; entonces Schemas Válidos puede volver a `cumplido`.
+2. Repetir en tienda L3, L4, contacto (axe) y «From» de la predictiva.
+3. Decisiones pendientes de Johandry: M1, N1, L2, tarjeta regalo en el envío gratis, imágenes a partir de la 6.ª, placeholder de la 404 y «0 suggestions available».
