@@ -1,9 +1,9 @@
 # GPT-R3-001 — entrega
 
 ID: GPT-TASK-R3-001 + GPT-TASK-R3-001-ADENDA-A
-Estado: Implementado y publicado en gpt/r3-copy-plantillas; PR pendiente por autenticación de GitHub CLI.
+Estado: Implementado y publicado en gpt/r3-copy-plantillas; PR #24 abierto en borrador contra master.
 Decisión requerida: aprobar el copy y los defaults Nivel 2 enumerados en D35.
-Resumen en 5 líneas: Se aplicaron las correcciones asignadas de Liquid, accesibilidad, medios y plantillas.
+Resumen en 5 líneas: Se aplicaron los cambios R3 originales y las correcciones D1–D6 de la revisión.
 Se conservaron los contratos data-*, IDs, clases y elementos que consume JS/CSS.
 No se cambiaron locales, ledger, ZIP ni manifiesto rastreado.
 Las 8 etapas de gates:static y playwright --list finalizaron con código 0.
@@ -87,6 +87,11 @@ Los defectos R3 de blog, contraseña, lookbook, marquee, promo/caption y procede
 | sections/main-collection.liquid → promoción eyebrow | Atelier note / 01 | Promotion |
 | sections/main-list-collections.liquid → eyebrow | Collections / Current edition | Collections |
 | sections/main-password.liquid → eyebrow / heading | Private collection / New edition / The next study opens quietly. | Coming soon / Our store is getting ready. |
+| templates/index.json → lookbook description (D6) | Move through the composition and discover each piece. | Explore the collection. |
+| listings/imprint/templates/collection.json → promo heading (D6) | Engineered for high telemetry | Objects for everyday use |
+| sections/complete-the-look.liquid → description (D6) | Build the full composition or remove individual pieces before adding it to your bag. | Build the full composition or remove individual pieces before adding them to your cart. |
+| templates/page.faq.json → CTA block (D6) | unresolved_cta with no URL | block removed from template and block_order |
+| sections/main-faq.liquid → button_label default (D6) | Contact us | vacío |
 | sections/bento-discovery.liquid (cambio de Claude 9843c0e) → eyebrow de sección | DISCOVER BY FORM / 04 | Discover by form |
 | sections/bento-discovery.liquid (cambio de Claude 9843c0e) → eyebrow card_featured | [01] FEATURED COLLECTION | Featured collection |
 | sections/bento-discovery.liquid (cambio de Claude 9843c0e) → eyebrow card_editorial | [02] MATERIAL STUDY | Material study |
@@ -103,12 +108,14 @@ Los defectos R3 de blog, contraseña, lookbook, marquee, promo/caption y procede
 | sections.complete_the_look.total_label | Capsule total → Total | Total de la cápsula → Total |
 | search.results.article | Journal → Article | Diario → Artículo |
 | newsletter.heading | Notes from the studio → Store updates | Notas del estudio → Novedades de la tienda |
+| sections.newsletter.liquid:83 eyebrow default (propuesta D35, no editado) | Private correspondence → Newsletter | Correspondencia privada → Boletín |
+| sections.newsletter.liquid:89 heading default (propuesta D35, no editado) | Notes from the atelier → Store updates | Notas del atelier → Novedades de la tienda |
 
 La tabla indica propuestas de copy para D35, no cambios aplicados. Conservar la estructura y las variables plurales (count, total) de las traducciones.
 
 ### Info del schema que Claude debe reescribir
 
-En locales/en.default.schema.json, sections.hero_editorial.settings.image_alt.info (localizador identificado en la revisión del schema; confirmar línea actual antes de editar): reemplazar **“Leave empty to use the heading”** por **“Describe the image for screen reader users. Leave blank to use the image’s alt text.”** La imagen no usa el heading como alt. En sections.main-collection promo, revisar el info que también promete fallback al encabezado si aplica al control afectado. No edité locales/schema por estar fuera de alcance.
+En locales/en.default.schema.json, sections.hero_editorial.settings.image_alt.info (localizador identificado en la revisión del schema; confirmar línea actual antes de editar): reemplazar **“Leave empty to use the heading”** por **“Describe the image for screen reader users. Leave blank to use the image’s alt text.”** La imagen no usa el heading como alt. No edité locales/schema por estar fuera de alcance.
 
 Propuesta para locales/en.default.schema.json:23, settings_schema...motion_style / G-I18N-04: "Atelier" → **“Classic”**, que nombra el preset de movimiento en inglés neutral. Pendiente de aplicar por Claude.
 
@@ -117,7 +124,8 @@ Propuesta para locales/en.default.schema.json:23, settings_schema...motion_style
 1. Aplicar las propuestas de locales y del texto info del hero expuestas en 4, tras comprobar claves y localizadores actuales. Cambiar “Atelier” por “Classic” para G-I18N-04. No crear claves nuevas si se pueden reutilizar las existentes.
 2. Integrar los defaults de sections/bento-discovery.liquid indicados en D35 y mantener intactos los tipos/block_order de listings/imprint/templates/index.json.
 3. Actualizar las cuatro filas candidatas del ledger de 3 con evidencia de esta rama y mantener sus estados; agregar evidencia adicional solo si Claude la verifica. No atribuir a pruebas estáticas el cierre de los requisitos empíricos.
-4. Revisar el texto propuesto de sections.main-collection en el schema junto al info del hero: eliminar la promesa de que el título visible se usará como alt.
+4. No hay petición de añadir info al bloque promo de main-collection: la revisión confirma que ese ajuste no tiene un info en el schema. Retiro la petición anterior sobre ese control.
+5. Añadir a D35 las propuestas de defaults neutrales de sections/newsletter.liquid indicadas en §4; el archivo sigue siendo de Claude y no lo edité.
 
 ## 6. Verificación, límites y no hecho
 
@@ -127,7 +135,7 @@ Comandos ejecutados en esta rama:
 npm run gates:static
 ```
 
-Resultado de las ocho etapas: código de salida 0. Extractos finales literales:
+Resultado de las ocho etapas tras el commit de corrección 03cddcb: código de salida 0. Extractos finales literales:
 
 ```text
 Archivos .json comprobados: 855
@@ -139,13 +147,13 @@ Sin resolver en schema:         0
 Incoherencias: 0
 │  105 files inspected with no offenses found.                                 │
 internal references: none
-rev:      HEAD -> 2e944543cc0e4d857a242070bf293ffe653628a6
+rev:      HEAD -> 03cddcbc0279d72e8eec0eb5bb465072217e01e2
 archivos: 105
-sha256:   fed126f030cb626f6210337ee24e45b9a356965f07cd2e2fee6de2fa88acd69f
-contenido: 71d829c2aa35947b086d42793eb14fac3c22e76d24b2cb958363d94812d06a9f
+sha256:   3939969b92d57cc4f0d0d8f7bd71719ead1d1b5d3b45ee0efccb7e8853692350
+contenido: a162be5395db195a0f10a470f30821fce2813254b31b30ac2cf4ed9e6901f5bf
 ```
 
-El subcomando de locales enumeró 6 claves huérfanas, las de fallback alt que el encargo pide dejar de usar más sections.slideshow.region_label y sections.homepage.marquee.region_label; el comando terminó OK. El gate de package reflejó HEAD de master y el SHA canónico, tal como el encargo indica que puede ocurrir; el manifiesto versionado no cambió. dist/ está ignorado. No se cambió manualmente ni se añadió al commit la ZIP/manifiesto.
+El subcomando de locales enumeró 6 claves huérfanas, las de fallback alt que el encargo pide dejar de usar más sections.slideshow.region_label y sections.homepage.marquee.region_label; el comando terminó OK. El gate package ahora refleja el commit 03cddcb (105 archivos); el manifiesto versionado no cambió. dist/ está ignorado. No se cambió manualmente ni se añadió al commit la ZIP/manifiesto.
 
 ```text
 npx playwright test --list
@@ -161,7 +169,7 @@ No se ejecutaron pruebas Playwright, despliegue ni Gate 5 en tema-qkqpke0j.mysho
 
 ## 7. Commit y PR
 
-Rama: gpt/r3-copy-plantillas, creada desde master en 2e944543cc0e4d857a242070bf293ffe653628a6. Commit publicado: cf7213e59b3b6cd3374fdd49e2adc548366f5fb7. La rama quedó en origin; el PR no se pudo abrir porque gh auth status indicó que GH_TOKEN es inválido y gh sin GH_TOKEN no tiene sesión. Enlace para crear el PR contra master: https://github.com/Noobprobro-web/Tema-Shopify/compare/master...gpt/r3-copy-plantillas?expand=1.
+Rama: gpt/r3-copy-plantillas, creada desde master en 2e944543cc0e4d857a242070bf293ffe653628a6. Commit original: cf7213e59b3b6cd3374fdd49e2adc548366f5fb7. Correcciones de revisión: 03cddcbc0279d72e8eec0eb5bb465072217e01e2. PR #24 está abierto en borrador contra master y se actualiza con los pushes a esta rama.
 
 ## 8. Afirmaciones falsables
 
@@ -171,5 +179,57 @@ Rama: gpt/r3-copy-plantillas, creada desde master en 2e944543cc0e4d857a242070bf2
 4. A4: npx playwright test --list enumeró 4 pruebas en 2 archivos; no ejecutó pruebas.
 5. A5: las excepciones permitidas de atributos en marquee.liquid y el contador visible/aria del lookbook conservaron los contratos data-*, aria-controls e IDs requeridos.
 6. A6: no se modificó docs/requirements-ledger.md, ningún locale, el manifiesto versionado ni se incluyó dist/theme.zip en el diff.
-7. A7: la comprobación de los cinco estados límite se hizo por lectura/razonamiento de Liquid, no en storefront real.
+7. A7: los escenarios de paginación/blog enumerados en §9 se razonaron con el código Liquid; no se renderizaron en storefront real.
 8. A8: las filas de copy de 4 son propuestas para aprobación; los defaults ya están implementados bajo DP-010/DP-011 y esperan decisión D35.
+
+## 9. Adenda B: correcciones de revisión
+
+Este apartado complementa y, para D1–D6, reemplaza las notas de cambios de §2. Solo se tocaron archivos que ya estaban en la lista cerrada 3.1.
+
+| ID | Cambio aplicado (líneas actuales) |
+| --- | --- |
+| D1 | sections/main-blog.liquid:118-128,133,136: la rejilla y el conteo de página recorren blog.articles dentro de paginate; paginate.items se usa como total del rótulo, restando el destacado solo cuando show_featured_article está activo y featured_article.blog.id == blog.id. |
+| D2 | sections/main-blog.liquid:188-189: el aviso vacío usa elsif paginate.current_page > 1 or show_featured_article == false, así el blog de un solo artículo destacado no muestra un mensaje falso. |
+| D3 | sections/main-blog.liquid:22-25,100-110: show_featured_author se calcula explícitamente; la fecha aparece también cuando show_author es falso y show_date es verdadero. |
+| D4 | sections/complete-the-look.liquid:324-330: selected_count selecciona .one/.other según rendered_item_count; add_selected se mantiene con su clave plural raíz. |
+| D5 | sections/lookbook.liquid:94: los marcadores vacíos del editor muestran un punto en vez de forloop.index; la tienda conserva la numeración de hotspots reales. |
+| D6 | templates/page.faq.json:42-50, sections/main-faq.liquid:250: se eliminó el bloque CTA sin URL, su entrada de block_order y el default Contact us. templates/index.json:191 cambia la descripción ligada a hotspots vacíos por Explore the collection. listings/imprint/templates/collection.json:11 cambia Engineered for high telemetry por Objects for everyday use. sections/complete-the-look.liquid:408 cambia your bag por your cart. |
+
+### Recorrido de estados del blog (razonamiento estático)
+
+El recuento de artículos en lista es solo de la página actual, después de excluir un destacado que aparezca en esa página. El número del rótulo es el total filtrado entre todas las páginas menos el destacado mostrado. N es el total después de etiqueta; P es articles_per_page.
+
+| Escenario | Destacado | Rótulo y número | Lista en esta página | Aviso vacío | Paginación |
+| --- | --- | --- | --- | --- | --- |
+| 0 artículos, sin etiqueta, página 1 | No | No | No | Sí | No |
+| 1 artículo, sin etiqueta, página 1; es el destacado automático | Sí | No; quedan 0 | No | No | No |
+| 2 artículos, sin etiqueta, página 1 y ambos caben en P | Sí | Sí; 1 restante | 1 | No | No |
+| N > P, sin etiqueta, página 1 | Sí | Sí; N−1 | Artículos de blog.articles salvo el destacado si está en esta página | No | Sí |
+| N > P, sin etiqueta, página 2 | No se repite el módulo destacado | Sí; N−1 | blog.articles de página 2 | No si hay artículos en página | Sí, con anterior |
+| Tag activo; destacado manual lleva la etiqueta, página 1 | Sí | Total etiquetado menos 1 | Artículos etiquetados de página actual salvo el destacado | No; si hay uno total, se muestra como destacado | Según páginas filtradas |
+| Tag activo; destacado manual no lleva la etiqueta, página 1 | No | Total etiquetado | Todos los artículos etiquetados de la página actual | Sí solo si el filtro no devuelve artículos | Según páginas filtradas |
+| Tag activo, página 2 | No se muestra el módulo destacado | Total filtrado menos destacado si fue mostrado en página 1 | blog.articles de la página etiquetada | No si la página tiene artículos | Sí, con anterior |
+| 2 artículos con P=1, página 1 | Sí | Sí; 1 restante | 0 | No | Sí |
+| 2 artículos con P=1, página 2 | No se repite el módulo destacado | Sí; 1 restante | Artículo de página 2 | No | Sí, con anterior |
+
+Estos casos se deducen de las condiciones Liquid/Shopify; no se renderizaron en una tienda. La revisión de Claude reporta 43 pruebas en su fusión de prueba, no una ejecución sobre este nuevo commit.
+
+### Verificación posterior al commit de corrección
+
+Comando ejecutado después de 03cddcb: npm run gates:static — código 0. La salida de package confirma que esta vez se ejecutó sobre el commit de corrección, no sobre master:
+
+```text
+Archivos .json comprobados: 855
+Fallos de parseo:           0
+Contratos rotos: 0
+[theme-check-sanity] OK. Las 3 clases se detectaron por separado y el sandbox restaurado volvio a 0 ofensas.
+Sin resolver en storefront:     0
+Sin resolver en schema:         0
+Incoherencias: 0
+│  105 files inspected with no offenses found.                                 │
+internal references: none
+rev:      HEAD -> 03cddcbc0279d72e8eec0eb5bb465072217e01e2
+archivos: 105
+sha256:   3939969b92d57cc4f0d0d8f7bd71719ead1d1b5d3b45ee0efccb7e8853692350
+contenido: a162be5395db195a0f10a470f30821fce2813254b31b30ac2cf4ed9e6901f5bf
+```
