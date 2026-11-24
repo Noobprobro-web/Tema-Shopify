@@ -1,0 +1,72 @@
+{
+  "mg5-triggers": 1,
+  "mg5-guide0": {
+    "open": true,
+    "title": "Guide g5",
+    "text": "Guide g5 | MODEL FIT | Model is 180 cm and wears M | XS 80-84 cm | S 84-88 cm",
+    "tabs": [],
+    "targets": [
+      ":44x44"
+    ],
+    "active": "BUTTON:Close"
+  },
+  "mg5-guide0-afterBackdrop": {
+    "stillOpen": false,
+    "active": "trigger"
+  },
+  "mg6-triggers": 1,
+  "mg6-guide0": {
+    "open": true,
+    "title": "Guide g6",
+    "text": "Guide g6 | MODEL FIT | Model is 180 cm and wears M | XS 31-33 in | S 33-35 in",
+    "tabs": [],
+    "targets": [
+      ":44x44"
+    ],
+    "active": "BUTTON:Close"
+  },
+  "mg6-guide0-afterBackdrop": {
+    "stillOpen": false,
+    "active": "trigger"
+  },
+  "mg7-triggers": 1,
+  "mg7-guide0": {
+    "open": true,
+    "title": "Guide g7",
+    "text": "Guide g7 | MODEL FIT | Model is 180 cm and wears M | CM | INCHES | XS 80-84 cm | S 84-88 cm",
+    "tabs": [
+      "CM",
+      "INCHES"
+    ],
+    "targets": [
+      ":44x44",
+      "CM:88x44",
+      "INCHES:88x44"
+    ],
+    "active": "BUTTON:Close"
+  },
+  "mg7-guide0-afterBackdrop": {
+    "stillOpen": false,
+    "active": "trigger"
+  },
+  "dg7-triggers": 1,
+  "dg7-guide0": {
+    "open": true,
+    "title": "Guide g7",
+    "text": "Guide g7 | MODEL FIT | Model is 180 cm and wears M | CM | INCHES | XS 80-84 cm | S 84-88 cm",
+    "tabs": [
+      "CM",
+      "INCHES"
+    ],
+    "targets": [
+      ":44x44",
+      "CM:88x44",
+      "INCHES:88x44"
+    ],
+    "active": "BUTTON:Close"
+  },
+  "dg7-guide0-afterBackdrop": {
+    "stillOpen": false,
+    "active": "trigger"
+  }
+}

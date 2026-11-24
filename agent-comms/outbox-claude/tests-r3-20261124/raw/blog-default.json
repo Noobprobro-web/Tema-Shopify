@@ -1,0 +1,51 @@
+{
+  "/blogs/news": {
+    "h": "News",
+    "featured": "A very long article title used to test how headings wrap on small screens and in listing cards",
+    "hasFeatured": true,
+    "latestHeading": "LATEST ESSAYS | 3 essays",
+    "cards": [
+      "How to read the size chart",
+      "Welcome to the demo store"
+    ],
+    "empty": null,
+    "pag": [],
+    "tags": [
+      "All stories*",
+      "guide",
+      "news",
+      "test"
+    ],
+    "status": 200,
+    "bad": []
+  },
+  "/blogs/news/tagged/nonexistent": {
+    "h": "Page not found",
+    "featured": null,
+    "hasFeatured": false,
+    "latestHeading": null,
+    "cards": [],
+    "empty": null,
+    "pag": [],
+    "tags": [],
+    "status": 404,
+    "bad": []
+  },
+  "/blogs/news?page=2": {
+    "h": "News",
+    "featured": null,
+    "hasFeatured": false,
+    "latestHeading": null,
+    "cards": [],
+    "empty": "No essays have been published yet.",
+    "pag": [],
+    "tags": [
+      "All stories*",
+      "guide",
+      "news",
+      "test"
+    ],
+    "status": 200,
+    "bad": []
+  }
+}

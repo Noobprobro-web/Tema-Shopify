@@ -1,0 +1,116 @@
+{
+  "both-q1": {
+    "sub": "$1,890.00 USD",
+    "bar": {
+      "msg": "Add $1,110.00 for free shipping",
+      "progress": "--cart-progress: 37%; --shipping-marker: 60%;",
+      "now": "37",
+      "milestones": "Shipping at $3,000.00 / Gift at $5,000.00",
+      "markers": 2
+    }
+  },
+  "both-q2": {
+    "sub": "$3,780.00 USD",
+    "bar": {
+      "msg": "Free shipping unlocked. Add $1,220.00 for a gift",
+      "progress": "--cart-progress: 75%; --shipping-marker: 60%;",
+      "now": "75",
+      "milestones": "Shipping at $3,000.00 / Gift at $5,000.00",
+      "markers": 2
+    }
+  },
+  "both-q3": {
+    "sub": "$5,670.00 USD",
+    "bar": {
+      "msg": "Free shipping and gift unlocked",
+      "progress": "--cart-progress: 100%; --shipping-marker: 60%;",
+      "now": "100",
+      "milestones": "Shipping at $3,000.00 / Gift at $5,000.00",
+      "markers": 2
+    }
+  },
+  "ship-only-q1": {
+    "sub": "$1,890.00 USD",
+    "bar": {
+      "msg": "Add $1,110.00 for free shipping",
+      "progress": "--cart-progress: 63%; --shipping-marker: 100%;",
+      "now": "63",
+      "milestones": "Shipping at $3,000.00",
+      "markers": 1
+    }
+  },
+  "ship-only-q2": {
+    "sub": "$3,780.00 USD",
+    "bar": {
+      "msg": "Free shipping unlocked",
+      "progress": "--cart-progress: 100%; --shipping-marker: 100%;",
+      "now": "100",
+      "milestones": "Shipping at $3,000.00",
+      "markers": 1
+    }
+  },
+  "ship-only-q3": {
+    "sub": "$5,670.00 USD",
+    "bar": {
+      "msg": "Free shipping unlocked",
+      "progress": "--cart-progress: 100%; --shipping-marker: 100%;",
+      "now": "100",
+      "milestones": "Shipping at $3,000.00",
+      "markers": 1
+    }
+  },
+  "gift-only-q1": {
+    "sub": "$1,890.00 USD",
+    "bar": {
+      "msg": "Add $3,110.00 for a gift",
+      "progress": "--cart-progress: 37%; --shipping-marker: 0%;",
+      "now": "37",
+      "milestones": "Gift at $5,000.00",
+      "markers": 1
+    }
+  },
+  "gift-only-q2": {
+    "sub": "$3,780.00 USD",
+    "bar": {
+      "msg": "Add $1,220.00 for a gift",
+      "progress": "--cart-progress: 75%; --shipping-marker: 0%;",
+      "now": "75",
+      "milestones": "Gift at $5,000.00",
+      "markers": 1
+    }
+  },
+  "gift-only-q3": {
+    "sub": "$5,670.00 USD",
+    "bar": {
+      "msg": "Gift unlocked",
+      "progress": "--cart-progress: 100%; --shipping-marker: 0%;",
+      "now": "100",
+      "milestones": "Gift at $5,000.00",
+      "markers": 1
+    }
+  },
+  "none-thresholds-q1": {
+    "sub": "$1,890.00 USD",
+    "bar": null
+  },
+  "none-thresholds-q2": {
+    "sub": "$3,780.00 USD",
+    "bar": null
+  },
+  "none-thresholds-q3": {
+    "sub": "$5,670.00 USD",
+    "bar": null
+  },
+  "disabled-q1": {
+    "sub": "$1,890.00 USD",
+    "bar": null
+  },
+  "disabled-q2": {
+    "sub": "$3,780.00 USD",
+    "bar": null
+  },
+  "disabled-q3": {
+    "sub": "$5,670.00 USD",
+    "bar": null
+  }
+}

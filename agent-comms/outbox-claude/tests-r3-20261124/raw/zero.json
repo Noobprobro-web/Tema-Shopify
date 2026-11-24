@@ -1,0 +1,36 @@
+{
+  "d-attrs": {
+    "min": "1",
+    "step": "1",
+    "type": "number",
+    "required": false
+  },
+  "d-after-tab": {
+    "reqs": [],
+    "lines": 1,
+    "valid": false
+  },
+  "d-after-update": {
+    "text": "Your cart | Your cart is currently empty. | CONTINUE SHOPPING",
+    "reqs": [
+      "POST /cart"
+    ]
+  },
+  "m-attrs": {
+    "min": "1",
+    "step": "1",
+    "type": "number",
+    "required": false
+  },
+  "m-after-tab": {
+    "reqs": [],
+    "lines": 1,
+    "valid": false
+  },
+  "m-after-update": {
+    "text": "Your cart | Your cart is currently empty. | CONTINUE SHOPPING",
+    "reqs": [
+      "POST /cart"
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-11-24T22:14:00.756Z",
+  "lighthouseVersion": "13.6.0",
+  "pinnedLighthouse": "13.6.0",
+  "note": "Medicion aproximada desde contenedor (CPU/red distintas a Shopify); throttling simulado de Lighthouse.",
+  "pages": [
+    {
+      "kind": "home",
+      "handle": null,
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        72,
+        91,
+        85
+      ],
+      "median": {
+        "performance": 85,
+        "lcpMs": 1769,
+        "cls": 0,
+        "tbtMs": 291,
+        "fcpMs": 1769,
+        "siMs": 4548
+      }
+    },
+    {
+      "kind": "collection",
+      "handle": "all",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        92,
+        83,
+        86
+      ],
+      "median": {
+        "performance": 86,
+        "lcpMs": 2124,
+        "cls": 0,
+        "tbtMs": 404,
+        "fcpMs": 1370,
+        "siMs": 4458
+      }
+    },
+    {
+      "kind": "product",
+      "handle": "serra-coat",
+      "preset": "mobile",
+      "validRuns": 3,
+      "performanceScores": [
+        84,
+        77,
+        81
+      ],
+      "median": {
+        "performance": 81,
+        "lcpMs": 2754,
+        "cls": 0,
+        "tbtMs": 424,
+        "fcpMs": 1810,
+        "siMs": 4877
+      }
+    }
+  ],
+  "presets": {
+    "mobile": {
+      "averagePerformanceOfMedians": 84,
+      "minPerformanceOfMedians": 81
+    }
+  }
+}

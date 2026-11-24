@@ -1,0 +1,14 @@
+{
+  "form": {
+    "fields": [
+      ":select-one:Choose options",
+      "properties[__shopify_send_gift_card_to_recipient]:checkbox:I want to send this as a gift",
+      "properties[Recipient email]:email:Recipient email\n        Recipi",
+      "properties[Recipient name]:text:Recipient name (optional)",
+      "properties[Message]:textarea:Message (optional)",
+      "properties[Send on]:date:Send on (optional)"
+    ],
+    "text": "I want to send this as a gift | ADD TO CART | BUY IT NOW"
+  },
+  "drawer": "Add $2,990.00 for free shipping | Shipping at $3,000.00 | Gift at $5,000.00 | Gift Card | Denominations | $10 | Recipient email:buyer@example.com | Recipient name:Test Name | $10.00 | Quantity | Order note  | Subtotal | $10.00 USD | Taxes and shipping calculated at checkout. | CHECKOUT | View cart"
+}
