@@ -19,6 +19,10 @@
       endfor
     endif
   endif
+  assign show_featured_author = false
+  if section.settings.show_author and featured_article.author != blank
+    assign show_featured_author = true
+  endif
 -%}
 
 <section class="section main-blog color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
@@ -93,16 +97,16 @@
                 {{- featured_article.excerpt_or_content | strip_html | truncatewords: 34 -}}
               </div>
             {%- endif -%}
-            {%- if section.settings.show_author and featured_article.author != blank or section.settings.show_date -%}
+            {%- if show_featured_author or section.settings.show_date -%}
               <p class="main-blog__meta">
-              {%- if section.settings.show_author and featured_article.author != blank -%}
+                {%- if show_featured_author -%}
                 {{- 'blogs.article.by_author' | t: author: featured_article.author | escape_once -}}
                 {%- if section.settings.show_date -%}<span aria-hidden="true"> / </span>{%- endif -%}
-              {%- endif -%}
-              {%- if section.settings.show_date -%}
+                {%- endif -%}
+                {%- if section.settings.show_date -%}
                 {{- featured_article.published_at | time_tag: format: 'date' -}}
-              {%- endif -%}
-            </p>
+                {%- endif -%}
+              </p>
             {%- endif -%}
             <a class="button main-blog__featured-link" href="{{ featured_article.url }}">
               {{- 'blogs.blog.read_essay' | t -}}
@@ -113,7 +117,11 @@
 
       {%- liquid
         assign latest_article_count = 0
-        for blog_article in paginate.items
+        assign latest_articles_total = paginate.items
+        if show_featured_article and featured_article.blog.id == blog.id
+          assign latest_articles_total = latest_articles_total | minus: 1
+        endif
+        for blog_article in blog.articles
           unless paginate.current_page == 1 and show_featured_article and blog_article.id == featured_article.id
             assign latest_article_count = latest_article_count | plus: 1
           endunless
@@ -122,10 +130,10 @@
       {%- if latest_article_count > 0 -%}
         <div class="main-blog__latest-heading">
           <p class="eyebrow">{{ 'blogs.blog.latest' | t }}</p>
-          <p>{{ 'blogs.blog.article_count' | t: count: latest_article_count }}</p>
+          <p>{{ 'blogs.blog.article_count' | t: count: latest_articles_total }}</p>
         </div>
         <ul class="main-blog__grid unstyled-list">
-          {%- for blog_article in paginate.items -%}
+          {%- for blog_article in blog.articles -%}
             {%- unless paginate.current_page == 1 and show_featured_article and blog_article.id == featured_article.id -%}
               {%- liquid
                 assign article_word_count = blog_article.content | strip_html | split: ' ' | size
@@ -177,7 +185,7 @@
             {%- endunless -%}
           {%- endfor -%}
         </ul>
-      {%- else -%}
+      {%- elsif paginate.current_page > 1 or show_featured_article == false -%}
         <p class="main-blog__empty">{{ 'blogs.blog.empty' | t }}</p>
       {%- endif -%}
 

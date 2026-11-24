@@ -322,7 +322,11 @@
                   "1 of 1 item selected".
                 {%- endcomment -%}
                 <p data-bundle-count>
-                  {{- 'sections.complete_the_look.selected_count' | t: count: selected_item_count, total: rendered_item_count -}}
+                  {%- if rendered_item_count == 1 -%}
+                    {{- 'sections.complete_the_look.selected_count.one' | t: count: selected_item_count, total: rendered_item_count -}}
+                  {%- else -%}
+                    {{- 'sections.complete_the_look.selected_count.other' | t: count: selected_item_count, total: rendered_item_count -}}
+                  {%- endif -%}
                 </p>
               </div>
               <strong class="complete-the-look__total" data-bundle-total>{{ selected_total_money }}</strong>
@@ -401,7 +405,7 @@
       "type": "richtext",
       "id": "description",
       "label": "t:sections.all.description.label",
-      "default": "<p>Build the full composition or remove individual pieces before adding it to your bag.</p>"
+      "default": "<p>Build the full composition or remove individual pieces before adding them to your cart.</p>"
     },
     {
       "type": "text",
