@@ -1,7 +1,7 @@
 # GPT-R3-001 — entrega
 
 ID: GPT-TASK-R3-001 + GPT-TASK-R3-001-ADENDA-A
-Estado: Implementado en gpt/r3-copy-plantillas; PR contra master pendiente de abrir.
+Estado: Implementado y publicado en gpt/r3-copy-plantillas; PR pendiente por autenticación de GitHub CLI.
 Decisión requerida: aprobar el copy y los defaults Nivel 2 enumerados en D35.
 Resumen en 5 líneas: Se aplicaron las correcciones asignadas de Liquid, accesibilidad, medios y plantillas.
 Se conservaron los contratos data-*, IDs, clases y elementos que consume JS/CSS.
@@ -161,7 +161,7 @@ No se ejecutaron pruebas Playwright, despliegue ni Gate 5 en tema-qkqpke0j.mysho
 
 ## 7. Commit y PR
 
-Rama: gpt/r3-copy-plantillas, creada desde master en 2e944543cc0e4d857a242070bf293ffe653628a6. Hash del commit de implementación y URL del PR se incorporan cuando se publique esta rama.
+Rama: gpt/r3-copy-plantillas, creada desde master en 2e944543cc0e4d857a242070bf293ffe653628a6. Commit publicado: cf7213e59b3b6cd3374fdd49e2adc548366f5fb7. La rama quedó en origin; el PR no se pudo abrir porque gh auth status indicó que GH_TOKEN es inválido y gh sin GH_TOKEN no tiene sesión. Enlace para crear el PR contra master: https://github.com/Noobprobro-web/Tema-Shopify/compare/master...gpt/r3-copy-plantillas?expand=1.
 
 ## 8. Afirmaciones falsables
 
