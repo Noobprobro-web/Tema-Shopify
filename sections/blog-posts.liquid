@@ -27,10 +27,6 @@
   assign columns_desktop = post_limit | at_most: available_posts | at_least: 1
   assign columns_tablet = columns_desktop | at_most: 2
 
-  capture image_sizes
-    render 'card-sizes', columns_mobile: 1, columns_tablet: columns_tablet, columns_desktop: columns_desktop
-  endcapture
-
   # Only the first section on the page loads its images eagerly.
   assign is_first_section = false
   if section.index == 1
@@ -49,6 +45,14 @@
   if columns_desktop == 1 and has_posts
     assign grid_is_single = true
   endif
+
+  capture image_sizes
+    if grid_is_single
+      render 'card-sizes', columns_mobile: 1, columns_tablet: 1, columns_desktop: 1, max_width: 448
+    else
+      render 'card-sizes', columns_mobile: 1, columns_tablet: columns_tablet, columns_desktop: columns_desktop
+    endif
+  endcapture
 -%}
 
 {%- if source_blog == blank or has_posts or request.design_mode -%}

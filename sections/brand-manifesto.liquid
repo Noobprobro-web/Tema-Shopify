@@ -1,8 +1,11 @@
 {%- liquid
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
-  assign default_material_alt = 'sections.homepage.manifesto.material_image_alt' | t
-  assign material_alt = section.settings.image_alt | default: default_material_alt
+  assign material_alt = section.settings.image_alt | default: section.settings.image.alt
+  assign material_image_decorative = false
+  if material_alt == blank and section.settings.quote != blank
+    assign material_image_decorative = true
+  endif
 -%}
 
 <section
@@ -50,7 +53,8 @@
             sizes: '(min-width: 62rem) 34vw, 100vw',
             widths: '480, 750, 960, 1200',
             image_class: 'brand-manifesto__image',
-            alt: material_alt
+            alt: material_alt,
+            decorative: material_image_decorative
           %}
         {%- else -%}
           <div class="brand-manifesto__placeholder" aria-hidden="true">
@@ -88,7 +92,7 @@
       "type": "text",
       "id": "eyebrow",
       "label": "t:sections.all.eyebrow.label",
-      "default": "THE HAND AND THE MATERIAL / 03"
+      "default": "The hand and the material"
     },
     {
       "type": "textarea",
@@ -135,7 +139,7 @@
       "id": "media_label",
       "label": "t:sections.brand_manifesto.settings.media_label.label",
       "info": "t:sections.brand_manifesto.settings.media_label.info",
-      "default": "MACRO STUDY / MATERIAL 07"
+      "default": "Material detail"
     },
     {
       "type": "checkbox",
