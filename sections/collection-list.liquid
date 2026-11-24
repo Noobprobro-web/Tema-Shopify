@@ -33,11 +33,11 @@
     assign grid_is_single = true
   endif
 
-  # A lone card sits in a grid capped at 28rem (448px) that keeps its column tracks and the 12px gap
-  # (see .std-grid--single in section-standard-a.css), so it is narrower than a share of the viewport.
+  # A lone card sits in one track capped at 28rem (448px), with no column gap
+  # (see .std-grid--single in section-standard-a.css).
   capture image_sizes
     if grid_is_single
-      render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop, max_width: 448, gap: 12
+      render 'card-sizes', columns_mobile: 1, columns_tablet: 1, columns_desktop: 1, max_width: 448
     else
       render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop
     endif
@@ -88,7 +88,10 @@
           {%- for block in section.blocks -%}
             {%- liquid
               assign block_collection = block.settings.collection
-              assign card_image = block.settings.image | default: block_collection.featured_image | default: block_collection.products.first.featured_media.preview_image
+              assign card_image = block.settings.image | default: block_collection.featured_image
+              if card_image == blank
+                assign card_image = block_collection.products.first.featured_media.preview_image
+              endif
               assign card_title = block_collection.title
               if card_title == blank
                 assign card_title = 'sections.collection_list.placeholder_title' | t

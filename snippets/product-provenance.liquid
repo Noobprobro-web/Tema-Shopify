@@ -20,7 +20,7 @@
 
   assign current_variant = selected_variant | default: product.selected_or_first_available_variant
   assign unique_piece = false
-  if block.settings.show_unique_piece and product.variants.size == 1 and current_variant.inventory_management != blank and current_variant.inventory_policy == 'deny'
+  if block.settings.show_unique_piece and product.variants.size == 1 and current_variant.inventory_management != blank and current_variant.inventory_policy == 'deny' and current_variant.inventory_quantity == 1
     assign unique_piece = true
   endif
 

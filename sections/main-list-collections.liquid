@@ -2,6 +2,9 @@
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign title_id = 'CollectionsTitle-' | append: section.id
+  capture image_sizes
+    render 'card-sizes', columns_mobile: 1, columns_tablet: 2, columns_desktop: section.settings.columns_desktop
+  endcapture
 -%}
 
 <section class="section main-list-collections color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
@@ -38,7 +41,7 @@
                     {% render 'responsive-image',
                       image: collection_image,
                       eager: is_eager_collection,
-                      sizes: '(min-width: 62rem) 33vw, (min-width: 48rem) 50vw, 100vw',
+                      sizes: image_sizes,
                       widths: '390, 550, 750, 960, 1200',
                       image_class: 'collection-directory__image',
                       alt: collection_alt
@@ -96,7 +99,7 @@
       "type": "text",
       "id": "eyebrow",
       "label": "t:sections.all.eyebrow.label",
-      "default": "Collections / Current edition"
+      "default": "Collections"
     },
     {
       "type": "richtext",

@@ -6,6 +6,19 @@
   if featured_article == blank
     assign featured_article = blog.articles.first
   endif
+  assign show_featured_article = false
+  if featured_article != blank
+    if current_tags == blank
+      assign show_featured_article = true
+    else
+      for featured_tag in featured_article.tags
+        if current_tags contains featured_tag
+          assign show_featured_article = true
+          break
+        endif
+      endfor
+    endif
+  endif
 -%}
 
 <section class="section main-blog color-{{ section_scheme }}" aria-labelledby="{{ title_id }}">
@@ -38,7 +51,7 @@
     </header>
 
     {%- paginate blog.articles by section.settings.articles_per_page -%}
-      {%- if paginate.current_page == 1 and featured_article != blank -%}
+      {%- if paginate.current_page == 1 and show_featured_article -%}
         {%- liquid
           assign featured_word_count = featured_article.content | strip_html | split: ' ' | size
           assign featured_reading_time = featured_word_count | divided_by: 200
@@ -80,15 +93,17 @@
                 {{- featured_article.excerpt_or_content | strip_html | truncatewords: 34 -}}
               </div>
             {%- endif -%}
-            <p class="main-blog__meta">
+            {%- if section.settings.show_author and featured_article.author != blank or section.settings.show_date -%}
+              <p class="main-blog__meta">
               {%- if section.settings.show_author and featured_article.author != blank -%}
                 {{- 'blogs.article.by_author' | t: author: featured_article.author | escape_once -}}
-                <span aria-hidden="true"> / </span>
+                {%- if section.settings.show_date -%}<span aria-hidden="true"> / </span>{%- endif -%}
               {%- endif -%}
               {%- if section.settings.show_date -%}
                 {{- featured_article.published_at | time_tag: format: 'date' -}}
               {%- endif -%}
             </p>
+            {%- endif -%}
             <a class="button main-blog__featured-link" href="{{ featured_article.url }}">
               {{- 'blogs.blog.read_essay' | t -}}
             </a>
@@ -96,14 +111,22 @@
         </article>
       {%- endif -%}
 
-      {%- if blog.articles.size > 0 -%}
+      {%- liquid
+        assign latest_article_count = 0
+        for blog_article in paginate.items
+          unless paginate.current_page == 1 and show_featured_article and blog_article.id == featured_article.id
+            assign latest_article_count = latest_article_count | plus: 1
+          endunless
+        endfor
+      -%}
+      {%- if latest_article_count > 0 -%}
         <div class="main-blog__latest-heading">
           <p class="eyebrow">{{ 'blogs.blog.latest' | t }}</p>
-          <p>{{ 'blogs.blog.article_count' | t: count: blog.articles_count }}</p>
+          <p>{{ 'blogs.blog.article_count' | t: count: latest_article_count }}</p>
         </div>
         <ul class="main-blog__grid unstyled-list">
-          {%- for blog_article in blog.articles -%}
-            {%- unless paginate.current_page == 1 and blog_article.id == featured_article.id -%}
+          {%- for blog_article in paginate.items -%}
+            {%- unless paginate.current_page == 1 and show_featured_article and blog_article.id == featured_article.id -%}
               {%- liquid
                 assign article_word_count = blog_article.content | strip_html | split: ' ' | size
                 assign article_reading_time = article_word_count | divided_by: 200
@@ -195,7 +218,7 @@
       "type": "text",
       "id": "eyebrow",
       "label": "t:sections.all.eyebrow.label",
-      "default": "Atelier notes / Journal"
+      "default": "Journal"
     },
     {
       "type": "article",

@@ -2,9 +2,11 @@
   assign default_scheme_id = settings.default_color_scheme.id | default: settings.default_color_scheme | default: 'scheme-1'
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign lookbook_image = section.settings.image_desktop | default: section.settings.image_mobile
-  assign default_image_alt = 'sections.lookbook.image_alt' | t
-  assign heading_image_alt = section.settings.heading | strip_html
-  assign lookbook_alt = section.settings.image_alt | default: heading_image_alt | default: default_image_alt
+  assign lookbook_alt = section.settings.image_alt | default: lookbook_image.alt
+  assign lookbook_image_decorative = false
+  if lookbook_alt == blank and section.settings.heading != blank
+    assign lookbook_image_decorative = true
+  endif
 -%}
 
 <editorial-lookbook class="editorial-lookbook">
@@ -53,7 +55,8 @@
                 sizes: '(min-width: 94rem) 1440px, (min-width: 62rem) calc(100vw - 64px), 100vw',
                 widths: '550, 750, 960, 1200, 1600, 2000, 2400',
                 image_class: 'lookbook__image',
-                alt: lookbook_alt
+                alt: lookbook_alt,
+                decorative: lookbook_image_decorative
               %}
             </picture>
           {%- else -%}
@@ -64,6 +67,7 @@
         </div>
 
         <div class="lookbook__hotspots">
+          {%- assign hotspot_count = 0 -%}
           {%- for block in section.blocks -%}
             {%- assign hotspot_product = block.settings.product -%}
             {%- liquid
@@ -93,6 +97,7 @@
               {%- endif -%}
               {%- continue -%}
             {%- endif -%}
+            {%- assign hotspot_count = hotspot_count | plus: 1 -%}
             <div
               class="lookbook-hotspot"
               style="--hotspot-x: {{ block.settings.horizontal_position }}%; --hotspot-y: {{ block.settings.vertical_position }}%; --hotspot-x-mobile: {{ hp_mobile }}%; --hotspot-y-mobile: {{ vp_mobile }}%;"
@@ -103,13 +108,13 @@
                 class="lookbook-hotspot__trigger"
                 type="button"
                 role="button"
-                aria-label="{{ forloop.index }}. {{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape_once }}"
+                aria-label="{{ hotspot_count }}. {{ 'sections.lookbook.open_product' | t: product: hotspot_product.title | escape_once }}"
                 aria-controls="{{ popover_id }}"
                 aria-haspopup="dialog"
                 aria-expanded="false"
                 data-lookbook-trigger
               >
-                <span aria-hidden="true">{{ forloop.index }}</span>
+                <span aria-hidden="true">{{ hotspot_count }}</span>
               </button>
 
               <div
@@ -164,7 +169,7 @@
         </div>
       </div>
 
-      {%- if section.settings.caption != blank -%}
+      {%- if lookbook_image != blank and section.settings.caption != blank -%}
         <p class="lookbook__caption">{{ section.settings.caption | escape }}</p>
       {%- endif -%}
 
@@ -227,13 +232,13 @@
       "type": "richtext",
       "id": "description",
       "label": "t:sections.all.description.label",
-      "default": "<p>Explore each piece through the points placed across the composition.</p>"
+      "default": "<p>Explore the collection.</p>"
     },
     {
       "type": "text",
       "id": "caption",
       "label": "t:sections.all.caption.label",
-      "default": "A study in proportion, texture and daily movement."
+      "default": ""
     },
     {
       "type": "color_scheme",

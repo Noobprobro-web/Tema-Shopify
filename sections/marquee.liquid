@@ -12,8 +12,6 @@
 {%- if marquee_count > 0 -%}
   <marquee-banner
     class="marquee-banner color-{{ section_scheme }}"
-    role="region"
-    aria-label="{{ 'sections.homepage.marquee.region_label' | t }}"
     data-pause-label="{{ 'sections.homepage.marquee.pause' | t | escape }}"
     data-play-label="{{ 'sections.homepage.marquee.play' | t | escape }}"
   >
@@ -49,7 +47,6 @@
       <button
         class="marquee-banner__toggle"
         type="button"
-        aria-pressed="false"
         aria-label="{{ 'sections.homepage.marquee.pause' | t }}"
         data-marquee-toggle
       >

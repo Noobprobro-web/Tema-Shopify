@@ -16,9 +16,8 @@
   assign title_id = 'MainFaqTitle-' | append: section.id
 
   comment
-    Indice del primer encabezado de categoria. Lo que quede por delante son preguntas sin
-    categorizar, que es como empieza siempre una pagina nueva: se agrupan en un acordeon
-    de cabecera en vez de perderse.
+    Index of the first category heading. Questions before it are uncategorized and are grouped
+    into a leading accordion instead of being omitted from the page.
   endcomment
   assign leading_limit = section.blocks.size
   assign question_total = 0
