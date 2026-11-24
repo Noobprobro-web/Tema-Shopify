@@ -24,6 +24,7 @@ Descripcion de lo que hay en `docs/`. La vigencia se indica solo cuando se puede
 | `figma/` | SVG y material de diseno exportado |
 | `contour-reference-plan.md` | Plan de mejoras con una referencia externa (GPT-PLAN-CONTOUR-001) |
 | `phase-4-plan.md` | Plan maestro de la fase 4 |
+| `audits/R3/` | Informes externos de la auditoria R3 sobre la ZIP 1.0.0 (`R3-AUDITORIA-AS-SO.md`, `R3-AUDITORIA-FO-FB.md`); analisis en `agent-comms/outbox-claude/CLAUDE-R3-ANALISIS-001.md` |
 
 ## Estructura de la raiz del repositorio
 
