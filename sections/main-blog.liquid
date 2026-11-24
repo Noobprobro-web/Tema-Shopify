@@ -117,10 +117,6 @@
 
       {%- liquid
         assign latest_article_count = 0
-        assign latest_articles_total = paginate.items
-        if show_featured_article and featured_article.blog.id == blog.id
-          assign latest_articles_total = latest_articles_total | minus: 1
-        endif
         for blog_article in blog.articles
           unless paginate.current_page == 1 and show_featured_article and blog_article.id == featured_article.id
             assign latest_article_count = latest_article_count | plus: 1
@@ -130,7 +126,7 @@
       {%- if latest_article_count > 0 -%}
         <div class="main-blog__latest-heading">
           <p class="eyebrow">{{ 'blogs.blog.latest' | t }}</p>
-          <p>{{ 'blogs.blog.article_count' | t: count: latest_articles_total }}</p>
+          <p>{{ 'blogs.blog.article_count' | t: count: paginate.items }}</p>
         </div>
         <ul class="main-blog__grid unstyled-list">
           {%- for blog_article in blog.articles -%}
