@@ -5,14 +5,15 @@
   - product: product object
   - mode: the mode the card picked (none, sold_out, options, single, direct or picker)
 
-  Quick add sends one unit per tap. A variant with a minimum or a step above 1 (volume or B2B
-  pricing rules) cannot be bought that way, so the modes that swap variants hand over to the
-  product page when any variant has such a rule. A single variant is kept: the card sends its own
-  minimum. Prints only the mode, with no surrounding whitespace.
+  Quick add sends one hidden quantity per tap. A variant with a minimum or a step above 1 (volume
+  or B2B pricing rules) cannot be bought safely that way, so every mode that adds from the card
+  (single, direct and picker) hands over to the product page (options) when any variant has such
+  a rule, where the quantity selector shows the rule. Prints only the mode, with no surrounding
+  whitespace.
 {%- endcomment -%}
 {%- liquid
   assign resolved_mode = mode
-  if mode == 'direct' or mode == 'picker'
+  if mode == 'single' or mode == 'direct' or mode == 'picker'
     for rule_variant in product.variants
       if rule_variant.quantity_rule.min > 1 or rule_variant.quantity_rule.increment > 1
         assign resolved_mode = 'options'

@@ -15,10 +15,10 @@
   endif
 
   comment
-    Una variante que exige plan de venta y no tiene ninguno
-    asignado no se puede comprar: Shopify responde 200 a /cart/add sin crear la linea. La
-    ficha falla cerrada desde el servidor: sin boton activo, sin pago acelerado y con el
-    motivo a la vista. VariantSelects repite la misma regla al cambiar de variante.
+    A variant that requires a selling plan and has none assigned cannot be bought: Shopify
+    answers 200 to /cart/add without creating the line. The page fails closed from the server:
+    no active button, no accelerated checkout and the reason in plain sight. VariantSelects
+    repeats the same rule when the variant changes.
   endcomment
   assign plan_required_unavailable = false
   assign can_add_to_cart = selected_variant.available
@@ -29,10 +29,10 @@
   assign product_form_id = 'product-form-' | append: section.id
 
   comment
-    Sin JS (o con theme.js caido) el selector visual de variantes no puede cambiar el id
-    del formulario, asi que se emite un select nativo de variantes (snippet variant-no-js-select) y el
-    hidden nace desactivado. VariantSelects toma el control al conectarse. Solo si el producto
-    tiene variantes reales y el comerciante mantiene el bloque variant_picker.
+    Without JS (or with theme.js down) the visual variant picker cannot change the form id, so a
+    native variant select is printed (variant-no-js-select snippet) and the hidden input is born
+    disabled. VariantSelects takes over when it connects. Only when the product has real variants
+    and the merchant keeps the variant_picker block.
   endcomment
   assign render_variant_no_js = false
   assign variant_picker_blocks = section.blocks | where: 'type', 'variant_picker'
@@ -45,9 +45,9 @@
   assign selected_media_id = selected_variant.featured_media.id | default: product.featured_media.id
 
   comment
-    Proporcion del carrusel movil: la de la primera imagen, acotada entre 2:3 y
-    3:2. Todas las diapositivas comparten marco para que el carrusel no cambie de alto al
-    deslizar; una imagen de otra proporcion se muestra entera dentro de ese marco.
+    Mobile carousel ratio: that of the first image, clamped between 2:3 and 3:2. All slides share
+    one frame so the carousel does not change height when swiping; an image of another ratio is
+    shown whole inside that frame.
   endcomment
   assign gallery_ratio = product.media.first.aspect_ratio | default: 0.8 | at_least: 0.667 | at_most: 1.5
   assign gallery_is_carousel = false
@@ -56,9 +56,8 @@
   endif
 
   comment
-    Zoom de imagen. Solo las imagenes se amplian:
-    el video y el 3D conservan sus controles. Con el ajuste apagado o sin imagenes no hay
-    disparadores, ni visor, ni product-zoom.js.
+    Image zoom. Only images are enlarged: video and 3D keep their own controls. With the setting
+    off or without images there are no triggers, no viewer and no product-zoom.js.
   endcomment
   assign zoom_images = product.media | where: 'media_type', 'image'
   assign zoom_enabled = false
@@ -91,13 +90,22 @@
                 # On the desktop grid each photo takes half a column of the gallery (about 30vw);
                 # the first one, if the total is odd, takes both.
                 assign media_sizes = '(min-width: 62rem) 60vw, 100vw'
+                # In the thumbnails layout only the selected item is visible, so that one is the LCP
+                # candidate (the others are hidden); elsewhere it is the first item.
+                assign media_priority = forloop.first
+                if section.settings.media_layout == 'thumbnails' and selected_media_id != blank
+                  assign media_priority = false
+                  if media.id == selected_media_id
+                    assign media_priority = true
+                  endif
+                endif
                 if section.settings.media_layout == 'grid' and product.media.size > 1
                   unless forloop.first and odd_media == 1
                     assign media_sizes = '(min-width: 62rem) 30vw, 100vw'
                   endunless
                 endif
               -%}
-              {% render 'product-media', media: media, product: product, prioritize: forloop.first, sizes: media_sizes %}
+              {% render 'product-media', media: media, product: product, prioritize: media_priority, sizes: media_sizes %}
               {%- if zoom_enabled and media.media_type == 'image' -%}
                 {%- assign zoom_position = zoom_position | plus: 1 -%}
                 <button
@@ -357,63 +365,7 @@
                         </div>
                       {%- endif -%}
 
-                      <div
-                        class="size-guide-modal__unit-switcher"
-                        role="tablist"
-                        aria-label="{{ 'products.product.measurement_units' | t }}"
-                      >
-                        <button
-                          id="{{ size_guide_id }}-TabCm"
-                          class="size-guide-modal__unit"
-                          type="button"
-                          role="tab"
-                          aria-selected="true"
-                          aria-controls="{{ size_guide_id }}-PanelCm"
-                          data-size-guide-unit="cm"
-                        >
-                          {{- 'products.product.centimeters' | t -}}
-                        </button>
-                        <button
-                          id="{{ size_guide_id }}-TabIn"
-                          class="size-guide-modal__unit"
-                          type="button"
-                          role="tab"
-                          aria-selected="false"
-                          aria-controls="{{ size_guide_id }}-PanelIn"
-                          tabindex="-1"
-                          data-size-guide-unit="in"
-                        >
-                          {{- 'products.product.inches' | t -}}
-                        </button>
-                      </div>
-
-                      {%- if block.settings.page_content != blank -%}
-                        <div class="size-guide-modal__page-content rte">
-                          {{- block.settings.page_content.content -}}
-                        </div>
-                      {%- endif -%}
-
-                      <div
-                        id="{{ size_guide_id }}-PanelCm"
-                        class="size-guide-modal__measurements rte"
-                        role="tabpanel"
-                        aria-labelledby="{{ size_guide_id }}-TabCm"
-                        tabindex="0"
-                        data-size-guide-panel-unit="cm"
-                      >
-                        {{- block.settings.size_table_cm -}}
-                      </div>
-                      <div
-                        id="{{ size_guide_id }}-PanelIn"
-                        class="size-guide-modal__measurements rte"
-                        role="tabpanel"
-                        aria-labelledby="{{ size_guide_id }}-TabIn"
-                        tabindex="0"
-                        data-size-guide-panel-unit="in"
-                        hidden
-                      >
-                        {{- block.settings.size_table_in -}}
-                      </div>
+                      {% render 'size-guide-measurements', block: block, size_guide_id: size_guide_id %}
                     </div>
                   </section>
                 </div>
@@ -471,6 +423,7 @@
                     {% render 'icon', name: 'plus', size: 16 %}
                   </button>
                 </div>
+                {% render 'quantity-rule', variant: selected_variant %}
                 <p
                   class="product-form__line-total"
                   data-line-total

@@ -1,0 +1,101 @@
+{%- comment -%}
+  Prints the unit tabs and the measurement tables of a size guide.
+
+  Accepts:
+  - block: the size_guide block
+  - size_guide_id: id prefix of the dialog
+
+  The page content (if any) goes between the tabs and the tables. Tabs only exist when both tables
+  do; a single table prints as a plain region and an empty one prints nothing (theme.js leaves the
+  server markup alone when there are no tabs).
+{%- endcomment -%}
+{%- liquid
+  # Unit tabs only when both tables exist; a single table prints as plain content and an
+  # empty one prints nothing (theme.js leaves the server markup alone without tabs).
+  assign has_table_cm = false
+  assign has_table_in = false
+  if block.settings.size_table_cm != blank
+    assign has_table_cm = true
+  endif
+  if block.settings.size_table_in != blank
+    assign has_table_in = true
+  endif
+  assign has_unit_tabs = false
+  if has_table_cm and has_table_in
+    assign has_unit_tabs = true
+  endif
+-%}
+
+{%- if has_unit_tabs -%}
+  <div
+    class="size-guide-modal__unit-switcher"
+    role="tablist"
+    aria-label="{{ 'products.product.measurement_units' | t }}"
+  >
+    <button
+      id="{{ size_guide_id }}-TabCm"
+      class="size-guide-modal__unit"
+      type="button"
+      role="tab"
+      aria-selected="true"
+      aria-controls="{{ size_guide_id }}-PanelCm"
+      data-size-guide-unit="cm"
+    >
+      {{- 'products.product.centimeters' | t -}}
+    </button>
+    <button
+      id="{{ size_guide_id }}-TabIn"
+      class="size-guide-modal__unit"
+      type="button"
+      role="tab"
+      aria-selected="false"
+      aria-controls="{{ size_guide_id }}-PanelIn"
+      tabindex="-1"
+      data-size-guide-unit="in"
+    >
+      {{- 'products.product.inches' | t -}}
+    </button>
+  </div>
+{%- endif -%}
+
+{%- if block.settings.page_content != blank -%}
+  <div class="size-guide-modal__page-content rte">
+    {{- block.settings.page_content.content -}}
+  </div>
+{%- endif -%}
+
+{%- if has_table_cm -%}
+  <div
+    id="{{ size_guide_id }}-PanelCm"
+    class="size-guide-modal__measurements rte"
+    {% if has_unit_tabs -%}
+      role="tabpanel"
+      aria-labelledby="{{ size_guide_id }}-TabCm"
+    {%- else -%}
+      role="region"
+      aria-labelledby="{{ size_guide_id }}-Title"
+    {%- endif %}
+    tabindex="0"
+    data-size-guide-panel-unit="cm"
+  >
+    {{- block.settings.size_table_cm -}}
+  </div>
+{%- endif -%}
+{%- if has_table_in -%}
+  <div
+    id="{{ size_guide_id }}-PanelIn"
+    class="size-guide-modal__measurements rte"
+    {% if has_unit_tabs -%}
+      role="tabpanel"
+      aria-labelledby="{{ size_guide_id }}-TabIn"
+    {%- else -%}
+      role="region"
+      aria-labelledby="{{ size_guide_id }}-Title"
+    {%- endif %}
+    tabindex="0"
+    data-size-guide-panel-unit="in"
+    {% if has_unit_tabs %}hidden{% endif %}
+  >
+    {{- block.settings.size_table_in -}}
+  </div>
+{%- endif -%}

@@ -126,7 +126,7 @@
             {%- elsif external_video.type == 'vimeo' -%}
               <iframe
                 class="video-section__media"
-                src="https://player.vimeo.com/video/{{ external_video.id | escape }}?autoplay=1"
+                src="https://player.vimeo.com/video/{{ external_video.id | escape }}?autoplay=1&amp;dnt=1"
                 title="{{ video_title | escape }}"
                 allow="autoplay; picture-in-picture; fullscreen"
                 allowfullscreen

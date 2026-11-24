@@ -1,0 +1,40 @@
+{%- comment -%}
+  Prints the quantity rule (minimum, multiples, maximum) of a variant under the quantity selector.
+
+  Accepts:
+  - variant: the variant selected on the server
+
+  Nothing is shown for the trivial rule (minimum 1, multiples of 1, no maximum): the container is
+  still printed, hidden, so theme.js can reveal it when the shopper picks a variant with a rule.
+  The translated templates travel as data attributes (the token [quantity] is replaced by theme.js)
+  and the values per variant come from the quantity_min, quantity_increment and quantity_max fields
+  of the variant JSON that variant-no-js-select prints. Without JavaScript the server text above is
+  already right for the initial variant.
+{%- endcomment -%}
+{%- liquid
+  assign rule_min = variant.quantity_rule.min | default: 1
+  assign rule_increment = variant.quantity_rule.increment | default: 1
+  assign rule_max = variant.quantity_rule.max
+  assign rule_visible = false
+  if rule_min > 1 or rule_increment > 1 or rule_max != blank
+    assign rule_visible = true
+  endif
+-%}
+<p
+  class="product-form__tax-note product-form__quantity-rule"
+  data-quantity-rule
+  data-quantity-rule-min-template="{{ 'products.product.quantity_rules.min' | t: quantity: '[quantity]' | escape_once }}"
+  data-quantity-rule-increment-template="{{ 'products.product.quantity_rules.increment' | t: quantity: '[quantity]' | escape_once }}"
+  data-quantity-rule-max-template="{{ 'products.product.quantity_rules.max' | t: quantity: '[quantity]' | escape_once }}"
+  {% unless rule_visible %}hidden{% endunless %}
+>
+  <span data-quantity-rule-part="min"{% unless rule_min > 1 %} hidden{% endunless %}>
+    {%- if rule_min > 1 -%}{{- 'products.product.quantity_rules.min' | t: quantity: rule_min -}}{%- endif -%}
+  </span>
+  <span data-quantity-rule-part="increment"{% unless rule_increment > 1 %} hidden{% endunless %}>
+    {%- if rule_increment > 1 -%}{{- 'products.product.quantity_rules.increment' | t: quantity: rule_increment -}}{%- endif -%}
+  </span>
+  <span data-quantity-rule-part="max"{% if rule_max == blank %} hidden{% endif %}>
+    {%- if rule_max != blank -%}{{- 'products.product.quantity_rules.max' | t: quantity: rule_max -}}{%- endif -%}
+  </span>
+</p>

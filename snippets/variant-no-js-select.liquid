@@ -10,6 +10,11 @@
   @param {number} [inventory_cap] - Cap from the rendered section settings. Defaults to 1 when omitted.
   @param {boolean} [show_options] - Whether to render native selection controls.
   @param {boolean} [server_variants] - Whether Shopify resolves the product's variants.
+
+  Without JavaScript the native select only swaps the variant id: the quantity rule and the selling
+  plans printed in the form belong to the variant resolved by the server. When the variants differ
+  in either, the linked picker (one page load per choice) replaces the select so the form is
+  always rendered for the variant that will be sent.
 {% enddoc %}
 
 {%- if mode == 'state' or mode == 'response' -%}
@@ -92,8 +97,32 @@
   {%- endif -%}
 {%- else -%}
   {%- liquid
+    assign no_js_links = false
+    if show_options and server_variants
+      assign no_js_links = true
+    elsif show_options and selected_variant
+      # Compare quantity rule and selling plans of every variant with the selected one.
+      capture reference_rules
+        echo selected_variant.quantity_rule.min | append: '/' | append: selected_variant.quantity_rule.increment | append: '/' | append: selected_variant.quantity_rule.max
+        for allocation in selected_variant.selling_plan_allocations
+          echo '/' | append: allocation.selling_plan.id
+        endfor
+      endcapture
+      for rule_variant in product.variants
+        capture variant_rules
+          echo rule_variant.quantity_rule.min | append: '/' | append: rule_variant.quantity_rule.increment | append: '/' | append: rule_variant.quantity_rule.max
+          for allocation in rule_variant.selling_plan_allocations
+            echo '/' | append: allocation.selling_plan.id
+          endfor
+        endcapture
+        if variant_rules != reference_rules
+          assign no_js_links = true
+          break
+        endif
+      endfor
+    endif
     assign use_native_select = false
-    if show_options and server_variants == false
+    if show_options and no_js_links == false
       assign use_native_select = true
     endif
   -%}
@@ -106,7 +135,7 @@
       {% if use_native_select or selected_variant == blank %}disabled{% endif %}
     >
   {%- endunless -%}
-  {%- if mode == 'option_links' or show_options and server_variants -%}
+  {%- if mode == 'option_links' or no_js_links -%}
     {%- capture selected_value_ids -%}
       {%- for option in product.options_with_values -%}
         {%- assign selected_value_id = option.values.first.id -%}
