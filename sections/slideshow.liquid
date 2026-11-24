@@ -28,7 +28,11 @@
   <section
     class="section slideshow color-{{ section_scheme }}"
     style="--slideshow-height-desktop: {{ section.settings.height_desktop }}; --slideshow-height-mobile: {{ section.settings.height_mobile }};"
-    aria-label="{{ 'sections.slideshow.region_label_numbered' | t: number: section.index }}"
+    {% if section.index != blank %}
+      aria-label="{{ 'sections.slideshow.region_label_numbered' | t: number: section.index }}"
+    {% else %}
+      aria-label="{{ 'sections.slideshow.region_label' | t }}"
+    {% endif %}
   >
     <div class="slideshow__viewport">
     <div

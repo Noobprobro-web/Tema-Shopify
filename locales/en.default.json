@@ -154,8 +154,8 @@
         "other": "{{ count }} of {{ total }} items selected"
       },
       "add_selected": {
-        "one": "Add {{ count }} piece to bag | {{ total }}",
-        "other": "Add {{ count }} pieces to bag | {{ total }}"
+        "one": "Add {{ count }} item to cart | {{ total }}",
+        "other": "Add {{ count }} items to cart | {{ total }}"
       },
       "select_items": "Select at least one piece",
       "select_product": "Select {{ product }}",
@@ -163,7 +163,7 @@
       "selling_plan_required": "Available from the product page with a purchase plan.",
       "requires_plan_option": "Plan required on product page",
       "view_on_product_page": "View options on product page",
-      "total_label": "Capsule total",
+      "total_label": "Total",
       "empty": "Choose two to four products in the theme editor to build this look.",
       "no_javascript": "Open each product to choose options and purchase it separately.",
       "added": "The selected look was added to your cart.",
@@ -412,7 +412,7 @@
         "one": "{{ count }} result",
         "other": "{{ count }} results"
       },
-      "article": "Journal",
+      "article": "Article",
       "page": "Page",
       "view_page": "View page",
       "none_title": "No results for \"{{ terms }}\"",
@@ -425,9 +425,9 @@
     }
   },
   "not_found": {
-    "eyebrow": "Error / Archive index",
-    "title": "Object not found.",
-    "message": "The requested page is not in our current series. It may have moved into the archive.",
+    "eyebrow": "Error 404",
+    "title": "Page not found",
+    "message": "The page you requested could not be found.",
     "search_label": "Search our collection",
     "search_placeholder": "Search products and stories",
     "search_submit": "Search",
@@ -650,7 +650,7 @@
   },
   "newsletter": {
     "eyebrow": "Private correspondence",
-    "heading": "Notes from the studio",
+    "heading": "Store updates",
     "copy": "Subscribe to our newsletter.",
     "email_label": "Email address",
     "email_placeholder": "name@example.com",
@@ -665,7 +665,7 @@
     "results_label": "Search suggestions",
     "loading": "Searching",
     "no_results": "No suggestions yet. Press enter to search the full catalog.",
-    "error": "We could not load suggestions. Press enter to search the full catalog.",
+    "error": "We could not load suggestions. Press Enter to search the full catalog.",
     "clear": "Clear search",
     "in_stock": "In stock",
     "products": "Products",

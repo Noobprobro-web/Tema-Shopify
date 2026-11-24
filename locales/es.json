@@ -154,8 +154,8 @@
         "other": "{{ count }} de {{ total }} piezas seleccionadas"
       },
       "add_selected": {
-        "one": "Añadir {{ count }} pieza | {{ total }}",
-        "other": "Añadir {{ count }} piezas | {{ total }}"
+        "one": "Añadir {{ count }} artículo al carrito | {{ total }}",
+        "other": "Añadir {{ count }} artículos al carrito | {{ total }}"
       },
       "select_items": "Selecciona al menos una pieza",
       "select_product": "Seleccionar {{ product }}",
@@ -163,7 +163,7 @@
       "selling_plan_required": "Disponible desde la página del producto con un plan de compra.",
       "requires_plan_option": "Requiere plan en la página del producto",
       "view_on_product_page": "Ver opciones en la página del producto",
-      "total_label": "Total de la cápsula",
+      "total_label": "Total",
       "empty": "Elige de dos a cuatro productos en el editor de temas para componer este look.",
       "no_javascript": "Abre cada producto para elegir sus opciones y comprarlo por separado.",
       "added": "El look seleccionado se añadió a tu carrito.",
@@ -412,7 +412,7 @@
         "one": "{{ count }} resultado",
         "other": "{{ count }} resultados"
       },
-      "article": "Diario",
+      "article": "Artículo",
       "page": "Página",
       "view_page": "Ver página",
       "none_title": "Sin resultados para «{{ terms }}»",
@@ -425,9 +425,9 @@
     }
   },
   "not_found": {
-    "eyebrow": "Error / Índice del archivo",
+    "eyebrow": "Error 404",
     "title": "Página no encontrada.",
-    "message": "La página que buscas no forma parte de la serie actual. Es posible que haya pasado al archivo.",
+    "message": "No se ha encontrado la página que buscas.",
     "search_label": "Buscar en la tienda",
     "search_placeholder": "Busca productos e historias",
     "search_submit": "Buscar",
@@ -650,7 +650,7 @@
   },
   "newsletter": {
     "eyebrow": "Correspondencia privada",
-    "heading": "Notas del estudio",
+    "heading": "Novedades de la tienda",
     "copy": "Suscríbete a nuestro boletín.",
     "email_label": "Correo electrónico",
     "email_placeholder": "nombre@ejemplo.com",

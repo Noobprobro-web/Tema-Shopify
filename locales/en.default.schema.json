@@ -20,7 +20,7 @@
           "label": "Motion style",
           "info": "Select the physical timing and interaction style across the storefront.",
           "options": {
-            "atelier": "Atelier",
+            "atelier": "Classic",
             "technical": "Technical",
             "heritage": "Heritage"
           }
@@ -598,7 +598,7 @@
           "info": "The button only appears once it has a link."
         },
         "image_alt": {
-          "info": "Describe the image for customers using a screen reader. Leave empty to use the heading."
+          "info": "Describes the image for screen readers. Leave blank to use the image's own alternative text, or none when a heading already explains it."
         }
       },
       "presets": {
@@ -1182,7 +1182,8 @@
       "name": "Cart drawer",
       "settings": {
         "enable_tiered_progress": {
-          "label": "Show free shipping and gift progress"
+          "label": "Show free shipping and gift progress",
+          "info": "The bar stays hidden until at least one threshold is set, and when customers shop in a currency other than the store currency."
         },
         "free_shipping_threshold": {
           "label": "Free shipping amount",
