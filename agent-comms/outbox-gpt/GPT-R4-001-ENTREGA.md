@@ -1,104 +1,164 @@
-# Entrega GPT-R4-001
+# Entrega GPT-R4-001 — correcciones R4A
 
-Fecha: 2026-11-25. Estado: implementación lista para revisión de Claude; sin aplicación de cambios a tiendas.
+Fecha: 2026-11-25. Rama: `gpt/r4-ficha-demo`. Estado: lista para nueva revisión de Claude en el PR borrador **#26** contra `master`. Tip de esta entrega: `4ef4663` (la ZIP empaqueta el último commit que afecta al tema, `0bf5574`). No se aplicaron cambios en ninguna tienda ni se publicó o borró ningún tema.
 
-## 1. Rama, commits y PR
+## 1. Reconciliación de la entrega anterior
 
-- Rama nueva `gpt/r4-ficha-demo`, desde `origin/master` verificado en `44c7cbe5dec8c5f188af12484e264bf493d36032`.
-- Commits R4: `73ce4a1` Ajusta sticky de ficha y producto destacado; `3694d9b` Prioriza el medio de variante en las galerías; `f40649b` Muestra todos los medios del producto destacado; `171a24f` Corrige búsqueda, selector de país y estado del carrito; `e7723f1` Afina 404, tarjeta regalo y vacíos de búsqueda y blog; `585359c` Adapta el copy de Imprint y Archive y sus mega menús; `c3af0fb` Añade planes secos idempotentes de catálogo T1-T3; `de943d4` Prepara overlays de home para las tres demos.
-- La rama se subió primero hasta `3d192dc` antes de intentar crear el PR y luego se actualizó en `origin/gpt/r4-ficha-demo` hasta el tip final `e8531e9`. La creación del PR borrador devolvió `Forbidden` tanto con `gh pr create --draft` (GraphQL) como con `gh api .../pulls` (REST); GitHub no devolvió enlace ni número, así que el PR no quedó abierto desde este entorno.
-- No se tocó `agent-comms/BOARD.md`, no se hizo force-push y no se publicó ni borró ningún tema.
+- **M-19** se corrigió en `assets/theme.js` (renderizado y anuncio de búsqueda predictiva). `snippets/predictive-search.liquid` aporta las cadenas y el marcado, pero no contiene la corrección de sustitución ni del estado vivo.
+- Los JSON bajo `listings/` **sí contenían handles de colecciones demo**; no eran neutrales. Ahora los enlaces empaquetados apuntan a `/collections/all`; los handles específicos viven en los overlays.
+- Los nombres de fixtures de la entrega anterior no conservaban todos los casos límite: faltaban handles vistos en R2, se perdía el límite de 120 caracteres y una chaqueta se llamaba knit. Quedó corregido y cubierto por el plan T1.
+- Los planes anteriores **no eran idempotentes en el sentido del encargo**. Ahora son documentos deterministas de intenciones con valores de referencia procedentes de archivos/snapshots; no leen ni comparan con el estado actual. La idempotencia corresponde al procedimiento de aplicación con lectura previa.
+- El **PR #26 ya existe**, en borrador; no se abrió otro. El tip ya no es `e8531e9`: los commits de corrección se añadieron encima de `84ff2bd`, sin rebase ni force-push.
+- `npm run gates:static` pasó después de cada commit de código, tests y planes de este pase. La salida observada tras cada ejecución aparece resumida en §4; no atribuyo a un gate verificaciones que no realiza.
 
-## 2. Cambios por paquete y localizadores finales
+## 2. Cambios R4A-1 a R4A-18
 
-- **C1 · M-10/M-06:** `assets/theme.js:295` observa el alto del panel y header, aplica/retira la condición sticky y limpia observadores; montaje en `assets/theme.js:596` y `:872`. CSS condicional en `assets/base.css:5116`, `:1399`, `:9090`. El medio seleccionado aparece primero en `sections/main-product.liquid:45` y `sections/featured-product.liquid:39`; el zoom conserva su índice sobre `zoom_images` en `sections/main-product.liquid:68`. En la galería móvil se conserva el orden e índice del carrusel.
-- **C1 · M-15:** se quitó la regla que ocultaba imágenes desde la sexta en `assets/base.css` (galería destacada, alrededor de `:10819`).
-- **C2 · M-13/M-16/M-19/M-20:** selección del término al abrir predictiva en `assets/theme.js:6064`; estado vacío anunciado solo por lector de pantalla en `assets/theme.js:4001` y `:4414`; wrapper del selector de país limitado al `<select>` en el snippet de localización y chevron asociado en `assets/base.css:7630`; se quitó la repetición de tipo de resultado en `snippets/predictive-search.liquid`.
-- **C3 · M-17/M-18/M-27/M-28:** composición del buscador 404 en `assets/base.css:7367`; etiqueta aprobada “Popular pieces” en `locales/en.default.json:432`; plantilla `templates/product.gift-card.json` omite el acordeón `composition_care`; estado de página de blog fuera de rango en `sections/main-blog.liquid:184`; textos de búsqueda sin resultados en `locales/en.default.json:663`, `locales/es.json:663` y `assets/theme.js`.
-- **C4 · M-14:** copy de Imprint/Archive y cabeceras completas por preset en `listings/{sartorial,imprint,archive}/sections/header-group.json`; Sartorial también en `sections/header-group.json`. Copia editorial en `listings/imprint/templates/index.json`, `listings/archive/templates/index.json` y `listings/archive/templates/collection.json`.
-- **T1–T3:** scripts, allowlist y datos en `docs/demo-store/scripts/catalog-r4.mjs:1`, `catalog-r4-data.mjs:1`, `catalog-r4-stores.json:1`. Planes guardados en `docs/demo-store/plans/catalog-r4-*.json`. El autor provisional solicitado, `proyect-shopi`, está en `catalog-r4.mjs:16`.
-- **P1:** los tres overlays están en `docs/demo-store/overlays/{sartorial,imprint,archive}/{templates/index.json,sections/header-group.json}`. Fuentes de imagen pendientes y procedimiento de aplicación están en `docs/demo-store/overlays/README.md:5`.
+En la tabla, “antes” identifica el comportamiento comprobado con `84ff2bd` (para JavaScript se usó `R3_THEME_JS=/tmp/old-theme.js`); “después” identifica el test con el código actualizado. A3 es una actualización documental del ledger; A7 añade cobertura, sin cambio funcional.
 
-## 3. Ledger: propuesta para Claude
+| Punto | Resultado y localizador | Test: antes → después | `gates:static` tras commit |
+|---|---|---|---|
+| **R4A-1** | URLs de raíz y presets neutrales; handles solo en overlays. Eliminado el duplicado Sartorial idéntico. `sections/header-group.json`, `listings/{imprint,archive}/sections/header-group.json`, `docs/demo-store/overlays/README.md`. | `tests/r4-preset-copy.spec.mjs`: fallan las aserciones por handle raíz/listing y duplicado Sartorial → 8 tests relacionados pasan, incluidos enlaces de overlay contra los catálogos. | `6684e48`, verde; 110 entradas del tema. |
+| **R4A-2** | `moveMediaToStart` intercambia `sizes` en `img` y `picture > source`; `assets/theme.js:330`. | `tests/r4-product-layout.spec.mjs`: 2 tests fallan con la figura seleccionada aún a 30vw → pasan para producto y featured product a 1440 px. | `5620c4e`, verde; Theme Check 110. |
+| **R4A-3** | Filas 39, 85 y 130 del ledger citan cálculo/medios actualizados y tests reales; estados intactos. `docs/requirements-ledger.md`. | No aplica: solo documentación. `npm run gates:static` ejecuta `ledger-verify`, que pasa sin incoherencias; no prueba por sí solo la evidencia humana. | `4d2c702`, verde. |
+| **R4A-4** | Títulos de fixtures y búsqueda condicional por handle en `docs/demo-store/scripts/catalog-r4-data.mjs` y `catalog-r4.mjs`. | `tests/r4-catalog-runs.spec.mjs`: la aserción de título de 120 caracteres falla antes; pasa después. Comprueba también “Many-Variant Tailored Jacket”, no Knit, y búsqueda/omisión de handles ausentes. | `6efe1c3`, verde; Theme Check 110. |
+| **R4A-5** | Se mide el medio ya seleccionado y se desplaza si queda por encima de `--header-offset` o bajo la ventana. `assets/theme.js:741-749`. | `tests/r4-product-layout.spec.mjs`: con JS de `84ff2bd`, medio seleccionado queda en `top=-300` aunque la galería esté parcialmente visible → queda dentro de la ventana después. La prueba C1b también se actualizó para espiar el medio seleccionado. | `c24a947` y ajuste de prueba `613dc4b`, ambos verdes. |
+| **R4A-6** | Sustitución literal mediante callback en el mensaje vacío y “View all”. `assets/theme.js:6200-6220`. | Test con `a$&b`: JS de `84ff2bd` produce `a[terms]b` en el mensaje → mensaje y enlace muestran `a$&b` literalmente. | `1bdbed1`, verde; Theme Check 110. |
+| **R4A-7** | Tests de barra sticky con markup del `sticky-cart-bar` de `sections/main-product.liquid`; 1440×674, 1536×674 y columna sticky a 1440×1100. `tests/r4-product-layout.spec.mjs`. | No había cobertura de estas dimensiones → 3 escenarios pasan. `sizes` se cubre con los dos tests de A2. No se renderizó Liquid real sin JS: no existe un renderer de fixtures Liquid en el repo y no añadí dependencias; se conserva la prueba de cadenas existente y queda un paso manual en §8. | `f128896`, verde; Theme Check 110. |
+| **R4A-8** | T2/T3 en `role: qa` generan solo omisiones explicadas, incluidas las colecciones. `docs/demo-store/scripts/catalog-r4.mjs:197-216`. | `tests/r4-catalog-runs.spec.mjs`: antes T2 incluía activación, inventario, publicación y colecciones; la nueva expectativa de cero intenciones falla → T2 y T3 tienen 0 intenciones y 17/14 omisiones, respectivamente. | `d392ae8`, verde. |
+| **R4A-9** | Artículo renombrado a `a-study-in-proportion`; `redirects_planned:false` y aviso explícito de que no se planea redirección. `catalog-r4-data.mjs:85-90`, `catalog-r4.mjs:157-166, 276-279`. | Test de intención old handle → nuevo handle y ausencia de redirección: falla por ausencia de esos campos → pasa. | `d392ae8`, verde. |
+| **R4A-10** | CLI `--inventory <n>`, entero no negativo, default 8; valor incluido en todos los JSON. `catalog-r4.mjs:251-278, 312-329`. | Test CLI `--inventory 3`: el JSON anterior no contiene `inventory_target` → guarda 3; el default guarda 8; rechaza negativos. | `d392ae8`, verde. |
+| **R4A-11** | Autor editorial ficticio por preset en `catalog-r4-data.mjs:7-11`; planificador usa `store.preset`. | Test de autor anterior `proyect-shopi` → nombres por preset y ningún `proyect-shopi` en el plan. | `d392ae8`, verde. Autores propuestos; pendientes de aprobación D35. |
+| **R4A-12** | JSON lleva `plan_kind: mutation-intents`, `executable_graphql:false`, `baseline.live_store_read:false`; sin `idempotent`, `currentValues`, `targetState`, `operations` ni `changes`. `catalog-r4.mjs:251-305`. | Tests de forma/intenciones y determinismo: documento antiguo con `changes`/`operations` y metadato idempotente → nuevo contrato explícito; nada se aplica ni lee. | `d392ae8`, verde. |
+| **R4A-13** | El status accesible anuncia el mismo mensaje de cero resultados. `assets/theme.js:6237-6243`. | Antes anunciaba `0 results` → anuncia el mensaje existente con el término. `tests/r3-search-filters-price.spec.mjs`. | Código en `1bdbed1`, test separado en `3ce82cf`; ambos commits con gate verde. |
+| **R4A-14** | Comentario CSS describe el fallback de flecha nativa. `assets/base.css:7679-7681`. | Test de comentario actualizado no coincide con el texto obsoleto de `84ff2bd` → pasa. | `27f7200`, verde. |
+| **R4A-15** | Mensaje fuera de rango ya no promete un enlace que no existe. `locales/en.default.json:357`, `locales/es.json:357`. | Test de copy espera frases cortas sin “return/journal” ni “volver/diario”; el locale anterior no satisface la expectativa → pasa. | `27f7200`, verde. |
+| **R4A-16** | Nueva `listings/sartorial/templates/product.gift-card.json`, copia de raíz con `media_layout: split_screen` y sin acordeón de cuidado. | `tests/r4-minor-template.spec.mjs`: antes el archivo de listing no existía → ahora coincide con plantilla regalo raíz salvo layout del preset. | `27f7200`, verde; restaura el recuento del ZIP a 111. |
+| **R4A-17** | `data-zoom-label-template` en `sections/main-product.liquid:123-130`; `refreshZoomLabels()` tras montaje y reordenamiento en `assets/theme.js:618-620, 766-772`. `data-zoom-open` conserva el índice de `zoom_images`. | Test en orden reordenado: JS de `84ff2bd` conserva “Zoom image 7 of 7” → anuncia “Zoom image 1 of 7” y mantiene `data-zoom-open="6"`. | `27f7200`, verde. |
+| **R4A-18** | Tabla de fotos del README alinea Sartorial `image_2` con Tailoring y Archive con Selected pieces. `docs/demo-store/overlays/README.md:11,13`. | `tests/r4-demo-overlays.spec.mjs`: ahora comprueba esas dos etiquetas; test previo no tenía esas expectativas → 4 tests pasan. | Prueba añadida en `4ef4663`, gate verde. |
 
-No propongo cerrar filas que necesitan una tienda real. Dejar en `código completo` y referenciar los tests nuevos:
+### Limitación de `?variant=` sin JavaScript
 
-- `PDP: variante y medio seleccionado` / M-06 — `tests/r4-product-layout.spec.mjs` y `sections/main-product.liquid:45`; falta asociar medios con T1 y comprobar la ficha en tienda.
-- `Sticky product information` / M-10 — `tests/r4-product-layout.spec.mjs`; falta subir un tema sin publicar y probar storefront real.
-- Búsqueda, localización y mensajes del carrito / M-13, M-16, M-19, M-20 — `tests/r4-header-search-cart.spec.mjs`, `tests/r3-cart.spec.mjs`.
-- 404, tarjeta regalo, blog y búsqueda predictiva / M-17, M-18, M-27, M-28 — `tests/r4-minor-template.spec.mjs`; la plantilla de regalo y los textos necesitan aplicación/observación en tienda.
-- Copy específico de presets / M-14 — `tests/r4-preset-copy.spec.mjs`; aplicación visual por preset pendiente.
-- Overlays P1 — `tests/r4-demo-overlays.spec.mjs`; valida JSON y handles contra los catálogos de origen, no que los handles ya existan en tiendas demo.
-- **3 Tiendas Demo Auténticas** permanece `no verificado` (fila 121 de `docs/requirements-ledger.md`); T1–T3 y P1 están preparados, pero no se ejecutaron en las tiendas destino.
+El repo no trae renderer Liquid ni fixtures capaces de montar `sections/main-product.liquid` con un producto de prueba. No añadí librerías. Se mantiene la prueba de estructura/cadenas Liquid en `tests/r4-product-layout.spec.mjs`; confirmar en tienda que la primera figura del HTML sin JS corresponde a `selected_media_id` y a `?variant=` queda pendiente de la checklist de §8.
 
-## 4. Pruebas y gates
+## 3. Planes T1–T3 regenerados
 
-Los nuevos tests se ejecutaron con Playwright/Chromium del sistema (`/usr/bin/chromium`) y configuración temporal en `/tmp/r4-playwright.config.mjs`, porque el navegador administrado de Playwright no estaba disponible en este entorno.
+Los seis `docs/demo-store/plans/catalog-r4-*.json` se regeneraron con `catalog-r4.mjs`; no se editaron a mano. Cada uno declara `plan_kind: mutation-intents`, `executable_graphql:false`, `mutations_sent:0`, `inventory_target:8` y `baseline.live_store_read:false`. La aplicación futura debe hacer lectura previa y revisar cada intención; los documentos no son GraphQL ni instrucciones ejecutables. QA T2/T3 no pide cambios: solo presenta omisiones con motivos.
 
-- `tests/r4-product-layout.spec.mjs`: 2 pruebas de M-10 fallaron con el código anterior y pasaron con C1a; con C1b las pruebas de galería/foco/móvil también fallaron antes y pasaron después (6 pasaron al completar C1).
-- `tests/r4-featured-product-media.spec.mjs`: CSS anterior falló al ocultar medios desde la sexta; 1 pasó después.
-- `tests/r4-header-search-cart.spec.mjs` y `tests/r3-cart.spec.mjs`: M-13/M-16/M-19/M-20 fallaron con los assets anteriores; las 5 pasaron después.
-- `tests/r4-minor-template.spec.mjs`: 4 fallaron en el estado previo a C3; 4 pasaron después.
-- `tests/r4-preset-copy.spec.mjs`: 2 fallaron antes de C4; 2 pasaron después.
-- `tests/r4-catalog-runs.spec.mjs`: falló en el estado previo porque no existía el planificador; 5 pasaron después. Incluye repetición idempotente, allowlist, tutela del `structured-tote`, activación de Imprint y ausencia de mutaciones.
-- `tests/r4-demo-overlays.spec.mjs`: 4 fallaron antes de P1 por falta de archivos; 4 pasaron después.
-- Suite T/P1 combinada: **9 pasaron**. No se usó un servidor Shopify para los tests de fuente/configuración.
-- `npm run gates:static` pasó después de cada commit C1, C2, C3, C4, T1–T3 y P1. En el gate P1: 898 JSON válidos; hooks sin contratos rotos; locales sin claves estáticas sin resolver; ledger sin incoherencias; Theme Check: 111 archivos, cero ofensas; sintaxis JS correcta; empaquetado de gate: 111 archivos, sin referencias internas.
+| Archivo | Intenciones | Omitidos |
+|---|---:|---:|
+| `catalog-r4-qa-t1.json` | 735 | 0 |
+| `catalog-r4-demo-sartorial-pending-t1.json` | 735 | 0 |
+| `catalog-r4-qa-t2.json` | 0 | 17 |
+| `catalog-r4-demo-imprint-pending-t2.json` | 27 | 0 |
+| `catalog-r4-qa-t3.json` | 0 | 14 |
+| `catalog-r4-demo-archive-pending-t3.json` | 26 | 0 |
 
-## 5. Planes secos T1–T3
+Validé automáticamente: JSON parseable; ninguna cadena `gid://shopify/`, token o secreto; los planes QA T2/T3 tienen 0 intenciones. No se contactó Shopify Admin ni storefront.
 
-Se generaron seis archivos de plan. `mutations_sent` es 0 y `baseline.live_admin_read` es `false` en todos. Los `qa` usan CSV/snapshot histórico, no una lectura actual de Admin. Los alias de Imprint/Archive no tienen dominio: solo describen el objetivo futuro. Las credenciales de Admin API no están configuradas.
+## 4. Tests y compuertas
 
-| Plan | Cambios planeados | Omitidos | Nota |
-| --- | ---: | ---: | --- |
-| `catalog-r4-qa-t1.json` | 731 | 0 | Sartorial; selectores sin IDs fijos. Vendor usa una consulta de selección cuyo conteo esperado (31) viene del encargo y requiere lectura en vivo antes de aplicar. |
-| `catalog-r4-demo-sartorial-pending-t1.json` | 731 | 0 | Plan para tienda no creada. |
-| `catalog-r4-qa-t2.json` | 24 | 1 | Omite explícitamente el `structured-tote` de Sartorial en QA. |
-| `catalog-r4-demo-imprint-pending-t2.json` | 27 | 0 | Importa la versión Imprint del tote, activa/inventaría/publica según plan, 7 borradores del snapshot y 3 colecciones. Ninguna prenda. |
-| `catalog-r4-qa-t3.json` | 26 | 0 | Solo plan; no aplicado en QA. |
-| `catalog-r4-demo-archive-pending-t3.json` | 26 | 0 | Ocho borradores y dos colecciones según el snapshot, para tienda no creada. |
+- **Playwright offline:** 63/63 pasaron en Chromium del sistema, con `/tmp/r4-playwright.config.mjs`, para carrito, búsqueda, layout, producto, fixtures, presets, overlays y nuevos puntos R4A.
+- La pasada general de Playwright no pudo completarse: dos casos `pdp-line-total` intentaron abrir `http://127.0.0.1:9292/collections/all`; el servidor local no estaba disponible y devolvió `ERR_CONNECTION_REFUSED`. Detuve la ejecución; no se accedió a una tienda Shopify. Los tests `pdp-line-total` que requieren ese storefront quedan sin verificar aquí.
+- `npm run gates:static` pasó tras cada commit de código/tests/planes: `6684e48`, `5620c4e`, `4d2c702`, `6efe1c3`, `c24a947`, `1bdbed1`, `f128896`, `d392ae8`, `27f7200`, `242df84`, `3ce82cf`, `613dc4b`, `0bf5574` y `4ef4663`.
+- En la última salida completa: 898 JSON válidos; 111 archivos Theme Check sin ofensas; referencias estáticas de locale sin resolver: 0; ledger: 103 filas, 0 incoherencias; `node --check` pasa para JS; `internal references: none`; el empaquetado de gate informa 111 archivos. El gate no sustituye la revisión manual de la evidencia del ledger.
 
-Los scripts son deliberadamente dry-run-only: `--apply` se rechaza. No hay mutaciones ni lecturas de verificación que reportar. Antes de aplicar, la persona autorizada debe leer el estado actual, resolver la ubicación activa por nombre y verificar cada escritura. Las salidas no contienen IDs de Shopify ni credenciales.
+## 5. ZIP y manifiesto
 
-Reconciliación de copy: el punto T1 del encargo menciona el sufijo de preview, mientras §5 y el plan R4 piden quitar el meta-texto “Replace this text…”. Se sustituyó por descripciones editoriales y se eliminó ese meta-texto. Pido a Claude confirmar esta lectura antes de aplicar T1.
+Generados una sola vez al cierre, desde el último commit que cambia archivos del tema, `0bf55749e02d2ce09a92cddcbebaa394b1305b20`:
 
-## 6. ZIP, manifiesto y subida
+- ZIP: `Sartorial-1.0.0.zip`; 111 archivos; 333907 bytes.
+- SHA-256: `c3b4616102a62167e1c0de113a1e14e9c71acd054aff1054e0b5f5482cd5e9f6`.
+- Huella de contenido independiente de zlib: `2d8e42eb7b0855b3a7ed15f689d69e68ba7ac60dd59878376578295426693846`.
+- Manifiesto: `docs/demo-store/ZIP-FINAL-MANIFEST-1.0.0.txt`, cabecera de 10 líneas y 111 hashes de archivo en orden ZIP; commit `6d79b3a`.
+- `internal references: none`; `unzip -t` sin errores; `node --check` en `assets/theme.js` y `assets/product-zoom.js` extraídos. Declarada **no validada en tienda**.
+- Respecto a la ZIP R4 de 111 entradas: R4A-1 quitó el grupo Sartorial duplicado (−1) y R4A-16 añadió la plantilla regalo Sartorial (+1). Total final: 111.
+- El empaquetado del gate escribe `dist/theme.zip` en cada `gates:static`; no es la ZIP canónica. Solo se generó una vez la ZIP canónica y su manifiesto.
 
-ZIP canónica generada una sola vez con `node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip --expect-count 111` sobre HEAD `6b0d173d1d5328124e6c240c7a405c8299766e3d`.
+## 6. Copy para aprobación D35: antes → propuesta
 
-- Archivos: 111; tamaño: 333552 bytes; SHA-256: `1d9a22b30cd2ddb738426951cc9f2c28fb76fb9713d7b1f80b7b7799a9bffec1`; huella de contenido: `c623ecfd9a8929b4991b57ca1e2c001aed6ba45d9ae69d7a615a77944139ba0f`.
-- El empaquetador informó `internal references: none`. `unzip -t` terminó sin errores; `node --check` pasó para `assets/theme.js` y `assets/product-zoom.js` extraídos. El manifiesto tiene diez líneas de cabecera y 111 hashes en orden ZIP en `docs/demo-store/ZIP-FINAL-MANIFEST-1.0.0.txt`.
-- Estado Shopify: no se subieron los tres temas R4 ni se comprobó Shopify en servidor. No hay credenciales Admin y las tiendas Imprint/Archive siguen sin dominio. La ZIP declara `Validado en tienda: NO`.
+Nada de esta lista se considera aprobado salvo **“Popular pieces”** (D66). Los autores son ficticios, no cuentas reales.
 
-## 7. Copy nuevo/cambiado para aprobación (D35)
+### Fixtures y catálogo T1
 
-Única excepción ya aprobada: “Popular pieces” (D66). El nombre de autor `proyect-shopi` queda provisional y debe confirmarse antes de publicar.
+- `fixture-media-3d-video`: “Studio Form Coat” → “Studio Form Object”.
+- `fixture-many-variants`: “Multi-Option Knit” → “Many-Variant Tailored Jacket”.
+- `fixture-long-title`: “Double-Faced Wool and Cashmere Wrap Coat with a Detachable Belt, Oversized Collar and Longline Shape” → “Double-Breasted Merino Overcoat with a Detachable Collar”.
+- Nuevas propuestas para handles vistos en R2: `fixture-focal-point` → “Focal-Point Scarf”; `fixture-color-only` → “Leather Belt in Three Colors”; `fixture-long-swatches` → “Long-Swatch Overshirt”. Se buscan por handle y se omiten si no existen.
+- `long-title-fixture-wrap-coat`: “Long Title Fixture Double-Faced Wool and Cashmere Wrap Coat with a Detachable Belt and Oversized Collar in Soft Ink Navy” → “Double-Faced Wool and Cashmere Wrap Coat with Detachable Belt, Oversized Collar and Longline Silhouette in Soft Ink Navy” (exactamente 120 caracteres).
+- Otros fixtures sin cambio de copy: “Ribbed Cotton Jersey Tee” y “Cotton Jersey Long-Sleeve Tee”.
+- “Studio Demo” → vendors ficticios por preset: Sartorial “Line & Form”, Imprint “Field & Form”, Archive “Archive Index”.
+- Autor anterior “proyect-shopi” → Sartorial “Mara Ellery”; Imprint “Eli Mercer”; Archive “Rowan Vale”. Pendientes de aprobación D35.
 
-- **Nombres ficticios de marca por preset:** Sartorial “Line & Form”; Imprint “Field & Form”; Archive “Archive Index”. Fixture renames: “Studio Form Coat”; “Multi-Option Knit”; “Double-Faced Wool and Cashmere Wrap Coat with a Detachable Belt, Oversized Collar and Longline Shape”; “Ribbed Cotton Jersey Tee”; “Cotton Jersey Long-Sleeve Tee”; “Double-Faced Wool and Cashmere Wrap Coat with a Detachable Belt and Oversized Collar in Soft Ink Navy”.
-- **Descripciones de productos** (ubicación: `docs/demo-store/scripts/catalog-r4-data.mjs:8-30`; valores del plan T1): Serra Coat — “A long wrap coat with a quiet line through the body.”; Doppio Trench — “A double-breasted trench with a clean, straight profile.”; Cocoon Cardigan-Coat — “An open-front knit coat with a rounded silhouette.”; Nove Blazer — “A single-breasted blazer with notch lapels.”; Cropped Tailored Jacket — “A cropped jacket with a compact shape and considered proportions.”; Pleated Wide Trouser — “A wide-leg trouser with front pleats.”; Cigarette Trouser — “A straight trouser with a narrow leg.”; Cashmere Rib Crew — “A ribbed crew-neck knit.”; Fine Merino Turtleneck — “A fine-gauge turtleneck with a close, clean line.”; Oversized Alpaca Knit — “An oversized jumper with a dropped shoulder.”; Poplin Column Shirt — “A long, straight shirt with a clean collar.”; Silk Charmeuse Blouse — “A fluid blouse with a soft collar.”; Striped Cotton Shirt — “A striped shirt with a classic collar.”; Bias-Cut Slip Dress — “A slip dress cut on the bias with narrow straps.”; Wrap Wool Skirt — “A midi wrap skirt with a clean front.”; Pleated Midi Skirt — “A pleated midi skirt with a fluid line.”; Leather Belt — “A plain belt with a metal buckle.”; Cashmere Scarf — “A wide scarf in one size.”; Silk Twill Square — “A square scarf in silk twill, shaped for versatile styling.”; Structured Tote — “A structured tote bag with two handles.”; long-title fixture — “A double-faced wool and cashmere wrap coat with a detachable belt and oversized collar.” El meta-texto “Replace this text…” se elimina.
-- **Blog y gift card** (`catalog-r4-data.mjs:41-54`): “A study in proportion” con “A line begins at the shoulder, then softens through the body. We look at proportion as a way to bring ease to the pieces worn every day.”; “How to read garment measurements” con “Compare the measurements below each size with a similar piece that fits you well. Check the shoulder, chest and length before choosing a size.”; regalo: “A gift card for a piece chosen by its recipient.”. Autor: “proyect-shopi”; etiquetas nuevas `journal`, `tailoring`, `guide`, `fit`.
-- **404 y búsqueda:** inglés “Popular pieces” (aprobado); inglés “No matches for ‘[terms]’. Try a different search or view all results.”; español “Piezas populares”; “No hay resultados para «[terms]». Prueba otra búsqueda o consulta todos los resultados.”. Se propone en blog español “No hay ensayos en esta página. Vuelve al diario para consultar todas las historias.”; inglés: “There are no essays on this page. Return to the journal to browse all stories.”.
-- **Imprint** (`listings/imprint/templates/index.json`): “Desk objects and accessories for work and everyday routines.”; “Browse the collection”; “Technical studio”; “Daily objects”; “Desk and study”; “Daily carry”; “Everyday carry systems”; “Object details”; “The collection”; “Collection, product, process”; “A denser view of the working collection.”; “Leather goods”; “Desk objects for daily use”; “A modular carry”; “Pieces for daily carry”; “An arrangement of pieces for work and everyday routines.”; “An arrangement for work and daily routines.”; “Studio principles”; “Useful forms begin with the work they do.”; “Studio notes”.
-- **Archive** (`listings/archive/templates/index.json`, `listings/archive/templates/collection.json`): “Catalog / the house”; “Curatorial notes”; “Archive collection”; “Permanent archive”; “Garments and objects”; “Selected pieces”; “The archive”; “Archive pieces”; “Collection highlights”; “Explore the collection.”. Header group presets: “Explore the collection”, “New forms”, “Permanent collection”, “Tailoring”, “Daily objects”, “Desk and study”, “Leather goods”, “Restored pieces”, con sus subtítulos de los JSON de `listings/*/sections/header-group.json`.
+### Descripciones de productos
 
-## 8. Hallazgos
+Para cada producto se eliminó el sufijo de demo “Demo product for theme preview. Replace this text with your own description.” y se propone el texto editorial siguiente; los fragmentos previos son el texto de origen inmediatamente anterior a ese sufijo.
 
-- **Corregidos en código/preset:** M-06, M-10, M-13, M-14, M-15, M-16, M-17, M-18 (plantilla, la asignación sigue pendiente), M-19, M-20, M-27 y M-28.
-- **Abiertos por dependencia de catálogo/tienda:** M-01 (client transfer y publicación), M-02/M-03 (planes T1 aún sin aplicar), M-04 (tienda Imprint aún no tiene catálogo aplicado), M-05 (asociar medio a variante con T1), M-07 (imágenes DP-025 pendientes), M-08/M-09 (overlays aún no aplicados), M-11/M-12 (mercado Canadá y pagos de prueba sin verificar), M-18 (asignar template `gift-card`), M-32 (auditoría manual completa de tienda y dispositivos). M-14 también necesita observar el copy del preset en tienda.
-- **Residual/desviación:** no fue posible leer ni mutar el Admin de Shopify; los alias demo son placeholders sin dominio. Los planes presentan valores de origen/snapshot histórico. Copy D35 y autoría provisional requieren aprobación. No se pudo validar la ZIP R4 en Shopify.
+| Handle | Texto anterior → nuevo |
+|---|---|
+| `serra-coat` | “A long wrap coat in a neutral palette, shown with three colours and five sizes.” → “A long wrap coat with a quiet line through the body.” |
+| `doppio-trench` | “A double-breasted trench in two colours.” → “A double-breasted trench with a clean, straight profile.” |
+| `cocoon-cardigan-coat` | “An open-front knit coat with a rounded shape.” → “An open-front knit coat with a rounded silhouette.” |
+| `nove-blazer` | “A single-breasted blazer with notch lapels.” → “A single-breasted blazer with notch lapels.” |
+| `cropped-tailored-jacket` | “A cropped jacket offered in two colours and two fabric options.” → “A cropped jacket with a compact shape and considered proportions.” |
+| `pleated-wide-trouser` | “A wide-leg trouser with front pleats.” → “A wide-leg trouser with front pleats.” |
+| `cigarette-trouser` | “A slim straight trouser.” → “A straight trouser with a narrow leg.” |
+| `cashmere-rib-crew` | “A ribbed crew-neck knit.” → “A ribbed crew-neck knit.” |
+| `fine-merino-turtleneck` | “A fine-gauge turtleneck.” → “A fine-gauge turtleneck with a close, clean line.” |
+| `oversized-alpaca-knit` | “An oversized jumper with a dropped shoulder.” → “An oversized jumper with a dropped shoulder.” |
+| `poplin-column-shirt` | “A long straight shirt.” → “A long, straight shirt with a clean collar.” |
+| `silk-charmeuse-blouse` | “A fluid blouse with a soft collar.” → “A fluid blouse with a soft collar.” |
+| `striped-cotton-shirt` | “A striped shirt with a classic collar.” → “A striped shirt with a classic collar.” |
+| `bias-cut-slip-dress` | “A slip dress with narrow straps.” → “A slip dress cut on the bias with narrow straps.” |
+| `wrap-wool-skirt` | “A midi wrap skirt.” → “A midi wrap skirt with a clean front.” |
+| `pleated-midi-skirt` | “A pleated midi skirt.” → “A pleated midi skirt with a fluid line.” |
+| `leather-belt` | “A plain belt with a metal buckle.” → “A plain belt with a metal buckle.” |
+| `cashmere-scarf` | “A wide scarf in one size.” → “A wide scarf in one size.” |
+| `silk-twill-square` | (sin descripción) → “A square scarf in silk twill, shaped for versatile styling.” |
+| `structured-tote` | “A structured tote bag with two handles.” → “A structured tote bag with two handles.” |
+| `long-title-fixture-wrap-coat` | “Fixture with a 120-character title.” → “A double-faced wool and cashmere wrap coat with a detachable belt and oversized collar.” |
 
-## 9. T4 para Johandry
+### Artículos, handle y gift card
 
-- [ ] Confirmar en Dev Dashboard si `sartorial-theme-kvkzl39t` es development o client transfer (DP-024).
-- [ ] Crear tres tiendas client transfer, una por preset (D67).
-- [ ] Asignar a cada tienda su nombre, que también es el logo de texto.
-- [ ] Configurar Bogus Gateway o Shopify Payments en modo de prueba y desactivar otros métodos de pago.
+- `welcome-to-the-demo-store` → `a-study-in-proportion`, derivado del título nuevo. No se planifica redirección. Título anterior “Welcome to the demo store” → “A study in proportion”; cuerpo anterior “This store is used to preview the theme. Replace this article with your own news.” → “A line begins at the shoulder, then softens through the body. We look at proportion as a way to bring ease to the pieces worn every day.”; tags `news` → `journal`, `tailoring`.
+- `how-to-read-the-size-chart`: título “How to read the size chart” → “How to read garment measurements”. Cuerpo anterior “Sizes in this demo go from XS to XL. Replace this text with your own measurements and advice.”; propuesta anterior de R4 “Compare the measurements below each size with a similar piece that fits you well. Check the shoulder, chest and length before choosing a size.” → “Lay a similar piece flat and compare its shoulder, chest and length with the measurements in this size guide. Choose the closest match.”; tags `guide` se mantienen y se añade `fit`.
+- Gift card: “This is a gift card for the store.” → “A gift card for a piece chosen by its recipient.”
+- Titular alternativo para aprobación (no aplicado): Imprint “Engineered utility, precise discipline” → **“Objects for the working day.”**
+
+### Locales y copy de blog fuera de rango
+
+| Clave | Inglés anterior → propuesto | Español anterior → propuesto |
+|---|---|---|
+| `blogs.blog.page_out_of_range` | “There are no essays on this page. Return to the journal to browse all stories.” → “There are no essays on this page.” | “No hay ensayos en esta página. Vuelve al diario para consultar todas las historias.” → “No hay ensayos en esta página.” |
+| `predictive_search.no_results` | La misma frase con `[terms]` queda anunciada tal cual: “No matches for ‘[terms]’. Try a different search or view all results.” | “No hay resultados para «[terms]». Prueba otra búsqueda o consulta todos los resultados.” La sustitución ahora conserva literalmente signos `$` del término escrito. |
+| `not_found.recommendations` | “Popular pieces” (aprobado D66; sin cambio) | “Piezas populares” (copy propuesto de R4). |
+
+### Presets y cabeceras
+
+Propuestas de Imprint: “Desk objects and accessories for work and everyday routines.”; “Browse the collection”; “Technical studio”; “Daily objects”; “Desk and study”; “Daily carry”; “Everyday carry systems”; “Object details”; “The collection”; “Collection, product, process”; “A denser view of the working collection.”; “Leather goods”; “Desk objects for daily use”; “A modular carry”; “Pieces for daily carry”; “An arrangement of pieces for work and everyday routines.”; “An arrangement for work and daily routines.”; “Studio principles”; “Useful forms begin with the work they do.”; “Studio notes”. El titular alternativo está arriba y no se aplicó.
+
+Propuestas de Archive: “Catalog / the house”; “Curatorial notes”; “Archive collection”; “Permanent archive”; “Garments and objects”; “Selected pieces”; “The archive”; “Archive pieces”; “Collection highlights”; “Explore the collection.”
+
+Cabeceras de presets: “Explore the collection”, “New forms”, “Permanent collection”, “Tailoring”, “Daily objects”, “Desk and study”, “Leather goods”, “Restored pieces”, con los subtítulos de los JSON de `listings/*/sections/header-group.json`. Todos pendientes de aprobación D35 salvo la etiqueta antes indicada.
+
+## 7. Ledger y pendientes de tienda
+
+No se cambió el estado de las filas 39, 85 ni 130; tampoco se marca como cumplido algo que requiere catálogo o storefront real. `npm run gates:static` deja el ledger sin incoherencias, pero su estado sigue sujeto a revisión de Claude.
+
+La ZIP no se subió a Shopify y no se hizo revisión visual de producto/mercado/idioma. La asignación `templateSuffix=gift-card` requiere leer/aplicar el catálogo por un operador autorizado; la plantilla de listing ya respeta Sartorial. T1 no se ejecutó y los medios por variante siguen pendientes de comprobación real.
+
+## 8. Checklist para Johandry
+
+- [ ] Confirmar si `sartorial-theme-kvkzl39t` es development o client transfer (DP-024).
+- [ ] Crear las tres tiendas client transfer, una por preset (D67), y darles su nombre/marca.
+- [ ] Configurar gateway de prueba y desactivar métodos de pago no usados; no usar tarjetas/datos reales.
 - [ ] Habilitar ventas y envío a Canadá o retirar ese mercado.
 - [ ] Elegir y acreditar derechos de imagen (DP-025); subir recursos de las tres photo maps.
-- [ ] Facilitar credenciales Admin por variable de entorno o ejecutar con acceso los planes T1–T3, con lectura y verificación.
-- [ ] Aplicar overlays a temas sin publicar, verificar y publicar cada preset mediante el proceso de Johandry.
-- [ ] Aprobar el copy nuevo de §7 y confirmar autor `proyect-shopi` (D35).
+- [ ] Con autorización, hacer lectura previa y revisar T1–T3; decidir inventario objetivo, ubicación activa y valores de cada intención. QA T2/T3 no se aplican.
+- [ ] En tema sin publicar, comprobar `?variant=` sin JS, medio primero, etiquetas de zoom, tamaños de imagen y barra sticky en las tres resoluciones de A7.
+- [ ] Aplicar overlays a temas sin publicar, verificar y publicar cada preset solo por el proceso autorizado de Johandry.
+- [ ] Aprobar copy D35: producto, artículos, handle/redirect, titulares de presets y los autores ficticios Mara Ellery (Sartorial), Eli Mercer (Imprint) y Rowan Vale (Archive).
+- [ ] Confirmar la plantilla regalo y el mensaje de página de blog fuera de rango en tienda.
 
-## 10. Riesgo y desviaciones
+## 9. Commits de corrección
 
-Sin mutaciones ni cambios publicados. Nivel 1: ninguno conocido. Nivel 2: catálogo, imágenes, credenciales, revisión de copy, comprobación de carga de ZIP y auditoría de las tres tiendas quedan pendientes antes de la entrega a Theme Store.
+`6684e48`, `5620c4e`, `4d2c702`, `6efe1c3`, `c24a947`, `1bdbed1`, `f128896`, `d392ae8`, `27f7200`, `242df84`, `3ce82cf`, `613dc4b`, `0bf5574`, `6d79b3a` y `4ef4663`. No se tocaron `agent-comms/BOARD.md` ni `docs/decisions.md`. No se hizo push a la rama de Claude, no hubo force-push ni rebase.
