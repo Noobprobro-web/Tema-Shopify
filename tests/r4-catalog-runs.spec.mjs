@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 import { buildPlan } from '../docs/demo-store/scripts/catalog-r4.mjs';
 
 test('T1 emits deterministic, idempotent operations using the supplied provisional author', () => {
@@ -48,4 +49,24 @@ test('T3 Archive plan emits its two collections, without applying mutations', ()
 
 test('catalog planner rejects stores outside the explicit allowlist', () => {
   expect(() => buildPlan({ storeAlias: 'unknown.myshopify.com', plan: 't1' })).toThrow(/not allowlisted/);
+});
+
+test('R4A-4 keeps a 120-character product title, correct jacket type, and conditional fixture handles', () => {
+  const csvHandles = new Set(readFileSync(new URL('../docs/demo-store/products.csv', import.meta.url), 'utf8')
+    .split(/\r?\n/).slice(1).map((line) => line.split(',')[0]).filter(Boolean));
+  const { document } = buildPlan({ storeAlias: 'qa', plan: 't1' });
+  const titles = document.changes.filter(({ field, selector, resource }) => field === 'title' && resource === 'Product' && selector.handle);
+  expect(titles.some(({ after }) => after.length === 120)).toBe(true);
+  const manyVariants = titles.find(({ selector }) => selector.handle === 'fixture-many-variants');
+  expect(manyVariants.after).toMatch(/jacket/i);
+  expect(manyVariants.after).not.toMatch(/knit/i);
+  for (const intent of titles) {
+    if (!csvHandles.has(intent.selector.handle)) {
+      expect(intent.condition).toMatchObject({ lookup_by_handle: true, skip_if_missing: true });
+      expect(intent.baseline_source).toMatch(/buscar y omitir si no existe/i);
+    }
+  }
+  for (const handle of ['fixture-focal-point', 'fixture-color-only', 'fixture-long-title', 'fixture-long-swatches']) {
+    expect(titles.some(({ selector }) => selector.handle === handle)).toBe(true);
+  }
 });

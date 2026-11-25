@@ -30,12 +30,51 @@ export const PRODUCT_COPY = Object.freeze({
 });
 
 export const FIXTURE_TITLES = Object.freeze({
-  'fixture-media-3d-video': 'Studio Form Coat',
-  'fixture-many-variants': 'Multi-Option Knit',
-  'fixture-long-title': 'Double-Faced Wool and Cashmere Wrap Coat with a Detachable Belt, Oversized Collar and Longline Shape',
-  'fixture-single-variant-no-vendor': 'Ribbed Cotton Jersey Tee',
-  'fixture-with-vendor': 'Cotton Jersey Long-Sleeve Tee',
-  'long-title-fixture-wrap-coat': 'Double-Faced Wool and Cashmere Wrap Coat with a Detachable Belt and Oversized Collar in Soft Ink Navy',
+  'fixture-media-3d-video': {
+    title: 'Studio Form Object',
+    source: 'Historical R2 storefront probe; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'fixture-many-variants': {
+    title: 'Many-Variant Tailored Jacket',
+    source: 'Historical R2 storefront probe and created-fixtures snapshot; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'fixture-long-title': {
+    title: 'Double-Breasted Merino Overcoat with a Detachable Collar',
+    source: 'Historical R2 storefront probe and created-fixtures snapshot; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'fixture-single-variant-no-vendor': {
+    title: 'Ribbed Cotton Jersey Tee',
+    source: 'Historical created-fixtures snapshot; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'fixture-with-vendor': {
+    title: 'Cotton Jersey Long-Sleeve Tee',
+    source: 'Historical created-fixtures snapshot; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'fixture-focal-point': {
+    title: 'Focal-Point Scarf',
+    source: 'Historical R2 storefront probe and created-fixtures snapshot; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'fixture-color-only': {
+    title: 'Leather Belt in Three Colors',
+    source: 'Historical R2 storefront probe; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'fixture-long-swatches': {
+    title: 'Long-Swatch Overshirt',
+    source: 'Historical R2 storefront probe and created-fixtures snapshot; search by exact handle and skip if missing.',
+    conditional: true,
+  },
+  'long-title-fixture-wrap-coat': {
+    title: 'Double-Faced Wool and Cashmere Wrap Coat with Detachable Belt, Oversized Collar and Longline Silhouette in Soft Ink Navy',
+    source: 'docs/demo-store/products.csv',
+    conditional: false,
+  },
 });
 
 export const BLOG_COPY = Object.freeze({

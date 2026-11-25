@@ -139,11 +139,15 @@ const t1Intents = (store) => {
     PRESET_VENDORS[store.preset], 'productUpdate (one product per returned handle)',
     'Expected count 31 comes from the R4 brief; no live Admin query was run.'));
 
-  for (const [handle, title] of Object.entries(FIXTURE_TITLES)) {
+  for (const [handle, fixture] of Object.entries(FIXTURE_TITLES)) {
     const product = csvProducts.get(handle);
     const before = product?.title || null;
-    intents.push(action('t1', 'Product', { handle }, 'title', before, title, 'productUpdate',
-      product ? BASELINE_CSV_NOTE : 'Fixture handle from R4 inventory; current title requires a live read.'));
+    const intent = action('t1', 'Product', { handle }, 'title', before, fixture.title, 'productUpdate', fixture.source);
+    if (fixture.conditional) {
+      intent.condition = { lookup_by_handle: true, skip_if_missing: true };
+      intent.baseline_source = `${fixture.source} Buscar y omitir si no existe usando el handle; la existencia en el destino actual no está verificada.`;
+    }
+    intents.push(intent);
   }
 
   for (const product of csvProducts.values()) intents.push(...optionMediaIntents(product)
