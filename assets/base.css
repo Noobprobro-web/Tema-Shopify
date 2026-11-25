@@ -7360,9 +7360,12 @@ anchor-nav {
 
   .contact-form__grid,
   .comment-form__grid,
-  .main-search__query-row,
-  .main-404__search-row {
+  .main-search__query-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .main-404__search-row {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .contact-form__footer {

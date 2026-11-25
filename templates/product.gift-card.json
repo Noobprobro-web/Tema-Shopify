@@ -1,0 +1,108 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {}
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "settings": {
+            "threshold": 5,
+            "show_count": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "shipping_lead_time": {
+          "type": "shipping_lead_time",
+          "settings": {
+            "delivery_text": "",
+            "icon": "truck"
+          }
+        },
+        "trust_badges": {
+          "type": "trust_badges",
+          "settings": {
+            "returns_text": "",
+            "icon": "shield"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity",
+        "inventory_status",
+        "buy_buttons",
+        "shipping_lead_time",
+        "trust_badges",
+        "description"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "media_layout": "grid",
+        "enable_sticky_cart": true
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "intent": "related",
+        "eyebrow": "Continue the study",
+        "products_to_show": 4,
+        "columns_desktop": "4",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_quick_add": true
+      }
+    },
+    "recently_viewed": {
+      "type": "recently-viewed",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "eyebrow": "Recently viewed",
+        "heading": "Pieces you considered",
+        "products_to_show": 4,
+        "columns_desktop": "4",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_quick_add": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recommendations",
+    "recently_viewed"
+  ]
+}

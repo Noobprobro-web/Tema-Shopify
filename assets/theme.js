@@ -6203,7 +6203,8 @@
       if (resultCount === 0) {
         const empty = document.createElement('p');
         empty.className = 'predictive-search__empty';
-        empty.textContent = (failed ? this.dataset.errorText : this.dataset.noResultsText) || '';
+        const emptyTemplate = (failed ? this.dataset.errorText : this.dataset.noResultsText) || '';
+        empty.textContent = failed ? emptyTemplate : emptyTemplate.replaceAll('[terms]', query);
         footer.append(empty);
       }
 
