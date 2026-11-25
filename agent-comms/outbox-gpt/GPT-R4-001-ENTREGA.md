@@ -6,7 +6,7 @@ Fecha: 2026-11-25. Estado: implementación lista para revisión de Claude; sin a
 
 - Rama nueva `gpt/r4-ficha-demo`, desde `origin/master` verificado en `44c7cbe5dec8c5f188af12484e264bf493d36032`.
 - Commits R4: `73ce4a1` Ajusta sticky de ficha y producto destacado; `3694d9b` Prioriza el medio de variante en las galerías; `f40649b` Muestra todos los medios del producto destacado; `171a24f` Corrige búsqueda, selector de país y estado del carrito; `e7723f1` Afina 404, tarjeta regalo y vacíos de búsqueda y blog; `585359c` Adapta el copy de Imprint y Archive y sus mega menús; `c3af0fb` Añade planes secos idempotentes de catálogo T1-T3; `de943d4` Prepara overlays de home para las tres demos.
-- El primer push de la rama se aceptó. La creación del PR borrador con `gh pr create --draft` devolvió `Post "https://api.github.com/graphql": Forbidden`; no pude obtener un enlace ni confirmar un PR. Reintentar tras el push final.
+- La rama final se subió a `origin/gpt/r4-ficha-demo` hasta `3d192dc`. La creación del PR borrador devolvió `Forbidden` tanto con `gh pr create --draft` (GraphQL) como con `gh api .../pulls` (REST); GitHub no devolvió enlace ni número, así que el PR no quedó abierto desde este entorno.
 - No se tocó `agent-comms/BOARD.md`, no se hizo force-push y no se publicó ni borró ningún tema.
 
 ## 2. Cambios por paquete y localizadores finales
