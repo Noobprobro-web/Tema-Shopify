@@ -10780,16 +10780,6 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   margin: 0;
 }
 
-/* Gallery: on wide screens the first five media plus the selected one are shown. Video, external
-   video and 3D models are never trimmed, so rich media stays reachable (the Liquid sets
-   data-media-type on every figure). The narrow-screen layout is defined in the final block of
-   this file, and no media is hidden here on narrow screens. */
-@media (min-width: 62rem) {
-  .featured-product__media[data-media-type='image']:nth-child(n + 6):not([data-selected]) {
-    display: none;
-  }
-}
-
 .complete-the-look__item--sample {
   grid-template-areas: 'media details';
   grid-template-columns: 4.5rem minmax(0, 1fr);
