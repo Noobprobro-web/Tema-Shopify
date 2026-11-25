@@ -16,6 +16,8 @@ Collection featured images, About page imagery and product media are catalog ass
 
 ## Application procedure
 
+Before step 1, the unpublished theme must come from the unzipped ZIP with only the preset's four files replaced (`templates/collection.json`, `templates/index.json`, `templates/product.json`, `config/settings_data.json`), as in "How to upload a preset" in `docs/demo-store/README.md` (D77). Do not use `build-export.mjs`.
+
 1. Resolve the alias to a destination store from `docs/demo-store/scripts/catalog-r4-stores.json`; do not use a published theme.
 2. Run the matching T1/T2/T3 plan, review the plan, and apply catalog data only through an authorized, separately reviewed process. R4 planner scripts are dry-run-only.
 3. Upload `overlays/<preset>/templates/index.json` as the unpublished demo theme's `templates/index.json`, and `overlays/<preset>/sections/header-group.json` as `sections/header-group.json`.

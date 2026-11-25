@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// ADVERTENCIA (2026-11-25, D77): este script NO reproduce la ZIP del tema. Conserva
+// bloques `docs-only` que el empaquetador elimina y no incluye `listings/`. No lo uses
+// para subir presets a una tienda: parte de la ZIP descomprimida y sustituye solo
+// templates/collection.json, templates/index.json, templates/product.json y
+// config/settings_data.json por los del preset (docs/demo-store/README.md).
 // C-01 · exporta a un directorio limpio el tema exacto de (commit, preset), listo
 // para un `shopify theme push` completo (sin --only, sin --nodelete). Es el mismo
 // contenido que identity.mjs espera encontrar despues en la preview.

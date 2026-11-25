@@ -69,6 +69,14 @@ Root `templates/index.json`:
 `sections/header-group.json`: `menu: main-menu`, `menu_item: Catalog`, mega-menu `link_1`/`link_2` (currently `/collections/all`; point to `new-forms` and `tailoring` in the editor to match images). `sections/footer-group.json`: `menu: footer`.
 `sections/main-404.liquid` uses `collections['all']`: fine.
 
+## How to upload a preset
+Do not use `agent-comms/outbox-claude/harness-C-01-ID-001/build-export.mjs` for this (D77): it does not reproduce the ZIP.
+1. Build the ZIP (`node scripts/package-theme-zip.mjs --out <file> --expect-count 111`) and unzip it into an empty directory.
+2. Replace only four files with the preset's: `templates/collection.json`, `templates/index.json` and `templates/product.json` from `listings/<preset>/templates/`, and `config/settings_data.json` with the preset's `current`: the value of `presets.<Name>` in the root `config/settings_data.json` becomes the `current` of the uploaded file.
+3. Upload that directory as an unpublished theme in the preset's own demo store.
+4. Apply the preset's overlay from `docs/demo-store/overlays/<preset>/` (see `overlays/README.md`).
+Never upload to or modify a published theme without Johandry's authorization.
+
 ## Gaps
 - Imprint and Archive catalogs are not part of this kit (they are objects/archive pieces, not this kit's apparel set). Existing generated CSVs: `docs/demo-import/imprint-products.csv`, `archive-products.csv` and their collections in `docs/demo-import/D-01-catalogo-y-fotos.md`. Import them into separate stores or after this kit.
 - Could not read the live Shopify sample CSV or verify the 250/252-variant import limit (no store access). The help page documents new column names; classic names kept.
