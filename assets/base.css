@@ -7676,8 +7676,7 @@ anchor-nav {
   cursor: pointer;
 }
 
-/* Without JS the submit button sits inside the same container: the drawn chevron is removed and
-   the select returns to its native arrow so it is not covered. */
+/* Without JS the select uses its native arrow, so remove the enhanced chevron decoration. */
 .no-js .localization-form__country-select-wrapper::after {
   content: none;
 }

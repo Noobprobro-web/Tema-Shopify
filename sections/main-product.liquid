@@ -126,6 +126,7 @@
                   type="button"
                   aria-haspopup="dialog"
                   aria-label="{{ 'products.product.media_zoom.open' | t: index: zoom_position, total: zoom_images.size | escape_once }}"
+                  data-zoom-label-template="{{ 'products.product.media_zoom.open' | t: index: '[index]', total: zoom_images.size | escape_once }}"
                   data-zoom-open="{{ zoom_index }}"
                 >
                   <span class="product-gallery__zoom-icon" aria-hidden="true">

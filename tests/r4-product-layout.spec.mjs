@@ -135,6 +135,26 @@ test('R4 C1b keeps zoom trigger indices tied to the original image order', async
   expect(liquid).toContain('{%- for zoom_image in zoom_images -%}');
   expect(liquid).toContain('data-zoom-open="{{ zoom_index }}"');
   expect(liquid).toContain('{%- assign zoom_index = forloop.index0 -%}');
+  expect(liquid).toContain('data-zoom-label-template=');
+});
+
+test('R4A-17 zoom labels follow the visual media order while modal indices keep the original order', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const zoomFigures = Array.from({ length: 7 }, (_, index) => `<figure class="product-gallery__item" data-product-media-id="${index + 1}">
+    <button type="button" data-zoom-label-template="Zoom image [index] of [total]" aria-label="Zoom image ${index + 1} of 7"
+      data-zoom-open="${index}">Open zoom ${index + 1}</button></figure>`).join('');
+  await page.setContent(pageShell(`<section data-section-id="product"><product-gallery class="product-gallery" data-layout="grid">
+    <div class="product-gallery__items" data-gallery-track>${zoomFigures}</div><div class="product-gallery__pager" data-gallery-pager>
+      <span data-gallery-current>1</span><span data-gallery-status></span></div></product-gallery></section>`, {
+    head: `<style>${baseCss()}</style>`,
+  }));
+  await page.locator('[data-product-media-id="7"]').evaluate((figure) => figure.closest('[data-section-id]').dispatchEvent(
+    new CustomEvent('theme:variant-change', { bubbles: true, detail: { variant: { featured_media_id: '7' } } }),
+  ));
+  const selectedTrigger = page.locator('[data-product-media-id="7"] [data-zoom-open]');
+  await expect(selectedTrigger).toHaveAttribute('aria-label', 'Zoom image 1 of 7');
+  await expect(selectedTrigger).toHaveAttribute('data-zoom-open', '6');
+  await expect(page.locator('[data-product-media-id="1"] [data-zoom-open]')).toHaveAttribute('aria-label', 'Zoom image 2 of 7');
 });
 
 test('R4 C1b featured product moves its selected medium to the DOM start on variant change', async ({ page }) => {

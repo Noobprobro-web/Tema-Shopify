@@ -616,6 +616,7 @@
         this.closest('.product-main__layout')?.querySelector('.product-main__details'),
       );
       this.guardUnsizedModels();
+      this.refreshZoomLabels();
       if (this.dataset.layout !== 'thumbnails') {
         this.initCarousel();
         return;
@@ -732,6 +733,7 @@
           const selected = moveMediaToStart(this.track, mediaId);
           if (!selected) return;
           this.slides = Array.from(this.querySelectorAll('[data-product-media-id]'));
+          this.refreshZoomLabels();
           this.track.scrollLeft = 0;
           this.currentSlide = -1;
           this.applySlide(0, false);
@@ -751,6 +753,15 @@
       }
 
       this.syncCarouselMode();
+    }
+
+    refreshZoomLabels() {
+      const triggers = Array.from(this.querySelectorAll('[data-zoom-label-template]'));
+      triggers.forEach((trigger, index) => {
+        trigger.setAttribute('aria-label', trigger.dataset.zoomLabelTemplate
+          .replaceAll('[index]', () => String(index + 1))
+          .replaceAll('[total]', () => String(triggers.length)));
+      });
     }
 
     syncCarouselMode() {

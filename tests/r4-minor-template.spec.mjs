@@ -30,6 +30,14 @@ test('R4 M-18 the gift-card product template copies the root product without the
   expect(giftCard.sections.main.blocks.composition_care).toBeUndefined();
 });
 
+test('R4A-16 Sartorial has its own gift-card listing template with split-screen media', () => {
+  const root = JSON.parse(readFileSync(new URL('../templates/product.gift-card.json', import.meta.url), 'utf8'));
+  const listing = JSON.parse(readFileSync(new URL('../listings/sartorial/templates/product.gift-card.json', import.meta.url), 'utf8'));
+  root.sections.main.settings.media_layout = 'split_screen';
+  expect(listing).toEqual(root);
+  expect(listing.sections.main.blocks.composition_care).toBeUndefined();
+});
+
 test('R4 M-27 distinguishes an out-of-range page from a genuinely empty blog', () => {
   const liquid = readFileSync(new URL('../sections/main-blog.liquid', import.meta.url), 'utf8');
   expect(liquid).toContain('paginate.current_page > paginate.pages and paginate.items > 0');
@@ -37,7 +45,16 @@ test('R4 M-27 distinguishes an out-of-range page from a genuinely empty blog', (
   expect(liquid).toContain('paginate.items == 0');
   expect(liquid).toContain("blogs.blog.empty");
   const english = JSON.parse(readFileSync(new URL('../locales/en.default.json', import.meta.url), 'utf8'));
-  expect(english.blogs.blog.page_out_of_range).not.toBe(english.blogs.blog.empty);
+  const spanish = JSON.parse(readFileSync(new URL('../locales/es.json', import.meta.url), 'utf8'));
+  expect(english.blogs.blog.page_out_of_range).toBe('There are no essays on this page.');
+  expect(spanish.blogs.blog.page_out_of_range).toBe('No hay ensayos en esta página.');
+  expect(english.blogs.blog.page_out_of_range).not.toMatch(/journal|return|browse/i);
+  expect(spanish.blogs.blog.page_out_of_range).not.toMatch(/diario|volver|consultar/i);
+});
+
+test('R4A-14 no-JS localization select comment matches the native-arrow fallback', () => {
+  const css = readFileSync(new URL('../assets/base.css', import.meta.url), 'utf8');
+  expect(css).toContain('Without JS the select uses its native arrow');
 });
 
 test('R4 M-28 an empty predictive search names the actual query in the proposed copy', async ({ page }) => {
