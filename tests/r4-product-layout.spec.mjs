@@ -88,3 +88,44 @@ test('R4 C1b featured product moves its selected medium to the DOM start on vari
   await page.locator('variant-selects').evaluate((element) => element.updateMedia({ featured_media_id: '7' }));
   await expect(page.locator('.featured-product__gallery > :first-child')).toHaveAttribute('data-product-media-id', '7');
 });
+
+const responsiveMediaFigures = (count = 7, featured = false) => Array.from({ length: count }, (_, index) => {
+  const sizes = index === 0
+    ? `(min-width: 62rem) 60vw, ${featured ? '85vw' : '100vw'}`
+    : `(min-width: 62rem) 30vw, ${featured ? '85vw' : '100vw'}`;
+  return `<figure class="${featured ? 'featured-product__media' : 'product-gallery__item'}" data-product-media-id="${index + 1}">
+    <picture><source sizes="${sizes}" srcset="/media-${index + 1}.webp"><img sizes="${sizes}" src="/media-${index + 1}.webp" alt="Media ${index + 1}"></picture></figure>`;
+}).join('');
+
+test('R4A-2 variant figure and its former lead exchange responsive sizes in the product grid', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.setContent(pageShell(`<section data-section-id="product"><product-gallery class="product-gallery" data-layout="grid">
+    <div class="product-gallery__items" data-gallery-track>${responsiveMediaFigures()}</div>
+    <div class="product-gallery__pager" data-gallery-pager><span data-gallery-current>1</span><span data-gallery-status></span></div>
+  </product-gallery><variant-selects></variant-selects></section>`, { head: `<style>${baseCss()}</style>` }));
+  await page.locator('section').evaluate((section) => section.dispatchEvent(new CustomEvent('theme:variant-change', {
+    bubbles: true, detail: { variant: { featured_media_id: '7' } },
+  })));
+  const selected = page.locator('[data-product-media-id="7"]');
+  const formerLead = page.locator('[data-product-media-id="1"]');
+  await expect(page.locator('[data-gallery-track] > :first-child')).toHaveAttribute('data-product-media-id', '7');
+  await expect(selected.locator('img')).toHaveAttribute('sizes', '(min-width: 62rem) 60vw, 100vw');
+  await expect(selected.locator('source')).toHaveAttribute('sizes', '(min-width: 62rem) 60vw, 100vw');
+  await expect(formerLead.locator('img')).toHaveAttribute('sizes', '(min-width: 62rem) 30vw, 100vw');
+  await expect(formerLead.locator('source')).toHaveAttribute('sizes', '(min-width: 62rem) 30vw, 100vw');
+});
+
+test('R4A-2 featured product exchanges responsive sizes with the selected figure', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.setContent(pageShell(`<section data-section-id="featured"><div class="featured-product__gallery">
+    ${responsiveMediaFigures(7, true)}</div><variant-selects class="featured-product__details"></variant-selects></section>`, {
+    head: `<style>${baseCss()}</style>`,
+  }));
+  await page.locator('variant-selects').evaluate((element) => element.updateMedia({ featured_media_id: '7' }));
+  const selected = page.locator('[data-product-media-id="7"]');
+  const formerLead = page.locator('[data-product-media-id="1"]');
+  await expect(selected.locator('img')).toHaveAttribute('sizes', '(min-width: 62rem) 60vw, 85vw');
+  await expect(selected.locator('source')).toHaveAttribute('sizes', '(min-width: 62rem) 60vw, 85vw');
+  await expect(formerLead.locator('img')).toHaveAttribute('sizes', '(min-width: 62rem) 30vw, 85vw');
+  await expect(formerLead.locator('source')).toHaveAttribute('sizes', '(min-width: 62rem) 30vw, 85vw');
+});

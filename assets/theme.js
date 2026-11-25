@@ -331,7 +331,22 @@
     const selected = Array.from(gallery.querySelectorAll('[data-product-media-id]')).find(
       (media) => String(media.dataset.productMediaId) === String(mediaId),
     );
-    if (selected && selected !== gallery.firstElementChild) gallery.insertBefore(selected, gallery.firstElementChild);
+    const first = gallery.firstElementChild;
+    if (selected && first && selected !== first) {
+      const selectedSources = Array.from(selected.querySelectorAll('img, picture > source'));
+      const firstSources = Array.from(first.querySelectorAll('img, picture > source'));
+      selectedSources.forEach((source, index) => {
+        const other = firstSources[index];
+        if (!other) return;
+        const selectedSizes = source.getAttribute('sizes');
+        const firstSizes = other.getAttribute('sizes');
+        if (firstSizes === null) source.removeAttribute('sizes');
+        else source.setAttribute('sizes', firstSizes);
+        if (selectedSizes === null) other.removeAttribute('sizes');
+        else other.setAttribute('sizes', selectedSizes);
+      });
+      gallery.insertBefore(selected, first);
+    }
     return selected;
   };
 
