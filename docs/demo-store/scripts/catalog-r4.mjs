@@ -1,11 +1,10 @@
 #!/usr/bin/env node
-// Deterministic, dry-run-only planner for the R4 demo catalog. It never sends a Shopify mutation.
-// Admin write operations are emitted as handle/value selectors so an authorized operator can
-// resolve current resource IDs when the demo stores exist.
+// Deterministic planning document for the R4 demo catalog. It never reads a store or sends a
+// Shopify mutation. The named mutation is descriptive only; output is not executable GraphQL.
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { BLOG_COPY, COLLECTIONS, FIXTURE_TITLES, GIFT_CARD_COPY, PRESET_VENDORS, PRODUCT_COPY } from './catalog-r4-data.mjs';
+import { BLOG_COPY, COLLECTIONS, FIXTURE_TITLES, GIFT_CARD_COPY, PRESET_AUTHORS, PRESET_VENDORS, PRODUCT_COPY } from './catalog-r4-data.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const STORES = JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'catalog-r4-stores.json'), 'utf8'));
@@ -13,7 +12,6 @@ const CREATED_PRODUCTS = JSON.parse(readFileSync(join(ROOT, 'docs/demo-store/cre
 const IMPRINT = JSON.parse(readFileSync(join(ROOT, 'docs/demo-import/data/imprint.json'), 'utf8'));
 const ARCHIVE = JSON.parse(readFileSync(join(ROOT, 'docs/demo-import/data/archive.json'), 'utf8'));
 const PRODUCT_CSV_PATH = join(ROOT, 'docs/demo-store/products.csv');
-const AUTHOR_NAME = 'proyect-shopi';
 const BASELINE_CSV_NOTE = 'Historical source CSV. This is not a live Shopify Admin read.';
 
 const csvRows = (text) => {
@@ -163,8 +161,12 @@ const t1Intents = (store) => {
       'articleUpdate', 'docs/demo-store/blog.md'));
     intents.push(action('t1', 'Article', { blog_handle: 'news', handle }, 'tags', source.tags, copy.tags,
       'articleUpdate', 'docs/demo-store/blog.md'));
-    intents.push(action('t1', 'Article', { blog_handle: 'news', handle }, 'author', 'Demo store', AUTHOR_NAME,
-      'articleUpdate', 'Author supplied by Johandry in this task reply.'));
+    intents.push(action('t1', 'Article', { blog_handle: 'news', handle }, 'author', 'Demo store', PRESET_AUTHORS[store.preset],
+      'articleUpdate', 'Fictitious editorial author selected for this preset; not an account identity.'));
+    if (handle === 'welcome-to-the-demo-store') {
+      intents.push(action('t1', 'Article', { blog_handle: 'news', handle }, 'handle', handle, 'a-study-in-proportion',
+        'articleUpdate', 'New handle follows the new article title. No redirect is planned.'));
+    }
   }
   intents.push(action('t1', 'Article', { blog_handle: 'news', handle: 'long-title-article-test' }, 'published', true, false,
     'articleUpdate', 'docs/demo-store/blog.md; unpublish without deleting'));
@@ -187,17 +189,34 @@ const priorStatus = new Map(CREATED_PRODUCTS.created.map(({ handle, status, vari
   { status, variants, inventory_per_variant, publishedOnlineStore },
 ]));
 
-const catalogPlanIntents = (plan, store) => {
+const skippedCatalogIntent = (plan, resource, selector, field, reason) => ({
+  plan, resource, selector, field, skipped: true, reason,
+});
+
+const catalogPlanIntents = (plan, store, inventory) => {
   const preset = plan === 't2' ? 'imprint' : 'archive';
   const catalog = preset === 'imprint' ? IMPRINT : ARCHIVE;
   const intents = [];
+  if (store.role === 'qa') {
+    for (const product of catalog.products) {
+      intents.push(skippedCatalogIntent(plan, 'Product', { handle: product.handle }, 'catalog_setup',
+        'QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop.'));
+    }
+    for (const collection of COLLECTIONS[preset]) {
+      intents.push(skippedCatalogIntent(plan, 'Collection', { handle: collection.handle }, 'definition',
+        'QA safety: collection changes are skipped for the existing QA shop.'));
+    }
+    if (plan === 't2') intents.push(skippedCatalogIntent(plan, 'Product', { handle: 'structured-tote' }, 'import',
+      'Never overwrite the QA store’s Sartorial structured-tote.'));
+    return { intents: [], skipped: intents };
+  }
   for (const product of catalog.products) {
     const previous = priorStatus.get(product.handle);
     if (!previous || previous.status !== 'DRAFT') continue;
     intents.push(action(plan, 'Product', { handle: product.handle }, 'status', 'DRAFT', 'ACTIVE',
       'productUpdate', 'Historical QA import snapshot; target demo store is not created yet.'));
     intents.push(action(plan, 'ProductVariant', { product_handle: product.handle, variant_options: 'all' }, 'inventoryQuantity', 0,
-      8, 'inventorySetQuantities', 'Resolve the default active fulfillment location by name and verify it; no location ID is embedded.'));
+      inventory, 'inventorySetQuantities', 'Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.'));
     intents.push(action(plan, 'Product', { handle: product.handle, publication: 'Online Store' }, 'published', false, true,
       'publishablePublish', 'Historical QA import snapshot; target demo store is not created yet.'));
   }
@@ -210,22 +229,16 @@ const catalogPlanIntents = (plan, store) => {
     }, 'collectionCreate or collectionUpdate by handle (idempotent upsert)',
     `docs/demo-import/data/${preset}.json`));
   }
-  if (plan === 't2' && store.role === 'qa') {
-    intents.push({
-      key: 'Product:structured-tote:skip-on-qa', plan, resource: 'Product',
-      selector: { handle: 'structured-tote' }, field: 'import', before: 'existing Sartorial product', after: null,
-      mutation: null, skipped: true, reason: 'Never overwrite the QA store’s Sartorial structured-tote.',
-    });
-  } else if (plan === 't2' && store.role === 'demo') {
+  if (plan === 't2' && store.role === 'demo') {
     const tote = catalog.products.find((product) => product.handle === 'structured-tote');
     intents.push(action(plan, 'Product', { handle: 'structured-tote' }, 'productSet', null, { ...tote, status: 'ACTIVE' },
       'productSet (upsert by handle; Imprint source only)', 'docs/demo-import/data/imprint.json'));
     intents.push(action(plan, 'ProductVariant', { product_handle: 'structured-tote', variant_options: 'all' }, 'inventoryQuantity', 0,
-      8, 'inventorySetQuantities', 'Resolve the default active fulfillment location by name; no location ID is embedded.'));
+      inventory, 'inventorySetQuantities', 'Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.'));
     intents.push(action(plan, 'Product', { handle: 'structured-tote', publication: 'Online Store' }, 'published', false, true,
       'publishablePublish', 'Imprint demo import plan; publish only after productSet and inventory verification.'));
   }
-  return intents;
+  return { intents, skipped: [] };
 };
 
 const requiredPlan = (store, plan) => {
@@ -234,63 +247,55 @@ const requiredPlan = (store, plan) => {
   if (plan === 't3' && store.role === 'demo' && store.preset !== 'archive') throw new Error('T3 can target only QA or the allowlisted Archive demo.');
 };
 
-export function buildPlan({ storeAlias, plan, currentValues = null }) {
+export function buildPlan({ storeAlias, plan, inventory = 8 }) {
   const store = STORES[storeAlias];
   if (!store) throw new Error(`Store is not allowlisted: ${storeAlias}`);
+  if (!Number.isInteger(inventory) || inventory < 0) throw new Error('--inventory must be a non-negative integer.');
   requiredPlan(store, plan);
-  const intents = plan === 't1' ? t1Intents(store) : catalogPlanIntents(plan, store);
-  const targetState = {};
-  const changes = [];
-  const skipped = [];
-  for (const intent of intents) {
-    if (intent.skipped) {
-      skipped.push(intent);
-      continue;
-    }
-    const current = currentValues && Object.hasOwn(currentValues, intent.key)
-      ? currentValues[intent.key]
-      : intent.before;
-    targetState[intent.key] = intent.after;
-    if (stable(current) === stable(intent.after)) continue;
-    changes.push({ ...intent, before: current });
-  }
+  const catalog = plan === 't1' ? { intents: t1Intents(store), skipped: [] } : catalogPlanIntents(plan, store, inventory);
+  const intents = catalog.intents.map(({ key, before, after, ...intent }) => ({
+    ...intent,
+    ...(before !== undefined ? { baseline_value: before } : {}),
+    ...(after !== undefined ? { target_value: after } : {}),
+  }));
+  const skipped = catalog.skipped.map(({ key, before, after, ...intent }) => ({
+    ...intent,
+    ...(before !== undefined ? { baseline_value: before } : {}),
+    ...(after !== undefined ? { target_value: after } : {}),
+  }));
   const pendingStore = !store.domain;
   return {
-    targetState,
     document: {
       schema_version: 1,
       plan,
+      plan_kind: 'mutation-intents',
       mode: 'dry-run',
       deterministic: true,
-      idempotent: true,
+      executable_graphql: false,
+      inventory_target: inventory,
+      redirects_planned: false,
+      redirect_note: 'No se planifican redirecciones del artículo; configura una redirección manualmente si el comercio la necesita.',
       store: { alias: storeAlias, domain: store.domain, role: store.role, preset: store.preset },
       baseline: {
         source: plan === 't1' ? 'docs/demo-store/products.csv and docs/demo-store/blog.md' : `docs/demo-import/data/${plan === 't2' ? 'imprint' : 'archive'}.json + historical import inventory`,
         live_admin_read: false,
+        live_store_read: false,
         note: pendingStore
-          ? 'Destination demo store does not exist yet. Select and reread its resources before applying these operations.'
-          : 'No Admin API credentials are configured; before-values are source snapshots, not a live store read.',
+          ? 'Destination demo store does not exist yet. These intents do not inspect any live store data.'
+          : 'The plan does not read the live store. Baseline values are source snapshots only.',
       },
-      changes,
+      intents,
       skipped,
-      change_count: changes.length,
+      intent_count: intents.length,
       skipped_count: skipped.length,
       mutations_sent: 0,
-      operations: changes.map(({ resource, selector, field, before, after, mutation }) => ({
-        mutation,
-        resource,
-        selector,
-        field,
-        before,
-        after,
-      })),
       safety: {
         no_resource_ids_embedded: true,
         no_theme_publish_or_delete: true,
         no_product_or_collection_delete: true,
         no_shop_settings_or_metafields: true,
         apply_supported: false,
-        reason_apply_disabled: 'R4 execution is dry-run only; an authorized operator must reread and apply emitted operations.',
+        reason_apply_disabled: 'R4 is a planning document only. It does not read store data or emit executable GraphQL.',
       },
     },
   };
@@ -305,20 +310,25 @@ if (isMain) {
   };
   const storeAlias = flag('--store');
   const plan = flag('--plan');
+  const inventoryInput = flag('--inventory');
+  const inventory = inventoryInput === null ? 8 : Number(inventoryInput);
   if (args.includes('--apply')) {
     process.stderr.write('Refusing --apply: this R4 planner is dry-run-only and sends no mutations.\n');
     process.exitCode = 2;
   } else if (!storeAlias || !plan) {
-    process.stderr.write('Usage: node catalog-r4.mjs --store <allowlisted-alias> --plan t1|t2|t3 [--out path]\n');
+    process.stderr.write('Usage: node catalog-r4.mjs --store <allowlisted-alias> --plan t1|t2|t3 [--inventory <n>] [--out path]\n');
+    process.exitCode = 2;
+  } else if (args.includes('--inventory') && (!inventoryInput || !/^\d+$/.test(inventoryInput))) {
+    process.stderr.write('--inventory must be a non-negative integer.\n');
     process.exitCode = 2;
   } else {
     try {
-      const { document } = buildPlan({ storeAlias, plan });
+      const { document } = buildPlan({ storeAlias, plan, inventory });
       const defaultOut = join(ROOT, 'docs/demo-store/plans', `catalog-r4-${storeAlias}-${plan}.json`);
       const outputPath = resolve(flag('--out') || defaultOut);
       mkdirSync(dirname(outputPath), { recursive: true });
       writeFileSync(outputPath, `${JSON.stringify(document, null, 2)}\n`);
-      process.stdout.write(`${JSON.stringify({ output: outputPath, store: document.store, plan, changes: document.change_count, skipped: document.skipped_count, mutations_sent: document.mutations_sent, live_admin_read: document.baseline.live_admin_read })}\n`);
+      process.stdout.write(`${JSON.stringify({ output: outputPath, store: document.store, plan, intents: document.intent_count, skipped: document.skipped_count, inventory_target: inventory, mutations_sent: document.mutations_sent, live_store_read: document.baseline.live_store_read })}\n`);
     } catch (error) {
       process.stderr.write(`${error.message}\n`);
       process.exitCode = 2;

@@ -4,6 +4,12 @@ export const PRESET_VENDORS = Object.freeze({
   archive: 'Archive Index',
 });
 
+export const PRESET_AUTHORS = Object.freeze({
+  sartorial: 'Mara Ellery',
+  imprint: 'Eli Mercer',
+  archive: 'Rowan Vale',
+});
+
 // Editorial copy uses only details already present in the source product names and descriptions.
 export const PRODUCT_COPY = Object.freeze({
   'serra-coat': 'A long wrap coat with a quiet line through the body.',
