@@ -517,3 +517,30 @@ Fecha: 2026-11-25. Decidido por: Johandry. Fuente: petición de Johandry en la s
     - `agent-comms/outbox-claude/tests-r3-20261124/raw/b1.json` (42 líneas, identificador de tema en las peticiones de la batería 1).
     - `agent-comms/outbox-claude/tests-r3-20261124/scripts/lib2.mjs` (1 línea, constante `TID`).
     - `docs/decisions.md` (1 línea, entrada D62, registro de temas borrados).
+
+## 2026-11-25: Ronda R5 tras las auditorías manuales de R4 (D79 a D81)
+
+Fecha: 2026-11-25. Fuente: respuesta de Johandry en la sesión de Claude Code, 2026-11-25, literalmente «que lo haga gpt». Respondía a una propuesta de R5 con seis arreglos de código y la recomendación de dejar como residual el precio tachado en el cajón y en /cart. La propuesta salió de las dos auditorías manuales de R4 sobre los temas sin publicar "Sartorial R4 (0b4d517)" `190695473456`, "Archive R4 (0b4d517)" `190695506224` e "Imprint R4 (0b4d517)" `190695538992`. Las auditorías están en `docs/audits/R4/R4-AUDITORIA-MANUAL-QA.md` y `docs/audits/R4/R4-AUDITORIA-MANUAL-GPT.md`.
+
+- **D79 · Reparto y alcance de R5:** R5 la ejecuta GPT y la revisa Claude antes de fusionarla, como en D75. Encargo: `agent-comms/inbox-gpt/GPT-TASK-R5-001.md`, que trae la verificación de cada arreglo contra el código de `master` (`4877716`). Alcance, en este orden:
+  1. **A · /cart:** el subtotal y las líneas se actualizan al cambiar la cantidad, sin pulsar «Update cart». Defecto 1 de QA. Es mejora progresiva: sin JavaScript, el formulario sigue funcionando con «Update cart». Se mantiene lo comprometido en D55.
+  2. **B · Barra fija de compra:** no debe haber un tramo de la ficha en el que no se vea ni el botón principal ni la barra. Defecto 5 de QA y la parte real del defecto de GPT (D81).
+  3. **C · 404:** el campo de búsqueda no se corta en escritorio. Defecto 3 de QA; cierra lo que el arreglo M-17 de R4 dejó abierto.
+  4. **D · Galería:** el vídeo y el visor 3D no dejan huecos en la rejilla. Defecto 6 de QA.
+  5. **E · Menú móvil:** «Update preferences» con el mismo margen a los dos lados. Defecto 7 de QA.
+  6. **F · Mega menú:** valores por defecto en sentence case. Defecto 8 de QA. La verificación en el código no lo reproduce en `master`: `sections/header-group.json:33` y `:37` ya dicen «New forms» y «Tailoring» desde `585359c`, y el bloque `mega_menu_promo` de `sections/header.liquid:259-323` no tiene valores por defecto. Queda como comprobación sin cambio de código.
+
+  Fuera de R5:
+  - Los «Featured product», el «complete the look» y la «capsule» de los presets que miden 0 px (defecto 2 de QA). Son configuración de preset y están planificados en los overlays de cada tienda demo (D70).
+  - La miniatura de la barra fija, que no sigue a la variante (defecto 9 de QA). Es cosmético y depende de que las variantes tengan imagen (T1 de R4).
+- **D80 · Precio tachado en el cajón y en /cart, residual de 1.0:** el cajón y /cart no muestran el precio de comparación (`compare_at_price`) de un producto en oferta; solo tachan la diferencia entre `original_line_price` y `final_line_price`, que nace de descuentos de carrito (`sections/main-cart-items.liquid:109-114`). Es el comportamiento de Dawn. Se acepta como residual de 1.0 por coherencia con Dawn (defecto 4 de QA). Esta recomendación iba en la propuesta a la que Johandry respondió y no la objetó.
+- **D81 · Se descarta el defecto alto de la auditoría de GPT:** GPT vio en Sartorial, a 1536×674, que el botón de compra aparece y desaparece y que «no hay columna ni barra de compra fija». No es un defecto del tema, sino un artefacto de la barra de vista previa de Shopify. Lo determina Claude como líder técnico.
+  - **Evidencia:**
+    - Playwright en los tres presets, con rueda de ratón, a 1536×674, 1229×539 a escala 1,25, 1440×674 y 1366×768.
+    - La columna no cabe y por diseño no es sticky (R4 C1a, `assets/theme.js:295-328`).
+    - El botón sale por arriba en el segundo desplazamiento y `sticky-cart-bar` se activa (`assets/theme.js:1866-1869`).
+    - La barra queda en `position: fixed; bottom: 0` (`assets/base.css:1660-1679`).
+    - En la vista previa la tapa el iframe `#PBarNextFrame` de Shopify, de unos 64 px abajo, que solo existe con `preview_theme_id`. Con «Hide bar» la barra del tema se ve entera.
+    - La auditoría de QA anotó lo mismo de forma independiente (`docs/audits/R4/R4-AUDITORIA-MANUAL-QA.md` §5).
+  - **Lo que queda:** el tramo corto en que la cabecera fija tapa el botón antes de que salga la barra, y el botón bajo el borde inicial al cargar. Es de severidad baja y se corrige en R5, arreglo B (D79).
+  - **Consecuencia para las pruebas:** en las vistas previas, los elementos fijos abajo se comprueban con la barra de vista previa oculta o descontada. No se toma como defecto lo que solo tapa esa barra.
