@@ -1,6 +1,6 @@
 # R4 demo overlays
 
-These overlays are store-specific JSON. They are outside `Sartorial-1.0.0.zip`; the preset listing JSON remains handle-neutral. Before applying an overlay, create the destination demo store and catalog, then confirm that every product and collection handle resolves there.
+These overlays are store-specific JSON. They are outside `Sartorial-1.0.0.zip`; packaged listing JSON uses only the neutral `/collections/all` route, and store-specific collection links live here. Before applying an overlay, create the destination demo store and catalog, then confirm that every product and collection handle resolves there.
 
 ## Image assets pending (DP-025)
 
@@ -8,9 +8,9 @@ All image settings in `templates/index.json` are blank or omitted, as are `image
 
 | Preset | Empty theme image settings | Source |
 | --- | --- | --- |
-| Sartorial | `hero-editorial.image_desktop`, `hero-editorial.image_mobile`; `curated-showcase` `editorial_image` for New forms, Permanent collection and Tailoring salon; `lookbook.image_desktop` and `image_mobile`; `complete-the-look.image_desktop` and `image_mobile`; `brand-manifesto.image`; header promo `image_1` (New forms) and `image_2` (Permanent collection). | `docs/demo-import/sartorial-photos.csv` |
+| Sartorial | `hero-editorial.image_desktop`, `hero-editorial.image_mobile`; `curated-showcase` `editorial_image` for New forms, Permanent collection and Tailoring salon; `lookbook.image_desktop` and `image_mobile`; `complete-the-look.image_desktop` and `image_mobile`; `brand-manifesto.image`; header promo `image_1` (New forms) and `image_2` (Tailoring). | `docs/demo-import/sartorial-photos.csv` |
 | Imprint | `hero-editorial.image_desktop`, `hero-editorial.image_mobile`; `bento-discovery` featured desk-and-study image and leather-goods editorial image; `curated-showcase.editorial_image` for Daily objects, Workspace and Leather goods; `complete-the-look.image_desktop` and `image_mobile`; `brand-manifesto.image`; header promo `image_1` (Daily objects) and `image_2` (Desk and study). | `docs/demo-import/imprint-photos.csv` |
-| Archive | `hero-editorial.image_desktop`, `hero-editorial.image_mobile`; `brand-manifesto.image`; `curated-showcase.editorial_image` for Permanent archive and Selected pieces; `lookbook.image_desktop` and `image_mobile`; header promo `image_1` (Permanent archive) and `image_2` (Restored pieces). | `docs/demo-import/archive-photos.csv` |
+| Archive | `hero-editorial.image_desktop`, `hero-editorial.image_mobile`; `brand-manifesto.image`; `curated-showcase.editorial_image` for Permanent archive and Selected pieces; `lookbook.image_desktop` and `image_mobile`; header promo `image_1` (Permanent archive) and `image_2` (Selected pieces). | `docs/demo-import/archive-photos.csv` |
 
 Collection featured images, About page imagery and product media are catalog assets rather than settings in these home page overlays; use their respective rows in the same photo maps. The product-media and variant associations for T1 are also still pending application.
 
