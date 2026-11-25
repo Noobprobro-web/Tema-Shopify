@@ -1,9 +1,13 @@
 {
   "schema_version": 1,
   "plan": "t3",
+  "plan_kind": "mutation-intents",
   "mode": "dry-run",
   "deterministic": true,
-  "idempotent": true,
+  "executable_graphql": false,
+  "inventory_target": 8,
+  "redirects_planned": false,
+  "redirect_note": "No se planifican redirecciones del artículo; configura una redirección manualmente si el comercio la necesita.",
   "store": {
     "alias": "qa",
     "domain": "sartorial-theme-kvkzl39t.myshopify.com",
@@ -13,702 +17,161 @@
   "baseline": {
     "source": "docs/demo-import/data/archive.json + historical import inventory",
     "live_admin_read": false,
-    "note": "No Admin API credentials are configured; before-values are source snapshots, not a live store read."
+    "live_store_read": false,
+    "note": "The plan does not read the live store. Baseline values are source snapshots only."
   },
-  "changes": [
+  "intents": [],
+  "skipped": [
     {
-      "key": "Product:{\"handle\":\"1989-structured-wool-waistcoat\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1989-structured-wool-waistcoat"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1989-structured-wool-waistcoat\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1989-structured-wool-waistcoat",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1989-structured-wool-waistcoat\",\"publication\":\"Online Store\"}:published",
       "plan": "t3",
       "resource": "Product",
       "selector": {
-        "handle": "1989-structured-wool-waistcoat",
-        "publication": "Online Store"
+        "handle": "1990-pinstripe-double-breasted-jacket"
       },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "Product:{\"handle\":\"1991-leather-column-skirt\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1991-leather-column-skirt"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1991-leather-column-skirt\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1991-leather-column-skirt",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1991-leather-column-skirt\",\"publication\":\"Online Store\"}:published",
-      "plan": "t3",
-      "resource": "Product",
-      "selector": {
-        "handle": "1991-leather-column-skirt",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"1992-silk-twill-blouse\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1992-silk-twill-blouse"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1992-silk-twill-blouse\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1992-silk-twill-blouse",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1992-silk-twill-blouse\",\"publication\":\"Online Store\"}:published",
-      "plan": "t3",
-      "resource": "Product",
-      "selector": {
-        "handle": "1992-silk-twill-blouse",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"1993-wool-tuxedo-trouser\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1993-wool-tuxedo-trouser"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1993-wool-tuxedo-trouser\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1993-wool-tuxedo-trouser",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1993-wool-tuxedo-trouser\",\"publication\":\"Online Store\"}:published",
       "plan": "t3",
       "resource": "Product",
       "selector": {
-        "handle": "1993-wool-tuxedo-trouser",
-        "publication": "Online Store"
+        "handle": "1994-cashmere-cocoon-coat"
       },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "Product:{\"handle\":\"1994-leather-document-portfolio\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1994-leather-document-portfolio"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1994-leather-document-portfolio\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1994-leather-document-portfolio",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1994-leather-document-portfolio\",\"publication\":\"Online Store\"}:published",
-      "plan": "t3",
-      "resource": "Product",
-      "selector": {
-        "handle": "1994-leather-document-portfolio",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"1995-asymmetric-wool-cape\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1995-asymmetric-wool-cape"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1995-asymmetric-wool-cape\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1995-asymmetric-wool-cape",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1995-asymmetric-wool-cape\",\"publication\":\"Online Store\"}:published",
-      "plan": "t3",
-      "resource": "Product",
-      "selector": {
-        "handle": "1995-asymmetric-wool-cape",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"1996-satin-evening-jacket\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1996-satin-evening-jacket"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1996-satin-evening-jacket\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1996-satin-evening-jacket",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1996-satin-evening-jacket\",\"publication\":\"Online Store\"}:published",
-      "plan": "t3",
-      "resource": "Product",
-      "selector": {
-        "handle": "1996-satin-evening-jacket",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"1997-printed-silk-square\"}:status",
       "plan": "t3",
       "resource": "Product",
       "selector": {
         "handle": "1997-printed-silk-square"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"1997-printed-silk-square\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t3",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1997-printed-silk-square",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"1997-printed-silk-square\",\"publication\":\"Online Store\"}:published",
       "plan": "t3",
       "resource": "Product",
       "selector": {
-        "handle": "1997-printed-silk-square",
-        "publication": "Online Store"
+        "handle": "1998-bias-cut-silk-slip"
       },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "Collection:{\"handle\":\"permanent-archive\"}:definition",
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1999-technical-cotton-trench"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
       "plan": "t3",
       "resource": "Collection",
       "selector": {
         "handle": "permanent-archive"
       },
       "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Permanent archive",
-        "rule_tag": "permanent-archive",
-        "product_order": [
-          "1994-cashmere-cocoon-coat",
-          "1996-satin-evening-jacket",
-          "1989-structured-wool-waistcoat",
-          "1998-bias-cut-silk-slip",
-          "1994-leather-document-portfolio",
-          "1993-wool-tuxedo-trouser",
-          "1999-technical-cotton-trench",
-          "1992-silk-twill-blouse",
-          "1991-leather-column-skirt",
-          "1995-asymmetric-wool-cape",
-          "1997-printed-silk-square",
-          "1990-pinstripe-double-breasted-jacket"
-        ]
-      },
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "baseline_source": "docs/demo-import/data/archive.json"
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
     },
     {
-      "key": "Collection:{\"handle\":\"restored-pieces\"}:definition",
       "plan": "t3",
       "resource": "Collection",
       "selector": {
         "handle": "restored-pieces"
       },
       "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Restored pieces",
-        "rule_tag": "restored-pieces",
-        "product_order": [
-          "1995-asymmetric-wool-cape",
-          "1990-pinstripe-double-breasted-jacket",
-          "1999-technical-cotton-trench"
-        ]
-      },
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "baseline_source": "docs/demo-import/data/archive.json"
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
     }
   ],
-  "skipped": [],
-  "change_count": 26,
-  "skipped_count": 0,
+  "intent_count": 0,
+  "skipped_count": 14,
   "mutations_sent": 0,
-  "operations": [
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1989-structured-wool-waistcoat"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1989-structured-wool-waistcoat",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1989-structured-wool-waistcoat",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1991-leather-column-skirt"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1991-leather-column-skirt",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1991-leather-column-skirt",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1992-silk-twill-blouse"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1992-silk-twill-blouse",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1992-silk-twill-blouse",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1993-wool-tuxedo-trouser"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1993-wool-tuxedo-trouser",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1993-wool-tuxedo-trouser",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1994-leather-document-portfolio"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1994-leather-document-portfolio",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1994-leather-document-portfolio",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1995-asymmetric-wool-cape"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1995-asymmetric-wool-cape",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1995-asymmetric-wool-cape",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1996-satin-evening-jacket"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1996-satin-evening-jacket",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1996-satin-evening-jacket",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "1997-printed-silk-square"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "1997-printed-silk-square",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "1997-printed-silk-square",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "resource": "Collection",
-      "selector": {
-        "handle": "permanent-archive"
-      },
-      "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Permanent archive",
-        "rule_tag": "permanent-archive",
-        "product_order": [
-          "1994-cashmere-cocoon-coat",
-          "1996-satin-evening-jacket",
-          "1989-structured-wool-waistcoat",
-          "1998-bias-cut-silk-slip",
-          "1994-leather-document-portfolio",
-          "1993-wool-tuxedo-trouser",
-          "1999-technical-cotton-trench",
-          "1992-silk-twill-blouse",
-          "1991-leather-column-skirt",
-          "1995-asymmetric-wool-cape",
-          "1997-printed-silk-square",
-          "1990-pinstripe-double-breasted-jacket"
-        ]
-      }
-    },
-    {
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "resource": "Collection",
-      "selector": {
-        "handle": "restored-pieces"
-      },
-      "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Restored pieces",
-        "rule_tag": "restored-pieces",
-        "product_order": [
-          "1995-asymmetric-wool-cape",
-          "1990-pinstripe-double-breasted-jacket",
-          "1999-technical-cotton-trench"
-        ]
-      }
-    }
-  ],
   "safety": {
     "no_resource_ids_embedded": true,
     "no_theme_publish_or_delete": true,
     "no_product_or_collection_delete": true,
     "no_shop_settings_or_metafields": true,
     "apply_supported": false,
-    "reason_apply_disabled": "R4 execution is dry-run only; an authorized operator must reread and apply emitted operations."
+    "reason_apply_disabled": "R4 is a planning document only. It does not read store data or emit executable GraphQL."
   }
 }

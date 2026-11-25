@@ -1,9 +1,13 @@
 {
   "schema_version": 1,
   "plan": "t2",
+  "plan_kind": "mutation-intents",
   "mode": "dry-run",
   "deterministic": true,
-  "idempotent": true,
+  "executable_graphql": false,
+  "inventory_target": 8,
+  "redirects_planned": false,
+  "redirect_note": "No se planifican redirecciones del artículo; configura una redirección manualmente si el comercio la necesita.",
   "store": {
     "alias": "qa",
     "domain": "sartorial-theme-kvkzl39t.myshopify.com",
@@ -13,693 +17,191 @@
   "baseline": {
     "source": "docs/demo-import/data/imprint.json + historical import inventory",
     "live_admin_read": false,
-    "note": "No Admin API credentials are configured; before-values are source snapshots, not a live store read."
+    "live_store_read": false,
+    "note": "The plan does not read the live store. Baseline values are source snapshots only."
   },
-  "changes": [
+  "intents": [],
+  "skipped": [
     {
-      "key": "Product:{\"handle\":\"east-west-shoulder-bag\"}:status",
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "structured-tote"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "east-west-shoulder-bag"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"east-west-shoulder-bag\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t2",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "east-west-shoulder-bag",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"east-west-shoulder-bag\",\"publication\":\"Online Store\"}:published",
-      "plan": "t2",
-      "resource": "Product",
-      "selector": {
-        "handle": "east-west-shoulder-bag",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"compact-crossbody\"}:status",
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "compact-crossbody"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"compact-crossbody\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t2",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "compact-crossbody",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"compact-crossbody\",\"publication\":\"Online Store\"}:published",
       "plan": "t2",
       "resource": "Product",
       "selector": {
-        "handle": "compact-crossbody",
-        "publication": "Online Store"
+        "handle": "leather-document-folio"
       },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "Product:{\"handle\":\"padded-laptop-sleeve\"}:status",
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "padded-laptop-sleeve"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"padded-laptop-sleeve\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t2",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "padded-laptop-sleeve",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"padded-laptop-sleeve\",\"publication\":\"Online Store\"}:published",
-      "plan": "t2",
-      "resource": "Product",
-      "selector": {
-        "handle": "padded-laptop-sleeve",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"zip-travel-pouch\"}:status",
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "zip-travel-pouch"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"zip-travel-pouch\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t2",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "zip-travel-pouch",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"zip-travel-pouch\",\"publication\":\"Online Store\"}:published",
-      "plan": "t2",
-      "resource": "Product",
-      "selector": {
-        "handle": "zip-travel-pouch",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Product:{\"handle\":\"slim-bifold-wallet\"}:status",
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "slim-bifold-wallet"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"slim-bifold-wallet\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t2",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "slim-bifold-wallet",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"slim-bifold-wallet\",\"publication\":\"Online Store\"}:published",
       "plan": "t2",
       "resource": "Product",
       "selector": {
-        "handle": "slim-bifold-wallet",
-        "publication": "Online Store"
+        "handle": "four-slot-cardholder"
       },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "Product:{\"handle\":\"leather-key-loop\"}:status",
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "leather-key-loop"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"leather-key-loop\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t2",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "leather-key-loop",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"leather-key-loop\",\"publication\":\"Online Store\"}:published",
       "plan": "t2",
       "resource": "Product",
       "selector": {
-        "handle": "leather-key-loop",
-        "publication": "Online Store"
+        "handle": "leather-desk-mat"
       },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "Product:{\"handle\":\"single-pen-sleeve\"}:status",
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "folded-valet-tray"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "milled-brass-paperweight"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "single-pen-sleeve"
       },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE",
-      "mutation": "productUpdate",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
     },
     {
-      "key": "ProductVariant:{\"product_handle\":\"single-pen-sleeve\",\"variant_options\":\"all\"}:inventoryQuantity",
-      "plan": "t2",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "single-pen-sleeve",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8,
-      "mutation": "inventorySetQuantities",
-      "baseline_source": "Resolve the default active fulfillment location by name and verify it; no location ID is embedded."
-    },
-    {
-      "key": "Product:{\"handle\":\"single-pen-sleeve\",\"publication\":\"Online Store\"}:published",
-      "plan": "t2",
-      "resource": "Product",
-      "selector": {
-        "handle": "single-pen-sleeve",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true,
-      "mutation": "publishablePublish",
-      "baseline_source": "Historical QA import snapshot; target demo store is not created yet."
-    },
-    {
-      "key": "Collection:{\"handle\":\"daily-objects\"}:definition",
       "plan": "t2",
       "resource": "Collection",
       "selector": {
         "handle": "daily-objects"
       },
       "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Daily objects",
-        "rule_tag": "daily-objects",
-        "product_order": [
-          "compact-crossbody",
-          "four-slot-cardholder",
-          "folded-valet-tray",
-          "zip-travel-pouch",
-          "east-west-shoulder-bag",
-          "leather-key-loop",
-          "milled-brass-paperweight"
-        ]
-      },
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "baseline_source": "docs/demo-import/data/imprint.json"
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
     },
     {
-      "key": "Collection:{\"handle\":\"desk-and-study\"}:definition",
       "plan": "t2",
       "resource": "Collection",
       "selector": {
         "handle": "desk-and-study"
       },
       "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Desk and study",
-        "rule_tag": "desk-and-study",
-        "product_order": [
-          "leather-desk-mat",
-          "leather-document-folio",
-          "folded-valet-tray",
-          "padded-laptop-sleeve",
-          "milled-brass-paperweight",
-          "single-pen-sleeve"
-        ]
-      },
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "baseline_source": "docs/demo-import/data/imprint.json"
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
     },
     {
-      "key": "Collection:{\"handle\":\"leather-goods\"}:definition",
       "plan": "t2",
       "resource": "Collection",
       "selector": {
         "handle": "leather-goods"
       },
       "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Leather goods",
-        "rule_tag": "leather-goods",
-        "product_order": [
-          "structured-tote",
-          "east-west-shoulder-bag",
-          "compact-crossbody",
-          "leather-document-folio",
-          "zip-travel-pouch",
-          "slim-bifold-wallet",
-          "four-slot-cardholder",
-          "leather-key-loop",
-          "padded-laptop-sleeve",
-          "single-pen-sleeve"
-        ]
-      },
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "baseline_source": "docs/demo-import/data/imprint.json"
-    }
-  ],
-  "skipped": [
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
+    },
     {
-      "key": "Product:structured-tote:skip-on-qa",
       "plan": "t2",
       "resource": "Product",
       "selector": {
         "handle": "structured-tote"
       },
       "field": "import",
-      "before": "existing Sartorial product",
-      "after": null,
-      "mutation": null,
       "skipped": true,
       "reason": "Never overwrite the QA store’s Sartorial structured-tote."
     }
   ],
-  "change_count": 24,
-  "skipped_count": 1,
+  "intent_count": 0,
+  "skipped_count": 17,
   "mutations_sent": 0,
-  "operations": [
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "east-west-shoulder-bag"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "east-west-shoulder-bag",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "east-west-shoulder-bag",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "compact-crossbody"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "compact-crossbody",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "compact-crossbody",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "padded-laptop-sleeve"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "padded-laptop-sleeve",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "padded-laptop-sleeve",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "zip-travel-pouch"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "zip-travel-pouch",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "zip-travel-pouch",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "slim-bifold-wallet"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "slim-bifold-wallet",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "slim-bifold-wallet",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "leather-key-loop"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "leather-key-loop",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "leather-key-loop",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "productUpdate",
-      "resource": "Product",
-      "selector": {
-        "handle": "single-pen-sleeve"
-      },
-      "field": "status",
-      "before": "DRAFT",
-      "after": "ACTIVE"
-    },
-    {
-      "mutation": "inventorySetQuantities",
-      "resource": "ProductVariant",
-      "selector": {
-        "product_handle": "single-pen-sleeve",
-        "variant_options": "all"
-      },
-      "field": "inventoryQuantity",
-      "before": 0,
-      "after": 8
-    },
-    {
-      "mutation": "publishablePublish",
-      "resource": "Product",
-      "selector": {
-        "handle": "single-pen-sleeve",
-        "publication": "Online Store"
-      },
-      "field": "published",
-      "before": false,
-      "after": true
-    },
-    {
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "resource": "Collection",
-      "selector": {
-        "handle": "daily-objects"
-      },
-      "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Daily objects",
-        "rule_tag": "daily-objects",
-        "product_order": [
-          "compact-crossbody",
-          "four-slot-cardholder",
-          "folded-valet-tray",
-          "zip-travel-pouch",
-          "east-west-shoulder-bag",
-          "leather-key-loop",
-          "milled-brass-paperweight"
-        ]
-      }
-    },
-    {
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "resource": "Collection",
-      "selector": {
-        "handle": "desk-and-study"
-      },
-      "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Desk and study",
-        "rule_tag": "desk-and-study",
-        "product_order": [
-          "leather-desk-mat",
-          "leather-document-folio",
-          "folded-valet-tray",
-          "padded-laptop-sleeve",
-          "milled-brass-paperweight",
-          "single-pen-sleeve"
-        ]
-      }
-    },
-    {
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
-      "resource": "Collection",
-      "selector": {
-        "handle": "leather-goods"
-      },
-      "field": "definition",
-      "before": null,
-      "after": {
-        "title": "Leather goods",
-        "rule_tag": "leather-goods",
-        "product_order": [
-          "structured-tote",
-          "east-west-shoulder-bag",
-          "compact-crossbody",
-          "leather-document-folio",
-          "zip-travel-pouch",
-          "slim-bifold-wallet",
-          "four-slot-cardholder",
-          "leather-key-loop",
-          "padded-laptop-sleeve",
-          "single-pen-sleeve"
-        ]
-      }
-    }
-  ],
   "safety": {
     "no_resource_ids_embedded": true,
     "no_theme_publish_or_delete": true,
     "no_product_or_collection_delete": true,
     "no_shop_settings_or_metafields": true,
     "apply_supported": false,
-    "reason_apply_disabled": "R4 execution is dry-run only; an authorized operator must reread and apply emitted operations."
+    "reason_apply_disabled": "R4 is a planning document only. It does not read store data or emit executable GraphQL."
   }
 }
