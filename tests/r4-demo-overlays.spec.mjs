@@ -43,5 +43,12 @@ test('all overlays document asset dependencies and unpublished-theme application
   expect(instructions).toContain('docs/demo-import/imprint-photos.csv');
   expect(instructions).toContain('docs/demo-import/archive-photos.csv');
   expect(instructions).toContain('header promo `image_1` (New forms) and `image_2` (Tailoring)');
-  expect(instructions).toContain('header promo `image_1` (Permanent archive) and `image_2` (Selected pieces)');
+  expect(instructions).toContain('header promo `image_1` (Permanent archive) and `image_2` (Restored pieces)');
+});
+
+test('archive header promo names the collection it links to', () => {
+  const header = JSON.parse(readFileSync('docs/demo-store/overlays/archive/sections/header-group.json', 'utf8'));
+  const promo = header.sections.header.blocks.mega_menu_promo_catalog.settings;
+  expect(promo.link_2).toBe('/collections/restored-pieces');
+  expect(promo.heading_2).toBe('Restored pieces');
 });

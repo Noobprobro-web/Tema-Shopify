@@ -226,7 +226,7 @@ const catalogPlanIntents = (plan, store, inventory) => {
       title: collection.title,
       rule_tag: collection.tag,
       product_order: source?.order || 'best-selling',
-    }, 'collectionCreate or collectionUpdate by handle (idempotent upsert)',
+    }, 'collectionCreate or collectionUpdate by handle (creates the collection when missing, updates it otherwise)',
     `docs/demo-import/data/${preset}.json`));
   }
   if (plan === 't2' && store.role === 'demo') {

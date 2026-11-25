@@ -294,7 +294,7 @@
         "handle": "daily-objects"
       },
       "field": "definition",
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
+      "mutation": "collectionCreate or collectionUpdate by handle (creates the collection when missing, updates it otherwise)",
       "baseline_source": "docs/demo-import/data/imprint.json",
       "baseline_value": null,
       "target_value": {
@@ -318,7 +318,7 @@
         "handle": "desk-and-study"
       },
       "field": "definition",
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
+      "mutation": "collectionCreate or collectionUpdate by handle (creates the collection when missing, updates it otherwise)",
       "baseline_source": "docs/demo-import/data/imprint.json",
       "baseline_value": null,
       "target_value": {
@@ -341,7 +341,7 @@
         "handle": "leather-goods"
       },
       "field": "definition",
-      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
+      "mutation": "collectionCreate or collectionUpdate by handle (creates the collection when missing, updates it otherwise)",
       "baseline_source": "docs/demo-import/data/imprint.json",
       "baseline_value": null,
       "target_value": {

@@ -37,12 +37,12 @@ export const PRODUCT_COPY = Object.freeze({
 
 export const FIXTURE_TITLES = Object.freeze({
   'fixture-media-3d-video': {
-    title: 'Studio Form Object',
+    title: 'Sculptural Ceramic Vase',
     source: 'Historical R2 storefront probe; search by exact handle and skip if missing.',
     conditional: true,
   },
   'fixture-many-variants': {
-    title: 'Many-Variant Tailored Jacket',
+    title: 'Wool Field Jacket',
     source: 'Historical R2 storefront probe and created-fixtures snapshot; search by exact handle and skip if missing.',
     conditional: true,
   },
@@ -62,17 +62,17 @@ export const FIXTURE_TITLES = Object.freeze({
     conditional: true,
   },
   'fixture-focal-point': {
-    title: 'Focal-Point Scarf',
+    title: 'Fringed Wool Scarf',
     source: 'Historical R2 storefront probe and created-fixtures snapshot; search by exact handle and skip if missing.',
     conditional: true,
   },
   'fixture-color-only': {
-    title: 'Leather Belt in Three Colors',
+    title: 'Woven Leather Belt',
     source: 'Historical R2 storefront probe; search by exact handle and skip if missing.',
     conditional: true,
   },
   'fixture-long-swatches': {
-    title: 'Long-Swatch Overshirt',
+    title: 'Cotton Twill Overshirt',
     source: 'Historical R2 storefront probe and created-fixtures snapshot; search by exact handle and skip if missing.',
     conditional: true,
   },
@@ -91,7 +91,7 @@ export const BLOG_COPY = Object.freeze({
   },
   'how-to-read-the-size-chart': {
     title: 'How to read garment measurements',
-    body: '<p>Lay a similar piece flat and compare its shoulder, chest and length with the measurements in this size guide. Choose the closest match.</p>',
+    body: '<p>Lay a similar piece flat and compare its shoulder, chest and length with the size guide on each product page. Measure a similar piece you already own and choose the closest match.</p>',
     tags: ['guide', 'fit'],
   },
 });

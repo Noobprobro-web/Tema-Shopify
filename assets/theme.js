@@ -743,7 +743,9 @@
           const headerOffset = Number.parseFloat(
             getComputedStyle(document.documentElement).getPropertyValue('--header-offset'),
           ) || 0;
-          if (selectedRect.top < headerOffset || selectedRect.bottom > window.innerHeight) {
+          // Only scroll when the top of the selected media is out of view: an image taller than the
+          // window must not jump while its top is already visible.
+          if (selectedRect.top < headerOffset || selectedRect.top >= window.innerHeight) {
             selected.scrollIntoView({
               block: 'start',
               behavior: this.reducedMotionQuery.matches ? 'auto' : 'smooth',
@@ -755,6 +757,8 @@
       this.syncCarouselMode();
     }
 
+    // The accessible name of each zoom button counts in visible order (it is refreshed after the
+    // selected media moves to the front), while the zoom dialog indexes `zoom_images` in product order.
     refreshZoomLabels() {
       const triggers = Array.from(this.querySelectorAll('[data-zoom-label-template]'));
       triggers.forEach((trigger, index) => {
