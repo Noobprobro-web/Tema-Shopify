@@ -290,6 +290,43 @@
     }
   }
 
+  // Product details only stick when the whole column fits below the sticky header. Keeping the
+  // measurement here (rather than relying on a height media query) also covers long product copy.
+  const observeStickyFit = (element) => {
+    if (!element) return () => {};
+
+    const spacingProbe = document.createElement('div');
+    spacingProbe.setAttribute('aria-hidden', 'true');
+    spacingProbe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;height:var(--space-4);';
+    document.body.append(spacingProbe);
+
+    const update = () => {
+      const headerOffset = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--header-offset'),
+      ) || 0;
+      const spacing = spacingProbe.getBoundingClientRect().height;
+      const fits = element.getBoundingClientRect().height + headerOffset + spacing <= window.innerHeight;
+      element.toggleAttribute('data-sticky-fits', fits);
+    };
+
+    const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update);
+    resizeObserver?.observe(element);
+    const header = document.querySelector('.site-header')?.parentElement;
+    if (header) resizeObserver?.observe(header);
+
+    const rootObserver = typeof MutationObserver === 'undefined' ? null : new MutationObserver(update);
+    rootObserver?.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+
+    return () => {
+      resizeObserver?.disconnect();
+      rootObserver?.disconnect();
+      window.removeEventListener('resize', update);
+      spacingProbe.remove();
+    };
+  };
+
   class ThemeDisclosure extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -551,6 +588,10 @@
   class ProductGallery extends ThemeElement {
     connectedCallback() {
       this.startListening();
+      this.disconnectStickyFit?.();
+      this.disconnectStickyFit = observeStickyFit(
+        this.closest('.product-main__layout')?.querySelector('.product-main__details'),
+      );
       this.guardUnsizedModels();
       if (this.dataset.layout !== 'thumbnails') {
         this.initCarousel();
@@ -600,6 +641,7 @@
 
     disconnectedCallback() {
       this.disconnectModelObserver?.();
+      this.disconnectStickyFit?.();
       super.disconnectedCallback();
     }
 
@@ -797,6 +839,10 @@
   class VariantSelects extends ThemeElement {
     connectedCallback() {
       this.startListening();
+      this.disconnectStickyFit?.();
+      if (this.matches('.featured-product__details')) {
+        this.disconnectStickyFit = observeStickyFit(this);
+      }
       this.usesServerVariants = this.hasAttribute('data-variant-state-url');
       this.variantData = this.usesServerVariants ? [] : this.getVariantData();
       this.variantRequest = null;
