@@ -491,3 +491,29 @@ Fecha: 2026-11-25. Decidido por: Johandry. Fuente: respuesta de Johandry en la s
 
 - **D76 · Copy de R4 aprobado (D35; D72):** Johandry aprueba el copy de R4 tal como figura en `agent-comms/outbox-claude/CLAUDE-R4-INTEGRACION-001.md` en la revisión `8d27376`: textos de interfaz, menús de los tres presets, portada de Imprint y de Archive, vendors «Line & Form», «Field & Form» y «Archive Index», autores «Mara Ellery», «Eli Mercer» y «Rowan Vale», las 21 descripciones, nombres de fixtures, blog y tarjeta regalo. Incluye el titular de Imprint propuesto y no aplicado hasta hoy: «Engineered utility, precise discipline» pasa a «Objects for the working day.» (`listings/imprint/templates/index.json:20` y `docs/demo-store/overlays/imprint/templates/index.json:20`). La aprobación es del texto; verlo en tienda (compuerta 5) sigue pendiente.
 - **D77 · Método de subida de presets:** las subidas de presets a cualquier tienda se hacen partiendo de la ZIP descomprimida y sustituyendo solo `templates/collection.json`, `templates/index.json`, `templates/product.json` y `config/settings_data.json` por los del preset (`listings/<preset>/templates/` y el `current` del preset); después se aplica el overlay de ese preset (D70). `agent-comms/outbox-claude/harness-C-01-ID-001/build-export.mjs` no debe usarse para esto: no reproduce la ZIP (conserva bloques `docs-only` que el empaquetador elimina y no incluye `listings/`). Procedimiento en `docs/demo-store/README.md`, sección «How to upload a preset».
+
+## 2026-11-25: Borrado del tema de desarrollo de la compuerta 5 de R3 (D78)
+
+Fecha: 2026-11-25. Decidido por: Johandry. Fuente: petición de Johandry en la sesión de Claude Code, 2026-11-25, literalmente «borra el tema de desarrollo», y su confirmación posterior, literalmente «sí, regístralo en decisions.md».
+
+- **D78 · Borrado del tema de desarrollo `Development (476aa2-vm)` en `sartorial-theme-kvkzl39t.myshopify.com`:** se borró el tema `190692557104` "Development (476aa2-vm)", rol `development`, de la tienda `sartorial-theme-kvkzl39t.myshopify.com`. Era el tema de desarrollo de la compuerta 5 de R3 y contenía plantillas de prueba (`templates/page.g5a|g5b|g5c.json`, `templates/product.g5|g6|g7.json`) y ajustes de prueba, según `agent-comms/outbox-claude/tests-r3-20261124/INFORME.md`. Es una excepción puntual a la prohibición de borrar temas de D38, limitada a este ID, como D62.
+  - Comprobaciones previas al borrado:
+    - El tema existía con ese nombre y ese rol.
+    - El tema publicado seguía siendo `190453383472` "Archive rc5 (e5fd4b2)".
+    - No había ninguna sesión `shopify theme dev` en marcha.
+  - Ejecución: borrado por ID con `shopify theme delete --theme 190692557104 --force`. La CLI respondió: «The theme 'Development (476aa2-vm)' (#190692557104) was deleted from sartorial-theme-kvkzl39t.myshopify.com.».
+  - Temas que quedan en la tienda:
+    - `190453383472` Archive rc5 (e5fd4b2), publicado.
+    - `190453317936` Sartorial rc5 (e5fd4b2).
+    - `190453350704` Imprint rc5 (e5fd4b2).
+    - `190695473456` Sartorial R4 (0b4d517).
+    - `190695506224` Archive R4 (0b4d517).
+    - `190695538992` Imprint R4 (0b4d517).
+  - Consecuencias:
+    - El borrado es irreversible.
+    - Los documentos que citan `190692557104` apuntan ahora a un tema que ya no existe. Se conservan como registro histórico y no se editan.
+  - Archivos que citan el ID, según `git grep -n 190692557104` sobre el árbol antes de escribir esta entrada (4 archivos; esta entrada no cuenta):
+    - `agent-comms/outbox-claude/tests-r3-20261124/INFORME.md` (2 líneas).
+    - `agent-comms/outbox-claude/tests-r3-20261124/raw/b1.json` (42 líneas, identificador de tema en las peticiones de la batería 1).
+    - `agent-comms/outbox-claude/tests-r3-20261124/scripts/lib2.mjs` (1 línea, constante `TID`).
+    - `docs/decisions.md` (1 línea, entrada D62, registro de temas borrados).
