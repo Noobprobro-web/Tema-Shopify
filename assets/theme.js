@@ -327,6 +327,14 @@
     };
   };
 
+  const moveMediaToStart = (gallery, mediaId) => {
+    const selected = Array.from(gallery.querySelectorAll('[data-product-media-id]')).find(
+      (media) => String(media.dataset.productMediaId) === String(mediaId),
+    );
+    if (selected && selected !== gallery.firstElementChild) gallery.insertBefore(selected, gallery.firstElementChild);
+    return selected;
+  };
+
   class ThemeDisclosure extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -661,13 +669,13 @@
       this.track = this.querySelector('[data-gallery-track]');
       this.pager = this.querySelector('[data-gallery-pager]');
       this.slides = Array.from(this.querySelectorAll('[data-product-media-id]'));
+      this.carouselQuery = window.matchMedia('(max-width: 61.99rem)');
+      this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (!this.track || !this.pager || this.slides.length < 2) return;
 
       this.counter = this.pager.querySelector('[data-gallery-current]');
       this.carouselStatus = this.pager.querySelector('[data-gallery-status]');
       this.steps = Array.from(this.pager.querySelectorAll('[data-gallery-step]'));
-      this.carouselQuery = window.matchMedia('(max-width: 61.99rem)');
-      this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.currentSlide = -1;
       // The first time the carousel is shown it starts on the preselected media, if any.
       this.initialSlidePending = true;
@@ -692,10 +700,35 @@
       if (productSection) {
         this.listen(productSection, 'theme:variant-change', (event) => {
           const mediaId = event.detail?.variant?.featured_media_id;
-          const index = this.slides.findIndex(
-            (slide) => String(slide.dataset.productMediaId) === String(mediaId),
+          if (!mediaId) return;
+
+          if (this.carouselQuery.matches) {
+            const index = this.slides.findIndex(
+              (slide) => String(slide.dataset.productMediaId) === String(mediaId),
+            );
+            if (index >= 0) this.goToSlide(index, false);
+            return;
+          }
+
+          if (!this.track || this.dataset.layout === 'thumbnails') return;
+          const focusedElement = Array.from(this.track.querySelectorAll('*')).find(
+            (element) => element === document.activeElement,
           );
-          if (index >= 0) this.goToSlide(index, false);
+          const selected = moveMediaToStart(this.track, mediaId);
+          if (!selected) return;
+          this.slides = Array.from(this.querySelectorAll('[data-product-media-id]'));
+          this.track.scrollLeft = 0;
+          this.currentSlide = -1;
+          this.applySlide(0, false);
+          if (focusedElement?.isConnected) focusedElement.focus({ preventScroll: true });
+
+          const rect = this.getBoundingClientRect();
+          if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
+            this.scrollIntoView({
+              block: 'start',
+              behavior: this.reducedMotionQuery.matches ? 'auto' : 'smooth',
+            });
+          }
         });
       }
 
@@ -1519,12 +1552,16 @@
       productSection?.querySelectorAll('[data-product-media-id]').forEach((media) => {
         media.toggleAttribute('data-selected', String(media.dataset.productMediaId) === String(variant?.featured_media_id));
       });
-      // On narrow screens the gallery is a scrollable strip where the chosen media goes first
-      // (order: -1): it scrolls back to the start so the variant change is visible.
+      // Featured product has no pager, so keep its selected variant first in the DOM at every
+      // width; this preserves focus order and gives the selected image the lead grid position.
       productSection?.querySelectorAll('.featured-product__gallery').forEach((gallery) => {
-        if (gallery.scrollWidth > gallery.clientWidth && gallery.querySelector('[data-selected]')) {
-          gallery.scrollTo({ left: 0 });
-        }
+        if (!variant?.featured_media_id) return;
+        const focusedElement = Array.from(gallery.querySelectorAll('*')).find(
+          (element) => element === document.activeElement,
+        );
+        const selected = moveMediaToStart(gallery, variant.featured_media_id);
+        if (focusedElement?.isConnected) focusedElement.focus({ preventScroll: true });
+        if (selected && gallery.scrollWidth > gallery.clientWidth) gallery.scrollTo({ left: 0, behavior: 'auto' });
       });
     }
 

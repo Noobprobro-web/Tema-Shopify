@@ -10816,7 +10816,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 
 /* ===== Liquid additions ===== */
 /* Featured product gallery on narrow screens: every media item sits in one horizontal scroll-snap strip so
-   video and 3D stay reachable. The item of the selected variant is ordered first. */
+   video and 3D stay reachable. JavaScript moves the selected item in the DOM, preserving focus order. */
 @media (max-width: 61.99rem) {
   .featured-product__gallery {
     display: flex;
@@ -10833,10 +10833,6 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     flex: 0 0 85%;
     min-width: 0;
     scroll-snap-align: start;
-  }
-
-  .featured-product__gallery .featured-product__media[data-selected] {
-    order: -1;
   }
 
   .featured-product__gallery .featured-product__media:only-child,

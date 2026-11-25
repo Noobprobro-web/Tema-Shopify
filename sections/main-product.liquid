@@ -43,6 +43,12 @@
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
   assign product_models = product.media | where: 'media_type', 'model'
   assign selected_media_id = selected_variant.featured_media.id | default: product.featured_media.id
+  assign gallery_media = product.media
+  unless section.settings.media_layout == 'thumbnails'
+    assign selected_media = product.media | where: 'id', selected_media_id
+    assign remaining_media = product.media | reject: 'id', selected_media_id
+    assign gallery_media = selected_media | concat: remaining_media
+  endunless
 
   comment
     Mobile carousel ratio: that of the first image, clamped between 2:3 and 3:2. All slides share
@@ -79,11 +85,11 @@
     >
       <div class="product-gallery__items" data-gallery-track>
         {%- if product.media.size > 0 -%}
-          {%- for media in product.media -%}
+          {%- for media in gallery_media -%}
             <figure
               class="product-gallery__item"
               data-product-media-id="{{ media.id }}"
-              {% if media.id == selected_media_id %}data-selected{% endif %}
+              {% if media.id == selected_media_id or selected_media_id == blank and forloop.first %}data-selected{% endif %}
               {% if section.settings.media_layout == 'thumbnails' and media.id != selected_media_id %}hidden{% endif %}
             >
               {%- liquid
@@ -99,7 +105,7 @@
                     assign media_priority = true
                   endif
                 endif
-                if section.settings.media_layout == 'grid' and product.media.size > 1
+                if section.settings.media_layout == 'grid' and gallery_media.size > 1
                   unless forloop.first and odd_media == 1
                     assign media_sizes = '(min-width: 62rem) 30vw, 100vw'
                   endunless
@@ -107,13 +113,20 @@
               -%}
               {% render 'product-media', media: media, product: product, prioritize: media_priority, sizes: media_sizes %}
               {%- if zoom_enabled and media.media_type == 'image' -%}
-                {%- assign zoom_position = zoom_position | plus: 1 -%}
+                {%- assign zoom_index = 0 -%}
+                {%- for zoom_image in zoom_images -%}
+                  {%- if zoom_image.id == media.id -%}
+                    {%- assign zoom_index = forloop.index0 -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- assign zoom_position = zoom_index | plus: 1 -%}
                 <button
                   class="product-gallery__zoom-trigger"
                   type="button"
                   aria-haspopup="dialog"
                   aria-label="{{ 'products.product.media_zoom.open' | t: index: zoom_position, total: zoom_images.size | escape_once }}"
-                  data-zoom-open="{{ zoom_position | minus: 1 }}"
+                  data-zoom-open="{{ zoom_index }}"
                 >
                   <span class="product-gallery__zoom-icon" aria-hidden="true">
                     {%- render 'icon', name: 'search', size: 18 -%}
