@@ -353,7 +353,8 @@
         "one": "{{ count }} ensayo",
         "other": "{{ count }} ensayos"
       },
-      "empty": "Aún no se ha publicado ningún ensayo."
+      "empty": "Aún no se ha publicado ningún ensayo.",
+      "page_out_of_range": "No hay ensayos en esta página."
     },
     "article": {
       "reading_time": {
@@ -428,7 +429,7 @@
     "search_placeholder": "Busca productos e historias",
     "search_submit": "Buscar",
     "return_to_collection": "Volver a la colección",
-    "recommendations": "Piezas destacadas / Sigue explorando"
+    "recommendations": "Piezas populares"
   },
   "password": {
     "opening_label": "Nota de apertura",
@@ -659,7 +660,7 @@
     "dialog_label": "Buscar en la tienda",
     "results_label": "Sugerencias de búsqueda",
     "loading": "Buscando",
-    "no_results": "Aún no hay sugerencias. Pulsa Enter para buscar en todo el catálogo.",
+    "no_results": "No hay resultados para «[terms]». Prueba otra búsqueda o consulta todos los resultados.",
     "error": "No pudimos cargar las sugerencias. Pulsa Enter para buscar en todo el catálogo.",
     "clear": "Borrar la búsqueda",
     "in_stock": "Disponible",

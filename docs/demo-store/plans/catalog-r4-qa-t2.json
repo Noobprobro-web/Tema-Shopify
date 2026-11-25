@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "plan": "t2",
+  "plan_kind": "mutation-intents",
+  "mode": "dry-run",
+  "deterministic": true,
+  "executable_graphql": false,
+  "inventory_target": 8,
+  "redirects_planned": false,
+  "redirect_note": "No se planifican redirecciones del artículo; configura una redirección manualmente si el comercio la necesita.",
+  "store": {
+    "alias": "qa",
+    "domain": "sartorial-theme-kvkzl39t.myshopify.com",
+    "role": "qa",
+    "preset": "sartorial"
+  },
+  "baseline": {
+    "source": "docs/demo-import/data/imprint.json + historical import inventory",
+    "live_admin_read": false,
+    "live_store_read": false,
+    "note": "The plan does not read the live store. Baseline values are source snapshots only."
+  },
+  "intents": [],
+  "skipped": [
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "structured-tote"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "east-west-shoulder-bag"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "compact-crossbody"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "leather-document-folio"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "padded-laptop-sleeve"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "zip-travel-pouch"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "slim-bifold-wallet"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "four-slot-cardholder"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "leather-key-loop"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "leather-desk-mat"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "folded-valet-tray"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "milled-brass-paperweight"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "single-pen-sleeve"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Collection",
+      "selector": {
+        "handle": "daily-objects"
+      },
+      "field": "definition",
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Collection",
+      "selector": {
+        "handle": "desk-and-study"
+      },
+      "field": "definition",
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Collection",
+      "selector": {
+        "handle": "leather-goods"
+      },
+      "field": "definition",
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
+    },
+    {
+      "plan": "t2",
+      "resource": "Product",
+      "selector": {
+        "handle": "structured-tote"
+      },
+      "field": "import",
+      "skipped": true,
+      "reason": "Never overwrite the QA store’s Sartorial structured-tote."
+    }
+  ],
+  "intent_count": 0,
+  "skipped_count": 17,
+  "mutations_sent": 0,
+  "safety": {
+    "no_resource_ids_embedded": true,
+    "no_theme_publish_or_delete": true,
+    "no_product_or_collection_delete": true,
+    "no_shop_settings_or_metafields": true,
+    "apply_supported": false,
+    "reason_apply_disabled": "R4 is a planning document only. It does not read store data or emit executable GraphQL."
+  }
+}

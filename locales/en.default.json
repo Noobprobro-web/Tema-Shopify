@@ -353,7 +353,8 @@
         "one": "{{ count }} essay",
         "other": "{{ count }} essays"
       },
-      "empty": "No essays have been published yet."
+      "empty": "No essays have been published yet.",
+      "page_out_of_range": "There are no essays on this page."
     },
     "article": {
       "reading_time": {
@@ -428,7 +429,7 @@
     "search_placeholder": "Search products and stories",
     "search_submit": "Search",
     "return_to_collection": "Return to collection",
-    "recommendations": "Popular pieces / Continue exploring"
+    "recommendations": "Popular pieces"
   },
   "password": {
     "opening_label": "Opening note",
@@ -659,7 +660,7 @@
     "dialog_label": "Search our collection",
     "results_label": "Search suggestions",
     "loading": "Searching",
-    "no_results": "No suggestions yet. Press enter to search the full catalog.",
+    "no_results": "No matches for “[terms]”. Try a different search or view all results.",
     "error": "We could not load suggestions. Press Enter to search the full catalog.",
     "clear": "Clear search",
     "in_stock": "In stock",

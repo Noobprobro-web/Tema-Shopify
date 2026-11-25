@@ -1396,7 +1396,7 @@ button[aria-busy='true']:disabled {
     grid-column: 1 / -1;
   }
 
-  .featured-product__details {
+  .featured-product__details[data-sticky-fits] {
     position: sticky;
     inset-block-start: var(--space-4);
   }
@@ -5113,7 +5113,7 @@ marquee-banner {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .product-main__details {
+  .product-main__details[data-sticky-fits] {
     position: sticky;
     inset-block-start: var(--space-4);
   }
@@ -7360,9 +7360,12 @@ anchor-nav {
 
   .contact-form__grid,
   .comment-form__grid,
-  .main-search__query-row,
-  .main-404__search-row {
+  .main-search__query-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .main-404__search-row {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .contact-form__footer {
@@ -7619,13 +7622,18 @@ anchor-nav {
    a line chevron like the menu's and a 44px touch target. A thin line separates it from the
    language toggle. */
 .localization-form__country-wrapper {
-  position: relative;
   display: inline-flex;
   align-items: center;
   color: var(--color-foreground);
 }
 
-.localization-form__country-wrapper::after {
+.localization-form__country-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.localization-form__country-select-wrapper::after {
   content: '';
   position: absolute;
   inset-inline-end: 0.35rem;
@@ -7668,9 +7676,8 @@ anchor-nav {
   cursor: pointer;
 }
 
-/* Without JS the submit button sits inside the same container: the drawn chevron is removed and
-   the select returns to its native arrow so it is not covered. */
-.no-js .localization-form__country-wrapper::after {
+/* Without JS the select uses its native arrow, so remove the enhanced chevron decoration. */
+.no-js .localization-form__country-select-wrapper::after {
   content: none;
 }
 
@@ -9079,8 +9086,8 @@ html {
 }
 
 @media (min-width: 62rem) {
-  .product-main__details,
-  .featured-product__details {
+  .product-main__details[data-sticky-fits],
+  .featured-product__details[data-sticky-fits] {
     inset-block-start: calc(var(--header-offset) + var(--space-4));
   }
 
@@ -10737,7 +10744,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     column-gap: var(--space-5);
   }
 
-  .product-main__layout--split_screen .product-main__details {
+  .product-main__layout--split_screen .product-main__details[data-sticky-fits] {
     position: sticky;
     top: calc(var(--header-offset, 0px) + var(--space-4));
   }
@@ -10780,16 +10787,6 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   margin: 0;
 }
 
-/* Gallery: on wide screens the first five media plus the selected one are shown. Video, external
-   video and 3D models are never trimmed, so rich media stays reachable (the Liquid sets
-   data-media-type on every figure). The narrow-screen layout is defined in the final block of
-   this file, and no media is hidden here on narrow screens. */
-@media (min-width: 62rem) {
-  .featured-product__media[data-media-type='image']:nth-child(n + 6):not([data-selected]) {
-    display: none;
-  }
-}
-
 .complete-the-look__item--sample {
   grid-template-areas: 'media details';
   grid-template-columns: 4.5rem minmax(0, 1fr);
@@ -10816,7 +10813,7 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 
 /* ===== Liquid additions ===== */
 /* Featured product gallery on narrow screens: every media item sits in one horizontal scroll-snap strip so
-   video and 3D stay reachable. The item of the selected variant is ordered first. */
+   video and 3D stay reachable. JavaScript moves the selected item in the DOM, preserving focus order. */
 @media (max-width: 61.99rem) {
   .featured-product__gallery {
     display: flex;
@@ -10833,10 +10830,6 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
     flex: 0 0 85%;
     min-width: 0;
     scroll-snap-align: start;
-  }
-
-  .featured-product__gallery .featured-product__media[data-selected] {
-    order: -1;
   }
 
   .featured-product__gallery .featured-product__media:only-child,

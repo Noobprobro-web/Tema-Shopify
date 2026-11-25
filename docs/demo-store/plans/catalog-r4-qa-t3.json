@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "plan": "t3",
+  "plan_kind": "mutation-intents",
+  "mode": "dry-run",
+  "deterministic": true,
+  "executable_graphql": false,
+  "inventory_target": 8,
+  "redirects_planned": false,
+  "redirect_note": "No se planifican redirecciones del artículo; configura una redirección manualmente si el comercio la necesita.",
+  "store": {
+    "alias": "qa",
+    "domain": "sartorial-theme-kvkzl39t.myshopify.com",
+    "role": "qa",
+    "preset": "sartorial"
+  },
+  "baseline": {
+    "source": "docs/demo-import/data/archive.json + historical import inventory",
+    "live_admin_read": false,
+    "live_store_read": false,
+    "note": "The plan does not read the live store. Baseline values are source snapshots only."
+  },
+  "intents": [],
+  "skipped": [
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1989-structured-wool-waistcoat"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1990-pinstripe-double-breasted-jacket"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1991-leather-column-skirt"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1992-silk-twill-blouse"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1993-wool-tuxedo-trouser"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1994-cashmere-cocoon-coat"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1994-leather-document-portfolio"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1995-asymmetric-wool-cape"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1996-satin-evening-jacket"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1997-printed-silk-square"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1998-bias-cut-silk-slip"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1999-technical-cotton-trench"
+      },
+      "field": "catalog_setup",
+      "skipped": true,
+      "reason": "QA safety: no product activation, publication, inventory change, or catalog setup is planned for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Collection",
+      "selector": {
+        "handle": "permanent-archive"
+      },
+      "field": "definition",
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
+    },
+    {
+      "plan": "t3",
+      "resource": "Collection",
+      "selector": {
+        "handle": "restored-pieces"
+      },
+      "field": "definition",
+      "skipped": true,
+      "reason": "QA safety: collection changes are skipped for the existing QA shop."
+    }
+  ],
+  "intent_count": 0,
+  "skipped_count": 14,
+  "mutations_sent": 0,
+  "safety": {
+    "no_resource_ids_embedded": true,
+    "no_theme_publish_or_delete": true,
+    "no_product_or_collection_delete": true,
+    "no_shop_settings_or_metafields": true,
+    "apply_supported": false,
+    "reason_apply_disabled": "R4 is a planning document only. It does not read store data or emit executable GraphQL."
+  }
+}

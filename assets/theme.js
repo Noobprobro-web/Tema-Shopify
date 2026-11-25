@@ -290,6 +290,66 @@
     }
   }
 
+  // Product details only stick when the whole column fits below the sticky header. Keeping the
+  // measurement here (rather than relying on a height media query) also covers long product copy.
+  const observeStickyFit = (element) => {
+    if (!element) return () => {};
+
+    const spacingProbe = document.createElement('div');
+    spacingProbe.setAttribute('aria-hidden', 'true');
+    spacingProbe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;height:var(--space-4);';
+    document.body.append(spacingProbe);
+
+    const update = () => {
+      const headerOffset = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--header-offset'),
+      ) || 0;
+      const spacing = spacingProbe.getBoundingClientRect().height;
+      const fits = element.getBoundingClientRect().height + headerOffset + spacing <= window.innerHeight;
+      element.toggleAttribute('data-sticky-fits', fits);
+    };
+
+    const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update);
+    resizeObserver?.observe(element);
+    const header = document.querySelector('.site-header')?.parentElement;
+    if (header) resizeObserver?.observe(header);
+
+    const rootObserver = typeof MutationObserver === 'undefined' ? null : new MutationObserver(update);
+    rootObserver?.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+
+    return () => {
+      resizeObserver?.disconnect();
+      rootObserver?.disconnect();
+      window.removeEventListener('resize', update);
+      spacingProbe.remove();
+    };
+  };
+
+  const moveMediaToStart = (gallery, mediaId) => {
+    const selected = Array.from(gallery.querySelectorAll('[data-product-media-id]')).find(
+      (media) => String(media.dataset.productMediaId) === String(mediaId),
+    );
+    const first = gallery.firstElementChild;
+    if (selected && first && selected !== first) {
+      const selectedSources = Array.from(selected.querySelectorAll('img, picture > source'));
+      const firstSources = Array.from(first.querySelectorAll('img, picture > source'));
+      selectedSources.forEach((source, index) => {
+        const other = firstSources[index];
+        if (!other) return;
+        const selectedSizes = source.getAttribute('sizes');
+        const firstSizes = other.getAttribute('sizes');
+        if (firstSizes === null) source.removeAttribute('sizes');
+        else source.setAttribute('sizes', firstSizes);
+        if (selectedSizes === null) other.removeAttribute('sizes');
+        else other.setAttribute('sizes', selectedSizes);
+      });
+      gallery.insertBefore(selected, first);
+    }
+    return selected;
+  };
+
   class ThemeDisclosure extends ThemeElement {
     connectedCallback() {
       this.startListening();
@@ -551,7 +611,12 @@
   class ProductGallery extends ThemeElement {
     connectedCallback() {
       this.startListening();
+      this.disconnectStickyFit?.();
+      this.disconnectStickyFit = observeStickyFit(
+        this.closest('.product-main__layout')?.querySelector('.product-main__details'),
+      );
       this.guardUnsizedModels();
+      this.refreshZoomLabels();
       if (this.dataset.layout !== 'thumbnails') {
         this.initCarousel();
         return;
@@ -600,6 +665,7 @@
 
     disconnectedCallback() {
       this.disconnectModelObserver?.();
+      this.disconnectStickyFit?.();
       super.disconnectedCallback();
     }
 
@@ -619,13 +685,13 @@
       this.track = this.querySelector('[data-gallery-track]');
       this.pager = this.querySelector('[data-gallery-pager]');
       this.slides = Array.from(this.querySelectorAll('[data-product-media-id]'));
+      this.carouselQuery = window.matchMedia('(max-width: 61.99rem)');
+      this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (!this.track || !this.pager || this.slides.length < 2) return;
 
       this.counter = this.pager.querySelector('[data-gallery-current]');
       this.carouselStatus = this.pager.querySelector('[data-gallery-status]');
       this.steps = Array.from(this.pager.querySelectorAll('[data-gallery-step]'));
-      this.carouselQuery = window.matchMedia('(max-width: 61.99rem)');
-      this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.currentSlide = -1;
       // The first time the carousel is shown it starts on the preselected media, if any.
       this.initialSlidePending = true;
@@ -650,14 +716,56 @@
       if (productSection) {
         this.listen(productSection, 'theme:variant-change', (event) => {
           const mediaId = event.detail?.variant?.featured_media_id;
-          const index = this.slides.findIndex(
-            (slide) => String(slide.dataset.productMediaId) === String(mediaId),
+          if (!mediaId) return;
+
+          if (this.carouselQuery.matches) {
+            const index = this.slides.findIndex(
+              (slide) => String(slide.dataset.productMediaId) === String(mediaId),
+            );
+            if (index >= 0) this.goToSlide(index, false);
+            return;
+          }
+
+          if (!this.track || this.dataset.layout === 'thumbnails') return;
+          const focusedElement = Array.from(this.track.querySelectorAll('*')).find(
+            (element) => element === document.activeElement,
           );
-          if (index >= 0) this.goToSlide(index, false);
+          const selected = moveMediaToStart(this.track, mediaId);
+          if (!selected) return;
+          this.slides = Array.from(this.querySelectorAll('[data-product-media-id]'));
+          this.refreshZoomLabels();
+          this.track.scrollLeft = 0;
+          this.currentSlide = -1;
+          this.applySlide(0, false);
+          if (focusedElement?.isConnected) focusedElement.focus({ preventScroll: true });
+
+          const selectedRect = selected.getBoundingClientRect();
+          const headerOffset = Number.parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue('--header-offset'),
+          ) || 0;
+          // Only scroll when the top of the selected media is out of view: an image taller than the
+          // window must not jump while its top is already visible.
+          if (selectedRect.top < headerOffset || selectedRect.top >= window.innerHeight) {
+            selected.scrollIntoView({
+              block: 'start',
+              behavior: this.reducedMotionQuery.matches ? 'auto' : 'smooth',
+            });
+          }
         });
       }
 
       this.syncCarouselMode();
+    }
+
+    // The accessible name of each zoom button counts in visible order (it is refreshed after the
+    // selected media moves to the front), while the zoom dialog indexes `zoom_images` in product order.
+    refreshZoomLabels() {
+      const triggers = Array.from(this.querySelectorAll('[data-zoom-label-template]'));
+      triggers.forEach((trigger, index) => {
+        trigger.setAttribute('aria-label', trigger.dataset.zoomLabelTemplate
+          .replaceAll('[index]', () => String(index + 1))
+          .replaceAll('[total]', () => String(triggers.length)));
+      });
     }
 
     syncCarouselMode() {
@@ -797,6 +905,10 @@
   class VariantSelects extends ThemeElement {
     connectedCallback() {
       this.startListening();
+      this.disconnectStickyFit?.();
+      if (this.matches('.featured-product__details')) {
+        this.disconnectStickyFit = observeStickyFit(this);
+      }
       this.usesServerVariants = this.hasAttribute('data-variant-state-url');
       this.variantData = this.usesServerVariants ? [] : this.getVariantData();
       this.variantRequest = null;
@@ -1473,12 +1585,16 @@
       productSection?.querySelectorAll('[data-product-media-id]').forEach((media) => {
         media.toggleAttribute('data-selected', String(media.dataset.productMediaId) === String(variant?.featured_media_id));
       });
-      // On narrow screens the gallery is a scrollable strip where the chosen media goes first
-      // (order: -1): it scrolls back to the start so the variant change is visible.
+      // Featured product has no pager, so keep its selected variant first in the DOM at every
+      // width; this preserves focus order and gives the selected image the lead grid position.
       productSection?.querySelectorAll('.featured-product__gallery').forEach((gallery) => {
-        if (gallery.scrollWidth > gallery.clientWidth && gallery.querySelector('[data-selected]')) {
-          gallery.scrollTo({ left: 0 });
-        }
+        if (!variant?.featured_media_id) return;
+        const focusedElement = Array.from(gallery.querySelectorAll('*')).find(
+          (element) => element === document.activeElement,
+        );
+        const selected = moveMediaToStart(gallery, variant.featured_media_id);
+        if (focusedElement?.isConnected) focusedElement.focus({ preventScroll: true });
+        if (selected && gallery.scrollWidth > gallery.clientWidth) gallery.scrollTo({ left: 0, behavior: 'auto' });
       });
     }
 
@@ -3915,7 +4031,8 @@
         ? this.querySelector('[data-cart-drawer-count]')?.textContent.trim() || ''
         : '';
       const message = template.replaceAll('[title]', () => removal.title).trim();
-      this.showStatus([message, count].filter(Boolean).join(' '));
+      const emptyCart = Boolean(this.querySelector('[data-cart-empty-message]'));
+      this.showStatus([message, count].filter(Boolean).join(' '), { visuallyHidden: emptyCart });
     }
 
     // Same region for a quantity change (the removal has its own notice). showStatus() adds a pending
@@ -4327,9 +4444,10 @@
       }, 600);
     }
 
-    showStatus(message) {
+    showStatus(message, { visuallyHidden = false } = {}) {
       const output = this.querySelector('[data-cart-status]');
       if (!output) return;
+      output.classList.toggle('visually-hidden', visuallyHidden);
       if (this.pendingRewards) {
         window.clearTimeout(this.rewardsTimer);
         if (!message.includes(this.pendingRewards)) message = [message, this.pendingRewards].filter(Boolean).join(' ');
@@ -5979,6 +6097,9 @@
       if (open) {
         this.applyBackgroundInert();
         this.releaseFocusTrap = trapFocus(this.panel, this.input);
+        requestAnimationFrame(() => {
+          if (this.isOpen && document.activeElement === this.input) this.input.select();
+        });
         // Closing empties the option list while the results stay in the DOM.
         this.collectOptions();
         this.updateComboboxState();
@@ -6095,7 +6216,7 @@
         items.forEach((item) => {
           const option = type === 'products'
             ? this.createProductResult(item)
-            : this.createTextResult(item, heading);
+            : this.createTextResult(item);
           option.id = `${this.results.id}-option-${optionIndex}`;
           option.setAttribute('role', 'option');
           option.setAttribute('aria-selected', 'false');
@@ -6112,17 +6233,18 @@
       // The empty state and "View all" are not options: they go at the foot of the panel, outside
       // the listbox, so it contains only option and group (axe aria-required-children).
       const footer = document.createDocumentFragment();
+      const emptyTemplate = (failed ? this.dataset.errorText : this.dataset.noResultsText) || '';
       if (resultCount === 0) {
         const empty = document.createElement('p');
         empty.className = 'predictive-search__empty';
-        empty.textContent = (failed ? this.dataset.errorText : this.dataset.noResultsText) || '';
+        empty.textContent = failed ? emptyTemplate : emptyTemplate.replaceAll('[terms]', () => query);
         footer.append(empty);
       }
 
       const viewAll = document.createElement('a');
       viewAll.className = 'predictive-search__view-all button button--secondary';
       viewAll.href = this.createSearchUrl(query);
-      viewAll.textContent = (this.dataset.viewAllTemplate || '').replace('[terms]', query);
+      viewAll.textContent = (this.dataset.viewAllTemplate || '').replace('[terms]', () => query);
       footer.append(viewAll);
 
       this.results.replaceChildren(fragment);
@@ -6138,7 +6260,11 @@
       this.updateComboboxState();
       this.renderedQuery = failed ? null : query;
       if (this.status) {
-        this.status.textContent = failed ? this.dataset.errorText || '' : this.getResultsCountText(resultCount);
+        this.status.textContent = failed
+          ? this.dataset.errorText || ''
+          : resultCount === 0
+            ? emptyTemplate.replaceAll('[terms]', () => query)
+            : this.getResultsCountText(resultCount);
       }
     }
 
@@ -6242,15 +6368,12 @@
       return compareMax;
     }
 
-    createTextResult(item, heading) {
+    createTextResult(item) {
       const link = this.createResultLink(item.url, 'predictive-search__result predictive-search__result--text');
-      const typeLabel = document.createElement('span');
       const title = document.createElement('span');
-      typeLabel.className = 'predictive-search__result-type eyebrow';
-      typeLabel.textContent = heading || '';
       title.className = 'predictive-search__result-title';
       title.textContent = item.title || '';
-      link.append(typeLabel, title);
+      link.append(title);
       return link;
     }
 

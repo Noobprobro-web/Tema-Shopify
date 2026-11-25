@@ -1,35 +1,38 @@
-# Sartorial 1.0.0 - ZIP canonico (node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip)
-# rev:       HEAD b6994d87387459d63f189ec9cb42eebda3607d1f (R3 integrada + correccion de la compuerta 5: defaults vacios de schema, S1)
-# fecha:     2026-11-24 (DOS UTC 2026-11-24T22:26:12Z)
-# archivos:  107
-# tamano:    329964 bytes
-# sha256:    604be3d3ee7f66be245a897c035c359b15376135d263a2057da0ee6208a3f8d6
-# contenido: 7e2b6a3145a9f0dbba8bef843e2792139d20c21ee07f678cae196ccabc7470fa (huella independiente de zlib)
+# Sartorial 1.0.0 - ZIP canonico (node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip --expect-count 111)
+# rev:       HEAD 233e6834bdd3e70d9ece9dd6876d96432bb905fd (R4 integrada con correcciones de revision; sin validar en tienda)
+# fecha:     2026-11-25 (DOS UTC 2026-11-25T05:15:24Z)
+# archivos:  111
+# tamano:    334049 bytes
+# sha256:    22510df7aae7cc9397e7d1e89a808b83df9ae7a230d3c02b3363fa3e293c1041
+# contenido: a83f1ea17b1d1ee6d04eb57c6bc64d842188c5ad40421b8c13589d5fbaf8729c (huella independiente de zlib)
 # zlib:      1.3.1-e00f703 (node 22.23.5)
-# Validado en tienda: NO. La ZIP anterior (sha256 1306eaf9...10db8) no se podia subir a Shopify (S1) y queda sustituida por esta. Esta revision aun no se ha subido a Shopify; la subida limpia sigue pendiente. Los datos de las pruebas de R3 se tomaron sobre una copia con el defecto sorteado.
+# Validado en tienda: NO. La ronda R4 no se ha subido a Shopify; quedan pendientes las subidas sin publicar y la comprobación en las tiendas de QA/demo.
 # Lineas siguientes: sha256  ruta, una por archivo del ZIP.
-8d5da7d345521386dbf0600b5cc41454f2f89ac45462387ed788818de77f4267  assets/base.css
+0051dc5294411e2557560ae35b4e4ad81eae14d320632f52b413918715d31bf1  assets/base.css
 a32c4a6042a02aa04c7f94c2bf4b32dd02f2cae43447d5148ca8058761fd13fe  assets/product-zoom.js
 de3e8cd4f0197a51bd786a5e831b89af18fa1316a07260d480a78fd431322701  assets/section-standard-a.css
 23e4c22e2f37b3c3132fb9adfbf3f7e66307dbcf346e2e2ed970d90cb690cf6a  assets/section-standard-b.css
 6c34d7a321c69a6156f2e2c62272b9c4d6ee105ffb755445d4f479328c1d8dbc  assets/section-standard-b.js
-63c8a25c57ef9b0604ac78c47e7c98606861b95a8ea5248f3b3760ebffd65aa3  assets/theme.js
+6263f1422bcd9935d94fe038a114124b6769e772fe3d14c34895c87e863fc5a4  assets/theme.js
 152d3883bde7540d4ad3c75499b05477b274297ed0185b1dfdac85686240483f  config/settings_data.json
 0b91af9704f820ef8fa999a61b9ef9ae2a36f2a9abdcb70a05d78b804c5523a4  config/settings_schema.json
 cdf0dd411574249ec17d0ed857bfc2faf60f84055d5ed9ea4b4861bd762dc94a  layout/password.liquid
 7328b2f0d8a60f48e18407e381aa1c99c73fbd0b18dea59f1324401c843c7a07  layout/theme.liquid
-0e975786d3baa2b00f324252edb3a60e05f52b877a028265fa340dd1114bb3fc  listings/archive/templates/collection.json
-5a78b66b28e8c5adc56156b95979298d8d9d96505545d1f59d8213956113dc79  listings/archive/templates/index.json
+d3bb66dfed02db11bce69ced67ad6f8c173f5fb6d5156e91c8f492d0fe85b7c0  listings/archive/sections/header-group.json
+c805ba927c5ea9685757b66df4d20c5e4d235f6e18a97dd5d6c0c49c3b6f2e76  listings/archive/templates/collection.json
+ead07032c3ac1e51aa83e971f3296a516d348f5ab50cb0eee472cbbef52e3790  listings/archive/templates/index.json
 4e21e473b79c77814820fc16f702c18511cf3eeb2a5529889ff0b3a824340aa8  listings/archive/templates/product.json
+28b9009491639898d2cfa62c0f13c32694de10c3b97b3d20852b3b177f1a9473  listings/imprint/sections/header-group.json
 43ea44356a28ae4432c2677623410eb391e4515f32d40490dbee70f6cbba38f5  listings/imprint/templates/collection.json
-22c5a113a0b503c895c50529c1b1816e1d77f8abfa8fa3aec9212df6a3e5af01  listings/imprint/templates/index.json
+ebfdfd5775a59ccafa42a70216b8bc4b9b0af9b87d1c723e6b79fe7aed1c9650  listings/imprint/templates/index.json
 c510ae608cd682ea61d5b6cbdadf7e7a2b3f9a333a73cb5477673eabe239b417  listings/imprint/templates/product.json
 513c346240a46e47f5bdb353b5e0e8f4563cd2ca007f844b804ad532fced9858  listings/sartorial/templates/collection.json
 d5a186e0ffc317e39c19614fc6a6f61c72300865d158f455b779b67fbf645293  listings/sartorial/templates/index.json
+0a50a0ee17e8a84a5609c749fd547be6fd7469f9468a4d6a96b80ef29f9d1cf0  listings/sartorial/templates/product.gift-card.json
 b92e2e837d79b729dce2ffc99608ce295777e5deee43a4c48fabb208ba5f2431  listings/sartorial/templates/product.json
-9cd8bdf0c2b9de7517d2c5c1dbd0a59e4d48d0f6adcedbb4adf57cea3790db1e  locales/en.default.json
+6f7d76df28525fc1b712519bb1c761ad193a597b9a78db632491e70da4e1a6c9  locales/en.default.json
 55d9f5eaa47161b2cb60eb23b553e510e75dbb83318d0fda01dabefd0ba02283  locales/en.default.schema.json
-8a3a58a021bd6442c2b00219ad41e367e41e8e6a4cfff67f9a6c168f75895dc9  locales/es.json
+18843ea2465a2e858b2779c02e28fb61cc0e48d03e834d252baff83530aa30d5  locales/es.json
 c66f5ab70dd3ca7d41f1ded8a0d8c183439217a6d5c5a63e25560640e0dd77e5  sections/announcement-bar.liquid
 7591662b65501c01f15d4c44ada23e95ac5f551ce3e5166583023c1a91a8b14a  sections/bento-discovery.liquid
 4262b19e7ed98e00b20e0aaf4a0688bdfff8d5bb0fb1c22aecd476caa7605c73  sections/blog-posts.liquid
@@ -40,10 +43,10 @@ c66f5ab70dd3ca7d41f1ded8a0d8c183439217a6d5c5a63e25560640e0dd77e5  sections/annou
 f789a73f7472f60c7829d4080617e35362fda7f346f7813f3c339726a5672c99  sections/curated-showcase.liquid
 4a291d1afd3883586bea3bcf3ced7e9e77a80bc7f280ebb7fa59c76437826fe7  sections/custom-liquid.liquid
 c501fdf77c5ac3509c943356730137a31661bc0708dc5390aea5c80a0d8d19e2  sections/featured-collection.liquid
-be08db2b20450fe784668bd0c564f4fea2d48491f49645fea84c1e8e85b5af8d  sections/featured-product.liquid
+37bb412de4c9cc661014afb9f1decc88060b80d739e786a2d40fca026e5d1c37  sections/featured-product.liquid
 0ce236ccd315586832f44d275deaf7acde1e1956ec6755ed76b2eff407c15a34  sections/footer-group.json
 9dce716b76e0b296a22294da52e68bcecfad04a45f84e74252c0c7509fca4490  sections/footer.liquid
-471db588fb2cb3cf99646a0fad9a3181a3eee54368c7fea5b21592dedc510829  sections/header-group.json
+ffcb5079260e9258bc3069d1144f422b2030c553842845338c2cf65338bae136  sections/header-group.json
 bda096492d254407cf8f9c6f71eb9cfbefc1f5b602423047ab1a20390578c055  sections/header.liquid
 48d5dc93d1945ddd13f31976c883472528bd6130eaef10964c9bb50d7852002e  sections/hero-editorial.liquid
 9e1507d422b2c6f452dd1c2388b84150bb2a4907b6d01d0696ce36a9f9f22713  sections/image-with-text.liquid
@@ -51,7 +54,7 @@ bda096492d254407cf8f9c6f71eb9cfbefc1f5b602423047ab1a20390578c055  sections/heade
 b6df10e872d44d2c603c59f35e9ebc81ae444d33f7776a1b5cc4532697db8908  sections/main-404.liquid
 3005405e9755367aca3bb19abde6f87baf5ca3ae86d2f3bd0565dd5869803594  sections/main-about.liquid
 14764c04ac74b460480551039aea2ef57a0709b625282b15309aa013506d776f  sections/main-article.liquid
-c54e8f9ebb5f7c1c17f3adda1d44d1829ecd924ead02c8619a793db82b61e617  sections/main-blog.liquid
+c706fff3ab9db72317dfb94a78c288293f346970372e1047dc34ae2ec94f6488  sections/main-blog.liquid
 4fd5ad130d8baa6958224a66f875af85b61c7a2bdd67bf9f551e6c1b57b3934c  sections/main-cart-items.liquid
 366b886785ff8d44ec1de48670fade42f09fed7342f2e2158957f5d791008ed3  sections/main-collection.liquid
 31ef5d5be3bd9853ee30408a3f2e8b4bf2ea0ce6fede6232de083301dd3fc9f3  sections/main-contact.liquid
@@ -60,7 +63,7 @@ c54e8f9ebb5f7c1c17f3adda1d44d1829ecd924ead02c8619a793db82b61e617  sections/main-
 51f9a57f497687f0b0651a31d3923d6295dcd9328b0c13b22b26d8e148306232  sections/main-page.liquid
 4cea69f285123c26dc5ae73891f471969c836e03f44178eaf3ca09867d3d9d21  sections/main-password.liquid
 0a5fc05840fc5afe80739312edba5a8f41de5e41092347d6cdbb81ac5c69ed1d  sections/main-policy.liquid
-210738bcb49e26c2418fe85c3789e894cded4488ee8bd2d829f63c5cfe92fee3  sections/main-product.liquid
+634d8befb5634748162786134bd075d65c91909c7f3ca30de4919c5ba5f17ba7  sections/main-product.liquid
 36977e3be50fb19b188bebb2b396e5b4ed5b3cdc2086780a1ab77d960dd45184  sections/main-search.liquid
 7e76c45027a4f48f204cef09546b2a8a608a1690b460c222f46e7dfc6368c95c  sections/marquee.liquid
 f08f794b7354c0d97b8276af15e8a6c239f1c976213d7f1ae1baecffc8f2fb35  sections/newsletter.liquid
@@ -76,7 +79,7 @@ e1ecbf4062d8542539ca12de6719aaed562e51bdd9cf3e5e030189061f459776  snippets/cart-
 afaf244beff5fd5469b22205db773f18319e64147e96d3da5f4e26dd3944e13a  snippets/faq-entry.liquid
 abe59f567ed64562c5dde2012df265ff6890dcce4f6bc02348cac7aab9f21ebb  snippets/gift-card-recipient.liquid
 d2e24f85b69763063cd6c6287f3f86192a7db138dc9427963b3dc6c25af880d7  snippets/icon.liquid
-3eee047c160c8d39cfda02f65bb6b511db3405ea17538376b705b397c06b57ca  snippets/localization-selectors.liquid
+3be1cd40e0447ac36190ba29c5e0af7f7e9e77c9d2719558577b9e6fc857f6b8  snippets/localization-selectors.liquid
 78ba310393203099916aa0290a47795e26dbd939fb746a8dc5717e02e989bc69  snippets/media-alt.liquid
 3a9f08839cfdfacfd69e10a9e7e6df0bb0102a42a4b161a660ee61e32b6e0f6f  snippets/mega-menu.liquid
 8fe9bc86ea52934d9e08fab9932c8cad4486d32311ec2cd5ac528d3fd921fb32  snippets/pickup-availability.liquid
@@ -113,5 +116,6 @@ fad55bdc22c2e90f7a2736e0db9d3e7e17ed8c4cd0f65282d9c9ce58f512f96b  templates/list
 2058c15d2d1ea7b9088a24e6002976030d551655fd71025d31723f1a69011285  templates/page.json
 191e529979e87b832d960be023a1c31c0a73f407942141493e69e846b97a8cbe  templates/page.policy.json
 7e1db352326963419cf34df67535ffdec77ca93e4b01211c06edc85ad78a2aeb  templates/password.json
+18e4307ba1aa08bcb9ba6db230765637d5b98e70e37b9036cc0a32c2f97f8e20  templates/product.gift-card.json
 a81a2901e9b872eae887ad16945dc696fe3f5cc3cf14284b834f4879356092a4  templates/product.json
 928f047af2d006a9e3e9d872461673483c1bdb720a702c3117ad016cc8d31196  templates/search.json

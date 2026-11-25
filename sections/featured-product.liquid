@@ -36,6 +36,11 @@
     assign can_add_to_cart = false
   endif
   assign featured_models = featured_product.media | where: 'media_type', 'model'
+  assign selected_media_id = selected_variant.featured_media.id | default: featured_product.featured_media.id
+  assign featured_gallery_media = featured_product.media
+  assign selected_media = featured_product.media | where: 'id', selected_media_id
+  assign remaining_media = featured_product.media | reject: 'id', selected_media_id
+  assign featured_gallery_media = selected_media | concat: remaining_media
   assign title_blocks = section.blocks | where: 'type', 'title'
 -%}
 
@@ -85,10 +90,10 @@
           {{- 'product-1' | placeholder_svg_tag: 'homepage-placeholder' -}}
         </div>
       {%- elsif featured_product.media.size > 0 -%}
-        {%- for media in featured_product.media -%}
+        {%- for media in featured_gallery_media -%}
           {%- liquid
             assign media_selected = false
-            if media.id == selected_variant.featured_media.id or selected_variant.featured_media == blank and forloop.first
+            if media.id == selected_media_id or selected_media_id == blank and forloop.first
               assign media_selected = true
             endif
             # Only the visible (selected) item is loaded eagerly; the rest of the strip stays lazy.
