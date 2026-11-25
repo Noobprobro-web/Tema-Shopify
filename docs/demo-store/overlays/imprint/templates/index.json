@@ -1,0 +1,275 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-editorial",
+      "settings": {
+        "layout_mode": "split",
+        "split_ratio": "50_50",
+        "layout_split": "image_first",
+        "height_desktop": 80,
+        "height_mobile": 65,
+        "media_type": "image",
+        "overlay_style": "none",
+        "overlay_opacity": 0,
+        "content_position_x": "start",
+        "content_position_y": "end",
+        "text_alignment": "left",
+        "content_width": 38,
+        "heading_tag": "h1",
+        "eyebrow": "Technical studio",
+        "heading": "Engineered utility, precise discipline",
+        "subheading": "<p>Desk objects and accessories for work and everyday routines.</p>",
+        "button_primary_label": "Browse the collection",
+        "button_primary_url": "/collections/all",
+        "button_secondary_label": "Explore desk and study",
+        "button_secondary_url": "",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "ballistic_nylon": {
+          "type": "item",
+          "settings": {
+            "text": "Technical studio"
+          }
+        },
+        "closures": {
+          "type": "item",
+          "settings": {
+            "text": "Daily objects"
+          }
+        },
+        "hardware": {
+          "type": "item",
+          "settings": {
+            "text": "Desk and study"
+          }
+        }
+      },
+      "block_order": [
+        "ballistic_nylon",
+        "closures",
+        "hardware"
+      ],
+      "settings": {
+        "speed": 40,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "discovery": {
+      "type": "bento-discovery",
+      "blocks": {
+        "collection": {
+          "type": "card_featured",
+          "settings": {
+            "collection": "daily-objects",
+            "eyebrow": "Daily carry",
+            "heading": "Everyday carry systems",
+            "link": ""
+          }
+        },
+        "product1": {
+          "type": "card_product",
+          "settings": {
+            "product": "leather-desk-mat"
+          }
+        },
+        "product2": {
+          "type": "card_product",
+          "settings": {
+            "product": "folded-valet-tray"
+          }
+        },
+        "story": {
+          "type": "card_editorial",
+          "settings": {
+            "link_label": "Explore leather goods",
+            "link": "",
+            "eyebrow": "Object details",
+            "heading": "Leather goods",
+            "body": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection",
+        "product1",
+        "product2",
+        "story"
+      ],
+      "settings": {
+        "eyebrow": "The collection",
+        "heading": "Collection, product, process",
+        "subheading": "<p>A denser view of the working collection.</p>",
+        "color_scheme": "scheme-3"
+      }
+    },
+    "collections": {
+      "type": "curated-showcase",
+      "blocks": {
+        "daily": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "daily-objects",
+            "tab_label": "Daily objects"
+          }
+        },
+        "workspace": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "desk-and-study",
+            "tab_label": "Workspace"
+          }
+        },
+        "limited": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "leather-goods",
+            "tab_label": "Leather goods"
+          }
+        }
+      },
+      "block_order": [
+        "daily",
+        "workspace",
+        "limited"
+      ],
+      "settings": {
+        "eyebrow": "The collection",
+        "heading": "Desk objects for daily use",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "variant_picker": {
+          "type": "variant_picker"
+        },
+        "quantity": {
+          "type": "quantity_selector"
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "technical_specs": {
+          "type": "technical_specs",
+          "settings": {
+            "heading": "Technical specifications",
+            "material": "",
+            "gsm": "",
+            "hardware": "",
+            "origin": ""
+          }
+        },
+        "description": {
+          "type": "description"
+        },
+        "inventory": {
+          "type": "inventory_status",
+          "settings": {
+            "threshold": 5,
+            "show_count": true
+          }
+        },
+        "shipping": {
+          "type": "shipping_lead_time",
+          "settings": {
+            "delivery_text": "",
+            "icon": "truck"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variant_picker",
+        "quantity",
+        "buy_buttons",
+        "technical_specs",
+        "inventory",
+        "shipping",
+        "description"
+      ],
+      "settings": {
+        "product": "structured-tote",
+        "color_scheme": "scheme-1",
+        "secondary_background": true,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "capsule": {
+      "type": "complete-the-look",
+      "blocks": {
+        "piece1": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "leather-document-folio"
+          }
+        },
+        "piece2": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "four-slot-cardholder"
+          }
+        },
+        "piece3": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "folded-valet-tray"
+          }
+        }
+      },
+      "block_order": [
+        "piece1",
+        "piece2",
+        "piece3"
+      ],
+      "settings": {
+        "eyebrow": "A modular carry",
+        "heading": "Pieces for daily carry",
+        "description": "<p>An arrangement of pieces for work and everyday routines.</p>",
+        "caption": "An arrangement for work and daily routines.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "manifesto": {
+      "type": "brand-manifesto",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "eyebrow": "Studio principles",
+        "quote": "Useful forms begin with the work they do.",
+        "body": "",
+        "button_label": "Browse the collection",
+        "button_url": "",
+        "media_label": "Studio notes",
+        "use_surface_background": false,
+        "color_scheme": "scheme-3"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "discovery",
+    "collections",
+    "featured_product",
+    "capsule",
+    "manifesto"
+  ]
+}

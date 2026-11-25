@@ -1,0 +1,57 @@
+{
+  "type": "header",
+  "name": "t:sections.header_group.name",
+  "sections": {
+    "announcement_bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_1": {
+          "type": "announcement",
+          "settings": {
+            "text": "Explore the collection",
+            "link": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_1"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "auto_rotate": true,
+        "change_slides_speed": 5
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_menu_promo_catalog": {
+          "type": "mega_menu_promo",
+          "settings": {
+            "menu_item": "Catalog",
+            "image_1": "",
+            "heading_1": "New forms",
+            "subheading_1": "Explore pieces from the current collection.",
+            "link_1": "/collections/new-forms",
+            "image_2": "",
+            "heading_2": "Tailoring",
+            "subheading_2": "A closer look at cut and proportion.",
+            "link_2": "/collections/tailoring"
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu_promo_catalog"
+      ],
+      "settings": {
+        "menu": "main-menu",
+        "color_scheme": "scheme-1",
+        "customer_account_menu": "customer-account-main-menu"
+      }
+    }
+  },
+  "order": [
+    "announcement_bar",
+    "header"
+  ]
+}
