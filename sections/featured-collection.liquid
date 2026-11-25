@@ -37,13 +37,13 @@
     assign grid_is_single = true
   endif
 
-  # A lone product sits in a grid capped at 28rem (448px) that keeps its column tracks and the
-  # 12px gap (see .std-grid--single in section-standard-a.css), so each card is far narrower
-  # than a share of the viewport.
+  # A lone product sits in a grid capped at 28rem (448px) with a single track at every
+  # breakpoint (see .std-grid--single in section-standard-a.css), so the card is as wide as the
+  # cap, not a share of the viewport divided by the column settings.
   assign card_sizes = blank
   if grid_is_single
     capture card_sizes
-      render 'card-sizes', columns_mobile: columns_mobile, columns_tablet: columns_tablet, columns_desktop: columns_desktop, max_width: 448, gap: 12
+      render 'card-sizes', columns_mobile: 1, columns_tablet: 1, columns_desktop: 1, max_width: 448
     endcapture
   endif
 -%}

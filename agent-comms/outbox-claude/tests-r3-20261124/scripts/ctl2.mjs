@@ -1,0 +1,14 @@
+import {chromium,DESK,newCtx,nav,sleep,out,shot} from './lib2.mjs';
+const b=await chromium.launch(); const ctx=await newCtx(b,DESK); const p=await ctx.newPage(); await nav(p,'/pages/faq?view=g5c',{settle:1500}); const R={};
+const st=(s)=>s.evaluate(e=>({text:e.innerText.match(/TOTAL[\s\S]{0,200}/i)?.[0].replace(/\n+/g,' | ')||null,btn:[...e.querySelectorAll('button')].map(x=>x.textContent.trim()+(x.disabled?' (disabled)':'')).pop(),checked:[...e.querySelectorAll('input[type=checkbox]')].map(c=>c.checked)}));
+const s=p.locator('main .shopify-section').nth(1); await s.scrollIntoViewIfNeeded();
+R.initial=await st(s);
+await s.locator('input[type=checkbox]').nth(1).uncheck({force:true}); await sleep(600); R.uncheck_tote=await st(s);
+await s.locator('input[type=checkbox]').nth(0).uncheck({force:true}); await s.locator('input[type=checkbox]').nth(2).uncheck({force:true}); await sleep(600); R.none=await st(s);
+await s.locator('input[type=checkbox]').nth(2).check({force:true}); await sleep(300);
+const sel=s.locator('select').nth(1); const opts=await sel.locator('option').allTextContents(); R.beltopts=opts.slice(0,3); await sel.selectOption({index:3}); await sleep(600); R.belt_changed=await st(s);
+const s4=p.locator('main .shopify-section').nth(3); await s4.scrollIntoViewIfNeeded(); R.cmp_initial=await st(s4);
+const sel2=s4.locator('select').nth(1); const all=await sel2.locator('option').evaluateAll(o=>o.map(x=>x.textContent.trim()+(x.disabled?' [disabled]':'')));R.serra_opts=all;
+await sel2.selectOption({label:all.find(x=>/Camel \/ M/.test(x))}).catch(e=>R.sel_err=String(e).slice(0,100)); await sleep(600); R.cmp_soldout=await st(s4);
+await shot(p,'d-ctl-cmp');
+out('ctl2',R); console.log(JSON.stringify(R,null,1)); await b.close();

@@ -72,6 +72,13 @@
       "remove": "Remove",
       "remove_item": "Remove {{ title }}",
       "item_removed": "Removed {{ title }} from your cart.",
+      "quantity_updated": "Quantity of {{ title }} updated to {{ quantity }}.",
+      "gift_card_properties": {
+        "email": "Recipient email",
+        "name": "Recipient name",
+        "message": "Message",
+        "send_on": "Send on"
+      },
       "discount": "Discount",
       "subtotal": "Subtotal",
       "taxes_included": "Taxes included.",
@@ -86,6 +93,9 @@
       "add_failed": "This item could not be added to your cart.",
       "shipping_remaining": "Add {{ amount }} for free shipping",
       "shipping_unlocked_gift_remaining": "Free shipping unlocked. Add {{ amount }} for a gift",
+      "shipping_unlocked": "Free shipping unlocked",
+      "gift_remaining": "Add {{ amount }} for a gift",
+      "gift_unlocked": "Gift unlocked",
       "rewards_unlocked": "Free shipping and gift unlocked",
       "rewards_progress": "Cart rewards progress",
       "shipping_milestone": "Shipping at {{ amount }}",
@@ -125,7 +135,6 @@
     },
     "lookbook": {
       "region_label": "Interactive editorial lookbook",
-      "image_alt": "Editorial composition with shoppable products",
       "open_product": "Open details for {{ product }}",
       "featured_piece": "Featured piece",
       "view_product": "View product",
@@ -138,14 +147,13 @@
     },
     "complete_the_look": {
       "region_label": "Complete the look",
-      "image_alt": "Editorial view of the complete look",
       "selected_count": {
         "one": "{{ count }} of {{ total }} item selected",
         "other": "{{ count }} of {{ total }} items selected"
       },
       "add_selected": {
-        "one": "Add {{ count }} piece to bag | {{ total }}",
-        "other": "Add {{ count }} pieces to bag | {{ total }}"
+        "one": "Add {{ count }} item to cart | {{ total }}",
+        "other": "Add {{ count }} items to cart | {{ total }}"
       },
       "select_items": "Select at least one piece",
       "select_product": "Select {{ product }}",
@@ -153,7 +161,7 @@
       "selling_plan_required": "Available from the product page with a purchase plan.",
       "requires_plan_option": "Plan required on product page",
       "view_on_product_page": "View options on product page",
-      "total_label": "Capsule total",
+      "total_label": "Total",
       "empty": "Choose two to four products in the theme editor to build this look.",
       "no_javascript": "Open each product to choose options and purchase it separately.",
       "added": "The selected look was added to your cart.",
@@ -168,6 +176,7 @@
     },
     "featured_product": {
       "region_label": "Featured product",
+      "region_label_numbered": "Featured product {{ number }}",
       "onboarding_title": "Featured luxury product",
       "onboarding_price": "$480.00"
     },
@@ -237,14 +246,12 @@
         "view_collection": "View all {{ title }}"
       },
       "manifesto": {
-        "region_label": "Our craft and materials",
-        "material_image_alt": "Close-up study of a material"
+        "region_label": "Our craft and materials"
       },
       "bento": {
         "region_label": "Discover collections, stories and products"
       },
       "marquee": {
-        "region_label": "Editorial highlights",
         "pause": "Pause editorial highlights",
         "play": "Play editorial highlights"
       }
@@ -387,7 +394,7 @@
       "label": "Search result types",
       "all": "All",
       "products": "Products",
-      "articles": "Journal",
+      "articles": "Articles",
       "pages": "Pages"
     },
     "form": {
@@ -401,7 +408,7 @@
         "one": "{{ count }} result",
         "other": "{{ count }} results"
       },
-      "article": "Journal",
+      "article": "Article",
       "page": "Page",
       "view_page": "View page",
       "none_title": "No results for \"{{ terms }}\"",
@@ -414,9 +421,9 @@
     }
   },
   "not_found": {
-    "eyebrow": "Error / Archive index",
-    "title": "Object not found.",
-    "message": "The requested page is not in our current series. It may have moved into the archive.",
+    "eyebrow": "Error",
+    "title": "Page not found",
+    "message": "The page you requested could not be found.",
     "search_label": "Search our collection",
     "search_placeholder": "Search products and stories",
     "search_submit": "Search",
@@ -424,7 +431,6 @@
     "recommendations": "Popular pieces / Continue exploring"
   },
   "password": {
-    "image_alt": "Editorial preview of the next collection",
     "opening_label": "Opening note",
     "newsletter": {
       "email": "Email address",
@@ -456,6 +462,7 @@
     "product": {
       "add_to_cart": "Add to cart",
       "choose_options": "Choose options",
+      "view_product": "View product",
       "quick_add": "Quick add",
       "select_size": "Select size",
       "color_swatch": "{{ option }}: {{ value }}",
@@ -476,6 +483,11 @@
       "unit_price": "Unit price",
       "taxes_included": "Taxes included.",
       "estimated_line_total": "Estimated item subtotal for {{ quantity }} units:",
+      "quantity_rules": {
+        "min": "Minimum {{ quantity }}",
+        "max": "Maximum {{ quantity }}",
+        "increment": "Sold in multiples of {{ quantity }}"
+      },
       "taxes_included_shipping_at_checkout": "Taxes included. Shipping calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout.",
       "discounts_at_checkout": "Discounts and the final amount are confirmed at checkout.",
@@ -632,8 +644,8 @@
     }
   },
   "newsletter": {
-    "eyebrow": "Private correspondence",
-    "heading": "Notes from the studio",
+    "eyebrow": "Newsletter",
+    "heading": "Store updates",
     "copy": "Subscribe to our newsletter.",
     "email_label": "Email address",
     "email_placeholder": "name@example.com",
@@ -648,11 +660,12 @@
     "results_label": "Search suggestions",
     "loading": "Searching",
     "no_results": "No suggestions yet. Press enter to search the full catalog.",
+    "error": "We could not load suggestions. Press Enter to search the full catalog.",
     "clear": "Clear search",
     "in_stock": "In stock",
     "products": "Products",
     "collections": "Collections",
-    "articles": "Journal",
+    "articles": "Articles",
     "pages": "Pages",
     "view_all": "View all results for \"{{ terms }}\"",
     "results_count": {

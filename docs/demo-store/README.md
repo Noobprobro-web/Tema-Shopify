@@ -23,7 +23,7 @@ Run: `node docs/demo-store/scripts/verify-products-csv.mjs` (exit code 0 = all p
 ## Fixtures and where they are
 | Need | Product | Detail |
 |---|---|---|
-| B-02 sold-out variant + visible selector, featured on home | `serra-coat` | Color x Size (15 variants); Camel / M has qty 0, policy `deny`. Sartorial home already uses it as the featured product (`listings/sartorial/templates/index.json:90`). In the root `templates/index.json` there is no featured-product section: add one if you need it there. |
+| B-02 sold-out variant + visible selector, featured on home | `serra-coat` | Color x Size (15 variants); Camel / M has qty 0, policy `deny`. Intended as the featured product of the Sartorial demo home. Since `d527a05` the preset leaves `product` empty (`listings/sartorial/templates/index.json:90`); the demo store sets it through the Sartorial overlay (D70, see below). In the root `templates/index.json` there is no featured-product section: add one if you need it there. |
 | 120-character title | `long-title-fixture-wrap-coat` | Title is exactly 120 chars |
 | No description | `silk-twill-square` | empty Body |
 | No image (on purpose) | `leather-belt` | do NOT upload any image |
@@ -50,20 +50,20 @@ Sartorial preset (`listings/sartorial/templates/*.json`) and root `templates/*.j
 |---|---|
 | Collections `all` (built in); `new-forms`, `permanent-collection`, `tailoring` only for the demo menu | yes |
 | Root: no demo-only handles. The default `templates/*.json` only uses `/collections`, `/collections/all` and `collection: "all"`, so it works on a clean install | n/a |
-| Products `serra-coat`, `nove-blazer`, `pleated-wide-trouser`, `silk-charmeuse-blouse`, `cashmere-scarf`, `doppio-trench`, `cashmere-rib-crew`, `wrap-wool-skirt`, `oversized-alpaca-knit` | yes, all active |
+| Products for the demo overlay (not referenced by the preset JSON since `d527a05`): `serra-coat`, `nove-blazer`, `pleated-wide-trouser`, `silk-charmeuse-blouse`, `cashmere-scarf`, `doppio-trench`, `cashmere-rib-crew`, `wrap-wool-skirt`, `oversized-alpaca-knit` | yes, all active |
 | Pages `about`, `contact`, `faq` (no default link depends on them; create for the demo content) | yes (`pages.md`) |
 | Menus `main-menu`, `footer`; item "Catalog" | yes (`menus.md`) |
 
-Imprint and Archive no longer expect any collection (their presets only use `collection: "all"`); they only reference products. Imprint expects products `leather-desk-mat`, `milled-brass-paperweight`, `structured-tote`, `leather-document-folio`, `four-slot-cardholder`, `folded-valet-tray`. Archive expects products `1994-cashmere-cocoon-coat`, `1999-technical-cotton-trench`, `1998-bias-cut-silk-slip`, `1990-pinstripe-double-breasted-jacket`. NOT created here (see Gaps). `structured-tote` exists in this kit (as a bag) and also in Imprint's earlier CSV: import one or the other, or overwrite.
+The Imprint and Archive presets reference no collection and no product: since `d527a05` they only use `collection: "all"` and empty product settings. Their demo stores set products and collections through the per-preset overlay (D70). Imprint's demo needs the products `leather-desk-mat`, `milled-brass-paperweight`, `structured-tote`, `leather-document-folio`, `four-slot-cardholder`, `folded-valet-tray` and the collections `daily-objects`, `desk-and-study`, `leather-goods` (`docs/demo-import/data/imprint.json`). Archive's demo needs `1994-cashmere-cocoon-coat`, `1999-technical-cotton-trench`, `1998-bias-cut-silk-slip`, `1990-pinstripe-double-breasted-jacket` and the collections `permanent-archive`, `restored-pieces` (`docs/demo-import/data/archive.json`). NOT created by this kit (see Gaps). `structured-tote` exists in this kit (as a bag) and also in Imprint's earlier CSV: import one or the other, or overwrite.
 
 ## Theme settings (default theme no longer depends on demo handles)
-The default root templates must not contain handles that exist only in the demo (`the-autumn-series`, `/pages/about`, `/pages/contact`): they would 404 on a clean install and break the rule that the demo equals a fresh install. Mount the demo with the SAME JSON as the theme (plus catalog, pages and menus); do not add demo-only links by hand.
+The default root templates must not contain handles that exist only in the demo (`the-autumn-series`, `/pages/about`, `/pages/contact`): they would 404 on a clean install and break the rule that the demo equals a fresh install. Mount each demo with the SAME JSON as the theme (plus catalog, pages and menus). Since D70 (2026-11-25) the only exception is the per-preset overlay kept outside the ZIP in `docs/demo-store/overlays/<preset>/` (products, collections and images chosen for the demo), applied to the demo store's theme after uploading it; do not add any other demo-only link by hand. Per D67 each preset gets its own client transfer demo store; `sartorial-theme-kvkzl39t` is the QA store.
 Root `templates/index.json`:
 - `hero_editorial` secondary button points to `/collections` ("Browse collections").
 - `brand_manifesto.button_url` and `bento_editorial.link` are empty (their buttons are hidden).
 - `bento_discovery` card_featured uses `collection: "all"` and an empty `link` (falls back to the collection URL).
 - `curated_showcase` tabs all use `collection: "all"`.
-- `bento_product.product` `oversized-alpaca-knit`; `complete-the-look` -> `doppio-trench`, `cashmere-rib-crew`, `wrap-wool-skirt`.
+- `bento_product.product` and the three `complete-the-look` products are empty (since `d527a05`; they only render in the editor until a product is chosen).
 `templates/page.faq.json`: the CTA button URL is empty (button hidden).
 `listings/*/templates/*.json`: the presets also use only `collection: "all"`, `/collections/all` or empty URLs.
 `sections/header-group.json`: `menu: main-menu`, `menu_item: Catalog`, mega-menu `link_1`/`link_2` (currently `/collections/all`; point to `new-forms` and `tailoring` in the editor to match images). `sections/footer-group.json`: `menu: footer`.

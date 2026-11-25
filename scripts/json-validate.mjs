@@ -56,9 +56,48 @@ function findShopImages(node, at, out) {
   return out;
 }
 
+// Defaults vacios: Shopify rechaza al subir un ajuste de schema (seccion, bloque o
+// config/settings_schema.json) con "default": "" ("default can't be blank"). Theme Check y
+// el resto de compuertas no lo ven; solo lo detecta el servidor. Un ajuste sin default
+// queda vacio igualmente, que es lo que se pretende al escribir "".
+function findBlankDefaults(node, at, out) {
+  if (Array.isArray(node)) {
+    node.forEach((item, i) => findBlankDefaults(item, `${at}[${i}]`, out));
+  } else if (node && typeof node === 'object') {
+    for (const [key, value] of Object.entries(node)) {
+      const seg = /^[A-Za-z_$][\w$]*$/.test(key) ? `.${key}` : `[${JSON.stringify(key)}]`;
+      if (key === 'default' && typeof value === 'string' && value.trim() === '') {
+        out.push({ at: at + seg, id: node.id ?? node.type ?? '?' });
+      } else {
+        findBlankDefaults(value, at + seg, out);
+      }
+    }
+  }
+  return out;
+}
+
+// Extrae el JSON de {% schema %} de un .liquid y devuelve los defaults vacios.
+export function blankDefaultsInLiquid(source) {
+  const match = /\{%-?\s*schema\s*-?%\}([\s\S]*?)\{%-?\s*endschema\s*-?%\}/.exec(source);
+  if (!match) return [];
+  return findBlankDefaults(JSON.parse(match[1]), '$', []);
+}
+
+// Autoprueba: el detector tiene que fallar con el codigo defectuoso (R3, S1) y pasar sin el.
+function selfTest() {
+  const bad = '{% schema %}{"settings":[{"type":"text","id":"caption","label":"x","default":""}]}{% endschema %}';
+  const ok = '{% schema %}{"settings":[{"type":"text","id":"caption","label":"x"}]}{% endschema %}';
+  const badBlock = '{% schema %}{"blocks":[{"type":"b","settings":[{"type":"text","id":"t","default":"  "}]}]}{% endschema %}';
+  if (blankDefaultsInLiquid(bad).length !== 1) throw new Error('autoprueba: no detecta default vacio');
+  if (blankDefaultsInLiquid(badBlock).length !== 1) throw new Error('autoprueba: no detecta default en blanco en bloque');
+  if (blankDefaultsInLiquid(ok).length !== 0) throw new Error('autoprueba: falso positivo');
+}
+
 const files = await walk(REPO);
 const failures = [];
 const shopImages = [];
+const blankDefaults = [];
+selfTest();
 
 for (const file of files) {
   const rel = path.relative(REPO, file).split(path.sep).join('/');
@@ -68,8 +107,26 @@ for (const file of files) {
     if (THEME_DIRS.has(rel.split('/')[0])) {
       for (const hit of findShopImages(data, '$', [])) shopImages.push({ rel, ...hit });
     }
+    if (rel === 'config/settings_schema.json') {
+      for (const hit of findBlankDefaults(data, '$', [])) blankDefaults.push({ rel, ...hit });
+    }
   } catch (error) {
     failures.push({ rel, message: error.message });
+  }
+}
+
+for (const dir of ['sections', 'blocks', 'snippets']) {
+  let names = [];
+  try { names = await readdir(path.join(REPO, dir)); } catch { /* carpeta opcional */ }
+  for (const name of names.filter((n) => n.endsWith('.liquid'))) {
+    const rel = `${dir}/${name}`;
+    try {
+      for (const hit of blankDefaultsInLiquid(await readFile(path.join(REPO, rel), 'utf8'))) {
+        blankDefaults.push({ rel, ...hit });
+      }
+    } catch (error) {
+      failures.push({ rel, message: `schema: ${error.message}` });
+    }
   }
 }
 
@@ -83,9 +140,11 @@ console.log(`Fallos de parseo:           ${failures.length}`);
 for (const f of failures) console.log(`  ${f.rel}: ${f.message}`);
 console.log(`URIs shopify://shop_images/: ${shopImages.length}  <- solo carpetas de tema y /listings/`);
 for (const h of shopImages) console.log(`  ${h.rel} ${h.at}: ${h.value}`);
+console.log(`Schemas con "default" vacio: ${blankDefaults.length}  <- Shopify los rechaza al subir`);
+for (const h of blankDefaults) console.log(`  ${h.rel} ${h.at} (ajuste ${h.id})`);
 
 console.log('\nALCANCE: comprueba que el JSON parsee. No comprueba que el schema');
 console.log('sea semanticamente valido para Shopify: eso lo cubre Theme Check');
 console.log('en las carpetas de tema, y nadie en /listings/.');
 
-if (failures.length > 0 || shopImages.length > 0) process.exitCode = 1;
+if (failures.length > 0 || shopImages.length > 0 || blankDefaults.length > 0) process.exitCode = 1;

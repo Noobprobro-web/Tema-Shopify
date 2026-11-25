@@ -1,0 +1,42 @@
+diff --git a/sections/complete-the-look.liquid b/sections/complete-the-look.liquid
+index f98f697..16a862d 100644
+--- a/sections/complete-the-look.liquid
++++ b/sections/complete-the-look.liquid
+@@ -410,8 +410,7 @@
+     {
+       "type": "text",
+       "id": "caption",
+-      "label": "t:sections.all.caption.label",
+-      "default": ""
++      "label": "t:sections.all.caption.label"
+     },
+     {
+       "type": "color_scheme",
+diff --git a/sections/lookbook.liquid b/sections/lookbook.liquid
+index 2b4a2a2..c142d6c 100644
+--- a/sections/lookbook.liquid
++++ b/sections/lookbook.liquid
+@@ -237,8 +237,7 @@
+     {
+       "type": "text",
+       "id": "caption",
+-      "label": "t:sections.all.caption.label",
+-      "default": ""
++      "label": "t:sections.all.caption.label"
+     },
+     {
+       "type": "color_scheme",
+diff --git a/sections/main-faq.liquid b/sections/main-faq.liquid
+index 07eebe6..4013734 100644
+--- a/sections/main-faq.liquid
++++ b/sections/main-faq.liquid
+@@ -246,8 +246,7 @@
+         {
+           "type": "text",
+           "id": "button_label",
+-          "label": "t:sections.all.button_label.label",
+-          "default": ""
++          "label": "t:sections.all.button_label.label"
+         },
+         {
+           "type": "url",

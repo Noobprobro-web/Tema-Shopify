@@ -176,6 +176,49 @@
   const isCentsLike = (cents) => typeof cents === 'number'
     || (typeof cents === 'string' && /^-?\d+$/.test(cents.trim()));
 
+  // Decodes HTML entities without ever parsing markup: "<" is escaped first, so the result is only
+  // text and is safe to write with textContent.
+  const decodeEntities = (text) => {
+    const decoder = document.createElement('textarea');
+    decoder.innerHTML = String(text).replace(/</g, '&lt;');
+    return decoder.value;
+  };
+
+  // Amounts that Liquid already formatted with `money` travel in JSON or data attributes and are
+  // painted with textContent, so entities (&pound;) and markup (<span class="money">) would show
+  // literally. This returns plain text whether the value arrived escaped, escape_once'd or raw:
+  // it decodes and strips tags until the string stops changing, so running it twice is harmless.
+  const moneyText = (value) => {
+    let text = value == null ? '' : String(value);
+    for (let pass = 0; pass < 3; pass += 1) {
+      const next = decodeEntities(text).replace(/<[^>]*>/g, '');
+      if (next === text) break;
+      text = next;
+    }
+    return text.trim();
+  };
+
+  // Keeps the visually hidden "Sale price" / "Regular price" labels of a snippets/price.liquid
+  // block in step with the amount that was just painted. A "From" price (several amounts) keeps the
+  // labels Liquid rendered, since a single sale label would not describe it.
+  const syncPriceLabels = (currentPrice, comparePrice, onSale) => {
+    const values = currentPrice?.closest('.price__values');
+    const wrapper = currentPrice?.closest('[data-price-wrapper]');
+    if (!values || !wrapper?.dataset.labelSale) return;
+    const varies = [...values.children].some((child) => child.tagName === 'SPAN'
+      && !child.classList.contains('visually-hidden') && !child.hasAttribute('data-current-price'));
+    if (varies) return;
+
+    const label = (text) => Object.assign(document.createElement('span'), { className: 'visually-hidden', textContent: text });
+    values.querySelectorAll(':scope > .visually-hidden').forEach((node) => node.remove());
+    if (onSale) {
+      currentPrice.before(label(wrapper.dataset.labelSale));
+      comparePrice?.before(label(wrapper.dataset.labelRegular));
+    } else {
+      currentPrice.before(label(wrapper.dataset.labelRegular));
+    }
+  };
+
   const formatMoney = (cents, format) => {
     if (!isCentsLike(cents)) return '';
     const amount = Math.round(Number(cents));
@@ -193,9 +236,7 @@
     const pattern = MONEY_PATTERNS[template.match(MONEY_TOKEN)[1]];
     // Decodes entities a merchant may have typed into money_format (&pound;, &#36;)
     // while keeping any markup inert, since the result is written with textContent.
-    const decoder = document.createElement('textarea');
-    decoder.innerHTML = template.replace(/</g, '&lt;');
-    const textTemplate = decoder.value;
+    const textTemplate = decodeEntities(template);
     const fixed = (amount / 100).toFixed(pattern.precision);
     const [whole, fraction] = fixed.split('.');
     const grouped = whole.replace(/(\d)(?=(\d{3})+$)/g, `$1${pattern.thousands}`);
@@ -637,6 +678,8 @@
       // empty tab stop.
       if (active) {
         this.track.tabIndex = 0;
+        // aria-label is not allowed on a generic <div>: the group role gives the name a home.
+        this.track.setAttribute('role', 'group');
         this.track.setAttribute('aria-label', this.getAttribute('aria-label') || '');
         const preselected = this.initialSlidePending && this.currentSlide < 0
           ? this.slides.findIndex((slide) => slide.hasAttribute('data-selected'))
@@ -646,6 +689,7 @@
         else this.syncSlide(false);
       } else {
         this.track.removeAttribute('tabindex');
+        this.track.removeAttribute('role');
         this.track.removeAttribute('aria-label');
         if (this.currentSlide < 0) this.applySlide(0, false);
       }
@@ -958,6 +1002,9 @@
         control.disabled = true;
         control.removeAttribute('name');
       });
+      // The no-JS fallback submit comes first in the DOM, so it would stay the form's default
+      // button. Disabling it would cancel implicit submission (Enter), so it is removed instead.
+      this.querySelectorAll('button.no-js-only[type="submit"]').forEach((button) => button.remove());
     }
 
     cachePurchaseOptionElements() {
@@ -1117,9 +1164,9 @@
           this.sellingPlanInput.dispatchEvent(new Event('change', { bubbles: true }));
         }
       }
-      if (this.oneTimePrice) this.oneTimePrice.textContent = variant?.price || '';
+      if (this.oneTimePrice) this.oneTimePrice.textContent = moneyText(variant?.price);
       if (this.subscriptionPrice) {
-        this.subscriptionPrice.textContent = selectedAllocation?.price
+        this.subscriptionPrice.textContent = moneyText(selectedAllocation?.price)
           || this.dataset.sellingPlanUnavailableText;
       }
       // It is only rewritten if it changes: restoring the same text in an aria-live region can make
@@ -1128,9 +1175,9 @@
       let planStatusChanged = false;
       if (this.sellingPlanStatus) {
         const planStatusText = subscriptionSelected
-          ? `${selectedAllocation.name}: ${selectedAllocation.price}`
+          ? `${selectedAllocation.name}: ${moneyText(selectedAllocation.price)}`
           : oneTimeAvailable
-            ? `${this.dataset.oneTimeText}: ${variant.price}`
+            ? `${this.dataset.oneTimeText}: ${moneyText(variant.price)}`
             : this.dataset.sellingPlanUnavailableText;
         planStatusChanged = this.sellingPlanStatus.textContent !== planStatusText;
         if (planStatusChanged) this.sellingPlanStatus.textContent = planStatusText;
@@ -1145,7 +1192,7 @@
         );
         this.perDeliveryPrice.hidden = !showPerDelivery;
         this.perDeliveryPrice.textContent = showPerDelivery
-          ? this.dataset.perDeliveryTemplate.replace('[price]', selectedAllocation.per_delivery_price)
+          ? this.dataset.perDeliveryTemplate.replace('[price]', moneyText(selectedAllocation.per_delivery_price))
           : '';
       }
     }
@@ -1172,7 +1219,7 @@
           detail: {
             variant,
             allocation: this.currentAllocation,
-            price: this.currentAllocation?.price || variant?.price || '',
+            price: moneyText(this.currentAllocation?.price || variant?.price),
           },
         }),
       );
@@ -1236,11 +1283,11 @@
       const soldOutBadge = this.querySelector('[data-sold-out-badge]');
       const unitPrice = this.querySelector('[data-unit-price]');
 
-      if (currentPrice) currentPrice.textContent = priceSource?.price || '';
+      if (currentPrice) currentPrice.textContent = moneyText(priceSource?.price);
 
       if (comparePrice) {
         comparePrice.hidden = !priceSource?.compare_at_price;
-        comparePrice.textContent = priceSource?.compare_at_price || '';
+        comparePrice.textContent = moneyText(priceSource?.compare_at_price);
       }
 
       if (saleBadge) saleBadge.hidden = !priceSource?.compare_at_price;
@@ -1248,21 +1295,9 @@
       // The screen reader labels follow the sale state of the selected variant, as the card already
       // does (product-card-variants). Without this, going from a variant on sale to one that is not
       // kept being read as "Sale price ... Regular price".
-      const values = currentPrice?.closest('.price__values');
       const wrapper = currentPrice?.closest('[data-price-wrapper]');
       if (wrapper) wrapper.hidden = !variant;
-      const varies = values && [...values.children].some((child) => child.tagName === 'SPAN'
-        && !child.classList.contains('visually-hidden') && !child.hasAttribute('data-current-price'));
-      if (values && wrapper?.dataset.labelSale && !varies) {
-        const label = (text) => Object.assign(document.createElement('span'), { className: 'visually-hidden', textContent: text });
-        values.querySelectorAll(':scope > .visually-hidden').forEach((node) => node.remove());
-        if (priceSource?.compare_at_price) {
-          currentPrice.before(label(wrapper.dataset.labelSale));
-          comparePrice?.before(label(wrapper.dataset.labelRegular));
-        } else {
-          currentPrice.before(label(wrapper.dataset.labelRegular));
-        }
-      }
+      syncPriceLabels(currentPrice, comparePrice, Boolean(priceSource?.compare_at_price));
       if (soldOutBadge) soldOutBadge.hidden = variant?.available !== false;
 
       if (unitPrice) {
@@ -1272,7 +1307,7 @@
         if (hasUnitPrice) {
           const value = unitPrice.querySelector('[data-unit-price-value]');
           const reference = unitPrice.querySelector('[data-unit-price-reference]');
-          if (value) value.textContent = priceSource.unit_price;
+          if (value) value.textContent = moneyText(priceSource.unit_price);
           if (reference) {
             const referenceValue = variant.unit_reference_value === 1 ? '' : variant.unit_reference_value;
             reference.textContent = `${referenceValue || ''}${variant.unit_reference_unit || ''}`;
@@ -1328,7 +1363,7 @@
 
       if (label) {
         label.textContent = (this.dataset.lineTotalTemplate || '')
-          .replace('[quantity]', String(quantity));
+          .replaceAll('[quantity]', String(quantity));
       }
       if (current) current.textContent = formatMoney(unitCents * quantity, this.moneyFormat);
       if (compareValue) {
@@ -1341,9 +1376,37 @@
       this.lineTotal.removeAttribute('data-empty');
     }
 
+    // Rewrites the "Minimum / Sold in multiples of / Maximum" note (snippets/quantity-rule.liquid)
+    // for the selected variant. The note is not a live region: the rule is read with the field.
+    updateQuantityRuleText(variant) {
+      const rule = this.querySelector('[data-quantity-rule]')
+        || this.closest('[data-section-id]')?.querySelector('[data-quantity-rule]');
+      if (!rule) return;
+
+      const rawMax = variant?.quantity_max;
+      const values = {
+        min: Number(variant?.quantity_min) || 1,
+        increment: Math.abs(Number(variant?.quantity_increment)) || 1,
+        max: rawMax === null || rawMax === undefined || rawMax === '' ? null : Number(rawMax),
+      };
+      const shown = {
+        min: values.min > 1,
+        increment: values.increment > 1,
+        max: values.max !== null && Number.isFinite(values.max),
+      };
+      rule.querySelectorAll('[data-quantity-rule-part]').forEach((part) => {
+        const kind = part.dataset.quantityRulePart;
+        const template = rule.getAttribute(`data-quantity-rule-${kind}-template`) || '';
+        part.hidden = !shown[kind];
+        part.textContent = shown[kind] ? template.replaceAll('[quantity]', String(values[kind])) : '';
+      });
+      rule.hidden = !Object.values(shown).some(Boolean);
+    }
+
     updateQuantityRules(variant) {
       const quantityInput = this.querySelector('[data-quantity-input]');
       if (!quantityInput) return;
+      this.updateQuantityRuleText(variant);
 
       const before = [
         quantityInput.value,
@@ -1441,7 +1504,7 @@
       let announcement = base;
       if (variantChanged) {
         // A money format with HTML (<span class=money>) must not be read out with its tags.
-        const price = String((this.currentAllocation || variant)?.price || '').replace(/<[^>]*>/g, '').trim();
+        const price = moneyText((this.currentAllocation || variant)?.price);
         const template = this.dataset.availablePriceStatus;
         if (available && price && template && !this.planStatusAnnouncedPrice) {
           announcement = template.replace(/\[(title|price)\]/g, (match, key) => (key === 'title' ? variant.title : price));
@@ -1501,7 +1564,7 @@
         ? (this.dataset.showCount === 'true'
           ? (quantity === 1 && this.dataset.lowStockTemplateOne
             ? this.dataset.lowStockTemplateOne
-            : this.dataset.lowStockTemplate.replace('[count]', String(quantity)))
+            : this.dataset.lowStockTemplate.replaceAll('[count]', String(quantity)))
           : this.dataset.lowStockGeneric)
         : this.dataset[state];
     }
@@ -1639,7 +1702,7 @@
       // The Liquid paints the one-time purchase price; with a plan already chosen on load
       // (?selling_plan= or a variant that requires a plan) VariantSelects has already decided the
       // plan price and does not emit the event again, so it is taken from its state.
-      this.unitPrice = this.variantSelects?.currentAllocation?.price
+      this.unitPrice = moneyText(this.variantSelects?.currentAllocation?.price)
         || this.priceOutput?.textContent.trim() || '';
       this.productTitle = this.querySelector('.sticky-cart-bar__title')?.textContent.trim() || '';
 
@@ -1670,7 +1733,7 @@
           this.updateVariant(event.detail?.variant);
         });
         this.listen(this.variantSelects, 'theme:purchase-option-change', (event) => {
-          this.unitPrice = event.detail?.price || '';
+          this.unitPrice = moneyText(event.detail?.price);
           this.renderQuantity();
           this.syncButtonState();
         });
@@ -1738,7 +1801,7 @@
       if (this.variantOutput && !this.hasAttribute('data-single-variant')) {
         this.variantOutput.textContent = variant?.title || this.dataset.unavailableText;
       }
-      this.unitPrice = variant?.price || '';
+      this.unitPrice = moneyText(variant?.price);
       this.renderQuantity();
       this.syncButtonState();
     }
@@ -1753,7 +1816,7 @@
       if (this.priceOutput) {
         this.priceOutput.textContent = multiple && this.unitPrice
           ? (this.dataset.quantityPriceTemplate || '')
-            .replace('[quantity]', String(quantity))
+            .replaceAll('[quantity]', String(quantity))
             .replace('[price]', this.unitPrice)
           : this.unitPrice;
       }
@@ -1817,7 +1880,7 @@
       this.listen(this.trigger, 'click', () => this.open());
       this.listen(this.closeButton, 'click', () => this.close(true));
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.close(true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.close(true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -1988,7 +2051,7 @@
     updateCharacterCount() {
       if (!this.message || !this.characterCount) return;
       const remaining = Math.max(0, Number(this.message.maxLength) - this.message.value.length);
-      this.characterCount.textContent = this.dataset.charactersTemplate.replace('[count]', remaining);
+      this.characterCount.textContent = this.dataset.charactersTemplate.replaceAll('[count]', remaining);
     }
   }
 
@@ -2061,7 +2124,9 @@
     }
 
     open(trigger) {
-      if (!this.overlay || !this.panel || this.isOpen) return;
+      // While the variant request is in flight the panel content is about to be replaced: opening
+      // now would leave the focus trap, inert background and scroll lock without an owner.
+      if (!this.overlay || !this.panel || this.isOpen || this.getAttribute('aria-busy') === 'true') return;
 
       const returnTarget = trigger || document.activeElement;
       closeOtherDialogs(this);
@@ -2098,6 +2163,7 @@
 
       if (!variant?.id || !this.dataset.productUrl || !this.dataset.sectionId) {
         this.hidden = true;
+        this.setAttribute('aria-busy', 'false');
         return;
       }
 
@@ -2120,6 +2186,8 @@
         const nextPickup = documentFragment.querySelector('pickup-availability');
         if (!nextPickup) throw new Error(this.dataset.updateError);
 
+        // Defensive: if it somehow opened, release trap, inert and scroll lock before replacing.
+        this.close(false);
         this.innerHTML = nextPickup.innerHTML;
         this.dataset.variantId = String(variant.id);
         this.hidden = nextPickup.hidden || !this.querySelector('[data-pickup-content]');
@@ -2455,11 +2523,11 @@
       };
       const current = document.createElement('span');
       current.dataset.currentPrice = '';
-      current.textContent = shown.price;
+      current.textContent = moneyText(shown.price);
       const compare = document.createElement('s');
       compare.className = 'price__compare';
       compare.dataset.comparePrice = '';
-      compare.textContent = shown.compare || '';
+      compare.textContent = moneyText(shown.compare);
       compare.hidden = varies || !onSale;
 
       const parts = [];
@@ -2485,7 +2553,7 @@
         unit.hidden = !shown.unit;
         const unitValue = unit.querySelector('[data-unit-price-value]');
         const unitReference = unit.querySelector('[data-unit-price-reference]');
-        if (unitValue) unitValue.textContent = shown.unit || '';
+        if (unitValue) unitValue.textContent = moneyText(shown.unit);
         if (unitReference) unitReference.textContent = shown.unitReference || '';
       }
     }
@@ -2542,7 +2610,7 @@
         const price = button.querySelector('[data-quick-buy-price]');
         if (price) {
           price.hidden = !(pricesVary && variant);
-          price.textContent = pricesVary && variant ? variant.price : '';
+          price.textContent = pricesVary && variant ? moneyText(variant.price) : '';
         }
       });
     }
@@ -3213,6 +3281,12 @@
         const card = form.closest('product-card-variants');
         if (card?.isConnected) card.syncQuickBuy();
         this.endMutation();
+        // The button is disabled while the request runs, so the browser drops focus to body; after
+        // an error (no drawer opened) it is handed back to the control that submitted.
+        const returnTarget = submitter || form.querySelector('[data-add-to-cart]');
+        if (!this.isOpen && document.activeElement === document.body && returnTarget?.isConnected) {
+          returnTarget.focus();
+        }
       }
     }
 
@@ -3804,6 +3878,10 @@
         applied = true;
         await this.renderCartResponse(result, revision);
         if (removal && this.isOpen) this.announceRemoval(removal, this.renderedRevision === revision);
+        // An overtaken response is not announced: the newer mutation announces its own result.
+        else if (!removal && quantity > 0 && removedRow && this.isOpen && this.renderedRevision === revision) {
+          this.announceQuantity(removedRow.dataset.cartItemTitle || '', result?.items?.find((item) => item.key === key)?.quantity ?? quantity);
+        }
       } finally {
         // If the removal failed or the drawer closed, nobody will consume its focus target. If it
         // was applied but its response was overtaken, the target waits for the render that reflects
@@ -3836,8 +3914,16 @@
       const count = rendered
         ? this.querySelector('[data-cart-drawer-count]')?.textContent.trim() || ''
         : '';
-      const message = template.replace('[title]', removal.title).trim();
+      const message = template.replaceAll('[title]', () => removal.title).trim();
       this.showStatus([message, count].filter(Boolean).join(' '));
+    }
+
+    // Same region for a quantity change (the removal has its own notice). showStatus() adds a pending
+    // rewards message, so the two are announced together and never twice.
+    announceQuantity(title, quantity) {
+      const template = this.dataset.quantityUpdatedTemplate || '';
+      if (!template) return;
+      this.showStatus(template.replaceAll('[title]', () => title).replaceAll('[quantity]', String(quantity)).trim());
     }
 
     // Focus target after removing a line, looked up in the freshly painted content: the next line,
@@ -3978,6 +4064,9 @@
       if (!page) return;
 
       const pageSectionId = page.dataset.sectionId;
+      // A sync without a mutation (opening the drawer) must not throw away what the shopper has typed
+      // on the page and not submitted yet: the page is left as is until the next mutation or reload.
+      if (!sections && this.cartPageHasEdits(page)) return;
       let pageHtml = sections?.[pageSectionId];
 
       if (!pageHtml) {
@@ -3995,7 +4084,18 @@
       if (revision !== this.syncRevision) return;
       const nextPage = new DOMParser().parseFromString(pageHtml, 'text/html').querySelector('[data-cart-page]');
       const currentPage = this.cartPageSection();
-      if (nextPage && currentPage?.isConnected) currentPage.replaceWith(nextPage);
+      if (!nextPage || !currentPage?.isConnected) return;
+      // A mutation does change the lines, but an unsent note typed on the page is still the shopper's.
+      const note = currentPage.querySelector('textarea[name="note"]');
+      const nextNote = nextPage.querySelector('textarea[name="note"]');
+      if (note && nextNote && note.value !== note.defaultValue) nextNote.value = note.value;
+      currentPage.replaceWith(nextPage);
+    }
+
+    // True when a quantity field or the note of the page differs from what the server painted.
+    cartPageHasEdits(page) {
+      return Array.from(page.querySelectorAll('input[name="updates[]"], textarea[name="note"]'))
+        .some((field) => field.value !== field.defaultValue);
     }
 
     renderSection(sectionHtml) {
@@ -4020,6 +4120,11 @@
 
       const active = document.activeElement;
       const restoreFocus = this.isOpen && (currentContent.contains(active) || active === document.body);
+      // Checkout and the accelerated payment container have no stable id: they are found again by
+      // their data-focus-key. It is read here because the old content is detached below.
+      const focusKey = (active === document.body && this.busyFocus && currentContent.contains(this.busyFocus)
+        ? this.busyFocus
+        : active)?.closest?.('[data-focus-key]')?.dataset.focusKey || '';
       // The scrollable track lives inside the block that is replaced: without this, changing the
       // quantity of a line at the bottom of the list would send the track back to the very top.
       const previousScroll = currentContent.querySelector('[data-cart-scroll]')?.scrollTop || 0;
@@ -4064,7 +4169,14 @@
         const target = restored && !restored.disabled
           ? restored
           : restored?.closest('[data-quantity-stepper]')?.querySelector('[data-quantity-button]:not([disabled])');
-        (target || this.crossSellFocusAfterRender(focusSource, nextContent) || this.querySelector('[data-cart-drawer-close]'))?.focus();
+        // The accelerated payment container is not focusable itself: its first focusable child is.
+        const keyed = focusKey ? nextContent.querySelector(`[data-focus-key="${CSS.escape(focusKey)}"]`) : null;
+        const keyedTarget = keyed && !keyed.disabled
+          ? (keyed.matches('button, a[href], input, select, textarea, [tabindex]')
+            ? keyed
+            : keyed.querySelector('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+          : null;
+        (target || keyedTarget || this.crossSellFocusAfterRender(focusSource, nextContent) || this.querySelector('[data-cart-drawer-close]'))?.focus();
       }
       this.dataset.itemCount = nextDrawer.dataset.itemCount;
       this.dataset.cartCountLabel = nextDrawer.dataset.cartCountLabel;
@@ -4087,7 +4199,8 @@
     updateHeaderCount() {
       const itemCount = Number(this.dataset.itemCount) || 0;
 
-      document.querySelectorAll('a[href]').forEach((link) => {
+      // Only the header cart link (the one that carries the counter) gets its name rewritten.
+      document.querySelectorAll('a.site-header__cart[data-cart-count-enabled]').forEach((link) => {
         const linkUrl = new URL(link.href, window.location.origin);
         const cartUrl = new URL(this.dataset.cartUrl, window.location.origin);
         if (linkUrl.origin !== cartUrl.origin || linkUrl.pathname !== cartUrl.pathname) return;
@@ -4248,12 +4361,14 @@
       // redundant and the stylesheet hides it. Without JavaScript the attribute is never
       // set and the form still works through that button.
       this.setAttribute('data-auto-apply', '');
+      this.prepareForms();
 
       this.listen(this, 'submit', (event) => {
         const form = event.target.closest('[data-facet-form]');
         if (!form) return;
         event.preventDefault();
         clearTimeout(this.priceTimer);
+        this.clampPriceFields(form);
         // Apply may be hidden, so it is never the fallback: focus goes back to the control
         // that was used (in Safari a clicked checkbox is not focused, so the change target
         // is remembered), or to the summary of its filter group.
@@ -4319,10 +4434,32 @@
       this.syncDisclosure();
     }
 
+    // Native validation would block requestSubmit() as soon as a price field is over its max (or
+    // under its min), so the form never reaches the AJAX path. The values are clamped in
+    // clampPriceFields() instead. Runs again after every swap because the forms are replaced.
+    prepareForms() {
+      this.querySelectorAll('[data-facet-form]').forEach((form) => {
+        form.noValidate = true;
+      });
+    }
+
+    clampPriceFields(form) {
+      form.querySelectorAll('input[type="number"]').forEach((field) => {
+        if (field.value === '') return;
+        const value = Number(field.value);
+        const min = field.min === '' ? NaN : Number(field.min);
+        const max = field.max === '' ? NaN : Number(field.max);
+        if (!Number.isFinite(value)) return;
+        if (Number.isFinite(max) && value > max) field.value = String(max);
+        else if (Number.isFinite(min) && value < min) field.value = String(min);
+      });
+    }
+
     schedulePriceSubmit(form) {
       clearTimeout(this.priceTimer);
       this.priceTimer = setTimeout(() => {
         if (!form?.isConnected) return;
+        this.clampPriceFields(form);
         // A number field fires `change` when it loses focus, after the debounced `input`
         // already sent the same values: nothing new to request or announce.
         const parameters = new URLSearchParams(new FormData(form));
@@ -4413,8 +4550,17 @@
 
         // Everything about the focus is read now, just before the markup changes.
         const activeEl = document.activeElement;
-        const origin = options.origin || activeEl;
-        const focusWasInside = !activeEl || activeEl === document.body || this.contains(activeEl);
+        const focusIsLost = !activeEl || activeEl === document.body || activeEl === document.documentElement;
+        // The request may have been slow: if the visitor already tabbed somewhere else, that is
+        // where focus stays. The control that started the request is only a fallback for when the
+        // repaint dropped focus (or Safari never focused the clicked checkbox).
+        const focusIsElsewhere = !focusIsLost && !this.contains(activeEl);
+        // The results grid lives inside this element too: a product link focused meanwhile is
+        // replaced by the swap and has nothing to find it again by (no id, no name, no filter
+        // group), so the request origin is the better target then.
+        const canRestoreActive = Boolean(activeEl?.id || activeEl?.name || activeEl?.closest?.('details.facet'));
+        const origin = !focusIsLost && !focusIsElsewhere && canRestoreActive ? activeEl : (options.origin || activeEl);
+        const focusWasInside = focusIsLost || this.contains(activeEl);
         const originGroup = origin?.closest?.('details.facet');
         const focusTarget = {
           id: origin?.id || '',
@@ -4452,13 +4598,14 @@
           const disclosure = this.querySelector('.facets__disclosure');
           if (disclosure) disclosure.open = true;
         }
+        this.prepareForms();
         this.syncDisclosure();
         this.applyStoredGridView();
         this.announceResultCount();
         this.renderedSearch = this.filterSearch(navigationUrl.search);
         if (pushState) window.history.pushState({}, '', navigationUrl);
 
-        if (!editedGroup && (focusWasInside || options.origin) && (moveFocus || focusWasInside)) {
+        if (!editedGroup && (focusWasInside || (options.origin && !focusIsElsewhere)) && (moveFocus || focusWasInside)) {
           requestAnimationFrame(() => this.restoreFocus(focusTarget, focusFallback, moveFocus));
         }
       } catch (error) {
@@ -4800,6 +4947,9 @@
       const popoverWidth = this.activePopover.offsetWidth;
       const popoverHeight = this.activePopover.offsetHeight;
       const margin = 16;
+      // The fixed header must not cover the popover (--header-offset is 0 when it is not sticky).
+      const headerOffset = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-offset')) || 0;
+      const minTop = margin + headerOffset;
       const gap = 12;
       const preferredPosition = this.activePopover.dataset.position || 'right';
       let left = triggerRect.left + (triggerRect.width - popoverWidth) / 2;
@@ -4816,9 +4966,9 @@
       }
 
       const maxLeft = Math.max(margin, window.innerWidth - popoverWidth - margin);
-      const maxTop = Math.max(margin, window.innerHeight - popoverHeight - margin);
+      const maxTop = Math.max(minTop, window.innerHeight - popoverHeight - margin);
       left = Math.min(Math.max(left, margin), maxLeft);
-      top = Math.min(Math.max(top, margin), maxTop);
+      top = Math.min(Math.max(top, minTop), maxTop);
 
       this.activePopover.style.left = `${Math.round(left)}px`;
       this.activePopover.style.top = `${Math.round(top)}px`;
@@ -4876,8 +5026,8 @@
         id: Number(control.value),
         price: Number(source.dataset.price) || 0,
         quantity: Math.max(1, Number(source.dataset.quantity) || 1),
-        formattedPrice: source.dataset.priceFormatted || '',
-        formattedComparePrice: source.dataset.compareFormatted || '',
+        formattedPrice: moneyText(source.dataset.priceFormatted),
+        formattedComparePrice: moneyText(source.dataset.compareFormatted),
       };
     }
 
@@ -4901,6 +5051,7 @@
         comparePrice.textContent = variant.formattedComparePrice;
         comparePrice.hidden = !variant.formattedComparePrice;
       }
+      syncPriceLabels(currentPrice, comparePrice, Boolean(variant.formattedComparePrice));
     }
 
     updateSummary() {
@@ -5065,6 +5216,11 @@
         window.clearTimeout(deadline);
         this.setBusy(false);
         drawer?.endMutation?.();
+        // Same as the product form: the disabled button dropped focus to body, give it back
+        // when no drawer took it.
+        if (!drawer?.isOpen && document.activeElement === document.body && this.submitButton?.isConnected) {
+          this.submitButton.focus();
+        }
       }
     }
 
@@ -5182,7 +5338,8 @@
 
     setPaused(paused) {
       this.toggleAttribute('data-paused', paused);
-      this.toggleButton.setAttribute('aria-pressed', String(paused));
+      // A single mechanism: the accessible name swaps (Pause/Play), so no aria-pressed.
+      this.toggleButton.removeAttribute('aria-pressed');
       const label = paused ? this.dataset.playLabel : this.dataset.pauseLabel;
       this.toggleButton.setAttribute('aria-label', label);
       if (this.toggleLabel) this.toggleLabel.textContent = label;
@@ -5338,9 +5495,8 @@
   // ---------------------------------------------------------------------------
   // Anchor index that tracks scroll.
   //
-  // Two consumers, one piece:
-  // - Documentation: the Liquid already serves the list, because the anchor ids are a block setting
-  // and the server knows them.
+  // Two ways to fill the list, one piece:
+  // - Pages whose anchor ids are known to the server: the Liquid already serves the list.
   // - Legal pages: the headings are written by the merchant in the page editor, so there are no ids
   // to emit and the list is built here.
   //
@@ -5613,7 +5769,7 @@
       if (this.empty) this.empty.hidden = matches > 0;
       if (this.status) {
         this.status.textContent = (this.dataset.filterCountTemplate || '')
-          .replace('[count]', String(matches));
+          .replaceAll('[count]', String(matches));
       }
     }
   }
@@ -5636,7 +5792,7 @@
       this.listen(this.trigger, 'click', () => this.open());
       this.listen(this.closeButton, 'click', () => this.close(true));
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.close(true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.close(true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -5766,6 +5922,9 @@
       this.searchTimer = null;
       this.requestController = null;
       this.releaseFocusTrap = null;
+      // Term whose suggestions are painted right now (null when none or when the last try failed),
+      // so reopening the panel knows whether it has to ask again.
+      this.renderedQuery = null;
 
       if (!this.trigger || !this.overlay || !this.panel || !this.input || !this.results) return;
 
@@ -5779,7 +5938,7 @@
         this.listen(this.clearButton, 'click', () => this.clearSearch());
       }
       this.listen(this.overlay, 'pointerdown', (event) => {
-        if (event.target === this.overlay) this.setOpen(false, true);
+        if (event.target === this.overlay) dismissFromOverlay(event, () => this.setOpen(false, true));
       });
       this.listen(document, 'keydown', (event) => {
         if (event.key !== 'Escape' || !this.isOpen || event.defaultPrevented) return;
@@ -5823,10 +5982,19 @@
         // Closing empties the option list while the results stay in the DOM.
         this.collectOptions();
         this.updateComboboxState();
+        // Closing during the debounce or the request cancels the query; ask again when the
+        // visible suggestions do not belong to the term in the field.
+        const query = this.input.value.trim();
+        if (query.length >= 2 && this.renderedQuery !== query) this.handleInput();
       } else {
         window.clearTimeout(this.searchTimer);
         this.requestController?.abort();
         this.requestController = null;
+        // The cancelled query would have cleared the busy state in fetchResults().
+        if (this.results.getAttribute('aria-busy') === 'true') {
+          this.results.setAttribute('aria-busy', 'false');
+          if (this.status && this.status.textContent === (this.dataset.loadingText || '')) this.status.textContent = '';
+        }
         this.releaseFocusTrap?.();
         this.releaseFocusTrap = null;
         this.restoreBackgroundInert();
@@ -5843,6 +6011,7 @@
       window.clearTimeout(this.searchTimer);
       this.requestController?.abort();
       this.resetActiveOption();
+      this.renderedQuery = null;
 
       if (query.length < 2) {
         this.clearResults();
@@ -5882,7 +6051,9 @@
         this.renderResults(payload.resources?.results || {}, query);
       } catch (error) {
         if (error.name === 'AbortError') return;
-        if (this.input.value.trim() === query) this.renderResults({}, query);
+        // A failed request is not "no results": say so, and leave renderedQuery empty so that
+        // reopening the panel tries again.
+        if (this.input.value.trim() === query) this.renderResults({}, query, true);
       } finally {
         if (this.requestController === requestController && this.input.value.trim() === query) {
           this.results.setAttribute('aria-busy', 'false');
@@ -5891,7 +6062,7 @@
       }
     }
 
-    renderResults(resultGroups, query) {
+    renderResults(resultGroups, query, failed = false) {
       const fragment = document.createDocumentFragment();
       let optionIndex = 0;
       let resultCount = 0;
@@ -5944,7 +6115,7 @@
       if (resultCount === 0) {
         const empty = document.createElement('p');
         empty.className = 'predictive-search__empty';
-        empty.textContent = this.dataset.noResultsText || '';
+        empty.textContent = (failed ? this.dataset.errorText : this.dataset.noResultsText) || '';
         footer.append(empty);
       }
 
@@ -5965,7 +6136,10 @@
       }
       this.collectOptions();
       this.updateComboboxState();
-      if (this.status) this.status.textContent = this.getResultsCountText(resultCount);
+      this.renderedQuery = failed ? null : query;
+      if (this.status) {
+        this.status.textContent = failed ? this.dataset.errorText || '' : this.getResultsCountText(resultCount);
+      }
     }
 
     createProductResult(product) {
@@ -6002,7 +6176,7 @@
       const title = document.createElement('span');
       const priceRow = document.createElement('span');
       const currentPrice = Number.parseFloat(product.price);
-      const compareAtPrice = Number.parseFloat(product.compare_at_price_min || product.compare_at_price_max || 0);
+      const compareAtPrice = this.comparablePrice(product, currentPrice);
       details.className = 'predictive-search__details';
       title.className = 'predictive-search__result-title';
       title.textContent = product.title || '';
@@ -6020,6 +6194,11 @@
       if (Number.isFinite(currentPrice)) {
         const price = document.createElement('span');
         if (onSale && this.dataset.salePriceText) price.append(srLabel(this.dataset.salePriceText));
+        // A product whose variants differ in price lists its lowest one, so it reads "From $89.00".
+        const maxPrice = Number.parseFloat(product.price_max);
+        if (this.dataset.priceFromText && Number.isFinite(maxPrice) && maxPrice > currentPrice) {
+          price.append(`${this.dataset.priceFromText} `);
+        }
         price.append(formatMoney(Math.round(currentPrice * 100), this.dataset.moneyFormat));
         priceRow.append(price);
       }
@@ -6039,6 +6218,28 @@
       details.append(title, priceRow, availability);
       link.append(media, details);
       return link;
+    }
+
+    // The suggestions payload reports the lowest price and aggregated compare-at prices that can
+    // belong to different variants, so a strike-through is only drawn when both amounts are known
+    // to describe the same offer: the compare-at of the cheapest variant when the payload lists
+    // variants, or the only compare-at when every variant shares one price. Otherwise it is 0.
+    comparablePrice(product, currentPrice) {
+      const toNumber = (value) => Number.parseFloat(value || 0) || 0;
+      if (Array.isArray(product.variants) && product.variants.length > 0) {
+        const offers = product.variants
+          .map((variant) => ({ price: toNumber(variant?.price), compare: toNumber(variant?.compare_at_price) }))
+          .filter((offer) => offer.price > 0);
+        const lowest = Math.min(...offers.map((offer) => offer.price));
+        const onSale = offers.find((offer) => offer.price === lowest && offer.compare > offer.price);
+        return onSale && lowest === currentPrice ? onSale.compare : 0;
+      }
+      const priceMin = toNumber(product.price_min);
+      const priceMax = toNumber(product.price_max);
+      const compareMin = toNumber(product.compare_at_price_min);
+      const compareMax = toNumber(product.compare_at_price_max);
+      if (!priceMax || priceMin !== priceMax || compareMin !== compareMax) return 0;
+      return compareMax;
     }
 
     createTextResult(item, heading) {
@@ -6075,7 +6276,7 @@
 
     getResultsCountText(count) {
       if (count === 1) return this.dataset.resultsCountOne || '';
-      return (this.dataset.resultsCountOther || '').replace('[count]', String(count));
+      return (this.dataset.resultsCountOther || '').replaceAll('[count]', String(count));
     }
 
     handleInputKeydown(event) {
@@ -6579,8 +6780,8 @@
   //
   // The header is sticky (declared by header.liquid on its section). Its real height is also
   // published here in --header-offset, which scroll-padding uses (anchors and keyboard focus never
-  // end up under the header, WCAG 2.4.11) and the sticky columns of product, collection and
-  // documentation. If the section is not sticky (no support or no JS) the offset is 0 and nothing
+  // end up under the header, WCAG 2.4.11) and the sticky columns of product and collection pages.
+  // If the section is not sticky (no support or no JS) the offset is 0 and nothing
   // moves.
   // ---------------------------------------------------------------------------
   const initHeaderScrollState = () => {
@@ -6661,8 +6862,8 @@
   // receives the event first. It is idempotent.
   const snapQuantityField = (input) => {
     // On a cart line, 0 is the command to remove it: it is respected as is, so the field shows what
-    // is sent (the cart page form is novalidate).
-    if (input.matches('[data-cart-quantity]') && input.value === '0') return;
+    // is sent (the cart page form is novalidate). The page fields are named updates[].
+    if (input.matches('[data-cart-quantity], [name="updates[]"]') && input.value === '0') return;
     const { step, min, maxOnGrid } = readQuantityRules(input);
     // Empty field: it only rises to min if min > 0 (in the cart, min 0 leaves it).
     const current = Number(input.value);
@@ -6767,8 +6968,20 @@
   // markup already carried tabindex="-1" on those messages, waiting for exactly this.
   // ---------------------------------------------------------------------------
   const initFormMessageFocus = () => {
-    const message = document.querySelector('.form-message[tabindex="-1"]');
-    if (!message) return;
+    const messages = Array.from(document.querySelectorAll('.form-message[tabindex="-1"]'));
+    if (messages.length === 0) return;
+
+    // Shopify redirects back to the form that was sent (#contact_form, #ContactFooter), and a page
+    // can carry several forms (footer newsletter plus contact): the message that belongs to that
+    // anchor wins, and the first one is only the fallback.
+    let anchor = null;
+    try {
+      anchor = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+    } catch (_error) {
+      anchor = null;
+    }
+    const message = (anchor && messages.find((candidate) => anchor.contains(candidate)
+      || candidate.closest('form') === anchor)) || messages[0];
 
     // One frame of margin: focus moves when the page is already composed, not in the middle of the
     // first paint, which is when the browser can still readjust the scroll.

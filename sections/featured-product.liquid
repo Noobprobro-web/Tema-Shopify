@@ -51,7 +51,15 @@
   {% if title_blocks.size > 0 and featured_product != blank %}
     aria-labelledby="FeaturedProductTitle-{{ section.id }}"
   {% else %}
-    aria-label="{{ 'sections.featured_product.region_label' | t }}"
+    {%- comment -%}
+      The number is the section position on the page (the slideshow does the same). It is empty when
+      the section is rendered on its own (Section Rendering API) or is static: use the plain label.
+    {%- endcomment -%}
+    {% if section.index != blank %}
+      aria-label="{{ 'sections.featured_product.region_label_numbered' | t: number: section.index }}"
+    {% else %}
+      aria-label="{{ 'sections.featured_product.region_label' | t }}"
+    {% endif %}
   {% endif %}
 >
   <div class="container featured-product__layout">
@@ -69,7 +77,7 @@
     <div
       class="featured-product__gallery"
       role="region"
-      aria-label="{{ gallery_label | escape }}"
+      aria-label="{{ gallery_label | escape_once }}"
       {% if featured_product.media.size > 1 %}tabindex="0"{% endif %}
     >
       {%- if featured_product == blank -%}
@@ -88,6 +96,12 @@
             if media_selected and section.index <= 2
               assign media_priority = true
             endif
+            # On the desktop grid the first item spans both gallery columns (about 60vw) and the rest take
+            # one column (about 30vw); on narrow screens each item is a strip slide of about 85vw.
+            assign media_sizes = '(min-width: 62rem) 30vw, 85vw'
+            if forloop.first or featured_product.media.size == 1
+              assign media_sizes = '(min-width: 62rem) 60vw, 85vw'
+            endif
             assign media_label = blank
             if media.media_type != 'image'
               assign media_label = media.alt
@@ -99,6 +113,7 @@
           <figure
             class="featured-product__media"
             data-product-media-id="{{ media.id }}"
+            data-media-type="{{ media.media_type }}"
             {% if media_label != blank %}role="group" aria-label="{{ media_label | escape_once }}"{% endif %}
             {% if media_selected %}data-selected{% endif %}
           >
@@ -106,7 +121,7 @@
               media: media,
               product: featured_product,
               prioritize: media_priority,
-              sizes: '(min-width: 62rem) 60vw, 85vw'
+              sizes: media_sizes
             %}
           </figure>
         {%- endfor -%}
@@ -257,6 +272,7 @@
                       step="{{ quantity_step }}"
                       {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
                       inputmode="numeric"
+                      aria-describedby="FeaturedQuantityRule-{{ section.id }}"
                       required
                       data-quantity-input
                     >
@@ -272,6 +288,8 @@
                       {% render 'icon', name: 'plus', size: 16 %}
                     </button>
                   </div>
+                  {%- assign quantity_rule_id = 'FeaturedQuantityRule-' | append: section.id -%}
+                  {% render 'quantity-rule', variant: selected_variant, rule_id: quantity_rule_id %}
                 </div>
               {%- elsif request.design_mode -%}
                 <div class="product-editor-note" {{ block.shopify_attributes }}>

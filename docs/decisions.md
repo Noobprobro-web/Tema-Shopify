@@ -391,3 +391,96 @@ Fuente de todas las decisiones de esta sección: respuesta de Johandry en la ses
   - Fuente: respuesta de Johandry en la sesión de Claude Code, 2026-11-14, y lectura del Admin (consulta de solo lectura).
   - Nota 2026-11-14 (resultado verificado por lectura, Admin GraphQL, solo lectura): las cuatro políticas (reembolso, envío, términos y privacidad) tienen el CUERPO en inglés (plantillas automatizadas de Shopify). Los TÍTULOS salen en español en la API («Política de reembolso», «Envío», «Términos del servicio», «Política de privacidad») porque el español está publicado como idioma de la tienda. Cada cuerpo contiene exactamente 1 arroba, que corresponde al email de contacto de la tienda, con dominio gmail.com (cuenta personal del dueño); no se transcribe la dirección ni su parte local. `contactEmail` y el email del remitente coinciden. Decisión de Johandry (2026-11-14): dejar el email de contacto tal cual.
 - **D43 · Suscripciones (A-01) descartadas del alcance de envío:** las suscripciones (A-01) quedan descartadas del alcance de envío por decisión de Johandry: las configurarán o pedirán los clientes si es necesario. La fila de ledger de A-01 no se modifica (sin verificación en tienda con selling plans); no es un requisito de esta entrega. Aclaración: el tema sí soporta selling plans (selector completo en `main-product` y `featured-product`, y el plan se muestra en el carrito); lo descartado es la verificación en tienda y cualquier integración con apps de suscripción, no el soporte en el código. Fuente: respuesta de Johandry en la sesión de Claude Code, 2026-11-14.
+
+## 2026-11-24: Decisiones de Johandry sobre la ronda R3 (D44 a D55)
+
+Fuente de todas las decisiones de esta sección: respuesta de Johandry en la sesión de Claude Code, 2026-11-24, literalmente «apruebo los textos, adelante con tus recomendaciones». En ese momento tenía delante la lista de textos de Claude (`agent-comms/outbox-claude/CLAUDE-R3-IMPL-001.md` §8), los textos y defaults de GPT, la retirada de defaults (bento y umbrales del cajón), la recomendación de añadir a la ayuda del cajón que la barra no se muestra sin umbrales, y las decisiones pendientes DP-007 a DP-020. Cada decisión registra la opción recomendada que figuraba escrita en su entrada de `docs/decisions-pending.md`. DP-019 y DP-020 no tenían una recomendación inequívoca y siguen pendientes.
+
+- **D44 · Textos de R3 aprobados (D35; resuelve DP-011):** quedan aprobados en bloque:
+  - los textos de Claude de `CLAUDE-R3-IMPL-001.md` §8 (claves de storefront, `info` del editor y defaults de schema del bento y de los umbrales del cajón);
+  - el copy de presets, plantillas y defaults de schema de GPT, tal como lo entregó en `agent-comms/outbox-gpt/GPT-R3-001-ENTREGA.md` §4 (rama `gpt/r3-copy-plantillas` @ `94f7b03`);
+  - las propuestas de locales de GPT y la redacción final aplicada por Claude en `a1339ae` y `97e050d`, listadas en `CLAUDE-R3-IMPL-001.md` §11;
+  - el `info` nuevo del interruptor de la barra de recompensas del cajón, que avisa de que la barra no se muestra sin umbrales.
+
+  Dos textos son criterio del líder y no estaban literalmente en lo aprobado. Se informaron a Johandry y siguen siendo revisables:
+  - el eyebrow de la página no encontrada, «Error» en inglés y en español (GPT proponía «Page not found», que repetía el título);
+  - el eyebrow del newsletter, «Newsletter» / «Boletín», y los defaults de `sections/newsletter.liquid`, «Newsletter» y «Store updates» (nadie había propuesto texto).
+
+  La voz editorial que R3 no ha tocado queda pendiente en DP-021. El copy D6 que GPT aplicó después en `03cddcb` no forma parte de esta aprobación y queda en DP-023.
+- **D45 · DP-007, reglas de cantidad y precios por volumen:** se muestran el mínimo, el incremento y el máximo en la ficha y en featured product, y el quick add con mínimo o incremento mayor que 1 lleva a la ficha (R3-SO-04). No hay tabla de `quantity_price_breaks`.
+- **D46 · DP-008, procedencia y especificaciones por producto (R3-FB-11):** se acepta como residual de 1.0, con `info` aclaratorio. Los metafields quedan para 1.1.
+- **D47 · DP-009, placeholders del bento:** las tarjetas de producto vacías solo se dibujan en el editor (`request.design_mode`), como en `curated-showcase`.
+- **D48 · DP-010, Nivel 2 en bloque:** queda autorizado el cambio de defaults de schema y la semántica de umbrales vacíos de R3-FB-10, solo para la lista cerrada de `CLAUDE-R3-ANALISIS-001` §3 y `GPT-TASK-R3-001` §5. La retirada de los defaults 150 y 250 de los umbrales del cajón forma parte de esa semántica y estaba en la lista que se aprobó.
+- **D49 · DP-012, Combined Listings en la ficha (R3-AS-08):** aplazado y documentado.
+- **D50 · DP-013, sin JS con reglas o planes distintos por variante (R3-AS-04):** se usa el modo `option_links` (navegación) cuando las variantes difieren.
+- **D51 · DP-014, CLS y rendimiento estimados (R3-FB-18, R3-FB-38, R3-FB-48, G-PERF-06):** aplazados hasta la medición de DP-005 (D31).
+- **D52 · DP-015, residuales G-xxx:** se aceptan G-I18N-01, G-SEC-01, G-SEC-03, G-I18N-05, G-I18N-06, G-MANT-01, G-PERF-06, G-UX-01 y G-TSR-01 (este último vía D45). Se arreglan G-SEC-04 (Vimeo con `dnt=1`) y G-I18N-04 («Atelier» pasa a «Classic»). La entrada no nombraba un dueño por residual, así que la asignación de dueños no forma parte de esta decisión.
+- **D53 · DP-016, severidad de R3-AS-01:** media, no alta. El decisor indicado en la entrada era Gemini; queda decidida con la aprobación de Johandry.
+- **D54 · DP-017, plazo en el cambio de línea del carrito (R3-FB-36):** se acepta como residual de 1.0. No se implementa el estado de resultado incierto. La fila del ledger queda `ausente`.
+- **D55 · DP-018, compromiso de R3-AS-02:** se acepta para 1.0. Con ediciones sin enviar en /cart, abrir el cajón no sustituye la página, y un cambio hecho desde otra pestaña la deja desactualizada hasta la siguiente mutación. Se prueba en tienda (compuerta 5).
+
+## 2026-11-24: Decisiones de Johandry sobre los puntos abiertos de R3 y la fusión del PR #24 (D56 a D61)
+
+Fuente de todas las decisiones de esta sección: respuesta de Johandry en la sesión de Claude Code, 2026-11-24, literalmente «si se puede fusionar y no choca con gpt hazlo, al igual que tus recomendaciones». Respondía a un mensaje del líder técnico que le pedía (1) quién fusiona el PR #24 y (2) respuesta a cinco puntos abiertos (DP-019 a DP-023), cada uno con su recomendación. Cada decisión registra la opción recomendada que figuraba en su entrada de `docs/decisions-pending.md`. El mismo mensaje anunciaba dos retoques menores de texto «salvo que digas otra cosa», que no se objetaron y se aplican en la integración: el `info` del interruptor de la barra del cajón, en dos frases, y el título de la página no encontrada en español, sin punto final.
+
+- **D56 · DP-019, numeración de regiones por posición (R3-FB-26):** se mantiene la numeración por `section.index` en featured product y en el slideshow, con la etiqueta simple como respaldo cuando `section.index` es nil. No se añade un nombre propio por sección. El respaldo del slideshow ya está en `sections/slideshow.liquid:31-35`.
+- **D57 · DP-020, «quick view» y rich media:** no se toca el selector de opciones del quick add. Se documenta en la submission que el tema no tiene vista rápida de ficha, de modo que el requisito de rich media en formularios de producto tipo vista rápida no le aplica. Sigue siendo una interpretación que puede cuestionar el revisor.
+- **D58 · DP-021, voz editorial restante:** se mantiene como identidad del tema («piece», «studio», «essays», «journal» y el resto de textos listados en la entrada original de DP-021). La regla de vocabulario de la compuerta 4 afecta a los labels del editor, no a la voz del storefront.
+- **D59 · DP-022, tema de desarrollo para la compuerta 5:** se autoriza subir el HEAD integrado de las dos ramas a `sartorial-theme-kvkzl39t` como tema de desarrollo NO publicado, para las pruebas de la compuerta 5 de R3, y nada más. No autoriza publicar ni modificar el tema publicado. Se mantiene el alcance de D38 (no se publica, no se borra ningún tema, no se instalan ni configuran apps). La subida se ejecuta después de la integración, no antes.
+- **D60 · DP-023, copy D6 de GPT posterior a la aprobación:** se aprueba el copy aplicado en `03cddcb`: «Engineered for high telemetry» pasa a «Objects for everyday use» (`listings/imprint/templates/collection.json`), la descripción del lookbook de `templates/index.json` pasa a «Explore the collection.», se retira el bloque CTA sin URL de `templates/page.faq.json` y el default «Contact us» de `sections/main-faq.liquid` queda vacío. Se suma a lo aprobado en D44.
+- **D61 · PR #24 fusionado a master:** el PR #24 (`gpt/r3-copy-plantillas` a `master`, cabeza `792d58f`) se fusionó a `master` por autorización de Johandry (commit de fusión `d70b45a1cc297c02e081d2071568ccbcaadecd2b`). Claude trajo `master` a `claude/clever-gauss-ddhyr2` el mismo día sin conflictos (commit de fusión `9ab848414d901ff3e13d8c48fa6e3767f0a9010d`). La fusión del PR #23 queda pendiente.
+
+## 2026-11-24: Limpieza de temas en la tienda de desarrollo (D62)
+
+Fecha: 2026-11-24. Decidido por: Johandry. Fuente: respuesta de Johandry en la sesión de Claude Code, 2026-11-24, literalmente «elimina los previews de tema que no se usaran, deja solo el mas reciente y el publicado», con la opción elegida por él de conservar también los dos presets rc5.
+
+- **D62 · Limpieza de temas en `sartorial-theme-kvkzl39t.myshopify.com`:** se borraron 15 temas antiguos sin publicar. Es una excepción puntual a la prohibición de borrar temas de D38, limitada a esta lista.
+  - Borrados (ID → nombre):
+    - `190299111728` test-data
+    - `190300356912` Preview sartorial 2026-11-14
+    - `190300422448` Preview archive 2026-11-14
+    - `190300455216` Preview imprint 2026-11-14
+    - `190316839216` Sartorial rc2 (bb9fc8a)
+    - `190316871984` Imprint rc2 (bb9fc8a)
+    - `190316904752` Archive rc2 (bb9fc8a)
+    - `190317920560` Sartorial rc3 (51fda7c)
+    - `190317953328` Imprint rc3 (51fda7c)
+    - `190317986096` Archive rc3 (51fda7c)
+    - `190352425264` Sartorial rc3-oldsizes
+    - `190452203824` Sartorial rc4 (9e4359f)
+    - `190452236592` Imprint rc4 (9e4359f)
+    - `190452269360` Archive rc4 (9e4359f)
+    - `190453285168` Sartorial pkg (e5fd4b2)
+  - Conservados:
+    - `190453383472` Archive rc5 (e5fd4b2), publicado por Johandry hoy
+    - `190453317936` Sartorial rc5 (e5fd4b2)
+    - `190453350704` Imprint rc5 (e5fd4b2)
+    - `190692557104` Development (476aa2-vm), tema de desarrollo de la compuerta 5 de R3
+  - Consecuencias:
+    - El borrado es irreversible.
+    - El tema publicado `Archive rc5 (e5fd4b2)` contiene código anterior a R3.
+    - Los documentos anteriores pueden citar IDs que ya no existen. Se conservan como registro histórico y no se editan.
+  - Archivos que citan los IDs borrados, según `git grep` sobre el árbol antes de escribir esta entrada (131 archivos; esta entrada no cuenta):
+    - `docs/decisions.md`: línea 378 (D38), con los IDs `190300356912`, `190300422448` y `190300455216`.
+    - `docs/demo-store/created-themes.json`.
+    - `agent-comms/outbox-claude/`: `HANDOFF-SESION-NUEVA-20261114.md`; `reviews-20261110/` (5); `tests-rc2-20261114/` (26); `tests-rc3-20261114/` (15); `tests-rc4-20261118/` (8); `tests-rc5-20261118/` (8); `tests-r2-20261120/` (14); `tests-r2b-20261120/` (31); `tests-sizes-20261115/` (6); `lighthouse-20261115b/` (1); `lighthouse-sizes-20261115/` (1).
+    - `agent-comms/outbox-gpt/harness-GPT-RA-RB-001/`: `README.md`, `selftest.mjs` y 11 archivos en `results/`.
+    - Lista completa: `git grep -l -E '<los 15 IDs>'`.
+
+## 2026-11-25: Decisiones de Johandry sobre el plan de R4 (D63 a D75)
+
+Fecha: 2026-11-25. Decidido por: Johandry. Fuente de todas las decisiones de esta sección: respuesta de Johandry en la sesión de Claude Code, 2026-11-25, literalmente «dale con las recomendaciones, pero no lo harás tu, lo hará gpt, entonces dale las instrucciones a gpt pero lo que si haras tu antes de eso es fusionar el #23». Respondía al plan `agent-comms/outbox-claude/CLAUDE-R3-PLAN-R4-001.md`, presentado con doce recomendaciones (sección E, E1 a E12). Cada decisión registra la recomendación tal como estaba escrita; los IDs M-xx son los del inventario de ese plan.
+
+- **D63 · E1, todas las imágenes en featured product:** en escritorio se muestran todas las imágenes del producto destacado; se retira la regla que oculta las imágenes a partir de la 6.ª (`assets/base.css:10787-10791` en `62ce5ab`). Cierra M-15. Paquete C1.
+- **D64 · E2, M1 aceptado:** sin JavaScript, el botón nativo de compra sigue habilitado con una variante agotada seleccionada (`snippets/variant-no-js-select.liquid:192`, `snippets/product-submit-button.liquid:47-59`). Se acepta como residual de 1.0 y se documenta. Cierra M-25.
+- **D65 · E3, la tarjeta regalo cuenta para la barra de envío gratis:** se deja como está. Cierra M-26.
+- **D66 · E4, página 404:** se corrige el placeholder cortado del campo de búsqueda en escritorio (CSS) y el rótulo de recomendaciones pasa de «Popular pieces / Continue exploring» a «Popular pieces». Cierra M-17. Paquete C3.
+- **D67 · E5, DP-006 decidida:** habrá tres tiendas demo de tipo client transfer, una por preset (Sartorial, Imprint y Archive), cada una con su preset publicado. La tienda actual `sartorial-theme-kvkzl39t.myshopify.com` queda como tienda de QA. Motivo: Shopify no admite una tienda de desarrollo como tienda demo del Theme Store (página «Dev stores for themes» de shopify.dev) y pide una tienda demo por preset que use ese preset. El tipo de la tienda actual queda pendiente de confirmar en DP-024. DP-006 se retira de `docs/decisions-pending.md`.
+- **D68 · E6, mutaciones de catálogo:** se autorizan las mutaciones de catálogo T1 a T3 del plan: asociar medios a variantes, descripciones, vendor, nombres de los productos de prueba, colecciones, activación de productos, blog, texto y plantilla de la tarjeta regalo, y retirada del canal de las colecciones de prueba. Se hacen **solo mediante scripts repetibles guardados en el repo** (`docs/demo-store/scripts/`), primero en la tienda de QA y después en cada tienda demo client transfer. En la tienda de QA ya estaban cubiertas por D38; esta decisión extiende el mismo alcance a las tiendas demo nuevas. Siguen fuera: metafields, apps, temas y ajustes de la tienda (los ajustes autorizados están en D69).
+- **D69 · E7, modifica D38:** se autoriza, **solo en cada tienda demo client transfer**, (1) publicar el preset de esa tienda, (2) configurar la pasarela de prueba (Bogus Gateway o Shopify Payments en modo de prueba, con los demás métodos de pago desactivados) y (3) configurar el mercado de Canadá para que la tienda venda o retirarlo. Nada más. Todo lo demás de D38 se mantiene: no se borran temas, no se instalan ni configuran apps, no se crean ni modifican metafields. En la tienda de QA actual no se autoriza ninguna publicación ni cambio del tema publicado (hoy `Archive rc5 (e5fd4b2)`, publicado por Johandry), ni cambios de pasarela o de mercados.
+- **D70 · E8, contenido de la demo fuera de la ZIP:** los productos, colecciones e imágenes que la demo elige para cada preset (featured product, complete the look, pestañas curadas, bento, lookbook, mega menú) se guardan como overlay por preset fuera de la ZIP (`docs/demo-store/overlays/<preset>/`) y se aplican al tema de cada tienda demo después de subirlo. Los JSON de `listings/` siguen sin handles de la demo (regla de instalación limpia de `docs/demo-store/README.md` y D47). Se acepta como residual que, en una instalación sin esos recursos, featured product y complete the look no se muestren fuera del editor.
+- **D71 · E9, PR nuevo para R4:** los arreglos de código de R4 van en un pull request nuevo contra `master`, no en el PR #23. El PR #23 se fusiona solo con documentación añadida.
+- **D72 · E10, criterio de copy:** el copy de la demo y de los presets (CP-24, CP-27, M-14, L5) será texto editorial auténtico, en sentence case, sin jerga ni meta-texto sobre la propia tienda («This store is used to preview the theme…» no vale). Esta decisión fija el criterio; los textos concretos nuevos siguen necesitando la aprobación de Johandry (D35).
+- **D73 · E11, imágenes de tema:** la fuente y los derechos de las imágenes de tema (hero, lookbook, manifesto, mega menú, portadas del blog) se deciden antes del paquete P1 de overlays, porque son la ruta crítica de M-07. La recomendación aprobada no elegía una fuente concreta: la elección queda abierta en DP-025.
+- **D74 · E12, productos de prueba:** los productos «Fixture …» se renombran con nombres auténticos y conservan sus casos límite (título de 120 caracteres, 40 variantes, vídeo y 3D, sin imagen, sin descripción). No se ocultan.
+- **D75 · Reparto de R4:** todo el trabajo de R4 lo ejecuta GPT: código del tema (C1 a C3), copy de presets (C4), scripts de catálogo (T1 a T3), overlays (P1) y la regeneración de la ZIP y del manifiesto. Claude fusiona antes el PR #23 y después revisa la entrega de GPT antes de fusionarla. Las acciones T4 son de Johandry. Encargo: `agent-comms/inbox-gpt/GPT-TASK-R4-001.md`.

@@ -6,29 +6,65 @@
   if active_currency_code == shop.currency
     assign rewards_currency_supported = true
   endif
-  assign free_shipping_threshold = section.settings.free_shipping_threshold | default: 150 | times: 100
-  assign atelier_gift_threshold = section.settings.atelier_gift_threshold | default: 250 | times: 100
-  if atelier_gift_threshold < free_shipping_threshold
-    assign atelier_gift_threshold = free_shipping_threshold
+  # Thresholds are stored in minor units. An empty or 0 setting means that step does not exist:
+  # shipping only, gift only or both. There is deliberately no hardcoded fallback amount.
+  assign free_shipping_threshold = section.settings.free_shipping_threshold | default: 0 | times: 100
+  assign gift_threshold = section.settings.atelier_gift_threshold | default: 0 | times: 100
+  assign has_shipping_step = false
+  assign has_gift_step = false
+  if free_shipping_threshold > 0
+    assign has_shipping_step = true
+  endif
+  if gift_threshold > 0
+    assign has_gift_step = true
+  endif
+  if has_shipping_step and has_gift_step and gift_threshold < free_shipping_threshold
+    assign gift_threshold = free_shipping_threshold
+  endif
+  # The last step decides where the bar ends.
+  assign final_threshold = free_shipping_threshold
+  if has_gift_step
+    assign final_threshold = gift_threshold
+  endif
+  assign rewards_enabled = false
+  if section.settings.enable_tiered_progress and rewards_currency_supported and final_threshold > 0
+    assign rewards_enabled = true
   endif
   assign rewards_progress = 100
   assign shipping_marker = 100
-  if rewards_currency_supported and atelier_gift_threshold > 0
-    assign rewards_progress = cart.total_price | times: 100 | divided_by: atelier_gift_threshold | at_most: 100
-    assign shipping_marker = free_shipping_threshold | times: 100 | divided_by: atelier_gift_threshold | at_most: 100
+  if rewards_enabled
+    assign rewards_progress = cart.total_price | times: 100 | divided_by: final_threshold | at_most: 100
+    assign shipping_marker = free_shipping_threshold | times: 100 | divided_by: final_threshold | at_most: 100
   endif
   assign shipping_threshold_money = free_shipping_threshold | money
-  assign gift_threshold_money = atelier_gift_threshold | money
-  if rewards_currency_supported == false
+  assign gift_threshold_money = gift_threshold | money
+  assign rewards_message = blank
+  if rewards_enabled == false
     assign rewards_message = blank
-  elsif cart.total_price < free_shipping_threshold
-    assign rewards_remaining = free_shipping_threshold | minus: cart.total_price | money
-    assign rewards_message = 'sections.cart.shipping_remaining' | t: amount: rewards_remaining
-  elsif cart.total_price < atelier_gift_threshold
-    assign rewards_remaining = atelier_gift_threshold | minus: cart.total_price | money
-    assign rewards_message = 'sections.cart.shipping_unlocked_gift_remaining' | t: amount: rewards_remaining
+  elsif has_shipping_step and has_gift_step
+    if cart.total_price < free_shipping_threshold
+      assign rewards_remaining = free_shipping_threshold | minus: cart.total_price | money
+      assign rewards_message = 'sections.cart.shipping_remaining' | t: amount: rewards_remaining
+    elsif cart.total_price < gift_threshold
+      assign rewards_remaining = gift_threshold | minus: cart.total_price | money
+      assign rewards_message = 'sections.cart.shipping_unlocked_gift_remaining' | t: amount: rewards_remaining
+    else
+      assign rewards_message = 'sections.cart.rewards_unlocked' | t
+    endif
+  elsif has_shipping_step
+    if cart.total_price < free_shipping_threshold
+      assign rewards_remaining = free_shipping_threshold | minus: cart.total_price | money
+      assign rewards_message = 'sections.cart.shipping_remaining' | t: amount: rewards_remaining
+    else
+      assign rewards_message = 'sections.cart.shipping_unlocked' | t
+    endif
   else
-    assign rewards_message = 'sections.cart.rewards_unlocked' | t
+    if cart.total_price < gift_threshold
+      assign rewards_remaining = gift_threshold | minus: cart.total_price | money
+      assign rewards_message = 'sections.cart.gift_remaining' | t: amount: rewards_remaining
+    else
+      assign rewards_message = 'sections.cart.gift_unlocked' | t
+    endif
   endif
 -%}
 
@@ -43,6 +79,7 @@
   data-error-message="{{ 'sections.cart.error' | t | escape }}"
   data-added-message="{{ 'sections.cart.added' | t | escape }}"
   data-removed-template="{{ 'sections.cart.item_removed' | t: title: '[title]' | escape_once }}"
+  data-quantity-updated-template="{{ 'sections.cart.quantity_updated' | t: title: '[title]', quantity: '[quantity]' | escape_once }}"
   data-add-failed-message="{{ 'sections.cart.add_failed' | t | escape_once }}"
   data-cart-update-url="{{ routes.cart_update_url }}.js"
   data-recommendations-url="{{ routes.product_recommendations_url }}"
@@ -90,7 +127,7 @@
       </div>
 
       <div class="cart-drawer__content" data-cart-drawer-content>
-        {%- if section.settings.enable_tiered_progress and rewards_currency_supported -%}
+        {%- if rewards_enabled -%}
           <div
             class="cart-rewards"
             style="--cart-progress: {{ rewards_progress }}%; --shipping-marker: {{ shipping_marker }}%;"
@@ -114,22 +151,28 @@
               aria-valuetext="{{ rewards_message | escape_once }}"
             >
               <span class="cart-rewards__fill" aria-hidden="true"></span>
-              <span
-                class="cart-rewards__marker"
-                style="--marker-position: var(--shipping-marker);"
-                {% if cart.total_price >= free_shipping_threshold %}data-unlocked{% endif %}
-                aria-hidden="true"
-              ></span>
+              {%- if has_shipping_step and has_gift_step -%}
+                <span
+                  class="cart-rewards__marker"
+                  style="--marker-position: var(--shipping-marker);"
+                  {% if cart.total_price >= free_shipping_threshold %}data-unlocked{% endif %}
+                  aria-hidden="true"
+                ></span>
+              {%- endif -%}
               <span
                 class="cart-rewards__marker"
                 style="--marker-position: 100%;"
-                {% if cart.total_price >= atelier_gift_threshold %}data-unlocked{% endif %}
+                {% if cart.total_price >= final_threshold %}data-unlocked{% endif %}
                 aria-hidden="true"
               ></span>
             </div>
             <div class="cart-rewards__milestones" aria-hidden="true">
-              <span>{{ 'sections.cart.shipping_milestone' | t: amount: shipping_threshold_money }}</span>
-              <span>{{ 'sections.cart.gift_milestone' | t: amount: gift_threshold_money }}</span>
+              {%- if has_shipping_step -%}
+                <span>{{ 'sections.cart.shipping_milestone' | t: amount: shipping_threshold_money }}</span>
+              {%- endif -%}
+              {%- if has_gift_step -%}
+                <span>{{ 'sections.cart.gift_milestone' | t: amount: gift_threshold_money }}</span>
+              {%- endif -%}
             </div>
           </div>
         {%- endif -%}
@@ -200,7 +243,21 @@
                       {%- assign property_first_character = property.first | slice: 0 -%}
                       {%- if property.last != blank and property_first_character != '_' -%}
                         <p>
-                          <span>{{ property.first | escape }}:</span>
+                          {%- liquid
+                            case property.first
+                              when 'Recipient email'
+                                assign property_label = 'sections.cart.gift_card_properties.email' | t
+                              when 'Recipient name'
+                                assign property_label = 'sections.cart.gift_card_properties.name' | t
+                              when 'Message'
+                                assign property_label = 'sections.cart.gift_card_properties.message' | t
+                              when 'Send on'
+                                assign property_label = 'sections.cart.gift_card_properties.send_on' | t
+                              else
+                                assign property_label = property.first | escape
+                            endcase
+                          -%}
+                          <span>{{ property_label }}:</span>
                           {%- assign property_scheme = property.last | slice: 0, 8 | downcase -%}
                           {%- if property.last contains '/uploads/' and property_scheme == 'https://' -%}
                             <a href="{{ property.last | escape }}" target="_blank" rel="noopener">
@@ -355,7 +412,7 @@
                   {{- 'sections.cart.update' | t -}}
                 </button>
               </noscript>
-              <button class="button button--full" type="submit" name="checkout">
+              <button class="button button--full" type="submit" name="checkout" data-focus-key="checkout">
                 {{- 'sections.cart.checkout' | t -}}
               </button>
               {%- comment -%}
@@ -366,7 +423,7 @@
                 extra row is height taken from the product list.
               {%- endcomment -%}
               {%- if additional_checkout_buttons -%}
-                <div class="cart__dynamic-checkout">
+                <div class="cart__dynamic-checkout" data-focus-key="dynamic-checkout">
                   {{ content_for_additional_checkout_buttons }}
                 </div>
               {%- endif -%}
@@ -396,21 +453,20 @@
       "type": "checkbox",
       "id": "enable_tiered_progress",
       "label": "t:sections.cart_drawer.settings.enable_tiered_progress.label",
+      "info": "t:sections.cart_drawer.settings.enable_tiered_progress.info",
       "default": false
     },
     {
       "type": "number",
       "id": "free_shipping_threshold",
       "label": "t:sections.cart_drawer.settings.free_shipping_threshold.label",
-      "info": "t:sections.cart_drawer.settings.free_shipping_threshold.info",
-      "default": 150
+      "info": "t:sections.cart_drawer.settings.free_shipping_threshold.info"
     },
     {
       "type": "number",
       "id": "atelier_gift_threshold",
       "label": "t:sections.cart_drawer.settings.atelier_gift_threshold.label",
-      "info": "t:sections.cart_drawer.settings.atelier_gift_threshold.info",
-      "default": 250
+      "info": "t:sections.cart_drawer.settings.atelier_gift_threshold.info"
     },
     {
       "type": "checkbox",

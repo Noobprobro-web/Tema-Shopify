@@ -72,6 +72,13 @@
       "remove": "Eliminar",
       "remove_item": "Eliminar {{ title }}",
       "item_removed": "Se eliminó {{ title }} de tu carrito.",
+      "quantity_updated": "Cantidad de {{ title }} actualizada a {{ quantity }}.",
+      "gift_card_properties": {
+        "email": "Correo del destinatario",
+        "name": "Nombre del destinatario",
+        "message": "Mensaje",
+        "send_on": "Enviar el"
+      },
       "discount": "Descuento",
       "subtotal": "Subtotal",
       "taxes_included": "Impuestos incluidos.",
@@ -86,6 +93,9 @@
       "add_failed": "No se pudo añadir este artículo al carrito.",
       "shipping_remaining": "Añade {{ amount }} para el envío gratuito",
       "shipping_unlocked_gift_remaining": "Envío gratuito desbloqueado. Añade {{ amount }} para recibir un obsequio",
+      "shipping_unlocked": "Envío gratuito desbloqueado",
+      "gift_remaining": "Añade {{ amount }} para recibir un obsequio",
+      "gift_unlocked": "Obsequio desbloqueado",
       "rewards_unlocked": "Envío gratuito y obsequio desbloqueados",
       "rewards_progress": "Progreso de las ventajas del carrito",
       "shipping_milestone": "Envío desde {{ amount }}",
@@ -125,7 +135,6 @@
     },
     "lookbook": {
       "region_label": "Lookbook editorial interactivo",
-      "image_alt": "Composición editorial con prendas disponibles para comprar",
       "open_product": "Ver detalles de {{ product }}",
       "featured_piece": "Pieza destacada",
       "view_product": "Ver producto",
@@ -138,14 +147,13 @@
     },
     "complete_the_look": {
       "region_label": "Completa el look",
-      "image_alt": "Vista editorial del look completo",
       "selected_count": {
         "one": "{{ count }} de {{ total }} pieza seleccionada",
         "other": "{{ count }} de {{ total }} piezas seleccionadas"
       },
       "add_selected": {
-        "one": "Añadir {{ count }} pieza | {{ total }}",
-        "other": "Añadir {{ count }} piezas | {{ total }}"
+        "one": "Añadir {{ count }} artículo al carrito | {{ total }}",
+        "other": "Añadir {{ count }} artículos al carrito | {{ total }}"
       },
       "select_items": "Selecciona al menos una pieza",
       "select_product": "Seleccionar {{ product }}",
@@ -153,7 +161,7 @@
       "selling_plan_required": "Disponible desde la página del producto con un plan de compra.",
       "requires_plan_option": "Requiere plan en la página del producto",
       "view_on_product_page": "Ver opciones en la página del producto",
-      "total_label": "Total de la cápsula",
+      "total_label": "Total",
       "empty": "Elige de dos a cuatro productos en el editor de temas para componer este look.",
       "no_javascript": "Abre cada producto para elegir sus opciones y comprarlo por separado.",
       "added": "El look seleccionado se añadió a tu carrito.",
@@ -168,6 +176,7 @@
     },
     "featured_product": {
       "region_label": "Producto destacado",
+      "region_label_numbered": "Producto destacado {{ number }}",
       "onboarding_title": "Producto de lujo destacado",
       "onboarding_price": "$480.00"
     },
@@ -237,14 +246,12 @@
         "view_collection": "Ver todo en {{ title }}"
       },
       "manifesto": {
-        "region_label": "Nuestro oficio y nuestros materiales",
-        "material_image_alt": "Estudio en detalle de un material"
+        "region_label": "Nuestro oficio y nuestros materiales"
       },
       "bento": {
         "region_label": "Descubre colecciones, historias y productos"
       },
       "marquee": {
-        "region_label": "Destacados editoriales",
         "pause": "Pausar los destacados editoriales",
         "play": "Reproducir los destacados editoriales"
       }
@@ -387,7 +394,7 @@
       "label": "Tipos de resultado",
       "all": "Todo",
       "products": "Productos",
-      "articles": "Diario",
+      "articles": "Artículos",
       "pages": "Páginas"
     },
     "form": {
@@ -401,7 +408,7 @@
         "one": "{{ count }} resultado",
         "other": "{{ count }} resultados"
       },
-      "article": "Diario",
+      "article": "Artículo",
       "page": "Página",
       "view_page": "Ver página",
       "none_title": "Sin resultados para «{{ terms }}»",
@@ -414,9 +421,9 @@
     }
   },
   "not_found": {
-    "eyebrow": "Error / Índice del archivo",
-    "title": "Página no encontrada.",
-    "message": "La página que buscas no forma parte de la serie actual. Es posible que haya pasado al archivo.",
+    "eyebrow": "Error",
+    "title": "Página no encontrada",
+    "message": "No se ha encontrado la página que buscas.",
     "search_label": "Buscar en la tienda",
     "search_placeholder": "Busca productos e historias",
     "search_submit": "Buscar",
@@ -424,7 +431,6 @@
     "recommendations": "Piezas destacadas / Sigue explorando"
   },
   "password": {
-    "image_alt": "Avance editorial de la próxima colección",
     "opening_label": "Nota de apertura",
     "newsletter": {
       "email": "Correo electrónico",
@@ -456,6 +462,7 @@
     "product": {
       "add_to_cart": "Añadir al carrito",
       "choose_options": "Elegir opciones",
+      "view_product": "Ver producto",
       "quick_add": "Añadir rápido",
       "select_size": "Seleccionar talla",
       "color_swatch": "{{ option }}: {{ value }}",
@@ -476,6 +483,11 @@
       "unit_price": "Precio unitario",
       "taxes_included": "Impuestos incluidos.",
       "estimated_line_total": "Subtotal estimado del artículo para {{ quantity }} unidades:",
+      "quantity_rules": {
+        "min": "Mínimo {{ quantity }}",
+        "max": "Máximo {{ quantity }}",
+        "increment": "De {{ quantity }} en {{ quantity }}"
+      },
       "taxes_included_shipping_at_checkout": "Impuestos incluidos. Envío calculado al pagar.",
       "taxes_and_shipping_at_checkout": "Impuestos y envío calculados al pagar.",
       "discounts_at_checkout": "Los descuentos y el importe final se confirman al pagar.",
@@ -632,8 +644,8 @@
     }
   },
   "newsletter": {
-    "eyebrow": "Correspondencia privada",
-    "heading": "Notas del estudio",
+    "eyebrow": "Boletín",
+    "heading": "Novedades de la tienda",
     "copy": "Suscríbete a nuestro boletín.",
     "email_label": "Correo electrónico",
     "email_placeholder": "nombre@ejemplo.com",
@@ -648,11 +660,12 @@
     "results_label": "Sugerencias de búsqueda",
     "loading": "Buscando",
     "no_results": "Aún no hay sugerencias. Pulsa Enter para buscar en todo el catálogo.",
+    "error": "No pudimos cargar las sugerencias. Pulsa Enter para buscar en todo el catálogo.",
     "clear": "Borrar la búsqueda",
     "in_stock": "Disponible",
     "products": "Productos",
     "collections": "Colecciones",
-    "articles": "Diario",
+    "articles": "Artículos",
     "pages": "Páginas",
     "view_all": "Ver todos los resultados para «{{ terms }}»",
     "results_count": {

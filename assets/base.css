@@ -159,6 +159,22 @@ video {
   height: auto;
 }
 
+/* Embeds pasted into rich text (video players, maps) keep the fixed width of their markup:
+   cap them at the column. Video players keep a 16:9 box when the cap shrinks them; the height
+   attribute stays for the rest. */
+.rte iframe,
+.rte embed,
+.rte object {
+  max-width: 100%;
+}
+
+.rte iframe[src*='youtube'],
+.rte iframe[src*='youtu.be'],
+.rte iframe[src*='vimeo'] {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
 button,
 input,
 textarea,
@@ -377,11 +393,18 @@ blockquote {
 }
 
 .card__heading,
-.product-card__title,
 .promo-card,
 .button,
 .link {
   overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Product titles are merchant content: a very long word (long compound names, a narrow two-column
+   card, zoomed text) breaks inside the card instead of overflowing into the next one. `anywhere`
+   (not `break-word`) also lowers the min-content width, so a grid or flex card can shrink. */
+.product-card__title {
+  overflow-wrap: anywhere;
   word-break: normal;
 }
 
@@ -2051,8 +2074,7 @@ facet-filters-form[data-auto-apply] .facets__actions {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.35;
-  /* The global word-break policy is left intact; breaking lives in the narrow containers, */
-  /* see the `.bento-discovery__item--product .product-card__title` rule at the end of this file. */
+  /* Long words break inside the card: see the `overflow-wrap` rule near the top of this file. */
 }
 
 .product-card__title a {
@@ -3246,6 +3268,11 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   text-align: end;
 }
 
+/* A single stage has one final marker at the end of the bar: its label sits there too. */
+.cart-rewards__milestones span:only-child {
+  margin-inline-start: auto;
+}
+
 .cart-drawer__empty {
   margin: auto;
   padding: var(--space-6) var(--page-gutter);
@@ -3285,6 +3312,16 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
 .cart-drawer-item__details p,
 .cart-drawer-item__title {
   margin: 0;
+}
+
+.cart-drawer-item__title a {
+  /* WCAG 2.2 2.5.8: the title link is at least 24px tall. The padding is cancelled by the
+     negative margin, so the line keeps the height it had. */
+  display: inline-block;
+  min-height: 1.5rem;
+  padding-block: 0.125rem;
+  margin-block: -0.125rem;
+  box-sizing: border-box;
 }
 
 .cart-drawer-item__price {
@@ -3589,6 +3626,33 @@ product-card-variants[data-variant-media] .product-card__media:focus-visible .pr
   .lookbook-hotspot__trigger:focus-visible,
   .product-gallery__zoom-trigger:focus-visible {
     outline: 2px solid CanvasText;
+  }
+
+  /* Selected swatches are drawn with a box-shadow ring, which forced colors drop. Swap it for a
+     real outline in the system highlight color and keep the swatch fill from being replaced. */
+  .card-swatch__color,
+  .facet__swatch,
+  .variant-picker__swatch {
+    forced-color-adjust: none;
+  }
+
+  .card-swatch[aria-checked='true'] .card-swatch__color,
+  .facet__swatch-input:checked + .facet__swatch,
+  .variant-picker__input:checked + .variant-picker__label .variant-picker__swatch {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  /* The grid switcher icons are bars painted with a background, which forced colors replace with
+     the canvas color. Keep them visible and mark the pressed option with a highlight outline. */
+  .collection-grid-switcher__icon i {
+    forced-color-adjust: none;
+    background: ButtonText;
+  }
+
+  .collection-grid-switcher__button[aria-pressed='true'] {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
   }
 }
 
@@ -4416,6 +4480,26 @@ curated-showcase {
   line-height: 1.55;
 }
 
+.bento-card--linked {
+  position: relative;
+}
+
+/* Extended link: an empty anchor over the whole card. Links inside the rich text body sit above it. */
+.bento-card__stretched-link {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+}
+
+.bento-card__stretched-link:focus-visible {
+  outline-offset: -0.25rem;
+}
+
+.bento-card--linked .bento-card__body a {
+  position: relative;
+  z-index: 2;
+}
+
 .bento-card__body > :first-child {
   margin-block-start: 0;
 }
@@ -4764,11 +4848,44 @@ marquee-banner {
   .bento-discovery__grid {
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
     grid-template-rows: repeat(2, minmax(18rem, 1fr));
+    /* A fourth block opens a third row: it sizes to its content, not to the 18rem tracks above. */
+    grid-auto-rows: minmax(18rem, auto);
     gap: var(--space-xl);
   }
 
   .bento-discovery__item--featured {
     grid-row: 1 / span 2;
+  }
+
+  /* The base layout is built for three blocks (the collection card spans two rows). The section
+     writes data-count so the grid adapts to one, two or four blocks without empty cells. */
+  .bento-discovery__grid[data-count='1'] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(28rem, auto);
+  }
+
+  .bento-discovery__grid[data-count='2'] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(24rem, auto);
+  }
+
+  /* The tall collection card only applies when it is the first block: that is the cell the base
+     layout reserves for it. Anywhere else it is a regular tile, so the auto placement leaves no
+     gaps, and an odd last block takes the whole row. */
+  .bento-discovery__grid:not(:has(> .bento-discovery__item--featured:first-child)) .bento-discovery__item--featured,
+  .bento-discovery__grid[data-count='1'] .bento-discovery__item--featured,
+  .bento-discovery__grid[data-count='2'] .bento-discovery__item--featured {
+    grid-row: auto;
+  }
+
+  /* Four blocks with the collection card first: it and two more fill two rows, the last block runs
+     full width. */
+  .bento-discovery__grid[data-count='4']:has(> .bento-discovery__item--featured:first-child) .bento-discovery__item:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .bento-discovery__grid:not(:has(> .bento-discovery__item--featured:first-child)) .bento-discovery__item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 
   .bento-discovery__item--featured .bento-card,
@@ -4950,6 +5067,10 @@ marquee-banner {
   .desktop-nav__panel {
     position: absolute;
     min-width: 15rem;
+    /* Same as the mega menu: with the header stuck, a long list scrolls inside the panel. */
+    max-height: calc(100dvh - var(--header-offset, 0px) - var(--space-6));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     inset-block-start: calc(100% + 0.4rem);
     inset-inline-start: 0;
     padding: var(--space-3);
@@ -5902,6 +6023,12 @@ product-recommendations:not([hidden]):empty {
   color: var(--color-foreground-muted);
   font-size: 0.75rem;
   line-height: 1.5;
+}
+
+/* Quantity rule: each visible part (minimum, increment, maximum) takes its own line. The :not([hidden])
+   keeps the global [hidden] rule in charge of the parts that do not apply. */
+.product-form__quantity-rule [data-quantity-rule-part]:not([hidden]) {
+  display: block;
 }
 
 .product-form__line-total [data-line-total-compare] {
@@ -7422,7 +7549,9 @@ anchor-nav {
 
 .localization-form__form {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
+  max-width: 100%;
   margin: 0;
 }
 
@@ -7520,6 +7649,9 @@ anchor-nav {
 .localization-form__country {
   width: auto;
   min-width: 44px;
+  /* A long "country (currency)" label is cut with an ellipsis instead of widening its row. */
+  max-width: min(100%, 16rem);
+  text-overflow: ellipsis;
   min-height: 44px;
   padding: 0.25rem 1.1rem 0.25rem 0.25rem;
   border: 0;
@@ -8038,11 +8170,11 @@ anchor-nav {
 
 /* =========================================================================
    NATIVE PAGES
-   Documentation, support, FAQ, brand story and legal pages. Everything relies on the existing
+   FAQ, brand story and legal pages. Everything relies on the existing
    tokens: no new color, duration or spacing.
    ========================================================================= */
 
-/* ---------- Anchor index, shared by documentation and legal pages ---------- */
+/* ---------- Anchor index for long pages ---------- */
 .anchor-nav__disclosure {
   border-block: 1px solid var(--color-border-hairline);
 }
@@ -8632,10 +8764,12 @@ anchor-nav {
 }
 
 @media (min-width: 62rem) {
+  /* The index column only exists while the index is visible: it starts hidden and shows with two
+     or more headings, so a body without index would otherwise be squeezed into the narrow track. */
   /* docs-only:start */
   .main-documentation__layout,
   /* docs-only:end */
-  .main-policy__layout {
+  .main-policy__layout:has(> .main-policy__nav:not([hidden])) {
     grid-template-columns: minmax(12rem, 0.24fr) minmax(0, 1fr);
     gap: var(--space-4xl);
     align-items: start;
@@ -10646,11 +10780,12 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
   margin: 0;
 }
 
-/* Gallery: on wide screens the first five media plus the selected one are shown. The
-   narrow-screen layout is defined in the final block of this file, and no media is hidden
-   here on narrow screens. */
+/* Gallery: on wide screens the first five media plus the selected one are shown. Video, external
+   video and 3D models are never trimmed, so rich media stays reachable (the Liquid sets
+   data-media-type on every figure). The narrow-screen layout is defined in the final block of
+   this file, and no media is hidden here on narrow screens. */
 @media (min-width: 62rem) {
-  .featured-product__media:nth-child(n + 6):not([data-selected]) {
+  .featured-product__media[data-media-type='image']:nth-child(n + 6):not([data-selected]) {
     display: none;
   }
 }
@@ -10728,6 +10863,21 @@ html[data-animations='full'] product-inventory[data-stock-state='low_stock'] .pr
 
 .curated-showcase__panel--single {
   grid-template-columns: minmax(0, 1fr);
+}
+
+/* A lone spotlight does not stretch over the whole container: it is capped to a readable width
+   and centered, with a shorter box than the two-column layout. Keep 44rem in step with the
+   `sizes` of the spotlight image in curated-showcase.liquid. */
+@media (min-width: 62rem) {
+  .curated-showcase__panel--single {
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .curated-showcase__panel--single .curated-showcase__spotlight-media {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .no-js .curated-showcase__tabs {

@@ -1,0 +1,77 @@
+{
+  "initial": {
+    "text": "TOTAL | 3 of 3 items selected | $803.00 | ADD 3 ITEMS TO CART | $803.00",
+    "btn": "Add 3 items to cart | $803.00",
+    "checked": [
+      true,
+      true,
+      true
+    ]
+  },
+  "uncheck_tote": {
+    "text": "TOTAL | 2 of 3 items selected | $283.00 | ADD 2 ITEMS TO CART | $283.00",
+    "btn": "Add 2 items to cart | $283.00",
+    "checked": [
+      true,
+      false,
+      true
+    ]
+  },
+  "none": {
+    "text": "TOTAL | 0 of 3 items selected | $0.00 | SELECT AT LEAST ONE PIECE",
+    "btn": "Select at least one piece (disabled)",
+    "checked": [
+      false,
+      false,
+      false
+    ]
+  },
+  "beltopts": [
+    "Black / 70",
+    "Black / 75",
+    "Black / 80"
+  ],
+  "belt_changed": {
+    "text": "TOTAL | 1 of 3 items selected | $98.00 | ADD 1 ITEM TO CART | $98.00",
+    "btn": "Add 1 item to cart | $98.00",
+    "checked": [
+      false,
+      false,
+      true
+    ]
+  },
+  "cmp_initial": {
+    "text": "TOTAL | 2 of 2 items selected | $2,835.50 | ADD 2 ITEMS TO CART | $2,835.50",
+    "btn": "Add 2 items to cart | $2,835.50",
+    "checked": [
+      true,
+      true
+    ]
+  },
+  "serra_opts": [
+    "Ink / XS",
+    "Ink / S",
+    "Ink / M",
+    "Ink / L",
+    "Ink / XL",
+    "Camel / XS",
+    "Camel / S",
+    "Camel / M - Sold out [disabled]",
+    "Camel / L",
+    "Camel / XL",
+    "Bone / XS",
+    "Bone / S",
+    "Bone / M",
+    "Bone / L",
+    "Bone / XL"
+  ],
+  "sel_err": "TimeoutError: locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator(",
+  "cmp_soldout": {
+    "text": "TOTAL | 2 of 2 items selected | $2,835.50 | ADD 2 ITEMS TO CART | $2,835.50",
+    "btn": "Add 2 items to cart | $2,835.50",
+    "checked": [
+      true,
+      true
+    ]
+  }
+}
