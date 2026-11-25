@@ -91,7 +91,7 @@ export const BLOG_COPY = Object.freeze({
   },
   'how-to-read-the-size-chart': {
     title: 'How to read garment measurements',
-    body: '<p>Compare the measurements below each size with a similar piece that fits you well. Check the shoulder, chest and length before choosing a size.</p>',
+    body: '<p>Lay a similar piece flat and compare its shoulder, chest and length with the measurements in this size guide. Choose the closest match.</p>',
     tags: ['guide', 'fit'],
   },
 });

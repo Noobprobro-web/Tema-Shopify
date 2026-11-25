@@ -104,6 +104,14 @@ test('R4A-9 renames the demo article to match its title and records no redirect 
   expect(document.redirect_note).toMatch(/No se planifican redirecciones/i);
 });
 
+test('R4A copy removes unsupported size-chart placement and preserves editorial naming', () => {
+  const { document } = buildPlan({ storeAlias: 'qa', plan: 't1' });
+  const measurementArticle = document.intents.find(({ resource, selector, field }) => resource === 'Article'
+    && selector.handle === 'how-to-read-the-size-chart' && field === 'body');
+  expect(measurementArticle.target_value).not.toMatch(/below each size/i);
+  expect(measurementArticle.target_value).toContain('size guide');
+});
+
 test('R4A-10 CLI accepts an inventory target and defaults to eight', () => {
   const dir = mkdtempSync(join(tmpdir(), 'r4-inventory-'));
   try {
