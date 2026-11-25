@@ -42,4 +42,6 @@ test('all overlays document asset dependencies and unpublished-theme application
   expect(instructions).toContain('docs/demo-import/sartorial-photos.csv');
   expect(instructions).toContain('docs/demo-import/imprint-photos.csv');
   expect(instructions).toContain('docs/demo-import/archive-photos.csv');
+  expect(instructions).toContain('header promo `image_1` (New forms) and `image_2` (Tailoring)');
+  expect(instructions).toContain('header promo `image_1` (Permanent archive) and `image_2` (Selected pieces)');
 });
