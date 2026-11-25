@@ -88,6 +88,33 @@ test('R4A-5 scrolls the selected media into view when its gallery is already par
   expect(selectedBounds.bottom).toBeLessThanOrEqual(900);
 });
 
+for (const width of [1440, 1536]) {
+  test(`R4A-7 sticky cart bar appears below the primary button at ${width}x674`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 674 });
+    const markup = `<div style="height:900px"></div><section data-section-id="product" class="product-main__layout">
+      <div>Gallery</div><div class="product-main__details" style="height:800px">
+        <form id="product-form-product"><button type="button" data-add-to-cart>Add to cart</button></form>
+      </div>
+      <sticky-cart-bar data-product-form-id="product-form-product" data-action-label-template="[action] [product]"
+        data-quantity-label-template="[action] [product] [quantity]" data-quantity-price-template="[quantity] × [price]"
+        data-total-template="Total [total]" data-unavailable-text="Unavailable" aria-hidden="true" inert>
+        <p class="sticky-cart-bar__title">Jacket</p><p data-sticky-variant>Black</p><p data-sticky-price>$100</p>
+        <p data-sticky-total hidden></p><button data-sticky-submit><span data-sticky-label>Add to cart</span></button>
+      </sticky-cart-bar></section>`;
+    await page.setContent(pageShell(markup, { head: `<style>${baseCss()}</style><style>:root{--header-offset:101px}</style>` }));
+    await page.evaluate(() => window.scrollTo(0, 1200));
+    await expect(page.locator('sticky-cart-bar')).toHaveAttribute('data-visible', '');
+    expect(await page.locator('[data-add-to-cart]').evaluate((button) => button.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
+  });
+}
+
+test('R4A-7 product details use sticky positioning in a tall 1440x1100 viewport', async ({ page }) => {
+  await mount(page, 'product', { width: 1440, height: 1100 });
+  const details = page.locator('.product-main__details');
+  await expect(details).toHaveAttribute('data-sticky-fits', '');
+  expect(await details.evaluate((element) => getComputedStyle(element).position)).toBe('sticky');
+});
+
 test('R4 C1b mobile keeps carousel DOM order and moves the index to the selected variant', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.setContent(pageShell(productGallery, { head: `<style>${baseCss()}</style>` }));
