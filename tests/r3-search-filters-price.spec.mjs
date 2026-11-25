@@ -128,6 +128,14 @@ test('AS-03 a failed request says the search failed, not "no results"; an empty 
     await expect(footer.locator('.predictive-search__view-all')).toHaveText('View all a$&b');
     await expect(page.locator('[data-predictive-search-status]')).toHaveText('No matches for “a$&b”. Try a different search or view all results.');
   });
+
+  test('R4A-13 a successful zero-result response announces the existing empty-state copy', async ({ page }) => {
+    await mountSearch(page, { body: resultsBody({}) });
+    await page.locator('[data-predictive-search-open]').click();
+    await page.locator('[data-predictive-search-input]').fill('hatx');
+    await expect(page.locator('[data-predictive-search-status]'))
+      .toHaveText('No matches for “hatx”. Try a different search or view all results.');
+  });
 });
 
 test.describe('L5 predictive search price range', () => {
