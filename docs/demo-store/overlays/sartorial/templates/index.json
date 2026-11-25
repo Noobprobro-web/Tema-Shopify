@@ -1,0 +1,285 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-editorial",
+      "settings": {
+        "layout_mode": "split",
+        "split_ratio": "65_35",
+        "layout_split": "image_first",
+        "height_desktop": 85,
+        "height_mobile": 70,
+        "media_type": "image",
+        "overlay_style": "gradient_content",
+        "overlay_opacity": 40,
+        "content_position_x": "start",
+        "content_position_y": "end",
+        "text_alignment": "left",
+        "content_width": 42,
+        "heading_tag": "h1",
+        "eyebrow": "New season",
+        "heading": "The Master Tailor's Cut",
+        "subheading": "<p>Sculptural tailoring cut in considered proportions.</p>",
+        "button_primary_label": "Discover the collection",
+        "button_primary_url": "/collections/all",
+        "button_secondary_label": "Explore tailoring",
+        "button_secondary_url": "",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "silk": {
+          "type": "item",
+          "settings": {
+            "text": "PROPORTION / CUT / DRAPE"
+          }
+        },
+        "canvas": {
+          "type": "item",
+          "settings": {
+            "text": "TAILORING"
+          }
+        },
+        "lapel": {
+          "type": "item",
+          "settings": {
+            "text": "SILHOUETTE STUDIES"
+          }
+        },
+        "editions": {
+          "type": "item",
+          "settings": {
+            "text": "MADE TO MEASURE"
+          }
+        }
+      },
+      "block_order": [
+        "silk",
+        "canvas",
+        "lapel",
+        "editions"
+      ],
+      "settings": {
+        "speed": 36,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "collections": {
+      "type": "curated-showcase",
+      "blocks": {
+        "new": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "new-forms",
+            "tab_label": "New forms"
+          }
+        },
+        "permanent": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "permanent-collection",
+            "tab_label": "Permanent collection"
+          }
+        },
+        "tailoring": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "tailoring",
+            "tab_label": "Tailoring salon"
+          }
+        }
+      },
+      "block_order": [
+        "new",
+        "permanent",
+        "tailoring"
+      ],
+      "settings": {
+        "eyebrow": "Featured",
+        "heading": "Selected Silhouettes",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "lookbook": {
+      "type": "lookbook",
+      "blocks": {
+        "marker1": {
+          "type": "hotspot",
+          "settings": {
+            "product": "nove-blazer",
+            "horizontal_position": 26,
+            "vertical_position": 34,
+            "horizontal_position_mobile": 28,
+            "vertical_position_mobile": 30,
+            "popover_position": "right"
+          }
+        },
+        "marker2": {
+          "type": "hotspot",
+          "settings": {
+            "product": "silk-charmeuse-blouse",
+            "horizontal_position": 48,
+            "vertical_position": 66,
+            "horizontal_position_mobile": 46,
+            "vertical_position_mobile": 64,
+            "popover_position": "top"
+          }
+        },
+        "marker3": {
+          "type": "hotspot",
+          "settings": {
+            "product": "pleated-wide-trouser",
+            "horizontal_position": 69,
+            "vertical_position": 38,
+            "horizontal_position_mobile": 68,
+            "vertical_position_mobile": 42,
+            "popover_position": "left"
+          }
+        },
+        "marker4": {
+          "type": "hotspot",
+          "settings": {
+            "product": "cashmere-scarf",
+            "horizontal_position": 82,
+            "vertical_position": 72,
+            "horizontal_position_mobile": 78,
+            "vertical_position_mobile": 74,
+            "popover_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "marker1",
+        "marker2",
+        "marker3",
+        "marker4"
+      ],
+      "settings": {
+        "eyebrow": "PRESENTATION / SALON",
+        "heading": "Silhouettes in Motion",
+        "description": "<p>Observe the architectural drape, proportion and movement of each silhouette.</p>",
+        "caption": "",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "variant_picker": {
+          "type": "variant_picker"
+        },
+        "quantity": {
+          "type": "quantity_selector"
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "description": {
+          "type": "description"
+        },
+        "inventory": {
+          "type": "inventory_status",
+          "settings": {
+            "threshold": 5,
+            "show_count": true
+          }
+        },
+        "shipping": {
+          "type": "shipping_lead_time",
+          "settings": {
+            "delivery_text": "",
+            "icon": "truck"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variant_picker",
+        "quantity",
+        "buy_buttons",
+        "inventory",
+        "shipping",
+        "description"
+      ],
+      "settings": {
+        "product": "serra-coat",
+        "color_scheme": "scheme-3",
+        "secondary_background": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "capsule": {
+      "type": "complete-the-look",
+      "blocks": {
+        "piece1": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "nove-blazer"
+          }
+        },
+        "piece2": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "silk-charmeuse-blouse"
+          }
+        },
+        "piece3": {
+          "type": "bundle_product",
+          "settings": {
+            "product": "pleated-wide-trouser"
+          }
+        }
+      },
+      "block_order": [
+        "piece1",
+        "piece2",
+        "piece3"
+      ],
+      "settings": {
+        "eyebrow": "SALON ENSEMBLE",
+        "heading": "Complete the Look",
+        "description": "<p>Select each piece of the look and add the full composition to your cart in one step.</p>",
+        "caption": "Complete the look with these pieces.",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "manifesto": {
+      "type": "brand-manifesto",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "eyebrow": "THE MASTER TAILOR'S MANIFESTO",
+        "quote": "True bespoke luxury lives in the invisible mastery of the cut.",
+        "body": "",
+        "button_label": "Explore tailoring",
+        "button_url": "",
+        "media_label": "ATELIER ARCHIVE",
+        "use_surface_background": true,
+        "color_scheme": "scheme-3"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "collections",
+    "lookbook",
+    "featured_product",
+    "capsule",
+    "manifesto"
+  ]
+}

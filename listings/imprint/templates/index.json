@@ -16,10 +16,10 @@
         "text_alignment": "left",
         "content_width": 38,
         "heading_tag": "h1",
-        "eyebrow": "TECHNICAL STUDIO",
+        "eyebrow": "Technical studio",
         "heading": "Engineered utility, precise discipline",
-        "subheading": "<p>Modular gear and desk objects for daily carry.</p>",
-        "button_primary_label": "Inspect system inventory",
+        "subheading": "<p>Desk objects and accessories for work and everyday routines.</p>",
+        "button_primary_label": "Browse the collection",
         "button_primary_url": "/collections/all",
         "button_secondary_label": "Explore desk and study",
         "button_secondary_url": "",
@@ -29,9 +29,9 @@
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "ballistic_nylon": { "type": "item", "settings": { "text": "TECHNICAL STUDIO" } },
-        "closures": { "type": "item", "settings": { "text": "DAILY OBJECTS" } },
-        "hardware": { "type": "item", "settings": { "text": "DESK AND STUDY" } }
+        "ballistic_nylon": { "type": "item", "settings": { "text": "Technical studio" } },
+        "closures": { "type": "item", "settings": { "text": "Daily objects" } },
+        "hardware": { "type": "item", "settings": { "text": "Desk and study" } }
       },
       "block_order": ["ballistic_nylon", "closures", "hardware"],
       "settings": {
@@ -46,8 +46,8 @@
           "type": "card_featured",
           "settings": {
             "collection": "all",
-            "eyebrow": "MEMBRANE TELEMETRY",
-            "heading": "EDC systems",
+            "eyebrow": "Daily carry",
+            "heading": "Everyday carry systems",
             "link": ""
           }
         },
@@ -68,7 +68,7 @@
           "settings": {
             "link_label": "Explore leather goods",
             "link": "",
-            "eyebrow": "BLUEPRINT ANALYSIS",
+            "eyebrow": "Object details",
             "heading": "Leather goods",
             "body": ""
           }
@@ -76,7 +76,7 @@
       },
       "block_order": ["collection", "product1", "product2", "story"],
       "settings": {
-        "eyebrow": "GRID STUDY",
+        "eyebrow": "The collection",
         "heading": "Collection, product, process",
         "subheading": "<p>A denser view of the working collection.</p>",
         "color_scheme": "scheme-3"
@@ -91,8 +91,8 @@
       },
       "block_order": ["daily", "workspace", "limited"],
       "settings": {
-        "eyebrow": "SYSTEM INVENTORY",
-        "heading": "Studio Modular Systems",
+        "eyebrow": "The collection",
+        "heading": "Desk objects for daily use",
         "show_secondary_image": false,
         "show_vendor": false,
         "color_scheme": "scheme-1"
@@ -138,10 +138,10 @@
       },
       "block_order": ["piece1", "piece2", "piece3"],
       "settings": {
-        "eyebrow": "EDC MODULAR CAPSULE",
-        "heading": "The Complete Utility Rig",
-        "description": "<p>A modular rig for daily carry, field telemetry and technical desk deployment.</p>",
-        "caption": "A modular arrangement for daily work.",
+        "eyebrow": "A modular carry",
+        "heading": "Pieces for daily carry",
+        "description": "<p>An arrangement of pieces for work and everyday routines.</p>",
+        "caption": "An arrangement for work and daily routines.",
         "color_scheme": "scheme-1"
       }
     },
@@ -150,12 +150,12 @@
       "blocks": {},
       "block_order": [],
       "settings": {
-        "eyebrow": "STUDIO PRINCIPLES",
-        "quote": "Form follows engineering tolerance.",
+        "eyebrow": "Studio principles",
+        "quote": "Useful forms begin with the work they do.",
         "body": "",
-        "button_label": "Inspect collection",
+        "button_label": "Browse the collection",
         "button_url": "",
-        "media_label": "TECHNICAL REPORT",
+        "media_label": "Studio notes",
         "use_surface_background": false,
         "color_scheme": "scheme-3"
       }

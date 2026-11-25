@@ -4,6 +4,7 @@
 import { expect, test } from '@playwright/test';
 import {
   afterFrames,
+  baseCss,
   cartDrawerMarkup,
   cartPageMarkup,
   headerCartLink,
@@ -130,6 +131,27 @@ test.describe('FB-02 cart changes are announced', () => {
     await page.locator('#DrawerQuantity-1').press('Tab');
     await expect(status).toHaveText(/^Removed Blue Hat/);
   });
+});
+
+test('R4 M-20 empty-cart removal announcement stays available to assistive technology without visible duplication', async ({ page }) => {
+  await mountCart(page, { onCart: false });
+  await page.addStyleTag({ content: baseCss() });
+  await openDrawer(page);
+  const status = page.locator('[data-cart-status]');
+
+  await page.locator('#DrawerQuantity-1').fill('0');
+  await page.locator('#DrawerQuantity-1').press('Tab');
+  await expect(status).toHaveText('Removed Blue Hat 0 items');
+  await expect(status).toHaveClass(/visually-hidden/);
+  const hiddenStyle = await status.evaluate((element) => ({
+    position: getComputedStyle(element).position,
+    width: element.getBoundingClientRect().width,
+    height: element.getBoundingClientRect().height,
+    clip: getComputedStyle(element).clip,
+  }));
+  expect(hiddenStyle).toEqual({ position: 'absolute', width: 1, height: 1, clip: 'rect(0px, 0px, 0px, 0px)' });
+  await expect(status).toHaveAttribute('aria-live', 'polite');
+  await expect(page.locator('[data-cart-empty-message]')).toBeFocused();
 });
 
 test.describe('FB-20 focus survives a repaint of the drawer', () => {

@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "plan": "t3",
+  "plan_kind": "mutation-intents",
+  "mode": "dry-run",
+  "deterministic": true,
+  "executable_graphql": false,
+  "inventory_target": 8,
+  "redirects_planned": false,
+  "redirect_note": "No se planifican redirecciones del artículo; configura una redirección manualmente si el comercio la necesita.",
+  "store": {
+    "alias": "demo-archive-pending",
+    "domain": null,
+    "role": "demo",
+    "preset": "archive"
+  },
+  "baseline": {
+    "source": "docs/demo-import/data/archive.json + historical import inventory",
+    "live_admin_read": false,
+    "live_store_read": false,
+    "note": "Destination demo store does not exist yet. These intents do not inspect any live store data."
+  },
+  "intents": [
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1989-structured-wool-waistcoat"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1989-structured-wool-waistcoat",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1989-structured-wool-waistcoat",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1991-leather-column-skirt"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1991-leather-column-skirt",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1991-leather-column-skirt",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1992-silk-twill-blouse"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1992-silk-twill-blouse",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1992-silk-twill-blouse",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1993-wool-tuxedo-trouser"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1993-wool-tuxedo-trouser",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1993-wool-tuxedo-trouser",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1994-leather-document-portfolio"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1994-leather-document-portfolio",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1994-leather-document-portfolio",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1995-asymmetric-wool-cape"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1995-asymmetric-wool-cape",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1995-asymmetric-wool-cape",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1996-satin-evening-jacket"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1996-satin-evening-jacket",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1996-satin-evening-jacket",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1997-printed-silk-square"
+      },
+      "field": "status",
+      "mutation": "productUpdate",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": "DRAFT",
+      "target_value": "ACTIVE"
+    },
+    {
+      "plan": "t3",
+      "resource": "ProductVariant",
+      "selector": {
+        "product_handle": "1997-printed-silk-square",
+        "variant_options": "all"
+      },
+      "field": "inventoryQuantity",
+      "mutation": "inventorySetQuantities",
+      "baseline_source": "Requested inventory target; resolve the default active fulfillment location by name before any authorized execution.",
+      "baseline_value": 0,
+      "target_value": 8
+    },
+    {
+      "plan": "t3",
+      "resource": "Product",
+      "selector": {
+        "handle": "1997-printed-silk-square",
+        "publication": "Online Store"
+      },
+      "field": "published",
+      "mutation": "publishablePublish",
+      "baseline_source": "Historical QA import snapshot; target demo store is not created yet.",
+      "baseline_value": false,
+      "target_value": true
+    },
+    {
+      "plan": "t3",
+      "resource": "Collection",
+      "selector": {
+        "handle": "permanent-archive"
+      },
+      "field": "definition",
+      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
+      "baseline_source": "docs/demo-import/data/archive.json",
+      "baseline_value": null,
+      "target_value": {
+        "title": "Permanent archive",
+        "rule_tag": "permanent-archive",
+        "product_order": [
+          "1994-cashmere-cocoon-coat",
+          "1996-satin-evening-jacket",
+          "1989-structured-wool-waistcoat",
+          "1998-bias-cut-silk-slip",
+          "1994-leather-document-portfolio",
+          "1993-wool-tuxedo-trouser",
+          "1999-technical-cotton-trench",
+          "1992-silk-twill-blouse",
+          "1991-leather-column-skirt",
+          "1995-asymmetric-wool-cape",
+          "1997-printed-silk-square",
+          "1990-pinstripe-double-breasted-jacket"
+        ]
+      }
+    },
+    {
+      "plan": "t3",
+      "resource": "Collection",
+      "selector": {
+        "handle": "restored-pieces"
+      },
+      "field": "definition",
+      "mutation": "collectionCreate or collectionUpdate by handle (idempotent upsert)",
+      "baseline_source": "docs/demo-import/data/archive.json",
+      "baseline_value": null,
+      "target_value": {
+        "title": "Restored pieces",
+        "rule_tag": "restored-pieces",
+        "product_order": [
+          "1995-asymmetric-wool-cape",
+          "1990-pinstripe-double-breasted-jacket",
+          "1999-technical-cotton-trench"
+        ]
+      }
+    }
+  ],
+  "skipped": [],
+  "intent_count": 26,
+  "skipped_count": 0,
+  "mutations_sent": 0,
+  "safety": {
+    "no_resource_ids_embedded": true,
+    "no_theme_publish_or_delete": true,
+    "no_product_or_collection_delete": true,
+    "no_shop_settings_or_metafields": true,
+    "apply_supported": false,
+    "reason_apply_disabled": "R4 is a planning document only. It does not read store data or emit executable GraphQL."
+  }
+}

@@ -181,7 +181,9 @@
             {%- endunless -%}
           {%- endfor -%}
         </ul>
-      {%- elsif paginate.current_page > 1 or show_featured_article == false -%}
+      {%- elsif paginate.current_page > paginate.pages and paginate.items > 0 -%}
+        <p class="main-blog__empty">{{ 'blogs.blog.page_out_of_range' | t }}</p>
+      {%- elsif paginate.items == 0 -%}
         <p class="main-blog__empty">{{ 'blogs.blog.empty' | t }}</p>
       {%- endif -%}
 
