@@ -46,7 +46,8 @@ test('R4 C1b desktop moves the selected figure first, preserves focus and scroll
   }));
   const gallery = page.locator('product-gallery');
   await page.locator('[data-media-control="7"]').evaluate((element) => element.focus({ preventScroll: true }));
-  await gallery.evaluate((element) => {
+  const selectedFigure = page.locator('[data-product-media-id="7"]');
+  await selectedFigure.evaluate((element) => {
     element.scrollIntoView = (options) => { element.dataset.scrollBehavior = options.behavior; };
     element.closest('[data-section-id]').dispatchEvent(new CustomEvent('theme:variant-change', {
       bubbles: true, detail: { variant: { featured_media_id: '7' } },
@@ -54,7 +55,7 @@ test('R4 C1b desktop moves the selected figure first, preserves focus and scroll
   });
   await expect(page.locator('[data-gallery-track]').locator(':scope > :first-child')).toHaveAttribute('data-product-media-id', '7');
   await expect(page.locator('[data-media-control="7"]')).toBeFocused();
-  expect(await gallery.getAttribute('data-scroll-behavior')).toBe('auto');
+  expect(await selectedFigure.getAttribute('data-scroll-behavior')).toBe('auto');
   expect(await page.locator('[data-gallery-current]').textContent()).toBe('1');
 });
 
