@@ -7619,13 +7619,18 @@ anchor-nav {
    a line chevron like the menu's and a 44px touch target. A thin line separates it from the
    language toggle. */
 .localization-form__country-wrapper {
-  position: relative;
   display: inline-flex;
   align-items: center;
   color: var(--color-foreground);
 }
 
-.localization-form__country-wrapper::after {
+.localization-form__country-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.localization-form__country-select-wrapper::after {
   content: '';
   position: absolute;
   inset-inline-end: 0.35rem;
@@ -7670,7 +7675,7 @@ anchor-nav {
 
 /* Without JS the submit button sits inside the same container: the drawn chevron is removed and
    the select returns to its native arrow so it is not covered. */
-.no-js .localization-form__country-wrapper::after {
+.no-js .localization-form__country-select-wrapper::after {
   content: none;
 }
 

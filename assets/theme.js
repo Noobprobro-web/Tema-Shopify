@@ -3998,7 +3998,8 @@
         ? this.querySelector('[data-cart-drawer-count]')?.textContent.trim() || ''
         : '';
       const message = template.replaceAll('[title]', () => removal.title).trim();
-      this.showStatus([message, count].filter(Boolean).join(' '));
+      const emptyCart = Boolean(this.querySelector('[data-cart-empty-message]'));
+      this.showStatus([message, count].filter(Boolean).join(' '), { visuallyHidden: emptyCart });
     }
 
     // Same region for a quantity change (the removal has its own notice). showStatus() adds a pending
@@ -4410,9 +4411,10 @@
       }, 600);
     }
 
-    showStatus(message) {
+    showStatus(message, { visuallyHidden = false } = {}) {
       const output = this.querySelector('[data-cart-status]');
       if (!output) return;
+      output.classList.toggle('visually-hidden', visuallyHidden);
       if (this.pendingRewards) {
         window.clearTimeout(this.rewardsTimer);
         if (!message.includes(this.pendingRewards)) message = [message, this.pendingRewards].filter(Boolean).join(' ');
@@ -6062,6 +6064,9 @@
       if (open) {
         this.applyBackgroundInert();
         this.releaseFocusTrap = trapFocus(this.panel, this.input);
+        requestAnimationFrame(() => {
+          if (this.isOpen && document.activeElement === this.input) this.input.select();
+        });
         // Closing empties the option list while the results stay in the DOM.
         this.collectOptions();
         this.updateComboboxState();
@@ -6178,7 +6183,7 @@
         items.forEach((item) => {
           const option = type === 'products'
             ? this.createProductResult(item)
-            : this.createTextResult(item, heading);
+            : this.createTextResult(item);
           option.id = `${this.results.id}-option-${optionIndex}`;
           option.setAttribute('role', 'option');
           option.setAttribute('aria-selected', 'false');
@@ -6325,15 +6330,12 @@
       return compareMax;
     }
 
-    createTextResult(item, heading) {
+    createTextResult(item) {
       const link = this.createResultLink(item.url, 'predictive-search__result predictive-search__result--text');
-      const typeLabel = document.createElement('span');
       const title = document.createElement('span');
-      typeLabel.className = 'predictive-search__result-type eyebrow';
-      typeLabel.textContent = heading || '';
       title.className = 'predictive-search__result-title';
       title.textContent = item.title || '';
-      link.append(typeLabel, title);
+      link.append(title);
       return link;
     }
 
