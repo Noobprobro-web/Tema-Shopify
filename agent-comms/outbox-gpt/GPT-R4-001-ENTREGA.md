@@ -64,7 +64,11 @@ Reconciliación de copy: el punto T1 del encargo menciona el sufijo de preview, 
 
 ## 6. ZIP, manifiesto y subida
 
-Pendiente completar después del empaquetado canónico final. Conteo esperado: 111 archivos. No se subieron los tres temas R4 ni se comprobó Shopify en servidor: no hay credenciales de Admin y las tiendas Imprint/Archive siguen sin dominio.
+ZIP canónica generada una sola vez con `node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip --expect-count 111` sobre HEAD `6b0d173d1d5328124e6c240c7a405c8299766e3d`.
+
+- Archivos: 111; tamaño: 333552 bytes; SHA-256: `1d9a22b30cd2ddb738426951cc9f2c28fb76fb9713d7b1f80b7b7799a9bffec1`; huella de contenido: `c623ecfd9a8929b4991b57ca1e2c001aed6ba45d9ae69d7a615a77944139ba0f`.
+- El empaquetador informó `internal references: none`. `unzip -t` terminó sin errores; `node --check` pasó para `assets/theme.js` y `assets/product-zoom.js` extraídos. El manifiesto tiene diez líneas de cabecera y 111 hashes en orden ZIP en `docs/demo-store/ZIP-FINAL-MANIFEST-1.0.0.txt`.
+- Estado Shopify: no se subieron los tres temas R4 ni se comprobó Shopify en servidor. No hay credenciales Admin y las tiendas Imprint/Archive siguen sin dominio. La ZIP declara `Validado en tienda: NO`.
 
 ## 7. Copy nuevo/cambiado para aprobación (D35)
 
