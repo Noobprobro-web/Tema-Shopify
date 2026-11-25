@@ -17,7 +17,7 @@
         "text_alignment": "center",
         "content_width": 46,
         "heading_tag": "h1",
-        "eyebrow": "Catalog / The house",
+        "eyebrow": "Catalog / the house",
         "heading": "Objects with a remembered life",
         "subheading": "<p>A catalog of garments and objects.</p>",
         "button_primary_label": "Enter the catalog",
@@ -32,12 +32,12 @@
       "blocks": {},
       "block_order": [],
       "settings": {
-        "eyebrow": "CURATORIAL PROTOCOL",
+        "eyebrow": "Curatorial notes",
         "quote": "What endures carries the indelible record of its creation.",
         "body": "",
         "button_label": "View the archive",
         "button_url": "",
-        "media_label": "ARCHIVE COLLECTION",
+        "media_label": "Archive collection",
         "use_surface_background": true,
         "color_scheme": "scheme-3"
       }
@@ -45,9 +45,9 @@
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "circa": { "type": "item", "settings": { "text": "THE PERMANENT ARCHIVE" } },
-        "conservation": { "type": "item", "settings": { "text": "CURATED GARMENTS & OBJECTS" } },
-        "accession": { "type": "item", "settings": { "text": "CURATED SELECTIONS & ACCESSIONS" } }
+        "circa": { "type": "item", "settings": { "text": "Permanent archive" } },
+        "conservation": { "type": "item", "settings": { "text": "Garments and objects" } },
+        "accession": { "type": "item", "settings": { "text": "Selected pieces" } }
       },
       "block_order": ["circa", "conservation", "accession"],
       "settings": {
@@ -63,8 +63,8 @@
       },
       "block_order": ["decade80", "decade90"],
       "settings": {
-        "eyebrow": "THE VAULT",
-        "heading": "Archive Entries",
+        "eyebrow": "The archive",
+        "heading": "Archive pieces",
         "show_secondary_image": false,
         "show_vendor": true,
         "color_scheme": "scheme-1"
@@ -79,7 +79,7 @@
       },
       "block_order": ["marker1", "marker2", "marker3"],
       "settings": {
-        "eyebrow": "CURATED SELECTIONS",
+        "eyebrow": "Selected pieces",
         "heading": "Collection highlights",
         "description": "<p>Explore the collection.</p>",
         "caption": "",
