@@ -18,7 +18,7 @@ import {
 // ---------------------------------------------------------------------------------------------
 const predictiveSearchMarkup = `<predictive-search class="predictive-search js-only"
   data-predictive-search-url="/search/suggest" data-search-url="/search" data-money-format="\${{amount}}"
-  data-loading-text="Loading" data-no-results-text="No results" data-error-text="Search is not available right now"
+  data-loading-text="Loading" data-no-results-text="No matches for “[terms]”. Try a different search or view all results." data-error-text="Search is not available right now"
   data-products-heading="Products" data-collections-heading="Collections" data-articles-heading="Articles"
   data-pages-heading="Pages" data-sold-out-text="Sold out" data-in-stock-text="In stock"
   data-regular-price-text="Regular price" data-price-from-text="From" data-sale-price-text="Sale price" data-view-all-template="View all [terms]"
@@ -102,7 +102,7 @@ test.describe('AS-03 predictive search cancelled queries', () => {
     await expect(results(page)).toHaveAttribute('aria-busy', 'false');
   });
 
-  test('AS-03 a failed request says the search failed, not "no results"; an empty answer still says "no results"', async ({ page }) => {
+test('AS-03 a failed request says the search failed, not "no results"; an empty answer still says "no results"', async ({ page }) => {
     const state = await mountSearch(page, { status: 500, body: 'boom' });
     const footer = page.locator('[data-predictive-search-footer]');
     await page.locator('[data-predictive-search-open]').click();
@@ -115,7 +115,18 @@ test.describe('AS-03 predictive search cancelled queries', () => {
     // Control inside the same flow: a successful but empty answer keeps the usual message.
     Object.assign(state, { status: 200, body: resultsBody({}) });
     await page.locator('[data-predictive-search-input]').fill('hatx');
-    await expect(footer).toContainText('No results');
+    await expect(footer).toContainText('No matches for “hatx”. Try a different search or view all results.');
+  });
+
+  test('R4A-6 and R4A-13 substitute literal search terms and announce the empty result', async ({ page }) => {
+    await mountSearch(page, { body: resultsBody({}) });
+    await page.locator('[data-predictive-search-open]').click();
+    await page.locator('[data-predictive-search-input]').fill('a$&b');
+
+    const footer = page.locator('[data-predictive-search-footer]');
+    await expect(footer.locator('.predictive-search__empty')).toHaveText('No matches for “a$&b”. Try a different search or view all results.');
+    await expect(footer.locator('.predictive-search__view-all')).toHaveText('View all a$&b');
+    await expect(page.locator('[data-predictive-search-status]')).toHaveText('No matches for “a$&b”. Try a different search or view all results.');
   });
 });
 

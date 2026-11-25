@@ -6218,18 +6218,18 @@
       // The empty state and "View all" are not options: they go at the foot of the panel, outside
       // the listbox, so it contains only option and group (axe aria-required-children).
       const footer = document.createDocumentFragment();
+      const emptyTemplate = (failed ? this.dataset.errorText : this.dataset.noResultsText) || '';
       if (resultCount === 0) {
         const empty = document.createElement('p');
         empty.className = 'predictive-search__empty';
-        const emptyTemplate = (failed ? this.dataset.errorText : this.dataset.noResultsText) || '';
-        empty.textContent = failed ? emptyTemplate : emptyTemplate.replaceAll('[terms]', query);
+        empty.textContent = failed ? emptyTemplate : emptyTemplate.replaceAll('[terms]', () => query);
         footer.append(empty);
       }
 
       const viewAll = document.createElement('a');
       viewAll.className = 'predictive-search__view-all button button--secondary';
       viewAll.href = this.createSearchUrl(query);
-      viewAll.textContent = (this.dataset.viewAllTemplate || '').replace('[terms]', query);
+      viewAll.textContent = (this.dataset.viewAllTemplate || '').replace('[terms]', () => query);
       footer.append(viewAll);
 
       this.results.replaceChildren(fragment);
@@ -6245,7 +6245,11 @@
       this.updateComboboxState();
       this.renderedQuery = failed ? null : query;
       if (this.status) {
-        this.status.textContent = failed ? this.dataset.errorText || '' : this.getResultsCountText(resultCount);
+        this.status.textContent = failed
+          ? this.dataset.errorText || ''
+          : resultCount === 0
+            ? emptyTemplate.replaceAll('[terms]', () => query)
+            : this.getResultsCountText(resultCount);
       }
     }
 
