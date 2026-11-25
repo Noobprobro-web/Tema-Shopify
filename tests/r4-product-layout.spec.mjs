@@ -58,6 +58,36 @@ test('R4 C1b desktop moves the selected figure first, preserves focus and scroll
   expect(await page.locator('[data-gallery-current]').textContent()).toBe('1');
 });
 
+test('R4A-5 scrolls the selected media into view when its gallery is already partly visible', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const tallGallery = `<div style="height:1000px"></div><section data-section-id="product"><product-gallery class="product-gallery" data-layout="grid">
+    <div class="product-gallery__items" data-gallery-track style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+      ${Array.from({ length: 7 }, (_, index) => `<figure style="height:420px" class="product-gallery__item" data-product-media-id="${index + 1}"><button>Media ${index + 1}</button></figure>`).join('')}
+    </div><div class="product-gallery__pager" data-gallery-pager><span data-gallery-current>1</span><span data-gallery-status></span></div>
+  </product-gallery></section>`;
+  await page.setContent(pageShell(tallGallery, { head: `<style>${baseCss()}</style><style>:root{--header-offset:101px}</style>` }));
+  const gallery = page.locator('product-gallery');
+  await page.evaluate(() => window.scrollTo(0, 1300));
+  const before = await page.locator('[data-product-media-id="7"]').evaluate((element) => ({
+    mediaTop: element.getBoundingClientRect().top,
+    galleryTop: element.closest('product-gallery').getBoundingClientRect().top,
+    galleryBottom: element.closest('product-gallery').getBoundingClientRect().bottom,
+  }));
+  expect(before.mediaTop).toBeGreaterThan(900);
+  expect(before.galleryTop).toBeLessThan(0);
+  expect(before.galleryBottom).toBeGreaterThan(0);
+  await gallery.evaluate((element) => element.closest('[data-section-id]').dispatchEvent(new CustomEvent('theme:variant-change', {
+    bubbles: true, detail: { variant: { featured_media_id: '7' } },
+  })));
+  const selectedBounds = await page.locator('[data-product-media-id="7"]').evaluate((element) => {
+    const { top, bottom } = element.getBoundingClientRect();
+    return { top, bottom };
+  });
+  expect(selectedBounds.top).toBeGreaterThanOrEqual(95);
+  expect(selectedBounds.bottom).toBeLessThanOrEqual(900);
+});
+
 test('R4 C1b mobile keeps carousel DOM order and moves the index to the selected variant', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.setContent(pageShell(productGallery, { head: `<style>${baseCss()}</style>` }));

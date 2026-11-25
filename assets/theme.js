@@ -737,9 +737,12 @@
           this.applySlide(0, false);
           if (focusedElement?.isConnected) focusedElement.focus({ preventScroll: true });
 
-          const rect = this.getBoundingClientRect();
-          if (rect.bottom <= 0 || rect.top >= window.innerHeight) {
-            this.scrollIntoView({
+          const selectedRect = selected.getBoundingClientRect();
+          const headerOffset = Number.parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue('--header-offset'),
+          ) || 0;
+          if (selectedRect.top < headerOffset || selectedRect.bottom > window.innerHeight) {
+            selected.scrollIntoView({
               block: 'start',
               behavior: this.reducedMotionQuery.matches ? 'auto' : 'smooth',
             });
