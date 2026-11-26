@@ -1,19 +1,19 @@
 # Sartorial 1.0.0 - ZIP canonico (node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip --expect-count 111)
-# rev:       HEAD 0b4d5174312d851871e1ed75399ccfad3f7744ca (R4 integrada; copy aprobado por Johandry el 2026-11-25, D76; sin validar en tienda)
-# fecha:     2026-11-25 (DOS UTC 2026-11-25T06:45:48Z)
+# rev:       HEAD db5b1b772610b06ebcab22c053da053104a15703 (R5; compuertas estáticas y Playwright en verde)
+# fecha:     2026-11-26 (DOS UTC 2026-11-26T03:21:36Z)
 # archivos:  111
-# tamano:    334033 bytes
-# sha256:    30f2ba2bd00bd68044fdd0d5c18adac7aa67d0bdf5a09f4bf45441f52e608d17
-# contenido: 87871ac06b2c788f03dbda651545b5bd6b9066083409c9b9ff34af4971f9aa27 (huella independiente de zlib)
-# zlib:      1.3.1-e00f703 (node 22.23.5)
-# Validado en tienda: NO. La ronda R4 no se ha subido a Shopify; quedan pendientes las subidas sin publicar y la comprobación en las tiendas de QA/demo.
+# tamano:    338402 bytes
+# sha256:    a1c01543fc02e027d810e6eb320b462b03416b3fe005bb391c28d40cf3f158d7
+# contenido: 6ceb4706319d0ca867d9e88db775e0e01f3b1f30897cd2fec2a1f6a2f495b1bc (huella independiente de zlib)
+# zlib:      1.3.1-e00f703 (node 24.18.0)
+# Validado en tienda: NO. Pendiente la revisión de los tres presets R5 en la tienda de QA.
 # Lineas siguientes: sha256  ruta, una por archivo del ZIP.
-0051dc5294411e2557560ae35b4e4ad81eae14d320632f52b413918715d31bf1  assets/base.css
+c21c9f666a1ad40121afae0b75f9edbaba092c2ada5282460e932a80f21cd3a9  assets/base.css
 a32c4a6042a02aa04c7f94c2bf4b32dd02f2cae43447d5148ca8058761fd13fe  assets/product-zoom.js
 de3e8cd4f0197a51bd786a5e831b89af18fa1316a07260d480a78fd431322701  assets/section-standard-a.css
 23e4c22e2f37b3c3132fb9adfbf3f7e66307dbcf346e2e2ed970d90cb690cf6a  assets/section-standard-b.css
 6c34d7a321c69a6156f2e2c62272b9c4d6ee105ffb755445d4f479328c1d8dbc  assets/section-standard-b.js
-6263f1422bcd9935d94fe038a114124b6769e772fe3d14c34895c87e863fc5a4  assets/theme.js
+1c9fabd31201363957ee9bf5efaf526a712ec3168f86a09b9ac579fd72b326d0  assets/theme.js
 152d3883bde7540d4ad3c75499b05477b274297ed0185b1dfdac85686240483f  config/settings_data.json
 0b91af9704f820ef8fa999a61b9ef9ae2a36f2a9abdcb70a05d78b804c5523a4  config/settings_schema.json
 cdf0dd411574249ec17d0ed857bfc2faf60f84055d5ed9ea4b4861bd762dc94a  layout/password.liquid
@@ -55,7 +55,7 @@ b6df10e872d44d2c603c59f35e9ebc81ae444d33f7776a1b5cc4532697db8908  sections/main-
 3005405e9755367aca3bb19abde6f87baf5ca3ae86d2f3bd0565dd5869803594  sections/main-about.liquid
 14764c04ac74b460480551039aea2ef57a0709b625282b15309aa013506d776f  sections/main-article.liquid
 c706fff3ab9db72317dfb94a78c288293f346970372e1047dc34ae2ec94f6488  sections/main-blog.liquid
-4fd5ad130d8baa6958224a66f875af85b61c7a2bdd67bf9f551e6c1b57b3934c  sections/main-cart-items.liquid
+fce3a3a3ce42fed0d8f0f9ac63eb47d7ffb031f6793419d657d14a87602755a8  sections/main-cart-items.liquid
 366b886785ff8d44ec1de48670fade42f09fed7342f2e2158957f5d791008ed3  sections/main-collection.liquid
 31ef5d5be3bd9853ee30408a3f2e8b4bf2ea0ce6fede6232de083301dd3fc9f3  sections/main-contact.liquid
 879193ec320367122c438de12d768facae86fdbf56d750e8a387c46426dd1cde  sections/main-faq.liquid

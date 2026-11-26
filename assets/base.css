@@ -7365,7 +7365,17 @@ anchor-nav {
   }
 
   .main-404__search-row {
-    grid-template-columns: minmax(0, 1fr) auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .main-404__search-row > input:not([type='hidden']) {
+    flex: 1 1 16rem;
+    min-width: 0;
+  }
+
+  .main-404__search-row > button {
+    flex: 0 0 auto;
   }
 
   .contact-form__footer {
@@ -7631,6 +7641,22 @@ anchor-nav {
   position: relative;
   display: inline-flex;
   align-items: center;
+}
+
+/* Let the apply button take the next line when the country label fills the drawer. */
+.localization-form--header-mobile .localization-form__country-wrapper {
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: var(--space-xs);
+}
+
+.localization-form--header-mobile .localization-form__country-select-wrapper {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.localization-form--header-mobile .localization-form__country-submit {
+  margin-inline-start: 0;
 }
 
 .localization-form__country-select-wrapper::after {
@@ -9168,6 +9194,31 @@ html {
 @media (min-width: 62rem) {
   .product-main__layout--grid .product-gallery__item:first-child:nth-last-child(odd) {
     grid-column: 1 / -1;
+  }
+
+  /* Start at the gallery ratio and grow when the image in the other column sets a taller row.
+     Keep the AR button in its own space below the viewer. */
+  .product-main__layout--grid .product-gallery__item:has(> :is(model-viewer, .shopify-model-viewer-ui, video, iframe)) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-main__layout--grid .product-gallery__item > :is(model-viewer, .shopify-model-viewer-ui, video, iframe) {
+    display: block;
+    flex: 1 0 auto;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: var(--gallery-ratio, 0.8);
+  }
+
+  .product-main__layout--grid .product-gallery__item .shopify-model-viewer-ui model-viewer {
+    display: block;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .product-main__layout--grid .product-gallery__item video {
+    object-fit: contain;
   }
 }
 

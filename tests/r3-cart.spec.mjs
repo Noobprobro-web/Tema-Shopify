@@ -181,10 +181,11 @@ test.describe('FB-20 focus survives a repaint of the drawer', () => {
 
 test.describe('FB-30 zero on the cart page is a removal command', () => {
   test('FB-30 typing 0 in a cart page quantity field is kept instead of being snapped to the minimum', async ({ page }) => {
-    await mountCart(page);
+    const server = await mountCart(page);
     const field = page.locator('#CartQuantity-1');
     await field.fill('0');
     await field.press('Tab');
     await expect(field).toHaveValue('0');
+    await expect.poll(() => server.changeRequests).toBe(1);
   });
 });

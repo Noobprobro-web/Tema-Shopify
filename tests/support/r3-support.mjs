@@ -175,33 +175,49 @@ export const optionRadios = (variants, selectedId) =>
     .join('');
 
 // sections/main-cart-items.liquid: the cart page section the drawer refreshes while on /cart.
-export const cartPageMarkup = ({ quantity = 1, note = '' } = {}) => `<section class="section cart-page"
-  data-cart-page data-section-id="main-cart">
+export const cartPageMarkup = ({ quantity = 1, note = '', lines = quantity > 0
+  ? [{ key: 'k1:abc', title: 'Blue Hat', quantity }]
+  : [] } = {}) => {
+  const total = lines.reduce((sum, line) => sum + line.quantity, 0);
+  return `<p class="visually-hidden" role="status" data-cart-page-status="main-cart"></p>
+  <section class="section cart-page" data-cart-page data-section-id="main-cart"
+    data-cart-change-url="/cart/change.js" data-cart-url="/cart" data-item-count="${total}"
+    data-cart-count-label="Cart, ${total} item${total === 1 ? '' : 's'}"
+    data-error-message="Something went wrong" data-removed-template="Removed [title]"
+    data-quantity-updated-template="Updated [title] to [quantity]">
   <div class="container flow">
-    <form class="cart-form" action="/cart" method="post" novalidate>
+    <h1 tabindex="-1">Cart</h1>
+    ${lines.length ? `<form class="cart-form" action="/cart" method="post" novalidate>
       <div class="cart-items" role="list">
-        <div class="cart-item" role="listitem" data-cart-item-key="k1:abc">
+        ${lines.map(({ key, title, quantity, min = 1, step = 1, max, image = false }, index) => `<div class="cart-item" role="listitem" data-cart-item-key="${key}" data-cart-item-title="${title}">
+          ${image ? '<img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">' : ''}
+          <h2>${title}</h2>
+          <p data-line-price>$${quantity * 10}.00</p>
           <div class="cart-item__controls">
-            <label for="CartQuantity-1">Quantity</label>
+            <label for="CartQuantity-${index + 1}">Quantity</label>
             <div class="quantity-stepper cart-item__stepper" data-quantity-stepper>
               <button class="quantity-stepper__button" type="button" name="minus" aria-label="Decrease quantity"
-                aria-controls="CartQuantity-1" data-quantity-button="decrease">-</button>
-              <input id="CartQuantity-1" class="quantity-stepper__input" type="number" name="updates[]"
-                value="${quantity}" min="1" step="1" inputmode="numeric" data-quantity-input>
+                aria-controls="CartQuantity-${index + 1}" data-quantity-button="decrease"${quantity <= min ? ' disabled' : ''}>-</button>
+              <input id="CartQuantity-${index + 1}" class="quantity-stepper__input" type="number" name="updates[]"
+                value="${quantity}" min="${min}" step="${step}"${max === undefined ? '' : ` max="${max}"`} inputmode="numeric"
+                data-quantity-input data-cart-quantity>
               <button class="quantity-stepper__button" type="button" name="plus" aria-label="Increase quantity"
-                aria-controls="CartQuantity-1" data-quantity-button="increase">+</button>
+                aria-controls="CartQuantity-${index + 1}" data-quantity-button="increase"${quantity >= max ? ' disabled' : ''}>+</button>
             </div>
-            <a href="/cart/change?id=k1:abc&amp;quantity=0">Remove</a>
+            <a href="/cart/change?id=${key}&amp;quantity=0" data-cart-remove>Remove</a>
           </div>
-        </div>
+        </div>`).join('')}
       </div>
       <footer class="cart-page__footer">
         <div class="cart-note">
           <label for="CartNote">Order note</label>
           <textarea id="CartNote" name="note">${note}</textarea>
         </div>
+        <p data-cart-subtotal>$${total * 10}.00</p>
         <button class="button" type="submit" name="update">Update cart</button>
+        <button class="button" type="submit" name="checkout">Checkout</button>
       </footer>
-    </form>
+    </form>` : '<p tabindex="-1" data-cart-empty-message>Your cart is empty</p>'}
   </div>
 </section>`;
+};
