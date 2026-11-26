@@ -250,6 +250,129 @@
     throw new Error(errorMessage);
   });
 
+  const postCartUpdate = async (url, body, sections, errorMessage) => {
+    const response = await fetchCommerce(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({ ...body, sections, sections_url: `${location.pathname}${location.search}` }),
+    }, errorMessage);
+    // A proxy may return an HTML error page. Report the localized error rather than the JSON parse error.
+    const result = await response.json().catch((error) => {
+      if (error.name === 'AbortError') throw error;
+      throw new Error(errorMessage);
+    });
+    if (!response.ok) throw new Error(result?.description || result?.message || errorMessage);
+    return result;
+  };
+
+  const cartPageSection = () => document.querySelector('[data-cart-page][data-section-id]');
+  const cartRows = (parent) => Array.from(parent.querySelectorAll('[data-cart-item-key]'));
+  const cartRow = (rows, key) => rows.find((row) => row.dataset.cartItemKey === key);
+
+  // Keep the same field, plus, minus or remove control by line key. Position can change on removal.
+  const lineControlAfterRender = (control, nextContent) => {
+    const key = control?.closest?.('[data-cart-item-key]')?.dataset.cartItemKey;
+    if (!key) return null;
+    const row = cartRow(cartRows(nextContent), key);
+    if (!row) return null;
+    const selector = ['[data-cart-quantity]', '[data-cart-remove]'].find((candidate) => control.matches(candidate))
+      || (control.dataset.quantityButton ? `[data-quantity-button="${control.dataset.quantityButton}"]` : null);
+    return selector ? row.querySelector(selector) : null;
+  };
+
+  const requestCartPageSection = async (cartUrl, sectionId) => {
+    const url = new URL(cartUrl, location.origin);
+    url.searchParams.set('section_id', sectionId);
+    const response = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+    return response.ok ? response.text() : null;
+  };
+
+  const cartPageFocusTarget = (current, next, control) => {
+    const oldRow = control.closest('[data-cart-item-key]');
+    if (oldRow) {
+      const same = lineControlAfterRender(control, next);
+      if (same && !same.disabled) return same;
+      const rows = cartRows(current);
+      const index = rows.indexOf(oldRow);
+      const nextRows = cartRows(next);
+      for (const row of [oldRow, ...rows.slice(index + 1), ...rows.slice(0, index).reverse()]) {
+        const field = cartRow(nextRows, row.dataset.cartItemKey)?.querySelector('[data-cart-quantity]');
+        if (field) return field;
+      }
+    } else {
+      const selector = control.id ? `#${CSS.escape(control.id)}`
+        : control.matches('button[name]') ? `button[name="${CSS.escape(control.name)}"]` : '';
+      const same = selector && next.querySelector(selector);
+      if (same && !same.disabled) return same;
+    }
+    return next.querySelector('[data-cart-empty-message]')
+      || next.querySelector('h1[tabindex="-1"]');
+  };
+
+  const replaceCartPage = (html, { sent = new Map(), focusSource = null } = {}) => {
+    const current = cartPageSection();
+    if (!current || !html) return null;
+    const next = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-cart-page]');
+    if (!next || next.dataset.sectionId !== current.dataset.sectionId) return null;
+    const note = current.querySelector('textarea[name="note"]');
+    const nextNote = next.querySelector('textarea[name="note"]');
+    if (note && nextNote && note.value !== note.defaultValue) nextNote.value = note.value;
+
+    // Preserve typing and queued changes across a drawer repaint. A field already sent with
+    // this response shows the actual server quantity, including after an error or a stock limit.
+    const nextRows = cartRows(next);
+    for (const row of cartRows(current)) {
+      const key = row.dataset.cartItemKey;
+      const field = row.querySelector('input[name="updates[]"]');
+      if (!field || field.value === (sent.get(key) ?? field.defaultValue)) continue;
+      const nextField = cartRow(nextRows, key)?.querySelector('input[name="updates[]"]');
+      if (!nextField) continue;
+      nextField.value = field.value;
+      const stepper = nextField.closest('[data-quantity-stepper]');
+      if (stepper) syncQuantityStepper(stepper);
+    }
+
+    const active = document.activeElement;
+    const control = current.contains(active) ? active
+      : active === document.body && current.contains(focusSource) ? focusSource : null;
+    const focus = control && cartPageFocusTarget(current, next, control);
+    current.replaceWith(next);
+    focus?.focus({ preventScroll: true });
+    return next;
+  };
+
+  const updateCartHeaderCount = ({ cartUrl, itemCount, cartCountLabel }) => {
+    const quantity = Number(itemCount) || 0;
+    const url = new URL(cartUrl, location.origin);
+    // A disabled cart count setting omits the hook. Only the enabled cart link mirrors the count.
+    document.querySelectorAll('a.site-header__cart[data-cart-count-enabled]').forEach((link) => {
+      const linkUrl = new URL(link.href, location.origin);
+      if (linkUrl.origin !== url.origin || linkUrl.pathname !== url.pathname || link.closest('cart-drawer')) return;
+      link.setAttribute('aria-label', cartCountLabel);
+      let count = link.querySelector('.site-header__cart-count');
+      if (quantity > 0 && !count) {
+        count = document.createElement('span');
+        count.className = 'site-header__cart-count';
+        count.setAttribute('aria-hidden', 'true');
+        link.append(count);
+      }
+      if (count) {
+        count.textContent = quantity;
+        count.hidden = quantity === 0;
+      }
+    });
+  };
+
+  const writeCartStatus = (output, message) => {
+    output.textContent = '';
+    output.hidden = false;
+    window.setTimeout(() => { output.textContent = message; }, 100);
+  };
+
   // Shopify's quantity grid: only min + k * increment up to max is valid. The real ceiling is the
   // largest step that fits under max (min 2, step 2, max 5 gives 4, not 5). If not even the minimum
   // fits (max < min), it returns a value below min and the caller decides how to block.
@@ -3966,30 +4089,8 @@
       this.setDrawerBusy(true);
 
       try {
-        const response = await fetchCommerce(this.dataset.cartChangeUrl, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-          body: JSON.stringify({
-            id: key,
-            quantity,
-            sections: this.renderSectionIds(),
-            sections_url: `${window.location.pathname}${window.location.search}`,
-          }),
-        }, this.dataset.errorMessage);
-        // Shopify and upstream proxies answer 429/5xx with an HTML error page. Parsing it
-        // as JSON throws "Unexpected token '<'" straight at the shopper, so the parse
-        // failure is turned into the localized message instead. A deliberate abort keeps
-        // its own name, because callers use it to stay silent.
-        const result = await response.json().catch((error) => {
-          if (error.name === 'AbortError') throw error;
-          throw new Error(this.dataset.errorMessage);
-        });
-
-        if (!response.ok) throw new Error(result?.description || result?.message || this.dataset.errorMessage);
+        const result = await postCartUpdate(this.dataset.cartChangeUrl, { id: key, quantity },
+          this.renderSectionIds(), this.dataset.errorMessage);
 
         applied = true;
         await this.renderCartResponse(result, revision);
@@ -4006,18 +4107,6 @@
         this.setDrawerBusy(false);
         this.endMutation();
       }
-    }
-
-    // The same control (field, plus, minus or remove) of the same line, by its key.
-    lineControlAfterRender(control, nextContent) {
-      const key = control?.closest?.('[data-cart-item-key]')?.dataset.cartItemKey;
-      if (!key) return null;
-      const row = Array.from(nextContent.querySelectorAll('[data-cart-item-key]'))
-        .find((candidate) => candidate.dataset.cartItemKey === key);
-      if (!row) return null;
-      const selector = ['[data-cart-quantity]', '[data-cart-remove]'].find((candidate) => control.matches(candidate))
-        || (control.dataset.quantityButton ? `[data-quantity-button="${control.dataset.quantityButton}"]` : null);
-      return selector ? row.querySelector(selector) : null;
     }
 
     // The persistent [data-cart-status] region announces the removed line and the new count. The
@@ -4147,7 +4236,7 @@
     // flight a slow response carries older HTML than a fast one. Painting it would show
     // a quantity the server has already moved past; a superseded response is dropped and
     // endMutation() decides whether the latest state still needs a fetch.
-    async renderCartResponse(result, revision = this.syncRevision) {
+    async renderCartResponse(result, revision = this.syncRevision, pageOptions) {
       if (revision !== this.syncRevision) return;
       let sectionHtml = result.sections?.[this.dataset.sectionId];
       if (!sectionHtml) sectionHtml = await this.requestSection();
@@ -4156,19 +4245,15 @@
       this.interactionFrozen = false;
       this.skippedSync = false;
       this.renderSection(sectionHtml);
-      await this.renderCartPage(result.sections, revision);
+      return this.renderCartPage(result.sections, revision, pageOptions);
     }
 
     // On /cart the drawer and the cart page show the same purchase. If the drawer changes a line
     // and the page does not find out, the shopper sees two different carts until reloading. Each
     // mutation also requests the page's section in the same call, so both come from the same server
     // state and no second request is needed.
-    cartPageSection() {
-      return document.querySelector('[data-cart-page][data-section-id]');
-    }
-
     renderSectionIds() {
-      const pageSectionId = this.cartPageSection()?.dataset.sectionId;
+      const pageSectionId = cartPageSection()?.dataset.sectionId;
       return pageSectionId && pageSectionId !== this.dataset.sectionId
         ? [this.dataset.sectionId, pageSectionId]
         : [this.dataset.sectionId];
@@ -4176,37 +4261,26 @@
 
     // The page is refreshed as a complement: if it fails, the drawer is already painted correctly
     // and the page is fixed by the next mutation or on reload, without showing an error.
-    async renderCartPage(sections, revision = this.syncRevision) {
-      const page = this.cartPageSection();
+    async renderCartPage(sections, revision = this.syncRevision, pageOptions) {
+      const page = cartPageSection();
       if (!page) return;
 
       const pageSectionId = page.dataset.sectionId;
       // A sync without a mutation (opening the drawer) must not throw away what the shopper has typed
       // on the page and not submitted yet: the page is left as is until the next mutation or reload.
-      if (!sections && this.cartPageHasEdits(page)) return;
+      if (!sections && !pageOptions && this.cartPageHasEdits(page)) return;
       let pageHtml = sections?.[pageSectionId];
 
       if (!pageHtml) {
         try {
-          const url = new URL(this.dataset.cartUrl, window.location.origin);
-          url.searchParams.set('section_id', pageSectionId);
-          const response = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-          if (!response.ok) return;
-          pageHtml = await response.text();
+          pageHtml = await requestCartPageSection(this.dataset.cartUrl, pageSectionId);
         } catch {
           return;
         }
       }
 
       if (revision !== this.syncRevision) return;
-      const nextPage = new DOMParser().parseFromString(pageHtml, 'text/html').querySelector('[data-cart-page]');
-      const currentPage = this.cartPageSection();
-      if (!nextPage || !currentPage?.isConnected) return;
-      // A mutation does change the lines, but an unsent note typed on the page is still the shopper's.
-      const note = currentPage.querySelector('textarea[name="note"]');
-      const nextNote = nextPage.querySelector('textarea[name="note"]');
-      if (note && nextNote && note.value !== note.defaultValue) nextNote.value = note.value;
-      currentPage.replaceWith(nextPage);
+      return replaceCartPage(pageHtml, pageOptions);
     }
 
     // True when a quantity field or the note of the page differs from what the server painted.
@@ -4277,7 +4351,7 @@
       } else if (restoreFocus) {
         // Line ids are positional: the same control is first looked up within the same line (by its
         // key) and the id stays as a fallback.
-        const restored = this.lineControlAfterRender(focusSource, nextContent)
+        const restored = lineControlAfterRender(focusSource, nextContent)
           || (focusSource?.id ? nextContent.querySelector(`#${CSS.escape(focusSource.id)}`) : null);
         // The control may come back disabled from the server: the plus button turns off when the
         // line hits the inventory cap, which the client does not know. A focus() on a disabled
@@ -4314,31 +4388,7 @@
     }
 
     updateHeaderCount() {
-      const itemCount = Number(this.dataset.itemCount) || 0;
-
-      // Only the header cart link (the one that carries the counter) gets its name rewritten.
-      document.querySelectorAll('a.site-header__cart[data-cart-count-enabled]').forEach((link) => {
-        const linkUrl = new URL(link.href, window.location.origin);
-        const cartUrl = new URL(this.dataset.cartUrl, window.location.origin);
-        if (linkUrl.origin !== cartUrl.origin || linkUrl.pathname !== cartUrl.pathname) return;
-        if (this.contains(link)) return;
-
-        link.setAttribute('aria-label', this.dataset.cartCountLabel);
-        let count = link.querySelector('.site-header__cart-count');
-
-        // The "Show cart count" setting turned off must not switch on at the first add.
-        if (itemCount > 0 && !count && link.hasAttribute('data-cart-count-enabled')) {
-          count = document.createElement('span');
-          count.className = 'site-header__cart-count';
-          count.setAttribute('aria-hidden', 'true');
-          link.append(count);
-        }
-
-        if (count) {
-          count.textContent = itemCount;
-          count.hidden = itemCount === 0;
-        }
-      });
+      updateCartHeaderCount(this.dataset);
     }
 
     setFormBusy(form, submitter, busy) {
@@ -4455,11 +4505,7 @@
       }
       // The region is shown empty and the text arrives later: a live region that appears already
       // containing text is not always announced (NVDA/JAWS with Chrome).
-      output.textContent = '';
-      output.hidden = false;
-      window.setTimeout(() => {
-        output.textContent = message;
-      }, 100);
+      writeCartStatus(output, message);
     }
   }
 
@@ -6961,8 +7007,7 @@
   // over and a single implementation serves both surfaces:
   // - In the drawer, handleDrawerChange picks it up -> validation -> changeLine(), with the
   // per-mutation revision that discards overtaken responses.
-  // - On the cart page, which is a form without JavaScript, the field is left edited awaiting
-  // "Update cart", as if it had been typed.
+  // - On the cart page, initCartPage batches the same events and leaves the native form available.
   // ---------------------------------------------------------------------------
   const readQuantityRules = (input) => {
     const step = Math.abs(Number(input.getAttribute('step'))) || 1;
@@ -7082,6 +7127,162 @@
     document.querySelectorAll('[data-quantity-stepper]').forEach(syncQuantityStepper);
   };
 
+  const readCartPageUpdates = (page, confirmed) => {
+    const updates = new Map();
+    for (const row of cartRows(page)) {
+      const field = row.querySelector('input[name="updates[]"]');
+      const key = row.dataset.cartItemKey;
+      if (!field || !key || field.validity.badInput) continue;
+      const previous = confirmed.get(key) ?? Number(field.defaultValue);
+      const quantity = field.valueAsNumber;
+      if (quantity !== previous && (quantity === 0 || (Number.isInteger(quantity) && field.checkValidity()))) {
+        updates.set(key, quantity);
+      }
+    }
+    return updates;
+  };
+
+  const initCartPage = () => {
+    let debounce;
+    let pending = false;
+    let inFlight;
+    let focusSource;
+
+    const update = async () => {
+      const page = cartPageSection();
+      if (!page) {
+        pending = false;
+        return false;
+      }
+      const { cartUrl, cartUpdateUrl, sectionId, errorMessage, removedTemplate, quantityUpdatedTemplate } = page.dataset;
+      const drawer = document.querySelector('cart-drawer');
+      const confirmed = new Map();
+      const sent = new Map();
+      const announcements = new Map();
+      let revision;
+      let result;
+      let failure;
+      try {
+        while (pending) {
+          pending = false;
+          window.clearTimeout(debounce);
+          const current = cartPageSection();
+          if (!current) return false;
+          const updates = readCartPageUpdates(current, confirmed);
+          if (!updates.size) continue;
+          if (drawer && revision !== drawer.syncRevision) {
+            if (revision !== undefined) drawer.endMutation();
+            revision = drawer.beginMutation();
+          }
+          const rows = cartRows(current);
+          for (const [key, quantity] of updates) {
+            sent.set(key, String(quantity));
+            announcements.set(key, cartRow(rows, key)?.dataset.cartItemTitle || '');
+          }
+          try {
+            result = await postCartUpdate(cartUpdateUrl, { updates: Object.fromEntries(updates) },
+              drawer ? drawer.renderSectionIds() : [sectionId], errorMessage);
+            failure = null;
+            const items = new Map((result.items || []).map(({ key, quantity }) => [key, quantity]));
+            for (const key of updates.keys()) confirmed.set(key, items.get(key) ?? 0);
+          } catch (error) {
+            result = null;
+            failure = error;
+          }
+        }
+        if (!sent.size) return true;
+
+        const options = { sent, focusSource };
+        let painted;
+        // The drawer's revision orders page responses with drawer mutations too. If it has
+        // moved on, read fresh page markup instead of using the older bundled HTML.
+        if (drawer && revision === drawer.syncRevision) {
+          try {
+            painted = await drawer.renderCartResponse(result || {}, revision, options);
+          } catch {
+            // Bundled sections can be missing. The standalone section read below can still succeed.
+          }
+        }
+        if (!painted) {
+          const currentRevision = drawer?.syncRevision;
+          const html = (!drawer && result?.sections?.[sectionId]) || await requestCartPageSection(cartUrl, sectionId);
+          if (drawer?.syncRevision === currentRevision) painted = replaceCartPage(html, options);
+        }
+        if (painted && !drawer) updateCartHeaderCount(painted.dataset);
+
+        const output = document.querySelector(`[data-cart-page-status="${CSS.escape(sectionId)}"]`);
+        if (output && !pending) {
+          const messages = Array.from(announcements, ([key, title]) => {
+            const quantity = confirmed.get(key);
+            return quantity === 0 ? removedTemplate.replaceAll('[title]', () => title)
+              : quantityUpdatedTemplate.replaceAll('[title]', () => title).replaceAll('[quantity]', String(quantity));
+          });
+          writeCartStatus(output, failure?.message || (painted ? messages.join(' ') : errorMessage));
+        }
+        return Boolean(painted);
+      } catch {
+        const output = document.querySelector(`[data-cart-page-status="${CSS.escape(sectionId)}"]`);
+        if (output) writeCartStatus(output, failure?.message || errorMessage);
+        return false;
+      } finally {
+        if (revision !== undefined) drawer.endMutation();
+      }
+    };
+
+    const flush = () => {
+      window.clearTimeout(debounce);
+      if (!inFlight) {
+        inFlight = update().finally(() => {
+          inFlight = null;
+          if (pending) debounce = window.setTimeout(flush, 0);
+        });
+      }
+      return inFlight;
+    };
+
+    const schedule = (control) => {
+      focusSource = control;
+      pending = true;
+      window.clearTimeout(debounce);
+      debounce = window.setTimeout(flush, 400);
+    };
+
+    document.addEventListener('change', (event) => {
+      const field = event.target.closest?.('[data-cart-page] input[name="updates[]"]');
+      if (!field || field.disabled || !field.closest('[data-cart-page][data-cart-update-url]')) return;
+      if (!field.validity.badInput) snapQuantityField(field);
+      if (!field.checkValidity() && field.value !== '0') {
+        field.reportValidity();
+        return;
+      }
+      schedule(field);
+    });
+
+    document.addEventListener('click', (event) => {
+      const remove = event.target.closest?.('[data-cart-page][data-cart-update-url] [data-cart-remove]');
+      if (!remove || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      const field = remove.closest('[data-cart-item-key]')?.querySelector('[data-cart-quantity]');
+      if (!field) return;
+      event.preventDefault();
+      field.value = '0';
+      schedule(remove);
+    });
+
+    document.addEventListener('submit', async (event) => {
+      if (!event.target.matches?.('[data-cart-page] .cart-form') || (!pending && !inFlight)) return;
+      event.preventDefault();
+      const name = event.submitter?.name;
+      let ready;
+      do {
+        ready = await flush();
+      } while (pending);
+      const form = cartPageSection()?.querySelector('.cart-form');
+      if (!ready || !form) return;
+      const submitter = name ? form.querySelector(`button[type="submit"][name="${CSS.escape(name)}"]`) : undefined;
+      form.requestSubmit(submitter);
+    });
+  };
+
   // ---------------------------------------------------------------------------
   // Focus on the result of a just-submitted form.
   //
@@ -7162,5 +7363,6 @@
   initScrollReveal();
   initHeaderScrollState();
   initQuantitySteppers();
+  initCartPage();
   initFormMessageFocus();
 })();

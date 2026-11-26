@@ -3,15 +3,23 @@
   assign section_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: default_scheme_id
 -%}
 
-{%- comment -%}
-  data-cart-page and data-section-id exist for the drawer: when the drawer changes the cart while on
-  /cart, it also requests this section and replaces it, so the background page never shows lines
-  that no longer exist.
-{%- endcomment -%}
-<section class="section cart-page color-{{ section_scheme }}" data-cart-page data-section-id="{{ section.id }}">
+{%- comment -%}The page and drawer share server-rendered cart sections. The status survives a page repaint.{%- endcomment -%}
+<p class="visually-hidden" role="status" data-cart-page-status="{{ section.id }}"></p>
+<section
+  class="section cart-page color-{{ section_scheme }}"
+  data-cart-page
+  data-section-id="{{ section.id }}"
+  data-cart-update-url="{{ routes.cart_update_url }}.js"
+  data-cart-url="{{ routes.cart_url }}"
+  data-item-count="{{ cart.item_count }}"
+  data-cart-count-label="{{ 'sections.header.cart_count' | t: count: cart.item_count | escape_once }}"
+  data-error-message="{{ 'sections.cart.error' | t | escape }}"
+  data-removed-template="{{ 'sections.cart.item_removed' | t: title: '[title]' | escape_once }}"
+  data-quantity-updated-template="{{ 'sections.cart.quantity_updated' | t: title: '[title]', quantity: '[quantity]' | escape_once }}"
+>
   <div class="container flow">
     <header class="cart-page__header cluster">
-      <h1>{{ 'sections.cart.title' | t }}</h1>
+      <h1 tabindex="-1">{{ 'sections.cart.title' | t }}</h1>
       {%- unless cart.empty? -%}
         <span>{{ 'sections.cart.item_count' | t: count: cart.item_count }}</span>
       {%- endunless -%}
@@ -19,7 +27,7 @@
 
     {%- if cart.empty? -%}
       <div class="cart-empty flow">
-        <p>{{ 'sections.cart.empty' | t }}</p>
+        <p tabindex="-1" data-cart-empty-message>{{ 'sections.cart.empty' | t }}</p>
         <a class="button" href="{{ routes.all_products_collection_url }}">
           {{- 'sections.cart.continue_shopping' | t -}}
         </a>
@@ -28,7 +36,7 @@
       <form class="cart-form" action="{{ routes.cart_url }}" method="post" novalidate>
         <div class="cart-items" role="list">
           {%- for item in cart.items -%}
-            <div class="cart-item" role="listitem" data-cart-item-key="{{ item.key | escape }}">
+            <div class="cart-item" role="listitem" data-cart-item-key="{{ item.key | escape }}" data-cart-item-title="{{ item.title | escape }}">
               <a class="cart-item__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
                 {%- if item.image != blank -%}
                   {% render 'responsive-image',
@@ -142,10 +150,8 @@
                 -%}
                 <label for="CartQuantity-{{ forloop.index }}">{{ 'sections.cart.quantity' | t }}</label>
                 {%- comment -%}
-                  This page works without JavaScript: the form is submitted with the "Update cart"
-                  button. The stepper buttons edit the field (like typing in it), they submit
-                  nothing, and are hidden with .no-js so no dead controls are left when JavaScript
-                  does not arrive.
+                  JavaScript updates quantities after a change to this field. Without JavaScript,
+                  the quantity field and "Update cart" submit the form, and .no-js hides the steppers.
                 {%- endcomment -%}
                 <div class="quantity-stepper cart-item__stepper" data-quantity-stepper>
                   <button
@@ -170,6 +176,7 @@
                     {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
                     inputmode="numeric"
                     data-quantity-input
+                    data-cart-quantity
                   >
                   <button
                     class="quantity-stepper__button"
@@ -183,7 +190,7 @@
                     {% render 'icon', name: 'plus', size: 16 %}
                   </button>
                 </div>
-                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}">
+                <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_item' | t: title: item.title | escape_once }}" data-cart-remove>
                   {{- 'sections.cart.remove' | t -}}
                 </a>
               </div>

@@ -27,15 +27,15 @@ async function mountCart(page, { onCart = true, note = '' } = {}) {
   await mountPage(page, html, {
     path: onCart ? '/cart' : '/',
     onRequest: async (route, url) => {
-      if (url.pathname === '/cart/change.js') {
+      if (url.pathname === '/cart/change.js' || url.pathname === '/cart/update.js') {
         server.changeRequests += 1;
         const body = route.request().postDataJSON();
-        server.quantity = body.quantity;
+        server.quantity = body.quantity ?? body.updates['k1:abc'];
         const sections = Object.fromEntries((body.sections || []).map((id) => [id, render(id)]));
         await route.fulfill({
           contentType: 'application/json',
           body: JSON.stringify({
-            items: server.quantity > 0 ? [{ key: body.id, quantity: server.quantity }] : [],
+            items: server.quantity > 0 ? [{ key: body.id ?? 'k1:abc', quantity: server.quantity }] : [],
             item_count: server.quantity,
             sections,
           }),
@@ -181,10 +181,11 @@ test.describe('FB-20 focus survives a repaint of the drawer', () => {
 
 test.describe('FB-30 zero on the cart page is a removal command', () => {
   test('FB-30 typing 0 in a cart page quantity field is kept instead of being snapped to the minimum', async ({ page }) => {
-    await mountCart(page);
+    const server = await mountCart(page);
     const field = page.locator('#CartQuantity-1');
     await field.fill('0');
     await field.press('Tab');
     await expect(field).toHaveValue('0');
+    await expect.poll(() => server.changeRequests).toBe(1);
   });
 });
