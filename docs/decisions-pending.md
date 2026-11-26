@@ -20,7 +20,7 @@ Al resolverse una decisión, se traslada formalmente a docs/decisions.md.
 | **DP-024** | **Tipo de la tienda `sartorial-theme-kvkzl39t.myshopify.com`:** confirmar en el Dev Dashboard si es una tienda de desarrollo o client transfer. | Johandry | Si es de desarrollo, solo sirve como tienda de QA (D67) y los scripts de catálogo T1-T3 se ejecutan después en tres tiendas client transfer nuevas; si es client transfer, puede ser además la tienda demo de un preset. | Shopify no admite una tienda de desarrollo como tienda demo del Theme Store. El encargo GPT-TASK-R4-001 funciona en los dos casos. | 2026-11-25 |
 | **DP-025** | **Fuente y derechos de las imágenes de tema:** elegir de dónde salen las imágenes de hero, lookbook, manifesto, mega menú y portadas del blog de cada preset (imágenes propias, Shopify Burst o las generadas por GPT según D37) y acreditar sus derechos. | Johandry | Paquete P1 (overlays) y cierre de M-07; la demo no puede enviarse con placeholders. | Ruta crítica del envío (D73). | 2026-11-25 |
 
-DP-007 a DP-018 se resolvieron el 2026-11-24 y pasaron a `docs/decisions.md` como D44 a D55 (DP-011 en D44). DP-019 a DP-023 se resolvieron el mismo día y pasaron a D56 a D60. DP-006 se resolvió el 2026-11-25 y pasó a D67.
+DP-007 a DP-018 se resolvieron el 2026-11-24 y pasaron a `docs/decisions.md` como D44 a D55 (DP-011 en D44). DP-019 a DP-023 se resolvieron el mismo día y pasaron a D56 a D60. DP-006 se resolvió el 2026-11-25 y pasó a D67. DP-026 se resolvió el 2026-11-26 y pasó a D88 (ronda R7).
 
 ---
 

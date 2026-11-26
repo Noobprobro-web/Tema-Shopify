@@ -323,7 +323,46 @@
     if (field) field.defaultValue = field.value;
   };
 
-  const replaceCartPage = (html, { sent = new Map(), focusSource = null, preserveQuantities = true } = {}) => {
+  const cartLineErrorId = (key) => `CartLineError-${Array.from(key, (character) => character.codePointAt(0).toString(16)).join('-')}`;
+
+  const clearCartLineError = (row) => {
+    const message = row?.querySelector('[data-cart-line-error]');
+    const field = row?.querySelector('input[name="updates[]"]');
+    if (!message || !field) return;
+    const id = message.id;
+    const describedBy = (field.getAttribute('aria-describedby') || '').split(/\s+/).filter((value) => value && value !== id);
+    if (describedBy.length) field.setAttribute('aria-describedby', describedBy.join(' '));
+    else field.removeAttribute('aria-describedby');
+    message.remove();
+  };
+
+  const setCartLineError = (row, text) => {
+    if (!row) return;
+    const details = row.querySelector('.cart-item__details');
+    const field = row.querySelector('input[name="updates[]"]');
+    if (!details || !field) return;
+    let message = details.querySelector('[data-cart-line-error]');
+    if (!message) {
+      message = document.createElement('p');
+      message.className = 'form-message form-message--error';
+      message.dataset.cartLineError = '';
+      message.id = cartLineErrorId(row.dataset.cartItemKey || '');
+      details.append(message);
+    }
+    message.textContent = text;
+    const id = message.id;
+    const describedBy = (field.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+    if (!describedBy.includes(id)) describedBy.push(id);
+    field.setAttribute('aria-describedby', describedBy.join(' '));
+  };
+
+  const showCartLineErrors = (page, errors) => {
+    if (!page || !errors?.size) return;
+    const rows = cartRows(page);
+    for (const [key, message] of errors) setCartLineError(cartRow(rows, key), message);
+  };
+
+  const replaceCartPage = (html, { sent = new Map(), focusSource = null, preserveQuantities = true, errors = new Map() } = {}) => {
     const current = cartPageSection();
     if (!current || !html) return null;
     const next = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-cart-page]');
@@ -347,6 +386,35 @@
         if (stepper) syncQuantityStepper(stepper);
       }
     }
+
+    // Keep unrelated descriptions already attached to the quantity field across section renders.
+    const nextRows = cartRows(next);
+    for (const row of cartRows(current)) {
+      const key = row.dataset.cartItemKey;
+      const field = row.querySelector('input[name="updates[]"]');
+      const nextField = cartRow(nextRows, key)?.querySelector('input[name="updates[]"]');
+      if (!field || !nextField) continue;
+      const errorId = row.querySelector('[data-cart-line-error]')?.id;
+      const descriptions = (field.getAttribute('aria-describedby') || '').split(/\s+/)
+        .filter((value) => value && value !== errorId);
+      const nextDescriptions = (nextField.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+      for (const id of descriptions) if (!nextDescriptions.includes(id)) nextDescriptions.push(id);
+      if (nextDescriptions.length) nextField.setAttribute('aria-describedby', nextDescriptions.join(' '));
+      else nextField.removeAttribute('aria-describedby');
+    }
+
+    // A failed request in another line should not hide the shopper's existing line error.
+    const visibleErrors = new Map();
+    if (errors.size) {
+      for (const row of cartRows(current)) {
+        const message = row.querySelector('[data-cart-line-error]');
+        if (message) visibleErrors.set(row.dataset.cartItemKey, message.textContent);
+      }
+      for (const [key, message] of errors) visibleErrors.set(key, message);
+    }
+
+    // Keep line-specific Shopify errors on the new server-rendered row before restoring focus.
+    showCartLineErrors(next, visibleErrors);
 
     const active = document.activeElement;
     const control = current.contains(active) ? active
@@ -7263,6 +7331,7 @@
           if (!updates.size) continue;
           const rows = cartRows(current);
           for (const [key, quantity] of updates) {
+            clearCartLineError(cartRow(rows, key));
             if (drawer && revision !== drawer.syncRevision) {
               if (revision !== undefined) drawer.endMutation();
               revision = drawer.beginMutation();
@@ -7295,7 +7364,7 @@
         }
         if (!sent.size) return true;
 
-        const options = { sent, focusSource };
+        const options = { sent, focusSource, errors: failures };
         let painted;
         // The drawer's revision orders page responses with drawer mutations too. If it has
         // moved on, read fresh page markup instead of using the older bundled HTML.
@@ -7308,9 +7377,17 @@
         }
         const currentRevision = drawer?.syncRevision;
         if (!painted) {
-          const html = (!drawer && result?.sections?.[sectionId]) || await requestCartPageSection(cartUrl, sectionId);
-          if (drawer?.syncRevision === currentRevision) painted = replaceCartPage(html, options);
+          let html = !drawer && result?.sections?.[sectionId];
+          if (!html) {
+            try {
+              html = await requestCartPageSection(cartUrl, sectionId);
+            } catch {
+              // A stale section should not hide the per-line error from the failed mutation.
+            }
+          }
+          if (html && drawer?.syncRevision === currentRevision) painted = replaceCartPage(html, options);
         }
+        if (!painted) showCartLineErrors(cartPageSection(), failures);
         if (painted && !drawer) updateCartHeaderCount(painted.dataset);
 
         if (!pending) {

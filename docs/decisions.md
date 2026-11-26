@@ -567,3 +567,22 @@ Fecha: 2026-11-26. Fuente: comprobación de Claude en la tienda de QA con el tem
   - **Decisión de Johandry, 2026-11-26, literalmente:** «sí, arréglalo y que lo haga gpt».
   - **Ejecución y revisión:** la ejecuta GPT en la ronda R6 y la revisa Claude, como D79 para R5. El alcance es el mínimo del encargo: mensaje visible junto a la línea en /cart con el texto que devuelve Shopify, sin copy nuevo salvo aprobación previa.
   - **Cajón:** ya muestra el mensaje a la vista, en el aviso general `[data-cart-error]` bajo la cabecera (`sections/cart-drawer.liquid:122`, `assets/theme.js:3397-3402` y `:4567-4572`). Queda fuera del cambio; el encargo solo pide una prueba que lo proteja.
+
+## 2026-11-26: Validación de R6 en tienda y observaciones (D87)
+
+Fecha: 2026-11-26. Fuente: comprobación de Claude en la tienda de QA. Encargo: `agent-comms/inbox-gpt/GPT-TASK-R6-001.md`. Integración: `agent-comms/outbox-claude/CLAUDE-R6-INTEGRACION-001.md`.
+
+- **D87 · R6 validada en tienda real; una observación aceptada y otra pendiente:**
+  - **Validación:** temas de QA 190695473456, 190695506224 y 190695538992, renombrados "<Preset> R6 (9542ecc)", con el ZIP de 111 archivos (sha256 `292abb31b104eda44ac4fde78c32c53fefc1c6b4704ffaef381066769a0b0bd4`). Con una línea, el aviso de línea funciona en 1440×900 y en 390×844 en los tres presets. El cajón no cambia. Sin JavaScript, el comportamiento es correcto.
+  - **Observación 1, aceptada:** con dos líneas, tras un error en A (20 a 8, aparece el aviso) un cambio correcto en B hace desaparecer el aviso de A. Texto aceptado: «El aviso de línea se borra en el siguiente repintado correcto de la sección, sea cual sea la línea modificada (encargo §3.3.6, mismo comportamiento que el tema de referencia de Shopify). Solo lo conserva un fallo de otra línea. La línea sigue mostrando la cantidad real del servidor.» El encargo lo permite (`agent-comms/inbox-gpt/GPT-TASK-R6-001.md:83`) y ya figuraba como desviación aceptada (`agent-comms/outbox-claude/CLAUDE-R6-INTEGRACION-001.md:20`). Prueba que lo fija: `tests/r6-cart-line-error.spec.mjs:254`.
+  - **Observación 2, pendiente:** con la línea ya en el tope de stock (8), escribir 20 no envía petición ni muestra aviso. Es anterior a R6 y no es una regresión. Se registra como DP-026 (`docs/decisions-pending.md`); corregirlo cambia el alcance porque toca el cajón, y queda a la espera de autorización del usuario. Autorizada después y resuelta en D88 (ronda R7).
+
+## 2026-11-26: Ronda R7, aviso del tope de stock en carrito y cajón (D88)
+
+Fecha: 2026-11-26. Fuente: observación 2 de la validación de R6 (D87) y DP-026. Encargo: `agent-comms/inbox-gpt/GPT-TASK-R7-001.md`.
+
+- **D88 · R7: el tope de stock deja de recortar en silencio en /cart y en el cajón (ejecuta GPT, revisa Claude; resuelve DP-026):**
+  - **Autorización:** el usuario autorizó el 2026-11-26 corregir la observación 2 de D87 en una ronda R7.
+  - **Defecto:** con la línea ya en el tope de stock (8), escribir 20 no envía petición ni muestra aviso. Liquid emite `max` por stock cuando hay control de inventario, política `deny` e `inventory_quantity <= item.quantity` (`sections/main-cart-items.liquid:147-148`, atributo en `:176`; `sections/cart-drawer.liquid:311-312`, atributo en `:342`); `snapQuantityField` recorta al máximo (`assets/theme.js:7188-7201`) y la cantidad vuelve a la que ya tenía la línea, así que `readCartPageUpdates` no encola nada (`:7293-7296`) y `handleDrawerChange` sale sin enviar (`:3446-3447`). Es anterior a R6 y no es una regresión.
+  - **Alcance:** se amplía al cajón, que D86 dejaba fuera. Cuando el tope viene solo del stock, el campo no lleva `max` nativo y el tope solo gobierna el botón «+»; la petición sale, Shopify responde 422 con su texto localizado y el tema lo muestra en la línea de /cart (camino de R6) y en el aviso general del cajón (`showError`). El tope de `quantity_rule` y la rejilla se mantienen como hoy. Sin copy nuevo; no se usa en cliente la clave `products.product.quantity_rules.max` («Maximum {{ quantity }}»), que exigiría aprobación según D35.
+  - **Ejecución y revisión:** la implementa GPT en la rama `gpt/r7-cart-stock-cap`. Claude revisa el diff, valida en la tienda de QA y fusiona, como en D79 para R5 y D86 para R6.
