@@ -27,15 +27,15 @@ async function mountCart(page, { onCart = true, note = '' } = {}) {
   await mountPage(page, html, {
     path: onCart ? '/cart' : '/',
     onRequest: async (route, url) => {
-      if (url.pathname === '/cart/change.js' || url.pathname === '/cart/update.js') {
+      if (url.pathname === '/cart/change.js') {
         server.changeRequests += 1;
         const body = route.request().postDataJSON();
-        server.quantity = body.quantity ?? body.updates['k1:abc'];
+        server.quantity = body.quantity;
         const sections = Object.fromEntries((body.sections || []).map((id) => [id, render(id)]));
         await route.fulfill({
           contentType: 'application/json',
           body: JSON.stringify({
-            items: server.quantity > 0 ? [{ key: body.id ?? 'k1:abc', quantity: server.quantity }] : [],
+            items: server.quantity > 0 ? [{ key: body.id, quantity: server.quantity }] : [],
             item_count: server.quantity,
             sections,
           }),

@@ -287,7 +287,7 @@
   const requestCartPageSection = async (cartUrl, sectionId) => {
     const url = new URL(cartUrl, location.origin);
     url.searchParams.set('section_id', sectionId);
-    const response = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+    const response = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' }, cache: 'no-store' });
     return response.ok ? response.text() : null;
   };
 
@@ -313,7 +313,7 @@
       || next.querySelector('h1[tabindex="-1"]');
   };
 
-  const replaceCartPage = (html, { sent = new Map(), focusSource = null } = {}) => {
+  const replaceCartPage = (html, { sent = new Map(), focusSource = null, preserveQuantities = true } = {}) => {
     const current = cartPageSection();
     if (!current || !html) return null;
     const next = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-cart-page]');
@@ -324,16 +324,18 @@
 
     // Preserve typing and queued changes across a drawer repaint. A field already sent with
     // this response shows the actual server quantity, including after an error or a stock limit.
-    const nextRows = cartRows(next);
-    for (const row of cartRows(current)) {
-      const key = row.dataset.cartItemKey;
-      const field = row.querySelector('input[name="updates[]"]');
-      if (!field || field.value === (sent.get(key) ?? field.defaultValue)) continue;
-      const nextField = cartRow(nextRows, key)?.querySelector('input[name="updates[]"]');
-      if (!nextField) continue;
-      nextField.value = field.value;
-      const stepper = nextField.closest('[data-quantity-stepper]');
-      if (stepper) syncQuantityStepper(stepper);
+    if (preserveQuantities) {
+      const nextRows = cartRows(next);
+      for (const row of cartRows(current)) {
+        const key = row.dataset.cartItemKey;
+        const field = row.querySelector('input[name="updates[]"]');
+        if (!field || field.value === (sent.get(key) ?? field.defaultValue)) continue;
+        const nextField = cartRow(nextRows, key)?.querySelector('input[name="updates[]"]');
+        if (!nextField) continue;
+        nextField.value = field.value;
+        const stepper = nextField.closest('[data-quantity-stepper]');
+        if (stepper) syncQuantityStepper(stepper);
+      }
     }
 
     const active = document.activeElement;
@@ -371,6 +373,11 @@
     output.textContent = '';
     output.hidden = false;
     window.setTimeout(() => { output.textContent = message; }, 100);
+  };
+
+  const announceCartPage = (sectionId, message) => {
+    const output = document.querySelector(`[data-cart-page-status="${CSS.escape(sectionId)}"]`);
+    if (output) writeCartStatus(output, message);
   };
 
   // Shopify's quantity grid: only min + k * increment up to max is valid. The real ceiling is the
@@ -3075,6 +3082,8 @@
   };
 
   class CartDrawer extends ThemeElement {
+    mutationWaiters = [];
+
     connectedCallback() {
       this.startListening();
       this.overlay = this.querySelector('[data-cart-drawer-overlay]');
@@ -4172,6 +4181,7 @@
     endMutation() {
       this.pendingMutations = Math.max(0, this.pendingMutations - 1);
       if (this.pendingMutations) return;
+      this.mutationWaiters.splice(0).forEach((resolve) => resolve());
       this.syncAfterMutation = false;
       const overlapped = this.overlappingMutations;
       this.overlappingMutations = false;
@@ -4187,6 +4197,11 @@
         return;
       }
       if (this.isConnected && this.isOpen) this.syncCart({ reconcile }).catch(() => {});
+    }
+
+    waitForMutations() {
+      if (!this.pendingMutations) return Promise.resolve();
+      return new Promise((resolve) => this.mutationWaiters.push(resolve));
     }
 
     // Always re-renders on open. Comparing item_count alone missed same-count changes:
@@ -7127,13 +7142,13 @@
     document.querySelectorAll('[data-quantity-stepper]').forEach(syncQuantityStepper);
   };
 
-  const readCartPageUpdates = (page, confirmed) => {
+  const readCartPageUpdates = (page, processed) => {
     const updates = new Map();
     for (const row of cartRows(page)) {
       const field = row.querySelector('input[name="updates[]"]');
       const key = row.dataset.cartItemKey;
       if (!field || !key || field.validity.badInput) continue;
-      const previous = confirmed.get(key) ?? Number(field.defaultValue);
+      const previous = processed.get(key) ?? Number(field.defaultValue);
       const quantity = field.valueAsNumber;
       if (quantity !== previous && (quantity === 0 || (Number.isInteger(quantity) && field.checkValidity()))) {
         updates.set(key, quantity);
@@ -7147,6 +7162,8 @@
     let pending = false;
     let inFlight;
     let focusSource;
+    let deferredSubmit = false;
+    let submittingNativeForm;
 
     const update = async () => {
       const page = cartPageSection();
@@ -7154,40 +7171,52 @@
         pending = false;
         return false;
       }
-      const { cartUrl, cartUpdateUrl, sectionId, errorMessage, removedTemplate, quantityUpdatedTemplate } = page.dataset;
+      const { cartUrl, cartChangeUrl, sectionId, errorMessage, removedTemplate, quantityUpdatedTemplate } = page.dataset;
       const drawer = document.querySelector('cart-drawer');
-      const confirmed = new Map();
+      const processed = new Map();
       const sent = new Map();
       const announcements = new Map();
+      const failures = new Map();
       let revision;
       let result;
-      let failure;
       try {
         while (pending) {
           pending = false;
           window.clearTimeout(debounce);
           const current = cartPageSection();
           if (!current) return false;
-          const updates = readCartPageUpdates(current, confirmed);
+          const updates = readCartPageUpdates(current, processed);
           if (!updates.size) continue;
-          if (drawer && revision !== drawer.syncRevision) {
-            if (revision !== undefined) drawer.endMutation();
-            revision = drawer.beginMutation();
-          }
           const rows = cartRows(current);
           for (const [key, quantity] of updates) {
+            if (drawer && revision !== drawer.syncRevision) {
+              if (revision !== undefined) drawer.endMutation();
+              revision = drawer.beginMutation();
+            }
             sent.set(key, String(quantity));
-            announcements.set(key, cartRow(rows, key)?.dataset.cartItemTitle || '');
-          }
-          try {
-            result = await postCartUpdate(cartUpdateUrl, { updates: Object.fromEntries(updates) },
-              drawer ? drawer.renderSectionIds() : [sectionId], errorMessage);
-            failure = null;
-            const items = new Map((result.items || []).map(({ key, quantity }) => [key, quantity]));
-            for (const key of updates.keys()) confirmed.set(key, items.get(key) ?? 0);
-          } catch (error) {
-            result = null;
-            failure = error;
+            const title = cartRow(rows, key)?.dataset.cartItemTitle || '';
+            // update.js can accept stock that is unavailable for a line already in the cart.
+            // change.js validates each line, so use one request per edited key after debouncing.
+            try {
+              result = await postCartUpdate(cartChangeUrl, { id: key, quantity },
+                drawer ? drawer.renderSectionIds() : [sectionId], errorMessage);
+              failures.delete(key);
+              const item = result.items?.find((candidate) => candidate.key === key);
+              // Automatic discounts can change a line's key. A missing old key after a nonzero
+              // update does not establish a removal. Only explicit zero can use that announcement.
+              const actual = item?.quantity ?? quantity;
+              const removed = quantity === 0 && actual === 0;
+              processed.set(key, quantity);
+              announcements.delete(key);
+              if (removed) announcements.set(key, removedTemplate.replaceAll('[title]', () => title));
+              else if (actual > 0) announcements.set(key, quantityUpdatedTemplate
+                .replaceAll('[title]', () => title).replaceAll('[quantity]', String(actual)));
+            } catch (error) {
+              result = null;
+              processed.set(key, quantity);
+              announcements.delete(key);
+              failures.set(key, error.message || errorMessage);
+            }
           }
         }
         if (!sent.size) return true;
@@ -7210,19 +7239,14 @@
         }
         if (painted && !drawer) updateCartHeaderCount(painted.dataset);
 
-        const output = document.querySelector(`[data-cart-page-status="${CSS.escape(sectionId)}"]`);
-        if (output && !pending) {
-          const messages = Array.from(announcements, ([key, title]) => {
-            const quantity = confirmed.get(key);
-            return quantity === 0 ? removedTemplate.replaceAll('[title]', () => title)
-              : quantityUpdatedTemplate.replaceAll('[title]', () => title).replaceAll('[quantity]', String(quantity));
-          });
-          writeCartStatus(output, failure?.message || (painted ? messages.join(' ') : errorMessage));
+        if (!pending) {
+          const errors = [...new Set(failures.values())];
+          const message = painted ? [...errors, ...announcements.values()].join(' ') : errors[0] || errorMessage;
+          if (message) announceCartPage(sectionId, message);
         }
         return Boolean(painted);
       } catch {
-        const output = document.querySelector(`[data-cart-page-status="${CSS.escape(sectionId)}"]`);
-        if (output) writeCartStatus(output, failure?.message || errorMessage);
+        announceCartPage(sectionId, failures.values().next().value || errorMessage);
         return false;
       } finally {
         if (revision !== undefined) drawer.endMutation();
@@ -7249,7 +7273,7 @@
 
     document.addEventListener('change', (event) => {
       const field = event.target.closest?.('[data-cart-page] input[name="updates[]"]');
-      if (!field || field.disabled || !field.closest('[data-cart-page][data-cart-update-url]')) return;
+      if (!field || field.disabled || !field.closest('[data-cart-page][data-cart-change-url]')) return;
       if (!field.validity.badInput) snapQuantityField(field);
       if (!field.checkValidity() && field.value !== '0') {
         field.reportValidity();
@@ -7259,7 +7283,7 @@
     });
 
     document.addEventListener('click', (event) => {
-      const remove = event.target.closest?.('[data-cart-page][data-cart-update-url] [data-cart-remove]');
+      const remove = event.target.closest?.('[data-cart-page][data-cart-change-url] [data-cart-remove]');
       if (!remove || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       const field = remove.closest('[data-cart-item-key]')?.querySelector('[data-cart-quantity]');
       if (!field) return;
@@ -7269,17 +7293,42 @@
     });
 
     document.addEventListener('submit', async (event) => {
-      if (!event.target.matches?.('[data-cart-page] .cart-form') || (!pending && !inFlight)) return;
+      if (!event.target.matches?.('[data-cart-page] .cart-form') || event.target === submittingNativeForm) return;
+      const drawer = document.querySelector('cart-drawer');
+      if (!deferredSubmit && !pending && !inFlight && !drawer?.pendingMutations) return;
       event.preventDefault();
+      if (deferredSubmit) return;
+      deferredSubmit = true;
       const name = event.submitter?.name;
-      let ready;
-      do {
-        ready = await flush();
-      } while (pending);
-      const form = cartPageSection()?.querySelector('.cart-form');
-      if (!ready || !form) return;
-      const submitter = name ? form.querySelector(`button[type="submit"][name="${CSS.escape(name)}"]`) : undefined;
-      form.requestSubmit(submitter);
+      try {
+        let ready;
+        while (true) {
+          ready = await flush();
+          if (pending) continue;
+          if (!drawer) break;
+          await drawer.waitForMutations();
+          if (pending || drawer.pendingMutations) continue;
+          const revision = drawer.syncRevision;
+          const page = cartPageSection();
+          if (!page) return;
+          const { cartUrl, sectionId, errorMessage } = page.dataset;
+          // The last response to arrive can describe an intermediate server state. Start the
+          // positional native submit from a fresh section after both queues are idle.
+          const html = await requestCartPageSection(cartUrl, sectionId).catch(() => null);
+          if (pending || inFlight || drawer.pendingMutations || revision !== drawer.syncRevision) continue;
+          ready = Boolean(replaceCartPage(html, { preserveQuantities: false }));
+          if (!ready) announceCartPage(sectionId, errorMessage);
+          break;
+        }
+        const form = cartPageSection()?.querySelector('.cart-form');
+        if (!ready || !form) return;
+        const submitter = name ? form.querySelector(`button[type="submit"][name="${CSS.escape(name)}"]`) : undefined;
+        submittingNativeForm = form;
+        form.requestSubmit(submitter);
+      } finally {
+        submittingNativeForm = null;
+        deferredSubmit = false;
+      }
     });
   };
 

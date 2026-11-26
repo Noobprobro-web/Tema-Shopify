@@ -10,8 +10,8 @@ const field = (page, key) => row(page, key).getByRole('spinbutton', { name: 'Qua
 const plus = (page, key = first.key) => row(page, key).getByRole('button', { name: 'Increase quantity' });
 const status = (page) => page.getByRole('status');
 
-async function mountCart(page, { drawer = false, lines = [first], hold, error } = {}) {
-  const state = { lines: lines.map((line) => ({ ...line })), updates: [], native: [], reads: [] };
+async function mountCart(page, { drawer = false, lines = [first], hold, error, beforeChange, rotateKey } = {}) {
+  const state = { lines: lines.map((line) => ({ ...line })), updates: [], native: [], nativeQuantities: [], reads: [] };
   const total = () => state.lines.reduce((sum, line) => sum + line.quantity, 0);
   const render = (id) => id === 'main-cart'
     ? cartPageMarkup({ lines: state.lines }) : cartDrawerMarkup({ quantity: total() });
@@ -24,17 +24,18 @@ async function mountCart(page, { drawer = false, lines = [first], hold, error } 
   await mountPage(page, html, {
     path: '/cart',
     onRequest: async (route, url) => {
-      if (url.pathname === '/cart/update.js' || url.pathname === '/cart/change.js') {
+      if (url.pathname === '/cart/change.js') {
         const request = route.request().postDataJSON();
-        if (url.pathname === '/cart/update.js') {
-          state.updates.push(request);
-          if (hold && state.updates.length === 1) await hold.promise;
-          if (error) {
-            await route.fulfill(error);
-            return true;
-          }
+        state.updates.push(request);
+        await beforeChange?.(request);
+        if (hold && state.updates.length === 1) await hold.promise;
+        if (error) {
+          await route.fulfill(error);
+          return true;
         }
-        apply(request.updates || { [request.id]: request.quantity });
+        apply({ [request.id]: request.quantity });
+        const changed = state.lines.find((line) => line.key === request.id);
+        if (rotateKey && changed) changed.key = rotateKey;
         await route.fulfill({ json: { items: state.lines, item_count: total(), sections: Object.fromEntries(request.sections.map((id) => [id, render(id)])) } });
         return true;
       }
@@ -45,7 +46,9 @@ async function mountCart(page, { drawer = false, lines = [first], hold, error } 
         return true;
       }
       if (url.pathname === '/cart' && route.request().method() === 'POST') {
-        state.native.push(Object.fromEntries(new URLSearchParams(route.request().postData())));
+        const body = new URLSearchParams(route.request().postData());
+        state.native.push(Object.fromEntries(body));
+        state.nativeQuantities.push(body.getAll('updates[]'));
         await route.fulfill({ contentType: 'text/html', body: '<p>Native cart submitted</p>' });
         return true;
       }
@@ -66,7 +69,7 @@ for (const drawer of [true, false]) {
     await expect(plus(page)).toBeFocused();
     await expect(status(page)).toHaveText('Updated Blue Hat to 2');
     await expect(cartPage(page).getByRole('textbox', { name: 'Order note' })).toHaveValue('Gift please');
-    expect(state.updates).toEqual([{ updates: { [first.key]: 2 }, sections: drawer ? ['cart-drawer', 'main-cart'] : ['main-cart'], sections_url: '/cart' }]);
+    expect(state.updates).toEqual([{ id: first.key, quantity: 2, sections: drawer ? ['cart-drawer', 'main-cart'] : ['main-cart'], sections_url: '/cart' }]);
     if (drawer) {
       await expect(page.locator('cart-drawer [data-cart-quantity]')).toHaveValue('2');
       await expect(page.locator('cart-drawer')).not.toHaveAttribute('data-open', '');
@@ -87,7 +90,7 @@ test('rapid changes batch by line key through a cart with eleven items', async (
   await plus(page, second.key).focus();
   await page.keyboard.press('Enter');
   await expect(cartPage(page).locator('[data-cart-subtotal]')).toHaveText('$150.00');
-  expect(state.updates.map(({ updates }) => updates)).toEqual([{ [first.key]: 4, [second.key]: 2 }]);
+  expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[first.key, 4], [second.key, 2]]);
   await expect(row(page, second.key).getByText(title)).toBeVisible();
   await expect(row(page, second.key).locator('img')).toHaveCount(0);
 });
@@ -108,7 +111,7 @@ test('an edit during a request waits and only the final response repaints the pa
   expect(state.updates).toHaveLength(1);
   hold.open();
   await expect(cartPage(page).locator('[data-cart-subtotal]')).toHaveText('$30.00');
-  expect(state.updates.map(({ updates }) => updates[first.key])).toEqual([2, 3]);
+  expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[first.key, 2], [first.key, 3]]);
   expect(await page.evaluate(() => window.cartPaintedQuantities)).toEqual(['3']);
 });
 
@@ -117,7 +120,7 @@ test('a drawer mutation during the debounce keeps the pending page edit by key',
   await plus(page).click();
   await page.evaluate((key) => document.querySelector('cart-drawer').changeLine(key, 3), second.key);
   await expect(cartPage(page).locator('[data-cart-subtotal]')).toHaveText('$50.00');
-  expect(state.updates.map(({ updates }) => updates)).toEqual([{ [first.key]: 2 }]);
+  expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[second.key, 3], [first.key, 2]]);
   await expect(field(page, second.key)).toHaveValue('3');
 });
 
@@ -133,20 +136,31 @@ test('quantity zero and Remove hand focus to the next line or to the empty state
   await page.keyboard.press('Enter');
   await expect(cartPage(page).getByText('Your cart is empty')).toBeFocused();
   await expect(status(page)).toHaveText('Removed Blue Hat with gift note');
-  expect(state.updates.map(({ updates }) => updates)).toEqual([{ [first.key]: 0 }, { [second.key]: 0 }]);
+  expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[first.key, 0], [second.key, 0]]);
+});
+
+test('a key changed by a discount still announces an update for a nonzero request', async ({ page }) => {
+  const rotated = '100:discount';
+  const state = await mountCart(page, { rotateKey: rotated });
+  await plus(page).click();
+  await expect(field(page, rotated)).toHaveValue('2');
+  await expect(status(page)).toHaveText('Updated Blue Hat to 2');
+  expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[first.key, 2]]);
+  await expect(cartPage(page).getByRole('heading', { name: 'Cart', exact: true })).toBeFocused();
 });
 
 for (const [code, response, message] of [
   [422, { json: { description: 'No more inventory' } }, 'No more inventory'],
   [503, { contentType: 'text/html', body: '<h1>Unavailable</h1>' }, 'Something went wrong'],
 ]) {
-  test(`${code} reloads the server quantity and announces the error`, async ({ page }) => {
+  test(`change.js ${code} reloads the server quantity and announces the error`, async ({ page }) => {
     const state = await mountCart(page, { error: { status: code, ...response } });
     await plus(page).click();
     await expect(status(page)).toHaveText(message);
     await expect(field(page, first.key)).toHaveValue('1');
     await expect(plus(page)).toBeFocused();
     expect(state.reads).toEqual(['main-cart']);
+    expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[first.key, 2]]);
   });
 }
 
@@ -161,6 +175,29 @@ test('Checkout waits for the fresh form and includes its native submitter and no
   hold.open();
   await expect(page.getByText('Native cart submitted')).toBeVisible();
   expect(state.native).toEqual([{ 'updates[]': '2', note: 'Keep this note', checkout: '' }]);
+});
+
+test('Checkout waits for an overlapping drawer change and submits quantities from both requests', async ({ page }) => {
+  const pageResponse = gate();
+  const drawerResponse = gate();
+  const state = await mountCart(page, {
+    drawer: true,
+    lines: [first, second],
+    beforeChange: ({ id }) => id === first.key ? pageResponse.promise : drawerResponse.promise,
+  });
+  await cartPage(page).getByRole('textbox', { name: 'Order note' }).fill('Keep this note');
+  await plus(page).click();
+  await expect.poll(() => state.updates.length).toBe(1);
+  await page.evaluate((key) => { document.querySelector('cart-drawer').changeLine(key, 3); }, second.key);
+  await expect.poll(() => state.updates.length).toBe(2);
+  await cartPage(page).getByRole('button', { name: 'Checkout' }).click();
+  pageResponse.open();
+  await expect(cartPage(page).locator('[data-cart-subtotal]')).toHaveText('$30.00');
+  expect(state.native).toHaveLength(0);
+  drawerResponse.open();
+  await expect(page.getByText('Native cart submitted')).toBeVisible();
+  expect(state.native[0]).toMatchObject({ checkout: '', note: 'Keep this note' });
+  expect(state.nativeQuantities).toEqual([['2', '3']]);
 });
 
 test('native cart markup keeps its action, updates, Update cart and Checkout', () => {

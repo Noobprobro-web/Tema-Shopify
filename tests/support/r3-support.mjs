@@ -181,7 +181,7 @@ export const cartPageMarkup = ({ quantity = 1, note = '', lines = quantity > 0
   const total = lines.reduce((sum, line) => sum + line.quantity, 0);
   return `<p class="visually-hidden" role="status" data-cart-page-status="main-cart"></p>
   <section class="section cart-page" data-cart-page data-section-id="main-cart"
-    data-cart-update-url="/cart/update.js" data-cart-url="/cart" data-item-count="${total}"
+    data-cart-change-url="/cart/change.js" data-cart-url="/cart" data-item-count="${total}"
     data-cart-count-label="Cart, ${total} item${total === 1 ? '' : 's'}"
     data-error-message="Something went wrong" data-removed-template="Removed [title]"
     data-quantity-updated-template="Updated [title] to [quantity]">
