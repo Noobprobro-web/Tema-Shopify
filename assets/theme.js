@@ -2000,23 +2000,31 @@
 
     watchPrimaryButton() {
       const root = document.documentElement;
-      let headerOffset;
+      this.headerOffset = undefined;
       let canObserve = 'IntersectionObserver' in window;
-      const updateFromBounds = () => {
-        const bounds = this.primaryButton.getBoundingClientRect();
-        this.setVisible(bounds.bottom <= headerOffset);
+      const updateFromBounds = (threshold = this.headerOffset) => {
+        const visible = this.primaryButton.getBoundingClientRect().bottom <= threshold;
+        if (visible !== this.hasAttribute('data-visible')) this.setVisible(visible);
+      };
+      const queueVisibilityCheck = () => {
+        if (this.visibilityFrame !== undefined) return;
+        this.visibilityFrame = requestAnimationFrame(() => {
+          this.visibilityFrame = undefined;
+          if (this.isConnected) updateFromBounds();
+        });
       };
       const syncHeaderOffset = () => {
         const offset = Number.parseFloat(getComputedStyle(root).getPropertyValue('--header-offset')) || 0;
         // setVisible also writes to the root style. Only rebuild when the header actually changes.
-        if (offset === headerOffset) return;
-        headerOffset = offset;
+        if (offset === this.headerOffset) return;
+        this.headerOffset = offset;
 
         if (canObserve) {
           this.intersectionObserver?.disconnect();
-          const updateFromEntry = ([entry], observer) => {
+          const updateFromEntry = (entries, observer) => {
             if (observer !== this.intersectionObserver || !this.isConnected) return;
-            this.setVisible(!entry.isIntersecting && entry.boundingClientRect.bottom <= (entry.rootBounds?.top ?? offset));
+            // The callback can arrive after another scroll. Use the last root and current geometry.
+            updateFromBounds(entries[entries.length - 1]?.rootBounds?.top ?? offset);
           };
           try {
             // An explicit root keeps rootMargin effective in the theme editor's cross-origin iframe.
@@ -2040,15 +2048,16 @@
       };
 
       syncHeaderOffset();
-      if (!canObserve) {
-        this.listen(window, 'scroll', updateFromBounds, { passive: true });
-        this.listen(window, 'resize', updateFromBounds);
-      }
+      // A jump can cross the entire viewport without an intersection sample on either side.
+      this.listen(window, 'scroll', queueVisibilityCheck, { passive: true });
+      this.listen(window, 'resize', queueVisibilityCheck);
       this.headerOffsetObserver = new MutationObserver(syncHeaderOffset);
       this.headerOffsetObserver.observe(root, { attributes: true, attributeFilter: ['style'] });
     }
 
     disconnectedCallback() {
+      if (this.visibilityFrame !== undefined) cancelAnimationFrame(this.visibilityFrame);
+      this.visibilityFrame = undefined;
       this.headerOffsetObserver?.disconnect();
       this.intersectionObserver?.disconnect();
       this.buttonObserver?.disconnect();
@@ -2069,16 +2078,22 @@
       document.documentElement.style.setProperty('--sticky-cart-offset', visible ? `${this.offsetHeight}px` : '0px');
     }
 
-    // The bar is hidden because the main add-to-cart button is already on screen: focus moves to
-    // it.
+    // Prefer the purchase control that is in view. A jump past the form can leave it below the
+    // viewport, so use a visible header link before falling back to revealing the purchase control.
     handOffFocus() {
-      const target = this.primaryButton && !this.primaryButton.disabled
-        ? this.primaryButton
-        : Array.from(this.productForm?.elements || []).find(
-          (element) => !element.disabled && element.type !== 'hidden' && !this.contains(element)
-            && element.checkVisibility?.() !== false,
-        );
-      target?.focus({ preventScroll: target === this.primaryButton });
+      const usable = (element) => element?.matches('button, input:not([type="hidden"]), select, textarea, a[href], [tabindex]')
+        && !element.disabled && !this.contains(element) && !element.closest('[inert]')
+        && element.checkVisibility?.({ visibilityProperty: true }) !== false;
+      const inView = (element, top) => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.width > 0 && bounds.height > 0 && bounds.bottom > top && bounds.top < window.innerHeight;
+      };
+      const controls = [this.primaryButton, ...Array.from(this.productForm?.elements || [])].filter(usable);
+      const headerLink = document.querySelector('.site-header__brand[href]');
+      const visibleTarget = controls.find((element) => inView(element, this.headerOffset || 0))
+        || (usable(headerLink) && inView(headerLink, 0) ? headerLink : null);
+      const target = visibleTarget || controls[0];
+      target?.focus({ preventScroll: Boolean(visibleTarget) });
     }
 
     updateVariant(variant) {

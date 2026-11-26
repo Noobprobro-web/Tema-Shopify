@@ -15,7 +15,7 @@ async function mount(page, { width, height, offset = 77, useObserver = true, var
     <button type="button" data-add-to-cart ${unavailable ? 'disabled' : ''}>Add to cart</button>
   </form>`;
   await page.setContent(pageShell(`
-    <header class="fixture-header">Shop header</header><div style="height:900px"></div>
+    <header class="fixture-header">${offset ? '<a class="site-header__brand" href="/">Shop header</a>' : 'Shop header'}</header><div style="height:900px"></div>
     <section data-section-id="product">
       ${form}
       <sticky-cart-bar class="sticky-cart-bar" data-product-form-id="product-form-product"
@@ -97,6 +97,45 @@ for (const useObserver of [true, false]) {
     await expect(bar).toHaveAttribute('data-visible', '', visibilityTimeout);
     await setHeaderOffset(page, 0);
     await expect(bar).toHaveAttribute('aria-hidden', 'true');
+  });
+}
+
+for (const { width, height, offset } of [
+  { width: 1440, height: 674, offset: 77 },
+  { width: 390, height: 844, offset: 0 },
+]) {
+  test(`R5 B skipped intersection activates the bar after a downward jump at ${width}px`, async ({ page }) => {
+    await mount(page, { width, height, offset });
+    const bar = page.locator(barSelector);
+    expect((await page.locator(primarySelector).boundingBox()).y).toBeGreaterThan(height);
+    await expect(bar).toHaveAttribute('aria-hidden', 'true');
+
+    // Jump from wholly below the viewport to above the usable area in one scroll.
+    await setButtonBottom(page, offset - 30);
+    await expect(bar).toHaveAttribute('data-visible', '', visibilityTimeout);
+    await expect(bar).not.toHaveAttribute('inert', '');
+  });
+
+  test(`R5 B skipped intersection hides the bar after an upward jump at ${width}px`, async ({ page }) => {
+    await mount(page, { width, height, offset });
+    const bar = page.locator(barSelector);
+    const initial = await page.locator(primarySelector).boundingBox();
+    expect(initial.y).toBeGreaterThan(height);
+    await setButtonBottom(page, 180);
+    await afterFrames(page);
+    await setButtonBottom(page, offset - 30);
+    await expect(bar).toHaveAttribute('data-visible', '', visibilityTimeout);
+
+    if (offset) await bar.locator('[data-sticky-submit]').evaluate((button) => button.focus({ preventScroll: true }));
+    await setButtonBottom(page, initial.y + initial.height);
+    await expect(bar).toHaveAttribute('aria-hidden', 'true', visibilityTimeout);
+    await expect(bar).toHaveAttribute('inert', '');
+    if (offset) {
+      const safeFocus = page.getByRole('link', { name: 'Shop header' });
+      await expect(safeFocus).toBeFocused();
+      await expect(safeFocus).toBeInViewport();
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+    }
   });
 }
 
