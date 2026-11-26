@@ -61,6 +61,44 @@ for (const width of [1440, 1536]) {
   });
 }
 
+test('R5 D2 rich media follows a row made taller by a vertical photo at 1536px', async ({ page }) => {
+  const portrait = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="200"><rect width="100" height="200"/></svg>')}`;
+  const photo = `<picture><img class="product-gallery__image" src="${portrait}" width="100" height="200" alt="Vertical jacket photograph"></picture>`;
+  const unwrappedModel = '<model-viewer class="product-gallery__media" tabindex="0"></model-viewer>';
+  const pairs = [
+    [model(), 'model-viewer'],
+    [video, 'video'],
+    [external, 'iframe'],
+    [unwrappedModel, 'model-viewer'],
+    [model(true), 'model-viewer'],
+  ];
+  await mount(page, { width: 1536, media: pairs.flatMap(([medium]) => [photo, medium]) });
+  const cells = page.locator('.product-gallery__item');
+  const photoCells = await Promise.all(pairs.map((_, index) => bounds(cells.nth(index * 2))));
+
+  for (const [index, [, selector]] of pairs.entries()) {
+    const photoCell = photoCells[index];
+    const cell = cells.nth(index * 2 + 1);
+    const medium = cell.locator(selector);
+    const [cellRect, mediumRect] = await Promise.all([bounds(cell), bounds(medium)]);
+    const xr = cell.getByRole('button', { name: 'View in your space' });
+    const xrRect = await xr.isVisible() ? await bounds(xr) : null;
+
+    withinPixel(photoCell.height, photoCell.width * 2);
+    withinPixel(cellRect.y, photoCell.y);
+    withinPixel(cellRect.height, photoCell.height);
+    withinPixel(mediumRect.y, cellRect.y);
+    withinPixel(mediumRect.width, cellRect.width);
+    withinPixel(mediumRect.height + (xrRect?.height || 0), cellRect.height);
+    if (xrRect) withinPixel(xrRect.y, mediumRect.y + mediumRect.height);
+    if (selector === 'video') await expect(medium).toHaveCSS('object-fit', 'contain');
+    if (selector === 'iframe') {
+      expect(await medium.evaluate((frame) => frame.contentWindow.innerHeight)).toBe(
+        await medium.evaluate((frame) => frame.clientHeight),
+      );
+    }
+  }
+});
 test('R5 D keeps the first 3D model full width with an odd gallery and missing media ratio', async ({ page }) => {
   await mount(page, { width: 1536, ratio: null, media: [model(), ...Array.from({ length: 10 }, (_, index) => index % 2 ? external : video)], longTitle: true });
   const gallery = page.locator('product-gallery');

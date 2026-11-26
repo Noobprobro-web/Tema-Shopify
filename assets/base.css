@@ -9196,12 +9196,25 @@ html {
     grid-column: 1 / -1;
   }
 
-  /* Size rich media to its gallery column instead of to the viewport. */
-  .product-main__layout--grid .product-gallery__item :is(model-viewer, video, iframe) {
+  /* Start at the gallery ratio and grow when the image in the other column sets a taller row.
+     Keep the AR button in its own space below the viewer. */
+  .product-main__layout--grid .product-gallery__item:has(> :is(model-viewer, .shopify-model-viewer-ui, video, iframe)) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-main__layout--grid .product-gallery__item > :is(model-viewer, .shopify-model-viewer-ui, video, iframe) {
     display: block;
+    flex: 1 0 auto;
     height: auto;
     min-height: 0;
     aspect-ratio: var(--gallery-ratio, 0.8);
+  }
+
+  .product-main__layout--grid .product-gallery__item .shopify-model-viewer-ui model-viewer {
+    display: block;
+    height: 100%;
+    min-height: 0;
   }
 
   .product-main__layout--grid .product-gallery__item video {
