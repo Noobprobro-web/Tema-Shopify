@@ -1,10 +1,10 @@
 # Sartorial 1.0.0 - ZIP canonico (node scripts/package-theme-zip.mjs --out Sartorial-1.0.0.zip --expect-count 111)
-# rev:       HEAD 3974cfc03ab4dea99a02182a5c2dfaa740def0c8 (R6 código y pruebas; informe añadido después sin cambiar el tema)
-# fecha:     DOS UTC 2026-11-26T07:11:24Z
+# rev:       HEAD d466b595d834b458148fca51f899a2732da2cb3c (R7 código; entrega y manifiesto posteriores no cambian el tema)
+# fecha:     DOS UTC 2026-11-26T20:30:00Z
 # archivos:  111
-# tamano:    339455 bytes
-# sha256:    292abb31b104eda44ac4fde78c32c53fefc1c6b4704ffaef381066769a0b0bd4
-# contenido: 43ff11e5180c3573001b8654a2805bdcb78d5d387b500f0ee35219d425e72e2a (huella independiente de zlib)
+# tamano:    339691 bytes
+# sha256:    933f09e348cfa62a90b4df16b8813bd8db5bbaa7994f98944f28a3aeee21d3cf
+# contenido: 0851b02eb20634bade356eba202b01cde3d04d63659d286f931700809437faee (huella independiente de zlib)
 # zlib:      1.3.2.1-motley-285e94b (node 24.22.3)
 # Validado en tienda: NO. Pendiente la revisión de Claude en la tienda de QA.
 # Lineas siguientes: sha256  ruta, una por archivo del ZIP.
@@ -13,7 +13,7 @@ a32c4a6042a02aa04c7f94c2bf4b32dd02f2cae43447d5148ca8058761fd13fe  assets/product
 de3e8cd4f0197a51bd786a5e831b89af18fa1316a07260d480a78fd431322701  assets/section-standard-a.css
 23e4c22e2f37b3c3132fb9adfbf3f7e66307dbcf346e2e2ed970d90cb690cf6a  assets/section-standard-b.css
 6c34d7a321c69a6156f2e2c62272b9c4d6ee105ffb755445d4f479328c1d8dbc  assets/section-standard-b.js
-638eb3328d7c54c49c3a20cdc762f4535c9260b3dd5173e43e8b860be571a9ac  assets/theme.js
+5a1a4304a3064f56c9b787555c4e95dc493a0029518235ce0c40b4054f31e3e3  assets/theme.js
 152d3883bde7540d4ad3c75499b05477b274297ed0185b1dfdac85686240483f  config/settings_data.json
 0b91af9704f820ef8fa999a61b9ef9ae2a36f2a9abdcb70a05d78b804c5523a4  config/settings_schema.json
 cdf0dd411574249ec17d0ed857bfc2faf60f84055d5ed9ea4b4861bd762dc94a  layout/password.liquid
@@ -37,7 +37,7 @@ c66f5ab70dd3ca7d41f1ded8a0d8c183439217a6d5c5a63e25560640e0dd77e5  sections/annou
 7591662b65501c01f15d4c44ada23e95ac5f551ce3e5166583023c1a91a8b14a  sections/bento-discovery.liquid
 4262b19e7ed98e00b20e0aaf4a0688bdfff8d5bb0fb1c22aecd476caa7605c73  sections/blog-posts.liquid
 454a6a88529ac150ead855c7a561aaebb0019484103eb74a39aa1bd91a37a49b  sections/brand-manifesto.liquid
-12c5043926a07b55829a8e4506be997513304f55cb3167929394bd4e6e25e7bb  sections/cart-drawer.liquid
+a3228a0d096ae87663a650876048a87439f9dea0fab677dd6aebe66506587dcd  sections/cart-drawer.liquid
 64857cf053d7baedcfae1b483f19df3b0e3766d6b40362d142fff8cb936f0ca4  sections/collection-list.liquid
 0526725237ccad38754f0ebaf89f44e4faffef276d40e797819d913eda9341d6  sections/complete-the-look.liquid
 f789a73f7472f60c7829d4080617e35362fda7f346f7813f3c339726a5672c99  sections/curated-showcase.liquid
@@ -55,7 +55,7 @@ b6df10e872d44d2c603c59f35e9ebc81ae444d33f7776a1b5cc4532697db8908  sections/main-
 3005405e9755367aca3bb19abde6f87baf5ca3ae86d2f3bd0565dd5869803594  sections/main-about.liquid
 14764c04ac74b460480551039aea2ef57a0709b625282b15309aa013506d776f  sections/main-article.liquid
 c706fff3ab9db72317dfb94a78c288293f346970372e1047dc34ae2ec94f6488  sections/main-blog.liquid
-fce3a3a3ce42fed0d8f0f9ac63eb47d7ffb031f6793419d657d14a87602755a8  sections/main-cart-items.liquid
+34caa9afbc4c12995a1cc818859b831e56ffd3c453de1ede1d44a837e470246b  sections/main-cart-items.liquid
 366b886785ff8d44ec1de48670fade42f09fed7342f2e2158957f5d791008ed3  sections/main-collection.liquid
 31ef5d5be3bd9853ee30408a3f2e8b4bf2ea0ce6fede6232de083301dd3fc9f3  sections/main-contact.liquid
 879193ec320367122c438de12d768facae86fdbf56d750e8a387c46426dd1cde  sections/main-faq.liquid
