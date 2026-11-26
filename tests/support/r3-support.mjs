@@ -191,8 +191,10 @@ export const cartPageMarkup = ({ quantity = 1, note = '', lines = quantity > 0
       <div class="cart-items" role="list">
         ${lines.map(({ key, title, quantity, min = 1, step = 1, max, image = false }, index) => `<div class="cart-item" role="listitem" data-cart-item-key="${key}" data-cart-item-title="${title}">
           ${image ? '<img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">' : ''}
-          <h2>${title}</h2>
-          <p data-line-price>$${quantity * 10}.00</p>
+          <div class="cart-item__details flow">
+            <h2>${title}</h2>
+            <p data-line-price>$${quantity * 10}.00</p>
+          </div>
           <div class="cart-item__controls">
             <label for="CartQuantity-${index + 1}">Quantity</label>
             <div class="quantity-stepper cart-item__stepper" data-quantity-stepper>
