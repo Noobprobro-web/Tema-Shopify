@@ -7160,8 +7160,9 @@
   // every mutation, so there is no node to attach a listener to that survives the re-render.
   //
   // The button does NOT call changeLine: it writes the value and emits a 'change' on the field,
-  // which is exactly what a visitor does when typing. From then on the already hardened path takes
-  // over and a single implementation serves both surfaces:
+  // which is exactly what a visitor does when typing. The native max and grid limit user-entered
+  // values; the stock-only cap affects the buttons so typed requests can reach Shopify for its 422.
+  // From then on the already hardened path takes over and a single implementation serves both:
   // - In the drawer, handleDrawerChange picks it up -> validation -> changeLine(), with the
   // per-mutation revision that discards overtaken responses.
   // - On the cart page, initCartPage batches the same events and leaves the native form available.
@@ -7170,21 +7171,26 @@
     const step = Math.abs(Number(input.getAttribute('step'))) || 1;
     const min = Number(input.getAttribute('min'));
     const max = Number(input.getAttribute('max'));
+    const stockMax = Number(input.getAttribute('data-quantity-stock-max'));
     const rules = {
       step,
       min: Number.isFinite(min) ? min : 0,
       max: input.getAttribute('max') === null || !Number.isFinite(max) ? Infinity : max,
+      stockMax: input.getAttribute('data-quantity-stock-max') === null || !Number.isFinite(stockMax) ? Infinity : stockMax,
     };
     // Reachable ceiling on the grid; never below min, so with max < min the field stays at min and
     // both buttons turn off.
     rules.maxOnGrid = Math.max(rules.min, quantityGridMax(rules.min, step, rules.max));
+    // Stock caps only the stepper. A typed value can pass the stock level so the cart sends it to Shopify.
+    const buttonMax = Math.min(rules.max, rules.stockMax);
+    rules.buttonMaxOnGrid = Math.max(rules.min, quantityGridMax(rules.min, step, buttonMax));
     return rules;
   };
 
   // The only point that brings a hand-typed number to the nearest valid step (ties round down)
-  // within [min, maxOnGrid]; see snapQuantity. It is called by document's 'change' and, before
-  // deciding what to send, by the cart drawer, which listens on its own element and therefore
-  // receives the event first. It is idempotent.
+  // within the quantity rule's [min, maxOnGrid]; stockMax is intentionally not a typing limit.
+  // It is called by document's 'change' and, before deciding what to send, by the cart drawer,
+  // which listens on its own element and therefore receives the event first. It is idempotent.
   const snapQuantityField = (input) => {
     // On a cart line, 0 is the command to remove it: it is respected as is, so the field shows what
     // is sent (the cart page form is novalidate). The page fields are named updates[].
@@ -7205,12 +7211,13 @@
   // and subtracting blindly. With floor going up and ceil going down, an off-grid value (typed by
   // hand) lands on the correct step.
   const nextQuantity = (input, direction) => {
-    const { step, min, maxOnGrid } = readQuantityRules(input);
+    const { step, min, stockMax, buttonMaxOnGrid } = readQuantityRules(input);
     const current = Number(input.value);
     const base = Number.isFinite(current) ? current : min;
+    if (Number.isFinite(stockMax) && direction > 0 && base >= buttonMaxOnGrid) return base;
     const offset = (base - min) / step;
     const index = direction > 0 ? Math.floor(offset) : Math.ceil(offset);
-    return Math.min(maxOnGrid, Math.max(min, min + (index + direction) * step));
+    return Math.min(buttonMaxOnGrid, Math.max(min, min + (index + direction) * step));
   };
 
   // A button is turned off exactly when pressing it would change nothing. Comparing against the

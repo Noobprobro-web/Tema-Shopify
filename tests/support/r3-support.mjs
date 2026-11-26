@@ -59,7 +59,12 @@ export const afterFrames = (page) =>
 
 // The Liquid shows the cart drawer through this exact element (sections/cart-drawer.liquid). Only
 // the data the scenarios need is variable; hooks, classes and nesting follow the section.
-export const cartDrawerMarkup = ({ quantity = 1, note = '' } = {}) => `<cart-drawer
+export const cartDrawerMarkup = ({ quantity = 1, note = '', title = 'Blue Hat', key = 'k1:abc', min = 1, step = 1, max, stockMax, inventoryManagement = 'shopify', inventoryPolicy = 'deny', legacyStockCap = false } = {}) => {
+  const stockOnlyMax = max === undefined && inventoryManagement === 'shopify' && inventoryPolicy === 'deny' && stockMax !== undefined && quantity >= stockMax ? stockMax : undefined;
+  const inputMax = max !== undefined ? max : (legacyStockCap ? stockOnlyMax : undefined);
+  const stockAttribute = !legacyStockCap && max === undefined ? stockOnlyMax : undefined;
+  const buttonMax = max !== undefined ? max : stockMax;
+  return `<cart-drawer
   class="cart-drawer color-scheme-1" data-section-id="cart-drawer"
   data-cart-url="/cart" data-cart-add-url="/cart/add.js" data-cart-change-url="/cart/change.js"
   data-item-count="${quantity}" data-cart-count-label="${quantity} items"
@@ -93,21 +98,21 @@ export const cartDrawerMarkup = ({ quantity = 1, note = '' } = {}) => `<cart-dra
         <form class="cart-drawer__form" action="/cart" method="post" data-cart-form>
           <div class="cart-drawer__scroll" data-cart-scroll>
             <div class="cart-drawer__items" role="list">
-              <div class="cart-drawer-item" role="listitem" data-cart-item-key="k1:abc"
-                data-cart-item-title="Blue Hat" style="--item-index: 0;">
+              <div class="cart-drawer-item" role="listitem" data-cart-item-key="${key}"
+                data-cart-item-title="${title}" style="--item-index: 0;">
                 <div class="cart-drawer-item__details">
-                  <h3 class="cart-drawer-item__title"><a href="/products/blue-hat">Blue Hat</a></h3>
+                  <h3 class="cart-drawer-item__title"><a href="/products/blue-hat">${title}</a></h3>
                   <label for="DrawerQuantity-1">Quantity</label>
                   <div class="quantity-stepper cart-drawer-item__stepper" data-quantity-stepper>
                     <button id="DrawerQuantityMinus-1" class="quantity-stepper__button" type="button" name="minus"
                       aria-label="Decrease quantity" aria-controls="DrawerQuantity-1"
                       data-quantity-button="decrease"${quantity <= 1 ? ' disabled' : ''}>-</button>
                     <input id="DrawerQuantity-1" class="quantity-stepper__input" type="number" name="updates[]"
-                      value="${quantity}" min="1" step="1" inputmode="numeric" required
+                      value="${quantity}" min="${min}" step="${step}"${inputMax === undefined ? '' : ` max="${inputMax}"`}${stockAttribute === undefined ? '' : ` data-quantity-stock-max="${stockAttribute}"`} inputmode="numeric" required
                       data-quantity-input data-cart-quantity>
                     <button id="DrawerQuantityPlus-1" class="quantity-stepper__button" type="button" name="plus"
                       aria-label="Increase quantity" aria-controls="DrawerQuantity-1"
-                      data-quantity-button="increase">+</button>
+                      data-quantity-button="increase"${buttonMax !== undefined && quantity >= buttonMax ? ' disabled' : ''}>+</button>
                   </div>
                 </div>
                 <button class="icon-button cart-drawer-item__remove" type="button"
@@ -131,6 +136,7 @@ export const cartDrawerMarkup = ({ quantity = 1, note = '' } = {}) => `<cart-dra
     </div>
   </div>
 </cart-drawer>`;
+};
 
 // Header link the shopper (and handleDocumentClick in theme.js) uses to open the drawer.
 export const headerCartLink = '<header><a id="HeaderCart" href="/cart">Cart</a></header>';
@@ -175,7 +181,7 @@ export const optionRadios = (variants, selectedId) =>
     .join('');
 
 // sections/main-cart-items.liquid: the cart page section the drawer refreshes while on /cart.
-export const cartPageMarkup = ({ quantity = 1, note = '', lines = quantity > 0
+export const cartPageMarkup = ({ quantity = 1, note = '', legacyStockCap = false, lines = quantity > 0
   ? [{ key: 'k1:abc', title: 'Blue Hat', quantity }]
   : [] } = {}) => {
   const total = lines.reduce((sum, line) => sum + line.quantity, 0);
@@ -189,7 +195,12 @@ export const cartPageMarkup = ({ quantity = 1, note = '', lines = quantity > 0
     <h1 tabindex="-1">Cart</h1>
     ${lines.length ? `<form class="cart-form" action="/cart" method="post" novalidate>
       <div class="cart-items" role="list">
-        ${lines.map(({ key, title, quantity, min = 1, step = 1, max, image = false }, index) => `<div class="cart-item" role="listitem" data-cart-item-key="${key}" data-cart-item-title="${title}">
+        ${lines.map(({ key, title, quantity, min = 1, step = 1, max, stockMax, inventoryManagement = 'shopify', inventoryPolicy = 'deny', image = false }, index) => {
+          const stockOnlyMax = max === undefined && inventoryManagement === 'shopify' && inventoryPolicy === 'deny' && stockMax !== undefined && quantity >= stockMax ? stockMax : undefined;
+          const inputMax = max !== undefined ? max : (legacyStockCap ? stockOnlyMax : undefined);
+          const stockAttribute = !legacyStockCap && max === undefined ? stockOnlyMax : undefined;
+          const buttonMax = max !== undefined ? max : stockMax;
+          return `<div class="cart-item" role="listitem" data-cart-item-key="${key}" data-cart-item-title="${title}">
           ${image ? '<img alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">' : ''}
           <div class="cart-item__details flow">
             <h2>${title}</h2>
@@ -201,14 +212,15 @@ export const cartPageMarkup = ({ quantity = 1, note = '', lines = quantity > 0
               <button class="quantity-stepper__button" type="button" name="minus" aria-label="Decrease quantity"
                 aria-controls="CartQuantity-${index + 1}" data-quantity-button="decrease"${quantity <= min ? ' disabled' : ''}>-</button>
               <input id="CartQuantity-${index + 1}" class="quantity-stepper__input" type="number" name="updates[]"
-                value="${quantity}" min="${min}" step="${step}"${max === undefined ? '' : ` max="${max}"`} inputmode="numeric"
+                value="${quantity}" min="${min}" step="${step}"${inputMax === undefined ? '' : ` max="${inputMax}"`}${stockAttribute === undefined ? '' : ` data-quantity-stock-max="${stockAttribute}"`} inputmode="numeric"
                 data-quantity-input data-cart-quantity>
               <button class="quantity-stepper__button" type="button" name="plus" aria-label="Increase quantity"
-                aria-controls="CartQuantity-${index + 1}" data-quantity-button="increase"${quantity >= max ? ' disabled' : ''}>+</button>
+                aria-controls="CartQuantity-${index + 1}" data-quantity-button="increase"${buttonMax !== undefined && quantity >= buttonMax ? ' disabled' : ''}>+</button>
             </div>
             <a href="/cart/change?id=${key}&amp;quantity=0" data-cart-remove>Remove</a>
           </div>
-        </div>`).join('')}
+        </div>`;
+        }).join('')}
       </div>
       <footer class="cart-page__footer">
         <div class="cart-note">

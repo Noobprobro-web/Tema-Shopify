@@ -304,12 +304,15 @@
                       assign quantity_min = item.variant.quantity_rule.min | default: 1
                       assign quantity_step = item.variant.quantity_rule.increment | default: 1
                       assign quantity_max = item.variant.quantity_rule.max
-                      # With controlled stock and no overselling, the + button turns off when the
-                      # line already has everything sellable (e.g. a one-of-one piece). It only
-                      # reveals what Shopify's own error would say on press; same rule in
-                      # cart-drawer and main-cart-items.
+                      assign stock_max = ''
+                      # When stock alone caps this line, keep the input editable so Shopify can return
+                      # its localized error; stock_max only keeps the + button within sellable stock.
                       if quantity_max == blank and item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny' and item.variant.inventory_quantity <= item.quantity
-                        assign quantity_max = item.quantity
+                        assign stock_max = item.quantity
+                      endif
+                      assign quantity_button_max = quantity_max
+                      if quantity_button_max == blank
+                        assign quantity_button_max = stock_max
                       endif
                     -%}
                     <label for="DrawerQuantity-{{ forloop.index }}">{{ 'sections.cart.quantity' | t }}</label>
@@ -339,7 +342,7 @@
                         value="{{ item.quantity }}"
                         min="{{ quantity_min }}"
                         step="{{ quantity_step }}"
-                        {% if quantity_max != blank %}max="{{ quantity_max }}"{% endif %}
+                        {% if quantity_max != blank %}max="{{ quantity_max }}"{% elsif stock_max != blank %}data-quantity-stock-max="{{ stock_max }}"{% endif %}
                         inputmode="numeric"
                         required
                         data-quantity-input
@@ -353,7 +356,7 @@
                         aria-label="{{ 'sections.cart.increase_quantity' | t: title: item.title | escape_once }}"
                         aria-controls="DrawerQuantity-{{ forloop.index }}"
                         data-quantity-button="increase"
-                        {% if quantity_max != blank and item.quantity >= quantity_max %}disabled{% endif %}
+                        {% if quantity_button_max != blank and item.quantity >= quantity_button_max %}disabled{% endif %}
                       >
                         {% render 'icon', name: 'plus', size: 16 %}
                       </button>
