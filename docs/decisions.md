@@ -557,3 +557,13 @@ Fecha: 2026-11-26. Fuente: revisión independiente de `e211fba` (rama `codex/r5-
   - «Checkout» no muestra estado de carga mientras espera a que terminen las peticiones pendientes.
   - Si un descuento automático rota la clave de una línea, el foco va al `h1` de la página, no a la línea.
   - Si Shopify recorta la cantidad sin devolver un error, el anuncio dice la cantidad real pero no explica el recorte; explicarlo exigiría copy nuevo.
+
+## 2026-11-26: Ronda R6, mensaje visible del recorte de cantidad en /cart (D86)
+
+Fecha: 2026-11-26. Fuente: comprobación de Claude en la tienda de QA con el tema "Sartorial R5 (626cca6)". Encargo: `agent-comms/inbox-gpt/GPT-TASK-R6-001.md`.
+
+- **D86 · R6: explicar a la vista el recorte de cantidad en /cart (ejecuta GPT, revisa Claude):**
+  - **Defecto:** en /cart, si el comprador pide más unidades de las disponibles (20 con 8 en stock), `/cart/change.js` responde 422 con `"Only 8 items were added to your cart due to availability."` y Shopify deja la línea en 8. El tema repinta bien la cantidad y el subtotal, pero el mensaje solo llega a la región `role="status"` visualmente oculta (`sections/main-cart-items.liquid:7`, escrita desde `assets/theme.js:7321-7322`): quien mira la pantalla ve cambiar la cantidad sin explicación. No es una regresión: el formulario nativo anterior tampoco avisaba. D85 lo había aceptado como residual de 1.0; esta decisión lo retira.
+  - **Decisión de Johandry, 2026-11-26, literalmente:** «sí, arréglalo y que lo haga gpt».
+  - **Ejecución y revisión:** la ejecuta GPT en la ronda R6 y la revisa Claude, como D79 para R5. El alcance es el mínimo del encargo: mensaje visible junto a la línea en /cart con el texto que devuelve Shopify, sin copy nuevo salvo aprobación previa.
+  - **Cajón:** ya muestra el mensaje a la vista, en el aviso general `[data-cart-error]` bajo la cabecera (`sections/cart-drawer.liquid:122`, `assets/theme.js:3397-3402` y `:4567-4572`). Queda fuera del cambio; el encargo solo pide una prueba que lo proteja.
