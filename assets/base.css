@@ -7643,6 +7643,22 @@ anchor-nav {
   align-items: center;
 }
 
+/* Let the apply button take the next line when the country label fills the drawer. */
+.localization-form--header-mobile .localization-form__country-wrapper {
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: var(--space-xs);
+}
+
+.localization-form--header-mobile .localization-form__country-select-wrapper {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.localization-form--header-mobile .localization-form__country-submit {
+  margin-inline-start: 0;
+}
+
 .localization-form__country-select-wrapper::after {
   content: '';
   position: absolute;
