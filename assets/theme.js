@@ -1993,25 +1993,63 @@
         subtree: true,
       });
 
-      if ('IntersectionObserver' in window) {
-        this.intersectionObserver = new IntersectionObserver(([entry]) => {
-          this.setVisible(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
-        });
-        this.intersectionObserver.observe(this.primaryButton);
-      } else {
-        const updateVisibility = () => {
-          const bounds = this.primaryButton.getBoundingClientRect();
-          this.setVisible(bounds.bottom <= 0);
-        };
-        this.listen(window, 'scroll', updateVisibility, { passive: true });
-        updateVisibility();
-      }
-
+      this.watchPrimaryButton();
       this.renderQuantity();
       this.syncButtonState();
     }
 
+    watchPrimaryButton() {
+      const root = document.documentElement;
+      let headerOffset;
+      let canObserve = 'IntersectionObserver' in window;
+      const updateFromBounds = () => {
+        const bounds = this.primaryButton.getBoundingClientRect();
+        this.setVisible(bounds.bottom <= headerOffset);
+      };
+      const syncHeaderOffset = () => {
+        const offset = Number.parseFloat(getComputedStyle(root).getPropertyValue('--header-offset')) || 0;
+        // setVisible also writes to the root style. Only rebuild when the header actually changes.
+        if (offset === headerOffset) return;
+        headerOffset = offset;
+
+        if (canObserve) {
+          this.intersectionObserver?.disconnect();
+          const updateFromEntry = ([entry], observer) => {
+            if (observer !== this.intersectionObserver || !this.isConnected) return;
+            this.setVisible(!entry.isIntersecting && entry.boundingClientRect.bottom <= (entry.rootBounds?.top ?? offset));
+          };
+          try {
+            // An explicit root keeps rootMargin effective in the theme editor's cross-origin iframe.
+            this.intersectionObserver = new IntersectionObserver(updateFromEntry, {
+              root: document,
+              rootMargin: `${-offset}px 0px 0px 0px`,
+            });
+          } catch {
+            this.intersectionObserver = null;
+          }
+          if (this.intersectionObserver?.root === document) {
+            this.intersectionObserver.observe(this.primaryButton);
+            return;
+          }
+          this.intersectionObserver?.disconnect();
+          this.intersectionObserver = null;
+          canObserve = false;
+        }
+
+        updateFromBounds();
+      };
+
+      syncHeaderOffset();
+      if (!canObserve) {
+        this.listen(window, 'scroll', updateFromBounds, { passive: true });
+        this.listen(window, 'resize', updateFromBounds);
+      }
+      this.headerOffsetObserver = new MutationObserver(syncHeaderOffset);
+      this.headerOffsetObserver.observe(root, { attributes: true, attributeFilter: ['style'] });
+    }
+
     disconnectedCallback() {
+      this.headerOffsetObserver?.disconnect();
       this.intersectionObserver?.disconnect();
       this.buttonObserver?.disconnect();
       this.lineTotalObserver?.disconnect();
