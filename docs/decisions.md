@@ -544,3 +544,16 @@ Fecha: 2026-11-25. Fuente: respuesta de Johandry en la sesión de Claude Code, 2
     - La auditoría de QA anotó lo mismo de forma independiente (`docs/audits/R4/R4-AUDITORIA-MANUAL-QA.md` §5).
   - **Lo que queda:** el tramo corto en que la cabecera fija tapa el botón antes de que salga la barra, y el botón bajo el borde inicial al cargar. Es de severidad baja y se corrige en R5, arreglo B (D79).
   - **Consecuencia para las pruebas:** en las vistas previas, los elementos fijos abajo se comprueban con la barra de vista previa oculta o descontada. No se toma como defecto lo que solo tapa esa barra.
+
+## 2026-11-26: Integración de R5 y cierre de la revisión (D82 a D85)
+
+Fecha: 2026-11-26. Fuente: revisión independiente de `e211fba` (rama `codex/r5-001-six-fixes`, PR #31) por Claude, líder técnico. Informe de integración: `agent-comms/outbox-claude/CLAUDE-R5-INTEGRACION-001.md`. Las cuatro decisiones son técnicas y las toma Claude con la revisión como evidencia.
+
+- **D82 · «Update cart» sigue visible con JavaScript (M2):** con JavaScript la página de /cart actualiza sola al cambiar la cantidad (D79, arreglo A), pero el botón «Update cart» (`sections/main-cart-items.liquid:235`) sigue visible. Es el respaldo explícito del formulario: sin JavaScript es el único modo de enviar los cambios, y con él sirve si falla una petición. No se oculta con `.js`.
+- **D83 · El cambio más reciente del comprador gana en la misma línea (M3):** si el cajón cambia una línea mientras la página tiene una edición pendiente de esa misma línea (durante el debounce), la edición de la página se descarta y el campo muestra el valor del servidor. Las ediciones pendientes de otras líneas se conservan. Código: `assets/theme.js:320-325` (`discardCartPageEdit`), llamada en `assets/theme.js:4160`. Pruebas: `tests/r5-cart-page.spec.mjs:153` (misma línea, falla con `e211fba`) y `:119` (líneas distintas, se mantiene). Corrige además el anuncio de error falso en /cart cuando el cajón empieza una mutación mientras la página relee su sección (M1, `assets/theme.js:7318-7322`; `tests/r5-cart-page.spec.mjs:128`).
+- **D84 · Se acepta el cambio de `handOffFocus` de GPT (M4):** cuando la barra fija de compra se oculta tras un salto de scroll hacia arriba y ningún control de compra queda a la vista, el foco va al logo de la cabecera (`assets/theme.js:2103-2117`) en lugar del botón principal, para evitar un salto de scroll. Si hay un control de compra a la vista, el foco va a ese. Prueba: `tests/r5-sticky-bar.spec.mjs`.
+- **D85 · Residuales aceptados de 1.0 en el carrito:**
+  - Los botones de checkout acelerado (Shop Pay, PayPal, etc.) no esperan el debounce de la página; es el comportamiento de Dawn.
+  - «Checkout» no muestra estado de carga mientras espera a que terminen las peticiones pendientes.
+  - Si un descuento automático rota la clave de una línea, el foco va al `h1` de la página, no a la línea.
+  - Si Shopify recorta la cantidad sin devolver un error, el anuncio dice la cantidad real pero no explica el recorte; explicarlo exigiría copy nuevo.
