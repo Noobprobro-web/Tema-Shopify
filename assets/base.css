@@ -7365,7 +7365,17 @@ anchor-nav {
   }
 
   .main-404__search-row {
-    grid-template-columns: minmax(0, 1fr) auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .main-404__search-row > input:not([type='hidden']) {
+    flex: 1 1 16rem;
+    min-width: 0;
+  }
+
+  .main-404__search-row > button {
+    flex: 0 0 auto;
   }
 
   .contact-form__footer {
