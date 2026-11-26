@@ -10,7 +10,7 @@ const field = (page, key) => row(page, key).getByRole('spinbutton', { name: 'Qua
 const plus = (page, key = first.key) => row(page, key).getByRole('button', { name: 'Increase quantity' });
 const status = (page) => page.getByRole('status');
 
-async function mountCart(page, { drawer = false, lines = [first], hold, error, beforeChange, rotateKey } = {}) {
+async function mountCart(page, { drawer = false, lines = [first], hold, error, beforeChange, beforeRead, rotateKey } = {}) {
   const state = { lines: lines.map((line) => ({ ...line })), updates: [], native: [], nativeQuantities: [], reads: [] };
   const total = () => state.lines.reduce((sum, line) => sum + line.quantity, 0);
   const render = (id) => id === 'main-cart'
@@ -42,6 +42,7 @@ async function mountCart(page, { drawer = false, lines = [first], hold, error, b
       if (url.pathname === '/cart' && url.searchParams.has('section_id')) {
         const id = url.searchParams.get('section_id');
         state.reads.push(id);
+        await beforeRead?.(id);
         await route.fulfill({ contentType: 'text/html', body: render(id) });
         return true;
       }
@@ -122,6 +123,41 @@ test('a drawer mutation during the debounce keeps the pending page edit by key',
   await expect(cartPage(page).locator('[data-cart-subtotal]')).toHaveText('$50.00');
   expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[second.key, 3], [first.key, 2]]);
   await expect(field(page, second.key)).toHaveValue('3');
+});
+
+test('a drawer mutation while the page rereads its section does not announce a false error', async ({ page }) => {
+  const pageResponse = gate();
+  const read = gate();
+  const state = await mountCart(page, {
+    drawer: true,
+    lines: [first, second],
+    hold: pageResponse,
+    beforeRead: (id) => id === 'main-cart' ? read.promise : undefined,
+  });
+  await plus(page).click();
+  await expect.poll(() => state.updates.length).toBe(1);
+  // The drawer moves on while the page request is in flight, so the page must read its section.
+  await page.evaluate((key) => { document.querySelector('cart-drawer').changeLine(key, 3); }, second.key);
+  await expect.poll(() => state.updates.length).toBe(2);
+  pageResponse.open();
+  await expect.poll(() => state.reads.length).toBeGreaterThan(0);
+  // A second drawer mutation begins while that read is being served.
+  await page.evaluate((key) => { document.querySelector('cart-drawer').changeLine(key, 4); }, second.key);
+  await expect.poll(() => state.updates.length).toBe(3);
+  read.open();
+  await expect(cartPage(page).locator('[data-cart-subtotal]')).toHaveText('$60.00');
+  await expect(status(page)).toHaveText('Updated Blue Hat to 2');
+  await expect(status(page)).not.toHaveText('Something went wrong');
+});
+
+test('the drawer change to the same line wins over a pending page edit', async ({ page }) => {
+  const state = await mountCart(page, { drawer: true, lines: [first, second] });
+  await plus(page).click();
+  await page.evaluate((key) => document.querySelector('cart-drawer').changeLine(key, 5), first.key);
+  await expect(cartPage(page).locator('[data-cart-subtotal]')).toHaveText('$60.00');
+  await page.waitForTimeout(900);
+  await expect(field(page, first.key)).toHaveValue('5');
+  expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[first.key, 5]]);
 });
 
 test('quantity zero and Remove hand focus to the next line or to the empty state', async ({ page }) => {

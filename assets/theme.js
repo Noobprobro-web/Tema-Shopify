@@ -313,6 +313,16 @@
       || next.querySelector('h1[tabindex="-1"]');
   };
 
+  // The shopper's latest change wins. When the drawer changes a line, an edit still waiting on the
+  // page for that same line is dropped: its field becomes the baseline, so the debounce finds
+  // nothing to send, and the response of the drawer repaints it with the server quantity. Edits
+  // to other lines stay queued.
+  const discardCartPageEdit = (key) => {
+    const page = cartPageSection();
+    const field = page && cartRow(cartRows(page), key)?.querySelector('input[name="updates[]"]');
+    if (field) field.defaultValue = field.value;
+  };
+
   const replaceCartPage = (html, { sent = new Map(), focusSource = null, preserveQuantities = true } = {}) => {
     const current = cartPageSection();
     if (!current || !html) return null;
@@ -4147,6 +4157,7 @@
       const lineIndex = lineRows.findIndex((row) => row.dataset.cartItemKey === key);
       const removedRow = lineIndex === -1 ? null : lineRows[lineIndex];
       const revision = this.beginMutation();
+      discardCartPageEdit(key);
       const removal = quantity === 0 && removedRow
         ? {
           key,
@@ -7295,8 +7306,8 @@
             // Bundled sections can be missing. The standalone section read below can still succeed.
           }
         }
+        const currentRevision = drawer?.syncRevision;
         if (!painted) {
-          const currentRevision = drawer?.syncRevision;
           const html = (!drawer && result?.sections?.[sectionId]) || await requestCartPageSection(cartUrl, sectionId);
           if (drawer?.syncRevision === currentRevision) painted = replaceCartPage(html, options);
         }
@@ -7304,7 +7315,10 @@
 
         if (!pending) {
           const errors = [...new Set(failures.values())];
-          const message = painted ? [...errors, ...announcements.values()].join(' ') : errors[0] || errorMessage;
+          // A drawer mutation that overtook this read will repaint the page itself. The edit
+          // reached the server, so this is not a failure to report.
+          const superseded = Boolean(drawer) && !painted && drawer.syncRevision !== (currentRevision ?? revision);
+          const message = painted || superseded ? [...errors, ...announcements.values()].join(' ') : errors[0] || errorMessage;
           if (message) announceCartPage(sectionId, message);
         }
         return Boolean(painted);
