@@ -9179,6 +9179,18 @@ html {
   .product-main__layout--grid .product-gallery__item:first-child:nth-last-child(odd) {
     grid-column: 1 / -1;
   }
+
+  /* Size rich media to its gallery column instead of to the viewport. */
+  .product-main__layout--grid .product-gallery__item :is(model-viewer, video, iframe) {
+    display: block;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: var(--gallery-ratio, 0.8);
+  }
+
+  .product-main__layout--grid .product-gallery__item video {
+    object-fit: contain;
+  }
 }
 
 /* ---------- Touch gallery carousel (below 62rem) ---------- */
