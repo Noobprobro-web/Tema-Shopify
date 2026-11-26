@@ -2002,15 +2002,19 @@
       const root = document.documentElement;
       this.headerOffset = undefined;
       let canObserve = 'IntersectionObserver' in window;
-      const updateFromBounds = (threshold = this.headerOffset) => {
+      let viewportResized = false;
+      const updateFromBounds = (threshold = this.headerOffset, measureOffset = false) => {
         const visible = this.primaryButton.getBoundingClientRect().bottom <= threshold;
         if (visible !== this.hasAttribute('data-visible')) this.setVisible(visible);
+        else if (visible && measureOffset) this.syncStickyOffset(visible);
       };
-      const queueVisibilityCheck = () => {
+      const queueVisibilityCheck = (event) => {
+        if (event.type === 'resize') viewportResized = true;
         if (this.visibilityFrame !== undefined) return;
         this.visibilityFrame = requestAnimationFrame(() => {
           this.visibilityFrame = undefined;
-          if (this.isConnected) updateFromBounds();
+          if (this.isConnected) updateFromBounds(this.headerOffset, viewportResized);
+          viewportResized = false;
         });
       };
       const syncHeaderOffset = () => {
@@ -2073,9 +2077,15 @@
       this.setAttribute('aria-hidden', String(!visible));
       this.inert = !visible;
       document.body.toggleAttribute('data-sticky-cart-visible', visible);
+      this.syncStickyOffset(visible);
+    }
+
+    syncStickyOffset(visible) {
       // WCAG 2.4.11: with the bar visible, keyboard focus stops above it. It is the same mechanism
       // --header-offset uses above.
-      document.documentElement.style.setProperty('--sticky-cart-offset', visible ? `${this.offsetHeight}px` : '0px');
+      const style = document.documentElement.style;
+      const offset = visible ? `${this.offsetHeight}px` : '0px';
+      if (style.getPropertyValue('--sticky-cart-offset') !== offset) style.setProperty('--sticky-cart-offset', offset);
     }
 
     // Prefer the purchase control that is in view. A jump past the form can leave it below the

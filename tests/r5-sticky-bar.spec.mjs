@@ -22,9 +22,14 @@ async function mount(page, { width, height, offset = 77, useObserver = true, var
         data-action-label-template="[action] [product]" data-quantity-label-template="[action] [product] [quantity]"
         data-quantity-price-template="[quantity] × [price]" data-total-template="Total [total]"
         aria-hidden="true" inert>
-        <p class="sticky-cart-bar__title">${title}</p>
-        ${unavailable ? '' : '<p data-sticky-price>$100</p>'}
-        <button data-sticky-submit><span data-sticky-label>Add to cart</span></button>
+        <div class="sticky-cart-bar__inner">
+          <div class="sticky-cart-bar__media" aria-hidden="true"></div>
+          <div class="sticky-cart-bar__details">
+            <p class="sticky-cart-bar__title">${title}</p>
+            ${unavailable ? '' : '<p class="sticky-cart-bar__meta"><span data-sticky-price>$100</span></p>'}
+          </div>
+          <button class="button sticky-cart-bar__submit" data-sticky-submit><span data-sticky-label>Add to cart</span></button>
+        </div>
       </sticky-cart-bar>
     </section>
     <div style="height:1600px"></div>`, {
@@ -97,6 +102,41 @@ for (const useObserver of [true, false]) {
     await expect(bar).toHaveAttribute('data-visible', '', visibilityTimeout);
     await setHeaderOffset(page, 0);
     await expect(bar).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  test(`R5 B keeps the visible bar's reserved offset in sync on resize (observer: ${useObserver})`, async ({ page }) => {
+    await mount(page, { width: 390, height: 844, offset: 0, useObserver });
+    const bar = page.locator(barSelector);
+    const size = () => bar.evaluate((element) => ({
+      height: element.offsetHeight,
+      offset: parseFloat(document.documentElement.style.getPropertyValue('--sticky-cart-offset')),
+    }));
+    await setButtonBottom(page, 180);
+    await afterFrames(page);
+    await setButtonBottom(page, -40);
+    await expect(bar).toHaveAttribute('data-visible', '', visibilityTimeout);
+    const mobile = await size();
+    expect(mobile.offset).toBe(mobile.height);
+
+    await page.evaluate(() => {
+      const style = document.documentElement.style;
+      const setProperty = style.setProperty.bind(style);
+      window.stickyOffsetWrites = [];
+      style.setProperty = (name, value, priority) => {
+        if (name === '--sticky-cart-offset') window.stickyOffsetWrites.push(value);
+        return setProperty(name, value, priority);
+      };
+    });
+    await page.setViewportSize({ width: 1440, height: 844 });
+    await expect.poll(async () => (await size()).height).toBeGreaterThan(mobile.height);
+    const desktopHeight = (await size()).height;
+    await expect.poll(async () => (await size()).offset, visibilityTimeout).toBe(desktopHeight);
+    await expect(bar).toHaveAttribute('data-visible', '');
+
+    await page.setViewportSize({ width: 1460, height: 844 });
+    await afterFrames(page);
+    expect(await size()).toEqual({ height: desktopHeight, offset: desktopHeight });
+    expect(await page.evaluate(() => window.stickyOffsetWrites)).toEqual([`${desktopHeight}px`]);
   });
 }
 
