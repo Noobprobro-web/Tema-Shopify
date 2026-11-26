@@ -250,3 +250,24 @@ test('missing server error text falls back to the existing localized cart error'
   await field(page, first.key).dispatchEvent('change');
   await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText('Something went wrong');
 });
+
+test('a correct change on another line clears the earlier line error and keeps the server quantity', async ({ page }) => {
+  // Accepted behaviour (D87): the notice is dropped on the next successful repaint, whichever line changed.
+  const error = stockError();
+  const state = await mountCart(page, {
+    lines: [{ ...first, quantity: 8 }, second],
+    failure: (request) => request.id === first.key && request.quantity > 8 ? error : null,
+  });
+  await field(page, first.key).fill('20');
+  await field(page, first.key).dispatchEvent('change');
+  await expect(field(page, first.key)).toHaveValue('8');
+  await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText(error.description);
+  await field(page, second.key).fill('3');
+  await field(page, second.key).dispatchEvent('change');
+  await expect.poll(() => state.updates.length).toBe(2);
+  await expect(field(page, second.key)).toHaveValue('3');
+  await expect(cartPage(page).locator('[data-cart-line-error]')).toHaveCount(0);
+  await expect(field(page, first.key)).toHaveValue('8');
+  await expect(field(page, first.key)).not.toHaveAttribute('aria-describedby', /CartLineError/);
+  expect(state.updates.map(({ id, quantity }) => [id, quantity])).toEqual([[first.key, 20], [second.key, 3]]);
+});
