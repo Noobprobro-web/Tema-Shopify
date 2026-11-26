@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { cartDrawerMarkup, cartPageMarkup, mountPage, pageShell } from './support/r3-support.mjs';
+import { baseCss, cartDrawerMarkup, cartPageMarkup, mountPage, pageShell } from './support/r3-support.mjs';
 
 const first = { key: '100:a', title: 'Blue Hat', quantity: 1 };
 const second = { key: '100:b', title: 'Blue Hat with gift note', quantity: 1 };
@@ -7,7 +7,7 @@ const cartPage = (page) => page.locator('[data-cart-page]');
 const line = (page, key) => cartPage(page).locator(`[data-cart-item-key="${key}"]`);
 const field = (page, key) => line(page, key).getByRole('spinbutton', { name: 'Quantity' });
 
-async function mountCart(page, { drawer = false, lines = [first], failure, readFailure = false } = {}) {
+async function mountCart(page, { drawer = false, lines = [first], failure, readFailure = false, head = '' } = {}) {
   const state = { lines: lines.map((item) => ({ ...item })), updates: [], reads: [] };
   state.consoleErrors = [];
   page.on('console', (message) => { if (message.type() === 'error') state.consoleErrors.push(message.text()); });
@@ -16,7 +16,7 @@ async function mountCart(page, { drawer = false, lines = [first], failure, readF
     ? cartPageMarkup({ lines: state.lines })
     : cartDrawerMarkup({ quantity: total() });
   const html = pageShell(`<a class="site-header__cart" href="/cart" data-cart-count-enabled>Cart</a>
-    ${render('main-cart')}${drawer ? render('cart-drawer') : ''}`);
+    ${render('main-cart')}${drawer ? render('cart-drawer') : ''}`, { head });
   await mountPage(page, html, {
     path: '/cart',
     onRequest: async (route, url) => {
@@ -39,8 +39,11 @@ async function mountCart(page, { drawer = false, lines = [first], failure, readF
       if (url.pathname === '/cart' && url.searchParams.has('section_id')) {
         const id = url.searchParams.get('section_id');
         state.reads.push(id);
-        if (readFailure && id === 'main-cart') {
-          await route.fulfill({ status: 503, contentType: 'text/html', body: 'unavailable' });
+        const mode = typeof readFailure === 'function' ? readFailure(state) : readFailure;
+        if (mode && id === 'main-cart') {
+          // 'abort' makes the request itself reject (network failure); any other truthy value is a 503.
+          if (mode === 'abort') await route.abort('failed');
+          else await route.fulfill({ status: 503, contentType: 'text/html', body: 'unavailable' });
         } else {
           await route.fulfill({ contentType: 'text/html', body: render(id) });
         }
@@ -85,7 +88,7 @@ test('visible error is associated with the recut field without a second live ann
 
 test('line error appears once visibly and once in the existing status region', async ({ page }) => {
   const error = stockError();
-  const state = await mountCart(page, { lines: [{ ...first, quantity: 8 }], failure: error });
+  await mountCart(page, { lines: [{ ...first, quantity: 8 }], failure: error });
   await field(page, first.key).fill('20');
   await field(page, first.key).press('Tab');
   await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveCount(1);
@@ -110,8 +113,10 @@ test('a successful change clears the line error, while another line failure keep
   await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText(error.description);
   await field(page, second.key).fill('20');
   await field(page, second.key).press('Tab');
-  await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText(error.description);
+  // Wait for the repaint caused by the failed second line first, so the check on the first
+  // line's message runs after the page was rebuilt and not before the request was sent.
   await expect(field(page, second.key)).toHaveValue('8');
+  await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText(error.description);
   await field(page, first.key).fill('3');
   await field(page, first.key).dispatchEvent('change');
   await expect.poll(() => state.updates.length).toBe(3);
@@ -187,16 +192,56 @@ test('many rows keep the error keyed to the changed row and leave other rows unt
   await expect(field(page, 'line:6')).toHaveValue('1');
 });
 
-test('long server message and title wrap at mobile width without horizontal overflow', async ({ page }) => {
+test('long server message and title wrap at mobile and desktop width without horizontal overflow', async ({ page }) => {
   const message = 'Availability detail '.repeat(15).trim();
   const title = 'Tailored piece '.repeat(8).trim();
   await page.setViewportSize({ width: 375, height: 812 });
-  await mountCart(page, { lines: [{ ...first, title, quantity: 8 }], failure: stockError(message) });
+  // base.css is loaded and the row has an image, so the fixture lays out like the real cart.
+  await mountCart(page, {
+    lines: [{ ...first, title, quantity: 8, image: true }],
+    failure: stockError(message),
+    head: `<style>${baseCss()}</style>`,
+  });
   await field(page, first.key).fill('20');
   await field(page, first.key).dispatchEvent('change');
   await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText(message);
-  const widths = await page.evaluate(() => ({ viewport: document.documentElement.clientWidth, page: document.documentElement.scrollWidth }));
-  expect(widths.page).toBeLessThanOrEqual(widths.viewport);
+  for (const width of [375, 1280]) {
+    await page.setViewportSize({ width, height: 812 });
+    const widths = await page.evaluate(() => ({ viewport: document.documentElement.clientWidth, page: document.documentElement.scrollWidth }));
+    expect(widths.viewport).toBe(width);
+    expect(widths.page).toBeLessThanOrEqual(widths.viewport);
+  }
+});
+
+test('the line error still appears when the cart section reread throws instead of answering', async ({ page }) => {
+  const error = stockError();
+  const state = await mountCart(page, { lines: [{ ...first, quantity: 8 }], failure: error, readFailure: 'abort' });
+  await field(page, first.key).fill('20');
+  await field(page, first.key).dispatchEvent('change');
+  await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText(error.description);
+  await expect(field(page, first.key)).toHaveAttribute('aria-describedby', /CartLineError/);
+  await expect(page.locator('[data-cart-page-status]')).toHaveText(error.description);
+  expect(state.updates).toHaveLength(1);
+});
+
+test('a successful change clears the line error even when the section reread fails and nothing is repainted', async ({ page }) => {
+  const error = stockError();
+  let readsFail = false;
+  const state = await mountCart(page, {
+    lines: [{ ...first, quantity: 8 }],
+    failure: (request) => request.quantity > 8 ? error : null,
+    readFailure: () => readsFail,
+  });
+  await field(page, first.key).fill('20');
+  await field(page, first.key).dispatchEvent('change');
+  await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveText(error.description);
+  readsFail = true;
+  await field(page, first.key).fill('3');
+  await field(page, first.key).dispatchEvent('change');
+  await expect.poll(() => state.updates.length).toBe(2);
+  await expect.poll(() => state.reads.length).toBe(2);
+  await expect(line(page, first.key).locator('[data-cart-line-error]')).toHaveCount(0);
+  await expect(field(page, first.key)).not.toHaveAttribute('aria-describedby', /CartLineError/);
 });
 
 test('missing server error text falls back to the existing localized cart error', async ({ page }) => {
